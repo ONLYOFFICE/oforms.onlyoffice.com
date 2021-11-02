@@ -1,5 +1,9 @@
 import globalColors from "../utils/global-colors";
-const { white, gray } = globalColors;
+const { 
+  white, 
+  gray,
+  orangeMain 
+} = globalColors;
 
 const Base = {
     main: {
@@ -31,6 +35,16 @@ const Base = {
         hoverTextDecoration: "none",
         hoverTextShadow: "none",
         hoverCursor: "default",
+      },
+
+      externalLink: {
+        color: orangeMain,
+        textDecoration: "underline",
+        cursor: "default",
+        hoverColor: orangeMain,
+        hoverTextTransform: "none",
+        hoverTextDecoration: "none",
+        hoverCursor: "pointer",
       },
 };
 
