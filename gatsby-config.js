@@ -8,7 +8,7 @@ module.exports = {
         {
             resolve: "gatsby-plugin-manifest",
             options: {
-                icon: `./src/images/logo/favicon_general.png`,
+                icon: `./static/images/logo/favicon_general.png`,
             },
         },
         { resolve: "gatsby-transformer-remark" },
@@ -20,13 +20,6 @@ module.exports = {
                 path: "./src/pages/",
             },
             __key: "pages",
-        },
-        {
-            resolve: `gatsby-source-filesystem`,
-            options: {
-                path: `${__dirname}/src/locales`,
-                name: `locale`,
-            },
         },
     ],
 };
