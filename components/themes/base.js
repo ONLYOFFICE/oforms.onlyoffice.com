@@ -32,6 +32,12 @@ const Base = {
         hoverTextShadow: "none",
         hoverCursor: "default",
       },
+
+      header: {
+        fontSize: ["48px", "40px", "32px", "24px", "18px", "14px", "14px"],
+        lineHeight: ["74px", "53px", "38px", "32px", "24px", "19px", "19px"],
+        fontWeight: 700,
+      },
 };
 
 export default Base;
