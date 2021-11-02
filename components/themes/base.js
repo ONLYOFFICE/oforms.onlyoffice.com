@@ -173,6 +173,16 @@ const Base = {
     },
   },
 
+  box: {
+    background: "unset",
+    border: "none",
+    justifyContent: "start",
+    alignItems: "center",
+    flexWrap: "nowrap",
+    flexDirection: "row",
+    alignContent: "flex-start"
+  },
+
 };
 
 export default Base;
