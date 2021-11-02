@@ -5,6 +5,7 @@ const {
   grayMain,
   graySecnodary,
   grayHover,
+  grayLight,
   orangeMain,
   orangeHover
 } = globalColors;
@@ -153,6 +154,23 @@ const Base = {
       height: "48px",
       width: "100%"
     }
+  },
+
+  separator: {
+    display: "flex",
+    width: "1px",
+    alignItems: "center",
+
+    div: {
+      backgroundColor: grayLight,
+
+      height: "1px",
+      flex: "1",
+    },
+
+    span: {
+      padding: "0 12px",
+    },
   },
 
 };

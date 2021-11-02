@@ -7,6 +7,8 @@ const globalColors = {
   grayTextInput: "#666666",
   grayTextInputHover: "#F9F9F9",
 
+  grayLight: "#CCCCCC",
+
   orangeMain: "#ff6f3d",
   orangeHover: "#ff865c",
 };
