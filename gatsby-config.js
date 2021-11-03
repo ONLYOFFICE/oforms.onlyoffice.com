@@ -21,5 +21,34 @@ module.exports = {
             },
             __key: "pages",
         },
+        {
+            resolve: "gatsby-source-filesystem",
+            options: {
+                name: "images",
+                path: "./static/images/",
+            },
+            __key: "images",
+        },
+        {
+            resolve: "gatsby-plugin-google-fonts",
+            options: {
+                fonts: [`Open Sans:200,300,400,400i,500,600,700,800`],
+            },
+        },
+        {
+            resolve: "gatsby-plugin-portal",
+            options: {
+                key: "portal",
+                id: "portal",
+            },
+        },
+        {
+            resolve: "gatsby-plugin-react-svg",
+            options: {
+                rule: {
+                    include: /\.react.svg$/,
+                },
+            },
+        },
     ],
 };
