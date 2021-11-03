@@ -1,11 +1,14 @@
 import React from "react";
-import { graphql } from "gatsby";
+import Layout from "../../components/layout";
 
 const Error404Page = () => {
-    return(
-        <div>
-            ERROR 404!
-        </div>
+    return (
+        <Layout>
+            <Layout.PageHead></Layout.PageHead>
+            <Layout.PageHeader></Layout.PageHeader>
+            <Layout.SectionMain></Layout.SectionMain>
+            <Layout.PageFooter></Layout.PageFooter>
+        </Layout>
     );
 }
 
