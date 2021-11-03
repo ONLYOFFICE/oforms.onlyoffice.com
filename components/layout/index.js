@@ -1,10 +1,10 @@
 import React from "react";
 
 import StyledLayout from "./styled-layout";
-import Header from "./sub-components/header";
-import Main from "./sub-components/main";
-import Footer from "./sub-components/footer";
-import Head from "./sub-components/head";
+import Header from "./header";
+import Main from "./main";
+import Footer from "./footer";
+import Head from "./head";
 
 import "../../styles/globals.css";
 
