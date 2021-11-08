@@ -9,8 +9,8 @@ const SnackBar = styled.div`
   box-sizing: border-box;
   z-index: 100;
 
-  background-color: ${(props) =>
-    props.backgroundColor ? props.backgroundColor : "rgba(249,249,249,0.95)"};
+  background-color: ${(props) => props.backgroundColor || "rgba(249,249,249,0.95)"};
+
   box-shadow: 0px 7px 15px rgb(85 85 85 / 10%);
   border: 1px solid #ccc;
   border-radius: 5px;
