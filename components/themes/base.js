@@ -173,6 +173,11 @@ const Base = {
     },
   },
 
+  scrollbar: {
+    backgroundColorVertical: "rgba(0, 0, 0, 0.1)",
+    backgroundColorHorizontal: "rgba(0, 0, 0, 0.1)",
+  },
+
   box: {
     background: "unset",
     border: "none",
