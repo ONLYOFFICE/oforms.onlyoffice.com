@@ -70,10 +70,7 @@ class Layout extends React.Component {
 
                 <Header>{headerContent ? headerContent.props.children : null}</Header>
                 <Main>{mainContent ? mainContent.props.children : null}</Main>
-                <Footer
-                    className="footer"
-                    isHomePage={footerContent.props.isHomePage}
-                >
+                <Footer className="footer">
                     {footerContent ? footerContent.props.children : null}
                 </Footer>
             </StyledLayout>

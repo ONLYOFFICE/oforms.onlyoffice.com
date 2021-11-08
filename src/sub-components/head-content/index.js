@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import PropTypes from "prop-types";
-import languages from "../../../../languages";
+import languages from "../../../languages.json";
 
 const HeadSEO = ({
 
@@ -59,9 +59,9 @@ HeadSEO.propTypes = {
 }
 
 HeadSEO.defaultProps = {
-    metaDescription: "metaDescription",
-    metaKeywords: "metaKeywords",
-    title: "title",
+    metaDescription: null,
+    metaKeywords: null,
+    title: null,
 }
 
 export default HeadSEO;
