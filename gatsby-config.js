@@ -1,3 +1,9 @@
+const languages = require("./languages.json");
+
+const availableLanguages = languages.map((el) => el.shortKey);
+
+const { defaultLanguage } = require("./config.json");
+
 module.exports = {
     plugins: [
         { resolve: "gatsby-plugin-styled-components" },
@@ -8,7 +14,7 @@ module.exports = {
         {
             resolve: "gatsby-plugin-manifest",
             options: {
-                icon: `./static/images/logo/favicon_general.png`,
+                icon: "./static/images/logo/favicon_general.png",
             },
         },
         { resolve: "gatsby-transformer-remark" },
@@ -30,9 +36,36 @@ module.exports = {
             __key: "images",
         },
         {
+            resolve: "gatsby-source-filesystem",
+            options: {
+              path: "./src/locales",
+              name: "locale",
+            },
+          },
+        {
+            resolve: "gatsby-plugin-react-i18next",
+            options: {
+                localeJsonSourceName: "locale",
+                languages: availableLanguages,
+                defaultLanguage,
+                redirect: true,
+                generateDefaultLanguagePage: "/en",
+
+                i18nextOptions: {
+                    fallbackLng: defaultLanguage,
+
+                    interpolation: {
+                        escapeValue: false,
+                    },
+                    keySeparator: false,
+                    nsSeparator: false,
+                },
+            },
+        },
+        {
             resolve: "gatsby-plugin-google-fonts",
             options: {
-                fonts: [`Open Sans:200,300,400,400i,500,600,700,800`],
+                fonts: ["Open Sans:200,300,400,400i,500,600,700,800"],
             },
         },
         {
