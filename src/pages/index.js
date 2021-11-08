@@ -1,7 +1,16 @@
 import React from "react";
+import { graphql } from "gatsby";
+import { useTranslation } from "gatsby-plugin-react-i18next";
+
 import Layout from "../../components/layout";
-import HeadSEO from "../sub-components/main-page/head-content";
-const IndexPage = (props) => {
+import HeadSEO from "../sub-components/head-content";
+
+const IndexPage = () => {
+
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
 
   return (
     <Layout>
@@ -13,6 +22,21 @@ const IndexPage = (props) => {
       <Layout.PageFooter></Layout.PageFooter>
     </Layout>
   );
+
 };
 
 export default IndexPage;
+
+export const query = graphql`
+  query($language: String!) {
+    locales: allLocale(filter: { language: { in: [$language, "en"] } }) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
+  }
+`;
