@@ -5,6 +5,7 @@ import styled from "styled-components";
 const StyledSelector = styled.div`
 
 display: inline-block;
+position: relative;
 
 .arrow{
     display: inline-block;

@@ -21,9 +21,8 @@ const Selector = (props) => {
 
   const handleClickOutside = (e) => {
     if (
-      isOpen &&
-      (!e.target.closest(".filter-header") ||
-        !e.target.closest(".arrow"))
+      !isOpen &&
+      (!e.target.closest(".filter_selector") )
     ) {
       onCloseSelector();
     }

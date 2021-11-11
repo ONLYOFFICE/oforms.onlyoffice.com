@@ -5,8 +5,9 @@ import Heading from "../heading";
 import Text from "../text";
 import Button from "../button/";
 import Box from "../box/";
+import Link from "../link";
 
-const Banner= ({header, description, button_primary_label, button_secondary_label, ...rest}) => {
+const Banner= ({header, description, button_primary_label, button_secondary_label, button_primary_url, button_secondary_url, ...rest}) => {
   
     return (
       <StyledBanner>
@@ -19,22 +20,49 @@ const Banner= ({header, description, button_primary_label, button_secondary_labe
             </Text>
         </Box>
         <Box className={'banner_buttons '} justifyContent={'center'} {...rest}> 
-            <Button
-                className={'buttons'}
-                label={button_primary_label}
+            <Link
+                className={'link '}
+                href={"/123"}
             >
-                
-            </Button>
-            <Button
-                className={'buttons'}
-                label={button_secondary_label}
-                type={"white"}
-            >            
-            </Button>
+                <Button
+                    className={'buttons'}
+                    label={button_primary_label}
+                >
+                    
+                </Button>
+            </Link>
+            <Link
+                className={'link '}
+                href={"/123"}
+            >
+                <Button
+                    className={'buttons'}
+                    label={button_secondary_label}
+                    typeButton={"transparent"}
+                >            
+                </Button>
+            </Link>
         </Box>      
         
       </StyledBanner>
     );
   };
+  
+  Banner.propTypes = {
+    /** Header text */
+    header: PropTypes.string,
+    /** Description text */
+    description: PropTypes.string,
+    /** Primary Button text */
+    button_primary_label: PropTypes.string,
+    /** Secondary Button text */
+    button_secondary_label: PropTypes.string,
+    /** Primary Button url */
+    button_primary_url: PropTypes.string,
+    /** Secondary Button url */
+    button_secondary_url: PropTypes.string,
+    
+  }
+
 
 export default Banner;
