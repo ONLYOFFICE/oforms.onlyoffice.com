@@ -31,7 +31,7 @@ const Base = {
     textTransform: "none",
     textDecoration: "none",
     textShadow: "none",
-    whiteSpace: "nowrap",
+    whiteSpace: "break-spaces",
     textOverflow: "ellipsis",
     overflow: "hidden",
     cursor: "default",
@@ -171,6 +171,11 @@ const Base = {
     span: {
       padding: "0 12px",
     },
+  },
+
+  scrollbar: {
+    backgroundColorVertical: "rgba(0, 0, 0, 0.1)",
+    backgroundColorHorizontal: "rgba(0, 0, 0, 0.1)",
   },
 
   box: {

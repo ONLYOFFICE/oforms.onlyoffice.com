@@ -11,7 +11,7 @@ const ExternalLink = ({
 }) => {
 
   const ClassNameExternalLink = className ?
-    className + "-external-link"
+    className + " external-link"
     : "external-link";
 
   return (
