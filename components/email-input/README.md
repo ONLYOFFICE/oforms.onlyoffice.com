@@ -46,4 +46,4 @@ const [value, isValue] = React.useState("");
 | `color`           |      `string`       |    -     |                   -                   |     -     | color text input                                                                                                    |
 | `height`          |      `string`       |    -     |                   -                   |     -     | height text input                                                                                                   |
 | `width`           |      `string`       |    -     |                   -                   |     -     | width text input                                                                                                    |
-| `padding`         |      `string`       |    -     |                   -                   |     -     | padding text input      
+| `padding`         |      `string`       |    -     |                   -                   |     -     | padding text input                                                                                                  |
