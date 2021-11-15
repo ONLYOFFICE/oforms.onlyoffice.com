@@ -11,6 +11,7 @@ module.exports = {
         { resolve: "gatsby-plugin-sharp" },
         { resolve: "gatsby-transformer-sharp" },
         { resolve: "gatsby-plugin-react-helmet" },
+        { resolve: "gatsby-transformer-json" },
         {
             resolve: "gatsby-plugin-manifest",
             options: {
@@ -38,10 +39,17 @@ module.exports = {
         {
             resolve: "gatsby-source-filesystem",
             options: {
-              path: "./src/locales",
-              name: "locale",
+                name: "oforms",
+                path: "./static/data",
             },
-          },
+        },
+        {
+            resolve: "gatsby-source-filesystem",
+            options: {
+                name: "locale",
+                path: "./src/locales",
+            },
+        },
         {
             resolve: "gatsby-plugin-react-i18next",
             options: {
