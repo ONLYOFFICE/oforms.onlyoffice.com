@@ -3,17 +3,18 @@ import PropTypes from "prop-types";
 import StyledBox from "./styled-box";
 
 const Box = ({
+  as,
   className,
   children,
   ...rest
 }) => {
 
   const ClassNameBox = className ?
-    className + "box"
-    : "box";
+    `${className} box` : `box`;
 
   return (
     <StyledBox
+      as={as}
       className={ClassNameBox}
       {...rest}
     >

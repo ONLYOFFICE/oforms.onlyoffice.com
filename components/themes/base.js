@@ -31,7 +31,7 @@ const Base = {
     textTransform: "none",
     textDecoration: "none",
     textShadow: "none",
-    whiteSpace: "nowrap",
+    whiteSpace: "break-spaces",
     textOverflow: "ellipsis",
     overflow: "hidden",
     cursor: "default",
