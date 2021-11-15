@@ -26,8 +26,8 @@
         ],
         "image_src": "test_tmp.png",
         "categories": [
-            "",
-            ""
+            "Realty",
+            "Realty"
         ],
         "seo": {
             "title": "Realty",
@@ -62,7 +62,7 @@
         "image_src": "test_tmp.png",
         "categories": [
             "Realty",
-            ""
+            "Realty"
         ],
         "seo": {
             "title": "",
@@ -97,7 +97,7 @@
         "image_src": "test_tmp.png",
         "categories": [
             "Realty",
-            ""
+            "Realty"
         ],
         "seo": {
             "title": "",
