@@ -5,7 +5,6 @@ import { useTranslation } from "gatsby-plugin-react-i18next";
 import Layout from "../../components/layout";
 import HeadSEO from "../sub-components/head-content";
 
-
 const IndexPage = () => {
 
   const {
@@ -19,7 +18,9 @@ const IndexPage = () => {
         <HeadSEO />
       </Layout.PageHead>
       <Layout.PageHeader></Layout.PageHeader>
-      <Layout.SectionMain></Layout.SectionMain>
+      <Layout.SectionMain>
+        <div>Test render gatsby!</div>
+      </Layout.SectionMain>
       <Layout.PageFooter></Layout.PageFooter>
     </Layout>
   );
