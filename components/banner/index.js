@@ -63,15 +63,6 @@ Banner.propTypes = {
     button_secondary_url: PropTypes.string,
 }
 
-  Banner.defaultProps = {
-    header: "Build your own forms",
-    description: "Create model documents, agreements, and contracts for any purpose with ONLYOFFICE Docs.",
-    button_primary_label: "Use in the cloud ",
-    button_secondary_label: "Download desktop app",
-    button_primary_url: false,
-    button_secondary_url: false,
-    
-  };
 
 
 export default Banner;
