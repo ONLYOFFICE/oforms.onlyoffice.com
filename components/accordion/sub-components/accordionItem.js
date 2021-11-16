@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Heading from "../../heading";
 import StyledAccordionItem from "./styled-accordionItem";
 
@@ -13,13 +13,14 @@ const AccordionItem = ({
 }) => {
 
   const content = useRef();
+  const [active, setActive] = useState(false);
 
   return (
     <StyledAccordionItem {...rest}>
       <div className="accordion">
-        <div className={`${isCollapsed ? "accordion__icon" : "accordion__icon rotate"}`} >+</div>
+        <div className={`${active ? "accordion__icon" : "accordion__icon rotate"}`} >+</div>
         <Heading
-          onClick={onClick}
+          onClick={()=>setActive(!active)}
           level={level}
           style={{ cursor: "pointer" }}
         >{heading}
@@ -27,7 +28,7 @@ const AccordionItem = ({
       </div>
       <div
         ref={content}
-        style={{ maxHeight: `${!isCollapsed ? `${content.current.scrollHeight}px` : "0px"}` }}
+        style={{ maxHeight: `${active ? `${content.current.scrollHeight}px` : "0px"}` }}
         className="accordion__content"
       >
         <div className="accordion__text">{children}</div>

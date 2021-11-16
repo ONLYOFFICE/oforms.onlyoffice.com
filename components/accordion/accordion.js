@@ -6,18 +6,13 @@ import AccordionItem from "./sub-components/accordionItem";
 
 
 const Accordion = ({ children, level }) => {
-  const [bindIndex, setBindIndex] = React.useState();
-
   const items = children.filter(item => item.type.name === 'AccordionItem');
-
   return (
     <StyledAccordion className="accordion__section">
 
       {items.map(({ props }, index) => (
         <AccordionItem
           key={index}
-          onClick={() => setBindIndex(index)}
-          isCollapsed={bindIndex !== index}
           heading={props.heading}
           level={level}
         >
