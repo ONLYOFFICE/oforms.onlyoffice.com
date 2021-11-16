@@ -15,14 +15,15 @@ const StyledBanner = styled.div`
         white-space: normal;
     }
 
-    .banner_buttons{               
+    .banner_buttons {               
         margin-top: 24px;
     }
+
     .buttons {        
         margin: 0 5px;
     }
     
-    @media (max-width: 500px) {   
+    /* @media (max-width: 500px) {   
 
     .banner_buttons {
      flex-direction: column-reverse;
@@ -30,27 +31,32 @@ const StyledBanner = styled.div`
     .buttons {        
         margin: 5px 0;
     }
-  }
-  @media (max-width: 768px){
+  } */
+
+  @media (max-width: 768px) {
       max-width: 668px;
   }
-  @media (max-width: 500px){
+
+  @media (max-width: 500px) {
       max-width: 336px;
       padding: 32px 27px;
+
         .link {
           width: 100%;
         }
+
         .banner_buttons {
             flex-direction: column;    
         }  
-        .buttons{
+
+        .buttons {
             width: 100%;
         }        
   }
-  @media (max-width: 320px){
+
+  @media (max-width: 320px) {
       max-width: 288px;
-      padding: 32px 16px;
-                
+      padding: 32px 16px;             
   }
   
   

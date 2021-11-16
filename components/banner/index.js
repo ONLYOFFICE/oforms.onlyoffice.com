@@ -1,54 +1,54 @@
 import React from "react";
 import PropTypes from "prop-types";
-import StyledBanner from "./styled-banner";
+
 import Heading from "../heading";
 import Text from "../text";
 import Button from "../button/";
 import Box from "../box/";
 import Link from "../link";
 
-const Banner= ({header, description, button_primary_label, button_secondary_label, button_primary_url, button_secondary_url, ...rest}) => {
-  
+import StyledBanner from "./styled-banner";
+
+const Banner = ({ 
+    header, 
+    description, 
+    button_primary_label, 
+    button_secondary_label, 
+    button_primary_url, 
+    button_secondary_url, 
+    ...rest 
+}) => {
     return (
-      <StyledBanner>
-        <Box flexDirection={'column'} justifyContent={'center'} {...rest}> 
-            <Heading as={`h3`} fontSize ={'24px'} textAlign={'center'} {...rest}>
-                {header}
-            </Heading>
-            <Text className={'description'}textAlign={'center'} isInline={false} display={'block'} {...rest}>
-                {description}
-            </Text>
-        </Box>
-        <Box className={'banner_buttons '} justifyContent={'center'} {...rest}> 
-            <Link
-                className={'link '}
-                href={"/123"}
-            >
-                <Button
-                    className={'buttons'}
-                    label={button_primary_label}
-                >
-                    
-                </Button>
-            </Link>
-            <Link
-                className={'link '}
-                href={"/123"}
-            >
-                <Button
-                    className={'buttons'}
-                    label={button_secondary_label}
-                    typeButton={"transparent"}
-                >            
-                </Button>
-            </Link>
-        </Box>      
-        
-      </StyledBanner>
+        <StyledBanner {...rest}>
+            <Box flexDirection="column" justifyContent="center">
+                <Heading as="h3" fontSize="24px" textAlign="center">
+                    {header}
+                </Heading>
+                <Text className="description" textAlign="center" isInline={false} display="block">
+                    {description}
+                </Text>
+            </Box>
+            <Box className="banner_buttons " justifyContent="center">
+                <Link className="link" href="/123">
+                    <Button
+                        className="buttons"
+                        label={button_primary_label}
+                    />
+                </Link>
+                <Link className="link " href="/123">
+                    <Button
+                        className="buttons"
+                        label={button_secondary_label}
+                        typeButton="transparent"
+                    />
+                </Link>
+            </Box>
+
+        </StyledBanner>
     );
-  };
-  
-  Banner.propTypes = {
+};
+
+Banner.propTypes = {
     /** Header text */
     header: PropTypes.string,
     /** Description text */
@@ -61,8 +61,7 @@ const Banner= ({header, description, button_primary_label, button_secondary_labe
     button_primary_url: PropTypes.string,
     /** Secondary Button url */
     button_secondary_url: PropTypes.string,
-    
-  }
+}
 
 
 export default Banner;
