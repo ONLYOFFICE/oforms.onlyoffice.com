@@ -5,20 +5,18 @@ import { useTranslation } from "gatsby-plugin-react-i18next";
 import Layout from "../../components/layout";
 
 const Error404Page = () => {
-    
-    const {
-        t,
-        i18n: { language },
-    } = useTranslation();
 
-    return (
-        <Layout>
-            <Layout.PageHead></Layout.PageHead>
-            <Layout.PageHeader></Layout.PageHeader>
-            <Layout.SectionMain></Layout.SectionMain>
-            <Layout.PageFooter></Layout.PageFooter>
-        </Layout>
-    );
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
+
+  return (
+    <Layout>
+      <Layout.PageHead></Layout.PageHead>
+      <Layout.SectionMain></Layout.SectionMain>
+    </Layout>
+  );
 }
 
 export default Error404Page;

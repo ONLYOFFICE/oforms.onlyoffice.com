@@ -6,6 +6,7 @@ const {
   graySecnodary,
   grayHover,
   grayLight,
+  grayTextInput,
   orangeMain,
   orangeHover
 } = globalColors;
@@ -31,7 +32,7 @@ const Base = {
     textTransform: "none",
     textDecoration: "none",
     textShadow: "none",
-    whiteSpace: "nowrap",
+    whiteSpace: "break-spaces",
     textOverflow: "ellipsis",
     overflow: "hidden",
     cursor: "default",
@@ -44,6 +45,13 @@ const Base = {
 
   iconButton: {
     width: "20px",
+  },
+
+  checkbox: {
+    color: grayTextInput,
+    fontSize: "14px",
+    paddingBottom: "12px",
+    lineHeight: "160%",
   },
 
   header: {
