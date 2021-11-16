@@ -10,35 +10,44 @@ box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
 border-radius: 5px;
 padding: 24px;
 
-    .title{
+    .card-title {
         white-space: normal;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 24px;
+        display: block;
     }
-    .subtitle{
+    .card-subtitle {
         display: block;
         white-space: normal;
         margin-top: 3px;
+        font-size: 13px;
+        font-weight: normal;
+        color: #808080;
+        font-style: italic;
     }
-    .link{
+    .card-link {
         display: block;
         margin-top: 8px;
     }
-    .button{
+    .card-button {
         position: absolute;
         bottom: 24px;
         max-width: 208px;
+        height: 48px;
     }
 
-@media (max-width: 768px){
+@media (max-width: 768px) {
     width: 208px;
-        .button {
+        .card-button {
             width: 160px;
         }
 }
 
-@media (max-width: 375px){
+@media (max-width: 375px) {
     width: 174px;
     padding: 16px;
-        .button {
+        .card-button {
             width: 142px;
         }
 }
