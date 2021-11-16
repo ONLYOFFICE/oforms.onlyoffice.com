@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Heading from "../../heading";
 import StyledAccordionItem from "./styled-accordionItem";
 
@@ -18,9 +18,9 @@ const AccordionItem = ({
   return (
     <StyledAccordionItem {...rest}>
       <div className="accordion">
-        <div className={`${active ? "accordion__icon" : "accordion__icon rotate"}`} >+</div>
+        <div className={`${!active ? "accordion__icon" : "accordion__icon rotate"}`} >+</div>
         <Heading
-          onClick={()=>setActive(!active)}
+          onClick={() => setActive(!active)}
           level={level}
           style={{ cursor: "pointer" }}
         >{heading}

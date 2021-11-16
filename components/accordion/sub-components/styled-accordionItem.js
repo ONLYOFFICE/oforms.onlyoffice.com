@@ -15,9 +15,9 @@ padding: 24px 0 24px 40px;
 }
 
 .accordion__icon {
-    position: absolute;
-    left: 12px;
-    top: 24px;
+  position: absolute;
+  left: 12px;
+  top: 24px;
   font-size: 24px;
   line-height: 24px;
   font-weight: 600;

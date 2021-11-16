@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import StyledAccordion from "./styled-accordion";
 import AccordionItem from "./sub-components/accordionItem";
