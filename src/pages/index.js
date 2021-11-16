@@ -4,7 +4,7 @@ import { useTranslation } from "gatsby-plugin-react-i18next";
 
 import Layout from "../../components/layout";
 import HeadSEO from "../sub-components/head-content";
-
+import { Accordion, AccordionItem } from "../../components/accordion";
 const IndexPage = () => {
 
   const {
