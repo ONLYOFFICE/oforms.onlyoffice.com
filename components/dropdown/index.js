@@ -5,19 +5,19 @@ import Label from "./sub-components/label";
 import DropdownMenu from "./sub-components/dropdown-menu"
 import onClickOutSide from 'react-onclickoutside'
 
-function Dropdown({ 
+function Dropdown({
   defaultVal,
   label,
-  level, 
+  level,
   array,
   ...rest
-   }) {
+}) {
   const [isActive, setIsActive] = useState(false);
   const [selected, setSelected] = useState(defaultVal);
   console.log(selected);
   Dropdown.handleClickOutside = () => setIsActive(false);
   return (
-    <StyledDropdown>
+    <StyledDropdown {...rest}>
       <Label
         onClick={(e) => setIsActive(!isActive)}
         selected={selected}
@@ -25,7 +25,7 @@ function Dropdown({
       />
       {isActive && (
         <DropdownMenu
-          callbackItem={(item)=>{setSelected(item); setIsActive(false);}}
+          callbackItem={(item) => { setSelected(item); setIsActive(false); }}
           array={array}
         />
       )}
@@ -56,13 +56,13 @@ Dropdown.propTypes = {
 
 Dropdown.defaultProps = {
   array: [
-    'All', 
-    'Plugins', 
-    'Apps', 
-    ],
+    'All',
+    'Plugins',
+    'Apps',
+  ],
   defaultVal: 'All',
   level: 2,
-  lineHeight: "133%"  
+  lineHeight: "133%"
 };
 
 export default onClickOutSide(Dropdown, clickOutsideConfig);
