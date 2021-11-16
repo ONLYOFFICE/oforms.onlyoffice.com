@@ -12,11 +12,12 @@ const StyledBtnMenu = styled.div`
     width: intrinsic;
     box-shadow: 0px 7px 25px rgb(85 85 85 / 15%);
     border: 1px solid #666666;
-    &.close{
+
+    &.close {
         display: none;
     }
 
-.dropdownItem{
+.dropdownItem {
     font-weight: 400;
     display: block;
     padding: 16px;
@@ -25,8 +26,9 @@ const StyledBtnMenu = styled.div`
     min-width: 220px;
     line-height: 1;
     outline: none;
+
     &:hover,
-    &.selected{
+    &.selected {
         color: #ff6f3d;
         background-color: #f5f5f5;
     }

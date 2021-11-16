@@ -21,15 +21,20 @@ const ButtonSelector = ({
 
   return (
     <StyledBtnSelector {...rest}>
-    <Link className="placeholder" typeButton="secondary" label={selected} href={href}/>
-    <div className="indicatorContainer" onClick={(e) => setIsActive(!isActive)}>
+      <Link className="placeholder" typeButton="secondary" label={selected} href={href} />
+      <div className="indicatorContainer" onClick={(e) => setIsActive(!isActive)}>
         <span className="indicatorSeparator"></span>
-        <ReactSVG className={"chevronContainer " + (isActive ? "up" : "")} src="/icons/chevron-down.react.svg" height="24px" width="24px"/>
-    </div>
+        <ReactSVG
+          className={"chevronContainer " + (isActive ? "up" : "")}
+          src="/icons/chevron-down.react.svg"
+          height="24px"
+          width="24px"
+        />
+      </div>
 
-    {isActive && (
+      {isActive && (
         <BtnMenu
-          callbackItem={(item)=>{setSelected(item.title); setHref(item.href); setIsActive(false); }}
+          callbackItem={(item) => { setSelected(item.title); setHref(item.href); setIsActive(false); }}
           array={array}
         />
       )}
@@ -38,7 +43,7 @@ const ButtonSelector = ({
 };
 
 const clickOutsideConfig = {
-    handleClickOutside: () => ButtonSelector.handleClickOutside,
+  handleClickOutside: () => ButtonSelector.handleClickOutside,
 };
 
 ButtonSelector.propTypes = {
@@ -46,13 +51,13 @@ ButtonSelector.propTypes = {
   array: PropTypes.array,
   /** Set default value for select item */
   defaultVal: PropTypes.string,
-  
+
 };
 
 ButtonSelector.defaultProps = {
   array: [
-    {title: 'Download as DOCXF', href: '/404'}, 
-    {title: 'Download as OFORM', href: '/401'},
+    { title: 'Download as DOCXF', href: '/404' },
+    { title: 'Download as OFORM', href: '/401' },
   ],
   defaultVal: "Download as"
 };
