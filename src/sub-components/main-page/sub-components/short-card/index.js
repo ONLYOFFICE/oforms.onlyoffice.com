@@ -24,9 +24,7 @@ const ShortCard = ({
                 label={t("Learn more")}
                 href={linkUrl}
             />
-            <Link
-                href={hrefButtom}
-            >
+            <Link href={hrefButtom}>
                 <Button
                     className="card-button"
                     label={t("Open")}
