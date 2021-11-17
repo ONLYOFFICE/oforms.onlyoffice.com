@@ -26,6 +26,7 @@ background-color: #F9F9F9;
 
 .subtitle-template {
     padding-bottom: 24px;
+    max-height: 42px;
 }
 
 .redactor-btn-template {
