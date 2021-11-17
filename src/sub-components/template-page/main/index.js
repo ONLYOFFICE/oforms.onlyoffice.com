@@ -50,7 +50,7 @@ const MainInfo = ({
             {...rest}
         >
             <div className="template-main-info">
-                <Breadcrumb categories={categories[0]} name={name} />
+                <Breadcrumb categories={categories} name={name} />
                 <Heading className="main-info-heading">{name}</Heading>
                 <Text
                     isBold
