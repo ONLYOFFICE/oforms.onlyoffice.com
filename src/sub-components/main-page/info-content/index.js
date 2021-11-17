@@ -1,5 +1,6 @@
 import React from "react";
 
+import Scrollbar from "../../../../components/scrollbar";
 import Heading from "../../../../components/heading";
 import Text from "../../../../components/text";
 import Box from "../../../../components/box";
@@ -26,29 +27,30 @@ const InfoContent = ({
             <Text
                 className="description-info-content"
                 label={t("Fill out the forms online in one click or download and open them them in ONLYOFFICE editors")}
-
             />
             <Heading
                 className="subheading-info-content"
                 level={5}
                 label={t("Featured templates")}
             />
-            <div>
             <Box justifyContent="space-between" className="box-info-content">
-                {
-                    array_item.map((it, idx) =>
-                        <ShortCard
-                            t={t}
-                            key={idx}
-                            title={it.title}
-                            subtitle={it.subtitle}
-                            linkUrl={it.linkUrl}
-                            hrefButtom={it.hrefButtom}
-
-                        />)
-                }
+                <Scrollbar
+                    className="scrollbar-items-content"
+                    style={{ width: 1120, height: 244 }}
+                >
+                    {
+                        array_item.map((it, idx) =>
+                            <ShortCard
+                                t={t}
+                                key={idx}
+                                title={it.title}
+                                subtitle={it.subtitle}
+                                linkUrl={it.linkUrl}
+                                hrefButtom={it.hrefButtom}
+                            />)
+                    }
+                </Scrollbar>
             </Box>
-            </div>
         </StyledInfoContent>
     );
 };

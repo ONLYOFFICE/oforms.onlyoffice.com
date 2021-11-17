@@ -38,7 +38,7 @@ background-color: white;
     }
 
 @media (max-width: 768px) {
-    box-sizing: content-box;
+    /* box-sizing: content-box; */
     width: 208px;
         .card-button {
             width: 160px;

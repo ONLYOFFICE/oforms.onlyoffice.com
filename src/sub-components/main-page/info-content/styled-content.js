@@ -55,10 +55,14 @@ const StyledInfoContent = styled(Section)`
     }
 
     .box-info-content {
-        /* TO DO */
         overflow: overlay;
         column-gap: 32px;
-        /* display: inline-flex; */
+    }
+
+    .scrollbar-items-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        column-gap: 32px;
     }
 }
 
