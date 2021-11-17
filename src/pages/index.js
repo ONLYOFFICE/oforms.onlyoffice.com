@@ -4,8 +4,10 @@ import { useTranslation } from "gatsby-plugin-react-i18next";
 
 import Layout from "../../components/layout";
 import HeadSEO from "../sub-components/head-content";
-import { Accordion, AccordionItem } from "../../components/accordion";
-const IndexPage = () => {
+import Banner from "../sub-components/main-page/banner-cards";
+import Footer from "../sub-components/footer-content";
+
+const IndexPage = (props) => {
 
   const {
     t,
@@ -19,9 +21,11 @@ const IndexPage = () => {
       </Layout.PageHead>
       <Layout.PageHeader></Layout.PageHeader>
       <Layout.SectionMain>
-        <div>Test render gatsby!</div>
+        <Banner t={t} />
       </Layout.SectionMain>
-      <Layout.PageFooter></Layout.PageFooter>
+      <Layout.PageFooter>
+        <Footer t={t} language={language} />
+      </Layout.PageFooter>
     </Layout>
   );
 
