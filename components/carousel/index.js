@@ -5,10 +5,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import Card from "../card";
+
 import StyledCarousel from "./carousel-styled";
-import CarouselHeading from "./sub-components/carousel-heading";
-import CarouselText from "./sub-components/carousel-text";
-import CarouselImage from "./sub-components/carousel-image";
 
 const Carousel = ({
   settingsCarousel,
@@ -27,32 +26,9 @@ const Carousel = ({
     slidesToScroll: 1,
   };
 
-  const sliders = items.map((item, idx) => {
-    switch (item.type) {
-      case "text":
-        return (
-          <div className="slide" key={`${item.type}-text-${idx}`}>
-            <CarouselHeading key={`${item.type}-heading-${idx}`} item={item} />
-            <CarouselText key={`${item.type}-description-${idx}`} item={item} />
-          </div>
-        );
-
-      case "image":
-        return (
-          <CarouselImage
-            key={`${item.type}-image-${idx}`}
-            item={item}
-            className="slide"
-          />
-        );
-
-      case "other":
-        return item.element;
-
-      default:
-        return false;
-    }
-  });
+  const sliders = items.map((item, idx) => 
+    <Card arrayItems={item} />
+  );
 
   return (
     <StyledCarousel arrows={isArrows} {...rest}>

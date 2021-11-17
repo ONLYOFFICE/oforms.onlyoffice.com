@@ -13,8 +13,8 @@ const StyledCarousel = styled.div`
       }
     }
     ${(props) =>
-      props.arrows
-        ? css`
+    props.arrows
+      ? css`
             .slick-arrow {
               background: none;
               border-color: transparent;
@@ -68,7 +68,7 @@ const StyledCarousel = styled.div`
               transform: rotate(-45deg);
             }
           `
-        : css`
+      : css`
             .slick-arrow {
               display: none !important;
             }
