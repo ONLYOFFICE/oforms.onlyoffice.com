@@ -36,7 +36,7 @@ const InfoContent = ({
             <Box justifyContent="space-between" className="box-info-content">
                 <Scrollbar
                     className="scrollbar-items-content"
-                    style={{ width: 1120, height: 244 }}
+                    style={{ width: 1140, height: 250 }}
                 >
                     {
                         array_item.map((it, idx) =>

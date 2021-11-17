@@ -34,6 +34,13 @@ const StyledInfoContent = styled(Section)`
     padding-top: 56px;
 }
 
+.scroll-body {
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        column-gap: 32px;
+    }
+
 @media(max-width: 768px) {
     .heading-info-content {
         font-size: 36px;
@@ -59,10 +66,8 @@ const StyledInfoContent = styled(Section)`
         column-gap: 32px;
     }
 
-    .scrollbar-items-content {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        column-gap: 32px;
+    .scroll-body {
+        overflow: scroll;
     }
 }
 
