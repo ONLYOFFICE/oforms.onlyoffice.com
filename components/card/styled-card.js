@@ -17,20 +17,26 @@ background-color: #F9F9F9;
 .card-template {
     background-color: #F9F9F9;
     border: 1px solid #E2E2E2;
-    padding: 24px;
+    padding: 24px 24px 10px 24px;
+    max-height: 239px;
 }
 
 .title-template {
     padding-bottom: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .subtitle-template {
     padding-bottom: 24px;
     max-height: 42px;
+    height: auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .redactor-btn-template {
-    margin-bottom: 12px;
+    margin-bottom: 0px;
 }
 
 .download-btn-template {
