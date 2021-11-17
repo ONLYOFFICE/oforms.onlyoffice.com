@@ -23,7 +23,7 @@ const StyledBanner = styled.div`
         margin: 0 5px;
     }
     
-    /* @media (max-width: 500px) {   
+     @media (max-width: 500px) {   
 
     .banner_buttons {
      flex-direction: column-reverse;
@@ -31,7 +31,7 @@ const StyledBanner = styled.div`
     .buttons {        
         margin: 5px 0;
     }
-  } */
+  } 
 
   @media (max-width: 768px) {
       max-width: 668px;
