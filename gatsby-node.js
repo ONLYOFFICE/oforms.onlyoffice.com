@@ -1,12 +1,13 @@
 // TO DO content from a remote CMS
 const path = require("path");
+const fs = require("fs");
 const { createFilePath } = require("gatsby-source-filesystem");
 
 // Create pages dynamically
-exports.createPages = async ({ 
-    graphql, 
-    actions, 
-    reporter 
+exports.createPages = async ({
+    graphql,
+    actions,
+    reporter
 }) => {
 
     // Destructure the createPage function from the actions object
@@ -62,11 +63,11 @@ exports.createPages = async ({
     // console.log("==================== DATA ==========================");
     // console.log(pagesDataItems);
     // console.log("====================================================");
-    
+
     // Processing of paths for pages
     const pathNameTemplate = pagesDataItems.map((path) => {
         const namePage = path.node.name;
-        return `/oforms/${namePage.replace(/\s/g, "-").toLowerCase()}`;
+        return `/${namePage.replace(/\s/g, "-").replace(/[{()}]/g, '').toLowerCase()}`;
     });
 
     // Create template pages    
@@ -83,7 +84,7 @@ exports.createPages = async ({
             context: {
                 id: tmpData.id,
                 data: tmpData,
-                pathName: pathName, 
+                pathName: pathName,
             },
         });
     });
@@ -94,3 +95,10 @@ exports.onPostBuild = ({ reporter }) => {
     const Message = " ===== Gatsby dynamic pages has been built! ===== ";
     reporter.info(Message);
 };
+
+// public -> /oforms/
+// exports.onPostBuild = () => {
+//     fs.renameSync(path.join(__dirname, 'public'), path.join(__dirname, 'public-oforms'));
+//     fs.mkdirSync(path.join(__dirname, 'public'));
+//     fs.renameSync(path.join(__dirname, 'public-oforms'), path.join(__dirname, 'public', 'oforms'));
+// };

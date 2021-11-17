@@ -15,7 +15,7 @@ module.exports = {
         {
             resolve: "gatsby-plugin-manifest",
             options: {
-                icon: "./static/images/logo/favicon_general.png",
+                icon: "/images/logo/favicon_general.png",
             },
         },
         { resolve: "gatsby-transformer-remark" },
