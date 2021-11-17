@@ -4,6 +4,7 @@ import { useTranslation } from "gatsby-plugin-react-i18next";
 
 import Layout from "../../components/layout";
 import HeadSEO from "../sub-components/head-content";
+import MainContent from "../sub-components/main-page/main-content";
 import Banner from "../sub-components/main-page/banner-cards";
 import Footer from "../sub-components/footer-content";
 
@@ -21,6 +22,7 @@ const IndexPage = (props) => {
       </Layout.PageHead>
       <Layout.PageHeader></Layout.PageHeader>
       <Layout.SectionMain>
+        <MainContent t={t} />
         <Banner t={t} />
       </Layout.SectionMain>
       <Layout.PageFooter>
