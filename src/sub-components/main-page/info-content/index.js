@@ -12,7 +12,6 @@ const InfoContent = ({
     t,
     ...rest
 }) => {
-    console.log(array_item);
     return (
         <StyledInfoContent
             background="#333333"
@@ -34,7 +33,7 @@ const InfoContent = ({
                 level={5}
                 label={t("Featured templates")}
             />
-            <div style={{}}>
+            <div>
             <Box justifyContent="space-between" className="box-info-content">
                 {
                     array_item.map((it, idx) =>
