@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import StyledHeading from "./styled-heading";
 
 const Heading = ({
-
+  label,
   level,
   children,
   ...rest
@@ -12,12 +12,13 @@ const Heading = ({
 
   return (
     <StyledHeading as={`h${level}`} level={level} {...rest}>
-      {children}
+      {label || children}
     </StyledHeading>
   );
 };
 
 Heading.propTypes = {
+  label: PropTypes.string,
   /** The heading level */
   level: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
   /** Text color */

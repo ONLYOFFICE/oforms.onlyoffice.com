@@ -39,3 +39,4 @@ node_modules
 
 # gatsby build bundle
 /public/
+/oforms/
