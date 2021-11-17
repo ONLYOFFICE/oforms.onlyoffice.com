@@ -36,8 +36,6 @@ pipeline {
       }
       steps {
         withCredentials([
-                string(credentialsId: 'token_bot_jenkins_notifier', 
-                variable: 'tel_token'), 
                 usernamePassword(credentialsId: 'aws_build_robot', 
                 passwordVariable: 'secret_key', 
                 usernameVariable: 'access_key')
