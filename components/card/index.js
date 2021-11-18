@@ -35,6 +35,9 @@ const Card = ({
         setTypeFile(!typeFile);
     };
 
+    // TO DO: fix pathNAme
+    const pathName = `/${name.replace(/\s/g, "-").replace(/[{()}]/g, '').toLowerCase()}`;
+
     const IMAGE_SRC = Config.IMGSRC + image_src;
 
     return (
@@ -45,7 +48,7 @@ const Card = ({
                 flexDirection="column"
                 alignItems="stretch"
             >
-                <ELink className="title-template" href={"/"} label={name} />
+                <ELink className="title-template" href={pathName} label={name} />
                 <Text className="subtitle-template" label={description[0]} />
                 <Link href={link_redactor}>
                     <Button

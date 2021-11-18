@@ -9,7 +9,7 @@ height: 244px;
 box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
 border-radius: 5px;
 padding: 24px;
-
+background-color: white;
     .card-title {
         white-space: normal;
         font-size: 18px;
@@ -38,6 +38,7 @@ padding: 24px;
     }
 
 @media (max-width: 768px) {
+    /* box-sizing: content-box; */
     width: 208px;
         .card-button {
             width: 160px;

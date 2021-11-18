@@ -30,10 +30,10 @@
             "4"
         ],
         "image_src": "test_tmp.png",
-        "categories": "Realty",
+        "categories": "Realty-TEST",
         "seo": {
             "title": "Realty",
-            "description": ""
+            "description": "Lease Agreement"
         }
     },
     {

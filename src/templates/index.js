@@ -4,8 +4,9 @@ import { useTranslation } from "gatsby-plugin-react-i18next";
 
 import Layout from "../../components/layout";
 import HeadSEO from "../sub-components/head-content";
-import Footer from "../sub-components/footer-content";
 import MainInfo from "../sub-components/template-page/main";
+import AccordionContent from "../sub-components/accordion";
+import Footer from "../sub-components/footer-content";
 
 const Template = ({ pageContext, ...rest }) => {
 
@@ -31,6 +32,7 @@ const Template = ({ pageContext, ...rest }) => {
       </Layout.PageHeader>
       <Layout.SectionMain>
         <MainInfo data={data} pathName={pathName} language={language} t={t} />
+        <AccordionContent t={t} />
       </Layout.SectionMain>
       <Layout.PageFooter>
         <Footer language={language} t={t} />

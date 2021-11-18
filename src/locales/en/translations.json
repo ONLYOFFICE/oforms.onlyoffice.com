@@ -1,3 +1,24 @@
 {
-    "About": "About"
+    "About": "About",
+    "FAQ": "FAQ",
+    "AccordionHeadingFreeToUse": "Are ONLYOFFICE forms free to use?",
+    "AccordionDescriptionFreeToUse": "ONLYOFFICE templates are absolutely free to use.",
+    "AccordionHeadingNeedToRegister": "Do I need to register to fill out a form?",
+    "AccordionDescriptionNeedToRegister": "No registration is needed to use the forms: ONLYOFFICE will open the form you choose in the new window, ready to be filled.",
+    "AccordionHeadingDocsUseLocally": "Can I download the forms and create documents using them locally?",
+    "AccordionDescriptionDocsUseLocally": "Use ONLYOFFICE Docs online or ONLYOFFICE Dekstop Editors to fill forms in the preferred location and create your own. <1>Read more about creating forms in ONLYOFFICE.</1>",
+    "AccordionHeadingModifyTheForms": "Can I modify the forms?",
+    "AccordionDescriptionModifyTheForms": "No, it is not possible to modify the OFORM forms. You can only fill in the content in the existing body, or export the form into DOCX and modify the text file.",
+    "AccordionHeadingFormatTheForms": "What format does ONLYOFFICE use for the forms?",
+    "AccordionDescriptionFormatTheForms": "All forms are stored in .OFORM format. Read the format specification.",
+    "AccordionHeadingExportOtherFormats": "Can I export the filled forms into other formats?",
+    "AccordionDescriptionExportOtherFormats": "Yes, you can export your documents in DOCX and PDF.",
+    "AccordionHeadingAdditionalSoftware ": "Do I need additional software to work with ONLYOFFICE forms?",
+    "AccordionDescriptionAdditionalSoftware": "You can use ONLYOFFICE Docs or free ONLYOFFICE Desktop Editors to work with the forms.",
+    "ONLYOFFICEDocs": "ONLYOFFICE Docs",
+    "ONLYOFFICEDesktopEditors": "ONLYOFFICE Desktop Editors",
+    "AccordionHeadingSuggestRevision": "I found a mistake / I want to update a form. Can I suggest revision?",
+    "AccordionDescriptionSuggestRevision": "You can suggest an update/revision for a form on the form page.",
+    "AccordionHeadingFindTheTemplate": "I can’t find the template I need in the library. What do I do?",
+    "AccordionDescriptionFindTheTemplate": "We happily accept template suggestions to introduce these templates in our form library in the future. Click ‘Suggest a new form’ on top of the main page to submit your ideas."
 }

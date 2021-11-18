@@ -13,6 +13,8 @@ border-radius: 3px;
 box-sizing: border-box;
 border: 1px solid #AAAAAA;
 
+${props => props.isScale && `width: 100%;`}
+
 .placeholder {
     display: block;
     font-weight: 600;

@@ -4,6 +4,20 @@ html {
   overflow-x: hidden;
 }
 
+html::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+  width: 5px;
+  height: 245px;
+
+  background: #c1c1c1c1;
+  opacity: 0.2;
+  border-radius: 6px;
+}
+
 body {
   margin: 0;
   padding: 0;

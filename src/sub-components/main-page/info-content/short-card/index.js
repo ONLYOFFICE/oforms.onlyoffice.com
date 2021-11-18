@@ -8,12 +8,13 @@ import Link from "../../../../../components/link";
 import Button from "../../../../../components/button";
 
 const ShortCard = ({
-    array,
+    title,
+    subtitle,
+    linkUrl,
+    hrefButtom,
     t,
     ...rest
 }) => {
-
-    const { title, subtitle, linkUrl, hrefButtom } = array;
 
     return (
         <StyledShortCard {...rest}>
