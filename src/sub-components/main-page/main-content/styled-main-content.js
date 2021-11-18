@@ -15,6 +15,14 @@ const StyledMainContent = styled(Section)`
     margin-top: 50px;
 }
 
+
+
+@media(max-width: 450px) {
+    .box-cards-template {
+        justify-content: center;
+    } 
+}
+
 `;
 
 export default StyledMainContent;

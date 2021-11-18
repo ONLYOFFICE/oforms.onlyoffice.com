@@ -36,7 +36,7 @@ const MainContent = ({
         <StyledMainContent background="#F5F5F5">
             <Heading className="heading-cards" textAlign="center" label="Form templates" />
                 
-                <Box justifyContent="flex-end">
+                <Box className="box-cards-template" justifyContent="flex-end">
                     <Cards t={t} data={allItems} />
                 </Box>
           
