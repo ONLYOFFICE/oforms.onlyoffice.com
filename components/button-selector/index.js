@@ -7,6 +7,7 @@ import { ReactSVG } from "react-svg";
 import Link from "../link"
 
 const ButtonSelector = ({
+  isScale,
   label,
   defaultVal,
   array,
@@ -20,7 +21,7 @@ const ButtonSelector = ({
   ButtonSelector.handleClickOutside = () => setIsActive(false);
 
   return (
-    <StyledBtnSelector {...rest}>
+    <StyledBtnSelector {...rest} isScale={isScale}>
       <Link className="placeholder" typeButton="secondary" label={selected} href={href} />
       <div className="indicatorContainer" onClick={(e) => setIsActive(!isActive)}>
         <span className="indicatorSeparator"></span>

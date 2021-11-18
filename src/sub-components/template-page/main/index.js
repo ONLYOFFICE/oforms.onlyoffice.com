@@ -4,6 +4,7 @@ import Config from "../../../../config.json";
 
 import Link from "../../../../components/link";
 import Button from "../../../../components/button";
+import ButtonSelector from "../../../../components/button-selector";
 import Heading from "../../../../components/heading";
 import Text from "../../../../components/text";
 import Box from "../../../../components/box";
@@ -26,7 +27,15 @@ const MainInfo = ({
     ...rest
 }) => {
 
+    const array = [
+        { title: "Download as DOCXF", href: "/404" },
+        { title: "Download as OFORM", href: "/401" },
+      ]
+
     const [typeFile, setTypeFile] = useState(0);
+    const onChangeFile = () => {
+        setTypeFile()
+    }
 
     const {
         categories,
@@ -96,8 +105,8 @@ const MainInfo = ({
                     </div>
                 </Box>
                 <Box className="file-main-buttons">
-                    <Button isScale className="" label={t("Download")} />
-                    <Button isScale className="" label={t("Download as")} />
+                    <Button isScale label={t("Download")} />
+                    <ButtonSelector isScale array={array} defaultVal={t("Download as")}  />
                 </Box>
                 <Box className="file-main-iconbuttons">
                     <Text isBold color="#AAAAAA">{t("Share")}: </Text>
