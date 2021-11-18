@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import StyledShortCard from "./styled-short-card";
 
 import Text from "../../../../../components/text";
-import Link from "../../../../../components/link";
+import Link from "../../../../../components/internal-link";
 import Button from "../../../../../components/button";
 
 const ShortCard = ({
