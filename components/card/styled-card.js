@@ -24,7 +24,9 @@ background-color: #F9F9F9;
 .title-template {
     padding-bottom: 16px;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: break-spaces;
+    height: 42px;
+    overflow: hidden;
 }
 
 .subtitle-template {

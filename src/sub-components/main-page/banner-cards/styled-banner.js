@@ -10,7 +10,7 @@ const StyledBanner = styled.div`
     border-radius: 3px;
     padding: 48px 60px;
     margin: 0 auto;
-
+    background: #fff;
     .description {
         white-space: normal;
     }

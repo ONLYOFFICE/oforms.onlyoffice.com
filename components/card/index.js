@@ -39,6 +39,8 @@ const Card = ({
     const pathName = `/${name.replace(/\s/g, "-").replace(/[{()}]/g, '').toLowerCase()}`;
 
     const IMAGE_SRC = Config.IMGSRC + image_src;
+    // TO DO: delete dwn
+    const DWN = `/static/08679248ecde06598a96a895bc766a78/ONLYOFFICE_Sample_Document.docx`;
 
     return (
         <StyledCard {...rest}>
@@ -58,11 +60,14 @@ const Card = ({
                         label={("open")}
                     />
                 </Link>
-                <Button
-                    className="download-btn-template"
-                    typeButton="white"
-                    label={("download as")}
-                />
+                 <a href={DWN} download>
+                    <Button
+                        isScale
+                        className="download-btn-template"
+                        typeButton="white"
+                        label={("download as")}
+                    />
+                </a> 
             </Box>
         </StyledCard>
     );

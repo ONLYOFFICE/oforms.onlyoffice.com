@@ -34,7 +34,7 @@ const Breadcrumb = ({
 
     return (
         <StyledBreadcrumb>
-            <Link className="breadcrumb-links" href={"/"} label={"Forms"} />
+            <Link className="breadcrumb-links" href="/" label={"Forms"} />
             <Text className="breadcrumb-items" label={">"} />
             <Text className="breadcrumb-items" label={categories} />
             <Text className="breadcrumb-items" label={">"} />

@@ -6,6 +6,7 @@ grid-auto-rows: auto;
 grid-template-columns: 1fr 1fr 1fr;
 max-width: 832px;
 gap: 32px;
+row-gap: 64px;
 
 @media(max-width: 768px) {
     max-width: 688px;
