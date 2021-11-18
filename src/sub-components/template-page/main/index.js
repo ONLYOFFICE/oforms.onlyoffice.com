@@ -27,9 +27,11 @@ const MainInfo = ({
     ...rest
 }) => {
 
+    const DWN = `/static/08679248ecde06598a96a895bc766a78/ONLYOFFICE_Sample_Document.docx`;
+
     const array = [
-        { title: "Download as DOCXF", href: "/404" },
-        { title: "Download as OFORM", href: "/401" },
+        { title: "Download as DOCXF", href: DWN },
+        { title: "Download as OFORM", href: DWN },
       ]
 
     const [typeFile, setTypeFile] = useState(0);
@@ -51,6 +53,10 @@ const MainInfo = ({
 
     const IMAGE_SRC = Config.IMGSRC + image_src;
     const SVG_FILE_TYPE = typeFile ? Oform : Oform; // added docx
+
+
+    //TO DO DEL LINK
+    const LINK = `https://nct.onlyoffice.com/Products/Files/DocEditor.aspx?fileid=45424&doc=N25yVTc2R1NMdEZUa0VDc2VDTklwdnNVUE5jUml0WndQNnV3Q3pLTGRFcz0_IjQ1NDI0Ig2`;
 
     return (
         <StyledMainInfo
@@ -105,7 +111,9 @@ const MainInfo = ({
                     </div>
                 </Box>
                 <Box className="file-main-buttons">
-                    <Button isScale label={t("Download")} />
+                    <a href={LINK} style={{width: "100%"}}>
+                    <Button isScale label={t("Open and Fill")} />
+                    </a>                   
                     <ButtonSelector isScale array={array} defaultVal={t("Download as")}  />
                 </Box>
                 <Box className="file-main-iconbuttons">
