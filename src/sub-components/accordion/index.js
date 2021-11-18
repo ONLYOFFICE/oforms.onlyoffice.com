@@ -1,5 +1,5 @@
 import React from "react";
-import { Trans } from "gatsby-plugin-react-i18next";
+//import { Trans } from "gatsby-plugin-react-i18next";
 
 import { Accordion, AccordionItem } from "../../../components/accordion";
 
@@ -25,7 +25,6 @@ const AccordionContent = ({
                 mobileLPadding="48px 0 51px"
             >
                 <Heading className="titleAccordion" level={2}>{t("FAQ")}</Heading>
-                <Accordion level={4} {...rest}>
                     <AccordionItem heading={t("AccordionHeadingFreeToUse")}>
                         {t("AccordionDescriptionFreeToUse")}
                     </AccordionItem>
@@ -62,7 +61,6 @@ const AccordionContent = ({
                     <AccordionItem heading={t("AccordionHeadingFindTheTemplate")}>
                         {t("AccordionDescriptionFindTheTemplate")}
                     </AccordionItem>
-                </Accordion>
             </Section>
         </StyledAccordionContent>
     );

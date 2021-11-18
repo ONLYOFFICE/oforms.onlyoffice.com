@@ -16,6 +16,7 @@ width: 100%;
         padding-right: 24px;
         border-right: 1px solid #aaa;
         overflow: unset;
+        width: 95px;
     }
     
     .search_input {
