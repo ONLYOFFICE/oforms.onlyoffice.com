@@ -35,7 +35,8 @@ const Template = ({ pageContext, ...rest }) => {
       </Layout.PageHeader>
       <Layout.SectionMain>
         <MainInfo data={data} pathName={pathName} language={language} t={t} />
-        <CarouselContent />
+        <CarouselContent t={t} label={t("OtherLeaseRentForms")} />
+        <CarouselContent t={t} label={t("RecentlyViewed")} />
         <AccordionContent t={t} />
       </Layout.SectionMain>
       <Layout.PageFooter>

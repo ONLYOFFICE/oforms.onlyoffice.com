@@ -27,7 +27,7 @@ const Carousel = ({
   };
 
   const sliders = items.map((item, idx) => 
-    <Card key={`item-${idx}`} arrayItems={item} />
+    <Card key={`item-${idx}`} arrayItems={item} className={"carousel-cards"} />
   );
 
   return (
