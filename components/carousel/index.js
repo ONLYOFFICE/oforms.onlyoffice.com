@@ -20,19 +20,19 @@ const Carousel = ({
   const settings = settingsCarousel || {
     fade: false,
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 3,
     slidesToScroll: 1,
   };
 
   const sliders = items.map((item, idx) => 
-    <Card arrayItems={item} />
+    <Card key={`item-${idx}`} arrayItems={item} />
   );
 
   return (
     <StyledCarousel arrows={isArrows} {...rest}>
-      <Slider asNavFor={asNavForCarousel} ref={refCarousel} {...settings}>
+      <Slider {...settings}>
         {sliders}
       </Slider>
     </StyledCarousel>
