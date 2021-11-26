@@ -20,5 +20,7 @@
     "AccordionHeadingSuggestRevision": "I found a mistake / I want to update a form. Can I suggest revision?",
     "AccordionDescriptionSuggestRevision": "You can suggest an update/revision for a form on the form page.",
     "AccordionHeadingFindTheTemplate": "I can’t find the template I need in the library. What do I do?",
-    "AccordionDescriptionFindTheTemplate": "We happily accept template suggestions to introduce these templates in our form library in the future. Click ‘Suggest a new form’ on top of the main page to submit your ideas."
+    "AccordionDescriptionFindTheTemplate": "We happily accept template suggestions to introduce these templates in our form library in the future. Click ‘Suggest a new form’ on top of the main page to submit your ideas.",
+    "OtherLeaseRentForms": "Other Lease & Rent forms",
+    "RecentlyViewed": "Recently viewed"
 }
