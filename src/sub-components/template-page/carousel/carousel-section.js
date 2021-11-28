@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import Section from "../../section";
 
-const StyledCarouselContent = styled(Section)`background: #f5f5f5;
+const StyledCarouselContent = styled(Section)`
+background: #f5f5f5;
+
 .section-page {
   max-width: 1232px;
   margin: 0 auto;
@@ -28,6 +30,7 @@ const StyledCarouselContent = styled(Section)`background: #f5f5f5;
       }
     }
   }
+
   @media (max-width: 1024px) {
     .card-carousel {
       .slick-slider {
@@ -37,6 +40,7 @@ const StyledCarouselContent = styled(Section)`background: #f5f5f5;
       }
     }
   }
+
   @media (max-width: 860px) {
     .card-carousel {
       .slick-slider {
@@ -62,6 +66,7 @@ const StyledCarouselContent = styled(Section)`background: #f5f5f5;
       }
     }
   }
+  
   @media (max-width: 576px) {
     h3 {
       font-size: 18px;
