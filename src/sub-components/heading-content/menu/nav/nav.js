@@ -6,15 +6,18 @@ import StyledNav from "./styled-nav";
 import MenuItem from "../menu-item";
 import Box from "./box";
 
+
 const Nav = ({
     onClick,
     t,
     stateMobile,
     ...rest
 }) => {
+
+
+
     return (
-        <StyledNav {...rest} stateMobile={stateMobile}>
-            <button onClick={onClick} >x</button>
+        <StyledNav {...rest} stateMobile={stateMobile} >
             <MenuItem heading="Products & Features">
                 <Box>
                     <Link href="/office-suite.aspx">ONLYOFFICE Docs</Link>

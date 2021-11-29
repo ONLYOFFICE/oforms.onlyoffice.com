@@ -32,32 +32,61 @@ const Menu = ({
         setStateMobile(!stateMobile)
     };
 
-    useEffect(() => {
-        typeof window !== "undefined" &&
-            stateMobile &&
-            window.addEventListener("click", handleClickOutside);
-        return () => {
-            window.removeEventListener("click", handleClickOutside);
-        };
-    });
+    /////////
+    // const useComponentVisible = (initialIsVisible) => {
+    //     const [isComponentVisible, setIsComponentVisible] = useState(
+    //         initialIsVisible
+    //     );
+    //     const ref = useRef(null);
 
-    const handleClickOutside = (e) => {
-        if (stateMobile && e.target.closest(".nav-item-links")) {
-            onCloseSelector();
-        }
-    };
+    //     const handleHideDropdown = (event) => {
+    //         if (event.key === "Escape") {
+    //             setIsComponentVisible(false);
+    //         }
+    //     };
 
-    const onCloseSelector = () => {
-        setStateMobile(false);
-    };
+    //     const handleClickOutside = event => {
+    //         if (ref.current && !ref.current.contains(event.target)) {
+    //             setIsComponentVisible(false);
+    //         }
+    //     };
 
+    //     useEffect(() => {
+    //         document.addEventListener("keydown", handleHideDropdown, true);
+    //         document.addEventListener("click", handleClickOutside, true);
+    //         return () => {
+    //             document.removeEventListener("keydown", handleHideDropdown, true);
+    //             document.removeEventListener("click", handleClickOutside, true);
+    //         };
+    //     });
+
+    //     return { ref, isComponentVisible, setIsComponentVisible };
+    // }
+
+    // const {
+    //     ref,
+    //     isComponentVisible,
+    //     setIsComponentVisible
+    // } = useComponentVisible(true);
+
+    // const onClickMobileMenu = () => {
+    //     setIsComponentVisible(true);
+    //     toggleMobile();
+    // };
+
+    const onCloseMenu = () => {
+        setStateMobile(false)
+    }
+
+
+    ///////////////////
     return (
-        <StyledMenu template={template} className="navbar" {...rest} onClick={toggleMobile}>
+        <StyledMenu template={template} className="navbar" {...rest}>
             <InternalLink className="nav-item-logo" href="/">
                 <ReactSVG src={template ? LogoBlack : LogoWhite} className="nav-logo" />
             </InternalLink>
-            <ReactSVG src={MobileMenu} className="nav-items-mobile" onClick={toggleMobile} />
-            <Nav className="nav-item-links" stateMobile={stateMobile} t={t} onClick={toggleMobile} />
+            <ReactSVG src={MobileMenu} className="nav-items-mobile" onClick={toggleMobile}/>         
+            <Nav className="nav-item-links" stateMobile={stateMobile} t={t} onMouseLeave={onCloseMenu} />        
             <div className="nav-item-lng">
                 {!windowCheck &&
                     <Link className="nav-item-tel" href="tel:+371 660 164 25">+371 660 164 25</Link>

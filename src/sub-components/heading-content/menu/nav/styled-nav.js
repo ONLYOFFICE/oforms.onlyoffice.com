@@ -26,7 +26,7 @@ justify-content: center;
 }
 
 @media (max-width: 1050px) {
-    padding: 0;
+        padding: 0;
         background-color: #fff;
         min-height: 100px;
         height: 100vh;
