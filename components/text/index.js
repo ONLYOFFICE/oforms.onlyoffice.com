@@ -2,18 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import StyledText from "./styled-text";
 
-const Text = ({
-  as,
-  label,
-  children,
-  ...rest
-}) => {
+const Text = ({ as, label, children, ...rest }) => {
   return (
     <StyledText as={as ? as : "span"} {...rest}>
       {label || children}
     </StyledText>
   );
-}
+};
 
 Text.propTypes = {
   /** Text height */
@@ -29,8 +24,8 @@ Text.propTypes = {
   /** Text font-size */
   fontSize: PropTypes.string,
   /** Text font-weight */
-  fontWeight: PropTypes.number,
-  /** Text font-style */
+  fontWeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /** Value of the input */
   fontStyle: PropTypes.string,
   /** Text line-height */
   lineHeight: PropTypes.string,
@@ -82,7 +77,7 @@ Text.propTypes = {
   id: PropTypes.string,
   /** Accepts class */
   className: PropTypes.string,
-}
+};
 
 Text.defaultProps = {
   color: "#333333",

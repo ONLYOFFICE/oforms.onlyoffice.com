@@ -9,11 +9,12 @@ const Label = styled.label`
       : props.theme.textInput.fontSize};
   z-index: 2;
   color: ${(props) =>
-    props.isError
+    props.labelColor ||
+    (props.isError
       ? "#CB0000"
       : props.isSuccess
       ? "#8BB825"
-      : props.theme.textInput.placeholderColor};
+      : props.theme.textInput.placeholderColor)};
 
   position: absolute;
   top: ${(props) =>
