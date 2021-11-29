@@ -6,6 +6,7 @@ import Layout from "../../components/layout";
 import HeadSEO from "../sub-components/head-content";
 import HeadingContent from "../sub-components/heading-content";
 import MainInfo from "../sub-components/template-page/main";
+import CarouselContent from "../sub-components/template-page/carousel";
 import AccordionContent from "../sub-components/accordion";
 import Footer from "../sub-components/footer-content";
 
@@ -34,6 +35,8 @@ const Template = ({ pageContext, ...rest }) => {
       </Layout.PageHeader>
       <Layout.SectionMain>
         <MainInfo data={data} pathName={pathName} language={language} t={t} />
+        <CarouselContent t={t} label={t("OtherLeaseRentForms")} />
+        <CarouselContent t={t} label={t("RecentlyViewed")} />
         <AccordionContent t={t} />
       </Layout.SectionMain>
       <Layout.PageFooter>
