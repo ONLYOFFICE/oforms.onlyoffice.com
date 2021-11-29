@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ReactSVG } from "react-svg";
+
 import Config from "../../../../config.json";
 
 import Link from "../../../../components/link";
@@ -17,7 +18,6 @@ import Image from "./sub-components/image";
 
 import Oform from "../../../../static/icons/oform.svg";
 
-
 // TO DO: simplifying
 const MainInfo = ({
     t,
@@ -32,7 +32,7 @@ const MainInfo = ({
     const array = [
         { title: "Download as DOCXF", href: DWN },
         { title: "Download as OFORM", href: DWN },
-      ]
+    ]
 
     const [typeFile, setTypeFile] = useState(0);
     const onChangeFile = () => {
@@ -111,10 +111,10 @@ const MainInfo = ({
                     </div>
                 </Box>
                 <Box className="file-main-buttons">
-                    <a href={LINK} style={{width: "100%"}}>
-                    <Button isScale label={t("Open and Fill")} />
-                    </a>                   
-                    <ButtonSelector isScale array={array} defaultVal={t("Download as")}  />
+                    <a href={LINK} style={{ width: "100%" }}>
+                        <Button isScale label={t("Open and Fill")} />
+                    </a>
+                    <ButtonSelector isScale array={array} defaultVal={t("Download as")} />
                 </Box>
                 <Box className="file-main-iconbuttons">
                     <Text isBold color="#AAAAAA">{t("Share")}: </Text>
