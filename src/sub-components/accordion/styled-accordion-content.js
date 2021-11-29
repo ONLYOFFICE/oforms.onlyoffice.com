@@ -9,6 +9,11 @@ const StyledAccordionContent = styled.div`
             padding: 0 0 40px;
         }
     }
+    @media (max-width: 600px) {
+        h4 {
+            font-size: 16px;
+        }
+    }
 `;
 
 

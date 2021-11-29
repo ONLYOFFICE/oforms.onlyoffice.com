@@ -35,7 +35,7 @@ const Selector = (props) => {
       onCloseSelector();
     }
     if (e.target.closest(".oldest")) {
-      setIsNew("Oldest - Newes");
+      setIsNew("Oldest - Newest");
       onCloseSelector();
     }
     if (e.target.closest(".newest")) {

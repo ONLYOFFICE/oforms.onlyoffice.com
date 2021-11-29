@@ -39,7 +39,27 @@ const StyledInfoContent = styled(Section)`
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         column-gap: 32px;
+        padding: 0;
     }
+
+@media(max-width: 1200px){
+    .section-page {
+        max-width: 100vw;
+    }
+    .scroll-body {
+        padding: 0 40px;
+    }
+    .heading-info-content, .description-info-content, .subheading-info-content {
+        max-width: 928px;
+        margin: 0 auto;
+    }
+}
+
+@media(max-width: 1024px){
+    .section-page {
+        width: 100vw;
+    }
+}
 
 @media(max-width: 768px) {
     .heading-info-content {
@@ -87,8 +107,12 @@ const StyledInfoContent = styled(Section)`
     .subheading-info-content {
         font-size: 18px;
         line-height: 24px;
-        padding-bottom: 80px;
-        padding-top: 53px;
+        padding-bottom: 48px;
+        padding-top: 48px;
+    }
+    .scroll-body {
+        column-gap: 8px;
+        padding: 0 24px;
     }
 }
 

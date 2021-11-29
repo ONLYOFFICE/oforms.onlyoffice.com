@@ -8,17 +8,26 @@ const mobileStyledMainInfo = css`
     padding-left: 0px;
 
     .main-info-heading {
-        padding-top: 32px;
+        padding-top: 16px;
         padding-bottom: 16px;
+        text-align: center;
+        font-size: 20px;
+        line-height: 1.33em;
     }
 
     .main-info-type-item { 
-        padding-bottom: 24px;
+        padding-bottom: 16px;
+        text-align: center;
+        font-size: 16px;
     }
 
     .main-info-box {
-        padding-top: 26px;
-        padding-bottom: 57px;
+        padding-top: 16px;
+        padding-bottom: 24px;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+        align-items: center;
     }
 }
 
@@ -30,6 +39,14 @@ const mobileStyledMainInfo = css`
 
     .file-main-iconbuttons {
         justify-content: flex-start;
+    }
+
+    .file-main-buttons {
+        grid-row-start: 1;
+        width: 100%;
+        padding-bottom: 0px;
+        padding-top: 24px;
+        gap: 16px;
     }
 }
 
@@ -106,11 +123,20 @@ padding: 0;
     }
 
     .file-main-buttons {
-        grid-row-start: 1;
-        width: 100%;
-        padding-bottom: 0px;
-        padding-top: 56px;
-        gap: 16px;
+        display: block;
+        padding-top: 24px;
+
+        > div {
+            margin-top: 16px;
+
+            a {
+                padding: 15px 0;
+            }
+
+            .chevronContainer {
+                padding: 9px 16px 8px;
+            }
+        }
     }
 
     .file-main-iconbuttons {

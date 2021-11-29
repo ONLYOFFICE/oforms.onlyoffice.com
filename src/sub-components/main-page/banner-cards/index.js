@@ -15,12 +15,12 @@ const Banner = ({ t, ...rest }) => {
         <Section
             background="#F5F5F5"
             padding="130px 0"
-            tabletPadding="100px 0"
-            mobileLPadding="70px 0"
+            tabletPadding="80px 0 100px"
+            mobileLPadding="48px 0 70px"
         >
             <StyledBanner {...rest}>
                 <Box flexDirection="column" justifyContent="center">
-                    <Heading as="h3" fontSize="24px" textAlign="center">
+                    <Heading as="h3" fontSize="24px" lineHeight="1.33em" textAlign="center">
                         {t("Build your own forms")}
                     </Heading>
                     <Text className="description" textAlign="center" isInline={false} display="block">
