@@ -25,12 +25,34 @@ const StyledFooterTablet = css`
         .footer-copyright {
             padding: 10px 0px 50px 0px;
         }
+        .footer-items-group{
+            max-height: 100% !important;;
+
+        }
+        .footer-item-heading-arrow {
+            display: none;
+        }
+        .footer-item-heading{
+            text-align: center;
+            margin: 10px 0 10px 0;
+        }
+        
+        
+        .footer-copyright{
+
+        }
     }
     .footer-item-contact {
         .contact-text {
             display: flex;
         }    
-    }  
+    } 
+    .footer-copyright-block{
+            display: flex;
+            justify-content: center;
+            background-color: #F9F9F9;
+            padding: 20px 0;
+    } 
 `;
 
 
@@ -85,6 +107,13 @@ const StyledFooter = styled.div`
             padding-right: 20px;
             vertical-align: middle;
         } 
+    }
+    .footer-copyright-block{
+        display: flex;
+        justify-content: start;
+        background-color: #ffffff;
+        padding: 0px 0;
+        margin-top: -5px;
     }
 
     .footer-copyright {

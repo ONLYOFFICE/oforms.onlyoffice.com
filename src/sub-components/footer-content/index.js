@@ -102,9 +102,11 @@ const Footer = ({
                                 />
                             </ExternalLink>
                         ))}
-                    </div>
-                    <Text className="footer-copyright">{t("Ascensio System SIA")} {currentYear} {t("All rights reserved")}</Text>
+                    </div>                    
                 </FooterItem>
+                <div className="footer-copyright-block">
+                    <Text className="footer-copyright">{t("Ascensio System SIA")} {currentYear} {t("All rights reserved")}</Text>
+                </div>
             </div>
         </StyledFooter>
     );

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
-
+import { ReactSVG } from "react-svg";
 import StyledFooterItem from "./styled-footer-item";
 import Heading from "../../../../components/heading";
+
 
 const FooterItem = ({
     dis,
@@ -11,7 +12,7 @@ const FooterItem = ({
     heading,
     ...rest
 }) => {
-
+    const content = useRef();
     const [isOpen, setIsOpen] = React.useState(false);
 
     const onHandleClick = (e) => {
@@ -21,7 +22,7 @@ const FooterItem = ({
     };
 
     const footerItemClassName = className ? `footer-item-${className}` : `footer-item`;
-
+    console.log(content);
     return (
         <StyledFooterItem
             isOpen={isOpen}
@@ -32,9 +33,20 @@ const FooterItem = ({
                 level={6}
                 onClick={dis && onHandleClick}
             >
-                {heading}
+                {heading}               
             </Heading>
-            <div className="footer-items-group">
+            <ReactSVG
+                className={"footer-item-heading-arrow " + (isOpen ? "up" : "")}
+                src="/icons/chevron-down.react.svg"
+                height="24px"
+                width="24px"
+            />
+
+            <div 
+                ref={content}
+                style={{ maxHeight: `${isOpen ? `${content.current.scrollHeight + 40}px` : ""}` }}
+                className="footer-items-group" 
+            >
                 {children}
             </div>
         </StyledFooterItem>
