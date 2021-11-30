@@ -42,11 +42,21 @@ const mobileStyledMainInfo = css`
     }
 
     .file-main-buttons {
-        grid-row-start: 1;
-        width: 100%;
-        padding-bottom: 0px;
+        display: block;
         padding-top: 24px;
-        gap: 16px;
+
+        > div {
+            margin-top: 16px;
+
+            a {
+                padding: 15px 0;
+            }
+
+            .chevronContainer {
+                padding: 9px 16px 8px;
+            }
+        }
+        
     }
 }
 
@@ -123,20 +133,11 @@ padding: 0;
     }
 
     .file-main-buttons {
-        display: block;
+        grid-row-start: 1;
+        width: 100%;
+        padding-bottom: 0px;
         padding-top: 24px;
-
-        > div {
-            margin-top: 16px;
-
-            a {
-                padding: 15px 0;
-            }
-
-            .chevronContainer {
-                padding: 9px 16px 8px;
-            }
-        }
+        gap: 16px;
     }
 
     .file-main-iconbuttons {
@@ -248,6 +249,7 @@ const StyledMainInfo = styled(Section)`
 
     .file-main-buttons {
         padding-bottom: 36px;
+        gap: 16px;
     }
 
     .file-main-iconbuttons {

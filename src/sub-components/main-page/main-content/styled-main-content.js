@@ -46,6 +46,9 @@ const StyledMainContent = styled(Section)`
     .checkbox-card-group {
         display: none;
     }
+    .idk-box-template {
+        justify-content: center;
+    }
 }
 
 @media(max-width: 768px) {
