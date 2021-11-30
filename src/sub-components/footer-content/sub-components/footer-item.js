@@ -18,22 +18,23 @@ const FooterItem = ({
     const onHandleClick = (e) => {
         e.preventDefault();
         window.innerWidth <= 1024 &&
-        setIsOpen(!isOpen); 
+            setIsOpen(!isOpen);
     };
 
     const footerItemClassName = className ? `footer-item-${className}` : `footer-item`;
-    console.log(content);
+
     return (
         <StyledFooterItem
             isOpen={isOpen}
             className={footerItemClassName}
+            {...rest}
         >
             <Heading
                 className="footer-item-heading"
                 level={6}
                 onClick={dis && onHandleClick}
             >
-                {heading}               
+                {heading}
             </Heading>
             <ReactSVG
                 className={"footer-item-heading-arrow " + (isOpen ? "up" : "")}
@@ -41,17 +42,16 @@ const FooterItem = ({
                 height="24px"
                 width="24px"
             />
-
-            <div 
+            <div
                 ref={content}
                 style={{ maxHeight: `${isOpen ? `${content.current.scrollHeight + 40}px` : ""}` }}
-                className="footer-items-group" 
+                className="footer-items-group"
             >
                 {children}
             </div>
         </StyledFooterItem>
     );
-}
+};
 
 FooterItem.propTypes = {
     heading: PropTypes.string,

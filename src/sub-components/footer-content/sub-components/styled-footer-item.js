@@ -1,12 +1,6 @@
 import styled, { css } from "styled-components";
 import { device } from "../../../../components/utils/devices";
 
-const StyledFooterMobile = css`
-    
-    
-    
-`;
-
 const StyledFooterTablet = css`
 display: block;
 padding: 17px 10px;
@@ -38,9 +32,7 @@ border-bottom: 1px solid #E5E5E5;
         margin-bottom: 0px;
         margin-top: 0px;
         overflow: hidden;
-        max-height: 0px;
-        
-            
+        max-height: 0px;                   
         transition: max-height 0.2s ease;
         
         ${props => props.isOpen ? css`
@@ -50,18 +42,13 @@ border-bottom: 1px solid #E5E5E5;
             position: initial;
             height: 100% !important;        
             `
-            : css`        
+        : css`        
             position: initial;
             margin-bottom: 0px;
             margin-top: 0px;
-            /* height: 0px;         */
-            `        
-        }
+            `
     }
-
-
-
-
+}
 `;
 
 const StyledFooterItem = styled.div`
@@ -69,6 +56,7 @@ const StyledFooterItem = styled.div`
     position: relative;
     padding: 0 0 35px;
     white-space: break-spaces;
+
     .footer-items-group {
         display: grid;
         max-height: 100% ;
@@ -97,6 +85,7 @@ const StyledFooterItem = styled.div`
         text-transform: uppercase;
         letter-spacing: 0.02em;
     }
+
     .footer-item-heading-arrow {
         display: none;
 
@@ -104,10 +93,6 @@ const StyledFooterItem = styled.div`
 
     @media ${device.tablet} {
         ${StyledFooterTablet};
-    }
-
-    @media ${device.mobile} {
-        ${StyledFooterMobile};
     }
 `;
 

@@ -102,7 +102,7 @@ const Footer = ({
                                 />
                             </ExternalLink>
                         ))}
-                    </div>                    
+                    </div>
                 </FooterItem>
                 <div className="footer-copyright-block">
                     <Text className="footer-copyright">{t("Ascensio System SIA")} {currentYear} {t("All rights reserved")}</Text>
