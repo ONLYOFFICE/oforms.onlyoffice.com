@@ -49,7 +49,7 @@ const Template = ({
     }
     else {
       // Retrieves the string and converts it to a JavaScript object 
-      const parsedObjectLocalStorage = JSON.parse(retrievedString);
+      // const parsedObjectLocalStorage = JSON.parse(retrievedString);
 
       let tmpLocalStorage;
 
@@ -89,7 +89,6 @@ const Template = ({
 
   const maxItemsRandomCardForms = 7;
   const randomCardForms = _randomslice(allCardForms, maxItemsRandomCardForms);
-  //
 
   // Main info content
 
@@ -110,7 +109,7 @@ const Template = ({
         <MainInfo data={MainData} pathName={pathName} language={language} t={t} />
         <CarouselContent data={randomCardForms} label={t("OtherLeaseRentForms")} t={t} />
         {
-          (itemsClient !== null && retrievedString.length >= 2) &&
+          (itemsClient !== null && parsedObjectLocalStorage.length >= 2) &&
           <CarouselContent data={itemsClient} label={t("OtherLeaseRentForms")} t={t} />
         }
         <AccordionContent t={t} />
