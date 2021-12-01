@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 import Heading from "../../../../../components/heading";
+import Link from "../../../../../components/link";
+import Box from "../nav/box";
 
 import { StyledNavMenu, StyledMenuItemsWrapper } from "./styled-navmenu";
 
@@ -45,7 +47,7 @@ const MenuItem = ({
                 onClick={toggleMenu}
             />
             {(windowCheck ? showMobileMenu : showMenu) &&
-                <StyledMenuItemsWrapper isOpen={showMobileMenu}>
+                <StyledMenuItemsWrapper isOpen={showMobileMenu} className="menu-items-wrapper">
                     {windowCheck &&
                         <Heading
                             className="mobile-heading-nav-item"
@@ -55,7 +57,12 @@ const MenuItem = ({
                     }
                         {children}
                 </StyledMenuItemsWrapper>
-            }
+                }
+                {windowCheck &&
+                    <Box className="phone_wrapper">
+                        <Link className="nav-item-mobile-tel" href="tel:+371 660 164 25">+371 660 164 25</Link>
+                    </Box>
+                }
         </StyledNavMenu>
     );
 };

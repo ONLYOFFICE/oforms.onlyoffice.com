@@ -8,6 +8,7 @@ const BoxMenu = (props) => {
             flexDirection="column"
             alignContent="flex-start"
             alignItems="flex-start"
+            {...props}
         >
             {props.children}
         </Box>

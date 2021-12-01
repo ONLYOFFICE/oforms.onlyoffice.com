@@ -86,7 +86,7 @@ const Menu = ({
                 <ReactSVG src={template ? LogoBlack : LogoWhite} className="nav-logo" />
             </InternalLink>
             <ReactSVG src={MobileMenu} className="nav-items-mobile" onClick={toggleMobile}/>         
-            <Nav className="nav-item-links" stateMobile={stateMobile} t={t} onMouseLeave={onCloseMenu} />        
+            <Nav className={template ? "nav-item-links dark" : "nav-item-links"} stateMobile={stateMobile} t={t} onMouseLeave={onCloseMenu} />        
             <div className="nav-item-lng">
                 {!windowCheck &&
                     <Link className="nav-item-tel" href="tel:+371 660 164 25">+371 660 164 25</Link>
