@@ -10,6 +10,7 @@ box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
 border-radius: 5px;
 padding: 24px;
 background-color: white;
+
     .card-title {
         white-space: normal;
         font-size: 18px;
@@ -17,6 +18,7 @@ background-color: white;
         line-height: 24px;
         display: block;
     }
+
     .card-subtitle {
         display: block;
         white-space: normal;
@@ -26,10 +28,12 @@ background-color: white;
         color: #808080;
         font-style: italic;
     }
+
     .card-link {
         display: block;
         margin-top: 8px;
     }
+    
     .card-button {
         position: absolute;
         bottom: 24px;

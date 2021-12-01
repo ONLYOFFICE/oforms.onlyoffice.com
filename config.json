@@ -1,4 +1,5 @@
 {
     "defaultLanguage": "en",
-    "IMGSRC": "/images/oforms/en/"
+    "IMGSRC": "/images/oforms/en/",
+    "localStorageCarousel": "arrayCaroselClientSideItemsOforms"
 }
