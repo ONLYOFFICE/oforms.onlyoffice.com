@@ -3,7 +3,7 @@ import { graphql } from "gatsby"
 import { useTranslation } from "gatsby-plugin-react-i18next";
 
 import Config from "../../config.json";
-
+import FormBanner from "../../components/form-banner";
 import Layout from "../../components/layout";
 import HeadSEO from "../sub-components/head-content";
 import HeadingContent from "../sub-components/heading-content";
@@ -32,6 +32,10 @@ const Template = ({
 
   const { allOformsJson } = data;
   const allCardForms = allOformsJson.nodes;
+  const allCardFormsName = MainData.name;
+  const allCardFormsPrice = MainData.type_access[0];
+  console.log(MainData);
+  
 
   // Carousel client data
   const maxItemsClientCardForms = 7;
@@ -90,6 +94,7 @@ const Template = ({
   const maxItemsRandomCardForms = 7;
   const randomCardForms = _randomslice(allCardForms, maxItemsRandomCardForms);
 
+
   // Main info content
 
 
@@ -107,6 +112,13 @@ const Template = ({
       </Layout.PageHeader>
       <Layout.SectionMain>
         <MainInfo data={MainData} pathName={pathName} language={language} t={t} />
+        <FormBanner
+          t={t}
+          label={t(`How to create a ${allCardFormsPrice} ${allCardFormsName} with ONLYOFFICE`)}
+          likn={'https://nct.onlyoffice.com/Products/Files/DocEditor.aspx?fileid=45424&doc=N25yVTc2R1NMdEZUa0VDc2VDTklwdnNVUE5jUml0WndQNnV3Q3pLTGRFcz0_IjQ1NDI0Ig2'}          
+        >
+
+        </FormBanner>
         <CarouselContent data={randomCardForms} label={t("OtherLeaseRentForms")} t={t} />
         {
           (itemsClient !== null && parsedObjectLocalStorage.length >= 2) &&
