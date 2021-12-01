@@ -23,7 +23,7 @@ const IndexPage = () => {
         <HeadSEO />
       </Layout.PageHead>
       <Layout.PageHeader>
-        <HeadingContent t={t} />
+        <HeadingContent t={t} language={language} />
       </Layout.PageHeader>
       <Layout.SectionMain>
         <InfoContent t={t} />

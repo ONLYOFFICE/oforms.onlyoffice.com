@@ -1,44 +1,53 @@
 import styled, { css } from "styled-components";
 import { device } from "../../../../components/utils/devices";
 
-const StyledFooterMobile = css`
-
-`;
-
 const StyledFooterTablet = css`
 display: block;
-padding: 5px 10px;
+padding: 17px 10px;
 margin: 0 20px;
 border-bottom: 1px solid #E5E5E5;
 
 .footer-item-heading {
+    padding: 0;
     cursor: pointer;
     overflow: hidden;
     transition: all 0.4s linear 0s;
 }
 
-.footer-items-group {
-    visibility: visible;
-    position: initial;
-    margin-bottom: 0px;
-    margin-top: 0px;
-    height: 0px;
-    
-    ${props => props.isOpen ? css`
+    .footer-item-heading-arrow {
+        display: block;
+        position: absolute;
+        right: 10px;
+        top: 14px;
+        z-index: -1;
+        transition: 0.1s linear;
+        &.up {
+            transform: rotate(180deg);
+        }
+    }
+
+    .footer-items-group {
         display: grid;
-        visibility: visible;
-        position: initial;
-        height: 100% !important;
-        `
-        : css`
-        visibility: visible;
         position: initial;
         margin-bottom: 0px;
         margin-top: 0px;
-        height: 0px;
-        `        
+        overflow: hidden;
+        max-height: 0px;                   
+        transition: max-height 0.2s ease;
+        
+        ${props => props.isOpen ? css`
+            display: grid;
+            grid-gap: 7px;
+            margin-top: 7px;        
+            position: initial;
+            height: 100% !important;        
+            `
+        : css`        
+            position: initial;
+            margin-bottom: 0px;
+            margin-top: 0px;
+            `
     }
-
 }
 `;
 
@@ -47,15 +56,17 @@ const StyledFooterItem = styled.div`
     position: relative;
     padding: 0 0 35px;
     white-space: break-spaces;
+
     .footer-items-group {
         display: grid;
+        max-height: 100% ;
     }
 
     .footer-link {
         color: #333;
-        font-size: 13px;
-        margin: 0 0 7px;
+        font-size: 13px;        
         line-height: 1.4em;
+        margin: 0px 0px 7px;
         text-decoration: none;
         -webkit-transition: color 0.2s,border 0.5s;
         -moz-transition: color 0.2s,border 0.5s;
@@ -75,12 +86,13 @@ const StyledFooterItem = styled.div`
         letter-spacing: 0.02em;
     }
 
-    @media ${device.tablet} {
-        ${StyledFooterTablet};
+    .footer-item-heading-arrow {
+        display: none;
+
     }
 
-    @media ${device.mobile} {
-        ${StyledFooterMobile};
+    @media ${device.tablet} {
+        ${StyledFooterTablet};
     }
 `;
 
