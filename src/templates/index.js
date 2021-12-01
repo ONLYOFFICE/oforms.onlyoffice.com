@@ -96,7 +96,6 @@ const Template = ({ data, pageContext, ...rest }) => {
 
   const maxItemsRandomCardForms = 7;
   const randomCardForms = _randomslice(allCardForms, maxItemsRandomCardForms);
-  //
 
   // Main info content
 
