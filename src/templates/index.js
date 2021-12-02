@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 import { useTranslation } from "gatsby-plugin-react-i18next";
 
 import Config from "../../config.json";
+import { cardCarouselSettings } from "../sub-components/template-page/carousel/sub-components/carousel-settings";
 
 import Layout from "../../components/layout";
 import HeadSEO from "../sub-components/head-content";
@@ -11,9 +12,12 @@ import MainInfo from "../sub-components/template-page/main";
 import CarouselContent from "../sub-components/template-page/carousel";
 import AccordionContent from "../sub-components/accordion";
 import Footer from "../sub-components/footer-content";
-import { cardCarouselSettings } from "../sub-components/template-page/carousel/sub-components/carousel-settings";
 
-const Template = ({ data, pageContext, ...rest }) => {
+const Template = ({
+  data,
+  pageContext,
+  ...rest
+}) => {
   const {
     t,
     i18n: { language },
@@ -33,13 +37,9 @@ const Template = ({ data, pageContext, ...rest }) => {
   const maxItemsClientCardForms = 7;
   // Retrieves the string and converts it to a JavaScript object
   const localStorageTmp = MainData;
-  const retrievedString =
-    typeof window !== "undefined"
-      ? localStorage.getItem(nameLocalStorage)
-      : undefined;
+  const retrievedString = typeof window !== "undefined" ? localStorage.getItem(nameLocalStorage) : undefined;
 
-  const parsedObjectLocalStorage =
-    retrievedString !== undefined ? JSON.parse(retrievedString) : [];
+  const parsedObjectLocalStorage = retrievedString !== undefined ? JSON.parse(retrievedString) : [];
   const [itemsClient, setItemsClient] = useState(parsedObjectLocalStorage);
   const [stateConfig, setConfig] = useState(cardCarouselSettings);
 

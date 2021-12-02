@@ -1,11 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import Carousel from "../../../../components/carousel";
 import Heading from "../../../../components/heading";
 
 import StyledCarouselContent from "./carousel-section";
 
-const CarouselContent = ({ label, data, config }) => {
+const CarouselContent = ({
+  label,
+  data,
+  config
+}) => {
   return (
     <StyledCarouselContent
       padding="112px 0 40px"
