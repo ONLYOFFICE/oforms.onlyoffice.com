@@ -11,37 +11,37 @@ import SVG_Search from "../../static/icons/search-icon.react.svg"
 
 const SearchArea = () => {
 
-    const [value, isValue] = React.useState("");
+  const [value, isValue] = React.useState("");
 
-    return (
-        <StyledSearchArea>
-            <Box
-                className="search_container"
-                alignItems="center"
-            >
-                <Text
-                    className="presearch_title"
-                    overflow="unset"
-                    textOverflow="clip"
-                    label="Form search"
-                    color="#F5F5F5"
-                />
-                <TextInput
-                    value={value}
-                    onChange={(event) => isValue(event.target.value)}
-                    type="text"
-                    className="search_input"
-                    backgroundColor="#333"
-                    color="#808080"
-                    placeholder="Search name form, type, industry"
-                    fontSize="16px"
-                    colorHover="808080"
-                />
-                <SVG_Search />
-            </Box>
-        </StyledSearchArea>
+  return (
+    <StyledSearchArea>
+      <Box
+        className="search_container"
+        alignItems="center"
+      >
+        <Text
+          className="presearch_title"
+          overflow="unset"
+          textOverflow="clip"
+          label="Form search"
+          color="#F5F5F5"
+        />
+        <TextInput
+          value={value}
+          onChange={(event) => isValue(event.target.value)}
+          type="text"
+          className="search_input"
+          backgroundColor="#333"
+          color="#808080"
+          placeholder="Search name form, type, industry"
+          fontSize="16px"
+          colorHover="808080"
+        />
+        <SVG_Search />
+      </Box>
+    </StyledSearchArea>
 
-    );
+  );
 };
 
 export default SearchArea;

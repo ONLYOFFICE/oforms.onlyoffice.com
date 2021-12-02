@@ -5,9 +5,9 @@ import Search from "../../../../components/search-area";
 const SearchContent = ({
 
 }) => {
-    return (
-        <Search />
-    );
+  return (
+    <Search />
+  );
 };
 
 export default SearchContent;
