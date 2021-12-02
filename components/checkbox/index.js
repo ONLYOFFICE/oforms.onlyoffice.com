@@ -32,6 +32,7 @@ const Checkbox = (props) => {
         ref={ref}
         value={props.value}
         onChange={onInputChange}
+        name={props.name}
       />
       {state.checked ? <CheckedIcon /> : <UncheckedIcon />}
       {props.label && (

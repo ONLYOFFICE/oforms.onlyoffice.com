@@ -1,10 +1,6 @@
 import styled, { css } from "styled-components";
 import { device } from "../../../components/utils/devices";
 
-const StyledFooterMobile = css`
-
-`;
-
 const StyledFooterTablet = css`
     display: contents;
     padding: 0px;
@@ -17,22 +13,45 @@ const StyledFooterTablet = css`
         height: 100%;
         padding-bottom: 10px;
         border: none;
+
         .footer-social-links {
             margin: 0 auto;
             max-width: 100%;
             justify-content: center;
         }
+
         .footer-copyright {
             padding: 10px 0px 50px 0px;
         }
+
+        .footer-items-group{
+            max-height: 100% !important;;
+
+        }
+
+        .footer-item-heading-arrow {
+            display: none;
+        }
+
+        .footer-item-heading{
+            text-align: center;
+            margin: 10px 0 10px 0;
+        }
     }
+    
     .footer-item-contact {
         .contact-text {
             display: flex;
         }    
-    }  
-`;
+    } 
 
+    .footer-copyright-block{
+            display: flex;
+            justify-content: center;
+            background-color: #F9F9F9;
+            padding: 20px 0;
+    } 
+`;
 
 const StyledFooter = styled.div`
     width: calc(100% - 10vw);
@@ -40,7 +59,6 @@ const StyledFooter = styled.div`
     position: relative;
     max-width: 1120px;
     min-width: 769px;
-
     padding-top: 70px;
     margin-bottom: 25px;
     height: auto;
@@ -59,6 +77,7 @@ const StyledFooter = styled.div`
             font-size: 13px;
             line-height: 1.4em;
         }
+
         .contact-text {
             display: flex;
             font-size: 13px;
@@ -85,6 +104,13 @@ const StyledFooter = styled.div`
             padding-right: 20px;
             vertical-align: middle;
         } 
+    }
+    .footer-copyright-block {
+        display: flex;
+        justify-content: start;
+        background-color: #ffffff;
+        padding: 0px 0;
+        margin-top: -5px;
     }
 
     .footer-copyright {
@@ -115,11 +141,6 @@ const StyledFooter = styled.div`
     @media ${device.tablet} {
         ${StyledFooterTablet};
     }
-
-    @media ${device.mobileL} {
-        ${StyledFooterMobile};
-    }
-
 `;
 
 export default StyledFooter;

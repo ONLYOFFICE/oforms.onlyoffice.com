@@ -35,11 +35,11 @@ const StyledInfoContent = styled(Section)`
 }
 
 .scroll-body {
-        overflow: hidden;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        column-gap: 32px;
-    }
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 32px;
+}
 
 @media(max-width: 768px) {
     .heading-info-content {
