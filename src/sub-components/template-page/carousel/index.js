@@ -5,11 +5,16 @@ import Heading from "../../../../components/heading";
 
 import StyledCarouselContent from "./carousel-section";
 
+import Config from "./sub-components/carousel-settings";
+
 const CarouselContent = ({
   label,
   data,
   config
 }) => {
+
+  const customConfig = config || Config;
+
   return (
     <StyledCarouselContent
       padding="112px 0 40px"
@@ -22,7 +27,7 @@ const CarouselContent = ({
       <Carousel
         items={data}
         className="card-carousel"
-        settingsCarousel={config}
+        settingsCarousel={customConfig}
       />
     </StyledCarouselContent>
   );

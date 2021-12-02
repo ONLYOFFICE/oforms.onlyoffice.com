@@ -70,7 +70,7 @@ const Template = ({
         //
       }
       setItemsClient(parsedObjectLocalStorage);
-      if (itemsClient.length <= 4) {
+      if (parsedObjectLocalStorage.length <= 4) {
         setConfig({
           ...cardCarouselSettings,
           infinite: false,
@@ -124,7 +124,7 @@ const Template = ({
           config={stateConfig}
           t={t}
         />
-        {itemsClient !== null && retrievedString.length >= 2 && (
+        {itemsClient !== null && parsedObjectLocalStorage.length >= 2 && (
           <CarouselContent
             data={itemsClient}
             label={t("RecentlyViewed")}
