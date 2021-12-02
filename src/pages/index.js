@@ -12,7 +12,6 @@ import Accordion from "../sub-components/accordion";
 import Footer from "../sub-components/footer-content";
 
 const IndexPage = () => {
-
   const {
     t,
     i18n: { language },
@@ -37,13 +36,12 @@ const IndexPage = () => {
       </Layout.PageFooter>
     </Layout>
   );
-
 };
 
 export default IndexPage;
 
 export const query = graphql`
-  query($language: String!) {
+  query ($language: String!) {
     locales: allLocale(filter: { language: { in: [$language, "en"] } }) {
       edges {
         node {

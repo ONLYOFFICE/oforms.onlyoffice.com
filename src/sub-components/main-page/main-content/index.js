@@ -55,8 +55,7 @@ const MainContent = ({
             setFilterArray(allItems);
         }
         else {
-            const boolCheckedItems =
-                Object.filter(checkedItems, checkedItems => checkedItems === true);
+            const boolCheckedItems = Object.filter(checkedItems, checkedItems => checkedItems === true);
 
             const objCheckedCategory = Object.keys(boolCheckedItems);
             const tmpItems = allItems.filter((it) => {
