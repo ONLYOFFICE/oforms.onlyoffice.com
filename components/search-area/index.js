@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import Text from "../text";
 import Box from "../box";
@@ -9,10 +9,14 @@ import StyledSearchArea from "./styled-search-area";
 import SearchIcon from "../../static/icons/search-icon.react.svg";
 import CloseIcon from "../../static/icons/close-icon.react.svg";
 
-const SearchArea = ({ t }) => {
-  const [value, isValue] = useState("");
+const SearchArea = ({
+  clearValueSearch,
+  valueSearch,
+  callback,
+  t,
+}) => {
 
-  const screenWidth = window.screen.width;
+  const screenWidth = typeof window !== "undefined" ? window.screen.width : undefined;
 
   return (
     <StyledSearchArea>
@@ -26,8 +30,8 @@ const SearchArea = ({ t }) => {
           fontWeight={600}
         />
         <TextInput
-          value={value}
-          onChange={(event) => isValue(event.target.value)}
+          onChange={callback}
+          value={valueSearch}
           type="text"
           className="search_input"
           backgroundColor="#333"
@@ -39,13 +43,13 @@ const SearchArea = ({ t }) => {
           }
           fontSize="16px"
           colorHover="#CCCCCC"
-          labelColor={!value ? "#808080" : "#CCCCCC"}
+          labelColor={!valueSearch ? "#808080" : "#CCCCCC"}
         />
         <div className="search_icon">
-          {!value ? (
+          {!valueSearch ? (
             <SearchIcon style={{ cursor: "default" }} />
           ) : (
-            <CloseIcon onClick={(event) => isValue("")} />
+            <CloseIcon onClick={clearValueSearch} />
           )}
         </div>
       </Box>
