@@ -19,112 +19,120 @@ import Image from "./sub-components/image";
 import Oform from "../../../../static/icons/oform.svg";
 
 // TO DO: simplifying
-const MainInfo = ({
-    t,
-    language,
-    data,
-    pathName,
-    ...rest
-}) => {
+const MainInfo = ({ t, language, data, pathName, ...rest }) => {
+  const DWN = `/static/08679248ecde06598a96a895bc766a78/ONLYOFFICE_Sample_Document.docx`;
 
-    const DWN = `/static/08679248ecde06598a96a895bc766a78/ONLYOFFICE_Sample_Document.docx`;
+  const array = [
+    { title: "Download as DOCXF", href: DWN },
+    { title: "Download as OFORM", href: DWN },
+  ];
 
-    const array = [
-        { title: "Download as DOCXF", href: DWN },
-        { title: "Download as OFORM", href: DWN },
-    ]
+  const [typeFile, setTypeFile] = useState(0);
+  const onChangeFile = () => {
+    setTypeFile();
+  };
 
-    const [typeFile, setTypeFile] = useState(0);
-    const onChangeFile = () => {
-        setTypeFile()
-    }
+  const {
+    categories,
+    description,
+    image_src,
+    type_access,
+    last_update,
+    name,
+    count_pages,
+    file_size,
+    file_type,
+  } = data;
 
-    const {
-        categories,
-        description,
-        image_src,
-        type_access,
-        last_update,
-        name,
-        count_pages,
-        file_size,
-        file_type,
-    } = data;
+  const IMAGE_SRC = Config.IMGSRC + image_src;
+  const SVG_FILE_TYPE = typeFile ? Oform : Oform; // added docx
 
-    const IMAGE_SRC = Config.IMGSRC + image_src;
-    const SVG_FILE_TYPE = typeFile ? Oform : Oform; // added docx
+  //TO DO DEL LINK
+  const LINK = `https://nct.onlyoffice.com/Products/Files/DocEditor.aspx?fileid=45424&doc=N25yVTc2R1NMdEZUa0VDc2VDTklwdnNVUE5jUml0WndQNnV3Q3pLTGRFcz0_IjQ1NDI0Ig2`;
 
-
-    //TO DO DEL LINK
-    const LINK = `https://nct.onlyoffice.com/Products/Files/DocEditor.aspx?fileid=45424&doc=N25yVTc2R1NMdEZUa0VDc2VDTklwdnNVUE5jUml0WndQNnV3Q3pLTGRFcz0_IjQ1NDI0Ig2`;
-
-    return (
-        <StyledMainInfo
-            maxWidth="1200px"
-            background="#F9F9F9"
-            {...rest}
-        >
-            <div className="template-main-info">
-                <Breadcrumb categories={categories} name={name} />
-                <Heading className="main-info-heading">{name}</Heading>
-                <Text
-                    isBold
-                    className="main-info-type-item"
-                    label={type_access[typeFile]}
-                />
-                <Box className="main-info-box">
-                    <div>
-                        <Text className="main-info-text">{t("Last update")}: </Text>
-                        <Text isBold className="main-info-text">{last_update}</Text>
-                    </div>
-                    <Link href="#">{"Suggest_chages"}</Link>
-                </Box>
-            </div>
-            <div className="template-main-img">
-                <Image src={IMAGE_SRC} />
-            </div>
-            <div className="template-main-description">
-                <div className="file-description">
-                    {
-                        description.map((text, id) =>
-                            <Text
-                                className="main-info-description"
-                                label={text}
-                                key={`text-description-${id}`}
-                            />
-                        )
-                    }
-                </div>
-                <Box className="file-info">
-                    <div style={{ display: "flex" }}>
-                        <Text isBold color="#AAAAAA">{t("File type")}: </Text>
-                        <ReactSVG className="template-image-file-type" src={SVG_FILE_TYPE} />
-                        <Text isBold> {file_type[typeFile]} </Text>
-                    </div>
-                    <div>
-                        <Text isBold color="#AAAAAA">{t("File size")}: </Text>
-                        <Text isBold>{file_size[typeFile]}</Text>
-                    </div>
-                    <div>
-                        <Text isBold color="#AAAAAA">{t("Pages")}: </Text>
-                        <Text isBold>{count_pages[typeFile]}</Text>
-                    </div>
-                </Box>
-                <Box className="file-main-buttons">
-                    <a href={LINK} style={{ width: "100%" }}>
-                        <Button isScale label={t("Open and Fill")} />
-                    </a>
-                    <ButtonSelector isScale array={array} defaultVal={t("Download as")} />
-                </Box>
-                <Box className="file-main-iconbuttons">
-                    <Text isBold color="#AAAAAA">{t("Share")}: </Text>
-                    <ShareButton iconName="/images/social-icons/twitter.react.svg" />
-                    <ShareButton iconName="/images/social-icons/mail.react.svg" />
-                    <ShareButton iconName="/images/social-icons/linkedin.react.svg" />
-                </Box>
-            </div>
-        </StyledMainInfo>
-    );
+  return (
+    <StyledMainInfo maxWidth="1200px" background="#F9F9F9" {...rest}>
+      <div className="template-main-info">
+        <Breadcrumb categories={categories} name={name} />
+        <Heading className="main-info-heading">{name}</Heading>
+        <Text
+          isBold
+          className="main-info-type-item"
+          label={type_access[typeFile]}
+        />
+        <Box className="main-info-box">
+          <div>
+            <Text className="main-info-text">{t("Last update")}: </Text>
+            <Text isBold className="main-info-text">
+              {last_update}
+            </Text>
+          </div>
+          <Link href="#">{"Suggest_chages"}</Link>
+        </Box>
+      </div>
+      <div className="template-main-img">
+        <Image src={IMAGE_SRC} />
+      </div>
+      <div className="template-main-description">
+        <div className="file-description">
+          {description.map((text, id) => (
+            <Text
+              className="main-info-description"
+              label={text}
+              key={`text-description-${id}`}
+            />
+          ))}
+        </div>
+        <Box className="file-info">
+          <div style={{ display: "flex" }}>
+            <Text isBold color="#AAAAAA">
+              {t("File type")}:{" "}
+            </Text>
+            <ReactSVG
+              className="template-image-file-type"
+              src={SVG_FILE_TYPE}
+            />
+            <Text isBold> {file_type[typeFile]} </Text>
+          </div>
+          <div>
+            <Text isBold color="#AAAAAA">
+              {t("File size")}:{" "}
+            </Text>
+            <Text isBold>{file_size[typeFile]}</Text>
+          </div>
+          <div>
+            <Text isBold color="#AAAAAA">
+              {t("Pages")}:{" "}
+            </Text>
+            <Text isBold>{count_pages[typeFile]}</Text>
+          </div>
+        </Box>
+        <Box className="file-main-buttons">
+          <a href={LINK} style={{ width: "100%" }}>
+            <Button isScale label={t("Open and Fill")} />
+          </a>
+          <ButtonSelector isScale array={array} defaultVal={t("Download as")} />
+        </Box>
+        <Box className="file-main-iconbuttons">
+          <Text isBold color="#AAAAAA">
+            {t("Share")}:{" "}
+          </Text>
+          <ShareButton
+            className="share-iconbuttons"
+            iconName="/images/social-icons/facebook.react.svg"
+          />
+          <ShareButton
+            className="share-iconbuttons mail"
+            iconName="/images/social-icons/mail.react.svg"
+          />
+          <ShareButton
+            className="share-iconbuttons"
+            iconName="/images/social-icons/linkedin.react.svg"
+          />
+        </Box>
+      </div>
+    </StyledMainInfo>
+  );
 };
 
 export default MainInfo;
