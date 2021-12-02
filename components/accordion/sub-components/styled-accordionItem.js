@@ -39,6 +39,12 @@ padding: 24px 0 24px 40px;
   font-size: 14px;
   padding: 24px 0 8px;
 }
+
+@media (max-width: 600px) {
+  .accordion__heading {
+      font-size: 16px;
+  }
+}
 `;
 
 StyledAccordionItem.defaultProps = { theme: Base };

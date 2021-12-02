@@ -54,6 +54,7 @@ const SearchArea = ({
         </div>
       </Box>
     </StyledSearchArea>
+
   );
 };
 

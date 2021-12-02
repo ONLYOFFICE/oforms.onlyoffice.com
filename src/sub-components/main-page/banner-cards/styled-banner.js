@@ -41,6 +41,11 @@ const StyledBanner = styled.div`
       max-width: 336px;
       padding: 32px 27px;
 
+        .banner_heading {
+            font-size: 18px;
+            padding-bottom: 16px;
+        }
+
         .link {
           width: 100%;
         }
