@@ -114,7 +114,7 @@ const MainInfo = ({
                     <a href={LINK} style={{ width: "100%" }}>
                         <Button isScale label={t("Open and Fill")} />
                     </a>
-                    <ButtonSelector isScale array={array} defaultVal={t("Download as")} />
+                    <ButtonSelector isScale array={array} defaultVal={t("Download as")} className="file-download-button" />
                 </Box>
                 <Box className="file-main-iconbuttons">
                     <Text isBold color="#AAAAAA">{t("Share")}: </Text>

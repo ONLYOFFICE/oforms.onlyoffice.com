@@ -20,7 +20,7 @@ const Banner = ({ t, ...rest }) => {
         >
             <StyledBanner {...rest}>
                 <Box flexDirection="column" justifyContent="center">
-                    <Heading as="h3" fontSize="24px" lineHeight="1.33em" textAlign="center">
+                    <Heading as="h3" fontSize="24px" lineHeight="1.33em" textAlign="center" className="banner_heading">
                         {t("Build your own forms")}
                     </Heading>
                     <Text className="description" textAlign="center" isInline={false} display="block">

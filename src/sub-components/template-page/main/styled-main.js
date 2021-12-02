@@ -45,10 +45,10 @@ const mobileStyledMainInfo = css`
         display: block;
         padding-top: 24px;
 
-        > div {
+        .file-download-button {
             margin-top: 16px;
 
-            a {
+            .placeholder {
                 padding: 15px 0;
             }
 
