@@ -18,6 +18,7 @@ const Template = ({
   pageContext,
   ...rest
 }) => {
+    
   const {
     t,
     i18n: { language },
@@ -121,7 +122,6 @@ const Template = ({
         <CarouselContent
           data={randomCardForms}
           label={t("OtherLeaseRentForms")}
-          config={stateConfig}
           t={t}
         />
         {itemsClient !== null && parsedObjectLocalStorage.length >= 2 && (

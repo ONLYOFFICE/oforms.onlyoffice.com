@@ -5,7 +5,7 @@ import Heading from "../../../../components/heading";
 
 import StyledCarouselContent from "./carousel-section";
 
-import Config from "./sub-components/carousel-settings";
+import { cardCarouselSettings } from "./sub-components/carousel-settings";
 
 const CarouselContent = ({
   label,
@@ -13,7 +13,7 @@ const CarouselContent = ({
   config
 }) => {
 
-  const customConfig = config || Config;
+  const customConfig = config || cardCarouselSettings;
 
   return (
     <StyledCarouselContent
