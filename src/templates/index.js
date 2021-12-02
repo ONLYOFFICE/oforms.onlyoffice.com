@@ -18,7 +18,7 @@ const Template = ({
   pageContext,
   ...rest
 }) => {
-    
+
   const {
     t,
     i18n: { language },
