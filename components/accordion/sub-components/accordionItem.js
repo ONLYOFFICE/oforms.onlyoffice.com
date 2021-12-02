@@ -23,6 +23,7 @@ const AccordionItem = ({
           onClick={() => setActive(!active)}
           level={4}
           style={{ cursor: "pointer" }}
+          className="accordion__heading"
         >{heading}
         </Heading>
       </div>

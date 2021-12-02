@@ -40,7 +40,6 @@ const Scrollbar = React.forwardRef((props, ref) => {
         borderRadius: "inherit",
       },
       view: {
-        paddingRight: "0px",
         outline: "none",
         WebkitOverflowScrolling: "auto",
       },
