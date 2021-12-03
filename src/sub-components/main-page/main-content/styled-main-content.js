@@ -46,6 +46,27 @@ const StyledMainContent = styled(Section)`
     .checkbox-card-group {
         display: none;
     }
+    .idk-box-template {
+        justify-content: center;
+    }
+}
+
+@media(max-width: 768px) {
+    .heading-cards {
+        font-size: 32px;
+    }
+}
+
+@media(max-width: 600px) {
+    .heading-cards {
+        font-size: 24px;
+        padding-bottom: 40px;
+        padding-top: 16px;
+    }
+    .idk-box-template {
+        justify-content: center;
+        }
+    }
 }
 
 

@@ -13,7 +13,7 @@ import Box from "../../../../components/box";
 import StyledMainInfo from "./styled-main";
 
 import Breadcrumb from "./sub-components/breadcrumb";
-import ShareButton from "./sub-components/icon-buttons";
+import ShareButtonsGroup from "./sub-components/icon-buttons";
 import Image from "./sub-components/image";
 
 import Oform from "../../../../static/icons/oform.svg";
@@ -50,8 +50,14 @@ const MainInfo = ({ t, language, data, pathName, ...rest }) => {
   //TO DO DEL LINK
   const LINK = `https://nct.onlyoffice.com/Products/Files/DocEditor.aspx?fileid=45424&doc=N25yVTc2R1NMdEZUa0VDc2VDTklwdnNVUE5jUml0WndQNnV3Q3pLTGRFcz0_IjQ1NDI0Ig2`;
 
+  const baseURL = typeof window !== "undefined" ? window.location.href : null;
+
   return (
-    <StyledMainInfo maxWidth="1200px" background="#F9F9F9" {...rest}>
+    <StyledMainInfo
+      maxWidth="1200px"
+      background="#F9F9F9"
+      {...rest}
+    >
       <div className="template-main-info">
         <Breadcrumb categories={categories} name={name} />
         <Heading className="main-info-heading">{name}</Heading>
@@ -63,9 +69,7 @@ const MainInfo = ({ t, language, data, pathName, ...rest }) => {
         <Box className="main-info-box">
           <div>
             <Text className="main-info-text">{t("Last update")}: </Text>
-            <Text isBold className="main-info-text">
-              {last_update}
-            </Text>
+            <Text isBold className="main-info-text">{last_update}</Text>
           </div>
           <Link href="#">{"Suggest_chages"}</Link>
         </Box>
@@ -75,35 +79,28 @@ const MainInfo = ({ t, language, data, pathName, ...rest }) => {
       </div>
       <div className="template-main-description">
         <div className="file-description">
-          {description.map((text, id) => (
-            <Text
-              className="main-info-description"
-              label={text}
-              key={`text-description-${id}`}
-            />
-          ))}
+          {
+            description.map((text, id) =>
+              <Text
+                className="main-info-description"
+                label={text}
+                key={`text-description-${id}`}
+              />
+            )
+          }
         </div>
         <Box className="file-info">
           <div style={{ display: "flex" }}>
-            <Text isBold color="#AAAAAA">
-              {t("File type")}:{" "}
-            </Text>
-            <ReactSVG
-              className="template-image-file-type"
-              src={SVG_FILE_TYPE}
-            />
+            <Text isBold color="#AAAAAA">{t("File type")}: </Text>
+            <ReactSVG className="template-image-file-type" src={SVG_FILE_TYPE} />
             <Text isBold> {file_type[typeFile]} </Text>
           </div>
           <div>
-            <Text isBold color="#AAAAAA">
-              {t("File size")}:{" "}
-            </Text>
+            <Text isBold color="#AAAAAA">{t("File size")}: </Text>
             <Text isBold>{file_size[typeFile]}</Text>
           </div>
           <div>
-            <Text isBold color="#AAAAAA">
-              {t("Pages")}:{" "}
-            </Text>
+            <Text isBold color="#AAAAAA">{t("Pages")}: </Text>
             <Text isBold>{count_pages[typeFile]}</Text>
           </div>
         </Box>
@@ -111,25 +108,9 @@ const MainInfo = ({ t, language, data, pathName, ...rest }) => {
           <a href={LINK} style={{ width: "100%" }}>
             <Button isScale label={t("Open and Fill")} />
           </a>
-          <ButtonSelector isScale array={array} defaultVal={t("Download as")} />
+          <ButtonSelector isScale array={array} defaultVal={t("Download as")} className="file-download-button" />
         </Box>
-        <Box className="file-main-iconbuttons">
-          <Text isBold color="#AAAAAA">
-            {t("Share")}:{" "}
-          </Text>
-          <ShareButton
-            className="share-iconbuttons"
-            iconName="/images/social-icons/facebook.react.svg"
-          />
-          <ShareButton
-            className="share-iconbuttons mail"
-            iconName="/images/social-icons/mail.react.svg"
-          />
-          <ShareButton
-            className="share-iconbuttons"
-            iconName="/images/social-icons/linkedin.react.svg"
-          />
-        </Box>
+        <ShareButtonsGroup name={name} baseURL={baseURL} t={t} />
       </div>
     </StyledMainInfo>
   );

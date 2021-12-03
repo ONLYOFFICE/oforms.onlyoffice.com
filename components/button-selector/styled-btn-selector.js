@@ -50,6 +50,7 @@ const StyledBtnSelector = styled.div`
     width: 1px;
     box-sizing: border-box;
   }
+  
   .chevronContainer {
     padding: 15px 16px 10px;
 

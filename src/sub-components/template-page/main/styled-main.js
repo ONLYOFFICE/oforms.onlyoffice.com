@@ -18,6 +18,26 @@ const mobileStyledMainInfo = css`
     .main-info-box {
       padding-top: 26px;
       padding-bottom: 57px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        text-align: center;
+        font-size: 20px;
+        line-height: 1.33em;
+    }
+
+    .main-info-type-item { 
+        padding-bottom: 16px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .main-info-box {
+        padding-top: 16px;
+        padding-bottom: 24px;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+        align-items: center;
     }
   }
 
@@ -33,6 +53,28 @@ const mobileStyledMainInfo = css`
       padding-top: 24px;
       flex-wrap: wrap;
       width: 100%;
+    .file-main-iconbuttons {
+        justify-content: flex-start;
+    }
+
+    .file-main-buttons {
+        display: block;
+        padding-top: 24px;
+
+        .file-download-button {
+            margin-top: 16px;
+
+            .placeholder {
+                padding: 15px 0;
+            }
+
+            .chevronContainer {
+                padding: 9px 16px 8px;
+            }
+        }
+        
+    }
+}
 
       button {
         height: 48px;

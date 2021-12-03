@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 import { useTranslation } from "gatsby-plugin-react-i18next";
 
 import Config from "../../config.json";
+import { cardCarouselSettings } from "../sub-components/template-page/carousel/sub-components/carousel-settings";
 
 import Layout from "../../components/layout";
 import HeadSEO from "../sub-components/head-content";
@@ -32,14 +33,12 @@ const Template = ({ data, pageContext, ...rest }) => {
   const maxItemsClientCardForms = 7;
   // Retrieves the string and converts it to a JavaScript object
   const localStorageTmp = MainData;
-  const retrievedString =
-    typeof window !== "undefined"
-      ? localStorage.getItem(nameLocalStorage)
-      : undefined;
+  const retrievedString = typeof window !== "undefined" ? localStorage.getItem(nameLocalStorage) : undefined;
 
   const parsedObjectLocalStorage =
     retrievedString !== undefined ? JSON.parse(retrievedString) : [];
   const [itemsClient, setItemsClient] = useState(parsedObjectLocalStorage);
+  const [stateConfig, setConfig] = useState(cardCarouselSettings);
 
   const clientSideCarousel = () => {
     // Check data in local storage
@@ -47,7 +46,7 @@ const Template = ({ data, pageContext, ...rest }) => {
       localStorage.setItem(nameLocalStorage, JSON.stringify([localStorageTmp]));
     } else {
       // Retrieves the string and converts it to a JavaScript object
-      // const parsedObjectLocalStorage = JSON.parse(retrievedString);
+      const parsedObjectLocalStorage = JSON.parse(retrievedString);
 
       let tmpLocalStorage;
 
@@ -68,6 +67,14 @@ const Template = ({ data, pageContext, ...rest }) => {
         //
       }
       setItemsClient(parsedObjectLocalStorage);
+      if (parsedObjectLocalStorage.length <= 4) {
+        setConfig({
+          ...cardCarouselSettings,
+          infinite: false,
+          slidesToScroll: 4,
+          slidesToShow: 4,
+        });
+      }
     }
   };
 
@@ -119,7 +126,8 @@ const Template = ({ data, pageContext, ...rest }) => {
         {itemsClient !== null && parsedObjectLocalStorage.length >= 2 && (
           <CarouselContent
             data={itemsClient}
-            label={t("OtherLeaseRentForms")}
+            label={t("RecentlyViewed")}
+            config={stateConfig}
             t={t}
           />
         )}
