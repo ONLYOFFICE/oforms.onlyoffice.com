@@ -3,7 +3,7 @@ import { graphql } from "gatsby"
 import { useTranslation } from "gatsby-plugin-react-i18next";
 
 import Config from "../../config.json";
-import FormBanner from "../../components/form-banner";
+import FormBanner from "../sub-components/heading-content/form-banner";
 import Layout from "../../components/layout";
 import HeadSEO from "../sub-components/head-content";
 import HeadingContent from "../sub-components/heading-content";
@@ -34,7 +34,7 @@ const Template = ({
   const allCardForms = allOformsJson.nodes;
   const allCardFormsName = MainData.name;
   const allCardFormsPrice = MainData.type_access[0];
-  console.log(MainData);
+ 
   
 
   // Carousel client data
@@ -114,7 +114,8 @@ const Template = ({
         <MainInfo data={MainData} pathName={pathName} language={language} t={t} />
         <FormBanner
           t={t}
-          label={t(`How to create a ${allCardFormsPrice} ${allCardFormsName} with ONLYOFFICE`)}
+          labelPrice={allCardFormsPrice}
+          labelName={allCardFormsName}
           likn={'https://nct.onlyoffice.com/Products/Files/DocEditor.aspx?fileid=45424&doc=N25yVTc2R1NMdEZUa0VDc2VDTklwdnNVUE5jUml0WndQNnV3Q3pLTGRFcz0_IjQ1NDI0Ig2'}          
         >
 

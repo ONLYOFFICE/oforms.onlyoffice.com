@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { device } from "../../components/utils/devices";
+import { device } from "../../../../components/utils/devices";
 
 const StyledFormBanner = styled.div `
     width: 100%;
@@ -19,14 +19,14 @@ const StyledFormBanner = styled.div `
     .header{
         margin-left: 17px;
     }
-    ol {
+    .item_list {
         margin-top: 22px;
         margin-bottom: 0px;
         padding:0;
         counter-reset:item;
     }
  
-    ol>li {
+    .item {
         margin:0;
         margin-bottom: 18px;
         padding:0 0 0 2em;
@@ -35,18 +35,17 @@ const StyledFormBanner = styled.div `
         counter-increment:item;
     }
 
-    ol>li>p {
+    .item_text {
         font-size: 16px;
-        overflow: unset;
-        /* margin-left: 28px; */
+        overflow: unset;        
         text-indent: 0;
     }
 
-    ol>li :last-child{
+    .item :last-child{
         margin-bottom: 0px;
     }
  
-    ol>li:before {
+    .item:before {
         display:inline-block;
         width:1.5em;
         padding-right:0.5em;
