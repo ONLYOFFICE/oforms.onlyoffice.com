@@ -74,7 +74,7 @@ const mobileStyledMainInfo = css`
         }
         
     }
-}
+
 
       button {
         height: 48px;
@@ -113,7 +113,6 @@ const mobileStyledMainInfo = css`
     font-size: 14px;
     line-height: 26px;
   }
-  /** */
 `;
 
 const tabletStyledMainInfo = css`
@@ -291,17 +290,6 @@ const StyledMainInfo = styled(Section)`
 
     .file-main-iconbuttons {
       gap: 16px;
-
-      .share-iconbuttons {
-        background: #ffffff;
-        border-radius: 3px;
-        padding: 8px;
-        filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.2));
-
-        &.mail {
-          padding: 12px 6px 12px 10px;
-        }
-      }
     }
   }
 

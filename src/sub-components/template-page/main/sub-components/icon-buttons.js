@@ -19,6 +19,11 @@ display: flex;
 flex-direction: column;
 align-content: center;
 justify-content: center;
+filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.2));
+
+&:hover{
+    filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.2));
+}
 `;
 
 const ShareButtonsGroup = ({ t, name, baseURL }) => {
