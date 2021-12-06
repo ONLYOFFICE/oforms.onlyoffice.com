@@ -25,68 +25,25 @@ const Menu = ({
         if (typeof window !== windowCheck) {
             setWindowCheck(window.innerWidth < 1050);
         }
-    }, []);
+    }, [windowCheck]);
 
     const [stateMobile, setStateMobile] = useState(false);
     const toggleMobile = () => {
         setStateMobile(!stateMobile)
     };
 
-    /////////
-    // const useComponentVisible = (initialIsVisible) => {
-    //     const [isComponentVisible, setIsComponentVisible] = useState(
-    //         initialIsVisible
-    //     );
-    //     const ref = useRef(null);
-
-    //     const handleHideDropdown = (event) => {
-    //         if (event.key === "Escape") {
-    //             setIsComponentVisible(false);
-    //         }
-    //     };
-
-    //     const handleClickOutside = event => {
-    //         if (ref.current && !ref.current.contains(event.target)) {
-    //             setIsComponentVisible(false);
-    //         }
-    //     };
-
-    //     useEffect(() => {
-    //         document.addEventListener("keydown", handleHideDropdown, true);
-    //         document.addEventListener("click", handleClickOutside, true);
-    //         return () => {
-    //             document.removeEventListener("keydown", handleHideDropdown, true);
-    //             document.removeEventListener("click", handleClickOutside, true);
-    //         };
-    //     });
-
-    //     return { ref, isComponentVisible, setIsComponentVisible };
-    // }
-
-    // const {
-    //     ref,
-    //     isComponentVisible,
-    //     setIsComponentVisible
-    // } = useComponentVisible(true);
-
-    // const onClickMobileMenu = () => {
-    //     setIsComponentVisible(true);
-    //     toggleMobile();
-    // };
-
     const onCloseMenu = () => {
         setStateMobile(false)
-    }
+    };
 
-
-    ///////////////////
+    const NavTemplateClassName = template ? "nav-item-links dark" : "nav-item-links";
     return (
         <StyledMenu template={template} className="navbar" {...rest}>
             <InternalLink className="nav-item-logo" href="/">
                 <ReactSVG src={template ? LogoBlack : LogoWhite} className="nav-logo" />
             </InternalLink>
-            <ReactSVG src={MobileMenu} className="nav-items-mobile" onClick={toggleMobile}/>         
-            <Nav className={template ? "nav-item-links dark" : "nav-item-links"} stateMobile={stateMobile} t={t} onMouseLeave={onCloseMenu} />        
+            <ReactSVG src={MobileMenu} className="nav-items-mobile" onClick={toggleMobile} />
+            <Nav className={NavTemplateClassName} stateMobilePND={stateMobile} t={t} onMouseLeave={onCloseMenu} />
             <div className="nav-item-lng">
                 {!windowCheck &&
                     <Link className="nav-item-tel" href="tel:+371 660 164 25">+371 660 164 25</Link>

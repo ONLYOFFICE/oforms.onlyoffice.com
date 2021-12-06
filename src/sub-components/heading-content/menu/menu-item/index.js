@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Heading from "../../../../../components/heading";
 import Link from "../../../../../components/link";
@@ -27,14 +27,12 @@ const MenuItem = ({
         setShowMobileMenu(!showMobileMenu);
     };
 
-    // useEffect(() => {
-    //     if (window.innerWidth < 1050) {
-    //         setShowMenu(false);
-    //         toggleMenu();
-    //     } 
-    // }, []);
-
-    //onMouseLeave={handleLeaveMenu}   41
+    useEffect(() => {
+        if (window.innerWidth < 1050) {
+            setShowMenu(false);
+            // toggleMenu();
+        }
+    }, []);
 
     const windowCheck = typeof window !== 'undefined' && window.innerWidth < 1050;
 
@@ -55,14 +53,14 @@ const MenuItem = ({
                             onClick={toggleMenu}
                         />
                     }
-                        {children}
+                    {children}
                 </StyledMenuItemsWrapper>
-                }
-                {windowCheck &&
-                    <Box className="phone_wrapper">
-                        <Link className="nav-item-mobile-tel" href="tel:+371 660 164 25">+371 660 164 25</Link>
-                    </Box>
-                }
+            }
+            {windowCheck &&
+                <Box className="phone_wrapper">
+                    <Link className="nav-item-mobile-tel" href="tel:+371 660 164 25">+371 660 164 25</Link>
+                </Box>
+            }
         </StyledNavMenu>
     );
 };

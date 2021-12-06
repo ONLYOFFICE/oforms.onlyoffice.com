@@ -10,12 +10,12 @@ import Box from "./box";
 const Nav = ({
     onClick,
     t,
-    stateMobile,
+    stateMobilePND,
     ...rest
 }) => {
 
     return (
-        <StyledNav {...rest} stateMobile={stateMobile} >
+        <StyledNav {...rest} stateMobile={stateMobilePND}>
             <MenuItem heading="Products & Features" id="navitem_features">
                 <Box className="menu_wrapper">
                 <Box className="outer-box with_border">
@@ -81,7 +81,7 @@ const Nav = ({
                     </Box>
                     <Box className="outer-box">
                         <Link id="navitem_integration_for_developers" className="dropdown-item" href="/developer-edition.aspx">For developers</Link>
-                        <Box id="for_developers_div" class="menu_pic_div">
+                        <Box id="for_developers_div" className="menu_pic_div">
                             <div id="for_developers_img" className="menu_pic_img"></div>
                             <p id="for_developers_header" className="menu_pic_header">Integrate ONLYOFFICE Docs to bring document editing to your app users</p>
                         </Box>
@@ -133,7 +133,7 @@ const Nav = ({
                             <Link id="navitem_download_onpremises" href="/download-workspace.aspx" className="nav_2nd_menu_link">Install on-premises</Link>
                         </Box>
                         <Link className="dropdown-item" id="navitem_download_desktop" href="download-desktop.aspx">ONLYOFFICE desktop and mobile apps</Link>
-                        <Link id="navitem_download_products" className="dropdown-item" id="navitem_download_products" href="download.aspx">Other products</Link>
+                        <Link id="navitem_download_products" className="dropdown-item" href="download.aspx">Other products</Link>
                     </Box>
                     <Box className="outer-box">
                         <Link id="navitem_download_compare" className="dropdown-item" href="/compare-editions.aspx">Compare editions</Link>
