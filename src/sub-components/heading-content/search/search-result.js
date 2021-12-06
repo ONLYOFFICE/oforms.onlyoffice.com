@@ -4,7 +4,6 @@ import StyledResultSearch from "./styled-result";
 
 import Link from "../../../../components/internal-link";
 import Text from "../../../../components/text";
-import Box from "../../../../components/box";
 
 const SearchResult = ({
     onMouseLeaveSearchResult,
@@ -12,6 +11,7 @@ const SearchResult = ({
     resultItems,
     searchItem
 }) => {
+
     const resultSearchArray = resultItems ? resultItems : [];
     const lengthResultSearchArray = resultSearchArray.slice(0, 3);
 
@@ -24,9 +24,9 @@ const SearchResult = ({
                             lengthResultSearchArray.length !== 0 ?
                                 lengthResultSearchArray.map(({ name }, id) => {
                                     const href = name.replace(/\s/g, "-").replace(/[{()}]/g, '').toLowerCase();
-                                    return (<Link label={name} href={href} key={`key-item-${id}`} />);
+                                    return (<Link className="item-result-search" label={name} href={href} key={`key-item-${id}`} />);
                                 })
-                                : <Text>No more results...</Text>
+                                : <Text className="item-result-search text-def" label="No more results..." />
                         }
                     </div>
                 </StyledResultSearch>

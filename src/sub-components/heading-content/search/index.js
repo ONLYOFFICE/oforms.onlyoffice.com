@@ -40,7 +40,6 @@ const SearchContent = ({ t }) => {
     searchFilter();
   }, [searchItem]);
 
-
   const onSearch = (e) => {
     setSearchItem(e.target.value);
   };
