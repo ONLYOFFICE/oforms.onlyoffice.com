@@ -24,7 +24,6 @@ const InternalLink = ({
     >
       <Link
         as="span"
-        {...rest}
         className={linkClassName}
         tabIndex={tabIndex}
         {...rest}
