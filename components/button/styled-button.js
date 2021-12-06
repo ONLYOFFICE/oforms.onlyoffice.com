@@ -109,6 +109,9 @@ const StyledButton = styled.button`
     display: inline-block;
     vertical-align: middle;
   }
+  @media (max-width: 600px) {
+    height: 48px;
+}
 `;
 
 StyledButton.defaultProps = { theme: Base };

@@ -13,10 +13,14 @@ const StyledInput = styled.div`
     font-size: ${(props) => props.theme.textInput.label.fontSize};
     left: ${(props) => props.theme.textInput.label.left};
     color: ${(props) =>
+      props.colorHover ||
       (props.defaultInput && props.theme.textInput.backgroundColor) ||
       (props.isSuccess && props.theme.textInput.borderColorSuccess) ||
       (props.isError && props.theme.textInput.borderColorError) ||
       props.theme.textInput.label.colorHover};
+  }
+  input:hover:not(:focus) + label {
+    color: ${(props) => props.colorHover || "initial"};
   }
 
   input:-webkit-autofill,

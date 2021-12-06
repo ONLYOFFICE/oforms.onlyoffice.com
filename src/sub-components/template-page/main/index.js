@@ -13,7 +13,7 @@ import Box from "../../../../components/box";
 import StyledMainInfo from "./styled-main";
 
 import Breadcrumb from "./sub-components/breadcrumb";
-import ShareButton from "./sub-components/icon-buttons";
+import ShareButtonsGroup from "./sub-components/icon-buttons";
 import Image from "./sub-components/image";
 
 import Oform from "../../../../static/icons/oform.svg";
@@ -57,6 +57,9 @@ const MainInfo = ({
 
     //TO DO DEL LINK
     const LINK = `https://nct.onlyoffice.com/Products/Files/DocEditor.aspx?fileid=45424&doc=N25yVTc2R1NMdEZUa0VDc2VDTklwdnNVUE5jUml0WndQNnV3Q3pLTGRFcz0_IjQ1NDI0Ig2`;
+
+
+    const baseURL = typeof window !== "undefined" ? window.location.href : null;
 
     return (
         <StyledMainInfo
@@ -114,14 +117,9 @@ const MainInfo = ({
                     <a href={LINK} style={{ width: "100%" }}>
                         <Button isScale label={t("Open and Fill")} />
                     </a>
-                    <ButtonSelector isScale array={array} defaultVal={t("Download as")} />
+                    <ButtonSelector isScale array={array} defaultVal={t("Download as")} className="file-download-button" />
                 </Box>
-                <Box className="file-main-iconbuttons">
-                    <Text isBold color="#AAAAAA">{t("Share")}: </Text>
-                    <ShareButton iconName="/images/social-icons/twitter.react.svg" />
-                    <ShareButton iconName="/images/social-icons/mail.react.svg" />
-                    <ShareButton iconName="/images/social-icons/linkedin.react.svg" />
-                </Box>
+                <ShareButtonsGroup name={name} baseURL={baseURL} t={t} />
             </div>
         </StyledMainInfo>
     );
