@@ -8,7 +8,7 @@ const {
   grayLight,
   grayTextInput,
   orangeMain,
-  orangeHover
+  orangeHover,
 } = globalColors;
 
 const Base = {
@@ -116,7 +116,7 @@ const Base = {
       colorHover: gray,
       padding: "0 15px",
       left: "2px",
-      top: "8px",
+      top: "0px",
       fontSize: "12px",
     },
 
@@ -160,8 +160,8 @@ const Base = {
 
     mobile: {
       height: "48px",
-      width: "100%"
-    }
+      width: "100%",
+    },
   },
 
   separator: {
@@ -193,9 +193,8 @@ const Base = {
     alignItems: "center",
     flexWrap: "nowrap",
     flexDirection: "row",
-    alignContent: "flex-start"
+    alignContent: "flex-start",
   },
-
 };
 
 export default Base;

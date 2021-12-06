@@ -1,6 +1,8 @@
 {
     "About": "About",
     "FAQ": "FAQ",
+    "SearchIputPlaceholder": "Search name form, type, industry",
+    "SearchMobilePlaceholder": "Search",
     "AccordionHeadingFreeToUse": "Are ONLYOFFICE forms free to use?",
     "AccordionDescriptionFreeToUse": "ONLYOFFICE templates are absolutely free to use.",
     "AccordionHeadingNeedToRegister": "Do I need to register to fill out a form?",

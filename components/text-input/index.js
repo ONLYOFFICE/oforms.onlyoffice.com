@@ -12,6 +12,8 @@ const TextInput = ({
   id,
   type,
   placeholder,
+  labelColor,
+  colorHover,
   onChange,
   defaultInput,
   isDisabled,
@@ -49,7 +51,7 @@ const TextInput = ({
 
   return (
     <StyleGroupInput>
-      <StyledInput {...rest}>
+      <StyledInput labelColor={labelColor} colorHover={colorHover} {...rest}>
         <StyledTextInput
           type={type}
           className={className}
@@ -74,6 +76,7 @@ const TextInput = ({
           isSuccess={isSuccess}
           isError={isError}
           isEmpty={isEmpty}
+          labelColor={labelColor}
           className="input-label"
         >
           {placeholder}
@@ -120,6 +123,8 @@ TextInput.propTypes = {
   height: PropTypes.string,
   /** color text input */
   color: PropTypes.string,
+  /** color label to text input */
+  labelColor: PropTypes.string,
   /** color hover text input */
   colorHover: PropTypes.string,
   /** font-size text input */
