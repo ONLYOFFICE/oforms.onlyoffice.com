@@ -12,55 +12,47 @@ const FormBanner = ({
     labelName,
     link,
     ...rest
-}) => {    
-    const  price = labelPrice.toLowerCase();
-        return (
-            <StyledFormBanner>
-                <Box
-                    className="conteiner"                     
-                    justifyContent="space-between"
-                    alignItems="center"
-                >
-                    <Box flexDirection="column" alignItems="flex-start">
-                        <Box>
-                            <ReactSVG                                 
-                                src="/icons/pensil-icon.react.svg"
-                                height="33px"
-                                width="33px"
-                            />
-                            <Heading 
-                                className="header"
-                                fontSize="24px"
-                                fontWeight="700"
-                                level="3"
-                            >
-                                {t("How to create a")} <Text as="span" color="#FF6F3D" fontSize="24px" fontWeight="700">{t(`${price}`)}</Text> {t(`${labelName} with ONLYOFFICE`)}
-                            </Heading>
-                        </Box>
-                       
-                        <ol className="item_list">
-                            <li className="item"><Text as="p" className="item_text"> {t("Click")}</Text><Text as="p" fontWeight="bold" className="item_text"> {t("Fill Out")}</Text><Text as="p" className="item_text"> {t("to launch the form editor online")} </Text></li>
-                            <li className="item"><Text as="p" className="item_text"> {t("Fill in the necessary information in the empty fields")} </Text></li>
-                            <li className="item"><Text as="p" className="item_text"> {t("Download the ready document from the editor")} </Text></li>
-                        </ol>                        
-
-                    </Box>       
-                
-                    <Box> 
-                        <Button
-                            label={t("FILL OUT")}
-                            width="164px"
-                            height="56px"
+}) => {
+    const price = labelPrice.toLowerCase();
+    return (
+        <StyledFormBanner>
+            <Box
+                className="conteiner"
+                justifyContent="space-between"
+                alignItems="center"
+            >
+                <Box flexDirection="column" alignItems="flex-start">
+                    <Box>
+                        <ReactSVG
+                            src="/icons/pensil-icon.react.svg"
+                            height="33px"
+                            width="33px"
+                        />
+                        <Heading
+                            className="header"
+                            fontSize="24px"
+                            fontWeight="700"
+                            level="3"
                         >
-
-                        </Button>
-        
+                            {t("How to create a")} <Text color="#FF6F3D" fontSize="24px" fontWeight="700">{t(`${price}`)}</Text> {t(`${labelName} with ONLYOFFICE`)}
+                        </Heading>
+                    </Box>
+                    <Box className="box-items" flexDirection="column" alignItems="flex-start">
+                        <Text className="item_text"><span style={{fontWeight: "700"}}>1.</span> {t("Click Fill Out to launch the form editor online")} </Text> 
+                        <Text className="item_text"><span style={{fontWeight: "700"}}>2.</span> {t("Fill in the necessary information in the empty fields")} </Text>
+                        <Text className="item_text"><span style={{fontWeight: "700"}}>3.</span> {t("Download the ready document from the editor")} </Text>
                     </Box>
                 </Box>
-    
-            </StyledFormBanner>
-        );
-    
+                <Button
+                    label={t("FILL OUT")}
+                    width="164px"
+                    height="56px"
+                />
+            </Box>
+
+        </StyledFormBanner>
+    );
+
 };
 
 export default FormBanner;
