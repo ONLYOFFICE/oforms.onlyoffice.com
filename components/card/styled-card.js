@@ -45,12 +45,24 @@ background-color: #F9F9F9;
     background-color: transparent;
 }
 
-@media(max-width: 768px) {
+@media(max-width: 1200px) {
     max-width: 214px;
     max-height: 552px;
     .image-template {
         max-width:212px;
     }
+}
+
+@media(max-width: 1024px) {
+    /* margin: 0 auto; */
+}
+
+@media(max-width: 500px) {
+    /* margin: 0 auto; */
+    max-width: 168px;
+    .card-template {
+        padding: 12px 12px 10px 12px;
+     }
 }
 
 @media(max-width: 425px) {
