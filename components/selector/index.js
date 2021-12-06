@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { ReactSVG } from "react-svg";
 
 import Box from "../box"
 import Text from "../text";
 
 import StyledSelector from "./syled-selector"
 
-import SVG from "../../static/icons/popup-arrow.react.svg"
+const Selector = ({
+  onChangeSelectTypeSort,
+  typeSortData,
+  t,
+  ...rest
+}) => {
 
-
-const Selector = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isNew, setIsNew] = useState('Newest - Oldest');
 
   useEffect(() => {
     typeof window !== "undefined" &&
@@ -26,46 +29,30 @@ const Selector = (props) => {
       !isOpen &&
       (!e.target.closest(".filter_selector"))) {
       onCloseSelector();
-    }
+    };
   };
 
-  const onClickHandler = (e) => {
-    e.stopPropagation();
-    if (e.target.closest(".filter-header") || e.target.closest(".arrow")) {
-      onCloseSelector();
-    }
-    if (e.target.closest(".oldest")) {
-      setIsNew("Oldest - Newest");
-      onCloseSelector();
-    }
-    if (e.target.closest(".newest")) {
-      setIsNew("Newest - Oldest");
-      onCloseSelector();
-    }
+  const onClickHandler = () => {
+    setIsOpen(!isOpen)
   };
-
 
   const onCloseSelector = () => {
-    setIsOpen(!isOpen);
+    setIsOpen(false);
   };
-
 
   return (
     <StyledSelector
       isOpen={isOpen}
-      {...props}
       onClick={onClickHandler}
+      {...rest}
     >
-      <Text label={"Sort by: "} color={"#808080"} fontSize={"13px"} fontWeight={"600"} textTransform={"uppercase"} />
-      <Text label={isNew} color={"#333333"} fontSize={"14px"} fontWeight={"600"} margin={"0px 0px 0px 8px"} cursor={"pointer"} className={"filter-header"} />
-      <Box className={"arrow "}>
-        <SVG />
+      <Text className="text-sort-set" label={t("Sort by: ")} />
+      <Text className="filter-header" label={typeSortData} />
+      <ReactSVG className="arrow" src="/icons/popup-arrow.react.svg" />
+      <Box className="filter_selector" value={typeSortData} onClick={onChangeSelectTypeSort}>
+        <Text as="option" className="filter_selector-items" value="Newest - Oldest" label={t("Newest - Oldest")} />
+        <Text as="option" className="filter_selector-items" value="Oldest - Newest" label={t("Oldest - Newes")} />
       </Box>
-      <Box className={"filter_selector "}>
-        <Box className={"newest "} >Newest - Oldest</Box>
-        <Box className={"oldest "}>Oldest - Newes</Box>
-      </Box>
-
     </StyledSelector>
   );
 };
