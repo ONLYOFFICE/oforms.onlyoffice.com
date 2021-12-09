@@ -13,8 +13,8 @@ const Label = styled.label`
     (props.isError
       ? "#CB0000"
       : props.isSuccess
-      ? "#8BB825"
-      : props.theme.textInput.placeholderColor)};
+        ? "#8BB825"
+        : props.theme.textInput.placeholderColor)};
 
   position: absolute;
   top: ${(props) =>
@@ -38,7 +38,7 @@ const Label = styled.label`
 
   @media (max-width: 592px) {
     top: ${(props) =>
-      props.defaultChecked ? props.theme.textInput.label.top : "27%"};
+    props.defaultChecked ? props.theme.textInput.label.top : "27%"};
   }
 `;
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import ExternalLink from "../../../components/link";
 import IconButton from "../../../components/icon-button";
@@ -9,6 +9,7 @@ import StyledFooter from "./styled-footer";
 import Social from "./sub-components/social-items";
 import FooterItem from "./sub-components/footer-item";
 import Items from "./sub-components/footer-items";
+import MailPopup from "./sub-components/mail-popup";
 
 const date = new Date();
 const currentYear = date.getFullYear();
@@ -20,6 +21,8 @@ const Footer = ({
 }) => {
 
     const POSITION_ELEMENTS_ITEM = [1, 2, 3];
+
+    const [modalActive, setModalActive] = useState(false)
 
     return (
         <StyledFooter
@@ -93,6 +96,7 @@ const Footer = ({
                                 rel={item.rel}
                                 target="_blank"
                                 key={item.title}
+                                onClick={(item.title == "OnlyOffice" ? () => setModalActive(true) : null)}
                             >
                                 <IconButton
                                     className={item.className}
@@ -108,6 +112,10 @@ const Footer = ({
                     <Text className="footer-copyright">{t("Ascensio System SIA")} {currentYear} {t("All rights reserved")}</Text>
                 </div>
             </div>
+            <MailPopup
+                active={modalActive}
+                setActive={setModalActive}
+            />
         </StyledFooter>
     );
 }
