@@ -9,6 +9,7 @@ import Layout from "../../components/layout";
 import HeadSEO from "../sub-components/head-content";
 import HeadingContent from "../sub-components/heading-content";
 import MainInfo from "../sub-components/template-page/main";
+import FormBanner from "../sub-components/heading-content/form-banner";
 import CarouselContent from "../sub-components/template-page/carousel";
 import AccordionContent from "../sub-components/accordion";
 import Footer from "../sub-components/footer-content";
@@ -33,6 +34,10 @@ const Template = ({
 
   const { allOformsJson } = data;
   const allCardForms = allOformsJson.nodes;
+  const allCardFormsName = MainData.name;
+  const allCardFormsPrice = MainData.type_access[0];
+
+
 
   // Carousel client data
   const maxItemsClientCardForms = 7;
@@ -98,6 +103,7 @@ const Template = ({
   const maxItemsRandomCardForms = 7;
   const randomCardForms = _randomslice(allCardForms, maxItemsRandomCardForms);
 
+
   // Main info content
 
   return (
@@ -113,11 +119,18 @@ const Template = ({
         <HeadingContent template language={language} t={t} />
       </Layout.PageHeader>
       <Layout.SectionMain>
+
         <MainInfo
           data={MainData}
           pathName={pathName}
           language={language}
           t={t}
+        />
+        <FormBanner
+          t={t}
+          labelPrice={allCardFormsPrice}
+          labelName={allCardFormsName}
+          likn={'https://nct.onlyoffice.com/Products/Files/DocEditor.aspx?fileid=45424&doc=N25yVTc2R1NMdEZUa0VDc2VDTklwdnNVUE5jUml0WndQNnV3Q3pLTGRFcz0_IjQ1NDI0Ig2'}
         />
         <CarouselContent
           data={randomCardForms}

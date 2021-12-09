@@ -1,58 +1,57 @@
 import styled from "styled-components";
 
-
-
 const StyledSelector = styled.div`
+  width: 205px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: baseline;
+  position: relative;
 
-display: inline-block;
-position: relative;
+  .filter-header {
+    color: #333333;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 0 8px;
+    cursor: pointer;
+  }
 
-.arrow{
-    display: inline-block;
-    position: absolute;
+  .text-sort-set {
+    color: #808080;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .arrow {
     margin-left: 14px;
     cursor: pointer;
-}
-.filter_selector{
+  }
+
+  .filter_selector {
     display: ${(props) => (props.isOpen ? "block" : "none")};
-    position: absolute;    
+    position: absolute;
     min-width: 100px;
     left: 80px;
-    top: 30px;  
+    top: 30px;
     padding-top: 14px;
     background-color: #fff;
     border-radius: 3px;
     padding-top: 14px;
     box-shadow: 0px 7px 25px rgb(85 85 85 / 15%);
-    
-}
-.newest{
+  }
+
+  .filter_selector-items {
     padding: 16px;
     font-size: 16px;
     cursor: pointer;
     white-space: nowrap;
-}
-.newest:hover{
+  }
+
+  .filter_selector-items:hover {
     color: #ff6f3d;
     background-color: #f5f5f5;
-}
-.oldest{
-    padding: 16px;
-    font-size: 16px;
-    cursor: pointer;
-    white-space: nowrap;
-}
-.oldest:hover{
-    color: #ff6f3d;
-    background-color: #f5f5f5;
-}
-
-
-
-
-  
+  }
 `;
-
-
 
 export default StyledSelector;

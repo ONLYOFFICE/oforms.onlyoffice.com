@@ -8,6 +8,8 @@ import StyledCards from "./styled-cards";
 const Cards = ({
     t,
     data,
+    typeSortData,
+    groupCheckboxIsOpen,
     ...rest
 }) => {
 
@@ -18,33 +20,27 @@ const Cards = ({
     const [allItemsSlice, setAllItemsSlice] = useState(ItemSliceLength);
     const [listCards, setListCards] = useState([...allItems.slice(0, 9)]);
 
+    const handlerSetItemsList = () => {
+        const tmpListSlice = [...allItems.slice(0, 9)];
+        setListCards(tmpListSlice);
+    };
+
+    const handlerSetItemsSlice = () => {
+        const tmpLength = data.length > ItemSliceLength ? ItemSliceLength : allItems.length;
+        setAllItemsSlice(tmpLength);
+    };
+
     useEffect(() => {
         setAllItems(data);
-        const tmpLength = data.length > ItemSliceLength ? ItemSliceLength : allItems.length;
-        const tmpListSlice = [...allItems.slice(0, 9)];
-        setAllItemsSlice(tmpLength);
-        setListCards(tmpListSlice);
+        handlerSetItemsSlice();
+        handlerSetItemsList();
+    }, [data, typeSortData, allItemsSlice, allItems]);
 
-        // console.log("RERENDER CHILD");
-        // console.log(allItems);
-        // console.log(allItemsSlice);
-        // console.log("RERENDER CHILD");
-
-    }, [data, allItemsSlice, allItems]);
 
     // State of whether there is more to load
     const [hasMore, setHasMore] = useState(allItems.length > allItemsSlice);
     // State to trigger load more
     const [loadMore, setLoadMore] = useState(false);
-
-    
-    // console.log("listCards RERENDER CHILD");
-    // console.log(listCards);
-    // console.log(allItemsSlice);
-    // console.log(allItems);
-    // console.log(hasMore);
-
-    // console.log("listCards RERENDER CHILD");
 
     const handleLoadMore = () => {
         setLoadMore(true);
@@ -70,8 +66,8 @@ const Cards = ({
     }, [listCards]);
 
     return (
-        <div className="tempalates-cards-items">
-            <StyledCards>
+        <div className="tempalates-cards-items" {...rest}>
+            <StyledCards groupCheckboxIsOpen={groupCheckboxIsOpen}>
                 {
                     listCards.map((it, id) =>
                         <Card key={id} arrayItems={it} />)
@@ -86,7 +82,7 @@ const Cards = ({
                     label="Load More"
                 />
             ) : (
-                <p>No more results</p>
+                <></>
             )}
         </div>
     );
