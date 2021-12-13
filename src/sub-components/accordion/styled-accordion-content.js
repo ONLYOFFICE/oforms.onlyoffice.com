@@ -12,7 +12,10 @@ const StyledAccordionContent = styled.div`
 
     .text-trans-accordion {
         vertical-align: bottom;
-        display: inline-flex;
+    }
+
+    .link-trans-acc {
+        display: block;
     }
 `;
 
