@@ -133,7 +133,7 @@ const MainContent = ({
     };
     
     const checkBoxSRC = groupCheckboxIsOpen ? "/icons/close-btn.svg" : "/icons/popup-arrow.react.svg";
-    console.log("groupCheckboxIsOpen = ", groupCheckboxIsOpen);
+
     return (
         <StyledMainContent background="#F5F5F5" groupCheckboxIsOpen={groupCheckboxIsOpen} {...rest}>
             <Heading className="heading-cards" textAlign="center" label={t("Form templates")} />

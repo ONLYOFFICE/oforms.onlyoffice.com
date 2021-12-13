@@ -5,7 +5,6 @@ position: fixed;
 top: 0px;
 left: 0;
 width: 100%;
-height: 155px;
 z-index: 1000;
 `;
 

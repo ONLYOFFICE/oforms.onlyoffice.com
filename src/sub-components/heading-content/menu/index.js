@@ -33,8 +33,10 @@ const Menu = ({
     };
 
     const onCloseMenu = () => {
-        setStateMobile(false)
+        setStateMobile(false);
     };
+
+    useEffect(() => {},[stateMobile]);
 
     const NavTemplateClassName = template ? "nav-item-links dark" : "nav-item-links";
     return (
