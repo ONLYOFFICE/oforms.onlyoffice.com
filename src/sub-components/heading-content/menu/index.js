@@ -14,7 +14,7 @@ import Nav from "./nav/nav";
 
 const Menu = ({
     t,
-    language,
+    currentLanguage,
     template,
     ...rest
 }) => {
@@ -33,8 +33,10 @@ const Menu = ({
     };
 
     const onCloseMenu = () => {
-        setStateMobile(false)
+        setStateMobile(false);
     };
+
+    useEffect(() => {},[stateMobile]);
 
     const NavTemplateClassName = template ? "nav-item-links dark" : "nav-item-links";
     return (
@@ -48,7 +50,7 @@ const Menu = ({
                 {!windowCheck &&
                     <Link className="nav-item-tel" href="tel:+371 660 164 25">+371 660 164 25</Link>
                 }
-                <LanguageSelector t={t} currentLanguage={language} />
+                <LanguageSelector t={t} currentLanguage={currentLanguage} />
             </div>
         </StyledMenu>
     );

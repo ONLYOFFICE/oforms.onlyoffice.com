@@ -41,7 +41,6 @@ const MainContent = ({
 
     const allItems = data.allOformsJson.nodes;
 
-
     // filter data state
     const [checkedItems, setCheckedItems] = useState({});
     const [filterArray, setFilterArray] = useState([]);
@@ -131,8 +130,9 @@ const MainContent = ({
     const [groupCheckboxIsOpen, setGroupCheckboxIsOpen] = useState(false);
     const handleOpenGroupCheckbox = () => {
         setGroupCheckboxIsOpen(!groupCheckboxIsOpen);
-    }
-    const checkBoxSRC = groupCheckboxIsOpen ? "/icons/close-btn.svg" : "/icons/popup-arrow.react.svg"
+    };
+    
+    const checkBoxSRC = groupCheckboxIsOpen ? "/icons/close-btn.svg" : "/icons/popup-arrow.react.svg";
 
     return (
         <StyledMainContent background="#F5F5F5" groupCheckboxIsOpen={groupCheckboxIsOpen} {...rest}>

@@ -1,21 +1,13 @@
 import React from "react";
-//import { Trans } from "gatsby-plugin-react-i18next";
 
-import { Accordion, AccordionItem } from "../../../components/accordion";
+import { AccordionItem } from "../../../components/accordion";
 
 import StyledAccordionContent from "./styled-accordion-content"
 import Section from "../section";
 import Heading from "../../../components/heading";
-import Link from "../../../components/link";
+import TransAccorionItem from "./item-accordion";
 
-const AccordionContent = ({
-    t,
-    ...rest
-}) => {
-
-    //const ONLYOFFICEDocs = t("ONLYOFFICEDocs");
-    //const ONLYOFFICEDesktopEditors = t("ONLYOFFICEDesktopEditors");
-
+const AccordionContent = ({ t }) => {
     return (
         <StyledAccordionContent>
             <Section
@@ -25,42 +17,33 @@ const AccordionContent = ({
                 mobileLPadding="48px 0 51px"
             >
                 <Heading className="titleAccordion" level={2}>{t("FAQ")}</Heading>
-                    <AccordionItem heading={t("AccordionHeadingFreeToUse")}>
-                        {t("AccordionDescriptionFreeToUse")}
-                    </AccordionItem>
-                    <AccordionItem heading={t("AccordionHeadingNeedToRegister")}>
-                        {t("AccordionDescriptionNeedToRegister")}
-                    </AccordionItem>
-                    <AccordionItem heading={t("AccordionHeadingDocsUseLocally")}>
-                        {t("AccordionDescriptionDocsUseLocally")}
-                    </AccordionItem>
-                    <AccordionItem heading={t("AccordionHeadingModifyTheForms")}>
-                        {t("AccordionDescriptionModifyTheForms")}
-                    </AccordionItem>
-                    <AccordionItem heading={t("AccordionHeadingFormatTheForms")}>
-                        {t("AccordionDescriptionFormatTheForms")}
-                    </AccordionItem>
-                    <AccordionItem heading={t("AccordionHeadingExportOtherFormats")}>
-                        {t("AccordionDescriptionExportOtherFormats")}
-                    </AccordionItem>
-                    <AccordionItem heading={t("AccordionHeadingAdditionalSoftware")}>
-                        {t("AccordionDescriptionAdditionalSoftware")}
-                        {/* <Trans
-                            i18nKey="AccordionDescriptionAdditionalSoftware"
-                            ONLYOFFICEDocs={t("ONLYOFFICEDocs")}
-                            ONLYOFFICEDesktopEditors={t("ONLYOFFICEDesktopEditors")}
-                        >
-                            You can use {{ONLYOFFICEDocs}} {{ONLYOFFICEDesktopEditors}}
-                           <Link href="#" label={ONLYOFFICEDocs} >{{ONLYOFFICEDocs}}</Link>
-                            <Link href="#" label={ONLYOFFICEDesktopEditors} >{{ONLYOFFICEDesktopEditors}}</Link> 
-                        </Trans> */}
-                    </AccordionItem>
-                    <AccordionItem heading={t("AccordionHeadingSuggestRevision")}>
-                        {t("AccordionDescriptionSuggestRevision")}
-                    </AccordionItem>
-                    <AccordionItem heading={t("AccordionHeadingFindTheTemplate")}>
-                        {t("AccordionDescriptionFindTheTemplate")}
-                    </AccordionItem>
+                <AccordionItem heading={t("AccordionHeadingFreeToUse")}>
+                    {t("AccordionDescriptionFreeToUse")}
+                </AccordionItem>
+                <AccordionItem heading={t("AccordionHeadingNeedToRegister")}>
+                    {t("AccordionDescriptionNeedToRegister")}
+                </AccordionItem>
+                <AccordionItem heading={t("AccordionHeadingDocsUseLocally")}>
+                    {t("AccordionDescriptionDocsUseLocally")}
+                </AccordionItem>
+                <AccordionItem heading={t("AccordionHeadingModifyTheForms")}>
+                    {t("AccordionDescriptionModifyTheForms")}
+                </AccordionItem>
+                <AccordionItem heading={t("AccordionHeadingFormatTheForms")}>
+                    {t("AccordionDescriptionFormatTheForms")}
+                </AccordionItem>
+                <AccordionItem heading={t("AccordionHeadingExportOtherFormats")}>
+                    {t("AccordionDescriptionExportOtherFormats")}
+                </AccordionItem>
+                <AccordionItem heading={t("AccordionHeadingAdditionalSoftware")}>
+                    <TransAccorionItem t={t} />
+                </AccordionItem>
+                <AccordionItem heading={t("AccordionHeadingSuggestRevision")}>
+                    {t("AccordionDescriptionSuggestRevision")}
+                </AccordionItem>
+                <AccordionItem heading={t("AccordionHeadingFindTheTemplate")}>
+                    {t("AccordionDescriptionFindTheTemplate")}
+                </AccordionItem>
             </Section>
         </StyledAccordionContent>
     );

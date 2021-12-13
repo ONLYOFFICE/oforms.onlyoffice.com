@@ -9,6 +9,11 @@ const StyledAccordionContent = styled.div`
             padding: 0 0 40px;
         }
     }
+
+    .text-trans-accordion {
+        vertical-align: bottom;
+        display: inline-flex;
+    }
 `;
 
 

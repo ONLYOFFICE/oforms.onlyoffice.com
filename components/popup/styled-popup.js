@@ -14,6 +14,7 @@ const StyledPopup = styled.div`
     opacity: 0;
     pointer-events: none;
     transition: 0.1s;
+    z-index: 1001;
 
     ${(props) =>
     props.active && css`

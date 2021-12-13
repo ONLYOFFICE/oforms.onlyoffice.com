@@ -116,10 +116,9 @@ const Template = ({
         />
       </Layout.PageHead>
       <Layout.PageHeader>
-        <HeadingContent template language={language} t={t} />
+        <HeadingContent template currentLanguage={language} t={t} />
       </Layout.PageHeader>
       <Layout.SectionMain>
-
         <MainInfo
           data={MainData}
           pathName={pathName}

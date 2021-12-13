@@ -27,22 +27,37 @@ const MenuItem = ({
         setShowMobileMenu(!showMobileMenu);
     };
 
+    const windowCheck = typeof window !== 'undefined' && window.innerWidth < 1050;
+
     useEffect(() => {
         if (window.innerWidth < 1050) {
             setShowMenu(false);
-            // toggleMenu();
+            //  toggleMenu();
         }
     }, []);
 
-    const windowCheck = typeof window !== 'undefined' && window.innerWidth < 1050;
+
+    // TO DO: fix handle resize
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [windowHeight, setWindowHeight] = useState(0);
+    let resizeWindow = () => {
+        setWindowWidth(window.innerWidth);
+        setWindowHeight(window.innerHeight);
+    };
+
+    useEffect(() => {
+        resizeWindow();
+        window.addEventListener("resize", resizeWindow);
+        return () => window.removeEventListener("resize", resizeWindow);
+    }, []);
 
     return (
         <StyledNavMenu className="nav-item" {...rest} onMouseLeave={handleLeaveMenu}>
             <Heading
                 className="heading-nav-item"
                 label={heading}
-                onMouseEnter={handleHoverMenu}
                 onClick={toggleMenu}
+                onMouseEnter={handleHoverMenu}
             />
             {(windowCheck ? showMobileMenu : showMenu) &&
                 <StyledMenuItemsWrapper isOpen={showMobileMenu} className="menu-items-wrapper">

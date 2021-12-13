@@ -139,32 +139,32 @@ const StyledMainContent = styled(Section)`
       grid-row-start: 2;
     }
     .idk-box-template {
+      grid-template-columns: auto;
       .box-doc-info-template {
         grid-column-start: 1;
         grid-column-end: 1;
       }
+      ${(props) =>
+        props.groupCheckboxIsOpen
+          ? css`
+              .tempalates-cards-items {
+                grid-row-start: 2;
+                grid-column-start: auto;
+                grid-column-end: auto;
+              }
+            `
+          : css`
+              .checkbox-card-group {
+                display: none;
+              }
+              .tempalates-cards-items {
+                grid-row-start: auto;
+                max-width: 100%;
+                grid-column-start: auto;
+                grid-column-end: auto;
+              }
+            `}
     }
-
-    ${(props) =>
-      props.groupCheckboxIsOpen
-        ? css`
-            .tempalates-cards-items {
-              grid-row-start: 2;
-              grid-column-start: auto;
-              grid-column-end: auto;
-            }
-          `
-        : css`
-            .checkbox-card-group {
-              display: none;
-            }
-            .tempalates-cards-items {
-              grid-row-start: auto;
-              max-width: 100%;
-              grid-column-start: auto;
-              grid-column-end: auto;
-            }
-          `}
   }
 
   @media (max-width: 700px) {
