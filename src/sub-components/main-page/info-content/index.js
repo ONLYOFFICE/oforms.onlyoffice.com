@@ -4,6 +4,7 @@ import Scrollbar from "../../../../components/scrollbar";
 import Heading from "../../../../components/heading";
 import Text from "../../../../components/text";
 import Box from "../../../../components/box";
+import Banner from "../banner-cards";
 
 import StyledInfoContent from "./styled-content";
 import ShortCard from "./short-card";
@@ -51,6 +52,7 @@ const InfoContent = ({
                     }
                 </Scrollbar>
             </Box>
+            <Banner t={t} />
         </StyledInfoContent>
     );
 };
