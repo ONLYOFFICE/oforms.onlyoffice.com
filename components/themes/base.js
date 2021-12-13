@@ -195,6 +195,13 @@ const Base = {
     flexDirection: "row",
     alignContent: "flex-start",
   },
+
+  form: {
+    border: `1px solid ${grayLight}`,
+    borderRadius: "5px",
+    boxShadow: "0px 20px 50px rgb(85 85 85 / 15%)",
+    padding: "24px 32px 44px 32px",
+  },
 };
 
 export default Base;

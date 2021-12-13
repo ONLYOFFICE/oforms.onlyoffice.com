@@ -1,6 +1,5 @@
 const Social = [
   {
-    href: "mailto:",
     className: "OnlyOffice",
     title: "OnlyOffice",
     target: "_blank",

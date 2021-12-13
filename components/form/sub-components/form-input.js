@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import TextInput from "../../text-input";
 import EmailInput from "../../email-input";
-import PasswordInput from "../../password-input";
 
 const FormTextInput = (props) => {
   const { item, isPanel } = props;
@@ -28,9 +27,8 @@ const FormTextInput = (props) => {
       : setWidthButton(false);
   };
 
-  const classNameButton = `button-in-input ${
-    item.isSubmit ? "in-input-submit-btn" : ""
-  }`;
+  const classNameButton = `button-in-input ${item.isSubmit ? "in-input-submit-btn" : ""
+    }`;
 
   switch (inputType) {
     case "text":
@@ -49,18 +47,6 @@ const FormTextInput = (props) => {
       return (
         <EmailInput
           className="form-input form-email"
-          {...rest}
-          buttonClick={buttonClick}
-          classNameButton={classNameButton}
-          withButton={withButtonCheck}
-          onChange={callback}
-          backgroundColor={isPanel && "#f9f9f9"}
-        />
-      );
-    case "password":
-      return (
-        <PasswordInput
-          className="form-input form-password"
           {...rest}
           buttonClick={buttonClick}
           classNameButton={classNameButton}
