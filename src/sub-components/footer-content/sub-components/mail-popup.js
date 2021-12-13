@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { StyledMailForm, CloseButton, StyledMailPopup } from "./styled-mail-popup";
 import Text from "../../../../components/text";
 import Portal from "../../../../components/portal";
-import TextInput from "../../../../components/text-input";
 import Button from "../../../../components/button";
 
+// TO DO: fix submit form
 const MailPopup = ({
     t,
     language,
@@ -14,13 +14,13 @@ const MailPopup = ({
     submitForm,
     ...rest
 }) => {
+    const [formComplete, setFormComplete] = useState(false);
 
     const [nameValue, setNameValue] = useState("");
     const [nameIsValid, setNameIsValid] = useState(true);
     const [nameIsEmpty, setNameIsEmpty] = useState(true);
     const [nameIsIncorrect, setNameIsIncorrect] = useState(true);
     const [errorTextInput, setErrorTextInput] = useState(null);
-
 
     const [emailValue, setEmailValue] = useState("");
     const [emailIsValid, setEmailIsValid] = useState(true);
@@ -45,8 +45,6 @@ const MailPopup = ({
         setEmailIsValid(isValid);
         setEmailIsExist(false);
     };
-
-
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
@@ -84,6 +82,59 @@ const MailPopup = ({
         if (hasError) return false;
     };
 
+    const FormData = [
+        {
+            type: "heading",
+            headingText: "Don't Miss an Update!",
+            isHeader: true,
+        },
+        {
+            type: "other",
+            element: <Text className="captchaDescription">Get the latest ONLYOFFICE news delivered to your inbox</Text>
+        },
+        {
+            type: "input",
+            inputType: "text",
+            placeholder: "First name",
+            callback: onTextChangeHandler,
+            value: nameValue,
+            isError: (!nameIsEmpty),
+            errorText: errorTextInput,
+            height: "36px",
+            tabIndexProp: 0,
+        },
+        {
+            type: "other",
+            element: ({ errorTextInput } ? <Text height="12px" className="errorNameText">{errorTextInput}</Text> : null)
+        },
+        {
+            type: "input",
+            inputType: "email",
+            placeholder: "Your email",
+            callback: onEmailChangeHandler,
+            isError:
+                (emailIsEmpty && !emailIsValid) ||
+                (emailIsIncorrect && !emailIsValid) ||
+                emailIsExist,
+            value: emailValue,
+            tabIndexProp: 0,
+            height: "36px",
+
+        },
+        {
+            type: "other",
+            element: ({ errorMailInput } ? <Text height="12px" className="errorMailText">{errorMailInput}</Text> : null)
+        },
+        {
+            type: "button",
+            typeButton: "primary",
+            isSubmit: true,
+            toHideButton: false,
+            label: "Subscribe",
+            buttonClick: onSubmitHandler,
+        },
+    ];
+
     return (
         <Portal>
             <StyledMailPopup
@@ -99,104 +150,25 @@ const MailPopup = ({
                         {/* Don't Miss an Update! */}
                         <CloseButton onClick={() => setActive(false)} />
                     </Text>
-                    <div className="dataForm">
+                    {!formComplete ?
                         <StyledMailForm
+                            className="dataForm"
                             onSubmit={onSubmitHandler}
                             onKeyDown={onKeyDownHandler}
-                            formData={[
-                                {
-                                    type: "heading",
-                                    headingText: "Don't Miss an Update!",
-                                    isHeader: true,
-                                },
-                                {
-                                    type: "other",
-                                    element: <Text className="captchaDescription">Get the latest ONLYOFFICE news delivered to your inbox</Text>
-                                },
-                                {
-                                    type: "input",
-                                    inputType: "text",
-                                    placeholder: "First name",
-                                    callback: onTextChangeHandler,
-                                    value: nameValue,
-                                    isError: (!nameIsEmpty),
-                                    errorText: errorTextInput,
-                                    height: "36px",
-                                    tabIndexProp: 0,
-                                },
-                                {
-                                    type: "other",
-                                    element: ({ errorTextInput } ? <Text height="12px" className="errorNameText">{errorTextInput}</Text> : null)
-                                },
-                                {
-                                    type: "input",
-                                    inputType: "email",
-                                    placeholder: "Your email",
-                                    callback: onEmailChangeHandler,
-                                    isError:
-                                        (emailIsEmpty && !emailIsValid) ||
-                                        (emailIsIncorrect && !emailIsValid) ||
-                                        emailIsExist,
-                                    value: emailValue,
-                                    tabIndexProp: 0,
-                                    height: "36px",
-
-                                },
-                                {
-                                    type: "other",
-                                    element: ({ errorMailInput } ? <Text height="12px" className="errorMailText">{errorMailInput}</Text> : null)
-                                },
-                                {
-                                    type: "button",
-                                    typeButton: "primary",
-                                    isSubmit: true,
-                                    toHideButton: false,
-                                    label: "Subscribe",
-                                    buttonClick: onSubmitHandler,
-                                },
-                            ]}
+                            formData={FormData}
                         />
-
-                        {/* <Text className="captchaDescription">Get the latest ONLYOFFICE news delivered to your inbox</Text>
-                        <div className="dataItem">
-                            <TextInput
-                                value={value}
-                                onChange={(event) => isValue(event.target.value)}
-                                placeholder="First name"
-                                tabIndex="1"
-                                type="text"
-                            />
-                            <div id="firstNameErrorMessage" className="dataFormError">First name is empty.</div>
-                        </div>
-                        <div className="dataItem">
-                            <TextInput
-                                value={value}
-                                onChange={(event) => isValue(event.target.value)}
-                                placeholder="Your email"
-                                tabIndex="2"
-                                type="text"
-                            />
-                            <div id="emailErrorMessage" className="dataFormError">Email is empty.</div>
-                        </div>
-                        <div className="progressPanel">
+                        :
+                        <div className="success">
+                            <div className="captchaDescription">We sent an email message with confirmation to your email address.</div>
                             <Button
-                                typeButton="primary"
+                                typeButton="secondary"
                                 type="submit"
-                                className="button red"
-                                id="subscriptionFinishButton"
-                                label="Subscribe"
-                                onclick="SendSubscriptionFunction(); return false;" />
-                        </div> */}
-                    </div>
-                    <div className="success">
-                        <div className="captchaDescription">We sent an email message with confirmation to your email address.</div>
-                        <Button
-                            typeButton="secondary"
-                            type="submit"
-                            className="button gray"
-                            label="OK"
-                            onclick="CloseSubscriptionsDialog(); return false;" />
-                    </div>
+                                className="button gray"
+                                label="OK"
+                                onClick={() => setActive(false)}
+                            />
+                        </div>
+                    }
                 </div>
             </StyledMailPopup>
         </Portal>

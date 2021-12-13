@@ -22,12 +22,13 @@ const Footer = ({
 
     const POSITION_ELEMENTS_ITEM = [1, 2, 3];
 
-    const [modalActive, setModalActive] = useState(false)
+    const [modalActive, setModalActive] = useState(false);
+    const handlerSetModal = (active) => {
+        setModalActive(active);
+    };
 
     return (
-        <StyledFooter
-            {...rest}
-        >
+        <StyledFooter {...rest}>
             {
                 POSITION_ELEMENTS_ITEM.map((elements_in_div, id) =>
                     <div className="footer-item-group" key={id}>
@@ -67,21 +68,21 @@ const Footer = ({
                         &nbsp;
                         <ExternalLink className="footer-link-contact"
                             label="sales@onlyoffice.com"
-                            herf=""
+                            herf="mailto:sales@onlyoffice.com"
                         />
                     </Text>
                     <Text className="contact-text">{t("Sales Questions")}
                         &nbsp;
                         <ExternalLink className="footer-link-contact"
                             label="partners@onlyoffice.com"
-                            herf=""
+                            herf="mailto:partners@onlyoffice.com"
                         />
                     </Text>
                     <Text className="contact-text">{t("Press Inquiries")}
                         &nbsp;
                         <ExternalLink className="footer-link-contact"
                             label="press@onlyoffice.com"
-                            herf=""
+                            herf="mailto:press@onlyoffice.com"
                         />
                     </Text>
                     <Text className="contact-text" label={t("Request a Call")} />
@@ -96,7 +97,7 @@ const Footer = ({
                                 rel={item.rel}
                                 target="_blank"
                                 key={item.title}
-                                onClick={(item.title == "OnlyOffice" ? () => setModalActive(true) : null)}
+                                onClick={(item.title == "OnlyOffice" ? () => handlerSetModal(true) : null)}
                             >
                                 <IconButton
                                     className={item.className}
@@ -112,10 +113,7 @@ const Footer = ({
                     <Text className="footer-copyright">{t("Ascensio System SIA")} {currentYear} {t("All rights reserved")}</Text>
                 </div>
             </div>
-            <MailPopup
-                active={modalActive}
-                setActive={setModalActive}
-            />
+            <MailPopup active={modalActive} setActive={setModalActive} />
         </StyledFooter>
     );
 }

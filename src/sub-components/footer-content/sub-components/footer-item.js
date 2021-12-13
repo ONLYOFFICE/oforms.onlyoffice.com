@@ -33,9 +33,8 @@ const FooterItem = ({
                 className="footer-item-heading"
                 level={6}
                 onClick={dis && onHandleClick}
-            >
-                {heading}
-            </Heading>
+                label={heading}
+            />
             <ReactSVG
                 className={"footer-item-heading-arrow " + (isOpen ? "up" : "")}
                 src="/icons/chevron-down.react.svg"

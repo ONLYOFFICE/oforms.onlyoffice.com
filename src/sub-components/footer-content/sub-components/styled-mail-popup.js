@@ -38,18 +38,18 @@ const StyledMailPopup = styled.div`
         }
         .dataForm {
             padding: 0 140px 0;
-
+/* 
             label{
                 transition: none;
             }
 
             input:focus + label {
                 opacity: 0;
-            }
+            } */
         }
 
         .success {
-            display: none;
+            /* display: none; */
             margin: 0 auto;
             text-align: left;
             width: 367px;
