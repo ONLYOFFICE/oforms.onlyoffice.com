@@ -7,7 +7,6 @@ import HeadSEO from "../sub-components/head-content";
 import HeadingContent from "../sub-components/heading-content";
 import InfoContent from "../sub-components/main-page/info-content";
 import MainContent from "../sub-components/main-page/main-content";
-import Banner from "../sub-components/main-page/banner-cards";
 import Accordion from "../sub-components/accordion";
 import Footer from "../sub-components/footer-content";
 
@@ -28,7 +27,6 @@ const IndexPage = () => {
       <Layout.SectionMain>
         <InfoContent t={t} />
         <MainContent t={t} />
-        <Banner t={t} />
         <Accordion t={t} />
       </Layout.SectionMain>
       <Layout.PageFooter>
