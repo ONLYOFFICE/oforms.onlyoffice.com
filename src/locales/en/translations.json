@@ -15,7 +15,7 @@
     "AccordionDescriptionFormatTheForms": "All forms are stored in .OFORM format. Read the format specification.",
     "AccordionHeadingExportOtherFormats": "Can I export the filled forms into other formats?",
     "AccordionDescriptionExportOtherFormats": "Yes, you can export your documents in DOCX and PDF.",
-    "AccordionHeadingAdditionalSoftware ": "Do I need additional software to work with ONLYOFFICE forms?",
+    "AccordionHeadingAdditionalSoftware": "Do I need additional software to work with ONLYOFFICE forms?",
     "AccordionDescriptionAdditionalSoftware": "You can use <1>{{ONLYOFFICEDocs}}</1> or free <2>{{ONLYOFFICEDesktopEditors}}</2> to work with the forms.",
     "ONLYOFFICEDocs": "ONLYOFFICE Docs",
     "ONLYOFFICEDesktopEditors": "ONLYOFFICE Desktop Editors",

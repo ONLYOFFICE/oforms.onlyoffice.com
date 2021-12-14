@@ -16,8 +16,8 @@ const TransAccorionItem = ({ t }) => {
                 ONLYOFFICEDesktopEditors={t("ONLYOFFICEDesktopEditors")}
             >
                 You can use
-                <Link href="/">{{ ONLYOFFICEDocs }}</Link>
-                <Link href="/">{{ ONLYOFFICEDesktopEditors }}</Link>
+                <Link className="link-trans-acc" href="/">{{ ONLYOFFICEDocs }}</Link>
+                <Link className="link-trans-acc" href="/">{{ ONLYOFFICEDesktopEditors }}</Link>
             </Trans>
         </Text>
     );
