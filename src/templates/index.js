@@ -14,12 +14,7 @@ import CarouselContent from "../sub-components/template-page/carousel";
 import AccordionContent from "../sub-components/accordion";
 import Footer from "../sub-components/footer-content";
 
-const Template = ({
-  data,
-  pageContext,
-  ...rest
-}) => {
-
+const Template = ({ data, pageContext, ...rest }) => {
   const {
     t,
     i18n: { language },
@@ -35,17 +30,19 @@ const Template = ({
   const { allOformsJson } = data;
   const allCardForms = allOformsJson.nodes;
   const allCardFormsName = MainData.name;
-  const allCardFormsPrice = MainData.type_access[0];
-
-
+  const allCardFormsPrice = MainData.file_type_access;
 
   // Carousel client data
   const maxItemsClientCardForms = 7;
   // Retrieves the string and converts it to a JavaScript object
   const localStorageTmp = MainData;
-  const retrievedString = typeof window !== "undefined" ? localStorage.getItem(nameLocalStorage) : undefined;
+  const retrievedString =
+    typeof window !== "undefined"
+      ? localStorage.getItem(nameLocalStorage)
+      : undefined;
 
-  const parsedObjectLocalStorage = retrievedString !== undefined ? JSON.parse(retrievedString) : [];
+  const parsedObjectLocalStorage =
+    retrievedString !== undefined ? JSON.parse(retrievedString) : [];
   const [itemsClient, setItemsClient] = useState(parsedObjectLocalStorage);
   const [stateConfig, setConfig] = useState(cardCarouselSettings);
 
@@ -103,7 +100,6 @@ const Template = ({
   const maxItemsRandomCardForms = 7;
   const randomCardForms = _randomslice(allCardForms, maxItemsRandomCardForms);
 
-
   // Main info content
 
   return (
@@ -129,7 +125,9 @@ const Template = ({
           t={t}
           labelPrice={allCardFormsPrice}
           labelName={allCardFormsName}
-          likn={'https://nct.onlyoffice.com/Products/Files/DocEditor.aspx?fileid=45424&doc=N25yVTc2R1NMdEZUa0VDc2VDTklwdnNVUE5jUml0WndQNnV3Q3pLTGRFcz0_IjQ1NDI0Ig2'}
+          likn={
+            "https://nct.onlyoffice.com/Products/Files/DocEditor.aspx?fileid=45424&doc=N25yVTc2R1NMdEZUa0VDc2VDTklwdnNVUE5jUml0WndQNnV3Q3pLTGRFcz0_IjQ1NDI0Ig2"
+          }
         />
         <CarouselContent
           data={randomCardForms}
@@ -169,14 +167,14 @@ export const query = graphql`
     allOformsJson {
       totalCount
       nodes {
-        categories
-        last_update
-        description
-        id
-        image_src
+        file_categories
+        file_last_update
+        file_description
+        file_formats_download
+        file_country_access
+        file_image
+        link_oform_filling_file
         name
-        link_dwn
-        link_redactor
       }
     }
   }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ReactSVG } from "react-svg";
 
 import Config from "../../../../config.json";
+import DocEditor from "../../../api/docEditor";
 
 import Link from "../../../../components/link";
 import Button from "../../../../components/button";
@@ -19,110 +20,120 @@ import Image from "./sub-components/image";
 import Oform from "../../../../static/icons/oform.svg";
 
 // TO DO: simplifying
-const MainInfo = ({
-    t,
-    language,
-    data,
-    pathName,
-    ...rest
-}) => {
+const MainInfo = ({ t, language, data, pathName, ...rest }) => {
+  const DWN = `/static/08679248ecde06598a96a895bc766a78/ONLYOFFICE_Sample_Document.docx`;
 
-    const DWN = `/static/08679248ecde06598a96a895bc766a78/ONLYOFFICE_Sample_Document.docx`;
+  const array = [
+    { title: "Download as DOCXF", href: DWN },
+    { title: "Download as OFORM", href: DWN },
+  ];
 
-    const array = [
-        { title: "Download as DOCXF", href: DWN },
-        { title: "Download as OFORM", href: DWN },
-    ]
+  const [typeFile, setTypeFile] = useState(0);
+  const onChangeFile = () => {
+    setTypeFile();
+  };
 
-    const [typeFile, setTypeFile] = useState(0);
-    const onChangeFile = () => {
-        setTypeFile()
-    }
+  const [oformFill, setOformFill] = useState(false);
+  const onClickOformFill = (e) => {
+    e.preventDefault();
+    console.log("onCLick")
+    setOformFill(true);
+  };
 
-    const {
-        categories,
-        description,
-        image_src,
-        type_access,
-        last_update,
-        name,
-        count_pages,
-        file_size,
-        file_type,
-    } = data;
+  const {
+    name,
+    file_categories,
+    file_description,
+    file_image,
+    file_type_access,
+    file_last_update,
+    file_pages,
+    file_size,
+    file_formats_download,
+    link_oform_filling_file,
+    file_link_changelog,
+  } = data;
 
-    const IMAGE_SRC = Config.IMGSRC + image_src;
-    const SVG_FILE_TYPE = typeFile ? Oform : Oform; // added docx
+  const IMAGE_SRC = Config.IMGSRC + file_image;
+  const SVG_FILE_TYPE = typeFile ? Oform : Oform; // added docx
 
+  const baseURL = typeof window !== "undefined" ? window.location.href : null;
 
-    //TO DO DEL LINK
-    const LINK = `https://nct.onlyoffice.com/Products/Files/DocEditor.aspx?fileid=45424&doc=N25yVTc2R1NMdEZUa0VDc2VDTklwdnNVUE5jUml0WndQNnV3Q3pLTGRFcz0_IjQ1NDI0Ig2`;
-
-
-    const baseURL = typeof window !== "undefined" ? window.location.href : null;
-
-    return (
-        <StyledMainInfo
-            maxWidth="1200px"
-            background="#F9F9F9"
-            {...rest}
-        >
-            <div className="template-main-info">
-                <Breadcrumb categories={categories} name={name} />
-                <Heading className="main-info-heading">{name}</Heading>
-                <Text
-                    isBold
-                    className="main-info-type-item"
-                    label={type_access[typeFile]}
-                />
-                <Box className="main-info-box">
-                    <div>
-                        <Text className="main-info-text">{t("Last update")}: </Text>
-                        <Text isBold className="main-info-text">{last_update}</Text>
-                    </div>
-                    <Link href="#">{"Suggest_chages"}</Link>
-                </Box>
+  return (
+    <>
+      <DocEditor name={name} link_oform_filling_file={link_oform_filling_file} check={oformFill} />
+      <StyledMainInfo maxWidth="1200px" background="#F9F9F9" {...rest}>
+        <div className="template-main-info">
+          <Breadcrumb categories={file_categories} name={name} />
+          <Heading className="main-info-heading" label={name} />
+          <Text
+            isBold
+            className="main-info-type-item"
+            label={file_type_access}
+          />
+          <Box className="main-info-box">
+            <div>
+              <Text className="main-info-text">{t("Last update")}: </Text>
+              <Text isBold className="main-info-text">
+                {file_last_update}
+              </Text>
             </div>
-            <div className="template-main-img">
-                <Image src={IMAGE_SRC} />
+            <Link href="#">{"Suggest_chages"}</Link>
+          </Box>
+        </div>
+        <div className="template-main-img">
+          <Image src={IMAGE_SRC} />
+        </div>
+        <div className="template-main-description">
+          <div className="file-description">
+            {file_description.map((text, id) => (
+              <Text
+                className="main-info-description"
+                label={text}
+                key={`text-description-${id}`}
+              />
+            ))}
+          </div>
+          <Box className="file-info">
+            <div style={{ display: "flex" }}>
+              <Text isBold color="#AAAAAA">
+                {t("File type")}:{" "}
+              </Text>
+              <ReactSVG
+                className="template-image-file-type"
+                src={SVG_FILE_TYPE}
+              />
+              {/* <Text isBold> {file_type[typeFile]} </Text> */}
             </div>
-            <div className="template-main-description">
-                <div className="file-description">
-                    {
-                        description.map((text, id) =>
-                            <Text
-                                className="main-info-description"
-                                label={text}
-                                key={`text-description-${id}`}
-                            />
-                        )
-                    }
-                </div>
-                <Box className="file-info">
-                    <div style={{ display: "flex" }}>
-                        <Text isBold color="#AAAAAA">{t("File type")}: </Text>
-                        <ReactSVG className="template-image-file-type" src={SVG_FILE_TYPE} />
-                        <Text isBold> {file_type[typeFile]} </Text>
-                    </div>
-                    <div>
-                        <Text isBold color="#AAAAAA">{t("File size")}: </Text>
-                        <Text isBold>{file_size[typeFile]}</Text>
-                    </div>
-                    <div>
-                        <Text isBold color="#AAAAAA">{t("Pages")}: </Text>
-                        <Text isBold>{count_pages[typeFile]}</Text>
-                    </div>
-                </Box>
-                <Box className="file-main-buttons">
-                    <a href={LINK} style={{ width: "100%" }}>
-                        <Button isScale label={t("Open and Fill")} />
-                    </a>
-                    <ButtonSelector isScale array={array} defaultVal={t("Download as")} className="file-download-button" />
-                </Box>
-                <ShareButtonsGroup name={name} baseURL={baseURL} t={t} />
+            <div>
+              <Text isBold color="#AAAAAA">
+                {t("File size")}:{" "}
+              </Text>
+              <Text isBold>{file_size}</Text>
             </div>
-        </StyledMainInfo>
-    );
+            <div>
+              <Text isBold color="#AAAAAA">
+                {t("Pages")}:{" "}
+              </Text>
+              <Text isBold>{file_pages}</Text>
+            </div>
+          </Box>
+          <Box className="file-main-buttons">
+            {/* <a href={link_oform_filling_file} style={{ width: "100%" }}> */}
+              <Button isScale label={t("Open and Fill")} onClick={onClickOformFill} />
+            {/* </a> */}
+            <ButtonSelector
+              isScale
+              array={array}
+              defaultVal={t("Download as")}
+              className="file-download-button"
+            />
+          </Box>
+          <ShareButtonsGroup name={name} baseURL={baseURL} t={t} />
+        </div>
+      </StyledMainInfo>
+    </>
+  );
 };
 
 export default MainInfo;
