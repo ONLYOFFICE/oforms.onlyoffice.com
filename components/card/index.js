@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+
+import DocEditorAPI from "../../src/api/docEditor";
 import Config from "../../config.json";
 
 import Text from "../text";
@@ -12,65 +14,77 @@ import StyledCard from "./styled-card";
 import ELink from "./sub-components/link";
 import Image from "./sub-components/image";
 
-const Card = ({
-    t,
-    arrayItems,
-    ...rest
-}) => {
+const Card = ({ t, callback, arrayItems, ...rest }) => {
+  const {
+    file_categories,
+    file_last_update,
+    file_description,
+    file_formats_download,
+    file_image,
+    name,
+    link_oform_filling_file,
+  } = arrayItems;
 
-    const {
-        categories,
-        last_update,
-        description,
-        id,
-        image_src,
-        name,
-        link_dwn,
-        link_redactor
-    } = arrayItems;
+  // Set type file to info and download
+  const [typeFile, setTypeFile] = useState(true);
+  const handleChangeTypeFile = () => {
+    setTypeFile(!typeFile);
+  };
 
-    // Set type file to info and download
-    const [typeFile, setTypeFile] = useState(true);
-    const handleChangeTypeFile = () => {
-        setTypeFile(!typeFile);
-    };
+  // TO DO: fix pathNAme
+  const pathName = `/${name
+    .replace(/\s/g, "-")
+    .replace(/[{()}]/g, "")
+    .toLowerCase()}`;
 
-    // TO DO: fix pathNAme
-    const pathName = `/${name.replace(/\s/g, "-").replace(/[{()}]/g, '').toLowerCase()}`;
+  const IMAGE_SRC = Config.IMGSRC + file_image;
+  // TO DO: delete dwn
+  const DWN = `/static/08679248ecde06598a96a895bc766a78/ONLYOFFICE_Sample_Document.docx`;
 
-    const IMAGE_SRC = Config.IMGSRC + image_src;
-    // TO DO: delete dwn
-    const DWN = `/static/08679248ecde06598a96a895bc766a78/ONLYOFFICE_Sample_Document.docx`;
+  const [oformFill, setOformFill] = useState(false);
+  const onClickOformFill = (e) => {
+    e.preventDefault();
+    console.log("onCLick");
+    setOformFill(true);
+  };
 
-    return (
-        <StyledCard {...rest}>
-            <Image className="image-template" src={IMAGE_SRC} />
-            <Box
-                className="card-template"
-                flexDirection="column"
-                alignItems="stretch"
-            >
-                <ELink className="title-template" href={pathName} label={name} />
-                <Text className="subtitle-template" label={description[0]} />
-                <Link href={link_redactor}>
-                    <Button
-                        isScale
-                        typeButton="transparent"
-                        className="redactor-btn-template"
-                        label={("open")}
-                    />
-                </Link>
-                 <a href={DWN} download>
-                    <Button
-                        isScale
-                        className="download-btn-template"
-                        typeButton="white"
-                        label={("download as")}
-                    />
-                </a> 
-            </Box>
-        </StyledCard>
-    );
+  return (
+    <>
+      <DocEditorAPI
+        name={name}
+        link_oform_filling_file={link_oform_filling_file}
+        check={oformFill}
+      />
+      <StyledCard {...rest}>
+        <Image className="image-template" src={IMAGE_SRC} />
+        <Box
+          className="card-template"
+          flexDirection="column"
+          alignItems="stretch"
+        >
+          <ELink className="title-template" href={pathName} label={name} />
+          <Text className="subtitle-template" label={file_description[0]} />
+          <Link href={link_oform_filling_file}>
+            <Button
+              isScale
+              typeButton="transparent"
+              className="redactor-btn-template"
+              onClick={onClickOformFill}
+              label={"open"}
+            />
+          </Link>
+          <a href={DWN} download>
+            <Button
+              isScale
+              className="download-btn-template"
+              typeButton="white"
+              label={"download as"}
+            />
+          </a>
+        </Box>
+      </StyledCard>
+    </>
+  );
 };
 
 export default Card;
