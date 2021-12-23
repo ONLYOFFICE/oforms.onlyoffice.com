@@ -1,5 +1,7 @@
 {
     "defaultLanguage": "en",
     "IMGSRC": "/images/oforms/en/",
-    "localStorageCarousel": "arrayCaroselClientSideItemsOforms"
+    "localStorageCarousel": "arrayCaroselClientSideItemsOforms",
+    "docEditorUrl": "https://doc-linux.teamlab.info",
+    "docEditorSecret": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkb2N1bWVudCI6eyJmaWxlVHlwZSI6Im9mb3JtIiwicGVybWlzc2lvbnMiOnsiZWRpdCI6ZmFsc2UsImZpbGxGb3JtcyI6dHJ1ZX19LCJkb2N1bWVudFR5cGUiOiJ3b3JkIiwiaGVpZ2h0IjoiMTAwJSIsIndpZHRoIjoiMTAwJSJ9.YojSqGDuHzMCeLkxeOWuJcZB0ar2lsaVvtEx74N5hfU"
 }

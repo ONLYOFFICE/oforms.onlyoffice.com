@@ -8,8 +8,8 @@ import languages from "../../../languages.json";
 const HeadSEO = ({ metaDescription, metaKeywords, title, ...rest }) => {
   const srcWebAppAPI =
     (config.docEditorUrl || "http://localhost") + "/web-apps/apps/api/documents/api.js";
-  console.log(srcWebAppAPI);
-  return (
+
+    return (
     <Helmet {...rest}>
       <title>{title}</title>
       <meta charset="utf-8" />

@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import styled from "styled-components";
 import Portal from "../../components/portal";
-
+import config from "../../config.json";
 const StyledPlaceholder = styled.div`
   height: 100vh;
   width: 100vw;
@@ -17,6 +17,10 @@ const DocEditorAPI = ({ name, link_oform_filling_file, check }) => {
     .replace(/[{()}]/g, "")
     .toLowerCase();
 
+  // const url = typeof window !== "undefined" ? window.location.href : "";
+  // const UrlLink = url + link_oform_filling_file;
+  // console.log(UrlLink);
+  const token = config.docEditorSecret;
   return check ? (
     <>
       <Helmet>
@@ -31,6 +35,7 @@ const DocEditorAPI = ({ name, link_oform_filling_file, check }) => {
                       fillForms: true,
                     },
                   },
+                  token: "${token}",
                   documentType: "word",
                   editorConfig: {
                     mode: "edit",
