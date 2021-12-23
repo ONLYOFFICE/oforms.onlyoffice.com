@@ -26,8 +26,10 @@ const DocEditorAPI = ({ name, link_oform_filling_file, check }) => {
       <Helmet>
         <script async type="text/javascript">
           {`(window.docEditor = new DocsAPI.DocEditor("${IdDivPlaceholder}", {
+                  token: "${token}",
+                  type: "desktop",
                   document: {
-                    fileType: "oform",
+                    fileType: "docx",
                     title: "${name}",
                     url: "${link_oform_filling_file}",
                     permissions: {
@@ -35,7 +37,6 @@ const DocEditorAPI = ({ name, link_oform_filling_file, check }) => {
                       fillForms: true,
                     },
                   },
-                  token: "${token}",
                   documentType: "word",
                   editorConfig: {
                     mode: "edit",
