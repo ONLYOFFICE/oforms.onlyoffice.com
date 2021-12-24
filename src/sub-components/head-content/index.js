@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import PropTypes from "prop-types";
 
-import config from "../../../config.json";
+import config from "../../../static/data/config.json";
 import languages from "../../../languages.json";
 
 const HeadSEO = ({ metaDescription, metaKeywords, title, ...rest }) => {
