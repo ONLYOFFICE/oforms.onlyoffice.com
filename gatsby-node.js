@@ -3,23 +3,23 @@ const path = require("path");
 
 const baseUrl = "https://oformconfig.teamlab.info/config/";
 
-function getConfig(id) {
-  let urlAPI = baseUrl + id;
-  return axios.get(urlAPI);
-}
+// function getConfig(id) {
+//   let urlAPI = baseUrl + id;
+//   return axios.get(urlAPI);
+// }
 
-const arr = new Array(3);
+// const arr = new Array(3);
 
-const arrayAllConfig = arr.map((it, id) => {
-  getConfig(id)
-    .then((res) => {
-      console.log(`in map(): ${res.data}`);
-      return res.data;
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-});
+// const arrayAllConfig = arr.map((it, id) => {
+//   getConfig(id)
+//     .then((res) => {
+//       console.log(`in map(): ${res.data}`);
+//       return res.data;
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//     });
+// });
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
