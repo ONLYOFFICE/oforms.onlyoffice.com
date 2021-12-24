@@ -33,7 +33,7 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, check }) => {
 
       getCnf();
     }
-  }, [check]);
+  });
   console.log("config");
   console.log(config);
   console.log(check);
