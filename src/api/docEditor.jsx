@@ -5,6 +5,7 @@ import Portal from "../../components/portal";
 
 import { getConfig } from ".";
 
+
 const StyledPlaceholder = styled.div`
   height: 100vh;
   width: 100vw;
@@ -38,6 +39,7 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, check }) => {
   console.log(check);
   console.log(id);
 
+
   return check ? (
     <>
       <Helmet>
@@ -45,6 +47,7 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, check }) => {
           {/* {`
             (window.docEditor = new DocsAPI.DocEditor("${IdDivPlaceholder}", config))
           `} */}
+
         </script>
       </Helmet>
       <Portal>
