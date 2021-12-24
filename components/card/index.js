@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-// import DocEditorAPI from "../../src/api/docEditor";
+ import DocEditorAPI from "../../src/api/docEditor";
 import Config from "../../config.json";
 
 import Text from "../text";
@@ -51,12 +51,12 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
 
   return (
     <>
-      {/* <DocEditorAPI
+      <DocEditorAPI
         id={id_item}
         name={name}
         link_oform_filling_file={link_oform_filling_file}
         check={oformFill}
-      /> */}
+      />
       <StyledCard {...rest}>
         <Image className="image-template" src={IMAGE_SRC} />
         <Box
