@@ -7,5 +7,5 @@
         "url": "",
         "timeout": "30000"
     },
-    "appServer": ""
+    "appServer": "https://oformconfig.teamlab.info"
 }
