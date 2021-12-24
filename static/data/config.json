@@ -1,0 +1,11 @@
+{
+    "defaultLanguage": "en",
+    "IMGSRC": "/images/oforms/en/",
+    "localStorageCarousel": "arrayCaroselClientSideItemsOforms",
+    "docEditorUrl": "https://doc-linux.teamlab.info",
+    "api": {
+        "url": "",
+        "timeout": "30000"
+    },
+    "appServer": "https://oformconfig.teamlab.info/config/"
+}
