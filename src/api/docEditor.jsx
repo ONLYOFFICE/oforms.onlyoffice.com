@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Portal from "../../components/portal";
 
 import { getConfig } from ".";
-
+import axios from "axios";
 
 const StyledPlaceholder = styled.div`
   height: 100vh;
@@ -14,40 +14,59 @@ const StyledPlaceholder = styled.div`
   top: 0;
 `;
 
-const DocEditorAPI = ({ id, name, link_oform_filling_file, check }) => {
+const DocEditorAPI = ({ id, name, link_oform_filling_file, check, config }) => {
   const IdDivPlaceholder = name
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
     .toLowerCase();
 
-  const [config, setConfig] = useState({});
+  const API = "https://oformconfig.teamlab.info/config/" + id;
+  let [TMPconfig, setTMPConfig] = useState();
+  const [token, setToken] = useState();
+  const [callback, setCallback] = useState();
+
+  async function resAPI() {
+    await axios(API).then((res) => {
+      setTMPConfig(res.data);
+      setToken(res.data.token);
+      setCallback(res.data.editorConfig)
+    });
+  }
   useEffect(() => {
-    console.log("config check = ", id !== undefined);
-    if (id !== undefined) {
-      const getCnf = () =>
-        getConfig(id)
-          .then((res) => {
-            setConfig(res);
-          })
-          .catch((err) => console.log(`${err}`));
-
-      getCnf();
+    if (id !== undefined && id !== null && check) {
+      resAPI();
     }
-  });
-  console.log("config");
-  console.log(config);
-  console.log(check);
-  console.log(id);
-
+  }, []);
 
   return check ? (
     <>
       <Helmet>
         <script async type="text/javascript">
-          {/* {`
-            (window.docEditor = new DocsAPI.DocEditor("${IdDivPlaceholder}", config))
-          `} */}
-
+          {`(window.docEditor = new DocsAPI.DocEditor("${IdDivPlaceholder}", {
+                  token: "${token}",
+                  type: "desktop",
+                  document: {
+                    fileType: "oform",
+                    title: "${name}",
+                    url: "${link_oform_filling_file}",
+                    permissions: {
+                      edit: false,
+                      fillForms: true,
+                    },
+                  },
+                  documentType: "word",
+                  editorConfig: {
+                   
+                    customization: {
+                        anonymous: {
+                        request: false,
+                    },
+                    },
+                  },
+                  height: "100%",
+                  width: "100%",
+                }))
+                `}
         </script>
       </Helmet>
       <Portal>

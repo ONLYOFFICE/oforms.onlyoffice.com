@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ReactSVG } from "react-svg";
 
 import Config from "../../../../config.json";
- import DocEditor from "../../../api/docEditor";
+import DocEditor from "../../../api/docEditor";
 
 import Link from "../../../../components/link";
 import Button from "../../../../components/button";
@@ -23,7 +23,7 @@ import { getConfig } from "../../../api/index";
 import axios from "axios";
 
 // TO DO: simplifying
-const MainInfo = ({ t, language, data, pathName, ...rest }) => {
+const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
   const DWN = `/static/08679248ecde06598a96a895bc766a78/ONLYOFFICE_Sample_Document.docx`;
 
   const array = [
@@ -57,12 +57,10 @@ const MainInfo = ({ t, language, data, pathName, ...rest }) => {
   const baseURL = typeof window !== "undefined" ? window.location.href : null;
 
   const [oformFill, setOformFill] = useState(false);
-  const [state, setState] = useState();
-  const API = "http://localhost:8080/page/1";
 
-const onClickOformFill = () => {
-  setOformFill(true);
-}
+  const onClickOformFill = () => {
+    setOformFill(true);
+  };
   return (
     <>
       <DocEditor
@@ -70,6 +68,7 @@ const onClickOformFill = () => {
         link_oform_filling_file={link_oform_filling_file}
         check={oformFill}
         id={id_item}
+        config={config}
       />
       <StyledMainInfo maxWidth="1200px" background="#F9F9F9" {...rest}>
         <div className="template-main-info">

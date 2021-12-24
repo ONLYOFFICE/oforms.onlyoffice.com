@@ -14,7 +14,9 @@ import CarouselContent from "../sub-components/template-page/carousel";
 import AccordionContent from "../sub-components/accordion";
 import Footer from "../sub-components/footer-content";
 
-const Template = ({ data, pageContext, ...rest }) => {
+import axios from "axios";
+
+const Template = ({ config, data, pageContext, ...rest }) => {
   const {
     t,
     i18n: { language },
@@ -30,6 +32,7 @@ const Template = ({ data, pageContext, ...rest }) => {
   const { allOformsJson } = data;
   const allCardForms = allOformsJson.nodes;
   const allCardFormsName = MainData.name;
+  const allCardFormsID = MainData.id_item;
   const allCardFormsPrice = MainData.file_type_access;
 
   // Carousel client data
@@ -100,8 +103,19 @@ const Template = ({ data, pageContext, ...rest }) => {
   const maxItemsRandomCardForms = 7;
   const randomCardForms = _randomslice(allCardForms, maxItemsRandomCardForms);
 
-  // Main info content
+  // Main info content.
+  // const API = "http://localhost:1337/config/";
+  // let [TMPconfig, setTMPConfig] = useState();
+  // useEffect(() => {
+  //   axios.get(`${API}${allCardFormsID}`).then((res) => {
+  //     setTMPConfig(res.data);
+  //   });
+  // }, []);
 
+  //console.log("config - template ===================", config);
+  // const API = "https://oformconfig.teamlab.info/config/";
+  // const TMPconfig = axios.get(`${API}${allCardFormsID}`).then((res) => res);
+  //console.log("================TMPconfig = ", TMPconfig);
   return (
     <Layout {...rest}>
       <Layout.PageHead>
@@ -116,6 +130,7 @@ const Template = ({ data, pageContext, ...rest }) => {
       </Layout.PageHeader>
       <Layout.SectionMain>
         <MainInfo
+          config={config}
           data={MainData}
           pathName={pathName}
           language={language}
