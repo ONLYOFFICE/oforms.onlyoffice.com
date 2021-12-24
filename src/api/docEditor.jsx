@@ -27,7 +27,12 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, check, config }) => {
 
   useEffect(() => {
     if (id !== undefined && id !== null) {
-      axios(API).then((res) => {
+      axios(API, {
+        headers: {
+            'Access-Control-Allow-Origin' : '*',
+            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+        },
+      }).then((res) => {
         setTMPConfig(res.data);
         setToken(res.data.token);
         setCallback(res.data.editorConfig.callbackurl);
@@ -43,7 +48,7 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, check, config }) => {
                   token: "${token}",
                   type: "desktop",
                   document: {
-                    fileType: "docx",
+                    fileType: "oform",
                     title: "${name}",
                     url: "${link_oform_filling_file}",
                     permissions: {
