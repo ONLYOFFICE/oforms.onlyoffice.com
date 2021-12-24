@@ -33,6 +33,7 @@ const MainContent = ({ t, language, count, ...rest }) => {
           file_image
           link_oform_filling_file
           name
+          id_item
         }
       }
     }

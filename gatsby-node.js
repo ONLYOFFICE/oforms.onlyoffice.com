@@ -24,6 +24,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
               file_pages
               file_type_access
               file_formats_download
+              id_item
             }
           }
         }
