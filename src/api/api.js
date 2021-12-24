@@ -5,10 +5,10 @@ const { appServer, api } = config;
 
 const apiPrefixURL = (api && api.url) || `/config/`;
 const apiTimeout = (api && api.timeout) || 30000;
-const AppServer = appServer || "http://localhost:8080";
+const AppServer = appServer || "http://localhost:1337";
 
 const apiUrl = AppServer + apiPrefixURL;
-console.log(apiUrl)
+//console.log(apiUrl)
 const client = axios.create({
     baseURL: apiUrl,
     responseType: "json",

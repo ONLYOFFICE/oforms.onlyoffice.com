@@ -45,7 +45,7 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
   const [oformFill, setOformFill] = useState(false);
   const onClickOformFill = (e) => {
     e.preventDefault();
-    console.log("onCLick");
+    //console.log("onCLick");
     setOformFill(true);
   };
 
