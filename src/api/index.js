@@ -5,7 +5,8 @@ export function getConfig(id) {
     method: "get",
     url: `/page/${id}`,
     headers: {
-      'Content-Type': 'application/json',
-  },
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
   });
 }
