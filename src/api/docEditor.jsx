@@ -25,16 +25,13 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, check, config }) => {
   const [token, setToken] = useState();
   const [callback, setCallback] = useState();
 
-  async function resAPI() {
-    await axios(API).then((res) => {
-      setTMPConfig(res.data);
-      setToken(res.data.token);
-      setCallback(res.data.editorConfig)
-    });
-  }
   useEffect(() => {
-    if (id !== undefined && id !== null && check) {
-      resAPI();
+    if (id !== undefined && id !== null) {
+      axios(API).then((res) => {
+        setTMPConfig(res.data);
+        setToken(res.data.token);
+        setCallback(res.data.editorConfig.callbackurl);
+      });
     }
   }, []);
 
@@ -46,7 +43,7 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, check, config }) => {
                   token: "${token}",
                   type: "desktop",
                   document: {
-                    fileType: "oform",
+                    fileType: "docx",
                     title: "${name}",
                     url: "${link_oform_filling_file}",
                     permissions: {
@@ -56,7 +53,7 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, check, config }) => {
                   },
                   documentType: "word",
                   editorConfig: {
-                   
+                    callbackurl: "${callback}",
                     customization: {
                         anonymous: {
                         request: false,
