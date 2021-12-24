@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ReactSVG } from "react-svg";
 
 import Config from "../../../../config.json";
-import DocEditor from "../../../api/docEditor";
+ import DocEditor from "../../../api/docEditor";
 
 import Link from "../../../../components/link";
 import Button from "../../../../components/button";
@@ -19,6 +19,9 @@ import Image from "./sub-components/image";
 
 import Oform from "../../../../static/icons/oform.svg";
 
+import { getConfig } from "../../../api/index";
+import axios from "axios";
+
 // TO DO: simplifying
 const MainInfo = ({ t, language, data, pathName, ...rest }) => {
   const DWN = `/static/08679248ecde06598a96a895bc766a78/ONLYOFFICE_Sample_Document.docx`;
@@ -33,14 +36,8 @@ const MainInfo = ({ t, language, data, pathName, ...rest }) => {
     setTypeFile();
   };
 
-  const [oformFill, setOformFill] = useState(false);
-  const onClickOformFill = (e) => {
-    e.preventDefault();
-    console.log("onCLick")
-    setOformFill(true);
-  };
-
   const {
+    id_item,
     name,
     file_categories,
     file_description,
@@ -59,9 +56,21 @@ const MainInfo = ({ t, language, data, pathName, ...rest }) => {
 
   const baseURL = typeof window !== "undefined" ? window.location.href : null;
 
+  const [oformFill, setOformFill] = useState(false);
+  const [state, setState] = useState();
+  const API = "http://localhost:8080/page/1";
+
+const onClickOformFill = () => {
+  setOformFill(true);
+}
   return (
     <>
-      <DocEditor name={name} link_oform_filling_file={link_oform_filling_file} check={oformFill} />
+      <DocEditor
+        name={name}
+        link_oform_filling_file={link_oform_filling_file}
+        check={oformFill}
+        id={id_item}
+      />
       <StyledMainInfo maxWidth="1200px" background="#F9F9F9" {...rest}>
         <div className="template-main-info">
           <Breadcrumb categories={file_categories} name={name} />
@@ -119,9 +128,12 @@ const MainInfo = ({ t, language, data, pathName, ...rest }) => {
             </div>
           </Box>
           <Box className="file-main-buttons">
-            {/* <a href={link_oform_filling_file} style={{ width: "100%" }}> */}
-              <Button isScale label={t("Open and Fill")} onClick={onClickOformFill} />
-            {/* </a> */}
+            <Button
+              isScale
+              label={t("Open and Fill")}
+              onClick={onClickOformFill}
+            />
+
             <ButtonSelector
               isScale
               array={array}

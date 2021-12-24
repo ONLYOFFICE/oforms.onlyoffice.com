@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import styled from "styled-components";
 import Portal from "../../components/portal";
-import config from "../../config.json";
+
+import { getConfig } from ".";
+
+
 const StyledPlaceholder = styled.div`
   height: 100vh;
   width: 100vw;
@@ -11,40 +14,40 @@ const StyledPlaceholder = styled.div`
   top: 0;
 `;
 
-const DocEditorAPI = ({ name, link_oform_filling_file, check }) => {
+const DocEditorAPI = ({ id, name, link_oform_filling_file, check }) => {
   const IdDivPlaceholder = name
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
     .toLowerCase();
 
-  // const url = typeof window !== "undefined" ? window.location.href : "";
-  // const UrlLink = url + link_oform_filling_file;
-  // console.log(UrlLink);
-  const token = config.docEditorSecret;
+  const [config, setConfig] = useState({});
+  useEffect(() => {
+    console.log("config check = ", id !== undefined);
+    if (id !== undefined) {
+      const getCnf = () =>
+        getConfig(id)
+          .then((res) => {
+            setConfig(res);
+          })
+          .catch((err) => console.log(`${err}`));
+
+      getCnf();
+    }
+  }, [check]);
+  console.log("config");
+  console.log(config);
+  console.log(check);
+  console.log(id);
+
+
   return check ? (
     <>
       <Helmet>
         <script async type="text/javascript">
-          {`(window.docEditor = new DocsAPI.DocEditor("${IdDivPlaceholder}", {
-                  token: "${token}",
-                  type: "desktop",
-                  document: {
-                    fileType: "docx",
-                    title: "${name}",
-                    url: "${link_oform_filling_file}",
-                    permissions: {
-                      edit: false,
-                      fillForms: true,
-                    },
-                  },
-                  documentType: "word",
-                  editorConfig: {
-                    mode: "edit",
-                  },
-                  height: "100%",
-                  width: "100%",
-                }))
-                `}
+          {/* {`
+            (window.docEditor = new DocsAPI.DocEditor("${IdDivPlaceholder}", config))
+          `} */}
+
         </script>
       </Helmet>
       <Portal>
