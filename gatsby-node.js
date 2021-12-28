@@ -1,26 +1,3 @@
-const axios = require("axios");
-const path = require("path");
-
-const baseUrl = "https://oformconfig.teamlab.info/config/";
-
-// function getConfig(id) {
-//   let urlAPI = baseUrl + id;
-//   return axios.get(urlAPI);
-// }
-
-// const arr = new Array(3);
-
-// const arrayAllConfig = arr.map((it, id) => {
-//   getConfig(id)
-//     .then((res) => {
-//       console.log(`in map(): ${res.data}`);
-//       return res.data;
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//     });
-// });
-
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
   const srcComponentPageTemplate = require.resolve("./src/templates/index");
@@ -28,7 +5,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const requestResult = await graphql(
     `
       query {
-        allOformsJson {
+        allDefJson {
           edges {
             node {
               name
@@ -47,7 +24,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
               file_pages
               file_type_access
               file_formats_download
-              id_item
+              jsonId
             }
           }
         }
@@ -61,8 +38,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 
   const pagesDataItems =
-    typeof requestResult?.data?.allOformsJson?.edges !== undefined
-      ? requestResult?.data?.allOformsJson?.edges
+    typeof requestResult?.data?.allDefJson?.edges !== undefined
+      ? requestResult?.data?.allDefJson?.edges
       : null;
 
   const pathNameTemplate = pagesDataItems.map((path) => {

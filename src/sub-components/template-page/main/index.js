@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ReactSVG } from "react-svg";
 
 import Config from "../../../../config.json";
-import DocEditor from "../../../api/docEditor";
+// import DocEditor from "../../../api/docEditor";
 
 import Link from "../../../../components/link";
 import Button from "../../../../components/button";
@@ -37,7 +37,7 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
   };
 
   const {
-    id_item,
+    jsonId,
     name,
     file_categories,
     file_description,
@@ -58,18 +58,18 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
 
   const [oformFill, setOformFill] = useState(false);
 
-  const onClickOformFill = () => {
-    setOformFill(true);
-  };
+  // const onClickOformFill = () => {
+  //   setOformFill(true);
+  // };
   return (
     <>
-      <DocEditor
+      {/* <DocEditor
         name={name}
         link_oform_filling_file={link_oform_filling_file}
         check={oformFill}
         id={id_item}
         config={config}
-      />
+      /> */}
       <StyledMainInfo maxWidth="1200px" background="#F9F9F9" {...rest}>
         <div className="template-main-info">
           <Breadcrumb categories={file_categories} name={name} />
@@ -127,12 +127,13 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
             </div>
           </Box>
           <Box className="file-main-buttons">
-            <Button
-              isScale
-              label={t("Open and Fill")}
-              onClick={onClickOformFill}
-            />
-
+            <a target="_blank" style={{width:"100%"}} href={`/editor?custom=${jsonId}`}>
+              <Button
+                isScale
+                label={t("Open and Fill")}
+                //onClick={onClickOformFill}
+              />
+            </a>
             <ButtonSelector
               isScale
               array={array}

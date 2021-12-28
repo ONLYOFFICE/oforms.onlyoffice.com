@@ -22,7 +22,7 @@ import StyledMainContent from "./styled-main-content";
 const MainContent = ({ t, language, count, ...rest }) => {
   const data = useStaticQuery(graphql`
     {
-      allOformsJson {
+      allDefJson {
         totalCount
         nodes {
           file_categories
@@ -33,13 +33,13 @@ const MainContent = ({ t, language, count, ...rest }) => {
           file_image
           link_oform_filling_file
           name
-          id_item
+          jsonId
         }
       }
     }
   `);
 
-  const allItems = data.allOformsJson.nodes;
+  const allItems = data.allDefJson.nodes;
 
   // filter data state
   const [checkedItems, setCheckedItems] = useState({});

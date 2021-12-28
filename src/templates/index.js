@@ -29,10 +29,10 @@ const Template = ({ config, data, pageContext, ...rest }) => {
   const { seo } = pageContext.data;
   const { title, description } = seo;
 
-  const { allOformsJson } = data;
-  const allCardForms = allOformsJson.nodes;
+  const { allDefJson } = data;
+  const allCardForms = allDefJson.nodes;
   const allCardFormsName = MainData.name;
-  const allCardFormsID = MainData.id_item;
+  //const allCardFormsID = MainData.id_item;
   const allCardFormsPrice = MainData.file_type_access;
 
   // Carousel client data
@@ -103,19 +103,6 @@ const Template = ({ config, data, pageContext, ...rest }) => {
   const maxItemsRandomCardForms = 7;
   const randomCardForms = _randomslice(allCardForms, maxItemsRandomCardForms);
 
-  // Main info content.
-  // const API = "http://localhost:1337/config/";
-  // let [TMPconfig, setTMPConfig] = useState();
-  // useEffect(() => {
-  //   axios.get(`${API}${allCardFormsID}`).then((res) => {
-  //     setTMPConfig(res.data);
-  //   });
-  // }, []);
-
-  //console.log("config - template ===================", config);
-  // const API = "https://oformconfig.teamlab.info/config/";
-  // const TMPconfig = axios.get(`${API}${allCardFormsID}`).then((res) => res);
-  //console.log("================TMPconfig = ", TMPconfig);
   return (
     <Layout {...rest}>
       <Layout.PageHead>
@@ -140,7 +127,7 @@ const Template = ({ config, data, pageContext, ...rest }) => {
           t={t}
           labelPrice={allCardFormsPrice}
           labelName={allCardFormsName}
-          likn={
+          link={
             "https://nct.onlyoffice.com/Products/Files/DocEditor.aspx?fileid=45424&doc=N25yVTc2R1NMdEZUa0VDc2VDTklwdnNVUE5jUml0WndQNnV3Q3pLTGRFcz0_IjQ1NDI0Ig2"
           }
         />
@@ -179,7 +166,7 @@ export const query = graphql`
         }
       }
     }
-    allOformsJson {
+    allDefJson {
       totalCount
       nodes {
         file_categories

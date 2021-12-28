@@ -48,7 +48,7 @@ const MailPopup = ({
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-        console.log("ok");
+        //console.log("ok");
         let hasError = false;
 
         if (!nameValue.trim().length <= 3) {
