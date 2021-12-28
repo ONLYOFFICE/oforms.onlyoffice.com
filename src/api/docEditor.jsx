@@ -14,7 +14,7 @@ const StyledPlaceholder = styled.div`
   top: 0;
 `;
 
-const DocEditorAPI = ({ id, name, link_oform_filling_file, check, config }) => {
+const DocEditorAPI = ({ id, name, link_oform_filling_file, config }) => {
   const IdDivPlaceholder = name
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
@@ -24,18 +24,20 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, check, config }) => {
   let [TMPconfig, setTMPConfig] = useState();
   const [token, setToken] = useState();
   const [callback, setCallback] = useState();
+  const [check, setCheck] = useState(false);
 
   useEffect(() => {
     if (id !== undefined && id !== null) {
       axios(API, {
         headers: {
-            'Access-Control-Allow-Origin' : '*',
-            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
         },
       }).then((res) => {
         setTMPConfig(res.data);
         setToken(res.data.token);
         setCallback(res.data.editorConfig.callbackurl);
+        setCheck(!check);
       });
     }
   }, []);
@@ -43,7 +45,7 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, check, config }) => {
   return check ? (
     <>
       <Helmet>
-        <script async type="text/javascript">
+        <script type="text/javascript">
           {`(window.docEditor = new DocsAPI.DocEditor("${IdDivPlaceholder}", {
                   token: "${token}",
                   type: "desktop",
