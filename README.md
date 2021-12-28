@@ -1,6 +1,5 @@
 # oforms.onlyoffice.com
 
-
 ## How to install
 
 You must have yarn and latest node.js installed.
