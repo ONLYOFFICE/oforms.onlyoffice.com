@@ -37,7 +37,7 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
   };
 
   const {
-    //jsonId,
+    jsonId,
     name,
     file_categories,
     file_description,
@@ -58,9 +58,9 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
 
   const [oformFill, setOformFill] = useState(false);
 
-  const onClickOformFill = () => {
-    setOformFill(true);
-  };
+  // const onClickOformFill = () => {
+  //   setOformFill(true);
+  // };
   return (
     <>
       {/* <DocEditor
@@ -127,12 +127,13 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
             </div>
           </Box>
           <Box className="file-main-buttons">
-            <Button
-              isScale
-              label={t("Open and Fill")}
-              onClick={onClickOformFill}
-            />
-
+            <a target="_blank" style={{width:"100%"}} href={`/editor?custom=${jsonId}`}>
+              <Button
+                isScale
+                label={t("Open and Fill")}
+                //onClick={onClickOformFill}
+              />
+            </a>
             <ButtonSelector
               isScale
               array={array}

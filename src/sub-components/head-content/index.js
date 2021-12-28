@@ -24,7 +24,7 @@ const HeadSEO = ({ metaDescription, metaKeywords, title, ...rest }) => {
       <meta id="ctl00_MetaKeywords" name="keywords" content={metaKeywords} />
       <meta name="description" content={metaDescription} />
 
-      <link rel="icon" href="/logo/favicon_general.png" type="image/x-icon" />
+      <link rel="icon" href="/images/logo/favicon_general.png" type="image/x-icon" />
 
       {languages.map((lng) => {
         const { key, shortKey } = lng;

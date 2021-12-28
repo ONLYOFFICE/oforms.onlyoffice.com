@@ -32,7 +32,7 @@ const FormBanner = ({
                             className="header"
                             fontSize="24px"
                             fontWeight="700"
-                            level="3"
+                            level={3}
                         >
                             {t("How to create a")} <Text color="#FF6F3D" fontSize="24px" fontWeight="700">{t(`${price}`)}</Text> {t(`${labelName} with ONLYOFFICE`)}
                         </Heading>
