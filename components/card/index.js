@@ -6,6 +6,7 @@ import Config from "../../config.json";
 import Text from "../text";
 import Link from "../link";
 import Button from "../button";
+import ILink from "../internal-link";
 import Dropdown from "../dropdown";
 import Box from "../box";
 
@@ -43,7 +44,7 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
 
   const IMAGE_SRC = Config.IMGSRC + file_image;
   // TO DO: delete dwn
-  const DWN = `/static/08679248ecde06598a96a895bc766a78/ONLYOFFICE_Sample_Document.docx`;
+  const DWN = `https://d2nlctn12v279m.cloudfront.net/assets/docs/samples/demo.oform`;
 
   const [oformFill, setOformFill] = useState(false);
   const onClickOformFill = (e) => {
@@ -69,7 +70,7 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
         >
           <ELink className="title-template" href={pathName} label={name} />
           <Text className="subtitle-template" label={file_description[0]} />
-          <a target="_blank" href={`/editor?custom=${IdForm}`}>
+          <Link target="_blank" href={`/editor?custom=${IdForm}`}>
             <Button
               isScale
               typeButton="transparent"
@@ -77,7 +78,7 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
               // onClick={onClickOformFill}
               label={"open"}
             />
-          </a>
+          </Link>
           <a href={DWN} download>
             <Button
               isScale
