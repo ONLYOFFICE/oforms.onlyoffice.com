@@ -26,10 +26,6 @@ import axios from "axios";
 const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
   //const DWN = `/static/08679248ecde06598a96a895bc766a78/ONLYOFFICE_Sample_Document.docx`;
 
-  const array = [
-    { title: "Download as DOCXF", href: "https://d2nlctn12v279m.cloudfront.net/assets/docs/samples/demo.docx" },
-    { title: "Download as OFORM", href: "https://d2nlctn12v279m.cloudfront.net/assets/docs/samples/demo.oform" },
-  ];
 
   const [typeFile, setTypeFile] = useState(0);
   const onChangeFile = () => {
@@ -50,6 +46,12 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
     link_oform_filling_file,
     file_link_changelog,
   } = data;
+
+
+  const array = [
+    { title: "Download as DOCXF", href: file_formats_download[0][1] },
+    { title: "Download as OFORM", href: file_formats_download[1][1] },
+  ];
 
   const IMAGE_SRC = Config.IMGSRC + file_image;
   const SVG_FILE_TYPE = typeFile ? Oform : Oform; // added docx
