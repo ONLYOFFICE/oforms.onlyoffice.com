@@ -24,11 +24,11 @@ import axios from "axios";
 
 // TO DO: simplifying
 const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
-  const DWN = `/static/08679248ecde06598a96a895bc766a78/ONLYOFFICE_Sample_Document.docx`;
+  //const DWN = `/static/08679248ecde06598a96a895bc766a78/ONLYOFFICE_Sample_Document.docx`;
 
   const array = [
-    { title: "Download as DOCXF", href: DWN },
-    { title: "Download as OFORM", href: DWN },
+    { title: "Download as DOCXF", href: "https://d2nlctn12v279m.cloudfront.net/assets/docs/samples/demo.docx" },
+    { title: "Download as OFORM", href: "https://d2nlctn12v279m.cloudfront.net/assets/docs/samples/demo.oform" },
   ];
 
   const [typeFile, setTypeFile] = useState(0);
