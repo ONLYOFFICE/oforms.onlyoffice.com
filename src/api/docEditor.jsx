@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import styled from "styled-components";
 import Portal from "../../components/portal";
 
+import config from "../../static/data/config.json";
 import { getConfig } from ".";
 import axios from "axios";
 

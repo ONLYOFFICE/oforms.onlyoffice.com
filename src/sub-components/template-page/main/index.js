@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { ReactSVG } from "react-svg";
 
 import Config from "../../../../config.json";
-// import DocEditor from "../../../api/docEditor";
 
 import Link from "../../../../components/link";
 import Button from "../../../../components/button";
@@ -19,14 +18,8 @@ import Image from "./sub-components/image";
 
 import Oform from "../../../../static/icons/oform.svg";
 
-import { getConfig } from "../../../api/index";
-import axios from "axios";
-
 // TO DO: simplifying
 const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
-  //const DWN = `/static/08679248ecde06598a96a895bc766a78/ONLYOFFICE_Sample_Document.docx`;
-
-
   const [typeFile, setTypeFile] = useState(0);
   const onChangeFile = () => {
     setTypeFile();
@@ -47,7 +40,6 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
     file_link_changelog,
   } = data;
 
-
   const array = [
     { title: "Download as DOCXF", href: file_formats_download[0][1] },
     { title: "Download as OFORM", href: file_formats_download[1][1] },
@@ -60,18 +52,8 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
 
   const [oformFill, setOformFill] = useState(false);
 
-  // const onClickOformFill = () => {
-  //   setOformFill(true);
-  // };
   return (
     <>
-      {/* <DocEditor
-        name={name}
-        link_oform_filling_file={link_oform_filling_file}
-        check={oformFill}
-        id={id_item}
-        config={config}
-      /> */}
       <StyledMainInfo maxWidth="1200px" background="#F9F9F9" {...rest}>
         <div className="template-main-info">
           <Breadcrumb categories={file_categories} name={name} />
@@ -129,12 +111,12 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
             </div>
           </Box>
           <Box className="file-main-buttons">
-            <a target="_blank" style={{width:"100%"}} href={`/editor?custom=${jsonId}`}>
-              <Button
-                isScale
-                label={t("Open and Fill")}
-                //onClick={onClickOformFill}
-              />
+            <a
+              target="_blank"
+              style={{ width: "100%" }}
+              href={`/editor?custom=${jsonId}`}
+            >
+              <Button isScale label={t("Open and Fill")} />
             </a>
             <ButtonSelector
               isScale
