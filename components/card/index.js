@@ -62,7 +62,7 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
           alignItems="stretch"
         >
           <ELink className="title-template" href={pathName} label={name} />
-          <Text className="subtitle-template" label={file_description[0]} />
+          <Text className="subtitle-template" label={file_description} />
           <Link target="_blank" href={`/editor?custom=${IdForm}`}>
             <Button
               isScale

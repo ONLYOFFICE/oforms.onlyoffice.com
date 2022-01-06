@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { graphql } from "gatsby";
 import { useTranslation } from "gatsby-plugin-react-i18next";
+import { Trans } from "gatsby-plugin-react-i18next";
 
 import Config from "../../static/data/config.json";
 import { cardCarouselSettings } from "../sub-components/template-page/carousel/sub-components/carousel-settings";
@@ -13,6 +14,9 @@ import FormBanner from "../sub-components/heading-content/form-banner";
 import CarouselContent from "../sub-components/template-page/carousel";
 import AccordionContent from "../sub-components/accordion";
 import Footer from "../sub-components/footer-content";
+
+import Heading from "../../components/heading";
+import Text from "../../components/text";
 
 const Template = ({ config, data, pageContext, ...rest }) => {
   const {
@@ -101,6 +105,36 @@ const Template = ({ config, data, pageContext, ...rest }) => {
   const maxItemsRandomCardForms = 7;
   const randomCardForms = _randomslice(allCardForms, maxItemsRandomCardForms);
 
+  const headingRentForms = (
+    <Heading as="h3" fontSize="24px">
+      <Trans i18nKey="OtherLeaseRentForms">
+        {" "}
+        <Heading
+          as="span"
+          fontSize="24px"
+          color="#FF6F3D"
+          fontWeight="700"
+          display="inline"
+        ></Heading>
+      </Trans>
+    </Heading>
+  );
+
+  const headingRecentlyViewed = (
+    <Heading as="h3" fontSize="24px">
+      <Trans i18nKey="RecentlyViewed">
+        {" "}
+        <Heading
+          as="span"
+          fontSize="24px"
+          color="#FF6F3D"
+          fontWeight="700"
+          display="inline"
+        ></Heading>
+      </Trans>
+    </Heading>
+  );
+
   return (
     <Layout {...rest}>
       <Layout.PageHead>
@@ -131,13 +165,13 @@ const Template = ({ config, data, pageContext, ...rest }) => {
         />
         <CarouselContent
           data={randomCardForms}
-          label={t("OtherLeaseRentForms")}
+          label={headingRentForms}
           t={t}
         />
         {itemsClient !== null && parsedObjectLocalStorage.length >= 2 && (
           <CarouselContent
             data={itemsClient}
-            label={t("RecentlyViewed")}
+            label={headingRecentlyViewed}
             config={stateConfig}
             t={t}
           />
