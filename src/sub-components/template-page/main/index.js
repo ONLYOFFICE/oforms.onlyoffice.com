@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ReactSVG } from "react-svg";
 
-import Config from "../../../../config.json";
-import DocEditor from "../../../api/docEditor";
+import Config from "../../../../static/data/config.json";
 
 import Link from "../../../../components/link";
 import Button from "../../../../components/button";
@@ -20,27 +19,14 @@ import Image from "./sub-components/image";
 import Oform from "../../../../static/icons/oform.svg";
 
 // TO DO: simplifying
-const MainInfo = ({ t, language, data, pathName, ...rest }) => {
-  const DWN = `/static/08679248ecde06598a96a895bc766a78/ONLYOFFICE_Sample_Document.docx`;
-
-  const array = [
-    { title: "Download as DOCXF", href: DWN },
-    { title: "Download as OFORM", href: DWN },
-  ];
-
+const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
   const [typeFile, setTypeFile] = useState(0);
   const onChangeFile = () => {
     setTypeFile();
   };
 
-  const [oformFill, setOformFill] = useState(false);
-  const onClickOformFill = (e) => {
-    e.preventDefault();
-    console.log("onCLick")
-    setOformFill(true);
-  };
-
   const {
+    jsonId,
     name,
     file_categories,
     file_description,
@@ -54,14 +40,20 @@ const MainInfo = ({ t, language, data, pathName, ...rest }) => {
     file_link_changelog,
   } = data;
 
+  const array = [
+    { title: "Download as DOCXF", href: file_formats_download[0][1] },
+    { title: "Download as OFORM", href: file_formats_download[1][1] },
+  ];
+
   const IMAGE_SRC = Config.IMGSRC + file_image;
   const SVG_FILE_TYPE = typeFile ? Oform : Oform; // added docx
 
   const baseURL = typeof window !== "undefined" ? window.location.href : null;
 
+  const [oformFill, setOformFill] = useState(false);
+
   return (
     <>
-      <DocEditor name={name} link_oform_filling_file={link_oform_filling_file} check={oformFill} />
       <StyledMainInfo maxWidth="1200px" background="#F9F9F9" {...rest}>
         <div className="template-main-info">
           <Breadcrumb categories={file_categories} name={name} />
@@ -119,9 +111,13 @@ const MainInfo = ({ t, language, data, pathName, ...rest }) => {
             </div>
           </Box>
           <Box className="file-main-buttons">
-            {/* <a href={link_oform_filling_file} style={{ width: "100%" }}> */}
-              <Button isScale label={t("Open and Fill")} onClick={onClickOformFill} />
-            {/* </a> */}
+            <a
+              target="_blank"
+              style={{ width: "100%" }}
+              href={`/editor?custom=${jsonId}`}
+            >
+              <Button isScale label={t("Open and Fill")} />
+            </a>
             <ButtonSelector
               isScale
               array={array}

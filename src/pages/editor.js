@@ -1,24 +1,22 @@
 import React from "react";
 import { graphql } from "gatsby";
-import { useTranslation } from "gatsby-plugin-react-i18next";
 
 import Layout from "../../components/layout";
-import Error404 from "../sub-components/404-page";
+import HeadSEO from "../sub-components/head-content";
+import CustomQueryStringComponent from "../api/customQuery";
 
-const Error404Page = () => {
-  const { t } = useTranslation();
-
+const Editor = () => {
   return (
     <Layout>
-      <Layout.PageHead></Layout.PageHead>
-      <Layout.SectionMain>
-        <Error404 t={t} />
-      </Layout.SectionMain>
+      <Layout.PageHead>
+        <HeadSEO />
+      </Layout.PageHead>
+      <CustomQueryStringComponent />
     </Layout>
   );
 };
 
-export default Error404Page;
+export default Editor;
 
 export const query = graphql`
   query ($language: String!) {
