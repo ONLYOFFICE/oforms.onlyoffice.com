@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import DocEditorAPI from "../../src/api/docEditor";
 import Config from "../../static/data/config.json";
 
 import Text from "../text";
@@ -28,8 +27,8 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
     link_oform_filling_file,
   } = arrayItems;
 
-  //console.log("jsonId = ", jsonId);
   const IdForm = jsonId === null && name !== undefined ? 0 : jsonId;
+  
   // Set type file to info and download
   const [typeFile, setTypeFile] = useState(true);
   const handleChangeTypeFile = () => {
@@ -55,12 +54,6 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
 
   return (
     <>
-      {/* <DocEditorAPI
-        id={id_item}
-        name={name}
-        link_oform_filling_file={link_oform_filling_file}
-        check={oformFill}
-      /> */}
       <StyledCard {...rest}>
         <Image className="image-template" src={IMAGE_SRC} />
         <Box
@@ -75,7 +68,6 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
               isScale
               typeButton="transparent"
               className="redactor-btn-template"
-              // onClick={onClickOformFill}
               label={"open"}
             />
           </Link>

@@ -33,19 +33,8 @@ const CustomQueryStringComponent = ({ search }) => {
   const id = itemsId?.jsonId;
   const link_file = itemsId?.link_oform_filling_file;
 
-  
-  // console.log("custom = ", custom);
-  // console.log(typeof custom);
-  // console.log(allItems);
-  // console.log(itemsId);
-
   return name !== undefined ? (
-    <DocEditorAPI
-      name={name}
-      link_oform_filling_file={link_file}
-      //check={oformFill}
-      id={id}
-    />
+    <DocEditorAPI name={name} link_oform_filling_file={link_file} id={id} />
   ) : null;
 };
 

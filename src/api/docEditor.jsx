@@ -3,8 +3,7 @@ import { Helmet } from "react-helmet";
 import styled from "styled-components";
 import Portal from "../../components/portal";
 
-import config from "../../static/data/config.json";
-import { getConfig } from ".";
+import Config from "../../static/data/config.json";
 import axios from "axios";
 
 const StyledPlaceholder = styled.div`
@@ -15,14 +14,14 @@ const StyledPlaceholder = styled.div`
   top: 0;
 `;
 
-const DocEditorAPI = ({ id, name, link_oform_filling_file, config }) => {
+const DocEditorAPI = ({ id, name, link_oform_filling_file }) => {
   const IdDivPlaceholder = name
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
     .toLowerCase();
 
-  const API = "https://oformconfig.teamlab.info/config/" + id;
-  let [TMPconfig, setTMPConfig] = useState();
+  const API = `${Config.appServer}config/${id}`;
+  //let [TMPconfig, setTMPConfig] = useState();
   const [token, setToken] = useState();
   const [callback, setCallback] = useState();
   const [check, setCheck] = useState(false);
@@ -34,12 +33,17 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, config }) => {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
         },
-      }).then((res) => {
-        setTMPConfig(res.data);
-        setToken(res.data.token);
-        setCallback(res.data.editorConfig.callbackurl);
-        setCheck(!check);
-      });
+      })
+        .then((res) => {
+          // setTMPConfig(res.data);
+          setToken(res.data.token);
+          setCallback(res.data.editorConfig.callbackurl);
+          setCheck(!check);
+        })
+        .catch((e) => {
+          setCheck(false);
+          window.location.replace("/404");
+        });
     }
   }, []);
 
@@ -65,13 +69,13 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, config }) => {
                     customization: {
                         anonymous: {
                         request: false,
-                    },
+                      },
                     },
                   },
                   height: "100%",
                   width: "100%",
                 }))
-                `}
+           `}
         </script>
       </Helmet>
       <Portal>
