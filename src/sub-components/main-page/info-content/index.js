@@ -34,7 +34,7 @@ const InfoContent = ({
                 level={5}
                 label={t("Featured templates")}
             />
-            <Box justifyContent="space-between" className="box-info-content">
+            {/* <Box justifyContent="space-between" className="box-info-content">
                 <Scrollbar
                     className="scrollbar-items-content"
                     style={{ width: 1140, height: 250 }}
@@ -51,7 +51,7 @@ const InfoContent = ({
                             />)
                     }
                 </Scrollbar>
-            </Box>
+            </Box> */}
             <Banner t={t} />
         </StyledInfoContent>
     );

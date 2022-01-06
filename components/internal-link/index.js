@@ -21,6 +21,7 @@ const InternalLink = ({
       to={href}
       style={{ ...style, outline: "none", textDecoration: "none" }}
       tabIndex={tabIndex}
+      {...rest}
     >
       <Link
         as="span"

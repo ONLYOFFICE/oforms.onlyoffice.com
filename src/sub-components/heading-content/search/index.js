@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql } from "gatsby";
 
 import Search from "../../../../components/search-area";
 
 import SearchResult from "./search-result";
 
 const SearchContent = ({ t }) => {
-
   const data = useStaticQuery(graphql`
-  {
-      allOformsJson {
-          totalCount
-          nodes {
-              name
-              }
-          }
+    {
+      allDefJson {
+        totalCount
+        nodes {
+          name
+        }
       }
+    }
   `);
 
-  const searchDataItems = data.allOformsJson.nodes;
+  const searchDataItems = data.allDefJson.nodes;
 
   const [focusOnSearch, setFocusOnSearch] = useState(false);
   const [searchItem, setSearchItem] = useState("");
@@ -26,14 +25,16 @@ const SearchContent = ({ t }) => {
 
   const searchFilter = () => {
     const tmpResultSearch = searchDataItems.filter(({ name }) => {
-      if ((name.toLowerCase()).includes(searchItem.toLowerCase())) {
+      if (name.toLowerCase().includes(searchItem.toLowerCase())) {
         return { ...name };
-      };
+      }
     });
     if (searchItem !== "") {
       setResultSearch(tmpResultSearch);
       setFocusOnSearch(true);
-    } else { setResultSearch(null); }
+    } else {
+      setResultSearch(null);
+    }
   };
 
   useEffect(() => {
@@ -46,11 +47,11 @@ const SearchContent = ({ t }) => {
 
   const clearValueSearch = () => {
     setSearchItem("");
-  }
+  };
 
   const onCloseSearchResult = () => {
     setFocusOnSearch(false);
-  }
+  };
 
   return (
     <>

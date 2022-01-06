@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { graphql } from "gatsby";
 import { useTranslation } from "gatsby-plugin-react-i18next";
 
-import Config from "../../config.json";
+import Config from "../../static/data/config.json";
 import { cardCarouselSettings } from "../sub-components/template-page/carousel/sub-components/carousel-settings";
 
 import Layout from "../../components/layout";
@@ -14,7 +14,7 @@ import CarouselContent from "../sub-components/template-page/carousel";
 import AccordionContent from "../sub-components/accordion";
 import Footer from "../sub-components/footer-content";
 
-const Template = ({ data, pageContext, ...rest }) => {
+const Template = ({ config, data, pageContext, ...rest }) => {
   const {
     t,
     i18n: { language },
@@ -27,9 +27,10 @@ const Template = ({ data, pageContext, ...rest }) => {
   const { seo } = pageContext.data;
   const { title, description } = seo;
 
-  const { allOformsJson } = data;
-  const allCardForms = allOformsJson.nodes;
+  const { allDefJson } = data;
+  const allCardForms = allDefJson.nodes;
   const allCardFormsName = MainData.name;
+  //const allCardFormsID = MainData.id_item;
   const allCardFormsPrice = MainData.file_type_access;
 
   // Carousel client data
@@ -100,8 +101,6 @@ const Template = ({ data, pageContext, ...rest }) => {
   const maxItemsRandomCardForms = 7;
   const randomCardForms = _randomslice(allCardForms, maxItemsRandomCardForms);
 
-  // Main info content
-
   return (
     <Layout {...rest}>
       <Layout.PageHead>
@@ -116,6 +115,7 @@ const Template = ({ data, pageContext, ...rest }) => {
       </Layout.PageHeader>
       <Layout.SectionMain>
         <MainInfo
+          config={config}
           data={MainData}
           pathName={pathName}
           language={language}
@@ -125,7 +125,7 @@ const Template = ({ data, pageContext, ...rest }) => {
           t={t}
           labelPrice={allCardFormsPrice}
           labelName={allCardFormsName}
-          likn={
+          link={
             "https://nct.onlyoffice.com/Products/Files/DocEditor.aspx?fileid=45424&doc=N25yVTc2R1NMdEZUa0VDc2VDTklwdnNVUE5jUml0WndQNnV3Q3pLTGRFcz0_IjQ1NDI0Ig2"
           }
         />
@@ -164,7 +164,7 @@ export const query = graphql`
         }
       }
     }
-    allOformsJson {
+    allDefJson {
       totalCount
       nodes {
         file_categories

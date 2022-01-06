@@ -14,7 +14,7 @@ function Dropdown({
 }) {
   const [isActive, setIsActive] = useState(false);
   const [selected, setSelected] = useState(defaultVal);
-  console.log(selected);
+  //console.log(selected);
   Dropdown.handleClickOutside = () => setIsActive(false);
   return (
     <StyledDropdown {...rest}>
