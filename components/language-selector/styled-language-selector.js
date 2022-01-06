@@ -4,6 +4,7 @@ export default styled.div`
   width: 48px;
   display: grid;
   grid-template-columns: 18px 6px;
+  align-items: center;
   grid-column-gap: 2px;
   position: relative;
   outline: none;
@@ -16,7 +17,7 @@ export default styled.div`
     -webkit-tap-highlight-color: transparent;
   }
   .arrow-image {
-    margin-top: -1px;
+    margin-top: 8px;
     outline: none;
     -webkit-tap-highlight-color: transparent;
   }
@@ -42,8 +43,8 @@ const StyledPanelView = styled.div`
   border-radius: 3px;
   z-index: 100;
   padding: 6px 6px 6px 12px;
-  top: 20px;
-  right: 10px;
+  top: 35px;
+  right: 0;
 `;
 
 const StyledItem = styled.div`
