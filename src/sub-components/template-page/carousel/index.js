@@ -2,17 +2,13 @@ import React from "react";
 
 import Carousel from "../../../../components/carousel";
 import Heading from "../../../../components/heading";
+import Box from "../../../../components/box";
 
 import StyledCarouselContent from "./carousel-section";
 
 import { cardCarouselSettings } from "./sub-components/carousel-settings";
 
-const CarouselContent = ({
-  label,
-  data,
-  config
-}) => {
-
+const CarouselContent = ({ label, data, config }) => {
   const customConfig = config || cardCarouselSettings;
 
   return (
@@ -23,7 +19,7 @@ const CarouselContent = ({
       maxWidth="100%"
       maxWidthLaptop="100%"
     >
-      <Heading as="h3" fontSize="24px" textAlign="center" label={label} />
+      <Box justifyContent="center">{label}</Box>
       <Carousel
         items={data}
         className="card-carousel"

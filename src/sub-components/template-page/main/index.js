@@ -65,7 +65,14 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
           />
           <Box className="main-info-box">
             <div>
-              <Text className="main-info-text">{t("Last update")}: </Text>
+              <Text
+                className="main-info-text"
+                color="#AAAAAA"
+                fontSize="14px"
+                fontWeight="bold"
+              >
+                {t("Last update")}:{" "}
+              </Text>
               <Text isBold className="main-info-text">
                 {file_last_update}
               </Text>
@@ -101,13 +108,17 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
               <Text isBold color="#AAAAAA">
                 {t("File size")}:{" "}
               </Text>
-              <Text isBold>{file_size}</Text>
+              <Text isBold className="file-size-text">
+                {file_size}
+              </Text>
             </div>
             <div>
               <Text isBold color="#AAAAAA">
                 {t("Pages")}:{" "}
               </Text>
-              <Text isBold>{file_pages}</Text>
+              <Text isBold className="file-pages-text">
+                {file_pages}
+              </Text>
             </div>
           </Box>
           <Box className="file-main-buttons">

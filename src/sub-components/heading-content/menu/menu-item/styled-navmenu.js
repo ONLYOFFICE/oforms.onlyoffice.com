@@ -202,7 +202,7 @@ const StyledNavMenu = styled.div`
       display: none;
     }
 
-    @media (max-width: 1023px) {
+    @media (max-width: 1024px) {
       padding: 7px 16px;
     }
   }
@@ -336,7 +336,7 @@ const StyledNavMenu = styled.div`
     }
   }
 
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     .dropdown-item {
       line-height: 1.5em;
       padding: 7px 16px;
@@ -458,7 +458,7 @@ const StyledMenuItemsWrapper = styled.div`
   display: flex;
   box-shadow: 0 20px 50px rgba(85, 85, 85, 0.15);
 
-  @media (max-width: 1023px) {
+  @media (max-width: 1024px) {
     padding: 0;
     background-color: #fff;
     max-height: calc(100% - 54px);
