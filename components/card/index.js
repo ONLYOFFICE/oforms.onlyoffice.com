@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import DocEditorAPI from "../../src/api/docEditor";
-import Config from "../../config.json";
+import Config from "../../static/data/config.json";
 
 import Text from "../text";
 import Link from "../link";

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ReactSVG } from "react-svg";
 
-import Config from "../../../../config.json";
+import Config from "../../../../static/data/config.json";
 
 import Link from "../../../../components/link";
 import Button from "../../../../components/button";

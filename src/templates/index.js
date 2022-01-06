@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { graphql } from "gatsby";
 import { useTranslation } from "gatsby-plugin-react-i18next";
 
-import Config from "../../config.json";
+import Config from "../../static/data/config.json";
 import { cardCarouselSettings } from "../sub-components/template-page/carousel/sub-components/carousel-settings";
 
 import Layout from "../../components/layout";
@@ -13,8 +13,6 @@ import FormBanner from "../sub-components/heading-content/form-banner";
 import CarouselContent from "../sub-components/template-page/carousel";
 import AccordionContent from "../sub-components/accordion";
 import Footer from "../sub-components/footer-content";
-
-import axios from "axios";
 
 const Template = ({ config, data, pageContext, ...rest }) => {
   const {
