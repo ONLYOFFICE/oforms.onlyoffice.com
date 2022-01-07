@@ -43,7 +43,7 @@ const CustomQueryStringComponent = ({ search }) => {
   return name !== undefined && id !== null ? (
     <DocEditorAPI name={name} link_oform_filling_file={link_file} id={id} />
   ) : (
-    window.location.replace("/404")
+    typeof window !== "undefined" && window.location.replace("/404")
   );
 };
 

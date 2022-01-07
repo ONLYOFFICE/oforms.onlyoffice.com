@@ -40,7 +40,9 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file }) => {
         })
         .catch((e) => {
           setCheck(false);
-          window.location.replace("/404");
+          if (typeof window !== "undefined") {
+            window.location.replace("/404");
+          }
         });
     }
   }, []);
