@@ -26,7 +26,6 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
   };
 
   const {
-    jsonId,
     name,
     file_categories,
     file_description,
@@ -36,21 +35,21 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
     file_pages,
     file_size,
     file_formats_download,
-    link_oform_filling_file,
-    file_link_changelog,
   } = data;
 
   const array = [
     { title: "Download as DOCXF", href: file_formats_download[0][1] },
     { title: "Download as OFORM", href: file_formats_download[1][1] },
+    { title: "Download as PDF", href: file_formats_download[2][1] },
   ];
 
   const IMAGE_SRC = Config.IMGSRC + file_image;
   const SVG_FILE_TYPE = typeFile ? Oform : Oform; // added docx
-
+  const linkFillForm = name
+    .replace(/\s/g, "-")
+    .replace(/[{()}]/g, "")
+    .toLowerCase();
   const baseURL = typeof window !== "undefined" ? window.location.href : null;
-
-  const [oformFill, setOformFill] = useState(false);
 
   return (
     <>
@@ -125,7 +124,7 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
             <a
               target="_blank"
               style={{ width: "100%" }}
-              href={`/editor?custom=${jsonId}`}
+              href={`/editor?fillform=${linkFillForm}`}
             >
               <Button isScale label={t("Open and Fill")} />
             </a>

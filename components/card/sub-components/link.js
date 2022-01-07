@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import InternalLink from "../../internal-link";
+import Link from "../../link";
 
-const ELink = styled(InternalLink)`
+const ELink = styled(Link)`
 text-decoration: none;
 color: #444444;
 font-weight: 700;

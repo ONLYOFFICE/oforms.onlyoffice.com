@@ -21,7 +21,6 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file }) => {
     .toLowerCase();
 
   const API = `${Config.appServer}config/${id}`;
-  //let [TMPconfig, setTMPConfig] = useState();
   const [token, setToken] = useState();
   const [callback, setCallback] = useState();
   const [check, setCheck] = useState(false);
@@ -35,10 +34,9 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file }) => {
         },
       })
         .then((res) => {
-          // setTMPConfig(res.data);
           setToken(res.data.token);
           setCallback(res.data.editorConfig.callbackurl);
-          setCheck(!check);
+          setCheck(true);
         })
         .catch((e) => {
           setCheck(false);
