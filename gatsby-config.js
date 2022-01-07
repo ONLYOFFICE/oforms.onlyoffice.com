@@ -2,7 +2,7 @@ const languages = require("./languages.json");
 
 const availableLanguages = languages.map((el) => el.shortKey);
 
-const { defaultLanguage } = require("./config.json");
+const { defaultLanguage } = require("./static/data/config.json");
 
 module.exports = {
   plugins: [
@@ -68,12 +68,6 @@ module.exports = {
           keySeparator: false,
           nsSeparator: false,
         },
-        // pages: [
-        //   {
-        //     matchPath: "/editor",
-        //     languages: [""],
-        //   },
-        // ],
       },
     },
     {

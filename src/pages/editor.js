@@ -4,7 +4,8 @@ import { graphql } from "gatsby";
 import Layout from "../../components/layout";
 import HeadSEO from "../sub-components/head-content";
 import CustomQueryStringComponent from "../api/customQuery";
-export default () => {
+
+const Editor = () => {
   return (
     <Layout>
       <Layout.PageHead>
@@ -14,6 +15,8 @@ export default () => {
     </Layout>
   );
 };
+
+export default Editor;
 
 export const query = graphql`
   query ($language: String!) {

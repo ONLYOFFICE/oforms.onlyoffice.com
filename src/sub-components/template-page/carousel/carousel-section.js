@@ -73,6 +73,10 @@ const StyledCarouselContent = styled(Section)`
     h3 {
       font-size: 18px;
       line-height: 1.33em;
+      & span {
+        font-size: 18px;
+        line-height: 1.33em;
+      }
     }
     .card-carousel {
       .slick-slider {

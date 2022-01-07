@@ -6,7 +6,6 @@ import Layout from "../../components/layout";
 import Error404 from "../sub-components/404-page";
 
 const Error404Page = () => {
-
   const { t } = useTranslation();
 
   return (
@@ -22,7 +21,7 @@ const Error404Page = () => {
 export default Error404Page;
 
 export const query = graphql`
-  query($language: String!) {
+  query ($language: String!) {
     locales: allLocale(filter: { language: { in: [$language, "en"] } }) {
       edges {
         node {
