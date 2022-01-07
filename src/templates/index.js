@@ -16,7 +16,6 @@ import AccordionContent from "../sub-components/accordion";
 import Footer from "../sub-components/footer-content";
 
 import Heading from "../../components/heading";
-import Text from "../../components/text";
 
 const Template = ({ config, data, pageContext, ...rest }) => {
   const {
