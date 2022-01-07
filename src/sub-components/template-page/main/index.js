@@ -52,93 +52,87 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
   const baseURL = typeof window !== "undefined" ? window.location.href : null;
 
   return (
-    <>
-      <StyledMainInfo maxWidth="1200px" background="#F9F9F9" {...rest}>
-        <div className="template-main-info">
-          <Breadcrumb categories={file_categories} name={name} />
-          <Heading className="main-info-heading" label={name} />
-          <Text
-            isBold
-            className="main-info-type-item"
-            label={file_type_access}
-          />
-          <Box className="main-info-box">
-            <div>
-              <Text
-                className="main-info-text"
-                color="#AAAAAA"
-                fontSize="14px"
-                fontWeight="bold"
-              >
-                {t("Last update")}:{" "}
-              </Text>
-              <Text isBold className="main-info-text">
-                {file_last_update}
-              </Text>
-            </div>
-            <Link href="#">{"Suggest_chages"}</Link>
-          </Box>
-        </div>
-        <div className="template-main-img">
-          <Image src={IMAGE_SRC} />
-        </div>
-        <div className="template-main-description">
-          <div className="file-description">
-            {file_description.map((text, id) => (
-              <Text
-                className="main-info-description"
-                label={text}
-                key={`text-description-${id}`}
-              />
-            ))}
-          </div>
-          <Box className="file-info">
-            <div style={{ display: "flex" }}>
-              <Text isBold color="#AAAAAA">
-                {t("File type")}:{" "}
-              </Text>
-              <ReactSVG
-                className="template-image-file-type"
-                src={SVG_FILE_TYPE}
-              />
-              {/* <Text isBold> {file_type[typeFile]} </Text> */}
-            </div>
-            <div>
-              <Text isBold color="#AAAAAA">
-                {t("File size")}:{" "}
-              </Text>
-              <Text isBold className="file-size-text">
-                {file_size}
-              </Text>
-            </div>
-            <div>
-              <Text isBold color="#AAAAAA">
-                {t("Pages")}:{" "}
-              </Text>
-              <Text isBold className="file-pages-text">
-                {file_pages}
-              </Text>
-            </div>
-          </Box>
-          <Box className="file-main-buttons">
-            <a
-              target="_blank"
-              style={{ width: "100%" }}
-              href={`/editor?fillform=${linkFillForm}`}
+    <StyledMainInfo maxWidth="1200px" background="#F9F9F9" {...rest}>
+      <div className="template-main-info">
+        <Breadcrumb categories={file_categories} name={name} />
+        <Heading className="main-info-heading" label={name} />
+        <Text isBold className="main-info-type-item" label={file_type_access} />
+        <Box className="main-info-box">
+          <div>
+            <Text
+              className="main-info-text"
+              color="#AAAAAA"
+              fontSize="14px"
+              fontWeight="bold"
             >
-              <Button isScale label={t("Open and Fill")} />
-            </a>
-            <ButtonSelector
-              isScale
-              array={array}
-              defaultVal={t("Download as")}
-              className="file-download-button"
+              {t("Last update")}:{" "}
+            </Text>
+            <Text isBold className="main-info-text">
+              {file_last_update}
+            </Text>
+          </div>
+          <Link href="#">{"Suggest_chages"}</Link>
+        </Box>
+      </div>
+      <div className="template-main-img">
+        <Image src={IMAGE_SRC} />
+      </div>
+      <div className="template-main-description">
+        <div className="file-description">
+          {file_description.map((text, id) => (
+            <Text
+              className="main-info-description"
+              label={text}
+              key={`text-description-${id}`}
             />
-          </Box>
-          <ShareButtonsGroup name={name} baseURL={baseURL} t={t} />
+          ))}
         </div>
-      </StyledMainInfo>
-    </>
+        <Box className="file-info">
+          <div style={{ display: "flex" }}>
+            <Text isBold color="#AAAAAA">
+              {t("File type")}:{" "}
+            </Text>
+            <ReactSVG
+              className="template-image-file-type"
+              src={SVG_FILE_TYPE}
+            />
+            {/* <Text isBold> {file_type[typeFile]} </Text> */}
+          </div>
+          <div>
+            <Text isBold color="#AAAAAA">
+              {t("File size")}:{" "}
+            </Text>
+            <Text isBold className="file-size-text">
+              {file_size}
+            </Text>
+          </div>
+          <div>
+            <Text isBold color="#AAAAAA">
+              {t("Pages")}:{" "}
+            </Text>
+            <Text isBold className="file-pages-text">
+              {file_pages}
+            </Text>
+          </div>
+        </Box>
+        <Box className="file-main-buttons">
+          <a
+            target="_blank"
+            style={{ width: "100%" }}
+            href={`/editor?fillform=${linkFillForm}`}
+          >
+            <Button isScale label={t("Open and Fill")} />
+          </a>
+          <ButtonSelector
+            isScale
+            array={array}
+            defaultVal={t("Download as")}
+            className="file-download-button"
+          />
+        </Box>
+        <ShareButtonsGroup name={name} baseURL={baseURL} t={t} />
+      </div>
+    </StyledMainInfo>
   );
 };
 

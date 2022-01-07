@@ -19,6 +19,7 @@ const StyledShareButton = styled(IconButton)`
   flex-direction: column;
   align-content: center;
   justify-content: center;
+  box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
   .share-text {
     margin-right: 7px;
   }
