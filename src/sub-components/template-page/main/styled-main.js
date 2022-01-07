@@ -115,7 +115,6 @@ const tabletStyledMainInfo = css`
   .template-main-img {
     margin: 0 auto;
     max-width: 544px;
-    box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
     .template-image {
       width: 100%;
       height: auto;
@@ -229,6 +228,7 @@ const StyledMainInfo = styled(Section)`
     margin: 0 auto;
     max-width: 544px;
     .template-image {
+      box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
       width: 100%;
       height: auto;
     }
