@@ -35,7 +35,8 @@ export default styled.div`
 
 const StyledPanelView = styled.div`
   position: absolute;
-  display: ${(props) => (props.isOpen ? "block" : "none")};
+  /* display: ${(props) => (props.isOpen ? "block" : "none")}; */
+  display: none;
   width: max-content;
   max-width: 43px;
   background-color: white;
@@ -48,7 +49,7 @@ const StyledPanelView = styled.div`
 `;
 
 const StyledItem = styled.div`
-  outline: none;
+  /* outline: none;
   -webkit-tap-highlight-color: transparent;
   .language-item-image {
     margin-top: -1px;
@@ -63,7 +64,7 @@ const StyledItem = styled.div`
   .title-lng:hover {
     color: #ff865c;
     cursor: pointer;
-  }
+  } */
 `;
 
 export { StyledItem, StyledPanelView };

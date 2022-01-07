@@ -228,6 +228,7 @@ const StyledMainInfo = styled(Section)`
     margin: 0 auto;
     max-width: 544px;
     .template-image {
+      box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
       width: 100%;
       height: auto;
     }

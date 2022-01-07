@@ -6,7 +6,7 @@ import { useStaticQuery, graphql } from "gatsby";
 import DocEditorAPI from "./docEditor";
 
 const CustomQueryStringComponent = ({ search }) => {
-  const { custom } = search;
+  const { fillform } = search;
   const data = useStaticQuery(graphql`
     {
       allDefJson {
@@ -27,15 +27,24 @@ const CustomQueryStringComponent = ({ search }) => {
   `);
 
   const allItems = data.allDefJson.nodes;
-
-  const itemsId = allItems.find((it) => it.jsonId === Number(custom));
+  const itemsId = allItems.find((it, idx) => {
+    const pathName = it.name
+      .replace(/\s/g, "-")
+      .replace(/[{()}]/g, "")
+      .toLowerCase();
+    if (pathName === fillform) {
+      return idx;
+    }
+  });
   const name = itemsId?.name;
   const id = itemsId?.jsonId;
   const link_file = itemsId?.link_oform_filling_file;
 
-  return name !== undefined ? (
+  return name !== undefined && id !== null ? (
     <DocEditorAPI name={name} link_oform_filling_file={link_file} id={id} />
-  ) : null;
+  ) : (
+    typeof window !== "undefined" && window.location.replace("/404")
+  );
 };
 
 CustomQueryStringComponent.propTypes = {

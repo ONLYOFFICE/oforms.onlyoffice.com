@@ -62,7 +62,7 @@ const Cards = ({ t, data, typeSortData, groupCheckboxIsOpen, ...rest }) => {
     <div className="tempalates-cards-items" {...rest}>
       <StyledCards groupCheckboxIsOpen={groupCheckboxIsOpen}>
         {listCards.map((it, id) => (
-          <Card key={id} arrayItems={it} />
+          <Card key={id} arrayItems={it} t={t} />
         ))}
       </StyledCards>
       {hasMore ? (

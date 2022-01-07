@@ -6,78 +6,81 @@ import Box from "../nav/box";
 
 import { StyledNavMenu, StyledMenuItemsWrapper } from "./styled-navmenu";
 
-const MenuItem = ({
-    children,
-    heading,
-    ...rest
-}) => {
+const MenuItem = ({ children, heading, ...rest }) => {
+  const [showMenu, setShowMenu] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
-    const [showMenu, setShowMenu] = useState(false);
-    const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const handleHoverMenu = () => {
+    setShowMenu(true);
+  };
 
-    const handleHoverMenu = () => {
-        setShowMenu(true);
-    };
+  const handleLeaveMenu = () => {
+    setShowMenu(false);
+  };
 
-    const handleLeaveMenu = () => {
-        setShowMenu(false);
-    };
+  const toggleMenu = () => {
+    setShowMobileMenu(!showMobileMenu);
+  };
 
-    const toggleMenu = () => {
-        setShowMobileMenu(!showMobileMenu);
-    };
+  const windowCheck = typeof window !== "undefined" && window.innerWidth < 1050;
 
-    const windowCheck = typeof window !== 'undefined' && window.innerWidth < 1050;
+  useEffect(() => {
+    if (window.innerWidth < 1050) {
+      setShowMenu(false);
+      //  toggleMenu();
+    }
+  }, []);
 
-    useEffect(() => {
-        if (window.innerWidth < 1050) {
-            setShowMenu(false);
-            //  toggleMenu();
-        }
-    }, []);
+  // TO DO: fix handle resize
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [windowHeight, setWindowHeight] = useState(0);
+  let resizeWindow = () => {
+    setWindowWidth(window.innerWidth);
+    setWindowHeight(window.innerHeight);
+  };
 
+  useEffect(() => {
+    resizeWindow();
+    window.addEventListener("resize", resizeWindow);
+    return () => window.removeEventListener("resize", resizeWindow);
+  }, []);
 
-    // TO DO: fix handle resize
-    const [windowWidth, setWindowWidth] = useState(0);
-    const [windowHeight, setWindowHeight] = useState(0);
-    let resizeWindow = () => {
-        setWindowWidth(window.innerWidth);
-        setWindowHeight(window.innerHeight);
-    };
-
-    useEffect(() => {
-        resizeWindow();
-        window.addEventListener("resize", resizeWindow);
-        return () => window.removeEventListener("resize", resizeWindow);
-    }, []);
-
-    return (
-        <StyledNavMenu className="nav-item" {...rest} onMouseLeave={handleLeaveMenu}>
+  return (
+    <StyledNavMenu
+      className="nav-item"
+      {...rest}
+      onMouseLeave={handleLeaveMenu}
+    >
+      <Heading
+        className="heading-nav-item"
+        label={heading}
+        onClick={toggleMenu}
+        onMouseEnter={handleHoverMenu}
+      />
+      {(windowCheck ? showMobileMenu : showMenu) && (
+        <StyledMenuItemsWrapper
+          isOpen={showMobileMenu}
+          className="menu-items-wrapper"
+        >
+          {windowCheck && (
             <Heading
-                className="heading-nav-item"
-                label={heading}
-                onClick={toggleMenu}
-                onMouseEnter={handleHoverMenu}
+              className="mobile-heading-nav-item"
+              label={heading}
+              onClick={toggleMenu}
             />
-            {(windowCheck ? showMobileMenu : showMenu) &&
-                <StyledMenuItemsWrapper isOpen={showMobileMenu} className="menu-items-wrapper">
-                    {windowCheck &&
-                        <Heading
-                            className="mobile-heading-nav-item"
-                            label={heading}
-                            onClick={toggleMenu}
-                        />
-                    }
-                    {children}
-                </StyledMenuItemsWrapper>
-            }
-            {windowCheck &&
-                <Box className="phone_wrapper">
-                    <Link className="nav-item-mobile-tel" href="tel:+371 660 164 25">+371 660 164 25</Link>
-                </Box>
-            }
-        </StyledNavMenu>
-    );
+          )}
+          {children}
+        </StyledMenuItemsWrapper>
+      )}
+      {windowCheck && (
+        <Box className="phone_wrapper">
+          <Link className="nav-item-mobile-tel" href="tel:+371 660 164 25">
+            +371 660 164 25
+          </Link>
+        </Box>
+      )}
+    </StyledNavMenu>
+  );
 };
 
 export default MenuItem;
