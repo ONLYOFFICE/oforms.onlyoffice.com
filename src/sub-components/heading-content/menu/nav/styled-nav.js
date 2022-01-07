@@ -50,13 +50,7 @@ const StyledNav = styled.nav`
     }
   }
 
-  @media (max-width: 1050px) {
-    .phone_wrapper {
-      display: none;
-    }
-  }
-
-  @media (min-width: 1024px) {
+  @media (min-width: 1050px) {
     #navitem_download .menu-items-wrapper {
       left: calc(50% - 280px);
     }
@@ -77,7 +71,7 @@ const StyledNav = styled.nav`
     column-gap: 2vw;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1050px) {
     padding: 0;
     background-color: #fff;
     min-height: 100px;
@@ -131,7 +125,6 @@ const StyledNav = styled.nav`
     }
 
     .phone_wrapper {
-      display: block;
       bottom: 0;
       top: auto;
       width: 100%;
