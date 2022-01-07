@@ -105,9 +105,10 @@ const Footer = ({ t, language, ...rest }) => {
           </div>
         </FooterItem>
         <div className="footer-copyright-block">
-          <Text className="footer-copyright">
-            {t("Ascensio System SIA")} {currentYear} {t("All rights reserved")}
-          </Text>
+          <Text
+            className="footer-copyright"
+            label={t("FooterCopyright", { currentYear })}
+          />
         </div>
       </div>
       {/* <MailPopup active={modalActive} setActive={setModalActive} /> */}

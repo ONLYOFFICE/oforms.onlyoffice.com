@@ -24,5 +24,6 @@
     "AccordionHeadingFindTheTemplate": "I can’t find the template I need in the library. What do I do?",
     "AccordionDescriptionFindTheTemplate": "We happily accept template suggestions to introduce these templates in our form library in the future. Click ‘Suggest a new form’ on top of the main page to submit your ideas.",
     "OtherLeaseRentForms": "<1>Other</1> Lease & Rent forms",
-    "RecentlyViewed": "<1>Recently</1> viewed"
+    "RecentlyViewed": "<1>Recently</1> viewed",
+    "FooterCopyright": "© Ascensio System SIA {{currentYear}}. All rights reserved"
 }
