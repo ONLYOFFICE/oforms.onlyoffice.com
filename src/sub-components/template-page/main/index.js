@@ -18,9 +18,6 @@ import Image from "./sub-components/image";
 
 import Oform from "../../../../static/icons/oform.svg";
 
-import { getConfig } from "../../../api/index";
-import axios from "axios";
-
 // TO DO: simplifying
 const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
   const [typeFile, setTypeFile] = useState(0);
