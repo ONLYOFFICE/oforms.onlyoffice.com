@@ -202,7 +202,7 @@ const StyledNavMenu = styled.div`
       display: none;
     }
 
-    @media (max-width: 1024px) {
+    @media (max-width: 1050px) {
       padding: 7px 16px;
     }
   }
@@ -328,7 +328,7 @@ const StyledNavMenu = styled.div`
     background-image: url(${menu_latest_news});
   }
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1050px) {
     #navitem_prices_reseller {
       line-height: 1.33em;
       padding-top: 10px;
@@ -336,7 +336,7 @@ const StyledNavMenu = styled.div`
     }
   }
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1050px) {
     .dropdown-item {
       line-height: 1.5em;
       padding: 7px 16px;
@@ -458,7 +458,7 @@ const StyledMenuItemsWrapper = styled.div`
   display: flex;
   box-shadow: 0 20px 50px rgba(85, 85, 85, 0.15);
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1050px) {
     padding: 0;
     background-color: #fff;
     max-height: calc(100% - 54px);

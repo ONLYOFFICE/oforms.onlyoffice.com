@@ -22,10 +22,10 @@ const MenuItem = ({ children, heading, ...rest }) => {
     setShowMobileMenu(!showMobileMenu);
   };
 
-  const windowCheck = typeof window !== "undefined" && window.innerWidth < 1050;
+  const windowCheck = typeof window !== "undefined" && window.innerWidth <= 1050;
 
   useEffect(() => {
-    if (window.innerWidth < 1050) {
+    if (window.innerWidth <= 1050) {
       setShowMenu(false);
       //  toggleMenu();
     }

@@ -17,7 +17,7 @@ const Menu = ({ t, currentLanguage, template, ...rest }) => {
   const [windowCheck, setWindowCheck] = useState("undefined");
   useEffect(() => {
     if (typeof window !== windowCheck) {
-      setWindowCheck(window.innerWidth < 1050);
+      setWindowCheck(window.innerWidth <= 1050);
     }
   }, [windowCheck]);
 

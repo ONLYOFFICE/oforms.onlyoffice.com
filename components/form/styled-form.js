@@ -86,7 +86,7 @@ const StyledForm = styled.form`
     letter-spacing: 0.01em;
   }
 
-  @media (max-width: 1023px) {
+  @media (max-width: 1024px) {
     .form-header {
       margin-bottom: 1px;
     }

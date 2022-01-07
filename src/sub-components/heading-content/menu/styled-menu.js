@@ -72,7 +72,7 @@ const StyledMenu = styled.div`
     grid-column-end: 3;
     .nav-item .heading-nav-item {
       color: #fff;
-      @media (max-width: 1023px) {
+      @media (max-width: 1050px) {
         color: #333;
       }
     }
@@ -101,7 +101,7 @@ const StyledMenu = styled.div`
     display: none;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1050px) {
     ${StyledMenuTablet};
   }
 `;
