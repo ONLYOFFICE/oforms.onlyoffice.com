@@ -32,8 +32,8 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
         flexDirection="column"
         alignItems="stretch"
       >
-        <ELink className="title-template" href={pathName} label={name} />
-        <Text className="subtitle-template" label={file_description} />
+        <ELink className="title-template text-overflow-templapte" href={pathName} label={name} />
+        <Text className="subtitle-template text-overflow-templapte" label={file_description[0]} />
         <ELink target="_blank" href={`/editor?fillform=${linkFillForm}`}>
           <Button
             isScale
