@@ -1,0 +1,11 @@
+{
+    "defaultLanguage": "en",
+    "IMGSRC": "/images/oforms/en/",
+    "localStorageCarousel": "arrayCaroselClientSideItemsOforms",
+    "docEditorUrl": "https://kim.teamlab.info",
+    "api": {
+        "url": "",
+        "timeout": "30000"
+    },
+    "appServer": "https://oforms.teamlab.info/"
+}

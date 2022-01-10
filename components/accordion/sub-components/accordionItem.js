@@ -4,7 +4,7 @@ import StyledAccordionItem from "./styled-accordionItem";
 
 const AccordionItem = ({
   heading,
-  level,
+  // level,
   children,
   isCollapsed,
   onClick,

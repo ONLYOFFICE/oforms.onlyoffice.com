@@ -5,7 +5,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const requestResult = await graphql(
     `
       query {
-        allOformsJson {
+        allDefJson {
           edges {
             node {
               name
@@ -24,6 +24,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
               file_pages
               file_type_access
               file_formats_download
+              jsonId
             }
           }
         }
@@ -37,8 +38,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 
   const pagesDataItems =
-    typeof requestResult?.data?.allOformsJson?.edges !== undefined
-      ? requestResult?.data?.allOformsJson?.edges
+    typeof requestResult?.data?.allDefJson?.edges !== undefined
+      ? requestResult?.data?.allDefJson?.edges
       : null;
 
   const pathNameTemplate = pagesDataItems.map((path) => {
@@ -59,7 +60,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   pagesDataItems.forEach((data, idx) => {
     let tmpData = data.node;
     const pathName = pathNameTemplate[idx];
-
     createPage({
       path: pathName,
       component: srcComponentPageTemplate,
