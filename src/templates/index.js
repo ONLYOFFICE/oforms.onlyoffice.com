@@ -135,6 +135,11 @@ const Template = ({ config, data, pageContext, ...rest }) => {
     </Heading>
   );
 
+  const linkFillForm = allCardFormsName
+    .replace(/\s/g, "-")
+    .replace(/[{()}]/g, "")
+    .toLowerCase();
+
   return (
     <Layout {...rest}>
       <Layout.PageHead>
@@ -160,9 +165,7 @@ const Template = ({ config, data, pageContext, ...rest }) => {
           t={t}
           labelPrice={allCardFormsPrice}
           labelName={allCardFormsName}
-          link={
-            "https://nct.onlyoffice.com/Products/Files/DocEditor.aspx?fileid=45424&doc=N25yVTc2R1NMdEZUa0VDc2VDTklwdnNVUE5jUml0WndQNnV3Q3pLTGRFcz0_IjQ1NDI0Ig2"
-          }
+          link={`/editor?fillform=${linkFillForm}`}
         />
         <CarouselContent
           data={randomCardForms}
