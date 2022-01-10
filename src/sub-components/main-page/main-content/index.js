@@ -18,6 +18,7 @@ import Checkbox from "../../../../components/checkbox";
 import Cards from "./sub-components/cards";
 
 import StyledMainContent from "./styled-main-content";
+import Button from "../../../../components/button";
 // TO DO replace sort
 const MainContent = ({ t, language, count, ...rest }) => {
   const data = useStaticQuery(graphql`
@@ -44,6 +45,14 @@ const MainContent = ({ t, language, count, ...rest }) => {
   // filter data state
   const [checkedItems, setCheckedItems] = useState({});
   const [filterArray, setFilterArray] = useState([]);
+  const [reset, setReset] = useState(false);
+  const [resetActive, setResetActive] = useState(false);
+
+  const resetCkeckboxGroup = () => {
+    setCheckedItems({});
+    setReset(false);
+    setResetActive(true);
+  };
 
   const categoryCheckboxFilter = () => {
     const tmpCheckedItems = ObjectFilter(
@@ -78,11 +87,13 @@ const MainContent = ({ t, language, count, ...rest }) => {
       ...checkedItems,
       [e.target.name]: e.target.checked,
     });
+    setReset(true);
+    setResetActive(false);
   };
 
   useEffect(() => {
     categoryCheckboxFilter();
-  }, [checkedItems]);
+  }, [checkedItems, reset]);
 
   // sort data state
   const [sortData, setSortData] = useState([]);
@@ -122,11 +133,22 @@ const MainContent = ({ t, language, count, ...rest }) => {
     setGroupCheckboxIsOpen(!groupCheckboxIsOpen);
   };
 
+  const handleCloseGroupCheckbox = () => {
+    setGroupCheckboxIsOpen(false);
+  };
+
   const checkBoxSRC = groupCheckboxIsOpen
     ? "/icons/close-btn.svg"
     : "/icons/popup-arrow.react.svg";
 
   const numberDataItems = sortData.length;
+
+  const [windowCheck, setWindowCheck] = useState("undefined");
+  useEffect(() => {
+    if (typeof window !== windowCheck) {
+      setWindowCheck(window.innerWidth <= 600);
+    }
+  }, [windowCheck, reset]);
 
   return (
     <StyledMainContent
@@ -141,12 +163,11 @@ const MainContent = ({ t, language, count, ...rest }) => {
       />
       <div className="idk-box-template">
         <Box className="box-doc-info-template">
-          <div
-            className="box-doc-categories"
-            id="mob-box-doc-categories"
-            onClick={handleOpenGroupCheckbox}
-          >
-            <div className="box-doc-categories">
+          <div className="box-doc-categories" id="mob-box-doc-categories">
+            <div
+              className="box-doc-categories"
+              onClick={handleOpenGroupCheckbox}
+            >
               <Text isBold label={t("Categories")} />
               <ReactSVG className="categories-svg" src={checkBoxSRC} />
             </div>
@@ -169,16 +190,42 @@ const MainContent = ({ t, language, count, ...rest }) => {
           </div>
         </Box>
         <div className="checkbox-card-group">
-          {Categories.map((it) => (
-            <Checkbox
-              className="checkbox-card"
-              onChange={handleChange}
-              isChecked={checkedItems[it.name]}
-              key={it.key}
-              label={it.label}
-              name={it.name}
-            />
-          ))}
+          {(reset || windowCheck) && (
+            <div className="reset-checkbox-group-items">
+              <span
+                onClick={resetCkeckboxGroup}
+                className="reset-group-checkbox"
+              >
+                {t("Reset")}
+              </span>
+              {windowCheck && (
+                <>
+                  <span className="reset-group-checkbox-mobile">
+                    {t("Categories")}
+                  </span>
+                  <ReactSVG
+                    className="tms-categories-svg"
+                    src="/icons/close-btn.svg"
+                    onClick={handleCloseGroupCheckbox}
+                  />
+                </>
+              )}
+            </div>
+          )}
+          <div className="checkbox-group-filter-tems">
+            {Categories.map((it) => (
+              <Checkbox
+                reset={resetActive}
+                className="checkbox-card"
+                onChange={handleChange}
+                isChecked={checkedItems[it.isChecked]}
+                key={`checkbox-card-${it.key}`}
+                label={it.label}
+                name={it.name}
+              />
+            ))}
+          </div>
+          {(reset || windowCheck) && <Button className="checkbox-group-filter-btn" isScale label={t("apply filter")} onClick={handleCloseGroupCheckbox} />}
         </div>
         <Box className="box-cards-template" justifyContent="flex-end">
           <Cards

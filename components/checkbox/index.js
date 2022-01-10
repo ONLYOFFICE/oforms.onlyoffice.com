@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Text from "../text";
 import { StyledLabel, HiddenInput } from "./styled-checkbox";
@@ -15,6 +15,10 @@ const Checkbox = (props) => {
     setState({ checked: e.target.checked });
     props.onChange && props.onChange(e);
   };
+
+  useEffect(() => {
+    props.reset && setState(false);
+  });
 
   return (
     <StyledLabel
