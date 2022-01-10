@@ -30,15 +30,14 @@ border-bottom: 1px solid #E5E5E5;
         display: grid;
         position: initial;
         margin-bottom: 0px;
-        margin-top: 0px;
         overflow: hidden;
         max-height: 0px;                   
-        transition: max-height 0.2s ease;
+        transition: max-height 0.2s ease, margin-top 0.2s ease;
         
         ${props => props.isOpen ? css`
             display: grid;
             grid-gap: 7px;
-            margin-top: 7px;        
+            margin-top: 20px;        
             position: initial;
             height: 100% !important;        
             `
