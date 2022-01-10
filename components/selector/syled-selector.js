@@ -46,6 +46,7 @@ const StyledSelector = styled.div`
     font-size: 16px;
     cursor: pointer;
     white-space: nowrap;
+    display: block;
   }
 
   .filter_selector-items:hover {
