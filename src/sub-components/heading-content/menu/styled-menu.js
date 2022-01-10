@@ -91,7 +91,7 @@ const StyledMenu = styled.div`
     align-items: center;
 
     .nav-item-tel {
-      color: #fff;
+      color: ${(props) => (!props.template ? `#fff` : `#333`)};
       font-weight: 600;
       text-decoration: none;
     }
