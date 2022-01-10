@@ -2,9 +2,26 @@ import styled from "styled-components";
 import arrow_red from "../../../../../static/icons/arrow-red.svg";
 import phone from "../../../../../static/icons/phone.svg";
 
+/**
+ * 
+ * filter mobile
+
+    height: 100%;
+    z-index: 9999;
+    width: 100vw;
+    display: block;
+    left: 0;
+    top: 0;
+    position: fixed;
+    overflow-y: scroll;
+    padding-bottom: 50px;
+
+    
+ */
+
 const StyledNav = styled.nav`
   display: flex;
-  column-gap: 40px;
+  /* column-gap: 40px; */
   justify-content: center;
 
   .navitem_features_menu {

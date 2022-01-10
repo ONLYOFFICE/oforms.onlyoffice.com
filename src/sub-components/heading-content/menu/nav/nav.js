@@ -5,11 +5,13 @@ import Link from "../../../../../components/link";
 import StyledNav from "./styled-nav";
 import MenuItem from "../menu-item";
 import Box from "./box";
-// TO DO: fix
 
 const Nav = ({ onClick, t, stateMobilePND, ...rest }) => {
   return (
-    <StyledNav {...rest} stateMobile={stateMobilePND}>
+    <StyledNav
+      {...rest}
+      stateMobile={stateMobilePND}
+    >
       <MenuItem heading="Products & Features" id="navitem_features">
         <Box className="menu_wrapper">
           <Box className="outer-box with_border">

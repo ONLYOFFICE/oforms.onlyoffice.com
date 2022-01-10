@@ -41,7 +41,8 @@ const StyledNavMenu = styled.div`
     font-weight: 600;
     line-height: 29px;
     letter-spacing: 0.04em;
-    padding: 21px 0;
+    padding: 21px 20px;
+    cursor: pointer;
     margin: 0px;
     text-transform: uppercase;
   }
