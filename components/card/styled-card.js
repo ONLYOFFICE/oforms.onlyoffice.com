@@ -52,6 +52,7 @@ const StyledCard = styled.div`
 
   .download-btn-template {
     background-color: transparent;
+    opacity: 1;
   }
 
   @media (max-width: 1200px) {
