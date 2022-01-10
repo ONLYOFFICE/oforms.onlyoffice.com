@@ -54,8 +54,6 @@ const InfoContent = ({ t, ...rest }) => {
     };
   });
 
-  useEffect(() => {}, []);
-
   return (
     <StyledInfoContent
       background="#333333"

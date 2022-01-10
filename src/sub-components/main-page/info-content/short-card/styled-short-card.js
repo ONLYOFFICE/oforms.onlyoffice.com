@@ -47,6 +47,20 @@ const StyledShortCard = styled.div`
     .card-button {
       width: 160px;
     }
+    .card-title {
+      -ms-text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      -ms-line-clamp: 2;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      display: -webkit-box;
+      display: box;
+      word-wrap: break-word;
+      -webkit-box-orient: vertical;
+      box-orient: vertical;
+    }
   }
 
   @media (max-width: 375px) {
