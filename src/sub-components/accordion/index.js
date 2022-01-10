@@ -5,6 +5,7 @@ import { AccordionItem } from "../../../components/accordion";
 import StyledAccordionContent from "./styled-accordion-content"
 import Section from "../section";
 import Heading from "../../../components/heading";
+import Link from "../../../components/link";
 import TransAccorionItem from "./item-accordion";
 
 const AccordionContent = ({ t }) => {
@@ -43,6 +44,14 @@ const AccordionContent = ({ t }) => {
                 </AccordionItem>
                 <AccordionItem heading={t("AccordionHeadingFindTheTemplate")}>
                     {t("AccordionDescriptionFindTheTemplate")}
+                </AccordionItem>
+                <AccordionItem heading={t("Is it possible to embed a form in my website?")}>
+                    {t("It is technically possible. Please contact us at ")}
+                    <Link className="link-trans-acc" label="marketing@onlyoffice.com" href="mailto:marketing@onlyoffice.com" />
+                </AccordionItem>
+                <AccordionItem heading={t("I couldn’t find the answer to my questions. Where should I go?")}>
+                    {t("Please use our community forum to receive support, or send us an inquiry at ")}
+                    <Link className="link-trans-acc" label="support@onlyoffice.com" href="mailto:support@onlyoffice.com" />
                 </AccordionItem>
             </Section>
         </StyledAccordionContent>
