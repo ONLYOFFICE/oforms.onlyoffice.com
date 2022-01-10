@@ -19,7 +19,7 @@ import Cards from "./sub-components/cards";
 
 import StyledMainContent from "./styled-main-content";
 import Button from "../../../../components/button";
-// TO DO replace sort
+
 const MainContent = ({ t, language, count, ...rest }) => {
   const data = useStaticQuery(graphql`
     {

@@ -22,7 +22,7 @@ const FormBanner = ({
                 alignItems="center"
             >
                 <Box flexDirection="column" alignItems="flex-start">
-                    <Box>
+                    <Box className="banner_title">
                         <ReactSVG
                             src="/icons/pensil-icon.react.svg"
                             height="33px"
