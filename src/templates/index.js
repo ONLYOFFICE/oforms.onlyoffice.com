@@ -140,6 +140,7 @@ const Template = ({ config, data, pageContext, ...rest }) => {
         <HeadSEO
           title={title}
           metaDescription={description}
+          metaDescriptionOg={description}
           metaKeywords={title}
         />
       </Layout.PageHead>

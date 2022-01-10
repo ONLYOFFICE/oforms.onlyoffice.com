@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import config from "../../../static/data/config.json";
 import languages from "../../../languages.json";
 
-const HeadSEO = ({ metaDescription, metaKeywords, title, ...rest }) => {
+const HeadSEO = ({ metaDescription, metaDescriptionOg, metaKeywords, title, ...rest }) => {
   const srcWebAppAPI =
     (config.docEditorUrl || "http://localhost") + "/web-apps/apps/api/documents/api.js";
 
@@ -13,6 +13,14 @@ const HeadSEO = ({ metaDescription, metaKeywords, title, ...rest }) => {
     <Helmet {...rest}>
       <title>{title}</title>
       <meta charset="utf-8" />
+
+      <meta property="og:type" content="website" />
+      <meta id="ctl00_MetaTitleOG" property="og:title" content="ONLYOFFICE" />
+      <meta
+        id="ctl00_MetaDescriptionOG"
+        property="og:description"
+        content={metaDescriptionOg}
+      />
 
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -46,6 +54,8 @@ const HeadSEO = ({ metaDescription, metaKeywords, title, ...rest }) => {
 
 HeadSEO.propTypes = {
   /** Description of your web page */
+  metaDescriptionOg: PropTypes.string,
+  /** Description of your web page */
   metaDescription: PropTypes.string,
   /** Keywords for search engines */
   metaKeywords: PropTypes.string,
@@ -54,6 +64,7 @@ HeadSEO.propTypes = {
 };
 
 HeadSEO.defaultProps = {
+  metaDescriptionOg: null,
   metaDescription: null,
   metaKeywords: null,
   title: null,

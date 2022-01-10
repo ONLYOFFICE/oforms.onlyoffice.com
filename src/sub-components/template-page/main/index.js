@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { ReactSVG } from "react-svg";
 
 import Config from "../../../../static/data/config.json";
@@ -18,13 +18,7 @@ import Image from "./sub-components/image";
 
 import Oform from "../../../../static/icons/oform.svg";
 
-// TO DO: simplifying
 const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
-  const [typeFile, setTypeFile] = useState(0);
-  const onChangeFile = () => {
-    setTypeFile();
-  };
-
   const {
     name,
     file_categories,
@@ -37,19 +31,23 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
     file_formats_download,
   } = data;
 
+  let tt1 = `Download as ${file_formats_download[0][0].toUpperCase()}`;
+  let tt2 = `Download as ${file_formats_download[1][0].toUpperCase()}`;
+  let tt3 = `Download as ${file_formats_download[2][0].toUpperCase()}`;
   const array = [
-    { title: "Download as DOCXF", href: file_formats_download[0][1] },
-    { title: "Download as OFORM", href: file_formats_download[1][1] },
-    { title: "Download as PDF", href: file_formats_download[2][1] },
+    { title: tt1, href: file_formats_download[0][1] },
+    { title: tt2, href: file_formats_download[1][1] },
+    { title: tt3, href: file_formats_download[2][1] },
   ];
 
   const IMAGE_SRC = Config.IMGSRC + file_image;
-  const SVG_FILE_TYPE = typeFile ? Oform : Oform; // added docx
+  const SVG_FILE_TYPE = Oform;
   const linkFillForm = name
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
     .toLowerCase();
   const baseURL = typeof window !== "undefined" ? window.location.href : null;
+  const linkSuggestChanges = `mailto:marketing@onlyoffice.com?subject=Suggesting changes for Form ${name}&body=Suggesting changes for Form ${name}.`;
 
   return (
     <StyledMainInfo maxWidth="1200px" background="#F9F9F9" {...rest}>
@@ -71,7 +69,7 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
               {file_last_update}
             </Text>
           </div>
-          <Link href="#">{"Suggest_chages"}</Link>
+          <Link href={linkSuggestChanges} label={t("Suggest changes")} />
         </Box>
       </div>
       <div className="template-main-img">
@@ -96,7 +94,6 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
               className="template-image-file-type"
               src={SVG_FILE_TYPE}
             />
-            {/* <Text isBold> {file_type[typeFile]} </Text> */}
           </div>
           <div>
             <Text isBold color="#AAAAAA">
@@ -116,13 +113,13 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
           </div>
         </Box>
         <Box className="file-main-buttons">
-          <a
+          <Link
             target="_blank"
             style={{ width: "100%" }}
             href={`/editor?fillform=${linkFillForm}`}
           >
             <Button isScale label={t("Open and Fill")} />
-          </a>
+          </Link>
           <ButtonSelector
             isScale
             array={array}
