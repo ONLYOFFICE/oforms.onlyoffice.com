@@ -2,13 +2,12 @@ import styled from "styled-components";
 import Section from "../../section";
 import { device } from "../../../../components/utils/devices";
 
-
 const StyledBanner = styled(Section)`
-    .section-page {
-        max-width: none;
-    }
+  .section-page {
+    max-width: none;
+  }
 
-    @media ${device.laptopM} {
+  @media ${device.laptopM} {
     .section-page {
       max-width: none;
     }

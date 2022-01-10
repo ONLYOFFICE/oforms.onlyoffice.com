@@ -18,7 +18,7 @@ const StyledBanners = styled.div`
     padding-left: 12px;
   }
 
-  .text-banner{
+  .text-banner {
     line-height: 160%;
   }
 
@@ -32,7 +32,7 @@ const StyledBanners = styled.div`
   }
 
   .box-banner {
-    padding-right:48px;
+    padding-right: 48px;
   }
 
   .buttons {
@@ -53,11 +53,11 @@ const StyledBanners = styled.div`
     .box-banner-sec {
       flex-direction: column;
     }
-    .text-banner{
+    .text-banner {
       text-align: center;
     }
     .box-banner {
-      padding-right:0px;
+      padding-right: 0px;
     }
     .buttons {
       margin-top: 24px;
@@ -89,7 +89,7 @@ const StyledBanners = styled.div`
       margin: 16px 0 0;
       width: 100%;
     }
-    .text-banner{
+    .text-banner {
       font-size: 14px;
     }
   }

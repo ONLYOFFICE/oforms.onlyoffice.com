@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import Section from "../../section";
 
 const StyledMainContent = styled(Section)`
+  padding: 10px 0 50px 0;
   .heading-cards {
     padding-bottom: 50px;
     padding-top: 80px;
