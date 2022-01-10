@@ -15,11 +15,11 @@ const BannerOforms = ({ t }) => {
             <Box flexDirection="column" justifyContent="center"  alignItems="flex-start" className="box-banner">
                 <Box  className="box-banner-sec">
                     <ReactSVG src="/images/banners/oforms-banner.svg" />
-                    <Heading color="#fff" as="h3" fontSize="24px" lineHeight="1.33em" textAlign="center" className="banner_heading">
+                    <Heading color="#fff" as="h3" fontSize="24px" lineHeight="1.33em" className="banner_heading">
                         {t("Build your own forms")}
                     </Heading>
                 </Box>
-                <Text color="#fff" className="description" textAlign="center" isInline={false} display="block" className="text-banner">
+                <Text color="#fff" isInline={false} display="block" className="text-banner" fontSize="16px">
                     {t("Create model documents, agreements, and contracts for any purpose with ONLYOFFICE Docs")}
                 </Text>
             </Box>

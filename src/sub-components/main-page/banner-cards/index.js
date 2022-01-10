@@ -1,18 +1,18 @@
 import React from "react";
 
-import Section from "../../section";
+import StyledBanner from "./styled-banner";
 import BannerOforms from "../../../../components/banners";
 
 const Banner = ({ t }) => {
     return (
-        <Section
+        <StyledBanner
             background="#333333"
-            padding="130px 0"
-            tabletPadding="80px 0 100px"
-            mobileLPadding="48px 0 70px"
+            padding="112px 0"
+            tabletPadding="112px 0 109px"
+            mobileLPadding="48px 0 72px"
         >
             <BannerOforms t={t} />
-        </Section>
+        </StyledBanner>
     );
 };
 

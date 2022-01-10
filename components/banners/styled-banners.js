@@ -4,11 +4,10 @@ const StyledBanners = styled.div`
   display: flex;
   box-sizing: border-box;
   max-width: 1120px;
-  min-height: 250px;
   border: 1px solid #008078;
   justify-content: space-between;
   border-radius: 3px;
-  padding: 48px 60px;
+  padding: 32px;
   margin: 0 auto;
   .description {
     white-space: normal;
@@ -19,51 +18,59 @@ const StyledBanners = styled.div`
     padding-left: 12px;
   }
 
+  .text-banner{
+    line-height: 160%;
+  }
+
   #btn-type {
     color: white;
     border-color: white;
   }
 
   .box-banner-sec {
-    padding-bottom: 15px;
+    padding-bottom: 16px;
   }
 
-  .banner_buttons {
-    margin-top: 24px;
+  .box-banner {
+    padding-right:48px;
   }
 
   .buttons {
     margin: 0 5px;
   }
-
-  @media (max-width: 500px) {
-    .banner_buttons {
-      flex-direction: column-reverse;
-    }
-    .buttons {
-      margin: 5px 0;
-    }
+  @media (max-width: 1200px) {
+    max-width: calc(100% - 80px);
   }
-
   @media (max-width: 768px) {
-    max-width: 668px;
     flex-direction: column;
     .box-banner {
       align-items: center;
+    }
+    .banner_heading {
+      padding: 0px;
     }
 
     .box-banner-sec {
       flex-direction: column;
     }
+    .text-banner{
+      text-align: center;
+    }
+    .box-banner {
+      padding-right:0px;
+    }
+    .buttons {
+      margin-top: 24px;
+    }
   }
 
-  @media (max-width: 500px) {
-    max-width: 336px;
-    padding: 32px 27px;
+  @media (max-width: 600px) {
+    max-width: calc(100% - 32px);
+    padding: 24px;
 
     .banner_heading {
       font-size: 18px;
-      padding-bottom: 16px;
+      padding: 0px;
     }
 
     .link {
@@ -74,14 +81,17 @@ const StyledBanners = styled.div`
       flex-direction: column;
     }
 
+    .box-banner-sec {
+      padding-bottom: 8px;
+    }
+
     .buttons {
+      margin: 16px 0 0;
       width: 100%;
     }
-  }
-
-  @media (max-width: 320px) {
-    max-width: 288px;
-    padding: 32px 16px;
+    .text-banner{
+      font-size: 14px;
+    }
   }
 `;
 
