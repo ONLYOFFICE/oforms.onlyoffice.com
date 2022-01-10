@@ -47,6 +47,12 @@ const StyledNavMenu = styled.div`
     text-transform: uppercase;
   }
 
+  @media (max-width: 1155px) {
+    .heading-nav-item {
+      padding: 20px 15px;
+    }
+  }
+
   .latest_news_date {
     color: #808080;
     font-size: 13px;

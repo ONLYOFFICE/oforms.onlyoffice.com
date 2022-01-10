@@ -1,6 +1,6 @@
 import React from "react";
 
-import Box from "../../../../../components/box";
+import Box from "../../../../../../components/box";
 
 const BoxMenu = (props) => {
   return (

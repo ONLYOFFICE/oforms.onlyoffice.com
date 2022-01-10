@@ -46,7 +46,7 @@ const Menu = ({ t, currentLanguage, template, ...rest }) => {
   const NavTemplateClassName = template
     ? "nav-item-links dark"
     : "nav-item-links";
-    
+
   return (
     <StyledMenu
       template={template}
@@ -65,13 +65,11 @@ const Menu = ({ t, currentLanguage, template, ...rest }) => {
         className="nav-items-mobile"
         onClick={toggleMobile}
       />
-
       <Nav
         className={NavTemplateClassName}
         stateMobilePND={stateMobile}
         t={t}
       />
-
       <div className="nav-item-lng">
         {!windowCheck && (
           <Link className="nav-item-tel" href="tel:+371 660 164 25">
