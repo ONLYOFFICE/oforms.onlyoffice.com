@@ -4,7 +4,6 @@ import phone from "../../../../../static/icons/phone.svg";
 
 const StyledNav = styled.nav`
   display: flex;
-  column-gap: 40px;
   justify-content: center;
 
   .navitem_features_menu {
@@ -65,10 +64,6 @@ const StyledNav = styled.nav`
     #navitem_prices .menu-items-wrapper {
       left: calc(50% - 102px);
     }
-  }
-
-  @media (max-width: 1110px) {
-    column-gap: 2vw;
   }
 
   @media (max-width: 1050px) {

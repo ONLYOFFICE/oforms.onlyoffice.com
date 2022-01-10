@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import Heading from "../../../../../components/heading";
 import Link from "../../../../../components/link";
-import Box from "../nav/box";
+import Box from "../nav/sub-components/box";
 
 import { StyledNavMenu, StyledMenuItemsWrapper } from "./styled-navmenu";
 
@@ -22,16 +22,15 @@ const MenuItem = ({ children, heading, ...rest }) => {
     setShowMobileMenu(!showMobileMenu);
   };
 
-  const windowCheck = typeof window !== "undefined" && window.innerWidth <= 1050;
+  const windowCheck =
+    typeof window !== "undefined" && window.innerWidth <= 1050;
 
   useEffect(() => {
     if (window.innerWidth <= 1050) {
       setShowMenu(false);
-      //  toggleMenu();
     }
   }, []);
 
-  // TO DO: fix handle resize
   const [windowWidth, setWindowWidth] = useState(0);
   const [windowHeight, setWindowHeight] = useState(0);
   let resizeWindow = () => {

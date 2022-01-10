@@ -12,7 +12,12 @@ const ShortCard = ({ title, subtitle, linkUrl, hrefButtom, t }) => {
     <StyledShortCard>
       <Text className="card-title" label={title} />
       <Text className="card-subtitle" label={subtitle} />
-      <Link className="card-link" label={t("Learn more")} href={linkUrl} />
+      <Link
+        className="card-link"
+        target="_self"
+        label={t("Learn more")}
+        href={linkUrl}
+      />
       <Link href={`/editor?fillform=${hrefButtom}`}>
         <Button
           className="card-button"

@@ -12,6 +12,7 @@ import HeadingContent from "../sub-components/heading-content";
 import MainInfo from "../sub-components/template-page/main";
 import FormBanner from "../sub-components/heading-content/form-banner";
 import CarouselContent from "../sub-components/template-page/carousel";
+import Banner from "../sub-components/main-page/banner-cards";
 import AccordionContent from "../sub-components/accordion";
 import Footer from "../sub-components/footer-content";
 
@@ -134,12 +135,18 @@ const Template = ({ config, data, pageContext, ...rest }) => {
     </Heading>
   );
 
+  const linkFillForm = allCardFormsName
+    .replace(/\s/g, "-")
+    .replace(/[{()}]/g, "")
+    .toLowerCase();
+
   return (
     <Layout {...rest}>
       <Layout.PageHead>
         <HeadSEO
           title={title}
           metaDescription={description}
+          metaDescriptionOg={description}
           metaKeywords={title}
         />
       </Layout.PageHead>
@@ -158,9 +165,7 @@ const Template = ({ config, data, pageContext, ...rest }) => {
           t={t}
           labelPrice={allCardFormsPrice}
           labelName={allCardFormsName}
-          link={
-            "https://nct.onlyoffice.com/Products/Files/DocEditor.aspx?fileid=45424&doc=N25yVTc2R1NMdEZUa0VDc2VDTklwdnNVUE5jUml0WndQNnV3Q3pLTGRFcz0_IjQ1NDI0Ig2"
-          }
+          link={`/editor?fillform=${linkFillForm}`}
         />
         <CarouselContent
           data={randomCardForms}
@@ -175,6 +180,7 @@ const Template = ({ config, data, pageContext, ...rest }) => {
             t={t}
           />
         )}
+        <Banner t={t} />
         <AccordionContent t={t} />
       </Layout.SectionMain>
       <Layout.PageFooter>

@@ -1,7 +1,6 @@
 import React from "react";
 
 import Carousel from "../../../../components/carousel";
-import Heading from "../../../../components/heading";
 import Box from "../../../../components/box";
 
 import StyledCarouselContent from "./carousel-section";

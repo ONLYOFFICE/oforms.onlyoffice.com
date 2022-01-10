@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import Section from "../../section";
 
 const StyledMainContent = styled(Section)`
+  padding: 10px 0 50px 0;
   .heading-cards {
     padding-bottom: 50px;
     padding-top: 80px;
@@ -22,6 +23,16 @@ const StyledMainContent = styled(Section)`
       max-width: 832px;
       justify-content: space-between;
     }
+  }
+
+  .reset-group-checkbox-mobile {
+    display: none;
+  }
+  .tms-categories-svg {
+    display: none;
+  }
+  .checkbox-group-filter-btn {
+    display: none;
   }
 
   .box-cards-template {
@@ -93,6 +104,14 @@ const StyledMainContent = styled(Section)`
 
   .checkbox-card {
     padding: 10px;
+  }
+
+  .reset-group-checkbox {
+    padding: 10px;
+    color: #ff6f3d;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
   }
 
   @media (max-width: 1200px) {
@@ -185,6 +204,67 @@ const StyledMainContent = styled(Section)`
   }
 
   @media (max-width: 600px) {
+    ${(props) =>
+      props.groupCheckboxIsOpen
+        ? css`
+            .idk-box-template {
+              .checkbox-card-group {
+                height: 100%;
+                z-index: 1000;
+                width: 100vw;
+                display: block;
+                left: 0;
+                top: 0;
+                position: fixed;
+                overflow-y: scroll;
+                margin: 0;
+                max-width: 100%;
+              }
+            }
+          `
+        : css`
+            .checkbox-card-group {
+              display: none;
+            }
+            .tempalates-cards-items {
+              grid-row-start: auto;
+              max-width: 100%;
+              grid-column-start: auto;
+              grid-column-end: auto;
+            }
+          `}
+    .checkbox-card-group {
+      padding: 0;
+    }
+
+    .checkbox-group-filter-tems {
+      padding: 20px 0;
+    }
+
+    .reset-checkbox-group-items {
+      background-color: #f5f5f5;
+      height: 56px;
+      display: flex;
+      align-content: center;
+      column-gap: 25vw;
+      align-items: center;
+      padding: 0 15px;
+    }
+
+    .checkbox-card {
+      padding-left: 25px;
+    }
+
+    .reset-group-checkbox-mobile {
+      display: block;
+    }
+    .tms-categories-svg {
+      display: block;
+    }
+    .checkbox-group-filter-btn {
+      display: block;
+    }
+
     .text-control {
       display: none;
     }
