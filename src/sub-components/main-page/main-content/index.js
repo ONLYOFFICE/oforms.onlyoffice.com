@@ -127,7 +127,6 @@ const MainContent = ({ t, language, count, ...rest }) => {
     categoryCheckboxFilter();
   }, [typeSortData, checkedItems]);
 
-  /** */
   const [groupCheckboxIsOpen, setGroupCheckboxIsOpen] = useState(false);
   const handleOpenGroupCheckbox = () => {
     setGroupCheckboxIsOpen(!groupCheckboxIsOpen);
@@ -144,11 +143,23 @@ const MainContent = ({ t, language, count, ...rest }) => {
   const numberDataItems = sortData.length;
 
   const [windowCheck, setWindowCheck] = useState("undefined");
+  const [windowDesktop, setWindowDesktop] = useState("undefined");
+
+  const windowDesktopCheck = () => {
+    if (windowDesktop) {
+      setGroupCheckboxIsOpen(true);
+    } else {
+      setGroupCheckboxIsOpen(false);
+    }
+  };
+
   useEffect(() => {
     if (typeof window !== windowCheck) {
       setWindowCheck(window.innerWidth <= 600);
+      setWindowDesktop(window.innerWidth >= 1024);
+      windowDesktopCheck();
     }
-  }, [windowCheck, reset]);
+  }, [windowCheck, windowDesktop, reset]);
 
   return (
     <StyledMainContent
@@ -171,6 +182,7 @@ const MainContent = ({ t, language, count, ...rest }) => {
               <Text isBold label={t("Categories")} />
               <ReactSVG className="categories-svg" src={checkBoxSRC} />
             </div>
+
             <Text className="text-control-mob">
               {" "}
               {t("Documents:")} {numberDataItems}
@@ -225,7 +237,14 @@ const MainContent = ({ t, language, count, ...rest }) => {
               />
             ))}
           </div>
-          {(reset || windowCheck) && <Button className="checkbox-group-filter-btn" isScale label={t("apply filter")} onClick={handleCloseGroupCheckbox} />}
+          {(reset || windowCheck) && (
+            <Button
+              className="checkbox-group-filter-btn"
+              isScale
+              label={t("apply filter")}
+              onClick={handleCloseGroupCheckbox}
+            />
+          )}
         </div>
         <Box className="box-cards-template" justifyContent="flex-end">
           <Cards
