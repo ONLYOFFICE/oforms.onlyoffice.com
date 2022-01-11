@@ -101,7 +101,7 @@ const Nav = ({ onClick, t, stateMobilePND, ...rest }) => {
               <Link href="https://onlyoffice.com/projects.aspx" className="nav_2nd_menu_link">
                 Projects
               </Link>
-              <Link href="https://onlyoffice.com//calendar.aspx" className="nav_2nd_menu_link">
+              <Link href="https://onlyoffice.com/calendar.aspx" className="nav_2nd_menu_link">
                 Calendar
               </Link>
             </Box>
@@ -122,8 +122,6 @@ const Nav = ({ onClick, t, stateMobilePND, ...rest }) => {
                 Enterprise Edition
               </Link>
             </Box>
-          </Box>
-          <Box className="outer-box">
             <Link
               id="navitem_features_security"
               href="https://onlyoffice.com/security.aspx"
@@ -131,11 +129,19 @@ const Nav = ({ onClick, t, stateMobilePND, ...rest }) => {
             >
               Security
             </Link>
-            <Box id="security_div" className="menu_pic_div">
-              <div id="security_img" className="menu_pic_img"></div>
-              <p id="security_header" className="menu_pic_header">
-                Meet ONLYOFFICE Private Rooms where every symbol you type is
-                encrypted <span className="nowrap">end-to-end</span>
+          </Box>
+          <Box className="outer-box">
+            <Link
+              id="navitem_features_oforms"
+              href="/"
+              className="dropdown-item"
+            >
+              OFORMS
+            </Link>
+            <Box id="oforms_div" className="menu_pic_div">
+              <div id="oforms_img" className="menu_pic_img"></div>
+              <p id="oforms_header" className="menu_pic_header">
+              Free <span className="nowrap">ready-to-fill</span> out online document forms
               </p>
             </Box>
           </Box>
@@ -379,6 +385,13 @@ const Nav = ({ onClick, t, stateMobilePND, ...rest }) => {
             </Box>
             <Link
               className="dropdown-item"
+              id="navitem_download_personal"
+              href="https://personal.onlyoffice.com/"
+            >
+              ONLYOFFICE Personal
+            </Link>
+            <Link
+              className="dropdown-item"
               id="navitem_download_desktop"
               href="download-desktop.aspx"
             >
@@ -462,20 +475,13 @@ const Nav = ({ onClick, t, stateMobilePND, ...rest }) => {
 
       <MenuItem heading="About" id="navitem_about">
         <Box className="menu_wrapper">
-          <Box className="outer-box">
+          <Box className="outer-box with_border">
             <Link
               id="navitem_about_about"
               href="https://onlyoffice.com/about.aspx"
               className="dropdown-item"
             >
               About ONLYOFFICE
-            </Link>
-            <Link
-              id="navitem_about_blog"
-              href="https://www.onlyoffice.com/blog/"
-              className="dropdown-item"
-            >
-              Blog
             </Link>
             <Link
               id="navitem_about_contribute"
@@ -506,27 +512,6 @@ const Nav = ({ onClick, t, stateMobilePND, ...rest }) => {
               Events
             </Link>
             <Link
-              id="navitem_about_pressdownloads"
-              href="https://onlyoffice.com/press-downloads.aspx"
-              className="dropdown-item"
-            >
-              Press downloads
-            </Link>
-            <Link
-              id="navitem_about_whitepapers"
-              href="https://onlyoffice.com/whitepapers.aspx"
-              className="dropdown-item"
-            >
-              White papers
-            </Link>
-            <Link
-              id="navitem_about_trainingcourses"
-              href="https://onlyoffice.com/training-courses.aspx"
-              className="dropdown-item"
-            >
-              Training courses
-            </Link>
-            <Link
               id="navitem_about_giftshop"
               href="https://shop.spreadshirt.com/onlyoffice"
               className="dropdown-item"
@@ -542,6 +527,56 @@ const Nav = ({ onClick, t, stateMobilePND, ...rest }) => {
             </Link>
           </Box>
           <Box className="outer-box">
+          <Link
+              id="navitem_about_resources"
+              className="dropdown-item mobile_no_link"
+            >
+              Resources
+            </Link>
+          <Link
+              id="navitem_about_blog"
+              href="https://www.onlyoffice.com/blog/"
+              className="dropdown-item"
+            >
+              Blog
+            </Link>
+            <Link
+              id="navitem_about_pressdownloads"
+              href="https://onlyoffice.com/press-downloads.aspx"
+              className="dropdown-item"
+            >
+              Press downloads
+            </Link>
+            <Link
+              id="navitem_about_helpcenter"
+              href="https://helpcenter.onlyoffice.com/index.aspx"
+              className="dropdown-item"
+            >
+              Help Center
+            </Link>
+            <Link
+              id="navitem_about_whitepapers"
+              href="https://onlyoffice.com/whitepapers.aspx"
+              className="dropdown-item"
+            >
+              White papers
+            </Link>
+            <Link
+              id="navitem_about_webinars"
+              href="https://onlyoffice.com/webinars.aspx"
+              className="dropdown-item"
+            >
+              Webinars
+            </Link>
+            <Link
+              id="navitem_about_trainingcourses"
+              href="https://onlyoffice.com/training-courses.aspx"
+              className="dropdown-item"
+            >
+              Training courses
+            </Link>
+          </Box>
+          <Box className="outer-box">
             <Link
               id="navitem_features_latest_releases"
               href="https://www.onlyoffice.com/blog/"
@@ -551,10 +586,9 @@ const Nav = ({ onClick, t, stateMobilePND, ...rest }) => {
             </Link>
             <Box id="latest_news_div" className="menu_pic_div">
               <div id="latest_news_img" className="menu_pic_img"></div>
-              <p className="latest_news_date">4 October 2021</p>
+              <p className="latest_news_date">18 January 2022</p>
               <p id="latest_news_header" className="menu_pic_header">
-                ONLYOFFICE Desktop Editors v6.4 with improved ARM support and
-                conditional formatting
+                ONLYOFFICE Docs 7.0: online forms, password protection in sheets, collaboration improvements and much more
               </p>
             </Box>
           </Box>
