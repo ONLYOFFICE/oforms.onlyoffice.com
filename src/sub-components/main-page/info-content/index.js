@@ -64,18 +64,18 @@ const InfoContent = ({ t, ...rest }) => {
     >
       <Heading className="heading-info-content">
         <span style={{ color: "#FF6F3D" }}>OFORMS</span>
-        {t(", ready-to-fill out online document forms")}
+        {t(" FREE ready-to-fill out online forms")}
       </Heading>
       <Text
         className="description-info-content"
         label={t(
-          "Fill out the forms online in one click or download and open them them in ONLYOFFICE editors"
+          "Fill out the forms online in one click or download and open them in ONLYOFFICE."
         )}
       />
       <Heading
         className="subheading-info-content"
         level={5}
-        label={t("Featured templates")}
+        label={t("Featured forms")}
       />
       <Box justifyContent="space-between" className="box-info-content">
         <Scrollbar

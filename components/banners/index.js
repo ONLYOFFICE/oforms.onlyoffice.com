@@ -38,7 +38,7 @@ const BannerOforms = ({ t }) => {
           fontSize="16px"
         >
           {t(
-            "Create model documents, agreements, and contracts for any purpose with ONLYOFFICE Docs"
+            "Use ONLYOFFICE to create document forms for any purpose and instantly share them with other users"
           )}
         </Text>
       </Box>

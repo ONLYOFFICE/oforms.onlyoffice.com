@@ -97,7 +97,7 @@ const MainContent = ({ t, language, count, ...rest }) => {
 
   // sort data state
   const [sortData, setSortData] = useState([]);
-  const [typeSortData, setTypeSortData] = useState("Newest - Oldest");
+  const [typeSortData, setTypeSortData] = useState("Name A-Z");
   const [boolTypeSortData, setBoolTypeSortData] = useState(false);
 
   const onChangeSelectTypeSort = (e) => {
@@ -107,12 +107,12 @@ const MainContent = ({ t, language, count, ...rest }) => {
   const handlerSortData = () => {
     const checkFilterArray = filterArray;
     let tmp;
-    if (typeSortData === "Newest - Oldest") {
+    if (typeSortData === "Name A-Z") {
       tmp = checkFilterArray.sort(increaseDecreaseName);
       setBoolTypeSortData(false);
       setSortData(tmp);
     }
-    if (typeSortData === "Oldest - Newest") {
+    if (typeSortData === "Name Z-A") {
       tmp = checkFilterArray.sort(decreaseIncreaseName);
       setBoolTypeSortData(true);
       setSortData(tmp);
@@ -147,7 +147,8 @@ const MainContent = ({ t, language, count, ...rest }) => {
 
   const windowDesktopCheck = () => {
     if (windowDesktop) {
-      setGroupCheckboxIsOpen(true);
+      // setGroupCheckboxIsOpen(true);
+      setGroupCheckboxIsOpen(false);
     } else {
       setGroupCheckboxIsOpen(false);
     }
@@ -170,29 +171,32 @@ const MainContent = ({ t, language, count, ...rest }) => {
       <Heading
         className="heading-cards"
         textAlign="center"
-        label={t("Form templates")}
+        label={t("All forms")}
       />
       <div className="idk-box-template">
         <Box className="box-doc-info-template">
           <div className="box-doc-categories" id="mob-box-doc-categories">
-            <div
+            {/* <div
               className="box-doc-categories"
               onClick={handleOpenGroupCheckbox}
             >
               <Text isBold label={t("Categories")} />
               <ReactSVG className="categories-svg" src={checkBoxSRC} />
-            </div>
-
-            <Text className="text-control-mob">
+            </div> */}
+            <Text className="box-doc-categories">
               {" "}
               {t("Documents:")} {numberDataItems}
             </Text>
+            {/* <Text className="text-control-mob">
+              {" "}
+              {t("Documents:")} {numberDataItems}
+            </Text> */}
           </div>
           <div className="box-doc-info">
-            <Text className="text-control">
+            {/* <Text className="text-control">
               {" "}
               {t("Documents:")} {numberDataItems}
-            </Text>
+            </Text> */}
             <Selector
               typeSortData={typeSortData}
               onChangeSelectTypeSort={onChangeSelectTypeSort}
