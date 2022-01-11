@@ -46,7 +46,7 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
             isScale
             typeButton="transparent"
             className="redactor-btn-template"
-            label={"open"}
+            label={"fill out"}
           />
         </ELink>
         <ELink href={DWN} download>
@@ -54,7 +54,7 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
             isScale
             className="download-btn-template"
             typeButton="white"
-            label={"download as"}
+            label={"download"}
           />
         </ELink>
       </Box>
