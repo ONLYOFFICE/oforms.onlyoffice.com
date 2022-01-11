@@ -159,7 +159,7 @@ const MainContent = ({ t, language, count, ...rest }) => {
       setWindowDesktop(window.innerWidth >= 1024);
       windowDesktopCheck();
     }
-  }, [windowCheck, windowDesktop, reset]);
+  }, [windowCheck, windowDesktop]);
 
   return (
     <StyledMainContent
@@ -202,28 +202,34 @@ const MainContent = ({ t, language, count, ...rest }) => {
           </div>
         </Box>
         <div className="checkbox-card-group">
-          {(reset || windowCheck) && (
-            <div className="reset-checkbox-group-items">
+          <div className="reset-checkbox-group-items">
+            {reset && !windowCheck && (
               <span
                 onClick={resetCkeckboxGroup}
                 className="reset-group-checkbox"
               >
                 {t("Reset")}
               </span>
-              {windowCheck && (
-                <>
-                  <span className="reset-group-checkbox-mobile">
-                    {t("Categories")}
-                  </span>
-                  <ReactSVG
-                    className="tms-categories-svg"
-                    src="/icons/close-btn.svg"
-                    onClick={handleCloseGroupCheckbox}
-                  />
-                </>
-              )}
-            </div>
-          )}
+            )}
+            {windowCheck && (
+              <>
+                <span
+                  onClick={resetCkeckboxGroup}
+                  className="reset-group-checkbox"
+                >
+                  {t("Reset")}
+                </span>
+                <span className="reset-group-checkbox-mobile">
+                  {t("Categories")}
+                </span>
+                <ReactSVG
+                  className="tms-categories-svg"
+                  src="/icons/close-btn.svg"
+                  onClick={handleCloseGroupCheckbox}
+                />
+              </>
+            )}
+          </div>
           <div className="checkbox-group-filter-tems">
             {Categories.map((it) => (
               <Checkbox
