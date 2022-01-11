@@ -8,13 +8,13 @@ import StyledCards from "./styled-cards";
 const Cards = ({ t, data, typeSortData, groupCheckboxIsOpen, ...rest }) => {
   // Array of all items oforms
   const [allItems, setAllItems] = useState(data);
-  // Array first 9 elements
-  const ItemSliceLength = 9;
+  // Array first 8 elements
+  const ItemSliceLength = 8;
   const [allItemsSlice, setAllItemsSlice] = useState(ItemSliceLength);
-  const [listCards, setListCards] = useState([...allItems.slice(0, 9)]);
+  const [listCards, setListCards] = useState([...allItems.slice(0, 8)]);
 
   const handlerSetItemsList = () => {
-    const tmpListSlice = [...allItems.slice(0, 9)];
+    const tmpListSlice = [...allItems.slice(0, 8)];
     setListCards(tmpListSlice);
   };
 

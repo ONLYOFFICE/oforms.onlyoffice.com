@@ -15,6 +15,7 @@ import CarouselContent from "../sub-components/template-page/carousel";
 import Banner from "../sub-components/main-page/banner-cards";
 import AccordionContent from "../sub-components/accordion";
 import Footer from "../sub-components/footer-content";
+import Section from "../sub-components/section";
 
 import Heading from "../../components/heading";
 
@@ -172,15 +173,19 @@ const Template = ({ config, data, pageContext, ...rest }) => {
           label={headingRentForms}
           t={t}
         />
-        {itemsClient !== null && parsedObjectLocalStorage.length >= 2 && (
+        {itemsClient !== null && parsedObjectLocalStorage.length >= 2 ? (
           <CarouselContent
             data={itemsClient}
             label={headingRecentlyViewed}
             config={stateConfig}
             t={t}
           />
+        ) : (
+          <div />
         )}
-        <Banner t={t} />
+        <div>
+          <Banner t={t} />
+        </div>
         <AccordionContent t={t} />
       </Layout.SectionMain>
       <Layout.PageFooter>

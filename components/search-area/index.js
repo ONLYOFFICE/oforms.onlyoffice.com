@@ -25,7 +25,7 @@ const SearchArea = ({
           className="presearch_title"
           overflow="unset"
           textOverflow="clip"
-          label="Form search"
+          label="Search forms"
           color="#F5F5F5"
           fontWeight={600}
         />
