@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
 
 const StyledMenuTablet = css`
+grid-template-columns: auto 152px auto;
+justify-content: space-between;
   .nav-items-mobile {
     display: block;
     grid-column-start: 1;
