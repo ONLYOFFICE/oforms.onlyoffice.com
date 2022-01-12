@@ -65,16 +65,6 @@ class Layout extends React.Component {
 
     return (
       <StyledLayout id="page-layout" className="layout">
-        {/* <!-- Google Tag Manager (noscript) --> */}
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-5NW47TX"
-            height="0"
-            width="0"
-            style="display:none;visibility:hidden"
-          ></iframe>
-        </noscript>
-        {/* <!-- End Google Tag Manager (noscript) --> */}
         {children}
         <Head>{headContent ? headContent.props.children : null}</Head>
 
