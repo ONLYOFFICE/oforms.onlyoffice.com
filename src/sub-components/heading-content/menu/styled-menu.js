@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 const StyledMenuTablet = css`
 grid-template-columns: auto 152px auto;
 justify-content: space-between;
+height: 37px;
   .nav-items-mobile {
     display: block;
     grid-column-start: 1;
@@ -49,6 +50,7 @@ justify-content: space-between;
 
 const StyledMenu = styled.div`
   align-items: center;
+  border-bottom: 1px solid transparent;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: auto 1fr auto;

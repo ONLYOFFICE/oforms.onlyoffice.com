@@ -17,7 +17,7 @@ const AccordionItem = ({
   return (
     <StyledAccordionItem {...rest} onClick={() => setActive(!active)}>
       <div className="accordion">
-        <div className={`${!active ? "accordion__icon" : "accordion__icon rotate"}`} >+</div>
+        <div className="accordion__icon">{!active ? "+" : "−"}</div>
         <Heading
           level={4}
           style={{ cursor: "pointer" }}

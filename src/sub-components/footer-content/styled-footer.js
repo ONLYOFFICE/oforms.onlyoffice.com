@@ -66,7 +66,7 @@ const StyledFooter = styled.div`
     display: -ms-inline-grid;
     grid-template-columns: 0.8fr 0.8fr 0.8fr 1fr;
     -ms-grid-columns: 0.8fr 32px 0.8fr 32px 0.8fr 32px 1fr;
-    grid-column-gap: 50px; 
+    grid-column-gap: 32px; 
     
     .footer-item-group {
         position: relative;
@@ -114,7 +114,7 @@ const StyledFooter = styled.div`
     }
 
     .footer-copyright {
-        color: #666;
+        color: #aaaaaa;
         font-size: 13px;
         margin: 0 0 7px;
         line-height: 1.4em;

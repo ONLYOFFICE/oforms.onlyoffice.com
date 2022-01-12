@@ -393,14 +393,14 @@ const Nav = ({ onClick, t, stateMobilePND, ...rest }) => {
             <Link
               className="dropdown-item"
               id="navitem_download_desktop"
-              href="download-desktop.aspx"
+              href="https://onlyoffice.com/download-desktop.aspx"
             >
               ONLYOFFICE desktop and mobile apps
             </Link>
             <Link
               id="navitem_download_products"
               className="dropdown-item"
-              href="download.aspx"
+              href="https://onlyoffice.com/download.aspx"
             >
               Other products
             </Link>

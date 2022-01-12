@@ -5,28 +5,34 @@ const StyledCard = styled.div`
   flex-direction: column;
   justify-items: stretch;
   max-width: 256px;
-  max-height: 576px;
+  max-height: 604px;
   background-color: #f9f9f9;
 
   .image-template {
     max-width: 254px;
     border: 1px solid #e2e2e2;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
     border-bottom: none;
   }
 
   .card-template {
     background-color: #f9f9f9;
     border: 1px solid #e2e2e2;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
     padding: 22px 24px 0px 24px;
     max-height: 239px;
   }
 
   .title-template {
+    font-size: 16px;
     margin-bottom: 16px;
     height: 42px;
   }
 
   .subtitle-template {
+    font-size: 13px;
     margin-bottom: 24px;
     height: 42px;
   }
@@ -47,11 +53,14 @@ const StyledCard = styled.div`
   }
 
   .redactor-btn-template {
+    border: 1px solid #aaaaaa;
+    height: 48px;
     margin-bottom: 0px;
   }
 
   .download-btn-template {
     background-color: transparent;
+    margin: 4px auto;
     opacity: 1;
   }
 

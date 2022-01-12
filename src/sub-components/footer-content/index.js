@@ -55,16 +55,16 @@ const Footer = ({ t, language, ...rest }) => {
             <ExternalLink
               className="footer-link-contact"
               label="sales@onlyoffice.com"
-              herf="mailto:sales@onlyoffice.com"
+              href="mailto:sales@onlyoffice.com"
             />
           </Text>
           <Text className="contact-text">
-            {t("Sales Questions")}
+            {t("Partner Inquiries")}
             &nbsp;
             <ExternalLink
               className="footer-link-contact"
               label="partners@onlyoffice.com"
-              herf="mailto:partners@onlyoffice.com"
+              href="mailto:partners@onlyoffice.com"
             />
           </Text>
           <Text className="contact-text">
@@ -73,7 +73,7 @@ const Footer = ({ t, language, ...rest }) => {
             <ExternalLink
               className="footer-link-contact"
               label="press@onlyoffice.com"
-              herf="mailto:press@onlyoffice.com"
+              href="mailto:press@onlyoffice.com"
             />
           </Text>
           <ExternalLink
