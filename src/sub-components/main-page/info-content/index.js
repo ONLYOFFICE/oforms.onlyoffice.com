@@ -11,7 +11,6 @@ import ShortCard from "./short-card";
 import array_item from "./items";
 
 const InfoContent = ({ t, ...rest }) => {
-
   return (
     <StyledInfoContent
       background="#333333"
@@ -40,16 +39,22 @@ const InfoContent = ({ t, ...rest }) => {
           className="scrollbar-items-content"
           style={{ width: 1140, height: 250 }}
         >
-          {array_item.map((it, idx) => (
-            <ShortCard
-              t={t}
-              key={`items-short-card-${idx}`}
-              title={it.title}
-              subtitle={it.subtitle}
-              linkUrl={it.linkUrl}
-              hrefButtom={it.hrefButtom}
-            />
-          ))}
+          {array_item.map((it, idx) => {
+            let href = it.title
+              .replace(/\s/g, "-")
+              .replace(/[{()}]/g, "")
+              .toLowerCase();
+            return (
+              <ShortCard
+                t={t}
+                key={`items-short-card-${idx}`}
+                title={it.title}
+                subtitle={it.subtitle}
+                linkUrl={it.linkUrl}
+                hrefButtom={href}
+              />
+            );
+          })}
         </Scrollbar>
       </Box>
       <Banner t={t} />
