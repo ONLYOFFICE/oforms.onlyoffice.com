@@ -9,73 +9,83 @@ import Head from "./head";
 import "../../styles/globals.css";
 
 function PageHead() {
-    return null;
+  return null;
 }
 PageHead.displayName = "PageHead";
 
 function PageHeader() {
-    return null;
+  return null;
 }
 PageHeader.displayName = "PageHeader";
 
 function SectionMain() {
-    return null;
+  return null;
 }
 SectionMain.displayName = "SectionMain";
 
 function PageFooter() {
-    return null;
+  return null;
 }
 PageFooter.displayName = "PageFooter";
 
 class Layout extends React.Component {
-    static PageHeader = PageHeader;
-    static SectionMain = SectionMain;
-    static PageFooter = PageFooter;
-    static PageHead = PageHead;
+  static PageHeader = PageHeader;
+  static SectionMain = SectionMain;
+  static PageFooter = PageFooter;
+  static PageHead = PageHead;
 
-    render() {
-        const { children } = this.props;
-        let headerContent = null;
-        let mainContent = null;
-        let footerContent = null;
-        let headContent = null;
+  render() {
+    const { children } = this.props;
+    let headerContent = null;
+    let mainContent = null;
+    let footerContent = null;
+    let headContent = null;
 
-        React.Children.forEach(children, (child) => {
-            const childType =
-                child && child.type && (child.type.displayName || child.type.name);
+    React.Children.forEach(children, (child) => {
+      const childType =
+        child && child.type && (child.type.displayName || child.type.name);
 
-            switch (childType) {
-                case PageHead.displayName:
-                    headContent = child;
-                    break;
-                case PageHeader.displayName:
-                    headerContent = child;
-                    break;
-                case SectionMain.displayName:
-                    mainContent = child;
-                    break;
-                case PageFooter.displayName:
-                    footerContent = child;
-                    break;
-                default:
-                    break;
-            }
-        });
+      switch (childType) {
+        case PageHead.displayName:
+          headContent = child;
+          break;
+        case PageHeader.displayName:
+          headerContent = child;
+          break;
+        case SectionMain.displayName:
+          mainContent = child;
+          break;
+        case PageFooter.displayName:
+          footerContent = child;
+          break;
+        default:
+          break;
+      }
+    });
 
-        return (
-            <StyledLayout id="page-layout" className="layout">
-                {children}
-                <Head>{headContent ? headContent.props.children : null}</Head>
+    return (
+      <StyledLayout id="page-layout" className="layout">
+        {/* <!-- Google Tag Manager (noscript) --> */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-5NW47TX"
+            height="0"
+            width="0"
+            style="display:none;visibility:hidden"
+          ></iframe>
+        </noscript>
+        {/* <!-- End Google Tag Manager (noscript) --> */}
+        {children}
+        <Head>{headContent ? headContent.props.children : null}</Head>
 
-                <Header>{headerContent ? headerContent.props.children : null}</Header>
-                <Main>{mainContent ? mainContent.props.children : null}</Main>
-                <Footer className="footer">
-                    {footerContent ? footerContent.props.children : null}
-                </Footer>
-            </StyledLayout>
-        );
-    }
+        <Header>{headerContent ? headerContent.props.children : null}</Header>
+        <Main>{mainContent ? mainContent.props.children : null}</Main>
+        <Footer className="footer">
+          {footerContent ? footerContent.props.children : null}
+        </Footer>
+      </StyledLayout>
+    );
+  }
 }
 
 Layout.propTypes = {};
