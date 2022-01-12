@@ -589,7 +589,7 @@
     },
     {
         "id": 15,
-        "name": "Mobile Application Development Proposal form ",
+        "name": "Mobile Application Development Proposal form",
         "file_image": "test_tmp.png",
         "file_categories": [
             "Proposals"
@@ -862,7 +862,7 @@
     },
     {
         "id": 22,
-        "name": "Form W-9 (Request for TIN and Certification) ",
+        "name": "Form W-9 (Request for TIN and Certification)",
         "file_image": "test_tmp.png",
         "file_categories": [
             "Financial"
