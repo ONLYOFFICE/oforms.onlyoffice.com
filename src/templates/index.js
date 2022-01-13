@@ -218,6 +218,7 @@ export const query = graphql`
         file_country_access
         file_image
         link_oform_filling_file
+        description_card
         name
       }
     }
