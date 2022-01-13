@@ -9,7 +9,7 @@ import StyledFooter from "./styled-footer";
 import Social from "./sub-components/social-items";
 import FooterItem from "./sub-components/footer-item";
 import Items from "./sub-components/footer-items";
-// import MailPopup from "./sub-components/mail-popup";
+import MailPopup from "./sub-components/mail-popup";
 
 const date = new Date();
 const currentYear = date.getFullYear();
@@ -92,7 +92,7 @@ const Footer = ({ t, language, ...rest }) => {
                 rel={item.rel}
                 target="_blank"
                 key={item.title}
-                //onClick={(item.title === "OnlyOffice" ? () => handlerSetModal(true) : null)}
+                onClick={(item.title === "OnlyOffice" ? () => handlerSetModal(true) : null)}
               >
                 <IconButton
                   className={item.className}
@@ -111,7 +111,7 @@ const Footer = ({ t, language, ...rest }) => {
           />
         </div>
       </div>
-      {/* <MailPopup active={modalActive} setActive={setModalActive} /> */}
+      <MailPopup active={modalActive} setActive={setModalActive} />
     </StyledFooter>
   );
 };
