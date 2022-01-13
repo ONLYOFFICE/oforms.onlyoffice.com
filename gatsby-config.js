@@ -40,7 +40,7 @@ module.exports = {
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        name: "oforms",
+        name: "def",
         path: "./static/data",
       },
     },

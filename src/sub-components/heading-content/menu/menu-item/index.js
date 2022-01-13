@@ -53,6 +53,7 @@ const MenuItem = ({ children, heading, ...rest }) => {
       <Heading
         className="heading-nav-item"
         label={heading}
+        level={2}
         onClick={toggleMenu}
         onMouseEnter={handleHoverMenu}
       />

@@ -21,7 +21,9 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
     .toLowerCase()}`;
   const IMAGE_SRC = Config.IMGSRC + file_image;
 
-  const DWN = file_formats_download;
+  const DWNLINK = file_formats_download.filter((it) => !it.indexOf("oform"));
+  const DWN = DWNLINK[0][1];
+
   const linkFillForm = name
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")

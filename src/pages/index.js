@@ -16,10 +16,18 @@ const IndexPage = () => {
     i18n: { language },
   } = useTranslation();
 
+  const title = "OFORMS – fill out forms online for free";
+  const description =
+    "Try powerful ready-to-fill out free online forms. Create documens with forms online or just download templates in the desirable format: DOCXF, OFORM, or PDF.";
   return (
     <Layout>
       <Layout.PageHead>
-        <HeadSEO />
+        <HeadSEO
+          title={title}
+          metaDescription={description}
+          metaDescriptionOg={description}
+          metaKeywords={title}
+        />
       </Layout.PageHead>
       <Layout.PageHeader>
         <HeadingContent t={t} currentLanguage={language} />

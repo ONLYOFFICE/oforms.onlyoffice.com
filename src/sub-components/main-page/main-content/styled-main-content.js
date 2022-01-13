@@ -9,7 +9,8 @@ const StyledMainContent = styled(Section)`
   }
 
   .tempalates-buttons-items {
-    margin-top: 50px;
+    border: 1px solid #aaaaaa;
+    margin-top: 40px;
   }
 
   .box-doc-info-template {
