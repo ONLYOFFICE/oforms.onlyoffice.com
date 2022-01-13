@@ -166,6 +166,9 @@ const MainContent = ({ t, language, count, ...rest }) => {
     <StyledMainContent
       background="#F5F5F5"
       groupCheckboxIsOpen={groupCheckboxIsOpen}
+      padding="84px 0 109px"
+      tabletPadding="84px 0 103px 0"
+      mobileLPadding="66px 0"
       {...rest}
     >
       <Heading

@@ -57,9 +57,9 @@ const InfoContent = ({ t, ...rest }) => {
   return (
     <StyledInfoContent
       background="#333333"
-      padding="116px 0 0 0"
-      tabletPadding="116px 0 0 0"
-      mobileLPadding="75px 0 0 0"
+      padding="158px 0 0 0"
+      tabletPadding="134px 0 0 0"
+      mobileLPadding="134px 0 0 0"
       {...rest}
     >
       <Heading className="heading-info-content">

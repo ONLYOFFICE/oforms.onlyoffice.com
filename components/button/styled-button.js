@@ -27,6 +27,11 @@ const StyledButton = styled.button`
     props.typeButton === "transparent"
       ? props.theme.button.borderTransparentType
       : "unset"};
+  border-color: ${(props) =>
+    props.borderColor
+      ? props.borderColor
+      : props.typeButton === "transparent" &&
+      props.theme.button.borderColor};
   border-radius: ${(props) => props.theme.button.borderRadius};
 
   font-size: ${(props) => props.fontSize || props.theme.button.fontSize};
@@ -71,7 +76,7 @@ const StyledButton = styled.button`
           : props.theme.button.backgroundColorSecondaryHover)};
     border-color: ${(props) =>
     props.borderColorHover
-      ? props.borderColorHove
+      ? props.borderColorHover
       : props.typeButton === "transparent" &&
       props.theme.button.borderColorHover};
     color: ${(props) =>

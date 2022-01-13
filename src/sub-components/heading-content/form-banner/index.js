@@ -57,7 +57,7 @@ const FormBanner = ({ t, labelPrice, labelName, link }) => {
             </Text>
           </Box>
         </Box>
-        <Link href={link}>
+        <Link href={link} className="box-button">
           <Button label={t("FILL OUT")} width="164px" height="56px" />
         </Link>
       </Box>
