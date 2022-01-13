@@ -5,6 +5,10 @@ const availableLanguages = languages.map((el) => el.shortKey);
 const { defaultLanguage } = require("./static/data/config.json");
 
 module.exports = {
+  proxy: {
+    prefix: "/post.ashx",
+    url: "https://www.onlyoffice.com",
+  },
   plugins: [
     { resolve: "gatsby-plugin-styled-components" },
     { resolve: "gatsby-plugin-image" },
@@ -40,7 +44,7 @@ module.exports = {
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        name: "oforms",
+        name: "def",
         path: "./static/data",
       },
     },

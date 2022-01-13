@@ -177,7 +177,7 @@ const StyledMainInfo = styled(Section)`
       grid-row-start: 2;
       grid-row-end: 3;
     }
-    @media ${device.laptop} {
+    /* @media ${device.laptop} {
       .template-main-description {
         max-width: 344px;
       }
@@ -185,9 +185,9 @@ const StyledMainInfo = styled(Section)`
       .template-main-info {
         max-width: 344px;
       }
-    }
+    } */
 
-    @media ${device.tablet} {
+    @media ${device.laptop} {
       .template-main-description,
       .template-main-info {
         max-width: 100%;

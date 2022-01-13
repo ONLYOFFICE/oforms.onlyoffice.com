@@ -10,7 +10,7 @@ import ELink from "./sub-components/link";
 import Image from "./sub-components/image";
 
 const Card = ({ t, callback, arrayItems, ...rest }) => {
-  const { file_description, file_formats_download, file_image, name } =
+  const { file_description, file_formats_download, file_image, name, description_card } =
     arrayItems;
 
   const pathName = `/${name
@@ -18,7 +18,9 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
     .replace(/[{()}]/g, "")
     .toLowerCase()}`;
   const IMAGE_SRC = Config.IMGSRC + file_image;
-  const DWN = file_formats_download;
+  const DWNLINK = file_formats_download.filter((it) => !it.indexOf("oform"));
+  const DWN = DWNLINK[0][1];
+
   const linkFillForm = name
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
@@ -39,7 +41,7 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
         />
         <Text
           className="subtitle-template text-overflow-templapte"
-          label={file_description[0]}
+          label={description_card}
         />
         <ELink target="_blank" href={`/editor?fillform=${linkFillForm}`}>
           <Button

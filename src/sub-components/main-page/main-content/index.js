@@ -35,6 +35,7 @@ const MainContent = ({ t, language, count, ...rest }) => {
           link_oform_filling_file
           name
           jsonId
+          description_card
         }
       }
     }

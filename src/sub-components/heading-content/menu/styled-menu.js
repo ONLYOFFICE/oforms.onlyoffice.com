@@ -50,6 +50,7 @@ height: 48px;
 
 const StyledMenu = styled.div`
   align-items: center;
+  border-bottom: 1px solid transparent;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: auto 1fr auto;

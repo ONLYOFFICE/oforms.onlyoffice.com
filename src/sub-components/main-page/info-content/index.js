@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useStaticQuery, graphql } from "gatsby";
+import React from "react";
 
 import Scrollbar from "../../../../components/scrollbar";
 import Heading from "../../../../components/heading";
@@ -9,51 +8,9 @@ import Banner from "../banner-cards";
 
 import StyledInfoContent from "./styled-content";
 import ShortCard from "./short-card";
+import array_item from "./items";
 
 const InfoContent = ({ t, ...rest }) => {
-  const data = useStaticQuery(graphql`
-    {
-      allDefJson {
-        totalCount
-        nodes {
-          file_categories
-          file_last_update
-          file_description
-          file_formats_download
-          file_country_access
-          file_image
-          link_oform_filling_file
-          name
-          jsonId
-        }
-      }
-    }
-  `);
-
-  const allItems = data.allDefJson.nodes;
-  let tmpAllItems = [];
-  for (let i = 0; i < 4; i++) {
-    tmpAllItems.push(allItems[Math.floor(Math.random() * allItems.length)]);
-  }
-
-  let array_item = tmpAllItems.map((it) => {
-    let subtitle = it.file_categories.join(" and ");
-    let linkUrl = `/${it.name
-      .replace(/\s/g, "-")
-      .replace(/[{()}]/g, "")
-      .toLowerCase()}`;
-    let hrefButtom = it.name
-      .replace(/\s/g, "-")
-      .replace(/[{()}]/g, "")
-      .toLowerCase();
-    return {
-      title: it.name,
-      subtitle: subtitle,
-      linkUrl: linkUrl,
-      hrefButtom: hrefButtom,
-    };
-  });
-
   return (
     <StyledInfoContent
       background="#333333"
@@ -82,16 +39,22 @@ const InfoContent = ({ t, ...rest }) => {
           className="scrollbar-items-content"
           style={{ width: 1140, height: 250 }}
         >
-          {array_item.map((it, idx) => (
-            <ShortCard
-              t={t}
-              key={`items-short-card-${idx}`}
-              title={it.title}
-              subtitle={it.subtitle}
-              linkUrl={it.linkUrl}
-              hrefButtom={it.hrefButtom}
-            />
-          ))}
+          {array_item.map((it, idx) => {
+            let href = it.title
+              .replace(/\s/g, "-")
+              .replace(/[{()}]/g, "")
+              .toLowerCase();
+            return (
+              <ShortCard
+                t={t}
+                key={`items-short-card-${idx}`}
+                title={it.title}
+                subtitle={it.subtitle}
+                linkUrl={it.linkUrl}
+                hrefButtom={href}
+              />
+            );
+          })}
         </Scrollbar>
       </Box>
       <Banner t={t} />
