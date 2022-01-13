@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import TextInput from "../../../components/text-input";
-import EmailInput from "../../../components/email-input";
+import React, { useState, useEffect } from "react";
 import Button from "../../../components/button";
-import axios from "axios";
-const Form = () => {
+import Text from "../../../components/text";
+
+import { StyledMailForm } from "./sub-components/styled-mail-popup";
+
+const Form = ({ setFormComplete }) => {
   const [formData, setFormData] = useState({
     firstName: "",
     email: "",
@@ -12,6 +13,10 @@ const Form = () => {
   const APIrequest = "https://www.onlyoffice.com/post.ashx";
   function emailIsValid(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function nameIsValid(name) {
+    return name.length > 0;
   }
 
   const updateFormData = (event) =>
@@ -27,41 +32,72 @@ const Form = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(formData)
-    fetch(APIrequest, {
-      method: "POST",
-    //   mode: "no-cors",
-      body: `type=sendsubscription&firstName=${firstName}&email=${email}`,
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    }).then((response) => {
-      console.log(response)
-    });
+    const BODYrequest = `type=sendsubscription&firstName=${firstName}&email=${email}&subscr_type=Common`;
+    const ap = APIrequest + "?" + BODYrequest;
+    setEmailError(!emailIsValid(email));
+    setNameError(!nameIsValid(firstName));
+    if (!emailError && !nameError) {
+      fetch(ap, {
+        method: "POST",
+        mode: "no-cors",
+        //   body: JSON.stringify({
+        //     type: "sendsubscription",
+        //     firstName: firstName,
+        //     email: email,
+        //     subscr_type: "Common"
+        //   }),
+        //   headers: {
+        //     Accept: "application/json",
+        //     "Content-Type": "application/json",
+        //   },
+      })
+        .then(function (response) {
+          // console.log(response);
+          setFormComplete(true);
+        })
+        .catch(function (error) {
+          // console.log(error);
+        });
+    }
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <input
-        value={firstName}
-        onChange={(e) => updateFormData(e)}
-        placeholder="First name"
-        type="text"
-        name="firstName"
-        required
-      />
-      <input
-        value={email}
-        onChange={(e) => updateFormData(e)}
-        placeholder="Email address"
-        type="email"
-        name="email"
-        required
-      />
-
-      <Button type="submit" label="Submit" />
-    </form>
+    <StyledMailForm className="dataForm">
+      <Text className="captchaDescription">
+        Get the latest ONLYOFFICE news delivered to your inbox
+      </Text>
+      <form onSubmit={handleFormSubmit} className="formItemsSend">
+        <input
+          className="form-text"
+          value={firstName}
+          onChange={(e) => updateFormData(e)}
+          placeholder="First name"
+          type="text"
+          name="firstName"
+          //   required
+        />
+        {nameError && (
+          <Text height="12px" className="errorNameText">
+            First name is empty
+          </Text>
+        )}
+        <input
+          className="form-text"
+          value={email}
+          onChange={(e) => updateFormData(e)}
+          placeholder="Email address"
+          type="email"
+          name="email"
+          //   required
+        />
+        {emailError && (
+          <Text height="12px" className="errorMailText">
+            Email is incorrect
+          </Text>
+        )}
+        <Button type="submit" label="Subscribe" className="form-button-app" />
+      </form>
+    </StyledMailForm>
   );
 };
 

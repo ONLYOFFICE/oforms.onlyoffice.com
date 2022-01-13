@@ -44,6 +44,9 @@ const StyledFormBanner = styled.div `
         margin-bottom: 18px;
         padding:0 0 0 2em;
     }
+    .box-button{
+        overflow: visible;
+    }
 
     @media ${device.laptop} {
         display: none;

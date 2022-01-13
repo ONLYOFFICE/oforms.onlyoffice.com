@@ -17,6 +17,15 @@ const StyledMailPopup = styled.div`
   z-index: 1001;
   transition: all ease 0.5s;
 
+  .popupPanelText {
+    color: #333;
+    background-color: transparent;
+    height: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: left;
+  }
+
   ${(props) =>
     props.active &&
     css`
@@ -37,7 +46,7 @@ const StyledMailPopup = styled.div`
       display: block;
     }
     .dataForm {
-      padding: 0 140px 0;
+      padding: 40px 140px 0;
       /* 
             label{
                 transition: none;
@@ -127,11 +136,40 @@ const CloseButton = styled.div`
   }
 `;
 
-const StyledMailForm = styled(Form)`
+const StyledMailForm = styled.div`
   max-width: none;
   padding: 0;
   margin-top: -30px;
   grid-gap: 10px;
+
+  .errorNameText,
+  .errorMailText {
+    position: absolute;
+    padding-top: 57px;
+    /* top: 24px; */
+    font-size: 11px;
+    line-height: 1.6em;
+    z-index: 100;
+    margin-top: -19px;
+    margin-bottom: 8px;
+    display: block;
+    color: #cb0000;
+    padding-bottom: 5px;
+    /* left: 0; */
+  }
+
+  .errorMailText {
+    padding-top: 125px;
+  }
+  .formItemsSend {
+    row-gap: 25px;
+    display: flex;
+    flex-direction: column;
+  }
+  .form-button-app {
+    max-width: 120px;
+    margin: 0 auto;
+  }
 
   .form-header {
     letter-spacing: none;

@@ -148,27 +148,32 @@ const MailPopup = ({ t, language, active, setActive, submitForm, ...rest }) => {
   return (
     <StyledMailPopup active={active} onClick={() => setActive(false)} {...rest}>
       <div onClick={(e) => e.stopPropagation()} className="popup-content">
-        <Text className="PopupPanelCaption">
-          {/* Don't Miss an Update! */}
+      <div className="PopupPanelCaptionItems">
+        <div className="PopupPanelCaption">
+            <Text className="popupPanelText" label="Don't Miss an Update!" />
           <CloseButton onClick={() => setActive(false)} />
-        </Text>
-        {!formComplete ? (
-          <FForm />
-        ) : (
-          <div className="success">
-            <div className="captchaDescription">
-              We sent an email message with confirmation to your email address.
-            </div>
-            <Button
-              typeButton="secondary"
-              type="submit"
-              isSubmit
-              className="button gray"
-              label="OK"
-              onClick={() => setActive(false)}
-            />
           </div>
-        )}
+          <div>
+            {!formComplete ? (
+              <FForm setFormComplete={setFormComplete}/>
+            ) : (
+              <div className="success">
+                <div className="captchaDescription">
+                  We sent an email message with confirmation to your email
+                  address.
+                </div>
+                <Button
+                  typeButton="secondary"
+                  type="submit"
+                  isSubmit
+                  className="button gray"
+                  label="OK"
+                  onClick={() => setActive(false)}
+                />
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </StyledMailPopup>
   );

@@ -5,8 +5,10 @@ const StyledCard = styled.div`
   flex-direction: column;
   justify-items: stretch;
   max-width: 256px;
-  max-height: 604px;
+  box-shadow: 0px 20px 50px rgba(85, 85, 85, 0.1);
   background-color: #f9f9f9;
+  border-radius: 3px;
+  box-sizing: border-box;
 
   .image-template {
     max-width: 254px;
@@ -14,6 +16,8 @@ const StyledCard = styled.div`
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     border-bottom: none;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
   }
 
   .card-template {
@@ -23,6 +27,8 @@ const StyledCard = styled.div`
     border-bottom-right-radius: 3px;
     padding: 22px 24px 0px 24px;
     max-height: 239px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
   }
 
   .title-template {
@@ -50,15 +56,19 @@ const StyledCard = styled.div`
     word-wrap: break-word;
     -webkit-box-orient: vertical;
     box-orient: vertical;
+    font-size: 13px;
   }
 
   .redactor-btn-template {
     border: 1px solid #aaaaaa;
     height: 48px;
     margin-bottom: 0px;
+    height: 48px;
   }
 
   .download-btn-template {
+    letter-spacing: 0.04em;
+    margin-top: 8px;
     background-color: transparent;
     margin: 4px auto;
     opacity: 1;
@@ -66,7 +76,6 @@ const StyledCard = styled.div`
 
   @media (max-width: 1200px) {
     max-width: 214px;
-    max-height: 552px;
     .image-template {
       max-width: 212px;
     }
@@ -74,6 +83,9 @@ const StyledCard = styled.div`
 
   @media (max-width: 500px) {
     max-width: 168px;
+    .image-template {
+      box-sizing: border-box;
+    }
     .card-template {
       padding: 12px 12px 10px 12px;
     }
@@ -81,8 +93,8 @@ const StyledCard = styled.div`
 
   @media (max-width: 425px) {
     max-width: 288px;
-    max-height: 584px;
     .image-template {
+      box-sizing: content-box;
       max-width: 286px;
     }
   }

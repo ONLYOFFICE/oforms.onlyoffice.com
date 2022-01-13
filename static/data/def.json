@@ -37,7 +37,8 @@
         "seo": {
             "title": "House Rental (Lease) Agreement template",
             "description": "Fill out the form online and get a simple House Rental Agreement ready in a few moments, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a simple House Rental Agreement ready in a few moments, or just download the fillable template"
     },
     {
         "id": 1,
@@ -76,7 +77,8 @@
         "seo": {
             "title": "Software License Agreement template",
             "description": "Fill out the form online and get a simple Software License Agreement ready in a few moments, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a simple Software License Agreement ready in a few moments"
     },
     {
         "id": 2,
@@ -115,7 +117,8 @@
         "seo": {
             "title": "Job proposal template",
             "description": "Fill out the form online and get a simple Job Proposal ready in a few moments, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a simple Job Proposal ready in a few moments, or just download the fillable template"
     },
     {
         "id": 3,
@@ -154,7 +157,8 @@
         "seo": {
             "title": "Software Development Agreement template",
             "description": "Fill out the form online and get a simple Software Develoment Agreement ready in a few moments, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a simple Software Development Agreement ready in a few moments, or just download the template"
     },
     {
         "id": 4,
@@ -193,7 +197,8 @@
         "seo": {
             "title": "Real Estate Purchase Agreement template",
             "description": "Fill out the form online and get a simple House or Apartment Sale Agreement ready in a few moments, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a simple House or Apartment Sale Agreement ready in a few moments, or download the template"
     },
     {
         "id": 5,
@@ -225,14 +230,15 @@
         "file_size": "547 kb",
         "file_last_update": "9 August 2021",
         "file_description": [
-            "Fill out the form online and get a simple House or Apartment Sale Agreement ready in a few moments, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF.",
+            "Fill out the form online and get a simple Vehicle Rental (Leasing) Agreement ready in a few moments, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF.",
             "Build a detailed commercial rental contract based on this template providing all necessary terms and conditions for motor vehicle renters and rentees."
         ],
         "link_oform_filling_file": "https://oforms.teamlab.info/oforms-editor/en/oform/vehicle_rental_agreement.oform",
         "seo": {
             "title": "Vehicle Rental (Leasing) Agreement template",
-            "description": "Fill out the form online and get a simple House or Apartment Sale Agreement ready in a few moments, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+            "description": "Fill out the form online and get a simple Vehicle Rental (Leasing) Agreement ready in a few moments, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
+        },
+        "description_card": "Fill out the form and get a simple Vehicle Rental (Leasing) Agreement ready in a few moments, or download the template"
     },
     {
         "id": 6,
@@ -271,7 +277,8 @@
         "seo": {
             "title": "Loan Agreement template",
             "description": "Fill out the form online and get a simple personal Loan Agreement ready in a few moments, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a simple personal Loan Agreement ready in a few moments, or download the fillable template"
     },
     {
         "id": 7,
@@ -311,7 +318,8 @@
         "seo": {
             "title": "Last will and Testament template",
             "description": "Fill out the form and get Last Will and Testament ready online, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get Last Will and Testament ready online, or download the fillable template in the desired format"
     },
     {
         "id": 8,
@@ -351,7 +359,8 @@
         "seo": {
             "title": "Contributor License Agreement (CLA) template",
             "description": "Fill out the form online and get a simple Contributor License Agreement ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a simple Contributor License Agreement ready online, or just download the fillable template"
     },
     {
         "id": 9,
@@ -390,7 +399,8 @@
         "seo": {
             "title": "Service Level Agreement (SLA) template",
             "description": "Fill out the form online and get a simple Service Level Agreement ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a simple Service Level Agreement ready online, or just download the fillable template"
     },
     {
         "id": 10,
@@ -429,7 +439,8 @@
         "seo": {
             "title": "Non-disclosure (Mutual Confidentiality) Agreement template",
             "description": "Fill out the form online and get a simple Non-disclosure (Mutual Confidentiality) Agreement ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a simple Non-disclosure (Mutual Confidentiality) Agreement ready online"
     },
     {
         "id": 11,
@@ -468,7 +479,8 @@
         "seo": {
             "title": "Sale and Purchase Agreement template",
             "description": "Fill out the form online and get a simple Sale and Purchase Agreement ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a simple Sale and Purchase Agreement ready online, or just download the fillable template"
     },
     {
         "id": 12,
@@ -507,7 +519,8 @@
         "seo": {
             "title": "Vehicle Sale Agreement template",
             "description": "Fill out the form online and get a simple Vehicle Sale Agreement ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a simple Vehicle Sale Agreement ready online, or just download the fillable template"
     },
     {
         "id": 13,
@@ -546,7 +559,8 @@
         "seo": {
             "title": "Design Project Proposal template",
             "description": "Fill out the form online and get a simple Design Project Proposal ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a simple Design Project Proposal ready online, or just download the fillable template"
     },
     {
         "id": 14,
@@ -585,7 +599,8 @@
         "seo": {
             "title": "Website Development Proposal template",
             "description": "Fill out the form online and get a simple Website Development Project Proposal ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a simple Website Development Project Proposal ready online, or download the fillable template"
     },
     {
         "id": 15,
@@ -624,7 +639,8 @@
         "seo": {
             "title": "Mobile Application Development Proposal template",
             "description": "Fill out the form online and get a simple Mobile App Development Proposal ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a simple Mobile App Development Proposal ready online, or just download the fillable template"
     },
     {
         "id": 16,
@@ -663,7 +679,8 @@
         "seo": {
             "title": "Freelance Project Proposal template",
             "description": "Fill out the form online and get a simple Freelance Project Proposal ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a simple Freelance Project Proposal ready online, or download the template in OFORM or PDF"
     },
     {
         "id": 17,
@@ -702,7 +719,8 @@
         "seo": {
             "title": "Gardening Service Proposal template",
             "description": "Fill out the form online and get a simple Gardening Service Proposal ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a simple Gardening Service Proposal ready online, or download the template in OFORM or PDF"
     },
     {
         "id": 18,
@@ -741,7 +759,8 @@
         "seo": {
             "title": "House Cleaning Service Proposal template",
             "description": "Fill out the form online and get a simple House Cleaning Proposal ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a simple House Cleaning Proposal ready online, or just download the fillable template"
     },
     {
         "id": 19,
@@ -780,7 +799,8 @@
         "seo": {
             "title": "Laundry Service Proposal template",
             "description": "Fill out the form online and get a simple Laundry Service Proposal ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a simple Laundry Service Proposal ready online, or just download the fillable template"
     },
     {
         "id": 20,
@@ -819,7 +839,8 @@
         "seo": {
             "title": "General Invoice template",
             "description": "Fill out the form online and get a simple general invoice ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a simple invoice ready online, or just download the fillable template in DOCXF, OFORM, or PDF"
     },
     {
         "id": 21,
@@ -858,7 +879,8 @@
         "seo": {
             "title": "Form W-2 (Wage and Tax Statement) template",
             "description": "Fill out the form online and get a Form W-2 (Wage and Tax Statement) ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a W-2 Form ready online, or just download the fillable template in DOCXF, OFORM, or PDF"
     },
     {
         "id": 22,
@@ -897,7 +919,8 @@
         "seo": {
             "title": "Form W-9 (Request for TIN and Certification) template",
             "description": "Fill out the form online and get a Form W-9 (Request for Taxpayer Identification Number (TIN) and Certification) ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form online and get a Form W-9 ready online, or just download the fillable template in DOCXF, OFORM, or PDF"
     },
     {
         "id": 23,
@@ -936,7 +959,8 @@
         "seo": {
             "title": "Form 1098 (Mortgage Interest Statement) template",
             "description": "Fill out the form online and get a Form 1098 (Mortgage Interest Statement) ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a Form 1098 ready online, or just download the fillable template in DOCXF, OFORM, or PDF"
     },
     {
         "id": 24,
@@ -975,7 +999,8 @@
         "seo": {
             "title": "Form 1099-MISC (Miscellaneous Income) template",
             "description": "Fill out the form online and get a 1099-MISC ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a 1099-MISC ready online, or just download the fillable template in DOCXF, OFORM, or PDF."
     },
     {
         "id": 25,
@@ -1014,6 +1039,7 @@
         "seo": {
             "title": "Social Security Form SS-5 template",
             "description": "Fill out the form online and get a Form SS-5 ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        }
+        },
+        "description_card": "Fill out the form and get a SS-5 Form ready online, or just download the fillable template in DOCXF, OFORM, or PDF"
     }
 ]

@@ -12,7 +12,7 @@ import ENLink from "../internal-link";
 import Image from "./sub-components/image";
 
 const Card = ({ t, callback, arrayItems, ...rest }) => {
-  const { file_description, file_formats_download, file_image, name } =
+  const { file_description, file_formats_download, file_image, name, description_card } =
     arrayItems;
 
   const pathName = `/${name
@@ -44,7 +44,7 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
         />
         <Text
           className="subtitle-template text-overflow-templapte"
-          label={file_description[0]}
+          label={description_card}
         />
         <ELink target="_blank" href={`/editor?fillform=${linkFillForm}`}>
           <Button
