@@ -5,6 +5,7 @@ const {
   grayMain,
   graySecnodary,
   grayHover,
+  grayMainLight,
   grayLight,
   grayTextInput,
   orangeMain,
@@ -137,7 +138,7 @@ const Base = {
     backgroundColorPrimaryHover: orangeHover,
     backgroundColorSecondaryHover: grayHover,
 
-    borderTransparentType: `1px solid ${grayMain}`,
+    borderTransparentType: `1px solid ${grayMainLight}`,
     borderRadius: "3px",
 
     overflow: "hidden",

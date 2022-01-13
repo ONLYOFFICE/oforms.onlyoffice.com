@@ -22,7 +22,7 @@ const StyledShortCard = styled.div`
   .card-subtitle {
     display: block;
     white-space: normal;
-    margin-top: 3px;
+    margin-top: 8px;
     font-size: 13px;
     font-weight: normal;
     color: #808080;
@@ -60,6 +60,15 @@ const StyledShortCard = styled.div`
       word-wrap: break-word;
       -webkit-box-orient: vertical;
       box-orient: vertical;
+    }
+    .card-link {
+      margin-top: 11px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .card-link {
+      margin-top: 13px;
     }
   }
 

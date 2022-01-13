@@ -10,7 +10,7 @@ const Banner = ({ t }) => {
     <StyledBanner>
       <Section
         background="#333333"
-        padding="112px 0"
+        padding="131px 0 111px"
         tabletPadding="112px 0 109px"
         mobileLPadding="48px 0 72px"
       >

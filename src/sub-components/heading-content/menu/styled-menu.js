@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 const StyledMenuTablet = css`
 grid-template-columns: auto 152px auto;
 justify-content: space-between;
-height: 37px;
+height: 48px;
   .nav-items-mobile {
     display: block;
     grid-column-start: 1;
@@ -61,7 +61,7 @@ const StyledMenu = styled.div`
   margin: 0 auto;
   padding: 0 18px;
   box-sizing: border-box;
-  height: 100%;
+  height: auto;
 
   font-size: 12px;
   color: ${(props) => (!props.template ? `#fff` : `#333`)};

@@ -36,7 +36,8 @@ const StyledBanners = styled.div`
   }
 
   .buttons {
-    margin: 0 5px;
+    margin: 0 6px;
+    letter-spacing: 0.04em;
   }
   @media (max-width: 1200px) {
     max-width: calc(100% - 80px);
