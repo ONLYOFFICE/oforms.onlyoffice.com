@@ -25,6 +25,7 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
     file_description,
     file_image,
     file_type_access,
+    description_card,
     file_last_update,
     file_pages,
     file_size,
