@@ -2,7 +2,7 @@
     {
         "id": 0,
         "name": "House Rental (Lease) Agreement form",
-        "file_image": "test_tmp.png",
+        "file_image": "lease_(rental_house)_agreement.png",
         "file_categories": [
             "Real Estate and Leasing",
             "Legal"
@@ -43,7 +43,7 @@
     {
         "id": 1,
         "name": "Software License Agreement form",
-        "file_image": "test_tmp.png",
+        "file_image": "license_agreement.png",
         "file_categories": [
             "Licenses and Agreements"
         ],
@@ -51,7 +51,7 @@
             [
                 "oform",
                 "https://oforms.teamlab.info/oforms-editor/en/oform/license_agreement.oform"
-            ],            
+            ],
             [
                 "pdf",
                 "https://oforms.teamlab.info/oforms-editor/en/pdf/license_agreement.pdf"
@@ -83,7 +83,7 @@
     {
         "id": 2,
         "name": "Job proposal form",
-        "file_image": "test_tmp.png",
+        "file_image": "job_proposal_template.png",
         "file_categories": [
             "Employment"
         ],
@@ -91,7 +91,7 @@
             [
                 "oform",
                 "https://oforms.teamlab.info/oforms-editor/en/oform/job_proposal_template.oform"
-            ],            
+            ],
             [
                 "pdf",
                 "https://oforms.teamlab.info/oforms-editor/en/pdf/job_proposal_template.pdf"
@@ -123,7 +123,7 @@
     {
         "id": 3,
         "name": "Software Development Agreement form",
-        "file_image": "test_tmp.png",
+        "file_image": "software_development_agreement.png",
         "file_categories": [
             "Proposals"
         ],
@@ -131,7 +131,7 @@
             [
                 "oform",
                 "https://oforms.teamlab.info/oforms-editor/en/oform/software_development_agreement.oform"
-            ],            
+            ],
             [
                 "pdf",
                 "https://oforms.teamlab.info/oforms-editor/en/pdf/software_development_agreement.pdf"
@@ -163,7 +163,7 @@
     {
         "id": 4,
         "name": "Real Estate Purchase Agreement form",
-        "file_image": "test_tmp.png",
+        "file_image": "house_sale_purchase_agreement.png",
         "file_categories": [
             "Sales"
         ],
@@ -203,7 +203,7 @@
     {
         "id": 5,
         "name": "Vehicle Rental (Leasing) Agreement form",
-        "file_image": "test_tmp.png",
+        "file_image": "vehicle_rental_agreement.png",
         "file_categories": [
             "Real Estate and Leasing"
         ],
@@ -243,7 +243,7 @@
     {
         "id": 6,
         "name": "Loan Agreement form",
-        "file_image": "test_tmp.png",
+        "file_image": "loan_agreement.png",
         "file_categories": [
             "Real Estate and Leasing"
         ],
@@ -283,7 +283,7 @@
     {
         "id": 7,
         "name": "Last will and Testament form",
-        "file_image": "test_tmp.png",
+        "file_image": "last_will_and_testament.png",
         "file_categories": [
             "Financial",
             "Legal"
@@ -324,7 +324,7 @@
     {
         "id": 8,
         "name": "Contributor License Agreement (CLA) form",
-        "file_image": "test_tmp.png",
+        "file_image": "cla.png",
         "file_categories": [
             "Licenses and Agreements",
             "Contracts"
@@ -365,7 +365,7 @@
     {
         "id": 9,
         "name": "Service Level Agreement (SLA) form",
-        "file_image": "test_tmp.png",
+        "file_image": "service_level_agreement.png",
         "file_categories": [
             "Licenses and Agreements"
         ],
@@ -405,7 +405,7 @@
     {
         "id": 10,
         "name": "Non-disclosure (Mutual Confidentiality) Agreement form",
-        "file_image": "test_tmp.png",
+        "file_image": "nda.png",
         "file_categories": [
             "Licenses and Agreements"
         ],
@@ -435,7 +435,7 @@
             "Fill out the form online and get a simple Non-disclosure (Mutual Confidentiality) Agreement ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF.",
             "Set out legal terms of material, knowledge, and information confidentiality for their authorized users in any framework."
         ],
-        "link_oform_filling_file": "https://oforms.teamlab.info/oforms-editor/en/sales_agreement",
+        "link_oform_filling_file": "https://oforms.teamlab.info/oforms-editor/en/oform/nda.oform",
         "seo": {
             "title": "Non-disclosure (Mutual Confidentiality) Agreement template",
             "description": "Fill out the form online and get a simple Non-disclosure (Mutual Confidentiality) Agreement ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
@@ -445,7 +445,7 @@
     {
         "id": 11,
         "name": "Sale and Purchase Agreement form",
-        "file_image": "test_tmp.png",
+        "file_image": "sales_agreement.png",
         "file_categories": [
             "Sales"
         ],
@@ -485,7 +485,7 @@
     {
         "id": 12,
         "name": "Vehicle Sale Agreement form",
-        "file_image": "test_tmp.png",
+        "file_image": "vehicle_sale.png",
         "file_categories": [
             "Sales"
         ],
@@ -525,7 +525,7 @@
     {
         "id": 13,
         "name": "Design Project Proposal form",
-        "file_image": "test_tmp.png",
+        "file_image": "design.png",
         "file_categories": [
             "Proposals"
         ],
@@ -565,7 +565,7 @@
     {
         "id": 14,
         "name": "Website Development Proposal form",
-        "file_image": "test_tmp.png",
+        "file_image": "website_development.png",
         "file_categories": [
             "Proposals"
         ],
@@ -605,7 +605,7 @@
     {
         "id": 15,
         "name": "Mobile Application Development Proposal form",
-        "file_image": "test_tmp.png",
+        "file_image": "mobile_app_development.png",
         "file_categories": [
             "Proposals"
         ],
@@ -645,7 +645,7 @@
     {
         "id": 16,
         "name": "Freelance Project Proposal form",
-        "file_image": "test_tmp.png",
+        "file_image": "freelance.png",
         "file_categories": [
             "Proposals"
         ],
@@ -685,7 +685,7 @@
     {
         "id": 17,
         "name": "Gardening Service Proposal form",
-        "file_image": "test_tmp.png",
+        "file_image": "gardening_services.png",
         "file_categories": [
             "Proposals"
         ],
@@ -725,14 +725,14 @@
     {
         "id": 18,
         "name": "House Cleaning Service Proposal form",
-        "file_image": "test_tmp.png",
+        "file_image": "house_cleaning.png",
         "file_categories": [
             "Proposals"
         ],
         "file_formats_download": [
             [
                 "oform",
-                "https://oforms.teamlab.info/oforms-editor/en/oform/house_cleaning.oform.oform"
+                "https://oforms.teamlab.info/oforms-editor/en/oform/house_cleaning.oform"
             ],
             [
                 "pdf",
@@ -755,7 +755,7 @@
             "Fill out the form online and get a simple House Cleaning Proposal ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF.",
             "Provide a quote for a housekeeping contract with an outline of the involved tasks, payment information, and your company details."
         ],
-        "link_oform_filling_file": "https://oforms.teamlab.info/oforms-editor/en/oform/house_cleaning.oform.oform",
+        "link_oform_filling_file": "https://oforms.teamlab.info/oforms-editor/en/oform/house_cleaning.oform",
         "seo": {
             "title": "House Cleaning Service Proposal template",
             "description": "Fill out the form online and get a simple House Cleaning Proposal ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
@@ -765,7 +765,7 @@
     {
         "id": 19,
         "name": "Laundry Service Proposal form",
-        "file_image": "test_tmp.png",
+        "file_image": "laundry_service.png",
         "file_categories": [
             "Proposals"
         ],
@@ -804,48 +804,8 @@
     },
     {
         "id": 20,
-        "name": "General Invoice form",
-        "file_image": "test_tmp.png",
-        "file_categories": [
-            "Financial"
-        ],
-        "file_formats_download": [
-            [
-                "oform",
-                "https://oforms.teamlab.info/oforms-editor/en/oform/Laundry Service.oform"
-            ],
-            [
-                "pdf",
-                "/link_dwn_pdf"
-            ],
-            [
-                "docxf",
-                "/link_dwn_docxf"
-            ]
-        ],
-        "file_country_access": [
-            "International"
-        ],
-        "file_type_access": "Free",
-        "file_link_changelog": "/file_link_changelog",
-        "file_pages": 1,
-        "file_size": "512 kb",
-        "file_last_update": "9 August 2021",
-        "file_description": [
-            "Fill out the form online and get a simple general invoice ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF.",
-            "Compose a basic invoice for purchase of goods or services from your company."
-        ],
-        "link_oform_filling_file": "https://d2nlctn12v279m.cloudfront.net/assets/docs/samples/demo.oform",
-        "seo": {
-            "title": "General Invoice template",
-            "description": "Fill out the form online and get a simple general invoice ready, or just download the fillable template in the desirable format: DOCXF, OFORM, or PDF."
-        },
-        "description_card": "Fill out the form and get a simple invoice ready online, or just download the fillable template in DOCXF, OFORM, or PDF"
-    },
-    {
-        "id": 21,
         "name": "Form W-2 (Wage and Tax Statement)",
-        "file_image": "test_tmp.png",
+        "file_image": "w_2_new.png",
         "file_categories": [
             "Financial"
         ],
@@ -883,9 +843,9 @@
         "description_card": "Fill out the form and get a W-2 Form ready online, or just download the fillable template in DOCXF, OFORM, or PDF"
     },
     {
-        "id": 22,
+        "id": 21,
         "name": "Form W-9 (Request for TIN and Certification)",
-        "file_image": "test_tmp.png",
+        "file_image": "form_w_9.png",
         "file_categories": [
             "Financial"
         ],
@@ -923,9 +883,9 @@
         "description_card": "Fill out the form online and get a Form W-9 ready online, or just download the fillable template in DOCXF, OFORM, or PDF"
     },
     {
-        "id": 23,
+        "id": 22,
         "name": "Form 1098 (Mortgage Interest Statement)",
-        "file_image": "test_tmp.png",
+        "file_image": "2021_form_1098.png",
         "file_categories": [
             "Financial"
         ],
@@ -963,9 +923,9 @@
         "description_card": "Fill out the form and get a Form 1098 ready online, or just download the fillable template in DOCXF, OFORM, or PDF"
     },
     {
-        "id": 24,
+        "id": 23,
         "name": "Form 1099-MISC (Miscellaneous Income)",
-        "file_image": "test_tmp.png",
+        "file_image": "1099_misc_2021.png",
         "file_categories": [
             "Financial"
         ],
@@ -1003,9 +963,9 @@
         "description_card": "Fill out the form and get a 1099-MISC ready online, or just download the fillable template in DOCXF, OFORM, or PDF."
     },
     {
-        "id": 25,
+        "id": 24,
         "name": "Social Security Form SS-5",
-        "file_image": "test_tmp.png",
+        "file_image": "social_security_forms.png",
         "file_categories": [
             "Financial"
         ],
