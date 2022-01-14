@@ -62,7 +62,6 @@ const StyledCard = styled.div`
     word-wrap: break-word;
     -webkit-box-orient: vertical;
     box-orient: vertical;
-    font-size: 13px;
   }
 
   .redactor-btn-template {
