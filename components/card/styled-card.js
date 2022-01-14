@@ -9,6 +9,12 @@ const StyledCard = styled.div`
   background-color: #f9f9f9;
   border-radius: 3px;
   box-sizing: border-box;
+  transition: box-shadow 0.3s ease;
+
+  &:hover,
+  &:active{
+    box-shadow: 0px 20px 50px rgba(85, 85, 85, 0.1);
+  }
 
   .image-template {
     max-width: 254px;
@@ -60,10 +66,8 @@ const StyledCard = styled.div`
   }
 
   .redactor-btn-template {
-    border: 1px solid #aaaaaa;
     height: 48px;
     margin-bottom: 0px;
-    height: 48px;
   }
 
   .download-btn-template {
