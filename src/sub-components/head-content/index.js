@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import PropTypes from "prop-types";
 
-import config from "../../../static/data/config.json";
+// import config from "../../../static/data/config.json";
 import languages from "../../../languages.json";
 
 const HeadSEO = ({
@@ -12,9 +12,9 @@ const HeadSEO = ({
   title,
   ...rest
 }) => {
-  const srcWebAppAPI =
-    (config.docEditorUrl || "http://localhost") +
-    "/web-apps/apps/api/documents/api.js";
+  // const srcWebAppAPI =
+  //   (config.docEditorUrl || "http://localhost") +
+  //   "/web-apps/apps/api/documents/api.js";
 
   return (
     <Helmet {...rest}>
@@ -58,7 +58,7 @@ const HeadSEO = ({
         );
       })}
 
-      <script async type="text/javascript" src={srcWebAppAPI} />
+      {/* <script async type="text/javascript" src={srcWebAppAPI} /> */}
 
       <script>
         {`

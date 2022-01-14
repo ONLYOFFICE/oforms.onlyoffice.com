@@ -20,7 +20,7 @@ const InfoContent = ({ t, ...rest }) => {
       {...rest}
     >
       <Heading className="heading-info-content">
-        <span style={{ color: "#FF6F3D" }}>OFORMS</span>
+        <span style={{ color: "#FF6F3D" }}>OFORMS:</span>
         {t(" FREE ready-to-fill out online forms")}
       </Heading>
       <Text
