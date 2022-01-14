@@ -56,7 +56,6 @@ const StyledCard = styled.div`
     word-wrap: break-word;
     -webkit-box-orient: vertical;
     box-orient: vertical;
-    font-size: 13px;
   }
 
   .redactor-btn-template {
@@ -81,6 +80,12 @@ const StyledCard = styled.div`
     }
   }
 
+  @media (max-width: 768px) {
+    .title-template {
+      font-size: 14px;
+    }
+  }
+
   @media (max-width: 500px) {
     max-width: 168px;
     .image-template {
@@ -88,6 +93,10 @@ const StyledCard = styled.div`
     }
     .card-template {
       padding: 12px 12px 10px 12px;
+    }
+    
+    .subtitle-template {
+      font-size: 12px;
     }
   }
 
