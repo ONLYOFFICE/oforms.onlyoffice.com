@@ -7,14 +7,14 @@ import StyledCarouselContent from "./carousel-section";
 
 import { cardCarouselSettings } from "./sub-components/carousel-settings";
 
-const CarouselContent = ({ label, data, config }) => {
+const CarouselContent = ({ label, data, config, padding, tabletPadding, mobileLPadding }) => {
   const customConfig = config || cardCarouselSettings;
 
   return (
     <StyledCarouselContent
-      padding="112px 0 40px"
-      tabletPadding="80px 0 8px"
-      mobileLPadding="48px 0 0"
+      padding={padding}
+      tabletPadding={tabletPadding}
+      mobileLPadding={mobileLPadding}
       maxWidth="100%"
       maxWidthLaptop="100%"
     >

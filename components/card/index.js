@@ -55,7 +55,9 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
           <Button
             isScale
             className="download-btn-template"
-            typeButton="white"
+            typeButton="transparent"
+            borderColor="transparent"
+            borderColorHover="transparent"
             label={"download"}
           />
         </ELink>
