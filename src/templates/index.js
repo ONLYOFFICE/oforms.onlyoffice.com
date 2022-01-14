@@ -169,12 +169,18 @@ const Template = ({ config, data, pageContext, ...rest }) => {
           link={`/editor?fillform=${linkFillForm}`}
         />
         <CarouselContent
+          padding="112px 0 62px"
+          tabletPadding="80px 0 30px"
+          mobileLPadding="48px 0 0"
           data={randomCardForms}
           label={headingRentForms}
           t={t}
         />
         {itemsClient !== null && parsedObjectLocalStorage.length >= 2 ? (
           <CarouselContent
+            padding="0 0 30px"
+            tabletPadding="0 0 30px"
+            mobileLPadding="0 0 0"
             data={itemsClient}
             label={headingRecentlyViewed}
             config={stateConfig}

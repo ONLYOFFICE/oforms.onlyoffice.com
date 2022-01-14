@@ -63,7 +63,9 @@ const StyledSearchArea = styled.div`
     }
   }
   @media ${device.mobile} {
-    .search_container {
+    .input-label {
+      font-size: 14px;
+      top: 35%;
     }
   }
 `;

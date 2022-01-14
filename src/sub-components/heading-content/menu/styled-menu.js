@@ -76,6 +76,9 @@ const StyledMenu = styled.div`
     grid-column-end: 3;
     .nav-item .heading-nav-item {
       color: #fff;
+      &:hover {
+        color: #ff6f3d;
+      }
       @media (max-width: 1050px) {
         color: #333;
       }
@@ -83,6 +86,9 @@ const StyledMenu = styled.div`
     &.dark {
       .nav-item .heading-nav-item {
         color: #333;
+        &:hover {
+          color: #ff6f3d;
+        }
       }
     }
   }

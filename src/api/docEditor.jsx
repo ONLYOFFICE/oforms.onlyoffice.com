@@ -14,7 +14,7 @@ const StyledPlaceholder = styled.div`
   top: 0;
 `;
 
-const DocEditorAPI = ({ id, name, link_oform_filling_file }) => {
+const DocEditorAPI = ({ id, name, link_oform_filling_file, scriptLoaded }) => {
   const IdDivPlaceholder = name
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
@@ -47,10 +47,10 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file }) => {
     }
   }, []);
 
-  return check ? (
+  return check && scriptLoaded ? (
     <>
       <Helmet>
-        <script type="text/javascript">
+        <script defer type="text/javascript">
           {`(window.docEditor = new DocsAPI.DocEditor("${IdDivPlaceholder}", {
                   token: "${token}",
                   type: "desktop",
