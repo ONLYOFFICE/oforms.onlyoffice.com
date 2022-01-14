@@ -60,6 +60,7 @@ const StyledFooter = styled.div`
     max-width: 1120px;
     min-width: 769px;
     padding-top: 70px;
+    padding-bottom: 62px;
     margin-bottom: 25px;
     height: auto;
     display: grid;
@@ -131,11 +132,11 @@ const StyledFooter = styled.div`
     @media ${device.laptop} {
         width: auto;
         max-width: 928px;
-        padding: 0 48px 50px;
+        padding: 0 48px 46px;
         vertical-align: top;
         min-width: unset;
         padding-top: 70px;
-        margin-bottom: 25px;
+        margin-bottom: 0;
     }
 
     @media ${device.tablet} {
