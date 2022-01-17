@@ -22,7 +22,7 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
     .toLowerCase()}`;
-  const IMAGE_SRC = Config.IMGSRC + "test_tmp.png"; //+ file_image;
+  const IMAGE_SRC = Config.IMGSRC + "template/" + file_image//"test_tmp.png"; //+ file_image;
   const DWNLINK = file_formats_download.filter((it) => !it.indexOf("oform"));
   const DWN = DWNLINK[0][1];
 
