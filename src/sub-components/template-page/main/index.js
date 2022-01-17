@@ -42,7 +42,7 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
     { title: tt3, href: file_formats_download[2][1] },
   ];
 
-  const IMAGE_SRC = Config.IMGSRC + "test_tmp.png"; //file_image;
+  const IMAGE_SRC = Config.IMGSRC + "template/" + file_image//"test_tmp.png"; //file_image;
   const SVG_FILE_TYPE = Oform;
   const linkFillForm = name
     .replace(/\s/g, "-")
