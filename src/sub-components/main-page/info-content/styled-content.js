@@ -12,6 +12,7 @@ const StyledInfoContent = styled(Section)`
   }
 
   .description-info-content {
+    box-sizing: border-box;
     font-size: 22px;
     line-height: 33px;
     text-align: center;
@@ -53,6 +54,8 @@ const StyledInfoContent = styled(Section)`
     .subheading-info-content {
       max-width: 928px;
       margin: 0 auto;
+      padding-left: 40px;
+      padding-right: 40px;
     }
   }
 
@@ -108,13 +111,21 @@ const StyledInfoContent = styled(Section)`
     .subheading-info-content {
       font-size: 18px;
       line-height: 24px;
-      padding-bottom: 48px;
+      padding-bottom: 32px;
       padding-top: 48px;
     }
     .scroll-body {
       column-gap: 8px;
       padding: 0 24px;
     }
+
+    .heading-info-content,
+    .description-info-content,
+    .subheading-info-content {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    
   }
 `;
 

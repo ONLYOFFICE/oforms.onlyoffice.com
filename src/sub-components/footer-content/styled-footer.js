@@ -60,13 +60,14 @@ const StyledFooter = styled.div`
     max-width: 1120px;
     min-width: 769px;
     padding-top: 70px;
+    padding-bottom: 62px;
     margin-bottom: 25px;
     height: auto;
     display: grid;
     display: -ms-inline-grid;
     grid-template-columns: 0.8fr 0.8fr 0.8fr 1fr;
     -ms-grid-columns: 0.8fr 32px 0.8fr 32px 0.8fr 32px 1fr;
-    grid-column-gap: 50px; 
+    grid-column-gap: 32px; 
     
     .footer-item-group {
         position: relative;
@@ -114,7 +115,7 @@ const StyledFooter = styled.div`
     }
 
     .footer-copyright {
-        color: #666;
+        color: #aaaaaa;
         font-size: 13px;
         margin: 0 0 7px;
         line-height: 1.4em;
@@ -131,11 +132,11 @@ const StyledFooter = styled.div`
     @media ${device.laptop} {
         width: auto;
         max-width: 928px;
-        padding: 0 48px 50px;
+        padding: 0 48px 46px;
         vertical-align: top;
         min-width: unset;
         padding-top: 70px;
-        margin-bottom: 25px;
+        margin-bottom: 0;
     }
 
     @media ${device.tablet} {

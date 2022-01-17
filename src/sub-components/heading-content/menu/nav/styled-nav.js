@@ -59,10 +59,12 @@ const StyledNav = styled.nav`
     #navitem_integrations .menu-items-wrapper {
       left: calc(50% - 426px);
     }
-    #navitem_about .menu-items-wrapper,
     #navitem_partners .menu-items-wrapper,
     #navitem_prices .menu-items-wrapper {
       left: calc(50% - 102px);
+    }
+    #navitem_about .menu-items-wrapper {
+      left: calc(50% - 202px);
     }
   }
 

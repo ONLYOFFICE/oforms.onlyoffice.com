@@ -15,6 +15,9 @@ const StyledFormBanner = styled.div `
         margin: 0 auto;
         padding: 33px 41px 37px 33px; 
     }
+    .banner_title{
+        margin-bottom: 22px;
+    }
 
     .header {
         margin-left: 17px;
@@ -40,6 +43,9 @@ const StyledFormBanner = styled.div `
     .box-items {
         margin-bottom: 18px;
         padding:0 0 0 2em;
+    }
+    .box-button{
+        overflow: visible;
     }
 
     @media ${device.laptop} {

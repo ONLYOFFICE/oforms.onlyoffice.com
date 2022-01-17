@@ -22,7 +22,7 @@ const StyledShortCard = styled.div`
   .card-subtitle {
     display: block;
     white-space: normal;
-    margin-top: 3px;
+    margin-top: 8px;
     font-size: 13px;
     font-weight: normal;
     color: #808080;
@@ -46,6 +46,29 @@ const StyledShortCard = styled.div`
     width: 208px;
     .card-button {
       width: 160px;
+    }
+    .card-title {
+      -ms-text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      -ms-line-clamp: 2;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      display: -webkit-box;
+      display: box;
+      word-wrap: break-word;
+      -webkit-box-orient: vertical;
+      box-orient: vertical;
+    }
+    .card-link {
+      margin-top: 11px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .card-link {
+      margin-top: 13px;
     }
   }
 

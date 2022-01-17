@@ -9,15 +9,7 @@ import StyledSearchArea from "./styled-search-area";
 import SearchIcon from "../../static/icons/search-icon.react.svg";
 import CloseIcon from "../../static/icons/close-icon.react.svg";
 
-const SearchArea = ({
-  clearValueSearch,
-  valueSearch,
-  callback,
-  t,
-}) => {
-
-  const screenWidth = typeof window !== "undefined" ? window.screen.width : undefined;
-
+const SearchArea = ({ clearValueSearch, valueSearch, callback, t }) => {
   return (
     <StyledSearchArea>
       <Box className="search_container" alignItems="center">
@@ -25,7 +17,7 @@ const SearchArea = ({
           className="presearch_title"
           overflow="unset"
           textOverflow="clip"
-          label="Form search"
+          label="Search forms"
           color="#F5F5F5"
           fontWeight={600}
         />
@@ -36,11 +28,7 @@ const SearchArea = ({
           className="search_input"
           backgroundColor="#333"
           color="#F5F5F5"
-          placeholder={
-            screenWidth < 600
-              ? t("SearchMobilePlaceholder")
-              : t("SearchIputPlaceholder")
-          }
+          placeholder={t("SearchIputPlaceholder")}
           fontSize="16px"
           colorHover="#CCCCCC"
           labelColor={!valueSearch ? "#808080" : "#CCCCCC"}
@@ -54,7 +42,6 @@ const SearchArea = ({
         </div>
       </Box>
     </StyledSearchArea>
-
   );
 };
 

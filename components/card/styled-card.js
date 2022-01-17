@@ -5,28 +5,46 @@ const StyledCard = styled.div`
   flex-direction: column;
   justify-items: stretch;
   max-width: 256px;
-  max-height: 576px;
+  box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.07);
   background-color: #f9f9f9;
+  border-radius: 3px;
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease;
+
+  &:hover,
+  &:active{
+    box-shadow: 0px 20px 50px rgba(85, 85, 85, 0.1);
+  }
 
   .image-template {
     max-width: 254px;
     border: 1px solid #e2e2e2;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
     border-bottom: none;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
   }
 
   .card-template {
     background-color: #f9f9f9;
     border: 1px solid #e2e2e2;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
     padding: 22px 24px 0px 24px;
     max-height: 239px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
   }
 
   .title-template {
+    font-size: 16px;
     margin-bottom: 16px;
     height: 42px;
   }
 
   .subtitle-template {
+    font-size: 13px;
     margin-bottom: 24px;
     height: 42px;
   }
@@ -47,33 +65,48 @@ const StyledCard = styled.div`
   }
 
   .redactor-btn-template {
+    height: 48px;
     margin-bottom: 0px;
   }
 
   .download-btn-template {
+    letter-spacing: 0.04em;
     background-color: transparent;
+    margin: 4px auto;
     opacity: 1;
   }
 
   @media (max-width: 1200px) {
     max-width: 214px;
-    max-height: 552px;
     .image-template {
       max-width: 212px;
     }
   }
 
+  @media (max-width: 768px) {
+    .title-template {
+      font-size: 14px;
+    }
+  }
+
   @media (max-width: 500px) {
     max-width: 168px;
+    .image-template {
+      box-sizing: border-box;
+    }
     .card-template {
       padding: 12px 12px 10px 12px;
+    }
+    
+    .subtitle-template {
+      font-size: 12px;
     }
   }
 
   @media (max-width: 425px) {
     max-width: 288px;
-    max-height: 584px;
     .image-template {
+      box-sizing: content-box;
       max-width: 286px;
     }
   }

@@ -4,7 +4,7 @@ const StyledSelector = styled.div`
   width: 205px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: end;
   align-items: baseline;
   position: relative;
 
@@ -32,7 +32,7 @@ const StyledSelector = styled.div`
     display: ${(props) => (props.isOpen ? "block" : "none")};
     position: absolute;
     min-width: 100px;
-    left: 80px;
+    right: -6px;
     top: 30px;
     padding-top: 14px;
     background-color: #fff;
@@ -46,6 +46,7 @@ const StyledSelector = styled.div`
     font-size: 16px;
     cursor: pointer;
     white-space: nowrap;
+    display: block;
   }
 
   .filter_selector-items:hover {

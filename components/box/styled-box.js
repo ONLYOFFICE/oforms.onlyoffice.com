@@ -10,6 +10,7 @@ const StyledBox = styled.div`
     flex-wrap: ${(props) => props.flexWrap || props.theme.box.flexWrap};
     flex-direction: ${(props) => props.flexDirection || props.theme.box.flexDirection};
     align-content: ${(props) => props.alignContent || props.theme.box.alignContent};
+    outline: none;
 `;
 
 StyledBox.defaultProps = { theme: Base };

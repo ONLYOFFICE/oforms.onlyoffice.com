@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import menu_icons from "../../../../../static/images/menu-pics/menu_logo_icons.svg";
-import menu_security from "../../../../../static/images/menu-pics/menu_security.svg";
+import menu_oforms from "../../../../../static/images/menu-pics/menu_oforms.svg";
 import menu_reseller from "../../../../../static/images/menu-pics/menu_reseller.svg";
 import menu_latest_events from "../../../../../static/images/menu-pics/onlyoffice_linux_foundation_member.jpg";
-import menu_latest_news from "../../../../../static/images/menu-pics/onlyoffice_desktop_editors_6.4.jpg";
+import menu_latest_news from "../../../../../static/images/menu-pics/onlyoffice_7.0.svg";
 import menu_for_developers from "../../../../../static/images/menu-pics/menu_for_developers.png";
 import menu_compare from "../../../../../static/images/menu-pics/menu_compare_edition.svg";
 import arrow_gray from "../../../../../static/icons/arrow-gray.svg";
@@ -16,8 +16,8 @@ const StyledNavMenu = styled.div`
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
-    line-height: 36px;
-    margin: 0;
+    line-height: 1.6em;
+    margin: 0 0 24px;
     padding: 0 32px 0 68px;
     text-decoration: none;
     white-space: nowrap;
@@ -29,11 +29,15 @@ const StyledNavMenu = styled.div`
       height: 24px;
       position: absolute;
       left: 32px;
-      top: 6px;
+      top: 0px;
       background-image: url(${menu_icons});
       background-repeat: no-repeat;
     }
   }
+
+  #navitem_features_editors, #navitem_features_workspace {
+    margin-bottom: 0px;
+}
 
   .heading-nav-item {
     display: block;
@@ -41,7 +45,7 @@ const StyledNavMenu = styled.div`
     font-weight: 600;
     line-height: 29px;
     letter-spacing: 0.04em;
-    padding: 21px 20px;
+    padding: 21px 20px 22px;
     cursor: pointer;
     margin: 0px;
     text-transform: uppercase;
@@ -49,7 +53,7 @@ const StyledNavMenu = styled.div`
 
   @media (max-width: 1155px) {
     .heading-nav-item {
-      padding: 20px 15px;
+      padding: 20px 10px;
     }
   }
 
@@ -84,6 +88,12 @@ const StyledNavMenu = styled.div`
     }
   }
 
+  #navitem_features_security {
+    &:before {
+      background-position-y: -650px;
+    }
+  }
+
   #navitem_download_desktop {
     &:before {
       background-position-y: -155px;
@@ -93,6 +103,12 @@ const StyledNavMenu = styled.div`
   #navitem_download_products {
     &:before {
       background-position-y: -130px;
+    }
+  }
+
+  #navitem_download_personal {
+    &:before {
+      background-position-y: -570px;
     }
   }
 
@@ -167,7 +183,7 @@ const StyledNavMenu = styled.div`
     }
   }
 
-  #navitem_about_training_courses {
+  #navitem_about_trainingcourses {
     &:before {
       background-position-y: -493px;
     }
@@ -185,10 +201,22 @@ const StyledNavMenu = styled.div`
     }
   }
 
+  #navitem_about_helpcenter {
+    &:before {
+      background-position-y: -625px;
+    }
+  }
+
+  #navitem_about_webinars {
+    &:before {
+      background-position-y: -595px;
+    }
+  }
+
   #navitem_latest_events,
   #navitem_features_latest_releases,
   #navitem_download_compare,
-  #navitem_features_security,
+  #navitem_features_oforms,
   #navitem_integrations_jira,
   #navitem_integrations_nextcloud,
   #navitem_integrations_owncloud,
@@ -237,11 +265,11 @@ const StyledNavMenu = styled.div`
 
   .mobile_no_link {
     background-color: #f5f5f5;
-    padding-left: 12px;
     margin: 0 32px;
     color: #666;
     font-weight: 600;
     font-size: 13px;
+    padding: 6px 32px 6px 12px;
     text-transform: uppercase;
     width: -webkit-fill-available;
     &:before {
@@ -251,6 +279,10 @@ const StyledNavMenu = styled.div`
       color: #666;
       cursor: default;
     }
+  }
+
+  #navitem_about_resources {
+    margin: 0 32px 24px;
   }
 
   .nav_2nd_menu_link {
@@ -319,8 +351,8 @@ const StyledNavMenu = styled.div`
     background-image: url(${menu_for_developers});
   }
 
-  #security_img {
-    background-image: url(${menu_security});
+  #oforms_img {
+    background-image: url(${menu_oforms});
   }
 
   #reseller_img {
@@ -346,6 +378,7 @@ const StyledNavMenu = styled.div`
   @media screen and (max-width: 1050px) {
     .dropdown-item {
       line-height: 1.5em;
+      margin: 0 0 16px;
       padding: 7px 16px;
       &:before {
         display: none;
@@ -425,7 +458,7 @@ const StyledNavMenu = styled.div`
     #for_developers_div,
     #latest_news_div,
     #reseller_div,
-    #security_div,
+    #oforms_div,
     #latest_events_div {
       display: none;
     }

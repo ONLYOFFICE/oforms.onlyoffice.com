@@ -23,6 +23,7 @@ const StyledCarouselContent = styled(Section)`
         margin: 0 auto;
         text-align: center;
         width: 100%;
+        padding-bottom: 50px;
 
         .carousel-cards {
           max-height: 100%;
@@ -82,6 +83,7 @@ const StyledCarouselContent = styled(Section)`
       .slick-slider {
         .slick-list {
           max-width: none;
+          padding-bottom: 48px;
           .slick-slide {
             margin: 0 8px;
           }

@@ -3,7 +3,7 @@ import React from "react";
 import StyledNav from "./styled-nav";
 import MenuItem from "../menu-item";
 import Box from "./sub-components/box";
-import LinkOO from "./sub-components/link";
+import Link from "../../../../../components/link";
 
 const Nav = ({ onClick, t, stateMobilePND, ...rest }) => {
   return (
@@ -11,131 +11,137 @@ const Nav = ({ onClick, t, stateMobilePND, ...rest }) => {
       <MenuItem heading="Products & Features" id="navitem_features">
         <Box className="menu_wrapper">
           <Box className="outer-box with_border">
-            <LinkOO
+            <Link
               id="navitem_features_editors"
-              href="/office-suite.aspx"
+              href="https://onlyoffice.com/office-suite.aspx"
               className="dropdown-item"
             >
               ONLYOFFICE Docs
-            </LinkOO>
+            </Link>
             <Box className="inner-box">
-              <LinkOO href="/document-editor.aspx" className="nav_2nd_menu_link">
+              <Link href="https://onlyoffice.com/document-editor.aspx" className="nav_2nd_menu_link">
                 Document Editor
-              </LinkOO>
-              <LinkOO
-                href="/spreadsheet-editor.aspx"
+              </Link>
+              <Link
+                href="https://onlyoffice.com/spreadsheet-editor.aspx"
                 className="nav_2nd_menu_link"
               >
                 Spreadsheet Editor
-              </LinkOO>
-              <LinkOO
-                href="/presentation-editor.aspx"
+              </Link>
+              <Link
+                href="https://onlyoffice.com/presentation-editor.aspx"
                 className="nav_2nd_menu_link"
               >
                 Presentation Editor
-              </LinkOO>
+              </Link>
             </Box>
-            <LinkOO
+            <Link
               id="navitem_features_docs_editions"
               className="dropdown-item mobile_no_link"
             >
               Docs Editions
-            </LinkOO>
+            </Link>
             <Box className="inner-box">
-              <LinkOO href="/docs-cloud.aspx" className="nav_2nd_menu_link">
+              <Link href="https://onlyoffice.com/docs-cloud.aspx" className="nav_2nd_menu_link">
                 Cloud Edition
-              </LinkOO>
-              <LinkOO href="/docs-enterprise.aspx" className="nav_2nd_menu_link">
+              </Link>
+              <Link href="https://onlyoffice.com/docs-enterprise.aspx" className="nav_2nd_menu_link">
                 Enterprise Edition
-              </LinkOO>
-              <LinkOO
-                href="/developer-edition.aspx"
+              </Link>
+              <Link
+                href="https://onlyoffice.com/developer-edition.aspx"
                 className="nav_2nd_menu_link"
               >
                 Developer Edition
-              </LinkOO>
+              </Link>
             </Box>
-            <LinkOO
+            <Link
               id="navitem_features_clients_apps"
-              href="/desktop.aspx"
+              href="https://onlyoffice.com/desktop.aspx"
               className="dropdown-item"
             >
               ONLYOFFICE for desktop
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_features_clients_mobile_ios"
-              href="/office-for-ios.aspx"
+              href="https://onlyoffice.com/office-for-ios.aspx"
               className="dropdown-item"
             >
               ONLYOFFICE for iOS
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_features_clients_mobile_android"
-              href="/office-for-android.aspx"
+              href="https://onlyoffice.com/office-for-android.aspx"
               className="dropdown-item"
             >
               ONLYOFFICE for Android
-            </LinkOO>
+            </Link>
           </Box>
           <Box className="outer-box">
-            <LinkOO
+            <Link
               id="navitem_features_workspace"
-              href="/workspace.aspx"
+              href="https://onlyoffice.com/workspace.aspx"
               className="dropdown-item"
             >
               ONLYOFFICE Workspace
-            </LinkOO>
+            </Link>
             <Box className="inner-box">
-              <LinkOO
-                href="/document-management.aspx"
+              <Link
+                href="https://onlyoffice.com/document-management.aspx"
                 className="nav_2nd_menu_link"
               >
                 Documents
-              </LinkOO>
-              <LinkOO href="/mail.aspx" className="nav_2nd_menu_link">
+              </Link>
+              <Link href="https://onlyoffice.com/mail.aspx" className="nav_2nd_menu_link">
                 Mail
-              </LinkOO>
-              <LinkOO href="/crm.aspx" className="nav_2nd_menu_link">
+              </Link>
+              <Link href="https://onlyoffice.com/crm.aspx" className="nav_2nd_menu_link">
                 CRM
-              </LinkOO>
-              <LinkOO href="/projects.aspx" className="nav_2nd_menu_link">
+              </Link>
+              <Link href="https://onlyoffice.com/projects.aspx" className="nav_2nd_menu_link">
                 Projects
-              </LinkOO>
-              <LinkOO href="/calendar.aspx" className="nav_2nd_menu_link">
+              </Link>
+              <Link href="https://onlyoffice.com/calendar.aspx" className="nav_2nd_menu_link">
                 Calendar
-              </LinkOO>
+              </Link>
             </Box>
-            <LinkOO
+            <Link
               id="navitem_features_workspace_editions"
               className="dropdown-item mobile_no_link"
             >
               Workspace Editions
-            </LinkOO>
+            </Link>
             <Box className="inner-box">
-              <LinkOO href="/cloud-office.aspx" className="nav_2nd_menu_link">
+              <Link href="https://onlyoffice.com/cloud-office.aspx" className="nav_2nd_menu_link">
                 Cloud Edition
-              </LinkOO>
-              <LinkOO
-                href="/workspace-enterprise.aspx"
+              </Link>
+              <Link
+                href="https://onlyoffice.com/workspace-enterprise.aspx"
                 className="nav_2nd_menu_link"
               >
                 Enterprise Edition
-              </LinkOO>
+              </Link>
             </Box>
-          </Box>
-          <Box className="outer-box">
-            <LinkOO
+            <Link
               id="navitem_features_security"
-              href="/security.aspx"
+              href="https://onlyoffice.com/security.aspx"
               className="dropdown-item"
             >
               Security
-            </LinkOO>
-            <Box id="security_div" className="menu_pic_div">
-              <div id="security_img" className="menu_pic_img"></div>
-              <p id="security_header" className="menu_pic_header">
-                Meet ONLYOFFICE Private Rooms where every symbol you type is
-                encrypted <span className="nowrap">end-to-end</span>
+            </Link>
+          </Box>
+          <Box className="outer-box">
+            <Link
+              id="navitem_features_oforms"
+              href="/"
+              className="dropdown-item"
+            >
+              OFORMS
+            </Link>
+            <Box id="oforms_div" className="menu_pic_div">
+              <div id="oforms_img" className="menu_pic_img"></div>
+              <p id="oforms_header" className="menu_pic_header">
+              Free <span className="nowrap">ready-to-fill</span> out online document forms
               </p>
             </Box>
           </Box>
@@ -145,108 +151,108 @@ const Nav = ({ onClick, t, stateMobilePND, ...rest }) => {
       <MenuItem heading="Integrations" id="navitem_integrations">
         <Box className="menu_wrapper">
           <Box className="outer-box integrations">
-            <LinkOO
+            <Link
               id="navitem_integrations_nextcloud"
-              href="/office-for-nextcloud.aspx"
+              href="https://onlyoffice.com/office-for-nextcloud.aspx"
               className="dropdown-item"
             >
               Nextcloud
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_integrations_owncloud"
-              href="/office-for-owncloud.aspx"
+              href="https://onlyoffice.com/office-for-owncloud.aspx"
               className="dropdown-item"
             >
               ownCloud
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_integrations_confluence"
-              href="/office-for-confluence.aspx"
+              href="https://onlyoffice.com/office-for-confluence.aspx"
               className="dropdown-item"
             >
               Confluence
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_integrations_alfresco"
-              href="/office-for-alfresco.aspx"
+              href="https://onlyoffice.com/office-for-alfresco.aspx"
               className="dropdown-item"
             >
               Alfresco
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_integrations_sharepoint"
-              href="/office-for-sharepoint.aspx"
+              href="https://onlyoffice.com/office-for-sharepoint.aspx"
               className="dropdown-item"
             >
               SharePoint
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_integrations_liferay"
-              href="/office-for-liferay.aspx"
+              href="https://onlyoffice.com/office-for-liferay.aspx"
               className="dropdown-item"
             >
               Liferay
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_integrations_humhub"
-              href="/office-for-humhub.aspx"
+              href="https://onlyoffice.com/office-for-humhub.aspx"
               className="dropdown-item"
             >
               HumHub
-            </LinkOO>
+            </Link>
           </Box>
           <Box className="outer-box integrations">
-            <LinkOO
+            <Link
               id="navitem_integrations_plone"
-              href="/office-for-plone.aspx"
+              href="https://onlyoffice.com/office-for-plone.aspx"
               className="dropdown-item"
             >
               Plone
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_integrations_nuxeo"
-              href="/office-for-nuxeo.aspx"
+              href="https://onlyoffice.com/office-for-nuxeo.aspx"
               className="dropdown-item"
             >
               Nuxeo
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_integrations_chamilo"
-              href="/office-for-chamilo.aspx"
+              href="https://onlyoffice.com/office-for-chamilo.aspx"
               className="dropdown-item"
             >
               Chamilo
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_integrations_redmine"
-              href="/office-for-redmine.aspx"
+              href="https://onlyoffice.com/office-for-redmine.aspx"
               className="dropdown-item"
             >
               Redmine
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_integrations_jira"
-              href="/office-for-jira.aspx"
+              href="https://onlyoffice.com/office-for-jira.aspx"
               className="dropdown-item"
             >
               Jira
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_integrations_connectors"
-              href="/all-connectors.aspx"
+              href="https://onlyoffice.com/all-connectors.aspx"
               className="dropdown-item"
             >
               Others
-            </LinkOO>
+            </Link>
           </Box>
           <Box className="outer-box">
-            <LinkOO
+            <Link
               id="navitem_integration_for_developers"
               className="dropdown-item"
-              href="/developer-edition.aspx"
+              href="https://onlyoffice.com/developer-edition.aspx"
             >
               For developers
-            </LinkOO>
+            </Link>
             <Box id="for_developers_div" className="menu_pic_div">
               <div id="for_developers_img" className="menu_pic_img"></div>
               <p id="for_developers_header" className="menu_pic_header">
@@ -262,53 +268,53 @@ const Nav = ({ onClick, t, stateMobilePND, ...rest }) => {
         <Box className="menu_wrapper">
           <Box className="outer-box">
             <Box className="pricing-box">
-              <LinkOO
+              <Link
                 id="navitem_prices_docs"
                 className="dropdown-item mobile_no_link"
               >
                 ONLYOFFICE Docs
-              </LinkOO>
+              </Link>
               <Box className="inner-box">
-                <LinkOO
-                  href="/docs-enterprise-prices.aspx"
+                <Link
+                  href="https://onlyoffice.com/docs-enterprise-prices.aspx"
                   className="nav_2nd_menu_link"
                 >
                   Enterprise Edition
-                </LinkOO>
-                <LinkOO
-                  href="/developer-edition-prices.aspx"
+                </Link>
+                <Link
+                  href="https://onlyoffice.com/developer-edition-prices.aspx"
                   className="nav_2nd_menu_link"
                 >
                   Developer Edition
-                </LinkOO>
+                </Link>
               </Box>
-              <LinkOO
+              <Link
                 id="navitem_prices_workspace"
                 className="dropdown-item mobile_no_link"
               >
                 ONLYOFFICE Workspace
-              </LinkOO>
+              </Link>
               <Box className="inner-box">
-                <LinkOO href="/saas.aspx" className="nav_2nd_menu_link">
+                <Link href="https://onlyoffice.com/saas.aspx" className="nav_2nd_menu_link">
                   Cloud Service
-                </LinkOO>
-                <LinkOO
-                  href="/workspace-enterprise-prices.aspx"
+                </Link>
+                <Link
+                  href="https://onlyoffice.com/workspace-enterprise-prices.aspx"
                   className="nav_2nd_menu_link"
                 >
                   Server Enterprise
-                </LinkOO>
+                </Link>
               </Box>
             </Box>
           </Box>
           <Box className="outer-box">
-            <LinkOO
+            <Link
               id="navitem_prices_reseller"
-              href="/find-partners.aspx"
+              href="https://onlyoffice.com/find-partners.aspx"
               className="dropdown-item"
             >
               Buy from an ONLYOFFICE reseller
-            </LinkOO>
+            </Link>
             <Box id="reseller_div" className="menu_pic_div">
               <div id="reseller_img" className="menu_pic_img"></div>
               <p id="reseller_header" className="menu_pic_header">
@@ -323,83 +329,90 @@ const Nav = ({ onClick, t, stateMobilePND, ...rest }) => {
       <MenuItem heading="Get ONLYOFFICE" id="navitem_download">
         <Box className="menu_wrapper">
           <Box className="outer-box">
-            <LinkOO
+            <Link
               className="dropdown-item mobile_no_link"
               id="navitem_download_docs"
             >
               ONLYOFFICE Docs
-            </LinkOO>
+            </Link>
             <Box className="inner-box">
-              <LinkOO
+              <Link
                 className="nav_2nd_menu_link"
                 id="navitem_download_signup_docs"
-                href="/docs-registration.aspx"
+                href="https://onlyoffice.com/docs-registration.aspx"
               >
                 Sign up for cloud
-              </LinkOO>
-              <LinkOO
+              </Link>
+              <Link
                 id="navitem_download_onpremises_docs"
-                href="/download-docs.aspx?from=downloadintegrationmenu"
+                href="https://onlyoffice.com/download-docs.aspx?from=downloadintegrationmenu"
                 className="nav_2nd_menu_link"
               >
                 Install on-premises
-              </LinkOO>
+              </Link>
             </Box>
-            <LinkOO
+            <Link
               className="dropdown-item mobile_no_link"
               id="navitem_download_workspace"
             >
               ONLYOFFICE Workspace
-            </LinkOO>
+            </Link>
             <Box className="inner-box">
               <Box className="nowrap">
-                <LinkOO
+                <Link
                   className="nav_item_nowrap_link"
                   id="navitem_download_signin"
-                  href="/signin.aspx"
+                  href="https://onlyoffice.com/signin.aspx"
                 >
                   Sign in
-                </LinkOO>
+                </Link>
                 <p className="slash_text">/</p>
-                <LinkOO
+                <Link
                   className="nav_item_nowrap_link second"
                   id="navitem_download_signup"
-                  href="/registration.aspx"
+                  href="https://onlyoffice.com/registration.aspx"
                 >
                   Sign up for cloud
-                </LinkOO>
+                </Link>
               </Box>
-              <LinkOO
+              <Link
                 id="navitem_download_onpremises"
-                href="/download-workspace.aspx"
+                href="https://onlyoffice.com/download-workspace.aspx"
                 className="nav_2nd_menu_link"
               >
                 Install on-premises
-              </LinkOO>
+              </Link>
             </Box>
-            <LinkOO
+            <Link
+              className="dropdown-item"
+              id="navitem_download_personal"
+              href="https://personal.onlyoffice.com/"
+            >
+              ONLYOFFICE Personal
+            </Link>
+            <Link
               className="dropdown-item"
               id="navitem_download_desktop"
-              href="download-desktop.aspx"
+              href="https://onlyoffice.com/download-desktop.aspx"
             >
               ONLYOFFICE desktop and mobile apps
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_download_products"
               className="dropdown-item"
-              href="download.aspx"
+              href="https://onlyoffice.com/download.aspx"
             >
               Other products
-            </LinkOO>
+            </Link>
           </Box>
           <Box className="outer-box">
-            <LinkOO
+            <Link
               id="navitem_download_compare"
               className="dropdown-item"
-              href="/compare-editions.aspx"
+              href="https://onlyoffice.com/compare-editions.aspx"
             >
               Compare editions
-            </LinkOO>
+            </Link>
             <Box id="compare_div" className="menu_pic_div">
               <div id="compare_img" className="menu_pic_img"></div>
               <p id="compare_header" className="menu_pic_header">
@@ -413,43 +426,43 @@ const Nav = ({ onClick, t, stateMobilePND, ...rest }) => {
       <MenuItem heading="Partners" id="navitem_partners">
         <Box className="menu_wrapper">
           <Box className="outer-box">
-            <LinkOO
+            <Link
               id="navitem_hosters"
-              href="affiliates.aspx"
+              href="https://onlyoffice.com/affiliates.aspx"
               className="dropdown-item"
             >
               Affiliates
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_resellers"
-              href="resellers.aspx"
+              href="https://onlyoffice.com/resellers.aspx"
               className="dropdown-item"
             >
               Resellers
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_find_partners"
-              href="find-partners.aspx"
+              href="https://onlyoffice.com/find-partners.aspx"
               className="dropdown-item"
             >
               Find partners
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_submit_request"
-              href="partnership-request.aspx"
+              href="https://onlyoffice.com/partnership-request.aspx"
               className="dropdown-item"
             >
               Submit request
-            </LinkOO>
+            </Link>
           </Box>
           <Box className="outer-box">
-            <LinkOO
+            <Link
               id="navitem_latest_events"
               href="https://www.onlyoffice.com/blog/2021/03/onlyoffice-joins-the-linux-foundation-as-a-silver-member/"
               className="dropdown-item"
             >
               Latest events
-            </LinkOO>
+            </Link>
             <Box id="latest_events_div" className="menu_pic_div">
               <div id="latest_events_img" className="menu_pic_img"></div>
               <p id="latest_events_header" className="menu_pic_header">
@@ -462,99 +475,120 @@ const Nav = ({ onClick, t, stateMobilePND, ...rest }) => {
 
       <MenuItem heading="About" id="navitem_about">
         <Box className="menu_wrapper">
-          <Box className="outer-box">
-            <LinkOO
+          <Box className="outer-box with_border">
+            <Link
               id="navitem_about_about"
-              href="about.aspx"
+              href="https://onlyoffice.com/about.aspx"
               className="dropdown-item"
             >
               About ONLYOFFICE
-            </LinkOO>
-            <LinkOO
-              id="navitem_about_blog"
-              href="https://www.onlyoffice.com/blog/"
-              className="dropdown-item"
-            >
-              Blog
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_about_contribute"
-              href="contribute.aspx"
+              href="https://onlyoffice.com/contribute.aspx"
               className="dropdown-item"
             >
               Contribute
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_about_customers"
-              href="customers.aspx"
+              href="https://onlyoffice.com/customers.aspx"
               className="dropdown-item"
             >
               Customers
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_about_awards"
-              href="awards.aspx"
+              href="https://onlyoffice.com/awards.aspx"
               className="dropdown-item"
             >
               Awards
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_about_events"
-              href="events.aspx"
+              href="https://onlyoffice.com/events.aspx"
               className="dropdown-item"
             >
               Events
-            </LinkOO>
-            <LinkOO
-              id="navitem_about_pressdownloads"
-              href="press-downloads.aspx"
-              className="dropdown-item"
-            >
-              Press downloads
-            </LinkOO>
-            <LinkOO
-              id="navitem_about_whitepapers"
-              href="whitepapers.aspx"
-              className="dropdown-item"
-            >
-              White papers
-            </LinkOO>
-            <LinkOO
-              id="navitem_about_trainingcourses"
-              href="training-courses.aspx"
-              className="dropdown-item"
-            >
-              Training courses
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_about_giftshop"
               href="https://shop.spreadshirt.com/onlyoffice"
               className="dropdown-item"
             >
               Gift shop
-            </LinkOO>
-            <LinkOO
+            </Link>
+            <Link
               id="navitem_about_contacts"
-              href="contacts.aspx"
+              href="https://onlyoffice.com/contacts.aspx"
               className="dropdown-item"
             >
               Contacts
-            </LinkOO>
+            </Link>
           </Box>
           <Box className="outer-box">
-            <LinkOO
+          <Link
+              id="navitem_about_resources"
+              className="dropdown-item mobile_no_link"
+            >
+              Resources
+            </Link>
+          <Link
+              id="navitem_about_blog"
+              href="https://www.onlyoffice.com/blog/"
+              className="dropdown-item"
+            >
+              Blog
+            </Link>
+            <Link
+              id="navitem_about_pressdownloads"
+              href="https://onlyoffice.com/press-downloads.aspx"
+              className="dropdown-item"
+            >
+              Press downloads
+            </Link>
+            <Link
+              id="navitem_about_helpcenter"
+              href="https://helpcenter.onlyoffice.com/index.aspx"
+              className="dropdown-item"
+            >
+              Help Center
+            </Link>
+            <Link
+              id="navitem_about_whitepapers"
+              href="https://onlyoffice.com/whitepapers.aspx"
+              className="dropdown-item"
+            >
+              White papers
+            </Link>
+            <Link
+              id="navitem_about_webinars"
+              href="https://onlyoffice.com/webinars.aspx"
+              className="dropdown-item"
+            >
+              Webinars
+            </Link>
+            <Link
+              id="navitem_about_trainingcourses"
+              href="https://onlyoffice.com/training-courses.aspx"
+              className="dropdown-item"
+            >
+              Training courses
+            </Link>
+          </Box>
+          <Box className="outer-box">
+            <Link
               id="navitem_features_latest_releases"
               href="https://www.onlyoffice.com/blog/"
               className="dropdown-item"
             >
               Latest news
-            </LinkOO>
+            </Link>
             <Box id="latest_news_div" className="menu_pic_div">
               <div id="latest_news_img" className="menu_pic_img"></div>
-              <p className="latest_news_date">4 October 2021</p>
+              <p className="latest_news_date">18 January 2022</p>
               <p id="latest_news_header" className="menu_pic_header">
-                ONLYOFFICE Desktop Editors v6.4 with improved ARM support and
-                conditional formatting
+                ONLYOFFICE Docs 7.0: online forms, password protection in sheets, collaboration improvements and much more
               </p>
             </Box>
           </Box>

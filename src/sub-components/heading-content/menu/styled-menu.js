@@ -1,6 +1,9 @@
 import styled, { css } from "styled-components";
 
 const StyledMenuTablet = css`
+grid-template-columns: auto 152px auto;
+justify-content: space-between;
+height: 48px;
   .nav-items-mobile {
     display: block;
     grid-column-start: 1;
@@ -47,6 +50,7 @@ const StyledMenuTablet = css`
 
 const StyledMenu = styled.div`
   align-items: center;
+  border-bottom: 1px solid transparent;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: auto 1fr auto;
@@ -57,7 +61,7 @@ const StyledMenu = styled.div`
   margin: 0 auto;
   padding: 0 18px;
   box-sizing: border-box;
-  height: 100%;
+  height: auto;
 
   font-size: 12px;
   color: ${(props) => (!props.template ? `#fff` : `#333`)};
@@ -72,6 +76,9 @@ const StyledMenu = styled.div`
     grid-column-end: 3;
     .nav-item .heading-nav-item {
       color: #fff;
+      &:hover {
+        color: #ff6f3d;
+      }
       @media (max-width: 1050px) {
         color: #333;
       }
@@ -79,6 +86,9 @@ const StyledMenu = styled.div`
     &.dark {
       .nav-item .heading-nav-item {
         color: #333;
+        &:hover {
+          color: #ff6f3d;
+        }
       }
     }
   }
@@ -91,7 +101,7 @@ const StyledMenu = styled.div`
     align-items: center;
 
     .nav-item-tel {
-      color: #fff;
+      color: ${(props) => (!props.template ? `#fff` : `#333`)};
       font-weight: 600;
       text-decoration: none;
     }

@@ -19,7 +19,7 @@ import Cards from "./sub-components/cards";
 
 import StyledMainContent from "./styled-main-content";
 import Button from "../../../../components/button";
-// TO DO replace sort
+
 const MainContent = ({ t, language, count, ...rest }) => {
   const data = useStaticQuery(graphql`
     {
@@ -35,6 +35,7 @@ const MainContent = ({ t, language, count, ...rest }) => {
           link_oform_filling_file
           name
           jsonId
+          description_card
         }
       }
     }
@@ -97,7 +98,7 @@ const MainContent = ({ t, language, count, ...rest }) => {
 
   // sort data state
   const [sortData, setSortData] = useState([]);
-  const [typeSortData, setTypeSortData] = useState("Newest - Oldest");
+  const [typeSortData, setTypeSortData] = useState("Name A-Z");
   const [boolTypeSortData, setBoolTypeSortData] = useState(false);
 
   const onChangeSelectTypeSort = (e) => {
@@ -107,12 +108,12 @@ const MainContent = ({ t, language, count, ...rest }) => {
   const handlerSortData = () => {
     const checkFilterArray = filterArray;
     let tmp;
-    if (typeSortData === "Newest - Oldest") {
+    if (typeSortData === "Name A-Z") {
       tmp = checkFilterArray.sort(increaseDecreaseName);
       setBoolTypeSortData(false);
       setSortData(tmp);
     }
-    if (typeSortData === "Oldest - Newest") {
+    if (typeSortData === "Name Z-A") {
       tmp = checkFilterArray.sort(decreaseIncreaseName);
       setBoolTypeSortData(true);
       setSortData(tmp);
@@ -127,7 +128,6 @@ const MainContent = ({ t, language, count, ...rest }) => {
     categoryCheckboxFilter();
   }, [typeSortData, checkedItems]);
 
-  /** */
   const [groupCheckboxIsOpen, setGroupCheckboxIsOpen] = useState(false);
   const handleOpenGroupCheckbox = () => {
     setGroupCheckboxIsOpen(!groupCheckboxIsOpen);
@@ -144,43 +144,63 @@ const MainContent = ({ t, language, count, ...rest }) => {
   const numberDataItems = sortData.length;
 
   const [windowCheck, setWindowCheck] = useState("undefined");
+  const [windowDesktop, setWindowDesktop] = useState("undefined");
+
+  const windowDesktopCheck = () => {
+    if (windowDesktop) {
+      // setGroupCheckboxIsOpen(true);
+      setGroupCheckboxIsOpen(false);
+    } else {
+      setGroupCheckboxIsOpen(false);
+    }
+  };
+
   useEffect(() => {
     if (typeof window !== windowCheck) {
       setWindowCheck(window.innerWidth <= 600);
+      setWindowDesktop(window.innerWidth >= 1024);
+      windowDesktopCheck();
     }
-  }, [windowCheck, reset]);
+  }, [windowCheck, windowDesktop]);
 
   return (
     <StyledMainContent
       background="#F5F5F5"
       groupCheckboxIsOpen={groupCheckboxIsOpen}
+      padding="84px 0 109px"
+      tabletPadding="84px 0 103px 0"
+      mobileLPadding="66px 0"
       {...rest}
     >
       <Heading
         className="heading-cards"
         textAlign="center"
-        label={t("Form templates")}
+        label={t("All forms")}
       />
       <div className="idk-box-template">
         <Box className="box-doc-info-template">
           <div className="box-doc-categories" id="mob-box-doc-categories">
-            <div
+            {/* <div
               className="box-doc-categories"
               onClick={handleOpenGroupCheckbox}
             >
               <Text isBold label={t("Categories")} />
               <ReactSVG className="categories-svg" src={checkBoxSRC} />
-            </div>
-            <Text className="text-control-mob">
+            </div> */}
+            <Text className="box-doc-categories">
               {" "}
               {t("Documents:")} {numberDataItems}
             </Text>
+            {/* <Text className="text-control-mob">
+              {" "}
+              {t("Documents:")} {numberDataItems}
+            </Text> */}
           </div>
           <div className="box-doc-info">
-            <Text className="text-control">
+            {/* <Text className="text-control">
               {" "}
               {t("Documents:")} {numberDataItems}
-            </Text>
+            </Text> */}
             <Selector
               typeSortData={typeSortData}
               onChangeSelectTypeSort={onChangeSelectTypeSort}
@@ -190,28 +210,34 @@ const MainContent = ({ t, language, count, ...rest }) => {
           </div>
         </Box>
         <div className="checkbox-card-group">
-          {(reset || windowCheck) && (
-            <div className="reset-checkbox-group-items">
+          <div className="reset-checkbox-group-items">
+            {reset && !windowCheck && (
               <span
                 onClick={resetCkeckboxGroup}
                 className="reset-group-checkbox"
               >
                 {t("Reset")}
               </span>
-              {windowCheck && (
-                <>
-                  <span className="reset-group-checkbox-mobile">
-                    {t("Categories")}
-                  </span>
-                  <ReactSVG
-                    className="tms-categories-svg"
-                    src="/icons/close-btn.svg"
-                    onClick={handleCloseGroupCheckbox}
-                  />
-                </>
-              )}
-            </div>
-          )}
+            )}
+            {windowCheck && (
+              <>
+                <span
+                  onClick={resetCkeckboxGroup}
+                  className="reset-group-checkbox"
+                >
+                  {t("Reset")}
+                </span>
+                <span className="reset-group-checkbox-mobile">
+                  {t("Categories")}
+                </span>
+                <ReactSVG
+                  className="tms-categories-svg"
+                  src="/icons/close-btn.svg"
+                  onClick={handleCloseGroupCheckbox}
+                />
+              </>
+            )}
+          </div>
           <div className="checkbox-group-filter-tems">
             {Categories.map((it) => (
               <Checkbox
@@ -225,7 +251,14 @@ const MainContent = ({ t, language, count, ...rest }) => {
               />
             ))}
           </div>
-          {(reset || windowCheck) && <Button className="checkbox-group-filter-btn" isScale label={t("apply filter")} onClick={handleCloseGroupCheckbox} />}
+          {(reset || windowCheck) && (
+            <Button
+              className="checkbox-group-filter-btn"
+              isScale
+              label={t("apply filter")}
+              onClick={handleCloseGroupCheckbox}
+            />
+          )}
         </div>
         <Box className="box-cards-template" justifyContent="flex-end">
           <Cards

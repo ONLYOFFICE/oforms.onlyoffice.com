@@ -12,8 +12,10 @@ import HeadingContent from "../sub-components/heading-content";
 import MainInfo from "../sub-components/template-page/main";
 import FormBanner from "../sub-components/heading-content/form-banner";
 import CarouselContent from "../sub-components/template-page/carousel";
+import Banner from "../sub-components/main-page/banner-cards";
 import AccordionContent from "../sub-components/accordion";
 import Footer from "../sub-components/footer-content";
+import Section from "../sub-components/section";
 
 import Heading from "../../components/heading";
 
@@ -134,6 +136,11 @@ const Template = ({ config, data, pageContext, ...rest }) => {
     </Heading>
   );
 
+  const linkFillForm = allCardFormsName
+    .replace(/\s/g, "-")
+    .replace(/[{()}]/g, "")
+    .toLowerCase();
+
   return (
     <Layout {...rest}>
       <Layout.PageHead>
@@ -159,23 +166,32 @@ const Template = ({ config, data, pageContext, ...rest }) => {
           t={t}
           labelPrice={allCardFormsPrice}
           labelName={allCardFormsName}
-          link={
-            "https://nct.onlyoffice.com/Products/Files/DocEditor.aspx?fileid=45424&doc=N25yVTc2R1NMdEZUa0VDc2VDTklwdnNVUE5jUml0WndQNnV3Q3pLTGRFcz0_IjQ1NDI0Ig2"
-          }
+          link={`/editor?fillform=${linkFillForm}`}
         />
         <CarouselContent
+          padding="112px 0 62px"
+          tabletPadding="80px 0 30px"
+          mobileLPadding="48px 0 0"
           data={randomCardForms}
           label={headingRentForms}
           t={t}
         />
-        {itemsClient !== null && parsedObjectLocalStorage.length >= 2 && (
+        {itemsClient !== null && parsedObjectLocalStorage.length >= 2 ? (
           <CarouselContent
+            padding="0 0 30px"
+            tabletPadding="0 0 30px"
+            mobileLPadding="0 0 0"
             data={itemsClient}
             label={headingRecentlyViewed}
             config={stateConfig}
             t={t}
           />
+        ) : (
+          <div />
         )}
+        <div>
+          <Banner t={t} />
+        </div>
         <AccordionContent t={t} />
       </Layout.SectionMain>
       <Layout.PageFooter>
@@ -208,6 +224,7 @@ export const query = graphql`
         file_country_access
         file_image
         link_oform_filling_file
+        description_card
         name
       }
     }

@@ -3,16 +3,16 @@ import Section from "../../section";
 
 const StyledMainContent = styled(Section)`
   .heading-cards {
-    padding-bottom: 50px;
-    padding-top: 80px;
+    padding-bottom: 40px;
+    line-height: 133%;
   }
 
   .tempalates-buttons-items {
-    margin-top: 50px;
+    margin-top: 32px;
   }
 
   .box-doc-info-template {
-    padding: 25px 0;
+    padding: 17px 0 29px;
     display: grid;
     grid-auto-rows: auto;
     grid-template-columns: 1fr 3fr;
@@ -20,7 +20,8 @@ const StyledMainContent = styled(Section)`
     .box-doc-info {
       display: flex;
       max-width: 832px;
-      justify-content: space-between;
+      /* justify-content: space-between; */
+      justify-content: flex-end;
     }
   }
 
@@ -86,6 +87,7 @@ const StyledMainContent = styled(Section)`
   }
 
   .box-doc-categories {
+    color: #808080;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -96,7 +98,11 @@ const StyledMainContent = styled(Section)`
       margin-left: 7px;
     }
   }
-
+  /** DELETE THIS */
+  /* .box-doc-categories {
+    display: none;
+  } */
+  /** */
   .text-control-mob {
     display: none;
   }
@@ -120,6 +126,7 @@ const StyledMainContent = styled(Section)`
   }
 
   @media (max-width: 1024px) {
+
     .heading-cards {
       font-size: 32px;
     }
@@ -189,7 +196,6 @@ const StyledMainContent = styled(Section)`
     .heading-cards {
       font-size: 24px;
       padding-bottom: 40px;
-      padding-top: 16px;
     }
 
     .idk-box-template {
@@ -274,9 +280,9 @@ const StyledMainContent = styled(Section)`
 
     #mob-box-doc-categories {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       width: 100%;
-      padding-bottom: 25px;
+      padding-bottom: 24px;
     }
 
     .box-doc-info {
@@ -284,6 +290,7 @@ const StyledMainContent = styled(Section)`
     }
 
     .box-doc-info-template {
+      padding: 17px 0 26px;
       display: flex;
       flex-direction: column;
     }

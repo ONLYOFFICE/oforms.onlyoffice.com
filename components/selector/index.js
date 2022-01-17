@@ -26,8 +26,8 @@ const Selector = ({
 
   const handleClickOutside = (e) => {
     if (
-      !isOpen &&
-      (!e.target.closest(".filter_selector"))) {
+      isOpen &&
+      (!e.target.closest(".filter_selector-items"))) {
       onCloseSelector();
     };
   };
@@ -50,8 +50,8 @@ const Selector = ({
       <Text className="filter-header" label={typeSortData} />
       <ReactSVG className="arrow" src="/icons/popup-arrow.react.svg" />
       <Box className="filter_selector" value={typeSortData} onClick={onChangeSelectTypeSort}>
-        <Text as="option" className="filter_selector-items" value="Newest - Oldest" label={t("Newest - Oldest")} />
-        <Text as="option" className="filter_selector-items" value="Oldest - Newest" label={t("Oldest - Newes")} />
+        <Text as="option" className="filter_selector-items" value="Name A-Z" label={t("Name A-Z")} />
+        <Text as="option" className="filter_selector-items" value="Name Z-A" label={t("Name Z-A")} />
       </Box>
     </StyledSelector>
   );

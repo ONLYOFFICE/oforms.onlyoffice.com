@@ -24,10 +24,6 @@ padding: 24px 0 24px 40px;
   transition: transform 0.2s ease;
 }
 
-.rotate {
-  transform: rotate(45deg);
-}
-
 .accordion__content {
   background-color: white;
   overflow: hidden;
@@ -38,6 +34,10 @@ padding: 24px 0 24px 40px;
   font-weight: 400;
   font-size: 14px;
   padding: 24px 0 8px;
+}
+
+.accordion__heading {
+  outline: none;
 }
 
 @media (max-width: 600px) {
