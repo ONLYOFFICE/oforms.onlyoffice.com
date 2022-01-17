@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ReactSVG } from "react-svg";
 
 import Config from "../../../../static/data/config.json";
@@ -20,6 +20,7 @@ import Oform from "../../../../static/icons/oform.svg";
 
 const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
   const {
+    jsonId,
     name,
     file_categories,
     file_description,
@@ -50,6 +51,11 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
   const baseURL = typeof window !== "undefined" ? window.location.href : null;
   const linkSuggestChanges = `mailto:marketing@onlyoffice.com?subject=Suggesting changes for Form ${name}&body=Suggesting changes for Form ${name}.`;
 
+  const [oformFill, setOformFill] = useState(false);
+
+  // const onClickOformFill = () => {
+  //   setOformFill(true);
+  // };
   return (
     <StyledMainInfo maxWidth="1200px" background="#F9F9F9" {...rest}>
       <div className="template-main-info">

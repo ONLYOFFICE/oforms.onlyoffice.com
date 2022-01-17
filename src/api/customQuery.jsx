@@ -30,6 +30,7 @@ const CustomQueryStringComponent = ({ search }) => {
   `);
 
   const allItems = data.allDefJson.nodes;
+
   let index;
   const itemsId = allItems.find((it, idx) => {
     const pathName = it.name

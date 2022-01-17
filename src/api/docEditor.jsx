@@ -69,6 +69,7 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, scriptLoaded }) => {
                     customization: {
                         anonymous: {
                         request: false,
+
                       },
                     },
                   },

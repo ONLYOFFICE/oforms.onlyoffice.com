@@ -3,10 +3,12 @@ import Config from "../../static/data/config.json";
 
 import Text from "../text";
 import Button from "../button";
+
 import Box from "../box";
 
 import StyledCard from "./styled-card";
 import ELink from "./sub-components/link";
+import ENLink from "../internal-link";
 import Image from "./sub-components/image";
 
 const Card = ({ t, callback, arrayItems, ...rest }) => {
@@ -23,6 +25,7 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
     .replace(/[{()}]/g, "")
     .toLowerCase()}`;
   const IMAGE_SRC = Config.IMGSRC + "template/" + file_image//"test_tmp.png"; //+ file_image;
+
   const DWNLINK = file_formats_download.filter((it) => !it.indexOf("oform"));
   const DWN = DWNLINK[0][1];
 
