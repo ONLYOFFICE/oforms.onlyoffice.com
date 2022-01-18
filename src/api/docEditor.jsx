@@ -21,6 +21,7 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, scriptLoaded }) => {
     .toLowerCase();
 
   const API = `${Config.appServer}config/${id}`;
+  const [config, setConfig] = useState();
   const [token, setToken] = useState();
   const [callback, setCallback] = useState();
   const [check, setCheck] = useState(false);
@@ -34,6 +35,7 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, scriptLoaded }) => {
         },
       })
         .then((res) => {
+          setConfig(JSON.stringify(res.data));
           setToken(res.data.token);
           setCallback(res.data.editorConfig.callbackurl);
           setCheck(true);
@@ -46,37 +48,11 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, scriptLoaded }) => {
         });
     }
   }, []);
-
   return check && scriptLoaded ? (
     <>
       <Helmet>
         <script defer type="text/javascript">
-          {`(window.docEditor = new DocsAPI.DocEditor("${IdDivPlaceholder}", {
-                  token: "${token}",
-                  type: "desktop",
-                  document: {
-                    fileType: "oform",
-                    title: "${name}",
-                    url: "${link_oform_filling_file}",
-                    permissions: {
-                      edit: false,
-                      fillForms: true,
-                    },
-                  },
-                  documentType: "word",
-                  editorConfig: {
-                    callbackurl: "${callback}",
-                    customization: {
-                        anonymous: {
-                        request: false,
-
-                      },
-                    },
-                  },
-                  height: "100%",
-                  width: "100%",
-                }))
-           `}
+          {`(window.docEditor = new DocsAPI.DocEditor("${IdDivPlaceholder}", ${config}))`}
         </script>
       </Helmet>
       <Portal>
