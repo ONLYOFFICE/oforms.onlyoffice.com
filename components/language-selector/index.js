@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import StyledLanguageSelector from "./styled-language-selector";
-import ArrowDown from "../../static/icons/arrow-drop-down.react.svg";
-import ArrowUp from "../../static/icons/arrow-drop-up.react.svg";
+// import ArrowDown from "../../static/icons/arrow-drop-down.react.svg";
+// import ArrowUp from "../../static/icons/arrow-drop-up.react.svg";
 import ItemsList from "./items-list";
 
 const LanguageSelector = (props) => {
