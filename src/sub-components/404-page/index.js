@@ -9,7 +9,11 @@ import InternalLink from "../../../components/internal-link";
 const Error404 = ({ t, ...rest }) => {
   return (
     <Styled404 {...rest}>
-      <img src="/icons/bg-errors.react.svg" className="page-error-404-image" />
+      <img
+        src="/icons/bg-errors.react.svg"
+        className="page-error-404-image"
+        alt="page-error-404"
+      />
       <div className="page-error-404-container">
         <Text className="page-error-404-heading" label={t("404 Error!")} />
         <Text

@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { device } from "../../../../components/utils/devices";
-import Form from "../../../../components/form";
 
 const StyledMailPopup = styled.div`
   height: 100vh;
@@ -36,7 +35,7 @@ const StyledMailPopup = styled.div`
   .popup-content {
     width: 649px;
     height: 633px;
-    background: url(/images/pop-up-bg.png);
+    background: url(/images/forms/pop-up-bg.png);
     background-position: 50% 18%;
     background-repeat: no-repeat;
     box-shadow: (0, 2px, 4px, rgba(0, 0, 0, 0.5));
@@ -47,18 +46,9 @@ const StyledMailPopup = styled.div`
     }
     .dataForm {
       padding: 40px 140px 0;
-      /* 
-            label{
-                transition: none;
-            }
-
-            input:focus + label {
-                opacity: 0;
-            } */
     }
 
     .success {
-      /* display: none; */
       margin: 0 auto;
       text-align: left;
       width: 367px;
@@ -155,7 +145,6 @@ const StyledMailForm = styled.div`
     display: block;
     color: #cb0000;
     padding-bottom: 5px;
-    /* left: 0; */
   }
 
   .errorMailText {

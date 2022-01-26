@@ -5,8 +5,10 @@ import { Trans } from "gatsby-plugin-react-i18next";
 
 import Config from "../../static/data/config.json";
 import { cardCarouselSettings } from "../sub-components/template-page/carousel/sub-components/carousel-settings";
+import { getCookie, setCookie } from "../helpers/index";
 
 import Layout from "../../components/layout";
+import Heading from "../../components/heading";
 import HeadSEO from "../sub-components/head-content";
 import HeadingContent from "../sub-components/heading-content";
 import MainInfo from "../sub-components/template-page/main";
@@ -15,9 +17,6 @@ import CarouselContent from "../sub-components/template-page/carousel";
 import Banner from "../sub-components/main-page/banner-cards";
 import AccordionContent from "../sub-components/accordion";
 import Footer from "../sub-components/footer-content";
-import Section from "../sub-components/section";
-
-import Heading from "../../components/heading";
 
 const Template = ({ config, data, pageContext, ...rest }) => {
   const {
@@ -35,7 +34,6 @@ const Template = ({ config, data, pageContext, ...rest }) => {
   const { allDefJson } = data;
   const allCardForms = allDefJson.nodes;
   const allCardFormsName = MainData.name;
-  //const allCardFormsID = MainData.id_item;
   const allCardFormsPrice = MainData.file_type_access;
 
   // Carousel client data
@@ -43,16 +41,20 @@ const Template = ({ config, data, pageContext, ...rest }) => {
   // Retrieves the string and converts it to a JavaScript object
   const localStorageTmp = MainData;
   const retrievedString =
-    typeof window !== "undefined"
+    typeof window !== "undefined" &&
+    getCookie("test-cookie-oforms") !== undefined
       ? localStorage.getItem(nameLocalStorage)
       : undefined;
-
+  retrievedString === undefined &&
+    typeof window !== "undefined" &&
+    localStorage.removeItem("arrayCaroselClientSideItemsOforms");
   const parsedObjectLocalStorage =
     retrievedString !== undefined ? JSON.parse(retrievedString) : [];
   const [itemsClient, setItemsClient] = useState(parsedObjectLocalStorage);
   const [stateConfig, setConfig] = useState(cardCarouselSettings);
 
   const clientSideCarousel = () => {
+    setCookie("test-cookie-oforms", "oforms", 1);
     // Check data in local storage
     if (retrievedString === null || !retrievedString) {
       localStorage.setItem(nameLocalStorage, JSON.stringify([localStorageTmp]));
@@ -67,16 +69,12 @@ const Template = ({ config, data, pageContext, ...rest }) => {
         tmpLocalStorage = [...parsedObjectLocalStorage, localStorageTmp];
         const modifiedStrigifiedForStorage = JSON.stringify(tmpLocalStorage);
         localStorage.setItem(nameLocalStorage, modifiedStrigifiedForStorage);
-        //
-        //setItemsClient(parsedObjectLocalStorage);
       } else {
         // Modifies the object, converts it to a string and replaces the existing `data items` in LocalStorage
         parsedObjectLocalStorage.shift();
         tmpLocalStorage = [...parsedObjectLocalStorage, localStorageTmp];
         const modifiedStrigifiedForStorage = JSON.stringify(tmpLocalStorage);
         localStorage.setItem(nameLocalStorage, modifiedStrigifiedForStorage);
-        //setItemsClient(parsedObjectLocalStorage);
-        //
       }
       setItemsClient(parsedObjectLocalStorage);
       if (parsedObjectLocalStorage.length <= 4) {
@@ -176,7 +174,7 @@ const Template = ({ config, data, pageContext, ...rest }) => {
           label={headingRentForms}
           t={t}
         />
-        {itemsClient !== null && parsedObjectLocalStorage.length >= 2 ? (
+        {itemsClient !== null && parsedObjectLocalStorage?.length >= 2 ? (
           <CarouselContent
             padding="0 0 30px"
             tabletPadding="0 0 30px"

@@ -18,7 +18,7 @@ const Checkbox = (props) => {
 
   useEffect(() => {
     props.reset && setState(false);
-  });
+  }, [props.reset]);
 
   return (
     <StyledLabel

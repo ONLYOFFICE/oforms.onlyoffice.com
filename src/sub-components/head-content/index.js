@@ -2,7 +2,6 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import PropTypes from "prop-types";
 
-// import config from "../../../static/data/config.json";
 import languages from "../../../languages.json";
 
 const HeadSEO = ({
@@ -12,10 +11,6 @@ const HeadSEO = ({
   title,
   ...rest
 }) => {
-  // const srcWebAppAPI =
-  //   (config.docEditorUrl || "http://localhost") +
-  //   "/web-apps/apps/api/documents/api.js";
-
   return (
     <Helmet {...rest}>
       <title>{title}</title>
@@ -28,7 +23,8 @@ const HeadSEO = ({
         property="og:description"
         content={metaDescriptionOg}
       />
-
+      <meta property="og:url" content="https://oforms.onlyoffice.com/" />
+      <meta property="og:image" href="/images/logo/favicon_general.png" />
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta
@@ -57,8 +53,6 @@ const HeadSEO = ({
           />
         );
       })}
-
-      {/* <script async type="text/javascript" src={srcWebAppAPI} /> */}
 
       <script>
         {`

@@ -4,13 +4,11 @@ import StyledAccordionItem from "./styled-accordionItem";
 
 const AccordionItem = ({
   heading,
-  // level,
   children,
   isCollapsed,
   onClick,
   ...rest
 }) => {
-
   const content = useRef();
   const [active, setActive] = useState(false);
 
@@ -22,12 +20,15 @@ const AccordionItem = ({
           level={4}
           style={{ cursor: "pointer" }}
           className="accordion__heading"
-        >{heading}
+        >
+          {heading}
         </Heading>
       </div>
       <div
         ref={content}
-        style={{ maxHeight: `${active ? `${content.current.scrollHeight}px` : "0px"}` }}
+        style={{
+          maxHeight: `${active ? `${content.current.scrollHeight}px` : "0px"}`,
+        }}
         className="accordion__content"
       >
         <div className="accordion__text">{children}</div>
@@ -35,9 +36,5 @@ const AccordionItem = ({
     </StyledAccordionItem>
   );
 };
-
-AccordionItem.propTypes = {};
-
-AccordionItem.defaultProps = {};
 
 export default AccordionItem;

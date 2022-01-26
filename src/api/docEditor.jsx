@@ -14,15 +14,14 @@ const StyledPlaceholder = styled.div`
   top: 0;
 `;
 
-const DocEditorAPI = ({ id, name, link_oform_filling_file, scriptLoaded }) => {
+const DocEditorAPI = ({ id, name, scriptLoaded }) => {
   const IdDivPlaceholder = name
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
     .toLowerCase();
 
   const API = `${Config.appServer}config/${id}`;
-  const [token, setToken] = useState();
-  const [callback, setCallback] = useState();
+  const [config, setConfig] = useState();
   const [check, setCheck] = useState(false);
 
   useEffect(() => {
@@ -34,8 +33,7 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, scriptLoaded }) => {
         },
       })
         .then((res) => {
-          setToken(res.data.token);
-          setCallback(res.data.editorConfig.callbackurl);
+          setConfig(JSON.stringify(res.data));
           setCheck(true);
         })
         .catch((e) => {
@@ -51,32 +49,7 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, scriptLoaded }) => {
     <>
       <Helmet>
         <script defer type="text/javascript">
-          {`(window.docEditor = new DocsAPI.DocEditor("${IdDivPlaceholder}", {
-                  token: "${token}",
-                  type: "desktop",
-                  document: {
-                    fileType: "oform",
-                    title: "${name}",
-                    url: "${link_oform_filling_file}",
-                    permissions: {
-                      edit: false,
-                      fillForms: true,
-                    },
-                  },
-                  documentType: "word",
-                  editorConfig: {
-                    callbackurl: "${callback}",
-                    customization: {
-                        anonymous: {
-                        request: false,
-
-                      },
-                    },
-                  },
-                  height: "100%",
-                  width: "100%",
-                }))
-           `}
+          {`(window.docEditor = new DocsAPI.DocEditor("${IdDivPlaceholder}", ${config}))`}
         </script>
       </Helmet>
       <Portal>
