@@ -3,47 +3,36 @@ import Config from "../../static/data/config.json";
 
 import Text from "../text";
 import Button from "../button";
-
 import Box from "../box";
-
 import StyledCard from "./styled-card";
-import ELink from "./sub-components/link";
-import ENLink from "../internal-link";
+import Link from "./sub-components/link";
 import Image from "./sub-components/image";
 
 const Card = ({ t, callback, arrayItems, ...rest }) => {
-  const {
-    file_description,
-    file_formats_download,
-    file_image,
-    name,
-    description_card,
-  } = arrayItems;
-
-  const pathName = `/${name
-    .replace(/\s/g, "-")
-    .replace(/[{()}]/g, "")
-    .toLowerCase()}`;
-  const IMAGE_SRC = Config.IMGSRC + "template/" + file_image//"test_tmp.png"; //+ file_image;
-
-  const DWNLINK = file_formats_download.filter((it) => !it.indexOf("oform"));
-  const DWN = DWNLINK[0][1];
+  const { file_formats_download, file_image, name, description_card } =
+    arrayItems;
 
   const linkFillForm = name
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
     .toLowerCase();
+  const pathName = `/${linkFillForm}`;
+  const ImageSrc = `${Config.IMGSRC}template/${file_image}`;
+  const QueryLink = `/editor?fillform=${linkFillForm}`;
+  const DWNLINK = file_formats_download.filter((it) => !it.indexOf("oform"));
+  const dwnFile = DWNLINK[0][1];
 
   return (
     <StyledCard {...rest}>
-      <Image className="image-template" src={IMAGE_SRC} />
+      <Image className="image-template" src={ImageSrc} />
       <Box
         className="card-template"
         flexDirection="column"
         alignItems="stretch"
       >
-        <ELink
+        <Link
           className="title-template text-overflow-templapte"
+          title={name}
           href={pathName}
           label={name}
         />
@@ -51,15 +40,15 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
           className="subtitle-template text-overflow-templapte"
           label={description_card}
         />
-        <ELink target="_blank" href={`/editor?fillform=${linkFillForm}`}>
+        <Link target="_blank" href={QueryLink}>
           <Button
             isScale
             typeButton="transparent"
             className="redactor-btn-template"
             label={"fill out"}
           />
-        </ELink>
-        <ELink href={DWN} download>
+        </Link>
+        <Link href={dwnFile} download>
           <Button
             isScale
             className="download-btn-template"
@@ -68,7 +57,7 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
             borderColorHover="transparent"
             label={"download"}
           />
-        </ELink>
+        </Link>
       </Box>
     </StyledCard>
   );
