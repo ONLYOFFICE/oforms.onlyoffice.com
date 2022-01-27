@@ -6,6 +6,7 @@ import { Trans } from "gatsby-plugin-react-i18next";
 import Config from "../../static/data/config.json";
 import { cardCarouselSettings } from "../sub-components/template-page/carousel/sub-components/carousel-settings";
 import { getCookie, setCookie } from "../helpers/index";
+import { CAROUSEL_COOKIE } from "../helpers/constants";
 
 import Layout from "../../components/layout";
 import Heading from "../../components/heading";
@@ -42,7 +43,7 @@ const Template = ({ config, data, pageContext, ...rest }) => {
   const localStorageTmp = MainData;
   const retrievedString =
     typeof window !== "undefined" &&
-    getCookie("test-cookie-oforms") !== undefined
+    getCookie(CAROUSEL_COOKIE) !== undefined
       ? localStorage.getItem(nameLocalStorage)
       : undefined;
   retrievedString === undefined &&
@@ -54,7 +55,7 @@ const Template = ({ config, data, pageContext, ...rest }) => {
   const [stateConfig, setConfig] = useState(cardCarouselSettings);
 
   const clientSideCarousel = () => {
-    setCookie("test-cookie-oforms", "oforms", 1);
+    setCookie(CAROUSEL_COOKIE, "oforms-items", 1);
     // Check data in local storage
     if (retrievedString === null || !retrievedString) {
       localStorage.setItem(nameLocalStorage, JSON.stringify([localStorageTmp]));
