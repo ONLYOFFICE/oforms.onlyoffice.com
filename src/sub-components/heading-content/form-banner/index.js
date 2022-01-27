@@ -32,7 +32,7 @@ const FormBanner = ({ t, labelPrice, labelName, link }) => {
               level={3}
             >
               {t("How to create a")}{" "}
-              <Text color="#FF6F3D" fontSize="24px" fontWeight="700">
+              <Text color="#FF6F3D" fontSize="24px" fontWeight="700" display="contents">
                 {t(`${price}`)}
               </Text>{" "}
               {t(`${labelName} with ONLYOFFICE`)}
