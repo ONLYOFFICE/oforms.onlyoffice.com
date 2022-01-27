@@ -31,6 +31,7 @@ const AccordionContent = ({ t }) => {
           Use ONLYOFFICE Docs online or ONLYOFFICE Dekstop Editors to fill forms
           in the preferred location and create your own.{" "}
           <Link
+            display="contents"
             className="link-trans-acc"
             href="https://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/UsageInstructions/CreateFillableForms.aspx"
           >
@@ -45,6 +46,7 @@ const AccordionContent = ({ t }) => {
           {/* {t("AccordionDescriptionFormatTheForms")} */}
           All forms are stored in .OFORM format.{" "}
           <Link
+            display="contents"
             className="link-trans-acc"
             href="https://www.onlyoffice.com/whitepapers.aspx"
           >
@@ -66,6 +68,7 @@ const AccordionContent = ({ t }) => {
           We happily accept template suggestions to introduce these templates in
           our form library in the future. Please contact us at{" "}
           <Link
+            display="contents"
             className="link-trans-acc"
             label="marketing@onlyoffice.com"
             href="mailto:marketing@onlyoffice.com"
@@ -77,6 +80,7 @@ const AccordionContent = ({ t }) => {
         >
           {t("It is technically possible. Please contact us at ")}
           <Link
+            display="contents"
             className="link-trans-acc"
             label="marketing@onlyoffice.com"
             href="mailto:marketing@onlyoffice.com"
@@ -90,11 +94,16 @@ const AccordionContent = ({ t }) => {
         >
           {/* {t("Please use our community forum to receive support, or send us an inquiry at ")} */}
           Please use our{" "}
-          <Link className="link-trans-acc" href="https://forum.onlyoffice.com/">
+          <Link
+            display="contents"
+            className="link-trans-acc"
+            href="https://forum.onlyoffice.com/"
+          >
             community forum
           </Link>{" "}
           to receive support, or send us an inquiry at &nbsp;
           <Link
+            display="contents"
             className="link-trans-acc"
             label="support@onlyoffice.com"
             href="mailto:support@onlyoffice.com"
