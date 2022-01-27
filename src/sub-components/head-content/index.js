@@ -24,7 +24,11 @@ const HeadSEO = ({
         content={metaDescriptionOg}
       />
       <meta property="og:url" content="https://oforms.onlyoffice.com/" />
-      <meta property="og:image" content="https://static.onlyoffice.com/studio/tag/personal.11.5.3/skins/default/images/logo/fb_icon_325x325.jpg" />
+      <meta
+        id="ctl00_MetaImageOG"
+        property="og:image"
+        content="https://static.onlyoffice.com/studio/tag/personal.11.5.3/skins/default/images/logo/fb_icon_325x325.jpg"
+      />
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta
