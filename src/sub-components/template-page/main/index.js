@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { ReactSVG } from "react-svg";
-
 import Config from "../../../../static/data/config.json";
 
 import Link from "../../../../components/link";
@@ -11,7 +10,6 @@ import Text from "../../../../components/text";
 import Box from "../../../../components/box";
 
 import StyledMainInfo from "./styled-main";
-
 import Breadcrumb from "./sub-components/breadcrumb";
 import ShareButtonsGroup from "./sub-components/icon-buttons";
 import Image from "./sub-components/image";
@@ -20,13 +18,11 @@ import Oform from "../../../../static/icons/oform.svg";
 
 const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
   const {
-    jsonId,
     name,
     file_categories,
     file_description,
     file_image,
     file_type_access,
-    description_card,
     file_last_update,
     file_pages,
     file_size,
@@ -42,7 +38,7 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
     { title: tt3, href: file_formats_download[2][1] },
   ];
 
-  const IMAGE_SRC = Config.IMGSRC + "template/" + file_image//"test_tmp.png"; //file_image;
+  const IMAGE_SRC = Config.IMGSRC + "template/" + file_image;
   const SVG_FILE_TYPE = Oform;
   const linkFillForm = name
     .replace(/\s/g, "-")
@@ -51,11 +47,6 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
   const baseURL = typeof window !== "undefined" ? window.location.href : null;
   const linkSuggestChanges = `mailto:marketing@onlyoffice.com?subject=Suggesting changes for Form ${name}&body=Suggesting changes for Form ${name}.`;
 
-  const [oformFill, setOformFill] = useState(false);
-
-  // const onClickOformFill = () => {
-  //   setOformFill(true);
-  // };
   return (
     <StyledMainInfo maxWidth="1200px" background="#F9F9F9" {...rest}>
       <div className="template-main-info">

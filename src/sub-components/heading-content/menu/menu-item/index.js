@@ -42,7 +42,7 @@ const MenuItem = ({ children, heading, ...rest }) => {
     resizeWindow();
     window.addEventListener("resize", resizeWindow);
     return () => window.removeEventListener("resize", resizeWindow);
-  }, []);
+  }, [windowWidth, windowHeight]);
 
   return (
     <StyledNavMenu

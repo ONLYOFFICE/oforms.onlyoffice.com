@@ -127,7 +127,7 @@ const tabletStyledMainInfo = css`
     max-width: 100%;
     .file-description {
       padding: 32px 0;
-      margin-bottom: 34px;
+      margin-bottom: 42px;
     }
 
     .file-info {
@@ -202,7 +202,7 @@ const StyledMainInfo = styled(Section)`
 
   .template-main-info {
     max-width: 544px;
-    padding-left: 34px;
+    padding-left: 42px;
 
     .main-info-heading {
       padding-bottom: 16px;
@@ -229,6 +229,8 @@ const StyledMainInfo = styled(Section)`
     max-width: 544px;
     .template-image {
       box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
+      border: 1px solid #ccc;
+      border-radius: 3px;
       width: 100%;
       height: auto;
     }
@@ -236,11 +238,11 @@ const StyledMainInfo = styled(Section)`
 
   .template-main-description {
     max-width: 544px;
-    padding-left: 34px;
+    padding-left: 42px;
 
     .file-description {
       padding: 25px 0;
-      margin-bottom: 34px;
+      margin-bottom: 42px;
       border-bottom: 1px solid #e5e5e5;
     }
 

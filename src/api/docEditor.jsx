@@ -14,7 +14,7 @@ const StyledPlaceholder = styled.div`
   top: 0;
 `;
 
-const DocEditorAPI = ({ id, name, link_oform_filling_file, scriptLoaded }) => {
+const DocEditorAPI = ({ id, name, scriptLoaded }) => {
   const IdDivPlaceholder = name
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
@@ -22,8 +22,6 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, scriptLoaded }) => {
 
   const API = `${Config.appServer}config/${id}`;
   const [config, setConfig] = useState();
-  const [token, setToken] = useState();
-  const [callback, setCallback] = useState();
   const [check, setCheck] = useState(false);
 
   useEffect(() => {
@@ -36,8 +34,6 @@ const DocEditorAPI = ({ id, name, link_oform_filling_file, scriptLoaded }) => {
       })
         .then((res) => {
           setConfig(JSON.stringify(res.data));
-          setToken(res.data.token);
-          setCallback(res.data.editorConfig.callbackurl);
           setCheck(true);
         })
         .catch((e) => {

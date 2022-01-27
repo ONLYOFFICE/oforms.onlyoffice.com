@@ -92,7 +92,11 @@ const Footer = ({ t, language, ...rest }) => {
                 rel={item.rel}
                 target="_blank"
                 key={item.title}
-                onClick={(item.title === "OnlyOffice" ? () => handlerSetModal(true) : null)}
+                onClick={
+                  item.title === "OnlyOffice"
+                    ? () => handlerSetModal(true)
+                    : null
+                }
               >
                 <IconButton
                   className={item.className}
