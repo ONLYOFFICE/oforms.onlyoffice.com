@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { Base } from "../themes";
 
 const display = css`
-    display: ${(props) => !props.isInline
+    display: ${(props) => props.isInline
     ? props.theme.text.display
     : props.display || "block"
   };
