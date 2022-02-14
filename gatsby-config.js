@@ -61,17 +61,22 @@ module.exports = {
         localeJsonSourceName: "locale",
         languages: availableLanguages,
         defaultLanguage,
-        redirect: true,
+        redirect: false,
         generateDefaultLanguagePage: "/en",
         i18nextOptions: {
           fallbackLng: defaultLanguage,
-
           interpolation: {
             escapeValue: false,
           },
           keySeparator: false,
           nsSeparator: false,
         },
+        pages: [
+          {
+            matchPath: "/editor",
+            languages: [""],
+          },
+        ],
       },
     },
     {
