@@ -22,6 +22,9 @@ const Footer = ({ t, language, ...rest }) => {
     setModalActive(active);
   };
 
+  const onlyoffice = `https://www.onlyoffice.com${
+    language === "en" ? "" : `/${language}`
+  }`;
   return (
     <StyledFooter {...rest}>
       {POSITION_ELEMENTS_ITEM.map((elements_in_div, id) => (
@@ -38,7 +41,11 @@ const Footer = ({ t, language, ...rest }) => {
                   <ExternalLink
                     className="footer-link"
                     label={t(item_link.label)}
-                    href={item_link.href}
+                    href={
+                      item_link.localize
+                        ? onlyoffice + item_link.href
+                        : item_link.href
+                    }
                     key={`${item_link.label}-${idx_link}`}
                   />
                 ))}
