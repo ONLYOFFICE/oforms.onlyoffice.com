@@ -53,7 +53,7 @@ const Menu = ({ t, currentLanguage, template, ...rest }) => {
       className="navbar"
       onMouseLeave={onCloseMenu}
     >
-      <InternalLink className="nav-item-logo" href="/">
+      <InternalLink className="nav-item-logo" href={`/${currentLanguage}`}>
         {template ? (
           <LogoBlack className="site-logo" />
         ) : (
@@ -66,14 +66,15 @@ const Menu = ({ t, currentLanguage, template, ...rest }) => {
         onClick={toggleMobile}
       />
       <Nav
+        currentLanguage={currentLanguage}
         className={NavTemplateClassName}
         stateMobilePND={stateMobile}
         t={t}
       />
       <div className="nav-item-lng">
         {!windowCheck && (
-          <Link className="nav-item-tel" href="tel:+371 660 164 25">
-            +371 660 164 25
+          <Link className="nav-item-tel" href={`tel:${t("tel37166016425")}`}>
+            {t("tel37166016425")}
           </Link>
         )}
         <LanguageSelector t={t} currentLanguage={currentLanguage} />
