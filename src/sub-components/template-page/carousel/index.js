@@ -7,7 +7,7 @@ import StyledCarouselContent from "./carousel-section";
 
 import { cardCarouselSettings } from "./sub-components/carousel-settings";
 
-const CarouselContent = ({ label, data, config, padding, tabletPadding, mobileLPadding }) => {
+const CarouselContent = ({ currentLanguage, label, data, config, padding, tabletPadding, mobileLPadding, t }) => {
   const customConfig = config || cardCarouselSettings;
 
   return (
@@ -20,9 +20,11 @@ const CarouselContent = ({ label, data, config, padding, tabletPadding, mobileLP
     >
       <Box justifyContent="center">{label}</Box>
       <Carousel
+        t={t}
         items={data}
         className="card-carousel"
         settingsCarousel={customConfig}
+        currentLanguage={currentLanguage}
       />
     </StyledCarouselContent>
   );
