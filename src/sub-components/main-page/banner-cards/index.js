@@ -5,7 +5,7 @@ import Section from "../../section";
 
 import BannerOforms from "../../../../components/banners";
 
-const Banner = ({ t }) => {
+const Banner = ({ t, currentLanguage }) => {
   return (
     <StyledBanner>
       <Section
@@ -14,7 +14,7 @@ const Banner = ({ t }) => {
         tabletPadding="112px 0 109px"
         mobileLPadding="48px 0 72px"
       >
-        <BannerOforms t={t} />
+        <BannerOforms t={t} currentLanguage={currentLanguage}/>
       </Section>
     </StyledBanner>
   );

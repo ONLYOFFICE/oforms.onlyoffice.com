@@ -10,7 +10,7 @@ import StyledInfoContent from "./styled-content";
 import ShortCard from "./short-card";
 import array_item from "./items";
 
-const InfoContent = ({ t, ...rest }) => {
+const InfoContent = ({ t, currentLanguage, ...rest }) => {
   return (
     <StyledInfoContent
       background="#333333"
@@ -20,19 +20,14 @@ const InfoContent = ({ t, ...rest }) => {
       {...rest}
     >
       <Heading className="heading-info-content">
-        <span style={{ color: "#FF6F3D" }}>OFORMS:</span>
-        {t(" FREE ready-to-fill out online forms")}
+        <span style={{ color: "#FF6F3D" }}>{t("OFORMS")}:</span>
+        {t("FREEforms")}
       </Heading>
-      <Text
-        className="description-info-content"
-        label={t(
-          "Fill out the forms online in one click or download and open them in ONLYOFFICE."
-        )}
-      />
+      <Text className="description-info-content" label={t("FillOutTheForms")} />
       <Heading
         className="subheading-info-content"
         level={5}
-        label={t("Featured forms")}
+        label={t("FeaturedForms")}
       />
       <Box justifyContent="space-between" className="box-info-content">
         <Scrollbar
@@ -57,7 +52,7 @@ const InfoContent = ({ t, ...rest }) => {
           })}
         </Scrollbar>
       </Box>
-      <Banner t={t} />
+      <Banner t={t} currentLanguage={currentLanguage} />
     </StyledInfoContent>
   );
 };
