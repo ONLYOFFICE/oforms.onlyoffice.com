@@ -11,7 +11,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
   }`;
   return (
     <StyledNav stateMobile={stateMobilePND} {...rest}>
-      <MenuItem heading="Products & Features" id="navitem_features">
+      <MenuItem heading={t("Products & Features")} id="navitem_features">
         <Box className="menu_wrapper">
           <Box className="outer-box with_border">
             <Link
@@ -172,7 +172,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
         </Box>
       </MenuItem>
 
-      <MenuItem heading="Integrations" id="navitem_integrations">
+      <MenuItem heading={t("Integrations")} id="navitem_integrations">
         <Box className="menu_wrapper">
           <Box className="outer-box integrations">
             <Link
@@ -289,7 +289,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
         </Box>
       </MenuItem>
 
-      <MenuItem heading="Pricing" id="navitem_prices">
+      <MenuItem heading={t("Pricing")} id="navitem_prices">
         <Box className="menu_wrapper">
           <Box className="outer-box">
             <Box className="pricing-box">
@@ -355,7 +355,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
         </Box>
       </MenuItem>
 
-      <MenuItem heading="Get ONLYOFFICE" id="navitem_download">
+      <MenuItem heading={t("Get ONLYOFFICE")} id="navitem_download">
         <Box className="menu_wrapper">
           <Box className="outer-box">
             <Link
@@ -452,7 +452,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
         </Box>
       </MenuItem>
 
-      <MenuItem heading="Partners" id="navitem_partners">
+      <MenuItem heading={t("Partners")} id="navitem_partners">
         <Box className="menu_wrapper">
           <Box className="outer-box">
             <Link
@@ -502,7 +502,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
         </Box>
       </MenuItem>
 
-      <MenuItem heading="About" id="navitem_about">
+      <MenuItem heading={t("About")} id="navitem_about">
         <Box className="menu_wrapper">
           <Box className="outer-box with_border">
             <Link
@@ -615,7 +615,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
             </Link>
             <Box id="latest_news_div" className="menu_pic_div">
               <div id="latest_news_img" className="menu_pic_img"></div>
-              <p className="latest_news_date">18 January 2022</p>
+              <p className="latest_news_date">{t("18 January 2022")}</p>
               <p id="latest_news_header" className="menu_pic_header">
                 {t(
                   "ONLYOFFICE Docs 70 online forms, password protection in sheets, collaboration improvements and much more"
