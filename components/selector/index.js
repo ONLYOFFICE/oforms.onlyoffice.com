@@ -46,12 +46,12 @@ const Selector = ({
       onClick={onClickHandler}
       {...rest}
     >
-      <Text className="text-sort-set" label={t("Sort by: ")} />
-      <Text className="filter-header" label={typeSortData} />
+      <Text className="text-sort-set" label={t("SortBy")} />
+      <Text className="filter-header" label={t(typeSortData)} />
       <ReactSVG className="arrow" src="/icons/popup-arrow.react.svg" />
-      <Box className="filter_selector" value={typeSortData} onClick={onChangeSelectTypeSort}>
-        <Text as="option" className="filter_selector-items" value="Name A-Z" label={t("Name A-Z")} />
-        <Text as="option" className="filter_selector-items" value="Name Z-A" label={t("Name Z-A")} />
+      <Box className="filter_selector" value={t(typeSortData)} onClick={onChangeSelectTypeSort}>
+        <Text as="option" className="filter_selector-items" value={t("NameA-Z")} label={t("NameA-Z")} />
+        <Text as="option" className="filter_selector-items" value={t("NameZ-A")} label={t("NameZ-A")} />
       </Box>
     </StyledSelector>
   );

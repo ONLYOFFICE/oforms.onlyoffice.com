@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { StyledItem, StyledPanelView } from "./styled-language-selector";
 import { Link } from "gatsby";
-import languages from "../../languages";
+import languages from "../../languages.json";
 export default function LangsList(props) {
-  const { isOpen, currentLanguage } = props;
+  const { t, isOpen, currentLanguage, onCloseSelector } = props;
 
   useEffect(() => {
     const layout = document.getElementById("page-layout");
