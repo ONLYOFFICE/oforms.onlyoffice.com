@@ -5,7 +5,7 @@ import Button from "../../../../../../components/button";
 
 import StyledCards from "./styled-cards";
 
-const Cards = ({ t, data, typeSortData, groupCheckboxIsOpen, ...rest }) => {
+const Cards = ({ t, data, typeSortData, currentLanguage, groupCheckboxIsOpen, ...rest }) => {
   // Array of all items oforms
   const [allItems, setAllItems] = useState(data);
   // Array first 8 elements
@@ -62,7 +62,7 @@ const Cards = ({ t, data, typeSortData, groupCheckboxIsOpen, ...rest }) => {
     <div className="tempalates-cards-items" {...rest}>
       <StyledCards groupCheckboxIsOpen={groupCheckboxIsOpen}>
         {listCards.map((it, id) => (
-          <Card key={id} arrayItems={it} t={t} />
+          <Card key={id} arrayItems={it} t={t} currentLanguage={currentLanguage}/>
         ))}
       </StyledCards>
       {hasMore ? (
@@ -71,7 +71,7 @@ const Cards = ({ t, data, typeSortData, groupCheckboxIsOpen, ...rest }) => {
           className="tempalates-buttons-items"
           typeButton="transparent"
           onClick={handleLoadMore}
-          label="Load More"
+          label={t("LoadMore")}
         />
       ) : (
         <></>

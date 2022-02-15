@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { StyledItem, StyledPanelView } from "./styled-language-selector";
 import { Link } from "gatsby";
-import languages from "../../languages";
+import languages from "../../languages.json";
 export default function LangsList(props) {
-  const { isOpen, currentLanguage } = props;
+  const { t, isOpen, currentLanguage, onCloseSelector } = props;
 
   useEffect(() => {
     const layout = document.getElementById("page-layout");
@@ -29,14 +29,17 @@ export default function LangsList(props) {
     return languages.map((language) => {
       const { shortKey, iconName, key } = language;
       let localizedPath;
+      let tmpshortKey = shortKey === "en" ? "" : `/${shortKey}`;
+      let templatePagesKey = shortKey === "en" ? "" : `${shortKey}`;
+      let templatePath = shortKey === "en" ? path.slice(1) : path;
       if (currentLanguage === "en") {
-        if (path.includes("en")) {
-          localizedPath = path.replace(currentLanguage, shortKey);
+        if (path === "/") {
+          localizedPath = `${tmpshortKey}${path}`;
         } else {
-          localizedPath = `/${shortKey}${path}`;
+          localizedPath = `${tmpshortKey}${path}`;
         }
       } else {
-        localizedPath = path.replace(currentLanguage, shortKey);
+        localizedPath = templatePath.replace(currentLanguage, templatePagesKey);
       }
 
       return (

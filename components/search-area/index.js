@@ -17,7 +17,7 @@ const SearchArea = ({ clearValueSearch, valueSearch, callback, t }) => {
           className="presearch_title"
           overflow="unset"
           textOverflow="clip"
-          label="Search forms"
+          label={t("SearchForms")}
           color="#F5F5F5"
           fontWeight={600}
         />

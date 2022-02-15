@@ -20,7 +20,7 @@ import Cards from "./sub-components/cards";
 import StyledMainContent from "./styled-main-content";
 import Button from "../../../../components/button";
 
-const MainContent = ({ t, language, count, ...rest }) => {
+const MainContent = ({ t, currentLanguage, count, ...rest }) => {
   const data = useStaticQuery(graphql`
     {
       allDefJson {
@@ -41,7 +41,14 @@ const MainContent = ({ t, language, count, ...rest }) => {
     }
   `);
 
+  // currentLanguage
   const allItems = data.allDefJson.nodes;
+  const curLang = currentLanguage === "en" ? "US" : currentLanguage;
+  let tmpAllItems = allItems.filter(({ file_country_access }) => {
+    if (file_country_access[0].toLowerCase() === curLang.toLowerCase()) {
+      return { ...file_country_access };
+    }
+  });
 
   // filter data state
   const [checkedItems, setCheckedItems] = useState({});
@@ -62,7 +69,7 @@ const MainContent = ({ t, language, count, ...rest }) => {
     );
 
     if (Object.getOwnPropertyNames(tmpCheckedItems).length === 0) {
-      setFilterArray(allItems);
+      setFilterArray(tmpAllItems);
     } else {
       const boolCheckedItems = ObjectFilter(
         checkedItems,
@@ -70,7 +77,7 @@ const MainContent = ({ t, language, count, ...rest }) => {
       );
 
       const objCheckedCategory = Object.keys(boolCheckedItems);
-      const tmpItems = allItems.filter((it) => {
+      const tmpItems = tmpAllItems.filter((it) => {
         for (let i = 0; i < it.file_categories.length; i++) {
           if (
             objCheckedCategory.includes(it.file_categories[i].toLowerCase())
@@ -98,7 +105,7 @@ const MainContent = ({ t, language, count, ...rest }) => {
 
   // sort data state
   const [sortData, setSortData] = useState([]);
-  const [typeSortData, setTypeSortData] = useState("Name A-Z");
+  const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
   const [boolTypeSortData, setBoolTypeSortData] = useState(false);
 
   const onChangeSelectTypeSort = (e) => {
@@ -108,12 +115,12 @@ const MainContent = ({ t, language, count, ...rest }) => {
   const handlerSortData = () => {
     const checkFilterArray = filterArray;
     let tmp;
-    if (typeSortData === "Name A-Z") {
+    if (typeSortData === t("NameA-Z")) {
       tmp = checkFilterArray.sort(increaseDecreaseName);
       setBoolTypeSortData(false);
       setSortData(tmp);
     }
-    if (typeSortData === "Name Z-A") {
+    if (typeSortData === t("NameZ-A")) {
       tmp = checkFilterArray.sort(decreaseIncreaseName);
       setBoolTypeSortData(true);
       setSortData(tmp);
@@ -175,7 +182,7 @@ const MainContent = ({ t, language, count, ...rest }) => {
       <Heading
         className="heading-cards"
         textAlign="center"
-        label={t("All forms")}
+        label={t("AllForms")}
       />
       <div className="idk-box-template">
         <Box className="box-doc-info-template">
@@ -189,7 +196,7 @@ const MainContent = ({ t, language, count, ...rest }) => {
             </div> */}
             <Text className="box-doc-categories">
               {" "}
-              {t("Documents:")} {numberDataItems}
+              {t("Documents")}: {numberDataItems}
             </Text>
             {/* <Text className="text-control-mob">
               {" "}
@@ -266,6 +273,7 @@ const MainContent = ({ t, language, count, ...rest }) => {
             data={sortData}
             typeSortData={boolTypeSortData}
             groupCheckboxIsOpen={groupCheckboxIsOpen}
+            currentLanguage={currentLanguage}
           />
         </Box>
       </div>

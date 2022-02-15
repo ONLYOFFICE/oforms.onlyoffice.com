@@ -8,7 +8,7 @@ import StyledCard from "./styled-card";
 import Link from "./sub-components/link";
 import Image from "./sub-components/image";
 
-const Card = ({ t, callback, arrayItems, ...rest }) => {
+const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
   const { file_formats_download, file_image, name, description_card } =
     arrayItems;
 
@@ -16,7 +16,10 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
     .toLowerCase();
-  const pathName = `/${linkFillForm}`;
+  const pathName =
+    currentLanguage === "en"
+      ? `/${linkFillForm}`
+      : `/${currentLanguage}/${linkFillForm}`;
   const ImageSrc = `${Config.IMGSRC}template/${file_image}`;
   const QueryLink = `/editor?fillform=${linkFillForm}`;
   const DWNLINK = file_formats_download.filter((it) => !it.indexOf("oform"));
@@ -45,7 +48,7 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
             isScale
             typeButton="transparent"
             className="redactor-btn-template"
-            label={"fill out"}
+            label={t("FillOut")}
           />
         </Link>
         <Link href={dwnFile} download>
@@ -55,7 +58,7 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
             typeButton="transparent"
             borderColor="transparent"
             borderColorHover="transparent"
-            label={"download"}
+            label={t("Download")}
           />
         </Link>
       </Box>

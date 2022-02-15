@@ -1,5 +1,6 @@
 import React from "react";
 import { ReactSVG } from "react-svg";
+import { Trans } from "gatsby-plugin-react-i18next";
 
 import StyledFormBanner from "./styled-form-banner";
 
@@ -11,6 +12,11 @@ import Link from "../../../../components/link";
 
 const FormBanner = ({ t, labelPrice, labelName, link }) => {
   const price = labelPrice.toLowerCase();
+  const HeadingBanner = (
+    <Heading className="header" fontSize="24px" fontWeight="700" level={3}>
+      {t("HowToCreateATemplate", { price, labelName })}
+    </Heading>
+  );
   return (
     <StyledFormBanner>
       <Box
@@ -25,18 +31,7 @@ const FormBanner = ({ t, labelPrice, labelName, link }) => {
               height="33px"
               width="33px"
             />
-            <Heading
-              className="header"
-              fontSize="24px"
-              fontWeight="700"
-              level={3}
-            >
-              {t("How to create a")}{" "}
-              <Text color="#FF6F3D" fontSize="24px" fontWeight="700" display="contents">
-                {t(`${price}`)}
-              </Text>{" "}
-              {t(`${labelName} with ONLYOFFICE`)}
-            </Heading>
+            {HeadingBanner}
           </Box>
           <Box
             className="box-items"
@@ -44,21 +39,20 @@ const FormBanner = ({ t, labelPrice, labelName, link }) => {
             alignItems="flex-start"
           >
             <Text className="item_text">
-              <span style={{ fontWeight: "700" }}>1.</span>{" "}
-              {t("Click Fill Out to launch the form editor online")}{" "}
+              <span style={{ fontWeight: "700" }}>1.</span> {t("ClickFillOut")}{" "}
             </Text>
             <Text className="item_text">
               <span style={{ fontWeight: "700" }}>2.</span>{" "}
-              {t("Fill in the necessary information in the empty fields")}{" "}
+              {t("FillInTheNecessary")}{" "}
             </Text>
             <Text className="item_text">
               <span style={{ fontWeight: "700" }}>3.</span>{" "}
-              {t("Download the ready document from the editor")}{" "}
+              {t("DownloadTheReadyDoc")}{" "}
             </Text>
           </Box>
         </Box>
         <Link href={link} className="box-button">
-          <Button label={t("FILL OUT")} width="164px" height="56px" />
+          <Button label={t("FillOut")} width="164px" height="56px" />
         </Link>
       </Box>
     </StyledFormBanner>

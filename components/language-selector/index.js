@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import StyledLanguageSelector from "./styled-language-selector";
-// import ArrowDown from "../../static/icons/arrow-drop-down.react.svg";
-// import ArrowUp from "../../static/icons/arrow-drop-up.react.svg";
+import ArrowDown from "../../static/icons/arrow-drop-down.react.svg";
+import ArrowUp from "../../static/icons/arrow-drop-up.react.svg";
 import ItemsList from "./items-list";
 
 const LanguageSelector = (props) => {
@@ -61,9 +61,9 @@ const LanguageSelector = (props) => {
         src={`/images/flags/${currentLanguage}.svg`}
         width={"18px"}
       />
-      {/* <div className="arrow-image">
+      <div className="arrow-image">
         {isOpen ? <ArrowUp alt="arrow-up" /> : <ArrowDown alt="arrow-down" />}
-      </div> */}
+      </div>
       <ItemsList
         className={`languages-list lng-selector ${
           isOpen ? "language-selector-open" : "language-selector-closed"
@@ -77,4 +77,4 @@ const LanguageSelector = (props) => {
   );
 };
 
-export default LanguageSelector;
+export default LanguageSelector; 
