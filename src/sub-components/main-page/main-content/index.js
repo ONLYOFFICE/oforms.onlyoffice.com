@@ -43,6 +43,12 @@ const MainContent = ({ t, currentLanguage, count, ...rest }) => {
 
   // currentLanguage
   const allItems = data.allDefJson.nodes;
+  const curLang = currentLanguage === "en" ? "US" : currentLanguage;
+  let tmpAllItems = allItems.filter(({ file_country_access }) => {
+    if (file_country_access[0].toLowerCase() === curLang.toLowerCase()) {
+      return { ...file_country_access };
+    }
+  });
 
   // filter data state
   const [checkedItems, setCheckedItems] = useState({});
@@ -63,7 +69,7 @@ const MainContent = ({ t, currentLanguage, count, ...rest }) => {
     );
 
     if (Object.getOwnPropertyNames(tmpCheckedItems).length === 0) {
-      setFilterArray(allItems);
+      setFilterArray(tmpAllItems);
     } else {
       const boolCheckedItems = ObjectFilter(
         checkedItems,
@@ -71,7 +77,7 @@ const MainContent = ({ t, currentLanguage, count, ...rest }) => {
       );
 
       const objCheckedCategory = Object.keys(boolCheckedItems);
-      const tmpItems = allItems.filter((it) => {
+      const tmpItems = tmpAllItems.filter((it) => {
         for (let i = 0; i < it.file_categories.length; i++) {
           if (
             objCheckedCategory.includes(it.file_categories[i].toLowerCase())
