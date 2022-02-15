@@ -1,4 +1,4 @@
-const array_item = [
+const en = [
   {
     title: "Social Security Form SS-5",
     subtitle: "Financial",
@@ -20,5 +20,30 @@ const array_item = [
     linkUrl: "/gardening-service-proposal-form",
   },
 ];
+
+const zh = [
+  {
+    title: "商业计划书",
+    subtitle: "提案",
+    linkUrl: "/商业计划书",
+  },
+  {
+    title: "夫妻财产协议",
+    subtitle: "行政管理",
+    linkUrl: "/夫妻财产协议",
+  },
+  {
+    title: "房产抵押借款合同",
+    subtitle: "房地产及租赁",
+    linkUrl: "/房产抵押借款合同",
+  },
+  {
+    title: "广告设计制作服务合同",
+    subtitle: "许可证",
+    linkUrl: "/广告设计制作服务合同",
+  },
+];
+
+const array_item = [en, zh];
 
 export default array_item;

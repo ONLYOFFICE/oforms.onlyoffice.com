@@ -20,7 +20,7 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
     currentLanguage === "en"
       ? `/${linkFillForm}`
       : `/${currentLanguage}/${linkFillForm}`;
-  const ImageSrc = `${Config.IMGSRC}template/${file_image}`;
+  const ImageSrc =`/images/oforms/en/card/${file_image}`;
   const QueryLink = `/editor?fillform=${linkFillForm}`;
   const DWNLINK = file_formats_download.filter((it) => !it.indexOf("oform"));
   const dwnFile = DWNLINK[0][1];

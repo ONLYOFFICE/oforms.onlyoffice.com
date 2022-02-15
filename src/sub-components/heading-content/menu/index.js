@@ -47,13 +47,15 @@ const Menu = ({ t, currentLanguage, template, ...rest }) => {
     ? "nav-item-links dark"
     : "nav-item-links";
 
+  const curLang = currentLanguage === "en" ? "/" : `/${currentLanguage}`;
+
   return (
     <StyledMenu
       template={template}
       className="navbar"
       onMouseLeave={onCloseMenu}
     >
-      <InternalLink className="nav-item-logo" href={`/${currentLanguage}`}>
+      <InternalLink className="nav-item-logo" href={curLang}>
         {template ? (
           <LogoBlack className="site-logo" />
         ) : (
