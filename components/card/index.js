@@ -16,7 +16,10 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
     .toLowerCase();
-  const pathName = `/${currentLanguage}/${linkFillForm}`;
+  const pathName =
+    currentLanguage === "en"
+      ? `/${linkFillForm}`
+      : `/${currentLanguage}/${linkFillForm}`;
   const ImageSrc = `${Config.IMGSRC}template/${file_image}`;
   const QueryLink = `/editor?fillform=${linkFillForm}`;
   const DWNLINK = file_formats_download.filter((it) => !it.indexOf("oform"));

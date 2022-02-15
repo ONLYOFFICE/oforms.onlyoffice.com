@@ -60,11 +60,11 @@ module.exports = {
       options: {
         localeJsonSourceName: "locale",
         languages: availableLanguages,
-        defaultLanguage,
+        defaultLanguage: defaultLanguage,
         redirect: false,
-        generateDefaultLanguagePage: "/en",
+        siteUrl: "https://oforms.onlyoffice.com",
         i18nextOptions: {
-          fallbackLng: defaultLanguage,
+          fallbackLanguage: defaultLanguage,
           interpolation: {
             escapeValue: false,
           },
