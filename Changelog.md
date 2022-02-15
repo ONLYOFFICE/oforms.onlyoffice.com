@@ -3,25 +3,25 @@
 
 ## 1.0.2
 
-### Новое
-* Добавлен язык и формы на китайском
-* Добавлен языковой селектор
+### New
+* Added language and forms in Chinese
+* Added language selector
 
-### Исправления
-* Скрыты хлебные крошки на страницах template
-* Заменен scrollbar на дефолтный
-* Изменены стили карточек для изображений
-* Заменены изображения карточек
+### Fixes
+* Hidden breadcrumbs on template pages
+* Replaced scrollbar with default
+* Changed card styles for images
+* Replaced images of cards
 
 ## 1.0.1
 
-### Новое
-* Добавлен всплывающий тайтл для заголовков карточек.
-* Добавлена куки, для хранения данных карусели "Recently viewed" 24часа.
-* Добавлены мета свойства: og:url, og:image.
+### New
+* Added popup title for card titles.
+* Added a cookie to store "Recently viewed" carousel data for 24 hours.
+* Added meta properties: og:url, og:image.
 
-### Исправления
-* Поправлены стили опсания страниц с формой. 
-* Поправлены стили баннера на странице с формой.
-* Изменено получение конфига для DocEditor'a.
-* Поправлены стили аккордиона.
+### Fixes
+* Fixed page description styles with form.
+* Fixed banner styles on the form page.
+* Changed getting config for DocEditor.
+* Fixed accordion styles.
