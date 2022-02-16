@@ -44,7 +44,7 @@ const DocEditorAPI = ({ id, name, scriptLoaded }) => {
         });
     }
   }, []);
-  console.log(config);
+
   return check && scriptLoaded ? (
     <>
       <Helmet>
