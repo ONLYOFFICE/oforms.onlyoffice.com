@@ -190,5 +190,12 @@
   "Partner Inquiries": "Partner Inquiries",
   "Press Inquiries": "Press Inquiries",
   "Request a Call": "Request a Call",
-  "Follow us": "Follow us"
+  "Follow us": "Follow us",
+  "First name": "First name",
+  "First name is empty": "First name is empty",
+  "Email address": "Email address",
+  "Email is incorrect": "Email is incorrect",
+  "Don't Miss an Update!": "Don't Miss an Update!",
+  "We sent an email message with confirmation to your email address": "We sent an email message with confirmation to your email address",
+  "OK": "OK"
 }

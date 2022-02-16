@@ -84,7 +84,7 @@ const Footer = ({ t, language, ...rest }) => {
             />
           </Text>
           <ExternalLink
-            href="https://www.onlyoffice.com/call-back-form.aspx"
+            href={`${onlyoffice}/call-back-form.aspx`}
             className="footer-link"
             label={t("Request a Call")}
           />
@@ -122,7 +122,7 @@ const Footer = ({ t, language, ...rest }) => {
           />
         </div>
       </div>
-      <MailPopup active={modalActive} setActive={setModalActive} />
+      <MailPopup t={t} active={modalActive} setActive={setModalActive} />
     </StyledFooter>
   );
 };

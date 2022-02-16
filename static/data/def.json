@@ -3,7 +3,10 @@
     "id": 0,
     "name": "House Rental (Lease) Agreement form",
     "file_image": "lease_(rental_house)_agreement.png",
-    "file_categories": ["Real Estate and Leasing", "Legal"],
+    "file_categories": [
+      "Real Estate and Leasing",
+      "Legal"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -18,7 +21,9 @@
         "https://oforms.teamlab.info/oforms-editor/en/pdf/lease_(rental_house)_agreement.pdf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 7,
@@ -39,7 +44,9 @@
     "id": 1,
     "name": "Software License Agreement form",
     "file_image": "license_agreement.png",
-    "file_categories": ["Licenses and Agreements"],
+    "file_categories": [
+      "Licenses and Agreements"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -54,7 +61,9 @@
         "https://oforms.teamlab.info/oforms-editor/en/docxf/license_agreement.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 5,
@@ -75,7 +84,9 @@
     "id": 2,
     "name": "Job proposal form",
     "file_image": "job_proposal_template.png",
-    "file_categories": ["Employment"],
+    "file_categories": [
+      "Employment"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -90,7 +101,9 @@
         "https://oforms.teamlab.info/oforms-editor/en/docxf/job_proposal_template.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -111,7 +124,9 @@
     "id": 3,
     "name": "Software Development Agreement form",
     "file_image": "software_development_agreement.png",
-    "file_categories": ["Proposals"],
+    "file_categories": [
+      "Proposals"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -126,7 +141,9 @@
         "https://oforms.teamlab.info/oforms-editor/en/docxf/software_development_agreement.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 6,
@@ -147,7 +164,9 @@
     "id": 4,
     "name": "Real Estate Purchase Agreement form",
     "file_image": "house_sale_purchase_agreement.png",
-    "file_categories": ["Sales"],
+    "file_categories": [
+      "Sales"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -162,7 +181,9 @@
         "https://oforms.teamlab.info/oforms-editor/en/docxf/house_sale_purchase_agreement.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 3,
@@ -183,7 +204,9 @@
     "id": 5,
     "name": "Vehicle Rental (Leasing) Agreement form",
     "file_image": "vehicle_rental_agreement.png",
-    "file_categories": ["Real Estate and Leasing"],
+    "file_categories": [
+      "Real Estate and Leasing"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -198,7 +221,9 @@
         "https://oforms.teamlab.info/oforms-editor/en/docxf/vehicle_rental_agreement.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 2,
@@ -219,7 +244,9 @@
     "id": 6,
     "name": "Loan Agreement form",
     "file_image": "loan_agreement.png",
-    "file_categories": ["Real Estate and Leasing"],
+    "file_categories": [
+      "Real Estate and Leasing"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -234,7 +261,9 @@
         "https://oforms.teamlab.info/oforms-editor/en/docxf/loan_agreement.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -255,7 +284,10 @@
     "id": 7,
     "name": "Last will and Testament form",
     "file_image": "last_will_and_testament.png",
-    "file_categories": ["Financial", "Legal"],
+    "file_categories": [
+      "Financial",
+      "Legal"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -270,7 +302,9 @@
         "https://oforms.teamlab.info/oforms-editor/en/docxf/last_will_and_testament.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 3,
@@ -291,13 +325,27 @@
     "id": 8,
     "name": "Contributor License Agreement (CLA) form",
     "file_image": "cla.png",
-    "file_categories": ["Licenses and Agreements", "Contracts"],
-    "file_formats_download": [
-      ["oform", "https://oforms.teamlab.info/oforms-editor/en/oform/cla.oform"],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/en/pdf/cla.pdf"],
-      ["docxf", "https://oforms.teamlab.info/oforms-editor/en/docxf/cla.docxf"]
+    "file_categories": [
+      "Licenses and Agreements",
+      "Contracts"
     ],
-    "file_country_access": ["US"],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.teamlab.info/oforms-editor/en/oform/cla.oform"
+      ],
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/en/pdf/cla.pdf"
+      ],
+      [
+        "docxf",
+        "https://oforms.teamlab.info/oforms-editor/en/docxf/cla.docxf"
+      ]
+    ],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 2,
@@ -318,7 +366,9 @@
     "id": 9,
     "name": "Service Level Agreement (SLA) form",
     "file_image": "service_level_agreement.png",
-    "file_categories": ["Licenses and Agreements"],
+    "file_categories": [
+      "Licenses and Agreements"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -333,7 +383,9 @@
         "https://oforms.teamlab.info/oforms-editor/en/docxf/service_level_agreement.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 6,
@@ -354,13 +406,26 @@
     "id": 10,
     "name": "Non-disclosure (Mutual Confidentiality) Agreement form",
     "file_image": "nda.png",
-    "file_categories": ["Licenses and Agreements"],
-    "file_formats_download": [
-      ["oform", "https://oforms.teamlab.info/oforms-editor/en/oform/nda.oform"],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/en/pdf/nda.pdf"],
-      ["docxf", "https://oforms.teamlab.info/oforms-editor/en/docxf/nda.docxf"]
+    "file_categories": [
+      "Licenses and Agreements"
     ],
-    "file_country_access": ["US"],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.teamlab.info/oforms-editor/en/oform/nda.oform"
+      ],
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/en/pdf/nda.pdf"
+      ],
+      [
+        "docxf",
+        "https://oforms.teamlab.info/oforms-editor/en/docxf/nda.docxf"
+      ]
+    ],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 4,
@@ -381,7 +446,9 @@
     "id": 11,
     "name": "Sale and Purchase Agreement form",
     "file_image": "sales_agreement.png",
-    "file_categories": ["Sales"],
+    "file_categories": [
+      "Sales"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -396,7 +463,9 @@
         "https://oforms.teamlab.info/oforms-editor/en/docxf/sales_agreement.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 5,
@@ -417,7 +486,9 @@
     "id": 12,
     "name": "Vehicle Sale Agreement form",
     "file_image": "vehicle_sale.png",
-    "file_categories": ["Sales"],
+    "file_categories": [
+      "Sales"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -432,7 +503,9 @@
         "https://oforms.teamlab.info/oforms-editor/en/docxf/vehicle_sale.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 2,
@@ -453,19 +526,26 @@
     "id": 13,
     "name": "Design Project Proposal form",
     "file_image": "design.png",
-    "file_categories": ["Proposals"],
+    "file_categories": [
+      "Proposals"
+    ],
     "file_formats_download": [
       [
         "oform",
         "https://oforms.teamlab.info/oforms-editor/en/oform/design.oform"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/en/pdf/design.pdf"],
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/en/pdf/design.pdf"
+      ],
       [
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/en/docxf/design.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -486,7 +566,9 @@
     "id": 14,
     "name": "Website Development Proposal form",
     "file_image": "website_development.png",
-    "file_categories": ["Proposals"],
+    "file_categories": [
+      "Proposals"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -501,7 +583,9 @@
         "https://oforms.teamlab.info/oforms-editor/en/docxf/website_development.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -522,7 +606,9 @@
     "id": 15,
     "name": "Mobile Application Development Proposal form",
     "file_image": "mobile_app_development.png",
-    "file_categories": ["Proposals"],
+    "file_categories": [
+      "Proposals"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -537,7 +623,9 @@
         "https://oforms.teamlab.info/oforms-editor/en/docxf/mobile_app_development.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -558,19 +646,26 @@
     "id": 16,
     "name": "Freelance Project Proposal form",
     "file_image": "freelance.png",
-    "file_categories": ["Proposals"],
+    "file_categories": [
+      "Proposals"
+    ],
     "file_formats_download": [
       [
         "oform",
         "https://oforms.teamlab.info/oforms-editor/en/oform/freelance.oform"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/en/pdf/freelance.pdf"],
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/en/pdf/freelance.pdf"
+      ],
       [
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/en/docxf/freelance.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -591,7 +686,9 @@
     "id": 17,
     "name": "Gardening Service Proposal form",
     "file_image": "gardening_services.png",
-    "file_categories": ["Proposals"],
+    "file_categories": [
+      "Proposals"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -606,7 +703,9 @@
         "https://oforms.teamlab.info/oforms-editor/en/docxf/gardening_services.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -627,7 +726,9 @@
     "id": 18,
     "name": "House Cleaning Service Proposal form",
     "file_image": "house_cleaning.png",
-    "file_categories": ["Proposals"],
+    "file_categories": [
+      "Proposals"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -642,7 +743,9 @@
         "https://oforms.teamlab.info/oforms-editor/en/docxf/house_cleaning.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -663,7 +766,9 @@
     "id": 19,
     "name": "Laundry Service Proposal form",
     "file_image": "laundry_service.png",
-    "file_categories": ["Proposals"],
+    "file_categories": [
+      "Proposals"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -678,7 +783,9 @@
         "https://oforms.teamlab.info/oforms-editor/en/docxf/laundry_service.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -699,19 +806,26 @@
     "id": 20,
     "name": "Form W-2 (Wage and Tax Statement)",
     "file_image": "w_2_new.png",
-    "file_categories": ["Financial"],
+    "file_categories": [
+      "Financial"
+    ],
     "file_formats_download": [
       [
         "oform",
         "https://oforms.teamlab.info/oforms-editor/en/oform/w_2_new.oform"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/en/pdf/w_2_new.pdf"],
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/en/pdf/w_2_new.pdf"
+      ],
       [
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/en/docxf/w_2_new.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 11,
@@ -732,19 +846,26 @@
     "id": 21,
     "name": "Form W-9 (Request for TIN and Certification)",
     "file_image": "form_w_9.png",
-    "file_categories": ["Financial"],
+    "file_categories": [
+      "Financial"
+    ],
     "file_formats_download": [
       [
         "oform",
         "https://oforms.teamlab.info/oforms-editor/en/oform/form_w_9.oform"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/en/pdf/form_w_9.pdf"],
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/en/pdf/form_w_9.pdf"
+      ],
       [
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/en/docxf/form_w_9.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 6,
@@ -765,7 +886,9 @@
     "id": 22,
     "name": "Form 1098 (Mortgage Interest Statement)",
     "file_image": "2021_form_1098.png",
-    "file_categories": ["Financial"],
+    "file_categories": [
+      "Financial"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -780,7 +903,9 @@
         "https://oforms.teamlab.info/oforms-editor/en/docxf/2021_form_1098.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 6,
@@ -801,7 +926,9 @@
     "id": 23,
     "name": "Form 1099-MISC (Miscellaneous Income)",
     "file_image": "1099_misc_2021.png",
-    "file_categories": ["Financial"],
+    "file_categories": [
+      "Financial"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -816,7 +943,9 @@
         "https://oforms.teamlab.info/oforms-editor/en/docxf/1099_misc_2021.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 7,
@@ -837,7 +966,9 @@
     "id": 24,
     "name": "Social Security Form SS-5",
     "file_image": "social_security_forms.png",
-    "file_categories": ["Financial"],
+    "file_categories": [
+      "Financial"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -852,7 +983,9 @@
         "https://oforms.teamlab.info/oforms-editor/en/docxf/social_security_forms.docxf"
       ]
     ],
-    "file_country_access": ["US"],
+    "file_country_access": [
+      "US"
+    ],
     "file_type_access": "Free",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 5,
@@ -873,7 +1006,9 @@
     "id": 25,
     "name": "设备销售合同",
     "file_image": "设备销售合同.png",
-    "file_categories": ["销售 "],
+    "file_categories": [
+      "销售 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -888,7 +1023,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/设备销售合同.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 4,
@@ -909,7 +1046,9 @@
     "id": 26,
     "name": "房屋租赁合同",
     "file_image": "房屋租赁合同.png",
-    "file_categories": ["房地产及租赁"],
+    "file_categories": [
+      "房地产及租赁"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -924,7 +1063,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/房屋租赁合同.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 6,
@@ -945,7 +1086,9 @@
     "id": 27,
     "name": "订购单合同",
     "file_image": "订购单合同.png",
-    "file_categories": ["销售 "],
+    "file_categories": [
+      "销售 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -955,9 +1098,14 @@
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/zh/docxf/订购单合同.docxf"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/zh/pdf/订购单合同.pdf"]
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/zh/pdf/订购单合同.pdf"
+      ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 2,
@@ -978,7 +1126,9 @@
     "id": 28,
     "name": "物资使用申请表",
     "file_image": "物资使用申请表.png",
-    "file_categories": ["办公室 "],
+    "file_categories": [
+      "办公室 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -993,7 +1143,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/物资使用申请表.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -1014,7 +1166,9 @@
     "id": 29,
     "name": "自愿离婚协议",
     "file_image": "自愿离婚协议.png",
-    "file_categories": ["行政管理 "],
+    "file_categories": [
+      "行政管理 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1029,7 +1183,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/自愿离婚协议.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 2,
@@ -1050,7 +1206,9 @@
     "id": 30,
     "name": "解除劳动合同通知书",
     "file_image": "解除劳动合同通知书.png",
-    "file_categories": ["人力管理 "],
+    "file_categories": [
+      "人力管理 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1065,7 +1223,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/解除劳动合同通知书.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -1086,7 +1246,9 @@
     "id": 31,
     "name": "应聘人员登记表",
     "file_image": "应聘人员登记表.png",
-    "file_categories": ["人力管理"],
+    "file_categories": [
+      "人力管理"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1101,7 +1263,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/应聘人员登记表.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 2,
@@ -1122,7 +1286,9 @@
     "id": 32,
     "name": "收入证明",
     "file_image": "收入证明.png",
-    "file_categories": ["财务"],
+    "file_categories": [
+      "财务"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1132,9 +1298,14 @@
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/zh/docxf/收入证明.docxf"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/zh/pdf/收入证明.pdf"]
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/zh/pdf/收入证明.pdf"
+      ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -1155,7 +1326,9 @@
     "id": 33,
     "name": "劳动合同",
     "file_image": "劳动合同.png",
-    "file_categories": ["人力管理"],
+    "file_categories": [
+      "人力管理"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1165,9 +1338,14 @@
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/zh/docxf/劳动合同.docxf"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/zh/pdf/劳动合同.pdf"]
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/zh/pdf/劳动合同.pdf"
+      ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 6,
@@ -1188,7 +1366,9 @@
     "id": 34,
     "name": "实习证明",
     "file_image": "实习证明.png",
-    "file_categories": ["教育"],
+    "file_categories": [
+      "教育"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1198,9 +1378,14 @@
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/zh/docxf/实习证明.docxf"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/zh/pdf/实习证明.pdf"]
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/zh/pdf/实习证明.pdf"
+      ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -1221,7 +1406,9 @@
     "id": 35,
     "name": "保证函",
     "file_image": "保证函.png",
-    "file_categories": ["法律"],
+    "file_categories": [
+      "法律"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1231,9 +1418,14 @@
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/zh/docxf/保证函.docxf"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/zh/pdf/保证函.pdf"]
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/zh/pdf/保证函.pdf"
+      ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -1254,7 +1446,9 @@
     "id": 36,
     "name": "借款合同",
     "file_image": "借款合同.png",
-    "file_categories": ["财务"],
+    "file_categories": [
+      "财务"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1269,7 +1463,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/房产抵押借款合同.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -1290,7 +1486,9 @@
     "id": 37,
     "name": "项目可行性分析报告表",
     "file_image": "项目可行性分析报告表.png",
-    "file_categories": ["办公室 "],
+    "file_categories": [
+      "办公室 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1305,7 +1503,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/项目可行性分析报告表.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -1326,7 +1526,9 @@
     "id": 38,
     "name": "设计服务合同",
     "file_image": "设计服务合同.png",
-    "file_categories": ["许可证、协议及合同 "],
+    "file_categories": [
+      "许可证、协议及合同 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1341,7 +1543,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/设计服务合同表.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 6,
@@ -1362,7 +1566,9 @@
     "id": 39,
     "name": "工作证明",
     "file_image": "工作证明.png",
-    "file_categories": ["人力管理 "],
+    "file_categories": [
+      "人力管理 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1372,9 +1578,14 @@
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/zh/docxf/工作证明.docxf"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/zh/pdf/工作证明.pdf"]
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/zh/pdf/工作证明.pdf"
+      ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -1395,7 +1606,9 @@
     "id": 40,
     "name": "工作周报",
     "file_image": "工作周报.png",
-    "file_categories": ["办公室  "],
+    "file_categories": [
+      "办公室  "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1405,9 +1618,14 @@
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/zh/docxf/工作周报.docxf"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/zh/pdf/工作周报.pdf"]
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/zh/pdf/工作周报.pdf"
+      ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -1428,7 +1646,9 @@
     "id": 41,
     "name": "学籍登记表",
     "file_image": "学籍登记表.png",
-    "file_categories": ["教育  "],
+    "file_categories": [
+      "教育  "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1438,9 +1658,14 @@
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/zh/docxf/学籍登记表.docxf"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/zh/pdf/学籍登记表.pdf"]
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/zh/pdf/学籍登记表.pdf"
+      ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -1461,7 +1686,9 @@
     "id": 42,
     "name": "定金合同",
     "file_image": "定金合同.png",
-    "file_categories": ["财务  "],
+    "file_categories": [
+      "财务  "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1471,9 +1698,14 @@
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/zh/docxf/定金合同.docxf"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/zh/pdf/定金合同.pdf"]
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/zh/pdf/定金合同.pdf"
+      ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 2,
@@ -1491,10 +1723,12 @@
     "description_card": "在线填写定金合同表单，或下载可填写的模板。"
   },
   {
-    "id": 44,
+    "id": 43,
     "name": "岗位调动协议",
     "file_image": "岗位调动协议.png",
-    "file_categories": ["人力管理"],
+    "file_categories": [
+      "人力管理"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1509,7 +1743,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/岗位调动协议.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -1527,10 +1763,13 @@
     "description_card": "在线填写岗位调动协议表单，或下载可填写的模板。"
   },
   {
-    "id": 45,
+    "id": 44,
     "name": "仓储保管合同",
     "file_image": "仓储保管合同.png",
-    "file_categories": ["许可证", "协议及合同"],
+    "file_categories": [
+      "许可证",
+      "协议及合同"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1545,7 +1784,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/仓储保管合同.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 3,
@@ -1563,10 +1804,12 @@
     "description_card": "在线填写仓储保管合同表单，或下载可填写的模板。"
   },
   {
-    "id": 46,
+    "id": 45,
     "name": "公司节日放假通知",
     "file_image": "公司节日放假通知.png",
-    "file_categories": ["人力管理"],
+    "file_categories": [
+      "人力管理"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1581,7 +1824,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/公司节日放假通知.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -1599,10 +1844,12 @@
     "description_card": "在线填写公司节日放假通知表单，或下载可填写的模板。"
   },
   {
-    "id": 47,
+    "id": 46,
     "name": "遗嘱",
     "file_image": "遗嘱.png",
-    "file_categories": ["行政管理"],
+    "file_categories": [
+      "行政管理"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1612,9 +1859,14 @@
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/zh/docxf/遗嘱.docxf"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/zh/pdf/遗嘱.pdf"]
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/zh/pdf/遗嘱.pdf"
+      ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -1635,7 +1887,9 @@
     "id": 47,
     "name": "员工体检合同",
     "file_image": "员工体检合同.png",
-    "file_categories": ["人力管理"],
+    "file_categories": [
+      "人力管理"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1650,7 +1904,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/员工体检合同.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 6,
@@ -1671,7 +1927,9 @@
     "id": 48,
     "name": "车辆租赁协议书",
     "file_image": "车辆租赁协议书.png",
-    "file_categories": ["房地产及租赁"],
+    "file_categories": [
+      "房地产及租赁"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1686,7 +1944,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/车辆租赁协议书.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 4,
@@ -1707,7 +1967,9 @@
     "id": 49,
     "name": "车辆买卖协议书",
     "file_image": "车辆买卖协议书.png",
-    "file_categories": ["销售 "],
+    "file_categories": [
+      "销售 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1722,7 +1984,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/车辆买卖协议书.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 2,
@@ -1743,7 +2007,10 @@
     "id": 50,
     "name": "工程承包的协议书",
     "file_image": "工程承包的协议书.png",
-    "file_categories": ["许可证", "协议及合同"],
+    "file_categories": [
+      "许可证",
+      "协议及合同"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1758,7 +2025,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/工程承包的协议书.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 4,
@@ -1779,7 +2048,10 @@
     "id": 51,
     "name": "竞业限制协议书",
     "file_image": "竞业限制协议书.png",
-    "file_categories": ["许可证", "协议及合同"],
+    "file_categories": [
+      "许可证",
+      "协议及合同"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1794,7 +2066,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/竞业限制协议书.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 4,
@@ -1815,7 +2089,9 @@
     "id": 52,
     "name": "员工内部晋升申请表",
     "file_image": "员工内部晋升申请表.png",
-    "file_categories": ["人力管理"],
+    "file_categories": [
+      "人力管理"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1830,7 +2106,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/员工内部晋升申请表.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 2,
@@ -1851,7 +2129,9 @@
     "id": 53,
     "name": "申请结婚登记声明书",
     "file_image": "申请结婚登记声明书.png",
-    "file_categories": ["行政管理"],
+    "file_categories": [
+      "行政管理"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1866,7 +2146,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/申请结婚登记声明书.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 2,
@@ -1887,7 +2169,9 @@
     "id": 54,
     "name": "无犯罪记录证明",
     "file_image": "无犯罪记录证明.png",
-    "file_categories": ["法律"],
+    "file_categories": [
+      "法律"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1902,7 +2186,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/无犯罪记录证明.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -1923,7 +2209,9 @@
     "id": 55,
     "name": "运输协议书",
     "file_image": "运输协议书.png",
-    "file_categories": ["销售 "],
+    "file_categories": [
+      "销售 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1933,9 +2221,14 @@
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/zh/docxf/运输协议书.docxf"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/zh/pdf/运输协议书.pdf"]
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/zh/pdf/运输协议书.pdf"
+      ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 2,
@@ -1956,7 +2249,10 @@
     "id": 56,
     "name": "员工保密协议",
     "file_image": "员工保密协议.png",
-    "file_categories": ["许可证", "协议及合同"],
+    "file_categories": [
+      "许可证",
+      "协议及合同"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -1971,7 +2267,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/员工保密协议.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 5,
@@ -1992,7 +2290,9 @@
     "id": 57,
     "name": "会议记录",
     "file_image": "会议记录.png",
-    "file_categories": ["办公室 "],
+    "file_categories": [
+      "办公室 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -2002,9 +2302,14 @@
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/zh/docxf/会议记录.docxf"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/zh/pdf/会议记录.pdf"]
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/zh/pdf/会议记录.pdf"
+      ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -2025,7 +2330,9 @@
     "id": 58,
     "name": "企业变更登记申请表",
     "file_image": "企业变更登记申请表.png",
-    "file_categories": ["法律 "],
+    "file_categories": [
+      "法律 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -2040,7 +2347,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/企业变更登记申请表.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 2,
@@ -2061,7 +2370,10 @@
     "id": 59,
     "name": "专利实施许可合同",
     "file_image": "专利实施许可合同.png",
-    "file_categories": ["许可证", "协议及合同"],
+    "file_categories": [
+      "许可证",
+      "协议及合同"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -2076,7 +2388,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/专利实施许可合同.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 4,
@@ -2097,7 +2411,9 @@
     "id": 60,
     "name": "商业计划书",
     "file_image": "商业计划书.png",
-    "file_categories": ["提案 "],
+    "file_categories": [
+      "提案 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -2107,9 +2423,14 @@
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/zh/docxf/商业计划书.docxf"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/zh/pdf/商业计划书.pdf"]
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/zh/pdf/商业计划书.pdf"
+      ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 4,
@@ -2130,7 +2451,9 @@
     "id": 61,
     "name": "夫妻财产协议",
     "file_image": "夫妻财产协议.png",
-    "file_categories": ["行政管理 "],
+    "file_categories": [
+      "行政管理 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -2145,7 +2468,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/夫妻财产协议.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 2,
@@ -2166,7 +2491,9 @@
     "id": 62,
     "name": "工作日报",
     "file_image": "工作日报.png",
-    "file_categories": ["办公室  "],
+    "file_categories": [
+      "办公室  "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -2176,9 +2503,14 @@
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/zh/docxf/工作日报.docxf"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/zh/pdf/工作日报.pdf"]
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/zh/pdf/工作日报.pdf"
+      ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -2199,7 +2531,10 @@
     "id": 63,
     "name": "广告设计制作服务合同",
     "file_image": "广告设计制作服务合同.png",
-    "file_categories": ["许可证", "协议及合同"],
+    "file_categories": [
+      "许可证",
+      "协议及合同"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -2214,7 +2549,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/广告设计制作服务合同.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 3,
@@ -2235,7 +2572,9 @@
     "id": 64,
     "name": "房产抵押借款合同",
     "file_image": "房产抵押借款合同.png",
-    "file_categories": ["房地产及租赁 "],
+    "file_categories": [
+      "房地产及租赁 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -2250,7 +2589,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/房产抵押借款合同_1.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 10,
@@ -2271,7 +2612,9 @@
     "id": 65,
     "name": "招聘启事",
     "file_image": "招聘启事.png",
-    "file_categories": ["人力管理 "],
+    "file_categories": [
+      "人力管理 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -2281,9 +2624,14 @@
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/zh/docxf/招聘启事.docxf"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/zh/pdf/招聘启事.pdf"]
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/zh/pdf/招聘启事.pdf"
+      ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -2304,7 +2652,9 @@
     "id": 66,
     "name": "教师家访情况记录表",
     "file_image": "教师家访情况记录表.png",
-    "file_categories": ["教育 "],
+    "file_categories": [
+      "教育 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -2319,7 +2669,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/教师家访情况记录表.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -2340,7 +2692,9 @@
     "id": 67,
     "name": "请假单",
     "file_image": "请假单.png",
-    "file_categories": ["行政管理 "],
+    "file_categories": [
+      "行政管理 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -2350,9 +2704,14 @@
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/zh/docxf/请假单.docxf"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/zh/pdf/请假单.pdf"]
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/zh/pdf/请假单.pdf"
+      ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -2373,7 +2732,9 @@
     "id": 68,
     "name": "近14天体温健康检测表",
     "file_image": "近14天体温健康检测表.png",
-    "file_categories": ["保健 "],
+    "file_categories": [
+      "保健 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -2388,7 +2749,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/近14天体温健康检测表.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -2409,7 +2772,9 @@
     "id": 69,
     "name": "离职工作交接清单",
     "file_image": "离职工作交接清单.png",
-    "file_categories": ["人力管理 "],
+    "file_categories": [
+      "人力管理 "
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -2424,7 +2789,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/离职工作交接清单.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -2445,7 +2812,10 @@
     "id": 70,
     "name": "知识产权归属协议",
     "file_image": "知识产权归属协议.png",
-    "file_categories": ["许可证", "协议及合同"],
+    "file_categories": [
+      "许可证",
+      "协议及合同"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -2460,7 +2830,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/离职工作交接清单.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 3,
@@ -2481,7 +2853,9 @@
     "id": 71,
     "name": "股权转让协议",
     "file_image": "股权转让协议.png",
-    "file_categories": ["财务"],
+    "file_categories": [
+      "财务"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -2496,7 +2870,9 @@
         "https://oforms.teamlab.info/oforms-editor/zh/pdf/股权转让协议.pdf"
       ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 4,
@@ -2517,7 +2893,9 @@
     "id": 72,
     "name": "请假条",
     "file_image": "请假条.png",
-    "file_categories": ["教育"],
+    "file_categories": [
+      "教育"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -2527,9 +2905,14 @@
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/zh/docxf/请假条.docxf"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/zh/pdf/请假条.pdf"]
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/zh/pdf/请假条.pdf"
+      ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,
@@ -2550,7 +2933,9 @@
     "id": 73,
     "name": "简历模板",
     "file_image": "简历模板.png",
-    "file_categories": ["求职及招聘"],
+    "file_categories": [
+      "求职及招聘"
+    ],
     "file_formats_download": [
       [
         "oform",
@@ -2560,9 +2945,14 @@
         "docxf",
         "https://oforms.teamlab.info/oforms-editor/zh/docxf/简历模板.docxf"
       ],
-      ["pdf", "https://oforms.teamlab.info/oforms-editor/zh/pdf/简历模板.pdf"]
+      [
+        "pdf",
+        "https://oforms.teamlab.info/oforms-editor/zh/pdf/简历模板.pdf"
+      ]
     ],
-    "file_country_access": ["ZH"],
+    "file_country_access": [
+      "ZH"
+    ],
     "file_type_access": "免费",
     "file_link_changelog": "/file_link_changelog",
     "file_pages": 1,

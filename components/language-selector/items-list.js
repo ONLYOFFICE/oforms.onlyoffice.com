@@ -32,6 +32,8 @@ export default function LangsList(props) {
       let tmpshortKey = shortKey === "en" ? "" : `/${shortKey}`;
       let templatePagesKey = shortKey === "en" ? "" : `${shortKey}`;
       let templatePath = shortKey === "en" ? path.slice(1) : path;
+      console.log("path =", path)
+
       if (currentLanguage === "en") {
         if (path === "/") {
           localizedPath = `${tmpshortKey}${path}`;
