@@ -70,7 +70,7 @@
   "404Descdription": "看来您点击了无效的链接，或输入不属于本网站的地址",
   "GoToHomePage": "转到主页",
   "***********************MENU*************************": "***********************MENU*************************",
-  "SearchForms": "Search forms",
+  "SearchForms": "搜索表格",
   "Products & Features": "产品和功能",
   "ONLYOFFICE Docs": "ONLYOFFICE Docs",
   "Document Editor": "文档编辑器",
@@ -182,5 +182,19 @@
   "Partner Inquiries": "合作伙伴咨询",
   "Press Inquiries": "媒体咨询",
   "Request a Call": "电话咨询",
-  "Follow us": "关注我们"
+  "Follow us": "关注我们",
+  "metaDescriptionIndexPage": "免费试试强大的随时可填写的在线表单。在线创建带有表单的文档，或直接下载模板，并选择需要的格式：DOCXF、OFORM或PDF。",
+  "titleIndexPage": "OFORM表单 —— 免费在线填写表单的工具",
+  "metaDescriptionOgIndexPage": "免费试试强大的随时可填写的在线表单。在线创建带有表单的文档，或直接下载模板，并选择需要的格式：DOCXF、OFORM或PDF。",
+  "metaKeywordsIndexPage": "OFORM表单 —— 免费在线填写表单的工具",
+  "Get the latest ONLYOFFICE news delivered to your inbox": "通过邮箱接收ONLYOFFICE的新闻简报",
+  "First name": "名",
+  "First name is empty": "名为空：",
+  "Email address": "您的电子邮箱",
+  "Email is incorrect": "电子邮箱为空。",
+  "Don't Miss an Update!": "不要错过最新资讯！",
+  "We sent an email message with confirmation to your email address": "我们向您的邮箱发送了一封确认邮件。",
+  "OK": "行",
+  "Subscribe": "訂閱"
+
 }

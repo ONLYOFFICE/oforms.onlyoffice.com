@@ -10,7 +10,7 @@ import Link from "../../../components/link";
 import Text from "../../../components/text";
 import TransAccorionItem from "./item-accordion";
 
-const AccordionContent = ({ t }) => {
+const AccordionContent = ({ t, currentLanguage }) => {
   const AccordionDescriptionDocsUseLocallyLink = t(
     "AccordionDescriptionDocsUseLocallyLink"
   );
@@ -146,7 +146,7 @@ const AccordionContent = ({ t }) => {
           {t("AccordionDescriptionExportOtherFormats")}
         </AccordionItem>
         <AccordionItem heading={t("AccordionHeadingAdditionalSoftware")}>
-          <TransAccorionItem t={t} />
+          <TransAccorionItem currentLanguage={currentLanguage} t={t} />
         </AccordionItem>
         <AccordionItem heading={t("AccordionHeadingSuggestRevision")}>
           {t("AccordionDescriptionSuggestRevision")}

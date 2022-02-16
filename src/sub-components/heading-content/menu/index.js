@@ -47,7 +47,7 @@ const Menu = ({ t, currentLanguage, template, ...rest }) => {
     ? "nav-item-links dark"
     : "nav-item-links";
 
-  const curLang = currentLanguage === "en" ? "/" : `/${currentLanguage}`;
+  const curLang = currentLanguage === "en" ? "/" : `/${currentLanguage}/`;
 
   return (
     <StyledMenu
