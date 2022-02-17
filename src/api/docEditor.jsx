@@ -39,7 +39,7 @@ const DocEditorAPI = ({ id, name, scriptLoaded }) => {
         .catch((e) => {
           setCheck(false);
           if (typeof window !== "undefined") {
-           // window.location.replace("/404");
+            window.location.replace("/404");
           }
         });
     }
