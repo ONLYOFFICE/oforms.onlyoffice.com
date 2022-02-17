@@ -10,7 +10,9 @@ import StyledInfoContent from "./styled-content";
 import ShortCard from "./short-card";
 import array_item from "./items";
 
-const InfoContent = ({ t, ...rest }) => {
+const InfoContent = ({ t, currentLanguage, ...rest }) => {
+  let tmp = currentLanguage === "en" ? 0 : 1;
+ let lng = currentLanguage === "en" ? "" : `/${currentLanguage}`;
   return (
     <StyledInfoContent
       background="#333333"
@@ -20,26 +22,21 @@ const InfoContent = ({ t, ...rest }) => {
       {...rest}
     >
       <Heading className="heading-info-content">
-        <span style={{ color: "#FF6F3D" }}>OFORMS:</span>
-        {t(" FREE ready-to-fill out online forms")}
+        <span style={{ color: "#FF6F3D" }}>{t("OFORMS")}:</span>
+        {t("FREEforms")}
       </Heading>
-      <Text
-        className="description-info-content"
-        label={t(
-          "Fill out the forms online in one click or download and open them in ONLYOFFICE."
-        )}
-      />
+      <Text className="description-info-content" label={t("FillOutTheForms")} />
       <Heading
         className="subheading-info-content"
         level={5}
-        label={t("Featured forms")}
+        label={t("FeaturedForms")}
       />
       <Box justifyContent="space-between" className="box-info-content">
         <Scrollbar
           className="scrollbar-items-content"
           style={{ width: 1140, height: 250 }}
         >
-          {array_item.map((it, idx) => {
+          {array_item[tmp].map((it, idx) => {
             let href = it.title
               .replace(/\s/g, "-")
               .replace(/[{()}]/g, "")
@@ -50,14 +47,14 @@ const InfoContent = ({ t, ...rest }) => {
                 key={`items-short-card-${idx}`}
                 title={it.title}
                 subtitle={it.subtitle}
-                linkUrl={it.linkUrl}
+                linkUrl={lng + it.linkUrl}
                 hrefButtom={href}
               />
             );
           })}
         </Scrollbar>
       </Box>
-      <Banner t={t} />
+      <Banner t={t} currentLanguage={currentLanguage} />
     </StyledInfoContent>
   );
 };

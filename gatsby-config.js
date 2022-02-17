@@ -60,18 +60,23 @@ module.exports = {
       options: {
         localeJsonSourceName: "locale",
         languages: availableLanguages,
-        defaultLanguage,
-        redirect: true,
-        generateDefaultLanguagePage: "/en",
+        defaultLanguage: defaultLanguage,
+        redirect: false,
+        siteUrl: "https://oforms.onlyoffice.com",
         i18nextOptions: {
-          fallbackLng: defaultLanguage,
-
+          fallbackLanguage: defaultLanguage,
           interpolation: {
             escapeValue: false,
           },
           keySeparator: false,
           nsSeparator: false,
         },
+        pages: [
+          {
+            matchPath: "/editor",
+            languages: [""],
+          },
+        ],
       },
     },
     {

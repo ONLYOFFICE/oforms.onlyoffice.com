@@ -15,15 +15,13 @@ const Error404 = ({ t, ...rest }) => {
         alt="page-error-404"
       />
       <div className="page-error-404-container">
-        <Text className="page-error-404-heading" label={t("404 Error!")} />
+        <Text className="page-error-404-heading" label={t("404Error!")} />
         <Text
           className="page-error-404-description"
-          label={t(
-            "It seems you clicked on an invalid link, or entered an address that is not on this website"
-          )}
+          label={t("404Descdription")}
         />
         <InternalLink className="page-error-404-btn" href="/">
-          <Button label={t("GO TO HOME PAGE")} />
+          <Button label={t("GoToHomePage")} />
         </InternalLink>
       </div>
     </Styled404>

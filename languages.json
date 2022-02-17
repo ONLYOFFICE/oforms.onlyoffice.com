@@ -3,5 +3,10 @@
     "key": "en-US",
     "shortKey": "en",
     "iconName": "en.svg"
+  },
+  {
+    "key": "zh-CN",
+    "shortKey": "zh",
+    "iconName": "zh.svg"
   }
 ]

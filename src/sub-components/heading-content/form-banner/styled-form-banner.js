@@ -3,7 +3,7 @@ import { device } from "../../../../components/utils/devices";
 
 const StyledFormBanner = styled.div `
     width: 100%;
-    min-height: 500px;
+    min-height: 394px;
     background: #F9F9F9;
     
     .conteiner {

@@ -22,6 +22,9 @@ const Footer = ({ t, language, ...rest }) => {
     setModalActive(active);
   };
 
+  const onlyoffice = `https://www.onlyoffice.com${
+    language === "en" ? "" : `/${language}`
+  }`;
   return (
     <StyledFooter {...rest}>
       {POSITION_ELEMENTS_ITEM.map((elements_in_div, id) => (
@@ -38,7 +41,11 @@ const Footer = ({ t, language, ...rest }) => {
                   <ExternalLink
                     className="footer-link"
                     label={t(item_link.label)}
-                    href={item_link.href}
+                    href={
+                      item_link.localize
+                        ? onlyoffice + item_link.href
+                        : item_link.href
+                    }
                     key={`${item_link.label}-${idx_link}`}
                   />
                 ))}
@@ -77,7 +84,7 @@ const Footer = ({ t, language, ...rest }) => {
             />
           </Text>
           <ExternalLink
-            href="https://www.onlyoffice.com/call-back-form.aspx"
+            href={`${onlyoffice}/call-back-form.aspx`}
             className="footer-link"
             label={t("Request a Call")}
           />
@@ -115,7 +122,7 @@ const Footer = ({ t, language, ...rest }) => {
           />
         </div>
       </div>
-      <MailPopup active={modalActive} setActive={setModalActive} />
+      <MailPopup t={t} active={modalActive} setActive={setModalActive} />
     </StyledFooter>
   );
 };

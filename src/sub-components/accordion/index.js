@@ -1,4 +1,5 @@
 import React from "react";
+import { Trans } from "gatsby-plugin-react-i18next";
 
 import { AccordionItem } from "../../../components/accordion";
 
@@ -6,9 +7,115 @@ import StyledAccordionContent from "./styled-accordion-content";
 import Section from "../section";
 import Heading from "../../../components/heading";
 import Link from "../../../components/link";
+import Text from "../../../components/text";
 import TransAccorionItem from "./item-accordion";
 
-const AccordionContent = ({ t }) => {
+const AccordionContent = ({ t, currentLanguage }) => {
+  const AccordionDescriptionDocsUseLocallyLink = t(
+    "AccordionDescriptionDocsUseLocallyLink"
+  );
+  const AccordionDescriptionDocsUseLocally = (
+    <Text as={"p"} className="text-trans-accordion">
+      <Trans
+        i18nKey="AccordionDescriptionDocsUseLocally"
+        AccordionDescriptionDocsUseLocallyLink={t(
+          "AccordionDescriptionDocsUseLocallyLink"
+        )}
+      >
+        Use ONLYOFFICE Docs online or ONLYOFFICE
+        <Link
+          display="contents"
+          className="link-trans-acc"
+          href="https://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/UsageInstructions/CreateFillableForms.aspx"
+        >
+          {{ AccordionDescriptionDocsUseLocallyLink }}
+        </Link>
+      </Trans>
+    </Text>
+  );
+
+  const AccordionDescriptionFormatTheFormsLink = t(
+    "AccordionDescriptionFormatTheFormsLink"
+  );
+  const AccordionDescriptionFormatTheForms = (
+    <Text as={"p"} className="text-trans-accordion">
+      <Trans
+        i18nKey="AccordionDescriptionFormatTheForms"
+        AccordionDescriptionFormatTheFormsLink={t(
+          "AccordionDescriptionFormatTheFormsLink"
+        )}
+      >
+        All forms are stored in .OFORM format
+        <Link
+          display="contents"
+          className="link-trans-acc"
+          href="https://www.onlyoffice.com/whitepapers.aspx"
+        >
+          {{ AccordionDescriptionFormatTheFormsLink }}
+        </Link>
+      </Trans>
+    </Text>
+  );
+
+  const AccordionDescriptionFindTheTemplateLink = t(
+    "AccordionDescriptionFindTheTemplateLink"
+  );
+  const AccordionDescriptionFindTheTemplate = (
+    <Text as={"p"} className="text-trans-accordion">
+      <Trans
+        i18nKey="AccordionDescriptionFindTheTemplate"
+        AccordionDescriptionFindTheTemplateLink={t(
+          "AccordionDescriptionFindTheTemplateLink"
+        )}
+      >
+        We happily accept template suggestions to introduce
+        <Link
+          display="contents"
+          className="link-trans-acc"
+          href="mailto:marketing@onlyoffice.com"
+        >
+          {{ AccordionDescriptionFindTheTemplateLink }}
+        </Link>
+      </Trans>
+    </Text>
+  );
+
+  const AccordionDescriptionCouldntFindTheAnswerSupp = t(
+    "AccordionDescriptionCouldntFindTheAnswerSupp"
+  );
+  const AccordionDescriptionCouldntFindTheAnswerCommunity = t(
+    "AccordionDescriptionCouldntFindTheAnswerCommunity"
+  );
+  const AccordionDescriptionCouldntFindTheAnswer = (
+    <Text as={"p"} className="text-trans-accordion">
+      <Trans
+        i18nKey="AccordionDescriptionCouldn’tFindTheAnswer"
+        AccordionDescriptionCouldntFindTheAnswerSupp={t(
+          "AccordionDescriptionCouldntFindTheAnswerSupp"
+        )}
+        AccordionDescriptionCouldntFindTheAnswerCommunity={t(
+          "AccordionDescriptionCouldntFindTheAnswerCommunity"
+        )}
+      >
+        Please use our
+        <Link
+          display="contents"
+          className="link-trans-acc"
+          href="https://forum.onlyoffice.com/"
+        >
+          {{ AccordionDescriptionCouldntFindTheAnswerCommunity }}
+        </Link>
+        <Link
+          display="contents"
+          className="link-trans-acc"
+          href="mailto:support@onlyoffice.com"
+        >
+          {{ AccordionDescriptionCouldntFindTheAnswerSupp }}
+        </Link>
+      </Trans>
+    </Text>
+  );
+
   return (
     <StyledAccordionContent>
       <Section
@@ -27,88 +134,31 @@ const AccordionContent = ({ t }) => {
           {t("AccordionDescriptionNeedToRegister")}
         </AccordionItem>
         <AccordionItem heading={t("AccordionHeadingDocsUseLocally")}>
-          {/* {t("AccordionDescriptionDocsUseLocally")} */}
-          Use ONLYOFFICE Docs online or ONLYOFFICE Dekstop Editors to fill forms
-          in the preferred location and create your own.{" "}
-          <Link
-            display="contents"
-            className="link-trans-acc"
-            href="https://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/UsageInstructions/CreateFillableForms.aspx"
-          >
-            Read more about creating forms in ONLYOFFICE
-          </Link>
-          .
+          {AccordionDescriptionDocsUseLocally}
         </AccordionItem>
         <AccordionItem heading={t("AccordionHeadingModifyTheForms")}>
           {t("AccordionDescriptionModifyTheForms")}
         </AccordionItem>
         <AccordionItem heading={t("AccordionHeadingFormatTheForms")}>
-          {/* {t("AccordionDescriptionFormatTheForms")} */}
-          All forms are stored in .OFORM format.{" "}
-          <Link
-            display="contents"
-            className="link-trans-acc"
-            href="https://www.onlyoffice.com/whitepapers.aspx"
-          >
-            Read the format specification
-          </Link>
-          .
+          {AccordionDescriptionFormatTheForms}
         </AccordionItem>
         <AccordionItem heading={t("AccordionHeadingExportOtherFormats")}>
           {t("AccordionDescriptionExportOtherFormats")}
         </AccordionItem>
         <AccordionItem heading={t("AccordionHeadingAdditionalSoftware")}>
-          <TransAccorionItem t={t} />
+          <TransAccorionItem currentLanguage={currentLanguage} t={t} />
         </AccordionItem>
         <AccordionItem heading={t("AccordionHeadingSuggestRevision")}>
           {t("AccordionDescriptionSuggestRevision")}
         </AccordionItem>
         <AccordionItem heading={t("AccordionHeadingFindTheTemplate")}>
-          {/* {t("AccordionDescriptionFindTheTemplate")} */}
-          We happily accept template suggestions to introduce these templates in
-          our form library in the future. Please contact us at{" "}
-          <Link
-            display="contents"
-            className="link-trans-acc"
-            label="marketing@onlyoffice.com"
-            href="mailto:marketing@onlyoffice.com"
-          />{" "}
-          to submit your ideas.
+          {AccordionDescriptionFindTheTemplate}
         </AccordionItem>
-        <AccordionItem
-          heading={t("Is it possible to embed a form in my website?")}
-        >
-          {t("It is technically possible. Please contact us at ")}
-          <Link
-            display="contents"
-            className="link-trans-acc"
-            label="marketing@onlyoffice.com"
-            href="mailto:marketing@onlyoffice.com"
-          />
-          .
+        <AccordionItem heading={t("AccordionHeadingPossibleToEmbed")}>
+          {AccordionDescriptionFindTheTemplate}
         </AccordionItem>
-        <AccordionItem
-          heading={t(
-            "I couldn’t find the answer to my questions. Where should I go?"
-          )}
-        >
-          {/* {t("Please use our community forum to receive support, or send us an inquiry at ")} */}
-          Please use our{" "}
-          <Link
-            display="contents"
-            className="link-trans-acc"
-            href="https://forum.onlyoffice.com/"
-          >
-            community forum
-          </Link>{" "}
-          to receive support, or send us an inquiry at &nbsp;
-          <Link
-            display="contents"
-            className="link-trans-acc"
-            label="support@onlyoffice.com"
-            href="mailto:support@onlyoffice.com"
-          />
-          .
+        <AccordionItem heading={t("AccordionHeadingCouldn’tFindTheAnswer")}>
+          {AccordionDescriptionCouldntFindTheAnswer}
         </AccordionItem>
       </Section>
     </StyledAccordionContent>

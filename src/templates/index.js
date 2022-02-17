@@ -103,7 +103,13 @@ const Template = ({ config, data, pageContext, ...rest }) => {
   };
 
   const maxItemsRandomCardForms = 7;
-  const randomCardForms = _randomslice(allCardForms, maxItemsRandomCardForms);
+  const curLang = language === "en" ? "US" : language;
+  const lngCardForms = allCardForms.filter(({ file_country_access }) => {
+    if (file_country_access[0].toLowerCase() === curLang.toLowerCase()) {
+      return { ...file_country_access };
+    }
+  });
+  const randomCardForms = _randomslice(lngCardForms, maxItemsRandomCardForms);
 
   const headingRentForms = (
     <Heading as="h3" fontSize="24px">
@@ -173,6 +179,7 @@ const Template = ({ config, data, pageContext, ...rest }) => {
           mobileLPadding="48px 0 0"
           data={randomCardForms}
           label={headingRentForms}
+          currentLanguage={language}
           t={t}
         />
         {itemsClient !== null && parsedObjectLocalStorage?.length >= 2 ? (
@@ -183,15 +190,16 @@ const Template = ({ config, data, pageContext, ...rest }) => {
             data={itemsClient}
             label={headingRecentlyViewed}
             config={stateConfig}
+            currentLanguage={language}
             t={t}
           />
         ) : (
           <div />
         )}
         <div>
-          <Banner t={t} />
+          <Banner t={t} currentLanguage={language} />
         </div>
-        <AccordionContent t={t} />
+        <AccordionContent t={t} currentLanguage={language} />
       </Layout.SectionMain>
       <Layout.PageFooter>
         <Footer language={language} t={t} />
