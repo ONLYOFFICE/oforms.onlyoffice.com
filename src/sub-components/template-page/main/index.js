@@ -10,7 +10,7 @@ import Text from "../../../../components/text";
 import Box from "../../../../components/box";
 
 import StyledMainInfo from "./styled-main";
-// import Breadcrumb from "./sub-components/breadcrumb";
+import Breadcrumb from "./sub-components/breadcrumb";
 import ShareButtonsGroup from "./sub-components/icon-buttons";
 import Image from "./sub-components/image";
 
@@ -51,7 +51,7 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
   return (
     <StyledMainInfo maxWidth="1200px" background="#F9F9F9" {...rest}>
       <div className="template-main-info">
-        {/* <Breadcrumb categories={file_categories} name={name} /> */}
+        <Breadcrumb language={language} categories={file_categories} name={name} /> 
         <Heading className="main-info-heading" label={name} />
         <Text isBold className="main-info-type-item" label={file_type_access} />
         <Box className="main-info-box">

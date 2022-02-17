@@ -17,7 +17,7 @@ const TransAccorionItem = ({ t, currentLanguage }) => {
         You can use
         <Link
           className="link-trans-acc"
-          href={`https://www.onlyoffice.com${lng}/registration.aspx"`}
+          href={`https://www.onlyoffice.com${lng}/registration.aspx`}
         >
           {{ ONLYOFFICEDocs }}
         </Link>
