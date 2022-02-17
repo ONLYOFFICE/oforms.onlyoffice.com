@@ -62,12 +62,13 @@ const StyledBreadcrumb = styled(Box)`
   }
 `;
 
-const Breadcrumb = ({ name, categories }) => {
+const Breadcrumb = ({ name, categories, language }) => {
+  const lnh = language === "en" ? "" : `${language}/`;
   return (
     <StyledBreadcrumb>
-      <Link className="breadcrumb-links" href="/" label={"Forms"} />
-      <Text className="breadcrumb-items" label={categories} />
-      <Text className="breadcrumb-items-name" label={name} />
+      <Link className="breadcrumb-links" href={`/${lnh}`} label={"Forms"} />
+      {/* <Text className="breadcrumb-items" label={categories} />
+      <Text className="breadcrumb-items-name" label={name} /> */}
     </StyledBreadcrumb>
   );
 };

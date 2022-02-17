@@ -22,7 +22,7 @@ const ButtonSelector = ({
 
   return (
     <StyledBtnSelector {...rest} isScale={isScale}>
-      <Link className="placeholder" typeButton="secondary" label={selected} href={href} />
+      <Link onClick={(e) => setIsActive(!isActive)} className="placeholder" typeButton="secondary" label={selected} href={href} />
       <div className="indicatorContainer" onClick={(e) => setIsActive(!isActive)}>
         <span className="indicatorSeparator"></span>
         <ReactSVG
