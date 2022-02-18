@@ -1,4 +1,6 @@
 User-agent: *
+Disallow: /
 Disallow: /en
+Disallow: /zh
 Disallow: *?fillform=*
 Sitemap: https://oforms.onlyoffice.com/sitemap.xml
