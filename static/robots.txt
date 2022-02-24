@@ -3,4 +3,4 @@ Disallow: /
 Disallow: /en
 Disallow: /zh
 Disallow: *?fillform=*
-Sitemap: https://oforms.onlyoffice.com/sitemap.xml
+Sitemap: https://oforms.teamlab.info/sitemap.xml
