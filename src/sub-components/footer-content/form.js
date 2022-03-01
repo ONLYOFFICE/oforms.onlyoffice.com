@@ -4,7 +4,7 @@ import Text from "../../../components/text";
 
 import { StyledMailForm } from "./sub-components/styled-mail-popup";
 
-const Form = ({ setFormComplete }) => {
+const Form = ({ setFormComplete, t }) => {
   const [formData, setFormData] = useState({
     firstName: "",
     email: "",
@@ -40,23 +40,11 @@ const Form = ({ setFormComplete }) => {
       fetch(ap, {
         method: "POST",
         mode: "no-cors",
-        //   body: JSON.stringify({
-        //     type: "sendsubscription",
-        //     firstName: firstName,
-        //     email: email,
-        //     subscr_type: "Common"
-        //   }),
-        //   headers: {
-        //     Accept: "application/json",
-        //     "Content-Type": "application/json",
-        //   },
       })
         .then(function (response) {
-          // console.log(response);
           setFormComplete(true);
         })
         .catch(function (error) {
-          // console.log(error);
         });
     }
   };
@@ -64,38 +52,36 @@ const Form = ({ setFormComplete }) => {
   return (
     <StyledMailForm className="dataForm">
       <Text className="captchaDescription">
-        Get the latest ONLYOFFICE news delivered to your inbox
+       {t("Get the latest ONLYOFFICE news delivered to your inbox")}
       </Text>
       <form onSubmit={handleFormSubmit} className="formItemsSend">
         <input
           className="form-text"
           value={firstName}
           onChange={(e) => updateFormData(e)}
-          placeholder="First name"
+          placeholder={t("First name")}
           type="text"
           name="firstName"
-          //   required
         />
         {nameError && (
           <Text height="12px" className="errorNameText">
-            First name is empty
+            {t("First name is empty")}
           </Text>
         )}
         <input
           className="form-text"
           value={email}
           onChange={(e) => updateFormData(e)}
-          placeholder="Email address"
+          placeholder={t("Email address")}
           type="email"
           name="email"
-          //   required
         />
         {emailError && (
           <Text height="12px" className="errorMailText">
-            Email is incorrect
+            {t("Email is incorrect")}
           </Text>
         )}
-        <Button type="submit" label="Subscribe" className="form-button-app" />
+        <Button type="submit" label={t("Subscribe")} className="form-button-app" />
       </form>
     </StyledMailForm>
   );

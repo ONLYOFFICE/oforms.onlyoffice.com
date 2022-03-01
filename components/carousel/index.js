@@ -10,11 +10,13 @@ import Card from "../card";
 import StyledCarousel from "./carousel-styled";
 
 const Carousel = ({
+  t,
   settingsCarousel,
   isArrows,
   items,
   refCarousel,
   asNavForCarousel,
+  currentLanguage,
   ...rest
 }) => {
   const settings = settingsCarousel || {
@@ -26,15 +28,19 @@ const Carousel = ({
     slidesToScroll: 1,
   };
 
-  const sliders = items.map((item, idx) => 
-    <Card key={`item-${idx}`} arrayItems={item} className={"carousel-cards"} />
-  );
+  const sliders = items.map((item, idx) => (
+    <Card
+      key={`item-${idx}`}
+      arrayItems={item}
+      className={"carousel-cards"}
+      currentLanguage={currentLanguage}
+      t={t}
+    />
+  ));
 
   return (
     <StyledCarousel arrows={isArrows} {...rest}>
-      <Slider {...settings}>
-        {sliders}
-      </Slider>
+      <Slider {...settings}>{sliders}</Slider>
     </StyledCarousel>
   );
 };

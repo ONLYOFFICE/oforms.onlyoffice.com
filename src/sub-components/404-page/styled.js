@@ -42,8 +42,6 @@ const Styled404 = styled(Section)`
     color: #555555;
   }
 
-  .page-error-404-btn {
-  }
 `;
 
 export default Styled404;

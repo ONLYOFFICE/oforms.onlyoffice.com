@@ -29,16 +29,17 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
     file_formats_download,
   } = data;
 
-  let tt1 = `Download as ${file_formats_download[0][0].toUpperCase()}`;
-  let tt2 = `Download as ${file_formats_download[1][0].toUpperCase()}`;
-  let tt3 = `Download as ${file_formats_download[2][0].toUpperCase()}`;
+  let dwnAs = t("DownloadAs");
+  let tt1 = `${dwnAs} ${file_formats_download[0][0].toUpperCase()}`;
+  let tt2 = `${dwnAs} ${file_formats_download[1][0].toUpperCase()}`;
+  let tt3 = `${dwnAs} ${file_formats_download[2][0].toUpperCase()}`;
   const array = [
     { title: tt1, href: file_formats_download[0][1] },
     { title: tt2, href: file_formats_download[1][1] },
     { title: tt3, href: file_formats_download[2][1] },
   ];
 
-  const IMAGE_SRC = Config.IMGSRC + "template/" + file_image;
+  const IMAGE_SRC = `/images/oforms/en/template/${file_image}`;
   const SVG_FILE_TYPE = Oform;
   const linkFillForm = name
     .replace(/\s/g, "-")
@@ -50,7 +51,7 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
   return (
     <StyledMainInfo maxWidth="1200px" background="#F9F9F9" {...rest}>
       <div className="template-main-info">
-        <Breadcrumb categories={file_categories} name={name} />
+        <Breadcrumb language={language} categories={file_categories} name={name} /> 
         <Heading className="main-info-heading" label={name} />
         <Text isBold className="main-info-type-item" label={file_type_access} />
         <Box className="main-info-box">
@@ -61,13 +62,13 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
               fontSize="14px"
               fontWeight="bold"
             >
-              {t("Last update")}:{" "}
+              {t("LastUpdate")}:{" "}
             </Text>
             <Text isBold className="main-info-text">
               {file_last_update}
             </Text>
           </div>
-          <Link href={linkSuggestChanges} label={t("Suggest changes")} />
+          <Link href={linkSuggestChanges} label={t("SuggestChanges")} />
         </Box>
       </div>
       <div className="template-main-img">
@@ -86,7 +87,7 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
         <Box className="file-info">
           <div style={{ display: "flex" }}>
             <Text isBold color="#AAAAAA">
-              {t("File type")}:{" "}
+              {t("FileType")}:{" "}
             </Text>
             <ReactSVG
               className="template-image-file-type"
@@ -95,7 +96,7 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
           </div>
           <div>
             <Text isBold color="#AAAAAA">
-              {t("File size")}:{" "}
+              {t("FileSize")}:{" "}
             </Text>
             <Text isBold className="file-size-text">
               {file_size}
@@ -116,12 +117,12 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
             style={{ width: "100%" }}
             href={`/editor?fillform=${linkFillForm}`}
           >
-            <Button isScale label={t("Open and Fill")} />
+            <Button isScale label={t("OpenAndFill")} />
           </Link>
           <ButtonSelector
             isScale
             array={array}
-            defaultVal={t("Download as")}
+            defaultVal={t("DownloadAs")}
             className="file-download-button"
           />
         </Box>

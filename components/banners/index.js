@@ -9,7 +9,7 @@ import Text from "../text";
 import Button from "../button";
 import Heading from "../heading";
 
-const BannerOforms = ({ t }) => {
+const BannerOforms = ({ t, currentLanguage }) => {
   return (
     <StyledBanners>
       <Box
@@ -27,7 +27,7 @@ const BannerOforms = ({ t }) => {
             lineHeight="1.33em"
             className="banner_heading"
           >
-            {t("Build your own forms")}
+            {t("BannerBuildYourOwnForms")}
           </Heading>
         </Box>
         <Text
@@ -37,26 +37,24 @@ const BannerOforms = ({ t }) => {
           className="text-banner"
           fontSize="16px"
         >
-          {t(
-            "Use ONLYOFFICE to create document forms for any purpose and instantly share them with other users"
-          )}
+          {t("BannerUseToCreate")}
         </Text>
       </Box>
       <Box className="banner_buttons " justifyContent="center">
         <Link
           className="link"
-          href="https://www.onlyoffice.com/registration.aspx"
+          href={`https://www.onlyoffice.com/${currentLanguage}/registration.aspx`}
         >
-          <Button className="buttons" label={"Use in the cloud"} />
+          <Button className="buttons" label={t("UseInTheCloud")} />
         </Link>
         <Link
           className="link "
-          href="https://www.onlyoffice.com/download-desktop.aspx#desktop"
+          href={`https://www.onlyoffice.com/${currentLanguage}/download-desktop.aspx#desktop`}
         >
           <Button
             className="buttons"
             id="btn-type"
-            label={"Download desktop app"}
+            label={t("DownloadDesktopApp")}
             typeButton="transparent"
           />
         </Link>

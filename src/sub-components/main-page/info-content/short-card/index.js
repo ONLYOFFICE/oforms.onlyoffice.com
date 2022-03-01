@@ -15,7 +15,7 @@ const ShortCard = ({ title, subtitle, linkUrl, hrefButtom, t }) => {
       <Link
         className="card-link"
         target="_self"
-        label={t("Learn more")}
+        label={t("LearnMore")}
         href={linkUrl}
       />
       <Link href={`/editor?fillform=${hrefButtom}`}>

@@ -8,7 +8,7 @@ import SearchContent from "./search";
 const HeadingContent = ({ t, template, currentLanguage }) => {
   return (
     <StyledHeadingContent template={template}>
-      <Menu template={template} currentLanguage={currentLanguage} />
+      <Menu t={t} template={template} currentLanguage={currentLanguage} />
       {!template ? <SearchContent t={t} /> : null}
     </StyledHeadingContent>
   );

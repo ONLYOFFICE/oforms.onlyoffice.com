@@ -2,10 +2,10 @@
     "defaultLanguage": "en",
     "IMGSRC": "/images/oforms/en/",
     "localStorageCarousel": "arrayCaroselClientSideItemsOforms",
-    "docEditorUrl": "https://kim.teamlab.info",
+    "docEditorUrl": "https://doc.onlyoffice.com",
     "api": {
         "url": "",
         "timeout": "30000"
     },
-    "appServer": "https://oforms.teamlab.info/"
+    "appServer": "https://oforms.onlyoffice.com/"
 }

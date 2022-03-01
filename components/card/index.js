@@ -8,7 +8,7 @@ import StyledCard from "./styled-card";
 import Link from "./sub-components/link";
 import Image from "./sub-components/image";
 
-const Card = ({ t, callback, arrayItems, ...rest }) => {
+const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
   const { file_formats_download, file_image, name, description_card } =
     arrayItems;
 
@@ -16,15 +16,20 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
     .toLowerCase();
-  const pathName = `/${linkFillForm}`;
-  const ImageSrc = `${Config.IMGSRC}template/${file_image}`;
+  const pathName =
+    currentLanguage === "en"
+      ? `/${linkFillForm}`
+      : `/${currentLanguage}/${linkFillForm}`;
+  const ImageSrc = `/images/oforms/en/card/${file_image}`;
   const QueryLink = `/editor?fillform=${linkFillForm}`;
   const DWNLINK = file_formats_download.filter((it) => !it.indexOf("oform"));
   const dwnFile = DWNLINK[0][1];
 
   return (
     <StyledCard {...rest}>
-      <Image className="image-template" src={ImageSrc} />
+      <Link href={pathName}>
+        <Image className="image-template" src={ImageSrc} />
+      </Link>
       <Box
         className="card-template"
         flexDirection="column"
@@ -45,7 +50,7 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
             isScale
             typeButton="transparent"
             className="redactor-btn-template"
-            label={"fill out"}
+            label={t("FillOut")}
           />
         </Link>
         <Link href={dwnFile} download>
@@ -55,7 +60,7 @@ const Card = ({ t, callback, arrayItems, ...rest }) => {
             typeButton="transparent"
             borderColor="transparent"
             borderColorHover="transparent"
-            label={"download"}
+            label={t("Download")}
           />
         </Link>
       </Box>
