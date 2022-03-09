@@ -12,39 +12,51 @@ const CustomQueryStringComponent = ({ search }) => {
   const { fillform } = search;
   const data = useStaticQuery(graphql`
     {
-      allDefJson {
-        totalCount
-        nodes {
-          file_categories
-          file_last_update
-          file_description
-          file_formats_download
-          file_country_access
-          file_image
-          link_oform_filling_file
-          name
-          jsonId
+      allDataJson {
+        edges {
+          node {
+            data {
+              id
+              attributes {
+                name_form
+                file_oform {
+                  data {
+                    attributes {
+                      name
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
   `);
 
-  const allItems = data.allDefJson.nodes;
+  const allItems = data?.allDataJson?.edges[1].node.data;
 
   let index;
-  const itemsId = allItems.find((it, idx) => {
-    const pathName = it.name
+  const itemsId = allItems?.find(({ attributes }, idx) => {
+    const pathName = attributes.name_form
       .replace(/\s/g, "-")
       .replace(/[{()}]/g, "")
       .toLowerCase();
     if (pathName === fillform) {
       index = idx;
-      return it;
+      return { ...attributes };
     }
   });
-  const name = itemsId?.name;
+
+  const name = itemsId?.attributes.name_form;
   const id = index;
-  const link_file = itemsId?.link_oform_filling_file;
+  const link_file = itemsId?.attributes.file_oform?.data;
+  let oformFile;
+  link_file?.filter((it) => {
+    let checkFormatFile = it?.attributes.name.split(".")[1] === "oform";
+    oformFile = checkFormatFile ? it?.attributes?.name : null;
+  });
 
   const srcWebAppAPI =
     (config.docEditorUrl || "http://localhost") +
@@ -66,7 +78,7 @@ const CustomQueryStringComponent = ({ search }) => {
       }
     }
   };
-  return name !== undefined && id !== undefined ? (
+  return name !== undefined && oformFile !== undefined ? (
     <>
       <Helmet onChangeClientState={handleChangeClientState}>
         {typeof window !== "undefined" && typeof myScript === "undefined" && (
@@ -75,7 +87,7 @@ const CustomQueryStringComponent = ({ search }) => {
       </Helmet>
       <DocEditorAPI
         name={name}
-        link_oform_filling_file={link_file}
+        link_file={oformFile}
         id={id}
         scriptLoaded={scriptLoaded}
       />

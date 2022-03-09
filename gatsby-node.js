@@ -96,7 +96,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 
   shortDataItems.forEach((data, idx) => {
-    let tmpData = data.attributes;
+    let tmpData = data;
     let tmpId = data.id;
     const pathName = pathNameTemplate[idx];
     if (pathName !== undefined) {

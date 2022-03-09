@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import StyledBtnSelector from "./styled-btn-selector";
-import BtnMenu from "./sub-components/btn-menu"
-import onClickOutSide from 'react-onclickoutside'
+import BtnMenu from "./sub-components/btn-menu";
+import onClickOutSide from "react-onclickoutside";
 import { ReactSVG } from "react-svg";
-import Link from "../link"
+import Link from "../link";
 
 const ButtonSelector = ({
   isScale,
@@ -13,7 +13,6 @@ const ButtonSelector = ({
   array,
   children,
   ...rest
-
 }) => {
   const [isActive, setIsActive] = useState(false);
   const [selected, setSelected] = useState(defaultVal);
@@ -22,8 +21,18 @@ const ButtonSelector = ({
 
   return (
     <StyledBtnSelector {...rest} isScale={isScale}>
-      <Link onClick={(e) => setIsActive(!isActive)} className="placeholder" typeButton="secondary" label={selected} href={href} />
-      <div className="indicatorContainer" onClick={(e) => setIsActive(!isActive)}>
+      <Link
+        onClick={(e) => setIsActive(!isActive)}
+        className="placeholder"
+        typeButton="secondary"
+        label={selected}
+        href={href}
+        download
+      />
+      <div
+        className="indicatorContainer"
+        onClick={(e) => setIsActive(!isActive)}
+      >
         <span className="indicatorSeparator"></span>
         <ReactSVG
           className={"chevronContainer " + (isActive ? "up" : "")}
@@ -35,7 +44,11 @@ const ButtonSelector = ({
 
       {isActive && (
         <BtnMenu
-          callbackItem={(item) => { setSelected(item.title); setHref(item.href); setIsActive(false); }}
+          callbackItem={(item) => {
+            setSelected(item.title);
+            setHref(item.href);
+            setIsActive(false);
+          }}
           array={array}
         />
       )}
@@ -52,15 +65,14 @@ ButtonSelector.propTypes = {
   array: PropTypes.array,
   /** Set default value for select item */
   defaultVal: PropTypes.string,
-
 };
 
 ButtonSelector.defaultProps = {
   array: [
-    { title: 'Download as DOCXF', href: '/404' },
-    { title: 'Download as OFORM', href: '/401' },
+    { title: "Download as DOCXF", href: "/404" },
+    { title: "Download as OFORM", href: "/401" },
   ],
-  defaultVal: "Download as"
+  defaultVal: "Download as",
 };
 
 export default onClickOutSide(ButtonSelector, clickOutsideConfig);

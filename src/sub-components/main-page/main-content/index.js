@@ -21,26 +21,6 @@ import StyledMainContent from "./styled-main-content";
 import Button from "../../../../components/button";
 
 const MainContent = ({ t, currentLanguage, count, ...rest }) => {
-  // const data = useStaticQuery(graphql`
-  //   {
-  //     allDefJson {
-  //       totalCount
-  //       nodes {
-  //         file_categories
-  //         file_last_update
-  //         file_description
-  //         file_formats_download
-  //         file_country_access
-  //         file_image
-  //         link_oform_filling_file
-  //         name
-  //         jsonId
-  //         description_card
-  //       }
-  //     }
-  //   }
-  // `);
-
   const data = useStaticQuery(graphql`
     {
       allDataJson {
@@ -90,11 +70,9 @@ const MainContent = ({ t, currentLanguage, count, ...rest }) => {
   `);
 
   // currentLanguage
-  // const allItems = data.allDefJson.nodes;
   const allItems = data?.allDataJson?.edges[1].node.data;
 
-  // const curLang = currentLanguage === "en" ? "US" : currentLanguage;
-  let tmpAllItems = allItems.filter(({ attributes }) => {
+  let tmpAllItems = allItems?.filter(({ attributes }) => {
     let { locale } = attributes;
     if (locale.toLowerCase() === currentLanguage.toLowerCase()) {
       return { ...attributes };
