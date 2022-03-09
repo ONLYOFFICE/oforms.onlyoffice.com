@@ -8,5 +8,10 @@
     "key": "zh-CN",
     "shortKey": "zh",
     "iconName": "zh.svg"
+  },
+  {
+    "key": "it-IT",
+    "shortKey": "it",
+    "iconName": "it.svg"
   }
 ]
