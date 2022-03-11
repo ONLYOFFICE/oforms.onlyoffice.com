@@ -55,7 +55,7 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
         <Heading className="main-info-heading" label={name} />
         <Text isBold className="main-info-type-item" label={file_type_access} />
         <Box className="main-info-box">
-          <div>
+          <div className="main-info-box-tt">
             <Text
               className="main-info-text"
               color="#AAAAAA"
