@@ -3210,46 +3210,6 @@
     "description_card": "Compila il modulo online e ottieni un modello compilabile di Autocertificazione stato di famiglia o scarica fac simile."
   },
   {
-    "id": 167,
-    "name": "Modello Curriculum Vitae",
-    "file_image": "modello_curriculum_vitae.png",
-    "file_categories": [
-      "Risorse umane"
-    ],
-    "file_formats_download": [
-      [
-        "oform",
-        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_curriculum_vitae.oform"
-      ],
-      [
-        "docxf",
-        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modello_curriculum_vitae.docxf"
-      ],
-      [
-        "pdf",
-        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modello_curriculum_vitae.pdf"
-      ]
-    ],
-    "file_country_access": [
-      "IT"
-    ],
-    "file_type_access": "Free",
-    "file_link_changelog": "/file_link_changelog",
-    "file_pages": 2,
-    "file_size": "84,25 kb",
-    "file_last_update": "12 Marzo 2022",
-    "file_description": [
-      "Compila il modulo online e ottieni un modello compilabile di Curriculum Vitae nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
-      "Componi un Modello di Modulo di Curriculum Vitae con i dati personali e l'esperienza lavorativa."
-    ],
-    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_curriculum_vitae.ofor",
-    "seo": {
-      "title": "Modello Curriculum Vitae",
-      "description": "Compila il modulo online e ottieni un modello compilabile di Curriculum Vitae nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
-    },
-    "description_card": "Compila il modulo online e ottieni un modello compilabile di Curriculum Vitae o scarica fac simile."
-  },
-  {
     "id": 168,
     "name": "Modello Delega per ritiro documenti",
     "file_image": "modello_delega_ritiro_documenti.png",

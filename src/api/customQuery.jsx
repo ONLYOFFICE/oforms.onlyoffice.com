@@ -5,31 +5,32 @@ import withLocation from "../hooks/hoc";
 import { useStaticQuery, graphql } from "gatsby";
 
 import config from "../../static/data/config.json";
+import def from "../../static/data/def.json";
 
 import DocEditorAPI from "./docEditor";
 
 const CustomQueryStringComponent = ({ search }) => {
   const { fillform } = search;
-  const data = useStaticQuery(graphql`
-    {
-      allDefJson {
-        totalCount
-        nodes {
-          file_categories
-          file_last_update
-          file_description
-          file_formats_download
-          file_country_access
-          file_image
-          link_oform_filling_file
-          name
-          jsonId
-        }
-      }
-    }
-  `);
+  // const data = useStaticQuery(graphql`
+  //   {
+  //     allDefJson {
+  //       totalCount
+  //       nodes {
+  //         file_categories
+  //         file_last_update
+  //         file_description
+  //         file_formats_download
+  //         file_country_access
+  //         file_image
+  //         link_oform_filling_file
+  //         name
+  //         jsonId
+  //       }
+  //     }
+  //   }
+  // `);
 
-  const allItems = data.allDefJson.nodes;
+  const allItems = def;
 
   let index;
   const itemsId = allItems.find((it, idx) => {
@@ -38,7 +39,7 @@ const CustomQueryStringComponent = ({ search }) => {
       .replace(/[{()}]/g, "")
       .toLowerCase();
     if (pathName === fillform) {
-      index = idx;
+      index = it.id;
       return it;
     }
   });
@@ -66,6 +67,7 @@ const CustomQueryStringComponent = ({ search }) => {
       }
     }
   };
+
   return name !== undefined && id !== undefined ? (
     <>
       <Helmet onChangeClientState={handleChangeClientState}>
