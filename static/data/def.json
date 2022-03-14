@@ -3082,7 +3082,7 @@
       "Compila il modulo online e ottieni Modello A1 compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
       "Componi un certificato, mettendo i dati personali, certifica la sua posizione, inserisci le informazioni sul datore di lavoro."
     ],
-    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_a1.ofor",
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_a1.oform",
     "seo": {
       "title": "Modello A1",
       "description": "Compila il modulo online e ottieni Modello A1 compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
@@ -3379,7 +3379,7 @@
     "file_formats_download": [
       [
         "oform",
-        " "
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_rd1.oform"
       ],
       [
         "docxf",
@@ -3642,7 +3642,7 @@
       "Compila il modulo online e ottieni un modello compilabile di Modello TT2120 nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
       "Componi un Modello TT2120 con i propri dati e dati del veicolo per espletare la pratica di trasferimento di proprietà auto."
     ],
-    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_tt2120.ofor",
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_tt2120.oform",
     "seo": {
       "title": "Modello TT2120",
       "description": "Compila il modulo online e ottieni un modello compilabile di Modello TT2120 nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
@@ -3699,15 +3699,15 @@
     "file_formats_download": [
       [
         "oform",
-        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_richiesta_tessera_sanitaria.png.oform"
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_richiesta_tessera_sanitaria.oform"
       ],
       [
         "docxf",
-        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_richiesta_tessera_sanitaria.png.docxf"
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_richiesta_tessera_sanitaria.docxf"
       ],
       [
         "pdf",
-        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_richiesta_tessera_sanitaria.png.pdf"
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_richiesta_tessera_sanitaria.pdf"
       ]
     ],
     "file_country_access": [
@@ -3722,7 +3722,7 @@
       "Compila il modulo online e ottieni un modello compilabile di Richiesta della tessera sanitaria nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
       "Componi un Modello della domanda, compila tutti i campi vuoti, mettendo i dati personali e aggiungi la firma."
     ],
-    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_richiesta_tessera_sanitaria.png.oform",
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_richiesta_tessera_sanitaria.oform",
     "seo": {
       "title": "Modulo Richiesta tessera sanitaria",
       "description": "Compila il modulo online e ottieni un modello compilabile di Richiesta della tessera sanitaria nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
@@ -3819,15 +3819,15 @@
     "file_formats_download": [
       [
         "oform",
-        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_autocertificazione_residenza.png.oform"
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_autocertificazione_residenza.oform"
       ],
       [
         "docxf",
-        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_autocertificazione_residenza.png.docxf"
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_autocertificazione_residenza.docxf"
       ],
       [
         "pdf",
-        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_autocertificazione_residenza.png.pdf"
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_autocertificazione_residenza.pdf"
       ]
     ],
     "file_country_access": [
@@ -3842,7 +3842,7 @@
       "Compila il modulo online e ottieni un modello compilabile di Autocertificazione di Residenza nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
       "Componi una dichiarazione sostuitiva di certificazione di rezidenza mettendo i dati personali che servono."
     ],
-    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_autocertificazione_residenza.png.oform",
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_autocertificazione_residenza.oform",
     "seo": {
       "title": "Modulo Autocertificazione di residenza",
       "description": "Compila il modulo online e ottieni un modello compilabile di Autocertificazione di Residenza nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
