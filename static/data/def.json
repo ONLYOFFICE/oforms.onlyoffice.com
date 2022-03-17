@@ -2968,5 +2968,1445 @@
       "description": "在线填写简历表单，或下载可填写的模板为 DOCX, DOCXF, OFORM或PDF格式。"
     },
     "description_card": "在线填写简历表单，或下载可填写的模板。"
+  },
+  {
+    "id": 161,
+    "name": "Modulo Dichiarazione di successione",
+    "file_image": "modulo_dichiarazione_successione.png",
+    "file_categories": [
+      "Legale"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_dichiarazione_successione.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_dichiarazione_successione.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_dichiarazione_successione.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Gratis",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 14,
+    "file_size": "180,61 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile di Dichiarazione di successione nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi una dichiarazione mettendo i dati anagrafici del defunto e compilando altri campi vuoti."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_dichiarazione_successione.oform",
+    "seo": {
+      "title": "Dichiarazione di successione, modello",
+      "description": "Compila il modulo online e ottieni un modello compilabile di Dichiarazione di successione nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online, ottieni un modello compilabile di Dichiarazione di successione o scarica fac simile."
+  },
+  {
+    "id": 162,
+    "name": "Modulo Indennità di maternità/paternità",
+    "file_image": "modulo_indennità_maternità_paternità.png",
+    "file_categories": [
+      "Risorse umane"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_indennità_maternità_paternità.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_indennità_maternità_paternità.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_indennità_maternità_paternità.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Gratis",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 11,
+    "file_size": "90,98 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile di Indennità di maternità/paternità nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi una domanda mettendo i dati personali del lavoratore e del minore, compilando tutti i campi rchiesti."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_indennità_maternità_paternità.oform",
+    "seo": {
+      "title": "Indennità di maternità/paternità, modello",
+      "description": "Compila il modulo online e ottieni un modello compilabile di Indennità di maternità/paternità nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello compilabile di Indennità di maternità/paternità o scarica fac simile."
+  },
+  {
+    "id": 163,
+    "name": "Modello A1",
+    "file_image": "modello_a1.png",
+    "file_categories": [
+      "Risorse umane"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_a1.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modello_a1.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modello_a1.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Gratis",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 3,
+    "file_size": "65,96 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni Modello A1 compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi un certificato, mettendo i dati personali, certifica la sua posizione, inserisci le informazioni sul datore di lavoro."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_a1.oform",
+    "seo": {
+      "title": "Modello A1",
+      "description": "Compila il modulo online e ottieni Modello A1 compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni Modello A1 compilabile o scarica fac simile."
+  },
+  {
+    "id": 164,
+    "name": "Modello 21",
+    "file_image": "modello_21.png",
+    "file_categories": [
+      "Legale"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_21.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modello_21.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modello_21.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Gratis",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 1,
+    "file_size": "52,11 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile di Conto della gestione dell’agente contabile (Mod. 21) nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi un riepilogo delle somme riscosse nel corso dell’anno e versamenti fatti, aggiungendo i dati privati."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_21.oform",
+    "seo": {
+      "title": "Conto della gestione dell’agente contabile (Modello 21)",
+      "description": "Compila il modulo online e ottieni un modello compilabile di Modulo S2 ricongiungimento familiare nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello o facsimile di Conto della gestione dell’agente contabile (Mod. 21)"
+  },
+  {
+    "id": 165,
+    "name": "Modulo Certificazione Unica (modello CU, ex-CUD)",
+    "file_image": "modulo_certificazione_unica.png",
+    "file_categories": [
+      "Legale"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_certificazione_unica.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_certificazione_unica.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_certificazione_unica.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 1,
+    "file_size": "43,58 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile di Certificazione Unica nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi un Modello di dichiarazione sostitutiva di certificazione,  inserendo i redditi percepiti nell'anno precedente"
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_certificazione_unica.oform",
+    "seo": {
+      "title": "Certificazione Unica (modello CU, ex-CUD)",
+      "description": "Compila il modulo online e ottieni un modello compilabile di Certificazione Unica nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello compilabile di Certificazione Unica (modello CU) o scarica fac simile."
+  },
+  {
+    "id": 166,
+    "name": "Modello Autocertificazione stato di famiglia",
+    "file_image": "modello_autocertificazione_famiglia.png",
+    "file_categories": [
+      "Ammnistrativo"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_autocertificazione_famiglia.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modello_autocertificazione_famiglia.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modello_autocertificazione_famiglia.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 1,
+    "file_size": "44,86 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile di Autocertificazione stato di famiglia nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi un Modello di Autocertificazione con cui si attestano le persone che risultano ad uno stesso indirizzo di un’unità immobiliare, a prescindere dal vincolo di parentela."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_autocertificazione_famiglia.oform",
+    "seo": {
+      "title": "Modello Autocertificazione di stato di famiglia",
+      "description": "Compila il modulo online e ottieni un modello compilabile di Autocertificazione stato di famiglia nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello compilabile di Autocertificazione stato di famiglia o scarica fac simile."
+  },
+  {
+    "id": 168,
+    "name": "Modello Delega per ritiro documenti",
+    "file_image": "modello_delega_ritiro_documenti.png",
+    "file_categories": [
+      "Ammnistrativo"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_delega_ritiro_documenti.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modello_delega_ritiro_documenti.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modello_delega_ritiro_documenti.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 1,
+    "file_size": "43,26 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile di Delega per ritiro documenti nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi un Modello con cui si delega una persona al ritiro del proprio documento, mettendo i dati necessari e la firma."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_delega_ritiro_documenti.oform",
+    "seo": {
+      "title": "Modello Delega per ritiro documenti",
+      "description": "Compila il modulo online e ottieni un modello compilabile di Delega per ritiro documenti nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello compilabile di Delega per ritiro documenti o scarica fac simile."
+  },
+  {
+    "id": 169,
+    "name": "Modello Delega generico",
+    "file_image": "modello_delega_generico.png",
+    "file_categories": [
+      "Ammnistrativo"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_delega_generico.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modello_delega_generico.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modello_delega_generico.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 1,
+    "file_size": "43,84 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile di Delega nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi un Modello di Delega, riportando i dati anagrafici del delegante e del delegato."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_delega_generico.oform",
+    "seo": {
+      "title": "Modello Delega",
+      "description": "Compila il modulo online e ottieni un modello compilabile di Delega nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello compilabile di Delega generico o scarica fac simile."
+  },
+  {
+    "id": 170,
+    "name": "Modello PEI",
+    "file_image": "modello_pei.png",
+    "file_categories": [
+      "-"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_pei.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modello_pei.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modello_pei.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Gratis",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 13,
+    "file_size": "89,51 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello PEI compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi un Piano Educativo Individualizzato mettendo i dati anagrafici dell'alunno."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_pei.oform",
+    "seo": {
+      "title": "Modello PEI",
+      "description": "Compila il modulo online e ottieni un modello PEI compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello PEI compilabile o scarica fac simile."
+  },
+  {
+    "id": 171,
+    "name": "Modello della domanda di messa a disposizione (MAD)",
+    "file_image": "modello_della_domanda_messa_disposizione.png",
+    "file_categories": [
+      "Formazione"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_della_domanda_messa_disposizione.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modello_della_domanda_messa_disposizione.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modello_della_domanda_messa_disposizione.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Gratis",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 1,
+    "file_size": "45,05 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello Messa a disposizione compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi un modello, mettendo i dati personali e altre informazioni richieste."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_della_domanda_messa_disposizione.oform",
+    "seo": {
+      "title": "Modello della domanda di messa a disposizione (MAD)",
+      "description": "Compila il modulo online e ottieni un modello Messa a disposizione compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni Modello di Messa a Disposizione (MAD) compilabile o scarica fac simile."
+  },
+  {
+    "id": 172,
+    "name": "Modello RD1",
+    "file_image": "modello_rd1.png",
+    "file_categories": [
+      "Finanziario"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_rd1.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modello_rd1.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modello_rd1.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Gratis",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 3,
+    "file_size": "70,73 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un Modello RD1 compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi una richiesta, mettendo i dati personali, indica il rilascio dei documenti necessari."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_rd1.oform",
+    "seo": {
+      "title": "Modello RD1",
+      "description": "Compila il modulo online e ottieni un Modello RD1 compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un Modello RD1 compilabile o scarica fac simile."
+  },
+  {
+    "id": 173,
+    "name": "Modello preventivo",
+    "file_image": "modello_preventivo.png",
+    "file_categories": [
+      "Finanziario"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_preventivo.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modello_preventivo.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modello_preventivo.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 1,
+    "file_size": "46,66 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile di preventivo nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi un Modello di preventivo preparando tutti i calcoli necessari, mostrando una stima dei costi."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_preventivo.oform",
+    "seo": {
+      "title": "Modello di preventivo",
+      "description": "Compila il modulo online e ottieni un modello compilabile di preventivo nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello compilabile di Modello di preventivo o scarica fac simile."
+  },
+  {
+    "id": 174,
+    "name": "Modulo SC18, Richiesta rateizzazione Inps",
+    "file_image": "modulo_sc18_richiesta_rateizzazione_inps.png",
+    "file_categories": [
+      "Legale"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_sc18_richiesta_rateizzazione_inps.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_sc18_richiesta_rateizzazione_inps.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_sc18_richiesta_rateizzazione_inps.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Gratis",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 2,
+    "file_size": "57,14 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un Modulo SC18 compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi la Richiesta rateizzazione Inps, mettendo l'importo del debito e il numero di posizione contributiva."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_sc18_richiesta_rateizzazione_inps.oform",
+    "seo": {
+      "title": "Richiesta rateizzazione Inps Modulo SC18",
+      "description": "Compila il modulo online e ottieni un Modulo SC18 compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello di Modulo SC18 compilabile o scarica fac simile."
+  },
+  {
+    "id": 175,
+    "name": "Modello TT2112",
+    "file_image": "modello_tt2112.png",
+    "file_categories": [
+      "Ammnistrativo"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_tt2112.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modello_tt2112.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modello_tt2112.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Gratis",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 8,
+    "file_size": "86,33 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un Modello TT2112 compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi il modulo, mettendo i dati anagrafici, prescrizioni e i dati del veicolo."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_tt2112.oform",
+    "seo": {
+      "title": "Modello TT2112",
+      "description": "Compila il modulo online e ottieni un Modello TT2112 compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un Modello TT2112 compilabile o scarica fac simile."
+  },
+  {
+    "id": 176,
+    "name": "Modello Unificato SCIA",
+    "file_image": "modello_unificato_scia.png",
+    "file_categories": [
+      "-"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_unificato_scia.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modello_unificato_scia.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modello_unificato_scia.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Gratis",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 25,
+    "file_size": "132,05 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un Modello SCIA compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi il modulo, compilando tutti i campi richiesti per avviare una nuova ativita."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_unificato_scia.oform",
+    "seo": {
+      "title": "Modulo unificato nazionale segnalazione certificata di inizio attività (SCIA)",
+      "description": "Compila il modulo online e ottieni un Modello SCIA compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un Modello Unificato SCIA compilabile o scarica fac simile."
+  },
+  {
+    "id": 177,
+    "name": "Modello Unificato LAV (UniLAV)",
+    "file_image": "modello_unificato_lav.png",
+    "file_categories": [
+      "-"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_unificato_lav.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modello_unificato_lav.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modello_unificato_lav.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Gratis",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 2,
+    "file_size": "58,37 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un Modello Unificato LAV compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi il modulo Unificato Lav, specificando le informazioni nei campi vuoti, metti i dati mancanti del rapporto di lavoro."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_unificato_lav.oform",
+    "seo": {
+      "title": "Comunicazione Obbligatoria Unificato Lav, modello",
+      "description": "Compila il modulo online e ottieni un Modello Unificato LAV compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni Modello Unificato LAV compilabile o scarica fac simile."
+  },
+  {
+    "id": 178,
+    "name": "Modello TT2120",
+    "file_image": "modello_tt2120.png",
+    "file_categories": [
+      "Legale"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_tt2120.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modello_tt2120.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modello_tt2120.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 1,
+    "file_size": "42,99 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile di Modello TT2120 nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi un Modello TT2120 con i propri dati e dati del veicolo per espletare la pratica di trasferimento di proprietà auto."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_tt2120.oform",
+    "seo": {
+      "title": "Modello TT2120",
+      "description": "Compila il modulo online e ottieni un modello compilabile di Modello TT2120 nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello compilabile di Modello TT2120 o scarica fac simile."
+  },
+  {
+    "id": 179,
+    "name": "Modulo richiesta benefici legge 104/92",
+    "file_image": "modulo_richiesta_benefici_legge_104_92.png",
+    "file_categories": [
+      "Occupazione"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_richiesta_benefici_legge_104_92.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_richiesta_benefici_legge_104_92.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_richiesta_benefici_legge_104_92.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 1,
+    "file_size": "40,74 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile di Modulo richiesta benefici legge 104/92 nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi un Modello di Modulo richiesta benefici legge 104/92, compilando i dati anagrafici del disabile da assistere e altri dati richiesti."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_richiesta_benefici_legge_104_92.oform",
+    "seo": {
+      "title": "Modulo richiesta benefici legge 104/92",
+      "description": "Compila il modulo online e ottieni un modello compilabile di Modulo richiesta benefici legge 104/92 nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello compilabile di Modulo richiesta benefici legge 104 o scarica fac simile."
+  },
+  {
+    "id": 180,
+    "name": "Modulo Richiesta tessera sanitaria",
+    "file_image": "modulo_richiesta_tessera_sanitaria.png",
+    "file_categories": [
+      "Assistenza sanitaria"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_richiesta_tessera_sanitaria.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_richiesta_tessera_sanitaria.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_richiesta_tessera_sanitaria.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Gratis",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 2,
+    "file_size": "55,52 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile di Richiesta della tessera sanitaria nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi un Modello della domanda, compila tutti i campi vuoti, mettendo i dati personali e aggiungi la firma."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_richiesta_tessera_sanitaria.oform",
+    "seo": {
+      "title": "Modulo Richiesta tessera sanitaria",
+      "description": "Compila il modulo online e ottieni un modello compilabile di Richiesta della tessera sanitaria nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online, ottieni un modello compilabile di Richiesta tessera sanitaria o scarica fac simile."
+  },
+  {
+    "id": 181,
+    "name": "Modello Dichiarazione sostitutiva di certificazione Campania",
+    "file_image": "modello_dichiarazione_sostitutiva_certificazione_campania.png",
+    "file_categories": [
+      "Ammnistrativo"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_dichiarazione_sostitutiva_certificazione_campania.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modello_dichiarazione_sostitutiva_certificazione_campania.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modello_dichiarazione_sostitutiva_certificazione_campania.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Gratis",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 2,
+    "file_size": "45,7 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello Modello Dichiarazione sostitutiva di certificazione compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi un modello, inserisci i dati personali e altre informazioni richieste."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modello_dichiarazione_sostitutiva_certificazione_campania.oform",
+    "seo": {
+      "title": "Modello Dichiarazione sostitutiva di certificazione Campania",
+      "description": "Compila il modulo online e ottieni un modello Modello Dichiarazione sostitutiva di certificazione compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni Modello Dichiarazione sostitutiva di certificazione compilabile o scarica fac simile."
+  },
+  {
+    "id": 182,
+    "name": "Modulo Assegno per il nucleo familiare",
+    "file_image": "modulo_assegno_nucleo_familiare.png",
+    "file_categories": [
+      "Legale"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_assegno_nucleo_familiare.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_assegno_nucleo_familiare.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_assegno_nucleo_familiare.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Gratis",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 10,
+    "file_size": "87,83 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile di Assegno per il nucleo familiare nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi un Modello della Domanda per i lavoratori dipendenti, mettendo i dati pesonali e redditi per nucleo familiare, compila tutti i campi necessari."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_assegno_nucleo_familiare.oform",
+    "seo": {
+      "title": "Modulo Assegno per il nucleo familiare",
+      "description": "Compila il modulo online e ottieni un modello compilabile di Assegno per il nucleo familiare nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online, ottieni un modello compilabile di Assegno per il nucleo familiare o scarica fac simile."
+  },
+  {
+    "id": 183,
+    "name": "Modulo Autocertificazione residenza",
+    "file_image": "modulo_autocertificazione_residenza.png",
+    "file_categories": [
+      "Ammnistrativo"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_autocertificazione_residenza.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_autocertificazione_residenza.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_autocertificazione_residenza.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 2,
+    "file_size": "46,22 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile di Autocertificazione di Residenza nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi una dichiarazione sostuitiva di certificazione di rezidenza mettendo i dati personali che servono."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_autocertificazione_residenza.oform",
+    "seo": {
+      "title": "Modulo Autocertificazione di residenza",
+      "description": "Compila il modulo online e ottieni un modello compilabile di Autocertificazione di Residenza nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello compilabile di Autocertificazione di residenza o scarica fac simile."
+  },
+  {
+    "id": 184,
+    "name": "Modulo Autocertificazione Dpcm",
+    "file_image": "modulo_autocertificazione_dpcm.png",
+    "file_categories": [
+      "Assistenza sanitaria"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_autocertificazione_dpcm.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_autocertificazione_dpcm.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_autocertificazione_dpcm.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 1,
+    "file_size": "46,02 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile di Autocertificazione Covid nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi un modulo di autodichiarazione covid con i propri dati per giustificare gli spostamenti, indicanto i motivazioni."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_autocertificazione_dpcm.oform",
+    "seo": {
+      "title": "Modulo di Autocertificazione Covid",
+      "description": "Compila il modulo online e ottieni un modello compilabile di Autocertificazione Covid nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello compilabile di Autocertificazione Covid (nuovo Dpcm) o scarica fac simile."
+  },
+  {
+    "id": 185,
+    "name": "Modulo cambio domicilio",
+    "file_image": "modulo_cambio_domicilio.png",
+    "file_categories": [
+      "Ammnistrativo"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_cambio_domicilio.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_cambio_domicilio.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_cambio_domicilio.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Gratis",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 1,
+    "file_size": "41,12 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile della Richiesta di cambio di domicilio nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi una richiesta stampabile di cambio di domicilio con i campi compilabili dalla parte del cittadino, inserendo i dati personali del dichiarante e i dati relativi al domicilio."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_cambio_domicilio.oform",
+    "seo": {
+      "title": "Modulo Cambio Domicilio",
+      "description": "Compila il modulo online e ottieni un modello compilabile della Richiesta di cambio di domicilio nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello della Richiesta di cambio di domicilio o semplicemente scarica fac simile."
+  },
+  {
+    "id": 186,
+    "name": "Modulo per cambio medico di base",
+    "file_image": "modulo_cambio_medico_base.png",
+    "file_categories": [
+      "Assistenza sanitaria"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_cambio_medico_base.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_cambio_medico_base.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_cambio_medico_base.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 1,
+    "file_size": "50,56 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile della Richiesta di Assegnazione del Medico Generico/Pediatra nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi una richiesta stampabile con i campi compilabili, aggiungendo i dati personali per scegliere o mantenere medico generico o pediatra."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_cambio_medico_base.oform",
+    "seo": {
+      "title": "Richiesta di Assegnazione del medico generico/pediatra, modello",
+      "description": "Compila il modulo online e ottieni un modello compilabile della Richiesta di Assegnazione del Medico Generico/Pediatra nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello compilabile della Scelta e Revoca del medico o scarica fac simile."
+  },
+  {
+    "id": 187,
+    "name": "Modulo Contratto di comodato d'uso gratuito",
+    "file_image": "modulo_contratto_comodato_gratuito.png",
+    "file_categories": [
+      "Legale"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_contratto_comodato_gratuito.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_contratto_comodato_gratuito.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_contratto_comodato_gratuito.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 1,
+    "file_size": "42,49 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile di Сontratto di comodato d'uso gratuito nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi un Modello di Contratto di comodato gratuito, compilando i dati di comodante e comodatario."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_contratto_comodato_gratuito.oform",
+    "seo": {
+      "title": "Contratto di comodato d'uso gratuito, modello",
+      "description": "Compila il modulo online e ottieni un modello compilabile di Сontratto di comodato d'uso gratuito nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello compilabile di Contratto di comodato d'uso gratuito o scarica fac simile."
+  },
+  {
+    "id": 188,
+    "name": "Modulo CRIF",
+    "file_image": "modulo_crif.png",
+    "file_categories": [
+      "Legale"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_crif.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_crif.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_crif.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 2,
+    "file_size": "47,38 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile della richiesta della visura CRIF nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi una richiesta stampabile della visura CRIF con i campi compilabili, inserendo i propri dati, i dati della persona giuridica e il proprio indirizzo mail."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_crif.oform",
+    "seo": {
+      "title": "Modulo per la richiesta della visura CRIF",
+      "description": "Compila il modulo online e ottieni un modello compilabile della richiesta della visura CRIF nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello della Richiesta della visura CRIF o semplicemente scarica fac simile."
+  },
+  {
+    "id": 189,
+    "name": "Modulo Detrazioni figli a carico",
+    "file_image": "modulo_detrazioni_figli_carico.png",
+    "file_categories": [
+      "Legale"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_detrazioni_figli_carico.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_detrazioni_figli_carico.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_detrazioni_figli_carico.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 2,
+    "file_size": "56,73 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile di Dichiarazione detrazioni fiscali per carichi di famiglia nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi una dichiarazione con i propri dati e i dati dei coniugi nei campi vuoti."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_detrazioni_figli_carico.oform",
+    "seo": {
+      "title": "Modulo Dichiarazione detrazioni fiscali per carichi di famiglia",
+      "description": "Compila il modulo online e ottieni un modello compilabile di Dichiarazione detrazioni fiscali per carichi di famiglia nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello compilabile di Richiesta detrazioni carichi familiari o scarica fac simile"
+  },
+  {
+    "id": 190,
+    "name": "Modulo Dichiarazione sostitutiva dell'atto di notorietà",
+    "file_image": "modulo_dichiarazione_sostitutiva_dell_atto_notorietà.png",
+    "file_categories": [
+      "Legale"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_dichiarazione_sostitutiva_dell_atto_notorietà.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_dichiarazione_sostitutiva_dell_atto_notorietà.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_dichiarazione_sostitutiva_dell_atto_notorietà.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 1,
+    "file_size": "43,01 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile della Dichiarazione sostitutiva dell'atto di notorietà nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi una dichiarazione stampabile del'atto di notorietà con i campi compilabili. Aggiungi i propri dati e indica gli stati, qualità personali o fatti necessari."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_dichiarazione_sostitutiva_dell_atto_notorietà.oform",
+    "seo": {
+      "title": "Dichiarazione sostitutiva atto di notorietà modello compilabile",
+      "description": "Compila il modulo online e ottieni un modello compilabile della Dichiarazione sostitutiva dell'atto di notorietà nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello Dichiarazione sostitutiva dell'atto di notorietà o scarica fac simile."
+  },
+  {
+    "id": 191,
+    "name": "Modulo Dimissioni volontarie",
+    "file_image": "modulo_dimissioni_volontarie.png",
+    "file_categories": [
+      "Risorse umane"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_dimissioni_volontarie.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_dimissioni_volontarie.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_dimissioni_volontarie.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 1,
+    "file_size": "42,04 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile della Lettera di dimissioni nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi un modulo stampabile compilando i campi necessari, aggiungi i dati personali e dati del datore di lavoro per comunicare la propria volontà di chiudere il contratto."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_dimissioni_volontarie.oform",
+    "seo": {
+      "title": "Lettera di Dimissioni, modello",
+      "description": "Compila il modulo online e ottieni un modello compilabile della Lettera di dimissioni nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato"
+    },
+    "description_card": "Compila il modulo online e ottieni un modello compilabile della Lettera di Dimissioni o scarica fac simile."
+  },
+  {
+    "id": 192,
+    "name": "Modulo Disdetta affitto",
+    "file_image": "modulo_disdetta_affitto.png",
+    "file_categories": [
+      "Immobiliare e Noleggio"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_disdetta_affitto.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_disdetta_affitto.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_disdetta_affitto.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 1,
+    "file_size": "43,15 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile di Disdetta del Contratto di Affitto nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi una lettera per disdetta di affitto aggiungendo i dati che mancano."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_disdetta_affitto.oform",
+    "seo": {
+      "title": "Modulo Disdetta del contratto di affitto",
+      "description": "Compila il modulo online e ottieni un modello compilabile di Disdetta del Contratto di Affitto nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello compilabile di Disdetta del Contratto di Affitto o scarica fac simile."
+  },
+  {
+    "id": 193,
+    "name": "Modulo Disdetta sindacato",
+    "file_image": "modulo_disdetta_sindacato.png",
+    "file_categories": [
+      "Risorse umane"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_disdetta_sindacato.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_disdetta_sindacato.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_disdetta_sindacato.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 1,
+    "file_size": "44,61 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile del Modello per la Revoca della Delega Sindacale nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi una lettera stampabile compilando i campi richiesti con i dati mancanti."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_disdetta_sindacato.oform",
+    "seo": {
+      "title": "Modello per la Revoca della delega sindacale",
+      "description": "Compila il modulo online e ottieni un modello compilabile del Modello per la Revoca della Delega Sindacale nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello compilabile del  Modulo Disdetta Sindacato o scarica fac simile."
+  },
+  {
+    "id": 194,
+    "name": "Modulo Domanda caregiver",
+    "file_image": "modulo_domanda_caregiver.png",
+    "file_categories": [
+      "Ammnistrativo"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_domanda_caregiver.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_domanda_caregiver.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_domanda_caregiver.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 3,
+    "file_size": "51,72 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile della Domanda di assistenza domiciliare per persone non autosufficienti nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi una richiesta stampabile con i campi compilabili. Aggiungi i dati mancanti per inviare la domanda di assistenza domiciliare completa."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_domanda_caregiver.oform",
+    "seo": {
+      "title": "Domanda di assistenza domiciliare per persone non autosufficienti, modello",
+      "description": "Compila il modulo online e ottieni un modello compilabile della Domanda di assistenza domiciliare per persone non autosufficienti nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello compilabile della Domanda di assistenza domiciliare  o scarica fac simile."
+  },
+  {
+    "id": 195,
+    "name": "Modulo Esenzione ticket",
+    "file_image": "modulo_esenzione-ticket.png",
+    "file_categories": [
+      "Assistenza sanitaria"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_esenzione-ticket.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_esenzione-ticket.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_esenzione-ticket.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 2,
+    "file_size": "46,67 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile di Autocertificazione esenzione ticket per reddito nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi un Modello Autocertificazione Esenzione Reddito con i dati mancanti, compilando i campi necessari."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_esenzione-ticket.oform",
+    "seo": {
+      "title": "Modulo per Esenzione ticket",
+      "description": "Compila il modulo online e ottieni un modello compilabile di Autocertificazione esenzione ticket per reddito nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello compilabile di Modulo autocertificazione esenzione ticket per reddito"
+  },
+  {
+    "id": 198,
+    "name": "Modulo richiesta passaporto",
+    "file_image": "modulo_richiesta_passaporto.png",
+    "file_categories": [
+      "Ammnistrativo"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_richiesta_passaporto.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_richiesta_passaporto.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_richiesta_passaporto.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Gratis",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 3,
+    "file_size": "69,81 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un Modulo richiesta passaporto compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi una richiesta, compilando i campi vuoti con i dati personali."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_richiesta_passaporto.oform",
+    "seo": {
+      "title": "Modulo richiesta passaporto",
+      "description": "Compila il modulo online e ottieni un Modulo richiesta passaporto compilabile nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello di Modulo richiesta passaporto compilabile o scarica fac simile."
+  },
+  {
+    "id": 199,
+    "name": "Modulo TFR 2 Scelta per la destinazione del trattamento di fine rapporto",
+    "file_image": "modulo_tfr_2_scelta_destinazione_trattamento_rapporto.png",
+    "file_categories": [
+      "Risorse umane"
+    ],
+    "file_formats_download": [
+      [
+        "oform",
+        "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_tfr_2_scelta_destinazione_trattamento_rapporto.oform"
+      ],
+      [
+        "docxf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/docxf/modulo_tfr_2_scelta_destinazione_trattamento_rapporto.docxf"
+      ],
+      [
+        "pdf",
+        "https://oforms.onlyoffice.com/oforms-editor/it/pdf/modulo_tfr_2_scelta_destinazione_trattamento_rapporto.pdf"
+      ]
+    ],
+    "file_country_access": [
+      "IT"
+    ],
+    "file_type_access": "Free",
+    "file_link_changelog": "/file_link_changelog",
+    "file_pages": 2,
+    "file_size": "45,46 kb",
+    "file_last_update": "12 Marzo 2022",
+    "file_description": [
+      "Compila il modulo online e ottieni un modello compilabile di Modulo TFR 2 nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato.",
+      "Componi un Modello di Modulo TFR 2 se sei stato assunto dalla tua attuale azienda dopo il 31 dicembre del 2006, inserendo i dati anagrafici."
+    ],
+    "link_oform_filling_file": "https://oforms.onlyoffice.com/oforms-editor/it/oform/modulo_tfr_2_scelta_destinazione_trattamento_rapporto.oform",
+    "seo": {
+      "title": "Modulo TFR 2",
+      "description": "Compila il modulo online e ottieni un modello compilabile di Modulo TFR 2 nel formato a scelta: DOCX, DOCXF, OFORM e PDF o semplicemente scarica fac simile del documento desiderato."
+    },
+    "description_card": "Compila il modulo online e ottieni un modello compilabile di Modulo TFR 2 per i lavoratori o scarica fac simile."
   }
 ]

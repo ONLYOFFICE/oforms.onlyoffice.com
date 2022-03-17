@@ -11,8 +11,8 @@ import ShortCard from "./short-card";
 import array_item from "./items";
 
 const InfoContent = ({ t, currentLanguage, ...rest }) => {
-  let tmp = currentLanguage === "en" ? 0 : 1;
- let lng = currentLanguage === "en" ? "" : `/${currentLanguage}`;
+  let tmp = currentLanguage === "en" ? 0 : currentLanguage === "zh" ? 1 : 2;
+  let lng = currentLanguage === "en" ? "" : `/${currentLanguage}`;
   return (
     <StyledInfoContent
       background="#333333"

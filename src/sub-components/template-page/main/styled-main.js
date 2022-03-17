@@ -217,7 +217,6 @@ const StyledMainInfo = styled(Section)`
     .main-info-box {
       padding-top: 26px;
       justify-content: space-between;
-      max-width: 360px;
       gap: 16px;
       align-items: flex-start;
       justify-content: flex-start;

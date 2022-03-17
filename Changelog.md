@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3
+
+### New
+* Added Italian localization and forms
 
 ## 1.0.2
 
