@@ -1,5 +1,4 @@
 import React from "react";
-import Config from "../../static/data/config.json";
 
 import Text from "../text";
 import Button from "../button";
@@ -9,10 +8,9 @@ import Link from "./sub-components/link";
 import Image from "./sub-components/image";
 
 const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
-  const checkConfigImg = Config.IMGSRC || "http://localhost:1337"
   const { attributes } = arrayItems;
   const { name_form, description_card, card_prewiew, file_oform } = attributes;
-  const imgUrlCard = checkConfigImg + card_prewiew.data?.attributes?.url;
+  const imgUrlCard = card_prewiew.data?.attributes?.url;
   let oformFile;
   file_oform?.data?.filter((it) => {
     let checkFormatFile = it?.attributes.url.split(".")[1] === "oform";

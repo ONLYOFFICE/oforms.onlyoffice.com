@@ -29,18 +29,17 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
     file_size,
   } = attributes;
 
-  const checkConfigImg = Config.IMGSRC || "http://localhost:1337";
-  const imgUrlCard = checkConfigImg + template_image.data?.attributes?.url;
+  const imgUrlCard = template_image.data?.attributes?.url;
   let oformFile, docxfFile, pdfFile;
 
   oformFile = file_oform?.data?.filter((it) => {
-    return it?.attributes.url.split(".")[1] === "oform";
+    return it?.attributes.name.split(".")[1] === "oform";
   });
   pdfFile = file_oform?.data?.filter((it) => {
-    return it?.attributes.url.split(".")[1] === "pdf";
+    return it?.attributes.name.split(".")[1] === "pdf";
   });
   docxfFile = file_oform?.data?.filter((it) => {
-    return it?.attributes.url.split(".")[1] === "docxf";
+    return it?.attributes.name.split(".")[1] === "docxf";
   });
 
   const file_description = template_desc.split("\n");

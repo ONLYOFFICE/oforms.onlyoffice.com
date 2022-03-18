@@ -22,6 +22,8 @@ const CustomQueryStringComponent = ({ search }) => {
                 file_oform {
                   data {
                     attributes {
+                      hash
+                      ext
                       name
                       url
                     }
@@ -49,14 +51,15 @@ const CustomQueryStringComponent = ({ search }) => {
     }
   });
 
-  const name = itemsId?.attributes.name_form;
-  const id = index;
   const link_file = itemsId?.attributes.file_oform?.data;
-  let oformFile;
-  link_file?.filter((it) => {
-    let checkFormatFile = it?.attributes.name.split(".")[1] === "oform";
-    oformFile = checkFormatFile ? it?.attributes?.name : null;
+  let oformFile = link_file?.filter((it) => {
+    return it?.attributes.name.split(".")[1] === "oform";
   });
+
+  let title = oformFile !== undefined && oformFile[0]?.attributes?.name;
+  let urlOform =
+    oformFile !== undefined &&
+    oformFile[0]?.attributes?.hash + oformFile[0]?.attributes?.ext;
 
   const srcWebAppAPI =
     (config.docEditorUrl || "http://localhost") +
@@ -78,7 +81,10 @@ const CustomQueryStringComponent = ({ search }) => {
       }
     }
   };
-  return name !== undefined && oformFile !== undefined ? (
+
+  const checkFile = urlOform !== false && title !== false;
+  
+  return checkFile ? (
     <>
       <Helmet onChangeClientState={handleChangeClientState}>
         {typeof window !== "undefined" && typeof myScript === "undefined" && (
@@ -86,9 +92,8 @@ const CustomQueryStringComponent = ({ search }) => {
         )}
       </Helmet>
       <DocEditorAPI
-        name={name}
-        link_file={oformFile}
-        id={id}
+        title={title}
+        urlOform={urlOform}
         scriptLoaded={scriptLoaded}
       />
     </>

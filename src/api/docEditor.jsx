@@ -14,19 +14,14 @@ const StyledPlaceholder = styled.div`
   top: 0;
 `;
 
-const DocEditorAPI = ({ name, link_file, scriptLoaded }) => {
-  const IdDivPlaceholder = name
-    .replace(/\s/g, "-")
-    .replace(/[{()}]/g, "")
-    .toLowerCase();
-
+const DocEditorAPI = ({ title, urlOform, scriptLoaded }) => {
   const urlAPI = Config.api.cms || "http://localhost:1337";
-  const API = `${urlAPI}/api/config?title=${IdDivPlaceholder}&url=${link_file}`;
+  const API = `${urlAPI}/api/config?title=${title}&url=${urlOform}`;
   const [config, setConfig] = useState();
   const [check, setCheck] = useState(false);
 
   useEffect(() => {
-    if (name !== undefined && link_file !== undefined) {
+    if (title !== undefined && urlOform !== undefined) {
       axios
         .get(API)
         .then((res) => {
@@ -46,12 +41,12 @@ const DocEditorAPI = ({ name, link_file, scriptLoaded }) => {
     <>
       <Helmet>
         <script defer type="text/javascript">
-          {`(window.docEditor = new DocsAPI.DocEditor("${IdDivPlaceholder}", ${config}))`}
+          {`(window.docEditor = new DocsAPI.DocEditor("${title}", ${config}))`}
         </script>
       </Helmet>
       <Portal>
         <StyledPlaceholder>
-          <div id={IdDivPlaceholder} style={{ height: "100%" }} />
+          <div id={title} style={{ height: "100%" }} />
         </StyledPlaceholder>
       </Portal>
     </>

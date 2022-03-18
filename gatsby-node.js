@@ -3,8 +3,8 @@ const axios = require("axios");
 const fs = require("fs");
 
 exports.onPreInit = async () => {
-  const { url } = api;
-  let urlReq = url !== "" ? url : "http://localhost:1337";
+  const { cms } = api;
+  let urlReq = cms || "http://localhost:1337";
   const data = await axios
     .get(`${urlReq}/api/oforms?populate=*&locale=all`)
     .then((resp) => {
