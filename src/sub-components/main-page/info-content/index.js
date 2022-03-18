@@ -11,7 +11,6 @@ import ShortCard from "./short-card";
 import array_item from "./items";
 
 const InfoContent = ({ t, currentLanguage, ...rest }) => {
-  let tmp = currentLanguage === "en" ? 0 : currentLanguage === "zh" ? 1 : 2;
   let lng = currentLanguage === "en" ? "" : `/${currentLanguage}`;
   return (
     <StyledInfoContent
@@ -36,7 +35,7 @@ const InfoContent = ({ t, currentLanguage, ...rest }) => {
           className="scrollbar-items-content"
           style={{ width: 1140, height: 250 }}
         >
-          {array_item[tmp].map((it, idx) => {
+          {array_item[currentLanguage]?.map((it, idx) => {
             let href = it.title
               .replace(/\s/g, "-")
               .replace(/[{()}]/g, "")

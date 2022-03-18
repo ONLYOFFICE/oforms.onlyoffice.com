@@ -8,29 +8,37 @@ import SearchResult from "./search-result";
 const SearchContent = ({ t }) => {
   const data = useStaticQuery(graphql`
     {
-      allDefJson {
-        totalCount
-        nodes {
-          name
+      allDataJson {
+        edges {
+          node {
+            data {
+              id
+              attributes {
+                name_form
+              }
+            }
+          }
         }
       }
     }
   `);
 
-  const searchDataItems = data.allDefJson.nodes;
+  const searchDataItems = data?.allDataJson?.edges[1].node.data;
 
   const [focusOnSearch, setFocusOnSearch] = useState(false);
   const [searchItem, setSearchItem] = useState("");
   const [resultSearch, setResultSearch] = useState([]);
 
   const searchFilter = () => {
-    const tmpResultSearch = searchDataItems.filter(({ name }) => {
-      if (name.toLowerCase().includes(searchItem.toLowerCase())) {
-        return { ...name };
+    let tmpArray = [];
+    searchDataItems.filter(({ attributes }) => {
+      let { name_form } = attributes;
+      if (name_form.toLowerCase().includes(searchItem.toLowerCase())) {
+        tmpArray.push({ ...attributes });
       }
     });
     if (searchItem !== "") {
-      setResultSearch(tmpResultSearch);
+      setResultSearch(tmpArray);
       setFocusOnSearch(true);
     } else {
       setResultSearch(null);

@@ -1,5 +1,4 @@
 import React from "react";
-import Config from "../../static/data/config.json";
 
 import Text from "../text";
 import Button from "../button";
@@ -9,10 +8,16 @@ import Link from "./sub-components/link";
 import Image from "./sub-components/image";
 
 const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
-  const { file_formats_download, file_image, name, description_card } =
-    arrayItems;
+  const { attributes } = arrayItems;
+  const { name_form, description_card, card_prewiew, file_oform } = attributes;
+  const imgUrlCard = card_prewiew.data?.attributes?.url;
+  let oformFile;
+  file_oform?.data?.filter((it) => {
+    let checkFormatFile = it?.attributes.url.split(".")[1] === "oform";
+    oformFile = checkFormatFile ? it?.attributes?.url : null;
+  });
 
-  const linkFillForm = name
+  const linkFillForm = name_form
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
     .toLowerCase();
@@ -20,15 +25,12 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
     currentLanguage === "en"
       ? `/${linkFillForm}`
       : `/${currentLanguage}/${linkFillForm}`;
-  const ImageSrc = `/images/oforms/en/card/${file_image}`;
   const QueryLink = `/editor?fillform=${linkFillForm}`;
-  const DWNLINK = file_formats_download.filter((it) => !it.indexOf("oform"));
-  const dwnFile = DWNLINK[0][1];
 
   return (
     <StyledCard {...rest}>
       <Link href={pathName}>
-        <Image className="image-template" src={ImageSrc} />
+        <Image className="image-template" src={imgUrlCard} />
       </Link>
       <Box
         className="card-template"
@@ -37,9 +39,9 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
       >
         <Link
           className="title-template text-overflow-templapte"
-          title={name}
+          title={name_form}
           href={pathName}
-          label={name}
+          label={name_form}
         />
         <Text
           className="subtitle-template text-overflow-templapte"
@@ -53,7 +55,7 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
             label={t("FillOut")}
           />
         </Link>
-        <Link href={dwnFile} download>
+        <Link href={oformFile} download>
           <Button
             isScale
             className="download-btn-template"

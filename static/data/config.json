@@ -1,9 +1,10 @@
 {
     "defaultLanguage": "en",
-    "IMGSRC": "/images/oforms/en/",
+    "IMGSRC": "https://s3.us-west-2.amazonaws.com/cmsoforms.onlyoffice.com",
     "localStorageCarousel": "arrayCaroselClientSideItemsOforms",
     "docEditorUrl": "https://kim.teamlab.info",
     "api": {
+        "cms": "https://cmsoforms.onlyoffice.com",
         "url": "",
         "timeout": "30000"
     },

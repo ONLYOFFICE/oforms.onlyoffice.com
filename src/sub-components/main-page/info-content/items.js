@@ -67,6 +67,6 @@ const it = [
   },
 ];
 
-const array_item = [en, zh, it];
+const array_item = { en: en, zh: zh, it: it };
 
 export default array_item;

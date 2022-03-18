@@ -5,47 +5,59 @@ import withLocation from "../hooks/hoc";
 import { useStaticQuery, graphql } from "gatsby";
 
 import config from "../../static/data/config.json";
-import def from "../../static/data/def.json";
 
 import DocEditorAPI from "./docEditor";
 
 const CustomQueryStringComponent = ({ search }) => {
   const { fillform } = search;
-  // const data = useStaticQuery(graphql`
-  //   {
-  //     allDefJson {
-  //       totalCount
-  //       nodes {
-  //         file_categories
-  //         file_last_update
-  //         file_description
-  //         file_formats_download
-  //         file_country_access
-  //         file_image
-  //         link_oform_filling_file
-  //         name
-  //         jsonId
-  //       }
-  //     }
-  //   }
-  // `);
+  const data = useStaticQuery(graphql`
+    {
+      allDataJson {
+        edges {
+          node {
+            data {
+              id
+              attributes {
+                name_form
+                file_oform {
+                  data {
+                    attributes {
+                      hash
+                      ext
+                      name
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `);
 
-  const allItems = def;
+  const allItems = data?.allDataJson?.edges[1].node.data;
 
-  let index;
-  const itemsId = allItems.find((it, idx) => {
-    const pathName = it.name
+  const itemsId = allItems?.find(({ attributes }, idx) => {
+    const pathName = attributes.name_form
       .replace(/\s/g, "-")
       .replace(/[{()}]/g, "")
       .toLowerCase();
     if (pathName === fillform) {
-      index = it.id;
-      return it;
+      return { ...attributes };
     }
   });
-  const name = itemsId?.name;
-  const id = index;
-  const link_file = itemsId?.link_oform_filling_file;
+
+  const link_file = itemsId?.attributes.file_oform?.data;
+  let oformFile = link_file?.filter((it) => {
+    return it?.attributes.name.split(".")[1] === "oform";
+  });
+
+  let title = oformFile !== undefined && oformFile[0]?.attributes?.name;
+  let urlOform =
+    oformFile !== undefined &&
+    oformFile[0]?.attributes?.hash + oformFile[0]?.attributes?.ext;
 
   const srcWebAppAPI =
     (config.docEditorUrl || "http://localhost") +
@@ -68,7 +80,9 @@ const CustomQueryStringComponent = ({ search }) => {
     }
   };
 
-  return name !== undefined && id !== undefined ? (
+  const checkFile = urlOform !== false && title !== false;
+  
+  return checkFile ? (
     <>
       <Helmet onChangeClientState={handleChangeClientState}>
         {typeof window !== "undefined" && typeof myScript === "undefined" && (
@@ -76,9 +90,8 @@ const CustomQueryStringComponent = ({ search }) => {
         )}
       </Helmet>
       <DocEditorAPI
-        name={name}
-        link_oform_filling_file={link_file}
-        id={id}
+        title={title}
+        urlOform={urlOform}
         scriptLoaded={scriptLoaded}
       />
     </>

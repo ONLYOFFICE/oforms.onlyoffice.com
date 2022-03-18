@@ -1,6 +1,5 @@
 import React from "react";
 import { ReactSVG } from "react-svg";
-import { Trans } from "gatsby-plugin-react-i18next";
 
 import StyledFormBanner from "./styled-form-banner";
 

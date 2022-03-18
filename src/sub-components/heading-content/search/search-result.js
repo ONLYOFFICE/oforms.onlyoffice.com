@@ -20,15 +20,15 @@ const SearchResult = ({
         <StyledResultSearch onMouseLeave={onMouseLeaveSearchResult}>
           <div className="result-search">
             {lengthResultSearchArray.length !== 0 ? (
-              lengthResultSearchArray.map(({ name }, id) => {
-                const href = name
+              lengthResultSearchArray.map(({ name_form }, id) => {
+                const href = name_form
                   .replace(/\s/g, "-")
                   .replace(/[{()}]/g, "")
                   .toLowerCase();
                 return (
                   <Link
                     className="item-result-search"
-                    label={name}
+                    label={name_form}
                     href={href}
                     key={`key-item-${id}`}
                   />
