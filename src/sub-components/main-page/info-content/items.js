@@ -44,6 +44,29 @@ const zh = [
   },
 ];
 
-const array_item = [en, zh];
+const it = [
+  {
+    title: "Modello 21",
+    subtitle: "Legale",
+    linkUrl: "/modello-21",
+  },
+  {
+    title: "Modello A1",
+    subtitle: "Risorse umane",
+    linkUrl: "/modello-a1",
+  },
+  {
+    title: "Modello Delega generico",
+    subtitle: "Ammnistrativo",
+    linkUrl: "/modello-delega-generico",
+  },
+  {
+    title: "Modello preventivo",
+    subtitle: "Finanziario",
+    linkUrl: "/modello-preventivo",
+  },
+];
+
+const array_item = { en: en, zh: zh, it: it };
 
 export default array_item;

@@ -6,7 +6,6 @@ import line from "../../../../../static/icons/line.svg";
 
 import Box from "../../../../../components/box";
 import Link from "../../../../../components/internal-link";
-import Text from "../../../../../components/text";
 
 const StyledBreadcrumb = styled(Box)`
   gap: 10px;

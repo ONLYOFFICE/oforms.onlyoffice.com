@@ -1,6 +1,5 @@
 import React from "react";
 import { ReactSVG } from "react-svg";
-import Config from "../../../../static/data/config.json";
 
 import Link from "../../../../components/link";
 import Button from "../../../../components/button";

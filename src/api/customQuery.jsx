@@ -39,14 +39,12 @@ const CustomQueryStringComponent = ({ search }) => {
 
   const allItems = data?.allDataJson?.edges[1].node.data;
 
-  let index;
   const itemsId = allItems?.find(({ attributes }, idx) => {
     const pathName = attributes.name_form
       .replace(/\s/g, "-")
       .replace(/[{()}]/g, "")
       .toLowerCase();
     if (pathName === fillform) {
-      index = idx;
       return { ...attributes };
     }
   });
