@@ -2,7 +2,7 @@
     "defaultLanguage": "en",
     "IMGSRC": "https://s3.us-west-2.amazonaws.com/cmsoforms.onlyoffice.com",
     "localStorageCarousel": "arrayCaroselClientSideItemsOforms",
-    "docEditorUrl": "https://kim.teamlab.info",
+    "docEditorUrl": "https://doc.onlyoffice.com",
     "api": {
         "cms": "https://cmsoforms.onlyoffice.com",
         "url": "",
