@@ -11,11 +11,11 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
   const { attributes } = arrayItems;
   const { name_form, description_card, card_prewiew, file_oform } = attributes;
   const imgUrlCard = card_prewiew.data?.attributes?.url;
-  let oformFile;
-  file_oform?.data?.filter((it) => {
-    let checkFormatFile = it?.attributes.url.split(".")[1] === "oform";
-    oformFile = checkFormatFile ? it?.attributes?.url : null;
+  let oformFile = file_oform?.data?.filter((it) => {
+    let checkFormatFile = it?.attributes.name.split(".")[1] === "oform";
+    return checkFormatFile ? it?.attributes?.url : null;
   });
+  let urlOform = oformFile[0]?.attributes?.url;
 
   const linkFillForm = name_form
     .replace(/\s/g, "-")
@@ -55,7 +55,7 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
             label={t("FillOut")}
           />
         </Link>
-        <Link href={oformFile} download>
+        <Link href={urlOform} download>
           <Button
             isScale
             className="download-btn-template"
