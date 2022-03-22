@@ -21,7 +21,7 @@ const InfoContent = ({ t, currentLanguage, ...rest }) => {
       {...rest}
     >
       <Heading className="heading-info-content">
-        <span style={{ color: "#FF6F3D" }}>{t("OFORMS")}:</span>
+        <span style={{ color: "#FF6F3D" }}>{t("OFORMS")}: </span>
         {t("FREEforms")}
       </Heading>
       <Text className="description-info-content" label={t("FillOutTheForms")} />
