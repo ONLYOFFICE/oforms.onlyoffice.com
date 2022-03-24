@@ -67,6 +67,29 @@ const it = [
   },
 ];
 
-const array_item = { en: en, zh: zh, it: it };
+const fr = [
+  {
+    title: "formulaire CV",
+    subtitle: "Emploi",
+    linkUrl: "/formulaire-cv",
+  },
+  {
+    title: "Formulaire facture",
+    subtitle: "Ventes",
+    linkUrl: "/formulaire-facture",
+  },
+  {
+    title: "Formulaire devis",
+    subtitle: "Ventes",
+    linkUrl: "/formulaire-devis",
+  },
+  {
+    title: "Formulaire certificat de travail",
+    subtitle: "Ressources humaines",
+    linkUrl: "/formulaire-certificat-de-travail",
+  },
+];
+
+const array_item = { en: en, zh: zh, it: it, fr: fr };
 
 export default array_item;

@@ -60,7 +60,7 @@
   "OpenAndFill": "打开并填写",
   "DownloadAs": "下载为",
   "Share": "分享",
-  "HowToCreateATemplate": "如何在ONLYOFFICE中创建{{price}} {{labelName}} ",
+  "HowToCreateATemplate": "如何在ONLYOFFICE中创建 {{labelName}} ",
   "HeadingBannerLink": "{{price}}",
   "HeadingBannerlabelName": "{{labelName}}",
   "ClickFillOut": "点击'填写'启动在线表单编辑器",
