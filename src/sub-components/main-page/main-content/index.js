@@ -209,6 +209,7 @@ const MainContent = ({ t, currentLanguage, count, ...rest }) => {
       {...rest}
     >
       <Heading
+        level={2}
         className="heading-cards"
         textAlign="center"
         label={t("AllForms")}
