@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledSelector = styled.div`
-  width: 205px;
+  /* width: 205px; */
   display: flex;
   flex-direction: row;
   justify-content: end;

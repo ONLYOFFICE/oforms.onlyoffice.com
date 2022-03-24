@@ -18,5 +18,15 @@
     "key": "fr-FR",
     "shortKey": "fr",
     "iconName": "fr.svg"
+  },
+  {
+    "key": "de-DE",
+    "shortKey": "de",
+    "iconName": "de.svg"
+  },
+  {
+    "key": "es-ES",
+    "shortKey": "es",
+    "iconName": "es.svg"
   }
 ]
