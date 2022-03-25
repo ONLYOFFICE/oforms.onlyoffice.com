@@ -1,4 +1,5 @@
 import React from "react";
+import { GatsbyImage } from "gatsby-plugin-image";
 
 const Image = (props) => {
   const { alt, src, ...rest } = props;
@@ -17,4 +18,18 @@ const Image = (props) => {
   );
 };
 
-export default Image;
+const GbImage = ({ className, urlForm, idForm }) => {
+  return (
+    <GatsbyImage
+      image={urlForm}
+      src={urlForm}
+      alt="image"
+      className={className}
+      layout="constrained"
+      objectFit="contain"
+      quality={100}
+    />
+  );
+};
+
+export { GbImage, Image };
