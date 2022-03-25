@@ -18,6 +18,7 @@ const StyledCard = styled.div`
 
   .card-image {
     height: 368px;
+    weidth: 256px;
   }
 
   .image-template {
