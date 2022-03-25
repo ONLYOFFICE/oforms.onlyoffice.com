@@ -84,6 +84,16 @@ const mobileStyledMainInfo = css`
     line-height: 26px;
   }
   /** */
+
+  .template-main-img {
+    margin: 0 auto;
+    width: 90vw;
+    height: 545px;
+    .template-image {
+      width: 100%;
+      height: 100%;
+    }
+  }
 `;
 
 const tabletStyledMainInfo = css`
@@ -114,10 +124,9 @@ const tabletStyledMainInfo = css`
 
   .template-main-img {
     margin: 0 auto;
-    max-width: 544px;
     .template-image {
       width: 100%;
-      height: auto;
+      height: 100%;
     }
   }
 
@@ -162,6 +171,10 @@ const StyledMainInfo = styled(Section)`
       grid-column-end: 2;
       grid-row-start: 1;
       grid-row-end: 5;
+      .template-image {
+        width: 100%;
+        height: 100%;
+      }
     }
 
     .template-main-info {
@@ -225,13 +238,14 @@ const StyledMainInfo = styled(Section)`
 
   .template-main-img {
     margin: 0 auto;
-    max-width: 544px;
+    width: 544px;
+    height: 769px;
     .template-image {
       box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
       border: 1px solid #ccc;
       border-radius: 3px;
       width: 100%;
-      height: auto;
+      height: 100%;
     }
   }
 
@@ -248,7 +262,7 @@ const StyledMainInfo = styled(Section)`
     .file-info {
       align-items: stretch;
       justify-content: space-between;
-      max-width: 400px;
+      max-width: 455px;
       padding-bottom: 30px;
     }
 

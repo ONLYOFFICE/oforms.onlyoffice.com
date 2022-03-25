@@ -11,7 +11,7 @@ import Box from "../../../../components/box";
 import StyledMainInfo from "./styled-main";
 import Breadcrumb from "./sub-components/breadcrumb";
 import ShareButtonsGroup from "./sub-components/icon-buttons";
-import Image from "./sub-components/image";
+import { GbImage } from "./sub-components/image";
 
 // type access text
 import Oform from "../../../../static/icons/oform.svg";
@@ -41,7 +41,7 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
     return it?.attributes.name.split(".")[1] === "docxf";
   });
 
-  const file_description = template_desc.split("\n");
+  const file_description = template_desc?.split("\n");
 
   let dwnAs = t("DownloadAs");
   const array = [
@@ -50,13 +50,13 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
     { title: `${dwnAs} PDF`, href: pdfFile[0]?.attributes?.url },
   ];
 
-  const IMAGE_SRC = `${imgUrlCard}`;
   const SVG_FILE_TYPE = Oform;
   const linkFillForm = name_form
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
     .toLowerCase();
   const baseURL = typeof window !== "undefined" ? window.location.href : null;
+  const imgTemp = typeof window !== "undefined";
   const linkSuggestChanges = `mailto:marketing@onlyoffice.com?subject=Suggesting changes for Form ${name_form}&body=Suggesting changes for Form ${name_form}.`;
 
   return (
@@ -83,7 +83,13 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
         </Box>
       </div>
       <div className="template-main-img">
-        <Image src={IMAGE_SRC} />
+        {imgTemp && (
+          <GbImage
+            className="template-image"
+            urlForm={imgUrlCard}
+            idForm={data.id}
+          />
+        )}
       </div>
       <div className="template-main-description">
         <div className="file-description">

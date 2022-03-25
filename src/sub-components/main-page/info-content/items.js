@@ -90,6 +90,29 @@ const fr = [
   },
 ];
 
-const array_item = { en: en, zh: zh, it: it, fr: fr };
+const es = [
+  {
+    title: "Formulario ACREDITA",
+    subtitle: "Administrativo",
+    linkUrl: "/formulario-acredita",
+  },
+  {
+    title: "Formulario Albarán",
+    subtitle: "Ventas",
+    linkUrl: "/formulario-albarán",
+  },
+  {
+    title: "Formulario de desistimiento",
+    subtitle: "Asuntos legales",
+    linkUrl: "/formulario-de-desistimiento",
+  },
+  {
+    title: "Formulario de divorcio",
+    subtitle: "Uso privado",
+    linkUrl: "/formulario-de-divorcio",
+  },
+];
+
+const array_item = { en: en, zh: zh, it: it, fr: fr, es: es };
 
 export default array_item;

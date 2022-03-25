@@ -5,7 +5,7 @@ import Button from "../button";
 import Box from "../box";
 import StyledCard from "./styled-card";
 import Link from "./sub-components/link";
-import Image from "./sub-components/image";
+import { GbImage } from "./sub-components/image";
 
 const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
   const { attributes } = arrayItems;
@@ -16,6 +16,7 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
     return checkFormatFile ? it?.attributes?.url : null;
   });
   let urlOform = oformFile[0]?.attributes?.url;
+  const imgTemp = typeof window !== "undefined";
 
   const linkFillForm = name_form
     .replace(/\s/g, "-")
@@ -30,7 +31,7 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
   return (
     <StyledCard {...rest}>
       <Link href={pathName}>
-        <Image className="image-template" src={imgUrlCard} />
+        {imgTemp && <GbImage className="card-image" urlForm={imgUrlCard} />}
       </Link>
       <Box
         className="card-template"

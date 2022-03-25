@@ -89,8 +89,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   });
 
   const checkIfDuplicateExists = (arr) => {
-    // console.log(arr.filter((e, i, a) => a.indexOf(e) !== i))
-    // console.log(arr.length)
+    // console.log(arr.filter((e, i, a) => a.indexOf(e) !== i));
+    // console.log(arr.length);
     return new Set(arr).size !== arr.length;
   };
   if (checkIfDuplicateExists(pathNameTemplate)) {
