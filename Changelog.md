@@ -14,6 +14,12 @@
 * Changed tags in the menu header from h2 to span
 * For the heading "all forms" the tag h1 is replaced by h1
 
+
+## 1.0.3
+
+### New
+* Added Italian localization and forms
+
 ## 1.0.2
 
 ### New
