@@ -17,7 +17,7 @@ const Image = (props) => {
     />
   );
 };
-
+// constrained
 const GbImage = ({ className, urlForm, idForm }) => {
   return (
     <GatsbyImage
@@ -28,6 +28,8 @@ const GbImage = ({ className, urlForm, idForm }) => {
       layout="constrained"
       objectFit="contain"
       quality={100}
+      height={756}
+      width={544}
     />
   );
 };

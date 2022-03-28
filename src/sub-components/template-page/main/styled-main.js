@@ -87,11 +87,19 @@ const mobileStyledMainInfo = css`
 
   .template-main-img {
     margin: 0 auto;
-    width: 90vw;
-    height: 545px;
+    ${
+      "" /* width: 90vw;
+    height: 100%;
+    .template-image {
+      width: 90vw;
+      height: 100%;
+    } */
+    }
+    width: 100%;
+    height: auto;
     .template-image {
       width: 100%;
-      height: 100%;
+      height: 80vh;
     }
   }
 `;
@@ -210,6 +218,30 @@ const StyledMainInfo = styled(Section)`
 
     @media ${device.mobile} {
       ${mobileStyledMainInfo};
+    }
+
+    @media ${device.mobileL} {
+      .template-main-img {
+        .template-image {
+          height: 60vh;
+        }
+      }
+    }
+    @media ${device.mobileM} {
+      .template-main-img {
+        .template-image {
+          height: 50vh;
+        }
+      }
+    }
+
+    @media ${device.mobileS} {
+      .template-main-img {
+        .template-image {
+          width: 100%;
+          height: 400px;
+        }
+      }
     }
   }
 

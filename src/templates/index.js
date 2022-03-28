@@ -110,7 +110,7 @@ const Template = ({ config, data, pageContext, ...rest }) => {
   const randomCardForms = _randomslice(lngCardForms, maxItemsRandomCardForms);
 
   const headingRentForms = (
-    <Heading as="h3" fontSize="24px">
+    <Heading level={3} fontSize="24px">
       <Trans i18nKey="OtherLeaseRentForms">
         {" "}
         <Heading
@@ -125,7 +125,7 @@ const Template = ({ config, data, pageContext, ...rest }) => {
   );
 
   const headingRecentlyViewed = (
-    <Heading as="h3" fontSize="24px">
+    <Heading level={3} fontSize="24px">
       <Trans i18nKey="RecentlyViewed">
         {" "}
         <Heading
