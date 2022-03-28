@@ -18,7 +18,7 @@ const StyledCard = styled.div`
 
   .card-image {
     height: 368px;
-    weidth: 256px;
+    width: 256px;
   }
 
   .image-template {
@@ -91,6 +91,15 @@ const StyledCard = styled.div`
     }
   }
 
+  @media (max-width: 1024px) {
+    .card-image {
+      height: 100%;
+      width: 100%;
+      /* width: 290px;
+      height: 420px; */
+    }
+  }
+
   @media (max-width: 768px) {
     .title-template {
       font-size: 14px;
@@ -98,9 +107,11 @@ const StyledCard = styled.div`
   }
 
   @media (max-width: 500px) {
-    max-width: 168px;
+    /* max-width: 168px; */
     .card-image {
-      height: 410px;
+      /* height: 410px; */
+      /* width: 290px;
+      height: 420px; */
     }
     .image-template {
       box-sizing: border-box;

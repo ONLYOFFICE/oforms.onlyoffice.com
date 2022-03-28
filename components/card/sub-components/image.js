@@ -10,8 +10,8 @@ const Image = styled.img`
 
 const GbImage = ({ className, urlForm, idForm }) => {
   return (
-    <GatsbyImage
-      image={urlForm}
+    <img
+      srcSet={urlForm}
       src={urlForm}
       alt="image"
       className={className}
