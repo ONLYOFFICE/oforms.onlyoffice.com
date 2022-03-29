@@ -5,6 +5,7 @@ const StyledCard = styled.div`
   flex-direction: column;
   justify-items: stretch;
   max-width: 256px;
+  max-height: 629px;
   box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.07);
   background-color: #f9f9f9;
   border-radius: 3px;
