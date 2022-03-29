@@ -62,9 +62,9 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
   return (
     <StyledMainInfo maxWidth="1200px" background="#F9F9F9" {...rest}>
       <div className="template-main-info">
-        <Breadcrumb language={language} name={name_form} />
+        <Breadcrumb language={language} name={name_form} t={t}/>
         <Heading className="main-info-heading" label={name_form} />
-        <Text isBold className="main-info-type-item" label={"Free"} />
+        <Text isBold className="main-info-type-item" label={t("Free")} />
         <Box className="main-info-box">
           <div className="main-info-box-tt">
             <Text

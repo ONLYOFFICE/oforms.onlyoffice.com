@@ -155,7 +155,12 @@ const AccordionContent = ({ t, currentLanguage }) => {
           {AccordionDescriptionFindTheTemplate}
         </AccordionItem>
         <AccordionItem heading={t("AccordionHeadingPossibleToEmbed")}>
-          {AccordionDescriptionFindTheTemplate}
+          {t("AccordionDescriptionPossibleToEmbed")}
+          <Link
+            className="link-trans-acc"
+            label="marketing@onlyoffice.com"
+            href="mailto:marketing@onlyoffice.com"
+          />
         </AccordionItem>
         <AccordionItem heading={t("AccordionHeadingCouldn’tFindTheAnswer")}>
           {AccordionDescriptionCouldntFindTheAnswer}

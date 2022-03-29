@@ -85,6 +85,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     return `/${pathNodeName
       .replace(/\s/g, "-")
       .replace(/[{()}]/g, "")
+      .replace("/", "-")
       .toLowerCase()}`;
   });
 

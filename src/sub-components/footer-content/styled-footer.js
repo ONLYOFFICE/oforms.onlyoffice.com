@@ -67,7 +67,7 @@ const StyledFooter = styled.div`
     display: -ms-inline-grid;
     grid-template-columns: 0.8fr 0.8fr 0.8fr 1fr;
     -ms-grid-columns: 0.8fr 32px 0.8fr 32px 0.8fr 32px 1fr;
-    grid-column-gap: 32px; 
+    grid-column-gap: 15px; 
     
     .footer-item-group {
         position: relative;

@@ -12,7 +12,7 @@
 * Changed html tags in image preview/cards
 * Moved old forms to cms
 * Changed tags in the menu header from h2 to span
-* For the heading "all forms" the tag h1 is replaced by h1
+* For the heading "all forms" the tag h1 is replaced by h2
 
 
 ## 1.0.3
