@@ -5,11 +5,15 @@
 /.pnp
 .pnp.js
 
+# .vscode
+.vscode
+
 # testing
 /coverage
-/static
+
 # production
 /build
+ignore.md
 
 # misc
 .DS_Store
@@ -38,3 +42,5 @@ node_modules
 
 # gatsby build bundle
 /public/
+/oforms/
+/static/data/reqdata.json
