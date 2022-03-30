@@ -43,6 +43,7 @@ const CustomQueryStringComponent = ({ search }) => {
     const pathName = attributes.name_form
       .replace(/\s/g, "-")
       .replace(/[{()}]/g, "")
+      .replace("/", "-")
       .toLowerCase();
     if (pathName === fillform) {
       return { ...attributes };

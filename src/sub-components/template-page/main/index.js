@@ -54,6 +54,7 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
   const linkFillForm = name_form
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
+    .replace("/", "-")
     .toLowerCase();
   const baseURL = typeof window !== "undefined" ? window.location.href : null;
   const imgTemp = typeof window !== "undefined";
