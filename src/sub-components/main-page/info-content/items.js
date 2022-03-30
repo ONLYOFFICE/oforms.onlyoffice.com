@@ -69,7 +69,7 @@ const it = [
 
 const fr = [
   {
-    title: "formulaire CV",
+    title: "Formulaire CV",
     subtitle: "Emploi",
     linkUrl: "/formulaire-cv",
   },
