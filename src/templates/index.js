@@ -142,6 +142,7 @@ const Template = ({ config, data, pageContext, ...rest }) => {
   const linkFillForm = allCardFormsName
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
+    .replace("/", "-")
     .toLowerCase();
 
   return (

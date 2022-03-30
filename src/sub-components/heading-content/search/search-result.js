@@ -24,6 +24,7 @@ const SearchResult = ({
                 const href = name_form
                   .replace(/\s/g, "-")
                   .replace(/[{()}]/g, "")
+                  .replace("/", "-")
                   .toLowerCase();
                 return (
                   <Link

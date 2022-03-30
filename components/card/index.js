@@ -21,6 +21,7 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
   const linkFillForm = name_form
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
+    .replace("/", "-")
     .toLowerCase();
   const pathName =
     currentLanguage === "en"
