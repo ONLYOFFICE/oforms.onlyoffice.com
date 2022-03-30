@@ -43,3 +43,4 @@ node_modules
 # gatsby build bundle
 /public/
 /oforms/
+/static/data/reqdata.json

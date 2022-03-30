@@ -67,6 +67,52 @@ const it = [
   },
 ];
 
-const array_item = [en, zh, it];
+const fr = [
+  {
+    title: "Formulaire CV",
+    subtitle: "Emploi",
+    linkUrl: "/formulaire-cv",
+  },
+  {
+    title: "Formulaire facture",
+    subtitle: "Ventes",
+    linkUrl: "/formulaire-facture",
+  },
+  {
+    title: "Formulaire devis",
+    subtitle: "Ventes",
+    linkUrl: "/formulaire-devis",
+  },
+  {
+    title: "Formulaire certificat de travail",
+    subtitle: "Ressources humaines",
+    linkUrl: "/formulaire-certificat-de-travail",
+  },
+];
+
+const es = [
+  {
+    title: "Formulario ACREDITA",
+    subtitle: "Administrativo",
+    linkUrl: "/formulario-acredita",
+  },
+  {
+    title: "Formulario Albarán",
+    subtitle: "Ventas",
+    linkUrl: "/formulario-albarán",
+  },
+  {
+    title: "Formulario de desistimiento",
+    subtitle: "Asuntos legales",
+    linkUrl: "/formulario-de-desistimiento",
+  },
+  {
+    title: "Formulario de divorcio",
+    subtitle: "Uso privado",
+    linkUrl: "/formulario-de-divorcio",
+  },
+];
+
+const array_item = { en: en, zh: zh, it: it, fr: fr, es: es };
 
 export default array_item;

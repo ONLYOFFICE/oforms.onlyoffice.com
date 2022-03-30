@@ -29,21 +29,19 @@ const Template = ({ config, data, pageContext, ...rest }) => {
 
   const { pathName } = pageContext;
   const MainData = pageContext.data;
-  const { seo } = pageContext.data;
-  const { title, description } = seo;
+  const { seo_title, seo_description } = MainData.attributes;
 
-  const { allDefJson } = data;
-  const allCardForms = allDefJson.nodes;
-  const allCardFormsName = MainData.name;
-  const allCardFormsPrice = MainData.file_type_access;
+  const { allDataJson } = data;
+  const allCardForms = allDataJson?.edges[1].node.data;
+  const allCardFormsName = MainData.attributes.name_form;
+  const allCardFormsPrice = MainData.attributes.locale;
 
   // Carousel client data
   const maxItemsClientCardForms = 7;
   // Retrieves the string and converts it to a JavaScript object
   const localStorageTmp = MainData;
   const retrievedString =
-    typeof window !== "undefined" &&
-    getCookie(CAROUSEL_COOKIE) !== undefined
+    typeof window !== "undefined" && getCookie(CAROUSEL_COOKIE) !== undefined
       ? localStorage.getItem(nameLocalStorage)
       : undefined;
   retrievedString === undefined &&
@@ -103,16 +101,16 @@ const Template = ({ config, data, pageContext, ...rest }) => {
   };
 
   const maxItemsRandomCardForms = 7;
-  const curLang = language === "en" ? "US" : language;
-  const lngCardForms = allCardForms.filter(({ file_country_access }) => {
-    if (file_country_access[0].toLowerCase() === curLang.toLowerCase()) {
-      return { ...file_country_access };
+  const lngCardForms = allCardForms?.filter(({ attributes }) => {
+    let { locale } = attributes;
+    if (locale.toLowerCase() === language.toLowerCase()) {
+      return { ...attributes };
     }
   });
   const randomCardForms = _randomslice(lngCardForms, maxItemsRandomCardForms);
 
   const headingRentForms = (
-    <Heading as="h3" fontSize="24px">
+    <Heading level={3} fontSize="24px">
       <Trans i18nKey="OtherLeaseRentForms">
         {" "}
         <Heading
@@ -127,7 +125,7 @@ const Template = ({ config, data, pageContext, ...rest }) => {
   );
 
   const headingRecentlyViewed = (
-    <Heading as="h3" fontSize="24px">
+    <Heading level={3} fontSize="24px">
       <Trans i18nKey="RecentlyViewed">
         {" "}
         <Heading
@@ -144,16 +142,17 @@ const Template = ({ config, data, pageContext, ...rest }) => {
   const linkFillForm = allCardFormsName
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
+    .replace("/", "-")
     .toLowerCase();
 
   return (
     <Layout {...rest}>
       <Layout.PageHead>
         <HeadSEO
-          title={title}
-          metaDescription={description}
-          metaDescriptionOg={description}
-          metaKeywords={title}
+          title={seo_title}
+          metaDescription={seo_description}
+          metaDescriptionOg={seo_description}
+          metaKeywords={seo_title}
         />
       </Layout.PageHead>
       <Layout.PageHeader>
@@ -221,18 +220,47 @@ export const query = graphql`
         }
       }
     }
-    allDefJson {
-      totalCount
-      nodes {
-        file_categories
-        file_last_update
-        file_description
-        file_formats_download
-        file_country_access
-        file_image
-        link_oform_filling_file
-        description_card
-        name
+    allDataJson {
+      edges {
+        node {
+          data {
+            id
+            attributes {
+              card_prewiew {
+                data {
+                  attributes {
+                    url
+                  }
+                }
+              }
+              description_card
+              file_oform {
+                data {
+                  attributes {
+                    name
+                    url
+                  }
+                }
+              }
+              locale
+              name_form
+              template_desc
+              template_image {
+                data {
+                  attributes {
+                    url
+                    name
+                  }
+                }
+              }
+              file_last_update
+              file_pages
+              file_size
+              seo_description
+              seo_title
+            }
+          }
+        }
       }
     }
   }

@@ -1,6 +1,5 @@
 import React from "react";
 import { ReactSVG } from "react-svg";
-import Config from "../../../../static/data/config.json";
 
 import Link from "../../../../components/link";
 import Button from "../../../../components/button";
@@ -12,48 +11,61 @@ import Box from "../../../../components/box";
 import StyledMainInfo from "./styled-main";
 import Breadcrumb from "./sub-components/breadcrumb";
 import ShareButtonsGroup from "./sub-components/icon-buttons";
-import Image from "./sub-components/image";
+import { GbImage } from "./sub-components/image";
 
+// type access text
 import Oform from "../../../../static/icons/oform.svg";
 
 const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
+  const { attributes } = data;
   const {
-    name,
-    file_categories,
-    file_description,
-    file_image,
-    file_type_access,
+    name_form,
+    template_desc,
+    template_image,
+    file_oform,
     file_last_update,
     file_pages,
     file_size,
-    file_formats_download,
-  } = data;
+  } = attributes;
+
+  const imgUrlCard = template_image.data?.attributes?.url;
+  let oformFile, docxfFile, pdfFile;
+
+  oformFile = file_oform?.data?.filter((it) => {
+    return it?.attributes.name.split(".")[1] === "oform";
+  });
+  pdfFile = file_oform?.data?.filter((it) => {
+    return it?.attributes.name.split(".")[1] === "pdf";
+  });
+  docxfFile = file_oform?.data?.filter((it) => {
+    return it?.attributes.name.split(".")[1] === "docxf";
+  });
+
+  const file_description = template_desc?.split("\n");
 
   let dwnAs = t("DownloadAs");
-  let tt1 = `${dwnAs} ${file_formats_download[0][0].toUpperCase()}`;
-  let tt2 = `${dwnAs} ${file_formats_download[1][0].toUpperCase()}`;
-  let tt3 = `${dwnAs} ${file_formats_download[2][0].toUpperCase()}`;
   const array = [
-    { title: tt1, href: file_formats_download[0][1] },
-    { title: tt2, href: file_formats_download[1][1] },
-    { title: tt3, href: file_formats_download[2][1] },
+    { title: `${dwnAs} OFORM`, href: oformFile[0]?.attributes?.url },
+    { title: `${dwnAs} DOCXF`, href: docxfFile[0]?.attributes?.url },
+    { title: `${dwnAs} PDF`, href: pdfFile[0]?.attributes?.url },
   ];
 
-  const IMAGE_SRC = `/images/oforms/en/template/${file_image}`;
   const SVG_FILE_TYPE = Oform;
-  const linkFillForm = name
+  const linkFillForm = name_form
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
+    .replace("/", "-")
     .toLowerCase();
   const baseURL = typeof window !== "undefined" ? window.location.href : null;
-  const linkSuggestChanges = `mailto:marketing@onlyoffice.com?subject=Suggesting changes for Form ${name}&body=Suggesting changes for Form ${name}.`;
+  const imgTemp = typeof window !== "undefined";
+  const linkSuggestChanges = `mailto:marketing@onlyoffice.com?subject=Suggesting changes for Form ${name_form}&body=Suggesting changes for Form ${name_form}.`;
 
   return (
     <StyledMainInfo maxWidth="1200px" background="#F9F9F9" {...rest}>
       <div className="template-main-info">
-        <Breadcrumb language={language} categories={file_categories} name={name} /> 
-        <Heading className="main-info-heading" label={name} />
-        <Text isBold className="main-info-type-item" label={file_type_access} />
+        <Breadcrumb language={language} name={name_form} t={t}/>
+        <Heading className="main-info-heading" label={name_form} />
+        <Text isBold className="main-info-type-item" label={t("Free")} />
         <Box className="main-info-box">
           <div className="main-info-box-tt">
             <Text
@@ -72,7 +84,13 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
         </Box>
       </div>
       <div className="template-main-img">
-        <Image src={IMAGE_SRC} />
+        {imgTemp && (
+          <GbImage
+            className="template-image"
+            urlForm={imgUrlCard}
+            idForm={data.id}
+          />
+        )}
       </div>
       <div className="template-main-description">
         <div className="file-description">
@@ -126,7 +144,7 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
             className="file-download-button"
           />
         </Box>
-        <ShareButtonsGroup name={name} baseURL={baseURL} t={t} />
+        <ShareButtonsGroup name={name_form} baseURL={baseURL} t={t} />
       </div>
     </StyledMainInfo>
   );

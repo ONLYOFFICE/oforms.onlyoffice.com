@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.0.4
+
+### New
+* Added language and forms in Spanish and French
+* Connected cms for storage forms
+
+### Fixes
+* Fixed image preview styles
+* Fixed image cards styles
+* Changed html tags in image preview/cards
+* Moved old forms to cms
+* Changed tags in the menu header from h2 to span
+* For the heading "all forms" the tag h1 is replaced by h2
+
+
 ## 1.0.3
 
 ### New

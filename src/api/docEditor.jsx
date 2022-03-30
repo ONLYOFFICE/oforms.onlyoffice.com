@@ -14,24 +14,16 @@ const StyledPlaceholder = styled.div`
   top: 0;
 `;
 
-const DocEditorAPI = ({ id, name, scriptLoaded }) => {
-  const IdDivPlaceholder = name
-    .replace(/\s/g, "-")
-    .replace(/[{()}]/g, "")
-    .toLowerCase();
-
-  const API = `${Config.appServer}config/${id}`;
+const DocEditorAPI = ({ title, urlOform, scriptLoaded }) => {
+  const urlAPI = Config.api.cms || "http://localhost:1337";
+  const API = `${urlAPI}/api/config?title=${title}&url=${urlOform}`;
   const [config, setConfig] = useState();
   const [check, setCheck] = useState(false);
 
   useEffect(() => {
-    if (id !== undefined && id !== null) {
-      axios(API, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-        },
-      })
+    if (title !== undefined && urlOform !== undefined) {
+      axios
+        .get(API)
         .then((res) => {
           setConfig(JSON.stringify(res.data));
           setCheck(true);
@@ -49,12 +41,12 @@ const DocEditorAPI = ({ id, name, scriptLoaded }) => {
     <>
       <Helmet>
         <script defer type="text/javascript">
-          {`(window.docEditor = new DocsAPI.DocEditor("${IdDivPlaceholder}", ${config}))`}
+          {`(window.docEditor = new DocsAPI.DocEditor("${title}", ${config}))`}
         </script>
       </Helmet>
       <Portal>
         <StyledPlaceholder>
-          <div id={IdDivPlaceholder} style={{ height: "100%" }} />
+          <div id={title} style={{ height: "100%" }} />
         </StyledPlaceholder>
       </Portal>
     </>

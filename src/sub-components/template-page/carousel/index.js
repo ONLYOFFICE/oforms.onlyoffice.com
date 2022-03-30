@@ -7,7 +7,16 @@ import StyledCarouselContent from "./carousel-section";
 
 import { cardCarouselSettings } from "./sub-components/carousel-settings";
 
-const CarouselContent = ({ currentLanguage, label, data, config, padding, tabletPadding, mobileLPadding, t }) => {
+const CarouselContent = ({
+  currentLanguage,
+  label,
+  data,
+  config,
+  padding,
+  tabletPadding,
+  mobileLPadding,
+  t,
+}) => {
   const customConfig = config || cardCarouselSettings;
 
   return (

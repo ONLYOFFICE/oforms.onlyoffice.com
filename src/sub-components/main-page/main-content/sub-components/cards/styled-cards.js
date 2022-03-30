@@ -19,6 +19,19 @@ const StyledCards = styled.div`
     margin: 0 auto;
   }
 
+  @media (max-width: 1024px) {
+    .section-page {
+      .template-main-img {
+        .template-image {
+          .card-image {
+            height: 100%;
+            width: 167px;
+          }
+        }
+      }
+    }
+  }
+
   @media (max-width: 600px) {
     /* grid-template-columns: 1fr 1fr;
     max-width: 344px;
@@ -29,7 +42,7 @@ const StyledCards = styled.div`
 
   @media (max-width: 425px) {
     grid-template-columns: 1fr;
-    max-width: 290px;
+    /* max-width: 290px; */
   }
 `;
 

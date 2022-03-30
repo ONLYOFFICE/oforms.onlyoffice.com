@@ -5,6 +5,7 @@ const StyledCard = styled.div`
   flex-direction: column;
   justify-items: stretch;
   max-width: 256px;
+  max-height: 629px;
   box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.07);
   background-color: #f9f9f9;
   border-radius: 3px;
@@ -12,8 +13,13 @@ const StyledCard = styled.div`
   transition: box-shadow 0.3s ease;
 
   &:hover,
-  &:active{
+  &:active {
     box-shadow: 0px 20px 50px rgba(85, 85, 85, 0.1);
+  }
+
+  .card-image {
+    height: 368px;
+    width: 256px;
   }
 
   .image-template {
@@ -78,8 +84,20 @@ const StyledCard = styled.div`
 
   @media (max-width: 1200px) {
     max-width: 214px;
+    .card-image {
+      height: 314px;
+    }
     .image-template {
       max-width: 212px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .card-image {
+      height: 100%;
+      width: 100%;
+      /* width: 290px;
+      height: 420px; */
     }
   }
 
@@ -90,14 +108,19 @@ const StyledCard = styled.div`
   }
 
   @media (max-width: 500px) {
-    max-width: 168px;
+    /* max-width: 168px; */
+    .card-image {
+      /* height: 410px; */
+      /* width: 290px;
+      height: 420px; */
+    }
     .image-template {
       box-sizing: border-box;
     }
     .card-template {
       padding: 12px 12px 10px 12px;
     }
-    
+
     .subtitle-template {
       font-size: 12px;
     }

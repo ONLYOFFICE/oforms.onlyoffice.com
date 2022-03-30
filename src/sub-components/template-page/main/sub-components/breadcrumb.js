@@ -6,7 +6,6 @@ import line from "../../../../../static/icons/line.svg";
 
 import Box from "../../../../../components/box";
 import Link from "../../../../../components/internal-link";
-import Text from "../../../../../components/text";
 
 const StyledBreadcrumb = styled(Box)`
   gap: 10px;
@@ -62,11 +61,11 @@ const StyledBreadcrumb = styled(Box)`
   }
 `;
 
-const Breadcrumb = ({ name, categories, language }) => {
+const Breadcrumb = ({ name, categories, language, t }) => {
   const lnh = language === "en" ? "" : `${language}/`;
   return (
     <StyledBreadcrumb>
-      <Link className="breadcrumb-links" href={`/${lnh}`} label={"Forms"} />
+      <Link className="breadcrumb-links" href={`/${lnh}`} label={t("Forms")} />
       {/* <Text className="breadcrumb-items" label={categories} />
       <Text className="breadcrumb-items-name" label={name} /> */}
     </StyledBreadcrumb>

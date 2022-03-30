@@ -23,30 +23,59 @@ import Button from "../../../../components/button";
 const MainContent = ({ t, currentLanguage, count, ...rest }) => {
   const data = useStaticQuery(graphql`
     {
-      allDefJson {
-        totalCount
-        nodes {
-          file_categories
-          file_last_update
-          file_description
-          file_formats_download
-          file_country_access
-          file_image
-          link_oform_filling_file
-          name
-          jsonId
-          description_card
+      allDataJson {
+        edges {
+          node {
+            data {
+              id
+              attributes {
+                card_prewiew {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+                description_card
+                file_oform {
+                  data {
+                    attributes {
+                      name
+                      url
+                    }
+                  }
+                }
+                locale
+                name_form
+                template_desc
+                template_image {
+                  data {
+                    attributes {
+                      url
+                      name
+                    }
+                  }
+                }
+                file_last_update
+                file_pages
+                file_size
+                seo_description
+                seo_title
+              }
+            }
+          }
         }
       }
     }
   `);
 
   // currentLanguage
-  const allItems = data.allDefJson.nodes;
-  const curLang = currentLanguage === "en" ? "US" : currentLanguage;
-  let tmpAllItems = allItems.filter(({ file_country_access }) => {
-    if (file_country_access[0].toLowerCase() === curLang.toLowerCase()) {
-      return { ...file_country_access };
+  const allItems = data?.allDataJson?.edges[1].node.data;
+
+  let tmpAllItems = allItems?.filter(({ attributes }) => {
+    let { locale } = attributes;
+    if (locale.toLowerCase() === currentLanguage.toLowerCase()) {
+      return { ...attributes };
     }
   });
 
@@ -180,6 +209,7 @@ const MainContent = ({ t, currentLanguage, count, ...rest }) => {
       {...rest}
     >
       <Heading
+        level={2}
         className="heading-cards"
         textAlign="center"
         label={t("AllForms")}

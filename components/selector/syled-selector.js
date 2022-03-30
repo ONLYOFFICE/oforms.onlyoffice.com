@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledSelector = styled.div`
-  width: 205px;
+  /* width: 205px; */
   display: flex;
   flex-direction: row;
   justify-content: end;
@@ -32,6 +32,7 @@ const StyledSelector = styled.div`
     display: ${(props) => (props.isOpen ? "block" : "none")};
     position: absolute;
     min-width: 100px;
+    z-index: 99;
     right: -6px;
     top: 30px;
     padding-top: 14px;

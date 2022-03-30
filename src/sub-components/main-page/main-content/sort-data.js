@@ -1,13 +1,13 @@
 //1>2>3
 const increaseDecreaseName = (a, b) => {
-  let valueA = a.name.toUpperCase();
-  let valueB = b.name.toUpperCase();
+  let valueA = a.attributes.name_form.toUpperCase();
+  let valueB = b.attributes.name_form.toUpperCase();
   return valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
 };
 //3>2>1
 const decreaseIncreaseName = (a, b) => {
-  let valueA = a.name.toUpperCase();
-  let valueB = b.name.toUpperCase();
+  let valueA = a.attributes.name_form.toUpperCase();
+  let valueB = b.attributes.name_form.toUpperCase();
   return valueA > valueB ? -1 : valueA < valueB ? 1 : 0;
 };
 
