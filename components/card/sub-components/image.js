@@ -18,7 +18,7 @@ const GbImage = ({ className, urlForm, idForm }) => {
       layout="constrained"
       objectFit="contain"
       quality={100}
-      height={368}
+      height={486}
     />
   );
 };
