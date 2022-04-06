@@ -8,7 +8,6 @@ const StyledCard = styled.div`
   height: 666px;
   border-radius: 3px;
   box-sizing: border-box;
-  transition: all 0.3s ease;
   position: relative;
 
   .card-image {
@@ -19,7 +18,6 @@ const StyledCard = styled.div`
     box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
     height: 486px;
     border: 1px solid #EFEFEF;
-    transition: box-shadow 0.3s ease;
   }
   
   .image-template {
@@ -40,7 +38,6 @@ const StyledCard = styled.div`
     box-sizing: border-box;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
-    transition: all 0.3s ease;
     position: absolute;
     left: 0;
     top: 486px;
