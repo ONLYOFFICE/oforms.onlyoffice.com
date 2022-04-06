@@ -76,12 +76,12 @@ const Template = ({ config, data, pageContext, ...rest }) => {
         localStorage.setItem(nameLocalStorage, modifiedStrigifiedForStorage);
       }
       setItemsClient(parsedObjectLocalStorage);
-      if (parsedObjectLocalStorage.length <= 4) {
+      if (parsedObjectLocalStorage.length <= 3) {
         setConfig({
           ...cardCarouselSettings,
           infinite: false,
-          slidesToScroll: 4,
-          slidesToShow: 4,
+          slidesToScroll: 3,
+          slidesToShow: 3,
         });
       }
     }

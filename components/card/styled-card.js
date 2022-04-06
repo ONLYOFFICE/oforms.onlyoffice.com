@@ -17,7 +17,6 @@ const StyledCard = styled.div`
   .image-boxshadow-template{
     box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
     height: 486px;
-    border: 1px solid #EFEFEF;
   }
   
   .image-template {

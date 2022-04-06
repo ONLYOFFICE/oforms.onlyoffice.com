@@ -24,6 +24,7 @@ const StyledCarouselContent = styled(Section)`
         text-align: center;
         width: 100%;
         padding-bottom: 50px;
+        height: 754px;
 
         .carousel-cards {
           max-height: 100%;
