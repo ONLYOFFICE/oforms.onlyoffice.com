@@ -18,5 +18,9 @@ const StyledPagination = styled.div`
             fill: #FF6F3D;
         }
     }
+
+    @media (max-width: 485px) {
+        margin: 16px auto 0;
+    }
 `;
 export default StyledPagination;
