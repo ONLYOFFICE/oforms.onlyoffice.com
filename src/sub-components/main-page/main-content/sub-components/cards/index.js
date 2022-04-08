@@ -2,19 +2,20 @@ import React, { useState, useEffect } from "react";
 
 import Card from "../../../../../../components/card";
 import Button from "../../../../../../components/button";
+import Pagination from "../../../../../../components/pagination";
 
 import StyledCards from "./styled-cards";
 
 const Cards = ({ t, data, typeSortData, currentLanguage, groupCheckboxIsOpen, ...rest }) => {
   // Array of all items oforms
   const [allItems, setAllItems] = useState(data);
-  // Array first 8 elements
-  const ItemSliceLength = 8;
+  // Array first 9 elements
+  const ItemSliceLength = 9;
   const [allItemsSlice, setAllItemsSlice] = useState(ItemSliceLength);
-  const [listCards, setListCards] = useState([...allItems.slice(0, 8)]);
+  const [listCards, setListCards] = useState([...allItems.slice(0, 9)]);
 
   const handlerSetItemsList = () => {
-    const tmpListSlice = [...allItems.slice(0, 8)];
+    const tmpListSlice = [...allItems.slice(0, 9)];
     setListCards(tmpListSlice);
   };
 
@@ -66,12 +67,9 @@ const Cards = ({ t, data, typeSortData, currentLanguage, groupCheckboxIsOpen, ..
         ))}
       </StyledCards>
       {hasMore ? (
-        <Button
-          isScale
-          className="tempalates-buttons-items"
-          typeButton="transparent"
-          onClick={handleLoadMore}
-          label={t("LoadMore")}
+        <Pagination
+          data={allItems}
+          dataLimit={ItemSliceLength}
         />
       ) : (
         <></>
