@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.5
+
+### New
+* Added language and forms in German
+
 ## 1.0.4
 
 ### New
