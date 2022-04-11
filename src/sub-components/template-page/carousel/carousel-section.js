@@ -23,10 +23,10 @@ const StyledCarouselContent = styled(Section)`
         margin: 0 auto;
         text-align: center;
         width: 100%;
-        padding-bottom: 50px;
-        height: 754px;
+        padding-bottom: ${(props) => (props.shortCard ? "0"  : "50px")};
+        height: ${(props) => (props.shortCard ? "288px" : " 754px")};
 
-        .carousel-cards {
+        .carousel-cards:not(.short) {
           max-height: 100%;
         }
       }
@@ -39,7 +39,7 @@ const StyledCarouselContent = styled(Section)`
         .slick-list {
           max-width: 90vw;
 
-          .carousel-cards {
+          .carousel-cards:not(.short) {
             max-width: 90%;
 
             .image-template {
@@ -66,6 +66,11 @@ const StyledCarouselContent = styled(Section)`
       .slick-slider {
         .slick-list {
           max-width: 800px;
+          padding-bottom: 0;
+
+          .carousel-cards.short{
+            max-width: 160px;
+          }
         }
       }
     }
@@ -88,8 +93,8 @@ const StyledCarouselContent = styled(Section)`
           .slick-slide {
             margin: 0 8px;
           }
-          .carousel-cards {
-            max-width: 50vw;
+          .carousel-cards:not(.short) {
+            max-width: 246px;
 
             .image-template {
               max-width: 100%;
@@ -100,7 +105,7 @@ const StyledCarouselContent = styled(Section)`
     }
   }
   @media (max-width: 420px) {
-    .card-carousel .slick-slider .slick-list .carousel-cards {
+    .card-carousel .slick-slider .slick-list .carousel-cards:not(.short) {
       max-width: 70vw;
     }
   }

@@ -4,7 +4,7 @@ import { useTranslation } from "gatsby-plugin-react-i18next";
 import { Trans } from "gatsby-plugin-react-i18next";
 
 import Config from "../../static/data/config.json";
-import { cardCarouselSettings } from "../sub-components/template-page/carousel/sub-components/carousel-settings";
+import { cardCarouselSettings, shortCarouselSettings } from "../sub-components/template-page/carousel/sub-components/carousel-settings";
 import { getCookie, setCookie } from "../helpers/index";
 import { CAROUSEL_COOKIE } from "../helpers/constants";
 
@@ -50,7 +50,7 @@ const Template = ({ config, data, pageContext, ...rest }) => {
   const parsedObjectLocalStorage =
     retrievedString !== undefined ? JSON.parse(retrievedString) : [];
   const [itemsClient, setItemsClient] = useState(parsedObjectLocalStorage);
-  const [stateConfig, setConfig] = useState(cardCarouselSettings);
+  const [stateConfig, setConfig] = useState(shortCarouselSettings);
 
   const clientSideCarousel = () => {
     setCookie(CAROUSEL_COOKIE, "oforms-items", 1);
@@ -76,12 +76,12 @@ const Template = ({ config, data, pageContext, ...rest }) => {
         localStorage.setItem(nameLocalStorage, modifiedStrigifiedForStorage);
       }
       setItemsClient(parsedObjectLocalStorage);
-      if (parsedObjectLocalStorage.length <= 3) {
+      if (parsedObjectLocalStorage.length <= 6) {
         setConfig({
-          ...cardCarouselSettings,
+          ...shortCarouselSettings,
           infinite: false,
-          slidesToScroll: 3,
-          slidesToShow: 3,
+          slidesToScroll: 6,
+          slidesToShow: 6,
         });
       }
     }
@@ -173,8 +173,8 @@ const Template = ({ config, data, pageContext, ...rest }) => {
           link={`/editor?fillform=${linkFillForm}`}
         />
         <CarouselContent
-          padding="112px 0 62px"
-          tabletPadding="80px 0 30px"
+          padding="112px 0 0"
+          tabletPadding="80px 0 0"
           mobileLPadding="48px 0 0"
           data={randomCardForms}
           label={headingRentForms}
@@ -183,14 +183,15 @@ const Template = ({ config, data, pageContext, ...rest }) => {
         />
         {itemsClient !== null && parsedObjectLocalStorage?.length >= 2 ? (
           <CarouselContent
-            padding="0 0 30px"
-            tabletPadding="0 0 30px"
-            mobileLPadding="0 0 0"
+            padding="74px 0 112px"
+            tabletPadding="48px 0 70px"
+            mobileLPadding="48px 0 70px"
             data={itemsClient}
             label={headingRecentlyViewed}
             config={stateConfig}
             currentLanguage={language}
             t={t}
+            shortCard={true}
           />
         ) : (
           <div />

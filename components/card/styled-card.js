@@ -5,22 +5,27 @@ const StyledCard = styled.div`
   flex-direction: column;
   justify-items: stretch;
   max-width: 352px;
-  height: 666px;
+  height:  ${(props) =>
+    props.shortCard ? '268px' : '666px'};
   border-radius: 3px;
   box-sizing: border-box;
   position: relative;
 
   .card-image {
-    height: 486px;
-    width: 352px;
+    height: ${(props) =>
+    props.shortCard ? '214px' : '486px'};
+    width: ${(props) =>
+    props.shortCard ? '160px' : '352px'};
   }
   .image-boxshadow-template{
     box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
-    height: 486px;
+    height: ${(props) =>
+    props.shortCard ? '214px' : '486px'};
   }
   
   .image-template {
-    max-width: 254px;
+    max-width: ${(props) =>
+    props.shortCard ? '160' : '254px'};
     border: 1px solid #e2e2e2;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
@@ -37,9 +42,11 @@ const StyledCard = styled.div`
     box-sizing: border-box;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
-    position: absolute;
+    position: ${(props) =>
+    props.shortCard ? 'relative' : 'absolute'};
     left: 0;
-    top: 486px;
+    top: ${(props) =>
+    props.shortCard ? 'auto' : '486px'};
     z-index: 1;
     border: 1px solid transparent;
   }
