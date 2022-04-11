@@ -113,6 +113,29 @@ const es = [
   },
 ];
 
-const array_item = { en: en, zh: zh, it: it, fr: fr, es: es };
+const de = [
+  {
+    title: "Briefvorlage",
+    subtitle: "Office",
+    linkUrl: "/briefvorlage",
+  },
+  {
+    title: "CN22 Formular",
+    subtitle: "Vertrieb",
+    linkUrl: "/cn22-formular",
+  },
+  {
+    title: "E104 Formular",
+    subtitle: "Staatliche Formulare",
+    linkUrl: "/e104-formular",
+  },
+  {
+    title: "Formular für Lieferschein",
+    subtitle: "Vertrieb",
+    linkUrl: "/formular-für-lieferschein",
+  },
+];
+
+const array_item = { en: en, zh: zh, it: it, fr: fr, es: es, de: de };
 
 export default array_item;
