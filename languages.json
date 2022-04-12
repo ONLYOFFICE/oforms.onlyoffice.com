@@ -23,5 +23,10 @@
     "key": "es-ES",
     "shortKey": "es",
     "iconName": "es.svg"
+  },
+  {
+    "key": "de-DE",
+    "shortKey": "de",
+    "iconName": "de.svg"
   }
 ]
