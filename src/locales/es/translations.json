@@ -8,7 +8,7 @@
   "AccordionHeadingNeedToRegister": "¿Necesito registrarme para rellenar un formulario?",
   "AccordionDescriptionNeedToRegister": "No es necesario registrarse para utilizar los formularios - ONLYOFFICE abrirá el formulario que has elegido en la nueva ventana, listo para ser rellenado.",
   "AccordionHeadingDocsUseLocally": "¿Puedo descargar los formularios y crear documentos utilizándolos localmente?",
-  "AccordionDescriptionDocsUseLocally": "Utiliza ONLYOFFICE Docs en línea o ONLYOFFICE Dekstop Editors para rellenar formularios en el lugar preferido y crear los tuyos propios. <1>{{AccordionDescriptionDocsUseLocallyLink}}</1>.",
+  "AccordionDescriptionDocsUseLocally": "Utiliza <1>{{ ONLYOFFICEDocs }}</1> en línea o <2>{{ ONLYOFFICEDesktopEditors }}</2> para rellenar formularios en el lugar preferido y crear los tuyos propios. <3>{{AccordionDescriptionDocsUseLocallyLink}}</3>.",
   "AccordionDescriptionDocsUseLocallyLink": "Más información sobre la creación de formularios en ONLYOFFICE",
   "AccordionHeadingModifyTheForms": "¿Puedo modificar los formularios?",
   "AccordionDescriptionModifyTheForms": "No, no es posible modificar los formularios OFORM. Sólo puedes rellenar el contenido del cuerpo existente o exportar el formulario a DOCXF y modificar el archivo de texto.",

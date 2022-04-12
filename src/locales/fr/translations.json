@@ -8,7 +8,7 @@
     "AccordionHeadingNeedToRegister": "Faut-il s'inscrire pour remplir un formulaire ?",
     "AccordionDescriptionNeedToRegister": "Il n'est pas nécessaire de s'inscrire pour utiliser les formulaires : ONLYOFFICE ouvrira le formulaire choisi dans une nouvelle fenêtre, prêt à être rempli.",
     "AccordionHeadingDocsUseLocally": "Puis-je télécharger les formulaires et créer des documents en les utilisant localement ?",
-    "AccordionDescriptionDocsUseLocally": "Utilisez ONLYOFFICE Docs en ligne ou ONLYOFFICE Desktop Editors pour remplir des formulaires dans l'emplacement souhaité et créer les vôtres. <1>{{AccordionDescriptionDocsUseLocallyLink}}</1>.",
+    "AccordionDescriptionDocsUseLocally": "Utilisez <1>{{ ONLYOFFICEDocs }}</1> en ligne ou <2>{{ ONLYOFFICEDesktopEditors }}</2> pour remplir des formulaires dans l'emplacement souhaité et créer les vôtres. <3>{{AccordionDescriptionDocsUseLocallyLink}}</3>.",
     "AccordionDescriptionDocsUseLocallyLink": "En savoir plus sur la création de formulaires dans ONLYOFFICE",
     "AccordionHeadingModifyTheForms": "Puis-je modifier les formulaires ?",
     "AccordionDescriptionModifyTheForms": "Non, il n'est pas possible de modifier les formulaires OFORM. Vous pouvez uniquement compléter le contenu du corps existant, ou exporter le formulaire en DOCXF et modifier le fichier texte.",
