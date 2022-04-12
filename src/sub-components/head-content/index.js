@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import languages from "../../../languages.json";
 
 const HeadSEO = ({
+  metaSiteNameOg,
   metaDescription,
   metaDescriptionOg,
   metaKeywords,
@@ -17,7 +18,8 @@ const HeadSEO = ({
       <meta charset="utf-8" />
 
       <meta property="og:type" content="website" />
-      <meta id="ctl00_MetaTitleOG" property="og:title" content="ONLYOFFICE" />
+      <meta id="ctl00_MetaSiteNameOG" property="og:site_name" content={metaSiteNameOg}/>
+      <meta id="ctl00_MetaTitleOG" property="og:title" content={title}/>
       <meta
         id="ctl00_MetaDescriptionOG"
         property="og:description"
@@ -85,6 +87,7 @@ HeadSEO.propTypes = {
 };
 
 HeadSEO.defaultProps = {
+  metaSiteNameOg: null,
   metaDescriptionOg: null,
   metaDescription: null,
   metaKeywords: null,
