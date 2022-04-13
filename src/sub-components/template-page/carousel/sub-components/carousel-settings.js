@@ -16,6 +16,8 @@ const cardCarouselSettings = {
       breakpoint: 1024,
       settings: {
         slidesToShow: 2,
+        slidesToScroll: 2,
+        variableWidth: true,
       },
     },
     {
@@ -46,16 +48,8 @@ const shortCarouselSettings = {
     {
       breakpoint: 1024,
       settings: {
-        slidesToShow: 5,
-        slidesToScroll: 5
-      },
-    },
-    {
-      breakpoint: 768,
-      settings: {
-        infinite: true,
-        slidesToShow: 5,
-        slidesToScroll: 5,
+        slidesToShow: 1,
+        slidesToScroll: 1,
         variableWidth: true,
       },
     },
