@@ -1,0 +1,33 @@
+{
+  "name": "next-blog",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@callstack/react-theme-provider": "^3.0.7",
+    "axios": "^0.26.1",
+    "email-addresses": "^5.0.0",
+    "next": "12.1.4",
+    "next-i18next": "^11.0.0",
+    "prop-types": "^15.8.1",
+    "react": "18.0.0",
+    "react-custom-scrollbars": "^4.2.1",
+    "react-dom": "18.0.0",
+    "react-onclickoutside": "^6.12.1",
+    "react-share": "^4.4.0",
+    "react-slick": "^0.28.1",
+    "react-svg": "^14.1.17",
+    "sharp": "^0.30.3",
+    "slick-carousel": "^1.8.1",
+    "styled-components": "^5.3.5"
+  },
+  "devDependencies": {
+    "eslint": "8.12.0",
+    "eslint-config-next": "12.1.4"
+  }
+}
