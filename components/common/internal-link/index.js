@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 
-import ExternalLink from "../link";
+import StyledA from "./styled-link";
 
 const InternalLink = ({
   children,
@@ -24,9 +24,9 @@ const InternalLink = ({
       tabIndex={tabIndex}
       {...rest}
     >
-      <ExternalLink className={linkClassName} tabIndex={tabIndex} {...rest}>
+      <StyledA className={linkClassName} tabIndex={tabIndex} {...rest}>
         {children || label}
-      </ExternalLink>
+      </StyledA>
     </Link>
   );
 };

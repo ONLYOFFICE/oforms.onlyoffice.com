@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import PropTypes from "prop-types";
 
-const NImage = ({ src, alt, className, width, height, layout }) => {
+const NImage = ({ src, alt, className, width, height, layout, ...rest }) => {
   const imgAlt = alt ? alt : `image`;
   const imgSrc = src ? src : ``;
   const imgClassName = className ? className : `image`;
