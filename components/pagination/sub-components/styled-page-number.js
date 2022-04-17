@@ -7,6 +7,7 @@ const StyledPageNumber = styled(Button)`
     line-height: 22px;
     padding: 9px 13px;
     height: 40px;
+    user-select: none;
 
     &.previous-page,
     &.next-page{
