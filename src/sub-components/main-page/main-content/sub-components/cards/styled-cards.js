@@ -7,10 +7,14 @@ const StyledCards = styled.div`
   flex-wrap: wrap;
   /* margin: 0 auto; */
   width: 100%;
+  min-height: 2062px;
+  min-width: 1120px;
 
   @media (max-width: 1200px) {
     /* max-width: 688px; */
     gap: 32px 24px;
+    min-height: auto;
+    min-width: auto;
   }
 
   @media (max-width: 1200px) {

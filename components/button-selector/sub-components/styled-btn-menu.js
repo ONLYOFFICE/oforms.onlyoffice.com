@@ -26,6 +26,8 @@ const StyledBtnMenu = styled.div`
     min-width: 220px;
     line-height: 1;
     outline: none;
+    text-decoration: none;
+    color: #444444;
 
     &:hover,
     &.selected {

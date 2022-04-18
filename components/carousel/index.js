@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import Card from "../card";
+import ShortCard from "./sub-components/short-carousel";
 
 import StyledCarousel from "./carousel-styled";
 
@@ -17,6 +18,7 @@ const Carousel = ({
   refCarousel,
   asNavForCarousel,
   currentLanguage,
+  shortCard,
   ...rest
 }) => {
   const settings = settingsCarousel || {
@@ -28,7 +30,8 @@ const Carousel = ({
     slidesToScroll: 1,
   };
 
-  const sliders = items.map((item, idx) => (
+  const sliders = items.map((item, idx) => 
+  !shortCard ? 
     <Card
       key={`item-${idx}`}
       arrayItems={item}
@@ -36,7 +39,14 @@ const Carousel = ({
       currentLanguage={currentLanguage}
       t={t}
     />
-  ));
+   : <ShortCard
+      key={`item-${idx}`}
+      arrayItems={item}
+      className={"carousel-cards short"}
+      currentLanguage={currentLanguage}
+      t={t}
+  />
+);
 
   return (
     <StyledCarousel arrows={isArrows} {...rest}>

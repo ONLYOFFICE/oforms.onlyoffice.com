@@ -54,7 +54,7 @@ const Menu = ({ t, currentLanguage, template, ...rest }) => {
       template={template}
       className="navbar"
       onMouseLeave={onCloseMenu}
-    >
+    ><div className="nav-container">
       <InternalLink className="nav-item-logo" href={curLang}>
         {template ? (
           <LogoBlack className="site-logo" />
@@ -80,6 +80,7 @@ const Menu = ({ t, currentLanguage, template, ...rest }) => {
           </Link>
         )}
         <LanguageSelector t={t} currentLanguage={currentLanguage} />
+      </div>
       </div>
     </StyledMenu>
   );

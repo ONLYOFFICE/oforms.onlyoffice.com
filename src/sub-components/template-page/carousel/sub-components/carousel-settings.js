@@ -3,7 +3,7 @@ const cardCarouselSettings = {
   dots: false,
   infinite: true,
   speed: 500,
-  slidesToShow: 4,
+  slidesToShow: 3,
   slidesToScroll: 1,
   responsive: [
     {
@@ -15,7 +15,9 @@ const cardCarouselSettings = {
     {
       breakpoint: 1024,
       settings: {
-        slidesToShow: 3,
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        variableWidth: true,
       },
     },
     {
@@ -29,4 +31,38 @@ const cardCarouselSettings = {
   ],
 };
 
-export { cardCarouselSettings };
+const shortCarouselSettings = {
+  fade: false,
+  dots: false,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 6,
+  slidesToScroll: 6,
+  responsive: [
+    {
+      breakpoint: 1200,
+      settings: {
+        arrows: false,
+      },
+    },
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        variableWidth: true,
+      },
+    },
+    {
+      breakpoint: 576,
+      settings: {
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        variableWidth: true,
+      },
+    },
+  ],
+};
+
+export { cardCarouselSettings, shortCarouselSettings };
