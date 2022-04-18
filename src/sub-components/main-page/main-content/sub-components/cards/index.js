@@ -11,7 +11,22 @@ const Cards = ({ t, data, typeSortData, currentLanguage, groupCheckboxIsOpen, ..
   
   const tmpLength = Math.ceil(data.length / ItemSliceLength);
 
-  const pageLimit = tmpLength > 7 ?  7 :  tmpLength;
+  const [windowCheck, setWindowCheck] = useState('');
+
+  useEffect(() => {
+    window && window.addEventListener("resize", checkingMaxPage);
+    return () => window && window.removeEventListener("resize", checkingMaxPage);
+  }, []);
+
+  const checkingMaxPage = () => {
+    if (typeof window !== windowCheck) {
+      setWindowCheck(window.innerWidth <= 500);
+    }
+  };
+
+  const maxPage = windowCheck ? 5 : 7;
+
+  const pageLimit = tmpLength > maxPage ?  maxPage :  tmpLength;
 
   const [pages] = useState(pageLimit);
   const [currentPage, setCurrentPage] = useState(1);
