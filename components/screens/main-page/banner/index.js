@@ -1,6 +1,6 @@
 import React from "react";
 
-import BannerOforms from "@components/common/banner";
+import BannerOforms from "@components/screens/common/banner";
 import StyledBanner from "./styled-banner";
 
 const Banner = ({ t, currentLanguage }) => {

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Section from "@components/screens/section";
+import Section from "@components/common/section";
 
 const StyledAccordionContent = styled(Section)`
   .text-trans-accordion {

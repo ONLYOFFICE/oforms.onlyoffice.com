@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Section from "../section";
+import Section from "@components/common/section";
 
 const Styled404 = styled(Section)`
   top: 100px;

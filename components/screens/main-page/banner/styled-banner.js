@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { device } from "@components/utils/devices";
-import Section from "@components/screens/section";
+import Section from "@components/common/section";
 
 const StyledBanner = styled(Section)`
   .section-page {

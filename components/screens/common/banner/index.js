@@ -1,11 +1,11 @@
 import React from "react";
 
-import Box from "../box";
-import Link from "../link";
-import Text from "../text";
-import Button from "../button";
-import Heading from "../heading";
-import { Img } from "../image";
+import Box from "@components/common/box";
+import Link from "@components/common/link";
+import Text from "@components/common/text";
+import Button from "@components/common/button";
+import Heading from "@components/common/heading";
+import { Img } from "@components/common/image";
 
 import StyledBanners from "./styled-banners";
 
