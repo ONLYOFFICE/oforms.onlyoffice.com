@@ -15,8 +15,7 @@ const HeadSEO = ({
   return (
     <Head>
       <title>{title}</title>
-      <meta charset="utf-8" />
-
+      <meta charSet="utf-8" />
       <meta property="og:type" content="website" />
       <meta
         id="ctl00_MetaSiteNameOG"
@@ -35,8 +34,8 @@ const HeadSEO = ({
         property="og:image"
         content="https://static.onlyoffice.com/studio/tag/personal.11.5.3/skins/default/images/logo/fb_icon_325x325.jpg"
       />
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
       <meta
         name="viewport"
         content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
@@ -44,7 +43,7 @@ const HeadSEO = ({
 
       <meta id="ctl00_MetaKeywords" name="keywords" content={metaKeywords} />
       <meta name="description" content={metaDescription} />
-      
+
       <meta name="google" content="notranslate" />
 
       <link
