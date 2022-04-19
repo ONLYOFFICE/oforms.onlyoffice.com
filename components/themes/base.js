@@ -14,7 +14,7 @@ const {
 
 const Base = {
   main: {
-    fontFamily: "sans-serif",
+    fontFamily: `"Open Sans", sans-serif`,
   },
 
   text: {
