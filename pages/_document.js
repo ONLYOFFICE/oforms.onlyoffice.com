@@ -35,7 +35,7 @@ export default class MyDocument extends Document {
           <link
             rel="preconnect"
             href="https://fonts.gstatic.com"
-            crossOrigin={true}
+            crossOrigin="true"
           />
           <link
             rel="preload"

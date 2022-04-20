@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Base } from "../../themes";
-import { device } from "../utils/devices";
+import { device } from "../../utils/devices";
 
 const StyledTextInput = styled.input`
   position: ${(props) => props.theme.textInput.position};
