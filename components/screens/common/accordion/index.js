@@ -47,14 +47,14 @@ const AccordionContent = ({ t, currentLanguage }) => {
           className="link-trans-acc"
           href="https://forum.onlyoffice.com/"
         >
-          {{ AccordionDescriptionCouldntFindTheAnswerCommunity }}
+          {AccordionDescriptionCouldntFindTheAnswerCommunity}
         </Link>
         <Link
           display="contents"
           className="link-trans-acc"
           href="mailto:support@onlyoffice.com"
         >
-          {{ AccordionDescriptionCouldntFindTheAnswerSupp }}
+          {AccordionDescriptionCouldntFindTheAnswerSupp}
         </Link>
       </Trans>
     </Text>
@@ -72,13 +72,13 @@ const AccordionContent = ({ t, currentLanguage }) => {
           className="link-trans-acc"
           href={`https://www.onlyoffice.com${lng}/registration.aspx`}
         >
-          {{ ONLYOFFICEDocs }}
+          {ONLYOFFICEDocs}
         </Link>
         <Link
           className="link-trans-acc"
           href={`https://www.onlyoffice.com${lng}/download-desktop.aspx#desktop`}
         >
-          {{ ONLYOFFICEDesktopEditors }}
+          {ONLYOFFICEDesktopEditors}
         </Link>
       </Trans>
     </Text>
@@ -111,7 +111,7 @@ const AccordionContent = ({ t, currentLanguage }) => {
             className="link-trans-acc"
             href="https://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/ONLYOFFICE-Document-Editor/UsageInstructions/CreateFillableForms.aspx"
           >
-            {{ AccordionDescriptionDocsUseLocallyLink }}
+            {AccordionDescriptionDocsUseLocallyLink}
           </Link>
         </TransAccorionItems>
       </AccordionItem>
@@ -128,7 +128,7 @@ const AccordionContent = ({ t, currentLanguage }) => {
             className="link-trans-acc"
             href="https://www.onlyoffice.com/whitepapers.aspx"
           >
-            {{ AccordionDescriptionFormatTheFormsLink }}
+            {AccordionDescriptionFormatTheFormsLink}
           </Link>
         </TransAccorionItems>
       </AccordionItem>
@@ -151,7 +151,7 @@ const AccordionContent = ({ t, currentLanguage }) => {
             className="link-trans-acc"
             href="mailto:marketing@onlyoffice.com"
           >
-            {{ AccordionDescriptionFindTheTemplateLink }}
+            {AccordionDescriptionFindTheTemplateLink}
           </Link>
         </TransAccorionItems>
       </AccordionItem>
