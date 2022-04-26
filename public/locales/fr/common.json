@@ -198,5 +198,12 @@
     "Email is incorrect": "Email est incorrect",
     "Don't Miss an Update!": "Ne manquez pas une mise à jour !",
     "We sent an email message with confirmation to your email address": "Nous avons envoyé un email de confirmation à votre adresse email.",
-    "OK": "OK"
+    "OK": "OK",
+    "Comparison": "Comparaison",
+    "ONLYOFFICE Docs vs MS Office Online": "ONLYOFFICE Docs vs MS Office Online",
+    "ONLYOFFICE Docs vs Google Docs": "ONLYOFFICE Docs vs Google Docs",
+    "ONLYOFFICE Docs vs Zoho Docs": "ONLYOFFICE Docs vs Zoho Docs",
+    "ONLYOFFICE Docs vs LibreOffice": "ONLYOFFICE Docs vs LibreOffice",
+    "ONLYOFFICE Docs vs WPS": "ONLYOFFICE Docs vs WPS",
+    "ONLYOFFICE Docs vs Adobe Acrobat": "ONLYOFFICE Docs vs Adobe Acrobat"
 }

@@ -13,7 +13,7 @@ const date = new Date();
 const currentYear = date.getFullYear();
 
 const Footer = ({ t, language, ...rest }) => {
-  const POSITION_ELEMENTS_ITEM = [1, 2, 3];
+  const POSITION_ELEMENTS_ITEM = [1, 2, 3, 4];
 
   const [modalActive, setModalActive] = useState(false);
   const handlerSetModal = (active) => {
@@ -36,6 +36,15 @@ const Footer = ({ t, language, ...rest }) => {
                 key={`${it.className}-${idx}`}
               >
                 {it.link.map((item_link, idx_link) => (
+                  item_link.isContact ? <Text className="contact-text">
+                  {t(item_link.label)}
+                  &nbsp;
+                  <ExternalLink
+                    className="footer-link-contact"
+                    label={item_link.mail}
+                    href={item_link.href}
+                  />
+                </Text> :
                   <ExternalLink
                     className="footer-link"
                     label={t(item_link.label)}
@@ -52,41 +61,7 @@ const Footer = ({ t, language, ...rest }) => {
           })}
         </div>
       ))}
-      <div className="footer-item-group">
-        <FooterItem dis className="contact" heading={t("Contact us")}>
-          <Text className="contact-text">
-            {t("Sales Questions")}
-            &nbsp;
-            <ExternalLink
-              className="footer-link-contact"
-              label="sales@onlyoffice.com"
-              href="mailto:sales@onlyoffice.com"
-            />
-          </Text>
-          <Text className="contact-text">
-            {t("Partner Inquiries")}
-            &nbsp;
-            <ExternalLink
-              className="footer-link-contact"
-              label="partners@onlyoffice.com"
-              href="mailto:partners@onlyoffice.com"
-            />
-          </Text>
-          <Text className="contact-text">
-            {t("Press Inquiries")}
-            &nbsp;
-            <ExternalLink
-              className="footer-link-contact"
-              label="press@onlyoffice.com"
-              href="mailto:press@onlyoffice.com"
-            />
-          </Text>
-          <ExternalLink
-            href={`${onlyoffice}/call-back-form.aspx`}
-            className="footer-link"
-            label={t("Request a Call")}
-          />
-        </FooterItem>
+      <div className="footer-item-group last">
         <FooterItem heading={t("Follow us")} className="follow">
           <div className="footer-social-links">
             {Social.map((item) => (
