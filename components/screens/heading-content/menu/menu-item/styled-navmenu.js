@@ -1,12 +1,13 @@
 import styled from "styled-components";
-import menu_icons from "@public/images/menu-pics/menu_logo_icons.svg";
+import menu_icons from "@public/images/menu-pics/menu_icons.svg";
 import menu_oforms from "@public/images/menu-pics/menu_oforms.svg";
 import menu_reseller from "@public/images/menu-pics/menu_reseller.svg";
-import menu_latest_events from "@public/images/menu-pics/onlyoffice_linux_foundation_member.jpg";
-import menu_latest_news from "@public/images/menu-pics/onlyoffice_7.0.svg";
+import menu_latest_events from "@public/images/menu-pics/univention_may_2022_@2x-01.png";
+import menu_latest_news from "@public/images/menu-pics/blog_moodle_plugin.jpg";
 import menu_for_developers from "@public/images/menu-pics/menu_for_developers.png";
 import menu_compare from "@public/images/menu-pics/menu_compare_edition.svg";
 import arrow_gray from "@public/icons/arrow-gray.svg";
+import menu_education from "@public/images/menu-pics/menu_education.svg";
 
 const StyledNavMenu = styled.div`
   .dropdown-item {
@@ -88,6 +89,12 @@ const StyledNavMenu = styled.div`
     }
   }
 
+  #navitem_features_personal {
+    &:before {
+      background-position-y: -234px;
+    }
+  }
+
   #navitem_features_security {
     &:before {
       background-position-y: -650px;
@@ -126,7 +133,7 @@ const StyledNavMenu = styled.div`
 
   #navitem_find_partners {
     &:before {
-      background-position-y: -233px;
+      background-position-y: -701px;
     }
   }
 
@@ -156,6 +163,12 @@ const StyledNavMenu = styled.div`
   #navitem_about_customers {
     &:before {
       background-position-y: -361px;
+    }
+  }
+
+  #navitem_about_vacancies {
+    &:before {
+      background-position-y: -676px;
     }
   }
 
@@ -217,6 +230,7 @@ const StyledNavMenu = styled.div`
   #navitem_features_latest_releases,
   #navitem_download_compare,
   #navitem_features_oforms,
+  #navitem_features_education,
   #navitem_integrations_jira,
   #navitem_integrations_nextcloud,
   #navitem_integrations_owncloud,
@@ -229,6 +243,7 @@ const StyledNavMenu = styled.div`
   #navitem_integrations_nuxeo,
   #navitem_integrations_chamilo,
   #navitem_integrations_redmine,
+  #navitem_integrations_moodle,
   #navitem_integrations_connectors,
   #navitem_integration_for_developers,
   #navitem_prices_reseller {
@@ -249,6 +264,7 @@ const StyledNavMenu = styled.div`
       color: #444;
       font-size: 14px;
       line-height: 1.6em;
+      margin: 0;
       padding-bottom: 10px;
       &:hover {
         color: #ff6f3d;
@@ -321,7 +337,7 @@ const StyledNavMenu = styled.div`
     &:last-child {
       background-color: #f9f9f9;
       border-bottom-right-radius: 9px;
-      max-width: 244px;
+      max-width: 264px;
     }
     &.with_border {
       border-right: 1px solid #f5f5f5;
@@ -365,6 +381,10 @@ const StyledNavMenu = styled.div`
 
   #latest_news_img {
     background-image: url(${menu_latest_news.src});
+  }
+  
+  #education_img {
+    background-image: url(${menu_education.src});
   }
 
   @media screen and (min-width: 1050px) {
@@ -459,7 +479,8 @@ const StyledNavMenu = styled.div`
     #latest_news_div,
     #reseller_div,
     #oforms_div,
-    #latest_events_div {
+    #latest_events_div,
+    #education_div {
       display: none;
     }
   }

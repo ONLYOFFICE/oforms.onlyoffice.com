@@ -40,6 +40,12 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
               >
                 {t("Presentation Editor")}
               </Link>
+              <Link
+                href={`${hrefLang}/form-creator.aspx`}
+                className="nav_2nd_menu_link"
+              >
+                {t("Form Creator")}
+              </Link>
             </Box>
             <Link
               id="navitem_features_docs_editions"
@@ -147,6 +153,13 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
               </Link>
             </Box>
             <Link
+              className="dropdown-item"
+              id="navitem_features_personal"
+              href={`https://personal.onlyoffice.com/${currentLanguage}`}
+            >
+              {t("ONLYOFFICE Personal")}
+            </Link>
+            <Link
               id="navitem_features_security"
               href={`${hrefLang}/security.aspx`}
               className="dropdown-item"
@@ -166,6 +179,19 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
               <div id="oforms_img" className="menu_pic_img"></div>
               <p id="oforms_header" className="menu_pic_header">
                 {t("Free ready-to-fill out online document forms")}
+              </p>
+            </Box>
+            <Link
+              id="navitem_features_education"
+              href={`${hrefLang}/education.aspx`}
+              className="dropdown-item"
+            >
+              {t("ONLYOFFICE for education")}
+            </Link>
+            <Box id="education_div" className="menu_pic_div">
+              <div id="education_img" className="menu_pic_img"></div>
+              <p id="education_header" className="menu_pic_header">
+                {t("Edit and collaborate on docs within your eLearning platform")}
               </p>
             </Box>
           </Box>
@@ -260,6 +286,13 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
               className="dropdown-item"
             >
               {t("Jira")}
+            </Link>
+            <Link
+              id="navitem_integrations_moodle"
+              href={`${hrefLang}/office-for-moodle.aspx`}
+              className="dropdown-item"
+            >
+              {t("Moodle")}
             </Link>
             <Link
               id="navitem_integrations_connectors"
@@ -487,7 +520,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
           <Box className="outer-box">
             <Link
               id="navitem_latest_events"
-              href="https://www.onlyoffice.com/blog/2021/03/onlyoffice-joins-the-linux-foundation-as-a-silver-member/"
+              href={`${hrefLang}/events.aspx`}
               className="dropdown-item"
             >
               {t("Latest events")}
@@ -495,7 +528,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
             <Box id="latest_events_div" className="menu_pic_div">
               <div id="latest_events_img" className="menu_pic_img"></div>
               <p id="latest_events_header" className="menu_pic_header">
-                {t("ONLYOFFICE joins the Linux Foundation as a silver member")}
+                {t("Join us at Univention Summit 2022")}
               </p>
             </Box>
           </Box>
@@ -525,6 +558,13 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
               className="dropdown-item"
             >
               {t("Customers")}
+            </Link>
+            <Link
+              id="navitem_about_vacancies"
+              href={`${hrefLang}/vacancies.aspx`}
+              className="dropdown-item"
+            >
+              {t("Jobs")}
             </Link>
             <Link
               id="navitem_about_awards"
@@ -615,10 +655,10 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
             </Link>
             <Box id="latest_news_div" className="menu_pic_div">
               <div id="latest_news_img" className="menu_pic_img"></div>
-              <p className="latest_news_date">{t("18 January 2022")}</p>
+              <p className="latest_news_date">{t("25 March 2022")}</p>
               <p id="latest_news_header" className="menu_pic_header">
                 {t(
-                  "ONLYOFFICE Docs 70 online forms, password protection in sheets, collaboration improvements and much more"
+                  "Official ONLYOFFICE Docs connector for Moodle is here"
                 )}
               </p>
             </Box>

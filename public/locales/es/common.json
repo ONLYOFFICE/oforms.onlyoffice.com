@@ -113,6 +113,7 @@
   "Chamilo": "Chamilo",
   "Redmine": "Redmine",
   "Jira": "Jira",
+  "Moodle": "Moodle",
   "Others": "Otras",
   "For developers": "Para desarrolladores",
   "Integrate ONLYOFFICE Docs to bring document editing to your app users": "Integra ONLYOFFICE Docs para ofrecer la edición de documentos a los usuarios de tu aplicación",
@@ -205,5 +206,12 @@
   "ONLYOFFICE Docs vs Zoho Docs": "ONLYOFFICE Docs vs Zoho Docs",
   "ONLYOFFICE Docs vs LibreOffice": "ONLYOFFICE Docs vs LibreOffice",
   "ONLYOFFICE Docs vs WPS": "ONLYOFFICE Docs vs WPS",
-  "ONLYOFFICE Docs vs Adobe Acrobat": "ONLYOFFICE Docs vs Adobe Acrobat"
+  "ONLYOFFICE Docs vs Adobe Acrobat": "ONLYOFFICE Docs vs Adobe Acrobat",
+  "Form Creator": "Creador de formularios",
+  "Official ONLYOFFICE Docs connector for Moodle is here": "El conector oficial de ONLYOFFICE Docs para Moodle está aquí",
+  "25 March 2022": "25 de marzo, 2022",
+  "Jobs": "Empleos",
+  "Join us at Univention Summit 2022": "Únete a nosotros en la Cumbre de Univention 2022",
+  "Edit and collaborate on docs within your eLearning platform": "Edita y colabora en documentos dentro de tu plataforma de e-Learning",
+  "ONLYOFFICE for education": "ONLYOFFICE para el ámbito educativo"
 }
