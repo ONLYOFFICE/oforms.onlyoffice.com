@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import { appWithTranslation } from "next-i18next";
-import { store } from "../redux/store";
-import { Provider } from "react-redux";
+// import { store } from "../redux/store";
+// import { Provider } from "react-redux";
 
 const GlobalStyle = createGlobalStyle`
  html {
@@ -19,10 +19,12 @@ body {
 `;
 
 const App = ({ Component, pageProps }) => (
-  <Provider store={store}>
+  <>
+    {/* // <Provider store={store}> */}
     <GlobalStyle />
     <Component {...pageProps} />
-  </Provider>
+    {/* </Provider> */}
+  </>
 );
 
 export default appWithTranslation(App);
