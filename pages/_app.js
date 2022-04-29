@@ -23,7 +23,7 @@ const App = ({ Component, pageProps }) => (
     {/* // <Provider store={store}> */}
     <GlobalStyle />
     <Component {...pageProps} />
-    {/* </Provider> */}
+    {/* // </Provider> */}
   </>
 );
 
