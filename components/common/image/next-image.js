@@ -2,12 +2,10 @@ import React from "react";
 import Image from "next/image";
 import PropTypes from "prop-types";
 
-const NImage = ({ src, alt, className, width, height, layout, ...rest }) => {
+const NImage = ({ src, alt, className, layout, ...rest }) => {
   const imgAlt = alt ? alt : `image`;
   const imgSrc = src ? src : ``;
   const imgClassName = className ? className : `image`;
-  const imgWidth = width ? width : `100`;
-  const imgHeight = height ? height : `100`;
   const imgLayout = layout ? layout : `responsive`;
 
   return (
@@ -15,8 +13,6 @@ const NImage = ({ src, alt, className, width, height, layout, ...rest }) => {
       src={imgSrc}
       alt={imgAlt}
       className={imgClassName}
-      width={imgWidth}
-      height={imgHeight}
       layout={imgLayout}
       {...rest}
     />

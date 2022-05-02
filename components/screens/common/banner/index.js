@@ -1,5 +1,3 @@
-import React from "react";
-
 import BannerOforms from "@components/common/banner";
 import StyledBanner from "./styled-banner";
 

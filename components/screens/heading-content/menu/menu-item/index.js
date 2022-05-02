@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import Heading from "@components/common/heading";
 import Link from "@components/common/link";

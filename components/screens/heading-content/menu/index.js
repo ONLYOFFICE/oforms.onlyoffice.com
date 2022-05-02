@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import StyledMenu from "./styled-menu";
 import Nav from "./nav/nav";

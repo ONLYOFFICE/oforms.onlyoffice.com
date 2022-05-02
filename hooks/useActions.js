@@ -1,12 +1,12 @@
-import { bindActionCreators } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
+// import { bindActionCreators } from "@reduxjs/toolkit";
+// import { useDispatch } from "react-redux";
 
-const allActions = {
-  // ...nameAction
-};
+// const allActions = {
+//   // ...nameAction
+// };
 
-export const useActions = () => {
-  const dispatch = useDispatchispatch();
+// export const useActions = () => {
+//   const dispatch = useDispatchispatch();
 
-  return bindActionCreators(allActions, dispatch);
-};
+//   return bindActionCreators(allActions, dispatch);
+// };

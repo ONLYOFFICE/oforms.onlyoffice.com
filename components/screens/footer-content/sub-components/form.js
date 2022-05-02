@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { StyledMailForm } from "./styled-mail-popup";
 import { FOOTER_FORM_URL } from "@utils/constants";

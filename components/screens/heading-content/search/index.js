@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import SearchResult from "./search-result";
 import Search from "@components/common/search-area";
@@ -26,7 +26,7 @@ const SearchContent = ({ t, currentLanguage }) => {
 
   const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
   const searchReqData = () => {
-    const searchURL = `${CMSConfigAPI}/api/oforms?locale=${currentLanguage}&filters[name_form][$containsi]=${searchItem}`;
+    const searchURL = `${CMSConfigAPI}/api/oforms?populate[0]=categories&locale=${currentLanguage}&filters[name_form][$containsi]=${searchItem}`;
     const delayDebounce = setTimeout(() => {
       console.log(searchItem);
       axios
@@ -36,7 +36,7 @@ const SearchContent = ({ t, currentLanguage }) => {
           setFocusOnSearch(true);
         })
         .catch((error) => console.log(error));
-    }, 1000);
+    }, 3000);
 
     return () => clearTimeout(delayDebounce);
   };

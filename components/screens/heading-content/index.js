@@ -1,5 +1,3 @@
-import React from "react";
-
 import Menu from "./menu";
 import SearchContent from "./search";
 import StyledHeadingContent from "./styled-headig";

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useState, useRef } from "react";
 import { ReactSVG } from "react-svg";
 
 import StyledFooterItem from "./styled-footer-item";
@@ -6,7 +6,7 @@ import Heading from "@components/common/heading";
 
 const FooterItem = ({ dis, children, className, heading }) => {
   const content = useRef();
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const onHandleClick = (e) => {
     e.preventDefault();

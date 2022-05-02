@@ -1,13 +1,9 @@
 import React from "react";
 
-import Text from "../text";
 import Box from "../box";
+import Text from "../text";
 import TextInput from "../text-input/";
-
 import StyledSearchArea from "./styled-search-area";
-
-// import SearchIcon from "../../static/icons/search-icon.react.svg";
-// import CloseIcon from "../../static/icons/close-icon.react.svg";
 
 const SearchArea = ({ clearValueSearch, valueSearch, callback, t }) => {
   return (
@@ -34,11 +30,17 @@ const SearchArea = ({ clearValueSearch, valueSearch, callback, t }) => {
           labelColor={!valueSearch ? "#808080" : "#CCCCCC"}
         />
         <div className="search_icon">
-          {/* {!valueSearch ? (
-            <SearchIcon style={{ cursor: "default" }} />
+          {!valueSearch ? (
+            <img
+              src={"/icons/search-icon.react.svg"}
+              style={{ cursor: "default" }}
+            />
           ) : (
-            <CloseIcon onClick={clearValueSearch} />
-          )} */}
+            <img
+              src={"/icons/close-icon.react.svg"}
+              onClick={clearValueSearch}
+            />
+          )}
         </div>
       </Box>
     </StyledSearchArea>

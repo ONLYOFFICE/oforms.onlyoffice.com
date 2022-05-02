@@ -1,5 +1,3 @@
-import React from "react";
-
 import Styled404 from "./styled";
 import Text from "@components/common/text";
 import Button from "@components/common/button";

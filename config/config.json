@@ -1,6 +1,5 @@
 {
     "defaultLanguage": "en",
-    "IMGSRC": "https://s3.us-west-2.amazonaws.com/cmsoforms.onlyoffice.com",
     "localStorageCarousel": "arrayCaroselClientSideItemsOforms",
     "docEditorUrl": "https://doc.onlyoffice.com",
     "api": {
