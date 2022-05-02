@@ -12,7 +12,7 @@ import Text from "@components/common/text";
 const date = new Date();
 const currentYear = date.getFullYear();
 
-const Footer = ({ t, language, ...rest }) => {
+const Footer = ({ t, language }) => {
   const POSITION_ELEMENTS_ITEM = [1, 2, 3, 4];
 
   const [modalActive, setModalActive] = useState(false);
@@ -24,7 +24,7 @@ const Footer = ({ t, language, ...rest }) => {
     language === "en" ? "" : `/${language}`
   }`;
   return (
-    <StyledFooter {...rest}>
+    <StyledFooter>
       {POSITION_ELEMENTS_ITEM.map((elements_in_div, id) => (
         <div className="footer-item-group" key={id}>
           {Items.map((it, idx) => {

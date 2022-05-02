@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
 
 const StyledMenuTablet = css`
-grid-template-columns: auto 152px auto;
-justify-content: space-between;
-height: 48px;
+  grid-template-columns: auto 152px auto;
+  justify-content: space-between;
+  height: 48px;
   .nav-items-mobile {
     display: block;
     grid-column-start: 1;

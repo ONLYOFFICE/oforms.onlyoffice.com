@@ -1,5 +1,3 @@
-import React from "react";
-
 import Box from "@components/common/box";
 
 const BoxMenu = (props) => {

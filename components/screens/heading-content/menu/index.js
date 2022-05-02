@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
-import StyledMenu from "./styled-menu";
-import Nav from "./nav/nav";
 import Link from "@components/common/link";
 import InternalLink from "@components/common/internal-link";
 import LanguageSelector from "@components/common/language-selector";
+import Nav from "./nav/nav";
+import StyledMenu from "./styled-menu";
 
 const Menu = ({ t, currentLanguage, template }) => {
   const [windowCheck, setWindowCheck] = useState("undefined");

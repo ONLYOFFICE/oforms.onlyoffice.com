@@ -36,9 +36,10 @@ const StyledNavMenu = styled.div`
     }
   }
 
-  #navitem_features_editors, #navitem_features_workspace {
+  #navitem_features_editors,
+  #navitem_features_workspace {
     margin-bottom: 0px;
-}
+  }
 
   .heading-nav-item {
     display: block;
@@ -382,7 +383,7 @@ const StyledNavMenu = styled.div`
   #latest_news_img {
     background-image: url(${menu_latest_news.src});
   }
-  
+
   #education_img {
     background-image: url(${menu_education.src});
   }

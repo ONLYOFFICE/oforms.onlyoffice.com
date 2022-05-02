@@ -1,9 +1,7 @@
-import React from "react";
-
-import StyledNav from "./styled-nav";
-import MenuItem from "../menu-item";
-import Box from "./sub-components/box";
 import Link from "@components/common/link";
+import Box from "./sub-components/box";
+import MenuItem from "../menu-item";
+import StyledNav from "./styled-nav";
 
 const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
   const hrefLang = `https://onlyoffice.com${
@@ -191,7 +189,9 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
             <Box id="education_div" className="menu_pic_div">
               <div id="education_img" className="menu_pic_img"></div>
               <p id="education_header" className="menu_pic_header">
-                {t("Edit and collaborate on docs within your eLearning platform")}
+                {t(
+                  "Edit and collaborate on docs within your eLearning platform"
+                )}
               </p>
             </Box>
           </Box>
@@ -657,9 +657,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
               <div id="latest_news_img" className="menu_pic_img"></div>
               <p className="latest_news_date">{t("25 March 2022")}</p>
               <p id="latest_news_header" className="menu_pic_header">
-                {t(
-                  "Official ONLYOFFICE Docs connector for Moodle is here"
-                )}
+                {t("Official ONLYOFFICE Docs connector for Moodle is here")}
               </p>
             </Box>
           </Box>

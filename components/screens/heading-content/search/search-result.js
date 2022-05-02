@@ -1,9 +1,7 @@
-import React from "react";
-
-import StyledResultSearch from "./styled-result";
-
-import Link from "@components/common/internal-link";
 import Text from "@components/common/text";
+import Link from "@components/common/internal-link";
+import reName from "@utils/helpers/fixname";
+import StyledResultSearch from "./styled-result";
 
 const SearchResult = ({
   onMouseLeaveSearchResult,
@@ -21,19 +19,19 @@ const SearchResult = ({
           <div className="result-search">
             {lengthResultSearchArray.length > 0 ? (
               lengthResultSearchArray.map((it, id) => {
-                console.log("it = ", it.attributes.name_form);
-                const href = it.attributes.name_form
-                  .replace(/\s/g, "-")
-                  .replace(/[{()}]/g, "")
-                  .replace("/", "-")
-                  .toLowerCase();
+                const hrefForm = reName(it.attributes.name_form);
+                const hrefCategory = reName(
+                  it.attributes.categories.data[0].attributes.categorie
+                );
                 return (
                   <Link
                     className="item-result-search"
-                    label={it.attributes.name_form}
-                    href={href}
+                    href={"/form/[category]/[form]"}
+                    as={`/form/${hrefCategory}/${hrefForm}`}
                     key={`key-item-${id}`}
-                  />
+                  >
+                    {it.attributes.name_form}
+                  </Link>
                 );
               })
             ) : (

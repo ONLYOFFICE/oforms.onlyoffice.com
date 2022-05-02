@@ -1,10 +1,9 @@
+import axios from "axios";
 import { useState, useEffect } from "react";
 
-import SearchResult from "./search-result";
-import Search from "@components/common/search-area";
 import CONFIG from "@config/config";
-
-import axios from "axios";
+import Search from "@components/common/search-area";
+import SearchResult from "./search-result";
 
 const SearchContent = ({ t, currentLanguage }) => {
   const [focusOnSearch, setFocusOnSearch] = useState(false);
@@ -36,7 +35,7 @@ const SearchContent = ({ t, currentLanguage }) => {
           setFocusOnSearch(true);
         })
         .catch((error) => console.log(error));
-    }, 3000);
+    }, 2500);
 
     return () => clearTimeout(delayDebounce);
   };
