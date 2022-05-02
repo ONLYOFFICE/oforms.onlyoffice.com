@@ -104,6 +104,7 @@
   "Chamilo": "Chamilo",
   "Redmine": "Redmine",
   "Jira": "Jira",
+  "Moodle": "Moodle",
   "Others": "其他",
   "For developers": "对于开发者",
   "Integrate ONLYOFFICE Docs to bring document editing to your app users": "集成ONLYOFFICE Docs，为您的应用程序用户提供文档编辑服务",
@@ -196,5 +197,19 @@
   "Don't Miss an Update!": "不要错过最新资讯！",
   "We sent an email message with confirmation to your email address": "我们向您的邮箱发送了一封确认邮件。",
   "OK": "行",
-  "Subscribe": "訂閱"
+  "Subscribe": "訂閱",
+  "Comparison": "对比",
+  "ONLYOFFICE Docs vs MS Office Online": "ONLYOFFICE Docs vs MS Office Online",
+  "ONLYOFFICE Docs vs Google Docs": "ONLYOFFICE Docs vs Google Docs",
+  "ONLYOFFICE Docs vs Zoho Docs": "ONLYOFFICE Docs vs Zoho Docs",
+  "ONLYOFFICE Docs vs LibreOffice": "ONLYOFFICE Docs vs LibreOffice",
+  "ONLYOFFICE Docs vs WPS": "ONLYOFFICE Docs vs WPS",
+  "ONLYOFFICE Docs vs Adobe Acrobat": "ONLYOFFICE Docs vs Adobe Acrobat",
+  "Form Creator": "表单创建程序",
+  "Official ONLYOFFICE Docs connector for Moodle is here": "ONLYOFFICE Docs的官方Moodle连接器来了",
+  "25 March 2022": "2022日3月25日",
+  "Jobs": "工作机会", 
+  "Join us at Univention Summit 2022": "加入我们在2022年的Univention峰会",
+  "Edit and collaborate on docs within your eLearning platform": "在您的电子学习平台上编辑并协作文件",
+  "ONLYOFFICE for education": "面向教育的ONLYOFFICE"
 }

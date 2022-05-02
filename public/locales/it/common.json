@@ -113,6 +113,7 @@
   "Chamilo": "Chamilo",
   "Redmine": "Redmine",
   "Jira": "Jira",
+  "Moodle": "Moodle",
   "Others": "Altre",
   "For developers": "Per gli sviluppatori",
   "Integrate ONLYOFFICE Docs to bring document editing to your app users": "Integra ONLYOFFICE Docs per portare la modifica dei documenti agli utenti della tua app",
@@ -198,5 +199,19 @@
   "Email is incorrect": "Indirizzo email non è corretto",
   "Don't Miss an Update!": "Non perdere nessun aggiornamento!",
   "We sent an email message with confirmation to your email address": "Abbiamo inviato un messaggio email con conferma al tuo indirizzo elettronico",
-  "OK": "OK"
+  "OK": "OK",
+  "Comparison": "Confronto",
+  "ONLYOFFICE Docs vs MS Office Online": "ONLYOFFICE Docs vs MS Office Online",
+  "ONLYOFFICE Docs vs Google Docs": "ONLYOFFICE Docs vs Google Docs",
+  "ONLYOFFICE Docs vs Zoho Docs": "ONLYOFFICE Docs vs Zoho Docs",
+  "ONLYOFFICE Docs vs LibreOffice": "ONLYOFFICE Docs vs LibreOffice",
+  "ONLYOFFICE Docs vs WPS": "ONLYOFFICE Docs vs WPS",
+  "ONLYOFFICE Docs vs Adobe Acrobat": "ONLYOFFICE Docs vs Adobe Acrobat",
+  "Form Creator": "Creatore di moduli",
+  "Official ONLYOFFICE Docs connector for Moodle is here": "Il connettore ufficiale di ONLYOFFICE Docs per Moodle è qui",
+  "25 March 2022": "25 Marzo 2022",
+  "Jobs": "Offerte di lavoro", 
+  "Join us at Univention Summit 2022": "Unisciti a noi all'Univention Summit 2022",
+  "Edit and collaborate on docs within your eLearning platform": "Modifica e collabora sui documenti all'interno della tua piattaforma di e-learning",
+  "ONLYOFFICE for education": "ONLYOFFICE per l'istruzione"
 }

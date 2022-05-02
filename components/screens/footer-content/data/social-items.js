@@ -98,6 +98,16 @@ const Social = [
     size: "24px",
     filter: true,
   },
+  {
+    href: "https://vm.tiktok.com/ZMLXbFEyd/",
+    className: "tiktok",
+    title: "TikTok",
+    target: "_blank",
+    rel: "",
+    src: "/images/social-icons/tiktok.react.svg",
+    size: "24px",
+    filter: true,
+  },
 ];
 
 export default Social;

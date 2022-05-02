@@ -11,13 +11,18 @@ const StyledFooterTablet = css`
 
   .footer-item-follow {
     height: 100%;
-    padding-bottom: 10px;
+    padding: 0px 0px 10px;
     border: none;
 
     .footer-social-links {
+      gap: 20px 24px;
       margin: 0 auto;
       max-width: 100%;
       justify-content: center;
+
+      .footer-social {
+        padding-right: 0px;
+      }
     }
 
     .footer-copyright {
@@ -34,14 +39,12 @@ const StyledFooterTablet = css`
 
     .footer-item-heading {
       text-align: center;
-      margin: 10px 0 10px 0;
+      margin: 28px 0 28px 0;
     }
   }
 
-  .footer-item-contact {
-    .contact-text {
-      display: flex;
-    }
+  .contact-text {
+    display: flex;
   }
 
   .footer-copyright-block {
@@ -49,6 +52,10 @@ const StyledFooterTablet = css`
     justify-content: center;
     background-color: #f9f9f9;
     padding: 20px 0;
+  }
+
+  .footer-copyright {
+    font-size: 12px;
   }
 `;
 
@@ -70,20 +77,21 @@ const StyledFooter = styled.div`
 
   .footer-item-group {
     position: relative;
+    &.last {
+      grid-column: 1 / span 4;
+    }
   }
 
-  .footer-item-contact {
-    .footer-link-contact {
-      font-size: 13px;
-      line-height: 1.4em;
-    }
+  .footer-link-contact {
+    font-size: 13px;
+    line-height: 1.4em;
+  }
 
-    .contact-text {
-      display: flex;
-      font-size: 13px;
-      margin: 0 0 7px;
-      line-height: 1.4em;
-    }
+  .contact-text {
+    display: flex;
+    font-size: 13px;
+    margin: 0 0 7px;
+    line-height: 1.4em;
   }
 
   .footer-social-links {
@@ -92,22 +100,22 @@ const StyledFooter = styled.div`
     -webkit-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    max-width: 360px;
+    max-width: 100%;
     align-items: baseline;
 
     .footer-social {
       list-style-type: none;
       display: inline-block;
-      width: 26px;
-      height: 42px;
+      width: 22px;
+      height: 24px;
       margin: 0;
-      padding-right: 20px;
+      padding-right: 32px;
       vertical-align: middle;
     }
   }
   .footer-copyright-block {
     display: flex;
-    justify-content: start;
+    justify-content: center;
     background-color: #ffffff;
     padding: 0px 0;
     margin-top: -5px;
@@ -120,11 +128,16 @@ const StyledFooter = styled.div`
     line-height: 1.4em;
   }
 
+  .footer-item-follow {
+    justify-content: center;
+    .footer-item-heading {
+      text-align: center;
+    }
+  }
+
   @media (max-width: 1060px) {
-    .footer-item-contact {
-      .contact-text {
-        display: contents;
-      }
+    .contact-text {
+      display: contents;
     }
   }
 

@@ -113,6 +113,7 @@
   "Chamilo": "Chamilo",
   "Redmine": "Redmine",
   "Jira": "Jira",
+  "Moodle": "Moodle",
   "Others": "Others",
   "For developers": "For developers",
   "Integrate ONLYOFFICE Docs to bring document editing to your app users": "Integrate ONLYOFFICE Docs to bring document editing to your app users",
@@ -198,5 +199,19 @@
   "Email is incorrect": "Email is incorrect",
   "Don't Miss an Update!": "Don't Miss an Update!",
   "We sent an email message with confirmation to your email address": "We sent an email message with confirmation to your email address",
-  "OK": "OK"
+  "OK": "OK",
+  "Comparison": "Comparison",
+  "ONLYOFFICE Docs vs MS Office Online": "ONLYOFFICE Docs vs MS Office Online",
+  "ONLYOFFICE Docs vs Google Docs": "ONLYOFFICE Docs vs Google Docs",
+  "ONLYOFFICE Docs vs Zoho Docs": "ONLYOFFICE Docs vs Zoho Docs",
+  "ONLYOFFICE Docs vs LibreOffice": "ONLYOFFICE Docs vs LibreOffice",
+  "ONLYOFFICE Docs vs WPS": "ONLYOFFICE Docs vs WPS",
+  "ONLYOFFICE Docs vs Adobe Acrobat": "ONLYOFFICE Docs vs Adobe Acrobat",
+  "Form Creator": "Form Creator",
+  "Official ONLYOFFICE Docs connector for Moodle is here": "Official ONLYOFFICE Docs connector for Moodle is here",
+  "25 March 2022": "25 March 2022",
+  "Jobs": "Jobs", 
+  "Join us at Univention Summit 2022": "Join us at Univention Summit 2022",
+  "Edit and collaborate on docs within your eLearning platform": "Edit and collaborate on docs within your eLearning platform",
+  "ONLYOFFICE for education": "ONLYOFFICE for education"
 }

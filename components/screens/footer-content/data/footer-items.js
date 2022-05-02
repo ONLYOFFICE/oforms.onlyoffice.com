@@ -197,6 +197,76 @@ const Items = [
       },
     ],
   },
+  {
+    className: "comparison",
+    position: 4,
+    heading: "Comparison",
+    link: [
+      {
+        localize: true,
+        label: "ONLYOFFICE Docs vs MS Office Online",
+        href: "/best-microsoft-office-alternative.aspx",
+      },
+      {
+        localize: true,
+        label: "ONLYOFFICE Docs vs Google Docs",
+        href: "/best-google-docs-alternative.aspx",
+      },
+      {
+        localize: true,
+        label: "ONLYOFFICE Docs vs Zoho Docs",
+        href: "/best-zoho-docs-alternative.aspx",
+      },
+      {
+        localize: true,
+        label: "ONLYOFFICE Docs vs LibreOffice",
+        href: "/best-libreoffice-alternative.aspx",
+      },
+      {
+        localize: true,
+        label: "ONLYOFFICE Docs vs WPS",
+        href: "/best-wps-alternative.aspx",
+      },
+      {
+        localize: true,
+        label: "ONLYOFFICE Docs vs Adobe Acrobat",
+        href: "/best-adobe-alternative.aspx",
+      }
+    ],
+  },
+  {
+    className: "contacts",
+    position: 4,
+    heading: "Contact us",
+    link: [
+      {
+        localize: true,
+        label: "Sales Questions",
+        mail: "sales@onlyoffice.com",
+        href: "mailto:sales@onlyoffice.com",
+        isContact: true,
+      },
+      {
+        localize: true,
+        label: "Partner Inquiries",
+        mail: "partners@onlyoffice.com",
+        href: "mailto:partners@onlyoffice.com",
+        isContact: true,
+      },
+      {
+        localize: true,
+        label: "Press Inquiries",
+        mail: "press@onlyoffice.com",
+        href: "mailto:press@onlyoffice.com",
+        isContact: true,
+      },
+      {
+        localize: true,
+        label: "Request a Call",
+        href: "/call-back-form.aspx",
+      }
+    ],
+  },
 ];
 
 export default Items;
