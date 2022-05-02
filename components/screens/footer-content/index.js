@@ -35,27 +35,30 @@ const Footer = ({ t, language, ...rest }) => {
                 className={it.className}
                 key={`${it.className}-${idx}`}
               >
-                {it.link.map((item_link, idx_link) => (
-                  item_link.isContact ? <Text className="contact-text">
-                  {t(item_link.label)}
-                  &nbsp;
-                  <ExternalLink
-                    className="footer-link-contact"
-                    label={item_link.mail}
-                    href={item_link.href}
-                  />
-                </Text> :
-                  <ExternalLink
-                    className="footer-link"
-                    label={t(item_link.label)}
-                    href={
-                      item_link.localize
-                        ? onlyoffice + item_link.href
-                        : item_link.href
-                    }
-                    key={`${item_link.label}-${idx_link}`}
-                  />
-                ))}
+                {it.link.map((item_link, idx_link) =>
+                  item_link.isContact ? (
+                    <Text className="contact-text" key={idx_link}>
+                      {t(item_link.label)}
+                      &nbsp;
+                      <ExternalLink
+                        className="footer-link-contact"
+                        label={item_link.mail}
+                        href={item_link.href}
+                      />
+                    </Text>
+                  ) : (
+                    <ExternalLink
+                      className="footer-link"
+                      label={t(item_link.label)}
+                      href={
+                        item_link.localize
+                          ? onlyoffice + item_link.href
+                          : item_link.href
+                      }
+                      key={`${item_link.label}-${idx_link}`}
+                    />
+                  )
+                )}
               </FooterItem>
             ) : null;
           })}
@@ -83,6 +86,7 @@ const Footer = ({ t, language, ...rest }) => {
                   iconName={item.src}
                   size={item.size}
                   grayed={item.filter}
+                  key={item.title}
                 />
               </ExternalLink>
             ))}
