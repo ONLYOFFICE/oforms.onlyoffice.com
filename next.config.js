@@ -5,9 +5,7 @@ const nextConfig = {
   reactStrictMode: true,
   i18n,
   images: {
-    domains: ["s3.us-west-2.amazonaws.com"],
-    formats: ["image/avif", "image/webp"],
-    deviceSizes: [320, 375, 428, 640, 768, 1024, 1200, 1440, 1920, 2048, 3840],
+    formats: ["image/webp"],
   },
   compiler: {
     styledComponents: true,
