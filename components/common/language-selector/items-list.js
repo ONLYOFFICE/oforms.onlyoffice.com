@@ -1,14 +1,12 @@
-import React, { useEffect } from "react";
-import { StyledItem, StyledPanelView } from "./styled-language-selector";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import languages from "@config/languages.json";
-import { useRouter } from "next/router";
 
-export default function LangsList(props) {
-  const { isOpen, currentLanguage } = props;
-  const { locale, asPath, basePath, pathname } = useRouter();
-  console.log(locale, asPath, basePath, pathname)
-  // TODO : fix
+import { StyledItem, StyledPanelView } from "./styled-language-selector";
+
+export default function LangsList({ isOpen }) {
+  const router = useRouter();
 
   useEffect(() => {
     const layout = document.getElementById("page-layout");
@@ -21,47 +19,25 @@ export default function LangsList(props) {
     }
   });
 
-  let path = "";
-  if (typeof window !== "undefined") {
-    const {
-      location: { pathname, search },
-    } = window;
-
-    path = `${pathname}${search ? search : ""}`;
-  }
+  const handleClick = (e) => {
+    e.preventDefault();
+    router.push(href);
+  };
 
   const renderItemList = () => {
     return languages.map((language) => {
-      const { shortKey, iconName, key } = language;
-      let localizedPath;
-      let tmpshortKey = shortKey === "en" ? "" : `/${shortKey}`;
-      let templatePagesKey = shortKey === "en" ? "" : `${shortKey}`;
-      let templatePath ;
-      if(shortKey === "en") {
-        templatePath = path.slice(1)
-      } else {
-        templatePath = path;
-      }
-
-      if (currentLanguage === "en") {
-        if (path === "/") {
-          localizedPath = `${tmpshortKey}${path}`;
-        } else {
-          localizedPath = `${tmpshortKey}${path}`;
-        }
-      } else {
-        localizedPath = templatePath.replace(currentLanguage, templatePagesKey);
-      }
-
+      const tmpLng = language.shortKey === "en" ? "" : language.shortKey;
       return (
-        <StyledItem key={key}>
-          <Link href={localizedPath} className="language-item-link">
-            <img
-              src={`/images/flags/${iconName}`}
-              alt={key}
-              width="18px"
-              className="language-item-image"
-            />
+        <StyledItem key={language.key}>
+          <Link href={"/"} locale={tmpLng} onClick={handleClick}>
+            <a className="language-item-link">
+              <img
+                src={`/images/flags/${language.iconName}`}
+                alt={language.key}
+                width="18px"
+                className="language-item-image"
+              />
+            </a>
           </Link>
         </StyledItem>
       );
@@ -71,11 +47,7 @@ export default function LangsList(props) {
   const renderPanelView = () => {
     const itemsList = renderItemList();
     return (
-      <StyledPanelView
-        isOpen={isOpen}
-        countLanguages={languages.length}
-        className="lng-selector"
-      >
+      <StyledPanelView isOpen={isOpen} className="lng-selector">
         {itemsList}
       </StyledPanelView>
     );

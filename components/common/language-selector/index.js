@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import StyledLanguageSelector from "./styled-language-selector";
 import ItemsList from "./items-list";
@@ -47,14 +47,13 @@ const LanguageSelector = (props) => {
   };
 
   const { currentLanguage, t } = props;
-
   const srcArrow = isOpen
     ? "/icons/arrow-drop-up.react.svg"
     : "/icons/arrow-drop-down.react.svg";
   const srcAlt = isOpen ? "arrow-up" : "arrow-down";
+
   return (
     <StyledLanguageSelector
-      {...props}
       onClick={onClickHandler}
       className="language-selector"
     >
@@ -73,7 +72,6 @@ const LanguageSelector = (props) => {
         }`}
         t={t}
         isOpen={isOpen}
-        currentLanguage={currentLanguage}
         onCloseSelector={onCloseSelector}
       />
     </StyledLanguageSelector>

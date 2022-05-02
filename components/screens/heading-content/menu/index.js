@@ -43,7 +43,7 @@ const Menu = ({ t, currentLanguage, template }) => {
 
   const curLang = currentLanguage === "en" ? "/" : `/${currentLanguage}/`;
   const logo = template
-    ? "public/images/logo/logo-black.react.svg"
+    ? "/images/logo/logo-black.react.svg"
     : "/images/logo/logo-white.react.svg";
 
   return (
