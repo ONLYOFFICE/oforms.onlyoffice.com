@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const StyledSelector = styled.div`
+  /* width: 205px; */
   display: flex;
   flex-direction: row;
   justify-content: end;
@@ -27,13 +28,13 @@ const StyledSelector = styled.div`
     cursor: pointer;
   }
 
-  .filter-selector {
+  .filter_selector {
     display: ${(props) => (props.isOpen ? "block" : "none")};
     position: absolute;
     min-width: 100px;
     z-index: 99;
     right: -6px;
-    top: 30px;
+    top: 20px;
     padding-top: 14px;
     background-color: #fff;
     border-radius: 3px;
@@ -41,7 +42,7 @@ const StyledSelector = styled.div`
     box-shadow: 0px 7px 25px rgb(85 85 85 / 15%);
   }
 
-  .filter-selector-items {
+  .filter_selector-items {
     padding: 16px;
     font-size: 16px;
     cursor: pointer;
@@ -49,7 +50,7 @@ const StyledSelector = styled.div`
     display: block;
   }
 
-  .filter-selector-items:hover {
+  .filter_selector-items:hover {
     color: #ff6f3d;
     background-color: #f5f5f5;
   }

@@ -1,30 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ReactSVG } from "react-svg";
 
-import StyledSelector from "./syled-selector";
 import Box from "../box";
 import Text from "../text";
+import StyledSelector from "./syled-selector";
 
-const Selector = ({ onChangeSelectTypeSort, typeSortData, t, ...rest }) => {
+const Selector = ({ onChangeSelectTypeSort, typeSortData, t, locale }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    typeof window !== "undefined" &&
-      isOpen &&
-      window.addEventListener("click", handleClickOutside);
-    return () => {
-      window.removeEventListener("click", handleClickOutside);
-    };
-  });
-
-  const handleClickOutside = (e) => {
-    if (isOpen && !e.target.closest(".filter-selector-items")) {
-      onCloseSelector();
-    }
-  };
-
   const onClickHandler = () => {
-    setIsOpen(!isOpen);
+    setIsOpen(true);
   };
 
   const onCloseSelector = () => {
@@ -32,27 +17,41 @@ const Selector = ({ onChangeSelectTypeSort, typeSortData, t, ...rest }) => {
   };
 
   return (
-    <StyledSelector isOpen={isOpen} onClick={onClickHandler} {...rest}>
+    <StyledSelector
+      isOpen={isOpen}
+      onClick={onClickHandler}
+      onMouseLeave={onCloseSelector}
+    >
       <Text className="text-sort-set" label={t("SortBy")} />
       <Text className="filter-header" label={t(typeSortData)} />
       <ReactSVG className="arrow" src="/icons/popup-arrow.react.svg" />
       <Box
-        className="filter-selector"
+        className="filter_selector"
         value={t(typeSortData)}
         onClick={onChangeSelectTypeSort}
       >
-        <Text
-          as="option"
-          className="filter-selector-items"
-          value={t("NameA-Z")}
-          label={t("NameA-Z")}
-        />
-        <Text
-          as="option"
-          className="filter-selector-items"
-          value={t("NameZ-A")}
-          label={t("NameZ-A")}
-        />
+        <a
+          href={`${locale === "en" ? "" : locale}/?_sort=asc`}
+          style={{ textDecoration: "none" }}
+        >
+          <Text
+            as="option"
+            className="filter_selector-items"
+            value={t("NameA-Z")}
+            label={t("NameA-Z")}
+          />
+        </a>
+        <a
+          href={`${locale === "en" ? "" : locale}/?_sort=desc`}
+          style={{ textDecoration: "none" }}
+        >
+          <Text
+            as="option"
+            className="filter_selector-items"
+            value={t("NameZ-A")}
+            label={t("NameZ-A")}
+          />
+        </a>
       </Box>
     </StyledSelector>
   );
