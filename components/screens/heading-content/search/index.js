@@ -27,7 +27,6 @@ const SearchContent = ({ t, currentLanguage }) => {
   const searchReqData = () => {
     const searchURL = `${CMSConfigAPI}/api/oforms?populate[0]=categories&locale=${currentLanguage}&filters[name_form][$containsi]=${searchItem}`;
     const delayDebounce = setTimeout(() => {
-      console.log(searchItem);
       axios
         .get(searchURL)
         .then((response) => {
