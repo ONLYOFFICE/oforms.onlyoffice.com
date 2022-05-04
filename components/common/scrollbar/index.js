@@ -59,7 +59,6 @@ const scrollbarType = {
 };
 
 const Scrollbar = React.forwardRef((props, ref) => {
-
   const stype = scrollbarType[props.stype];
 
   const thumbV = stype ? stype.thumbV : {};
@@ -119,5 +118,7 @@ Scrollbar.propTypes = {
 Scrollbar.defaultProps = {
   stype: "mediumBlack",
 };
+
+Scrollbar.displayName = "Scrollbar";
 
 export default Scrollbar;

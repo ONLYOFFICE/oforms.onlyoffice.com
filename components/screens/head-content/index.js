@@ -12,59 +12,61 @@ const HeadSEO = ({
   title,
 }) => {
   return (
-    <Head>
-      <title>{title}</title>
-      <meta charSet="utf-8" />
-      <meta property="og:type" content="website" />
-      <meta
-        id="ctl00_MetaSiteNameOG"
-        property="og:site_name"
-        content={metaSiteNameOg}
-      />
-      <meta id="ctl00_MetaTitleOG" property="og:title" content={title} />
-      <meta
-        id="ctl00_MetaDescriptionOG"
-        property="og:description"
-        content={metaDescriptionOg}
-      />
-      <meta property="og:url" content="https://oforms.onlyoffice.com/" />
-      <meta
-        id="ctl00_MetaImageOG"
-        property="og:image"
-        content="https://static.onlyoffice.com/studio/tag/personal.11.5.3/skins/default/images/logo/fb_icon_325x325.jpg"
-      />
-      <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
-      />
+    <>
+      <Head>
+        <title>{title}</title>
+        <meta charSet="utf-8" />
+        <meta property="og:type" content="website" />
+        <meta
+          id="ctl00_MetaSiteNameOG"
+          property="og:site_name"
+          content={metaSiteNameOg}
+        />
+        <meta id="ctl00_MetaTitleOG" property="og:title" content={title} />
+        <meta
+          id="ctl00_MetaDescriptionOG"
+          property="og:description"
+          content={metaDescriptionOg}
+        />
+        <meta property="og:url" content="https://oforms.onlyoffice.com/" />
+        <meta
+          id="ctl00_MetaImageOG"
+          property="og:image"
+          content="https://static.onlyoffice.com/studio/tag/personal.11.5.3/skins/default/images/logo/fb_icon_325x325.jpg"
+        />
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+        />
 
-      <meta id="ctl00_MetaKeywords" name="keywords" content={metaKeywords} />
-      <meta name="description" content={metaDescription} />
+        <meta id="ctl00_MetaKeywords" name="keywords" content={metaKeywords} />
+        <meta name="description" content={metaDescription} />
 
-      <meta name="google" content="notranslate" />
+        <meta name="google" content="notranslate" />
 
-      <link
-        rel="icon"
-        href="/images/logo/favicon_general.png"
-        type="image/x-icon"
-      />
+        <link
+          rel="icon"
+          href="/images/logo/favicon_general.png"
+          type="image/x-icon"
+        />
 
-      {languages.map((lng) => {
-        const { key, shortKey } = lng;
-        return (
-          <link
-            key={key}
-            rel="alternate"
-            href={`https://oforms.onlyoffice.com/${
-              shortKey === "en" ? "" : shortKey
-            }`}
-          />
-        );
-      })}
-
+        {languages.map((lng) => {
+          const { key, shortKey } = lng;
+          return (
+            <link
+              key={key}
+              rel="alternate"
+              href={`https://oforms.onlyoffice.com/${
+                shortKey === "en" ? "" : shortKey
+              }`}
+            />
+          );
+        })}
+      </Head>
       <Script
+        id="googletagmanager"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
@@ -76,7 +78,7 @@ const HeadSEO = ({
         `,
         }}
       />
-    </Head>
+    </>
   );
 };
 

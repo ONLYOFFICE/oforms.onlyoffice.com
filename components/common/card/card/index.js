@@ -5,7 +5,7 @@ import Text from "../../text";
 import Button from "../../button";
 import Link from "./sub-components/link";
 import StyledCard from "./styled-card";
-
+import {NImage} from "../../image";
 // TODO: FIXME:
 
 const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
