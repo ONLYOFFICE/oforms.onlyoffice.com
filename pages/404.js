@@ -11,6 +11,7 @@ const Error404Page = () => {
   return (
     <Layout footerContent={false} headContent={false} headerContent={false}>
       <Layout.SectionMain>
+        <p>TEST</p>
         <Error404 t={t} />
       </Layout.SectionMain>
     </Layout>
