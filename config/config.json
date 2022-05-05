@@ -1,0 +1,11 @@
+{
+    "defaultLanguage": "en",
+    "localStorageCarousel": "arrayCaroselClientSideItemsOforms",
+    "docEditorUrl": "https://doc.onlyoffice.com",
+    "api": {
+        "cms": "https://cmsoforms.onlyoffice.com",
+        "url": "",
+        "timeout": "30000"
+    },
+    "appServer": "https://oforms.onlyoffice.com/"
+}
