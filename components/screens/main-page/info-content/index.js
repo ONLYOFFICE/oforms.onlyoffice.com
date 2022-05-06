@@ -24,7 +24,7 @@ const InfoContent = ({ t, currentLanguage }) => {
       <Text className="description-info-content" label={t("FillOutTheForms")} />
       <Heading
         className="subheading-info-content"
-        level={5}
+        level={3}
         label={t("FeaturedForms")}
       />
       <Box justifyContent="space-between" className="box-info-content">
@@ -45,6 +45,7 @@ const InfoContent = ({ t, currentLanguage }) => {
                 subtitle={it.subtitle}
                 linkUrl={lng + it.linkUrl}
                 hrefButtom={href}
+                alt={it.title}
               />
             );
           })}

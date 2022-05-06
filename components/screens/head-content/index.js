@@ -44,6 +44,8 @@ const HeadSEO = ({
         <meta id="ctl00_MetaKeywords" name="keywords" content={metaKeywords} />
         <meta name="description" content={metaDescription} />
 
+        <link rel="apple-touch-icon" href="/images/logo/ONLYOFFICE-logo.png" />
+
         <meta name="google" content="notranslate" />
 
         <link
@@ -64,6 +66,8 @@ const HeadSEO = ({
             />
           );
         })}
+
+        <meta name="theme-light" />
       </Head>
       <Script
         id="googletagmanager"

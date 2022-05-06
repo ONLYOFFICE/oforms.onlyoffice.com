@@ -6,7 +6,7 @@ import Link from "../../link";
 import Button from "../../button";
 import StyledShortCard from "./styled-short-card";
 
-const ShortCard = ({ title, subtitle, linkUrl, hrefButtom, t }) => {
+const ShortCard = ({ title, subtitle, linkUrl, hrefButtom, t, alt }) => {
   return (
     <StyledShortCard>
       <Text className="card-title" label={title} />
@@ -16,8 +16,9 @@ const ShortCard = ({ title, subtitle, linkUrl, hrefButtom, t }) => {
         target="_self"
         label={t("LearnMore")}
         href={linkUrl}
+        alt={alt}
       />
-      <Link href={`/editor?fillform=${hrefButtom}`}>
+      <Link href={`/editor?fillform=${hrefButtom}`} alt="Open Form">
         <Button
           className="card-button"
           label={t("Open")}

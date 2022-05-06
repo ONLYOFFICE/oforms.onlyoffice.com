@@ -61,7 +61,7 @@ const LanguageSelector = (props) => {
         className="flag-image"
         alt="flag"
         src={`/images/flags/${currentLanguage}.svg`}
-        width={"18px"}
+        width="18px"
       />
       <div className="arrow-image">
         <img src={srcArrow} alt={srcAlt} />
