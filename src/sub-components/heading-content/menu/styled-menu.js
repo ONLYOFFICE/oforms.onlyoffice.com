@@ -1,9 +1,12 @@
 import styled, { css } from "styled-components";
 
 const StyledMenuTablet = css`
-grid-template-columns: auto 152px auto;
-justify-content: space-between;
-height: 48px;
+  .nav-container{
+    grid-template-columns: auto 152px auto;
+    justify-content: space-between;
+    height: 48px;
+  }
+  
   .nav-items-mobile {
     display: block;
     grid-column-start: 1;
@@ -49,22 +52,26 @@ height: 48px;
 `;
 
 const StyledMenu = styled.div`
-  align-items: center;
-  border-bottom: 1px solid transparent;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: auto 1fr auto;
-  grid-template-columns: auto 1fr auto;
-  -ms-grid-rows: 1fr;
-  grid-template-rows: 1fr;
-  max-width: 1640px;
-  margin: 0 auto;
-  padding: 0 18px;
-  box-sizing: border-box;
-  height: auto;
+  background-color: rgba(255, 255, 255, 0.05);
 
   font-size: 12px;
   color: ${(props) => (!props.template ? `#fff` : `#333`)};
+
+  .nav-container {
+    align-items: center;
+    border-bottom: 1px solid transparent;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: auto 1fr auto;
+    grid-template-columns: auto 1fr auto;
+    -ms-grid-rows: 1fr;
+    grid-template-rows: 1fr;
+    max-width: 1640px;
+    margin: 0 auto;
+    padding: 0 18px;
+    box-sizing: border-box;
+    height: auto;
+  }
 
   .nav-item-logo {
     grid-column-start: 1;

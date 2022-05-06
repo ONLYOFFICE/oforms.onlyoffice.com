@@ -4,26 +4,28 @@ const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-items: stretch;
-  max-width: 256px;
-  max-height: 629px;
-  box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.07);
-  background-color: #f9f9f9;
+  max-width: 352px;
+  height:  ${(props) =>
+    props.shortCard ? '268px' : '666px'};
   border-radius: 3px;
   box-sizing: border-box;
-  transition: box-shadow 0.3s ease;
-
-  &:hover,
-  &:active {
-    box-shadow: 0px 20px 50px rgba(85, 85, 85, 0.1);
-  }
+  position: relative;
 
   .card-image {
-    height: 368px;
-    width: 256px;
+    height: ${(props) =>
+    props.shortCard ? '214px' : '486px'};
+    width: ${(props) =>
+    props.shortCard ? '160px' : '352px'};
   }
-
+  .image-boxshadow-template{
+    box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
+    height: ${(props) =>
+    props.shortCard ? '214px' : '486px'};
+  }
+  
   .image-template {
-    max-width: 254px;
+    max-width: ${(props) =>
+    props.shortCard ? '160' : '254px'};
     border: 1px solid #e2e2e2;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
@@ -33,26 +35,55 @@ const StyledCard = styled.div`
   }
 
   .card-template {
-    background-color: #f9f9f9;
-    border: 1px solid #e2e2e2;
+    background-color: transparent;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     padding: 22px 24px 0px 24px;
-    max-height: 239px;
+    box-sizing: border-box;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
+    position: ${(props) =>
+    props.shortCard ? 'relative' : 'absolute'};
+    left: 0;
+    top: ${(props) =>
+    props.shortCard ? 'auto' : '486px'};
+    z-index: 1;
+    border: 1px solid transparent;
+  }
+
+  .btn-container{
+    margin-top: 16px;
+    display: none;
+  }
+
+  &:hover,
+  &:active {
+    .card-template {
+      background-color: #f9f9f9;
+      border: 1px solid #e2e2e2;
+      padding-bottom: 32px;
+      box-shadow: 0px 20px 50px rgba(85, 85, 85, 0.15);
+    }
+    .btn-container{
+      display: flex;
+    }
+    .image-boxshadow-template{
+      box-shadow: 0px 20px 50px rgba(85, 85, 85, 0.15);
+    }
   }
 
   .title-template {
-    font-size: 16px;
+    font-size: 18px;
     margin-bottom: 16px;
-    height: 42px;
+    height: 48px;
+    line-height: 133%;
   }
 
   .subtitle-template {
-    font-size: 13px;
-    margin-bottom: 24px;
-    height: 42px;
+    font-size: 14px;
+    margin-bottom: 16px;
+    height: 68px;
+    line-height: 160%;
   }
 
   .text-overflow-templapte {
@@ -60,9 +91,9 @@ const StyledCard = styled.div`
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     overflow: hidden;
-    -ms-line-clamp: 2;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
+    -ms-line-clamp: 3;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
     display: -webkit-box;
     display: box;
     word-wrap: break-word;
@@ -77,18 +108,56 @@ const StyledCard = styled.div`
 
   .download-btn-template {
     letter-spacing: 0.04em;
+    height: 48px;
     background-color: transparent;
-    margin: 4px auto;
+    margin: 0 auto;
     opacity: 1;
   }
 
+  .btn-container-link{
+    width: calc(50% - 8px);
+  }
+
   @media (max-width: 1200px) {
-    max-width: 214px;
-    .card-image {
-      height: 314px;
+    height: 729px;
+    max-width: 328px;
+    .card-image,
+    .image-boxshadow-template {
+      height: 453px;
+      box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
+    }
+    .card-image{
+      width: 328px;
     }
     .image-template {
       max-width: 212px;
+    }
+    .card-template {
+      position: relative;
+      top: auto;
+      left: auto;
+      box-shadow: none;
+      padding-bottom: 32px;
+    }
+    .btn-container{
+      margin-top: 16px;
+      display: flex;
+    }
+    .subtitle-template {
+      margin-bottom: 24px;
+    }
+    &:hover,
+    &:active {
+      box-shadow: none;
+      .card-template {
+        background-color: unset;
+        border: 1px solid transparent;
+        padding-bottom: 32px;
+        box-shadow: none;
+      }
+      .image-boxshadow-template{
+        box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
+      }
     }
   }
 
@@ -102,13 +171,36 @@ const StyledCard = styled.div`
   }
 
   @media (max-width: 768px) {
-    .title-template {
-      font-size: 14px;
+    height: auto;
+    max-width: calc(50% - 16px);
+
+    .image-boxshadow-template {
+      height: auto;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .btn-container{
+      margin-top: 8px;
+      display: block;
+    }
+    .btn-container-link{
+      width: 100%;
+    }
+    &:hover,
+    &:active {
+      .btn-container{
+        display: initial;
+      }
+    }
+    .download-btn-template {
+      margin: 10px auto 0;
     }
   }
 
   @media (max-width: 500px) {
     /* max-width: 168px; */
+    max-width: calc(50% - 8px);
     .card-image {
       /* height: 410px; */
       /* width: 290px;
@@ -117,20 +209,41 @@ const StyledCard = styled.div`
     .image-template {
       box-sizing: border-box;
     }
-    .card-template {
-      padding: 12px 12px 10px 12px;
-    }
 
+    .title-template,
+    .subtitle-template{
+      margin-bottom: 8px;
+    }
+    .btn-container{
+      margin-top: 8px;
+    }
+    .card-template {
+      padding: 24px 16px 8px 16px;
+    }
+    &:hover,
+    &:active{
+      .card-template{
+        padding: 24px 16px 8px 16px;
+      }
+    }
+    .title-template {
+      height: 57px;
+      font-size: 14px;
+    }
     .subtitle-template {
-      font-size: 12px;
+      height: auto;
+      font-size: 13px;
     }
   }
 
   @media (max-width: 425px) {
-    max-width: 288px;
+    max-width: 100%;
     .image-template {
       box-sizing: content-box;
-      max-width: 286px;
+      max-width: unset;
+    }
+    .title-template {
+      height: 38px;
     }
   }
 `;

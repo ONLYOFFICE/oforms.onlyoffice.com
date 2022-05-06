@@ -140,7 +140,6 @@ const MainInfo = ({ t, language, data, config, pathName, ...rest }) => {
           <ButtonSelector
             isScale
             array={array}
-            defaultVal={t("DownloadAs")}
             className="file-download-button"
           />
         </Box>

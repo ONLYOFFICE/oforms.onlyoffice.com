@@ -30,7 +30,7 @@ const StyledSection = styled.section`
 
     .section-page {
       max-width: none;
-      width: ${(props) => props.maxWidthLaptop || "90vw"};
+      width: ${(props) => props.maxWidthLaptop || "calc(100% - 80px)"};
     }
   }
 
@@ -40,7 +40,7 @@ const StyledSection = styled.section`
 
     .section-page {
       max-width: none;
-      width: ${(props) => props.maxWidthMobile || "90vw"};
+      width: ${(props) => props.maxWidthMobile || "calc(100% - 32px)"};
     }
   }
 `;

@@ -11,18 +11,37 @@ import Text from "../../../components/text";
 import TransAccorionItem from "./item-accordion";
 
 const AccordionContent = ({ t, currentLanguage }) => {
+  const ONLYOFFICEDocs = t("ONLYOFFICEDocs");
+  const ONLYOFFICEDesktopEditors = t("ONLYOFFICEDesktopEditors");
   const AccordionDescriptionDocsUseLocallyLink = t(
     "AccordionDescriptionDocsUseLocallyLink"
   );
+  const lng = currentLanguage === "en" ? "" : `/${currentLanguage}`
   const AccordionDescriptionDocsUseLocally = (
     <Text as={"p"} className="text-trans-accordion">
       <Trans
         i18nKey="AccordionDescriptionDocsUseLocally"
+        ONLYOFFICEDocs={t("ONLYOFFICEDocs")}
+        ONLYOFFICEDesktopEditors={t("ONLYOFFICEDesktopEditors")}
         AccordionDescriptionDocsUseLocallyLink={t(
           "AccordionDescriptionDocsUseLocallyLink"
         )}
       >
-        Use ONLYOFFICE Docs online or ONLYOFFICE
+        Use 
+        <Link
+          display="contents"
+          className="link-trans-acc"
+          href={`https://www.onlyoffice.com${lng}/office-suite.aspx`}
+        >
+          {{ ONLYOFFICEDocs }}
+        </Link>
+        <Link
+          display="contents"
+          className="link-trans-acc"
+          href={`https://www.onlyoffice.com${lng}/desktop.aspx`}
+        >
+          {{ ONLYOFFICEDesktopEditors }}
+        </Link>
         <Link
           display="contents"
           className="link-trans-acc"

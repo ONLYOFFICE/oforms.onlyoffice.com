@@ -21,6 +21,7 @@ const IndexPage = () => {
       <Layout.PageHead>
         <HeadSEO
           title={t("titleIndexPage")}
+          metaSiteNameOg={t("metaSiteNameOg")}
           metaDescription={t("titleIndexPage")}
           metaDescriptionOg={t("metaDescriptionOgIndexPage")}
           metaKeywords={t("metaKeywordsIndexPage")}

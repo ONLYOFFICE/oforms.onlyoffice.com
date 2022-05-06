@@ -31,7 +31,7 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
 
   return (
     <StyledCard {...rest}>
-      <Link href={pathName}>
+      <Link href={pathName} className="image-boxshadow-template">
         {imgTemp && <GbImage className="card-image" urlForm={imgUrlCard} />}
       </Link>
       <Box
@@ -49,24 +49,24 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
           className="subtitle-template text-overflow-templapte"
           label={description_card}
         />
-        <Link target="_blank" href={QueryLink}>
-          <Button
-            isScale
-            typeButton="transparent"
-            className="redactor-btn-template"
-            label={t("FillOut")}
-          />
-        </Link>
-        <Link href={urlOform} download>
-          <Button
-            isScale
-            className="download-btn-template"
-            typeButton="transparent"
-            borderColor="transparent"
-            borderColorHover="transparent"
-            label={t("Download")}
-          />
-        </Link>
+        <Box className="btn-container" justifyContent="space-between">
+          <Link target="_blank" href={QueryLink} className="btn-container-link">
+            <Button
+              isScale
+              typeButton="primary"
+              className="redactor-btn-template"
+              label={t("FillOut")}
+            />
+          </Link>
+          <Link href={urlOform} download className="btn-container-link">
+            <Button
+              isScale
+              className="download-btn-template"
+              typeButton="transparent"
+              label={t("Download")}
+            />
+          </Link>
+        </Box>
       </Box>
     </StyledCard>
   );

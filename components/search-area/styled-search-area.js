@@ -7,7 +7,7 @@ const StyledSearchArea = styled.div`
   width: 100%;
 
   .search_container {
-    margin: 24px auto 0;
+    margin: 0 auto;
     max-width: 1120px;
     border-bottom: 1px solid #666;
   }

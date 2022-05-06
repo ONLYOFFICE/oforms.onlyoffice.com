@@ -9,20 +9,18 @@ import Link from "../link";
 const ButtonSelector = ({
   isScale,
   label,
-  defaultVal,
   array,
   children,
   ...rest
 }) => {
   const [isActive, setIsActive] = useState(false);
-  const [selected, setSelected] = useState(defaultVal);
-  const [href, setHref] = useState();
+  const [selected, setSelected] = useState(array[0].title);
+  const [href, setHref] = useState(array[0].href);
   ButtonSelector.handleClickOutside = () => setIsActive(false);
 
   return (
     <StyledBtnSelector {...rest} isScale={isScale}>
       <Link
-        onClick={(e) => setIsActive(!isActive)}
         className="placeholder"
         typeButton="secondary"
         label={selected}
@@ -31,7 +29,7 @@ const ButtonSelector = ({
       />
       <div
         className="indicatorContainer"
-        onClick={(e) => setIsActive(!isActive)}
+        onMouseEnter={(e) => setIsActive(true)}
       >
         <span className="indicatorSeparator"></span>
         <ReactSVG
@@ -49,6 +47,7 @@ const ButtonSelector = ({
             setHref(item.href);
             setIsActive(false);
           }}
+          onMouseLeave={(e) => setIsActive(!isActive)}
           array={array}
         />
       )}
@@ -72,7 +71,6 @@ ButtonSelector.defaultProps = {
     { title: "Download as DOCXF", href: "/404" },
     { title: "Download as OFORM", href: "/401" },
   ],
-  defaultVal: "Download as",
 };
 
 export default onClickOutSide(ButtonSelector, clickOutsideConfig);

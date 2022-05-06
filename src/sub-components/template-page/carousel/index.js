@@ -15,6 +15,7 @@ const CarouselContent = ({
   padding,
   tabletPadding,
   mobileLPadding,
+  shortCard,
   t,
 }) => {
   const customConfig = config || cardCarouselSettings;
@@ -26,6 +27,7 @@ const CarouselContent = ({
       mobileLPadding={mobileLPadding}
       maxWidth="100%"
       maxWidthLaptop="100%"
+      shortCard={shortCard}
     >
       <Box justifyContent="center">{label}</Box>
       <Carousel
@@ -34,6 +36,7 @@ const CarouselContent = ({
         className="card-carousel"
         settingsCarousel={customConfig}
         currentLanguage={currentLanguage}
+        shortCard={shortCard}
       />
     </StyledCarouselContent>
   );
