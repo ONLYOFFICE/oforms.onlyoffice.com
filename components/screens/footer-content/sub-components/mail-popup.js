@@ -1,5 +1,4 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 import { CloseButton, StyledMailPopup } from "./styled-mail-popup";
 import Text from "@components/common/text";
 import Button from "@components/common/button";
@@ -45,24 +44,5 @@ const MailPopup = ({ t, language, active, setActive, submitForm, ...rest }) => {
     </StyledMailPopup>
   );
 };
-
-MailPopup.propTypes = {
-  /** */
-  active: PropTypes.bool,
-  /** */
-  setActive: PropTypes.func,
-  /** What the will trigger when clicked */
-  onClick: PropTypes.func,
-  /** Accepts CSS style */
-  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  /** Tab index */
-  tabIndex: PropTypes.number,
-  /** Accepts id */
-  id: PropTypes.string,
-  /** Accepts class */
-  className: PropTypes.string,
-};
-
-MailPopup.defaultProps = {};
 
 export default MailPopup;

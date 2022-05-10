@@ -23,14 +23,14 @@ const Menu = ({ t, currentLanguage, template }) => {
   const onCloseMenu = () => {
     setStateMobile(false);
   };
-
+  /*eslint-disable*/
   useEffect(() => {
     window.addEventListener("touchstart", handleClickOutside);
     return () => {
       window.removeEventListener("touchstart", handleClickOutside);
     };
   }, [stateMobile]);
-
+  /*eslint-enable*/
   const handleClickOutside = (e) => {
     if (windowCheck && stateMobile && !e.target.closest(".navbar")) {
       onCloseMenu();
@@ -53,17 +53,21 @@ const Menu = ({ t, currentLanguage, template }) => {
       onMouseLeave={onCloseMenu}
     >
       <InternalLink className="nav-item-logo" href={curLang}>
+        {/*eslint-disable*/}
         <img
           src={logo}
           alt="logo"
           style={{ width: "153px", height: "28px", cursor: "pointer" }}
         />
+        {/*eslint-enable*/}
       </InternalLink>
+      {/*eslint-disable*/}
       <img
         src="/icons/mob_menu.svg"
         className="nav-items-mobile"
         onClick={toggleMobile}
       />
+      {/*eslint-enable*/}
       <Nav
         currentLanguage={currentLanguage}
         className={NavTemplateClassName}

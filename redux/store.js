@@ -1,15 +1,15 @@
-// import { configureStore } from "@reduxjs/toolkit";
-// // import { setupListeners } from "@reduxjs/toolkit/dist/query";
-// import { formApi } from "./forms/form.api";
+import { configureStore } from "@reduxjs/toolkit";
+// import { setupListeners } from "@reduxjs/toolkit/dist/query";
+import { formApi } from "./categories/category.api";
 
-// export const store = configureStore({
-//   reducer: {
-//     [formApi.reducerPath]: formApi.reducer,
-//   },
-//   middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware().concat(formApi.middleware),
-// });
+export const store = configureStore({
+  reducer: {
+    [formApi.reducerPath]: formApi.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(formApi.middleware),
+});
 
-// // optional
+// optional
 
-// // setupListeners(store.dispatch);
+// setupListeners(store.dispatch);

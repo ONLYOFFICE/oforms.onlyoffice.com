@@ -1,5 +1,4 @@
 import styled from "styled-components";
-// TODO: FIXME:
 
 const StyledCards = styled.div`
   display: flex;

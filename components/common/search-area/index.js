@@ -6,6 +6,7 @@ import TextInput from "../text-input/";
 import StyledSearchArea from "./styled-search-area";
 
 const SearchArea = ({ clearValueSearch, valueSearch, callback, t }) => {
+  /*eslint-disable*/
   const imgSearch = !valueSearch ? (
     <img
       src={"/icons/search-icon.react.svg"}
@@ -23,7 +24,7 @@ const SearchArea = ({ clearValueSearch, valueSearch, callback, t }) => {
       height="24px"
     />
   );
-
+  /*eslint-enable*/
   return (
     <StyledSearchArea>
       <Box className="search_container" alignItems="center">

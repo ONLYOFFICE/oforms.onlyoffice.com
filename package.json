@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "clean": "rimraf .next"
+    "clean": "rimraf .next",
+    "analyze": "npm run build && source-map-explorer .next/static/**/*.js"
   },
   "dependencies": {
     "@callstack/react-theme-provider": "^3.0.7",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "eslint": "8.12.0",
-    "eslint-config-next": "12.1.4"
+    "eslint-config-next": "12.1.4",
+    "source-map-explorer": "^2.5.2"
   }
 }

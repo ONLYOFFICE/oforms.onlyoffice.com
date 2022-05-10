@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import { NImage } from "../image";
 import StyledLanguageSelector from "./styled-language-selector";
 import ItemsList from "./items-list";
 
@@ -57,15 +58,18 @@ const LanguageSelector = (props) => {
       onClick={onClickHandler}
       className="language-selector"
     >
-      <img
+      <NImage
         className="flag-image"
         alt="flag"
         src={`/images/flags/${currentLanguage}.svg`}
         width="18px"
+        height="18px"
       />
+      {/*eslint-disable*/}
       <div className="arrow-image">
         <img src={srcArrow} alt={srcAlt} />
       </div>
+      {/*eslint-enable*/}
       <ItemsList
         className={`languages-list lng-selector ${
           isOpen ? "language-selector-open" : "language-selector-closed"

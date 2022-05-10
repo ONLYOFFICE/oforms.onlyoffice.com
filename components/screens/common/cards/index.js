@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { Card } from "@components/common/card";
 import StyledCards from "./styled-cards";

@@ -1,27 +1,24 @@
 import { lazy, Suspense } from "react";
-
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import getAllForms from "@lib/strapi/getForms";
 
 import Layout from "@components/layout";
 import HeadSEO from "@components/screens/head-content";
 import HeadingContent from "@components/screens/heading-content";
 import InfoContent from "@components/screens/main-page/info-content";
+import MainContent from "@components/screens/main-page/main-content";
 
 const Accordion = lazy(() => import("@components/screens/common/accordion"), {
-  loading: () => <div />,
   suspense: true,
   ssr: false,
 });
 const Footer = lazy(() => import("@components/screens/footer-content"), {
-  loading: () => <div />,
   suspense: true,
   ssr: false,
 });
 
-const Index = () => {
-  const { locale } = useRouter();
+const Index = ({ forms, page, locale, sort }) => {
   const { t } = useTranslation("common");
 
   return (
@@ -40,12 +37,19 @@ const Index = () => {
       </Layout.PageHeader>
       <Layout.SectionMain>
         <InfoContent t={t} currentLanguage={locale} />
-        <Suspense fallback={`loading`}>
+        <MainContent
+          t={t}
+          currentLanguage={locale}
+          data={forms}
+          sort={sort}
+          page={+page}
+        />
+        <Suspense>
           <Accordion t={t} currentLanguage={locale} />
         </Suspense>
       </Layout.SectionMain>
       <Layout.PageFooter>
-        <Suspense fallback={`loading`}>
+        <Suspense>
           <Footer t={t} language={locale} />
         </Suspense>
       </Layout.PageFooter>
@@ -58,9 +62,14 @@ export const getServerSideProps = async ({ locale, query }) => {
   const sort = query._sort || "ASC";
   const pageSize = query.pageSize || 9;
 
+  const forms = await getAllForms(locale, page, sort, pageSize);
   return {
     props: {
       ...(await serverSideTranslations(locale, "common")),
+      forms,
+      page,
+      locale,
+      sort,
     },
   };
 };
