@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Cards from "@components/screens/common/cards";
 import Pagination from "@components/common/pagination";
@@ -21,6 +21,14 @@ const MainContent = ({ t, currentLanguage, data, page, sort }) => {
   const onChangeSelectTypeSort = (e) => {
     setTypeSortData(e.target.value);
   };
+
+  useEffect(() => {
+    if (sort === "desc") {
+      setTypeSortData(t("NameZ-A"));
+    } else {
+      setTypeSortData(t("NameA-Z"));
+    }
+  }, [sort]);
 
   return (
     <StyledMainContent

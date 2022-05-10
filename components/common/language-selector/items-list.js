@@ -26,10 +26,9 @@ export default function LangsList({ isOpen }) {
 
   const renderItemList = () => {
     return languages.map((language) => {
-      const tmpLng = language.shortKey === "en" ? "" : language.shortKey;
       return (
         <StyledItem key={language.key}>
-          <Link href={"/"} locale={tmpLng} onClick={handleClick}>
+          <Link href={"/"} locale={language.shortKey} onClick={handleClick}>
             <a className="language-item-link">
               <img
                 src={`/images/flags/${language.iconName}`}
