@@ -53,7 +53,11 @@ const Menu = ({ t, currentLanguage, template }) => {
       onMouseLeave={onCloseMenu}
     >
       <InternalLink className="nav-item-logo" href={curLang}>
-        <img src={logo} alt="logo" style={{ width: "153px", height: "28px" }} />
+        <img
+          src={logo}
+          alt="logo"
+          style={{ width: "153px", height: "28px", cursor: "pointer" }}
+        />
       </InternalLink>
       <img
         src="/icons/mob_menu.svg"
