@@ -1,6 +1,5 @@
 import Scrollbar from "@components/common/scrollbar";
 import Heading from "@components/common/heading";
-import Text from "@components/common/text";
 import Box from "@components/common/box";
 import Banner from "../../common/banner";
 
@@ -10,6 +9,24 @@ import itemsShortCards from "@utils/data/pages/short-cards";
 
 const InfoContent = ({ t, currentLanguage }) => {
   let lng = currentLanguage === "en" ? "" : `/${currentLanguage}`;
+  const shortCardItems = itemsShortCards[currentLanguage]?.map((it, idx) => {
+    let url = it.title
+      .replace(/\s/g, "-")
+      .replace(/[{()}]/g, "")
+      .toLowerCase();
+    let href = `/editor/?filename=${url}&fillform=${it.fillForm}`;
+    return (
+      <ShortCard
+        t={t}
+        key={`items-short-card-${idx}`}
+        title={it.title}
+        subtitle={it.subtitle}
+        linkUrl={lng + it.linkUrl}
+        hrefButtom={href}
+        alt={it.title}
+      />
+    );
+  });
   return (
     <StyledInfoContent
       background="#333333"
@@ -36,23 +53,7 @@ const InfoContent = ({ t, currentLanguage }) => {
           className="scrollbar-items-content"
           style={{ width: 1140, height: 250 }}
         >
-          {itemsShortCards[currentLanguage]?.map((it, idx) => {
-            let href = it.title
-              .replace(/\s/g, "-")
-              .replace(/[{()}]/g, "")
-              .toLowerCase();
-            return (
-              <ShortCard
-                t={t}
-                key={`items-short-card-${idx}`}
-                title={it.title}
-                subtitle={it.subtitle}
-                linkUrl={lng + it.linkUrl}
-                hrefButtom={href}
-                alt={it.title}
-              />
-            );
-          })}
+          {shortCardItems}
         </Scrollbar>
       </Box>
       <Banner t={t} currentLanguage={currentLanguage} />

@@ -1,7 +1,6 @@
 import { lazy, Suspense } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import reName from "@utils/helpers/fixname";
 
 import Layout from "@components/layout";
 import HeadSEO from "@components/screens/head-content";
@@ -27,11 +26,13 @@ const Footer = lazy(() => import("@components/screens/footer-content"), {
 const Form = ({ form, locale }) => {
   const { t } = useTranslation("common");
   const data = form.data[0].attributes;
-  const { seo_title, seo_description, name_form, file_oform } = data;
-  const ID = form.data[0].id;
-  const fileName = reName(name_form);
-  const fillForm = `${file_oform.data[0].attributes.hash}.oform`;
-  const linkOformEditor = `/editor/?filename=${fileName}&fillform=${fillForm}&id=${ID}`;
+  const { seo_title, seo_description, url, file_oform, name_form } = data;
+  const oformFile = file_oform?.data?.filter((it) => {
+    return it?.attributes.name.split(".")[1] === "oform";
+  });
+  const fillForm = `${oformFile[0]?.attributes?.hash}.oform`;
+  const linkOformEditor = `/editor/?filename=${url}&fillform=${fillForm}`;
+  
   return (
     <Layout>
       <Layout.PageHead>
@@ -46,7 +47,12 @@ const Form = ({ form, locale }) => {
         <HeadingContent template currentLanguage={locale} t={t} />
       </Layout.PageHeader>
       <Layout.SectionMain>
-        <MainInfo data={data} currentLanguage={locale} t={t} />
+        <MainInfo
+          data={data}
+          currentLanguage={locale}
+          t={t}
+          link={linkOformEditor}
+        />
         <Suspense>
           <FormBanner t={t} labelName={name_form} link={linkOformEditor} />
         </Suspense>

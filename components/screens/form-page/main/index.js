@@ -12,7 +12,7 @@ import Breadcrumb from "./sub-components/breadcrumb";
 import ShareButtonsGroup from "./sub-components/icon-buttons";
 import StyledMainInfo from "./styled-main";
 
-const MainInfo = ({ t, currentLanguage, data }) => {
+const MainInfo = ({ t, currentLanguage, data, link }) => {
   const {
     name_form,
     template_desc,
@@ -48,7 +48,6 @@ const MainInfo = ({ t, currentLanguage, data }) => {
   const category = categories.data[0].attributes.categorie;
 
   const SVG_FILE_TYPE = "/icons/oform.svg";
-  const linkFillForm = reName(name_form);
   const baseURL = typeof window !== "undefined" ? window.location.href : null;
   const linkSuggestChanges = `mailto:marketing@onlyoffice.com?subject=Suggesting changes for Form ${name_form}&body=Suggesting changes for Form ${name_form}.`;
 
@@ -134,11 +133,7 @@ const MainInfo = ({ t, currentLanguage, data }) => {
           </div>
         </Box>
         <Box className="file-main-buttons">
-          <Link
-            target="_blank"
-            style={{ width: "100%" }}
-            href={`/editor?fillform=${linkFillForm}`}
-          >
+          <Link target="_blank" style={{ width: "100%" }} href={link}>
             <Button isScale label={t("OpenAndFill")} />
           </Link>
           <ButtonSelector
