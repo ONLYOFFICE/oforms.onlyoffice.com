@@ -1,15 +1,23 @@
-import React from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import Layout from "@components/layout";
+import HeadSEO from "@components/screens/head-content";
 import Error404 from "@components/screens/404-page";
 
-const Error404Page = () => {
+const ErrorPage = () => {
   const { t } = useTranslation("common");
 
   return (
-    <Layout footerContent={false} headContent={false} headerContent={false}>
+    <Layout footerContent={false} headerContent={false}>
+      <Layout.PageHead>
+        <HeadSEO
+          title={t("Page 404")}
+          metaSiteNameOg={t("Page 404")}
+          metaDescription={t("Page 404")}
+          metaDescriptionOg={t("Page 404")}
+        />
+      </Layout.PageHead>
       <Layout.SectionMain>
         <Error404 t={t} />
       </Layout.SectionMain>
@@ -23,4 +31,4 @@ export const getStaticProps = async ({ locale }) => ({
   },
 });
 
-export default Error404Page;
+export default ErrorPage;

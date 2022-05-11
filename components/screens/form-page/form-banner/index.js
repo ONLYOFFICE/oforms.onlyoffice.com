@@ -1,5 +1,3 @@
-import { ReactSVG } from "react-svg";
-
 import Box from "@components/common/box";
 import Text from "@components/common/text";
 import Link from "@components/common/link";
@@ -22,11 +20,13 @@ const FormBanner = ({ t, labelName, link }) => {
       >
         <Box flexDirection="column" alignItems="flex-start">
           <Box className="banner_title">
-            <ReactSVG
+            {/*eslint-disable*/}
+            <img
               src="/icons/pensil-icon.react.svg"
               height="33px"
               width="33px"
             />
+            {/*eslint-enable*/}
             {HeadingBanner}
           </Box>
           <Box

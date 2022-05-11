@@ -5,12 +5,12 @@ import Text from "../../text";
 import Button from "../../button";
 import Link from "./sub-components/link";
 import StyledCard from "./styled-card";
-import {NImage} from "../../image";
-// TODO: FIXME:
+// import { NImage } from "../../image";
 
 const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
   const { attributes } = arrayItems;
-  const { name_form, description_card, card_prewiew, file_oform } = attributes;
+  const { name_form, description_card, card_prewiew, file_oform, categories } =
+    attributes;
   const imgUrlCard = card_prewiew.data?.attributes?.url;
   let oformFile = file_oform?.data?.filter((it) => {
     let checkFormatFile = it?.attributes.name.split(".")[1] === "oform";
@@ -18,6 +18,7 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
   });
   let urlOform = oformFile[0]?.attributes?.url;
 
+  const category = categories?.data[0]?.attributes?.urlReq;
   const linkFillForm = name_form
     .replace(/\s/g, "-")
     .replace(/[{()}]/g, "")
@@ -25,14 +26,14 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
     .toLowerCase();
   const pathName =
     currentLanguage === "en"
-      ? `/${linkFillForm}`
-      : `/${currentLanguage}/${linkFillForm}`;
+      ? `/form/${category}/${linkFillForm}`
+      : `/${currentLanguage}/form/${category}/${linkFillForm}`;
   const QueryLink = `/editor?fillform=${linkFillForm}`;
 
   return (
     <StyledCard {...rest}>
       <Link href={pathName}>
-        <img className="card-image" src={imgUrlCard} />
+        <img className="card-image" src={imgUrlCard} alt={name_form} />
       </Link>
       <Box
         className="card-template"

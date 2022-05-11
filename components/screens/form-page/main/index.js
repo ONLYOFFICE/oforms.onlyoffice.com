@@ -1,5 +1,4 @@
 import reName from "@utils/helpers/fixname";
-import { ReactSVG } from "react-svg";
 
 import Box from "@components/common/box";
 import Text from "@components/common/text";
@@ -106,10 +105,9 @@ const MainInfo = ({ t, currentLanguage, data }) => {
             <Text isBold color="#AAAAAA">
               {t("FileType")}:
             </Text>
-            <ReactSVG
-              className="template-image-file-type"
-              src={SVG_FILE_TYPE}
-            />
+            {/*eslint-disable*/}
+            <img className="template-image-file-type" src={SVG_FILE_TYPE} />
+            {/*eslint-enable*/}
           </div>
           <div>
             <Text isBold color="#AAAAAA">

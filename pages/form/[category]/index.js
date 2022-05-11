@@ -84,7 +84,7 @@ export const getServerSideProps = async ({ locale, ...ctx }) => {
   if (categoryForms.data.length === 0) {
     return {
       redirect: {
-        destination: `http://localhost:3000/404`,
+        destination: `https://oforms.teamlab.info/404`,
         permanent: true,
       },
     };
