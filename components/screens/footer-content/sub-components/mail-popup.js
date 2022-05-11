@@ -7,7 +7,7 @@ import Form from "./form";
 const MailPopup = ({ t, language, active, setActive, submitForm, ...rest }) => {
   const [formComplete, setFormComplete] = useState(false);
 
-  return (
+  const ActiveForm = active ? (
     <StyledMailPopup active={active} onClick={() => setActive(false)} {...rest}>
       <div onClick={(e) => e.stopPropagation()} className="popup-content">
         <div className="PopupPanelCaptionItems">
@@ -42,7 +42,11 @@ const MailPopup = ({ t, language, active, setActive, submitForm, ...rest }) => {
         </div>
       </div>
     </StyledMailPopup>
+  ) : (
+    <div />
   );
+
+  return <>{ActiveForm}</>;
 };
 
 export default MailPopup;
