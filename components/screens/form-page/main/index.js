@@ -101,9 +101,16 @@ const MainInfo = ({ t, currentLanguage, data }) => {
           ))}
         </div>
         <Box className="file-info">
-          <div style={{ display: "flex" }}>
+          <div
+            style={{
+              display: "flex",
+              alignContent: "stretch",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <Text isBold color="#AAAAAA">
-              {t("FileType")}:
+              {t("FileType")}:{" "}
             </Text>
             {/*eslint-disable*/}
             <img className="template-image-file-type" src={SVG_FILE_TYPE} />
