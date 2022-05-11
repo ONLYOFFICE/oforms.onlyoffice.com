@@ -23,14 +23,14 @@ const Menu = ({ t, currentLanguage, template }) => {
   const onCloseMenu = () => {
     setStateMobile(false);
   };
-
+  /*eslint-disable*/
   useEffect(() => {
     window.addEventListener("touchstart", handleClickOutside);
     return () => {
       window.removeEventListener("touchstart", handleClickOutside);
     };
   }, [stateMobile]);
-
+  /*eslint-enable*/
   const handleClickOutside = (e) => {
     if (windowCheck && stateMobile && !e.target.closest(".navbar")) {
       onCloseMenu();
@@ -51,15 +51,23 @@ const Menu = ({ t, currentLanguage, template }) => {
       template={template}
       className="navbar"
       onMouseLeave={onCloseMenu}
-    ><div className="nav-container">
+    >
       <InternalLink className="nav-item-logo" href={curLang}>
-        <img src={logo} alt="logo" style={{ width: "153px", height: "28px" }} />
+        {/*eslint-disable*/}
+        <img
+          src={logo}
+          alt="logo"
+          style={{ width: "153px", height: "28px", cursor: "pointer" }}
+        />
+        {/*eslint-enable*/}
       </InternalLink>
+      {/*eslint-disable*/}
       <img
         src="/icons/mob_menu.svg"
         className="nav-items-mobile"
         onClick={toggleMobile}
       />
+      {/*eslint-enable*/}
       <Nav
         currentLanguage={currentLanguage}
         className={NavTemplateClassName}
@@ -71,7 +79,6 @@ const Menu = ({ t, currentLanguage, template }) => {
           {t("tel37166016425")}
         </Link>
         <LanguageSelector t={t} currentLanguage={currentLanguage} />
-      </div>
       </div>
     </StyledMenu>
   );

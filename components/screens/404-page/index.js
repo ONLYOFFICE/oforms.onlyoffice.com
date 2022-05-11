@@ -1,8 +1,9 @@
-import Styled404 from "./styled";
 import Text from "@components/common/text";
 import Button from "@components/common/button";
 import { Img } from "@components/common/image";
 import InternalLink from "@components/common/internal-link";
+
+import Styled404 from "./styled";
 
 const Error404 = ({ t }) => {
   return (

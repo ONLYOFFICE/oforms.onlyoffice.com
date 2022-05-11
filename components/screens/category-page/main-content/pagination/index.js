@@ -1,7 +1,5 @@
-import React from "react";
-
-import PageNumber from "./sub-components/page-number";
-import StyledPagination from "./styled-pagination";
+import PageNumber from "@components/common/pagination/sub-components/page-number";
+import StyledPagination from "@components/common/pagination/styled-pagination";
 
 const Pagination = ({
   currentPage,
@@ -9,11 +7,10 @@ const Pagination = ({
   getPaginationGroup,
   changePage,
   goToNextPage,
-  category,
   locale,
   sort,
+  category,
 }) => {
-
   return (
     <StyledPagination className="pagination">
       {/* <Link className="previous-page" onClick={(e) => goToPreviousPage(e)}>
@@ -25,17 +22,9 @@ const Pagination = ({
       </Link> */}
       {getPaginationGroup.map((item, index) => (
         <a
-          href={
-            !category
-              ? `${locale === "en" ? "" : `${locale}/`}?page=${item}${
-                  sort !== undefined && sort !== "asc" ? `&_sort=${sort}` : ""
-                }`
-              : `${
-                  locale === "en" ? "" : `/${locale}/form/${category}`
-                }?page=${item}${
-                  sort !== undefined && sort !== "asc" ? `&_sort=${sort}` : ""
-                }`
-          }
+          href={`${locale === "en" ? "" : `${locale}/${category}`}?page=${item}${
+            sort !== undefined && sort !== "asc" ? `&_sort=${sort}` : ""
+          }`}
           key={index + item}
         >
           <PageNumber

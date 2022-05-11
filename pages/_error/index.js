@@ -11,12 +11,7 @@ const ErrorPage = () => {
   return (
     <Layout footerContent={false} headerContent={false}>
       <Layout.PageHead>
-        <HeadSEO
-          title={t("Page 404")}
-          metaSiteNameOg={t("Page 404")}
-          metaDescription={t("Page 404")}
-          metaDescriptionOg={t("Page 404")}
-        />
+        <HeadSEO title={t("Error Page")} metaDescription={t("Error Page")} />
       </Layout.PageHead>
       <Layout.SectionMain>
         <Error404 t={t} />

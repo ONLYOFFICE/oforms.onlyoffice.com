@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import { ReactSVG } from "react-svg";
 
 import StyledFooterItem from "./styled-footer-item";
 import Heading from "@components/common/heading";
@@ -27,12 +26,14 @@ const FooterItem = ({ dis, children, className, heading }) => {
         onClick={dis && onHandleClick}
         label={heading}
       />
-      <ReactSVG
+      {/*eslint-disable*/}
+      <img
         className={footerImageArrow}
         src="/icons/chevron-down.react.svg"
         height="24px"
         width="24px"
       />
+      {/*eslint-enable*/}
       <div ref={content} className="footer-items-group">
         {children}
       </div>

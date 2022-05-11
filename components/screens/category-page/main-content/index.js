@@ -6,9 +6,19 @@ import Selector from "@components/common/selector";
 import Heading from "@components/common/heading";
 import Text from "@components/common/text";
 import Box from "@components/common/box";
-import StyledMainContent from "./styled-main-content";
 
-const MainContent = ({ t, currentLanguage, data, page, sort }) => {
+import Breadcrumb from "./breadcrumb";
+import StyledMainContent from "./style";
+
+const MainContent = ({
+  t,
+  currentLanguage,
+  data,
+  page,
+  sort,
+  category,
+  urlReqCategory,
+}) => {
   const countData = data.meta?.pagination?.total;
   const countPage = data.meta?.pagination?.pageCount;
   const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
@@ -37,12 +47,7 @@ const MainContent = ({ t, currentLanguage, data, page, sort }) => {
       tabletPadding="84px 0 103px 0"
       mobileLPadding="66px 0"
     >
-      <Heading
-        level={2}
-        className="heading-cards"
-        textAlign="center"
-        label={t("AllForms")}
-      />
+      <Breadcrumb t={t} language={currentLanguage} category={category} />
       <div className="idk-box-template">
         <Box className="box-doc-info-template">
           <div className="box-doc-categories" id="mob-box-doc-categories">
@@ -57,6 +62,7 @@ const MainContent = ({ t, currentLanguage, data, page, sort }) => {
               onChangeSelectTypeSort={onChangeSelectTypeSort}
               locale={currentLanguage}
               className="form-control"
+              category={urlReqCategory}
               t={t}
             />
           </div>
@@ -73,6 +79,7 @@ const MainContent = ({ t, currentLanguage, data, page, sort }) => {
         </Box>
         <Pagination
           countPage={countPage}
+          category={urlReqCategory}
           getPaginationGroup={getPaginationGroup}
           locale={currentLanguage}
           sort={sort}

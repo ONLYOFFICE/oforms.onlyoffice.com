@@ -5,7 +5,13 @@ import Box from "../box";
 import Text from "../text";
 import StyledSelector from "./syled-selector";
 
-const Selector = ({ onChangeSelectTypeSort, typeSortData, t, locale }) => {
+const Selector = ({
+  onChangeSelectTypeSort,
+  typeSortData,
+  t,
+  locale,
+  category,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const onClickHandler = () => {
@@ -16,6 +22,8 @@ const Selector = ({ onChangeSelectTypeSort, typeSortData, t, locale }) => {
     setIsOpen(false);
   };
 
+  const catHREF = category ? `form/${category}/` : "";
+  const localeHREF = category ? `/${locale}` : locale;
   return (
     <StyledSelector
       isOpen={isOpen}
@@ -31,7 +39,7 @@ const Selector = ({ onChangeSelectTypeSort, typeSortData, t, locale }) => {
         onClick={onChangeSelectTypeSort}
       >
         <a
-          href={`${locale === "en" ? "" : locale}/?_sort=asc`}
+          href={`${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=asc`}
           style={{ textDecoration: "none" }}
         >
           <Text
@@ -42,7 +50,7 @@ const Selector = ({ onChangeSelectTypeSort, typeSortData, t, locale }) => {
           />
         </a>
         <a
-          href={`${locale === "en" ? "" : locale}/?_sort=desc`}
+          href={`${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=desc`}
           style={{ textDecoration: "none" }}
         >
           <Text

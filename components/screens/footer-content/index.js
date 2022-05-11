@@ -44,12 +44,14 @@ const Footer = ({ t, language }) => {
                         className="footer-link-contact"
                         label={item_link.mail}
                         href={item_link.href}
+                        alt={item_link.mail}
                       />
                     </Text>
                   ) : (
                     <ExternalLink
                       className="footer-link"
                       label={t(item_link.label)}
+                      alt={item_link.label}
                       href={
                         item_link.localize
                           ? onlyoffice + item_link.href
@@ -73,6 +75,7 @@ const Footer = ({ t, language }) => {
                 href={item.href}
                 title={item.title}
                 rel={item.rel}
+                alt={item.title}
                 target="_blank"
                 key={item.title}
                 onClick={

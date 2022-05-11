@@ -6,6 +6,25 @@ import TextInput from "../text-input/";
 import StyledSearchArea from "./styled-search-area";
 
 const SearchArea = ({ clearValueSearch, valueSearch, callback, t }) => {
+  /*eslint-disable*/
+  const imgSearch = !valueSearch ? (
+    <img
+      src={"/icons/search-icon.react.svg"}
+      style={{ cursor: "default" }}
+      alt="search"
+      width="24px"
+      height="24px"
+    />
+  ) : (
+    <img
+      src={"/icons/close-icon.react.svg"}
+      onClick={clearValueSearch}
+      alt="close"
+      width="24px"
+      height="24px"
+    />
+  );
+  /*eslint-enable*/
   return (
     <StyledSearchArea>
       <Box className="search_container" alignItems="center">
@@ -29,19 +48,7 @@ const SearchArea = ({ clearValueSearch, valueSearch, callback, t }) => {
           colorHover="#CCCCCC"
           labelColor={!valueSearch ? "#808080" : "#CCCCCC"}
         />
-        <div className="search_icon">
-          {!valueSearch ? (
-            <img
-              src={"/icons/search-icon.react.svg"}
-              style={{ cursor: "default" }}
-            />
-          ) : (
-            <img
-              src={"/icons/close-icon.react.svg"}
-              onClick={clearValueSearch}
-            />
-          )}
-        </div>
+        <div className="search_icon">{imgSearch}</div>
       </Box>
     </StyledSearchArea>
   );
