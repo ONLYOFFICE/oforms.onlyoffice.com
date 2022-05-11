@@ -4,6 +4,7 @@ import { device } from "@components/utils/devices";
 import Box from "@components/common/box";
 import Link from "@components/common/internal-link";
 import Text from "@components/common/text";
+import reName from "@utils/helpers/fixname";
 
 const StyledBreadcrumb = styled(Box)`
   gap: 10px;
@@ -63,12 +64,13 @@ const StyledBreadcrumb = styled(Box)`
 
 const Breadcrumb = ({ name, categories, language, t }) => {
   const lnh = language === "en" ? "" : `${language}/`;
+  const catHref = reName(categories);
   return (
     <StyledBreadcrumb>
       <Link className="breadcrumb-links" href={`/${lnh}`}>
         {t("Forms")}
       </Link>
-      <Link className="breadcrumb-links" href={`/${lnh}form/${categories}`}>
+      <Link className="breadcrumb-links" href={`/${lnh}form/${catHref}`}>
         {categories}
       </Link>
       <Text className="breadcrumb-items-name" label={name} />

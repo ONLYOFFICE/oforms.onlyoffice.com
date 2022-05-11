@@ -32,7 +32,6 @@ const Form = ({ form, locale }) => {
   const fileName = reName(name_form);
   const fillForm = `${file_oform.data[0].attributes.hash}.oform`;
   const linkOformEditor = `/editor/?filename=${fileName}&fillform=${fillForm}&id=${ID}`;
-
   return (
     <Layout>
       <Layout.PageHead>

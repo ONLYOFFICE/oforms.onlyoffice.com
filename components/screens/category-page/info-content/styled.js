@@ -4,7 +4,7 @@ import Section from "@components/common/section";
 const StyledInfoContent = styled(Section)`
   background-color: #333;
   .section-page {
-    margin-top: 190px;
+    padding-top: 190px;
     .category-box {
       max-width: 736px;
       margin: 0 auto;
@@ -28,7 +28,7 @@ const StyledInfoContent = styled(Section)`
 
   @media (max-width: 1024px) {
     .section-page {
-      margin-top: 120px;
+      padding-top: 120px;
       .category-heading {
       }
       .category-description {
@@ -39,7 +39,7 @@ const StyledInfoContent = styled(Section)`
 
   @media (max-width: 768px) {
     .section-page {
-      margin-top: 110px;
+      padding-top: 110px;
       .category-heading {
         font-size: 30px;
       }
