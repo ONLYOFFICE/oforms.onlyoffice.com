@@ -109,22 +109,6 @@ const Form = ({ form, locale, randomCarousel }) => {
     }
   }, []);
 
-  // // Carousel content data
-  // const _randomslice = (array, size) => {
-  //   let newArray = [...array];
-  //   newArray.splice(Math.floor(Math.random() * array.length), 1);
-  //   return array.length <= size + 1 ? newArray : _randomslice(newArray, size);
-  // };
-
-  // const maxItemsRandomCardForms = 7;
-  // const lngCardForms = allCardForms?.filter(({ attributes }) => {
-  //   let { locale } = attributes;
-  //   if (locale.toLowerCase() === language.toLowerCase()) {
-  //     return { ...attributes };
-  //   }
-  // });
-  // const randomCardForms = _randomslice(lngCardForms, maxItemsRandomCardForms);
-
   const headingRentForms = (
     <Heading level={3} fontSize="24px">
       <Trans i18nKey="OtherLeaseRentForms">
