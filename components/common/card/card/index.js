@@ -17,7 +17,7 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
     categories,
     url,
   } = attributes;
-  const imgUrlCard = card_prewiew.data?.attributes?.url;
+  const imgUrlCard = card_prewiew?.data?.attributes?.url;
   let oformFile = file_oform?.data?.filter((it) => {
     let checkFormatFile = it?.attributes.name.split(".")[1] === "oform";
     return checkFormatFile ? it?.attributes?.url : null;
@@ -35,8 +35,13 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
 
   return (
     <StyledCard {...rest}>
-      <Link href={pathName}>
-        <img className="card-image" src={imgUrlCard} alt={name_form} />
+      <Link href={pathName} className="image-boxshadow-template">
+        <img
+          className="card-image"
+          src={imgUrlCard}
+          alt={name_form}
+          style={{ width: "100%", height: "100%" }}
+        />
       </Link>
       <Box
         className="card-template"

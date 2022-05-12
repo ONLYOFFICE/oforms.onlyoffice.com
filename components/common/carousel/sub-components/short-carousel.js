@@ -4,30 +4,19 @@ import Link from "@components/common/card/card/sub-components/link";
 
 const ShortCard = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
   const { attributes } = arrayItems;
-  const { name_form, card_prewiew, file_oform } = attributes;
-  const imgUrlCard = card_prewiew.data?.attributes?.url;
-  let oformFile = file_oform?.data?.filter((it) => {
-    let checkFormatFile = it?.attributes.name.split(".")[1] === "oform";
-    return checkFormatFile ? it?.attributes?.url : null;
-  });
-  let urlOform = oformFile[0]?.attributes?.url;
-  const imgTemp = typeof window !== "undefined";
+  const { name_form, card_prewiew, categories, url } = attributes;
+  const imgUrlCard = card_prewiew?.data?.attributes?.url;
 
-  const linkFillForm = name_form
-    .replace(/\s/g, "-")
-    .replace(/[{()}]/g, "")
-    .replace("/", "-")
-    .toLowerCase();
+  const category = categories?.data[0]?.attributes?.urlReq;
   const pathName =
     currentLanguage === "en"
-      ? `/${linkFillForm}`
-      : `/${currentLanguage}/${linkFillForm}`;
-  const QueryLink = `/editor?fillform=${linkFillForm}`;
+      ? `/form/${category}/${url}`
+      : `/${currentLanguage}/form/${category}/${url}`;
 
   return (
     <StyledShortCard {...rest}>
       <Link href={pathName} className="image-boxshadow-template">
-        <img className="card-image" urlForm={imgUrlCard} />
+        <img className="card-image" src={imgUrlCard} />
       </Link>
       <Box
         className="card-template"

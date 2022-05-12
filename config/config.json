@@ -1,6 +1,5 @@
 {
     "defaultLanguage": "en",
-    "localStorageCarousel": "arrayCaroselClientSideItemsOforms",
     "docEditorUrl": "https://doc.onlyoffice.com",
     "api": {
         "cms": "https://cmsoforms.onlyoffice.com",

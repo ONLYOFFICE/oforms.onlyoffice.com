@@ -1,12 +1,21 @@
-import { lazy, Suspense } from "react";
-import { useTranslation } from "next-i18next";
+import { lazy, Suspense, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import { Trans, useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { localStorageCarousel, CAROUSEL_COOKIE } from "@utils/constants";
+import { shortCarouselSettings } from "@components/screens/form-page/carousel/config/carousel-config";
 
 import Layout from "@components/layout";
 import HeadSEO from "@components/screens/head-content";
 import HeadingContent from "@components/screens/heading-content";
 import MainInfo from "@components/screens/form-page/main";
+import { getCookie, setCookie } from "@utils/helpers/cookie";
+import Heading from "@components/common/heading";
 
+const CarouselContent = dynamic(
+  () => import("@components/screens/form-page/carousel"),
+  { ssr: false }
+);
 const FormBanner = lazy(
   () => import("@components/screens/form-page/form-banner"),
   {
@@ -23,7 +32,7 @@ const Footer = lazy(() => import("@components/screens/footer-content"), {
   loading: () => <div />,
 });
 
-const Form = ({ form, locale }) => {
+const Form = ({ form, locale, randomCarousel }) => {
   const { t } = useTranslation("common");
   const data = form.data[0].attributes;
   const { seo_title, seo_description, url, file_oform, name_form } = data;
@@ -32,7 +41,120 @@ const Form = ({ form, locale }) => {
   });
   const fillForm = `${oformFile[0]?.attributes?.hash}.oform`;
   const linkOformEditor = `/editor/?filename=${url}&fillform=${fillForm}`;
-  
+
+  const dataCarousel = randomCarousel?.data;
+  // Carousel client data
+  const maxItemsClientCardForms = 7;
+  // Retrieves the string and converts it to a JavaScript object
+  const localStorageTmp = form?.data;
+  const retrievedString =
+    typeof window !== "undefined" && getCookie(CAROUSEL_COOKIE) !== undefined
+      ? localStorage.getItem(localStorageCarousel)
+      : undefined;
+  retrievedString === undefined &&
+    typeof window !== "undefined" &&
+    localStorage.removeItem("arrayCaroselClientSideItemsOforms");
+  const parsedObjectLocalStorage =
+    retrievedString !== undefined ? JSON.parse(retrievedString) : [];
+  const [itemsClient, setItemsClient] = useState(parsedObjectLocalStorage);
+  const [stateConfig, setConfig] = useState(shortCarouselSettings);
+
+  const clientSideCarousel = () => {
+    setCookie(CAROUSEL_COOKIE, "oforms-items", 1);
+    // Check data in local storage
+    if (retrievedString === null || !retrievedString) {
+      localStorage.setItem(
+        localStorageCarousel,
+        JSON.stringify([...localStorageTmp])
+      );
+    } else {
+      // Retrieves the string and converts it to a JavaScript object
+      const parsedObjectLocalStorage = JSON.parse(retrievedString);
+
+      let tmpLocalStorage;
+
+      if (maxItemsClientCardForms >= parsedObjectLocalStorage.length) {
+        // Modifies the object, converts it to a string and replaces the existing `data items` in LocalStorage
+        tmpLocalStorage = [...parsedObjectLocalStorage, ...localStorageTmp];
+        const modifiedStrigifiedForStorage = JSON.stringify(tmpLocalStorage);
+        localStorage.setItem(
+          localStorageCarousel,
+          modifiedStrigifiedForStorage
+        );
+      } else {
+        // Modifies the object, converts it to a string and replaces the existing `data items` in LocalStorage
+        parsedObjectLocalStorage.shift();
+        tmpLocalStorage = [...parsedObjectLocalStorage, ...localStorageTmp];
+        const modifiedStrigifiedForStorage = JSON.stringify(tmpLocalStorage);
+        localStorage.setItem(
+          localStorageCarousel,
+          modifiedStrigifiedForStorage
+        );
+      }
+      setItemsClient(parsedObjectLocalStorage);
+      if (parsedObjectLocalStorage.length <= 6) {
+        setConfig({
+          ...shortCarouselSettings,
+          infinite: false,
+          slidesToScroll: 6,
+          slidesToShow: 6,
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      clientSideCarousel();
+    }
+  }, []);
+
+  // // Carousel content data
+  // const _randomslice = (array, size) => {
+  //   let newArray = [...array];
+  //   newArray.splice(Math.floor(Math.random() * array.length), 1);
+  //   return array.length <= size + 1 ? newArray : _randomslice(newArray, size);
+  // };
+
+  // const maxItemsRandomCardForms = 7;
+  // const lngCardForms = allCardForms?.filter(({ attributes }) => {
+  //   let { locale } = attributes;
+  //   if (locale.toLowerCase() === language.toLowerCase()) {
+  //     return { ...attributes };
+  //   }
+  // });
+  // const randomCardForms = _randomslice(lngCardForms, maxItemsRandomCardForms);
+
+  const headingRentForms = (
+    <Heading level={3} fontSize="24px">
+      <Trans i18nKey="OtherLeaseRentForms">
+        {" "}
+        <Heading
+          as="span"
+          fontSize="24px"
+          color="#FF6F3D"
+          fontWeight="700"
+          display="inline"
+        ></Heading>
+      </Trans>
+    </Heading>
+  );
+
+  const headingRecentlyViewed = (
+    <Heading level={3} fontSize="24px">
+      <Trans i18nKey="RecentlyViewed">
+        {" "}
+        <Heading
+          as="span"
+          fontSize="24px"
+          color="#FF6F3D"
+          fontWeight="700"
+          display="inline"
+        ></Heading>
+      </Trans>
+    </Heading>
+  );
+
   return (
     <Layout>
       <Layout.PageHead>
@@ -56,32 +178,26 @@ const Form = ({ form, locale }) => {
         <Suspense>
           <FormBanner t={t} labelName={name_form} link={linkOformEditor} />
         </Suspense>
-        {/* 
-
         <CarouselContent
           padding="112px 0 62px"
           tabletPadding="80px 0 30px"
           mobileLPadding="48px 0 0"
-          data={randomCardForms}
+          data={dataCarousel}
           label={headingRentForms}
-          currentLanguage={language}
+          currentLanguage={locale}
           t={t}
         />
-        {itemsClient !== null && parsedObjectLocalStorage?.length >= 2 ? (
-          <CarouselContent
-            padding="0 0 30px"
-            tabletPadding="0 0 30px"
-            mobileLPadding="0 0 0"
-            data={itemsClient}
-            label={headingRecentlyViewed}
-            config={stateConfig}
-            currentLanguage={language}
-            t={t}
-          />
-        ) : (
-          <div />
-        )}
-       */}
+        <CarouselContent
+          padding="0 0 30px"
+          tabletPadding="0 0 30px"
+          mobileLPadding="0 0 0"
+          data={itemsClient}
+          shortCard={true}
+          label={headingRecentlyViewed}
+          config={stateConfig}
+          currentLanguage={locale}
+          t={t}
+        />
         <Suspense>
           <Banner t={t} currentLanguage={locale} />
         </Suspense>
@@ -100,10 +216,13 @@ const Form = ({ form, locale }) => {
 
 export const getServerSideProps = async ({ locale, ...context }) => {
   const res = await fetch(
-    `https://cmsoforms.onlyoffice.com/api/oforms?filters[url][$eq]=${context.query.form}&locale=${locale}&populate=template_image&populate=file_oform&populate=categories`
+    `https://cmsoforms.onlyoffice.com/api/oforms?filters[url][$eq]=${context.query.form}&locale=${locale}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`
   );
   const form = await res.json();
-
+  const randomCarouselItems = await fetch(
+    `https://cmsoforms.onlyoffice.com/api/oforms/?pagination[pageSize]=7&pagination[page]=2&populate=file_oform&populate=categories&populate=card_prewiew`
+  );
+  const randomCarousel = await randomCarouselItems.json();
   if (form.data.length === 0) {
     return {
       redirect: {
@@ -119,6 +238,7 @@ export const getServerSideProps = async ({ locale, ...context }) => {
       ...(await serverSideTranslations(locale, "common")),
       form,
       locale,
+      randomCarousel,
     },
   };
 };
