@@ -17,7 +17,7 @@ const AccordionItem = ({
       <div className="accordion">
         <div className="accordion-icon">{!active ? "+" : "−"}</div>
         <Heading
-          level={4}
+          level={5}
           style={{ cursor: "pointer" }}
           className="accordion-heading"
         >

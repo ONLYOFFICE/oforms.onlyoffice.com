@@ -165,7 +165,7 @@ const AccordionContent = ({ t, currentLanguage }) => {
       tabletPadding="80px 0 78px"
       mobileLPadding="48px 0 51px"
     >
-      <Heading className="titleAccordion" level={2}>
+      <Heading className="titleAccordion" level={3}>
         {t("FAQ")}
       </Heading>
       <AccordionItem heading={t("AccordionHeadingFreeToUse")}>

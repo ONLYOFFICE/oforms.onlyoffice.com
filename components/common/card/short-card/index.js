@@ -18,7 +18,7 @@ const ShortCard = ({ title, subtitle, linkUrl, hrefButtom, t, alt }) => {
         href={linkUrl}
         alt={alt}
       />
-      <Link href={`/editor?fillform=${hrefButtom}`} alt="Open Form">
+      <Link href={hrefButtom} alt="Open Form">
         <Button
           className="card-button"
           label={t("Open")}

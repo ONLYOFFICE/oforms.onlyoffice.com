@@ -6,7 +6,7 @@ const Items = [
     link: [
       {
         localize: true,
-        label: "Developer Edition Footer",
+        label: "Developer Edition",
         href: "/developer-edition.aspx",
       },
       {

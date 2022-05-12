@@ -9,9 +9,15 @@ import StyledCard from "./styled-card";
 
 const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
   const { attributes } = arrayItems;
-  const { name_form, description_card, card_prewiew, file_oform, categories } =
-    attributes;
-  const imgUrlCard = card_prewiew.data?.attributes?.url;
+  const {
+    name_form,
+    description_card,
+    card_prewiew,
+    file_oform,
+    categories,
+    url,
+  } = attributes;
+  const imgUrlCard = card_prewiew?.data?.attributes?.url;
   let oformFile = file_oform?.data?.filter((it) => {
     let checkFormatFile = it?.attributes.name.split(".")[1] === "oform";
     return checkFormatFile ? it?.attributes?.url : null;
@@ -19,21 +25,23 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
   let urlOform = oformFile[0]?.attributes?.url;
 
   const category = categories?.data[0]?.attributes?.urlReq;
-  const linkFillForm = name_form
-    .replace(/\s/g, "-")
-    .replace(/[{()}]/g, "")
-    .replace("/", "-")
-    .toLowerCase();
   const pathName =
     currentLanguage === "en"
-      ? `/form/${category}/${linkFillForm}`
-      : `/${currentLanguage}/form/${category}/${linkFillForm}`;
-  const QueryLink = `/editor?fillform=${linkFillForm}`;
+      ? `/form/${category}/${url}`
+      : `/${currentLanguage}/form/${category}/${url}`;
+
+  const fillForm = `${oformFile[0]?.attributes?.hash}.oform`;
+  const linkOformEditor = `/editor/?filename=${url}&fillform=${fillForm}`;
 
   return (
     <StyledCard {...rest}>
-      <Link href={pathName}>
-        <img className="card-image" src={imgUrlCard} alt={name_form} />
+      <Link href={pathName} className="image-boxshadow-template">
+        <img
+          className="card-image"
+          src={imgUrlCard}
+          alt={name_form}
+          style={{ width: "100%", height: "100%" }}
+        />
       </Link>
       <Box
         className="card-template"
@@ -51,7 +59,11 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
           label={description_card}
         />
         <Box className="btn-container" justifyContent="space-between">
-          <Link target="_blank" href={QueryLink} className="btn-container-link">
+          <Link
+            target="_blank"
+            href={linkOformEditor}
+            className="btn-container-link"
+          >
             <Button
               isScale
               typeButton="primary"

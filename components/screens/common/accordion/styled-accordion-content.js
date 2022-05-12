@@ -15,6 +15,9 @@ const StyledAccordionContent = styled(Section)`
   }
   .titleAccordion {
     padding: 0 0 56px;
+    font-size: 32px;
+    line-height: 38px;
+    font-weight: 700;
 
     @media (max-width: 500px) {
       padding: 0 0 40px;

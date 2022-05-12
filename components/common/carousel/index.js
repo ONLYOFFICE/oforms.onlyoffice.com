@@ -1,11 +1,12 @@
-import React from "react";
 import PropTypes from "prop-types";
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import { Card } from "../card";
+import ShortCard from "./sub-components/short-carousel";
 import StyledCarousel from "./carousel-styled";
-import Card from "../card";
 
 const Carousel = ({
   t,
@@ -15,6 +16,7 @@ const Carousel = ({
   refCarousel,
   asNavForCarousel,
   currentLanguage,
+  shortCard,
   ...rest
 }) => {
   const settings = settingsCarousel || {
@@ -26,15 +28,25 @@ const Carousel = ({
     slidesToScroll: 1,
   };
 
-  const sliders = items.map((item, idx) => (
-    <Card
-      key={`item-${idx}`}
-      arrayItems={item}
-      className={"carousel-cards"}
-      currentLanguage={currentLanguage}
-      t={t}
-    />
-  ));
+  const sliders = items.map((item, idx) => {
+    return !shortCard ? (
+      <Card
+        key={`item-${idx}`}
+        arrayItems={item}
+        className={"carousel-cards"}
+        currentLanguage={currentLanguage}
+        t={t}
+      />
+    ) : (
+      <ShortCard
+        key={`item-${idx}`}
+        arrayItems={item}
+        className={"carousel-cards short"}
+        currentLanguage={currentLanguage}
+        t={t}
+      />
+    );
+  });
 
   return (
     <StyledCarousel arrows={isArrows} {...rest}>
