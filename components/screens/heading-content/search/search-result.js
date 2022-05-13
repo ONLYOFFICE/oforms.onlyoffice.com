@@ -19,9 +19,9 @@ const SearchResult = ({
           <div className="result-search">
             {lengthResultSearchArray.length > 0 ? (
               lengthResultSearchArray.map((it, id) => {
-                const hrefForm = reName(it.attributes.name_form);
+                const hrefForm = reName(it.attributes.url);
                 const hrefCategory = reName(
-                  it.attributes.categories.data[0].attributes.categorie
+                  it.attributes.categories.data[0].attributes.urlReq
                 );
                 return (
                   <Link
