@@ -17,10 +17,10 @@ const StyledAccordionItem = styled.div`
   .accordion-icon {
     position: absolute;
     left: 12px;
-    top: 24px;
+    top: 22px;
     font-size: 24px;
     line-height: 24px;
-    font-weight: 600;
+    font-weight: 400;
     transition: transform 0.2s ease;
   }
 
@@ -38,11 +38,18 @@ const StyledAccordionItem = styled.div`
 
   .accordion-heading {
     outline: none;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    line-height: 133%;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 500px) {
     .accordion-heading {
       font-size: 16px;
+    }
+    .accordion-text{
+      font-size: 13px;
     }
   }
 `;
