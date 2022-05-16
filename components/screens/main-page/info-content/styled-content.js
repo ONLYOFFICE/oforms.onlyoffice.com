@@ -22,6 +22,7 @@ const StyledInfoContent = styled(Section)`
     max-width: 756px;
     margin: 0 auto;
     display: block;
+    font-weight: 400;
   }
 
   .subheading-info-content {
