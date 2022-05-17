@@ -22,13 +22,19 @@ const StyledCarouselContent = styled(Section)`
         max-width: 1120px;
         padding: 0 20px 0 0;
         text-align: center;
-        width: 100%;
         margin: 0 auto;
         padding-bottom: ${(props) => (props.shortCard ? "0" : "50px")};
-        height: ${(props) => (props.shortCard ? "288px" : " 754px")};
+        height: ${(props) => (props.shortCard ? "288px" : " 666px")};
 
         .slick-slide .carousel-cards:not(.short) {
           .image-boxshadow-template {
+            box-shadow: none;
+            border: 1px solid #E2E2E2;
+          }
+
+          .card-template{
+            background-color: unset;
+            border: 1px solid transparent;
             box-shadow: none;
           }
 
@@ -46,10 +52,12 @@ const StyledCarouselContent = styled(Section)`
           }
 
           &:hover .image-boxshadow-template,
-          &:active .image-boxshadow-template,
+          &:active .image-boxshadow-template{
+            box-shadow: 0px 7px 20px rgba(85, 85, 85, 0.1);
+          }
           &:active .card-template,
           &:hover .card-template {
-            box-shadow: 0px 7px 20px rgba(85, 85, 85, 0.15);
+            box-shadow: none;
           }
         }
 
@@ -84,6 +92,9 @@ const StyledCarouselContent = styled(Section)`
         box-shadow: none;
       }
     }
+    .card-carousel .slick-slider .slick-list {
+      margin-left: 40px;
+    }
   }
 
   @media (max-width: 1024px) {
@@ -93,7 +104,6 @@ const StyledCarouselContent = styled(Section)`
           margin-left: 40px;
 
           .carousel-cards:not(.short) {
-            max-width: 328px;
 
             .image-template {
               max-width: none;
@@ -111,10 +121,10 @@ const StyledCarouselContent = styled(Section)`
         .slick-list {
           max-width: 800px;
           padding-bottom: 0;
-          margin-left: 0;
+          height: ${(props) => (props.shortCard ? "317px" : "588px")};
 
           .carousel-cards.short {
-            max-width: 160px;
+            max-width: ${(props) => (props.shortCard ? "130px" : "247px")};
             width: 160px;
           }
         }
@@ -135,7 +145,7 @@ const StyledCarouselContent = styled(Section)`
       .slick-slider {
         .slick-list {
           padding-bottom: 48px;
-          height: auto;
+          height: ${(props) => (props.shortCard ? "268px" : "510px")};
           .slick-slide {
             margin: 0 8px;
           }
