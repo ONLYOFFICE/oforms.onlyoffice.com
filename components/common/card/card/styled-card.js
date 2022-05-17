@@ -12,7 +12,7 @@ const StyledCard = styled.div`
 
   .card-image {
     height: ${(props) => (props.shortCard ? "214px" : "458px")};
-    width: ${(props) => (props.shortCard ? "160px" : "324px")};
+    width: ${(props) => (!props.shortCard && "324px")};
   }
   .image-boxshadow-template {
     box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);

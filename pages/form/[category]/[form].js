@@ -170,6 +170,7 @@ const Form = ({ form, locale, randomCarousel }) => {
           label={headingRentForms}
           currentLanguage={locale}
           t={t}
+          description={true}
         />
         <CarouselContent
           padding="0 0 112px"

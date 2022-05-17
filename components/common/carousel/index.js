@@ -17,6 +17,7 @@ const Carousel = ({
   asNavForCarousel,
   currentLanguage,
   shortCard,
+  description,
   ...rest
 }) => {
   const settings = settingsCarousel || {
@@ -28,25 +29,17 @@ const Carousel = ({
     slidesToScroll: 1,
   };
 
-  const sliders = items.map((item, idx) => {
-    return !shortCard ? (
-      <Card
-        key={`item-${idx}`}
-        arrayItems={item}
-        className={"carousel-cards"}
-        currentLanguage={currentLanguage}
-        t={t}
-      />
-    ) : (
+  const sliders = items.map((item, idx) =>
       <ShortCard
         key={`item-${idx}`}
         arrayItems={item}
-        className={"carousel-cards short"}
+        className={`carousel-cards ${shortCard ? "short" : null}`}
         currentLanguage={currentLanguage}
         t={t}
+        shortCard={shortCard}
+        description={description}
       />
-    );
-  });
+  );
 
   return (
     <StyledCarousel arrows={isArrows} {...rest}>
