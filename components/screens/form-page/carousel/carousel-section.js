@@ -146,6 +146,7 @@ const StyledCarouselContent = styled(Section)`
         .slick-list {
           padding-bottom: 48px;
           height: ${(props) => (props.shortCard ? "268px" : "510px")};
+          margin-left: 0;
           .slick-slide {
             margin: 0 8px;
           }
