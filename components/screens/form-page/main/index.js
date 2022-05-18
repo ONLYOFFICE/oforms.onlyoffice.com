@@ -52,13 +52,14 @@ const MainInfo = ({ t, currentLanguage, data, link }) => {
   const linkSuggestChanges = `mailto:marketing@onlyoffice.com?subject=Suggesting changes for Form ${name_form}&body=Suggesting changes for Form ${name_form}.`;
 
   return (
-    <StyledMainInfo maxWidth="1200px" background="#F9F9F9">
+    <StyledMainInfo background="#F9F9F9" tabletPadding="96px 0" mobileLPadding="96px 0">
       <div className="template-main-info">
         <Breadcrumb
           language={currentLanguage}
           categories={category}
           name={name_form}
           t={t}
+          className="template-breadcrumb"
         />
         <Heading className="main-info-heading" label={name_form} />
         <Text isBold className="main-info-type-item" label={t("Free")} />
@@ -84,7 +85,6 @@ const MainInfo = ({ t, currentLanguage, data, link }) => {
           className="template-image"
           src={imgUrlCard}
           layout="responsive"
-          priority
           width="544"
           height="768"
         />
@@ -100,15 +100,8 @@ const MainInfo = ({ t, currentLanguage, data, link }) => {
           ))}
         </div>
         <Box className="file-info">
-          <div
-            style={{
-              display: "flex",
-              alignContent: "stretch",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Text isBold color="#AAAAAA">
+          <div>
+            <Text isBold color="#AAAAAA" className="file-type-text">
               {t("FileType")}:{" "}
             </Text>
             {/*eslint-disable*/}

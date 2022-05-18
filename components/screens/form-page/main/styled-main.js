@@ -112,19 +112,31 @@ const tabletStyledMainInfo = css`
   .template-main-info {
     padding-left: 0px;
 
+    .template-breadcrumb{
+      padding-top: 0;
+      justify-content: center;
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
     .main-info-heading {
       padding-top: 32px;
       padding-bottom: 16px;
       font-size: 32px;
+      text-align: center;
     }
 
     .main-info-type-item {
       padding-bottom: 24px;
       color: #ff6f3d;
       font-size: 18px;
+      text-align: center;
+      border-bottom: 1px solid #E5E5E5;
     }
 
     .main-info-box {
+      justify-content: center;
       padding-top: 26px;
       padding-bottom: 57px;
     }
@@ -256,11 +268,9 @@ const StyledMainInfo = styled(Section)`
     .main-info-type-item {
       width: 100%;
       padding-bottom: 24px;
-      border-bottom: 1px solid #e5e5e5;
     }
 
     .main-info-box {
-      padding-top: 26px;
       justify-content: space-between;
       gap: 16px;
       align-items: flex-start;
@@ -272,12 +282,14 @@ const StyledMainInfo = styled(Section)`
     margin: 0 auto;
     width: 544px;
     height: 769px;
+    box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1) !important;
+    border: 1px solid #ccc;
     .template-image {
-      box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
-      border: 1px solid #ccc;
       border-radius: 3px;
       width: 100%;
       height: 100%;
+      padding: 16px !important;
+      background-color: #fff;
     }
   }
 
@@ -292,14 +304,14 @@ const StyledMainInfo = styled(Section)`
     }
 
     .file-info {
-      align-items: stretch;
+      align-items: center;
       justify-content: space-between;
       max-width: 455px;
-      padding-bottom: 30px;
+      padding-bottom: 40px;
     }
 
     .file-main-buttons {
-      padding-bottom: 36px;
+      padding-bottom: 40px;
       gap: 16px;
     }
 
