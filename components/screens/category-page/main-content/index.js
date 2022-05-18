@@ -83,6 +83,7 @@ const MainContent = ({
           getPaginationGroup={getPaginationGroup}
           locale={currentLanguage}
           sort={sort}
+          page={page}
         />
       </div>
     </StyledMainContent>

@@ -76,6 +76,7 @@ const MainContent = ({ t, currentLanguage, data, page, sort }) => {
           getPaginationGroup={getPaginationGroup}
           locale={currentLanguage}
           sort={sort}
+          page={page}
         />
       </div>
     </StyledMainContent>
