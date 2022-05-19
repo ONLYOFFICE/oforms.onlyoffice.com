@@ -13,10 +13,10 @@ const Pagination = ({
   sort,
 }) => {
   const previousPage = () => {
-    return ! (page === 1) && (
+    return (
       <a
-        className="previous-page"
-        href={
+        className={`previous-page ${page === 1 && "disabled"}`}
+        href={page === 1 ? null :
           !category
             ? `${locale === "en" ? "" : `${locale}/`}?page=${page - 1}${
                 sort !== undefined && sort !== "asc" ? `&_sort=${sort}` : ""
@@ -29,7 +29,7 @@ const Pagination = ({
         }
       >
         <ReactSVG
-          className="arrow"
+          className={`arrow ${page === 1 && "disabled"}`}
           src="/icons/arrow-left.react.svg"
           wrapper="svg"
         />
@@ -38,10 +38,10 @@ const Pagination = ({
   };
 
   const nextPage = () => {
-    return ! (page === countPage) &&(
+    return (
       <a
-        className="next-page"
-        href={
+        className={`next-page ${page === countPage && "disabled"}`}
+        href={page === countPage ? null :
           !category
             ? `${locale === "en" ? "" : `${locale}/`}?page=${page + 1}${
                 sort !== undefined && sort !== "asc" ? `&_sort=${sort}` : ""
@@ -54,7 +54,7 @@ const Pagination = ({
         }
       >
         <ReactSVG
-          className="arrow"
+          className={`arrow ${page === countPage && "disabled"}`}
           src="/icons/arrow-right.react.svg"
           wrapper="svg"
         />

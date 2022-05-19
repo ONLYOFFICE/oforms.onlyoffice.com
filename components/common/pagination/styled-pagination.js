@@ -9,6 +9,13 @@ const StyledPagination = styled.div`
   gap: 4px;
   align-items: center;
 
+  .previous-page,
+  .next-page {
+    &.disabled{
+      cursor: default;
+    }
+  }
+
   .arrow {
     width: 24px;
     height: 24px;
@@ -16,6 +23,13 @@ const StyledPagination = styled.div`
 
     &:hover svg svg path {
       fill: #ff6f3d;
+    }
+
+    &.disabled{
+      &:hover svg svg path,
+      svg svg path {
+        fill: #CCCCCC;
+      }
     }
   }
 
