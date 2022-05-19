@@ -12,6 +12,7 @@ const Pagination = ({
   locale,
   sort,
 }) => {
+
   const previousPage = () => {
     return (
       <a
@@ -61,7 +62,7 @@ const Pagination = ({
       </a>
     );
   };
-
+  
   return (
     <StyledPagination className="pagination">
       {previousPage()}
