@@ -7,8 +7,9 @@ import Text from "@components/common/text";
 
 const StyledBreadcrumb = styled(Box)`
   gap: 10px;
-  padding-top: 15px;
-  font-size: 12px;
+  padding-bottom: 16px;
+  margin-bottom: 48px;
+  font-size: 14px;
   color: #444444;
 border-bottom: 1px solid #e5e5e5; 
 
@@ -17,9 +18,10 @@ border-bottom: 1px solid #e5e5e5;
     position: relative;
     color: #444444;
     text-decoration: none;
-    font-size: 12px;
+    font-size: 14px;
     cursor: pointer;
     padding-right: 10px;
+    font-weight: 700;
     :before {
       content: "";
       position: absolute;
@@ -35,11 +37,7 @@ border-bottom: 1px solid #e5e5e5;
 
   .breadcrumb-items-name {
     color: #808080;
-    font-size: 12px;
-  }
-
-  @media ${device.laptop} {
-    padding-top: 58px;
+    font-size: 14px;
   }
 `;
 

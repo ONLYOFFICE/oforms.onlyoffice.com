@@ -14,6 +14,7 @@ const CarouselContent = ({
   tabletPadding,
   mobileLPadding,
   shortCard,
+  description,
   t,
 }) => {
   const customConfig = config || cardCarouselSettings;
@@ -38,6 +39,7 @@ const CarouselContent = ({
           settingsCarousel={customConfig}
           currentLanguage={currentLanguage}
           shortCard={shortCard}
+          description={description}
         />
       </div>
     ) : (

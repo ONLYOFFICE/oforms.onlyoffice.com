@@ -5,22 +5,25 @@ const StyledCard = styled.div`
   flex-direction: column;
   justify-items: stretch;
   max-width: 352px;
-  height: ${(props) => (props.shortCard ? "268px" : "666px")};
+  height: 666px;
   border-radius: 3px;
   box-sizing: border-box;
   position: relative;
 
   .card-image {
-    height: ${(props) => (props.shortCard ? "214px" : "486px")};
-    width: ${(props) => (props.shortCard ? "160px" : "352px")};
+    height: 458px;
+    width: 324px;
   }
   .image-boxshadow-template {
     box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
-    height: ${(props) => (props.shortCard ? "214px" : "486px")};
+    height: 458px;
+    padding: 13px;
+    background-color: #fff;
+    border: 1px solid #E2E2E2;
   }
 
   .image-template {
-    max-width: ${(props) => (props.shortCard ? "160" : "254px")};
+    max-width: 254px;
     border: 1px solid #e2e2e2;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
@@ -37,9 +40,9 @@ const StyledCard = styled.div`
     box-sizing: border-box;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
-    position: ${(props) => (props.shortCard ? "relative" : "absolute")};
+    position: absolute;
     left: 0;
-    top: ${(props) => (props.shortCard ? "auto" : "486px")};
+    top: 486px;
     z-index: 1;
     border: 1px solid transparent;
   }
@@ -53,15 +56,18 @@ const StyledCard = styled.div`
   &:active {
     .card-template {
       background-color: #f9f9f9;
-      border: 1px solid #e2e2e2;
       padding-bottom: 32px;
       box-shadow: 0px 20px 50px rgba(85, 85, 85, 0.15);
+      border: 1px solid #CCCCCC;
+      border-top: 1px solid transparent;
     }
     .btn-container {
       display: flex;
     }
     .image-boxshadow-template {
       box-shadow: 0px 20px 50px rgba(85, 85, 85, 0.15);
+      border: 1px solid #CCCCCC;
+      border-bottom: 1px solid transparent;
     }
   }
 
@@ -114,13 +120,13 @@ const StyledCard = styled.div`
   @media (max-width: 1200px) {
     height: 729px;
     max-width: 328px;
-    .card-image,
-    .image-boxshadow-template {
-      height: 453px;
-      box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
-    }
     .card-image {
+      height: 425px;
       width: 328px;
+    }
+    .image-boxshadow-template {
+      height: 425px;
+      box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
     }
     .image-template {
       max-width: 212px;
@@ -150,6 +156,7 @@ const StyledCard = styled.div`
       }
       .image-boxshadow-template {
         box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
+        border: 1px solid #E2E2E2;
       }
     }
   }
@@ -169,6 +176,7 @@ const StyledCard = styled.div`
 
     .image-boxshadow-template {
       height: auto;
+      padding: 7px;
     }
   }
 
@@ -237,6 +245,9 @@ const StyledCard = styled.div`
     }
     .title-template {
       height: 38px;
+    }
+    .image-boxshadow-template {
+      padding: 14px;
     }
   }
 `;

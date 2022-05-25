@@ -170,11 +170,12 @@ const Form = ({ form, locale, randomCarousel }) => {
           label={headingRentForms}
           currentLanguage={locale}
           t={t}
+          description={true}
         />
         <CarouselContent
-          padding="0 0 30px"
-          tabletPadding="0 0 30px"
-          mobileLPadding="0 0 0"
+          padding="0 0 112px"
+          tabletPadding="0 0 70px"
+          mobileLPadding="0 0 30px"
           data={itemsClient}
           shortCard={true}
           label={headingRecentlyViewed}

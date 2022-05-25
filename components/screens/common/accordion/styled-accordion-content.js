@@ -23,6 +23,20 @@ const StyledAccordionContent = styled(Section)`
       padding: 0 0 40px;
     }
   }
+  @media (max-width: 500px) {
+    .titleAccordion {
+      font-size: 24px;
+    }
+    .text-trans-accordion {
+      font-size: 13px;
+    }
+    .accordion-text {
+      .link-trans-acc {
+        display: contents;
+        font-size: inherit;
+      }
+    }
+  }
 `;
 
 export default StyledAccordionContent;

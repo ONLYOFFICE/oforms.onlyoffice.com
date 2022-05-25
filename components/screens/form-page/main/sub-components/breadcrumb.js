@@ -9,17 +9,22 @@ import reName from "@utils/helpers/fixname";
 const StyledBreadcrumb = styled(Box)`
   gap: 10px;
   padding-top: 15px;
+  padding-bottom: 16px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid #E5E5E5;
   font-size: 12px;
   color: #444444;
+  flex-wrap: wrap;
 
   .breadcrumb-links {
     display: inline;
     position: relative;
-    color: #444444;
+    color: #808080;
     text-decoration: none;
-    font-size: 12px;
+    font-size: 14px;
     cursor: pointer;
     padding-right: 10px;
+    line-height: 133%;
     :before {
       content: "";
       position: absolute;
@@ -30,6 +35,11 @@ const StyledBreadcrumb = styled(Box)`
       background-image: url(/icons/line.svg);
       background-repeat: no-repeat;
       background-size: cover;
+    }
+
+    &.home{
+      font-weight: 700;
+      color: #444444;
     }
   }
 
@@ -54,7 +64,8 @@ const StyledBreadcrumb = styled(Box)`
 
   .breadcrumb-items-name {
     color: #808080;
-    font-size: 12px;
+    font-size: 14px;
+    line-height: 133%;
   }
 
   @media ${device.laptop} {
@@ -62,12 +73,12 @@ const StyledBreadcrumb = styled(Box)`
   }
 `;
 
-const Breadcrumb = ({ name, categories, language, t }) => {
+const Breadcrumb = ({ name, categories, language, t, className }) => {
   const lnh = language === "en" ? "" : `${language}/`;
   const catHref = reName(categories);
   return (
-    <StyledBreadcrumb>
-      <Link className="breadcrumb-links" href={`/${lnh}`}>
+    <StyledBreadcrumb className={className ? className : null}>
+      <Link className="breadcrumb-links home" href={`/${lnh}`}>
         {t("Forms")}
       </Link>
       <Link className="breadcrumb-links" href={`/${lnh}form/${catHref}`}>

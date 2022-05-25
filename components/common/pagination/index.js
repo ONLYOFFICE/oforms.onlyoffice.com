@@ -2,27 +2,70 @@ import React from "react";
 
 import PageNumber from "./sub-components/page-number";
 import StyledPagination from "./styled-pagination";
+import { ReactSVG } from "react-svg";
 
 const Pagination = ({
-  currentPage,
-  goToPreviousPage,
+  page,
+  countPage,
   getPaginationGroup,
-  changePage,
-  goToNextPage,
   category,
   locale,
   sort,
 }) => {
 
-  return (
-    <StyledPagination className="pagination">
-      {/* <Link className="previous-page" onClick={(e) => goToPreviousPage(e)}>
+  const previousPage = () => {
+    return (
+      <a
+        className={`previous-page ${page === 1 && "disabled"}`}
+        href={page === 1 ? null :
+          !category
+            ? `${locale === "en" ? "" : `${locale}/`}?page=${page - 1}${
+                sort !== undefined && sort !== "asc" ? `&_sort=${sort}` : ""
+              }`
+            : `${
+                locale === "en" ? "" : `/${locale}/form/${category}`
+              }?page=${page - 1}${
+                sort !== undefined && sort !== "asc" ? `&_sort=${sort}` : ""
+              }`
+        }
+      >
         <ReactSVG
-          className="arrow"
+          className={`arrow ${page === 1 && "disabled"}`}
           src="/icons/arrow-left.react.svg"
           wrapper="svg"
         />
-      </Link> */}
+      </a>
+    );
+  };
+
+  const nextPage = () => {
+    return (
+      <a
+        className={`next-page ${page === countPage && "disabled"}`}
+        href={page === countPage ? null :
+          !category
+            ? `${locale === "en" ? "" : `${locale}/`}?page=${page + 1}${
+                sort !== undefined && sort !== "asc" ? `&_sort=${sort}` : ""
+              }`
+            : `${
+                locale === "en" ? "" : `/${locale}/form/${category}`
+              }?page=${page + 1}${
+                sort !== undefined && sort !== "asc" ? `&_sort=${sort}` : ""
+              }`
+        }
+      >
+        <ReactSVG
+          className={`arrow ${page === countPage && "disabled"}`}
+          src="/icons/arrow-right.react.svg"
+          wrapper="svg"
+        />
+      </a>
+    );
+  };
+  
+  return (
+    <StyledPagination className="pagination">
+      {previousPage()}
       {getPaginationGroup.map((item, index) => (
         <a
           href={
@@ -39,21 +82,14 @@ const Pagination = ({
           key={index + item}
         >
           <PageNumber
-            className={`go-to-page ${currentPage === item && " active"}`}
-            onClick={changePage}
-            typeButton={currentPage === item ? "secondary" : "transparent"}
+            className={`go-to-page ${page === item && " active"}`}
+            typeButton={page === item ? "secondary" : "transparent"}
             label={String(item)}
             key={index}
           />
         </a>
       ))}
-      {/* <Link className="next-page" onClick={(e) => goToNextPage(e)}>
-        <ReactSVG
-          className="arrow"
-          src="/icons/arrow-right.react.svg"
-          wrapper="svg"
-        />
-      </Link> */}
+      {nextPage()}
     </StyledPagination>
   );
 };

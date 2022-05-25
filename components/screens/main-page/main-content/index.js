@@ -14,9 +14,12 @@ const MainContent = ({ t, currentLanguage, data, page, sort }) => {
   const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
   const [boolTypeSortData, setBoolTypeSortData] = useState(false);
 
-  const getPaginationGroup = new Array(countPage)
-    .fill()
-    .map((_, idx) => idx + 1);
+  const pageLimit = countPage > 7 ? 7 : countPage;
+
+  const getPaginationGroup = () => {
+    let start = Math.floor((page - 1) / pageLimit) * pageLimit;
+    return new Array(countPage - start <= pageLimit ? countPage - start : pageLimit).fill().map((_, idx) => start + idx + 1);
+  };
 
   const onChangeSelectTypeSort = (e) => {
     setTypeSortData(e.target.value);
@@ -73,9 +76,10 @@ const MainContent = ({ t, currentLanguage, data, page, sort }) => {
         </Box>
         <Pagination
           countPage={countPage}
-          getPaginationGroup={getPaginationGroup}
+          getPaginationGroup={getPaginationGroup()}
           locale={currentLanguage}
           sort={sort}
+          page={page}
         />
       </div>
     </StyledMainContent>
