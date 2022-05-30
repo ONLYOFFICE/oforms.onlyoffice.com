@@ -65,7 +65,7 @@ const Form = ({ form, locale, randomCarousel }) => {
     if (retrievedString === null || !retrievedString) {
       localStorage.setItem(
         localStorageCarousel,
-        JSON.stringify([...localStorageTmp])
+        JSON.stringify([...localStorageTmp, locale])
       );
     } else {
       // Retrieves the string and converts it to a JavaScript object

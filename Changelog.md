@@ -7,6 +7,7 @@
 - Changed styles of form page
 - Fixed card styles
 - Fixed carousel styles
+- Fixed link path in short carousel of form page
 - Fixed pagination
 
 ## 1.1.0

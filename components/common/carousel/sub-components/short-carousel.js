@@ -5,14 +5,14 @@ import Text from "@components/common/text";
 
 const ShortCard = ({ t, callback, arrayItems, currentLanguage, description, ...rest }) => {
   const { attributes } = arrayItems;
-  const { name_form, card_prewiew, categories, url, description_card } = attributes;
+  const { name_form, card_prewiew, categories, url, description_card, locale } = attributes;
   const imgUrlCard = card_prewiew?.data?.attributes?.url;
 
   const category = categories?.data[0]?.attributes?.urlReq;
   const pathName =
     currentLanguage === "en"
       ? `/form/${category}/${url}`
-      : `/${currentLanguage}/form/${category}/${url}`;
+      : `/${locale}/form/${category}/${url}`;
   const CardDescription = () => {
     return description && (
         <Text
