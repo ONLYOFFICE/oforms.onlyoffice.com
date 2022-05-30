@@ -42,7 +42,6 @@ const StyledFormBanner = styled.div`
 
   .box-items {
     margin-bottom: 18px;
-    padding: 0 0 0 1em;
   }
   .box-button {
     overflow: visible;

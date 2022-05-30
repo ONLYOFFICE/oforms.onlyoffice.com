@@ -25,7 +25,6 @@ const ShortCard = ({ t, callback, arrayItems, currentLanguage, description, ...r
   };
   return (
     <StyledShortCard {...rest}>
-    {console.log(arrayItems)}
       <Link href={pathName} className="image-boxshadow-template">
         <img className="card-image" src={imgUrlCard} alt={name_form} />
       </Link>
