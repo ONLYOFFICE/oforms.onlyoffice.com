@@ -10,7 +10,9 @@ const ShortCard = ({ t, callback, arrayItems, currentLanguage, description, ...r
 
   const category = categories?.data[0]?.attributes?.urlReq;
   const pathName =
-    currentLanguage === "en"
+    currentLanguage === "en" && locale === "en"
+      ? `/form/${category}/${url}`
+      : locale === "en"
       ? `/form/${category}/${url}`
       : `/${locale}/form/${category}/${url}`;
   const CardDescription = () => {
@@ -23,6 +25,7 @@ const ShortCard = ({ t, callback, arrayItems, currentLanguage, description, ...r
   };
   return (
     <StyledShortCard {...rest}>
+    {console.log(arrayItems)}
       <Link href={pathName} className="image-boxshadow-template">
         <img className="card-image" src={imgUrlCard} alt={name_form} />
       </Link>
