@@ -62,10 +62,6 @@ const mobileStyledMainInfo = css`
         .chevronContainer {
           padding: 9px 16px 8px;
         }
-
-        &:hover{
-          border: 1px solid #FF6F3D;
-        }
       }
     }
   }
