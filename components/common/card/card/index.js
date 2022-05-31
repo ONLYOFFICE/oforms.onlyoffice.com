@@ -49,7 +49,7 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
         alignItems="stretch"
       >
         <Link
-          className="title-template text-overflow-templapte"
+          className="title-template title-overflow-templapte"
           title={name_form}
           href={pathName}
           label={name_form}

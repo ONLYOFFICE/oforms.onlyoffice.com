@@ -27,7 +27,7 @@ const ButtonSelector = ({
 
   const classNameIndicator = `chevronContainer ${isActive ? "up" : ""}`;
   return (
-    <StyledBtnSelector {...rest} isScale={isScale}>
+    <StyledBtnSelector {...rest} isScale={isScale} isActive={isActive}>
       <Link
         onClick={onSetIsActive}
         className="placeholder"
