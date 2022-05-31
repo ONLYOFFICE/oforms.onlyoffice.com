@@ -46,11 +46,10 @@ const StyledCard = styled.div`
     top: 486px;
     z-index: 1;
     border: 1px solid transparent;
-    height: 272px;
+    height: 226px;
   }
 
   .btn-container {
-    margin-top: 16px;
     display: none;
   }
 
@@ -80,18 +79,30 @@ const StyledCard = styled.div`
   }
 
   .title-template {
-    font-size: 18px;
-    margin-bottom: 16px;
+    font-size: 16px;
+    margin-bottom: 8px;
     line-height: 133%;
   }
 
   .subtitle-template {
-    font-size: 14px;
+    font-size: 13px;
     margin-bottom: 16px;
-    height: 68px;
     line-height: 160%;
   }
-
+  .title-overflow-templapte{
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -ms-line-clamp: 2;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    display: -webkit-box;
+    display: box;
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+  }
   .text-overflow-templapte {
     -ms-text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
@@ -142,7 +153,7 @@ const StyledCard = styled.div`
       position: relative;
       top: auto;
       box-shadow: none;
-      height: 272px;
+      height: 232px;
     }
     .btn-container {
       display: flex;
@@ -192,14 +203,16 @@ const StyledCard = styled.div`
 
   @media (max-width: 700px) {
     .btn-container {
-      margin-top: 8px;
       display: block;
     }
     .card-template {
       position: relative;
       top: auto;
       box-shadow: none;
-      height: 336px;
+      height: 292px;
+    }
+    .subtitle-template {
+      margin-bottom: 16px;
     }
     .btn-container-link {
       width: 100%;
@@ -226,13 +239,7 @@ const StyledCard = styled.div`
     .image-template {
       box-sizing: border-box;
     }
-
-    .title-template,
-    .subtitle-template {
-      margin-bottom: 8px;
-    }
     .btn-container {
-      margin-top: 8px;
       padding: 0 16px;
     }
     &:hover,
@@ -242,7 +249,7 @@ const StyledCard = styled.div`
       }
     }
     .card-template {
-      height: 300px;
+      height: 282px;
       padding: 16px 16px 8px 16px;
     }
     &:hover,
