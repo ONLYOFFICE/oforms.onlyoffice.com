@@ -12,21 +12,23 @@ const StyledBtnSelector = styled.div`
   border-radius: 3px;
   box-sizing: border-box;
   border: 1px solid #aaaaaa;
-  ${(props) => props.isActive && `border: 1px solid #FF6F3D;`}
+  ${(props) => props.isActive && `border: 1px solid #666;`}
 
-  &:hover, &:active {
-      border: 1px solid #FF6F3D;
+  &:hover {
+      border: 1px solid ${(props) => props.isActive ? `#666;` : `#FF6F3D;`};
+      
 
       .placeholder{
         color: #FF6F3D;
+        ${(props) => props.isActive && `color: #333;`}
         text-transform: uppercase;
 
         & ~ .indicatorContainer .indicatorSeparator{
-          background-color:#FF6F3D;
+          background-color:${(props) => props.isActive ? `#666;` : `#FF6F3D;`};;
         }
       }
       .chevronContainer path{
-        fill: #FF6F3D;
+        fill: ${(props) => props.isActive ? `#666;` : `#FF6F3D;`};;
       }
   }
   
@@ -34,6 +36,9 @@ const StyledBtnSelector = styled.div`
   ${(props) => props.isScale && `width: 100%;`}
 
   .placeholder {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     display: block;
     font-weight: 600;
     font-size: 12px;
@@ -49,8 +54,8 @@ const StyledBtnSelector = styled.div`
     border-radius: 0;
     height: 100%;
     text-decoration: none;
-    padding: 20px 0 19px;
-    ${(props) => props.isActive && `color: #FF6F3D;`}
+    padding: 20px 10px 19px;
+    ${(props) => props.isActive && `color: #333;`}
   }
 
   .indicatorContainer {
@@ -61,15 +66,14 @@ const StyledBtnSelector = styled.div`
 
     &:hover{
       .indicatorSeparator{
-        background-color:#FF6F3D;
+        background-color:${(props) => props.isActive ? `#666;` : `#FF6F3D;`};;
       }
     }
   }
 
   .indicatorSeparator {
     align-self: stretch;
-    background-color: rgb(204, 204, 204);
-    ${(props) => props.isActive && `background-color: #FF6F3D;`}
+    background-color: ${(props) => props.isActive ? `#666;` : `rgb(204, 204, 204);`};
     width: 1px;
     box-sizing: border-box;
   }
@@ -82,7 +86,7 @@ const StyledBtnSelector = styled.div`
     }
 
     path {
-      ${(props) => props.isActive && `fill: #FF6F3D;`}
+      fill: ${(props) => props.isActive && `#666;`}
     }
   }
 `;

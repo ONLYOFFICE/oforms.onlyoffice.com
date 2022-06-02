@@ -9,7 +9,7 @@ const StyledBtnMenu = styled.div`
   padding-top: 14px;
   top: 60px;
   right: 0;
-  width: intrinsic;
+  width: 100%;
   box-shadow: 0px 7px 25px rgb(85 85 85 / 15%);
   border: 1px solid #666666;
 
@@ -33,6 +33,16 @@ const StyledBtnMenu = styled.div`
       background-color: #f5f5f5;
     }
   }
+
+  @media (max-width: 1200px) {
+    width: auto;
+  }
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+
+  
 `;
 
 export default StyledBtnMenu;
