@@ -1,16 +1,5 @@
 # Changelog
 
-## 1.1.1
-
-### Fixes
-- Changed styles of the main page
-- Changed styles of form page
-- Fixed card styles
-- Fixed carousel styles
-- Fixed styles button-selector
-- Fixed link path in short carousel of form page
-- Fixed pagination
-
 ## 1.1.0
 
 ### New
