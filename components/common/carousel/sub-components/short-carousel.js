@@ -11,8 +11,8 @@ const ShortCard = ({ t, callback, arrayItems, currentLanguage, description, ...r
   const category = categories?.data[0]?.attributes?.urlReq;
   const pathName =
     currentLanguage === "en"
-      ? `/form/${category}/${url}`
-      : `/${currentLanguage}/form/${category}/${url}`;
+    ? `/form/${category}/${url}`
+    : `/${locale}/form/${category}/${url}`;
   const CardDescription = () => {
     return description && (
         <Text
@@ -32,7 +32,7 @@ const ShortCard = ({ t, callback, arrayItems, currentLanguage, description, ...r
         alignItems="stretch"
       >
         <Link
-          className="title-template text-overflow-templapte"
+          className="title-template title-overflow-templapte"
           title={name_form}
           href={pathName}
           label={name_form}

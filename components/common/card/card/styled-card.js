@@ -41,14 +41,15 @@ const StyledCard = styled.div`
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     position: absolute;
+    width: 100%;
     left: 0;
     top: 486px;
     z-index: 1;
     border: 1px solid transparent;
+    height: 226px;
   }
 
   .btn-container {
-    margin-top: 16px;
     display: none;
   }
 
@@ -63,6 +64,12 @@ const StyledCard = styled.div`
     }
     .btn-container {
       display: flex;
+      position: absolute;
+      width: 100%;
+      bottom: 24px;
+      left: 0;
+      padding: 0 24px;
+      box-sizing: border-box;
     }
     .image-boxshadow-template {
       box-shadow: 0px 20px 50px rgba(85, 85, 85, 0.15);
@@ -72,19 +79,30 @@ const StyledCard = styled.div`
   }
 
   .title-template {
-    font-size: 18px;
-    margin-bottom: 16px;
-    height: 48px;
+    font-size: 16px;
+    margin-bottom: 8px;
     line-height: 133%;
   }
 
   .subtitle-template {
-    font-size: 14px;
+    font-size: 13px;
     margin-bottom: 16px;
-    height: 68px;
     line-height: 160%;
   }
-
+  .title-overflow-templapte{
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -ms-line-clamp: 2;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    display: -webkit-box;
+    display: box;
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+  }
   .text-overflow-templapte {
     -ms-text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
@@ -134,13 +152,17 @@ const StyledCard = styled.div`
     .card-template {
       position: relative;
       top: auto;
-      left: auto;
       box-shadow: none;
-      padding-bottom: 32px;
+      height: 232px;
     }
     .btn-container {
-      margin-top: 16px;
       display: flex;
+      position: absolute;
+      width: 100%;
+      bottom: 24px;
+      left: 0;
+      padding: 0 24px;
+      box-sizing: border-box;
     }
     .subtitle-template {
       margin-bottom: 24px;
@@ -151,7 +173,6 @@ const StyledCard = styled.div`
       .card-template {
         background-color: unset;
         border: 1px solid transparent;
-        padding-bottom: 32px;
         box-shadow: none;
       }
       .image-boxshadow-template {
@@ -182,8 +203,16 @@ const StyledCard = styled.div`
 
   @media (max-width: 700px) {
     .btn-container {
-      margin-top: 8px;
       display: block;
+    }
+    .card-template {
+      position: relative;
+      top: auto;
+      box-shadow: none;
+      height: 292px;
+    }
+    .subtitle-template {
+      margin-bottom: 16px;
     }
     .btn-container-link {
       width: 100%;
@@ -210,25 +239,26 @@ const StyledCard = styled.div`
     .image-template {
       box-sizing: border-box;
     }
-
-    .title-template,
-    .subtitle-template {
-      margin-bottom: 8px;
-    }
     .btn-container {
-      margin-top: 8px;
+      padding: 0 16px;
+    }
+    &:hover,
+    &:active {
+      .btn-container {
+        padding: 0 16px;
+      }
     }
     .card-template {
-      padding: 24px 16px 8px 16px;
+      height: 282px;
+      padding: 16px 16px 8px 16px;
     }
     &:hover,
     &:active {
       .card-template {
-        padding: 24px 16px 8px 16px;
+        padding: 16px 16px 8px 16px;
       }
     }
     .title-template {
-      height: 57px;
       font-size: 14px;
     }
     .subtitle-template {
@@ -239,12 +269,27 @@ const StyledCard = styled.div`
 
   @media (max-width: 425px) {
     max-width: 100%;
+    .card-template {
+      height: auto;
+    }
+    .btn-container {
+      position: relative;
+      padding: 0;
+      left: auto;
+      bottom: auto;
+    }
+    &:hover,
+    &:active {
+      .btn-container {
+        position: relative;
+        padding: 0;
+        left: auto;
+        bottom: auto;
+      }
+    }
     .image-template {
       box-sizing: content-box;
       max-width: unset;
-    }
-    .title-template {
-      height: 38px;
     }
     .image-boxshadow-template {
       padding: 14px;
