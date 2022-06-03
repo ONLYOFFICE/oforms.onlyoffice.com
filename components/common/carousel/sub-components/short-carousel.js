@@ -34,7 +34,7 @@ const ShortCard = ({ t, callback, arrayItems, currentLanguage, description, ...r
         alignItems="stretch"
       >
         <Link
-          className="title-template title-overflow-templapte"
+          className="title-template text-overflow-templapte"
           title={name_form}
           href={pathName}
           label={name_form}

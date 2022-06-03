@@ -65,7 +65,7 @@ const Form = ({ form, locale, randomCarousel }) => {
     if (retrievedString === null || !retrievedString) {
       localStorage.setItem(
         localStorageCarousel,
-        JSON.stringify([...localStorageTmp, locale])
+        JSON.stringify([...localStorageTmp])
       );
     } else {
       // Retrieves the string and converts it to a JavaScript object
@@ -205,7 +205,7 @@ export const getServerSideProps = async ({ locale, ...context }) => {
   );
   const form = await res.json();
   const randomCarouselItems = await fetch(
-    `https://cmsoforms.onlyoffice.com/api/oforms/?locale=${locale}&pagination[pageSize]=7&pagination[page]=2&populate=file_oform&populate=categories&populate=card_prewiew`
+    `https://cmsoforms.onlyoffice.com/api/oforms/?pagination[pageSize]=7&pagination[page]=2&populate=file_oform&populate=categories&populate=card_prewiew`
   );
   const randomCarousel = await randomCarouselItems.json();
   if (form.data.length === 0) {
