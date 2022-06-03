@@ -7,6 +7,7 @@
 - Changed styles of form page
 - Fixed card styles
 - Fixed carousel styles
+- Fixed styles button-selector
 - Fixed pagination
 
 ## 1.1.0
