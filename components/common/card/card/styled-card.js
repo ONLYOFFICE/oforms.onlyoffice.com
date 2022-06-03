@@ -41,6 +41,7 @@ const StyledCard = styled.div`
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     position: absolute;
+    width: 100%;
     left: 0;
     top: 486px;
     z-index: 1;
