@@ -47,15 +47,31 @@ const StyledShortCard = styled.div`
   }
 
   .title-template {
-    font-size: ${(props) => (props.shortCard ? "14px" : "18px")};
+    font-size: ${(props) => (props.shortCard ? "14px" : "16px")};
     margin-top: ${(props) => (props.shortCard ? "10px" : "0")};
-    padding-bottom: ${(props) => (props.shortCard ? "0" : "16px")};
+    margin-bottom: ${(props) => (props.shortCard ? "0" : "8px")};
     line-height: 133%;
   }
 
   .subtitle-template {
     height: 68px;
     margin-bottom: ${(props) => (props.shortCard ? "16px" : "0")};
+    font-size: 13px;
+  }
+
+  .title-overflow-templapte {
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -ms-line-clamp: 2;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    display: -webkit-box;
+    display: box;
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
   }
 
   .text-overflow-templapte {
