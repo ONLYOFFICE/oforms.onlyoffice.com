@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const StyledPagination = styled.div`
   display: flex;
-  margin: 116px auto 0;
+  margin: 56px auto 0;
   justify-content: center;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -31,9 +31,6 @@ const StyledPagination = styled.div`
         fill: #CCCCCC;
       }
     }
-  }
-  @media (max-width: 1200px) {
-    margin: 56px auto 0;
   }
 
   @media (max-width: 485px) {
