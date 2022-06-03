@@ -137,9 +137,6 @@ const StyledShortCard = styled.div`
       box-sizing: content-box;
       max-width: unset;
     }
-    .title-template {
-      height: 38px;
-    }
   }
 `;
 
