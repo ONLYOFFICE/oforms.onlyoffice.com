@@ -36,6 +36,9 @@ const StyledBtnSelector = styled.div`
   ${(props) => props.isScale && `width: 100%;`}
 
   .placeholder {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     display: block;
     font-weight: 600;
     font-size: 12px;
@@ -51,7 +54,7 @@ const StyledBtnSelector = styled.div`
     border-radius: 0;
     height: 100%;
     text-decoration: none;
-    padding: 20px 0 19px;
+    padding: 20px 10px 19px;
     ${(props) => props.isActive && `color: #333;`}
   }
 
