@@ -27,8 +27,8 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
   const category = categories?.data[0]?.attributes?.urlReq;
   const pathName =
     currentLanguage === "en"
-      ? `/form/${category}/${url}`
-      : `/${currentLanguage}/form/${category}/${url}`;
+      ? `/${url}`
+      : `/${currentLanguage}/${url}`;
 
   const fillForm = `${oformFile[0]?.attributes?.hash}.oform`;
   const linkOformEditor = `/editor/?filename=${url}&fillform=${fillForm}`;

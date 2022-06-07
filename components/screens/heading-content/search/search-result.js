@@ -26,8 +26,8 @@ const SearchResult = ({
                 return (
                   <Link
                     className="item-result-search"
-                    href={"/form/[category]/[form]"}
-                    as={`/form/${hrefCategory}/${hrefForm}`}
+                    href={"/[form]"}
+                    as={`/${hrefForm}`}
                     key={`key-item-${id}`}
                   >
                     {it.attributes.name_form}

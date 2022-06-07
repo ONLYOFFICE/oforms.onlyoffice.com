@@ -11,10 +11,10 @@ const ShortCard = ({ t, callback, arrayItems, currentLanguage, description, ...r
   const category = categories?.data[0]?.attributes?.urlReq;
   const pathName =
     currentLanguage === "en" && locale === "en"
-      ? `/form/${category}/${url}`
+      ? `/${url}`
       : locale === "en"
-      ? `/form/${category}/${url}`
-      : `/${locale}/form/${category}/${url}`;
+      ? `/${url}`
+      : `/${locale}/${url}`;
   const CardDescription = () => {
     return description && (
         <Text
