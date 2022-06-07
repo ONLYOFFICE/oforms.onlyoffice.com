@@ -10,6 +10,7 @@ const Banner = ({ t, currentLanguage }) => {
       mobileLPadding="48px 0 72px"
     >
       <BannerOforms t={t} currentLanguage={currentLanguage} />
+      <div id="forms"></div>
     </StyledBanner>
   );
 };

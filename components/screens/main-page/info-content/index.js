@@ -14,7 +14,7 @@ const InfoContent = ({ t, currentLanguage }) => {
       .replace(/\s/g, "-")
       .replace(/[{()}]/g, "")
       .toLowerCase();
-    let href = `/editor/?filename=${url}&fillform=${it.fillForm}`;
+    let href = `${lng}/editor/?filename=${url}&fillform=${it.fillForm}`;
     return (
       <ShortCard
         t={t}

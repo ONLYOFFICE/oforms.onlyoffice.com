@@ -40,7 +40,7 @@ const Form = ({ form, locale, randomCarousel }) => {
     return it?.attributes.name.split(".")[1] === "oform";
   });
   const fillForm = `${oformFile[0]?.attributes?.hash}.oform`;
-  const linkOformEditor = `/editor/?filename=${url}&fillform=${fillForm}`;
+  const linkOformEditor = `editor/?filename=${url}&fillform=${fillForm}`;
 
   const dataCarousel = randomCarousel?.data;
   // Carousel client data
