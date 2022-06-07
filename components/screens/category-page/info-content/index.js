@@ -16,6 +16,7 @@ const InfoContent = ({ t, category }) => {
         <Text
           className="category-description"
           label={t("SubHeadingCategoryPage")}
+          id="forms"
         />
       </Box>
     </StyledInfoContent>

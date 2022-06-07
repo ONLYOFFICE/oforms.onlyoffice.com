@@ -39,7 +39,6 @@ const MainContent = ({ t, currentLanguage, data, page, sort }) => {
       padding="84px 0 109px"
       tabletPadding="84px 0 103px 0"
       mobileLPadding="66px 0"
-      id="forms"
     >
       <Heading
         level={2}
