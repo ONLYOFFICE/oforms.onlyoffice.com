@@ -7,6 +7,8 @@
 - Changed styles of form page
 - Fixed card styles
 - Fixed carousel styles
+- Changed cards url , links in carousel and short carousel on main page and form page
+- Changed links on editor in cards, and form page
 - Fixed styles button-selector
 - Fixed pagination
 
