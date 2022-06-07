@@ -23,7 +23,7 @@ const Pagination = ({
                 sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
               }`
             : `${
-                locale === "en" ? "" : `/${locale}/form/${category}`
+                locale === "en" ? "" : `/${locale}`
               }?page=${page - 1}${
                 sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
               }`
@@ -48,7 +48,7 @@ const Pagination = ({
                 sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
               }`
             : `${
-                locale === "en" ? "" : `/${locale}/form/${category}`
+                locale === "en" ? "" : `/${locale}`
               }?page=${page + 1}${
                 sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
               }`
@@ -74,7 +74,7 @@ const Pagination = ({
                   sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
                 }`
               : `${
-                  locale === "en" ? "" : `/${locale}/form/${category}`
+                  locale === "en" ? "" : `/${locale}`
                 }?page=${item}${
                   sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
                 }`
