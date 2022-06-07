@@ -24,14 +24,18 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
   });
   let urlOform = oformFile[0]?.attributes?.url;
 
-  const category = categories?.data[0]?.attributes?.urlReq;
   const pathName =
     currentLanguage === "en"
       ? `/${url}`
       : `/${currentLanguage}/${url}`;
 
+  const localeLinkEditor = 
+      currentLanguage === "en"
+      ? ""
+      : currentLanguage;
+
   const fillForm = `${oformFile[0]?.attributes?.hash}.oform`;
-  const linkOformEditor = `/editor/?filename=${url}&fillform=${fillForm}`;
+  const linkOformEditor = `${localeLinkEditor}/editor/?filename=${url}&fillform=${fillForm}`;
 
   return (
     <StyledCard {...rest}>
