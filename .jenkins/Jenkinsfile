@@ -1,13 +1,17 @@
+println("Branch name: ${BRANCH_NAME}")
+
 switch(BRANCH_NAME) {
   case "test_deploy":
-    region="us-east-1"
-    name_bucket="oforms.teamlab.info"
+    aws_region="us-east-1"
+    region="info"
     cloud_front_distribution_id="E3OQ4LKWZZXBRX"
+    site_url="https://oforms.teamlab.info"
     break
   case "production_deploy":
-    region="us-east-1"
-    name_bucket="oforms.onlyoffice.com"
+    aws_region="us-west-2"
+    region="com"
     cloud_front_distribution_id="E18Y5OI4JS5NAJ"
+    site_url=https://oforms.oforms.onlyoffice.com"
     break
   default:
     println("Branch: ${BRANCH_NAME} do not for deploy.")
@@ -19,7 +23,7 @@ pipeline {
   triggers {
     githubPush()
   }
-    options {
+  options {
     disableConcurrentBuilds()
     buildDiscarder (logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
   }
@@ -31,25 +35,62 @@ pipeline {
       }
       environment {
         region = "${region}"
-        name_bucket = "${name_bucket}"
+      }
+      steps {
+        sh '''
+          tar -czpf .jenkins/oforms.tar.gz \
+            --exclude ".git" \
+            --exclude ".gitignore" \
+            --exclude ".jenkins" \
+            --exclude "README.md" .
+          
+          echo "Deploy from ${BRANCH_NAME} is starting."
+        '''
+        
+        sshPublisher(publishers: [sshPublisherDesc(configName: "strapi_oforms@${region}", 
+          transfers: [sshTransfer(cleanRemote: false, 
+            excludes: '', 
+            execCommand: '''
+              sudo bash /home/ubuntu/deploy/.jenkins/build.sh |& tee -a > /home/ubuntu/deploy/deploy.log
+            ''', 
+            execTimeout: 600000, 
+            flatten: false, 
+            makeEmptyDirs: false, 
+            noDefaultExcludes: false, 
+            patternSeparator: '[, ]+', 
+            remoteDirectory: '', 
+            remoteDirectorySDF: false, 
+            removePrefix: '', 
+            sourceFiles: '.jenkins/oforms.tar.gz,.jenkins/build.sh')], 
+          usePromotionTimestamp: false, 
+          useWorkspaceInPromotion: false, 
+          verbose: false)])
+      }
+    }
+    stage('invalidation') {
+      when { 
+        anyOf { branch 'test_deploy'; 
+                branch 'production_deploy' }
+      }
+      environment {
+        aws_region = "${aws_region}"
         cloud_front_distribution_id = "${cloud_front_distribution_id}"
       }
       steps {
         withCredentials([
                 usernamePassword(credentialsId: 'aws_build_robot', 
                 passwordVariable: 'secret_key', 
-                usernameVariable: 'access_key')
-                ]) {
+                usernameVariable: 'access_key')]) {
           sh '''
-            echo "Deploy from ${BRANCH_NAME} is starting."
+            export AWS_ACCESS_KEY_ID="$access_key"
+            export AWS_SECRET_ACCESS_KEY="$secret_key"
+            export AWS_DEFAULT_aws_region="$aws_region"
             
-            bash $WORKSPACE/.jenkins/deploy.sh \
-              "$access_key" \
-              "$secret_key" \
-              "$name_bucket" \
-              "$cloud_front_distribution_id" \
-              "$region"
-          '''                          
+            echo "=== start invalidation ==="
+            aws cloudfront create-invalidation \
+              --distribution-id ${cloud_front_distribution_id} \
+              --paths "/*"
+          '''
         }
       }
     }
