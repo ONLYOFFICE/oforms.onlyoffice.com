@@ -11,7 +11,7 @@ switch(BRANCH_NAME) {
     aws_region="us-west-2"
     region="com"
     cloud_front_distribution_id="E18Y5OI4JS5NAJ"
-    site_url=https://oforms.oforms.onlyoffice.com"
+    site_url="https://oforms.onlyoffice.com"
     break
   default:
     println("Branch: ${BRANCH_NAME} do not for deploy.")
