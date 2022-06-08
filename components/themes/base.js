@@ -14,12 +14,11 @@ const {
 
 const Base = {
   main: {
-    fontFamily: "sans-serif",
+    fontFamily: `"Open Sans", sans-serif`,
   },
 
   text: {
     color: gray,
-    /** */
     display: "inline-block",
     height: "auto",
     width: "auto",
