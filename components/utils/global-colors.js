@@ -1,6 +1,6 @@
 const globalColors = {
   white: "#ffffff",
-  
+
   gray: "#333",
   grayMain: "#444444",
   grayHover: "#555555",
