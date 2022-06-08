@@ -68,7 +68,7 @@ const it = [
   },
   {
     title: "Modello Delega generico",
-    subtitle: "Ammnistrativo",
+    subtitle: "Amministrativo",
     linkUrl: "/modello-delega-generico",
     fillForm: "modello_delega_generico_6fbd7b23b9.oform",
   },
