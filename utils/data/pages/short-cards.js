@@ -30,25 +30,25 @@ const zh = [
   {
     title: "商业计划书",
     subtitle: "提案",
-    linkUrl: "/商业计划书",
+    linkUrl: "/business-plan",
     fillForm: ".oform",
   },
   {
     title: "夫妻财产协议",
     subtitle: "行政管理",
-    linkUrl: "/夫妻财产协议",
+    linkUrl: "/marital-property-agreement",
     fillForm: ".oform",
   },
   {
     title: "房产抵押借款合同",
     subtitle: "房地产及租赁",
-    linkUrl: "/房产抵押借款合同",
+    linkUrl: "/real-estate-mortgage-loan-sale-agreement",
     fillForm: ".oform",
   },
   {
     title: "广告设计制作服务合同",
     subtitle: "许可证",
-    linkUrl: "/广告设计制作服务合同",
+    linkUrl: "/advertising-design-and-production-services-contract",
     fillForm: ".oform",
   },
 ];
