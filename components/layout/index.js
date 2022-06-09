@@ -1,12 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import StyledLayout from "./styled-layout";
 import Header from "./header";
 import Main from "./main";
 import Footer from "./footer";
 import Head from "./head";
-
-import "../../styles/globals.css";
 
 function PageHead() {
   return null;
@@ -66,20 +65,27 @@ class Layout extends React.Component {
     return (
       <StyledLayout id="page-layout" className="layout">
         {children}
-        <Head>{headContent ? headContent.props.children : null}</Head>
-
-        <Header>{headerContent ? headerContent.props.children : null}</Header>
+        {headContent && <Head>{headContent.props.children}</Head>}
+        {headerContent && <Header>{headerContent.props.children}</Header>}
         <Main>{mainContent ? mainContent.props.children : null}</Main>
-        <Footer className="footer">
-          {footerContent ? footerContent.props.children : null}
-        </Footer>
+        {footerContent && (
+          <Footer className="footer">{footerContent.props.children}</Footer>
+        )}
       </StyledLayout>
     );
   }
 }
 
-Layout.propTypes = {};
+Layout.propTypes = {
+  headContent: PropTypes.bool,
+  headerContent: PropTypes.bool,
+  footerContent: PropTypes.bool,
+};
 
-Layout.defaultProps = {};
+Layout.defaultProps = {
+  headContent: true,
+  headerContent: true,
+  footerContent: true,
+};
 
 export default Layout;
