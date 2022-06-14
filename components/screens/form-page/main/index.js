@@ -46,6 +46,7 @@ const MainInfo = ({ t, currentLanguage, data, link }) => {
   ];
 
   const category = categories.data[0].attributes.categorie;
+  const catHref = categories.data[0].attributes.urlReq;
 
   const SVG_FILE_TYPE = "/icons/oform.svg";
   const baseURL = typeof window !== "undefined" ? window.location.href : null;
@@ -58,6 +59,7 @@ const MainInfo = ({ t, currentLanguage, data, link }) => {
           language={currentLanguage}
           categories={category}
           name={name_form}
+          href={catHref}
           t={t}
           className="template-breadcrumb"
         />
