@@ -10,10 +10,8 @@ import itemsShortCards from "@utils/data/pages/short-cards";
 const InfoContent = ({ t, currentLanguage }) => {
   let lng = currentLanguage === "en" ? "" : `/${currentLanguage}`;
   const shortCardItems = itemsShortCards[currentLanguage]?.map((it, idx) => {
-    let url = it.title
-      .replace(/\s/g, "-")
-      .replace(/[{()}]/g, "")
-      .toLowerCase();
+    let url = it.linkUrl
+      .replace(/^./,"")
     let href = `${lng}/editor/?filename=${url}&fillform=${it.fillForm}`;
     return (
       <ShortCard
