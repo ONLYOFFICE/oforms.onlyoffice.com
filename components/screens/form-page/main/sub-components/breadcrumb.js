@@ -73,15 +73,14 @@ const StyledBreadcrumb = styled(Box)`
   }
 `;
 
-const Breadcrumb = ({ name, categories, language, t, className }) => {
+const Breadcrumb = ({ name, categories, language, t, className, href }) => {
   const lnh = language === "en" ? "" : `${language}/`;
-  const catHref = reName(categories);
   return (
     <StyledBreadcrumb className={className ? className : null}>
       <Link className="breadcrumb-links home" href={`/${lnh}`}>
         {t("Forms")}
       </Link>
-      <Link className="breadcrumb-links" href={`/${lnh}form/${catHref}`}>
+      <Link className="breadcrumb-links" href={`/${lnh}form/${href}`}>
         {categories}
       </Link>
       <Text className="breadcrumb-items-name" label={name} />
