@@ -12,6 +12,9 @@
 /.next/
 /out/
 
+# jenkins
+/.jenkins/
+
 # production
 /build
 
