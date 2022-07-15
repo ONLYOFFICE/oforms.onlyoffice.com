@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.1.2
+
+### Fixes
+- Added Japanese language
+- Added translations to Japanese
+- Changed the styles of cards in the carousel
+- The text of the subtitle on the categories page has been changed
+- Changed the title of the "Other Lease & Other Forms" block to "Other Forms"
+- Changed the footer styles for Japanese
+- The link for Linkedin has been changed in the footer
+
 ## 1.1.1
 
 ### Fixes
