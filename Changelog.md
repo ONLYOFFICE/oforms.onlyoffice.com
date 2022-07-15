@@ -9,7 +9,9 @@
 - The text of the subtitle on the categories page has been changed
 - Changed the title of the "Other Lease & Other Forms" block to "Other Forms"
 - Changed the footer styles for Japanese
+- Updated translations
 - The link for Linkedin has been changed in the footer
+- Fixed crop social icons in footer on mobile devices
 
 ## 1.1.1
 
