@@ -18,7 +18,7 @@
     "AccordionHeadingExportOtherFormats": "入力したフォームを他の書式に書き出すことはできる？",
     "AccordionDescriptionExportOtherFormats": "はい、DOCXとPDFに書き出すことができます。",
     "AccordionHeadingAdditionalSoftware": "ONLYOFFICEのフォームを使うには、別途ソフトウェアが必要？",
-    "AccordionDescriptionAdditionalSoftware": "フォームの操作には<1>{{ONLYOFFICEDocs}}</1>と無料の<2>{{ONLYOFFICEDesktopEditors}}<2>が使用できる。",
+    "AccordionDescriptionAdditionalSoftware": "フォームの操作には<1>{{ONLYOFFICEDocs}}</1>と無料の<2>{{ONLYOFFICEDesktopEditors}}<2>",
     "ONLYOFFICEDocs": "ONLYOFFICE Docs",
     "ONLYOFFICEDesktopEditors": "ONLYOFFICE デスクトップエディタが使用できます。",
     "AccordionHeadingSuggestRevision": "間違いを見つけたか、フォームを更新したい。修正案を出してもいい？",
