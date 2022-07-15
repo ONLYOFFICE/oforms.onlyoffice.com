@@ -40,9 +40,9 @@ const MainInfo = ({ t, currentLanguage, data, link }) => {
 
   const transDownloadAs = t("DownloadAs");
   const array = [
-    { title: `${transDownloadAs} OFORM`, href: oformFile[0]?.attributes?.url },
-    { title: `${transDownloadAs} DOCXF`, href: docxfFile[0]?.attributes?.url },
-    { title: `${transDownloadAs} PDF`, href: pdfFile[0]?.attributes?.url },
+    { title: `${currentLanguage == "ja" ? `OFORM${transDownloadAs}` : `${transDownloadAs} OFORM`}`, href: oformFile[0]?.attributes?.url },
+    { title: `${currentLanguage == "ja" ? `DOCXF${transDownloadAs}` : `${transDownloadAs} DOCXF`}`, href: docxfFile[0]?.attributes?.url },
+    { title: `${currentLanguage == "ja" ? `PDF${transDownloadAs}` : `${transDownloadAs} PDF`}`, href: pdfFile[0]?.attributes?.url },
   ];
 
   const category = categories.data[0].attributes.categorie;
@@ -134,7 +134,7 @@ const MainInfo = ({ t, currentLanguage, data, link }) => {
           <ButtonSelector
             isScale
             array={array}
-            defaultVal={t("DownloadAs")}
+            defaultVal={`${currentLanguage}` == "ja" ? `${t("DownloadAsButton")}` : `${t("DownloadAs")}`}
             className="file-download-button"
           />
         </Box>
