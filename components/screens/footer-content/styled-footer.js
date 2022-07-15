@@ -22,6 +22,7 @@ const StyledFooterTablet = css`
 
       .footer-social {
         padding-right: 0px;
+        width: 25px;
       }
     }
 
