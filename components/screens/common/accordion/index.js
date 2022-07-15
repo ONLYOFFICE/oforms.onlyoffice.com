@@ -97,6 +97,28 @@ const AccordionContent = ({ t, currentLanguage }) => {
     </Text>
   );
 
+  const AccordionDescriptionPossibleToEmbedLink = t(
+    "AccordionDescriptionPossibleToEmbedLink"
+  );
+
+  const AccordionDescriptionPossibleToEmbed = (
+    <Trans
+        i18nKey="AccordionDescriptionPossibleToEmbed"
+        AccordionDescriptionPossibleToEmbedLink={t(
+          "AccordionDescriptionPossibleToEmbedLink"
+        )}
+      >
+        It is technically possible. Please contact us at 
+        <Link
+          className="link-trans-acc"
+          label="marketing@onlyoffice.com"
+          href="mailto:marketing@onlyoffice.com"
+        >
+          {{ AccordionDescriptionPossibleToEmbedLink }}
+        </Link>
+      </Trans>
+  );
+
   const AccordionDescriptionCouldntFindTheAnswerSupp = t(
     "AccordionDescriptionCouldntFindTheAnswerSupp"
   );
@@ -196,12 +218,8 @@ const AccordionContent = ({ t, currentLanguage }) => {
         {AccordionDescriptionFindTheTemplate}
       </AccordionItem>
       <AccordionItem heading={t("AccordionHeadingPossibleToEmbed")}>
-        {t("AccordionDescriptionPossibleToEmbed")}
-        <Link
-          className="link-trans-acc"
-          label="marketing@onlyoffice.com"
-          href="mailto:marketing@onlyoffice.com"
-        />
+        {AccordionDescriptionPossibleToEmbed}
+        
       </AccordionItem>
       <AccordionItem heading={t("AccordionHeadingCouldn’tFindTheAnswer")}>
         {AccordionDescriptionCouldntFindTheAnswer}
