@@ -12,6 +12,8 @@
 - Updated translations
 - The link for Linkedin has been changed in the footer
 - Fixed crop social icons in footer on mobile devices
+- Fixed links on card in carousel
+- Fixed pagination on main page and category page
 
 ## 1.1.1
 
