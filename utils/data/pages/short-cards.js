@@ -161,6 +161,33 @@ const de = [
   },
 ];
 
-const itemsShortCards = { en: en, zh: zh, it: it, fr: fr, es: es, de: de };
+const ja = [
+  {
+    title: "領収書 フォーム",
+    subtitle: "ビジネス",
+    linkUrl: "/receipt-2",
+    fillForm: "receipt_8ed454e788.oform",
+  },
+  {
+    title: "委任状 フォーム1",
+    subtitle: "法律フォーム",
+    linkUrl: "/power-of-attorney-2-1",
+    fillForm: "power_of_attorney1_425fde766f.oform",
+  },
+  {
+    title: "週プランナー フォーム3",
+    subtitle: "その他の文書",
+    linkUrl: "/weekly-planner-2-3",
+    fillForm: "3_weekly_planner_3_12f3ec1564.oform",
+  },
+  {
+    title: "営業日報 フォーム",
+    subtitle: "ビジネス",
+    linkUrl: "/daily-report-2",
+    fillForm: "daily_report_fb43c1bbe9.oform",
+  },
+];
+
+const itemsShortCards = { en: en, zh: zh, it: it, fr: fr, es: es, de: de, ja: ja };
 
 export default itemsShortCards;
