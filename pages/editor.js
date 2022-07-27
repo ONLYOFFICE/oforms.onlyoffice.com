@@ -43,16 +43,6 @@ const OformsEditorPage = ({ data, serfilename }) => {
     }
   };
 
-  const runScript = () => {
-    return (
-      <Head>
-            <script defer type="text/javascript">
-              {`(window.docEditor = new DocsAPI.DocEditor("${filename}", ${config}))`}
-            </script>
-      </Head>
-    )
-  }
-
   useEffect(() => {
     getConfig();
   }, []);
@@ -71,21 +61,16 @@ const OformsEditorPage = ({ data, serfilename }) => {
       </Layout.PageHead>
       {check && loadScript ? (
         <>
-
-          {/* <Head>
+          <Head>
             <script defer type="text/javascript">
               {`(window.docEditor = new DocsAPI.DocEditor("${filename}", ${config}))`}
             </script>
-          </Head> */}
-          
+          </Head>
           <Portal selector="#modal">
             <StyledPlaceholder>
               <div id={filename} style={{ height: "100%" }} />
             </StyledPlaceholder>
           </Portal>
-          <script defer type="text/javascript">
-              {`(window.docEditor = new DocsAPI.DocEditor("${filename}", ${config}))`}
-          </script>
         </>
       ) : null}
     </Layout>
@@ -110,4 +95,4 @@ export const getServerSideProps = async (context) => {
   return { props: { data, serfilename } };
 };
 
-export default OformsEditorPage;   
+export default OformsEditorPage;
