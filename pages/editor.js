@@ -71,12 +71,21 @@ const OformsEditorPage = ({ data, serfilename }) => {
       </Layout.PageHead>
       {check && loadScript ? (
         <>
-          {runScript()}
+
+          {/* <Head>
+            <script defer type="text/javascript">
+              {`(window.docEditor = new DocsAPI.DocEditor("${filename}", ${config}))`}
+            </script>
+          </Head> */}
+          
           <Portal selector="#modal">
             <StyledPlaceholder>
               <div id={filename} style={{ height: "100%" }} />
             </StyledPlaceholder>
           </Portal>
+          <script defer type="text/javascript">
+              {`(window.docEditor = new DocsAPI.DocEditor("${filename}", ${config}))`}
+          </script>
         </>
       ) : null}
     </Layout>
