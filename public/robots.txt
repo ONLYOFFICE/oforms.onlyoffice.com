@@ -1,5 +1,2 @@
 User-agent: *
-Disallow: *?fillform=*
-Disallow: *?_sort=*
-Disallow: *?page=*
-Sitemap: https://oforms.onlyoffice.com/sitemap.xml
+Disallow: /
