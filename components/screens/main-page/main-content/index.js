@@ -16,28 +16,11 @@ const MainContent = ({ t, currentLanguage, data, page, sort }) => {
 
   const pageLimit = countPage > 7 ? 7 : countPage;
 
-  const arrayStart = [...Array(countPage).keys()].map(i => i+1)
-    .filter(item => item % pageLimit === 0)
-    .map((item,index) => item - index)
-
-  const checkInterval = (page, min, max) => {
-    if ((page >= min) && (page < max)) return min;
-
-    if (page <= min && page < max) return 0;
-    if (page >= min && !max) return min;
-  }
-
   const getPaginationGroup = () => {
-    let start = 0;
-    for (let i = 0; i < arrayStart.length; i++) {
-      if(checkInterval(page, arrayStart[i], arrayStart[i + 1])) {
-        start = checkInterval(page, arrayStart[i], arrayStart[i + 1])
-        break;
-      } 
-    }
-    return new Array(countPage - start < pageLimit ? countPage - start + 1 : pageLimit).fill().map((_, idx) => start === 0 ? start + idx + 1 : start + idx);
+    let start = Math.floor((page - 1) / pageLimit) * pageLimit;
+    return new Array(countPage - start <= pageLimit ? countPage - start : pageLimit).fill().map((_, idx) => start + idx + 1);
   };
-  
+
   const onChangeSelectTypeSort = (e) => {
     setTypeSortData(e.target.value);
   };

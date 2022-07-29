@@ -23,7 +23,6 @@ const StyledInfoContent = styled(Section)`
       line-height: 33px;
       color: #ccc;
       padding-bottom: 90px;
-      outline: none;
     }
   }
 

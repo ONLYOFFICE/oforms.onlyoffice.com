@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import Script from "next/script";
 import axios from "axios";
 import Head from "next/head";
-import Helmet from "react-helmet"
 
 import CONFIG from "@config/config";
 import Layout from "@components/layout";
@@ -62,19 +61,16 @@ const OformsEditorPage = ({ data, serfilename }) => {
       </Layout.PageHead>
       {check && loadScript ? (
         <>
-        <Helmet>          
+          <Head>
             <script defer type="text/javascript">
               {`(window.docEditor = new DocsAPI.DocEditor("${filename}", ${config}))`}
             </script>
-          </Helmet>
-          
+          </Head>
           <Portal selector="#modal">
             <StyledPlaceholder>
               <div id={filename} style={{ height: "100%" }} />
             </StyledPlaceholder>
           </Portal>
-          
-          
         </>
       ) : null}
     </Layout>

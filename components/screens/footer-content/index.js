@@ -24,7 +24,7 @@ const Footer = ({ t, language }) => {
     language === "en" ? "" : `/${language}`
   }`;
   return (
-    <StyledFooter language={language}>
+    <StyledFooter>
       {POSITION_ELEMENTS_ITEM.map((elements_in_div, id) => (
         <div className="footer-item-group" key={id}>
           {Items.map((it, idx) => {

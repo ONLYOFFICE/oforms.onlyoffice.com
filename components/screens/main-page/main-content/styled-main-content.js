@@ -118,10 +118,6 @@ const StyledMainContent = styled(Section)`
     .checkbox-card-group {
       max-width: 235px;
     }
-    .box-cards-template {
-      justify-content: center;
-      align-items: flex-start;
-    }
   }
 
   @media (max-width: 1024px) {

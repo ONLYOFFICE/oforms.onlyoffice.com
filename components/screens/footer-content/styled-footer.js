@@ -22,7 +22,6 @@ const StyledFooterTablet = css`
 
       .footer-social {
         padding-right: 0px;
-        width: 25px;
       }
     }
 
@@ -72,8 +71,8 @@ const StyledFooter = styled.div`
   height: auto;
   display: grid;
   display: -ms-inline-grid;
-  grid-template-columns: ${(props) => props.language == "ja" ? '0.6fr 0.5fr 0.65fr 1.1fr' : "0.8fr 0.8fr 0.8fr 1fr"};
-  -ms-grid-columns: ${(props) => props.language == "ja" ? '0.6fr 32px 0.5fr 32px 0.65fr 32px 1.1fr' : "0.8fr 32px 0.8fr 32px 0.8fr 32px 1fr"};
+  grid-template-columns: 0.8fr 0.8fr 0.8fr 1fr;
+  -ms-grid-columns: 0.8fr 32px 0.8fr 32px 0.8fr 32px 1fr;
   grid-column-gap: 15px;
 
   .footer-item-group {
@@ -93,7 +92,6 @@ const StyledFooter = styled.div`
     font-size: 13px;
     margin: 0 0 7px;
     line-height: 1.4em;
-    white-space: nowrap;
   }
 
   .footer-social-links {
