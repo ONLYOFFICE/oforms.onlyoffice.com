@@ -29,7 +29,7 @@ const Social = [
     filter: true,
   },
   {
-    href: "https://www.linkedin.com/groups/6726380/",
+    href: "https://www.linkedin.com/company/ascensio-system-sia/",
     className: "linkedin",
     title: "LinkedIn",
     target: "_blank",
