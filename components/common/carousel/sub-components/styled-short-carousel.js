@@ -54,7 +54,6 @@ const StyledShortCard = styled.div`
   }
 
   .subtitle-template {
-    height: 68px;
     margin-bottom: ${(props) => (props.shortCard ? "16px" : "0")};
     font-size: 13px;
   }
