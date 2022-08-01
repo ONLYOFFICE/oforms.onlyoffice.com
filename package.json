@@ -1,6 +1,6 @@
 {
   "name": "oforms.onlyoffice.com",
-  "version": "2.0.1",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -21,7 +21,6 @@
     "react": "18.0.0",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "18.0.0",
-    "react-helmet": "^6.1.0",
     "react-i18next": "^11.16.7",
     "react-onclickoutside": "^6.12.1",
     "react-redux": "^8.0.1",

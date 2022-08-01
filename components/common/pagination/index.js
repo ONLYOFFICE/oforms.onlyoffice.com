@@ -24,7 +24,7 @@ const Pagination = ({
               }`
             : `${
                 locale === "en" ? "" : `/${locale}`
-              }/form/${category}?page=${page - 1}${
+              }?page=${page - 1}${
                 sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
               }`
         }
@@ -49,7 +49,7 @@ const Pagination = ({
               }`
             : `${
                 locale === "en" ? "" : `/${locale}`
-              }/form/${category}?page=${page + 1}${
+              }?page=${page + 1}${
                 sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
               }`
         }
@@ -69,18 +69,15 @@ const Pagination = ({
       {getPaginationGroup.map((item, index) => (
         <a
           href={
-            page !== item ? 
-            (
             !category
               ? `${locale === "en" ? "" : `${locale}/`}?page=${item}${
                   sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
                 }`
               : `${
                   locale === "en" ? "" : `/${locale}`
-                }/form/${category}?page=${item}${
+                }?page=${item}${
                   sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
                 }`
-            ) : null
           }
           key={index + item}
         >
