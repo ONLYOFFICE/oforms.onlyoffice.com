@@ -26,7 +26,7 @@ const Banner = lazy(() => import("@components/screens/common/banner"), {
   loading: () => <div />,
 });
 const Accordion = lazy(() => import("@components/screens/common/accordion"), {
-  loading: () => <div />,
+  loading: () => <div />, 
 });
 const Footer = lazy(() => import("@components/screens/footer-content"), {
   loading: () => <div />,
