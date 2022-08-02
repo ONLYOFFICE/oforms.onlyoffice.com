@@ -10,8 +10,8 @@ const ShortCard = ({ t, callback, arrayItems, currentLanguage, description, ...r
 
   const category = categories?.data[0]?.attributes?.urlReq;
   const pathName =
-    currentLanguage === "en" && locale === "en"
-      ? `/${url}`
+      currentLanguage === "en" && locale === "en"
+      ? `/form/${category}/${url}`
       : locale === "en"
       ? `/${url}`
       : `/${locale}/${url}`;
