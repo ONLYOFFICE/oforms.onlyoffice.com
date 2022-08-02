@@ -8,10 +8,10 @@ switch(BRANCH_NAME) {
     site_url="https://oforms.teamlab.info"
     break
   case "production_deploy":
-    aws_region=""
+    aws_region="us-west-2"
     region="com"
-    cloud_front_distribution_id=""
-    site_url=""
+    cloud_front_distribution_id="E18Y5OI4JS5NAJ"
+    site_url="https://oforms.onlyoffice.com"
     break
   default:
     println("Branch: ${BRANCH_NAME} do not for deploy.")
@@ -31,7 +31,7 @@ pipeline {
     stage('deploy') {
       when { 
         anyOf { branch 'test_deploy'; 
-                branch '1111111production_deploy' }
+                branch 'production_deploy' }
       }
       environment {
         region = "${region}"
@@ -70,7 +70,7 @@ pipeline {
     stage('invalidation') {
       when { 
         anyOf { branch 'test_deploy'; 
-                branch '111111production_deploy' }
+                branch 'production_deploy' }
       }
       environment {
         aws_region = "${aws_region}"
