@@ -1,14 +1,14 @@
 import Menu from "./menu";
-// import SearchContent from "./search";
+import SearchContent from "./search";
 import StyledHeadingContent from "./styled-headig";
 
 const HeadingContent = ({ t, template, currentLanguage }) => {
   return (
     <StyledHeadingContent template={template}>
       <Menu t={t} template={template} currentLanguage={currentLanguage} />
-      {/* {!template ? (
+      {!template ? (
         <SearchContent t={t} currentLanguage={currentLanguage} />
-      ) : null} */}
+      ) : null}
     </StyledHeadingContent>
   );
 };
