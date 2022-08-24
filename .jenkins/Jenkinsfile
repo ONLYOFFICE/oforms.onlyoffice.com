@@ -10,6 +10,7 @@ switch(BRANCH_NAME) {
   case "production_deploy":
     aws_region="us-west-2"
     region="com"
+    MONITOR_ID = '58439000014815195'
     cloud_front_distribution_id="E18Y5OI4JS5NAJ"
     site_url="https://oforms.onlyoffice.com"
     break
@@ -28,6 +29,15 @@ pipeline {
     buildDiscarder (logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
   }
   stages {
+    stage('stop_monitor') {
+      when { branch 'production_deploy' }
+      steps {
+        build job: 'monitor.24x7.start.stop', 
+          parameters: [string(name: 'monitor_id', value: "${MONITOR_ID}"), 
+          string(name: 'action', value: 'suspend')]
+      }    
+    }
+    
     stage('deploy') {
       when { 
         anyOf { branch 'test_deploy'; 
@@ -93,6 +103,15 @@ pipeline {
           '''
         }
       }
+    }
+    
+    stage('start_monitor') {
+      when { branch 'production_deploy' }
+      steps {
+        build job: 'monitor.24x7.start.stop', 
+          parameters: [string(name: 'monitor_id', value: "${MONITOR_ID}"), 
+          string(name: 'action', value: 'activate')]
+      }    
     }
   }
 }
