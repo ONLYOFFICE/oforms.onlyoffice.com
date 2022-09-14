@@ -72,10 +72,10 @@ export const getServerSideProps = async ({ locale, ...ctx }) => {
   const urlReq = ctx.query.category;
   const pageSize = ctx.query.pageSize || 9;
   const res = await fetch(
-    `https://oforms.teamlab.info/dashboard/api/oforms/?filters[categories][urlReq][$eq]=${urlReq}&locale=${locale}&sort=name_form:${sort}&pagination[pageSize]=${pageSize}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
+    `https://cmsoforms.teamlab.info/api/oforms/?filters[categories][urlReq][$eq]=${urlReq}&locale=${locale}&sort=name_form:${sort}&pagination[pageSize]=${pageSize}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
   );
   const resCategory = await fetch(
-    `https://oforms.teamlab.info/dashboard/api/categories/?filters[urlReq][$eq]=${urlReq}&locale=${locale}`
+    `https://cmsoforms.teamlab.info/api/categories/?filters[urlReq][$eq]=${urlReq}&locale=${locale}`
   );
 
   const categoryForms = await res.json();
