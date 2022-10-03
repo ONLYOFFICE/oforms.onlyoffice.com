@@ -24,57 +24,65 @@ const StyledNav = styled.nav`
     align-content: unset;
     flex-wrap: unset;
     align-items: unset;
-    &:before {
-      display: block;
-      position: absolute;
-      width: 50%;
-      content: "";
-      height: 1px;
-      background-color: #ff642e;
-      transition: width 0.2s ease-in-out;
-      left: 0;
-      top: 0;
-    }
 
-    &:after {
-      display: block;
-      position: absolute;
-      width: 50%;
-      content: "";
-      height: 1px;
-      background-color: #ff642e;
-      transition: width 0.2s ease-in-out;
-      left: 50%;
-      top: 0;
+    @media (min-width: 1150px) {
+      &:before {
+        display: block;
+        position: absolute;
+        width: 50%;
+        content: "";
+        height: 1px;
+        background-color: #ff642e;
+        transition: width 0.2s ease-in-out;
+        left: 0;
+        top: 0;
+      }
+
+      &:after {
+        display: block;
+        position: absolute;
+        width: 50%;
+        content: "";
+        height: 1px;
+        background-color: #ff642e;
+        transition: width 0.2s ease-in-out;
+        left: 50%;
+        top: 0;
+      }
     }
   }
 
-  @media (min-width: 1050px) {
-    #navitem_download .menu-items-wrapper {
-      left: calc(50% - 280px);
-    }
+  @media (min-width: 1150px) {
     #navitem_features .menu-items-wrapper {
-      left: calc(50% - 395px);
+      left: calc(50% - 465px);
     }
-    #navitem_integrations .menu-items-wrapper {
-      left: calc(50% - 426px);
+    #navitem_forbusiness .menu-items-wrapper {
+      left: calc(50% - 318px);
     }
-    #navitem_partners .menu-items-wrapper,
+    #navitem_fordevelopers .menu-items-wrapper {
+      left: calc(50% - 186px);
+    }
+    #navitem_download .menu-items-wrapper {
+      left: calc(50% - 440px);
+    }
     #navitem_prices .menu-items-wrapper {
-      left: calc(50% - 102px);
+      left: calc(50% - 80px);
+    }
+    #navitem_partners .menu-items-wrapper {
+      left: calc(50% - 60px);
     }
     #navitem_about .menu-items-wrapper {
-      left: calc(50% - 202px);
+      left: calc(50% - 75px);
     }
   }
 
-  @media (max-width: 1050px) {
+  @media (max-width: 1150px) {
     padding: 0;
     background-color: #fff;
     min-height: 100px;
-    height: 100vh;
+    height: 100%;
     margin: 0;
-    position: absolute;
+    position: fixed;
     left: ${(props) => (props.stateMobile ? "0" : "-120vw")};
     top: 0;
     overflow: auto;
@@ -90,6 +98,7 @@ const StyledNav = styled.nav`
 
     .menu_wrapper {
       display: block;
+      padding-top: 8px;
     }
 
     .mobile-heading-nav-item {
@@ -100,6 +109,8 @@ const StyledNav = styled.nav`
       line-height: 1.33em;
       margin: 0 auto;
       padding: 6px 22px 12px 22px;
+      border-bottom: 1px solid #f2f2f2;
+      color: #ff6f3d;
       position: relative;
       text-transform: uppercase;
       text-align: center;
