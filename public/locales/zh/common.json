@@ -25,7 +25,8 @@
   "AccordionDescriptionFindTheTemplate": "我们接受您的模板建议，以便将来把这些模板添加到表单库。请点击主页顶部的 '建议新的表单'来提交您的想法。",
   "OtherLeaseRentForms": "<1>其他</1>表单",
   "RecentlyViewed": "<1>最近</1>查看的",
-  "FooterCopyright": "© Ascensio System SIA {{currentYear}}. 保留所有权利",
+  "© Ascensio System SIA": "© Ascensio System SIA {{currentYear}}.",
+  "All rights reserved": "保留所有权利",
   "OFORMS": "OFORM表单",
   "FREEforms": "免费可填写的在线表单",
   "FillOutTheForms": "快速在线填写表单或下载并在ONLYOFFICE中打开表单。",
@@ -207,7 +208,7 @@
   "Partner Inquiries": "合作伙伴咨询",
   "Press Inquiries": "媒体咨询",
   "Request a Call": "电话咨询",
-  "Follow us": "关注我们",
+  "Follow us on:": "关注我们：",
   "metaDescriptionIndexPage": "免费试试强大的随时可填写的在线表单。在线创建带有表单的文档，或直接下载模板，并选择需要的格式：DOCXF、OFORM或PDF。",
   "titleIndexPage": "OFORM表单 —— 免费在线填写表单的工具",
   "metaSiteNameOg" : "表单模板库",
@@ -236,5 +237,7 @@
   "Jobs": "工作机会", 
   "Join us at Univention Summit 2022": "加入我们在2022年的Univention峰会",
   "Edit and collaborate on docs within your eLearning platform": "在您的电子学习平台上编辑并协作文件",
-  "ONLYOFFICE for education": "面向教育的ONLYOFFICE"
+  "ONLYOFFICE for education": "面向教育的ONLYOFFICE",
+  "SOLUTIONS BY SIZE": "按规模划分的解决方案",
+  "SOLUTIONS BY INDUSTRY": "按行业划分的解决方案"
 }
