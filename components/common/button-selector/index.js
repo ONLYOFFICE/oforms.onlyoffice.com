@@ -5,18 +5,15 @@ import PropTypes from "prop-types";
 
 import StyledBtnSelector from "./styled-btn-selector";
 import BtnMenu from "./sub-components/btn-menu";
-import Link from "../link";
 
 const ButtonSelector = ({
   isScale,
   label,
-  defaultVal,
   array,
   children,
   ...rest
 }) => {
   const [isActive, setIsActive] = useState(false);
-  const [selected, setSelected] = useState(defaultVal);
   const [href, setHref] = useState();
 
   ButtonSelector.handleClickOutside = () => setIsActive(false);
@@ -27,16 +24,11 @@ const ButtonSelector = ({
 
   const classNameIndicator = `chevronContainer ${isActive ? "up" : ""}`;
   return (
-    <StyledBtnSelector {...rest} isScale={isScale} isActive={isActive}>
-      <Link
-        onClick={onSetIsActive}
-        className="placeholder"
-        typeButton="secondary"
-        label={selected}
-        href={href}
-        download
-      />
-      <div className="indicatorContainer" onClick={onSetIsActive}>
+    <StyledBtnSelector {...rest} isScale={isScale} isActive={isActive} onClick={onSetIsActive}>
+      <div className="placeholder">
+        Download as
+      </div>
+      <div className="indicatorContainer">
         <span className="indicatorSeparator" />
         <ReactSVG
           className={classNameIndicator}
@@ -48,7 +40,6 @@ const ButtonSelector = ({
       {isActive && (
         <BtnMenu
           callbackItem={(item) => {
-            setSelected(item.title);
             setHref(item.href);
             setIsActive(false);
           }}
