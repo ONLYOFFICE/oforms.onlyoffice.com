@@ -25,8 +25,8 @@ const ButtonSelector = ({
   const classNameIndicator = `chevronContainer ${isActive ? "up" : ""}`;
   return (
     <StyledBtnSelector {...rest} isScale={isScale} isActive={isActive} onClick={onSetIsActive}>
-      <div className="placeholder">
-        Download as
+      <div className="placeholder" download >
+        {label}
       </div>
       <div className="indicatorContainer">
         <span className="indicatorSeparator" />

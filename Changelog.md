@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.3
+
+### Fixes
+- fix header menu
+- fix footer menu
+- fix "Download as" button
+
 ## 1.1.2
 
 ### Fixes
