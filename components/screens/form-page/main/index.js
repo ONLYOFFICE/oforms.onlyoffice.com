@@ -136,6 +136,7 @@ const MainInfo = ({ t, currentLanguage, data, link }) => {
             array={array}
             defaultVal={`${currentLanguage}` == "ja" ? `${t("DownloadAsButton")}` : `${t("DownloadAs")}`}
             className="file-download-button"
+            label={t("DownloadAs")}
           />
         </Box>
         <ShareButtonsGroup name={name_form} baseURL={baseURL} t={t} />
