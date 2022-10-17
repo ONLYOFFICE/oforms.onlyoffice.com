@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import phone from "@public/icons/phone-white.svg";
 
 const StyledMenuTablet = css`
   grid-template-columns: auto 152px auto;
@@ -69,6 +70,14 @@ const StyledMenu = styled.div`
   .nav-item-logo {
     grid-column-start: 1;
     grid-column-end: 2;
+
+    @media (max-width: 1440px) {
+      width: 32px;
+    }
+
+    @media (max-width: 1150px) {    
+      width: 153px;
+    }
   }
 
   .nav-item-links {
@@ -79,7 +88,7 @@ const StyledMenu = styled.div`
       &:hover {
         color: #ff6f3d;
       }
-      @media (max-width: 1050px) {
+      @media (max-width: 1150px) {
         color: #333;
       }
     }
@@ -105,6 +114,23 @@ const StyledMenu = styled.div`
       font-weight: 600;
       text-decoration: none;
       display: block;
+
+      @media (max-width: 1450px) {
+        font-size: 0;
+        &:before {
+          background-image: url(${phone.src});
+          background-repeat: no-repeat;
+          background-position: 50% 50%;
+          background-size: 24px 24px;
+          content: "";
+          display: inline-block;
+          width: 24px;
+          height: 24px;
+          padding: 0;
+          vertical-align: middle;
+          color: #fff;
+        }
+      }
     }
   }
 
@@ -112,7 +138,7 @@ const StyledMenu = styled.div`
     display: none;
   }
 
-  @media (max-width: 1050px) {
+  @media (max-width: 1150px) {
     ${StyledMenuTablet};
   }
 `;

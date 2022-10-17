@@ -44,7 +44,7 @@ const StyledPanelView = styled.div`
   z-index: 100;
   padding: 6px 6px 6px 12px;
   top: 35px;
-  right: 0;
+  left: -11px;
 `;
 
 const StyledItem = styled.div`

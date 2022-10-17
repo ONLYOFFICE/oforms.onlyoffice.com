@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledHeader = styled.header`
-position: fixed;
+position: sticky;
 top: 0px;
 left: 0;
 width: 100%;

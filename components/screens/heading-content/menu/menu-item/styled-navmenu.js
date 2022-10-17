@@ -2,7 +2,10 @@ import styled from "styled-components";
 import menu_icons from "@public/images/menu-pics/menu_icons.svg";
 import menu_oforms from "@public/images/menu-pics/menu_oforms.svg";
 import menu_reseller from "@public/images/menu-pics/menu_reseller.svg";
-import menu_latest_events from "@public/images/menu-pics/univention_may_2022_@2x-01.png";
+import menu_latest_events from "@public/images/menu-pics/menu_events.png";
+import menu_see_it_in_act from "@public/images/menu-pics/menu_see_it_in_act.png";
+import menu_code_git from "@public/images/menu-pics/menu_code_git.png";
+import menu_hosting from "@public/images/menu-pics/menu_hosting.png";
 import menu_latest_news from "@public/images/menu-pics/blog_moodle_plugin.jpg";
 import menu_for_developers from "@public/images/menu-pics/menu_for_developers.png";
 import menu_compare from "@public/images/menu-pics/menu_compare_edition.svg";
@@ -17,8 +20,7 @@ const StyledNavMenu = styled.div`
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
-    line-height: 1.6em;
-    margin: 0 0 24px;
+    line-height: 24px;
     padding: 0 32px 0 68px;
     text-decoration: none;
     white-space: nowrap;
@@ -34,11 +36,18 @@ const StyledNavMenu = styled.div`
       background-image: url(${menu_icons.src});
       background-repeat: no-repeat;
     }
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
   }
 
-  #navitem_features_editors,
   #navitem_features_workspace {
     margin-bottom: 0px;
+  }
+
+  #navitem_features_education {
+    white-space: initial;
   }
 
   .heading-nav-item {
@@ -46,14 +55,14 @@ const StyledNavMenu = styled.div`
     font-size: 12px;
     font-weight: 600;
     line-height: 29px;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.08em;
     padding: 21px 20px 22px;
     cursor: pointer;
     margin: 0px;
     text-transform: uppercase;
   }
 
-  @media (max-width: 1155px) {
+  @media (max-width: 1255px) {
     .heading-nav-item {
       padding: 20px 10px;
     }
@@ -66,6 +75,7 @@ const StyledNavMenu = styled.div`
     margin: 0;
   }
 
+  #navitem_features_spreadsheet_editor,
   #navitem_features_clients_apps {
     &:before {
       background-position-y: -52px;
@@ -102,6 +112,54 @@ const StyledNavMenu = styled.div`
     }
   }
 
+  #navitem_features_presentation_editor {
+    &:before {
+      background-position-y: -934px;
+    }
+  }
+
+  #navitem_features_form_creator {
+    &:before {
+      background-position-y: -728px;
+    }
+  }
+
+  #navitem_features_pdf_reader {
+    &:before {
+      background-position-y: -756px;
+    }
+  }
+
+  #navitem_fb_docs_ee {
+    &:before {
+      background-position-y: -806px;
+    }
+  }
+
+  #navitem_fb_workspace {
+    &:before {
+      background-position-y: -25px;
+    }
+  }
+
+  #navitem_fd_api_doc {
+    &:before {
+      background-position-y: -908px;
+    }
+  }
+
+  #navitem_fd_doc_builder {
+    &:before {
+      background-position-y: -25px;
+    }
+  }
+
+  #navitem_fd_docs_dev {
+    &:before {
+      background-position-y: -832px;
+    }
+  }
+
   #navitem_download_desktop {
     &:before {
       background-position-y: -155px;
@@ -117,6 +175,60 @@ const StyledNavMenu = styled.div`
   #navitem_download_personal {
     &:before {
       background-position-y: -570px;
+    }
+  }
+
+  #navitem_download_docs_ee {
+    &:before {
+      background-position-y: -806px;
+    }
+  }
+
+  #navitem_download_workspace {
+    &:before {
+      background-position-y: -25px;
+    }
+  }
+
+  #navitem_download_connectors {
+    &:before {
+      background-position-y: -572px;
+    }
+  }
+
+  #navitem_download_desktop_mob {
+    &: before {
+      background-position-y: -155px;
+    }
+  }
+
+  #navitem_download_docs_de {
+    &:before {
+      background-position-y: -832px;
+    }
+  }
+
+  #navitem_download_docs_builder {
+    &:before {
+      background-position-y: -858px;
+    }
+  }
+
+  #navitem_prices_docs_enterprice {
+    &:before {
+      background-position-y: -806px;
+    }
+  }
+
+  #navitem_prices_workspace {
+    &:before {
+      background-position-y: -25px;
+    }
+  }
+
+  #navitem_prices_docs_dev {
+    &:before {
+      background-position-y: -832px;
     }
   }
 
@@ -185,6 +297,12 @@ const StyledNavMenu = styled.div`
     }
   }
 
+  #navitem_about_forum {
+    &:before {
+      background-position-y: -884px;
+    }
+  }
+
   #navitem_about_pressdownloads {
     &:before {
       background-position-y: -416px;
@@ -197,7 +315,7 @@ const StyledNavMenu = styled.div`
     }
   }
 
-  #navitem_about_trainingcourses {
+  #navitem_about_training_courses {
     &:before {
       background-position-y: -493px;
     }
@@ -215,7 +333,7 @@ const StyledNavMenu = styled.div`
     }
   }
 
-  #navitem_about_helpcenter {
+  #navitem_about_help {
     &:before {
       background-position-y: -625px;
     }
@@ -224,6 +342,12 @@ const StyledNavMenu = styled.div`
   #navitem_about_webinars {
     &:before {
       background-position-y: -595px;
+    }
+  }
+
+  #navitem_about_compare {
+    &:before {
+      background-position-y: -780px;
     }
   }
 
@@ -247,26 +371,30 @@ const StyledNavMenu = styled.div`
   #navitem_integrations_moodle,
   #navitem_integrations_connectors,
   #navitem_integration_for_developers,
-  #navitem_prices_reseller {
+  #navitem_prices_reseller,
+  #navitem_features_see_it,
+  #navitem_fd_code,
+  #navitem_download_hosting,
+  #navitem_integrations_others {
     padding: 0 32px;
+
     &:before {
       display: none;
     }
 
-    @media (max-width: 1050px) {
-      padding: 7px 16px;
+    @media (max-width: 1150px) {
+      padding: 7px 36px;
     }
   }
 
   .menu_pic_div {
     cursor: pointer;
-    padding: 12px 32px 0 32px;
+    padding: 0 32px 32px;
     .menu_pic_header {
       color: #444;
       font-size: 14px;
       line-height: 1.6em;
       margin: 0;
-      padding-bottom: 10px;
       &:hover {
         color: #ff6f3d;
       }
@@ -274,19 +402,33 @@ const StyledNavMenu = styled.div`
     .menu_pic_img {
       background-repeat: no-repeat;
       background-size: contain;
-      height: 88px;
-      margin-bottom: 16px;
+      height: 90px;
       width: 180px;
+
+      &:not(:last-child) {
+        margin-bottom: 16px;
+      }
+
+      &:last-child {
+        margin-bottom: 8px;
+      }
+    }
+
+    &:last-child {
+      padding: 0 32px;
     }
   }
 
   .mobile_no_link {
+    border-radius: 5px;
     background-color: #f5f5f5;
-    margin: 0 32px;
+    margin: 0 32px 24px;
     color: #666;
     font-weight: 600;
     font-size: 13px;
-    padding: 6px 32px 6px 12px;
+    line-height: 24px;
+    padding: 4px 12px;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     width: -webkit-fill-available;
     &:before {
@@ -295,6 +437,13 @@ const StyledNavMenu = styled.div`
     &:hover {
       color: #666;
       cursor: default;
+    }
+
+    &.external-link {
+      &:hover {
+        color: #666;
+        cursor: default;
+      }
     }
   }
 
@@ -312,49 +461,92 @@ const StyledNavMenu = styled.div`
     cursor: pointer;
     line-height: 1.6em;
     margin: 0;
-    padding: 4px 32px 4px 72px;
+    padding: 0 32px 0 72px;
     text-decoration: none;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+
+    &:not(:last-child) {
+      margin-bottom: 12px;
+
+      @media (max-width: 1150px) {
+        margin-bottom: 0;
+      }
+    }
   }
 
   .nav_item_nowrap_link {
     display: inline-flex;
     &:first-child {
-      padding: 4px 8px 4px 72px;
+      padding: 0 8px 0 72px;
     }
     &:last-child {
-      padding: 4px 48px 4px 8px;
+      padding: 0 32px 0 8px;
       white-space: nowrap;
     }
   }
 
   .outer-box {
-    padding: 27px 0;
+    align-items: initial;
+    padding: 32px 0;
     &:first-child {
       border-bottom-left-radius: 9px;
-    }
-    &.integrations {
-      min-width: 180px;
     }
     &:last-child {
       background-color: #f9f9f9;
       border-bottom-right-radius: 9px;
-      max-width: 264px;
-    }
-    &.with_border {
-      border-right: 1px solid #f5f5f5;
-    }
 
+      @media (min-width: 1150px) {
+        width: min-content;
+        max-width: 330px;
+      }
+    }
+    @media (min-width: 1150px) {
+      min-width: 312px;
+      max-width: 385px;
+
+      &.with_border {
+        position: relative;
+
+        &:after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          right: 0;
+          width: 1px;
+          height: calc(100% - 64px);
+          background-color: #cccccc;
+          transform: translateY(-50%);
+          opacity 0.4;
+        }
+      }
+    }
     .inner-box {
-      padding: 10px 0;
+      align-items: initial;
+
+      &:not(:last-child) {
+        margin-bottom: 24px;
+
+        @media (max-width: 1150px) {
+          margin-bottom: 0;
+          padding: 2px 0 11px;
+        }
+      }
 
       .nowrap {
         flex-direction: row;
+
+        &:not(:last-child) {
+          margin-bottom: 12px;
+
+          @media (max-width: 1150px) {
+            margin-bottom: 0;
+          }
+        }
 
         .slash_text {
           color: #333333;
           margin: 0;
           line-height: 21px;
-          padding: 4px 0;
         }
       }
     }
@@ -370,6 +562,18 @@ const StyledNavMenu = styled.div`
 
   #oforms_img {
     background-image: url(${menu_oforms.src});
+  }
+
+  #see_it_img {
+    background-image: url(${menu_see_it_in_act.src});
+  }
+
+  #git_code_img {
+    background-image: url(${menu_code_git.src});
+  }
+
+  #hosting_img {
+    background-image: url(${menu_hosting.src});
   }
 
   #reseller_img {
@@ -388,19 +592,38 @@ const StyledNavMenu = styled.div`
     background-image: url(${menu_education.src});
   }
 
-  @media screen and (min-width: 1050px) {
+  @media (min-width: 1150px) {
+    #navitem_fd_docs_dev, 
+    #navitem_fd_doc_builder, 
+    #navitem_fd_api_doc {
+      &:not(:last-child) {
+        margin-bottom: 24px;
+      }
+    }
+
     #navitem_prices_reseller {
       line-height: 1.33em;
-      padding-top: 10px;
       white-space: initial;
+    }
+
+    #navitem_integrations_nextcloud,
+    #navitem_integrations_owncloud,
+    #navitem_integrations_confluence,
+    #navitem_integrations_alfresco,
+    #navitem_integrations_moodle,
+    #navitem_integrations_others {
+      padding: 0 32px 0 64px;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.625em;
     }
   }
 
-  @media screen and (max-width: 1050px) {
+  @media (max-width: 1150px) {
     .dropdown-item {
       line-height: 1.5em;
       margin: 0 0 16px;
-      padding: 7px 16px;
+      padding: 7px 36px;
       &:before {
         display: none;
       }
@@ -413,14 +636,14 @@ const StyledNavMenu = styled.div`
     .nav_2nd_menu_link {
       font-size: 16px;
       line-height: 1.6em;
-      padding: 6px 32px;
+      padding: 6px 48px;
     }
 
     .nav_item_nowrap_link {
       font-size: 16px;
       line-height: 1.6em;
       &:first-child {
-        padding: 6px 8px 6px 32px;
+        padding: 6px 8px 6px 48px;
       }
 
       &:last-child {
@@ -456,6 +679,7 @@ const StyledNavMenu = styled.div`
       font-weight: 700;
       line-height: 1.33em;
       padding: 12px 36px 12px 18px;
+      letter-spacing: 0.03em;
       margin: 0px;
       position: relative;
 
@@ -475,14 +699,32 @@ const StyledNavMenu = styled.div`
       }
     }
 
-    #compare_div,
-    #for_developers_div,
-    #latest_news_div,
-    #reseller_div,
+    #see_it_div,
     #oforms_div,
+    #education_div,
+    #reseller_div,
     #latest_events_div,
-    #education_div {
+    #fd_git_code_div,
+    #hosting_div {
       display: none;
+    }
+
+    #navitem_features_desktop_mob_apps,
+    #navitem_fb_other_integrations,
+    #navitem_download_docs,
+    #navitem_download_for_dev,
+    #navitem_prices_for_business,
+    #navitem_prices_for_dev {
+      font-size: 13px;
+      line-height: 32px;
+      padding: 7px 36px 7px 8px;
+      margin: 0 16px;
+    }
+
+    #navitem_download_docs,
+    #navitem_download_workspace,
+    #navitem_prices_workspace {
+      margin-bottom: 0;
     }
   }
   @media (max-width: 600px) {
@@ -491,17 +733,16 @@ const StyledNavMenu = styled.div`
     }
     .heading-nav-item {
       font-size: 16px;
+      padding: 9px 36px 9px 18px;
     }
     .nav_item_nowrap_link:last-child {
-      padding: 6px 8px 6px 32px;
+      padding: 4px 16px 4px 48px;
     }
     .outer-box {
       .inner-box {
         .nowrap {
-          flex-direction: column;
-          .slash_text {
-            display: none;
-          }
+          display: flex;
+          flex-wrap: wrap;
         }
       }
     }
@@ -520,7 +761,7 @@ const StyledMenuItemsWrapper = styled.div`
   display: flex;
   box-shadow: 0 20px 50px rgba(85, 85, 85, 0.15);
 
-  @media (max-width: 1050px) {
+  @media (max-width: 1150px) {
     padding: 0;
     background-color: #fff;
     max-height: calc(100% - 54px);

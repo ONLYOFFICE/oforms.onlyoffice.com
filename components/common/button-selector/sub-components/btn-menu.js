@@ -6,15 +6,16 @@ const BtnMenu = ({ className, callbackItem, array, selected, ...rest }) => {
   return (
     <StyledBtnMenu {...rest}>
       {array.map((item, index) => (
-        <div
+        <a
           key={index}
-          onClick={() => callbackItem(item)}
+          href={item.href}
           className={`dropdownItem ${
             selected === item?.title ? "selected" : ""
           }`}
+          download
         >
           {item.title}
-        </div>
+        </a>
       ))}
     </StyledBtnMenu>
   );

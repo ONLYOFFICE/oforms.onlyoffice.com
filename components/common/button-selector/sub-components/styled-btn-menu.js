@@ -26,6 +26,8 @@ const StyledBtnMenu = styled.div`
     min-width: 220px;
     line-height: 1;
     outline: none;
+    color: #000;
+    text-decoration: none;
 
     &:hover,
     &.selected {
@@ -41,8 +43,6 @@ const StyledBtnMenu = styled.div`
   @media (max-width: 1024px) {
     width: 100%;
   }
-
-  
 `;
 
 export default StyledBtnMenu;

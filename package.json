@@ -1,11 +1,11 @@
 {
   "name": "oforms.onlyoffice.com",
-  "version": "2.0.2",
+  "version": "2.0.4",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 30000",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 30000",
     "lint": "next lint",
     "clean": "rimraf .next",
     "analyze": "npm run build && source-map-explorer .next/static/**/*.js"

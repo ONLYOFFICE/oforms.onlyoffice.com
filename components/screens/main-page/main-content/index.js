@@ -13,8 +13,7 @@ const MainContent = ({ t, currentLanguage, data, page, sort }) => {
   const countPage = data.meta?.pagination?.pageCount;
   const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
   const [boolTypeSortData, setBoolTypeSortData] = useState(false);
-
-  const pageLimit = countPage > 7 ? 7 : countPage;
+  const [pageLimit, setPageLimit] = useState(countPage > 7 ? 7 : countPage);
 
   const arrayStart = [...Array(countPage).keys()].map(i => i+1)
     .filter(item => item % pageLimit === 0)
@@ -41,6 +40,19 @@ const MainContent = ({ t, currentLanguage, data, page, sort }) => {
   const onChangeSelectTypeSort = (e) => {
     setTypeSortData(e.target.value);
   };
+
+  const resizeHandler = () => {
+    window.innerWidth < 425 ? setPageLimit(countPage > 4 ? 4 : countPage) : setPageLimit(countPage > 7 ? 7 : countPage)
+  };
+
+  useEffect(() => {
+    resizeHandler();
+    window.addEventListener("resize", resizeHandler);
+
+    return () => {
+      window.removeEventListener("resize", resizeHandler);
+    };
+  });
 
   useEffect(() => {
     if (sort === "desc") {

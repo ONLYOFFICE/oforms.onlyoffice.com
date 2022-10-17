@@ -8,6 +8,7 @@ import HeadSEO from "@components/screens/head-content";
 import HeadingContent from "@components/screens/heading-content";
 import InfoContent from "@components/screens/main-page/info-content";
 import MainContent from "@components/screens/main-page/main-content";
+import AdventAnnounce from "@components/screens/heading-content/advent-announce";
 
 const Accordion = lazy(() => import("@components/screens/common/accordion"), {
   suspense: true,
@@ -32,6 +33,7 @@ const Index = ({ forms, page, locale, sort }) => {
           metaKeywords={t("metaKeywordsIndexPage")}
         />
       </Layout.PageHead>
+      <AdventAnnounce t={t} currentLanguage={locale} />
       <Layout.PageHeader>
         <HeadingContent t={t} currentLanguage={locale} />
       </Layout.PageHeader>
