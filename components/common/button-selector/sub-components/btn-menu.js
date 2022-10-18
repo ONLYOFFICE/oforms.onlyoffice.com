@@ -7,6 +7,7 @@ const BtnMenu = ({ className, callbackItem, array, selected, ...rest }) => {
     <StyledBtnMenu {...rest}>
       {array.map((item, index) => (
         <a target="_blank"
+          rel="noreferrer"
           key={index}
           href={item.href}
           className={`dropdownItem ${
