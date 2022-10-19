@@ -1,8 +1,8 @@
 {
     "defaultLanguage": "en",
-    "docEditorUrl": "https://doc.onlyoffice.com",
+    "docEditorUrl": "https://asc.docs.onlyoffice.com",
     "api": {
-        "cms": "https://cmsoforms.onlyoffice.com",
+        "cms": "https://oforms.teamlab.info",
         "url": "",
         "timeout": "30000"
     },
