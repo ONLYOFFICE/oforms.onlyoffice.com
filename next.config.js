@@ -6,9 +6,9 @@ const nextConfig = {
   i18n,
   images: {
     formats: ["image/webp"],
-    domains: ["static-oforms.teamlab.info"],
+    domains: ['static-oforms.teamlab.info'],
     protocol: 'https',
-    hostname: 'static-oforms.teamlab.info/**',  
+    hostname: 'static-oforms.teamlab.info/',  
     port: '', 
     
     
