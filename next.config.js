@@ -5,10 +5,12 @@ const nextConfig = {
   reactStrictMode: true,
   i18n,
   images: {
-    protocol: 'https',
-    path:"./_next/image",  
     formats: ["image/webp"],
     domains: ["static-oforms.teamlab.info"],
+    protocol: 'https',
+    hostname: 'static-oforms.teamlab.info/**',  
+    port: '', 
+    
     
   },
   compiler: {
