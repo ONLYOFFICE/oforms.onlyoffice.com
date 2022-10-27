@@ -25,9 +25,8 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'static-oforms.teamlab.info',
-        port: '',
-        pathname: '**',       
+        hostname: 'static-oforms.teamlab.info.**',
+        
       },
     ] ,
   },
