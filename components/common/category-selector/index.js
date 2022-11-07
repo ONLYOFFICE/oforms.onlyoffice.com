@@ -4,6 +4,9 @@ import Box from "../box";
 import Text from "../text";
 import StyledSelector from "./syled-selector";
 
+import MenuItem from "@components/screens/heading-content/menu/menu-item";
+import Link from "next/link";
+
 const CategorySelector = ({
   onChangeSelectTypeSort,
   typeSortData,
@@ -14,7 +17,9 @@ const CategorySelector = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log(types.data[0].attributes.type);
+
+
+  console.log(types.data);
   console.log(locale);
 
   const onClickHandler = () => {
@@ -39,49 +44,26 @@ const CategorySelector = ({
         className="filter_selector"
         value={t(typeSortData)}
         onClick={onChangeSelectTypeSort}
-      >        
-        <Text            
-            className="filter_selector-items"            
-            label={t("View all templates")}
-        />    
-
-        <Box>
-          <Text            
-              className="filter_selector-items"            
-              label={t("Forms by branch")}
-          />
-          <ReactSVG className="arrow" src="/icons/popup-arrow.react.svg" />
-        </Box>
+      >
+        <MenuItem heading={t("View all templates")} id="view_all_templates"></MenuItem>
+        <MenuItem heading={t("Forms by branch")} id="navitem_features"></MenuItem>
+        <MenuItem heading={t("Forms by type")} id="navitem_features">
+          <Box className="menu_wrapper">
+            <Box className="outer-box with_border">
+              {types.data?.map((type) => ( 
+                <Link
+                  key={type.id}                  
+                  href={`${locale}/form/types/${type.attributes.urlReq}`}
+                  className="filter_selector-items"
+                >
+                  {type.attributes.type}
+                </Link>
+              ))}
+            </Box>
+          </Box>
+        </MenuItem>
+        <MenuItem heading={t("Popular Compilations")} id="navitem_features"></MenuItem>        
         
-        <Text            
-            className="filter_selector-items"            
-            label={t("Forms by type")}
-        />
-        
-        <Text            
-            className="filter_selector-items"            
-            label={t("Popular Compilations")}
-        />
-        {/* <a
-          href={`${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=asc`}
-          style={{ textDecoration: "none" }}
-        >
-          <Text            
-            className="filter_selector-items"            
-            label={t("NameA-Z")}
-          />
-        </a>
-        <a
-          href={`${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=desc`}
-          style={{ textDecoration: "none" }}
-        >
-          <Text
-            as="option"
-            className="filter_selector-items"
-            value={t("NameZ-A")}
-            label={t("NameZ-A")}
-          />
-        </a> */}
       </Box>
     </StyledSelector>
   );
