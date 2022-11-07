@@ -21,6 +21,10 @@ const StyledMainContent = styled(Section)`
       display: flex;
       max-width: 832px;
       justify-content: flex-end;
+      
+      .box-doc-categories{
+        margin-right: 64px;
+      }
     }
   }
 

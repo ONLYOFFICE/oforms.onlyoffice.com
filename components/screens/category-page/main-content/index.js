@@ -18,6 +18,7 @@ const MainContent = ({
   sort,
   category,
   urlReqCategory,
+  header,
 }) => {
   const countData = data.meta?.pagination?.total;
   const countPage = data.meta?.pagination?.pageCount;
