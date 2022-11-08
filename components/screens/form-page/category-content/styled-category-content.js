@@ -1,54 +1,43 @@
 import styled from "styled-components";
+import Section from "@components/common/section";
 import { device } from "@components/utils/devices";
 
-const StyledFormBanner = styled.div`
-  width: 100%;
-  min-height: 394px;
-  background: #f9f9f9;
+const StyledCategoryContent = styled(Section)`
+background: #f5f5f5;
+display: block;
+padding: 0 0 112px;
 
-  .conteiner {
-    box-sizing: border-box;
-    max-width: 1120px;
-    min-height: 252px;
-    border: 1px solid #cccccc;
-    border-radius: 3px;
-    margin: 0 auto;
-    padding: 33px 41px 37px 33px;
-  }
-  .banner_title {
-    margin-bottom: 22px;
-  }
+.section-page {
+  display: block;
+  max-width: 1120px;
+  margin: 0 auto;  
+}
+.forms_by_branch{
+  display: block;
+  margin-top: 40px;
+}
+.forms_by_branch_items{
+  margin-top: 16px;
+  gap: 16px;
 
-  .header {
-    margin-left: 17px;
+}
+.item_link{
+  padding: 11px 18px;
+  border: 1px solid #AAAAAA;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #444444;
+  font-size: 16px;
+  font-weight: 400;
+  &:hover{
+    border: 1px solid #FF6F3D;
+    color: #FF6F3D;
   }
+}
+.items-text{
+  cursor: pointer;  
+}
 
-  .item_list {
-    margin-top: 22px;
-    margin-bottom: 0px;
-    padding: 0;
-    counter-reset: item;
-  }
-
-  .item_text {
-    font-size: 16px;
-    overflow: unset;
-    text-indent: 0;
-    margin: 0;
-    margin-bottom: 18px;
-    padding: 0 0 0 2em;
-    text-indent: -2em;
-  }
-
-  .box-items {
-    margin-bottom: 18px;
-  }
-  .box-button {
-    overflow: visible;
-  }
-
-  @media ${device.laptop} {
-    display: none;
-  }
 `;
-export default StyledFormBanner;
+
+export default StyledCategoryContent;

@@ -3,55 +3,43 @@ import Text from "@components/common/text";
 import Link from "@components/common/link";
 import Button from "@components/common/button";
 import Heading from "@components/common/heading";
-import StyledFormBanner from "./styled-category-content";
+import StyledCategoryContent from "./styled-category-content";
 
-const CategoryContent = ({ t, labelName, link }) => {
-  const HeadingBanner = (
-    <Heading className="header" fontSize="24px" fontWeight="700" level={3}>
-      {t("Explore other categories", { labelName })}
-    </Heading>
-  );
+const CategoryContent = ({ t, labelName, types, locale }) => {
+  
   return (
-    <StyledFormBanner>
-      <Box
-        className="conteiner"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Box flexDirection="column" alignItems="flex-start">
-          <Box className="banner_title">
-            {/*eslint-disable*/}
-            <img
-              src="/icons/pensil-icon.react.svg"
-              height="33px"
-              width="33px"
-            />
-            {/*eslint-enable*/}
-            {HeadingBanner}
-          </Box>
-          <Box
-            className="box-items"
-            flexDirection="column"
-            alignItems="flex-start"
-          >
-            <Text className="item_text">
-              <span style={{ fontWeight: "700" }}>1.</span> {t("ClickFillOut")}{" "}
-            </Text>
-            <Text className="item_text">
-              <span style={{ fontWeight: "700" }}>2.</span>{" "}
-              {t("FillInTheNecessary")}{" "}
-            </Text>
-            <Text className="item_text">
-              <span style={{ fontWeight: "700" }}>3.</span>{" "}
-              {t("DownloadTheReadyDoc")}{" "}
-            </Text>
+    <StyledCategoryContent>
+      <Box className="section-page">
+        <Box>
+          <Heading className="header" fontSize="24px" fontWeight="700" level={3}>
+            {t("Explore other categories", { labelName })}
+          </Heading>
+        </Box>
+        
+        <Box className="forms_by_branch">
+          <Heading className="header" fontSize="13px" fontWeight="600" level={4}>
+            {t("Forms by branch")}
+          </Heading>
+          <Box className='forms_by_branch_items'>
+            {types.data?.map((type) => ( 
+                <a
+                key={type.id}
+                href={`${locale}/form/types/${type.attributes.urlReq}`}              
+                className="item_link"
+                style={{ textDecoration: "none" }}
+              >
+                {type.attributes.type}
+                                  
+              </a>              
+            ))}
+
           </Box>
         </Box>
-        <Link href={link} className="box-button">
-          <Button label={t("FillOut")} width="164px" height="56px" />
-        </Link>
       </Box>
-    </StyledFormBanner>
+      
+      
+      
+    </StyledCategoryContent>
   );
 };
 

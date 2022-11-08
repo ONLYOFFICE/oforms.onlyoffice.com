@@ -5,6 +5,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { localStorageCarousel, CAROUSEL_COOKIE } from "@utils/constants";
 import { shortCarouselSettings } from "@components/screens/form-page/carousel/config/carousel-config";
 
+import getAllTypes from "@lib/strapi/getTypes";
 import Layout from "@components/layout";
 import HeadSEO from "@components/screens/head-content";
 import HeadingContent from "@components/screens/heading-content";
@@ -33,7 +34,7 @@ const Footer = lazy(() => import("@components/screens/footer-content"), {
   loading: () => <div />,
 });
 
-const Form = ({ form, locale, randomCarousel }) => {
+const Form = ({ form, locale, randomCarousel, types }) => {
   const { t } = useTranslation("common");
   const data = form.data[0].attributes;
   const { seo_title, seo_description, url, file_oform, name_form } = data;
@@ -184,15 +185,15 @@ const Form = ({ form, locale, randomCarousel }) => {
           currentLanguage={locale}
           t={t}
         />
+
+        <CategoryContent t={t} types={types} locale={locale}/>        
+        
         <Suspense>
           <Banner t={t} currentLanguage={locale} />
         </Suspense>
         <Suspense>
           <Accordion t={t} currentLanguage={locale} />
-        </Suspense>
-        <Suspense>
-          <CategoryContent t={t} />         
-        </Suspense>
+        </Suspense>        
       </Layout.SectionMain>
       <Layout.PageFooter>
         <Suspense>
@@ -212,6 +213,7 @@ export const getServerSideProps = async ({ locale, ...context }) => {
     `https://oforms.teamlab.info/dashboard/api/oforms/?locale=${locale}&pagination[pageSize]=7&pagination[page]=2&populate=file_oform&populate=categories&populate=card_prewiew`
   );
   const randomCarousel = await randomCarouselItems.json();
+  const types = await getAllTypes(locale);
   if (form.data.length === 0) {
     return {
       redirect: {
@@ -228,6 +230,7 @@ export const getServerSideProps = async ({ locale, ...context }) => {
       form,
       locale,
       randomCarousel,
+      types,
     },
   };
 };
