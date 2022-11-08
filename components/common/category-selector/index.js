@@ -17,11 +17,6 @@ const CategorySelector = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-
-
-  console.log(types.data);
-  console.log(locale);
-
   const onClickHandler = () => {
     setIsOpen(true);
   };
@@ -32,6 +27,7 @@ const CategorySelector = ({
 
   const catHREF = category ? `form/${category}/` : "";
   const localeHREF = category ? `/${locale}` : locale;
+
   return (
     <StyledSelector
       isOpen={isOpen}
@@ -45,12 +41,58 @@ const CategorySelector = ({
         value={t(typeSortData)}
         onClick={onChangeSelectTypeSort}
       >
-        <MenuItem heading={t("View all templates")} id="view_all_templates"></MenuItem>
-        <MenuItem heading={t("Forms by branch")} id="navitem_features"></MenuItem>
-        <MenuItem heading={t("Forms by type")} id="navitem_features">
-          <Box className="menu_wrapper">
-            <Box className="outer-box with_border">
-              {types.data?.map((type) => ( 
+        <a
+          className="arrow-link"
+          href={`${locale === "en" ? "" : localeHREF}/`}
+          style={{ textDecoration: "none" }}
+        >
+          <Text
+            as="option"
+            className="filter_selector-items"            
+            label={t("View all templates")}
+          />
+        </a>
+        <a
+          className="arrow-link"
+          style={{ textDecoration: "none" }}
+        >
+          <Text
+           
+            className="filter_selector-items"            
+            label={t("Forms by branch")}
+          />
+          <Box className="item_arrow"></Box>
+          
+        </a>
+        <a
+          className="arrow-link"
+          style={{ textDecoration: "none" }}
+        >
+          <Text
+           
+            className="filter_selector-items"            
+            label={t("Forms by type")}
+          />
+          <Box className="item_arrow"></Box>
+          
+        </a>
+        <a
+          className="arrow-link"
+          style={{ textDecoration: "none" }}
+        >
+          <Text
+           
+            className="filter_selector-items"            
+            label={t("Popular Compilations")}
+          />
+          <Box className="item_arrow"></Box>
+          
+        </a>
+      </Box>
+        
+          
+        
+              {/* {types.data?.map((type) => ( 
                 <Link
                   key={type.id}                  
                   href={`${locale}/form/types/${type.attributes.urlReq}`}
@@ -59,12 +101,9 @@ const CategorySelector = ({
                   {type.attributes.type}
                 </Link>
               ))}
-            </Box>
-          </Box>
-        </MenuItem>
-        <MenuItem heading={t("Popular Compilations")} id="navitem_features"></MenuItem>        
+            <   */}
         
-      </Box>
+      
     </StyledSelector>
   );
 };
