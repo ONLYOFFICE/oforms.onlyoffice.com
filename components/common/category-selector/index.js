@@ -15,7 +15,11 @@ const CategorySelector = ({
   category,
   types,
 }) => {
+  
   const [isOpen, setIsOpen] = useState(false);
+  const [isBranchOpen, setIsBranchOpen] = useState(false);
+  const [isTypeOpen, setIsTypeOpen] = useState(false);
+  const [isCompilationsOpen, setIsCompilationsOpen] = useState(false);
 
   const onClickHandler = () => {
     setIsOpen(true);
@@ -46,8 +50,7 @@ const CategorySelector = ({
           href={`${locale === "en" ? "" : localeHREF}/`}
           style={{ textDecoration: "none" }}
         >
-          <Text
-            as="option"
+          <Text           
             className="filter_selector-items"            
             label={t("View all templates")}
           />
@@ -65,6 +68,8 @@ const CategorySelector = ({
           
         </a>
         <a
+          onMouseEnter={() => setIsTypeOpen(true)}
+          onMouseLeave={() => setIsTypeOpen(false)}
           className="arrow-link"
           style={{ textDecoration: "none" }}
         >
@@ -73,9 +78,32 @@ const CategorySelector = ({
             className="filter_selector-items"            
             label={t("Forms by type")}
           />
-          <Box className="item_arrow"></Box>
-          
+          <Box className="item_arrow"></Box>          
         </a>
+        {isTypeOpen && (
+          <Box 
+          className="types_list"
+          onMouseEnter={() => setIsTypeOpen(true)}
+          onMouseLeave={() => setIsTypeOpen(false)}
+          >
+            {types.data?.map((type) => ( 
+              <a
+              key={type.id}
+              href={`${locale}/form/types/${type.attributes.urlReq}`}              
+              className="submenu_link"
+              style={{ textDecoration: "none" }}
+            >
+              <Text
+               
+                className="filter_selector-items"            
+                label={type.attributes.type}
+              />                   
+            </a>
+             
+            ))}
+          </Box>
+        )}
+        
         <a
           className="arrow-link"
           style={{ textDecoration: "none" }}
@@ -89,21 +117,7 @@ const CategorySelector = ({
           
         </a>
       </Box>
-        
-          
-        
-              {/* {types.data?.map((type) => ( 
-                <Link
-                  key={type.id}                  
-                  href={`${locale}/form/types/${type.attributes.urlReq}`}
-                  className="filter_selector-items"
-                >
-                  {type.attributes.type}
-                </Link>
-              ))}
-            <   */}
-        
-      
+    
     </StyledSelector>
   );
 };
@@ -111,3 +125,5 @@ const CategorySelector = ({
 
 
 export default CategorySelector;
+
+

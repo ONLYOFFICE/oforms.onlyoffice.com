@@ -11,6 +11,7 @@ import HeadingContent from "@components/screens/heading-content";
 import MainInfo from "@components/screens/form-page/main";
 import { getCookie, setCookie } from "@utils/helpers/cookie";
 import Heading from "@components/common/heading";
+import CategoryContent from "@components/screens/form-page/category-content";
 
 const CarouselContent = dynamic(
   () => import("@components/screens/form-page/carousel"),
@@ -188,6 +189,9 @@ const Form = ({ form, locale, randomCarousel }) => {
         </Suspense>
         <Suspense>
           <Accordion t={t} currentLanguage={locale} />
+        </Suspense>
+        <Suspense>
+          <CategoryContent t={t} />         
         </Suspense>
       </Layout.SectionMain>
       <Layout.PageFooter>

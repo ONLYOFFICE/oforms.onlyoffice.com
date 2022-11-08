@@ -91,6 +91,41 @@ const StyledSelector = styled.div`
     text-decoration: none;
     cursor: pointer;
   }
+
+  .types_list {
+    display: ${(props) => (props.isOpen ? "grid" : "none")};
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    position: absolute;
+    min-width: 400px;
+    height:600px;
+    z-index: 99;
+    left: 290px;
+    top: 0px;
+    padding: 16px 32px;
+    background-color: #fff;
+    border-radius: 3px;    
+    box-shadow: 0px 7px 25px rgb(85 85 85 / 15%);
+  }
+  .submenu_link{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 15px 32px;
+      .item_arrow{
+        background-image: url(/icons/arrow-right.react.svg);
+        width: 24px;
+        height: 24px
+      }
+      &:hover{
+        
+        color: #ff6f3d;
+        & span{
+          color: #ff6f3d;
+        }        
+      }   
+  }
 `;
 
 export default StyledSelector;
