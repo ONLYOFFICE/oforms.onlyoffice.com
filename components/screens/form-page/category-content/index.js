@@ -35,6 +35,44 @@ const CategoryContent = ({ t, labelName, types, locale }) => {
 
           </Box>
         </Box>
+        <Box className="forms_by_branch">
+          <Heading className="header" fontSize="13px" fontWeight="600" level={4}>
+            {t("Forms by type")}
+          </Heading>
+          <Box className='forms_by_branch_items'>
+            {types.data?.map((type) => ( 
+                <a
+                key={type.id}
+                href={`${locale}/form/types/${type.attributes.urlReq}`}              
+                className="item_link"
+                style={{ textDecoration: "none" }}
+              >
+                {type.attributes.type}
+                                  
+              </a>              
+            ))}
+
+          </Box>
+        </Box>
+        <Box className="forms_by_branch">
+          <Heading className="header" fontSize="13px" fontWeight="600" level={4}>
+            {t("Popular Compilations")}
+          </Heading>
+          <Box className='forms_by_branch_items'>
+            {types.data?.map((type) => ( 
+                <a
+                key={type.id}
+                href={`${locale}/form/types/${type.attributes.urlReq}`}              
+                className="item_link"
+                style={{ textDecoration: "none" }}
+              >
+                {type.attributes.type}
+                                  
+              </a>              
+            ))}
+
+          </Box>
+        </Box>
       </Box>
       
       

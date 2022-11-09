@@ -14,8 +14,8 @@ padding: 0 0 112px;
 }
 .forms_by_branch{
   display: block;
-  margin-top: 40px;
-}
+  margin-top: 40px;}
+
 .forms_by_branch_items{
   margin-top: 16px;
   gap: 16px;
