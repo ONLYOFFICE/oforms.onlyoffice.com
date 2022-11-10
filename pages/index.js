@@ -23,7 +23,7 @@ const Footer = lazy(() => import("@components/screens/footer-content"), {
 
 const Index = ({ forms, page, locale, sort, types, branches, compilations }) => {
   const { t } = useTranslation("common");
-  if (typeof window !== "window.AscDesktopEditor") return (
+  if (typeof window === "window.AscDesktopEditor") return (
     <MainContent
           t={t}
           currentLanguage={locale}
@@ -35,7 +35,7 @@ const Index = ({ forms, page, locale, sort, types, branches, compilations }) => 
           compilations={compilations}
         />
   );
-  
+
   return (
    
     <Layout>
