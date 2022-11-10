@@ -3,12 +3,13 @@ import { useState, useEffect } from "react";
 import Cards from "@components/screens/common/cards";
 import Pagination from "@components/common/pagination";
 import Selector from "@components/common/selector";
+import CategorySelector from "@components/common/category-selector";
 import Heading from "@components/common/heading";
 import Text from "@components/common/text";
 import Box from "@components/common/box";
 import StyledMainContent from "./styled-main-content";
 
-const MainContent = ({ t, currentLanguage, data, page, sort }) => {
+const MainContent = ({ t, currentLanguage, data, page, sort, types, branches, compilations }) => {
   const countData = data.meta?.pagination?.total;
   const countPage = data.meta?.pagination?.pageCount;
   const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
@@ -78,12 +79,22 @@ const MainContent = ({ t, currentLanguage, data, page, sort }) => {
       <div className="idk-box-template">
         <Box className="box-doc-info-template">
           <div className="box-doc-categories" id="mob-box-doc-categories">
-            <Text className="box-doc-categories">
-              {" "}
-              {t("Documents")}: {countData}
-            </Text>
+          <CategorySelector
+              typeSortData={typeSortData}
+              onChangeSelectTypeSort={onChangeSelectTypeSort}
+              locale={currentLanguage}
+              className="form-control"
+              t={t}
+              types={types}
+              branches={branches}
+              compilations={compilations}
+            />
           </div>
           <div className="box-doc-info">
+            <Text className="box-doc-categories">
+              {" "}
+              {countData} {t("Documents")}
+            </Text>
             <Selector
               typeSortData={typeSortData}
               onChangeSelectTypeSort={onChangeSelectTypeSort}

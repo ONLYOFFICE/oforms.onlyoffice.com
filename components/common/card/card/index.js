@@ -52,12 +52,15 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
         flexDirection="column"
         alignItems="stretch"
       >
+        <Text as="h4">
         <Link
           className="title-template title-overflow-templapte"
           title={name_form}
           href={pathName}
           label={name_form}
         />
+        </Text>
+        
         <Text
           className="subtitle-template text-overflow-templapte"
           label={description_card}

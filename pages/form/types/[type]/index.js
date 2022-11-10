@@ -26,9 +26,11 @@ const Category = ({
   const { t } = useTranslation("common");
   const dataCategoryInfo = categoryInfo.data[0].attributes;
   const { seo_title, seo_description } = dataCategoryInfo;
-  const nameCategory = dataCategoryInfo.categorie;
+  const nameCategory = dataCategoryInfo.type;
   const urlReqCategory = dataCategoryInfo.urlReq;
-  const header = dataCategoryInfo.header_description;  
+  const header = dataCategoryInfo.header_description;
+  console.log(nameCategory);
+  
 
   return (
     <Layout>
@@ -70,19 +72,19 @@ const Category = ({
 export const getServerSideProps = async ({ locale, ...ctx }) => {
   const page = ctx.query.page || 1;
   const sort = ctx.query._sort || "ASC";
-  const urlReq = ctx.query.category;
-  const pageSize = ctx.query.pageSize || 9;  
+  const urlReq = ctx.query.type;
+  const pageSize = ctx.query.pageSize || 9;
   const res = await fetch(
-    `https://oforms.teamlab.info/dashboard/api/oforms/?filters[categories][urlReq][$eq]=${urlReq}&locale=${locale}&sort=name_form:${sort}&pagination[pageSize]=${pageSize}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
+    `https://oforms.teamlab.info/dashboard/api/oforms/?filters[type][urlReq][$eq]=${urlReq}&locale=${locale}&sort=name_form:${sort}&pagination[pageSize]=${pageSize}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
   );
   const resCategory = await fetch(
-    `https://oforms.teamlab.info/dashboard/api/categories/?filters[urlReq][$eq]=${urlReq}&locale=${locale}`
+    `https://oforms.teamlab.info/dashboard/api/types/?filters[urlReq][$eq]=${urlReq}&locale=${locale}`
   );
-
   const categoryForms = await res.json();
-  const categoryInfo = await resCategory.json();  
+  const categoryInfo = await resCategory.json();
 
   if (categoryForms.data.length === 0) {
+    console.log(categoryForms.data.length);
     return {
       redirect: {
         destination: `https://oforms.teamlab.info/404`,

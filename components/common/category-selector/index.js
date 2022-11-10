@@ -1,0 +1,182 @@
+import React, { useState } from "react";
+import { ReactSVG } from "react-svg";
+import Box from "../box";
+import Text from "../text";
+import StyledSelector from "./syled-selector";
+
+import MenuItem from "@components/screens/heading-content/menu/menu-item";
+import Link from "next/link";
+
+const CategorySelector = ({
+  onChangeSelectTypeSort,
+  typeSortData,
+  t,
+  locale,
+  category,
+  types,
+  branches,
+  compilations
+}) => {
+ 
+  console.log(branches);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isBranchOpen, setIsBranchOpen] = useState(false);
+  const [isTypeOpen, setIsTypeOpen] = useState(false);
+  const [isCompilationsOpen, setIsCompilationsOpen] = useState(false);
+
+  const onClickHandler = () => {
+    setIsOpen(true);
+  };
+
+  const onCloseSelector = () => {
+    setIsOpen(false);
+  };
+
+  const catHREF = category ? `form/${category}/` : "";
+  const localeHREF = category ? `/${locale}` : locale;
+
+  return (
+    <StyledSelector
+      isOpen={isOpen}
+      onClick={onClickHandler}
+      onMouseLeave={onCloseSelector}    >
+      
+      <Text className="filter-header" label={t("Categories")} />
+      <ReactSVG className="arrow" src="/icons/popup-arrow.react.svg" />
+      <Box
+        className="filter_selector"
+        value={t(typeSortData)}
+        onClick={onChangeSelectTypeSort}
+      >
+        <a
+          className="arrow-link"
+          href={`${locale === "en" ? "" : localeHREF}/`}
+          style={{ textDecoration: "none" }}
+        >
+          <Text           
+            className="filter_selector-items"            
+            label={t("View all templates")}
+          />
+        </a>
+        <a
+          onMouseEnter={() => setIsBranchOpen(true)}
+          onMouseLeave={() => setIsBranchOpen(false)}
+          className="arrow-link"
+          style={{ textDecoration: "none" }}
+        >
+          <Text
+           
+            className="filter_selector-items"            
+            label={t("Forms by branch")}
+          />
+          <Box className="item_arrow"></Box>
+          
+        </a>
+        {isBranchOpen && (
+          <Box 
+          className="types_list"
+          onMouseEnter={() => setIsBranchOpen(true)}
+          onMouseLeave={() => setIsBranchOpen(false)}
+          >
+            {branches.data?.map((branch) => ( 
+              <a
+              key={branch.id}
+              href={`${locale}/form/branches/${branch.attributes.urlReq}`}              
+              className="submenu_link"
+              style={{ textDecoration: "none" }}
+            >
+              <Text
+               
+                className="filter_selector-items"            
+                label={branch.attributes.branch}
+              />                   
+            </a>
+             
+            ))}
+          </Box>
+        )}
+        <a
+          onMouseEnter={() => setIsTypeOpen(true)}
+          onMouseLeave={() => setIsTypeOpen(false)}
+          className="arrow-link"
+          style={{ textDecoration: "none" }}
+        >
+          <Text
+           
+            className="filter_selector-items"            
+            label={t("Forms by type")}
+          />
+          <Box className="item_arrow"></Box>          
+        </a>
+        {isTypeOpen && (
+          <Box 
+          className="types_list"
+          onMouseEnter={() => setIsTypeOpen(true)}
+          onMouseLeave={() => setIsTypeOpen(false)}
+          >
+            {types.data?.map((type) => ( 
+              <a
+              key={type.id}
+              href={`${locale}/form/types/${type.attributes.urlReq}`}              
+              className="submenu_link"
+              style={{ textDecoration: "none" }}
+            >
+              <Text
+               
+                className="filter_selector-items"            
+                label={type.attributes.type}
+              />                   
+            </a>
+             
+            ))}
+          </Box>
+        )}
+        
+        <a
+         onMouseEnter={() => setIsCompilationsOpen(true)}
+         onMouseLeave={() => setIsCompilationsOpen(false)}
+          className="arrow-link"
+          style={{ textDecoration: "none" }}
+        >
+          <Text
+           
+            className="filter_selector-items"            
+            label={t("Popular Compilations")}
+          />
+          <Box className="item_arrow"></Box>
+          
+        </a>
+        {isCompilationsOpen && (
+          <Box 
+          className="types_list"
+          onMouseEnter={() => setIsCompilationsOpen(true)}
+          onMouseLeave={() => setIsCompilationsOpen(false)}
+          >
+            {compilations.data?.map((compilation) => ( 
+              <a
+              key={compilation.id}
+              href={`${locale}/form/compilations/${compilation.attributes.urlReq}`}              
+              className="submenu_link"
+              style={{ textDecoration: "none" }}
+            >
+              <Text
+               
+                className="filter_selector-items"            
+                label={compilation.attributes.compilation}
+              />                   
+            </a>
+             
+            ))}
+          </Box>
+        )}
+      </Box>
+    
+    </StyledSelector>
+  );
+};
+
+
+
+export default CategorySelector;
+
+

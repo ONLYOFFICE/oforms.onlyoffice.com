@@ -2,7 +2,9 @@ import { lazy, Suspense } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import getAllForms from "@lib/strapi/getForms";
-
+import getAllTypes from "@lib/strapi/getTypes";
+import getAllBranches from "@lib/strapi/getBranch";
+import getAllCompilations from "@lib/strapi/getCompilations";
 import Layout from "@components/layout";
 import HeadSEO from "@components/screens/head-content";
 import HeadingContent from "@components/screens/heading-content";
@@ -19,10 +21,23 @@ const Footer = lazy(() => import("@components/screens/footer-content"), {
   ssr: false,
 });
 
-const Index = ({ forms, page, locale, sort }) => {
+const Index = ({ forms, page, locale, sort, types, branches, compilations }) => {
   const { t } = useTranslation("common");
+  if (typeof window === "window.AscDesktopEditor") return (
+    <MainContent
+          t={t}
+          currentLanguage={locale}
+          data={forms}
+          sort={sort}
+          page={+page}
+          types={types}
+          branches={branches}
+          compilations={compilations}
+        />
+  );
 
   return (
+   
     <Layout>
       <Layout.PageHead>
         <HeadSEO
@@ -45,6 +60,9 @@ const Index = ({ forms, page, locale, sort }) => {
           data={forms}
           sort={sort}
           page={+page}
+          types={types}
+          branches={branches}
+          compilations={compilations}
         />
         <Suspense>
           <Accordion t={t} currentLanguage={locale} />
@@ -65,6 +83,10 @@ export const getServerSideProps = async ({ locale, query }) => {
   const pageSize = query.pageSize || 9;
 
   const forms = await getAllForms(locale, page, sort, pageSize);
+  const types = await getAllTypes(locale);
+  const branches = await getAllBranches(locale);
+  const compilations = await getAllCompilations(locale);
+ 
   return {
     props: {
       ...(await serverSideTranslations(locale, "common")),
@@ -72,6 +94,10 @@ export const getServerSideProps = async ({ locale, query }) => {
       page,
       locale,
       sort,
+      types,
+      branches,
+      compilations
+      
     },
   };
 };
