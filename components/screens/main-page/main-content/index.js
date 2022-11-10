@@ -9,7 +9,7 @@ import Text from "@components/common/text";
 import Box from "@components/common/box";
 import StyledMainContent from "./styled-main-content";
 
-const MainContent = ({ t, currentLanguage, data, page, sort, types }) => {
+const MainContent = ({ t, currentLanguage, data, page, sort, types, branches, compilations }) => {
   const countData = data.meta?.pagination?.total;
   const countPage = data.meta?.pagination?.pageCount;
   const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
@@ -86,6 +86,8 @@ const MainContent = ({ t, currentLanguage, data, page, sort, types }) => {
               className="form-control"
               t={t}
               types={types}
+              branches={branches}
+              compilations={compilations}
             />
           </div>
           <div className="box-doc-info">

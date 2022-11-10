@@ -4,9 +4,10 @@ import Link from "@components/common/link";
 import Button from "@components/common/button";
 import Heading from "@components/common/heading";
 import StyledCategoryContent from "./styled-category-content";
+import CategoryItem from "./category-item";
 
-const CategoryContent = ({ t, labelName, types, locale }) => {
-  
+const CategoryContent = ({ t, labelName, types, branches, compilations, locale }) => {
+  console.log(branches);
   return (
     <StyledCategoryContent>
       <Box className="section-page">
@@ -15,20 +16,25 @@ const CategoryContent = ({ t, labelName, types, locale }) => {
             {t("Explore other categories", { labelName })}
           </Heading>
         </Box>
+
+        {/* <CategoryItem
+        label={t("Forms by branch")}
+        data={branches}        
+        /> */}
         
         <Box className="forms_by_branch">
           <Heading className="header" fontSize="13px" fontWeight="600" level={4}>
             {t("Forms by branch")}
           </Heading>
           <Box className='forms_by_branch_items'>
-            {types.data?.map((type) => ( 
+            {branches.data?.map((branch) => ( 
                 <a
-                key={type.id}
-                href={`${locale}/form/types/${type.attributes.urlReq}`}              
+                key={branch.id}
+                href={`${locale}/form/branches/${branch.attributes.urlReq}`}              
                 className="item_link"
                 style={{ textDecoration: "none" }}
               >
-                {type.attributes.type}
+                {branch.attributes.branch}
                                   
               </a>              
             ))}
@@ -59,22 +65,21 @@ const CategoryContent = ({ t, labelName, types, locale }) => {
             {t("Popular Compilations")}
           </Heading>
           <Box className='forms_by_branch_items'>
-            {types.data?.map((type) => ( 
+            {compilations.data?.map((compilation) => ( 
                 <a
-                key={type.id}
-                href={`${locale}/form/types/${type.attributes.urlReq}`}              
+                key={compilation.id}
+                href={`${locale}/form/compilations/${compilation.attributes.urlReq}`}              
                 className="item_link"
                 style={{ textDecoration: "none" }}
               >
-                {type.attributes.type}
+                {compilation.attributes.compilation}
                                   
               </a>              
             ))}
 
           </Box>
         </Box>
-      </Box>
-      
+      </Box>    
       
       
     </StyledCategoryContent>

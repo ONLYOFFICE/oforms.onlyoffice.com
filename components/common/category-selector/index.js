@@ -14,8 +14,11 @@ const CategorySelector = ({
   locale,
   category,
   types,
+  branches,
+  compilations
 }) => {
-  
+ 
+  console.log(branches);
   const [isOpen, setIsOpen] = useState(false);
   const [isBranchOpen, setIsBranchOpen] = useState(false);
   const [isTypeOpen, setIsTypeOpen] = useState(false);
@@ -56,6 +59,8 @@ const CategorySelector = ({
           />
         </a>
         <a
+          onMouseEnter={() => setIsBranchOpen(true)}
+          onMouseLeave={() => setIsBranchOpen(false)}
           className="arrow-link"
           style={{ textDecoration: "none" }}
         >
@@ -67,6 +72,29 @@ const CategorySelector = ({
           <Box className="item_arrow"></Box>
           
         </a>
+        {isBranchOpen && (
+          <Box 
+          className="types_list"
+          onMouseEnter={() => setIsBranchOpen(true)}
+          onMouseLeave={() => setIsBranchOpen(false)}
+          >
+            {branches.data?.map((branch) => ( 
+              <a
+              key={branch.id}
+              href={`${locale}/form/branches/${branch.attributes.urlReq}`}              
+              className="submenu_link"
+              style={{ textDecoration: "none" }}
+            >
+              <Text
+               
+                className="filter_selector-items"            
+                label={branch.attributes.branch}
+              />                   
+            </a>
+             
+            ))}
+          </Box>
+        )}
         <a
           onMouseEnter={() => setIsTypeOpen(true)}
           onMouseLeave={() => setIsTypeOpen(false)}
@@ -105,6 +133,8 @@ const CategorySelector = ({
         )}
         
         <a
+         onMouseEnter={() => setIsCompilationsOpen(true)}
+         onMouseLeave={() => setIsCompilationsOpen(false)}
           className="arrow-link"
           style={{ textDecoration: "none" }}
         >
@@ -116,6 +146,29 @@ const CategorySelector = ({
           <Box className="item_arrow"></Box>
           
         </a>
+        {isCompilationsOpen && (
+          <Box 
+          className="types_list"
+          onMouseEnter={() => setIsCompilationsOpen(true)}
+          onMouseLeave={() => setIsCompilationsOpen(false)}
+          >
+            {compilations.data?.map((compilation) => ( 
+              <a
+              key={compilation.id}
+              href={`${locale}/form/compilations/${compilation.attributes.urlReq}`}              
+              className="submenu_link"
+              style={{ textDecoration: "none" }}
+            >
+              <Text
+               
+                className="filter_selector-items"            
+                label={compilation.attributes.compilation}
+              />                   
+            </a>
+             
+            ))}
+          </Box>
+        )}
       </Box>
     
     </StyledSelector>
