@@ -7,7 +7,7 @@ import StyledCategoryContent from "./styled-category-content";
 import CategoryItem from "./category-item";
 
 const CategoryContent = ({ t, labelName, types, branches, compilations, locale }) => {
-  console.log(branches);
+  
   return (
     <StyledCategoryContent>
       <Box className="section-page">

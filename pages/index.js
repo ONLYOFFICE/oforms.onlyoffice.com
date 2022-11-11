@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { lazy, Suspense } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -12,6 +13,8 @@ import InfoContent from "@components/screens/main-page/info-content";
 import MainContent from "@components/screens/main-page/main-content";
 import AdventAnnounce from "@components/screens/heading-content/advent-announce";
 
+import Text from "@components/common/text";
+
 const Accordion = lazy(() => import("@components/screens/common/accordion"), {
   suspense: true,
   ssr: false,
@@ -21,22 +24,17 @@ const Footer = lazy(() => import("@components/screens/footer-content"), {
   ssr: false,
 });
 
+
 const Index = ({ forms, page, locale, sort, types, branches, compilations }) => {
   const { t } = useTranslation("common");
-  if (typeof window === "window.AscDesktopEditor") return (
-    <MainContent
-          t={t}
-          currentLanguage={locale}
-          data={forms}
-          sort={sort}
-          page={+page}
-          types={types}
-          branches={branches}
-          compilations={compilations}
-        />
-  );
 
-  return (
+  const [isDesktopClient, setIsDesktopClient] = useState("undefined");
+  useEffect(() => {
+    setIsDesktopClient(window["AscDesktopEditor"] !== undefined);
+  }, []);
+ 
+
+  return (      
    
     <Layout>
       <Layout.PageHead>
@@ -54,6 +52,12 @@ const Index = ({ forms, page, locale, sort, types, branches, compilations }) => 
       </Layout.PageHeader>
       <Layout.SectionMain>
         <InfoContent t={t} currentLanguage={locale} />
+        {isDesktopClient && (
+          <Text           
+            className="filter_selector-items"            
+            label="its works"
+          />
+        )}        
         <MainContent
           t={t}
           currentLanguage={locale}

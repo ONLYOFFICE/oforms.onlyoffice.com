@@ -18,7 +18,7 @@ const CategorySelector = ({
   compilations
 }) => {
  
-  console.log(branches);
+  
   const [isOpen, setIsOpen] = useState(false);
   const [isBranchOpen, setIsBranchOpen] = useState(false);
   const [isTypeOpen, setIsTypeOpen] = useState(false);
@@ -34,6 +34,7 @@ const CategorySelector = ({
 
   const catHREF = category ? `form/${category}/` : "";
   const localeHREF = category ? `/${locale}` : locale;
+  
 
   return (
     <StyledSelector
@@ -81,7 +82,7 @@ const CategorySelector = ({
             {branches.data?.map((branch) => ( 
               <a
               key={branch.id}
-              href={`${locale}/form/branches/${branch.attributes.urlReq}`}              
+              href={`${locale === "en" ? "" : localeHREF}/form/branches/${branch.attributes.urlReq}`}              
               className="submenu_link"
               style={{ textDecoration: "none" }}
             >
@@ -117,7 +118,7 @@ const CategorySelector = ({
             {types.data?.map((type) => ( 
               <a
               key={type.id}
-              href={`${locale}/form/types/${type.attributes.urlReq}`}              
+              href={`${locale === "en" ? "" : localeHREF}/form/types/${type.attributes.urlReq}`}              
               className="submenu_link"
               style={{ textDecoration: "none" }}
             >
@@ -155,7 +156,7 @@ const CategorySelector = ({
             {compilations.data?.map((compilation) => ( 
               <a
               key={compilation.id}
-              href={`${locale}/form/compilations/${compilation.attributes.urlReq}`}              
+              href={`${locale === "en" ? "" : localeHREF}/form/compilations/${compilation.attributes.urlReq}`}              
               className="submenu_link"
               style={{ textDecoration: "none" }}
             >

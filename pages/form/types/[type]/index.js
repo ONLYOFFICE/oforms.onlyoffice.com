@@ -29,7 +29,7 @@ const Category = ({
   const nameCategory = dataCategoryInfo.type;
   const urlReqCategory = dataCategoryInfo.urlReq;
   const header = dataCategoryInfo.header_description;
-  console.log(nameCategory);
+  
   
 
   return (
@@ -83,8 +83,7 @@ export const getServerSideProps = async ({ locale, ...ctx }) => {
   const categoryForms = await res.json();
   const categoryInfo = await resCategory.json();
 
-  if (categoryForms.data.length === 0) {
-    console.log(categoryForms.data.length);
+  if (categoryForms.data.length === 0) {   
     return {
       redirect: {
         destination: `https://oforms.teamlab.info/404`,
