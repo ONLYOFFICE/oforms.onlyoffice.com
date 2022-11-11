@@ -29,7 +29,7 @@ const Category = ({
   const nameCategory = dataCategoryInfo.type;
   const urlReqCategory = dataCategoryInfo.urlReq;
   const header = dataCategoryInfo.header_description;
-  console.log(nameCategory);
+  
   
 
   return (

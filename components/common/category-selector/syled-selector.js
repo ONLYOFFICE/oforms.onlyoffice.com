@@ -95,10 +95,9 @@ const StyledSelector = styled.div`
   .types_list {
     display: ${(props) => (props.isOpen ? "grid" : "none")};
     grid-template-columns: 1fr 1fr;
-    gap: 32px;
+    gap: 0px;
     position: absolute;
-    min-width: 400px;
-    height:600px;
+    min-width: 400px;    
     z-index: 99;
     left: 290px;
     top: 0px;
