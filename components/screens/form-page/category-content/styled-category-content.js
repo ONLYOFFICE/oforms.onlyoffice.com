@@ -19,7 +19,7 @@ padding: 0 0 112px;
 .forms_by_branch_items{
   margin-top: 16px;
   gap: 16px;
-
+  flex-wrap: wrap;
 }
 .item_link{
   padding: 11px 18px;
