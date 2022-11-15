@@ -40,7 +40,8 @@ const CategorySelector = ({
     <StyledSelector
       isOpen={isOpen}
       onClick={onClickHandler}
-      onMouseLeave={onCloseSelector}    >
+      onMouseLeave={onCloseSelector}
+      onMouseEnter={onClickHandler}    >
       
       <Text className="filter-header" label={t("Categories")} />
       <ReactSVG className="arrow" src="/icons/popup-arrow.react.svg" />
