@@ -33,8 +33,8 @@ const StyledSelector = styled.div`
     position: absolute;
     min-width: 291px;
     z-index: 99;
-    left: 24px;
-    top: 20px;
+    left: -26px;
+    top: 10px;
     padding-top: 14px;
     background-color: #fff;
     border-radius: 3px;
@@ -43,11 +43,20 @@ const StyledSelector = styled.div`
   }
 
   .filter_selector-items {
-    
-    font-size: 16px;
+    font-size: 13px;
     cursor: pointer;
     white-space: nowrap;
     display: block;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #444;
+  }
+
+  .filter_selector-items-header {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: capitalize;
   }
 
   .arrow-link{
@@ -64,6 +73,11 @@ const StyledSelector = styled.div`
       &:hover{
         background-color: #f5f5f5;
         color: #ff6f3d;
+
+        /* &:first-child {
+          background-color: #fff;
+        } */
+
         & span{
           color: #ff6f3d;
         }
@@ -72,8 +86,6 @@ const StyledSelector = styled.div`
         }
       }   
   }
-
-  
 
   .filter_selector-items:hover {
     color: #ff6f3d;
@@ -94,28 +106,36 @@ const StyledSelector = styled.div`
 
   .types_list {
     display: ${(props) => (props.isOpen ? "grid" : "none")};
+    min-width: 400px;
     grid-template-columns: 1fr 1fr;
     gap: 0px;
-    position: absolute;
-    min-width: 400px;    
+    position: absolute; 
     z-index: 99;
     left: 290px;
     top: 0px;
-    padding: 16px 32px;
+    padding: 15px 0;
     background-color: #fff;
     border-radius: 3px;    
     box-shadow: 0px 7px 25px rgb(85 85 85 / 15%);
   }
+
   .submenu_link{
     display:flex;
     align-items: center;
     justify-content: space-between;
     background-color: #fff;
     padding: 15px 32px;
+
+    span {
+      text-transform: capitalize;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
       .item_arrow{
         background-image: url(/icons/arrow-right.react.svg);
         width: 24px;
-        height: 24px
+        height: 24px;
       }
       &:hover{
         

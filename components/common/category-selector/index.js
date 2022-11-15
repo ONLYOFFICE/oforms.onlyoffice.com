@@ -56,7 +56,7 @@ const CategorySelector = ({
           style={{ textDecoration: "none" }}
         >
           <Text           
-            className="filter_selector-items"            
+            className="filter_selector-items-header"            
             label={t("View all templates")}
           />
         </a>
@@ -67,7 +67,6 @@ const CategorySelector = ({
           style={{ textDecoration: "none" }}
         >
           <Text
-           
             className="filter_selector-items"            
             label={t("Forms by branch")}
           />
