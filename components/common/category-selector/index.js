@@ -18,7 +18,6 @@ const CategorySelector = ({
   compilations
 }) => {
  
-  
   const [isOpen, setIsOpen] = useState(false);
   const [isBranchOpen, setIsBranchOpen] = useState(false);
   const [isTypeOpen, setIsTypeOpen] = useState(false);
@@ -35,7 +34,6 @@ const CategorySelector = ({
   const catHREF = category ? `form/${category}/` : "";
   const localeHREF = category ? `/${locale}` : locale;
   
-
   return (
     <StyledSelector
       isOpen={isOpen}
@@ -73,7 +71,7 @@ const CategorySelector = ({
           <Box className="item_arrow"></Box>
           
         </a>
-        {isBranchOpen && (
+        {isBranchOpen && branches.data?.length > 0 && (
           <Box 
           className="types_list"
           onMouseEnter={() => setIsBranchOpen(true)}
@@ -81,11 +79,11 @@ const CategorySelector = ({
           >
             {branches.data?.map((branch) => ( 
               <a
-              key={branch.id}
-              href={`${locale === "en" ? "" : localeHREF}/form/branches/${branch.attributes.urlReq}`}              
-              className="submenu_link"
-              style={{ textDecoration: "none" }}
-            >
+                key={branch.id}
+                href={`${locale === "en" ? "" : localeHREF}/form/branches/${branch.attributes.urlReq}`}              
+                className="submenu_link"
+                style={{ textDecoration: "none" }}
+              >
               <Text
                
                 className="filter_selector-items"            
@@ -109,7 +107,7 @@ const CategorySelector = ({
           />
           <Box className="item_arrow"></Box>          
         </a>
-        {isTypeOpen && (
+        {isTypeOpen && types.data?.length > 0 && (
           <Box 
           className="types_list"
           onMouseEnter={() => setIsTypeOpen(true)}
@@ -147,7 +145,7 @@ const CategorySelector = ({
           <Box className="item_arrow"></Box>
           
         </a>
-        {isCompilationsOpen && (
+        {isCompilationsOpen && compilations.data?.length > 0 && (
           <Box 
           className="types_list"
           onMouseEnter={() => setIsCompilationsOpen(true)}
