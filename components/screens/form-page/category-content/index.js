@@ -23,7 +23,7 @@ const CategoryContent = ({ t, labelName, types, branches, compilations, locale }
         /> */}
         
         <Box className="forms_by_branch">
-          <Heading className="header" fontSize="13px" fontWeight="600" level={4}>
+          <Heading className="header" fontSize="13px" fontWeight="600" textTransform="uppercase" level={4}>
             {t("Forms by branch")}
           </Heading>
           <Box className='forms_by_branch_items'>
@@ -42,7 +42,7 @@ const CategoryContent = ({ t, labelName, types, branches, compilations, locale }
           </Box>
         </Box>
         <Box className="forms_by_branch">
-          <Heading className="header" fontSize="13px" fontWeight="600" level={4}>
+          <Heading className="header" fontSize="13px" fontWeight="600" textTransform="uppercase" level={4}>
             {t("Forms by type")}
           </Heading>
           <Box className='forms_by_branch_items'>
@@ -61,7 +61,7 @@ const CategoryContent = ({ t, labelName, types, branches, compilations, locale }
           </Box>
         </Box>
         <Box className="forms_by_branch">
-          <Heading className="header" fontSize="13px" fontWeight="600" level={4}>
+          <Heading className="header" fontSize="13px" fontWeight="600" textTransform="uppercase" level={4}>
             {t("Popular Compilations")}
           </Heading>
           <Box className='forms_by_branch_items'>
