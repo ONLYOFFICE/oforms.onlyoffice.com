@@ -27,7 +27,7 @@ const StyledAdventAnnounce = styled.div`
       justify-content: center;
       text-align: center;
       margin: 0 auto;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 400;
       line-height: 20px;
       letter-spacing: 0.01em;
@@ -40,16 +40,16 @@ const StyledAdventAnnounce = styled.div`
       &:before {
         content: "";
         position: absolute;
+        background-repeat: no-repeat;
         top: 0px;
-        left: -501px;
         display: block;
-        width: 475px;
         height: 56px;
         z-index: -1;
         background-image: url(../images/banners/banner_meet_docs_saas_left.svg),url(../images/banners/banner_meet_docs_saas_cloud.svg);
-        background-position-x: left,right;
-        background-position-y: 12px, 15px;
-        background-repeat: no-repeat;
+        background-position-x: 0,100%;
+        background-position-y: 11px,15px;
+        left: -472px;
+        width: 462px;
 
         @media (max-width: 1150px) {
           left: -441px;
@@ -63,15 +63,16 @@ const StyledAdventAnnounce = styled.div`
         content: "";
         position: absolute;
         top: 0px;
-        right: -560px;
+        background-repeat: no-repeat;
         display: block;
-        width: 552px;
         height: 56px;
         z-index: -1;
         background-repeat: no-repeat;
         background-image: url(../images/banners/banner_meet_docs_saas_arrow.svg),url(../images/banners/banner_meet_docs_saas_right.svg);
-        background-position-x: 15px,126px;
-        background-position-y: 19px,12px;
+        background-position-y: 18px, 9px;
+        background-position-x: 0px, 72px;
+        right: -441px;
+        width: 431px;
 
         @media (max-width: 1150px) {
           right: -560px;
