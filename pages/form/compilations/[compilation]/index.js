@@ -26,9 +26,11 @@ const Category = ({
   const { t } = useTranslation("common");
   const dataCategoryInfo = categoryInfo.data[0].attributes;
   const { seo_title, seo_description } = dataCategoryInfo;
-  const nameCategory = dataCategoryInfo.type;
+  const nameCategory = dataCategoryInfo.compilation;
   const urlReqCategory = dataCategoryInfo.urlReq;
   const header = dataCategoryInfo.header_description;
+
+  console.log(categoryForms);
   
   
 
@@ -75,7 +77,7 @@ export const getServerSideProps = async ({ locale, ...ctx }) => {
   const urlReq = ctx.query.compilation;
   const pageSize = ctx.query.pageSize || 9;
   const res = await fetch(
-    `https://oforms.teamlab.info/dashboard/api/oforms/?filters[compilation][urlReq][$eq]=${urlReq}&locale=${locale}&sort=name_form:${sort}&pagination[pageSize]=${pageSize}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
+    `https://oforms.teamlab.info/dashboard/api/oforms/?filters[compilations][urlReq][$eq]=${urlReq}&locale=${locale}&sort=name_form:${sort}&pagination[pageSize]=${pageSize}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
   );
   const resCategory = await fetch(
     `https://oforms.teamlab.info/dashboard/api/compilations/?filters[urlReq][$eq]=${urlReq}&locale=${locale}`
