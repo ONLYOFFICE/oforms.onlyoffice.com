@@ -10,7 +10,7 @@ const AdventAnnounce = ({t, currentLanguage}) => {
       <div className="advent-announce advent-mobile-hide">
         <a href={`${hrefLang}/2022/11/meet-onlyoffice-docs-saas/`} target="_blank" rel="noreferrer noopener">
           <div className="advent-announce-text">
-            {t("Meet")} <b>{t("ONLYOFFICE Docs SaaS")}</b>{t("the cloud-based version of the ONLYOFFICE online suite")} 
+            {t("Meet")}<b>{t("ONLYOFFICE Docs SaaS")}</b>{t("the cloud-based version of the ONLYOFFICE online suite")} 
           </div>
         </a>
       </div>
