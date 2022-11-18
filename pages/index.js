@@ -4,7 +4,7 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import getAllForms from "@lib/strapi/getForms";
 import getAllTypes from "@lib/strapi/getTypes";
-import getAllBranches from "@lib/strapi/getBranch";
+import getAllCategories from "@lib/strapi/getCategories";
 import getAllCompilations from "@lib/strapi/getCompilations";
 import Layout from "@components/layout";
 import HeadSEO from "@components/screens/head-content";
@@ -25,14 +25,13 @@ const Footer = lazy(() => import("@components/screens/footer-content"), {
 });
 
 
-const Index = ({ forms, page, locale, sort, types, branches, compilations }) => {
+const Index = ({ forms, page, locale, sort, types, categories, compilations }) => {
   const { t } = useTranslation("common");
 
   const [isDesktopClient, setIsDesktopClient] = useState("undefined");
   useEffect(() => {
     setIsDesktopClient(window["AscDesktopEditor"] !== undefined);
-  }, []);
- 
+  }, []); 
 
   return (      
    
@@ -65,7 +64,7 @@ const Index = ({ forms, page, locale, sort, types, branches, compilations }) => 
           sort={sort}
           page={+page}
           types={types}
-          branches={branches}
+          categories={categories}
           compilations={compilations}
         />
         <Suspense>
@@ -88,7 +87,7 @@ export const getServerSideProps = async ({ locale, query }) => {
 
   const forms = await getAllForms(locale, page, sort, pageSize);
   const types = await getAllTypes(locale);
-  const branches = await getAllBranches(locale);
+  const categories = await getAllCategories(locale);
   const compilations = await getAllCompilations(locale);
  
   return {
@@ -99,7 +98,7 @@ export const getServerSideProps = async ({ locale, query }) => {
       locale,
       sort,
       types,
-      branches,
+      categories,
       compilations
       
     },

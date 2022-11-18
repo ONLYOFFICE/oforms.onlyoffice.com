@@ -6,7 +6,7 @@ import Heading from "@components/common/heading";
 import StyledCategoryContent from "./styled-category-content";
 import CategoryItem from "./category-item";
 
-const CategoryContent = ({ t, labelName, types, branches, compilations, locale }) => {
+const CategoryContent = ({ t, labelName, types, categories, compilations, locale }) => {
   
   return (
     <StyledCategoryContent>
@@ -27,14 +27,14 @@ const CategoryContent = ({ t, labelName, types, branches, compilations, locale }
             {t("Forms by branch")}
           </Heading>
           <Box className='forms_by_branch_items'>
-            {branches.data?.map((branch) => ( 
+            {categories.data?.map((categorie) => ( 
                 <a
-                key={branch.id}
-                href={`${locale}/form/branches/${branch.attributes.urlReq}`}              
+                key={categorie.id}
+                href={`${locale}/form/${categorie.attributes.urlReq}`}              
                 className="item_link"
                 style={{ textDecoration: "none" }}
               >
-                {branch.attributes.branch}
+                {categorie.attributes.categorie}
                                   
               </a>              
             ))}
