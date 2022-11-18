@@ -51,11 +51,13 @@ const StyledAdventAnnounce = styled.div`
         left: -472px;
         width: 462px;
 
-        @media (max-width: 1150px) {
+        @media (max-width: 1024px) {
           left: -441px;
           width: 428px;
           height: 48px;
+          background-image: url(../images/banners/banner_meet_docs_saas_left.svg),url(../images/banners/banner_meet_docs_saas_cloud.svg);
           background-position-y: 10px;
+          background-position-x: 31px, right;
         }
       }
 
@@ -74,24 +76,15 @@ const StyledAdventAnnounce = styled.div`
         right: -441px;
         width: 431px;
 
-        @media (max-width: 1150px) {
-          right: -560px;
-          height: 48px;
-          background-position-x: 0,45px;
-          background-position-y: 14px,8px;
-        }
-
-        @media (max-width: 500px) {
-          right: -560px;
+        @media (max-width: 1024px) {
           height: 48px;
           background-image: url(../images/banners/banner_meet_docs_saas_right.svg);
-          background-position-x: 45px;
+          background-position-x: 10px;
           background-position-y: 8px;
         }
       }
 
-      @media (max-width: 1150px) {
-        background-color: transparent;
+      @media (max-width: 1024px) {
         display: inline-block;
         font-size: 12px;
         height: auto;
@@ -99,9 +92,6 @@ const StyledAdventAnnounce = styled.div`
         padding: 16px 0px;
         white-space: normal;
         width: auto !important;
-      }
-
-      @media (max-width: 500px) {
         margin-left: 30px;
       }
     }
@@ -110,7 +100,7 @@ const StyledAdventAnnounce = styled.div`
   .advent-desktop-hide {
     display: none;
 
-    @media (max-width: 1150px) {
+    @media (max-width: 1024px) {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -119,7 +109,7 @@ const StyledAdventAnnounce = styled.div`
   }
 
   .advent-mobile-hide {
-    @media (max-width: 1150px) {
+    @media (max-width: 1024px) {
       display: none;
     }
   }
