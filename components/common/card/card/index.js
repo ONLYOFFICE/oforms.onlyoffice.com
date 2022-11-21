@@ -7,7 +7,7 @@ import Link from "./sub-components/link";
 import StyledCard from "./styled-card";
 // import { NImage } from "../../image";
 
-const Card = ({ t, callback, arrayItems, currentLanguage, isDesktopClient, handlerSetModal, handlerCardData, ...rest }) => {
+const Card = ({ t, callback, arrayItems, currentLanguage, handlerSetModal, handlerCardData, isDesktopClient, ...rest }) => {
   const { attributes } = arrayItems;
   const {
     name_form,
@@ -38,7 +38,7 @@ const Card = ({ t, callback, arrayItems, currentLanguage, isDesktopClient, handl
   const linkOformEditor = `${localeLinkEditor}/editor/?filename=${url}&fillform=${fillForm}`;
 
   return (
-    <StyledCard {...rest} onClick={() => {handlerSetModal(); handlerCardData(attributes);}}>
+    <StyledCard {...rest} onClick={isDesktopClient ? () => {handlerSetModal(); handlerCardData(attributes);} : undefined}>
       {isDesktopClient ? (
         <div className="image-boxshadow-template">
           <img

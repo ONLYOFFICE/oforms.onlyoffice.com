@@ -28,8 +28,8 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
     setIsOpenType(false);
   };
 
-  const onChangeSelectFileType = (e) => {
-    setFileTypeData(e.target.innerHTML);
+  const onChangeSelectFileType = (fileType) => {
+    setFileTypeData(fileType);
     closeTypeDropdown();
   };
 
@@ -90,10 +90,10 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
                           width="16px"
                         />
                       </div>
-                      <div className="file-dropdown" onClick={onChangeSelectFileType} onMouseLeave={closeTypeDropdown}>
+                      <div className="file-dropdown" onMouseLeave={closeTypeDropdown}>
                         {array.map((item, index) => (
                           <div 
-                            onClick={() => setHref(item.href)}
+                            onClick={() => {setHref(item.href); onChangeSelectFileType(item.title)}}
                             className={`file-dropdown-item ${fileTypeData === item?.title ? "selected" : ""}`}
                             key={index} 
                           >

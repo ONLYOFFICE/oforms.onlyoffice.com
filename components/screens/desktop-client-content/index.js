@@ -9,10 +9,11 @@ import Text from "@components/common/text";
 import StyledDesktopClientContent from "./styled-desktop-client-content";
 import FilePopup from "./file-popup/file-popup";
 
-const DesktopClientContent = ({ t, currentLanguage, data, page, sort, types, branches, compilations, isDesktopClient, isCategoryPage, header, urlReqCategory }) => {
+const DesktopClientContent = ({ t, currentLanguage, data, page, sort, types, categories, compilations, isCategoryPage, header, urlReqCategory }) => {
   const countData = data.meta?.pagination?.total;
   const [typeSortData, setTypeSortData] = useState(t("Newest - Oldest"));
   const [boolTypeSortData, setBoolTypeSortData] = useState(false);
+  const [isDesktopClient, setIsDesktopClient] = useState(true);
   const [cardData, setCardData] = useState("");
   
   const onChangeSelectTypeSort = (e) => {
@@ -57,7 +58,7 @@ const DesktopClientContent = ({ t, currentLanguage, data, page, sort, types, bra
             className="form-control"
             t={t}
             types={types}
-            branches={branches}
+            categories={categories}
             compilations={compilations}
             isCategoryPage={isCategoryPage}
             header={header}

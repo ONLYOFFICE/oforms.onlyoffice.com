@@ -2,7 +2,7 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import getAllTypes from "@lib/strapi/getTypes";
-import getAllBranches from "@lib/strapi/getBranch";
+import getAllCategories from "@lib/strapi/getCategories";
 import getAllCompilations from "@lib/strapi/getCompilations";
 
 import Layout from "@components/layout";
@@ -27,7 +27,7 @@ const Category = ({
   sort,
   page,
   types, 
-  branches, 
+  categories, 
   compilations,
 }) => {
   const { t } = useTranslation("common");
@@ -38,64 +38,59 @@ const Category = ({
   const header = dataCategoryInfo.header_description;
   
   const [isCategoryPage, setIsCategoryPage] = useState(true);
-  const [isDesktopClient, setIsDesktopClient] = useState(true);
+  const [isWebClient, setIsWebClient] = useState(true);
   useEffect(() => {
-    setIsDesktopClient(window["AscDesktopEditor"] !== false);
+    setIsWebClient(window["AscDesktopEditor"] !== false);
   }, []);
 
-  return (
-    <>
-      {isDesktopClient ? ( 
-        <DesktopClientContent
+  return isWebClient ?
+    <Layout>
+      <Layout.PageHead>
+        <HeadSEO
+          title={seo_title}
+          metaDescription={seo_description}
+          metaDescriptionOg={seo_description}
+          metaKeywords={seo_title}
+        />
+      </Layout.PageHead>
+      <Layout.PageHeader>
+        <HeadingContent t={t} currentLanguage={locale} />
+      </Layout.PageHeader>
+      <Layout.SectionMain>
+        <InfoContent t={t} category={nameCategory} header={header}/>
+        <MainContent
           t={t}
           currentLanguage={locale}
           data={categoryForms}
           sort={sort}
           page={+page}
-          isCategoryPage={isCategoryPage}
-          header={header}
+          category={nameCategory}
           urlReqCategory={urlReqCategory}
-          types={types}
-          branches={branches}
-          compilations={compilations}
         />
-      ) : (
-        <Layout>
-          <Layout.PageHead>
-            <HeadSEO
-              title={seo_title}
-              metaDescription={seo_description}
-              metaDescriptionOg={seo_description}
-              metaKeywords={seo_title}
-            />
-          </Layout.PageHead>
-          <Layout.PageHeader>
-            <HeadingContent t={t} currentLanguage={locale} />
-          </Layout.PageHeader>
-          <Layout.SectionMain>
-            <InfoContent t={t} category={nameCategory} header={header}/>
-            <MainContent
-              t={t}
-              currentLanguage={locale}
-              data={categoryForms}
-              sort={sort}
-              page={+page}
-              category={nameCategory}
-              urlReqCategory={urlReqCategory}
-            />
-            <Suspense>
-              <Accordion t={t} currentLanguage={locale} />
-            </Suspense>
-          </Layout.SectionMain>
-          <Layout.PageFooter>
-            <Suspense>
-              <Footer t={t} language={locale} />
-            </Suspense>
-          </Layout.PageFooter>
-        </Layout>
-      )}
-    </>
-  );
+        <Suspense>
+          <Accordion t={t} currentLanguage={locale} />
+        </Suspense>
+      </Layout.SectionMain>
+      <Layout.PageFooter>
+        <Suspense>
+          <Footer t={t} language={locale} />
+        </Suspense>
+      </Layout.PageFooter>
+    </Layout>
+  :
+    <DesktopClientContent
+      t={t}
+      currentLanguage={locale}
+      data={categoryForms}
+      sort={sort}
+      page={+page}
+      isCategoryPage={isCategoryPage}
+      header={header}
+      urlReqCategory={urlReqCategory}
+      types={types}
+      categories={categories}
+      compilations={compilations}
+    />
 };
 
 export const getServerSideProps = async ({ locale, ...ctx }) => {
@@ -112,7 +107,7 @@ export const getServerSideProps = async ({ locale, ...ctx }) => {
   const categoryForms = await res.json();
   const categoryInfo = await resCategory.json();
   const types = await getAllTypes(locale);
-  const branches = await getAllBranches(locale);
+  const categories = await getAllCategories(locale);
   const compilations = await getAllCompilations(locale);
 
   if (categoryForms.data.length === 0) {   
@@ -134,7 +129,7 @@ export const getServerSideProps = async ({ locale, ...ctx }) => {
       sort,
       page,
       types,
-      branches,
+      categories,
       compilations,
     },
   };

@@ -6,7 +6,7 @@ import { localStorageCarousel, CAROUSEL_COOKIE } from "@utils/constants";
 import { shortCarouselSettings } from "@components/screens/form-page/carousel/config/carousel-config";
 
 import getAllTypes from "@lib/strapi/getTypes";
-import getAllBranches from "@lib/strapi/getBranch";
+import getAllCategories from "@lib/strapi/getCategories";
 import getAllCompilations from "@lib/strapi/getCompilations";
 import Layout from "@components/layout";
 import HeadSEO from "@components/screens/head-content";
@@ -36,7 +36,7 @@ const Footer = lazy(() => import("@components/screens/footer-content"), {
   loading: () => <div />,
 });
 
-const Form = ({ form, locale, randomCarousel, types, branches,  compilations }) => {
+const Form = ({ form, locale, randomCarousel, types, categories,  compilations }) => {
   const { t } = useTranslation("common");
   const data = form.data[0].attributes;
   const { seo_title, seo_description, url, file_oform, name_form } = data;
@@ -188,7 +188,7 @@ const Form = ({ form, locale, randomCarousel, types, branches,  compilations }) 
           t={t}
         />
 
-        <CategoryContent t={t} types={types} locale={locale} branches={branches} compilations={compilations}/>        
+        <CategoryContent t={t} types={types} locale={locale} categories={categories} compilations={compilations}/>        
         
         <Suspense>
           <Banner t={t} currentLanguage={locale} />
@@ -216,7 +216,7 @@ export const getServerSideProps = async ({ locale, ...context }) => {
   );
   const randomCarousel = await randomCarouselItems.json();
   const types = await getAllTypes(locale);
-  const branches = await getAllBranches(locale);
+  const categories = await getAllCategories(locale);
   const compilations = await getAllCompilations(locale);
   if (form.data.length === 0) {
     return {
@@ -235,7 +235,7 @@ export const getServerSideProps = async ({ locale, ...context }) => {
       locale,
       randomCarousel,
       types,
-      branches,
+      categories,
       compilations
     },
   };

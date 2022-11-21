@@ -27,29 +27,23 @@ const SearchResult = ({
                 const hrefCategory = reName(
                   it.attributes.categories.data[0].attributes.urlReq
                 );
-                return (
-                  <div key={`key-item-${id}`}>
-                    {isDesktopClient ? (
-                      <div 
-                        className="item-result-search" 
-                        onClick={() => {handlerSetModal(); handlerCardData(it.attributes)}}
-                      >
-                        {it.attributes.name_form}
-                        {
-                          console.log(it.attributes)
-                        }
-                      </div>
-                    ) : (
-                      <Link
-                        className="item-result-search"
-                        href={"/[form]"}
-                        as={`/${hrefForm}`}
-                      >
-                        {it.attributes.name_form}
-                      </Link>
-                    )}
+                return isDesktopClient ?
+                  <div 
+                    className="item-result-search" 
+                    key={`key-item-${id}`}
+                    onClick={() => {handlerSetModal(); handlerCardData(it.attributes);}}
+                  >
+                    {it.attributes.name_form}
                   </div>
-                );
+                :
+                  <Link
+                    className="item-result-search"
+                    href={"/[form]"}
+                    as={`/${hrefForm}`}
+                    key={`key-item-${id}`}
+                  >
+                    {it.attributes.name_form}
+                  </Link>
               })
             ) : (
               <Text

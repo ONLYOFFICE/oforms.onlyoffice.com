@@ -14,14 +14,14 @@ const CategorySelector = ({
   locale,
   category,
   types,
-  branches,
+  categories,
   compilations,
   isCategoryPage,
   header
 }) => {
  
   const [isOpen, setIsOpen] = useState(false);
-  const [isBranchOpen, setIsBranchOpen] = useState(false);
+  const [isCategorieOpen, setIsCategorieOpen] = useState(false);
   const [isTypeOpen, setIsTypeOpen] = useState(false);
   const [isCompilationsOpen, setIsCompilationsOpen] = useState(false);
 
@@ -68,8 +68,8 @@ const CategorySelector = ({
           />
         </a>
         <a
-          onMouseEnter={() => setIsBranchOpen(true)}
-          onMouseLeave={() => setIsBranchOpen(false)}
+          onMouseEnter={() => setIsCategorieOpen(true)}
+          onMouseLeave={() => setIsCategorieOpen(false)}
           className="arrow-link"
           style={{ textDecoration: "none" }}
         >
@@ -80,23 +80,23 @@ const CategorySelector = ({
           <Box className="item_arrow"></Box>
           
         </a>
-        {isBranchOpen && branches.data?.length > 0 && (
+        {isCategorieOpen && categories.data?.length > 0 && (
           <Box 
           className="types_list"
-          onMouseEnter={() => setIsBranchOpen(true)}
-          onMouseLeave={() => setIsBranchOpen(false)}
+          onMouseEnter={() => setIsCategorieOpen(true)}
+          onMouseLeave={() => setIsCategorieOpen(false)}
           >
-            {branches.data?.map((branch) => ( 
+            {categories.data?.map((categorie) => ( 
               <a
-                key={branch.id}
-                href={`${locale === "en" ? "" : localeHREF}/form/branches/${branch.attributes.urlReq}`}              
+                key={categorie.id}
+                href={`${locale === "en" ? "" : localeHREF}/form/${categorie.attributes.urlReq}`}              
                 className="submenu_link"
                 style={{ textDecoration: "none" }}
               >
               <Text
                
                 className="filter_selector-items"            
-                label={branch.attributes.branch}
+                label={categorie.attributes.categorie}
               />                   
             </a>
              
