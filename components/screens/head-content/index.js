@@ -10,6 +10,7 @@ const HeadSEO = ({
   metaDescriptionOg,
   metaKeywords,
   title,
+  isDesktopClient,
 }) => {
   return (
     <>
@@ -50,7 +51,7 @@ const HeadSEO = ({
 
         <link
           rel="icon"
-          href="/images/logo/favicon_general.png"
+          href={isDesktopClient ? "/images/logo/favicon_desktop.png" : "/images/logo/favicon_general.png"}
           type="image/x-icon"
         />
 

@@ -5,7 +5,7 @@ import CONFIG from "@config/config";
 import Search from "@components/common/search-area";
 import SearchResult from "./search-result";
 
-const SearchContent = ({ t, currentLanguage }) => {
+const SearchContent = ({ t, currentLanguage, isDesktopClient, handlerSetModal, handlerCardData }) => {
   const [focusOnSearch, setFocusOnSearch] = useState(false);
   const [searchItem, setSearchItem] = useState("");
   const [resultSearch, setResultSearch] = useState([]);
@@ -61,6 +61,9 @@ const SearchContent = ({ t, currentLanguage }) => {
           resultItems={resultSearch}
           onMouseLeaveSearchResult={onCloseSearchResult}
           resultMouseLeave={focusOnSearch}
+          isDesktopClient={isDesktopClient}
+          handlerSetModal={handlerSetModal}
+          handlerCardData={handlerCardData}
         />
       )}
     </>

@@ -11,6 +11,7 @@ import HeadSEO from "@components/screens/head-content";
 import HeadingContent from "@components/screens/heading-content";
 import InfoContent from "@components/screens/main-page/info-content";
 import MainContent from "@components/screens/main-page/main-content";
+import DesktopClientContent from "@components/screens/desktop-client-content";
 import AdventAnnounce from "@components/screens/heading-content/advent-announce";
 
 import Text from "@components/common/text";
@@ -28,56 +29,77 @@ const Footer = lazy(() => import("@components/screens/footer-content"), {
 const Index = ({ forms, page, locale, sort, types, branches, compilations }) => {
   const { t } = useTranslation("common");
 
-  const [isDesktopClient, setIsDesktopClient] = useState("undefined");
+  const [isDesktopClient, setIsDesktopClient] = useState(true);
   useEffect(() => {
-    setIsDesktopClient(window["AscDesktopEditor"] !== undefined);
+    setIsDesktopClient(window["AscDesktopEditor"] !== false);
   }, []);
  
 
   return (      
-   
-    <Layout>
-      <Layout.PageHead>
-        <HeadSEO
-          title={t("titleIndexPage")}
-          metaSiteNameOg={t("metaSiteNameOg")}
-          metaDescription={t("titleIndexPage")}
-          metaDescriptionOg={t("metaDescriptionOgIndexPage")}
-          metaKeywords={t("metaKeywordsIndexPage")}
-        />
-      </Layout.PageHead>
-      <AdventAnnounce t={t} currentLanguage={locale} />
-      <Layout.PageHeader>
-        <HeadingContent t={t} currentLanguage={locale} />
-      </Layout.PageHeader>
-      <Layout.SectionMain>
-        <InfoContent t={t} currentLanguage={locale} />
-        {isDesktopClient && (
-          <Text           
-            className="filter_selector-items"            
-            label="its works"
+    <>
+      {isDesktopClient ? ( 
+        <Layout>
+          <Layout.PageHead>
+            <HeadSEO
+              title={t("titleIndexPage")}
+              metaSiteNameOg={t("metaSiteNameOg")}
+              metaDescription={t("titleIndexPage")}
+              metaDescriptionOg={t("metaDescriptionOgIndexPage")}
+              metaKeywords={t("metaKeywordsIndexPage")}
+              isDesktopClient={isDesktopClient}
+            />
+          </Layout.PageHead>
+          <DesktopClientContent
+            t={t}
+            currentLanguage={locale}
+            data={forms}
+            sort={sort}
+            page={+page}
+            types={types}
+            branches={branches}
+            compilations={compilations}
+            isDesktopClient={isDesktopClient}
           />
-        )}        
-        <MainContent
-          t={t}
-          currentLanguage={locale}
-          data={forms}
-          sort={sort}
-          page={+page}
-          types={types}
-          branches={branches}
-          compilations={compilations}
-        />
-        <Suspense>
-          <Accordion t={t} currentLanguage={locale} />
-        </Suspense>
-      </Layout.SectionMain>
-      <Layout.PageFooter>
-        <Suspense>
-          <Footer t={t} language={locale} />
-        </Suspense>
-      </Layout.PageFooter>
-    </Layout>
+        </Layout>
+      ) : (
+        <Layout>
+          <Layout.PageHead>
+            <HeadSEO
+              title={t("titleIndexPage")}
+              metaSiteNameOg={t("metaSiteNameOg")}
+              metaDescription={t("titleIndexPage")}
+              metaDescriptionOg={t("metaDescriptionOgIndexPage")}
+              metaKeywords={t("metaKeywordsIndexPage")}
+            />
+          </Layout.PageHead>
+          <AdventAnnounce t={t} currentLanguage={locale} />
+          <Layout.PageHeader>
+            <HeadingContent t={t} currentLanguage={locale} />
+          </Layout.PageHeader>
+          <Layout.SectionMain>
+            <InfoContent t={t} currentLanguage={locale} />
+            <MainContent
+              t={t}
+              currentLanguage={locale}
+              data={forms}
+              sort={sort}
+              page={+page}
+              types={types}
+              branches={branches}
+              compilations={compilations}
+            />
+            <Suspense>
+              <Accordion t={t} currentLanguage={locale} />
+            </Suspense>
+          </Layout.SectionMain>
+          <Layout.PageFooter>
+            <Suspense>
+              <Footer t={t} language={locale} />
+            </Suspense>
+          </Layout.PageFooter>
+        </Layout>
+      )}
+    </>
   );
 };
 
