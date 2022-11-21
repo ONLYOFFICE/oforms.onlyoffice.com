@@ -11,6 +11,7 @@ import HeadSEO from "@components/screens/head-content";
 import HeadingContent from "@components/screens/heading-content";
 import InfoContent from "@components/screens/main-page/info-content";
 import MainContent from "@components/screens/main-page/main-content";
+import DesktopClientContent from "@components/screens/desktop-client-content";
 import AdventAnnounce from "@components/screens/heading-content/advent-announce";
 
 import Text from "@components/common/text";
@@ -28,13 +29,12 @@ const Footer = lazy(() => import("@components/screens/footer-content"), {
 const Index = ({ forms, page, locale, sort, types, categories, compilations }) => {
   const { t } = useTranslation("common");
 
-  const [isDesktopClient, setIsDesktopClient] = useState("undefined");
+  const [isWebClient, setIsWebClient] = useState(true);
   useEffect(() => {
-    setIsDesktopClient(window["AscDesktopEditor"] !== undefined);
-  }, []); 
-
-  return (      
-   
+    setIsWebClient(window["AscDesktopEditor"] !== false);
+  }, []);
+ 
+  return isWebClient ?
     <Layout>
       <Layout.PageHead>
         <HeadSEO
@@ -51,12 +51,6 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
       </Layout.PageHeader>
       <Layout.SectionMain>
         <InfoContent t={t} currentLanguage={locale} />
-        {isDesktopClient && (
-          <Text           
-            className="filter_selector-items"            
-            label="its works"
-          />
-        )}        
         <MainContent
           t={t}
           currentLanguage={locale}
@@ -77,7 +71,28 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
         </Suspense>
       </Layout.PageFooter>
     </Layout>
-  );
+  :
+    <Layout>
+      <Layout.PageHead>
+        <HeadSEO
+          title={t("titleIndexPage")}
+          metaSiteNameOg={t("metaSiteNameOg")}
+          metaDescription={t("titleIndexPage")}
+          metaDescriptionOg={t("metaDescriptionOgIndexPage")}
+          metaKeywords={t("metaKeywordsIndexPage")}
+        />
+      </Layout.PageHead>
+      <DesktopClientContent
+        t={t}
+        currentLanguage={locale}
+        data={forms}
+        sort={sort}
+        page={+page}
+        types={types}
+        categories={categories}
+        compilations={compilations}
+      />
+    </Layout>
 };
 
 export const getServerSideProps = async ({ locale, query }) => {

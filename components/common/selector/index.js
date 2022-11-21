@@ -11,6 +11,7 @@ const Selector = ({
   t,
   locale,
   category,
+  isDesktopClient,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -45,8 +46,8 @@ const Selector = ({
           <Text
             as="option"
             className="filter_selector-items"
-            value={t("NameA-Z")}
-            label={t("NameA-Z")}
+            value={isDesktopClient ? t("Newest - Oldest") : t("NameA-Z")}
+            label={isDesktopClient ? t("Newest - Oldest") : t("NameA-Z")}
           />
         </a>
         <a
@@ -56,8 +57,8 @@ const Selector = ({
           <Text
             as="option"
             className="filter_selector-items"
-            value={t("NameZ-A")}
-            label={t("NameZ-A")}
+            value={isDesktopClient ? t("Oldest - Newest") : t("NameZ-A")}
+            label={isDesktopClient ? t("Oldest - Newest") : t("NameZ-A")}
           />
         </a>
       </Box>

@@ -50,7 +50,7 @@ const TextInput = ({
   }, [isAutoFocussed]);
 
   return (
-    <StyleGroupInput {...rest}>
+    <StyleGroupInput className="group-input" {...rest}>
       <StyledInput labelColor={labelColor} colorHover={colorHover} {...rest}>
         <StyledTextInput
           type={type}

@@ -7,7 +7,7 @@ import Link from "./sub-components/link";
 import StyledCard from "./styled-card";
 // import { NImage } from "../../image";
 
-const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
+const Card = ({ t, callback, arrayItems, currentLanguage, handlerSetModal, handlerCardData, isDesktopClient, ...rest }) => {
   const { attributes } = arrayItems;
   const {
     name_form,
@@ -38,27 +38,45 @@ const Card = ({ t, callback, arrayItems, currentLanguage, ...rest }) => {
   const linkOformEditor = `${localeLinkEditor}/editor/?filename=${url}&fillform=${fillForm}`;
 
   return (
-    <StyledCard {...rest}>
-      <Link href={pathName} className="image-boxshadow-template">
-        <img
-          className="card-image"
-          src={imgUrlCard}
-          alt={name_form}
-          style={{ width: "100%", height: "100%" }}
-        />
-      </Link>
+    <StyledCard {...rest} onClick={isDesktopClient ? () => {handlerSetModal(); handlerCardData(attributes);} : undefined}>
+      {isDesktopClient ? (
+        <div className="image-boxshadow-template">
+          <img
+            className="card-image"
+            src={imgUrlCard}
+            alt={name_form}
+            style={{ width: "100%", height: "100%" }}
+          />
+        </div>
+      ) : (
+        <Link href={pathName} className="image-boxshadow-template">
+          <img
+            className="card-image"
+            src={imgUrlCard}
+            alt={name_form}
+            style={{ width: "100%", height: "100%" }}
+          />
+        </Link>
+      )}
       <Box
         className="card-template"
         flexDirection="column"
         alignItems="stretch"
       >
         <Text as="h4">
-        <Link
-          className="title-template title-overflow-templapte"
-          title={name_form}
-          href={pathName}
-          label={name_form}
-        />
+          {isDesktopClient ? (
+            <Text
+              className="title-template title-overflow-templapte"
+              label={name_form}
+            />
+          ) : (
+            <Link
+              className="title-template title-overflow-templapte"
+              title={name_form}
+              href={pathName}
+              label={name_form}
+            />
+          )}
         </Text>
         
         <Text

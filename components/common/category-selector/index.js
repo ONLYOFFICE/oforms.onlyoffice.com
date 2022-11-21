@@ -15,7 +15,9 @@ const CategorySelector = ({
   category,
   types,
   categories,
-  compilations
+  compilations,
+  isCategoryPage,
+  header
 }) => {
  
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +35,6 @@ const CategorySelector = ({
 
   const catHREF = category ? `form/${category}/` : "";
   const localeHREF = category ? `/${locale}` : locale;
-  console.log(categories);
   
   return (
     <StyledSelector
@@ -41,8 +42,15 @@ const CategorySelector = ({
       onClick={onClickHandler}
       onMouseLeave={onCloseSelector}
       onMouseEnter={onClickHandler}    >
-      
-      <Text className="filter-header" label={t("Categories")} />
+      {isCategoryPage ? (
+        <>
+          <Text className="filter-header" label={t("Categories") + ":"} />
+          <Text className="filter-title" label={header} />
+        </>
+      ) :(
+        <Text className="filter-header" label={t("Categories")} />
+      )}
+
       <ReactSVG className="arrow" src="/icons/popup-arrow.react.svg" />
       <Box
         className="filter_selector"

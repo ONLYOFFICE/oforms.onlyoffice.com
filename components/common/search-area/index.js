@@ -8,7 +8,7 @@ import StyledSearchArea from "./styled-search-area";
 const SearchArea = ({ clearValueSearch, valueSearch, callback, t }) => {
   /*eslint-disable*/
   const imgSearch = !valueSearch ? (
-    <img
+    <img className="search_img"
       src={"/icons/search-icon.react.svg"}
       style={{ cursor: "default" }}
       alt="search"
@@ -26,7 +26,7 @@ const SearchArea = ({ clearValueSearch, valueSearch, callback, t }) => {
   );
   /*eslint-enable*/
   return (
-    <StyledSearchArea>
+    <StyledSearchArea className="search_area">
       <Box className="search_container" alignItems="center">
         <Text
           className="presearch_title"
@@ -40,7 +40,7 @@ const SearchArea = ({ clearValueSearch, valueSearch, callback, t }) => {
           onChange={callback}
           value={valueSearch}
           type="text"
-          className="search_input"
+          className={"search_input" + (valueSearch ? " has_value" : "")}
           backgroundColor="#333"
           color="#F5F5F5"
           placeholder={t("SearchIputPlaceholder")}

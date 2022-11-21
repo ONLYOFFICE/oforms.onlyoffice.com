@@ -1,12 +1,16 @@
-import { lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import getAllTypes from "@lib/strapi/getTypes";
+import getAllCategories from "@lib/strapi/getCategories";
+import getAllCompilations from "@lib/strapi/getCompilations";
 
 import Layout from "@components/layout";
 import HeadSEO from "@components/screens/head-content";
 import HeadingContent from "@components/screens/heading-content";
 import InfoContent from "@components/screens/category-page/info-content";
 import MainContent from "@components/screens/category-page/main-content";
+import DesktopClientContent from "@components/screens/desktop-client-content";
 
 const Accordion = lazy(() => import("@components/screens/common/accordion"), {
   loading: () => <div />,
@@ -22,6 +26,9 @@ const Category = ({
   locale,
   sort,
   page,
+  types, 
+  categories, 
+  compilations,
 }) => {
   const { t } = useTranslation("common");
   const dataCategoryInfo = categoryInfo.data[0].attributes;
@@ -32,9 +39,13 @@ const Category = ({
 
   console.log(categoryForms);
   
-  
+  const [isCategoryPage, setIsCategoryPage] = useState(true);
+  const [isWebClient, setIsWebClient] = useState(true);
+  useEffect(() => {
+    setIsWebClient(window["AscDesktopEditor"] !== false);
+  }, []);
 
-  return (
+  return isWebClient ?
     <Layout>
       <Layout.PageHead>
         <HeadSEO
@@ -68,7 +79,20 @@ const Category = ({
         </Suspense>
       </Layout.PageFooter>
     </Layout>
-  );
+  :
+    <DesktopClientContent
+      t={t}
+      currentLanguage={locale}
+      data={categoryForms}
+      sort={sort}
+      page={+page}
+      isCategoryPage={isCategoryPage}
+      header={header}
+      urlReqCategory={urlReqCategory}
+      types={types}
+      categories={categories}
+      compilations={compilations}
+    />
 };
 
 export const getServerSideProps = async ({ locale, ...ctx }) => {
@@ -84,6 +108,9 @@ export const getServerSideProps = async ({ locale, ...ctx }) => {
   );
   const categoryForms = await res.json();
   const categoryInfo = await resCategory.json();
+  const types = await getAllTypes(locale);
+  const categories = await getAllCategories(locale);
+  const compilations = await getAllCompilations(locale);
 
   if (categoryForms.data.length === 0) {
     console.log(categoryForms.data.length);
@@ -104,6 +131,9 @@ export const getServerSideProps = async ({ locale, ...ctx }) => {
       locale,
       sort,
       page,
+      types,
+      categories,
+      compilations,
     },
   };
 };
