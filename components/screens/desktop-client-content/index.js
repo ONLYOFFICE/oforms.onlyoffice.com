@@ -9,11 +9,10 @@ import Text from "@components/common/text";
 import StyledDesktopClientContent from "./styled-desktop-client-content";
 import FilePopup from "./file-popup/file-popup";
 
-const DesktopClientContent = ({ t, currentLanguage, data, page, sort, types, categories, compilations, isCategoryPage, header, urlReqCategory }) => {
+const DesktopClientContent = ({ t, currentLanguage, data, page, sort, types, categories, compilations, isCategoryPage, header, urlReqCategory, isDesktopClient }) => {
   const countData = data.meta?.pagination?.total;
   const [typeSortData, setTypeSortData] = useState(t("Newest - Oldest"));
   const [boolTypeSortData, setBoolTypeSortData] = useState(false);
-  const [isDesktopClient, setIsDesktopClient] = useState(true);
   const [cardData, setCardData] = useState("");
   
   const onChangeSelectTypeSort = (e) => {
