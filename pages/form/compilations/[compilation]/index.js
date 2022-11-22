@@ -40,12 +40,39 @@ const Category = ({
   console.log(categoryForms);
   
   const [isCategoryPage, setIsCategoryPage] = useState(true);
-  const [isWebClient, setIsWebClient] = useState(true);
+  const [isDesktopClient, setIsDesktopClient] = useState(undefined);
   useEffect(() => {
-    setIsWebClient(window["AscDesktopEditor"] !== false);
+    setIsDesktopClient(window["AscDesktopEditor"] !== undefined);
   }, []);
 
-  return isWebClient ?
+  return isDesktopClient ?
+    <Layout>
+      <Layout.PageHead>
+        <HeadSEO
+          title={t("titleIndexPage")}
+          metaSiteNameOg={t("metaSiteNameOg")}
+          metaDescription={t("titleIndexPage")}
+          metaDescriptionOg={t("metaDescriptionOgIndexPage")}
+          metaKeywords={t("metaKeywordsIndexPage")}
+          isDesktopClient={isDesktopClient}
+        />
+      </Layout.PageHead>
+      <DesktopClientContent
+        t={t}
+        currentLanguage={locale}
+        data={categoryForms}
+        sort={sort}
+        page={+page}
+        isCategoryPage={isCategoryPage}
+        header={header}
+        urlReqCategory={urlReqCategory}
+        types={types}
+        categories={categories}
+        compilations={compilations}
+        isDesktopClient={isDesktopClient}
+      />
+    </Layout>
+  :
     <Layout>
       <Layout.PageHead>
         <HeadSEO
@@ -79,20 +106,6 @@ const Category = ({
         </Suspense>
       </Layout.PageFooter>
     </Layout>
-  :
-    <DesktopClientContent
-      t={t}
-      currentLanguage={locale}
-      data={categoryForms}
-      sort={sort}
-      page={+page}
-      isCategoryPage={isCategoryPage}
-      header={header}
-      urlReqCategory={urlReqCategory}
-      types={types}
-      categories={categories}
-      compilations={compilations}
-    />
 };
 
 export const getServerSideProps = async ({ locale, ...ctx }) => {

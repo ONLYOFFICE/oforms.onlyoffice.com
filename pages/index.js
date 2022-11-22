@@ -29,12 +29,36 @@ const Footer = lazy(() => import("@components/screens/footer-content"), {
 const Index = ({ forms, page, locale, sort, types, categories, compilations }) => {
   const { t } = useTranslation("common");
 
-  const [isWebClient, setIsWebClient] = useState(true);
+  const [isDesktopClient, setIsDesktopClient] = useState(undefined);
   useEffect(() => {
-    setIsWebClient(window["AscDesktopEditor"] !== false);
+    setIsDesktopClient(window["AscDesktopEditor"] !== undefined);
   }, []);
- 
-  return isWebClient ?
+
+  return isDesktopClient ?
+    <Layout>
+      <Layout.PageHead>
+        <HeadSEO
+          title={t("titleIndexPage")}
+          metaSiteNameOg={t("metaSiteNameOg")}
+          metaDescription={t("titleIndexPage")}
+          metaDescriptionOg={t("metaDescriptionOgIndexPage")}
+          metaKeywords={t("metaKeywordsIndexPage")}
+          isDesktopClient={isDesktopClient}
+        />
+      </Layout.PageHead>
+      <DesktopClientContent
+        t={t}
+        currentLanguage={locale}
+        data={forms}
+        sort={sort}
+        page={+page}
+        types={types}
+        categories={categories}
+        compilations={compilations}
+        isDesktopClient={isDesktopClient}
+      />
+    </Layout> 
+  :
     <Layout>
       <Layout.PageHead>
         <HeadSEO
@@ -70,28 +94,6 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
           <Footer t={t} language={locale} />
         </Suspense>
       </Layout.PageFooter>
-    </Layout>
-  :
-    <Layout>
-      <Layout.PageHead>
-        <HeadSEO
-          title={t("titleIndexPage")}
-          metaSiteNameOg={t("metaSiteNameOg")}
-          metaDescription={t("titleIndexPage")}
-          metaDescriptionOg={t("metaDescriptionOgIndexPage")}
-          metaKeywords={t("metaKeywordsIndexPage")}
-        />
-      </Layout.PageHead>
-      <DesktopClientContent
-        t={t}
-        currentLanguage={locale}
-        data={forms}
-        sort={sort}
-        page={+page}
-        types={types}
-        categories={categories}
-        compilations={compilations}
-      />
     </Layout>
 };
 
