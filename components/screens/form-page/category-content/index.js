@@ -7,6 +7,8 @@ import StyledCategoryContent from "./styled-category-content";
 import CategoryItem from "./category-item";
 
 const CategoryContent = ({ t, labelName, types, categories, compilations, locale }) => {
+
+  const localeHREF = categories ? `/${locale}` : locale;
   
   return (
     <StyledCategoryContent>
@@ -29,8 +31,8 @@ const CategoryContent = ({ t, labelName, types, categories, compilations, locale
           <Box className='forms_by_branch_items'>
             {categories.data?.map((categorie) => ( 
                 <a
-                key={categorie.id}
-                href={`${locale}/form/${categorie.attributes.urlReq}`}              
+                key={categorie.id}                
+                href={`${locale === "en" ? "" : localeHREF}/form/${categorie.attributes.urlReq}`}              
                 className="item_link"
                 style={{ textDecoration: "none" }}
               >
@@ -49,7 +51,7 @@ const CategoryContent = ({ t, labelName, types, categories, compilations, locale
             {types.data?.map((type) => ( 
                 <a
                 key={type.id}
-                href={`${locale}/form/types/${type.attributes.urlReq}`}              
+                href={`${locale === "en" ? "" : localeHREF}/form/types/${type.attributes.urlReq}`}        
                 className="item_link"
                 style={{ textDecoration: "none" }}
               >
@@ -68,7 +70,7 @@ const CategoryContent = ({ t, labelName, types, categories, compilations, locale
             {compilations.data?.map((compilation) => ( 
                 <a
                 key={compilation.id}
-                href={`${locale}/form/compilations/${compilation.attributes.urlReq}`}              
+                href={`${locale === "en" ? "" : localeHREF}/form/compilations/${compilation.attributes.urlReq}`}            
                 className="item_link"
                 style={{ textDecoration: "none" }}
               >

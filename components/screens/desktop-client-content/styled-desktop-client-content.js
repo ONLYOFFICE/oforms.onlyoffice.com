@@ -7,7 +7,7 @@ const StyledDesktopClientContent = styled(Section)`
 
   .section-page {
     box-sizing: border-box;
-    max-width: 1164px;
+    max-width: 100vw;
     padding: 0 44px;
   }
 

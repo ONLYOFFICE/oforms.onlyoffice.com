@@ -61,7 +61,7 @@ const LanguageSelector = (props) => {
       <NImage
         className="flag-image"
         alt="flag"
-        src={`https://static-oforms.teamlab.info/${currentLanguage}.svg`}
+        src={`/images/flags/${currentLanguage}.svg`}
         width="18px"
         height="18px"
       />
