@@ -28,8 +28,34 @@ const StyledSelector = styled.div`
     cursor: pointer;
   }
 
+  .heading-nav-item {
+    padding: 0;
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+    display: block;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #444;
+  }
+
   .filter_selector {
     display: ${(props) => (props.isOpen ? "block" : "none")};
+    position: absolute;
+    min-width: 291px;
+    z-index: 99;
+    left: -26px;
+    top: 10px;
+    padding-top: 14px;
+    background-color: #fff;
+    border-radius: 3px;
+    padding: 24px 0;
+    box-shadow: 0px 7px 25px rgb(85 85 85 / 15%);
+  }
+
+  .filter_selector_mobile {
+    display: block;
     position: absolute;
     min-width: 291px;
     z-index: 99;
@@ -74,9 +100,9 @@ const StyledSelector = styled.div`
         background-color: #f5f5f5;
         color: #ff6f3d;
 
-        /* &:first-child {
+        &:first-child {
           background-color: #fff;
-        } */
+        } 
 
         & span{
           color: #ff6f3d;
@@ -89,14 +115,13 @@ const StyledSelector = styled.div`
 
   .filter_selector-items:hover {
     color: #ff6f3d;
-   
   }
 
   .item_selector{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 32px;       
+    padding: 15px 40px;       
   }
   .item_selector_text{
     color: #000;
@@ -106,6 +131,21 @@ const StyledSelector = styled.div`
 
   .types_list {
     display: ${(props) => (props.isOpen ? "grid" : "none")};
+    min-width: 400px;
+    grid-template-columns: 1fr 1fr;
+    gap: 0px;
+    position: absolute; 
+    z-index: 99;
+    left: 290px;
+    top: 0px;
+    padding: 15px 0;
+    background-color: #fff;
+    border-radius: 3px;    
+    box-shadow: 0px 7px 25px rgb(85 85 85 / 15%);
+  }
+
+  .types_list_mobile {
+    display: grid;
     min-width: 400px;
     grid-template-columns: 1fr 1fr;
     gap: 0px;
@@ -143,7 +183,13 @@ const StyledSelector = styled.div`
         & span{
           color: #ff6f3d;
         }        
-      }   
+      } 
+  }
+  @media (max-width: 1150px) {  
+
+    .heading-nav-item:before {
+      display: none;
+    }
   }
 `;
 
