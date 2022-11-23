@@ -25,6 +25,7 @@ const StyledDesktopClientContent = styled(Section)`
 
   .search_container {
     border-bottom: none;
+    max-width: 100vw;
   }
 
   .group-input {
