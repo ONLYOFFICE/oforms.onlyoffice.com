@@ -5,7 +5,7 @@ import CONFIG from "@config/config";
 import Search from "@components/common/search-area";
 import SearchResult from "./search-result";
 
-const SearchContent = ({ t, currentLanguage }) => {
+const SearchContent = ({ t, currentLanguage, isDesktopClient, handlerSetModal, handlerCardData }) => {
   const [focusOnSearch, setFocusOnSearch] = useState(false);
   const [searchItem, setSearchItem] = useState("");
   const [resultSearch, setResultSearch] = useState([]);
@@ -25,7 +25,7 @@ const SearchContent = ({ t, currentLanguage }) => {
 
   const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
   const searchReqData = () => {
-    const searchURL = `${CMSConfigAPI}/api/oforms?populate[0]=categories&locale=${currentLanguage}&filters[name_form][$containsi]=${searchItem}`;
+    const searchURL = `${CMSConfigAPI}/api/oforms?populate[0]=categories&locale=${currentLanguage}&filters[name_form][$containsi]=${searchItem}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`;
     const delayDebounce = setTimeout(() => {
       axios
         .get(searchURL)
@@ -61,6 +61,9 @@ const SearchContent = ({ t, currentLanguage }) => {
           resultItems={resultSearch}
           onMouseLeaveSearchResult={onCloseSearchResult}
           resultMouseLeave={focusOnSearch}
+          isDesktopClient={isDesktopClient}
+          handlerSetModal={handlerSetModal}
+          handlerCardData={handlerCardData}
         />
       )}
     </>

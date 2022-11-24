@@ -62,7 +62,6 @@ const MainContent = ({ t, currentLanguage, data, page, sort, types, categories, 
       setTypeSortData(t("NameA-Z"));
     }
   }, [sort]);
-  
 
   return (
     <StyledMainContent

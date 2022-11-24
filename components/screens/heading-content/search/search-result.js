@@ -8,14 +8,18 @@ const SearchResult = ({
   resultMouseLeave,
   resultItems,
   searchItem,
+  isDesktopClient,
+  handlerSetModal,
+  handlerCardData,
 }) => {
   const resultSearchArray =
     resultItems?.data?.length > 0 ? resultItems?.data : [];
   const lengthResultSearchArray = resultSearchArray.slice(0, 3);
+
   return (
     <>
       {resultMouseLeave && searchItem !== "" && (
-        <StyledResultSearch onMouseLeave={onMouseLeaveSearchResult}>
+        <StyledResultSearch className="result-search-wrapper" onMouseLeave={onMouseLeaveSearchResult}>
           <div className="result-search">
             {lengthResultSearchArray.length > 0 ? (
               lengthResultSearchArray.map((it, id) => {
@@ -23,7 +27,15 @@ const SearchResult = ({
                 const hrefCategory = reName(
                   it.attributes.categories.data[0].attributes.urlReq
                 );
-                return (
+                return isDesktopClient ?
+                  <div 
+                    className="item-result-search" 
+                    key={`key-item-${id}`}
+                    onClick={() => {handlerSetModal(); handlerCardData(it.attributes);}}
+                  >
+                    {it.attributes.name_form}
+                  </div>
+                :
                   <Link
                     className="item-result-search"
                     href={"/[form]"}
@@ -32,7 +44,6 @@ const SearchResult = ({
                   >
                     {it.attributes.name_form}
                   </Link>
-                );
               })
             ) : (
               <Text
