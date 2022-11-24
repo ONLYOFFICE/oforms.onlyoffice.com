@@ -54,20 +54,6 @@ const StyledSelector = styled.div`
     box-shadow: 0px 7px 25px rgb(85 85 85 / 15%);
   }
 
-  .filter_selector_mobile {
-    display: block;
-    position: absolute;
-    min-width: 291px;
-    z-index: 99;
-    left: -26px;
-    top: 10px;
-    padding-top: 14px;
-    background-color: #fff;
-    border-radius: 3px;
-    padding: 24px 0;
-    box-shadow: 0px 7px 25px rgb(85 85 85 / 15%);
-  }
-
   .filter_selector-items {
     font-size: 13px;
     cursor: pointer;
@@ -131,21 +117,6 @@ const StyledSelector = styled.div`
 
   .types_list {
     display: ${(props) => (props.isOpen ? "grid" : "none")};
-    min-width: 400px;
-    grid-template-columns: 1fr 1fr;
-    gap: 0px;
-    position: absolute; 
-    z-index: 99;
-    left: 290px;
-    top: 0px;
-    padding: 15px 0;
-    background-color: #fff;
-    border-radius: 3px;    
-    box-shadow: 0px 7px 25px rgb(85 85 85 / 15%);
-  }
-
-  .types_list_mobile {
-    display: grid;
     min-width: 400px;
     grid-template-columns: 1fr 1fr;
     gap: 0px;

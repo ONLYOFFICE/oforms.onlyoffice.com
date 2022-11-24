@@ -9,7 +9,7 @@ import { isMobile } from '../../utils/devices'
 import styled from "styled-components";
 
 const StyledSelectorMobile = styled.div`
-display: flex;
+  display: flex;
   flex-direction: row;
   justify-content: end;
   align-items: baseline;
@@ -23,11 +23,12 @@ display: flex;
     cursor: pointer;
   }
 
-  .text-sort-set {
-    color: #808080;
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
+  .filter-header-popup {
+    color: #333333;
+    font-size: 16px;
+    font-weight: 700;
+    padding-bottom: 10px;
+    margin: -7px 0px 0 16px;
   }
 
   .arrow {
@@ -116,6 +117,7 @@ display: flex;
     justify-content: space-between;
     padding: 15px 40px;       
   }
+
   .item_selector_text{
     color: #000;
     text-decoration: none;
@@ -150,20 +152,22 @@ display: flex;
       font-weight: 400;
     }
 
-      .item_arrow{
+      .item_arrow {
         background-image: url(/icons/arrow-right.react.svg);
         width: 24px;
         height: 24px;
       }
-      &:hover{
-        
+
+      &:hover {
         color: #ff6f3d;
-        & span{
+
+        & span {
           color: #ff6f3d;
         }        
       } 
-  }
-@media (max-width: 1150px) {  
+    }
+
+@media (max-width: 1180px) {  
 
   .heading-nav-item:before {
     right: 0;
@@ -347,6 +351,7 @@ const MobileSelector = ({
           value={t(typeSortData)}
         >
             <ReactSVG src="/icons/close-icon.react.svg" className="closeSelector" onClick={onCloseSelector} />
+            <Text className="filter-header-popup" label={t("Categories")} />
           <a
             className="arrow-link"
             href={`${locale === "en" ? "" : localeHREF}/`}
