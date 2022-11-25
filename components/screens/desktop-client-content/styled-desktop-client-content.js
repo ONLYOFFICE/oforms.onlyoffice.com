@@ -3,7 +3,6 @@ import Section from "@components/common/section";
 
 const StyledDesktopClientContent = styled(Section)`
   padding: 32px 0;
-  font-family: "Arial", sans-serif;
 
   .section-page {
     box-sizing: border-box;
@@ -33,10 +32,11 @@ const StyledDesktopClientContent = styled(Section)`
   }
 
   .search_input {
-    padding: 11.5px 16px;
-    font-size: 11px;
-    line-height: 13px;
+    padding: 6.5px 16px;
+    font-size: 14px;
+    line-height: 22px;
     font-weight: 400;
+    font-family: "Open Sans", sans-serif;
     color: #808080;
     height: 36px;
     background-color: transparent;
@@ -48,7 +48,7 @@ const StyledDesktopClientContent = styled(Section)`
 
     &:focus + label,
     &.has_value + label {
-      top: 0px;
+      top: -6px;
       left: 2px;
       font-size: 8px;
       color: #CCCCCC;
@@ -56,17 +56,17 @@ const StyledDesktopClientContent = styled(Section)`
   }
 
   .input-label {
+    top: 6.5px;
     width: calc(100% - 32px);
-    font-size: 11px;
-    line-height: 13px;
+    font-size: 14px;
+    line-height: 22px;
     color: #808080;
   }
 
   .presearch_title {
+    font-size: 14px;
+    line-height: 19px;
     font-weight: 700;
-    font-size: 11px;
-    line-height: 16px;
-    letter-spacing: 0.02em;
     color: #333333;
   }
 
@@ -88,13 +88,30 @@ const StyledDesktopClientContent = styled(Section)`
   .result-search-wrapper {
     top: 40px;
     z-index: 10;
+
+    .result-search {
+      max-width: calc(100% - 200px);
+    }
+  
+    .item-result-search {
+      max-width: 100%;
+    }
+  }
+
+  .language-selector {
+    width: 55px;
+    grid-template-columns: 27px 24px;
+  }
+
+  .lng-selector {
+    left: 0;
   }
 
   .box-doc-info-template {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 0;
+    padding: 24px 0 16px;
   }
 
   .box-doc-info {
@@ -104,13 +121,39 @@ const StyledDesktopClientContent = styled(Section)`
     > div {
       align-items: center;
     }
+
+    .filter_selector {
+      right: 0px;
+      top: 23px;
+      padding-top: 4px;
+      min-width: 106px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+      border-radius: 2px;
+    }
+  
+    .filter_selector-items {
+      padding: 3px 11px 2px;
+      font-size: 14px;
+      line-height: 22px;
+      color: #000000;
+      transition: background-color 0.3s;
+  
+      &:hover {
+        color: #000000;
+        background-color: #E0E0E0;
+      }
+
+      &.active {
+        background-color: #CCCCCC;
+      }
+    }
   }
 
   .box-doc-categories {
     margin-right: 32px;
     font-weight: 400;
-    font-size: 11px;
-    line-height: 16px;
+    font-size: 14px;
+    line-height: 22px;
     color: #808080;
 
     > div {
@@ -120,14 +163,37 @@ const StyledDesktopClientContent = styled(Section)`
     .filter-header {
       margin: 0;
     }
+
+    .filter_selector {
+      top: 22px;
+      left: 0;
+      box-shadow: 0px 20px 50px rgba(85, 85, 85, 0.15);
+      border-radius: 0px 0px 6px 6px;
+
+      .arrow-link {
+        &:first-child {
+          padding: 15px 32px;
+        }
+      }
+    }
+
+    .filter_selector-items-header {
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .filter_selector-items {
+      line-height: 17px;
+    }
   }
 
   .text-sort-set {
     margin: 0;
     font-weight: 400;
-    font-size: 11px;
-    line-height: 16px;
-    letter-spacing: 0.02em;
+    font-size: 14px;
+    line-height: 22px;
     color: #808080;
     text-transform: initial;
   }
@@ -141,9 +207,8 @@ const StyledDesktopClientContent = styled(Section)`
 
   .filter-header,
   .filter-title {
-    font-size: 11px;
-    line-height: 16px;
-    letter-spacing: 0.02em;
+    font-size: 14px;
+    line-height: 22px;
   }
 
   .filter-title {
@@ -151,11 +216,6 @@ const StyledDesktopClientContent = styled(Section)`
     font-weight: 700;
     color: #333333;
     cursor: pointer;
-  }
-
-  .filter_selector {
-    right: 0px;
-    top: 16px;
   }
 
   .arrow {
@@ -178,12 +238,60 @@ const StyledDesktopClientContent = styled(Section)`
     height: 4.66px;
   }
 
+  .arrow-link {
+    padding: 12px 32px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #CCCCCC;
+
+      span {
+        color: #444444;
+      }
+
+      .item_arrow {
+        background-image: url(/icons/arrow-right.react.svg);
+      }
+    }
+
+    &.active {
+      background-color: #CCCCCC;
+    }
+  }
+
+  .submenu_link {
+    padding: 11px 12px;
+    transition: background-color 0.3s;
+    
+    .filter_selector-items {
+      line-height: 26px;
+    }
+
+    &:hover {
+      background-color: #E0E0E0;
+
+      span {
+        color: #444444;
+      }
+    }
+
+    &.active {
+      background-color: #CCCCCC;
+    }
+  }
+
+  .types_list {
+    padding: 16px 32px 16px 24px;
+    column-gap: 32px;
+  }
+
   .tempalates-cards-items .cards {
     min-width: initial;
 
     .card {
       width: 100%;
-      max-width: 186px;
+      max-width: 188px;
       height: initial;
       cursor: pointer;
 
@@ -230,9 +338,8 @@ const StyledDesktopClientContent = styled(Section)`
       padding: 12px;
       text-align: center;
       font-weight: 400;
-      font-size: 11px;
-      line-height: 16px;
-      letter-spacing: 0.02em;
+      font-size: 14px;
+      line-height: 22px;
       cursor: pointer;
 
       &:hover {
