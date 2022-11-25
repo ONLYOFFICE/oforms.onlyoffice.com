@@ -45,9 +45,9 @@ const Selector = ({
         >
           <Text
             as="option"
-            className="filter_selector-items"
-            value={isDesktopClient ? t("Newest - Oldest") : t("NameA-Z")}
-            label={isDesktopClient ? t("Newest - Oldest") : t("NameA-Z")}
+            className={isDesktopClient ? `filter_selector-items ${typeSortData === t("NameA-Z") ? "active" : ""}` : "filter_selector-items"}
+            value={t("NameA-Z")}
+            label={t("NameA-Z")}
           />
         </a>
         <a
@@ -56,9 +56,9 @@ const Selector = ({
         >
           <Text
             as="option"
-            className="filter_selector-items"
-            value={isDesktopClient ? t("Oldest - Newest") : t("NameZ-A")}
-            label={isDesktopClient ? t("Oldest - Newest") : t("NameZ-A")}
+            className={isDesktopClient ? `filter_selector-items ${typeSortData === t("NameZ-A") ? "active" : ""}` : "filter_selector-items"}
+            value={t("NameZ-A")}
+            label={t("NameZ-A")}
           />
         </a>
       </Box>

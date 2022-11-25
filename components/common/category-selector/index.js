@@ -17,7 +17,8 @@ const CategorySelector = ({
   categories,
   compilations,
   isCategoryPage,
-  header
+  header,
+  isDesktopClient,
 }) => {
  
   const [isOpen, setIsOpen] = useState(false);
@@ -35,13 +36,13 @@ const CategorySelector = ({
 
   const catHREF = category ? `form/${category}/` : "";
   const localeHREF = category ? `/${locale}` : locale;
-  
+
   return (
     <StyledSelector
       isOpen={isOpen}
       onClick={onClickHandler}
       onMouseLeave={onCloseSelector}
-      onMouseEnter={onClickHandler}    >
+      onMouseEnter={onClickHandler}>
       {isCategoryPage ? (
         <>
           <Text className="filter-header" label={t("Categories") + ":"} />
@@ -70,7 +71,7 @@ const CategorySelector = ({
         <a
           onMouseEnter={() => setIsCategorieOpen(true)}
           onMouseLeave={() => setIsCategorieOpen(false)}
-          className="arrow-link"
+          className={isDesktopClient ? `arrow-link ${isCategorieOpen ? "active" : ""}` : "arrow-link"}
           style={{ textDecoration: "none" }}
         >
           <Text
@@ -90,7 +91,7 @@ const CategorySelector = ({
               <a
                 key={categorie.id}
                 href={`${locale === "en" ? "" : localeHREF}/form/${categorie.attributes.urlReq}`}              
-                className="submenu_link"
+                className={isCategoryPage ? `submenu_link ${window.location.href.includes(categorie.attributes.urlReq) ? "active" : ""}` : "submenu_link"}
                 style={{ textDecoration: "none" }}
               >
               <Text
@@ -106,7 +107,7 @@ const CategorySelector = ({
         <a
           onMouseEnter={() => setIsTypeOpen(true)}
           onMouseLeave={() => setIsTypeOpen(false)}
-          className="arrow-link"
+          className={isDesktopClient ? `arrow-link ${isTypeOpen ? "active" : ""}` : "arrow-link"}
           style={{ textDecoration: "none" }}
         >
           <Text
@@ -126,7 +127,7 @@ const CategorySelector = ({
               <a
               key={type.id}
               href={`${locale === "en" ? "" : localeHREF}/form/types/${type.attributes.urlReq}`}              
-              className="submenu_link"
+              className={isCategoryPage ? `submenu_link ${window.location.href.includes(type.attributes.urlReq) ? "active" : ""}` : "submenu_link"}
               style={{ textDecoration: "none" }}
             >
               <Text
@@ -141,9 +142,9 @@ const CategorySelector = ({
         )}
         
         <a
-         onMouseEnter={() => setIsCompilationsOpen(true)}
-         onMouseLeave={() => setIsCompilationsOpen(false)}
-          className="arrow-link"
+          onMouseEnter={() => setIsCompilationsOpen(true)}
+          onMouseLeave={() => setIsCompilationsOpen(false)}
+          className={isDesktopClient ? `arrow-link ${isCompilationsOpen ? "active" : ""}` : "arrow-link"}
           style={{ textDecoration: "none" }}
         >
           <Text
@@ -164,7 +165,7 @@ const CategorySelector = ({
               <a
               key={compilation.id}
               href={`${locale === "en" ? "" : localeHREF}/form/compilations/${compilation.attributes.urlReq}`}              
-              className="submenu_link"
+              className={isCategoryPage ? `submenu_link ${window.location.href.includes(compilation.attributes.urlReq) ? "active" : ""}` : "submenu_link"}
               style={{ textDecoration: "none" }}
             >
               <Text
