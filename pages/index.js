@@ -34,6 +34,51 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
     setIsDesktopClient(window["AscDesktopEditor"] !== undefined);
   }, []);
 
+  function Show_web(isDesktopClient) {
+    if (!isDesktopClient) {
+      return null;
+    }
+  
+    return (
+      <Layout>
+      <Layout.PageHead>
+        <HeadSEO
+          title={t("titleIndexPage")}
+          metaSiteNameOg={t("metaSiteNameOg")}
+          metaDescription={t("titleIndexPage")}
+          metaDescriptionOg={t("metaDescriptionOgIndexPage")}
+          metaKeywords={t("metaKeywordsIndexPage")}
+        />
+      </Layout.PageHead>
+      <AdventAnnounce t={t} currentLanguage={locale} />
+      <Layout.PageHeader>       
+          <HeadingContent t={t} currentLanguage={locale} />               
+      </Layout.PageHeader>
+      <Layout.SectionMain>
+        <InfoContent t={t} currentLanguage={locale} />
+        <MainContent
+          t={t}
+          currentLanguage={locale}
+          data={forms}
+          sort={sort}
+          page={+page}
+          types={types}
+          categories={categories}
+          compilations={compilations}
+        />
+        <Suspense>
+          <Accordion t={t} currentLanguage={locale} />
+        </Suspense>
+      </Layout.SectionMain>
+      <Layout.PageFooter>
+        <Suspense>          
+          <Footer t={t} language={locale} />
+        </Suspense>
+      </Layout.PageFooter>
+    </Layout>
+    );
+  }
+
   return isDesktopClient ?
     <Layout>
       <Layout.PageHead>
@@ -59,42 +104,8 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
       />
     </Layout> 
   :
-    <Layout>
-      <Layout.PageHead>
-        <HeadSEO
-          title={t("titleIndexPage")}
-          metaSiteNameOg={t("metaSiteNameOg")}
-          metaDescription={t("titleIndexPage")}
-          metaDescriptionOg={t("metaDescriptionOgIndexPage")}
-          metaKeywords={t("metaKeywordsIndexPage")}
-        />
-      </Layout.PageHead>
-      <AdventAnnounce t={t} currentLanguage={locale} />
-      <Layout.PageHeader>
-        <HeadingContent t={t} currentLanguage={locale} />
-      </Layout.PageHeader>
-      <Layout.SectionMain>
-        <InfoContent t={t} currentLanguage={locale} />
-        <MainContent
-          t={t}
-          currentLanguage={locale}
-          data={forms}
-          sort={sort}
-          page={+page}
-          types={types}
-          categories={categories}
-          compilations={compilations}
-        />
-        <Suspense>
-          <Accordion t={t} currentLanguage={locale} />
-        </Suspense>
-      </Layout.SectionMain>
-      <Layout.PageFooter>
-        <Suspense>
-          <Footer t={t} language={locale} />
-        </Suspense>
-      </Layout.PageFooter>
-    </Layout>
+  <Show_web/>
+    
 };
 
 export const getServerSideProps = async ({ locale, query }) => {
