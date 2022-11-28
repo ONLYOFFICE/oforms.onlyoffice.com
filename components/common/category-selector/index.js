@@ -68,7 +68,7 @@ const CategorySelector = ({
             label={t("View all templates")}
           />
         </a>
-        <a
+        <div
           onMouseEnter={() => setIsCategorieOpen(true)}
           onMouseLeave={() => setIsCategorieOpen(false)}
           className={isDesktopClient ? `arrow-link ${isCategorieOpen ? "active" : ""}` : "arrow-link"}
@@ -80,7 +80,7 @@ const CategorySelector = ({
           />
           <Box className="item_arrow"></Box>
           
-        </a>
+        </div>
         {isCategorieOpen && categories.data?.length > 0 && (
           <Box 
           className="types_list"
@@ -104,7 +104,7 @@ const CategorySelector = ({
             ))}
           </Box>
         )}
-        <a
+        <div
           onMouseEnter={() => setIsTypeOpen(true)}
           onMouseLeave={() => setIsTypeOpen(false)}
           className={isDesktopClient ? `arrow-link ${isTypeOpen ? "active" : ""}` : "arrow-link"}
@@ -116,7 +116,7 @@ const CategorySelector = ({
             label={t("Forms by type")}
           />
           <Box className="item_arrow"></Box>          
-        </a>
+        </div>
         {isTypeOpen && types.data?.length > 0 && (
           <Box 
           className="types_list"
@@ -141,7 +141,7 @@ const CategorySelector = ({
           </Box>
         )}
         
-        <a
+        <div
           onMouseEnter={() => setIsCompilationsOpen(true)}
           onMouseLeave={() => setIsCompilationsOpen(false)}
           className={isDesktopClient ? `arrow-link ${isCompilationsOpen ? "active" : ""}` : "arrow-link"}
@@ -154,7 +154,7 @@ const CategorySelector = ({
           />
           <Box className="item_arrow"></Box>
           
-        </a>
+        </div>
         {isCompilationsOpen && compilations.data?.length > 0 && (
           <Box 
           className="types_list"
