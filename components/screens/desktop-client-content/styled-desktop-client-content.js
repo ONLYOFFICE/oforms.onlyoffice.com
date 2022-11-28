@@ -124,7 +124,7 @@ const StyledDesktopClientContent = styled(Section)`
 
     .filter_selector {
       right: 0px;
-      top: 23px;
+      top: 20px;
       padding-top: 4px;
       min-width: 106px;
       box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
@@ -181,11 +181,12 @@ const StyledDesktopClientContent = styled(Section)`
       font-size: 13px;
       line-height: 18px;
       font-weight: 600;
-      text-transform: uppercase;
     }
 
     .filter_selector-items {
-      line-height: 17px;
+      font-size: 14px;
+      line-height: 19px;
+      text-transform: initial;
     }
   }
 
@@ -205,14 +206,13 @@ const StyledDesktopClientContent = styled(Section)`
     }
   }
 
-  .filter-header,
-  .filter-title {
+  .filter-header {
     font-size: 14px;
-    line-height: 22px;
   }
 
   .filter-title {
     padding-left: 8px;
+    line-height: 19px;
     font-weight: 700;
     color: #333333;
     cursor: pointer;
@@ -261,11 +261,18 @@ const StyledDesktopClientContent = styled(Section)`
   }
 
   .submenu_link {
-    padding: 11px 12px;
     transition: background-color 0.3s;
     
     .filter_selector-items {
-      line-height: 26px;
+      line-height: 23px;
+    }
+
+    &:nth-child(odd) {
+      padding: 8px 12px 8px 32px;
+    }
+
+    &:nth-child(even) {
+      padding: 8px 32px 8px 12px;
     }
 
     &:hover {
@@ -282,7 +289,7 @@ const StyledDesktopClientContent = styled(Section)`
   }
 
   .types_list {
-    padding: 16px 32px 16px 24px;
+    padding: 16px 0;
     column-gap: 32px;
   }
 
@@ -357,6 +364,16 @@ const StyledDesktopClientContent = styled(Section)`
     .btn-container {
       display: none;
     }
+  }
+
+  .presearch_title,
+  .filter-header,
+  .filter-title,
+  .filter_selector-items,
+  .title-overflow-templapte,
+  .box-doc-categories,
+  .text-sort-set {
+    outline: none;
   }
 `;
 

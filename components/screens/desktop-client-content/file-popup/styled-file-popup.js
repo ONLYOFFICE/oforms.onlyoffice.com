@@ -103,6 +103,7 @@ const StyledFilePopup = styled.div`
     font-size: 14px;
     line-height: 22px;
     color: #333333;
+    outline: none;
   }
 
   .file-info {
