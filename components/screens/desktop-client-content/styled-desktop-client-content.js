@@ -165,22 +165,23 @@ const StyledDesktopClientContent = styled(Section)`
     }
 
     .filter_selector {
-      top: 22px;
+      top: 21px;
       left: 0;
       box-shadow: 0px 20px 50px rgba(85, 85, 85, 0.15);
       border-radius: 0px 0px 6px 6px;
 
       .arrow-link {
         &:first-child {
-          padding: 15px 32px;
+          padding: 14.5px 32px;
         }
       }
     }
 
     .filter_selector-items-header {
-      font-size: 13px;
-      line-height: 18px;
+      font-size: 14px;
+      line-height: 19px;
       font-weight: 600;
+      letter-spacing: 0.04em;
     }
 
     .filter_selector-items {
@@ -212,7 +213,7 @@ const StyledDesktopClientContent = styled(Section)`
 
   .filter-title {
     padding-left: 8px;
-    line-height: 19px;
+    line-height: 21px;
     font-weight: 700;
     color: #333333;
     cursor: pointer;
@@ -221,21 +222,21 @@ const StyledDesktopClientContent = styled(Section)`
   .arrow {
     margin: 0;
     padding-left: 8px;
-    width: 16px;
-    height: 16px;
+    width: 22px;
+    height: 22px;
   }
 
   .arrow > div {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 16px;
-    height: 16px;
+    width: 22px;
+    height: 22px;
   }
 
   .arrow svg {
-    width: 8px;
-    height: 4.66px;
+    width: 9px;
+    height: 5.24px;
   }
 
   .arrow-link {
@@ -264,7 +265,7 @@ const StyledDesktopClientContent = styled(Section)`
     transition: background-color 0.3s;
     
     .filter_selector-items {
-      line-height: 23px;
+      line-height: 24px;
     }
 
     &:nth-child(odd) {
@@ -369,6 +370,7 @@ const StyledDesktopClientContent = styled(Section)`
   .presearch_title,
   .filter-header,
   .filter-title,
+  .filter_selector-items-header,
   .filter_selector-items,
   .title-overflow-templapte,
   .box-doc-categories,
