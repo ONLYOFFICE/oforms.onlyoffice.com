@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { lazy, Suspense } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useRouter } from "next/router";
 import getAllForms from "@lib/strapi/getForms";
 import getAllTypes from "@lib/strapi/getTypes";
 import getAllCategories from "@lib/strapi/getCategories";
@@ -29,18 +30,36 @@ const Footer = lazy(() => import("@components/screens/footer-content"), {
 const Index = ({ forms, page, locale, sort, types, categories, compilations }) => {
   const { t } = useTranslation("common");
 
-  const [isDesktopClient, setIsDesktopClient] = useState(undefined);
-  useEffect(() => {
-    setIsDesktopClient(window["AscDesktopEditor"] !== undefined);
-  }, []);
+  const query = useRouter();
+  const isDesktop = query.query.name === "desktop";
+  const [isDesktopClient, setIsDesktopClient] = useState(isDesktop);
 
-  function Show_web(isDesktopClient) {
-    if (!isDesktopClient) {
-      return null;
-    }
-  
-    return (
-      <Layout>
+  return isDesktopClient ?
+    <Layout>
+      <Layout.PageHead>
+        <HeadSEO
+          title={t("titleIndexPage")}
+          metaSiteNameOg={t("metaSiteNameOg")}
+          metaDescription={t("titleIndexPage")}
+          metaDescriptionOg={t("metaDescriptionOgIndexPage")}
+          metaKeywords={t("metaKeywordsIndexPage")}
+          isDesktopClient={isDesktopClient}
+        />
+      </Layout.PageHead>
+      <DesktopClientContent
+        t={t}
+        currentLanguage={locale}
+        data={forms}
+        sort={sort}
+        page={+page}
+        types={types}
+        categories={categories}
+        compilations={compilations}
+        isDesktopClient={isDesktopClient}
+      />
+    </Layout> 
+  :
+    <Layout>
       <Layout.PageHead>
         <HeadSEO
           title={t("titleIndexPage")}
@@ -76,36 +95,6 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
         </Suspense>
       </Layout.PageFooter>
     </Layout>
-    );
-  }
-
-  return isDesktopClient ?
-    <Layout>
-      <Layout.PageHead>
-        <HeadSEO
-          title={t("titleIndexPage")}
-          metaSiteNameOg={t("metaSiteNameOg")}
-          metaDescription={t("titleIndexPage")}
-          metaDescriptionOg={t("metaDescriptionOgIndexPage")}
-          metaKeywords={t("metaKeywordsIndexPage")}
-          isDesktopClient={isDesktopClient}
-        />
-      </Layout.PageHead>
-      <DesktopClientContent
-        t={t}
-        currentLanguage={locale}
-        data={forms}
-        sort={sort}
-        page={+page}
-        types={types}
-        categories={categories}
-        compilations={compilations}
-        isDesktopClient={isDesktopClient}
-      />
-    </Layout> 
-  :
-  <Show_web/>
-    
 };
 
 export const getServerSideProps = async ({ locale, query }) => {
