@@ -1,6 +1,7 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useRouter } from "next/router";
 import getAllTypes from "@lib/strapi/getTypes";
 import getAllCategories from "@lib/strapi/getCategories";
 import getAllCompilations from "@lib/strapi/getCompilations";
@@ -38,10 +39,8 @@ const Category = ({
   const header = dataCategoryInfo.header_description;
   
   const [isCategoryPage, setIsCategoryPage] = useState(true);
-  const [isDesktopClient, setIsDesktopClient] = useState(undefined);
-  useEffect(() => {
-    setIsDesktopClient(window["AscDesktopEditor"] !== undefined);
-  }, []);
+  const query = useRouter();
+  const [isDesktopClient, setIsDesktopClient] = useState(query.pathname === '/?name=desktop');
 
   return isDesktopClient ?
     <Layout>
