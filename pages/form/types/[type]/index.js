@@ -40,7 +40,8 @@ const Category = ({
   
   const [isCategoryPage, setIsCategoryPage] = useState(true);
   const query = useRouter();
-  const [isDesktopClient, setIsDesktopClient] = useState(query.name === "desktop");
+  const isDesktop = query.query.name === "desktop";
+  const [isDesktopClient, setIsDesktopClient] = useState(isDesktop);
 
   return isDesktopClient ?
     <Layout>
