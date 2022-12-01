@@ -31,7 +31,7 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
   const { t } = useTranslation("common");
 
   const query = useRouter();
-  const [isDesktopClient, setIsDesktopClient] = useState(query.pathname === '/?name=desktop');
+  const [isDesktopClient, setIsDesktopClient] = useState(query.name === "desktop");
 
   return isDesktopClient ?
     <Layout>
