@@ -6,7 +6,7 @@ const nextConfig = {
   i18n,
   images: {
     formats: ["image/webp"],
-    domains: ["s3.us-west-2.amazonaws.com"],
+    domains: ["static-oforms.onlyoffice.com"],
   },
   compiler: {
     styledComponents: true,
