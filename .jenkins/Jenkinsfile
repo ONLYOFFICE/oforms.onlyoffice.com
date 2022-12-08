@@ -97,9 +97,8 @@ pipeline {
             export AWS_DEFAULT_aws_region="$aws_region"
             
             echo "=== start invalidation ==="
-            aws cloudfront create-invalidation \
-              --distribution-id ${cloud_front_distribution_id} \
-              --paths "/*"
+            aws cloudfront create-invalidation --distribution-id ${cloud_front_distribution_id} --paths "/*" || \
+            aws cloudfront create-invalidation --distribution-id ${cloud_front_distribution_id} --paths "/*"
           '''
         }
       }
