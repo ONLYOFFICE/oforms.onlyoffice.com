@@ -8,6 +8,7 @@ const AdventAnnounce = ({t, currentLanguage}) => {
   return (
     <StyledAdventAnnounce>
       <div className="advent-announce advent-mobile-hide">
+
         <a href={`${hrefLang}/2022/11/meet-onlyoffice-docs-saas/`} target="_blank" rel="noreferrer noopener">
           <div className="advent-announce-text">
             {t("Meet")}<b>{t("ONLYOFFICE Docs SaaS")}</b>{t("the cloud-based version of the ONLYOFFICE online suite")} 
@@ -15,6 +16,7 @@ const AdventAnnounce = ({t, currentLanguage}) => {
         </a>
       </div>
       <div className="advent-announce advent-desktop-hide">
+
         <a href={`${hrefLang}/2022/11/meet-onlyoffice-docs-saas/`} target="_blank" rel="noreferrer noopener">
           <div className="advent-announce-text">
             &nbsp;<b>{t("Meet ONLYOFFICE Docs SaaS")}</b>&nbsp;

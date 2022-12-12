@@ -11,6 +11,7 @@ const Selector = ({
   t,
   locale,
   category,
+  isDesktopClient,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -44,7 +45,7 @@ const Selector = ({
         >
           <Text
             as="option"
-            className="filter_selector-items"
+            className={isDesktopClient ? `filter_selector-items ${typeSortData === t("NameA-Z") ? "active" : ""}` : "filter_selector-items"}
             value={t("NameA-Z")}
             label={t("NameA-Z")}
           />
@@ -55,7 +56,7 @@ const Selector = ({
         >
           <Text
             as="option"
-            className="filter_selector-items"
+            className={isDesktopClient ? `filter_selector-items ${typeSortData === t("NameZ-A") ? "active" : ""}` : "filter_selector-items"}
             value={t("NameZ-A")}
             label={t("NameZ-A")}
           />

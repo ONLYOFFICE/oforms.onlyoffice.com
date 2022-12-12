@@ -1,7 +1,10 @@
 #!/bin/bash
 sudo systemctl stop oforms
 
-rm -rf /app/oforms.onlyoffice.com
+datestamp=$(date +"%Y%m%d_%H%M%S")
+
+rm -rf /app/backup_oforms.onlyoffice.com*
+mv /app/oforms.onlyoffice.com /app/backup_oforms.onlyoffice.com_$datestamp
 mkdir -p /app/oforms.onlyoffice.com
 tar -xzf /home/ubuntu/deploy/.jenkins/oforms.tar.gz -C /app/oforms.onlyoffice.com/
 find /app/oforms.onlyoffice.com/ -type d -exec chmod 755 {} \;

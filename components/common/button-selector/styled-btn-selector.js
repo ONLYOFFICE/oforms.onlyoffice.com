@@ -12,6 +12,7 @@ const StyledBtnSelector = styled.div`
   border-radius: 3px;
   box-sizing: border-box;
   border: 1px solid #aaaaaa;
+  cursor: pointer;
   ${(props) => props.isActive && `border: 1px solid #666;`}
 
   &:hover {

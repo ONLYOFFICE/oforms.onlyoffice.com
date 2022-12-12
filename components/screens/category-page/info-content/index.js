@@ -3,7 +3,8 @@ import Text from "@components/common/text";
 import Heading from "@components/common/heading";
 import StyledInfoContent from "./styled";
 
-const InfoContent = ({ t, category }) => {
+const InfoContent = ({ t, category, header }) => {
+ 
   return (
     <StyledInfoContent>
       <Box
@@ -13,11 +14,20 @@ const InfoContent = ({ t, category }) => {
         justifyContent="center"
       >
         <Heading className="category-heading" level={1} label={category} />
-        <Text
-          className="category-description"
-          label={t("SubHeadingCategoryPage")}
-          id="forms"
-        />
+          { header ? (
+            <Text
+            className="category-description"
+            label={header}
+            id="forms"
+            />
+            ) : (
+            <Text
+            className="category-description"
+            label={t("SubHeadingCategoryPage")}
+            id="forms"
+            />
+            )            
+          }          
       </Box>
     </StyledInfoContent>
   );

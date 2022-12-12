@@ -82,13 +82,12 @@ const MainInfo = ({ t, currentLanguage, data, link }) => {
           <Link href={linkSuggestChanges} label={t("SuggestChanges")} />
         </Box>
       </div>
-      <div className="template-main-img">
-        <NImage
-          className="template-image"
+      <div className="template-main-img">        
+        <img
+          className="card-image"
           src={imgUrlCard}
-          layout="responsive"
-          width="544"
-          height="768"
+          alt={name_form}
+          style={{ width: "100%", height: "100%" }}
         />
       </div>
       <div className="template-main-description">
@@ -136,6 +135,7 @@ const MainInfo = ({ t, currentLanguage, data, link }) => {
             array={array}
             defaultVal={`${currentLanguage}` == "ja" ? `${t("DownloadAsButton")}` : `${t("DownloadAs")}`}
             className="file-download-button"
+            label={t("DownloadAs")}
           />
         </Box>
         <ShareButtonsGroup name={name_form} baseURL={baseURL} t={t} />

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import languages from "@config/languages.json";
@@ -7,17 +6,6 @@ import { StyledItem, StyledPanelView } from "./styled-language-selector";
 
 export default function LangsList({ isOpen }) {
   const router = useRouter();
-
-  useEffect(() => {
-    const layout = document.getElementById("page-layout");
-    if (isOpen) {
-      layout.style.overflow = "hidden";
-    }
-
-    if (!isOpen) {
-      layout.style.overflow = "unset";
-    }
-  });
 
   const handleClick = (e) => {
     e.preventDefault();

@@ -22,11 +22,10 @@ const InternalLink = ({
     <Link
       href={href}
       style={{ ...style, outline: "none", textDecoration: "none" }}
-      tabIndex={tabIndex}
-      as={as}
+      tabIndex={tabIndex}      
       {...rest}
     >
-      <StyledA className={linkClassName} tabIndex={tabIndex} {...rest}>
+      <StyledA className={linkClassName} tabIndex={tabIndex} as="a" {...rest}>
         {children || label}
       </StyledA>
     </Link>

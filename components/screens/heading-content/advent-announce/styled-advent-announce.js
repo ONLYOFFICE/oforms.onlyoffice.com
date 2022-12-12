@@ -10,6 +10,7 @@ const StyledAdventAnnounce = styled.div`
     height: 56px;
     overflow-x: hidden;
     text-align: center;
+
     background: linear-gradient(270deg, #FF8D5C 19.21%, #FFB979 95.78%);
     box-shadow: 0px 1px 1px rgba(140, 57, 15, 0.7);
 
@@ -27,6 +28,7 @@ const StyledAdventAnnounce = styled.div`
       justify-content: center;
       text-align: center;
       margin: 0 auto;
+
       font-size: 14px;
       font-weight: 400;
       line-height: 20px;
@@ -93,6 +95,7 @@ const StyledAdventAnnounce = styled.div`
         white-space: normal;
         width: auto !important;
         margin-left: 30px;
+
       }
     }
   }
@@ -100,7 +103,8 @@ const StyledAdventAnnounce = styled.div`
   .advent-desktop-hide {
     display: none;
 
-    @media (max-width: 1024px) {
+
+    @media (max-width: 1024px {
       display: flex;
       align-items: center;
       justify-content: center;
