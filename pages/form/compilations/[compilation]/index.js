@@ -36,9 +36,7 @@ const Category = ({
   const { seo_title, seo_description } = dataCategoryInfo;
   const nameCategory = dataCategoryInfo.compilation;
   const urlReqCategory = dataCategoryInfo.urlReq;
-  const header = dataCategoryInfo.header_description;
-
-  console.log(categoryForms);
+  const header = dataCategoryInfo.header_description; 
   
   const [isCategoryPage, setIsCategoryPage] = useState(true);
   const query = useRouter();
