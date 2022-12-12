@@ -6,6 +6,10 @@ switch(BRANCH_NAME) {
     region="info"
     cloud_front_distribution_id="E3OQ4LKWZZXBRX"
     site_url="https://oforms.teamlab.info"
+    docEditorUrl="https://doc-linux.teamlab.info"
+    cms="https://oforms.teamlab.info/dashboard"
+    appServer="https://oforms.teamlab.info/"
+    domains="static-oforms.teamlab.info"
     break
   case "production_deploy":
     aws_region="us-west-2"
@@ -13,6 +17,10 @@ switch(BRANCH_NAME) {
     MONITOR_ID = '58439000014815195'
     cloud_front_distribution_id="E18Y5OI4JS5NAJ"
     site_url="https://oforms.onlyoffice.com"
+    docEditorUrl="https://asc.docs.onlyoffice.com"
+    cms="https://oforms.onlyoffice.com/dashboard"
+    appServer="https://oforms.onlyoffice.com/"
+    domains="static-oforms.onlyoffice.com"
     break
   default:
     println("Branch: ${BRANCH_NAME} do not for deploy.")
@@ -45,9 +53,19 @@ pipeline {
       }
       environment {
         region = "${region}"
+        docEditorUrl="${docEditorUrl}"
+        cms="${cms}"
+        appServer="${appServer}"
+        domains="${domains}"
       }
       steps {
         sh '''
+        
+          sed -i "s^config_docEditorUrlg^$docEditorUrl^" config/config.json
+          sed -i "s^config_cms^$cms^" config/config.json
+          sed -i "s^config_appServer^$appServer^" config/config.json
+          sed -i "s^nextconfig_domains^$domains^" next.config.js
+            
           tar -czpf .jenkins/oforms.tar.gz \
             --exclude ".git" \
             --exclude ".gitignore" \

@@ -13,6 +13,8 @@ import InfoContent from "@components/screens/category-page/info-content";
 import MainContent from "@components/screens/category-page/main-content";
 import DesktopClientContent from "@components/screens/desktop-client-content";
 
+import config from "@config/config.json";
+
 const Accordion = lazy(() => import("@components/screens/common/accordion"), {
   loading: () => <div />,
 });
@@ -111,11 +113,12 @@ export const getServerSideProps = async ({ locale, ...ctx }) => {
   const sort = ctx.query._sort || "ASC";
   const urlReq = ctx.query.category;
   const pageSize = ctx.query.pageSize || 9;  
+  const cms = config.api.cms
   const res = await fetch(
-    `https://oforms.teamlab.info/dashboard/api/oforms/?filters[categories][urlReq][$eq]=${urlReq}&locale=${locale}&sort=name_form:${sort}&pagination[pageSize]=${pageSize}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
+    `${cms}/api/oforms/?filters[categories][urlReq][$eq]=${urlReq}&locale=${locale}&sort=name_form:${sort}&pagination[pageSize]=${pageSize}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
   );
   const resCategory = await fetch(
-    `https://oforms.teamlab.info/dashboard/api/categories/?filters[urlReq][$eq]=${urlReq}&locale=${locale}`
+    `${cms}/api/categories/?filters[urlReq][$eq]=${urlReq}&locale=${locale}`
   );
 
   const categoryForms = await res.json();
