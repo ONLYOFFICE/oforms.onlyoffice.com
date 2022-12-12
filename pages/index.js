@@ -17,6 +17,7 @@ import AdventAnnounce from "@components/screens/heading-content/advent-announce"
 
 import Text from "@components/common/text";
 
+
 const Accordion = lazy(() => import("@components/screens/common/accordion"), {
   suspense: true,
   ssr: false,
@@ -71,7 +72,7 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
       </Layout.PageHead>
       <AdventAnnounce t={t} currentLanguage={locale} />
       <Layout.PageHeader>       
-          <HeadingContent t={t} currentLanguage={locale} />               
+          <HeadingContent t={t} currentLanguage={locale} />            
       </Layout.PageHeader>
       <Layout.SectionMain>
         <InfoContent t={t} currentLanguage={locale} />

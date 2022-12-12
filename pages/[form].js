@@ -215,6 +215,7 @@ export const getServerSideProps = async ({ locale, ...context }) => {
   const form = await res.json();
   const randomCarouselItems = await fetch(
     `${cms}/api/oforms/?locale=${locale}&pagination[pageSize]=7&pagination[page]=2&populate=file_oform&populate=categories&populate=card_prewiew`
+
   );
   const randomCarousel = await randomCarouselItems.json();
   const types = await getAllTypes(locale);

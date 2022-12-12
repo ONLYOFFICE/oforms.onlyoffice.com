@@ -1,5 +1,6 @@
 {
     "defaultLanguage": "en",
+
     "docEditorUrl": "config_docEditorUrlg",
     "api": {
         "cms": "config_cms",
@@ -7,4 +8,5 @@
         "timeout": "30000"
     },
     "appServer": "config_appServer"     
+
 }

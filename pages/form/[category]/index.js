@@ -119,6 +119,7 @@ export const getServerSideProps = async ({ locale, ...ctx }) => {
   );
   const resCategory = await fetch(
     `${cms}/api/categories/?filters[urlReq][$eq]=${urlReq}&locale=${locale}`
+
   );
 
   const categoryForms = await res.json();
