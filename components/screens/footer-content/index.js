@@ -13,7 +13,7 @@ import Text from "@components/common/text";
 
 const Footer = ({ t, language }) => {
   const POSITION_ELEMENTS_ITEM = [1, 2, 3];
-  // const currentYear = useFormattedDate();
+  const currentYear = useFormattedDate();
   
   const [modalActive, setModalActive] = useState(false);
   const handlerSetModal = (active) => {
@@ -98,7 +98,7 @@ const Footer = ({ t, language }) => {
           </div>
         </FooterItem>
         <div className="footer-copyright-block">
-          {/* <span>{t("© Ascensio System SIA", {currentYear})}</span>  */}
+          <span>{t("© Ascensio System SIA", {currentYear})}</span> 
           <span>{t("All rights reserved")}</span>
         </div>
       </div>
