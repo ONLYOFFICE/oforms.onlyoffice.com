@@ -18,7 +18,7 @@ import Text from "@components/common/text";
 
 const Footer = ({ t, language }) => {
   const POSITION_ELEMENTS_ITEM = [1, 2, 3];
-  const currentYear = useFormattedDate(new Date());
+  const currentYear = useFormattedDate();
   
   const [modalActive, setModalActive] = useState(false);
   const handlerSetModal = (active) => {

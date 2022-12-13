@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
-const useFormattedDate = (date) => {
+const useFormattedDate = () => {
   const [formattedDate, setFormattedDate] = useState(null);
 
   useEffect(
-    () => setFormattedDate(new Date(date).toLocaleDateString("en-US")),
+    () => setFormattedDate(new Date().getFullYear()),
     []
   );
 
