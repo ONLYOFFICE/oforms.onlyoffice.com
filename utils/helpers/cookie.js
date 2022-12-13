@@ -1,6 +1,6 @@
 const setCookie = (cookieName, cookieValue, hourToExpire) => {
-  let date = new Date();
-  date.setTime(date.getTime() + hourToExpire * 24 * 60 * 60 * 1000);
+  // let date = new Date();
+  // date.setTime(date.getTime() + hourToExpire * 24 * 60 * 60 * 1000);
   const expires = "expires=" + date.toUTCString();
   const tmpCookie =
     cookieName + "=" + cookieValue + "; " + expires + "; path=/";
@@ -42,4 +42,4 @@ const setLngCookie = (name, value, options = null) => {
   document.cookie = updatedCookie;
 };
 
-export { getCookie, setCookie, setLngCookie };
+// export { getCookie, setCookie, setLngCookie };

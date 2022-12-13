@@ -12,7 +12,7 @@ import Layout from "@components/layout";
 import HeadSEO from "@components/screens/head-content";
 import HeadingContent from "@components/screens/heading-content";
 import MainInfo from "@components/screens/form-page/main";
-import { getCookie, setCookie } from "@utils/helpers/cookie";
+// import { getCookie, setCookie } from "@utils/helpers/cookie";
 import Heading from "@components/common/heading";
 import CategoryContent from "@components/screens/form-page/category-content";
 import config from "@config/config.json";
@@ -52,20 +52,20 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
   const maxItemsClientCardForms = 7;
   // Retrieves the string and converts it to a JavaScript object
   const localStorageTmp = form?.data;
-  const retrievedString =
-    typeof window !== "undefined" && getCookie(CAROUSEL_COOKIE) !== undefined
-      ? localStorage.getItem(localStorageCarousel)
-      : undefined;
-  retrievedString === undefined &&
-    typeof window !== "undefined" &&
-    localStorage.removeItem("arrayCaroselClientSideItemsOforms");
+  // const retrievedString =
+  //   typeof window !== "undefined" && getCookie(CAROUSEL_COOKIE) !== undefined
+  //     ? localStorage.getItem(localStorageCarousel)
+  //     : undefined;
+  // retrievedString === undefined &&
+  //   typeof window !== "undefined" &&
+  //   localStorage.removeItem("arrayCaroselClientSideItemsOforms");
   const parsedObjectLocalStorage =
     retrievedString !== undefined ? JSON.parse(retrievedString) : [];
   const [itemsClient, setItemsClient] = useState(parsedObjectLocalStorage);
   const [stateConfig, setConfig] = useState(shortCarouselSettings);
 
   const clientSideCarousel = () => {
-    setCookie(CAROUSEL_COOKIE, "oforms-items", 1);
+    // setCookie(CAROUSEL_COOKIE, "oforms-items", 1);
     // Check data in local storage
     if (retrievedString === null || !retrievedString) {
       localStorage.setItem(
