@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-// import moment from "moment";
 import useFormattedDate from "../../../hooks/useFormattedDate";
 import StyledFooter from "./styled-footer";
 import Social from "./data/social-items";
@@ -11,20 +10,19 @@ import ExternalLink from "@components/common/link";
 import IconButton from "@components/common/icon-button";
 import Text from "@components/common/text";
 
-
-
-
-
-
 const Footer = ({ t, language }) => {
   const POSITION_ELEMENTS_ITEM = [1, 2, 3];
-  const currentYear = useFormattedDate();
   
   const [modalActive, setModalActive] = useState(false);
   const handlerSetModal = (active) => {
     setModalActive(active);
   };
 
+  const [currentYear, setCurrentYear] = useState();
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, [])
 
   const onlyoffice = `https://www.onlyoffice.com${
     language === "en" ? "" : `/${language}`
