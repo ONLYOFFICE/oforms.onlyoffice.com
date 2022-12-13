@@ -11,7 +11,7 @@ import FilePopup from "./file-popup/file-popup";
 
 const DesktopClientContent = ({ t, currentLanguage, data, page, sort, types, categories, compilations, isCategoryPage, header, urlReqCategory, isDesktopClient }) => {
   const countData = data.meta?.pagination?.total;
-  const [typeSortData, setTypeSortData] = useState(t("Newest - Oldest"));
+  const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
   const [boolTypeSortData, setBoolTypeSortData] = useState(false);
   const [cardData, setCardData] = useState("");
   
@@ -30,9 +30,9 @@ const DesktopClientContent = ({ t, currentLanguage, data, page, sort, types, cat
 
   useEffect(() => {
     if (sort === "desc") {
-      setTypeSortData(t("Oldest - Newest"));
+      setTypeSortData(t("NameZ-A"));
     } else {
-      setTypeSortData(t("Newest - Oldest"));
+      setTypeSortData(t("NameA-Z"));
     }
   }, [sort]);
 
@@ -60,6 +60,7 @@ const DesktopClientContent = ({ t, currentLanguage, data, page, sort, types, cat
             categories={categories}
             compilations={compilations}
             isCategoryPage={isCategoryPage}
+            isDesktopClient={isDesktopClient}
             header={header}
           />
         </div>

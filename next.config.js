@@ -33,12 +33,12 @@ const nextConfig = {
   i18n,
   images: {
     formats: ["image/webp"],
-    domains: ["static-oforms.teamlab.info"],
+    domains: ["nextconfig_domains"],
     minimumCacheTTL: 31536000,
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'static-oforms.teamlab.info.**',
+        hostname: 'nextconfig_domains.**',
         
       },
     ] ,

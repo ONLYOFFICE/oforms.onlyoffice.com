@@ -17,7 +17,10 @@ const CategorySelector = ({
   category,
   types,
   categories,
-  compilations
+  compilations,
+  isCategoryPage,
+  header,
+  isDesktopClient,
 }) => {
  
   const [isOpen, setIsOpen] = useState(false);
@@ -35,7 +38,7 @@ const CategorySelector = ({
 
   const catHREF = category ? `form/${category}/` : "";
   const localeHREF = category ? `/${locale}` : locale;
-  
+
   return (
     <>
     {isMobile ? <MobileSelector 
@@ -54,7 +57,7 @@ const CategorySelector = ({
         onClick={onClickHandler}
         onMouseLeave={onCloseSelector}
         onMouseEnter={onClickHandler}>
-        
+
         <Text className="filter-header" label={t("Categories")} />
         <ReactSVG className="arrow" src="/icons/popup-arrow.react.svg" />
         <Box

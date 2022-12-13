@@ -30,10 +30,11 @@ const StyledFilePopup = styled.div`
   }
 
   .popup-content {
+    box-sizing: border-box;
     border: 1px solid #CBCBCB;
     border-radius: 5px;
     width: 100%;
-    max-width: 809px;
+    max-width: 889px;
     overflow: hidden;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     background-color: #ffffff;
@@ -48,7 +49,6 @@ const StyledFilePopup = styled.div`
   }
 
   .popup-title {
-    font-family: "Open Sans", sans-serif;;
     font-weight: 400;
     font-size: 18px;
     line-height: 20px;
@@ -56,11 +56,13 @@ const StyledFilePopup = styled.div`
   }
 
   .popup-body {
-    padding: 30px 28px 38px 31px;
+    padding: 30px 46px 30px 31px;
     display: flex;
   }
 
   .file-img {
+    box-sizing: border-box;
+    flex: 0 0 400px;
     margin-right: 32px;
     mix-blend-mode: normal;
     border: 1px solid #E2E2E2;
@@ -73,9 +75,8 @@ const StyledFilePopup = styled.div`
 
   .file-content {
     width: 100%;
-    font-size: 11px;
-    line-height: 16px;
-    letter-spacing: 0.02em;
+    font-size: 14px;
+    line-height: 22px;
     color: #333333;
   }
 
@@ -88,8 +89,9 @@ const StyledFilePopup = styled.div`
   .file-title {
     margin-bottom: 8px;
     font-weight: 700;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.02em;
   }
 
   .file-info-type {
@@ -98,10 +100,10 @@ const StyledFilePopup = styled.div`
   }
 
   .file-description {
-    font-size: 11px;
-    line-height: 16px;
-    letter-spacing: 0.02em;
+    font-size: 14px;
+    line-height: 22px;
     color: #333333;
+    outline: none;
   }
 
   .file-info {
@@ -120,7 +122,7 @@ const StyledFilePopup = styled.div`
   .file-info-item {
     display: flex;
     align-items: center;
-    line-height: 14px;
+    line-height: 22px;
 
     &:not(:last-child) {
       margin-right: 24px;
@@ -132,20 +134,24 @@ const StyledFilePopup = styled.div`
     color: #AAAAAA;
   }
 
+  .file-info-value {
+    font-weight: 700;
+  }
+
   .file-button {
     display: inline-block;
     box-sizing: border-box;
     text-align: center;
     border-radius: 3px;
     padding: 6.5px 12px;
-    font-family: "Open Sans";
+    font-family: "Open Sans", sans-serif;
     font-weight: 600;
     font-size: 14px;
     line-height: 22px;
     height: 36px;
     min-width: 157px;
     color: #FFFFFF;
-    background-color: #4883D4;
+    background-color: #444444;
     text-decoration: none;
     text-transform: initial;
   }
@@ -174,9 +180,7 @@ const StyledFilePopup = styled.div`
     margin-right: 4px;
     min-width: 33px;
     font-weight: 700;
-    font-size: 11px;
-    line-height: 16px;
-    letter-spacing: 0.02em;
+    line-height: 19px;
   }
 
   .file-select-icon {
@@ -195,10 +199,11 @@ const StyledFilePopup = styled.div`
     position: absolute;
     top: 100%;
     right: 0;
-    border-radius: 3px;
-    padding-top: 14px;
+    border-radius: 2px;
+    padding-top: 4px;
+    min-width: 106px;
     background-color: #ffffff;
-    box-shadow: rgb(85 85 85 / 15%) 0px 7px 25px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
     opacity: 0;
     visibility: hidden;
     tarnsition: opacity 0.3s, visibility 0.3s;
@@ -206,15 +211,16 @@ const StyledFilePopup = styled.div`
 
   .file-dropdown-item {
     display: block;
-    padding: 12px;
-    font-size: 11px;
-    line-height: 16px;
+    padding: 3px 11px 2px;
+    color: #000000;
     transition: color 0.3s, background-color 0.3s;
 
-    &.selected,
     &:hover {
-      color: #ff6f3d;
-      background-color: #f5f5f5;
+      background: #E0E0E0;
+    }
+
+    &.selected {
+      background-color: #CCCCCC;
     }
   }
 `;

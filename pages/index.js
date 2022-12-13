@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { lazy, Suspense } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useRouter } from "next/router";
 import getAllForms from "@lib/strapi/getForms";
 import getAllTypes from "@lib/strapi/getTypes";
 import getAllCategories from "@lib/strapi/getCategories";
@@ -16,6 +17,7 @@ import AdventAnnounce from "@components/screens/heading-content/advent-announce"
 
 import Text from "@components/common/text";
 
+
 const Accordion = lazy(() => import("@components/screens/common/accordion"), {
   suspense: true,
   ssr: false,
@@ -29,10 +31,9 @@ const Footer = lazy(() => import("@components/screens/footer-content"), {
 const Index = ({ forms, page, locale, sort, types, categories, compilations }) => {
   const { t } = useTranslation("common");
 
-  const [isDesktopClient, setIsDesktopClient] = useState(undefined);
-  useEffect(() => {
-    setIsDesktopClient(window["AscDesktopEditor"] !== undefined);
-  }, []);
+  const query = useRouter();
+  const isDesktop = query.query.name === "desktop";
+  const [isDesktopClient, setIsDesktopClient] = useState(isDesktop);
 
   return isDesktopClient ?
     <Layout>
@@ -70,8 +71,8 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
         />
       </Layout.PageHead>
       <AdventAnnounce t={t} currentLanguage={locale} />
-      <Layout.PageHeader>
-        <HeadingContent t={t} currentLanguage={locale} />
+      <Layout.PageHeader>       
+          <HeadingContent t={t} currentLanguage={locale} />            
       </Layout.PageHeader>
       <Layout.SectionMain>
         <InfoContent t={t} currentLanguage={locale} />
@@ -90,7 +91,7 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
         </Suspense>
       </Layout.SectionMain>
       <Layout.PageFooter>
-        <Suspense>
+        <Suspense>          
           <Footer t={t} language={locale} />
         </Suspense>
       </Layout.PageFooter>

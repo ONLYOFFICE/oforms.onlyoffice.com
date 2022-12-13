@@ -46,9 +46,9 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
           <div className="popup-body">
             <div className="file-img">
               <img
-                src={cardData.card_prewiew?.data?.attributes?.url}
+                src={cardData.template_image?.data?.attributes?.url}
                 alt={cardData.name_form}
-                style={{ width: "338px", height: "472px" }} 
+                style={{ width: "400px", height: "566px" }} 
               />
             </div>
             <div className="file-content">
@@ -67,11 +67,11 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
                 <div className="file-info-block">
                   <div className="file-info-item">
                     <div><span className="file-info-label">{t("FileSize")}:</span>{" "}</div>
-                    <div>{cardData.file_size}</div>
+                    <div className="file-info-value">{cardData.file_size}</div>
                   </div>
                   <div className="file-info-item">
                     <div><span className="file-info-label">{t("Pages")}:</span>{" "}</div>
-                    <div>{cardData.file_pages}</div>
+                    <div className="file-info-value">{cardData.file_pages}</div>
                   </div>
                 </div>
                 <div>

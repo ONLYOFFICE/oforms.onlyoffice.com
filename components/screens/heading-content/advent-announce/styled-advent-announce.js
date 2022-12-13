@@ -10,7 +10,9 @@ const StyledAdventAnnounce = styled.div`
     height: 56px;
     overflow-x: hidden;
     text-align: center;
-    background-color: #4f698e;
+
+    background: linear-gradient(270deg, #FF8D5C 19.21%, #FFB979 95.78%);
+    box-shadow: 0px 1px 1px rgba(140, 57, 15, 0.7);
 
     a {
       position: absolute;
@@ -26,12 +28,13 @@ const StyledAdventAnnounce = styled.div`
       justify-content: center;
       text-align: center;
       margin: 0 auto;
-      padding: 7px 0px 9px;
-      font-size: 15px;
+
+      font-size: 14px;
       font-weight: 400;
       line-height: 20px;
       letter-spacing: 0.01em;
-      height: 40px;
+      height: 56px;
+      line-height: 56px;
       color: #fff;
       text-decoration: none;
       z-index: 0;
@@ -39,22 +42,24 @@ const StyledAdventAnnounce = styled.div`
       &:before {
         content: "";
         position: absolute;
+        background-repeat: no-repeat;
         top: 0px;
-        left: -501px;
         display: block;
-        width: 475px;
         height: 56px;
         z-index: -1;
-        background-image: url(../images/banner-discover-docs-v7-2/banner_discover_docs_v7_2_left.svg),url(../images/banner-discover-docs-v7-2/banner-discover-docs-v7-2_7-2.svg);
-        background-position-x: 126px,right;
-        background-position-y: 12px,-12px;
-        background-repeat: no-repeat;
+        background-image: url(../images/banners/banner_meet_docs_saas_left.svg),url(../images/banners/banner_meet_docs_saas_cloud.svg);
+        background-position-x: 0,100%;
+        background-position-y: 11px,15px;
+        left: -472px;
+        width: 462px;
 
-        @media (max-width: 1150px) {
+        @media (max-width: 1024px) {
           left: -441px;
           width: 428px;
           height: 48px;
-          background-position-y: -13px;
+          background-image: url(../images/banners/banner_meet_docs_saas_left.svg),url(../images/banners/banner_meet_docs_saas_cloud.svg);
+          background-position-y: 10px;
+          background-position-x: 31px, right;
         }
       }
 
@@ -62,26 +67,26 @@ const StyledAdventAnnounce = styled.div`
         content: "";
         position: absolute;
         top: 0px;
-        right: -560px;
+        background-repeat: no-repeat;
         display: block;
-        width: 552px;
         height: 56px;
         z-index: -1;
         background-repeat: no-repeat;
-        background-image: url(../images/banner-discover-docs-v7-2/arrow_right_white.svg),url(../images/banner-discover-docs-v7-2/banner_discover_docs_v7_2_right.svg);
-        background-position-x: 15px,126px;
-        background-position-y: 21px,12px;
+        background-image: url(../images/banners/banner_meet_docs_saas_arrow.svg),url(../images/banners/banner_meet_docs_saas_right.svg);
+        background-position-y: 18px, 9px;
+        background-position-x: 0px, 72px;
+        right: -441px;
+        width: 431px;
 
-        @media (max-width: 1150px) {
-          right: -560px;
+        @media (max-width: 1024px) {
           height: 48px;
-          background-position-x: 0,60px;
-          background-position-y: 18px,8px;
+          background-image: url(../images/banners/banner_meet_docs_saas_right.svg);
+          background-position-x: 10px;
+          background-position-y: 8px;
         }
       }
 
-      @media (max-width: 1150px) {
-        background-color: transparent;
+      @media (max-width: 1024px) {
         display: inline-block;
         font-size: 12px;
         height: auto;
@@ -89,6 +94,8 @@ const StyledAdventAnnounce = styled.div`
         padding: 16px 0px;
         white-space: normal;
         width: auto !important;
+        margin-left: 30px;
+
       }
     }
   }
@@ -96,7 +103,8 @@ const StyledAdventAnnounce = styled.div`
   .advent-desktop-hide {
     display: none;
 
-    @media (max-width: 1150px) {
+
+    @media (max-width: 1024px {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -105,7 +113,7 @@ const StyledAdventAnnounce = styled.div`
   }
 
   .advent-mobile-hide {
-    @media (max-width: 1150px) {
+    @media (max-width: 1024px) {
       display: none;
     }
   }

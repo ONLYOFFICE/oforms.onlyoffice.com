@@ -1,6 +1,7 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useRouter } from "next/router";
 import getAllTypes from "@lib/strapi/getTypes";
 import getAllCategories from "@lib/strapi/getCategories";
 import getAllCompilations from "@lib/strapi/getCompilations";
@@ -11,6 +12,8 @@ import HeadingContent from "@components/screens/heading-content";
 import InfoContent from "@components/screens/category-page/info-content";
 import MainContent from "@components/screens/category-page/main-content";
 import DesktopClientContent from "@components/screens/desktop-client-content";
+
+import config from "@config/config.json";
 
 const Accordion = lazy(() => import("@components/screens/common/accordion"), {
   loading: () => <div />,
@@ -35,15 +38,12 @@ const Category = ({
   const { seo_title, seo_description } = dataCategoryInfo;
   const nameCategory = dataCategoryInfo.compilation;
   const urlReqCategory = dataCategoryInfo.urlReq;
-  const header = dataCategoryInfo.header_description;
-
-  console.log(categoryForms);
+  const header = dataCategoryInfo.header_description; 
   
   const [isCategoryPage, setIsCategoryPage] = useState(true);
-  const [isDesktopClient, setIsDesktopClient] = useState(undefined);
-  useEffect(() => {
-    setIsDesktopClient(window["AscDesktopEditor"] !== undefined);
-  }, []);
+  const query = useRouter();
+  const isDesktop = query.query.name === "desktop";
+  const [isDesktopClient, setIsDesktopClient] = useState(isDesktop);
 
   return isDesktopClient ?
     <Layout>
@@ -113,11 +113,12 @@ export const getServerSideProps = async ({ locale, ...ctx }) => {
   const sort = ctx.query._sort || "ASC";
   const urlReq = ctx.query.compilation;
   const pageSize = ctx.query.pageSize || 9;
+  const cms = config.api.cms
   const res = await fetch(
-    `https://oforms.teamlab.info/dashboard/api/oforms/?filters[compilations][urlReq][$eq]=${urlReq}&locale=${locale}&sort=name_form:${sort}&pagination[pageSize]=${pageSize}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
+    `${cms}/api/oforms/?filters[compilations][urlReq][$eq]=${urlReq}&locale=${locale}&sort=name_form:${sort}&pagination[pageSize]=${pageSize}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
   );
   const resCategory = await fetch(
-    `https://oforms.teamlab.info/dashboard/api/compilations/?filters[urlReq][$eq]=${urlReq}&locale=${locale}`
+    `${cms}/api/compilations/?filters[urlReq][$eq]=${urlReq}&locale=${locale}`
   );
   const categoryForms = await res.json();
   const categoryInfo = await resCategory.json();

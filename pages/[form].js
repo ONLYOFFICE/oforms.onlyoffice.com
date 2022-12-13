@@ -15,6 +15,7 @@ import MainInfo from "@components/screens/form-page/main";
 import { getCookie, setCookie } from "@utils/helpers/cookie";
 import Heading from "@components/common/heading";
 import CategoryContent from "@components/screens/form-page/category-content";
+import config from "@config/config.json";
 
 const CarouselContent = dynamic(
   () => import("@components/screens/form-page/carousel"),
@@ -207,12 +208,14 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
 };
 
 export const getServerSideProps = async ({ locale, ...context }) => {
+  const cms = config.api.cms
   const res = await fetch(
-    `https://oforms.teamlab.info/dashboard/api/oforms?filters[url][$eq]=${context.query.form}&locale=${locale}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`
+    `${cms}/api/oforms?filters[url][$eq]=${context.query.form}&locale=${locale}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`
   );
   const form = await res.json();
   const randomCarouselItems = await fetch(
-    `https://oforms.teamlab.info/dashboard/api/oforms/?locale=${locale}&pagination[pageSize]=7&pagination[page]=2&populate=file_oform&populate=categories&populate=card_prewiew`
+    `${cms}/api/oforms/?locale=${locale}&pagination[pageSize]=7&pagination[page]=2&populate=file_oform&populate=categories&populate=card_prewiew`
+
   );
   const randomCarousel = await randomCarouselItems.json();
   const types = await getAllTypes(locale);
