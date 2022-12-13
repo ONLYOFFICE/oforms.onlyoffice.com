@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-import moment from "moment";
+// import moment from "moment";
+import useFormattedDate from "../../../hooks/useFormattedDate";
 import StyledFooter from "./styled-footer";
 import Social from "./data/social-items";
 import Items from "./data/footer-items";
@@ -10,15 +11,20 @@ import ExternalLink from "@components/common/link";
 import IconButton from "@components/common/icon-button";
 import Text from "@components/common/text";
 
-const currentYear = moment().year();
+
+
+
+
 
 const Footer = ({ t, language }) => {
   const POSITION_ELEMENTS_ITEM = [1, 2, 3];
-
+  const currentYear = useFormattedDate(new Date());
+  
   const [modalActive, setModalActive] = useState(false);
   const handlerSetModal = (active) => {
     setModalActive(active);
   };
+
 
   const onlyoffice = `https://www.onlyoffice.com${
     language === "en" ? "" : `/${language}`
@@ -97,7 +103,7 @@ const Footer = ({ t, language }) => {
           </div>
         </FooterItem>
         <div className="footer-copyright-block">
-          <span>{t("© Ascensio System SIA", { currentYear })}</span> 
+          <span>{t("© Ascensio System SIA", {currentYear})}</span> 
           <span>{t("All rights reserved")}</span>
         </div>
       </div>
