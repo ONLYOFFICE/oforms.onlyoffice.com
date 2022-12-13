@@ -25,7 +25,7 @@ const InternalLink = ({
       tabIndex={tabIndex}
       {...rest}
     >
-      <StyledA className={linkClassName} tabIndex={tabIndex} as="a" {...rest}>
+      <StyledA className={linkClassName} tabIndex={tabIndex} href={href} as="a" {...rest}>
         {children || label}
       </StyledA>
     </Link>
