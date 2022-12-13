@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import moment from "moment";
 import StyledFooter from "./styled-footer";
 import Social from "./data/social-items";
 import Items from "./data/footer-items";
@@ -9,8 +10,7 @@ import ExternalLink from "@components/common/link";
 import IconButton from "@components/common/icon-button";
 import Text from "@components/common/text";
 
-const date = new Date();
-const currentYear = date.getFullYear();
+const currentYear = moment().year();
 
 const Footer = ({ t, language }) => {
   const POSITION_ELEMENTS_ITEM = [1, 2, 3];
