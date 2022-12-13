@@ -5,20 +5,20 @@ const CarouselSection = ({}) => {
   const maxItemsClientCardForms = 7;
   // Retrieves the string and converts it to a JavaScript object
   const localStorageTmp = MainData;
-  const retrievedString =
-    typeof window !== "undefined" && getCookie(CAROUSEL_COOKIE) !== undefined
-      ? localStorage.getItem(nameLocalStorage)
-      : undefined;
-  retrievedString === undefined &&
-    typeof window !== "undefined" &&
-    localStorage.removeItem("arrayCaroselClientSideItemsOforms");
+  // const retrievedString =
+  //   typeof window !== "undefined" && getCookie(CAROUSEL_COOKIE) !== undefined
+  //     ? localStorage.getItem(nameLocalStorage)
+  //     : undefined;
+  // retrievedString === undefined &&
+  //   typeof window !== "undefined" &&
+  //   localStorage.removeItem("arrayCaroselClientSideItemsOforms");
   const parsedObjectLocalStorage =
     retrievedString !== undefined ? JSON.parse(retrievedString) : [];
   const [itemsClient, setItemsClient] = useState(parsedObjectLocalStorage);
   const [stateConfig, setConfig] = useState(shortCarouselSettings);
 
   const clientSideCarousel = () => {
-    setCookie(CAROUSEL_COOKIE, "oforms-items", 1);
+    // setCookie(CAROUSEL_COOKIE, "oforms-items", 1);
     // Check data in local storage
     if (retrievedString === null || !retrievedString) {
       localStorage.setItem(nameLocalStorage, JSON.stringify([localStorageTmp]));
