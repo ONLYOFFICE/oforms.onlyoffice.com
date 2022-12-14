@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-// import moment from "moment";
-import useFormattedDate from "../../../hooks/useFormattedDate";
 import StyledFooter from "./styled-footer";
 import Social from "./data/social-items";
 import Items from "./data/footer-items";
@@ -11,6 +9,9 @@ import ExternalLink from "@components/common/link";
 import IconButton from "@components/common/icon-button";
 import Text from "@components/common/text";
 
+const date = new Date();
+const currentYear = date.getFullYear();
+
 const Footer = ({ t, language }) => {
   const POSITION_ELEMENTS_ITEM = [1, 2, 3];
 
@@ -18,13 +19,6 @@ const Footer = ({ t, language }) => {
   const handlerSetModal = (active) => {
     setModalActive(active);
   };
-
-  const [currentYear, setCurrentYear] = useState();
-
-  useEffect(() => {
-    const date = new Date();
-    setCurrentYear(date.getFullYear());
-  }, [])
 
   const onlyoffice = `https://www.onlyoffice.com${
     language === "en" ? "" : `/${language}`
@@ -73,7 +67,7 @@ const Footer = ({ t, language }) => {
         </div>
       ))}
       <div className="footer-item-group last">
-        {/* <FooterItem heading={t("Follow us on:")} className="follow">
+        <FooterItem heading={t("Follow us on:")} className="follow">
           <div className="footer-social-links">
             {Social.map((item) => (
               <ExternalLink
@@ -101,7 +95,7 @@ const Footer = ({ t, language }) => {
               </ExternalLink>
             ))}
           </div>
-        </FooterItem> */}
+        </FooterItem>
         <div className="footer-copyright-block">
           <span>{t("© Ascensio System SIA", {currentYear})}</span>
           <span>{t("All rights reserved")}</span>
