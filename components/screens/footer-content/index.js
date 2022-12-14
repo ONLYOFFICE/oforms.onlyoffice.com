@@ -73,7 +73,7 @@ const Footer = ({ t, language }) => {
         </div>
       ))}
       <div className="footer-item-group last">
-        <FooterItem heading={t("Follow us on:")} className="follow">
+        {/* <FooterItem heading={t("Follow us on:")} className="follow">
           <div className="footer-social-links">
             {Social.map((item) => (
               <ExternalLink
@@ -101,7 +101,7 @@ const Footer = ({ t, language }) => {
               </ExternalLink>
             ))}
           </div>
-        </FooterItem>
+        </FooterItem> */}
         <div className="footer-copyright-block">
           <span>{t("© Ascensio System SIA", {currentYear})}</span>
           <span>{t("All rights reserved")}</span>
