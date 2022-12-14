@@ -308,7 +308,7 @@ const MobileSelector = ({
 
 
   useEffect(() => {
-    console.log('isOpen: ', isOpen);
+    
   }, [isOpen])
 
   const onClickHandler = () => {

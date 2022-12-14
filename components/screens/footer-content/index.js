@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import StyledFooter from "./styled-footer";
 import Social from "./data/social-items";
@@ -67,7 +67,7 @@ const Footer = ({ t, language }) => {
         </div>
       ))}
       <div className="footer-item-group last">
-        <FooterItem heading={t("Follow us on:")} className="follow">
+        <FooterItem heading={`${t("Follow us on")}:`} className="follow">
           <div className="footer-social-links">
             {Social.map((item) => (
               <ExternalLink
