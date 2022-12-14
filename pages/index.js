@@ -17,15 +17,18 @@ import AdventAnnounce from "@components/screens/heading-content/advent-announce"
 
 import Text from "@components/common/text";
 
+import Accordion from "@components/screens/common/accordion";
+import Footer from "@components/screens/footer-content";
 
-const Accordion = lazy(() => import("@components/screens/common/accordion"), {
-  suspense: true,
-  ssr: false,
-});
-const Footer = lazy(() => import("@components/screens/footer-content"), {
-  suspense: true,
-  ssr: false,
-});
+
+// const Accordion = dynamic(() => import("@components/screens/common/accordion"), {
+//   suspense: true,
+//   ssr: false,
+// });
+// const Footer = dynamic(() => import("@components/screens/footer-content"), {
+//   suspense: true,
+//   ssr: false,
+// });
 
 
 const Index = ({ forms, page, locale, sort, types, categories, compilations }) => {
@@ -86,14 +89,14 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
           categories={categories}
           compilations={compilations}
         />
-        <Suspense>
+        {/* <Suspense> */}
           <Accordion t={t} currentLanguage={locale} />
-        </Suspense>
+        {/* </Suspense> */}
       </Layout.SectionMain>
       <Layout.PageFooter>
-        <Suspense>          
+        {/* <Suspense>           */}
           <Footer t={t} language={locale} />
-        </Suspense>
+        {/* </Suspense> */}
       </Layout.PageFooter>
     </Layout>
 };
