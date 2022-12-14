@@ -1,8 +1,77 @@
 const Items = [
   {
-    className: "bysize",
+    className: "developers",
     position: 1,
-    heading: "SOLUTIONS BY SIZE",
+    heading: "Developers",
+    link: [
+      {
+        localize: true,
+        label: "Developer Edition",
+        href: "/developer-edition.aspx",
+      },
+      {
+        localize: true,
+        label: "Document Builder",
+        href: "/document-builder.aspx",
+      },
+      {
+        localize: true,
+        label: "Groups",
+        href: "/groups.aspx",
+      },
+      {
+        localize: false,
+        label: "API",
+        href: "https://api.onlyoffice.com/",
+      },
+      {
+        localize: false,
+        label: "Code on GitHub",
+        href: "https://github.com/ONLYOFFICE/",
+      },
+    ],
+  },
+  {
+    className: "security",
+    position: 1,
+    heading: "Security",
+    link: [
+      {
+        localize: true,
+        label: "Authentication and access control",
+        href: "/security.aspx#access_control",
+      },
+      {
+        localize: true,
+        label: "Data protection",
+        href: "/security.aspx#data_protection",
+      },
+      {
+        localize: true,
+        label: "Data encryption",
+        href: "/security.aspx#data_encryption",
+      },
+      {
+        localize: true,
+        label: "Private rooms",
+        href: "/private-rooms.aspx",
+      },
+      {
+        localize: false,
+        label: "GDPR compliance",
+        href: "https://www.onlyoffice.com/blog/2018/05/how-onlyoffice-complies-with-gdpr/",
+      },
+      {
+        localize: false,
+        label: "HIPAA compliance",
+        href: "https://www.onlyoffice.com/blog/2020/10/how-onlyoffice-complies-with-hipaa/",
+      },
+    ],
+  },
+  {
+    className: "bysize",
+    position: 2,
+    heading: "By Size",
     link: [
       {
         localize: true,
@@ -23,8 +92,8 @@ const Items = [
   },
   {
     className: "byindustry",
-    position: 1,
-    heading: "SOLUTIONS BY INDUSTRY",
+    position: 2,
+    heading: "By industry",
     link: [
       {
         localize: true,
@@ -47,17 +116,17 @@ const Items = [
         href: "/healthcare.aspx",
       },
       {
-        localize: false,
+        localize: true,
         label: "Research",
         href: "/for-research.aspx",
       },
       {
-        localize: false,
+        localize: true,
         label: "Education",
         href: "/education.aspx",
       },
       {
-        localize: false,
+        localize: true,
         label: "Nonprofits",
         href: "/nonprofit-organizations.aspx",
       },
@@ -65,7 +134,7 @@ const Items = [
   },
   {
     className: "support",
-    position: 2,
+    position: 3,
     heading: "Support",
     link: [
       {
@@ -76,7 +145,7 @@ const Items = [
       {
         localize: false,
         label: "Forum",
-        href: "https://forum.onlyoffice.com/",
+        href: "https://forum.onlyoffice.com/?_ga=2.55252008.225528032.1638777037-363335557.1617705318",
       },
       {
         localize: true,
@@ -97,13 +166,13 @@ const Items = [
   },
   {
     className: "resources",
-    position: 2,
+    position: 3,
     heading: "Resources",
     link: [
       {
         localize: false,
         label: "Help Center",
-        href: "https://helpcenter.onlyoffice.com/index.aspx",
+        href: "https://helpcenter.onlyoffice.com/index.aspx?_ga=2.167303997.225528032.1638777037-363335557.1617705318",
       },
       {
         localize: true,
@@ -120,6 +189,7 @@ const Items = [
         label: "Contribute",
         href: "/contribute.aspx",
       },
+
       {
         localize: true,
         label: "Legal notice",
@@ -129,7 +199,7 @@ const Items = [
   },
   {
     className: "comparison",
-    position: 3,
+    position: 4,
     heading: "Comparison",
     link: [
       {
@@ -166,7 +236,7 @@ const Items = [
   },
   {
     className: "contacts",
-    position: 3,
+    position: 4,
     heading: "Contact us",
     link: [
       {
