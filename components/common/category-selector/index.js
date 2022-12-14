@@ -36,12 +36,17 @@ const CategorySelector = ({
     setIsOpen(false);
   };
 
+  const [isWindowDesktop, setIsWindowDesktop] = useState(false);
+
+  useEffect(() => {
+    isMobile ? setIsWindowDesktop(true) : setIsWindowDesktop(false)
+  }, []);
+
   const catHREF = category ? `form/${category}/` : "";
   const localeHREF = category ? `/${locale}` : locale;
 
-  return (
-    <>
-    {isMobile ? <MobileSelector 
+  return isWindowDesktop ?
+    <MobileSelector 
       onChangeSelectTypeSort={onChangeSelectTypeSort}
       typeSortData={typeSortData}
       t={t}
@@ -50,147 +55,143 @@ const CategorySelector = ({
       types={types}
       categories={categories}
       compilations={compilations}
-    /> :
-    
-      <StyledSelector
-        isOpen={isOpen}
-        onClick={onClickHandler}
-        onMouseLeave={onCloseSelector}
-        onMouseEnter={onClickHandler}>
+    />
+  :
+    <StyledSelector
+      isOpen={isOpen}
+      onClick={onClickHandler}
+      onMouseLeave={onCloseSelector}
+      onMouseEnter={onClickHandler}>
 
-        <Text className="filter-header" label={t("Categories")} />
-        <ReactSVG className="arrow" src="/icons/popup-arrow.react.svg" />
-        <Box
-          className="filter_selector"
-          value={t(typeSortData)}
-          onClick={onChangeSelectTypeSort}
+      <Text className="filter-header" label={t("Categories")} />
+      <ReactSVG className="arrow" src="/icons/popup-arrow.react.svg" />
+      <Box
+        className="filter_selector"
+        value={t(typeSortData)}
+        onClick={onChangeSelectTypeSort}
+      >
+        <a
+          className="arrow-link"
+          href={`${locale === "en" ? "" : localeHREF}/`}
+          style={{ textDecoration: "none" }}
         >
-          <a
-            className="arrow-link"
-            href={`${locale === "en" ? "" : localeHREF}/`}
-            style={{ textDecoration: "none" }}
-          >
-            <Text           
-              className="filter_selector-items-header"            
-              label={t("View all templates")}
-            />
-          </a>
+          <Text           
+            className="filter_selector-items-header"            
+            label={t("View all templates")}
+          />
+        </a>
 
-          <a
-            onMouseEnter={() => setIsCategorieOpen(true)}
-            onMouseLeave={() => setIsCategorieOpen(false)}
-            className="arrow-link"
-            style={{ textDecoration: "none" }}
-          >
-          <MenuItem 
-              heading={t("Forms by branch")} 
-              className="filter_selector-items" 
-              id="navitem_features"></MenuItem>
-            <Box className="item_arrow"></Box>
-            
-          </a>
-          {isCategorieOpen && categories.data?.length > 0 && (
-            <Box 
-            className="types_list"
-            onMouseEnter={() => setIsCategorieOpen(true)}
-            onMouseLeave={() => setIsCategorieOpen(false)}
-            >
-              {categories.data?.map((categorie) => ( 
-                <a
-                  key={categorie.id}
-                  href={`${locale === "en" ? "" : localeHREF}/form/${categorie.attributes.urlReq}`}              
-                  className="submenu_link"
-                  style={{ textDecoration: "none" }}
-                >
-                <Text
-                  className="filter_selector-items"            
-                  label={categorie.attributes.categorie}
-                />                   
-              </a>
-              
-              ))}
-            </Box>
-          )}
+        <a
+          onMouseEnter={() => setIsCategorieOpen(true)}
+          onMouseLeave={() => setIsCategorieOpen(false)}
+          className="arrow-link"
+          style={{ textDecoration: "none" }}
+        >
+        <MenuItem 
+            heading={t("Forms by branch")} 
+            className="filter_selector-items" 
+            id="navitem_features"></MenuItem>
+          <Box className="item_arrow"></Box>
           
-          <a
-            onMouseEnter={() => setIsTypeOpen(true)}
-            onMouseLeave={() => setIsTypeOpen(false)}
-            className="arrow-link"
-            style={{ textDecoration: "none" }}
+        </a>
+        {isCategorieOpen && categories.data?.length > 0 && (
+          <Box 
+          className="types_list"
+          onMouseEnter={() => setIsCategorieOpen(true)}
+          onMouseLeave={() => setIsCategorieOpen(false)}
           >
+            {categories.data?.map((categorie) => ( 
+              <a
+                key={categorie.id}
+                href={`${locale === "en" ? "" : localeHREF}/form/${categorie.attributes.urlReq}`}              
+                className="submenu_link"
+                style={{ textDecoration: "none" }}
+              >
+              <Text
+                className="filter_selector-items"            
+                label={categorie.attributes.categorie}
+              />                   
+            </a>
+            
+            ))}
+          </Box>
+        )}
+        
+        <a
+          onMouseEnter={() => setIsTypeOpen(true)}
+          onMouseLeave={() => setIsTypeOpen(false)}
+          className="arrow-link"
+          style={{ textDecoration: "none" }}
+        >
+          <MenuItem 
+            heading={t("Forms by type")} 
+            className="filter_selector-items" 
+            id="navitem_features">
+          </MenuItem>
+          <Box className="item_arrow"></Box>          
+        </a>
+        {isTypeOpen && types.data?.length > 0 && (
+          <Box 
+          className="types_list"
+          onMouseEnter={() => setIsTypeOpen(true)}
+          onMouseLeave={() => setIsTypeOpen(false)}
+          >
+            {types.data?.map((type) => ( 
+              <a
+              key={type.id}
+              href={`${locale === "en" ? "" : localeHREF}/form/types/${type.attributes.urlReq}`}              
+              className="submenu_link"
+              style={{ textDecoration: "none" }}
+            >
+            <Text
+              label={type.attributes.type}
+              className="filter_selector-items" >
+            </Text>                   
+            </a>
+            
+            ))}
+          </Box>
+        )}
+        
+        <a
+        onMouseEnter={() => setIsCompilationsOpen(true)}
+        onMouseLeave={() => setIsCompilationsOpen(false)}
+          className="arrow-link"
+          style={{ textDecoration: "none" }}
+        >
             <MenuItem 
-              heading={t("Forms by type")} 
+              heading={t("Popular Compilations")} 
               className="filter_selector-items" 
               id="navitem_features">
-            </MenuItem>
-            <Box className="item_arrow"></Box>          
-          </a>
-          {isTypeOpen && types.data?.length > 0 && (
-            <Box 
-            className="types_list"
-            onMouseEnter={() => setIsTypeOpen(true)}
-            onMouseLeave={() => setIsTypeOpen(false)}
-            >
-              {types.data?.map((type) => ( 
-                <a
-                key={type.id}
-                href={`${locale === "en" ? "" : localeHREF}/form/types/${type.attributes.urlReq}`}              
-                className="submenu_link"
-                style={{ textDecoration: "none" }}
-              >
-              <Text
-                label={type.attributes.type}
-                className="filter_selector-items" >
-              </Text>                   
-              </a>
-              
-              ))}
-            </Box>
-          )}
+            </MenuItem>  
+          <Box className="item_arrow"></Box>
           
-          <a
+        </a>
+        {isCompilationsOpen && compilations.data?.length > 0 && (
+          <Box 
+          className="types_list"
           onMouseEnter={() => setIsCompilationsOpen(true)}
           onMouseLeave={() => setIsCompilationsOpen(false)}
-            className="arrow-link"
-            style={{ textDecoration: "none" }}
           >
-              <MenuItem 
-                heading={t("Popular Compilations")} 
-                className="filter_selector-items" 
-                id="navitem_features">
-              </MenuItem>  
-            <Box className="item_arrow"></Box>
-            
-          </a>
-          {isCompilationsOpen && compilations.data?.length > 0 && (
-            <Box 
-            className="types_list"
-            onMouseEnter={() => setIsCompilationsOpen(true)}
-            onMouseLeave={() => setIsCompilationsOpen(false)}
+            {compilations.data?.map((compilation) => ( 
+              <a
+              key={compilation.id}
+              href={`${locale === "en" ? "" : localeHREF}/form/compilations/${compilation.attributes.urlReq}`}              
+              className="submenu_link"
+              style={{ textDecoration: "none" }}
             >
-              {compilations.data?.map((compilation) => ( 
-                <a
-                key={compilation.id}
-                href={`${locale === "en" ? "" : localeHREF}/form/compilations/${compilation.attributes.urlReq}`}              
-                className="submenu_link"
-                style={{ textDecoration: "none" }}
-              >
-              <Text
-                label={compilation.attributes.compilation} 
-                className="filter_selector-items" >
-              </Text>             
-              </a>
-              
-              ))}
-            </Box>
-          )}
-        </Box>
-      
-      </StyledSelector>
-      }
-     </>
-  );
- 
+            <Text
+              label={compilation.attributes.compilation} 
+              className="filter_selector-items" >
+            </Text>             
+            </a>
+            
+            ))}
+          </Box>
+        )}
+      </Box>
+    
+    </StyledSelector>
 };
 
 

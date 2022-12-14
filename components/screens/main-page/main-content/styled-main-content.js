@@ -7,6 +7,10 @@ const StyledMainContent = styled(Section)`
     line-height: 133%;
   }
 
+  #mob-box-doc-categories {
+    cursor: initial;
+  }
+
   .tempalates-buttons-items {
     margin-top: 32px;
   }
