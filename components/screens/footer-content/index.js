@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import StyledFooter from "./styled-footer";
 import Social from "./data/social-items";
@@ -13,7 +13,7 @@ const date = new Date();
 const currentYear = date.getFullYear();
 
 const Footer = ({ t, language }) => {
-  const POSITION_ELEMENTS_ITEM = [1, 2, 3, 4];
+  const POSITION_ELEMENTS_ITEM = [1, 2, 3];
 
   const [modalActive, setModalActive] = useState(false);
   const handlerSetModal = (active) => {
@@ -97,10 +97,8 @@ const Footer = ({ t, language }) => {
           </div>
         </FooterItem>
         <div className="footer-copyright-block">
-          <Text
-            className="footer-copyright"
-            label={t("FooterCopyright", { currentYear })}
-          />
+          <span>{t("© Ascensio System SIA", {currentYear})}</span>
+          <span>{t("All rights reserved")}</span>
         </div>
       </div>
       <MailPopup t={t} active={modalActive} setActive={setModalActive} />
