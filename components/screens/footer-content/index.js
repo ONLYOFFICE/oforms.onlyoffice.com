@@ -78,7 +78,6 @@ const Footer = ({ t, language }) => {
                 alt={item.title}
                 target="_blank"
                 key={item.title}
-                as={item.title === "OnlyOffice" ? "div" : "a"}
                 onClick={
                   item.title === "OnlyOffice"
                     ? () => handlerSetModal(true)
