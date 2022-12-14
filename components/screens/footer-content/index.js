@@ -13,7 +13,7 @@ const date = new Date();
 const currentYear = date.getFullYear();
 
 const Footer = ({ t, language }) => {
-  const POSITION_ELEMENTS_ITEM = [1, 2, 3];
+  const POSITION_ELEMENTS_ITEM = [1, 2, 3, 4];
 
   const [modalActive, setModalActive] = useState(false);
   const handlerSetModal = (active) => {
@@ -67,7 +67,7 @@ const Footer = ({ t, language }) => {
         </div>
       ))}
       <div className="footer-item-group last">
-        <FooterItem heading={t("Follow us on:")} className="follow">
+        <FooterItem heading={t("Follow us")} className="follow">
           <div className="footer-social-links">
             {Social.map((item) => (
               <ExternalLink
@@ -78,6 +78,7 @@ const Footer = ({ t, language }) => {
                 alt={item.title}
                 target="_blank"
                 key={item.title}
+                as={item.title === "OnlyOffice" ? "div" : "a"}
                 onClick={
                   item.title === "OnlyOffice"
                     ? () => handlerSetModal(true)
@@ -96,8 +97,10 @@ const Footer = ({ t, language }) => {
           </div>
         </FooterItem>
         <div className="footer-copyright-block">
-          <span>{t("© Ascensio System SIA", {currentYear})}</span>
-          <span>{t("All rights reserved")}</span>
+          <Text
+            className="footer-copyright"
+            label={t("FooterCopyright", { currentYear })}
+          />
         </div>
       </div>
       <MailPopup t={t} active={modalActive} setActive={setModalActive} />
