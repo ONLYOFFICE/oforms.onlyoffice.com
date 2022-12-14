@@ -86,9 +86,9 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
           categories={categories}
           compilations={compilations}
         />
-        {/* <Suspense>
+        <Suspense>
           <Accordion t={t} currentLanguage={locale} />
-        </Suspense> */}
+        </Suspense>
       </Layout.SectionMain>
       <Layout.PageFooter>
         {/* <Suspense>          
