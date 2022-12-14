@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // import moment from "moment";
 import useFormattedDate from "../../../hooks/useFormattedDate";
@@ -13,20 +13,25 @@ import Text from "@components/common/text";
 
 const Footer = ({ t, language }) => {
   const POSITION_ELEMENTS_ITEM = [1, 2, 3];
-  const currentYear = useFormattedDate();
-  
+
   const [modalActive, setModalActive] = useState(false);
   const handlerSetModal = (active) => {
     setModalActive(active);
   };
 
+  const [currentYear, setCurrentYear] = useState();
+
+  useEffect(() => {
+    const date = new Date();
+    setCurrentYear(date.getFullYear());
+  }, [])
 
   const onlyoffice = `https://www.onlyoffice.com${
     language === "en" ? "" : `/${language}`
   }`;
   return (
     <StyledFooter language={language}>
-      {POSITION_ELEMENTS_ITEM.map((elements_in_div, id) => (
+      {/* {POSITION_ELEMENTS_ITEM.map((elements_in_div, id) => (
         <div className="footer-item-group" key={id}>
           {Items.map((it, idx) => {
             return elements_in_div === it.position ? (
@@ -66,9 +71,9 @@ const Footer = ({ t, language }) => {
             ) : null;
           })}
         </div>
-      ))}
+      ))} */}
       <div className="footer-item-group last">
-        <FooterItem heading={t("Follow us on:")} className="follow">
+        {/* <FooterItem heading={t("Follow us on:")} className="follow">
           <div className="footer-social-links">
             {Social.map((item) => (
               <ExternalLink
@@ -96,13 +101,13 @@ const Footer = ({ t, language }) => {
               </ExternalLink>
             ))}
           </div>
-        </FooterItem>
+        </FooterItem> */}
         <div className="footer-copyright-block">
-          <span>{t("© Ascensio System SIA", {currentYear})}</span> 
+          <span>{t("© Ascensio System SIA", {currentYear})}</span>
           <span>{t("All rights reserved")}</span>
         </div>
       </div>
-      <MailPopup t={t} active={modalActive} setActive={setModalActive} />
+      {/* <MailPopup t={t} active={modalActive} setActive={setModalActive} /> */}
     </StyledFooter>
   );
 };
