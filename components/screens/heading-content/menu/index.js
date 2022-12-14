@@ -5,6 +5,7 @@ import InternalLink from "@components/common/internal-link";
 import LanguageSelector from "@components/common/language-selector";
 import Nav from "./nav/nav";
 import StyledMenu from "./styled-menu";
+import { ReactSVG } from "react-svg";
 
 const Menu = ({ t, currentLanguage, template }) => {
   const [windowCheck, setWindowCheck] = useState("undefined");
@@ -62,7 +63,7 @@ const Menu = ({ t, currentLanguage, template }) => {
         {/*eslint-enable*/}
       </InternalLink>
       {/*eslint-disable*/}
-      <img
+      <ReactSVG
         src="/icons/mob_menu.svg"
         className="nav-items-mobile"
         onClick={toggleMobile}

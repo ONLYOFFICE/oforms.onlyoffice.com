@@ -91,7 +91,7 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
         </Suspense>
       </Layout.SectionMain>
       <Layout.PageFooter>
-        <Suspense>          
+        <Suspense>
           <Footer t={t} language={locale} />
         </Suspense>
       </Layout.PageFooter>

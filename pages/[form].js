@@ -196,7 +196,7 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
         </Suspense>
         <Suspense>
           <Accordion t={t} currentLanguage={locale} />
-        </Suspense>        
+        </Suspense>
       </Layout.SectionMain>
       <Layout.PageFooter>
         <Suspense>

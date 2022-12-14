@@ -97,7 +97,7 @@ const Footer = ({ t, language }) => {
           </div>
         </FooterItem>
         <div className="footer-copyright-block">
-          <span>{t("© Ascensio System SIA", { currentYear })}</span> 
+          <span>{t("© Ascensio System SIA", {currentYear})}</span>
           <span>{t("All rights reserved")}</span>
         </div>
       </div>
