@@ -15,15 +15,12 @@ import DesktopClientContent from "@components/screens/desktop-client-content";
 
 import config from "@config/config.json";
 
-import Accordion from "@components/screens/common/accordion";
-import Footer from "@components/screens/footer-content";
-
-// const Accordion = lazy(() => import("@components/screens/common/accordion"), {
-//   loading: () => <div />,
-// });
-// const Footer = lazy(() => import("@components/screens/footer-content"), {
-//   loading: () => <div />,
-// });
+const Accordion = lazy(() => import("@components/screens/common/accordion"), {
+  loading: () => <div />,
+});
+const Footer = lazy(() => import("@components/screens/footer-content"), {
+  loading: () => <div />,
+});
 
 const Category = ({
   categoryForms,
@@ -99,14 +96,14 @@ const Category = ({
           category={nameCategory}
           urlReqCategory={urlReqCategory}
         />
-        {/* <Suspense> */}
+        <Suspense>
           <Accordion t={t} currentLanguage={locale} />
-        {/* </Suspense> */}
+        </Suspense>
       </Layout.SectionMain>
       <Layout.PageFooter>
-        {/* <Suspense> */}
+        <Suspense>
           <Footer t={t} language={locale} />
-        {/* </Suspense> */}
+        </Suspense>
       </Layout.PageFooter>
     </Layout>
 };

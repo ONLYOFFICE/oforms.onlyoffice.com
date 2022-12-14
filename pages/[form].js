@@ -17,31 +17,25 @@ import Heading from "@components/common/heading";
 import CategoryContent from "@components/screens/form-page/category-content";
 import config from "@config/config.json";
 
-import CarouselContent from "@components/screens/form-page/carousel";
-import FormBanner from "@components/screens/form-page/form-banner";
-import Banner from "@components/screens/common/banner";
-import Accordion from "@components/screens/common/accordion";
-import Footer from "@components/screens/footer-content";
-
-// const CarouselContent = dynamic(
-//   () => import("@components/screens/form-page/carousel"),
-//   { ssr: false }
-// );
-// const FormBanner = lazy(
-//   () => import("@components/screens/form-page/form-banner"),
-//   {
-//     loading: () => <div />,
-//   }
-// );
-// const Banner = lazy(() => import("@components/screens/common/banner"), {
-//   loading: () => <div />,
-// });
-// const Accordion = lazy(() => import("@components/screens/common/accordion"), {
-//   loading: () => <div />,
-// });
-// const Footer = lazy(() => import("@components/screens/footer-content"), {
-//   loading: () => <div />,
-// });
+const CarouselContent = dynamic(
+  () => import("@components/screens/form-page/carousel"),
+  { ssr: false }
+);
+const FormBanner = lazy(
+  () => import("@components/screens/form-page/form-banner"),
+  {
+    loading: () => <div />,
+  }
+);
+const Banner = lazy(() => import("@components/screens/common/banner"), {
+  loading: () => <div />,
+});
+const Accordion = lazy(() => import("@components/screens/common/accordion"), {
+  loading: () => <div />,
+});
+const Footer = lazy(() => import("@components/screens/footer-content"), {
+  loading: () => <div />,
+});
 
 const Form = ({ form, locale, randomCarousel, types, categories,  compilations }) => {
   const { t } = useTranslation("common");
@@ -170,9 +164,9 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
           t={t}
           link={linkOformEditor}
         />
-        {/* <Suspense> */}
+        <Suspense>
           <FormBanner t={t} labelName={name_form} link={linkOformEditor} />
-        {/* </Suspense> */}
+        </Suspense>
         <CarouselContent
           padding="112px 0 62px"
           tabletPadding="80px 0 30px"
@@ -197,17 +191,17 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
 
         <CategoryContent t={t} types={types} locale={locale} categories={categories} compilations={compilations}/>        
         
-        {/* <Suspense> */}
+        <Suspense>
           <Banner t={t} currentLanguage={locale} />
-        {/* </Suspense> */}
-        {/* <Suspense> */}
+        </Suspense>
+        <Suspense>
           <Accordion t={t} currentLanguage={locale} />
-        {/* </Suspense> */}
+        </Suspense>
       </Layout.SectionMain>
       <Layout.PageFooter>
-        {/* <Suspense> */}
+        <Suspense>
           <Footer t={t} language={locale} />
-        {/* </Suspense> */}
+        </Suspense>
       </Layout.PageFooter>
     </Layout>
   );
