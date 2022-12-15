@@ -109,7 +109,9 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
   };
 
   useEffect(() => {
-    clientSideCarousel();
+    if (typeof window !== "undefined") {
+      clientSideCarousel();
+    }
   }, []);
 
   const headingRentForms = (
