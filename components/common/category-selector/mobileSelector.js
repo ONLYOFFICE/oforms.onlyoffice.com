@@ -193,6 +193,8 @@ const StyledSelectorMobile = styled.div`
   }
 
   .mobile-heading-nav-item {
+    position: relative;
+    z-index: 2;
     font-size: 16px;
     font-weight: 600;
     letter-spacing: 0.04em;
@@ -231,11 +233,15 @@ const StyledSelectorMobile = styled.div`
   }
 
   .types_list_mobile {
+    box-sizing: border-box;
+    padding-top: 60px;
     left: 0;
-    top: 60px;
+    top: 0;
+    width: 100%;
     box-shadow: none;
     max-height: 100vh;
-    overflow: scroll;
+    overflow-y: auto;
+    z-index: 1;
   }
 
   .submenu_link span {
