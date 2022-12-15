@@ -36,16 +36,16 @@ const CategorySelector = ({
     setIsOpen(false);
   };
 
-  const [isWindowDesktop, setIsWindowDesktop] = useState(false);
+  const [isWindowMobile, setIsWindowMobile] = useState(false);
 
   useEffect(() => {
-    isMobile ? setIsWindowDesktop(true) : setIsWindowDesktop(false)
+    isMobile ? setIsWindowMobile(true) : setIsWindowMobile(false)
   }, []);
 
   const catHREF = category ? `form/${category}/` : "";
   const localeHREF = category ? `/${locale}` : locale;
 
-  return isWindowDesktop ?
+  return isWindowMobile ?
     <MobileSelector 
       onChangeSelectTypeSort={onChangeSelectTypeSort}
       typeSortData={typeSortData}
