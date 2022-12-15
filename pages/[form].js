@@ -64,55 +64,53 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
   const [itemsClient, setItemsClient] = useState(parsedObjectLocalStorage);
   const [stateConfig, setConfig] = useState(shortCarouselSettings);
 
-  // const clientSideCarousel = () => {
-  //   setCookie(CAROUSEL_COOKIE, "oforms-items", 1);
-  //   // Check data in local storage
-  //   if (retrievedString === null || !retrievedString) {
-  //     localStorage.setItem(
-  //       localStorageCarousel,
-  //       JSON.stringify([...localStorageTmp])
-  //     );
-  //   } else {
-  //     // Retrieves the string and converts it to a JavaScript object
-  //     const parsedObjectLocalStorage = JSON.parse(retrievedString);
+  const clientSideCarousel = () => {
+    setCookie(CAROUSEL_COOKIE, "oforms-items", 1);
+    // Check data in local storage
+    if (retrievedString === null || !retrievedString) {
+      localStorage.setItem(
+        localStorageCarousel,
+        JSON.stringify([...localStorageTmp])
+      );
+    } else {
+      // Retrieves the string and converts it to a JavaScript object
+      const parsedObjectLocalStorage = JSON.parse(retrievedString);
 
-  //     let tmpLocalStorage;
+      let tmpLocalStorage;
 
-  //     if (maxItemsClientCardForms >= parsedObjectLocalStorage.length) {
-  //       // Modifies the object, converts it to a string and replaces the existing `data items` in LocalStorage
-  //       tmpLocalStorage = [...parsedObjectLocalStorage, ...localStorageTmp];
-  //       const modifiedStrigifiedForStorage = JSON.stringify(tmpLocalStorage);
-  //       localStorage.setItem(
-  //         localStorageCarousel,
-  //         modifiedStrigifiedForStorage
-  //       );
-  //     } else {
-  //       // Modifies the object, converts it to a string and replaces the existing `data items` in LocalStorage
-  //       parsedObjectLocalStorage.shift();
-  //       tmpLocalStorage = [...parsedObjectLocalStorage, ...localStorageTmp];
-  //       const modifiedStrigifiedForStorage = JSON.stringify(tmpLocalStorage);
-  //       localStorage.setItem(
-  //         localStorageCarousel,
-  //         modifiedStrigifiedForStorage
-  //       );
-  //     }
-  //     setItemsClient(parsedObjectLocalStorage);
-  //     if (parsedObjectLocalStorage.length <= 6) {
-  //       setConfig({
-  //         ...shortCarouselSettings,
-  //         infinite: false,
-  //         slidesToScroll: 6,
-  //         slidesToShow: 6,
-  //       });
-  //     }
-  //   }
-  // };
+      if (maxItemsClientCardForms >= parsedObjectLocalStorage.length) {
+        // Modifies the object, converts it to a string and replaces the existing `data items` in LocalStorage
+        tmpLocalStorage = [...parsedObjectLocalStorage, ...localStorageTmp];
+        const modifiedStrigifiedForStorage = JSON.stringify(tmpLocalStorage);
+        localStorage.setItem(
+          localStorageCarousel,
+          modifiedStrigifiedForStorage
+        );
+      } else {
+        // Modifies the object, converts it to a string and replaces the existing `data items` in LocalStorage
+        parsedObjectLocalStorage.shift();
+        tmpLocalStorage = [...parsedObjectLocalStorage, ...localStorageTmp];
+        const modifiedStrigifiedForStorage = JSON.stringify(tmpLocalStorage);
+        localStorage.setItem(
+          localStorageCarousel,
+          modifiedStrigifiedForStorage
+        );
+      }
+      setItemsClient(parsedObjectLocalStorage);
+      if (parsedObjectLocalStorage.length <= 6) {
+        setConfig({
+          ...shortCarouselSettings,
+          infinite: false,
+          slidesToScroll: 6,
+          slidesToShow: 6,
+        });
+      }
+    }
+  };
 
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     clientSideCarousel();
-  //   }
-  // }, []);
+  useEffect(() => {
+    clientSideCarousel();
+  }, []);
 
   const headingRentForms = (
     <Heading level={3} fontSize="24px">
