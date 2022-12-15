@@ -158,7 +158,7 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
         <HeadingContent template currentLanguage={locale} t={t} />
       </Layout.PageHeader>
       <Layout.SectionMain>
-        {/* <MainInfo
+        <MainInfo
           data={data}
           currentLanguage={locale}
           t={t}
@@ -166,8 +166,8 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
         />
         <Suspense>
           <FormBanner t={t} labelName={name_form} link={linkOformEditor} />
-        </Suspense> */}
-        {/* <CarouselContent
+        </Suspense>
+        <CarouselContent
           padding="112px 0 62px"
           tabletPadding="80px 0 30px"
           mobileLPadding="48px 0 0"
@@ -187,22 +187,22 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
           config={stateConfig}
           currentLanguage={locale}
           t={t}
-        /> */}
+        />
 
-        {/* <CategoryContent t={t} types={types} locale={locale} categories={categories} compilations={compilations}/>         */}
-1        
+        <CategoryContent t={t} types={types} locale={locale} categories={categories} compilations={compilations}/>        
+        
         {/* <Suspense>
           <Banner t={t} currentLanguage={locale} />
-        </Suspense>
+        </Suspense> */}
         <Suspense>
           <Accordion t={t} currentLanguage={locale} />
-        </Suspense> */}
+        </Suspense>
       </Layout.SectionMain>
-      {/* <Layout.PageFooter>
+      <Layout.PageFooter>
         <Suspense>
           <Footer t={t} language={locale} />
         </Suspense>
-      </Layout.PageFooter> */}
+      </Layout.PageFooter>
     </Layout>
   );
 };
