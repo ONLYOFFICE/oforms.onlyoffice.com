@@ -24,17 +24,21 @@ const CarouselContent = dynamic(
 const FormBanner = lazy(
   () => import("@components/screens/form-page/form-banner"),
   {
-    loading: () => <div />,
+    suspense: true,
+    ssr: false,
   }
 );
 const Banner = lazy(() => import("@components/screens/common/banner"), {
-  loading: () => <div />,
+  suspense: true,
+  ssr: false,
 });
 const Accordion = lazy(() => import("@components/screens/common/accordion"), {
-  loading: () => <div />,
+  suspense: true,
+  ssr: false,
 });
 const Footer = lazy(() => import("@components/screens/footer-content"), {
-  loading: () => <div />,
+  suspense: true,
+  ssr: false,
 });
 
 const Form = ({ form, locale, randomCarousel, types, categories,  compilations }) => {
@@ -191,9 +195,9 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
 
         <CategoryContent t={t} types={types} locale={locale} categories={categories} compilations={compilations}/>        
         
-        {/* <Suspense>
+        <Suspense>
           <Banner t={t} currentLanguage={locale} />
-        </Suspense> */}
+        </Suspense>
         <Suspense>
           <Accordion t={t} currentLanguage={locale} />
         </Suspense>
