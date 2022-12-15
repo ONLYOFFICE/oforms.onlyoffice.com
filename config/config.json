@@ -1,12 +1,10 @@
 {
     "defaultLanguage": "en",
-
-    "docEditorUrl": "config_docEditorUrlg",
+    "docEditorUrl": "https://doc-linux.teamlab.info/",
     "api": {
-        "cms": "config_cms",
+        "cms": "https://oforms.teamlab.info/dashboard",
         "url": "",
         "timeout": "30000"
     },
-    "appServer": "config_appServer"     
-
+    "appServer": "https://oforms.teamlab.info/"
 }
