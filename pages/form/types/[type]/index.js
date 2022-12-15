@@ -94,7 +94,10 @@ const Category = ({
           sort={sort}
           page={+page}
           category={nameCategory}
-          urlReqCategory={urlReqCategory}
+          urlReqCategory= {`types/${urlReqCategory}`}
+          types={types}
+          categories={categories}
+          compilations={compilations}
         />
         <Suspense>
           <Accordion t={t} currentLanguage={locale} />
