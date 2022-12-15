@@ -130,13 +130,13 @@ const MainInfo = ({ t, currentLanguage, data, link }) => {
           <Link target="_blank" style={{ width: "100%" }} href={link}>
             <Button isScale label={t("OpenAndFill")} />
           </Link>
-          <ButtonSelector
+          {/* <ButtonSelector
             isScale
             array={array}
             defaultVal={`${currentLanguage}` == "ja" ? `${t("DownloadAsButton")}` : `${t("DownloadAs")}`}
             className="file-download-button"
             label={t("DownloadAs")}
-          />
+          /> */}
         </Box>
         <ShareButtonsGroup name={name_form} baseURL={baseURL} t={t} />
       </div>
