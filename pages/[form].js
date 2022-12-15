@@ -189,19 +189,19 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
           t={t}
         />
 
-        {/* <CategoryContent t={t} types={types} locale={locale} categories={categories} compilations={compilations}/>         */}
+        <CategoryContent t={t} types={types} locale={locale} categories={categories} compilations={compilations}/>        
         
-        <Suspense>
+        {/* <Suspense>
           <Banner t={t} currentLanguage={locale} />
         </Suspense>
         <Suspense>
           <Accordion t={t} currentLanguage={locale} />
-        </Suspense>
+        </Suspense> */}
       </Layout.SectionMain>
       <Layout.PageFooter>
-        <Suspense>
+        {/* <Suspense>
           <Footer t={t} language={locale} />
-        </Suspense>
+        </Suspense> */}
       </Layout.PageFooter>
     </Layout>
   );
