@@ -189,7 +189,7 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
           t={t}
         />
 
-        <CategoryContent t={t} types={types} locale={locale} categories={categories} compilations={compilations}/>        
+        {/* <CategoryContent t={t} types={types} locale={locale} categories={categories} compilations={compilations}/>         */}
         
         <Suspense>
           <Banner t={t} currentLanguage={locale} />
