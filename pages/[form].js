@@ -157,7 +157,7 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
       <Layout.PageHeader>
         <HeadingContent template currentLanguage={locale} t={t} />
       </Layout.PageHeader>
-      <Layout.SectionMain>
+      {/* <Layout.SectionMain>
         <MainInfo
           data={data}
           currentLanguage={locale}
@@ -202,7 +202,7 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
         <Suspense>
           <Footer t={t} language={locale} />
         </Suspense>
-      </Layout.PageFooter>
+      </Layout.PageFooter> */}
     </Layout>
   );
 };
