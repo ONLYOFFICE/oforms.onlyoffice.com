@@ -133,7 +133,7 @@ const StyledSelectorMobile = styled.div`
     z-index: 99;
     left: 290px;
     top: 0px;
-    padding: 15px 0;
+    padding: 75px 0 15px;
     background-color: #fff;
     border-radius: 0px;    
     box-shadow: 0px 7px 25px rgb(85 85 85 / 15%);
@@ -234,10 +234,10 @@ const StyledSelectorMobile = styled.div`
 
   .types_list_mobile {
     box-sizing: border-box;
-    padding-top: 60px;
     left: 0;
     top: 0;
     width: 100%;
+    height: 100%;
     box-shadow: none;
     max-height: 100vh;
     overflow-y: auto;
