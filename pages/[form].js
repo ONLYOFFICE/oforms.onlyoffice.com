@@ -158,12 +158,12 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
         <HeadingContent template currentLanguage={locale} t={t} />
       </Layout.PageHeader>
       <Layout.SectionMain>
-        <MainInfo
+        {/* <MainInfo
           data={data}
           currentLanguage={locale}
           t={t}
           link={linkOformEditor}
-        />
+        /> */}
         <Suspense>
           <FormBanner t={t} labelName={name_form} link={linkOformEditor} />
         </Suspense>
@@ -191,17 +191,17 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
 
         <CategoryContent t={t} types={types} locale={locale} categories={categories} compilations={compilations}/>        
         
-        {/* <Suspense>
+        <Suspense>
           <Banner t={t} currentLanguage={locale} />
         </Suspense>
         <Suspense>
           <Accordion t={t} currentLanguage={locale} />
-        </Suspense> */}
+        </Suspense>
       </Layout.SectionMain>
       <Layout.PageFooter>
-        {/* <Suspense>
+        <Suspense>
           <Footer t={t} language={locale} />
-        </Suspense> */}
+        </Suspense>
       </Layout.PageFooter>
     </Layout>
   );
