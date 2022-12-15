@@ -313,10 +313,12 @@ const MobileSelector = ({
 
   const onClickHandler = () => {
     setIsOpen(true);
+    document.body.style.overflow = "hidden";
   };
 
   const onCloseSelector = (e) => {
     setIsOpen(false);
+    document.body.style.overflow = "";
     if (isCategorieOpen) setIsCategorieOpen(false)
     if (isTypeOpen) setIsTypeOpen(false)
     if (isCompilationsOpen) setIsCompilationsOpen(false);

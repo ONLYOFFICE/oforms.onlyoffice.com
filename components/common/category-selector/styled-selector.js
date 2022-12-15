@@ -46,12 +46,22 @@ const StyledSelector = styled.div`
     min-width: 291px;
     z-index: 99;
     left: -26px;
-    top: 10px;
+    top: calc(100% + 18px);
     padding-top: 14px;
     background-color: #fff;
     border-radius: 3px;
     padding: 24px 0;
     box-shadow: 0px 7px 25px rgb(85 85 85 / 15%);
+
+    &:before {
+      content "";
+      position: absolute;
+      width: 100%;
+      height 18px;
+      top: -18px;
+      left: 0;
+      background-color: transparent;
+    }
   }
 
   .filter_selector-items {
