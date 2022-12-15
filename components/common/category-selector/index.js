@@ -45,8 +45,6 @@ const CategorySelector = ({
   const catHREF = category ? `form/${category}/` : "";
   const localeHREF = category ? `/${locale}` : locale;
 
-  console.log(categories.data);
-
   return isWindowMobile ?
     <MobileSelector 
       onChangeSelectTypeSort={onChangeSelectTypeSort}
