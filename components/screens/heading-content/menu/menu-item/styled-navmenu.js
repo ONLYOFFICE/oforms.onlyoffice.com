@@ -763,9 +763,7 @@ const StyledMenuItemsWrapper = styled.div`
 
   @media (max-width: 1150px) {
     padding: 0;
-    background-color: #fff;
     max-height: calc(100% - 54px);
-    height: 100vh;
     margin: 0;
     position: absolute;
     left: ${(props) => (props.isOpen ? "0" : "-120vw")};

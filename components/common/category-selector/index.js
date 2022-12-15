@@ -103,7 +103,7 @@ const CategorySelector = ({
             {categories.data?.map((categorie) => ( 
               <a
                 key={categorie.id}
-                href={`${locale === "en" ? "" : localeHREF}/form/${categorie.attributes.urlReq}`}              
+                href={`${locale === "en" ? "" : `/${localeHREF}`}/form/${categorie.attributes.urlReq}`}              
                 className="submenu_link"
                 style={{ textDecoration: "none" }}
               >
@@ -139,7 +139,7 @@ const CategorySelector = ({
             {types.data?.map((type) => ( 
               <a
               key={type.id}
-              href={`${locale === "en" ? "" : localeHREF}/form/types/${type.attributes.urlReq}`}              
+              href={`${locale === "en" ? "" : `/${localeHREF}`}/form/types/${type.attributes.urlReq}`}              
               className="submenu_link"
               style={{ textDecoration: "none" }}
             >
@@ -176,7 +176,7 @@ const CategorySelector = ({
             {compilations.data?.map((compilation) => ( 
               <a
               key={compilation.id}
-              href={`${locale === "en" ? "" : localeHREF}/form/compilations/${compilation.attributes.urlReq}`}              
+              href={`${locale === "en" ? "" : `/${localeHREF}`}/form/compilations/${compilation.attributes.urlReq}`}              
               className="submenu_link"
               style={{ textDecoration: "none" }}
             >
