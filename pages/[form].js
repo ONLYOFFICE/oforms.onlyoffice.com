@@ -164,7 +164,7 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
           t={t}
           link={linkOformEditor}
         />
-        {/* <Suspense>
+        <Suspense>
           <FormBanner t={t} labelName={name_form} link={linkOformEditor} />
         </Suspense>
         <CarouselContent
@@ -187,7 +187,7 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
           config={stateConfig}
           currentLanguage={locale}
           t={t}
-        /> */}
+        />
 
         <CategoryContent t={t} types={types} locale={locale} categories={categories} compilations={compilations}/>        
         
