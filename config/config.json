@@ -3,7 +3,7 @@
 
     "docEditorUrl": "config_docEditorUrlg",
     "api": {
-        "cms": "https://oforms.onlyoffice.com/dashboard",
+        "cms": "config_cms",
         "url": "",
         "timeout": "30000"
     },
