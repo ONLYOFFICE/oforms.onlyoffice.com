@@ -17,10 +17,10 @@ import Heading from "@components/common/heading";
 import CategoryContent from "@components/screens/form-page/category-content";
 import config from "@config/config.json";
 
-// const CarouselContent = dynamic(
-//   () => import("@components/screens/form-page/carousel"),
-//   { ssr: false }
-// );
+const CarouselContent = dynamic(
+  () => import("@components/screens/form-page/carousel"),
+  { ssr: false }
+);
 const FormBanner = lazy(
   () => import("@components/screens/form-page/form-banner"),
   {
@@ -158,7 +158,7 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
         <HeadingContent template currentLanguage={locale} t={t} />
       </Layout.PageHeader>
       <Layout.SectionMain>
-        <MainInfo
+        {/* <MainInfo
           data={data}
           currentLanguage={locale}
           t={t}
@@ -166,7 +166,7 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
         />
         <Suspense>
           <FormBanner t={t} labelName={name_form} link={linkOformEditor} />
-        </Suspense>
+        </Suspense> */}
         {/* <CarouselContent
           padding="112px 0 62px"
           tabletPadding="80px 0 30px"
@@ -198,11 +198,11 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
           <Accordion t={t} currentLanguage={locale} />
         </Suspense>
       </Layout.SectionMain>
-      <Layout.PageFooter>
+      {/* <Layout.PageFooter>
         <Suspense>
           <Footer t={t} language={locale} />
         </Suspense>
-      </Layout.PageFooter>
+      </Layout.PageFooter> */}
     </Layout>
   );
 };
