@@ -121,7 +121,7 @@ function IconButton({
       title={title}
       {...rest}
     >
-      <ReactSVG
+      <img
         className={classNameSVG}
         src={state.currentIconName}
         fallback={defaultIcon ? onError : null}

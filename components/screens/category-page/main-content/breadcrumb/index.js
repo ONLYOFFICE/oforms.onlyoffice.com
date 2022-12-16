@@ -29,7 +29,7 @@ border-bottom: 1px solid #e5e5e5;
       top: 7px;
       width: 4px;
       height: 6px;
-      background-image: url(/icons/line.svg);
+      background-image: url('https://static-oforms.teamlab.info/icons/line.svg');
       background-repeat: no-repeat;
       background-size: cover;
     }

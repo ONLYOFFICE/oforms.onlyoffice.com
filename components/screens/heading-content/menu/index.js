@@ -44,8 +44,8 @@ const Menu = ({ t, currentLanguage, template }) => {
 
   const curLang = currentLanguage === "en" ? "/" : `/${currentLanguage}/`;
   const logo = template
-    ? "/images/logo/logo-black.react.svg"
-    : "/images/logo/logo-white.react.svg";
+    ? "https://static-oforms.teamlab.info/images/logo/logo-black.react.svg"
+    : "https://static-oforms.teamlab.info/images/logo/logo-white.react.svg";
 
   return (
     <StyledMenu
@@ -63,8 +63,8 @@ const Menu = ({ t, currentLanguage, template }) => {
         {/*eslint-enable*/}
       </InternalLink>
       {/*eslint-disable*/}
-      <ReactSVG
-        src="/icons/mob_menu.svg"
+      <img
+        src="https://static-oforms.teamlab.info/icons/mob_menu.svg"
         className="nav-items-mobile"
         onClick={toggleMobile}
       />
