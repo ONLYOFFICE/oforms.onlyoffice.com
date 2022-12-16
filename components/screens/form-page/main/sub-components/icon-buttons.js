@@ -22,6 +22,10 @@ const StyledShareButton = styled(IconButton)`
   .share-text {
     margin-right: 7px;
   }
+  img {
+    width: 20px;
+    margin: auto;
+  }
 `;
 
 const ShareButtonsGroup = ({ t, name, baseURL }) => {

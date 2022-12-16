@@ -104,7 +104,7 @@ const Social = [
     title: "TikTok",
     target: "_blank",
     rel: "",
-    src: "https://static-oforms.teamlab.info/images/social-icons/tiktok.react.svg",
+    src: "/images/social-icons/tiktok.react.svg",
     size: "24px",
     filter: true,
   },

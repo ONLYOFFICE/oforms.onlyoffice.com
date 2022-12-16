@@ -63,7 +63,7 @@ const Menu = ({ t, currentLanguage, template }) => {
         {/*eslint-enable*/}
       </InternalLink>
       {/*eslint-disable*/}
-      <ReactSVG
+      <img
         src="https://static-oforms.teamlab.info/icons/mob_menu.svg"
         className="nav-items-mobile"
         onClick={toggleMobile}

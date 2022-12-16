@@ -47,7 +47,7 @@ const StyledAdventAnnounce = styled.div`
         display: block;
         height: 56px;
         z-index: -1;
-        background-image: url('https://static-oforms.teamlab.info/images/banners/banner_meet_docs_saas_left.svg'),url('https://static-oforms.teamlab.info/images/banners/banner_meet_docs_saas_cloud.svg');
+        background-image: url(../images/banners/banner_meet_docs_saas_left.svg),url(../images/banners/banner_meet_docs_saas_cloud.svg);
         background-position-x: 0,100%;
         background-position-y: 11px,15px;
         left: -472px;
@@ -57,7 +57,7 @@ const StyledAdventAnnounce = styled.div`
           left: -441px;
           width: 428px;
           height: 48px;
-          background-image: url('https://static-oforms.teamlab.info/images/banners/banner_meet_docs_saas_left.svg'),url(https://static-oforms.teamlab.info/images/banners/banner_meet_docs_saas_cloud.svg);
+          background-image: url(../images/banners/banner_meet_docs_saas_left.svg),url(../images/banners/banner_meet_docs_saas_cloud.svg);
           background-position-y: 10px;
           background-position-x: 31px, right;
         }
@@ -72,7 +72,7 @@ const StyledAdventAnnounce = styled.div`
         height: 56px;
         z-index: -1;
         background-repeat: no-repeat;
-        background-image: url('https://static-oforms.teamlab.info/images/banners/banner_meet_docs_saas_arrow.svg'),url('https://static-oforms.teamlab.info/images/banners/banner_meet_docs_saas_right.svg');
+        background-image: url(../images/banners/banner_meet_docs_saas_arrow.svg),url(../images/banners/banner_meet_docs_saas_right.svg);
         background-position-y: 18px, 9px;
         background-position-x: 0px, 72px;
         right: -441px;
@@ -80,7 +80,7 @@ const StyledAdventAnnounce = styled.div`
 
         @media (max-width: 1024px) {
           height: 48px;
-          background-image: url('https://static-oforms.teamlab.info/images/banners/banner_meet_docs_saas_right.svg');
+          background-image: url(../images/banners/banner_meet_docs_saas_right.svg);
           background-position-x: 10px;
           background-position-y: 8px;
         }

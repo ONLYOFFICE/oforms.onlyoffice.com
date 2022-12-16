@@ -29,7 +29,7 @@ const Pagination = ({
               }`
         }
       >
-        <ReactSVG
+        <img
           className={`arrow ${page === 1 && "disabled"}`}
           src="https://static-oforms.teamlab.info/icons/arrow-left.svg"
           wrapper="svg"
@@ -54,7 +54,7 @@ const Pagination = ({
               }`
         }
       >
-        <ReactSVG
+        <img
           className={`arrow ${page === countPage && "disabled"}`}
           src="https://static-oforms.teamlab.info/icons/arrow-right.svg"
           wrapper="svg"

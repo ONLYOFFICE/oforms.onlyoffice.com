@@ -12,11 +12,11 @@ const Pagination = ({ currentPage, goToPreviousPage, getPaginationGroup, changeP
         className="previous-page"
         onClick={(e) => goToPreviousPage(e)}
       >
-        <ReactSVG
+        <img
           className="arrow"
           src="https://static-oforms.teamlab.info/icons/arrow-left.svg"
           wrapper="svg"
-        ></ReactSVG>
+        ></img>
       </Link>
       {getPaginationGroup().map((item, index) => (
         <PageNumber
@@ -31,11 +31,11 @@ const Pagination = ({ currentPage, goToPreviousPage, getPaginationGroup, changeP
         className="next-page"
         onClick={(e) => goToNextPage(e)}
       >
-        <ReactSVG
+        <img
           className="arrow"
           src="https://static-oforms.teamlab.info/icons/arrow-right.svg"
           wrapper="svg"
-        ></ReactSVG>
+        ></img>
       </Link>
     </StyledPagination>
   );

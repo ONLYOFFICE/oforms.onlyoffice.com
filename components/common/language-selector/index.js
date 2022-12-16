@@ -58,10 +58,10 @@ const LanguageSelector = (props) => {
       onClick={onClickHandler}
       className="language-selector"
     >
-      <NImage
+      <img
         className="flag-image"
         alt="flag"
-        src={`/images/flags/${currentLanguage}.svg`}
+        src={`https://static-oforms.teamlab.info/images/flags/${currentLanguage}.svg`}
         width="18px"
         height="18px"
       />

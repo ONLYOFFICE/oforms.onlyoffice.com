@@ -352,13 +352,13 @@ const MobileSelector = ({
       onClick={onClickHandler}
     >
         <Text className="filter-header" label={t("Categories")} />
-        <ReactSVG className="arrow" src="https://static-oforms.teamlab.info/icons/popup-arrow.svg" />
+        <img className="arrow" src="https://static-oforms.teamlab.info/icons/popup-arrow.svg" />
         {isOpen && 
         <Box
           className="filter_selector_mobile"
           value={t(typeSortData)}
         >
-            <ReactSVG src="https://static-oforms.teamlab.info/icons/close-icon.svg" className="closeSelector" onClick={onCloseSelector} />
+            <img src="https://static-oforms.teamlab.info/icons/close-icon.svg" className="closeSelector" onClick={onCloseSelector} />
             <Text className="filter-header-popup" label={t("Categories")} />
           <a
             className="arrow-link"
