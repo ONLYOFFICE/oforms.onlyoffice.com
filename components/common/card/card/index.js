@@ -23,6 +23,7 @@ const Card = ({ t, callback, arrayItems, currentLanguage, handlerSetModal, handl
     return checkFormatFile ? it?.attributes?.url : null;
   });
   let urlOform = oformFile[0]?.attributes?.url;
+  console.log(urlOform);
 
   const pathName =
     currentLanguage === "en"
@@ -35,7 +36,7 @@ const Card = ({ t, callback, arrayItems, currentLanguage, handlerSetModal, handl
       : currentLanguage;
 
   const fillForm = `${oformFile[0]?.attributes?.hash}.oform`;
-  const linkOformEditor = `${localeLinkEditor}/editor/?filename=${url}&fillform=${fillForm}`;
+  const linkOformEditor = `/${localeLinkEditor}/editor/?filename=${url}&fillform=${fillForm}`;
 
   return (
     <StyledCard {...rest} onClick={isDesktopClient ? () => {handlerSetModal(); handlerCardData(attributes);} : undefined}>
