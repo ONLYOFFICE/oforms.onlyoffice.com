@@ -32,7 +32,7 @@ const ButtonSelector = ({
         <span className="indicatorSeparator" />
         <ReactSVG
           className={classNameIndicator}
-          src="/icons/chevron-down.react.svg"
+          src="https://static-oforms.teamlab.info/icons/chevron-down.react.svg"
           height="24px"
           width="24px"
         />

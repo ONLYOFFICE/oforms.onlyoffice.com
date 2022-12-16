@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import phone from "@public/icons/phone-white.svg";
 
 const StyledMenuTablet = css`
   grid-template-columns: auto 152px auto;
@@ -118,7 +117,7 @@ const StyledMenu = styled.div`
       @media (max-width: 1450px) {
         font-size: 0;
         &:before {
-          background-image: url(${phone.src});
+          background-image: url('https://static-oforms.teamlab.info/icons/phone-white.svg');
           background-repeat: no-repeat;
           background-position: 50% 50%;
           background-size: 24px 24px;

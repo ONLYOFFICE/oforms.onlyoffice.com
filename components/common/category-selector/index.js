@@ -64,7 +64,7 @@ const CategorySelector = ({
       onMouseEnter={onClickHandler}>
 
       <Text className="filter-header" label={t("Categories")} />
-      <ReactSVG className="arrow" src="/icons/popup-arrow.react.svg" />
+      <ReactSVG className="arrow" src="https://static-oforms.teamlab.info/icons/popup-arrow.react.svg" />
       <Box
         className="filter_selector"
         value={t(typeSortData)}

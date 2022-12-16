@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import closeBtnIcon from "@public/icons/close-icon.react.svg";
 
 const StyledFilePopup = styled.div`
   position: fixed;
@@ -230,7 +229,7 @@ const CloseButton = styled.div`
   width: 19px;
   height: 19px;
   cursor: pointer;
-  background-image: url(${closeBtnIcon.src});
+  background-image: url('https://static-oforms.teamlab.info/icons/close-icon.react.svg');
   background-repeat: no-repeat;
   background-position: center center;
 `;

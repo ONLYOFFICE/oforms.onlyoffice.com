@@ -29,7 +29,7 @@ const FooterItem = ({ dis, children, className, heading }) => {
       {/*eslint-disable*/}
       <img
         className={footerImageArrow}
-        src="/icons/chevron-down.react.svg"
+        src="https://static-oforms.teamlab.info/icons/chevron-down.react.svg"
         height="24px"
         width="24px"
       />
