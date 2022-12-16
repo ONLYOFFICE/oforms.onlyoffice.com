@@ -83,9 +83,9 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
                         onClick={openTypeDropdown}
                       >
                         <div className="file-select-title">{fileTypeData}</div>
-                        <ReactSVG
+                        <img
                           className="file-select-icon"
-                          src="/icons/chevron-down.react.svg"
+                          src="https://static-oforms.teamlab.info/icons/chevron-down.svg"
                           height="16px"
                           width="16px"
                         />

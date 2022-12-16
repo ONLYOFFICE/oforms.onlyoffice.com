@@ -19,7 +19,7 @@ export default function LangsList({ isOpen }) {
           <Link href={"/"} locale={language.shortKey} onClick={handleClick}>
             <a className="language-item-link">
               <img
-                src={`/images/flags/${language.iconName}`}
+                src={`https://static-oforms.teamlab.info/images/flags/${language.iconName}`}
                 alt={language.key}
                 width="18px"
                 className="language-item-image"

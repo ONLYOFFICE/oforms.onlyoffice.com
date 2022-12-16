@@ -252,7 +252,7 @@ const StyledDesktopClientContent = styled(Section)`
       }
 
       .item_arrow {
-        background-image: url(/icons/arrow-right.react.svg);
+        background-image: url('https://static-oforms.teamlab.info/icons/arrow-right.svg');
       }
     }
 

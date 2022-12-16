@@ -1,16 +1,4 @@
 import styled from "styled-components";
-import menu_icons from "@public/images/menu-pics/menu_icons.svg";
-import menu_oforms from "@public/images/menu-pics/menu_oforms.svg";
-import menu_reseller from "@public/images/menu-pics/menu_reseller.svg";
-import menu_latest_events from "@public/images/menu-pics/menu_events.png";
-import menu_see_it_in_act from "@public/images/menu-pics/menu_see_it_in_act.png";
-import menu_code_git from "@public/images/menu-pics/menu_code_git.png";
-import menu_hosting from "@public/images/menu-pics/menu_hosting.png";
-import menu_latest_news from "@public/images/menu-pics/blog_moodle_plugin.jpg";
-import menu_for_developers from "@public/images/menu-pics/menu_for_developers.png";
-import menu_compare from "@public/images/menu-pics/menu_compare_edition.svg";
-import arrow_gray from "@public/icons/arrow-gray.svg";
-import menu_education from "@public/images/menu-pics/menu_education.svg";
 
 const StyledNavMenu = styled.div`
   .dropdown-item {
@@ -33,7 +21,7 @@ const StyledNavMenu = styled.div`
       position: absolute;
       left: 32px;
       top: 0px;
-      background-image: url(${menu_icons.src});
+      background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_icons.svg');
       background-repeat: no-repeat;
     }
 
@@ -553,43 +541,43 @@ const StyledNavMenu = styled.div`
   }
 
   #compare_img {
-    background-image: url(${menu_compare.src});
+    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_compare_edition.svg');
   }
 
   #for_developers_img {
-    background-image: url(${menu_for_developers.src});
+    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_for_developers.png');
   }
 
   #oforms_img {
-    background-image: url(${menu_oforms.src});
+    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_oforms.svg');
   }
 
   #see_it_img {
-    background-image: url(${menu_see_it_in_act.src});
+    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_see_it_in_act.png');
   }
 
   #git_code_img {
-    background-image: url(${menu_code_git.src});
+    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_code_git.png');
   }
 
   #hosting_img {
-    background-image: url(${menu_hosting.src});
+    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_hosting.png');
   }
 
   #reseller_img {
-    background-image: url(${menu_reseller.src});
+    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_reseller.svg');
   }
 
   #latest_events_img {
-    background-image: url(${menu_latest_events.src});
+    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_events.png');
   }
 
   #latest_news_img {
-    background-image: url(${menu_latest_news.src});
+    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/blog_moodle_plugin.jpg');
   }
 
   #education_img {
-    background-image: url(${menu_education.src});
+    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_education.svg');
   }
 
   @media (min-width: 1150px) {
@@ -688,7 +676,7 @@ const StyledNavMenu = styled.div`
         content: "";
         width: 10px;
         height: 10px;
-        background-image: url(${arrow_gray.src});
+        background-image: url('https://static-oforms.teamlab.info/icons/arrow-gray.svg');
         background-position: 50% 50%;
         background-repeat: no-repeat;
         background-size: auto 100%;

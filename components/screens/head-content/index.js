@@ -45,13 +45,13 @@ const HeadSEO = ({
         <meta id="ctl00_MetaKeywords" name="keywords" content={metaKeywords} />
         <meta name="description" content={metaDescription} />
 
-        <link rel="apple-touch-icon" href="/images/logo/ONLYOFFICE-logo.png" />
+        <link rel="apple-touch-icon" href="https://static-oforms.teamlab.info/images/logo/ONLYOFFICE-logo.png" />
 
         <meta name="google" content="notranslate" />
 
         <link
           rel="icon"
-          href={isDesktopClient ? "/images/logo/favicon_desktop.png" : "/images/logo/favicon_general.png"}
+          href={isDesktopClient ? "https://static-oforms.teamlab.info/images/logo/favicon_desktop.png" : "https://static-oforms.teamlab.info/images/logo/favicon_general.png"}
           type="image/x-icon"
         />
 

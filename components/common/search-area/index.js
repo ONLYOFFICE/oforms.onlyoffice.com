@@ -9,7 +9,7 @@ const SearchArea = ({ clearValueSearch, valueSearch, callback, t }) => {
   /*eslint-disable*/
   const imgSearch = !valueSearch ? (
     <img className="search_img"
-      src={"/icons/search-icon.react.svg"}
+      src="https://static-oforms.teamlab.info/icons/search-icon.svg"
       style={{ cursor: "default" }}
       alt="search"
       width="24px"
@@ -17,7 +17,7 @@ const SearchArea = ({ clearValueSearch, valueSearch, callback, t }) => {
     />
   ) : (
     <img
-      src={"/icons/close-icon.react.svg"}
+      src="https://static-oforms.teamlab.info/icons/close-icon.svg"
       onClick={clearValueSearch}
       alt="close"
       width="24px"
