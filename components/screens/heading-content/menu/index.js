@@ -44,8 +44,8 @@ const Menu = ({ t, currentLanguage, template }) => {
 
   const curLang = currentLanguage === "en" ? "/" : `/${currentLanguage}/`;
   const logo = template
-    ? "/images/logo/logo-black.react.svg"
-    : "/images/logo/logo-white.react.svg";
+    ? "https://static-oforms.teamlab.info/images/logo/logo-black.react.svg"
+    : "https://static-oforms.teamlab.info/images/logo/logo-white.react.svg";
 
   return (
     <StyledMenu
