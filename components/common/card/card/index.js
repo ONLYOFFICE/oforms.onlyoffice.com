@@ -23,8 +23,7 @@ const Card = ({ t, callback, arrayItems, currentLanguage, handlerSetModal, handl
     return checkFormatFile ? it?.attributes?.url : null;
   });
   let urlOform = oformFile[0]?.attributes?.url;
-  console.log(urlOform);
-
+  
   const pathName =
     currentLanguage === "en"
       ? `/${url}`
