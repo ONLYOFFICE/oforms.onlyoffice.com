@@ -88,7 +88,7 @@ const StyledSelector = styled.div`
     background-color: #fff;
     padding: 15px 32px;
       .item_arrow{
-        background-image: url('https://static-oforms.teamlab.info/icons/arrow-right.react.svg');
+        background-image: url('https://static-oforms.teamlab.info/icons/arrow-right.svg');
         width: 24px;
         height: 24px
       }
@@ -104,7 +104,7 @@ const StyledSelector = styled.div`
           color: #ff6f3d;
         }
         & .item_arrow{
-          background-image: url('https://static-oforms.teamlab.info/icons/arrow-right-red.react.svg');
+          background-image: url('https://static-oforms.teamlab.info/icons/arrow-right-red.svg');
         }
       }   
   }
@@ -154,7 +154,7 @@ const StyledSelector = styled.div`
     }
 
       .item_arrow{
-        background-image: url('https://static-oforms.teamlab.info/icons/arrow-right.react.svg');
+        background-image: url('https://static-oforms.teamlab.info/icons/arrow-right.svg');
         width: 24px;
         height: 24px;
       }

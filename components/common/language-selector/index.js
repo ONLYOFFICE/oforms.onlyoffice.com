@@ -49,8 +49,8 @@ const LanguageSelector = (props) => {
 
   const { currentLanguage, t } = props;
   const srcArrow = isOpen
-    ? "https://static-oforms.teamlab.info/icons/arrow-drop-up.react.svg"
-    : "https://static-oforms.teamlab.info/icons/arrow-drop-down.react.svg";
+    ? "https://static-oforms.teamlab.info/icons/arrow-drop-up.svg"
+    : "https://static-oforms.teamlab.info/icons/arrow-drop-down.svg";
   const srcAlt = isOpen ? "arrow-up" : "arrow-down";
 
   return (

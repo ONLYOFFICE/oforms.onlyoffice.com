@@ -33,7 +33,7 @@ const Selector = ({
     >
       <Text className="text-sort-set" label={t("SortBy")} />
       <Text className="filter-header" label={t(typeSortData)} />
-      <ReactSVG className="arrow" src="https://static-oforms.teamlab.info/icons/popup-arrow.react.svg" />
+      <ReactSVG className="arrow" src="https://static-oforms.teamlab.info/icons/popup-arrow.svg" />
       <Box
         className="filter_selector"
         value={t(typeSortData)}

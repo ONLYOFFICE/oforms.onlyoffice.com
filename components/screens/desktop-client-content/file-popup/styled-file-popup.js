@@ -229,7 +229,7 @@ const CloseButton = styled.div`
   width: 19px;
   height: 19px;
   cursor: pointer;
-  background-image: url('https://static-oforms.teamlab.info/icons/close-icon.react.svg');
+  background-image: url('https://static-oforms.teamlab.info/icons/close-icon.svg');
   background-repeat: no-repeat;
   background-position: center center;
 `;

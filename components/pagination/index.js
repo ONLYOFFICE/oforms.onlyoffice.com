@@ -14,7 +14,7 @@ const Pagination = ({ currentPage, goToPreviousPage, getPaginationGroup, changeP
       >
         <ReactSVG
           className="arrow"
-          src="https://static-oforms.teamlab.info/icons/arrow-left.react.svg"
+          src="https://static-oforms.teamlab.info/icons/arrow-left.svg"
           wrapper="svg"
         ></ReactSVG>
       </Link>
@@ -33,7 +33,7 @@ const Pagination = ({ currentPage, goToPreviousPage, getPaginationGroup, changeP
       >
         <ReactSVG
           className="arrow"
-          src="https://static-oforms.teamlab.info/icons/arrow-right.react.svg"
+          src="https://static-oforms.teamlab.info/icons/arrow-right.svg"
           wrapper="svg"
         ></ReactSVG>
       </Link>
