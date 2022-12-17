@@ -32,10 +32,10 @@ const Card = ({ t, callback, arrayItems, currentLanguage, handlerSetModal, handl
   const localeLinkEditor = 
       currentLanguage === "en"
       ? ""
-      : currentLanguage;
+      : `/${currentLanguage}`;
 
   const fillForm = `${oformFile[0]?.attributes?.hash}.oform`;
-  const linkOformEditor = `/${localeLinkEditor}/editor/?filename=${url}&fillform=${fillForm}`;
+  const linkOformEditor = `${localeLinkEditor}/editor/?filename=${url}&fillform=${fillForm}`;
 
   return (
     <StyledCard {...rest} onClick={isDesktopClient ? () => {handlerSetModal(); handlerCardData(attributes);} : undefined}>
