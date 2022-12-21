@@ -32,7 +32,7 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
   const { t } = useTranslation("common");
 
   const query = useRouter();
-  const isDesktop = query.query.name === "desktop";
+  const isDesktop = query.query.desktop === "true";
   const [isDesktopClient, setIsDesktopClient] = useState(isDesktop);
 
   return isDesktopClient ?
@@ -101,8 +101,7 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
 export const getServerSideProps = async ({ locale, query }) => {
   const page = query.page || 1;
   const sort = query._sort || "ASC";
-  const pageSize = query.pageSize || 9;
-
+  const pageSize = query.pageSize || 0;
   const forms = await getAllForms(locale, page, sort, pageSize);
   const types = await getAllTypes(locale);
   const categories = await getAllCategories(locale);
