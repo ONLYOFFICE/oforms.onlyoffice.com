@@ -99,14 +99,15 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
 };
 
 export const getServerSideProps = async ({ locale, query }) => {
+  const isDesktop = query.desktop === "true";
   const page = query.page || 1;
   const sort = query._sort || "ASC";
-  const pageSize = query.pageSize || 0;
+  const pageSize = query.pageSize || isDesktop ? 0 : 9;
   const forms = await getAllForms(locale, page, sort, pageSize);
   const types = await getAllTypes(locale);
   const categories = await getAllCategories(locale);
   const compilations = await getAllCompilations(locale);
- 
+
   return {
     props: {
       ...(await serverSideTranslations(locale, "common")),
