@@ -70,16 +70,29 @@ const CategorySelector = ({
         value={t(typeSortData)}
         onClick={onChangeSelectTypeSort}
       >
-        <a
-          className="arrow-link"
-          href={`${locale === "en" ? "" : localeHREF}/`}
-          style={{ textDecoration: "none" }}
-        >
-          <Text           
-            className="filter_selector-items-header"            
-            label={t("View all templates")}
-          />
-        </a>
+        {isDesktopClient ?
+            <a
+              className="arrow-link"    
+              href={`${locale === "en" ? "/?desktop=true" : `${localeHREF}?desktop=true`}`}                   
+              style={{ textDecoration: "none" }}
+            >
+            <Text           
+              className="filter_selector-items-header"            
+              label={t("View all templates")}
+            />
+            </a>
+              :
+            <a
+              className="arrow-link"
+              href={`${locale === "en" ? "" : localeHREF}/`}
+              style={{ textDecoration: "none" }}
+            >
+            <Text           
+              className="filter_selector-items-header"            
+              label={t("View all templates")}
+            />
+            </a>
+        }
 
         <a
           onMouseEnter={() => setIsCategorieOpen(true)}
@@ -100,7 +113,20 @@ const CategorySelector = ({
           onMouseEnter={() => setIsCategorieOpen(true)}
           onMouseLeave={() => setIsCategorieOpen(false)}
           >
-            {categories.data?.map((categorie) => ( 
+          {categories.data?.map((categorie) => ( 
+           isDesktopClient ?
+            <a
+              key={categorie.id}  
+              href={`${locale === "en" ? "" : `/${localeHREF}`}/form/${categorie.attributes.urlReq}?desktop=true`}
+              className="submenu_link"
+              style={{ textDecoration: "none" }}
+            >
+            <Text
+                className="filter_selector-items"            
+                label={categorie.attributes.categorie}
+              />  
+            </a>
+            :
               <a
                 key={categorie.id}
                 href={`${locale === "en" ? "" : `/${localeHREF}`}/form/${categorie.attributes.urlReq}`}              
@@ -137,7 +163,20 @@ const CategorySelector = ({
           onMouseLeave={() => setIsTypeOpen(false)}
           >
             {types.data?.map((type) => ( 
+              isDesktopClient ?
               <a
+              key={type.id}
+              href={`${locale === "en" ? "" : `/${localeHREF}`}/form/types/${type.attributes.urlReq}?desktop=true`}              
+              className="submenu_link"
+              style={{ textDecoration: "none" }}
+            >
+            <Text
+              label={type.attributes.type}
+              className="filter_selector-items" >
+            </Text>                   
+            </a>
+            :
+            <a
               key={type.id}
               href={`${locale === "en" ? "" : `/${localeHREF}`}/form/types/${type.attributes.urlReq}`}              
               className="submenu_link"
@@ -174,7 +213,20 @@ const CategorySelector = ({
           onMouseLeave={() => setIsCompilationsOpen(false)}
           >
             {compilations.data?.map((compilation) => ( 
+              isDesktopClient ?
               <a
+                key={compilation.id}
+                href={`${locale === "en" ? "" : `/${localeHREF}`}/form/compilations/${compilation.attributes.urlReq}?desktop=true`}         
+                className="submenu_link"
+                style={{ textDecoration: "none" }}
+            >
+            <Text
+              label={compilation.attributes.compilation} 
+              className="filter_selector-items" >
+            </Text>             
+            </a>
+            :
+            <a
               key={compilation.id}
               href={`${locale === "en" ? "" : `/${localeHREF}`}/form/compilations/${compilation.attributes.urlReq}`}              
               className="submenu_link"
@@ -193,8 +245,6 @@ const CategorySelector = ({
     
     </StyledSelector>
 };
-
-
 
 export default CategorySelector;
 
