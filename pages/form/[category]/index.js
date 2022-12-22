@@ -42,10 +42,8 @@ const Category = ({
 
   const [isCategoryPage, setIsCategoryPage] = useState(true);
   const query = useRouter();
-  const [isDesktopClient, setIsDesktopClient] = useState(undefined);
-  useEffect(() => {
-    setIsDesktopClient(window["AscDesktopEditor"] !== undefined);
-  }, []);
+  const isDesktop = query.query.desktop === "true";
+  const [isDesktopClient, setIsDesktopClient] = useState(isDesktop)
 
   return isDesktopClient ?
     <Layout>

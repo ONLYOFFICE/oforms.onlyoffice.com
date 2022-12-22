@@ -12,11 +12,14 @@ export default function LangsList({ isOpen }) {
     router.push(href);
   };
 
+  const query = useRouter();
+  const isDesktop = query.query.desktop === "true";
+
   const renderItemList = () => {
     return languages.map((language) => {
       return (
         <StyledItem key={language.key}>
-          <Link href={"/"} locale={language.shortKey} onClick={handleClick}>
+          <Link href={isDesktop ? "/?desktop=true" : "/"} locale={language.shortKey} onClick={handleClick}>
             <a className="language-item-link">
               <img
                 src={`https://static-oforms.teamlab.info/images/flags/${language.iconName}`}

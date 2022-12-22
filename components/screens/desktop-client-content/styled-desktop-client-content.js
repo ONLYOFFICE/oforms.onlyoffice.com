@@ -222,16 +222,14 @@ const StyledDesktopClientContent = styled(Section)`
   .arrow {
     margin: 0;
     padding-left: 8px;
-    width: 22px;
-    height: 22px;
+    width: 10px;
   }
 
   .arrow > div {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 22px;
-    height: 22px;
+    width: 10px;
   }
 
   .arrow svg {
