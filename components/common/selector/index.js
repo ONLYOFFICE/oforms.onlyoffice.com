@@ -39,8 +39,9 @@ const Selector = ({
         value={t(typeSortData)}
         onClick={onChangeSelectTypeSort}
       >
+        {isDesktopClient ?
         <a
-          href={`${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=asc`}
+          href={`${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=asc&desktop=true`}
           style={{ textDecoration: "none" }}
         >
           <Text
@@ -50,8 +51,22 @@ const Selector = ({
             label={t("NameA-Z")}
           />
         </a>
+        :
         <a
-          href={`${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=desc`}
+        href={`${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=asc`}
+        style={{ textDecoration: "none" }}
+        >
+        <Text
+          as="option"
+          className={isDesktopClient ? `filter_selector-items ${typeSortData === t("NameA-Z") ? "active" : ""}` : "filter_selector-items"}
+          value={t("NameA-Z")}
+          label={t("NameA-Z")}
+        />
+        </a>
+        }
+        {isDesktopClient ?
+        <a
+          href={`${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=desc&desktop=true`}
           style={{ textDecoration: "none" }}
         >
           <Text
@@ -61,6 +76,19 @@ const Selector = ({
             label={t("NameZ-A")}
           />
         </a>
+        :
+        <a
+        href={`${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=desc`}
+        style={{ textDecoration: "none" }}
+      >
+        <Text
+          as="option"
+          className={isDesktopClient ? `filter_selector-items ${typeSortData === t("NameZ-A") ? "active" : ""}` : "filter_selector-items"}
+          value={t("NameZ-A")}
+          label={t("NameZ-A")}
+        />
+      </a>
+        }
       </Box>
     </StyledSelector>
   );
