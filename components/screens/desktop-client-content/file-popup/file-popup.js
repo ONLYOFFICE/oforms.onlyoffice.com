@@ -12,12 +12,13 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
   const [fileTypeData, setFileTypeData] = useState("docxf");
   const [isOpenType, setIsOpenType] = useState(false);
   const [href, setHref] = useState(docxfFile);
-  const fileDescription = cardData.template_desc?.split("\n");
-
+  
+  const fileDescription = cardData.template_desc?.split("\n"); 
+ 
   const array = [
-    { title: `${currentLanguage == "ja" ? `docxf` : `docxf`}`, href: pdfFile},
+    { title: `${currentLanguage == "ja" ? `docxf` : `docxf`}`, href: docxfFile},
     { title: `${currentLanguage == "ja" ? `oform` : `oform`}`, href: oformFile},
-    { title: `${currentLanguage == "ja" ? `pdf` : `pdf`}`, href: docxfFile},
+    { title: `${currentLanguage == "ja" ? `pdf` : `pdf`}`, href: pdfFile},
   ];
 
   const openTypeDropdown = () => {
@@ -32,7 +33,7 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
     setFileTypeData(fileType);
     closeTypeDropdown();
   };
-
+  
   return (
     <StyledFilePopup onClick={() => setModalActive(false)} className={modalActive ? "open": ""} {...rest}>
       <div className="popup-wrapper">
@@ -97,7 +98,7 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
                             className={`file-dropdown-item ${fileTypeData === item?.title ? "selected" : ""}`}
                             key={index} 
                           >
-                            {item.title}
+                            {item.title}                            
                           </div>
                         ))}
                       </div>
@@ -105,7 +106,7 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
                   </div>
                 </div>
               </div>
-              <Button className="file-button" label={t("Open")} />
+              <Button className="file-button" label={t("Open")}  onClick={() => window.AscDesktopEditor.openTemplate(docxfFile)}/>                            
             </div>
           </div>
         </div>
