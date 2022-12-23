@@ -46,7 +46,7 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
           <div className="popup-body">
             <div className="file-img">
               <img
-                src={cardData.template_image?.data?.attributes?.formats?.medium?.url}
+                src={modalActive ? cardData.template_image?.data?.attributes?.formats?.medium?.url : ""}
                 alt={cardData.name_form}
                 style={{ width: "424px", height: "600px" }} 
               />
