@@ -33,6 +33,8 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
     setFileTypeData(fileType);
     closeTypeDropdown();
   };
+
+  
   
   return (
     <StyledFilePopup onClick={() => setModalActive(false)} className={modalActive ? "open": ""} {...rest}>
@@ -47,7 +49,7 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
           <div className="popup-body">
             <div className="file-img">
               <img
-                src={modalActive ? cardData.template_image?.data?.attributes?.formats?.medium?.url : ""}
+                src={modalActive ? cardData.card_prewiew?.data?.attributes?.formats?.medium?.url : ""}
                 alt={cardData.name_form}
                 style={{ width: "424px", height: "600px" }} 
               />
