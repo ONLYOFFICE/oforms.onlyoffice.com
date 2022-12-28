@@ -1,6 +1,6 @@
 {
     "defaultLanguage": "en",
-    "docEditorUrl": "config_docEditorUrlg",
+    "docEditorUrl": "https://asc.docs.onlyoffice.com/",
     "api": {
         "cms": "https://oforms.onlyoffice.com/dashboard",
         "url": "",
