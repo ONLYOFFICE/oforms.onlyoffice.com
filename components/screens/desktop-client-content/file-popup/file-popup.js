@@ -12,6 +12,7 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
   const [fileTypeData, setFileTypeData] = useState("docxf");
   const [isOpenType, setIsOpenType] = useState(false);
   const [href, setHref] = useState(docxfFile);
+  console.log(href);
   
   const fileDescription = cardData.template_desc?.split("\n"); 
  
@@ -108,7 +109,7 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
                   </div>
                 </div>
               </div>
-              <Button className="file-button" label={t("Open")}  onClick={() => window.AscDesktopEditor.openTemplate(docxfFile)}/>                            
+              <Button className="file-button" label={t("Open")}  onClick={() => window.AscDesktopEditor.openTemplate(href, [cardData.name_form])}/>                                          
             </div>
           </div>
         </div>
