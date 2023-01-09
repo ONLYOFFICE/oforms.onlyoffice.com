@@ -95,8 +95,7 @@ const DesktopClientContent = ({ t, currentLanguage, data, page, sort, types, cat
 
       <FilePopup 
         t={t} 
-        currentLanguage={currentLanguage}
-        data={data} 
+        currentLanguage={currentLanguage}         
         modalActive={modalActive} 
         setModalActive={setModalActive} 
         cardData={cardData}
