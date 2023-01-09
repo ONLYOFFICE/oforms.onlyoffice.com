@@ -1,5 +1,5 @@
 import Text from "@components/common/text";
-import Link from "@components/common/internal-link";
+import InternalLink from "@components/common/internal-link";
 import reName from "@utils/helpers/fixname";
 import StyledResultSearch from "./styled-result";
 
@@ -36,14 +36,13 @@ const SearchResult = ({
                     {it.attributes.name_form}
                   </div>
                 :
-                  <Link
+                  <InternalLink
                     className="item-result-search"
-                    href={"/[form]"}
-                    as={`/${hrefForm}`}
+                    href={`/${hrefForm}`}
                     key={`key-item-${id}`}
                   >
                     {it.attributes.name_form}
-                  </Link>
+                  </InternalLink>
               })
             ) : (
               <Text
