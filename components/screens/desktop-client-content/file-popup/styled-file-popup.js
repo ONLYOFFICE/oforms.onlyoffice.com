@@ -45,6 +45,7 @@ const StyledFilePopup = styled.div`
     gap: 24px;
     padding: 10px 10px 9px 30px;
     background-color: #F7F7F7;
+    border-bottom: 1px solid #CBCBCB;
   }
 
   .popup-title {
@@ -52,6 +53,7 @@ const StyledFilePopup = styled.div`
     font-size: 18px;
     line-height: 20px;
     letter-spacing: 0.02em;
+    color: #444;
   }
 
   .popup-body {

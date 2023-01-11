@@ -31,6 +31,7 @@ const StyledSelector = styled.div`
   .heading-nav-item {
     padding: 0;
     font-size: 13px;
+    line-height: 17px;
     cursor: pointer;
     white-space: nowrap;
     display: block;
@@ -79,6 +80,11 @@ const StyledSelector = styled.div`
     font-size: 16px;
     font-weight: 600;
     text-transform: capitalize;
+    cursor: pointer;
+
+      &:hover{
+        color: #ff6f3d;
+    }
   }
 
   .arrow-link{
@@ -90,7 +96,7 @@ const StyledSelector = styled.div`
       .item_arrow{
         background-image: url('https://static-oforms.teamlab.info/icons/arrow-right.svg');
         width: 24px;
-        height: 24px
+        height: 24px;
       }
       &:hover{
         background-color: #f5f5f5;

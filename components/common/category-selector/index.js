@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { ReactSVG } from "react-svg";
 import Box from "../box";
 import Text from "../text";
 import StyledSelector from "./styled-selector";
 
 import MenuItem from "@components/screens/heading-content/menu/menu-item";
-import Link from "next/link";
 import MobileSelector from './mobileSelector';
 import { isMobile } from 'react-device-detect';
 

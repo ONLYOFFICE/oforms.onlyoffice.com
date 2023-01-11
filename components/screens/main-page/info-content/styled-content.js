@@ -8,7 +8,7 @@ const StyledInfoContent = styled(Section)`
     line-height: 54px;
     font-weight: 700;
     color: #fff;
-    padding-top: 48px;
+    padding-top: 60px;
   }
 
   .description-info-content {

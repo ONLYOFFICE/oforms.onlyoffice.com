@@ -28,7 +28,6 @@ const InfoContent = ({ t, currentLanguage }) => {
   return (
     <StyledInfoContent
       background="#333333"
-      padding="158px 0 0 0"
       tabletPadding="134px 0 0 0"
       mobileLPadding="134px 0 0 0"
     >
