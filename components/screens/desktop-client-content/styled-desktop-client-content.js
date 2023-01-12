@@ -182,6 +182,7 @@ const StyledDesktopClientContent = styled(Section)`
       line-height: 17px;
       font-weight: 600;
       letter-spacing: 0.04em;
+      text-transform: none !important;
 
         &:hover{
           color: #ff6f3d;
@@ -402,6 +403,13 @@ const StyledDesktopClientContent = styled(Section)`
   .box-doc-categories,
   .text-sort-set {
     outline: none;
+  }
+
+  @media (max-width: 1200px) {  
+
+    .tempalates-cards-items .cards {
+      justify-content: left;
+      }
   }
 `;
 
