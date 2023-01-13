@@ -246,11 +246,6 @@ const StyledDesktopClientContent = styled(Section)`
     font-weight: 700;
     margin: 0 8px 0 8px;
     cursor: pointer;
-    text-transform: lowercase !important;
-
-    &:first-letter {
-      text-transform: uppercase !important;
-    }
   }
 
   .filter-title {
@@ -307,11 +302,6 @@ const StyledDesktopClientContent = styled(Section)`
     
     .filter_selector-items {
       line-height: 24px;
-      text-transform: lowercase !important;
-
-      &:first-letter {
-        text-transform: uppercase !important;
-      }
     }
 
     &:nth-child(odd) {
