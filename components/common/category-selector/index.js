@@ -62,8 +62,8 @@ const CategorySelector = ({
       onMouseLeave={onCloseSelector}
       onMouseEnter={onClickHandler}>
 
-    <Text className="filter-header" label={isDesktopClient ? t("Categoriess") : t("Categories")} />
-    <Text className="filter-header-name" label={categoryName ? categoryName : t("All templates")} />
+    <Text className="filter-header" label={isDesktopClient && categoryName ? t("Categoriess") : t("Categories")} />
+    <Text className={categoryName ? "filter-header-name" : ""} label={categoryName} />
 
       <img className="arrow" src="https://static-oforms.teamlab.info/icons/popup-arrow.svg"></img>
       <Box
