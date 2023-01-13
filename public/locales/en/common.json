@@ -49,6 +49,8 @@
   "FillOut": "fill out",
   "Download": "download",
   "LoadMore": "Load More",
+  "Categories": "Categories",
+  "Categoriess": "Categories:",
   "AccordionDescriptionFindTheTemplateFull": "We happily accept template suggestions to introduce these templates in our form library in the future. Please contact us at <1>marketing@onlyoffice.com</1> to submit your ideas.",
   "AccordionHeadingPossibleToEmbed": "Is it possible to embed a form in my website?",
   "AccordionDescriptionPossibleToEmbed": "It is technically possible. Please contact us at <1>{{AccordionDescriptionPossibleToEmbedLink}}</1>",

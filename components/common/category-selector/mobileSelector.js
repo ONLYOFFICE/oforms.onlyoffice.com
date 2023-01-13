@@ -38,7 +38,7 @@ const StyledSelectorMobile = styled.div`
 
   .heading-nav-item {
     padding: 0;
-    font-size: 13px;
+    font-size: 16px;
     cursor: pointer;
     white-space: nowrap;
     display: block;
@@ -88,7 +88,7 @@ const StyledSelectorMobile = styled.div`
       .item_arrow{
         background-image: url('https://static-oforms.teamlab.info/icons/arrow-right.svg');
         width: 24px;
-        height: 24px
+        height: 24px;
       }
       &:hover{
         background-color: #f5f5f5;
@@ -294,7 +294,7 @@ const StyledSelectorMobile = styled.div`
     position: relative;
   }
 }
-`
+`;
 
 const MobileSelector = ({
   onChangeSelectTypeSort,

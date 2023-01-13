@@ -179,16 +179,45 @@ const StyledDesktopClientContent = styled(Section)`
 
     .filter_selector-items-header {
       font-size: 14px;
-      line-height: 19px;
+      line-height: 17px;
       font-weight: 600;
       letter-spacing: 0.04em;
+      text-transform: none !important;
+
+        &:hover{
+          color: #ff6f3d;
+      }
     }
 
     .filter_selector-items {
       font-size: 14px;
-      line-height: 19px;
+      line-height: 17px;
       text-transform: initial;
     }
+  }
+
+  .heading-nav-item {
+    padding: 0;
+    line-height: 17px;
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    display: block;
+    text-transform: none !important;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #444;
+  }
+
+  .filter_selector-items {
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    display: block;
+    text-transform: none !important;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #444;
   }
 
   .text-sort-set {
@@ -209,6 +238,14 @@ const StyledDesktopClientContent = styled(Section)`
 
   .filter-header {
     font-size: 14px;
+  }
+
+  .filter-header-name {
+    color: #000;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 8px 0 8px;
+    cursor: pointer;
   }
 
   .filter-title {
@@ -247,6 +284,7 @@ const StyledDesktopClientContent = styled(Section)`
 
       span {
         color: #444444;
+        outline: none;
       }
 
       .item_arrow {
@@ -267,11 +305,12 @@ const StyledDesktopClientContent = styled(Section)`
     }
 
     &:nth-child(odd) {
-      padding: 8px 12px 8px 32px;
+      padding: 8px 32px 8px 32px;
+      border-right: 1px solid #EFEFEF;
     }
 
     &:nth-child(even) {
-      padding: 8px 32px 8px 12px;
+      padding: 8px 32px 8px 32px;
     }
 
     &:hover {
@@ -289,7 +328,6 @@ const StyledDesktopClientContent = styled(Section)`
 
   .types_list {
     padding: 16px 0;
-    column-gap: 32px;
   }
 
   .tempalates-cards-items .cards {
@@ -374,6 +412,13 @@ const StyledDesktopClientContent = styled(Section)`
   .box-doc-categories,
   .text-sort-set {
     outline: none;
+  }
+
+  @media (max-width: 1200px) {  
+
+    .tempalates-cards-items .cards {
+      justify-content: left;
+      }
   }
 `;
 

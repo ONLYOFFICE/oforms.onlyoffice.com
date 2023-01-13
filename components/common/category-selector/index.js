@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { ReactSVG } from "react-svg";
 import Box from "../box";
 import Text from "../text";
 import StyledSelector from "./styled-selector";
 
 import MenuItem from "@components/screens/heading-content/menu/menu-item";
-import Link from "next/link";
 import MobileSelector from './mobileSelector';
 import { isMobile } from 'react-device-detect';
 
@@ -21,6 +19,7 @@ const CategorySelector = ({
   isCategoryPage,
   header,
   isDesktopClient,
+  categoryName,
 }) => {
  
   const [isOpen, setIsOpen] = useState(false);
@@ -63,7 +62,9 @@ const CategorySelector = ({
       onMouseLeave={onCloseSelector}
       onMouseEnter={onClickHandler}>
 
-      <Text className="filter-header" label={t("Categories")} />
+    <Text className="filter-header" label={isDesktopClient && categoryName ? t("Categoriess") : t("Categories")} />
+    <Text className={categoryName ? "filter-header-name" : ""} label={categoryName} />
+
       <img className="arrow" src="https://static-oforms.teamlab.info/icons/popup-arrow.svg"></img>
       <Box
         className="filter_selector"

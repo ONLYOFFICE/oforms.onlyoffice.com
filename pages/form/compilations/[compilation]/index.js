@@ -39,6 +39,7 @@ const Category = ({
   const nameCategory = dataCategoryInfo.compilation;
   const urlReqCategory = dataCategoryInfo.urlReq;
   const header = dataCategoryInfo.header_description; 
+  const categoryName = categoryInfo.data[0].attributes.compilation;
   
   const [isCategoryPage, setIsCategoryPage] = useState(true);
   const query = useRouter();
@@ -70,6 +71,7 @@ const Category = ({
         categories={categories}
         compilations={compilations}
         isDesktopClient={isDesktopClient}
+        categoryName={categoryName}
       />
     </Layout>
   :
