@@ -240,6 +240,14 @@ const StyledDesktopClientContent = styled(Section)`
     font-size: 14px;
   }
 
+  .filter-header-name {
+    color: #000;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 8px 0 8px;
+    cursor: pointer;
+  }
+
   .filter-title {
     padding-left: 8px;
     line-height: 21px;
@@ -276,6 +284,7 @@ const StyledDesktopClientContent = styled(Section)`
 
       span {
         color: #444444;
+        outline: none;
       }
 
       .item_arrow {

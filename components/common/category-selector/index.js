@@ -19,6 +19,7 @@ const CategorySelector = ({
   isCategoryPage,
   header,
   isDesktopClient,
+  categoryName,
 }) => {
  
   const [isOpen, setIsOpen] = useState(false);
@@ -61,7 +62,11 @@ const CategorySelector = ({
       onMouseLeave={onCloseSelector}
       onMouseEnter={onClickHandler}>
 
-      <Text className="filter-header" label={t("Categories")} />
+{isDesktopClient ?
+    <Text className="filter-header" label={t("Categoriess")}><Text className="filter-header-name" label={categoryName} /></Text>
+  :
+  <Text className="filter-header" label={t("Categories")} />
+}
       <img className="arrow" src="https://static-oforms.teamlab.info/icons/popup-arrow.svg"></img>
       <Box
         className="filter_selector"
