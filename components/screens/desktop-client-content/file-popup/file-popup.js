@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Text from "@components/common/text";
 import Button from "@components/common/button";
 import { CloseButton, StyledFilePopup } from "./styled-file-popup";
@@ -12,7 +12,13 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
   const [fileTypeData, setFileTypeData] = useState("docxf");
   const [isOpenType, setIsOpenType] = useState(false);
   const [href, setHref] = useState(docxfFile);
-  console.log(href);
+
+  useEffect(()=>{
+    setHref(docxfFile);    
+    setFileTypeData("docxf");
+  },[modalActive])
+ 
+  
   
   const fileDescription = cardData.template_desc?.split("\n"); 
  
@@ -109,7 +115,7 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
                   </div>
                 </div>
               </div>
-              <Button className="file-button" label={t("Open")}  onClick={() => window.AscDesktopEditor.openTemplate(href, [cardData.name_form])}/>                                          
+              <Button className="file-button" label={t("Open")}  onClick={() => window.AscDesktopEditor.openTemplate(href, [cardData.name_form])}/>                                                        
             </div>
           </div>
         </div>
