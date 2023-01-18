@@ -115,7 +115,7 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
                   </div>
                 </div>
               </div>
-              <Button className="file-button" label={t("Open")}  onClick={() => window.AscDesktopEditor.openTemplate(href, cardData.name_form)}/>              
+              <Button className="file-button" label={t("Open")}  onClick={() => window.AscDesktopEditor.openTemplate(href, `${cardData.name_form}.${fileTypeData}`)}/>                            
             </div>
           </div>
         </div>
