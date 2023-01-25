@@ -9,7 +9,7 @@ const Error404 = ({ t }) => {
   return (
     <Styled404>
       <Img
-        src="https://static-oforms.teamlab.info/icons/bg-errors.svg"
+        src="https://static-oforms.onlyoffice.com/icons/bg-errors.svg"
         className="page-error-404-image"
         alt="page-error-404"
       />

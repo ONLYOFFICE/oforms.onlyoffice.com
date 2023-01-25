@@ -89,7 +89,7 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
                         <div className="file-select-title">{fileTypeData}</div>
                         <img
                           className="file-select-icon"
-                          src="https://static-oforms.teamlab.info/icons/chevron-down.svg"
+                          src="https://static-oforms.onlyoffice.com/icons/chevron-down.svg"
                           height="16px"
                           width="16px"
                         />

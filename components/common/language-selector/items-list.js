@@ -22,7 +22,7 @@ export default function LangsList({ isOpen }) {
           <Link href={isDesktop ? "/?desktop=true" : "/"} locale={language.shortKey} onClick={handleClick}>
             <a className="language-item-link">
               <img
-                src={`https://static-oforms.teamlab.info/images/flags/${language.iconName}`}
+                src={`https://static-oforms.onlyoffice.com/images/flags/${language.iconName}`}
                 alt={language.key}
                 width="18px"
                 className="language-item-image"

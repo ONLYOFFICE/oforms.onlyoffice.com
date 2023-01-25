@@ -65,7 +65,7 @@ const CategorySelector = ({
     <Text className="filter-header" label={isDesktopClient && categoryName ? t("Categoriess") : t("Categories")} />
     <Text className={categoryName ? "filter-header-name" : ""} label={categoryName} />
 
-      <img className="arrow" src="https://static-oforms.teamlab.info/icons/popup-arrow.svg"></img>
+      <img className="arrow" src="https://static-oforms.onlyoffice.com/icons/popup-arrow.svg"></img>
       <Box
         className="filter_selector"
         value={t(typeSortData)}

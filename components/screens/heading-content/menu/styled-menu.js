@@ -117,7 +117,7 @@ const StyledMenu = styled.div`
       @media (max-width: 1450px) {
         font-size: 0;
         &:before {
-          background-image: url('https://static-oforms.teamlab.info/icons/phone-white.svg');
+          background-image: url('https://static-oforms.onlyoffice.com/icons/phone-white.svg');
           background-repeat: no-repeat;
           background-position: 50% 50%;
           background-size: 24px 24px;

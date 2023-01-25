@@ -32,7 +32,7 @@ const StyledBreadcrumb = styled(Box)`
       top: 7px;
       width: 4px;
       height: 6px;
-      background-image: url('https://static-oforms.teamlab.info/icons/line.svg');
+      background-image: url('https://static-oforms.onlyoffice.com/icons/line.svg');
       background-repeat: no-repeat;
       background-size: cover;
     }
@@ -56,7 +56,7 @@ const StyledBreadcrumb = styled(Box)`
       top: 9px;
       width: 4px;
       height: 6px;
-      background-image: url('https://static-oforms.teamlab.info/icons/line.svg');
+      background-image: url('https://static-oforms.onlyoffice.com/icons/line.svg');
       background-repeat: no-repeat;
       background-size: cover;
     }
