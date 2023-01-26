@@ -333,7 +333,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
             </Link>
           </Box>
           <div className="download-last-area">
-          <div class="download-inner-list">
+          <div className="download-inner-list">
           <Box className="outer-box with_border">
             <Link
               className="dropdown-item mobile_no_link"
