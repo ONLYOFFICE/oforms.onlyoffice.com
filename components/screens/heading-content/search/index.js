@@ -1,5 +1,6 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
+import Router, { useRouter } from 'next/router'
+import axios from "axios";
 
 import CONFIG from "@config/config";
 import Search from "@components/common/search-area";
@@ -8,11 +9,26 @@ import SearchResult from "./search-result";
 const SearchContent = ({ t, currentLanguage, isDesktopClient, handlerSetModal, handlerCardData }) => {
   const [focusOnSearch, setFocusOnSearch] = useState(false);
   const [searchItem, setSearchItem] = useState("");
-  const [resultSearch, setResultSearch] = useState([]);
+  const [searchResult, setSearchResult] = useState([]);
+
+  const router = useRouter();
+  const searchResultPathname = router.pathname === "/searchresult";
 
   const onSearch = (e) => {
     e.preventDefault();
     setSearchItem(e.target.value);
+  };
+
+  const onEnterPress = (e) => {
+    if (searchItem.length > 2) {
+      if (isDesktopClient) {
+        e.code === 'Enter' && !(searchResultPathname) && Router.push(`/searchresult?desktop=true?query=${searchItem}`)
+        e.code === 'Enter' && searchResultPathname && Router.push(`?desktop=true?query=${searchItem}`, null, { shallow: true })
+      } else {
+        e.code === 'Enter' && !(searchResultPathname) && Router.push(`/searchresult?query=${searchItem}`)
+        e.code === 'Enter' && searchResultPathname && Router.push(`?query=${searchItem}`, null, { shallow: true })
+      }
+    }
   };
 
   const clearValueSearch = () => {
@@ -30,7 +46,7 @@ const SearchContent = ({ t, currentLanguage, isDesktopClient, handlerSetModal, h
       axios
         .get(searchURL)
         .then((response) => {
-          setResultSearch(response.data);
+          setSearchResult(response.data);
           setFocusOnSearch(true);
         })
         .catch((error) => console.log(error));
@@ -43,7 +59,7 @@ const SearchContent = ({ t, currentLanguage, isDesktopClient, handlerSetModal, h
     if (searchItem.length > 2) {
       searchReqData();
     } else {
-      setResultSearch(null);
+      setSearchResult(null);
     }
   }, [searchItem]);
 
@@ -54,11 +70,12 @@ const SearchContent = ({ t, currentLanguage, isDesktopClient, handlerSetModal, h
         callback={onSearch}
         valueSearch={searchItem}
         clearValueSearch={clearValueSearch}
+        onEnterPress={onEnterPress}
       />
       {searchItem.length > 2 && (
         <SearchResult
           searchItem={searchItem}
-          resultItems={resultSearch}
+          resultItems={searchResult}
           onMouseLeaveSearchResult={onCloseSearchResult}
           resultMouseLeave={focusOnSearch}
           isDesktopClient={isDesktopClient}

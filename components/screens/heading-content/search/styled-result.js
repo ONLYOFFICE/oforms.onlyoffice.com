@@ -1,20 +1,20 @@
 import styled from "styled-components";
 
-const StyledResultSearch = styled.div`
+const StyledSearchResult = styled.div`
   position: absolute;
   width: 100%;
 
-  .result-search {
-    display: flex;
+  .search-result {
     max-width: 928px;
     min-height: 55px;
+    max-height: 300px;
+    overflow-x: hidden;
     width: 100%;
     margin: 0 auto;
-    flex-direction: column;
     background-color: transparent;
   }
 
-  .item-result-search {
+  .item-search-result {
     color: #333333;
     text-decoration: none;
     padding: 16px;
@@ -27,7 +27,7 @@ const StyledResultSearch = styled.div`
     max-width: 895px;
   }
 
-  .item-result-search:hover {
+  .item-search-result:hover {
     color: #ff6f3d;
   }
 
@@ -37,4 +37,4 @@ const StyledResultSearch = styled.div`
   }
 `;
 
-export default StyledResultSearch;
+export default StyledSearchResult;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ReactSVG } from "react-svg";
+import { useRouter } from "next/router";
 
 import Box from "../box";
 import Text from "../text";
@@ -14,6 +14,7 @@ const Selector = ({
   isDesktopClient,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
   const onClickHandler = () => {
     setIsOpen(true);
@@ -25,6 +26,9 @@ const Selector = ({
 
   const catHREF = category ? `form/${category}/` : "";
   const localeHREF = category ? `/${locale}` : locale;
+  const resultHREF = router.pathname === "/searchresult" ? `searchresult/?query=${router.query.query?.replace("?_sort=asc", "").replace("?_sort=desc", "")}` : '';
+  const resultDesktopHREF = router.pathname === "/searchresult" ? `searchresult/?desktop=${router.query.desktop?.replace("?_sort=asc", "").replace("?_sort=desc", "")}` : '';
+
   return (
     <StyledSelector
       isOpen={isOpen}
@@ -41,7 +45,7 @@ const Selector = ({
       >
         {isDesktopClient ?
         <a
-          href={`${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=asc&desktop=true`}
+          href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultDesktopHREF}?_sort=asc` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=asc&desktop=true`}`}
           style={{ textDecoration: "none" }}
         >
           <Text
@@ -53,7 +57,7 @@ const Selector = ({
         </a>
         :
         <a
-        href={`${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=asc`}
+        href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultHREF}?_sort=asc` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=asc`}`}
         style={{ textDecoration: "none" }}
         >
         <Text
@@ -66,7 +70,7 @@ const Selector = ({
         }
         {isDesktopClient ?
         <a
-          href={`${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=desc&desktop=true`}
+        href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultDesktopHREF}?_sort=desc` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=desc&desktop=true`}`}
           style={{ textDecoration: "none" }}
         >
           <Text
@@ -78,7 +82,7 @@ const Selector = ({
         </a>
         :
         <a
-        href={`${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=desc`}
+        href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultHREF}?_sort=desc` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=desc`}`}
         style={{ textDecoration: "none" }}
       >
         <Text

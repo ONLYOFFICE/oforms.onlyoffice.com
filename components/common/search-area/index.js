@@ -5,7 +5,7 @@ import Text from "../text";
 import TextInput from "../text-input/";
 import StyledSearchArea from "./styled-search-area";
 
-const SearchArea = ({ clearValueSearch, valueSearch, callback, t }) => {
+const SearchArea = ({ clearValueSearch, valueSearch, callback, t, onEnterPress }) => {
   /*eslint-disable*/
   const imgSearch = !valueSearch ? (
     <img className="search_img"
@@ -38,6 +38,7 @@ const SearchArea = ({ clearValueSearch, valueSearch, callback, t }) => {
         />
         <TextInput
           onChange={callback}
+          onEnterPress={onEnterPress}
           value={valueSearch}
           type="text"
           className={"search_input" + (valueSearch ? " has_value" : "")}

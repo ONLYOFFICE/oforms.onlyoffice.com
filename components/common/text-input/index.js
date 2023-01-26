@@ -15,6 +15,7 @@ const TextInput = ({
   labelColor,
   colorHover,
   onChange,
+  onEnterPress,
   defaultInput,
   isDisabled,
   isDisabledButton,
@@ -62,6 +63,7 @@ const TextInput = ({
           isError={isError}
           isDisabled={isDisabled}
           onChange={onChangeHandler}
+          onKeyPress={onEnterPress}
           ref={inputTextRef}
           withButton={withButton}
           isPlaceholder={!!placeholder}

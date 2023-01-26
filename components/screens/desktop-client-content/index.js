@@ -9,8 +9,8 @@ import Text from "@components/common/text";
 import StyledDesktopClientContent from "./styled-desktop-client-content";
 import FilePopup from "./file-popup/file-popup";
 
-const DesktopClientContent = ({ t, currentLanguage, data, page, sort, types, categories, compilations, isCategoryPage, header, urlReqCategory, isDesktopClient, categoryName }) => {
-  const countData = data.meta?.pagination?.total;
+const DesktopClientContent = ({ t, currentLanguage, data, page, sort, types, categories, compilations, isCategoryPage, header, urlReqCategory, isDesktopClient, categoryName, queryDesktopClient }) => {
+  const countData = data?.meta?.pagination?.total;
   const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
   const [boolTypeSortData, setBoolTypeSortData] = useState(false);
   const [cardData, setCardData] = useState("");
@@ -63,6 +63,7 @@ const DesktopClientContent = ({ t, currentLanguage, data, page, sort, types, cat
             isDesktopClient={isDesktopClient}
             header={header}
             categoryName={categoryName}
+            queryDesktopClient={queryDesktopClient}
           />
         </div>
         <div className="box-doc-info">
@@ -84,7 +85,7 @@ const DesktopClientContent = ({ t, currentLanguage, data, page, sort, types, cat
 
       <Cards
         t={t}
-        data={data.data}
+        data={data?.data}
         typeSortData={boolTypeSortData}
         currentLanguage={currentLanguage}
         page={page}

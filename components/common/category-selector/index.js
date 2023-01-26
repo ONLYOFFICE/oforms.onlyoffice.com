@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Box from "../box";
 import Text from "../text";
 import StyledSelector from "./styled-selector";
@@ -16,16 +17,17 @@ const CategorySelector = ({
   types,
   categories,
   compilations,
-  isCategoryPage,
-  header,
   isDesktopClient,
   categoryName,
+  queryDesktopClient
 }) => {
  
   const [isOpen, setIsOpen] = useState(false);
   const [isCategorieOpen, setIsCategorieOpen] = useState(false);
   const [isTypeOpen, setIsTypeOpen] = useState(false);
   const [isCompilationsOpen, setIsCompilationsOpen] = useState(false);
+
+  const router = useRouter();
 
   const onClickHandler = () => {
     setIsOpen(true);
@@ -63,7 +65,7 @@ const CategorySelector = ({
       onMouseEnter={onClickHandler}>
 
     <Text className="filter-header" label={isDesktopClient && categoryName ? t("Categoriess") : t("Categories")} />
-    <Text className={categoryName ? "filter-header-name" : ""} label={categoryName} />
+    <Text className={categoryName || queryDesktopClient ? "filter-header-name" : ""} label={isDesktopClient && router.pathname === "/searchresult" ? `${t("Search results for")} '${queryDesktopClient}'` : categoryName} />
 
       <img className="arrow" src="https://static-oforms.onlyoffice.com/icons/popup-arrow.svg"></img>
       <Box

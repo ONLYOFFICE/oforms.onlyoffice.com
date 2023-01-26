@@ -78,6 +78,7 @@ const StyledDesktopClientContent = styled(Section)`
     img {
       width: 16px;
       height: 16px;
+      cursoir: initial;
     }
   }
 
@@ -85,15 +86,18 @@ const StyledDesktopClientContent = styled(Section)`
     display: none;
   }
 
-  .result-search-wrapper {
+  .search-result-wrapper {
     top: 40px;
     z-index: 10;
 
-    .result-search {
+    .search-result {
       max-width: calc(100% - 200px);
+      max-height: 268px;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
   
-    .item-result-search {
+    .item-search-result {
       max-width: 100%;
     }
   }

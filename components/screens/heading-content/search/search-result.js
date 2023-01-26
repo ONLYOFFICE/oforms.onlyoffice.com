@@ -1,7 +1,7 @@
 import Text from "@components/common/text";
 import InternalLink from "@components/common/internal-link";
 import reName from "@utils/helpers/fixname";
-import StyledResultSearch from "./styled-result";
+import StyledSearchResult from "./styled-result";
 
 const SearchResult = ({
   onMouseLeaveSearchResult,
@@ -12,24 +12,22 @@ const SearchResult = ({
   handlerSetModal,
   handlerCardData,
 }) => {
-  const resultSearchArray =
-    resultItems?.data?.length > 0 ? resultItems?.data : [];
-  const lengthResultSearchArray = resultSearchArray.slice(0, 3);
+  const searchResultArray = resultItems?.data?.length > 0 ? resultItems?.data : [];
 
   return (
     <>
       {resultMouseLeave && searchItem !== "" && (
-        <StyledResultSearch className="result-search-wrapper" onMouseLeave={onMouseLeaveSearchResult}>
-          <div className="result-search">
-            {lengthResultSearchArray.length > 0 ? (
-              lengthResultSearchArray.map((it, id) => {
+        <StyledSearchResult className="search-result-wrapper" onMouseLeave={onMouseLeaveSearchResult}>
+          <div className="search-result">
+            {searchResultArray.length > 0 ? (
+              searchResultArray.map((it, id) => {
                 const hrefForm = reName(it.attributes.url);
                 const hrefCategory = reName(
                   it.attributes.categories.data[0].attributes.urlReq
                 );
                 return isDesktopClient ?
                   <div 
-                    className="item-result-search" 
+                    className="item-search-result" 
                     key={`key-item-${id}`}
                     onClick={() => {handlerSetModal(); handlerCardData(it.attributes);}}
                   >
@@ -37,7 +35,7 @@ const SearchResult = ({
                   </div>
                 :
                   <InternalLink
-                    className="item-result-search"
+                    className="item-search-result"
                     href={`/${hrefForm}`}
                     key={`key-item-${id}`}
                   >
@@ -46,12 +44,12 @@ const SearchResult = ({
               })
             ) : (
               <Text
-                className="item-result-search text-def"
+                className="item-search-result text-def"
                 label="No more results..."
               />
             )}
           </div>
-        </StyledResultSearch>
+        </StyledSearchResult>
       )}
     </>
   );
