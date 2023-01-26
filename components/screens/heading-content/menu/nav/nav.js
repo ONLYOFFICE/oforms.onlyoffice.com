@@ -12,6 +12,13 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
       <MenuItem heading={t("Features")} id="navitem_features">
         <Box className="menu_wrapper">
           <Box className="outer-box with_border">
+          <Link
+              id="navitem_features_docs_overview"
+              href={`${hrefLang}/office-suite.aspx`}
+              className="dropdown-item"
+            >
+              {t("Docs Overview")}
+            </Link>
             <Link
               id="navitem_features_document_editor"
               href={`${hrefLang}/document-editor.aspx`}
@@ -128,6 +135,13 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
               {t("Docs Enterprise")}
             </Link>
             <Link
+              id="navitem_fb_docs_cloud"
+              href={`${hrefLang}/docs-cloud.aspx`}
+              className="dropdown-item"
+            >
+              {t("Docs Cloud")}
+            </Link>
+            <Link
               id="navitem_fb_workspace"
               href={`${hrefLang}/workspace.aspx`}
               className="dropdown-item"
@@ -144,42 +158,42 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
               <Link
                 id="navitem_integrations_nextcloud"
                 href={`${hrefLang}/office-for-nextcloud.aspx`}
-                className="dropdown-item"
+                className="dropdown-item no-bold"
               >
                 {t("Nextcloud")}
               </Link>
               <Link
                 id="navitem_integrations_owncloud"
                 href={`${hrefLang}/office-for-owncloud.aspx`}
-                className="dropdown-item"
+                className="dropdown-item no-bold"
               >
                 {t("ownCloud")}
               </Link>
               <Link
                 id="navitem_integrations_confluence"
                 href={`${hrefLang}/office-for-confluence.aspx`}
-                className="dropdown-item"
+                className="dropdown-item no-bold"
               >
                 {t("Confluence")}
               </Link>
               <Link
                 id="navitem_integrations_alfresco"
                 href={`${hrefLang}/office-for-alfresco.aspx`}
-                className="dropdown-item"
+                className="dropdown-item no-bold"
               >
                 {t("Alfresco")}
               </Link>
               <Link
                 id="navitem_integrations_moodle"
                 href={`${hrefLang}/office-for-moodle.aspx`}
-                className="dropdown-item"
+                className="dropdown-item no-bold"
               >
                 {t("Moodle")}
               </Link>
               <Link
                 id="navitem_integrations_others"
                 href={`${hrefLang}/all-connectors.aspx`}
-                className="dropdown-item"
+                className="dropdown-item no-bold"
               >
                 {t("All")}
               </Link>
@@ -216,6 +230,13 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
               {t("Docs Developer")}
             </Link>
             <Link
+              id="navitem_fd_conversion_api"
+              href={`${hrefLang}/conversion-api.aspx`}
+              className="dropdown-item"
+            >
+              {t("Conversion API")}
+            </Link>
+            <Link
               id="navitem_fd_doc_builder"
               href={`${hrefLang}/document-builder.aspx`}
               className="dropdown-item"
@@ -229,18 +250,13 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
             >
               {t("API Documentation")}
             </Link>
-          </Box>
-          <Box className="outer-box">
             <Link
-              id="navitem_fd_code"
-              href={`https://github.com/ONLYOFFICE/`}
+              id="navitem_fd_get"
+              href={`${hrefLang}/download-docs.aspx?from=downloadintegrationmenu#docs-developer`}
               className="dropdown-item"
             >
-              {t("Code on GitHub")}
+              {t("Get It Now")}
             </Link>
-            <Box id="fd_git_code_div" className="menu_pic_div">
-              <div id="git_code_img" className="menu_pic_img"></div>
-            </Box>
           </Box>
         </Box>
       </MenuItem>
@@ -260,6 +276,13 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
               href={`${hrefLang}/download-docs.aspx?from=downloadintegrationmenu#docs-enterprise`}
             >
               {t("Docs Enterprise")}
+            </Link>
+            <Link
+              id="navitem_download_docs_cloud"
+              className="dropdown-item"
+              href={`${hrefLang}/docs-registration.aspx`}
+            >
+              {t("Docs Cloud")}
             </Link>
             <Link
               id="navitem_download_workspace"
@@ -309,7 +332,9 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
               {t("Desktop&mobile apps")}
             </Link>
           </Box>
-          <Box className="outer-box">
+          <div className="download-last-area">
+          <div class="download-inner-list">
+          <Box className="outer-box with_border">
             <Link
               className="dropdown-item mobile_no_link"
               id="navitem_download_for_dev"
@@ -331,6 +356,37 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
               {t("Document Builder")}
             </Link>
           </Box>
+          <Box className="outer-box no-color-box">
+          <Link
+              className="dropdown-item mobile_no_link"
+              id="navitem_download_for_dev"
+            >
+              {t("For community")}
+            </Link>
+            <Link
+              id="navitem_download_docs_ce"
+              className="dropdown-item"
+              href={`${hrefLang}/download-docs.aspx#docs-community`}
+            >
+              {t("Docs Community")}
+            </Link>
+            <Link
+              id="navitem_download_download_bundles"
+              className="dropdown-item"
+              href={`${hrefLang}/download.aspx#bundles`}
+            >
+              {t("Bundles")}
+            </Link>
+            <Link
+              id="navitem_download_code_git"
+              className="dropdown-item"
+              href={`https://github.com/ONLYOFFICE/`}
+            >
+              {t("Code on GitHub")}
+            </Link>
+          </Box>
+          </div>
+          <Box class="download-third-level">
           <Box className="outer-box">
             <Link
               id="navitem_download_hosting"
@@ -346,6 +402,8 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
               </p>
             </Box>
           </Box>
+          </Box>
+          </div>
         </Box>
       </MenuItem>
 
@@ -372,20 +430,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
             >
               {t("Workspace")}
             </Link>
-            <Box className="inner-box">
-              <Link
-                href={`${hrefLang}/saas.aspx`}
-                className="nav_2nd_menu_link"
-              >
-                {t("Cloud")}
-              </Link>
-              <Link
-                href={`${hrefLang}/workspace-enterprise-prices.aspx`}
-                className="nav_2nd_menu_link"
-              >
-                {t("On-premises")}
-              </Link>
-            </Box>
+          
             <Link
               className="dropdown-item mobile_no_link"
               id="navitem_prices_for_dev"
@@ -436,6 +481,13 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
               {t("Affiliates")}
             </Link>
             <Link
+              id="navitem_technology_partners"
+              href={`${hrefLang}/technology-partners.aspx`}
+              className="dropdown-item"
+            >
+              {t("Technology Partners")}
+            </Link>
+            <Link
               id="navitem_find_partners"
               href={`${hrefLang}/find-partners.aspx`}
               className="dropdown-item"
@@ -461,7 +513,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
             <Box id="latest_events_div" className="menu_pic_div">
               <div id="latest_events_img" className="menu_pic_img"></div>
               <p id="latest_events_header" className="menu_pic_header">
-                {t("Meet ONLYOFFICE this autumn")}
+                {t("Meet the ONLYOFFICE team")}
               </p>
             </Box>
           </Box>
@@ -470,7 +522,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
 
       <MenuItem heading={t("Resources")} id="navitem_about">
         <Box className="menu_wrapper">
-          <Box className="outer-box with_border">
+          <Box className="outer-box">
             <Link
               id="navitem_about_about"
               href={`${hrefLang}/about.aspx`}

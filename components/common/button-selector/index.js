@@ -32,7 +32,7 @@ const ButtonSelector = ({
         <span className="indicatorSeparator" />
         <img
           className={classNameIndicator}
-          src="https://static-oforms.teamlab.info/icons/chevron-down.svg"
+          src="https://static-oforms.onlyoffice.com/icons/chevron-down.svg"
           height="24px"
           width="24px"
         />

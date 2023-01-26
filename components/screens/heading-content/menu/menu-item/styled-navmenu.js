@@ -21,13 +21,18 @@ const StyledNavMenu = styled.div`
       position: absolute;
       left: 32px;
       top: 0px;
-      background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_icons.svg');
+      background-image: url('https://static-oforms.onlyoffice.com/images/menu-pics/menu_icons.svg');
       background-repeat: no-repeat;
     }
 
     &:not(:last-child) {
-      margin-bottom: 16px;
+      margin-bottom: 24px;
     }
+  }
+
+  .no-bold {
+    font-weight: 400 !important;
+    margin: 0 0 12px !important;
   }
 
   #navitem_features_workspace {
@@ -50,6 +55,46 @@ const StyledNavMenu = styled.div`
     text-transform: uppercase;
   }
 
+  .download-last-area {
+    .download-inner-list {
+        display: flex;
+
+        > li {
+            min-width: 312px;
+            padding: 0 0 28px;
+
+            &:last-child {
+                position: relative;
+
+                &:before {
+                    background-color: #ebebeb;
+                    content: "";
+                    display: block;
+                    height: 179px;
+                    left: 0px;
+                    position: absolute;
+                    top: 0px;
+                    width: 1px;
+                }
+            }
+        }
+    }
+
+    .download-third-level {
+        background-color: #F9F9F9;
+        background-image: url(../images/menu_hosting.png);
+        background-size: 180px 90px;
+        background-repeat: no-repeat;
+        background-position: 32px 32px;
+        height: 168px;
+
+        .menu_pic_div {
+            margin: 0;
+            padding: 0 32px 0 228px;
+        }
+    }
+}
+
   @media (max-width: 1255px) {
     .heading-nav-item {
       padding: 20px 10px;
@@ -61,6 +106,46 @@ const StyledNavMenu = styled.div`
     font-size: 13px;
     line-height: 1.6em;
     margin: 0;
+  }
+
+  #navitem_features_docs_overview:before {
+    background-position-y: -936px;
+  }
+
+  #navitem_fb_docs_cloud:before, #navitem_download_docs_cloud:before {
+    background-position-y: -1092px;
+  }
+
+  #navitem_fd_conversion_api:before {
+    background-position-y: -1118px;
+  }
+
+  #navitem_fd_get:before {
+    background-position-y: -1040px;
+  }
+
+  #navitem_technology_partners:before {
+    background-position-y: -1171px;
+  }
+
+  #navitem_download_docs_de:before, #navitem_prices_docs_dev:before, #navitem_fd_docs_dev:before {
+    background-position-y: -832px;
+  }
+
+  #navitem_download_docs_builder:before, #navitem_fd_doc_builder:before {
+    background-position-y: -858px;
+  }
+
+  #navitem_download_docs_ce:before {
+    background-position-y: -988px;
+  }
+
+  #navitem_download_download_bundles:before {
+    background-position-y: -1144px;
+  }
+
+  #navitem_download_code_git:before {
+    background-position-y: -962px;
   }
 
   #navitem_features_spreadsheet_editor,
@@ -473,6 +558,10 @@ const StyledNavMenu = styled.div`
     }
   }
 
+  .no-color-box {
+    background-color: #ffffff !important;
+  }
+
   .outer-box {
     align-items: initial;
     padding: 32px 0;
@@ -488,6 +577,7 @@ const StyledNavMenu = styled.div`
         max-width: 330px;
       }
     }
+
     @media (min-width: 1150px) {
       min-width: 312px;
       max-width: 385px;
@@ -541,43 +631,43 @@ const StyledNavMenu = styled.div`
   }
 
   #compare_img {
-    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_compare_edition.svg');
+    background-image: url('https://static-oforms.onlyoffice.com/images/menu-pics/menu_compare_edition.svg');
   }
 
   #for_developers_img {
-    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_for_developers.png');
+    background-image: url('https://static-oforms.onlyoffice.com/images/menu-pics/menu_for_developers.png');
   }
 
   #oforms_img {
-    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_oforms.svg');
+    background-image: url('https://static-oforms.onlyoffice.com/images/menu-pics/menu_oforms.svg');
   }
 
   #see_it_img {
-    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_see_it_in_act.png');
+    background-image: url('https://static-oforms.onlyoffice.com/images/menu-pics/menu_see_it_in_act.png');
   }
 
   #git_code_img {
-    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_code_git.png');
+    background-image: url('https://static-oforms.onlyoffice.com/images/menu-pics/menu_code_git.png');
   }
 
   #hosting_img {
-    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_hosting.png');
+    background-image: url('https://static-oforms.onlyoffice.com/images/menu-pics/menu_hosting.png');
   }
 
   #reseller_img {
-    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_reseller.svg');
+    background-image: url('https://static-oforms.onlyoffice.com/images/menu-pics/menu_reseller.svg');
   }
 
   #latest_events_img {
-    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_events.png');
+    background-image: url('https://static-oforms.onlyoffice.com/images/menu-pics/events.svg');
   }
 
   #latest_news_img {
-    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/blog_moodle_plugin.jpg');
+    background-image: url('https://static-oforms.onlyoffice.com/images/menu-pics/blog_moodle_plugin.jpg');
   }
 
   #education_img {
-    background-image: url('https://static-oforms.teamlab.info/images/menu-pics/menu_education.svg');
+    background-image: url('https://static-oforms.onlyoffice.com/images/menu-pics/menu_for_developers.png');
   }
 
   @media (min-width: 1150px) {
@@ -676,7 +766,7 @@ const StyledNavMenu = styled.div`
         content: "";
         width: 10px;
         height: 10px;
-        background-image: url('https://static-oforms.teamlab.info/icons/arrow-gray.svg');
+        background-image: url('https://static-oforms.onlyoffice.com/icons/arrow-gray.svg');
         background-position: 50% 50%;
         background-repeat: no-repeat;
         background-size: auto 100%;

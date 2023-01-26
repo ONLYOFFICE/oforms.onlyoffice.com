@@ -35,7 +35,7 @@ const StyledMailPopup = styled.div`
   .popup-content {
     width: 649px;
     height: 633px;
-    background: url('https://static-oforms.teamlab.info/images/forms/pop-up-bg.png');
+    background: url('https://static-oforms.onlyoffice.com/images/forms/pop-up-bg.png');
     background-position: 50% 18%;
     background-repeat: no-repeat;
     box-shadow: (0, 2px, 4px, rgba(0, 0, 0, 0.5));

@@ -35,13 +35,13 @@ const ShareButtonsGroup = ({ t, name, baseURL }) => {
         {t("Share")}:{" "}
       </Text>
       <TwitterShareButton title={name} url={baseURL}>
-        <StyledShareButton iconName="https://static-oforms.teamlab.info/images/social-icons/twitter.react.svg" />
+        <StyledShareButton iconName="https://static-oforms.onlyoffice.com/images/social-icons/twitter.react.svg" />
       </TwitterShareButton>
       <EmailShareButton title={name} url={baseURL}>
-        <StyledShareButton iconName="https://static-oforms.teamlab.info/images/social-icons/mail.react.svg" />
+        <StyledShareButton iconName="https://static-oforms.onlyoffice.com/images/social-icons/mail.react.svg" />
       </EmailShareButton>
       <LinkedinShareButton title={name} url={baseURL}>
-        <StyledShareButton iconName="https://static-oforms.teamlab.info/images/social-icons/linkedin.react.svg" />
+        <StyledShareButton iconName="https://static-oforms.onlyoffice.com/images/social-icons/linkedin.react.svg" />
       </LinkedinShareButton>
     </Box>
   );

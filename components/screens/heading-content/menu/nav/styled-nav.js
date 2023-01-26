@@ -114,7 +114,7 @@ const StyledNav = styled.nav`
       text-align: center;
 
       &:before {
-        background-image: url('https://static-oforms.teamlab.info/icons/arrow-red.svg');
+        background-image: url('https://static-oforms.onlyoffice.com/icons/arrow-red.svg');
         background-position: 50% 50%;
         background-repeat: no-repeat;
         background-size: auto 100%;
@@ -156,7 +156,7 @@ const StyledNav = styled.nav`
       text-decoration: none;
       width: 100%;
       &:before {
-        background-image: url('https://static-oforms.teamlab.info/icons/phone.svg');
+        background-image: url('https://static-oforms.onlyoffice.com/icons/phone.svg');
         background-repeat: no-repeat;
         background-position: 50% 50%;
         background-size: 18px 18px;

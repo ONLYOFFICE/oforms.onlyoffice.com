@@ -88,7 +88,8 @@ const StyledFooterItem = styled.div`
     font-size: 12px;
     line-height: 16px;
     padding: 0 0 16px;
-    font-weight: 600;
+    font-weight: 700;
+    color: #333;
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
