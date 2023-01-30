@@ -97,6 +97,7 @@ const StyledNav = styled.nav`
     .menu_wrapper {
       display: block;
       padding-top: 8px;
+      min-height: 300px;
     }
 
     .mobile-heading-nav-item {
