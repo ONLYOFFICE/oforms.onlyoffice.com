@@ -1,6 +1,6 @@
 {
     "defaultLanguage": "en",
-    "docEditorUrl": "https://doc-linux.teamlab.info/", 
+    "docEditorUrl": "https://asc.docs.onlyoffice.com/", 
     "api": {
         "cms": "https://oforms.onlyoffice.com/dashboard",
         "url": "",
