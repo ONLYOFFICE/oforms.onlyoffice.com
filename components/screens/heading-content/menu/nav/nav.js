@@ -519,7 +519,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
 
       <MenuItem heading={t("Resources")} id="navitem_about">
         <Box className="menu_wrapper">
-          <Box className="outer-box">
+          <Box className="outer-box with_border">
             <Link
               id="navitem_about_about"
               href={`${hrefLang}/about.aspx`}
@@ -577,7 +577,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
               {t("Contacts")}
             </Link>
           </Box>
-          <Box className="outer-box">
+          <Box className="outer-box no-color-box">
             <Link
               id="navitem_about_blog"
               href="https://www.onlyoffice.com/blog/"
