@@ -387,7 +387,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
           </Box>
           </div>
           <Box class="download-third-level">
-          <Box className="outer-box">
+            <Box id="hosting_div" className="menu_pic_div">
             <Link
               id="navitem_download_hosting"
               className="dropdown-item"
@@ -395,13 +395,10 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
             >
               {t("Web hosting")}
             </Link>
-            <Box id="hosting_div" className="menu_pic_div">
-              <div id="hosting_img" className="menu_pic_img"></div>
-              <p id="hosting_header" className="menu_pic_header">
+            <p id="hosting_header" className="menu_pic_header">
                 {t("Get web hosting from some of the best providers")}
-              </p>
+            </p>
             </Box>
-          </Box>
           </Box>
           </div>
         </Box>
