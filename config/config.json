@@ -2,7 +2,7 @@
     "defaultLanguage": "en",
     "docEditorUrl": "https://kim.teamlab.info/", 
     "api": {
-        "cms": "https://oforms.teamlab.info/dashboard",
+        "cms": "https://oforms.onlyoffice.com/dashboard",
         "url": "",
         "timeout": "30000"
     },
