@@ -5,11 +5,11 @@ import Text from "../text";
 import TextInput from "../text-input/";
 import StyledSearchArea from "./styled-search-area";
 
-const SearchArea = ({ clearValueSearch, valueSearch, callback, t }) => {
+const SearchArea = ({ clearValueSearch, valueSearch, callback, t, onEnterPress }) => {
   /*eslint-disable*/
   const imgSearch = !valueSearch ? (
     <img className="search_img"
-      src="https://static-oforms.teamlab.info/icons/search-icon.svg"
+      src="https://static-oforms.onlyoffice.com/icons/search-icon.svg"
       style={{ cursor: "default" }}
       alt="search"
       width="24px"
@@ -17,7 +17,7 @@ const SearchArea = ({ clearValueSearch, valueSearch, callback, t }) => {
     />
   ) : (
     <img
-      src="https://static-oforms.teamlab.info/icons/close-icon.svg"
+      src="https://static-oforms.onlyoffice.com/icons/close-icon.svg"
       onClick={clearValueSearch}
       alt="close"
       width="24px"
@@ -38,6 +38,7 @@ const SearchArea = ({ clearValueSearch, valueSearch, callback, t }) => {
         />
         <TextInput
           onChange={callback}
+          onEnterPress={onEnterPress}
           value={valueSearch}
           type="text"
           className={"search_input" + (valueSearch ? " has_value" : "")}

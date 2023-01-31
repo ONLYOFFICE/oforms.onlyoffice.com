@@ -38,13 +38,15 @@ const Category = ({
   const { seo_title, seo_description } = dataCategoryInfo;
   const nameCategory = dataCategoryInfo.categorie;
   const urlReqCategory = dataCategoryInfo.urlReq;
-  const header = dataCategoryInfo.header_description;  
+  const header = dataCategoryInfo.header_description; 
+  const categoryName = categoryInfo.data[0].attributes.categorie; 
 
   const [isCategoryPage, setIsCategoryPage] = useState(true);
   const query = useRouter();
-  const isDesktop = query.query.name === "desktop";
-  const [isDesktopClient, setIsDesktopClient] = useState(isDesktop);
-
+  const isDesktop = query.query.desktop === "true";
+  const [isDesktopClient, setIsDesktopClient] = useState(isDesktop)
+ 
+  
   return isDesktopClient ?
     <Layout>
       <Layout.PageHead>
@@ -70,6 +72,7 @@ const Category = ({
           categories={categories}
           compilations={compilations}
           isDesktopClient={isDesktopClient}
+          categoryName={categoryName}
         />
     </Layout>
   :
@@ -111,14 +114,15 @@ const Category = ({
     </Layout>
 };
 
-export const getServerSideProps = async ({ locale, ...ctx }) => {
-  const page = ctx.query.page || 1;
-  const sort = ctx.query._sort || "ASC";
-  const urlReq = ctx.query.category;
-  const pageSize = ctx.query.pageSize || 9;  
+export const getServerSideProps = async ({ locale, query, ...ctx }) => {
+  const isDesktop = query.desktop === "true";
+  const page = query.page || 1;
+  const sort = query._sort || "ASC";
+  const urlReq = query.category;
+  const pageSize = query.pageSize || isDesktop ? 0 : 9;
   const cms = config.api.cms
   const res = await fetch(
-    `${cms}/api/oforms/?filters[categories][urlReq][$eq]=${urlReq}&locale=${locale}&sort=name_form:${sort}&pagination[pageSize]=${pageSize}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
+    `${cms}/api/oforms/?filters[categories][urlReq][$eq]=${urlReq}&locale=${locale}&sort=name_form:${sort}&${pageSize ? `&pagination[pageSize]=${pageSize}` : ''}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
   );
   const resCategory = await fetch(
     `${cms}/api/categories/?filters[urlReq][$eq]=${urlReq}&locale=${locale}`

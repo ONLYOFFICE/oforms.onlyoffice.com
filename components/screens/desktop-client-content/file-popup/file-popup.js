@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Text from "@components/common/text";
 import Button from "@components/common/button";
 import { CloseButton, StyledFilePopup } from "./styled-file-popup";
@@ -12,12 +12,20 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
   const [fileTypeData, setFileTypeData] = useState("docxf");
   const [isOpenType, setIsOpenType] = useState(false);
   const [href, setHref] = useState(docxfFile);
-  const fileDescription = cardData.template_desc?.split("\n");
 
+  useEffect(()=>{
+    setHref(docxfFile);    
+    setFileTypeData("docxf");
+  },[modalActive])
+ 
+  
+  
+  const fileDescription = cardData.template_desc?.split("\n"); 
+ 
   const array = [
-    { title: `${currentLanguage == "ja" ? `docxf` : `docxf`}`, href: pdfFile},
+    { title: `${currentLanguage == "ja" ? `docxf` : `docxf`}`, href: docxfFile},
     { title: `${currentLanguage == "ja" ? `oform` : `oform`}`, href: oformFile},
-    { title: `${currentLanguage == "ja" ? `pdf` : `pdf`}`, href: docxfFile},
+    { title: `${currentLanguage == "ja" ? `pdf` : `pdf`}`, href: pdfFile},
   ];
 
   const openTypeDropdown = () => {
@@ -33,6 +41,8 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
     closeTypeDropdown();
   };
 
+  
+  
   return (
     <StyledFilePopup onClick={() => setModalActive(false)} className={modalActive ? "open": ""} {...rest}>
       <div className="popup-wrapper">
@@ -46,9 +56,9 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
           <div className="popup-body">
             <div className="file-img">
               <img
-                src={cardData.template_image?.data?.attributes?.url}
+                src={modalActive ? cardData.card_prewiew?.data?.attributes?.formats?.medium?.url : ""}
                 alt={cardData.name_form}
-                style={{ width: "400px", height: "566px" }} 
+                style={{ width: "424px", height: "600px" }} 
               />
             </div>
             <div className="file-content">
@@ -85,7 +95,7 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
                         <div className="file-select-title">{fileTypeData}</div>
                         <img
                           className="file-select-icon"
-                          src="https://static-oforms.teamlab.info/icons/chevron-down.svg"
+                          src="https://static-oforms.onlyoffice.com/icons/chevron-down.svg"
                           height="16px"
                           width="16px"
                         />
@@ -97,7 +107,7 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
                             className={`file-dropdown-item ${fileTypeData === item?.title ? "selected" : ""}`}
                             key={index} 
                           >
-                            {item.title}
+                            {item.title}                            
                           </div>
                         ))}
                       </div>
@@ -105,7 +115,7 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
                   </div>
                 </div>
               </div>
-              <Button className="file-button" label={t("Open")} />
+              <Button className="file-button" label={t("Open")}  onClick={() => window.AscDesktopEditor.openTemplate(href, `${cardData.name_form}.${fileTypeData}`)}/>                            
             </div>
           </div>
         </div>

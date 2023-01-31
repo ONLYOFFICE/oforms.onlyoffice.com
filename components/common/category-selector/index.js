@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { ReactSVG } from "react-svg";
+import { useRouter } from "next/router";
 import Box from "../box";
 import Text from "../text";
 import StyledSelector from "./styled-selector";
 
 import MenuItem from "@components/screens/heading-content/menu/menu-item";
-import Link from "next/link";
 import MobileSelector from './mobileSelector';
 import { isMobile } from 'react-device-detect';
 
@@ -18,15 +17,17 @@ const CategorySelector = ({
   types,
   categories,
   compilations,
-  isCategoryPage,
-  header,
   isDesktopClient,
+  categoryName,
+  queryDesktopClient
 }) => {
  
   const [isOpen, setIsOpen] = useState(false);
   const [isCategorieOpen, setIsCategorieOpen] = useState(false);
   const [isTypeOpen, setIsTypeOpen] = useState(false);
   const [isCompilationsOpen, setIsCompilationsOpen] = useState(false);
+
+  const router = useRouter();
 
   const onClickHandler = () => {
     setIsOpen(true);
@@ -63,23 +64,38 @@ const CategorySelector = ({
       onMouseLeave={onCloseSelector}
       onMouseEnter={onClickHandler}>
 
-      <Text className="filter-header" label={t("Categories")} />
-      <img className="arrow" src="https://static-oforms.teamlab.info/icons/popup-arrow.svg"></img>
+    <Text className="filter-header" label={isDesktopClient && categoryName ? t("Categoriess") : t("Categories")} />
+    <Text className={categoryName || queryDesktopClient ? "filter-header-name" : ""} label={isDesktopClient && router.pathname === "/searchresult" ? `${t("Search results for")} '${queryDesktopClient}'` : categoryName} />
+
+      <img className="arrow" src="https://static-oforms.onlyoffice.com/icons/popup-arrow.svg"></img>
       <Box
         className="filter_selector"
         value={t(typeSortData)}
         onClick={onChangeSelectTypeSort}
       >
-        <a
-          className="arrow-link"
-          href={`${locale === "en" ? "" : localeHREF}/`}
-          style={{ textDecoration: "none" }}
-        >
-          <Text           
-            className="filter_selector-items-header"            
-            label={t("View all templates")}
-          />
-        </a>
+        {isDesktopClient ?
+            <a
+              className="arrow-link"    
+              href={`${locale === "en" ? "/?desktop=true" : `${localeHREF}?desktop=true`}`}                   
+              style={{ textDecoration: "none" }}
+            >
+            <Text           
+              className="filter_selector-items-header"            
+              label={t("View all templates")}
+            />
+            </a>
+              :
+            <a
+              className="arrow-link"
+              href={`${locale === "en" ? "" : localeHREF}/`}
+              style={{ textDecoration: "none" }}
+            >
+            <Text           
+              className="filter_selector-items-header"            
+              label={t("View all templates")}
+            />
+            </a>
+        }
 
         <a
           onMouseEnter={() => setIsCategorieOpen(true)}
@@ -100,7 +116,20 @@ const CategorySelector = ({
           onMouseEnter={() => setIsCategorieOpen(true)}
           onMouseLeave={() => setIsCategorieOpen(false)}
           >
-            {categories.data?.map((categorie) => ( 
+          {categories.data?.map((categorie) => ( 
+           isDesktopClient ?
+            <a
+              key={categorie.id}  
+              href={`${locale === "en" ? "" : `/${localeHREF}`}/form/${categorie.attributes.urlReq}?desktop=true`}
+              className="submenu_link"
+              style={{ textDecoration: "none" }}
+            >
+            <Text
+                className="filter_selector-items"            
+                label={categorie.attributes.categorie}
+              />  
+            </a>
+            :
               <a
                 key={categorie.id}
                 href={`${locale === "en" ? "" : `/${localeHREF}`}/form/${categorie.attributes.urlReq}`}              
@@ -137,7 +166,20 @@ const CategorySelector = ({
           onMouseLeave={() => setIsTypeOpen(false)}
           >
             {types.data?.map((type) => ( 
+              isDesktopClient ?
               <a
+              key={type.id}
+              href={`${locale === "en" ? "" : `/${localeHREF}`}/form/types/${type.attributes.urlReq}?desktop=true`}              
+              className="submenu_link"
+              style={{ textDecoration: "none" }}
+            >
+            <Text
+              label={type.attributes.type}
+              className="filter_selector-items" >
+            </Text>                   
+            </a>
+            :
+            <a
               key={type.id}
               href={`${locale === "en" ? "" : `/${localeHREF}`}/form/types/${type.attributes.urlReq}`}              
               className="submenu_link"
@@ -174,7 +216,20 @@ const CategorySelector = ({
           onMouseLeave={() => setIsCompilationsOpen(false)}
           >
             {compilations.data?.map((compilation) => ( 
+              isDesktopClient ?
               <a
+                key={compilation.id}
+                href={`${locale === "en" ? "" : `/${localeHREF}`}/form/compilations/${compilation.attributes.urlReq}?desktop=true`}         
+                className="submenu_link"
+                style={{ textDecoration: "none" }}
+            >
+            <Text
+              label={compilation.attributes.compilation} 
+              className="filter_selector-items" >
+            </Text>             
+            </a>
+            :
+            <a
               key={compilation.id}
               href={`${locale === "en" ? "" : `/${localeHREF}`}/form/compilations/${compilation.attributes.urlReq}`}              
               className="submenu_link"
@@ -193,8 +248,6 @@ const CategorySelector = ({
     
     </StyledSelector>
 };
-
-
 
 export default CategorySelector;
 

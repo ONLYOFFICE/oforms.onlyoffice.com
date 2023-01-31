@@ -48,7 +48,7 @@ const MainInfo = ({ t, currentLanguage, data, link }) => {
   const category = categories.data[0].attributes.categorie;
   const catHref = categories.data[0].attributes.urlReq;
 
-  const SVG_FILE_TYPE = "https://static-oforms.teamlab.info/icons/oform.svg";
+  const SVG_FILE_TYPE = "https://static-oforms.onlyoffice.com/icons/oform.svg";
   const baseURL = typeof window !== "undefined" ? window.location.href : null;
   const linkSuggestChanges = `mailto:marketing@onlyoffice.com?subject=Suggesting changes for Form ${name_form}&body=Suggesting changes for Form ${name_form}.`;
 

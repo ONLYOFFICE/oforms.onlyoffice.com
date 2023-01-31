@@ -2,7 +2,7 @@ const Items = [
   {
     className: "bysize",
     position: 1,
-    heading: "SOLUTIONS BY SIZE",
+    heading: "SOLUTIONS",
     link: [
       {
         localize: true,
@@ -19,13 +19,6 @@ const Items = [
         label: "Home use",
         href: "/home-use.aspx",
       },
-    ],
-  },
-  {
-    className: "byindustry",
-    position: 1,
-    heading: "SOLUTIONS BY INDUSTRY",
-    link: [
       {
         localize: true,
         label: "Developers",
@@ -64,8 +57,35 @@ const Items = [
     ],
   },
   {
-    className: "support",
+    className: "byindustry",
     position: 2,
+    heading: "PERFORM YOUR TASKS",
+    link: [
+      {
+        localize: true,
+        label: "Convert text files",
+        href: "/text-file-converter.aspx",
+      },
+      {
+        localize: true,
+        label: "Convert spreadsheets",
+        href: "/spreadsheet-converter.aspx",
+      },
+      {
+        localize: true,
+        label: "Convert presentations",
+        href: "/presentation-converter.aspx",
+      },
+      {
+        localize: true,
+        label: "Convert PDFs",
+        href: "/pdf-converter.aspx",
+      },
+    ],
+  },
+  {
+    className: "support",
+    position: 3,
     heading: "Support",
     link: [
       {
@@ -97,7 +117,7 @@ const Items = [
   },
   {
     className: "resources",
-    position: 2,
+    position: 3,
     heading: "Resources",
     link: [
       {
@@ -129,7 +149,7 @@ const Items = [
   },
   {
     className: "comparison",
-    position: 3,
+    position: 4,
     heading: "Comparison",
     link: [
       {
@@ -166,7 +186,7 @@ const Items = [
   },
   {
     className: "contacts",
-    position: 3,
+    position: 4,
     heading: "Contact us",
     link: [
       {

@@ -29,6 +29,10 @@ const StyledSearchArea = styled.div`
       cursor: pointer;
       fill: "#AAAAAA";
     }
+
+    img {
+      cursor: pointer;
+    }
   }
   @media ${device.laptopM} {
     .search_container {

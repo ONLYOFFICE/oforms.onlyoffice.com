@@ -38,7 +38,7 @@ const StyledSelectorMobile = styled.div`
 
   .heading-nav-item {
     padding: 0;
-    font-size: 13px;
+    font-size: 16px;
     cursor: pointer;
     white-space: nowrap;
     display: block;
@@ -86,9 +86,9 @@ const StyledSelectorMobile = styled.div`
     background-color: #fff;
     padding: 15px 32px;
       .item_arrow{
-        background-image: url('https://static-oforms.teamlab.info/icons/arrow-right.svg');
+        background-image: url('https://static-oforms.onlyoffice.com/icons/arrow-right.svg');
         width: 24px;
-        height: 24px
+        height: 24px;
       }
       &:hover{
         background-color: #f5f5f5;
@@ -102,7 +102,7 @@ const StyledSelectorMobile = styled.div`
           color: #ff6f3d;
         }
         & .item_arrow{
-          background-image: url('https://static-oforms.teamlab.info/icons/arrow-right-red.svg');
+          background-image: url('https://static-oforms.onlyoffice.com/icons/arrow-right-red.svg');
         }
       }   
   }
@@ -153,7 +153,7 @@ const StyledSelectorMobile = styled.div`
     }
 
       .item_arrow {
-        background-image: url('https://static-oforms.teamlab.info/icons/arrow-right.svg');
+        background-image: url('https://static-oforms.onlyoffice.com/icons/arrow-right.svg');
         width: 24px;
         height: 24px;
       }
@@ -258,7 +258,7 @@ const StyledSelectorMobile = styled.div`
 
     &:before {
       content: "";
-      background-image: url('https://static-oforms.teamlab.info/icons/arrow-right.svg');
+      background-image: url('https://static-oforms.onlyoffice.com/icons/arrow-right.svg');
       transform: rotate(180deg);
       width: 24px;
       height: 24px;
@@ -294,7 +294,7 @@ const StyledSelectorMobile = styled.div`
     position: relative;
   }
 }
-`
+`;
 
 const MobileSelector = ({
   onChangeSelectTypeSort,
@@ -352,13 +352,13 @@ const MobileSelector = ({
       onClick={onClickHandler}
     >
         <Text className="filter-header" label={t("Categories")} />
-        <img className="arrow" src="https://static-oforms.teamlab.info/icons/popup-arrow.svg" />
+        <img className="arrow" src="https://static-oforms.onlyoffice.com/icons/popup-arrow.svg" />
         {isOpen && 
         <Box
           className="filter_selector_mobile"
           value={t(typeSortData)}
         >
-            <img src="https://static-oforms.teamlab.info/icons/close-icon.svg" className="closeSelector" onClick={onCloseSelector} />
+            <img src="https://static-oforms.onlyoffice.com/icons/close-icon.svg" className="closeSelector" onClick={onCloseSelector} />
             <Text className="filter-header-popup" label={t("Categories")} />
           <a
             className="arrow-link"

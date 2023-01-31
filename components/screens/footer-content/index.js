@@ -13,7 +13,7 @@ const date = new Date();
 const currentYear = date.getFullYear();
 
 const Footer = ({ t, language }) => {
-  const POSITION_ELEMENTS_ITEM = [1, 2, 3];
+  const POSITION_ELEMENTS_ITEM = [1, 2, 3, 4];
 
   const [modalActive, setModalActive] = useState(false);
   const handlerSetModal = (active) => {

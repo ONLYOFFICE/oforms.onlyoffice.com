@@ -1,6 +1,6 @@
 {
     "defaultLanguage": "en",
-    "docEditorUrl": "config_docEditorUrlg",
+    "docEditorUrl": "config_docEditorUrlg", 
     "api": {
         "cms": "config_cms",
         "url": "",

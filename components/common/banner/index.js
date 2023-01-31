@@ -22,7 +22,7 @@ const BannerOforms = ({ t, currentLanguage }) => {
         className="box-banner"
       >
         <Box className="box-banner-sec">
-          <Img src="https://static-oforms.teamlab.info/images/banners/oforms-banner.svg" width="36" height="48" />
+          <Img src="https://static-oforms.onlyoffice.com/images/banners/oforms-banner.svg" width="36" height="48" />
           <Heading level={3} className="banner_heading">
             {t("BannerBuildYourOwnForms")}
           </Heading>

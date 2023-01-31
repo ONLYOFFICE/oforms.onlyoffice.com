@@ -49,8 +49,8 @@ const LanguageSelector = (props) => {
 
   const { currentLanguage, t } = props;
   const srcArrow = isOpen
-    ? "https://static-oforms.teamlab.info/icons/arrow-drop-up.svg"
-    : "https://static-oforms.teamlab.info/icons/arrow-drop-down.svg";
+    ? "https://static-oforms.onlyoffice.com/icons/arrow-drop-up.svg"
+    : "https://static-oforms.onlyoffice.com/icons/arrow-drop-down.svg";
   const srcAlt = isOpen ? "arrow-up" : "arrow-down";
 
   return (
@@ -61,7 +61,7 @@ const LanguageSelector = (props) => {
       <img
         className="flag-image"
         alt="flag"
-        src={`https://static-oforms.teamlab.info/images/flags/${currentLanguage}.svg`}
+        src={`https://static-oforms.onlyoffice.com/images/flags/${currentLanguage}.svg`}
         width="18px"
         height="18px"
       />

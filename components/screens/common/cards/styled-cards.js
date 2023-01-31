@@ -9,6 +9,27 @@ const StyledCards = styled.div`
   width: 100%;
   min-width: 1120px;
 
+  .no-more-result-block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .no-more-result-image {
+    margin-bottom: 32px;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .no-more-result-heading {
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    line-height: 133%;
+  }
+
   @media (max-width: 1200px) {
     gap: 32px 24px;
     min-height: auto;

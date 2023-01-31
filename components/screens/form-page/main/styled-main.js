@@ -184,7 +184,7 @@ const tabletStyledMainInfo = css`
 const StyledMainInfo = styled(Section)`
   .section-page {
     display: grid;
-    padding: 100px 0px;
+    padding: 40px 0px;
 
     .template-main-img {
       grid-column-start: 1;

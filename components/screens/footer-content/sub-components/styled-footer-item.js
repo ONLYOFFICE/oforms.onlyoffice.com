@@ -87,8 +87,9 @@ const StyledFooterItem = styled.div`
   .footer-item-heading {
     font-size: 12px;
     line-height: 16px;
-    padding: 0 0 16px;
-    font-weight: 600;
+    padding: 0 0 14px;
+    font-weight: 700;
+    color: #333;
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
