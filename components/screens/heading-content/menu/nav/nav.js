@@ -221,7 +221,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
 
       <MenuItem heading={t("For Developers")} id="navitem_fordevelopers">
         <Box className="menu_wrapper">
-          <Box className="outer-box">
+          <Box className="outer-box no-color-box">
             <Link
               id="navitem_fd_docs_dev"
               href={`${hrefLang}/developer-edition.aspx`}
@@ -241,7 +241,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
               href={`${hrefLang}/document-builder.aspx`}
               className="dropdown-item"
             >
-              {t("Document Builder")}
+              {t("Document builder")}
             </Link>
             <Link
               id="navitem_fd_api_doc"
@@ -346,14 +346,14 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
               className="dropdown-item"
               href={`${hrefLang}/download-docs.aspx?from=downloadintegrationmenu#docs-developer`}
             >
-              {t("Developer Edition")}
+              {t("Docs Developer")}
             </Link>
             <Link
               id="navitem_download_docs_builder"
               className="dropdown-item"
               href={`${hrefLang}/download-builder.aspx`}
             >
-              {t("Document Builder")}
+              {t("Document builder")}
             </Link>
           </Box>
           <Box className="outer-box no-color-box">
@@ -519,7 +519,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
 
       <MenuItem heading={t("Resources")} id="navitem_about">
         <Box className="menu_wrapper">
-          <Box className="outer-box">
+          <Box className="outer-box with_border">
             <Link
               id="navitem_about_about"
               href={`${hrefLang}/about.aspx`}
@@ -577,7 +577,7 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
               {t("Contacts")}
             </Link>
           </Box>
-          <Box className="outer-box">
+          <Box className="outer-box no-color-box">
             <Link
               id="navitem_about_blog"
               href="https://www.onlyoffice.com/blog/"
