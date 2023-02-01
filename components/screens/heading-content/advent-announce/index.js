@@ -9,7 +9,7 @@ const AdventAnnounce = ({t, currentLanguage}) => {
     <StyledAdventAnnounce>
       <div className="advent-announce advent-mobile-hide">
 
-        <a href={`https://www.onlyoffice.com/blog/2023/01/onlyoffice-docs-7-3-released/`} target="_blank" rel="noreferrer noopener">
+        <a href={`${hrefLang}/2023/01/onlyoffice-docs-7-3-released/`} target="_blank" rel="noreferrer noopener">
           <div className="advent-announce-text">
             <b>{t("ONLYOFFICE Docs released")}</b>{t("enhanced forms SmartArt new security settings Watch Window and more")} 
           </div>
@@ -17,7 +17,7 @@ const AdventAnnounce = ({t, currentLanguage}) => {
       </div>
       <div className="advent-announce advent-desktop-hide">
 
-        <a href={`https://www.onlyoffice.com/blog/2023/01/onlyoffice-docs-7-3-released/`} target="_blank" rel="noreferrer noopener">
+        <a href={`${hrefLang}/2023/01/onlyoffice-docs-7-3-released/`} target="_blank" rel="noreferrer noopener">
           <div className="advent-announce-text">
             &nbsp;<b>{t("ONLYOFFICE Docs v7.3 released")}</b>&nbsp;
           </div>
