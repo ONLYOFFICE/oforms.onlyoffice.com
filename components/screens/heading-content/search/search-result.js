@@ -13,7 +13,6 @@ const SearchResult = ({
   handlerCardData,
 }) => {
   const searchResultArray = resultItems?.data?.length > 0 ? resultItems?.data : [];
-
   return (
     <>
       {resultMouseLeave && searchItem !== "" && (
@@ -54,5 +53,4 @@ const SearchResult = ({
     </>
   );
 };
-
 export default SearchResult;

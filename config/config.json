@@ -1,8 +1,8 @@
 {
     "defaultLanguage": "en",
-    "docEditorUrl": "https://kim.teamlab.info/", 
+    "docEditorUrl": "config_docEditorUrlg", 
     "api": {
-        "cms": "https://oforms.teamlab.info/dashboard",
+        "cms": "config_cms",
         "url": "",
         "timeout": "30000"
     },

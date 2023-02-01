@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.4
+
+### Fixes
+- Updated header menu
+- Updated footer menu
+- Updated top banner
+
 ## 1.1.3
 
 ### Fixes
