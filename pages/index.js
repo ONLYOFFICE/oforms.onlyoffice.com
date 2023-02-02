@@ -53,7 +53,7 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
     const nextPage = nonStateObjectData?.meta.pagination.page + 1 || 1;
     if(nextPage > nonStateObjectData?.meta.pagination.pageCount) return;
     const res = await fetch(
-      `${CMSConfigAPI}/api/oforms/?sort=name_form:asc&pagination[pageSize]=32&pagination[page]=${nextPage}&populate=template_image&populate=file_oform&populate=card_prewiew&populate=categories&locale=en`
+      `${CMSConfigAPI}/api/oforms/?sort=name_form:${sort}&pagination[pageSize]=32&pagination[page]=${nextPage}&populate=template_image&populate=file_oform&populate=card_prewiew&populate=categories&locale=${locale}`
     );
     const newFormsRequest = await res.json();
 
