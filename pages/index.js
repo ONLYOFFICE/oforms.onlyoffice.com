@@ -39,19 +39,25 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
   const [hasMore, setHasMore] = useState(true);
 
   let nonStateObjectData = Object.assign({}, forms);
+  let isLoading = false;
 
   useEffect(() => {
+    if (document.body.offsetHeight <= window.innerHeight) {
+      getMoreForms();
+    }
+    
     window.addEventListener('scroll', handleOnScroll);
     return () => window.removeEventListener('scroll', handleOnScroll);
   }, []);
 
   useEffect(() => {
-    console.log(newForms)
   }, [newForms])
 
   const getMoreForms = async () => {
+    if (isLoading) return;
     const nextPage = nonStateObjectData?.meta.pagination.page + 1 || 1;
     if(nextPage > nonStateObjectData?.meta.pagination.pageCount) return;
+    isLoading = true;
     const res = await fetch(
       `${CMSConfigAPI}/api/oforms/?sort=name_form:${sort}&pagination[pageSize]=32&pagination[page]=${nextPage}&populate=template_image&populate=file_oform&populate=card_prewiew&populate=categories&locale=${locale}`
     );
@@ -64,6 +70,7 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
     }
     setNewForms(newObjectData);
     nonStateObjectData = Object.assign({}, newObjectData)
+    isLoading = false;
   };
 
   const handleOnScroll = () => {
