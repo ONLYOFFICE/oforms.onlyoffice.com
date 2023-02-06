@@ -15,6 +15,7 @@ import HeadingContent from "@components/screens/heading-content";
 import InfoContent from "@components/screens/search-result-page/info-content";
 import MainContent from "@components/screens/search-result-page/main-content";
 import DesktopClientContent from "@components/screens/desktop-client-content";
+import AdventAnnounce from "@components/screens/heading-content/advent-announce";
 
 const Accordion = lazy(() => import("@components/screens/common/accordion"), {
   loading: () => <div />,
@@ -97,6 +98,9 @@ const SearchResult = ({
           metaKeywords={t("metaKeywordsIndexPage")}
         />
       </Layout.PageHead>
+      <Layout.PageAnnounce>
+        <AdventAnnounce t={t} currentLanguage={locale} />
+      </Layout.PageAnnounce>
       <Layout.PageHeader>
         <HeadingContent t={t} currentLanguage={locale} />
       </Layout.PageHeader>

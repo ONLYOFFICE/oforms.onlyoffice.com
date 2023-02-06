@@ -6,11 +6,17 @@ import Header from "./header";
 import Main from "./main";
 import Footer from "./footer";
 import Head from "./head";
+import Announce from "./announce";
 
 function PageHead() {
   return null;
 }
 PageHead.displayName = "PageHead";
+
+function PageAnnounce() {
+  return null;
+}
+PageAnnounce.displayName = "PageAnnounce";
 
 function PageHeader() {
   return null;
@@ -29,6 +35,7 @@ PageFooter.displayName = "PageFooter";
 
 class Layout extends React.Component {
   static PageHeader = PageHeader;
+  static PageAnnounce = PageAnnounce;
   static SectionMain = SectionMain;
   static PageFooter = PageFooter;
   static PageHead = PageHead;
@@ -36,6 +43,7 @@ class Layout extends React.Component {
   render() {
     const { children } = this.props;
     let headerContent = null;
+    let announceContent = null;
     let mainContent = null;
     let footerContent = null;
     let headContent = null;
@@ -47,6 +55,9 @@ class Layout extends React.Component {
       switch (childType) {
         case PageHead.displayName:
           headContent = child;
+          break;
+        case PageAnnounce.displayName:
+          announceContent = child;
           break;
         case PageHeader.displayName:
           headerContent = child;
@@ -66,6 +77,7 @@ class Layout extends React.Component {
       <StyledLayout id="page-layout" className="layout">
         {children}
         {headContent && <Head>{headContent.props.children}</Head>}
+        {announceContent && <Announce>{announceContent.props.children}</Announce>}
         {headerContent && <Header>{headerContent.props.children}</Header>}
         <Main>{mainContent ? mainContent.props.children : null}</Main>
         {footerContent && (
@@ -78,12 +90,14 @@ class Layout extends React.Component {
 
 Layout.propTypes = {
   headContent: PropTypes.bool,
+  announceContent: PropTypes.bool,
   headerContent: PropTypes.bool,
   footerContent: PropTypes.bool,
 };
 
 Layout.defaultProps = {
   headContent: true,
+  announceContent: true,
   headerContent: true,
   footerContent: true,
 };

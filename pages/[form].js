@@ -16,6 +16,7 @@ import { getCookie, setCookie } from "@utils/helpers/cookie";
 import Heading from "@components/common/heading";
 import CategoryContent from "@components/screens/form-page/category-content";
 import config from "@config/config.json";
+import AdventAnnounce from "@components/screens/heading-content/advent-announce";
 
 const CarouselContent = dynamic(
   () => import("@components/screens/form-page/carousel"),
@@ -154,6 +155,9 @@ const Form = ({ form, locale, randomCarousel, types, categories,  compilations }
           metaKeywords={seo_title}
         />
       </Layout.PageHead>
+      <Layout.PageAnnounce>
+        <AdventAnnounce t={t} currentLanguage={locale} />
+      </Layout.PageAnnounce>
       <Layout.PageHeader>
         <HeadingContent template currentLanguage={locale} t={t} />
       </Layout.PageHeader>

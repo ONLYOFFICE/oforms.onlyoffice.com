@@ -12,6 +12,7 @@ import HeadingContent from "@components/screens/heading-content";
 import InfoContent from "@components/screens/category-page/info-content";
 import MainContent from "@components/screens/category-page/main-content";
 import DesktopClientContent from "@components/screens/desktop-client-content";
+import AdventAnnounce from "@components/screens/heading-content/advent-announce";
 
 import config from "@config/config.json";
 
@@ -85,6 +86,9 @@ const Category = ({
           metaKeywords={seo_title}
         />
       </Layout.PageHead>
+      <Layout.PageAnnounce>
+        <AdventAnnounce t={t} currentLanguage={locale} />
+      </Layout.PageAnnounce>
       <Layout.PageHeader>
         <HeadingContent t={t} currentLanguage={locale} />
       </Layout.PageHeader>
