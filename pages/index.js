@@ -120,7 +120,9 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations }) =
           metaKeywords={t("metaKeywordsIndexPage")}
         />
       </Layout.PageHead>
-      <AdventAnnounce t={t} currentLanguage={locale} />
+      <Layout.PageAnnounce>
+        <AdventAnnounce t={t} currentLanguage={locale} />
+      </Layout.PageAnnounce>
       <Layout.PageHeader>       
           <HeadingContent t={t} currentLanguage={locale} />            
       </Layout.PageHeader>
