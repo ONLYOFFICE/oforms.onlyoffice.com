@@ -10,7 +10,7 @@ const StyledAdventAnnounce = styled.div`
     height: 56px;
     overflow: hidden;
     text-align: center;
-    background: #27ABA3;
+    background: #183e6b;
     a {
       position: absolute;
       display: block;
@@ -42,17 +42,20 @@ const StyledAdventAnnounce = styled.div`
         display: block;
         height: 55px;
         z-index: -1;
-        background-image: url(../images/banners/docs-release-left.svg),url(../images/banners/docs-release-icon.svg);
-        background-position-x: 40%, 100%;
-        background-position-y: 11px, -7px;
-        left: -472px;
-        width: 462px;
-        @media (max-width: 1024px) {
+        background-image: url(https://static-oforms.onlyoffice.com/images/banners/workspace-12-5-left.svg);
+        background-position-y: -3px;
+        left: -380px;
+        width: 372px;
+        @media (max-width: 1024px) {          
+          background-image: url(https://static-oforms.onlyoffice.com/images/banners/workspace-12-5-left.svg);
+          background-position: right -1px;
+          background-size: auto 65px;
           height: 48px;
-          background-image: url(../images/banners/docs-release-icon.svg);
-          background-position-y: -11px;
-          left: -70px;
-          width: 50px;
+          left: -79px;
+          top: 0px;
+          width: 48px;
+          
+          
         }
       }
       &:after {
@@ -64,16 +67,16 @@ const StyledAdventAnnounce = styled.div`
         height: 55px;
         z-index: -1;
         background-repeat: no-repeat;
-        background-image: url(../images/banners/docs-7-3-right.svg);
-        background-position-x: 0;
-        background-position-y: 7px;
-        right: -438px;
-        width: 431px;
+        background-image: url(https://static-oforms.onlyoffice.com/images/banners/workspace-12-5-right.svg);
+        background-position-y: -2px;
+        right: -366px;
+        width: 356px;
         @media (max-width: 1024px) {
           height: 48px;
-          background-image: url(../images/banners/docs-release-union.svg),url(../images/banners/docs-release-mobile.svg);
-          background-position-y: center, 23px;
-          background-position-x: 0%, 30px;
+          background-image: url(https://static-oforms.onlyoffice.com/images/banners/workspace-12-5-right.svg);
+          background-position-y: -6px;
+          right: -366px;
+          width: 356px;
         }
       }
       @media (max-width: 1024px) {
