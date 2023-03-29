@@ -277,13 +277,23 @@ const Nav = ({ onClick, t, stateMobilePND, currentLanguage, ...rest }) => {
             >
               {t("Docs Enterprise")}
             </Link>
-            <Link
-              id="navitem_download_docs_cloud"
-              className="dropdown-item"
-              href={`${hrefLang}/docs-registration.aspx`}
-            >
-              {t("Docs Cloud")}
-            </Link>
+            <Box className="inner-box">
+                <Link
+                  className="nav_2nd_menu_link"
+                  id="navitem_download_signup"
+                  href={`${hrefLang}/docs-registration.aspx`}
+                >
+                  {t("Sign up for cloud")}
+                </Link>
+              
+              <Link
+                id="navitem_download_onpremises"
+                href={`${hrefLang}//download-docs.aspx`}
+                className="nav_2nd_menu_link"
+              >
+                {t("Install on-premises")}
+              </Link>
+            </Box>            
             <Link
               id="navitem_download_workspace"
               href={`${hrefLang}/workspace.aspx`}

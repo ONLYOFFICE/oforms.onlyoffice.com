@@ -269,5 +269,10 @@
     "Convert text files" : "Convertissez des documents texte",
     "Convert spreadsheets" : "Convertissez des feuilles de calcul",
     "Convert presentations" : "Convertissez des présentations",
-    "Convert PDFs" : "Convertissez des PDFs"
+    "Convert PDFs" : "Convertissez des PDFs",
+
+    "***********************Banner*************************": "***********************Banner*************************",
+    "ONLYOFFICE Workspace 12.5:": "ONLYOFFICE Workspace 12.5:",
+    " enhanced security, optimized document management, Dark theme, and more": " sécurité renforcée, gestion des documents optimisée, thème sombre, et plus encore",
+    "ONLYOFFICE Workspace 12.5 released": "Sortie d'ONLYOFFICE Workspace 12.5"
 }
