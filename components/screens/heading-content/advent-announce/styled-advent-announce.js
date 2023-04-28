@@ -10,7 +10,7 @@ const StyledAdventAnnounce = styled.div`
     height: 56px;
     overflow: hidden;
     text-align: center;
-    background: #183e6b;
+    background: #55B5DC;
     a {
       position: absolute;
       display: block;
@@ -33,7 +33,7 @@ const StyledAdventAnnounce = styled.div`
       text-decoration: none;
       z-index: 0;
       max-width: 605px;
-      padding: ${(props) => (props.currentLanguage =='zh' || props.currentLanguage == 'ja' ? "17px 0" : "7px 0 8px")};
+      padding: ${(props) => (props.currentLanguage =='zh' || props.currentLanguage == 'ja' ? "7px 0 8px" : "7px 0 8px")};
       &:before {
         content: "";
         position: absolute;
@@ -42,16 +42,16 @@ const StyledAdventAnnounce = styled.div`
         display: block;
         height: 55px;
         z-index: -1;
-        background-image: url(https://static-oforms.onlyoffice.com/images/banners/workspace-12-5-left.svg);
+        background-image: url("https://static-oforms.onlyoffice.com/icons/docspace-left.svg");
         background-position-y: -3px;
-        left: -380px;
-        width: 372px;
-        @media (max-width: 1024px) {          
-          background-image: url(https://static-oforms.onlyoffice.com/images/banners/workspace-12-5-left.svg);
-          background-position: right -1px;
+        left: -485px;
+        width: 573px;
+        @media (max-width: 1024px) {
+          background-image: url("https://static-oforms.onlyoffice.com/icons/docspace-left.svg");
+          background-position: right -8px;
           background-size: auto 65px;
           height: 48px;
-          left: -79px;
+          left: -65px;
           top: 0px;
           width: 48px;
           
