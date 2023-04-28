@@ -33,7 +33,7 @@ const StyledAdventAnnounce = styled.div`
       text-decoration: none;
       z-index: 0;
       max-width: 605px;
-      padding: ${(props) => (props.currentLanguage =='zh' || props.currentLanguage == 'ja' ? "17px 0" : "7px 0 8px")};
+      padding: ${(props) => (props.currentLanguage =='zh' || props.currentLanguage == 'ja' ? "7px 0 8px" : "7px 0 8px")};
       &:before {
         content: "";
         position: absolute;
