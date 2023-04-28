@@ -7,19 +7,7 @@ const AdventAnnounce = ({t, currentLanguage}) => {
   }`;
 
   const setBlogLink = () => {
-    if(currentLanguage === "en" || currentLanguage === "zh" || currentLanguage === "ja") {
-      return (
-        setLink("/2023/03/onlyoffice-workspace-12-5-released/")
-      );
-    } else if (currentLanguage === "fr" || currentLanguage === "es" || currentLanguage === "it"){
-      return (
-        setLink ("/2023/03/onlyoffice-workspace-12-5/")
-      );
-    } else {
-      return (
-        setLink("2023/03/onlyoffice-workspace-12-5-verbesserte-sicherheit-optimierte-dokumentenverwaltung-dunkelmodus-und-mehr/")
-      );
-    }
+    setLink(`2023/04/meet-onlyoffice-docspace/`)
   };
 
   useEffect(() => {
@@ -33,7 +21,8 @@ const AdventAnnounce = ({t, currentLanguage}) => {
 
         <a href={`${hrefLang}/${link}`} target="_blank" rel="noreferrer noopener">
           <div className="advent-announce-text">
-            <b>{t("ONLYOFFICE Workspace 12.5:")}</b>{t(" enhanced security, optimized document management, Dark theme, and more")} 
+            <b>{t("ONLYOFFICE DocSpace released")}:</b>{t(" improve document collaboration with offices, customers, and partners.")}
+            <b>{t(" Use it for free!")}</b>
           </div>
         </a>
       </div>
@@ -41,7 +30,7 @@ const AdventAnnounce = ({t, currentLanguage}) => {
 
         <a href={`${hrefLang}${link}`} target="_blank" rel="noreferrer noopener">
           <div className="advent-announce-text">
-            &nbsp;<b>{t("ONLYOFFICE Workspace 12.5 released")}</b>&nbsp;
+            &nbsp;<b>{t("ONLYOFFICE DocSpace released")}</b>&nbsp;
           </div>
         </a>
       </div>
