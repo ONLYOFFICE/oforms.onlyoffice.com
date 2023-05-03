@@ -10,7 +10,7 @@ import { Img } from "@components/common/image";
 import StyledBanners from "./styled-banners";
 
 const BannerOforms = ({ t, currentLanguage }) => {
-  const linkReg = `https://www.onlyoffice.com/${currentLanguage}/registration.aspx`;
+  const linkReg = `https://www.onlyoffice.com/${currentLanguage}/docspace-registration.aspx`;
   const linkDesktop = `https://www.onlyoffice.com/${currentLanguage}/download-desktop.aspx#desktop`;
 
   return (
