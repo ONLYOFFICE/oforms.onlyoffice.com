@@ -388,7 +388,7 @@ const Nav = ({onClick, t, stateMobilePND, currentLanguage, ...rest}) => {
                                     </Link>
                                     <Link
                                         id="navitem_prices_docs_enterprice"
-                                        href={`${hrefLang}docs-enterprise-prices.aspx`}
+                                        href={`${hrefLang}/docs-enterprise-prices.aspx`}
                                         className="dropdown-item"
                                     >
                                         {t("Docs Enterprise")}
