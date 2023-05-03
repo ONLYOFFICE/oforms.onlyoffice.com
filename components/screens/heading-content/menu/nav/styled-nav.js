@@ -3,7 +3,6 @@ import styled from "styled-components";
 const StyledNav = styled.nav`
   display: flex;
   justify-content: center;
-
   .navitem_features_menu {
     color: #fff;
   }
@@ -11,12 +10,13 @@ const StyledNav = styled.nav`
   .external-link {
     color: #333;
     text-decoration: none;
+
     :hover {
       color: rgb(255, 111, 61);
     }
   }
 
-  .menu_wrapper {
+  .menu-wrapper {
     flex-direction: unset;
     justify-content: unset;
     align-content: unset;
@@ -50,30 +50,6 @@ const StyledNav = styled.nav`
     }
   }
 
-  @media (min-width: 1150px) {
-    #navitem_features .menu-items-wrapper {
-      left: calc(50% - 465px);
-    }
-    #navitem_forbusiness .menu-items-wrapper {
-      left: calc(50% - 318px);
-    }
-    #navitem_fordevelopers .menu-items-wrapper {
-      left: calc(50% - 186px);
-    }
-    #navitem_download .menu-items-wrapper {
-      left: calc(50% - 440px);
-    }
-    #navitem_prices .menu-items-wrapper {
-      left: calc(50% - 80px);
-    }
-    #navitem_partners .menu-items-wrapper {
-      left: calc(50% - 60px);
-    }
-    #navitem_about .menu-items-wrapper {
-      left: calc(50% - 75px);
-    }
-  }
-
   @media (max-width: 1150px) {
     padding: 0;
     background-color: #fff;
@@ -90,14 +66,18 @@ const StyledNav = styled.nav`
     width: 429px;
     z-index: 5;
     display: block;
-    padding-top: 8px;
     box-sizing: border-box;
     overflow-x: hidden;
 
-    .menu_wrapper {
+    .menu-wrapper {
       display: block;
-      padding-top: 8px;
       min-height: 300px;
+    }
+
+    .menu-wrapper_dev {
+      height: inherit;
+      display: grid;
+      grid-template-rows: 1fr max-content;
     }
 
     .mobile-heading-nav-item {
@@ -107,12 +87,13 @@ const StyledNav = styled.nav`
       letter-spacing: 0.03em;
       line-height: 1.33em;
       margin: 0 auto;
-      padding: 6px 22px 12px 22px;
+      padding: 16px 12px;
       border-bottom: 1px solid #f2f2f2;
       color: #ff6f3d;
       position: relative;
       text-transform: uppercase;
       text-align: center;
+      width: 100%;
 
       &:before {
         background-image: url('https://static-oforms.onlyoffice.com/icons/arrow-red.svg');
@@ -125,7 +106,7 @@ const StyledNav = styled.nav`
         height: 10px;
         left: 14px;
         position: absolute;
-        top: 12px;
+        top: 22px;
         transform: rotate(180deg);
         transition: 0.1s linear;
       }
@@ -156,6 +137,7 @@ const StyledNav = styled.nav`
       padding: 15px 16px 15px 20px;
       text-decoration: none;
       width: 100%;
+
       &:before {
         background-image: url('https://static-oforms.onlyoffice.com/icons/phone.svg');
         background-repeat: no-repeat;
@@ -169,18 +151,12 @@ const StyledNav = styled.nav`
         vertical-align: middle;
         width: 18px;
       }
+
       &:hover {
         color: #333;
       }
     }
-  }
-
-  @media (max-width: 600px) {
-    width: 267px;
-
-    .mobile-heading-nav-item {
-      font-size: 16px;
-    }
+    
   }
 `;
 

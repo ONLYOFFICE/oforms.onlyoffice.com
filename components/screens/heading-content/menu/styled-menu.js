@@ -4,12 +4,14 @@ const StyledMenuTablet = css`
   grid-template-columns: auto 152px auto;
   justify-content: space-between;
   height: 48px;
+
   .nav-items-mobile {
     display: block;
     grid-column-start: 1;
     grid-column-end: 2;
     grid-row-start: 1;
     grid-row-end: 1;
+
     div {
       svg {
         rect {
@@ -17,11 +19,13 @@ const StyledMenuTablet = css`
         }
       }
     }
+
     cursor: pointer;
   }
 
   .nav-item-links {
     border-right: 1px solid #e5e5e5;
+    padding-top: 8px;
   }
 
   .nav-item-logo {
@@ -82,6 +86,7 @@ const StyledMenu = styled.div`
   .nav-item-links {
     grid-column-start: 2;
     grid-column-end: 3;
+    height: 100%;
     .nav-item .heading-nav-item {
       color: #fff;
       &:hover {
@@ -136,6 +141,7 @@ const StyledMenu = styled.div`
   .nav-items-mobile {
     display: none;
   }
+  
 
   @media (max-width: 1150px) {
     ${StyledMenuTablet};
