@@ -1,10 +1,19 @@
 import styled from "styled-components";
 
 const StyledNav = styled.nav`
-  display: flex;
-  justify-content: center;
+  .menu-items-box {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+  }
+
   .navitem_features_menu {
     color: #fff;
+  }
+
+  .input-wrapper {
+    display: none;
   }
 
   .external-link {
@@ -65,16 +74,45 @@ const StyledNav = styled.nav`
     transition: right 0.5s;
     width: 429px;
     z-index: 5;
-    display: block;
     box-sizing: border-box;
     overflow-x: hidden;
+    
+    display: grid;
+    grid-template-rows: 1fr max-content;
+    
+    .menu-items-box {
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+    
+    .input-wrapper {
+      display: grid;
+      grid-template-columns: 1fr;
+      padding: 0 18px 18px 18px;
+      text-align: left;
+      
+      .menu-input {
+        background-image: url("https://static-www.onlyoffice.com/v9.5.0/images/landing/market-place/search-button.svg");
+        background-repeat: no-repeat;
+        background-position-x: calc(100% - 14px);
+        background-position-y: center;
+      }
+    }
+
+    .menu-box {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: space-between;
+    }
 
     .menu-wrapper {
       display: block;
       min-height: 300px;
     }
 
-    .menu-wrapper_dev {
+    .menu-wrapper_dev, .menu-wrapper_partners, .menu-wrapper_pricing {
       height: inherit;
       display: grid;
       grid-template-rows: 1fr max-content;
@@ -113,15 +151,15 @@ const StyledNav = styled.nav`
     }
 
     .phone_wrapper {
-      bottom: 0;
-      top: auto;
-      width: 100%;
-      height: 54px;
-      position: absolute;
-      right: 0;
-      left: auto;
-      margin: 0;
-      padding: 0;
+      //bottom: 0;
+      //top: auto;
+      //width: 100%;
+      //height: 54px;
+      //position: absolute;
+      //right: 0;
+      //left: auto;
+      //margin: 0;
+      //padding: 0;
     }
 
     .nav-item-mobile-tel {
@@ -130,9 +168,9 @@ const StyledNav = styled.nav`
       font-weight: 700;
       line-height: 22px;
       background-color: #f6f6f6;
-      position: absolute;
-      bottom: 0;
-      left: 0;
+      //position: absolute;
+      //bottom: 0;
+      //left: 0;
       letter-spacing: 0.02em;
       padding: 15px 16px 15px 20px;
       text-decoration: none;
@@ -156,7 +194,7 @@ const StyledNav = styled.nav`
         color: #333;
       }
     }
-    
+
   }
 `;
 
