@@ -22,7 +22,7 @@ const Nav = ({onClick, t, stateMobilePND, currentLanguage, ...rest}) => {
         <StyledNav stateMobile={stateMobilePND} {...rest}>
             <Box className="menu-box">
                 <Box className="menu-items-box">
-                    <MenuItem heading={t("Products")} id="navitem_products">
+                    <MenuItem heading={t("PRODUCTS")} id="navitem_products">
                         <Box className="menu-wrapper">
                             <Box className="outer-box with-border">
 
@@ -34,7 +34,7 @@ const Nav = ({onClick, t, stateMobilePND, currentLanguage, ...rest}) => {
                                     >
                                         {t("Docs")}
                                     </Link>
-                                    Editors to integrate into your business platform
+                                    {t("Editors to integrate into your business platform")}
                                 </Box>
 
                                 <Box className="link-wrapper">
@@ -45,7 +45,7 @@ const Nav = ({onClick, t, stateMobilePND, currentLanguage, ...rest}) => {
                                     >
                                         {t("DocSpace")}
                                     </Link>
-                                    Platform to collaborate with your partners and clients
+                                    {t("Platform to collaborate with your partners and clients")}
                                 </Box>
 
                                 <Box className="link-wrapper">
@@ -56,7 +56,7 @@ const Nav = ({onClick, t, stateMobilePND, currentLanguage, ...rest}) => {
                                     >
                                         {t("Workspace")}
                                     </Link>
-                                    Platform to collaborate with your team
+                                    {t("Platform to collaborate with your team")}
                                 </Box>
 
                                 <Box className="link-wrapper">
@@ -67,7 +67,7 @@ const Nav = ({onClick, t, stateMobilePND, currentLanguage, ...rest}) => {
                                     >
                                         {t("Connectors")}
                                     </Link>
-                                    Ready-to-use apps to integrate Docs with your platform
+                                    {t("Ready-to-use apps to integrate Docs with your platform")}
                                 </Box>
 
                             </Box>
@@ -76,7 +76,7 @@ const Nav = ({onClick, t, stateMobilePND, currentLanguage, ...rest}) => {
                                     id="navitem_product_desktop_mob_apps"
                                     className="dropdown-item mobile-no-link"
                                 >
-                                    {t("Desktop&mobile apps")}
+                                    {t("DESKTOP & MOBILE APPS")}
                                 </Link>
                                 <Link
                                     id="navitem_product_clients_apps"
@@ -105,7 +105,7 @@ const Nav = ({onClick, t, stateMobilePND, currentLanguage, ...rest}) => {
                                     id="navitem_product_perform_your_tasks_online"
                                     className="dropdown-item mobile-no-link"
                                 >
-                                    {t("Perform your tasks online")}
+                                    {t("PERFORM YOUR TASKS ONLINE")}
                                 </Link>
                                 <Link
                                     id="navitem_product_find_and_fill_out_oforms"
@@ -147,12 +147,12 @@ const Nav = ({onClick, t, stateMobilePND, currentLanguage, ...rest}) => {
                     </MenuItem>
 
                     <MenuItem
-                        heading={t("Enterprise")}
+                        heading={t("ENTERPRISE")}
                         id="navitem_enterprise"
                         href={`https://www.onlyoffice.com/${currentLanguage}/for-enterprises.aspx`}
                     />
 
-                    <MenuItem heading={t("Developers")} id="navitem_dev">
+                    <MenuItem heading={t("DEVELOPERS")} id="navitem_dev">
                         <Box className="menu-wrapper menu-wrapper_dev">
                             <Box className="outer-box">
                                 <Link
@@ -174,7 +174,7 @@ const Nav = ({onClick, t, stateMobilePND, currentLanguage, ...rest}) => {
                                     href={`${hrefLang}/document-builder.aspx`}
                                     className="dropdown-item"
                                 >
-                                    {t("Document builder")}
+                                    {t("Document Builder")}
                                 </Link>
                                 <Link
                                     id="navitem_dev_api_documentation"
@@ -220,14 +220,14 @@ const Nav = ({onClick, t, stateMobilePND, currentLanguage, ...rest}) => {
                         </Box>
                     </MenuItem>
 
-                    <MenuItem heading={t("Get Onlyoffice")} id="navitem_get_onlyoffice">
+                    <MenuItem heading={t("GET ONLYOFFICE")} id="navitem_get_onlyoffice">
                         <Box className="menu-wrapper">
                             <Box className="outer-box with-border">
                                 <Link
                                     className="dropdown-item mobile-no-link"
                                     id="navitem_get_onlyoffice_for_business"
                                 >
-                                    {t("For business")}
+                                    {t("FOR BUSINESS")}
                                 </Link>
                                 <Box className="second-link-wrapper">
                                     <Link
