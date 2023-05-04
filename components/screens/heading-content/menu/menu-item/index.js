@@ -5,7 +5,7 @@ import Link from "@components/common/link";
 import Box from "../nav/sub-components/box";
 import { StyledNavMenu, StyledMenuItemsWrapper } from "./styled-navmenu";
 
-const MenuItem = ({ children, heading, ...rest }) => {
+const MenuItem = ({ children, heading, href, currentLang, ...rest }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
@@ -43,11 +43,25 @@ const MenuItem = ({ children, heading, ...rest }) => {
     return () => window.removeEventListener("resize", resizeWindow);
   }, [windowWidth, windowHeight]);
 
+
+  if(href !== undefined) {
+    return (
+        <StyledNavMenu
+            className="nav-item"
+            {...rest}
+            onMouseLeave={handleLeaveMenu}
+        >
+          <Link href={href} className="heading-nav-item">{heading}</Link>
+        </StyledNavMenu>
+    )
+  }
+
   return (
     <StyledNavMenu
       className="nav-item"
       {...rest}
       onMouseLeave={handleLeaveMenu}
+      currentLang={currentLang}
     >
       <Heading
         className="heading-nav-item"
@@ -72,13 +86,13 @@ const MenuItem = ({ children, heading, ...rest }) => {
             )}
             {children}
           </StyledMenuItemsWrapper>
-          {windowCheck && (
-            <Box className="phone_wrapper">
-              <Link className="nav-item-mobile-tel" href="tel:+371 660 164 25">
-                +371 660 164 25
-              </Link>
-            </Box>
-          )}
+          {/*{windowCheck && (*/}
+          {/*  <Box className="phone_wrapper">*/}
+          {/*    <Link className="nav-item-mobile-tel" href="tel:+371 660 164 25">*/}
+          {/*      +371 660 164 25*/}
+          {/*    </Link>*/}
+          {/*  </Box>*/}
+          {/*)}*/}
         </>
       )}
     </StyledNavMenu>
