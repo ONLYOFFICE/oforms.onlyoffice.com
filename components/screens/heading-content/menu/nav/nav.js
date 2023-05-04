@@ -369,7 +369,7 @@ const Nav = ({onClick, t, stateMobilePND, currentLanguage, ...rest}) => {
                         </Box>
                     </MenuItem>
 
-                    <MenuItem heading={t("Pricing")} id="navitem_prices">
+                    <MenuItem heading={t("Pricing")} id="navitem_prices" currentLang={currentLanguage}>
                         <Box className="menu-wrapper menu-wrapper_pricing">
                             <Box className="outer-box gap38">
                                 <Box className="inner-box with-border">

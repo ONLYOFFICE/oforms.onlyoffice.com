@@ -5,7 +5,7 @@ import Link from "@components/common/link";
 import Box from "../nav/sub-components/box";
 import { StyledNavMenu, StyledMenuItemsWrapper } from "./styled-navmenu";
 
-const MenuItem = ({ children, heading, href, ...rest }) => {
+const MenuItem = ({ children, heading, href, currentLang, ...rest }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
@@ -61,6 +61,7 @@ const MenuItem = ({ children, heading, href, ...rest }) => {
       className="nav-item"
       {...rest}
       onMouseLeave={handleLeaveMenu}
+      currentLang={currentLang}
     >
       <Heading
         className="heading-nav-item"

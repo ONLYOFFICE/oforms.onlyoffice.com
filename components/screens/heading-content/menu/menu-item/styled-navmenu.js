@@ -108,7 +108,7 @@ const StyledNavMenu = styled.div`
         opacity: 0.4;
       }
     }
-    
+
     &.with-horizontal-border {
       position: relative;
 
@@ -234,6 +234,7 @@ const StyledNavMenu = styled.div`
       letter-spacing: 0.03em;
       margin: 0px;
       position: relative;
+
       &:before {
         display: block;
         content: "";
@@ -256,7 +257,7 @@ const StyledNavMenu = styled.div`
       grid-template-rows: max-content 1fr;
       grid-template-columns: 1fr;
     }
-    
+
     .link-wrapper-with-img {
       max-width: 380px;
     }
@@ -277,11 +278,11 @@ const StyledNavMenu = styled.div`
       &:last-child {
         padding-bottom: 32px;
       }
-      
+
       &.gap38 {
         gap: 50px;
       }
-      
+
       &.with-border {
         &:after {
           top: 100%;
@@ -292,27 +293,28 @@ const StyledNavMenu = styled.div`
           transform: translateY(-50%);
         }
       }
-      
+
       &.with-horizontal-border {
         &:after {
           width: calc(100% - 48px);
         }
       }
-      
+
       &.without-border-on-mobile {
         &:after {
           content: none;
         }
       }
-      
+
       &.without-pb-on-mobile {
         padding-bottom: 0;
       }
     }
-    
+
     .inner-box {
       position: relative;
       width: 100%;
+
       &.with-border:after {
         position: absolute;
         content: "";
@@ -331,8 +333,21 @@ const StyledNavMenu = styled.div`
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 500px) {
+    .menu-items-wrapper {
+      width: 90vw;
+    }
 
+    .outer-box {
+      .dropdown-item {
+        max-width: calc(90vw - 48px);
+        white-space: break-spaces;
+
+        &:before {
+          flex-shrink: 0;
+        }
+      }
+    }
   }
 
 
@@ -341,9 +356,13 @@ const StyledNavMenu = styled.div`
   }
 
   #reseller {
-    background-image: url("https://static-oforms.onlyoffice.com/images/menu-pics/menu_reseller.svg");
+    background-image: url(${({currentLang}) => currentLang !== 'fr' ?
+            "https://static-oforms.onlyoffice.com/images/menu-pics/menu_reseller.svg" :
+            "https://static-www.onlyoffice.com/v9.5.0/images/menu_reseller_fr.png"
+    });
+    background-size: contain;
   }
-  
+
   #events {
     background-image: url("https://static-oforms.onlyoffice.com/images/menu-pics/events.svg");
   }
@@ -475,8 +494,8 @@ const StyledNavMenu = styled.div`
   #navitem_prices_docs_dev:before {
     background-position-y: -833px;
   }
-  
-  
+
+
   #navitem_partners_resellers:before {
     background-position-y: -208px;
   }
@@ -507,84 +526,91 @@ const StyledNavMenu = styled.div`
       background-position-y: -286px;
     }
   }
-  
+
   #navitem_resources_blog {
     &:before {
       background-position-y: -312px;
     }
   }
-  
+
   #navitem_resources_contribute {
     &:before {
       background-position-y: -337px;
     }
   }
-  
+
   #navitem_resources_customers {
     &:before {
       background-position-y: -361px;
     }
   }
-  
+
   #navitem_resources_vacancies {
     &:before {
       background-position-y: -676px;
     }
   }
-  
+
   #navitem_resources_awards {
     &:before {
       background-position-y: -390px;
     }
   }
-  
+
   #navitem_resources_events {
     &:before {
       background-position-y: -468px;
     }
   }
-  
+
   #navitem_resources_forum {
     &:before {
       background-position-y: -884px;
     }
   }
-  
+
   #navitem_resources_pressdownloads {
     &:before {
       background-position-y: -416px;
     }
   }
+
   #navitem_resources_whitepapers {
     &:before {
       background-position-y: -442px;
     }
   }
+
   #navitem_resources_training_courses {
     &:before {
       background-position-y: -493px;
     }
   }
+
   #navitem_resources_giftshop {
     &:before {
       background-position-y: -519px;
     }
   }
+
   #navitem_resources_contacts {
     &:before {
       background-position-y: -546px;
     }
   }
+
   #navitem_resources_help {
     &:before {
       background-position-y: -625px;
     }
   }
+
   #navitem_resources_webinars {
     &:before {
       background-position-y: -595px;
     }
   }
+
   #navitem_resources_compare {
     &:before {
       background-position-y: -780px;
@@ -622,4 +648,4 @@ const StyledMenuItemsWrapper = styled.div`
   }
 `;
 
-export { StyledNavMenu, StyledMenuItemsWrapper };
+export {StyledNavMenu, StyledMenuItemsWrapper};

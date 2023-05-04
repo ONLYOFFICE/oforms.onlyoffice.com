@@ -146,6 +146,8 @@ const StyledMenu = styled.div`
   @media (max-width: 1150px) {
     ${StyledMenuTablet};
   }
+  
+  
 `;
 
 export default StyledMenu;
