@@ -97,17 +97,7 @@ const Social = [
     src: "https://static-oforms.onlyoffice.com/images/social-icons/fosstodon.react.svg",
     size: "24px",
     filter: true,
-  },
-  {
-    href: "https://vm.tiktok.com/ZMLXbFEyd/",
-    className: "tiktok",
-    title: "TikTok",
-    target: "_blank",
-    rel: "",
-    src: "/images/social-icons/tiktok.react.svg",
-    size: "24px",
-    filter: true,
-  },
+  }
 ];
 
 export default Social;
