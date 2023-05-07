@@ -3,19 +3,18 @@ import Section from "@components/common/section";
 
 const StyledDesktopClientContent = styled(Section)`
   padding: 32px 0;
-
+  background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
   .section-page {
     box-sizing: border-box;
     max-width: 100vw;
     padding: 0 44px;
   }
-
   .box-heading {
     position: relative;
     display: grid;
     grid-template-columns: auto 48px;
     gap: 24px;
-    border-bottom: 1px solid #E2E2E2;
+    border-bottom: 1px solid ${({theme}) => theme.colors.palette.borderToolbarButtonHover};
   }
 
   .search_area {
@@ -51,7 +50,7 @@ const StyledDesktopClientContent = styled(Section)`
       top: -6px;
       left: 2px;
       font-size: 8px;
-      color: #CCCCCC;
+      color: ${({theme}) => theme.colors.palette.textSecondary};
     }
   }
 
@@ -60,14 +59,15 @@ const StyledDesktopClientContent = styled(Section)`
     width: calc(100% - 32px);
     font-size: 14px;
     line-height: 22px;
-    color: #808080;
+    color: ${({theme}) => theme.colors.palette.textSecondary};
   }
 
   .presearch_title {
     font-size: 14px;
     line-height: 19px;
     font-weight: 700;
-    color: #333333;
+    color: ${({theme}) => theme.colors.palette.textNormal};
+    border-right-color: ${({theme}) => theme.colors.palette.borderToolbarButtonHover};
   }
 
   .search_icon {
@@ -121,6 +121,10 @@ const StyledDesktopClientContent = styled(Section)`
   .box-doc-info {
     display: flex;
     align-items: center;
+    
+    .filter-header {
+      color: ${({theme}) => theme.colors.palette.textNormal};
+    }
 
     > div {
       align-items: center;
@@ -158,7 +162,7 @@ const StyledDesktopClientContent = styled(Section)`
     font-weight: 400;
     font-size: 14px;
     line-height: 22px;
-    color: #808080;
+    color: ${({theme}) => theme.colors.palette.textSecondary};
 
     > div {
       align-items: center;
@@ -166,6 +170,7 @@ const StyledDesktopClientContent = styled(Section)`
 
     .filter-header {
       margin: 0;
+      color: ${({theme}) => theme.colors.palette.textSecondary};
     }
 
     .filter_selector {
@@ -229,14 +234,13 @@ const StyledDesktopClientContent = styled(Section)`
     font-weight: 400;
     font-size: 14px;
     line-height: 22px;
-    color: #808080;
+    color: ${({theme}) => theme.colors.palette.textSecondary};
     text-transform: initial;
   }
 
   .box-doc-categories {
     .filter-header {
       font-weight: 400;
-      color: #808080;
     }
   }
 
@@ -263,7 +267,9 @@ const StyledDesktopClientContent = styled(Section)`
   .arrow {
     margin: 0;
     padding-left: 8px;
-    width: 10px;
+    path {
+      fill: ${({theme}) => theme.colors.palette.iconNormal};
+    }
   }
 
   .arrow > div {
@@ -344,9 +350,10 @@ const StyledDesktopClientContent = styled(Section)`
       cursor: pointer;
 
       &:hover {
-        .image-boxshadow-template {
-          box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-        }
+        filter: ${({theme}) => theme.dropShadows.shadowMenu};
+        //.image-boxshadow-template {
+        //  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        //}
 
         .card-template {
           box-shadow: initial;
@@ -389,16 +396,13 @@ const StyledDesktopClientContent = styled(Section)`
       font-size: 14px;
       line-height: 22px;
       cursor: pointer;
-
-      &:hover {
-        color: #444444;
-      }
     }
 
     .title-overflow-templapte {
       display: block;
       word-wrap: initial;
       white-space: nowrap;
+      color: ${({theme}) => theme.colors.palette.iconNormal}
     }
 
     .subtitle-template,

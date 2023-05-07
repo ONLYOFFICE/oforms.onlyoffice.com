@@ -5,7 +5,7 @@ const StyledSelector = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: end;
-  align-items: baseline;
+  align-items: center;
   position: relative;
 
   .filter-header {
