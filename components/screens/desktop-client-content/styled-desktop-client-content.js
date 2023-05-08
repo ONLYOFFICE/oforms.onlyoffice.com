@@ -261,7 +261,7 @@ const StyledDesktopClientContent = styled(Section)`
   }
 
   .filter-header-name {
-    color: #000;
+    color: ${({theme}) => theme.colors.palette.textNormal};
     font-size: 14px;
     font-weight: 700;
     margin: 0 8px 0 8px;

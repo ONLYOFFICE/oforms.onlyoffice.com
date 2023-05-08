@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useMemo} from "react";
 import { useRouter } from "next/router";
 import Box from "../box";
 import Text from "../text";
@@ -28,6 +28,10 @@ const CategorySelector = ({
   const [isCompilationsOpen, setIsCompilationsOpen] = useState(false);
 
   const router = useRouter();
+  const theme = router.query.theme;
+  const appTheme = useMemo(() => {
+    if(theme && isDesktopClient) return theme
+  }, [theme, isDesktopClient])
 
   const onClickHandler = () => {
     setIsOpen(true);
@@ -82,7 +86,7 @@ const CategorySelector = ({
         {isDesktopClient ?
             <a
               className="arrow-link"    
-              href={`${locale === "en" ? "/?desktop=true" : `${localeHREF}?desktop=true`}`}                   
+              href={`${locale === "en" ? `/?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}` : `${localeHREF}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}`}
               style={{ textDecoration: "none" }}
             >
             <Text           
@@ -126,7 +130,7 @@ const CategorySelector = ({
            isDesktopClient ?
             <a
               key={categorie.id}  
-              href={`${locale === "en" ? "" : `/${localeHREF}`}/form/${categorie.attributes.urlReq}?desktop=true`}
+              href={`${locale === "en" ? "" : `/${localeHREF}`}/form/${categorie.attributes.urlReq}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
               className="submenu_link"
               style={{ textDecoration: "none" }}
             >
@@ -175,7 +179,7 @@ const CategorySelector = ({
               isDesktopClient ?
               <a
               key={type.id}
-              href={`${locale === "en" ? "" : `/${localeHREF}`}/form/types/${type.attributes.urlReq}?desktop=true`}              
+              href={`${locale === "en" ? "" : `/${localeHREF}`}/form/types/${type.attributes.urlReq}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
               className="submenu_link"
               style={{ textDecoration: "none" }}
             >
@@ -225,7 +229,7 @@ const CategorySelector = ({
               isDesktopClient ?
               <a
                 key={compilation.id}
-                href={`${locale === "en" ? "" : `/${localeHREF}`}/form/compilations/${compilation.attributes.urlReq}?desktop=true`}         
+                href={`${locale === "en" ? "" : `/${localeHREF}`}/form/compilations/${compilation.attributes.urlReq}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
                 className="submenu_link"
                 style={{ textDecoration: "none" }}
             >

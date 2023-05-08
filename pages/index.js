@@ -63,6 +63,7 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
         const res = await fetch(
             `${CMSConfigAPI}/api/oforms/?sort=name_form:${sort}&pagination[pageSize]=32&pagination[page]=${nextPage}&populate=template_image&populate=file_oform&populate=card_prewiew&populate=categories&locale=${locale}`
         );
+        console.log(res);
         const newFormsRequest = await res.json();
 
         const newData = [...nonStateObjectData.data, ...newFormsRequest.data]
