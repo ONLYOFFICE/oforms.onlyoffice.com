@@ -4,11 +4,13 @@ import Section from "@components/common/section";
 const StyledDesktopClientContent = styled(Section)`
   padding: 32px 0;
   background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
+
   .section-page {
     box-sizing: border-box;
     max-width: 100vw;
     padding: 0 44px;
   }
+
   .box-heading {
     position: relative;
     display: grid;
@@ -96,7 +98,7 @@ const StyledDesktopClientContent = styled(Section)`
       overflow-x: hidden;
       overflow-y: auto;
     }
-  
+
     .item-search-result {
       max-width: 100%;
     }
@@ -121,7 +123,7 @@ const StyledDesktopClientContent = styled(Section)`
   .box-doc-info {
     display: flex;
     align-items: center;
-    
+
     .filter-header {
       color: ${({theme}) => theme.colors.palette.textNormal};
     }
@@ -135,24 +137,25 @@ const StyledDesktopClientContent = styled(Section)`
       top: 20px;
       padding-top: 4px;
       min-width: 106px;
-      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
       border-radius: 2px;
+      background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
+      border: 1px solid ${({theme}) => theme.colors.palette.highlightButtonHover};
+      box-shadow: ${({theme}) => theme.boxShadows.menuShadow};
     }
-  
+
     .filter_selector-items {
       padding: 3px 11px 2px;
       font-size: 14px;
       line-height: 22px;
-      color: #000000;
+      color: ${({theme}) => theme.colors.palette.textNormal};
       transition: background-color 0.3s;
-  
+
       &:hover {
-        color: #000000;
-        background-color: #E0E0E0;
+        background-color: ${({theme}) => theme.colors.palette.highlightButtonHover};
       }
 
       &.active {
-        background-color: #CCCCCC;
+        background-color: ${({theme}) => theme.colors.palette.highlightButtonHover};
       }
     }
   }
@@ -176,10 +179,22 @@ const StyledDesktopClientContent = styled(Section)`
     .filter_selector {
       top: 21px;
       left: 0;
-      box-shadow: 0px 20px 50px rgba(85, 85, 85, 0.15);
+      box-shadow: ${({theme}) => theme.boxShadows.shadowWindow};
       border-radius: 0px 0px 6px 6px;
+      border: 1px solid ${({theme}) => theme.colors.palette.borderToolbarButtonHover};
+      background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
 
       .arrow-link {
+        background-color: inherit;
+
+        &:hover {
+          background-color: ${({theme}) => theme.colors.palette.highlightButtonHover};
+
+          & span {
+            color: ${({theme}) => theme.colors.palette.textNormal};
+          }
+        }
+
         &:first-child {
           padding: 14.5px 32px;
         }
@@ -192,10 +207,7 @@ const StyledDesktopClientContent = styled(Section)`
       font-weight: 600;
       letter-spacing: 0.04em;
       text-transform: none !important;
-
-        &:hover{
-          color: #ff6f3d;
-      }
+      color: ${({theme}) => theme.colors.palette.textNormal};
     }
 
     .filter_selector-items {
@@ -215,7 +227,7 @@ const StyledDesktopClientContent = styled(Section)`
     text-transform: none !important;
     font-weight: 600;
     letter-spacing: 0.04em;
-    color: #444;
+    color: ${({theme}) => theme.colors.palette.textNormal};
   }
 
   .filter_selector-items {
@@ -267,6 +279,7 @@ const StyledDesktopClientContent = styled(Section)`
   .arrow {
     margin: 0;
     padding-left: 8px;
+
     path {
       fill: ${({theme}) => theme.colors.palette.iconNormal};
     }
@@ -290,10 +303,7 @@ const StyledDesktopClientContent = styled(Section)`
     cursor: pointer;
 
     &:hover {
-      background-color: #CCCCCC;
-
       span {
-        color: #444444;
         outline: none;
       }
 
@@ -309,14 +319,19 @@ const StyledDesktopClientContent = styled(Section)`
 
   .submenu_link {
     transition: background-color 0.3s;
-    
+    background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
+
     .filter_selector-items {
       line-height: 24px;
     }
 
+    & span {
+      color: ${({theme}) => theme.colors.palette.textNormal};
+    }
+
     &:nth-child(odd) {
       padding: 8px 32px 8px 32px;
-      border-right: 1px solid #EFEFEF;
+      border-right: 1px solid ${({theme}) => theme.colors.palette.backgroundToolbar};
     }
 
     &:nth-child(even) {
@@ -324,10 +339,10 @@ const StyledDesktopClientContent = styled(Section)`
     }
 
     &:hover {
-      background-color: #E0E0E0;
+      background-color: ${({theme}) => theme.colors.palette.highlightButtonHover};
 
-      span {
-        color: #444444;
+      & span {
+        color: ${({theme}) => theme.colors.palette.textNormal};
       }
     }
 
@@ -338,6 +353,11 @@ const StyledDesktopClientContent = styled(Section)`
 
   .types_list {
     padding: 16px 0;
+    box-shadow: ${({theme}) => theme.boxShadows.shadowWindow};
+    border: 1px solid ${({theme}) => theme.colors.palette.borderToolbarButtonHover};
+    color: ${({theme}) => theme.colors.palette.textNormal};
+    background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
+    margin-top: -1px;
   }
 
   .tempalates-cards-items .cards {
@@ -422,11 +442,77 @@ const StyledDesktopClientContent = styled(Section)`
     outline: none;
   }
 
-  @media (max-width: 1200px) {  
+  .popup-content {
+    box-shadow: ${({theme}) => theme.boxShadows.shadowWindow};
+    background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
+    border: 1px solid ${({theme}) => theme.colors.palette.borderToolbar};
+  }
+
+  .popup-header {
+    background-color: ${({theme}) => theme.colors.palette.backgroundToolbar};
+    border-bottom: 1px solid ${({theme}) => theme.colors.palette.borderToolbar};
+
+    .popup-title {
+      color: ${({theme}) => theme.colors.palette.textNormal}
+    }
+  }
+
+  .file-img {
+    border: 1px solid ${({theme}) => theme.colors.palette.borderToolbarButtonHover};
+  }
+  
+  .file-main-description {
+    border-bottom-color: ${({theme}) => theme.colors.palette.borderToolbarButtonHover};
+  }
+
+  .file-title, .file-info-type, .file-description {
+    color: ${({theme}) => theme.colors.palette.textNormal};
+  }
+  
+  .file-info-label {
+    color: ${({theme}) => theme.colors.palette.textSecondary};
+  }
+  
+  .file-info-value, .file-select-title {
+    color: ${({theme}) => theme.colors.palette.textNormal};
+  }
+  
+  .file-button {
+    color: ${({theme}) => theme.colors.palette.textInverse};
+    background-color: ${({theme}) => theme.colors.palette.backgroundPrimaryDialogButton};
+    
+    &:hover {
+      background-color: ${({theme}) => theme.colors.palette.backgroundPrimaryDialogButtonHover};
+    }
+    
+    &:active {
+      opacity: 0.4;
+    }
+  }
+  
+  .file-dropdown {
+    background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
+    border: 1px solid ${({theme}) => theme.colors.palette.highlightButtonHover};
+    box-shadow: ${({theme}) => theme.boxShadows.menuShadow};
+    
+    .file-dropdown-item {
+      color: ${({theme}) => theme.colors.palette.textNormal};
+      
+      &:hover {
+        background-color: ${({theme}) => theme.colors.palette.highlightButtonHover};
+      }
+      
+      &.selected {
+        background-color: ${({theme}) => theme.colors.palette.highlightButtonHover};
+      }
+    }
+  }
+
+  @media (max-width: 1200px) {
 
     .tempalates-cards-items .cards {
       justify-content: left;
-      }
+    }
   }
 `;
 

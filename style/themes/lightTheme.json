@@ -10,6 +10,7 @@
       "borderPreviewSelect": "#888888",
       "borderPreviewHover": "#BABABA",
       "borderToolbarButtonHover": "#E0E0E0",
+      "borderToolbar": "#CBCBCB",
       "highlightButtonPressedHover": "#BABABA",
       "highlightButtonHover": "#E0E0E0",
       "backgroundNormal": "#FFFFFF",
