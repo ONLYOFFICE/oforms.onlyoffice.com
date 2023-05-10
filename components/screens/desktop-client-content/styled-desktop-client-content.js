@@ -4,7 +4,6 @@ import Section from "@components/common/section";
 const StyledDesktopClientContent = styled(Section)`
   padding: 32px 0;
   background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
-
   .section-page {
     box-sizing: border-box;
     max-width: 100vw;
@@ -441,6 +440,7 @@ const StyledDesktopClientContent = styled(Section)`
   .text-sort-set {
     outline: none;
   }
+  
 
   .popup-content {
     box-shadow: ${({theme}) => theme.boxShadows.shadowWindow};
