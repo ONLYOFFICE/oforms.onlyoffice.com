@@ -198,8 +198,6 @@ const StyledNav = styled.nav`
   }
   
   @media (max-width: 500px) {
-    width: 90vw;
-    
     .menu-wrapper {
       width: 90vw;
     }
