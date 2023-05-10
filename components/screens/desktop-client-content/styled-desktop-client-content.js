@@ -447,7 +447,7 @@ const StyledDesktopClientContent = styled(Section)`
     background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
     border: 1px solid ${({theme}) => theme.colors.palette.borderToolbar};
   }
-
+  
   .popup-header {
     background-color: ${({theme}) => theme.colors.palette.backgroundToolbar};
     border-bottom: 1px solid ${({theme}) => theme.colors.palette.borderToolbar};
