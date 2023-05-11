@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 
 import Cards from "@components/screens/common/cards";
 import Selector from "@components/common/selector";
@@ -9,101 +9,117 @@ import Text from "@components/common/text";
 import StyledDesktopClientContent from "./styled-desktop-client-content";
 import FilePopup from "./file-popup/file-popup";
 
-const DesktopClientContent = ({ t, currentLanguage, data, page, sort, types, categories, compilations, isCategoryPage, header, urlReqCategory, isDesktopClient, categoryName, queryDesktopClient }) => {
-  const countData = data?.meta?.pagination?.total;
-  const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
-  const [boolTypeSortData, setBoolTypeSortData] = useState(false);
-  const [cardData, setCardData] = useState("");
-  
-  const onChangeSelectTypeSort = (e) => {
-    setTypeSortData(e.target.value);
-  };
+const DesktopClientContent = (props) => {
+    const {
+        t,
+        currentLanguage,
+        data,
+        page,
+        sort,
+        types,
+        categories,
+        compilations,
+        isCategoryPage,
+        header,
+        urlReqCategory,
+        isDesktopClient,
+        categoryName,
+        queryDesktopClient
+    } = props;
+    const countData = data?.meta?.pagination?.total;
+    const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
+    const [boolTypeSortData, setBoolTypeSortData] = useState(false);
+    const [cardData, setCardData] = useState("");
 
-  const [modalActive, setModalActive] = useState(false);
-  const handlerSetModal = () => {
-    setModalActive(true);
-  };
+    const onChangeSelectTypeSort = (e) => {
+        setTypeSortData(e.target.value);
+    };
 
-  const handlerCardData = (cardData) => {
-    setCardData(cardData);
-  };
+    const [modalActive, setModalActive] = useState(false);
+    const handlerSetModal = () => {
+        setModalActive(true);
+    };
 
-  useEffect(() => {
-    if (sort === "desc") {
-      setTypeSortData(t("NameZ-A"));
-    } else {
-      setTypeSortData(t("NameA-Z"));
-    }
-  }, [sort]);
+    const handlerCardData = (cardData) => {
+        setCardData(cardData);
+    };
 
-  return (
-    <StyledDesktopClientContent>
-      <div className="box-heading">
-        <SearchContent 
-          t={t} 
-          currentLanguage={currentLanguage} 
-          isDesktopClient={isDesktopClient}
-          handlerSetModal={handlerSetModal}
-          handlerCardData={handlerCardData}
-        />
-        <LanguageSelector t={t} currentLanguage={currentLanguage} />
-      </div>
-      <div className="box-doc-info-template">
-        <div className="box-doc-categories">
-          <CategorySelector
-            typeSortData={typeSortData}
-            onChangeSelectTypeSort={onChangeSelectTypeSort}
-            locale={currentLanguage}
-            className="form-control"
-            t={t}
-            types={types}
-            categories={categories}
-            compilations={compilations}
-            isCategoryPage={isCategoryPage}
-            isDesktopClient={isDesktopClient}
-            header={header}
-            categoryName={categoryName}
-            queryDesktopClient={queryDesktopClient}
-          />
-        </div>
-        <div className="box-doc-info">
-          <Text className="box-doc-categories">
-            {" "}
-            {countData} {t("Documents")}
-          </Text>
-          <Selector
-            isDesktopClient={isDesktopClient}
-            typeSortData={typeSortData}
-            onChangeSelectTypeSort={onChangeSelectTypeSort}
-            locale={currentLanguage}
-            className="form-control"
-            category={urlReqCategory}
-            t={t}
-          />
-        </div>
-      </div>
+    useEffect(() => {
+        if (sort === "desc") {
+            setTypeSortData(t("NameZ-A"));
+        } else {
+            setTypeSortData(t("NameA-Z"));
+        }
+    }, [sort]);
 
-      <Cards
-        t={t}
-        data={data?.data}
-        typeSortData={boolTypeSortData}
-        currentLanguage={currentLanguage}
-        page={page}
-        sort={sort}
-        isDesktopClient={isDesktopClient}
-        handlerSetModal={handlerSetModal}
-        handlerCardData={handlerCardData}
-      />
+    return (
+        <StyledDesktopClientContent>
+            <div className="box-heading">
+                <SearchContent
+                    t={t}
+                    currentLanguage={currentLanguage}
+                    isDesktopClient={isDesktopClient}
+                    handlerSetModal={handlerSetModal}
+                    handlerCardData={handlerCardData}
+                />
+                <LanguageSelector t={t} currentLanguage={currentLanguage}/>
+            </div>
+            <div className="box-doc-info-template">
+                <div className="box-doc-categories">
+                    <CategorySelector
+                        typeSortData={typeSortData}
+                        onChangeSelectTypeSort={onChangeSelectTypeSort}
+                        locale={currentLanguage}
+                        className="form-control"
+                        t={t}
+                        types={types}
+                        categories={categories}
+                        compilations={compilations}
+                        isCategoryPage={isCategoryPage}
+                        isDesktopClient={isDesktopClient}
+                        header={header}
+                        categoryName={categoryName}
+                        queryDesktopClient={queryDesktopClient}
+                    />
+                </div>
+                <div className="box-doc-info">
+                    <Text className="box-doc-categories">
+                        {" "}
+                        {countData} {t("Documents")}
+                    </Text>
+                    <Selector
+                        isDesktopClient={isDesktopClient}
+                        typeSortData={typeSortData}
+                        onChangeSelectTypeSort={onChangeSelectTypeSort}
+                        locale={currentLanguage}
+                        className="form-control"
+                        category={urlReqCategory}
+                        t={t}
+                    />
+                </div>
+            </div>
 
-      <FilePopup 
-        t={t} 
-        currentLanguage={currentLanguage}         
-        modalActive={modalActive} 
-        setModalActive={setModalActive} 
-        cardData={cardData}
-      />
-    </StyledDesktopClientContent>
-  );
+            <Cards
+                t={t}
+                data={data?.data}
+                typeSortData={boolTypeSortData}
+                currentLanguage={currentLanguage}
+                page={page}
+                sort={sort}
+                isDesktopClient={isDesktopClient}
+                handlerSetModal={handlerSetModal}
+                handlerCardData={handlerCardData}
+            />
+
+            <FilePopup
+                t={t}
+                currentLanguage={currentLanguage}
+                modalActive={modalActive}
+                setModalActive={setModalActive}
+                cardData={cardData}
+            />
+        </StyledDesktopClientContent>
+    );
 };
 
 export default DesktopClientContent;

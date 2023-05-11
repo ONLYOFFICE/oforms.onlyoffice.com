@@ -10,7 +10,6 @@ const StyledCarouselContent = styled(Section)`
   }
   .card-carousel {
     margin: 0 auto;
-    padding: 40px 0 0;
     .slick-slider {
       .slick-next {
         right: calc(50% - 635px);

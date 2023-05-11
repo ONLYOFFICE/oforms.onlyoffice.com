@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect, useMemo} from "react";
 import Router, { useRouter } from 'next/router'
 import axios from "axios";
 
@@ -12,6 +12,11 @@ const SearchContent = ({ t, currentLanguage, isDesktopClient, handlerSetModal, h
   const [searchResult, setSearchResult] = useState([]);
 
   const router = useRouter();
+  const theme = router.query.theme
+
+  const appTheme = useMemo(() => {
+    if(theme && isDesktopClient) return theme
+  }, [theme, isDesktopClient])
   const searchResultPathname = router.pathname === "/searchresult";
 
   const onSearch = (e) => {
@@ -22,10 +27,10 @@ const SearchContent = ({ t, currentLanguage, isDesktopClient, handlerSetModal, h
   const onEnterPress = (e) => {
     if (searchItem.length > 2) {
       if (isDesktopClient) {
-        e.code === 'Enter' && !(searchResultPathname) && Router.push(`/searchresult?desktop=true?query=${searchItem}`)
-        e.code === 'Enter' && searchResultPathname && Router.push(`?desktop=true?query=${searchItem}`, null, { shallow: true })
+        e.code === 'Enter' && !(searchResultPathname) && Router.push(`/searchresult/?desktop=true?query=${searchItem}${appTheme !== undefined ? `&theme=${appTheme}` : ''}`)
+        e.code === 'Enter' && searchResultPathname && Router.push(`?desktop=true?query=${searchItem}${appTheme !== undefined ? `&theme=${appTheme}` : ''}`, null, { shallow: true })
       } else {
-        e.code === 'Enter' && !(searchResultPathname) && Router.push(`/searchresult?query=${searchItem}`)
+        e.code === 'Enter' && !(searchResultPathname) && Router.push(`/searchresult/?query=${searchItem}`)
         e.code === 'Enter' && searchResultPathname && Router.push(`?query=${searchItem}`, null, { shallow: true })
       }
     }
