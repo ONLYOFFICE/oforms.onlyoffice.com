@@ -9,7 +9,6 @@ const StyledDesktopClientContent = styled(Section)`
     max-width: 100vw;
     padding: 0 44px;
   }
-
   .box-heading {
     position: relative;
     display: grid;
@@ -18,6 +17,7 @@ const StyledDesktopClientContent = styled(Section)`
     border-bottom: 1px solid ${({theme}) => theme.colors.palette.borderToolbarButtonHover};
   }
 
+  
   .search_area {
     background-color: transparent;
   }
@@ -441,72 +441,6 @@ const StyledDesktopClientContent = styled(Section)`
     outline: none;
   }
   
-
-  .popup-content {
-    box-shadow: ${({theme}) => theme.boxShadows.shadowWindow};
-    background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
-    border: 1px solid ${({theme}) => theme.colors.palette.borderToolbar};
-  }
-  
-  .popup-header {
-    background-color: ${({theme}) => theme.colors.palette.backgroundToolbar};
-    border-bottom: 1px solid ${({theme}) => theme.colors.palette.borderToolbar};
-
-    .popup-title {
-      color: ${({theme}) => theme.colors.palette.textNormal}
-    }
-  }
-
-  .file-img {
-    border: 1px solid ${({theme}) => theme.colors.palette.borderToolbarButtonHover};
-  }
-  
-  .file-main-description {
-    border-bottom-color: ${({theme}) => theme.colors.palette.borderToolbarButtonHover};
-  }
-
-  .file-title, .file-info-type, .file-description {
-    color: ${({theme}) => theme.colors.palette.textNormal};
-  }
-  
-  .file-info-label {
-    color: ${({theme}) => theme.colors.palette.textSecondary};
-  }
-  
-  .file-info-value, .file-select-title {
-    color: ${({theme}) => theme.colors.palette.textNormal};
-  }
-  
-  .file-button {
-    color: ${({theme}) => theme.colors.palette.textInverse};
-    background-color: ${({theme}) => theme.colors.palette.backgroundPrimaryDialogButton};
-    
-    &:hover {
-      background-color: ${({theme}) => theme.colors.palette.backgroundPrimaryDialogButtonHover};
-    }
-    
-    &:active {
-      opacity: 0.4;
-    }
-  }
-  
-  .file-dropdown {
-    background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
-    border: 1px solid ${({theme}) => theme.colors.palette.highlightButtonHover};
-    box-shadow: ${({theme}) => theme.boxShadows.menuShadow};
-    
-    .file-dropdown-item {
-      color: ${({theme}) => theme.colors.palette.textNormal};
-      
-      &:hover {
-        background-color: ${({theme}) => theme.colors.palette.highlightButtonHover};
-      }
-      
-      &.selected {
-        background-color: ${({theme}) => theme.colors.palette.highlightButtonHover};
-      }
-    }
-  }
 
   @media (max-width: 1200px) {
 

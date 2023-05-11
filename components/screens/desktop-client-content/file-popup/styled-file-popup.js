@@ -37,6 +37,11 @@ const StyledFilePopup = styled.div`
     overflow: hidden;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     background-color: #ffffff;
+
+    
+    box-shadow: ${({theme}) => theme.boxShadows.shadowWindow};
+    background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
+    border: 1px solid ${({theme}) => theme.colors.palette.borderToolbar};
   }
 
   .popup-header {
@@ -44,8 +49,10 @@ const StyledFilePopup = styled.div`
     grid-template-columns: auto 19px;
     gap: 24px;
     padding: 10px 10px 9px 30px;
-    background-color: #F7F7F7;
-    border-bottom: 1px solid #CBCBCB;
+    border-bottom: 1px solid ${({theme}) => theme.colors.palette.borderToolbar};
+
+    
+    background-color: ${({theme}) => theme.colors.palette.backgroundToolbar};
   }
 
   .popup-title {
@@ -53,7 +60,9 @@ const StyledFilePopup = styled.div`
     font-size: 18px;
     line-height: 20px;
     letter-spacing: 0.02em;
-    color: #444;
+    
+    
+    color: ${({theme}) => theme.colors.palette.textNormal}
   }
 
   .popup-body {
@@ -66,12 +75,14 @@ const StyledFilePopup = styled.div`
     flex: 0 0 400px;
     margin-right: 32px;
     mix-blend-mode: normal;
-    border: 1px solid #E2E2E2;
     border-radius: 3px;
 
     img {
       object-fit: cover;
     }
+
+
+    border: 1px solid ${({theme}) => theme.colors.palette.borderToolbarButtonHover};
   }
 
   .file-content {
@@ -84,7 +95,7 @@ const StyledFilePopup = styled.div`
   .file-main-description {
     margin-bottom: 24px;
     padding-bottom: 23px;
-    border-bottom: 1px solid #E5E5E5;
+    border-bottom: 1px solid ${({theme}) => theme.colors.palette.borderToolbarButtonHover};
   }
 
   .file-title {
@@ -93,18 +104,23 @@ const StyledFilePopup = styled.div`
     font-size: 18px;
     line-height: 24px;
     letter-spacing: -0.02em;
+
+
+    color: ${({theme}) => theme.colors.palette.textNormal};
   }
 
   .file-info-type {
     margin-bottom: 12px;
-    color: #444444;
+    color: ${({theme}) => theme.colors.palette.textNormal};
   }
 
   .file-description {
     font-size: 14px;
     line-height: 22px;
-    color: #333333;
     outline: none;
+
+
+    color: ${({theme}) => theme.colors.palette.textNormal};
   }
 
   .file-info {
@@ -132,7 +148,7 @@ const StyledFilePopup = styled.div`
 
   .file-info-label {
     margin-right: 8px;
-    color: #AAAAAA;
+    color: ${({theme}) => theme.colors.palette.textSecondary};
   }
 
   .file-info-value {
@@ -151,10 +167,20 @@ const StyledFilePopup = styled.div`
     line-height: 22px;
     height: 36px;
     min-width: 157px;
-    color: #FFFFFF;
-    background-color: #444444;
     text-decoration: none;
     text-transform: initial;
+
+
+    color: ${({theme}) => theme.colors.palette.textInverse};
+    background-color: ${({theme}) => theme.colors.palette.backgroundPrimaryDialogButton};
+
+    &:hover {
+      background-color: ${({theme}) => theme.colors.palette.backgroundPrimaryDialogButtonHover};
+    }
+
+    &:active {
+      opacity: 0.4;
+    }
   }
 
   .file-select {
@@ -182,6 +208,8 @@ const StyledFilePopup = styled.div`
     min-width: 33px;
     font-weight: 700;
     line-height: 19px;
+
+    color: ${({theme}) => theme.colors.palette.textNormal};
   }
 
   .file-select-icon {
@@ -203,11 +231,27 @@ const StyledFilePopup = styled.div`
     border-radius: 2px;
     padding-top: 4px;
     min-width: 106px;
-    background-color: #ffffff;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
     opacity: 0;
     visibility: hidden;
-    tarnsition: opacity 0.3s, visibility 0.3s;
+    transition: opacity 0.3s, visibility 0.3s;
+    
+    
+    
+    background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
+    border: 1px solid ${({theme}) => theme.colors.palette.highlightButtonHover};
+    box-shadow: ${({theme}) => theme.boxShadows.menuShadow};
+    
+    .file-dropdown-item {
+      color: ${({theme}) => theme.colors.palette.textNormal};
+      
+      &:hover {
+        background-color: ${({theme}) => theme.colors.palette.highlightButtonHover};
+      }
+      
+      &.selected {
+        background-color: ${({theme}) => theme.colors.palette.highlightButtonHover};
+      }
+    }
   }
 
   .file-dropdown-item {
