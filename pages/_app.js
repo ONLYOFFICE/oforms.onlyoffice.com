@@ -14,8 +14,8 @@ const App = ({Component, pageProps}) => {
     const query = useRouter();
     const mode = query.query.theme;
     const theme = useMemo(() => {
-        if (mode === 'dark_theme') return darkTheme
-        else if (mode === 'contrast_dark_theme') return contrastDarkTheme
+        if (mode === 'dark-theme') return darkTheme
+        else if (mode === 'contrast-dark-theme') return contrastDarkTheme
 
         return classicTheme
     }, [mode])
