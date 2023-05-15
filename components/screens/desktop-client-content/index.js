@@ -1,13 +1,13 @@
 import {useState, useEffect} from "react";
 
 import Cards from "@components/screens/common/cards";
-import Selector from "@components/common/selector";
 import CategorySelector from "@components/common/category-selector";
 import LanguageSelector from "@components/common/language-selector";
 import SearchContent from "@components/screens/heading-content/search";
 import Text from "@components/common/text";
 import StyledDesktopClientContent from "./styled-desktop-client-content";
 import FilePopup from "./file-popup/file-popup";
+import {SortSelector} from "@components/common/sortSelector";
 
 const DesktopClientContent = (props) => {
     const {
@@ -87,7 +87,7 @@ const DesktopClientContent = (props) => {
                         {" "}
                         {countData} {t("Documents")}
                     </Text>
-                    <Selector
+                    <SortSelector
                         isDesktopClient={isDesktopClient}
                         typeSortData={typeSortData}
                         onChangeSelectTypeSort={onChangeSelectTypeSort}
