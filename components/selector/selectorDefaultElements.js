@@ -10,6 +10,10 @@ export const SelectorDefaultDropdown = styled.ul`
   width: inherit;
   display: flex;
   flex-direction: column;
+  position: absolute;
+  z-index: 99;
+  top: 100%;
+  right: 0;
 `;
 
 export const SelectorDefaultDropdownItem = styled.li`

@@ -2,12 +2,14 @@ import styled from "styled-components";
 
 export const StyledSelector = styled.div`
   width: max-content;
+  position: relative;
+  cursor: pointer;
+`;
+
+export const StyledSelectorHeader = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  position: relative;
-  cursor: pointer;
-  
   .selector__label {
     font-style: normal;
     font-weight: 400;
@@ -15,7 +17,7 @@ export const StyledSelector = styled.div`
     line-height: 160%;
     color: ${({theme}) => theme.colors.palette.textSecondary};
   }
-  
+
   .selector__value {
     font-style: normal;
     font-weight: 700;
@@ -24,7 +26,7 @@ export const StyledSelector = styled.div`
     color: ${({theme}) => theme.colors.palette.textNormal};
     cursor: pointer;
   }
-  
+
   .selector__icon {
     cursor: pointer;
     transition: transform 200ms ease-in-out;
@@ -33,17 +35,17 @@ export const StyledSelector = styled.div`
       fill: ${({theme}) => theme.colors.palette.iconNormal};
     }
   }
-  
-  
+
+
   &.open .selector__icon {
     transform: rotate(180deg);
   }
-`;
+`
 
 export const StyledSelectorDropdown = styled.div`
   display: ${({isOpen}) => isOpen ? 'block' : 'none'};
-  position: absolute;
-  z-index: 99;
-  top: 100%;
-  right: 0;
+  //position: absolute;
+  //z-index: 99;
+  //top: 100%;
+  //right: 0;
 `;

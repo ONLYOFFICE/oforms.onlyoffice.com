@@ -47,7 +47,6 @@ const CategorySelector = ({
     isMobile ? setIsWindowMobile(true) : setIsWindowMobile(false)
   }, []);
 
-  const catHREF = category ? `form/${category}/` : "";
   const localeHREF = category ? `/${locale}` : locale;
 
   return isWindowMobile ?

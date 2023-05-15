@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
-
-import Pagination from "@components/common/pagination";
 import Cards from "@components/screens/common/cards";
-import Selector from "@components/common/selector";
 import Text from "@components/common/text";
 import Box from "@components/common/box";
 import CategorySelector from "@components/common/category-selector";
 
 import StyledMainContent from "./styled";
+import {SortSelector} from "@components/common/sortSelector";
 
 const MainContent = ({
   t,
@@ -62,7 +60,7 @@ const MainContent = ({
               {" "}
               {data?.data?.length > 0 ? data.data.length : countData ? data === null : 0} {t("Documents")}
             </Text>
-            <Selector
+            <SortSelector
               typeSortData={typeSortData}
               onChangeSelectTypeSort={onChangeSelectTypeSort}
               locale={currentLanguage}

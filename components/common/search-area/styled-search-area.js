@@ -42,7 +42,7 @@ const StyledSearchArea = styled.div`
   @media ${device.laptop} {
     .search_container {
       max-width: none;
-      width: 90vw;
+      width: 90%;
     }
   }
   @media (max-width: 600px) {

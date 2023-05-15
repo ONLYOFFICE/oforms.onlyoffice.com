@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {StyledSelector, StyledSelectorDropdown} from "./styledSelector";
+import {StyledSelector, StyledSelectorDropdown, StyledSelectorHeader} from "./styledSelector";
 import Text from "../common/text";
 import PropTypes from "prop-types";
 import {ChevronDown} from "../../icons";
@@ -40,9 +40,11 @@ export const Selector = (props) => {
             onClick={onCLick}
             onMouseLeave={onMouseLeave}
         >
-            <Text className="selector__label">{label}</Text>
-            <Text className="selector__value">{value}</Text>
-            <ChevronDown className="selector__icon" size={18} />
+            <div className="selector__header">
+                <Text className="selector__label">{label}</Text>
+                <Text className="selector__value">{value}</Text>
+                <ChevronDown className="selector__icon" size={18} />
+            </div>
             <StyledSelectorDropdown
                 className={`selector__dropdown`}
                 isOpen={isControlled ? isOpen : open}

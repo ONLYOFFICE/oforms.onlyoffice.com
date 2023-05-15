@@ -2,14 +2,13 @@ import { useState, useEffect } from "react";
 
 import Cards from "@components/screens/common/cards";
 import Pagination from "@components/common/pagination";
-import Selector from "@components/common/selector";
-import Heading from "@components/common/heading";
 import Text from "@components/common/text";
 import Box from "@components/common/box";
 import CategorySelector from "@components/common/category-selector";
 
 import Breadcrumb from "./breadcrumb";
 import StyledMainContent from "./style";
+import {SortSelector} from "@components/common/sortSelector";
 
 const MainContent = ({
   t,
@@ -104,7 +103,7 @@ const MainContent = ({
               {" "}
               {countData} {t("Documents")}
             </Text>
-            <Selector
+            <SortSelector
               typeSortData={typeSortData}
               onChangeSelectTypeSort={onChangeSelectTypeSort}
               locale={currentLanguage}
