@@ -19,7 +19,7 @@ export const Selector = (props) => {
     const isControlled = isOpen !== undefined;
 
     const onCLick = () => {
-        if(isControlled) {
+        if (isControlled) {
             onVisibilityChange && onVisibilityChange(true)
         } else {
             setOpen(true)
@@ -27,7 +27,7 @@ export const Selector = (props) => {
     }
 
     const onMouseLeave = () => {
-        if(isControlled) {
+        if (isControlled) {
             onVisibilityChange && onVisibilityChange(false)
         } else {
             setOpen(false)
@@ -35,23 +35,25 @@ export const Selector = (props) => {
     }
 
     return (
-        <StyledSelector
-            className={`selector ${isControlled ? (isOpen ? 'open' : '') : (open ? 'open' : '')} ${className}`}
-            onClick={onCLick}
-            onMouseLeave={onMouseLeave}
-        >
-            <div className="selector__header">
-                <Text className="selector__label">{label}</Text>
-                <Text className="selector__value">{value}</Text>
-                <ChevronDown className="selector__icon" size={18} />
-            </div>
-            <StyledSelectorDropdown
-                className={`selector__dropdown`}
-                isOpen={isControlled ? isOpen : open}
+        <>
+            <StyledSelector
+                className={`selector ${isControlled ? (isOpen ? 'open' : '') : (open ? 'open' : '')} ${className}`}
+                onClick={onCLick}
+                onMouseLeave={onMouseLeave}
             >
-                {children}
-            </StyledSelectorDropdown>
-        </StyledSelector>
+                <StyledSelectorHeader className="selector__header">
+                    <Text className="selector__label">{label}</Text>
+                    <Text className="selector__value">{value}</Text>
+                    <ChevronDown className="selector__icon" size={18}/>
+                </StyledSelectorHeader>
+                <StyledSelectorDropdown
+                    className={`selector__dropdown`}
+                    isOpen={isControlled ? isOpen : open}
+                >
+                    {children}
+                </StyledSelectorDropdown>
+            </StyledSelector>
+        </>
     )
 }
 

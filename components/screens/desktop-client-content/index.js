@@ -1,7 +1,8 @@
 import {useState, useEffect} from "react";
 
 import Cards from "@components/screens/common/cards";
-import CategorySelector from "@components/common/category-selector";
+// import CategorySelector from "@components/common/category-selector";
+import { CategorySelector } from "@components/common/categorySelector";
 import LanguageSelector from "@components/common/language-selector";
 import SearchContent from "@components/screens/heading-content/search";
 import Text from "@components/common/text";

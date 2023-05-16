@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import Cards from "@components/screens/common/cards";
 import Pagination from "@components/common/pagination";
-import CategorySelector from "@components/common/category-selector";
+import {CategorySelector} from "@components/common/categorySelector";
 import Heading from "@components/common/heading";
 import Text from "@components/common/text";
 import Box from "@components/common/box";

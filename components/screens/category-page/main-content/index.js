@@ -4,7 +4,7 @@ import Cards from "@components/screens/common/cards";
 import Pagination from "@components/common/pagination";
 import Text from "@components/common/text";
 import Box from "@components/common/box";
-import CategorySelector from "@components/common/category-selector";
+import {CategorySelector} from "@components/common/categorySelector";
 
 import Breadcrumb from "./breadcrumb";
 import StyledMainContent from "./style";

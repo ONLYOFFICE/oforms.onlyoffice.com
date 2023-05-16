@@ -1,2 +1,2 @@
-export * from './Selector'
+export * from './selector'
 export * from './selectorDefaultElements'

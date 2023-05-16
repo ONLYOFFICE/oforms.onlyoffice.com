@@ -30,49 +30,51 @@ export const SortSelector = (props) => {
     }, [typeSortData])
 
     return (
-        <Selector
-            label={t("SortBy")}
-            value={t(selectorValue)}
-        >
-            <SelectorDefaultDropdown
-                onClick={onChangeSelectTypeSort}
-                as="div"
+        <>
+            <Selector
+                label={t("SortBy")}
+                value={t(selectorValue)}
             >
-                {isDesktopClient ?
-                    <SelectorDefaultDropdownItem
-                        as="a"
-                        href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultDesktopHREF}?_sort=asc${appTheme !== undefined ? `&theme=${theme}` : ''}` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=asc&desktop=true${appTheme !== undefined ? `&theme=${theme}` : ''}`}`}
-                        isActive={typeSortData === t("NameA-Z")}
-                        isDesktopClient
-                    >
-                        {t("NameA-Z")}
-                    </SelectorDefaultDropdownItem>
-                    :
-                    <SelectorDefaultDropdownItem
-                        as="a"
-                        href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultHREF}?_sort=asc` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=asc`}`}
-                    >
-                        {t("NameA-Z")}
-                    </SelectorDefaultDropdownItem>
-                }
-                {isDesktopClient ?
-                    <SelectorDefaultDropdownItem
-                        as="a"
-                        href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultDesktopHREF}?_sort=desc${appTheme !== undefined ? `&theme=${theme}` : ''}` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=desc&desktop=true${appTheme !== undefined ? `&theme=${theme}` : ''}`}`}
-                        isActive={typeSortData === t("NameZ-A")}
-                        isDesktopClient
-                    >
-                        {t("NameZ-A")}
-                    </SelectorDefaultDropdownItem>
-                    :
-                    <SelectorDefaultDropdownItem
-                        as="a"
-                        href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultHREF}?_sort=desc` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=desc`}`}
-                    >
-                        {t("NameZ-A")}
-                    </SelectorDefaultDropdownItem>
-                }
-            </SelectorDefaultDropdown>
-        </Selector>
+                <SelectorDefaultDropdown
+                    onClick={onChangeSelectTypeSort}
+                    as="div"
+                >
+                    {isDesktopClient ?
+                        <SelectorDefaultDropdownItem
+                            as="a"
+                            href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultDesktopHREF}?_sort=asc${appTheme !== undefined ? `&theme=${theme}` : ''}` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=asc&desktop=true${appTheme !== undefined ? `&theme=${theme}` : ''}`}`}
+                            isActive={typeSortData === t("NameA-Z")}
+                            isDesktopClient
+                        >
+                            {t("NameA-Z")}
+                        </SelectorDefaultDropdownItem>
+                        :
+                        <SelectorDefaultDropdownItem
+                            as="a"
+                            href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultHREF}?_sort=asc` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=asc`}`}
+                        >
+                            {t("NameA-Z")}
+                        </SelectorDefaultDropdownItem>
+                    }
+                    {isDesktopClient ?
+                        <SelectorDefaultDropdownItem
+                            as="a"
+                            href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultDesktopHREF}?_sort=desc${appTheme !== undefined ? `&theme=${theme}` : ''}` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=desc&desktop=true${appTheme !== undefined ? `&theme=${theme}` : ''}`}`}
+                            isActive={typeSortData === t("NameZ-A")}
+                            isDesktopClient
+                        >
+                            {t("NameZ-A")}
+                        </SelectorDefaultDropdownItem>
+                        :
+                        <SelectorDefaultDropdownItem
+                            as="a"
+                            href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultHREF}?_sort=desc` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=desc`}`}
+                        >
+                            {t("NameZ-A")}
+                        </SelectorDefaultDropdownItem>
+                    }
+                </SelectorDefaultDropdown>
+            </Selector>
+        </>
     )
 }
