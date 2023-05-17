@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const CategorySelectorDropdown = styled.div`
   position: absolute;
@@ -52,7 +52,7 @@ export const CategorySelectorDropdownItem = styled.span`
   &:hover {
     ${(p) => {
       const {isDesktopClient, theme} = p;
-      return `
+      return css`
         background-color: ${isDesktopClient ? theme.colors.palette.highlightButtonHover : undefined};
         color: ${isDesktopClient ? theme.colors.palette.textNormal : theme.colors.primary};
         & .arrow-right path {

@@ -114,13 +114,17 @@ const MainContent = ({ t, currentLanguage, data, page, sort, types, categories, 
             sort={sort}
           />
         </Box>
-        <Pagination
-          countPage={countPage}
-          getPaginationGroup={getPaginationGroup()}
-          locale={currentLanguage}
-          sort={sort}
-          page={page}
-        />
+        {
+          countPage !== 1 &&
+          <Pagination
+              countPage={countPage}
+              getPaginationGroup={getPaginationGroup()}
+              locale={currentLanguage}
+              sort={sort}
+              page={page}
+          />
+        }
+
       </div>
     </StyledMainContent>
   );

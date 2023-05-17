@@ -123,14 +123,17 @@ const MainContent = ({
             sort={sort}
           />
         </Box>
-        <Pagination
-          countPage={countPage}
-          category={urlReqCategory}
-          getPaginationGroup={getPaginationGroup()}
-          locale={currentLanguage}
-          sort={sort}
-          page={page}
-        />
+        {
+          countPage !== 1 &&
+            <Pagination
+                countPage={countPage}
+                category={urlReqCategory}
+                getPaginationGroup={getPaginationGroup()}
+                locale={currentLanguage}
+                sort={sort}
+                page={page}
+            />
+        }
       </div>
     </StyledMainContent>
   );
