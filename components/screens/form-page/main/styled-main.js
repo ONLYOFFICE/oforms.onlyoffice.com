@@ -51,18 +51,6 @@ const mobileStyledMainInfo = css`
     .file-main-buttons {
       display: block;
       padding-top: 24px;
-
-      .file-download-button {
-        margin-top: 16px;
-
-        .placeholder {
-          padding: 15px 0;
-        }
-
-        .chevronContainer {
-          padding: 9px 16px 8px;
-        }
-      }
     }
   }
 
@@ -339,6 +327,27 @@ const StyledMainInfo = styled(Section)`
     line-height: 26px;
   }
   /** */
+  
+  .file-download-button {
+    display: grid;
+    grid-template-columns: 8fr 2fr;
+    align-items: stretch;
+
+    &:hover {
+      path {
+        fill: ${({theme}) => theme.colors.primary};
+      }
+    }
+    
+    .indicatorContainer {
+      display: grid;
+      grid-template-columns: 1px 1fr;
+      
+      & svg {
+        width: 100%;
+      }
+    }
+  }
 `;
 
 export default StyledMainInfo;

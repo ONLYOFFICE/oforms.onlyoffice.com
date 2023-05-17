@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 
 import StyledBtnSelector from "./styled-btn-selector";
 import BtnMenu from "./sub-components/btn-menu";
+import {ChevronDown} from "../../../icons";
 
 const ButtonSelector = ({
   isScale,
@@ -30,12 +31,7 @@ const ButtonSelector = ({
       </div>
       <div className="indicatorContainer">
         <span className="indicatorSeparator" />
-        <img
-          className={classNameIndicator}
-          src="https://static-oforms.onlyoffice.com/icons/chevron-down.svg"
-          height="24px"
-          width="24px"
-        />
+        <ChevronDown />
       </div>
       {isActive && (
         <BtnMenu
