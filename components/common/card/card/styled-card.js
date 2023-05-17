@@ -18,8 +18,17 @@ const StyledCard = styled.div`
     box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
     height: 458px;
     padding: 13px;
-    background-color: #fff;
+    background-color: ${({theme}) => theme.colors.base.white};
     border: 1px solid #E2E2E2;
+    position: relative;
+
+    @media (min-width: 1200px) {
+      &:hover {
+        .card-image__icon {
+          display: flex;
+        }
+      }
+    }
   }
 
   .image-template {
@@ -43,7 +52,7 @@ const StyledCard = styled.div`
     position: absolute;
     width: 100%;
     left: 0;
-    top: 486px;
+    top: 457px;
     z-index: 1;
     border: 1px solid transparent;
     height: 226px;
@@ -56,7 +65,7 @@ const StyledCard = styled.div`
   &:hover,
   &:active {
     .card-template {
-      background-color: #f9f9f9;
+      background-color: ${({theme}) => theme.colors.base.white};
       padding-bottom: 32px;
       box-shadow: 0px 20px 50px rgba(85, 85, 85, 0.15);
       border: 1px solid #CCCCCC;
@@ -298,3 +307,13 @@ const StyledCard = styled.div`
 `;
 
 export default StyledCard;
+
+export const LoupIconWrapper = styled.span`
+  display: none;
+  padding: 24px;
+  border-radius: 50%;
+  background-color: rgba(51, 51, 51, 0.7);
+  position: absolute;
+  top: calc(50% - 36px);
+  left: calc(50% - 36px);
+`;

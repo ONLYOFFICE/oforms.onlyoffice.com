@@ -11,9 +11,13 @@ import { device } from "@components/utils/devices";
 const StyledBox = styled(Box)`
   padding: 0 68px 10px;
   
-  @media ${device.laptop} {
-    padding: 0 50px 10px;
+  @media (max-width: 1200px) {
+    padding: 0 46px 10px;
   }
+  
+  @media (max-width: 577px) {
+  padding: 0 8px 10px;
+}
 `
 
 const CarouselContent = ({

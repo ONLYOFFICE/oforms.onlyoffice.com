@@ -6,8 +6,9 @@ import LanguageSelector from "@components/common/language-selector";
 import Nav from "./nav/nav";
 import StyledMenu from "./styled-menu";
 import { ReactSVG } from "react-svg";
+import {MenuIcon} from "../../../../icons";
 
-const Menu = ({ t, currentLanguage, template }) => {
+const Menu = ({ t, currentLanguage, template, isInvert }) => {
   const [windowCheck, setWindowCheck] = useState("undefined");
   useEffect(() => {
     if (typeof window !== windowCheck) {
@@ -63,10 +64,11 @@ const Menu = ({ t, currentLanguage, template }) => {
         {/*eslint-enable*/}
       </InternalLink>
       {/*eslint-disable*/}
-      <img
-        src="https://static-oforms.onlyoffice.com/icons/mob_menu.svg"
-        className="nav-items-mobile"
-        onClick={toggleMobile}
+      <MenuIcon
+          size="20px"
+          color={ isInvert ? '#444' : '#fff' }
+          className="nav-items-mobile"
+          onClick={toggleMobile}
       />
       {/*eslint-enable*/}
       <Nav
