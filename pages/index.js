@@ -15,11 +15,6 @@ import MainContent from "@components/screens/main-page/main-content";
 import DesktopClientContent from "@components/screens/desktop-client-content";
 import AdventAnnounce from "@components/screens/heading-content/advent-announce";
 import CONFIG from "@config/config";
-import classicTheme from '../style/themes/classicTheme.json'
-import darkTheme from '../style/themes/darkTheme.json'
-import contrastDarkTheme from '../style/themes/contrastDarkTheme.json'
-import {ThemeProvider} from "styled-components";
-import {Base} from "@components/themes";
 
 const Accordion = lazy(() => import("@components/screens/common/accordion"), {
     suspense: true,
@@ -63,7 +58,6 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
         const res = await fetch(
             `${CMSConfigAPI}/api/oforms/?sort=name_form:${sort}&pagination[pageSize]=32&pagination[page]=${nextPage}&populate=template_image&populate=file_oform&populate=card_prewiew&populate=categories&locale=${locale}`
         );
-        console.log(res);
         const newFormsRequest = await res.json();
 
         const newData = [...nonStateObjectData.data, ...newFormsRequest.data]
@@ -83,7 +77,6 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
         var scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
 
         if (scrolledToBottom) {
-            console.log("At bottom");
             getMoreForms();
         }
     }
