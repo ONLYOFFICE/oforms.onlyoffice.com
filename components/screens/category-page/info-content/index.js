@@ -6,7 +6,11 @@ import StyledInfoContent from "./styled";
 const InfoContent = ({ t, category, header }) => {
  
   return (
-    <StyledInfoContent>
+    <StyledInfoContent
+        padding="56px 0 90px"
+        tabletPadding="46px 0 70px"
+        mobileLPadding="36px 0 50px"
+    >
       <Box
         className="category-box"
         flexDirection="column"

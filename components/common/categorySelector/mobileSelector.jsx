@@ -1,11 +1,8 @@
 import React, {useState, useEffect} from "react";
-import {ReactSVG} from "react-svg";
 import Box from "../box";
 import Text from "../text";
 
 import MenuItem from "@components/screens/heading-content/menu/menu-item";
-import Link from "next/link";
-import {isMobile} from '../../utils/devices'
 import styled from "styled-components";
 
 const StyledSelectorMobile = styled.div`

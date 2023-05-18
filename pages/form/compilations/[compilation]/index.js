@@ -137,7 +137,6 @@ export const getServerSideProps = async ({ locale, query, ...ctx }) => {
   const compilations = await getAllCompilations(locale);
 
   if (categoryForms.data.length === 0) {
-    console.log(categoryForms.data.length);
     return {
       redirect: {
         destination: `https://oforms.teamlab.info/404`,

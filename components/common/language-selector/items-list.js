@@ -17,8 +17,6 @@ export default function LangsList({ isOpen }) {
     router.push(href);
   };
 
-  console.log(isDesktop)
-
   const renderItemList = () => {
     return languages.map((language) => {
       return (

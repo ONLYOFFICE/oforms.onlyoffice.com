@@ -8,7 +8,6 @@ const StyledInfoContent = styled(Section)`
     line-height: 54px;
     font-weight: 700;
     color: #fff;
-    padding-top: 60px;
   }
 
   .description-info-content {
@@ -70,7 +69,6 @@ const StyledInfoContent = styled(Section)`
     .heading-info-content {
       font-size: 36px;
       line-height: 48px;
-      padding-top: 48px;
     }
 
     .description-info-content {
@@ -100,7 +98,6 @@ const StyledInfoContent = styled(Section)`
     .heading-info-content {
       font-size: 24px;
       line-height: 31px;
-      padding-top: 55px;
     }
 
     .description-info-content {

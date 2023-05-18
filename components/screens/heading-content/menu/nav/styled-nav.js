@@ -25,6 +25,10 @@ const StyledNav = styled.nav`
     }
   }
 
+  .nav-item-mobile-tel {
+    display: none;
+  }
+
   .menu-wrapper {
     flex-direction: unset;
     justify-content: unset;
@@ -150,27 +154,13 @@ const StyledNav = styled.nav`
       }
     }
 
-    .phone_wrapper {
-      //bottom: 0;
-      //top: auto;
-      //width: 100%;
-      //height: 54px;
-      //position: absolute;
-      //right: 0;
-      //left: auto;
-      //margin: 0;
-      //padding: 0;
-    }
-
     .nav-item-mobile-tel {
+      display: block;
       box-sizing: border-box;
       font-size: 16px;
       font-weight: 700;
       line-height: 22px;
       background-color: #f6f6f6;
-      //position: absolute;
-      //bottom: 0;
-      //left: 0;
       letter-spacing: 0.02em;
       padding: 15px 16px 15px 20px;
       text-decoration: none;
@@ -198,9 +188,7 @@ const StyledNav = styled.nav`
   }
   
   @media (max-width: 500px) {
-    .menu-wrapper {
-      width: 90vw;
-    }
+    width: 90vw;
   }
 `;
 

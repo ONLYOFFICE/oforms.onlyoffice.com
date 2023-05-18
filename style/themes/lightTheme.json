@@ -21,7 +21,8 @@
     "base": {
       "white": "#FFF",
       "black": "#000"
-    }
+    },
+    "primary": "#FF6F3D"
   },
   "dropShadows": {
     "shadowMenu": "drop-shadow(0px 2px 5px rgba(0, 0, 0, 0.2))"

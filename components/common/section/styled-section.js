@@ -11,7 +11,7 @@ const StyledSection = styled.section`
   background: ${(props) => props.background || "transparent"};
 
   .section-page {
-    max-width: 1120px;
+    max-width: 1120px; 
     margin: 0px auto;
   }
 

@@ -30,7 +30,6 @@ const StyledInfoContent = styled(Section)`
 
   @media (max-width: 1024px) {
     .section-page {
-      padding-top: 120px;
 
       .category-heading {
         padding-bottom: 50px;

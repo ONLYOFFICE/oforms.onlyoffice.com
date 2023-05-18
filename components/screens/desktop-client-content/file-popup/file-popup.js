@@ -88,7 +88,7 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
                   <div className="file-info-item">
                     <div><span className="file-info-label">{t("FileType")}:</span>{" "}</div>
                     <div className="file-select">
-                      <div 
+                      <div
                         className={"file-select-placeholder" + (isOpenType ? " open" : "")}
                         onClick={openTypeDropdown}
                       >
@@ -102,18 +102,19 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
                       </div>
                       <div className="file-dropdown" onMouseLeave={closeTypeDropdown}>
                         {array.map((item, index) => (
-                          <div 
+                          <div
                             onClick={() => {setHref(item.href); onChangeSelectFileType(item.title)}}
                             className={`file-dropdown-item ${fileTypeData === item?.title ? "selected" : ""}`}
-                            key={index} 
+                            key={index}
                           >
-                            {item.title}                            
+                            {item.title}
                           </div>
                         ))}
                       </div>
                     </div>
                   </div>
                 </div>
+
               </div>
               <Button className="file-button" label={t("Open")}  onClick={() => window.AscDesktopEditor.openTemplate(href, `${cardData.name_form}.${fileTypeData}`)}/>                            
             </div>

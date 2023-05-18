@@ -4,7 +4,6 @@ import Section from "@components/common/section";
 const StyledInfoContent = styled(Section)`
   background-color: #333;
   .section-page {
-    padding-top: 190px;
     .category-box {
       max-width: 736px;
       margin: 0 auto;
@@ -14,22 +13,21 @@ const StyledInfoContent = styled(Section)`
       font-size: 32px;
       font-weight: 700;
       color: #fff;
+      margin-bottom: 24px;
     }
     .category-description {
-      padding-top: 24px;
       text-align: center;
       font-size: 22px;
       font-weight: 400;
       line-height: 33px;
       color: #ccc;
-      padding-bottom: 90px;
       outline: none;
     }
   }
 
   @media (max-width: 1024px) {
     .section-page {
-      padding-top: 120px;
+      //padding-top: 1px;
       .category-heading {
       }
       .category-description {
@@ -40,7 +38,6 @@ const StyledInfoContent = styled(Section)`
 
   @media (max-width: 768px) {
     .section-page {
-      padding-top: 110px;
       .category-heading {
         font-size: 30px;
       }

@@ -159,7 +159,7 @@ const Form = ({form, locale, randomCarousel, types, categories, compilations}) =
                 <AdventAnnounce t={t} currentLanguage={locale}/>
             </Layout.PageAnnounce>
             <Layout.PageHeader>
-                <HeadingContent template currentLanguage={locale} t={t}/>
+                <HeadingContent template currentLanguage={locale} t={t} isInvert/>
             </Layout.PageHeader>
             <Layout.SectionMain>
                 <MainInfo
@@ -195,10 +195,8 @@ const Form = ({form, locale, randomCarousel, types, categories, compilations}) =
                         t={t}
                     />
                 }
-
                 <CategoryContent t={t} types={types} locale={locale} categories={categories}
                                  compilations={compilations}/>
-
                 <Suspense>
                     <Banner t={t} currentLanguage={locale}/>
                 </Suspense>

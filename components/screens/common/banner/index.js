@@ -5,9 +5,9 @@ const Banner = ({ t, currentLanguage }) => {
   return (
     <StyledBanner
       background="#333333"
-      padding="131px 0 111px"
-      tabletPadding="112px 0 109px"
-      mobileLPadding="48px 0 72px"
+      padding="112px 0"
+      tabletPadding="80px 0"
+      mobileLPadding="48px 0"
     >
       <BannerOforms t={t} currentLanguage={currentLanguage} />
       <div id="forms"></div>

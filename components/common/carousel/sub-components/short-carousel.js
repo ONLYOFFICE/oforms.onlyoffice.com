@@ -2,6 +2,8 @@ import Box from "@components/common/box";
 import StyledShortCard from "./styled-short-carousel";
 import Link from "@components/common/card/card/sub-components/link";
 import Text from "@components/common/text";
+import {LoupIconWrapper} from "@components/common/card/card/styled-card";
+import {Loup} from "../../../../icons";
 
 const ShortCard = ({ t, callback, arrayItems, currentLanguage, description, ...rest }) => {
   const { attributes } = arrayItems;
@@ -26,6 +28,9 @@ const ShortCard = ({ t, callback, arrayItems, currentLanguage, description, ...r
     <StyledShortCard {...rest}>
       <Link href={pathName} className="image-boxshadow-template">
         <img className="card-image" src={imgUrlCard} alt={name_form} />
+          <LoupIconWrapper className="card-image__icon">
+              <Loup size="24px" color="#FFF" />
+          </LoupIconWrapper>
       </Link>
       <Box
         className="card-template"

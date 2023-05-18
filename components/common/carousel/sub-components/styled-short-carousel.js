@@ -10,6 +10,25 @@ const StyledShortCard = styled.div`
   box-sizing: border-box;
   position: relative;
 
+  @media (min-width: 1200px) {
+    &:not(&.short) .image-boxshadow-template:hover {
+      .card-image__icon {
+        display: flex;
+      }
+    }
+
+    &:not(&.short):hover, &:not(&.short):active {
+      .image-boxshadow-template {
+        box-shadow: none !important;
+        border: none !important;
+      }
+
+      .card-template {
+        background-color: ${({theme}) => theme.colors.base.white} !important;
+      }
+    }
+  }
+
   .card-image {
     height: ${(props) => (props.shortCard ? "214px" : "458px")};
     width: ${(props) => (props.shortCard ? "160px" : "324px")};
@@ -20,6 +39,7 @@ const StyledShortCard = styled.div`
     padding: ${(props) => (props.shortCard ? "0" : "13px")};
     background-color: #fff;
     border: 1px solid #E2E2E2;
+    position: relative;
   }
 
   .image-template {
@@ -36,12 +56,12 @@ const StyledShortCard = styled.div`
     background-color: transparent;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
-    padding: ${(props) => (props.shortCard ? "0" : "22px 24px 0px 24px")};
+    padding: ${(props) => (props.shortCard ? "0" : "22px 24px 24px 24px")};
     box-sizing: border-box;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     position: ${(props) => (props.shortCard ? "relative" : "absolute")};
-    top: ${(props) => (props.shortCard ? "auto" : "486px")};
+    top: ${(props) => (props.shortCard ? "auto" : "457px")};
     z-index: 1;
     border: 1px solid transparent;
   }
@@ -67,7 +87,7 @@ const StyledShortCard = styled.div`
     -webkit-line-clamp: 2;
     line-clamp: 2;
     display: -webkit-box;
-    display: box;
+    display: block;
     word-wrap: break-word;
     -webkit-box-orient: vertical;
     box-orient: vertical;
@@ -82,7 +102,7 @@ const StyledShortCard = styled.div`
     -webkit-line-clamp: 3;
     line-clamp: 3;
     display: -webkit-box;
-    display: box;
+    display: block;
     word-wrap: break-word;
     -webkit-box-orient: vertical;
     box-orient: vertical;

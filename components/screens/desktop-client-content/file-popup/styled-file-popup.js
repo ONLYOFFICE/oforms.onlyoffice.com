@@ -153,6 +153,7 @@ const StyledFilePopup = styled.div`
 
   .file-info-value {
     font-weight: 700;
+    color: ${({theme}) => theme.colors.palette.textNormal}
   }
 
   .file-button {

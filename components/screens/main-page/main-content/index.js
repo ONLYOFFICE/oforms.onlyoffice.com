@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 
 import Cards from "@components/screens/common/cards";
 import Pagination from "@components/common/pagination";
-import Selector from "@components/common/selector";
-import CategorySelector from "@components/common/category-selector";
+import {CategorySelector} from "@components/common/categorySelector";
 import Heading from "@components/common/heading";
 import Text from "@components/common/text";
 import Box from "@components/common/box";
 import StyledMainContent from "./styled-main-content";
+import {SortSelector} from "@components/common/sortSelector";
 
 const MainContent = ({ t, currentLanguage, data, page, sort, types, categories, compilations }) => {
   const countData = data.meta?.pagination?.total;
@@ -95,7 +95,7 @@ const MainContent = ({ t, currentLanguage, data, page, sort, types, categories, 
               {" "}
               {countData} {t("Documents")}
             </Text>
-            <Selector
+            <SortSelector
               typeSortData={typeSortData}
               onChangeSelectTypeSort={onChangeSelectTypeSort}
               locale={currentLanguage}
@@ -114,13 +114,17 @@ const MainContent = ({ t, currentLanguage, data, page, sort, types, categories, 
             sort={sort}
           />
         </Box>
-        <Pagination
-          countPage={countPage}
-          getPaginationGroup={getPaginationGroup()}
-          locale={currentLanguage}
-          sort={sort}
-          page={page}
-        />
+        {
+          countPage !== 1 &&
+          <Pagination
+              countPage={countPage}
+              getPaginationGroup={getPaginationGroup()}
+              locale={currentLanguage}
+              sort={sort}
+              page={page}
+          />
+        }
+
       </div>
     </StyledMainContent>
   );

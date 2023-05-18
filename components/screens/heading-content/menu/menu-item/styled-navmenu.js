@@ -63,7 +63,7 @@ const StyledNavMenu = styled.div`
 
       &.external-link {
         color: #666;
-
+        
         &:hover {
           color: #666;
           cursor: default;
@@ -335,7 +335,7 @@ const StyledNavMenu = styled.div`
 
   @media (max-width: 500px) {
     .menu-items-wrapper {
-      width: 90vw;
+      //width: 90vw;
     }
 
     .outer-box {
