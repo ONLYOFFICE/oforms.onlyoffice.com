@@ -1,16 +1,25 @@
 import React, {useEffect, useMemo, useState} from "react";
-import {Selector} from "@components/selector";
+import Selector from "@components/selector";
 import {useRouter} from "next/router";
 import {isMobile} from "react-device-detect";
 import MobileSelector from "./mobileSelector";
 import {
-    CategorySelectorDropdown, CategorySelectorDropdownItem,
-    CategorySelectorDropdownLink, CategorySelectorDropdownSubmenu, CategorySelectorDropdownSubmenuLink
+    CategorySelectorDropdown,
+    CategorySelectorDropdownItem,
+    CategorySelectorDropdownLink,
+    CategorySelectorDropdownSubmenu,
+    CategorySelectorDropdownSubmenuLink
 } from "@components/common/categorySelector/styledCategorySelector";
-import Text from "@components/common/text";
-import MenuItem from "@components/screens/heading-content/menu/menu-item";
-import Box from "@components/common/box";
 import {ChevronRight} from "../../../icons";
+import Link from "next/link";
+
+const desktopClientController = (desktopClientComponent, nonDesktopClientComponent, isDesktopClient) => {
+    if (isDesktopClient) {
+        return desktopClientComponent
+    }
+
+    return nonDesktopClientComponent
+}
 
 export const CategorySelector = (props) => {
     const {
@@ -26,7 +35,7 @@ export const CategorySelector = (props) => {
         categoryName,
         queryDesktopClient
     } = props;
-    const [isCategorieOpen, setIsCategorieOpen] = useState(false);
+    const [isCategoryOpen, setIsCategoryOpen] = useState(false);
     const [isTypeOpen, setIsTypeOpen] = useState(false);
     const [isCompilationsOpen, setIsCompilationsOpen] = useState(false);
 
@@ -35,14 +44,16 @@ export const CategorySelector = (props) => {
     const appTheme = useMemo(() => {
         if (theme && isDesktopClient) return theme
     }, [theme, isDesktopClient])
-
+    const localeHREF = category ? `/${locale}` : locale;
     const [isWindowMobile, setIsWindowMobile] = useState(false);
+
+    const onClear = () => {
+        router.push(`${locale === "en" ? `/?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}` : `${localeHREF}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}`)
+    }
 
     useEffect(() => {
         isMobile ? setIsWindowMobile(true) : setIsWindowMobile(false)
     }, []);
-
-    const localeHREF = category ? `/${locale}` : locale;
     return (isWindowMobile ?
             <MobileSelector
                 onChangeSelectTypeSort={onChangeSelectTypeSort}
@@ -55,60 +66,77 @@ export const CategorySelector = (props) => {
                 compilations={compilations}
             /> :
             <Selector
-                label={t("Categories")}
+                label={isDesktopClient ? `${t("Categories")}:` : t("Categories")}
                 value={isDesktopClient && router.pathname === "/searchresult" ? `${t("Search results for")} '${queryDesktopClient}'` : categoryName}
             >
                 <CategorySelectorDropdown className="category-selector__dropdown">
-                    {isDesktopClient ?
-                        <CategorySelectorDropdownLink
-                            className="category-selector__link"
+                    {
+                        desktopClientController(
+                            <Link
+                                href={`${locale === "en" ? `/?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}` : `${localeHREF}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}`}
+                                passHref
+                            >
+                                <CategorySelectorDropdownLink
+                                    className="category-selector__link"
+                                    isDesktopClient
+                                >
+                                    {t("View all templates")}
+                                </CategorySelectorDropdownLink>
+                            </Link>,
+                            <Link
+                                href={`${locale === "en" ? "" : localeHREF}/`}
+                                passHref
+                            >
+                                <CategorySelectorDropdownLink
+                                    className="category-selector__link"
+                                >
+                                    {t("View all templates")}
+                                </CategorySelectorDropdownLink>
+                            </Link>,
                             isDesktopClient
-                            href={`${locale === "en" ? `/?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}` : `${localeHREF}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}`}
-                        >
-                            {t("View all templates")}
-                        </CategorySelectorDropdownLink>
-                        :
-                        <CategorySelectorDropdownLink
-                            className="category-selector__link"
-                            href={`${locale === "en" ? "" : localeHREF}/`}
-                        >
-                            {t("View all templates")}
-                        </CategorySelectorDropdownLink>
+                        )
                     }
                     <CategorySelectorDropdownItem
                         className="category-selector__item"
-                        onMouseEnter={() => setIsCategorieOpen(true)}
-                        onMouseLeave={() => setIsCategorieOpen(false)}
+                        onMouseEnter={() => setIsCategoryOpen(true)}
+                        onMouseLeave={() => setIsCategoryOpen(false)}
                         isDesktopClient={isDesktopClient}
+                        isOpen={isCategoryOpen}
                     >
                         {t("Forms by branch")}
-                        <ChevronRight className="arrow-right" />
+                        <ChevronRight className="arrow-right"/>
                     </CategorySelectorDropdownItem>
-                    {isCategorieOpen && categories.data?.length > 0 && (
+                    {isCategoryOpen && categories.data?.length > 0 && (
                         <CategorySelectorDropdownSubmenu
                             className="category-selector__submenu"
-                            onMouseEnter={() => setIsCategorieOpen(true)}
-                            onMouseLeave={() => setIsCategorieOpen(false)}
+                            onMouseEnter={() => setIsCategoryOpen(true)}
+                            onMouseLeave={() => setIsCategoryOpen(false)}
                         >
-                            {categories.data?.map((categorie) => (
-                                isDesktopClient ?
+                            {categories.data?.map((categorie) => desktopClientController(
+                                <Link
+                                    href={`${locale === "en" ? "" : `/${localeHREF}`}/form/${categorie.attributes.urlReq}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
+                                    passHref
+                                >
                                     <CategorySelectorDropdownSubmenuLink
                                         key={categorie.id}
-                                        href={`${locale === "en" ? "" : `/${localeHREF}`}/form/${categorie.attributes.urlReq}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
                                         className="category-selector__submenu-link"
                                         isDesktopClient
                                     >
                                         {categorie.attributes.categorie}
                                     </CategorySelectorDropdownSubmenuLink>
-                                    :
+                                </Link>,
+                                <Link
+                                    href={`${locale === "en" ? "" : `/${localeHREF}`}/form/${categorie.attributes.urlReq}`}
+                                    passHref
+                                >
                                     <CategorySelectorDropdownSubmenuLink
                                         key={categorie.id}
-                                        href={`${locale === "en" ? "" : `/${localeHREF}`}/form/${categorie.attributes.urlReq}`}
                                         className="category-selector__submenu-link"
                                     >
                                         {categorie.attributes.categorie}
                                     </CategorySelectorDropdownSubmenuLink>
-
+                                </Link>,
+                                isDesktopClient
                             ))}
                         </CategorySelectorDropdownSubmenu>
                     )}
@@ -117,9 +145,10 @@ export const CategorySelector = (props) => {
                         onMouseEnter={() => setIsTypeOpen(true)}
                         onMouseLeave={() => setIsTypeOpen(false)}
                         isDesktopClient={isDesktopClient}
+                        isOpen={isTypeOpen}
                     >
                         {t("Forms by type")}
-                        <ChevronRight className="arrow-right" />
+                        <ChevronRight className="arrow-right"/>
                     </CategorySelectorDropdownItem>
                     {isTypeOpen && types.data?.length > 0 && (
                         <CategorySelectorDropdownSubmenu
@@ -127,26 +156,33 @@ export const CategorySelector = (props) => {
                             onMouseEnter={() => setIsTypeOpen(true)}
                             onMouseLeave={() => setIsTypeOpen(false)}
                         >
-                            {types.data?.map((type) => (
-                                isDesktopClient ?
-                                    <CategorySelectorDropdownSubmenuLink
-                                        key={type.id}
+                            {types.data?.map((type) => desktopClientController(
+                                    <Link
                                         href={`${locale === "en" ? "" : `/${localeHREF}`}/form/types/${type.attributes.urlReq}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
-                                        className="category-selector__submenu-link"
-                                        isDesktopClient
+                                        passHref
                                     >
-                                        {type.attributes.type}
-                                    </CategorySelectorDropdownSubmenuLink>
-                                    :
-                                    <CategorySelectorDropdownSubmenuLink
-                                        key={type.id}
+                                        <CategorySelectorDropdownSubmenuLink
+                                            key={type.id}
+                                            className="category-selector__submenu-link"
+                                            isDesktopClient
+                                        >
+                                            {type.attributes.type}
+                                        </CategorySelectorDropdownSubmenuLink>
+                                    </Link>,
+                                    <Link
                                         href={`${locale === "en" ? "" : `/${localeHREF}`}/form/types/${type.attributes.urlReq}`}
-                                        className="category-selector__submenu-link"
+                                        passHref
                                     >
-                                        {type.attributes.type}
-                                    </CategorySelectorDropdownSubmenuLink>
-
-                            ))}
+                                        <CategorySelectorDropdownSubmenuLink
+                                            key={type.id}
+                                            className="category-selector__submenu-link"
+                                        >
+                                            {type.attributes.type}
+                                        </CategorySelectorDropdownSubmenuLink>
+                                    </Link>,
+                                    isDesktopClient
+                                )
+                            )}
                         </CategorySelectorDropdownSubmenu>
                     )}
                     <CategorySelectorDropdownItem
@@ -154,9 +190,10 @@ export const CategorySelector = (props) => {
                         onMouseEnter={() => setIsCompilationsOpen(true)}
                         onMouseLeave={() => setIsCompilationsOpen(false)}
                         isDesktopClient={isDesktopClient}
+                        isOpen={isCompilationsOpen}
                     >
                         {t("Popular Compilations")}
-                        <ChevronRight className="arrow-right" />
+                        <ChevronRight className="arrow-right"/>
                     </CategorySelectorDropdownItem>
                     {isCompilationsOpen && compilations.data?.length > 0 && (
                         <CategorySelectorDropdownSubmenu
@@ -164,26 +201,33 @@ export const CategorySelector = (props) => {
                             onMouseEnter={() => setIsCompilationsOpen(true)}
                             onMouseLeave={() => setIsCompilationsOpen(false)}
                         >
-                            {compilations.data?.map((compilation) => (
-                                isDesktopClient ?
-                                    <CategorySelectorDropdownSubmenuLink
-                                        key={compilation.id}
+                            {compilations.data?.map((compilation) => desktopClientController(
+                                    <Link
                                         href={`${locale === "en" ? "" : `/${localeHREF}`}/form/compilations/${compilation.attributes.urlReq}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
-                                        className="category-selector__submenu-link"
-                                        isDesktopClient
+                                        passHref
                                     >
-                                        {compilation.attributes.compilation}
-                                    </CategorySelectorDropdownSubmenuLink>
-                                    :
-                                    <CategorySelectorDropdownSubmenuLink
-                                        key={compilation.id}
+                                        <CategorySelectorDropdownSubmenuLink
+                                            key={compilation.id}
+                                            className="category-selector__submenu-link"
+                                            isDesktopClient
+                                        >
+                                            {compilation.attributes.compilation}
+                                        </CategorySelectorDropdownSubmenuLink>
+                                    </Link>,
+                                    <Link
                                         href={`${locale === "en" ? "" : `/${localeHREF}`}/form/compilations/${compilation.attributes.urlReq}`}
-                                        className="category-selector__submenu-link"
+                                        passHref
                                     >
-                                        {compilation.attributes.compilation}
-                                    </CategorySelectorDropdownSubmenuLink>
-
-                            ))}
+                                        <CategorySelectorDropdownSubmenuLink
+                                            key={compilation.id}
+                                            className="category-selector__submenu-link"
+                                        >
+                                            {compilation.attributes.compilation}
+                                        </CategorySelectorDropdownSubmenuLink>
+                                    </Link>,
+                                    isDesktopClient
+                                )
+                            )}
                         </CategorySelectorDropdownSubmenu>
                     )}
                 </CategorySelectorDropdown>

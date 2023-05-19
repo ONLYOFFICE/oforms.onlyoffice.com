@@ -1,22 +1,28 @@
 import React, {useState} from "react";
-import {StyledSelector, StyledSelectorDropdown, StyledSelectorHeader} from "./styledSelector";
-import Text from "../common/text";
+import {
+    StyledSelector,
+    StyledSelectorDropdown,
+} from "./styledSelector";
 import PropTypes from "prop-types";
-import {ChevronDown} from "../../icons";
+import classNames from "classnames";
+import { Header, HeaderValue, HeaderIcon, HeaderLabel } from ".";
 
-export const Selector = (props) => {
+const Selector = (props) => {
     const {
         label,
         value,
         children,
         isOpen,
         onVisibilityChange,
-        className = '',
+        className,
+        headerRender,
     } = props;
 
     const [open, setOpen] = useState(false);
 
     const isControlled = isOpen !== undefined;
+
+    const selectorClassName = classNames('selector', className, {'open': isControlled ? isOpen : open})
 
     const onCLick = () => {
         if (isControlled) {
@@ -37,15 +43,22 @@ export const Selector = (props) => {
     return (
         <>
             <StyledSelector
-                className={`selector ${isControlled ? (isOpen ? 'open' : '') : (open ? 'open' : '')} ${className}`}
+                className={selectorClassName}
                 onClick={onCLick}
                 onMouseLeave={onMouseLeave}
             >
-                <StyledSelectorHeader className="selector__header">
-                    <Text className="selector__label">{label}</Text>
-                    <Text className="selector__value">{value}</Text>
-                    <ChevronDown className="selector__icon" size={18}/>
-                </StyledSelectorHeader>
+                {
+                    headerRender !== undefined ? headerRender(value, label, isControlled ? isOpen : open) :
+                        <Header className="selector__header">
+                            <HeaderLabel className="selector__label">{label}</HeaderLabel>
+                            <HeaderValue className="selector__value">{value}</HeaderValue>
+                            <HeaderIcon
+                                className="selector__icon"
+                                size={18}
+                                isOpen={isControlled ? isOpen : open}
+                            />
+                        </Header>
+                }
                 <StyledSelectorDropdown
                     className={`selector__dropdown`}
                     isOpen={isControlled ? isOpen : open}
@@ -64,4 +77,7 @@ Selector.propType = {
     isOpen: PropTypes.bool,
     onVisibilityChange: PropTypes.func,
     className: PropTypes.string,
+    headerRender: PropTypes.func,
 }
+
+export default Selector;

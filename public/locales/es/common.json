@@ -82,7 +82,6 @@
   "metaKeywordsIndexPage": "OFORMS - rellena formularios en línea de forma gratuita",
   "SubHeadingCategoryPage": "Rellena los formularios en línea con un solo clic o descárgalos y ábrelos en los editores de ONLYOFFICE",
   "Categories": "Categorías",
-  "Categoriess": "Categorías:",
   "Form description": "Descripción del formulario",
   "Popular Compilations": "Compilaciones populares",
   "View all templates": "Ver todas las plantillas",
@@ -94,7 +93,7 @@
   "enhanced forms SmartArt new security settings Watch Window and more" : ": formularios mejorados, SmartArt, nueva configuración de seguridad, Ventana de inspección, etc.",
 
   "***********************MENU*************************": "***********************MENU*************************",
-  "SearchForms": "Buscar formularios",
+  "FormSearch": "Buscar formularios",
   "Products & Features": "Productos y características",
   "ONLYOFFICE Docs": "ONLYOFFICE Docs",
   "Document Editor": "Editor de documentos",

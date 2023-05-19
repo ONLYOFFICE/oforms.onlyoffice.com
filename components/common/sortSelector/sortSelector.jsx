@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from "react";
-import {Selector, SelectorDefaultDropdown, SelectorDefaultDropdownItem} from "@components/selector";
+import Selector, {Dropdown, DropdownItem} from "@components/selector";
 import {useRouter} from "next/router";
 
 export const SortSelector = (props) => {
@@ -35,45 +35,45 @@ export const SortSelector = (props) => {
                 label={t("SortBy")}
                 value={t(selectorValue)}
             >
-                <SelectorDefaultDropdown
+                <Dropdown
                     onClick={onChangeSelectTypeSort}
                     as="div"
                 >
                     {isDesktopClient ?
-                        <SelectorDefaultDropdownItem
+                        <DropdownItem
                             as="a"
                             href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultDesktopHREF}?_sort=asc${appTheme !== undefined ? `&theme=${theme}` : ''}` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=asc&desktop=true${appTheme !== undefined ? `&theme=${theme}` : ''}`}`}
                             isActive={typeSortData === t("NameA-Z")}
                             isDesktopClient
                         >
                             {t("NameA-Z")}
-                        </SelectorDefaultDropdownItem>
+                        </DropdownItem>
                         :
-                        <SelectorDefaultDropdownItem
+                        <DropdownItem
                             as="a"
                             href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultHREF}?_sort=asc` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=asc`}`}
                         >
                             {t("NameA-Z")}
-                        </SelectorDefaultDropdownItem>
+                        </DropdownItem>
                     }
                     {isDesktopClient ?
-                        <SelectorDefaultDropdownItem
+                        <DropdownItem
                             as="a"
                             href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultDesktopHREF}?_sort=desc${appTheme !== undefined ? `&theme=${theme}` : ''}` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=desc&desktop=true${appTheme !== undefined ? `&theme=${theme}` : ''}`}`}
                             isActive={typeSortData === t("NameZ-A")}
                             isDesktopClient
                         >
                             {t("NameZ-A")}
-                        </SelectorDefaultDropdownItem>
+                        </DropdownItem>
                         :
-                        <SelectorDefaultDropdownItem
+                        <DropdownItem
                             as="a"
                             href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultHREF}?_sort=desc` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=desc`}`}
                         >
                             {t("NameZ-A")}
-                        </SelectorDefaultDropdownItem>
+                        </DropdownItem>
                     }
-                </SelectorDefaultDropdown>
+                </Dropdown>
             </Selector>
         </>
     )

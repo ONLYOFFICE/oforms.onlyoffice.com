@@ -4,21 +4,26 @@ import {useMemo} from "react";
 import darkTheme from "../style/themes/darkTheme.json";
 import contrastDarkTheme from "../style/themes/contrastDarkTheme.json";
 import classicTheme from "../style/themes/classicTheme.json";
+import lightTheme from '../style/themes/lightTheme.json'
 import {useRouter} from "next/router";
 import {ThemeProvider} from "styled-components";
 import {Base} from "@components/themes";
-// import { store } from "../redux/store";
-// import { Provider } from "react-redux";
 
 const App = ({Component, pageProps}) => {
-    const query = useRouter();
-    const mode = query.query.theme;
+    const router = useRouter();
+    const mode = router.query.theme;
+    const isDesktopClient = router.query.desktop
     const theme = useMemo(() => {
-        if (mode === 'dark-theme') return darkTheme
-        else if (mode === 'contrast-dark-theme') return contrastDarkTheme
+        if(isDesktopClient && mode !== undefined) {
+            switch (mode) {
+                case 'theme-light': return lightTheme;
+                case 'theme-dark': return darkTheme;
+                case 'theme-contrast-dark': return contrastDarkTheme;
+            }
+        }
 
-        return classicTheme
-    }, [mode])
+        return classicTheme;
+    }, [mode, isDesktopClient])
     return (
         <ThemeProvider theme={{...Base, ...theme}}>
             <Component {...pageProps} />

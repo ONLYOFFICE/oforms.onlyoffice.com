@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, {css} from "styled-components";
 
 export const CategorySelectorDropdown = styled.div`
   position: absolute;
@@ -7,7 +7,7 @@ export const CategorySelectorDropdown = styled.div`
   left: -26px;
   top: calc(100% + 18px);
   background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
-  border-radius: 3px;
+  border-radius: 0px 0px 6px 6px;
   padding: 16px 0;
   box-shadow: ${({theme}) => theme.boxShadows.shadowMenu};
   display: flex;
@@ -44,23 +44,22 @@ export const CategorySelectorDropdownItem = styled.span`
   align-items: center;
   justify-content: space-between;
   padding: 15px 32px;
-  
+
   & path {
     fill: ${({theme}) => theme.colors.palette.textNormal};
   }
 
-  &:hover {
-    ${(p) => {
-      const {isDesktopClient, theme} = p;
-      return css`
-        background-color: ${isDesktopClient ? theme.colors.palette.highlightButtonHover : undefined};
-        color: ${isDesktopClient ? theme.colors.palette.textNormal : theme.colors.primary};
-        & .arrow-right path {
-            fill: ${isDesktopClient ? theme.colors.palette.textNormal : theme.colors.primary};
-        }
-      `
-    }}
-  }
+  ${({isOpen, theme, isDesktopClient}) => {
+    const styles = css`
+      background-color: ${isDesktopClient ? theme.colors.palette.highlightButtonHover : undefined};
+      color: ${isDesktopClient ? theme.colors.palette.textNormal : theme.colors.primary};
+
+      & .arrow-right path {
+        fill: ${isDesktopClient ? theme.colors.palette.textNormal : theme.colors.primary};
+      }
+    `
+    if(isOpen) return styles;
+  }}
 `;
 
 export const CategorySelectorDropdownLink = styled.a`
@@ -89,14 +88,14 @@ export const CategorySelectorDropdownSubmenu = styled.div`
   display: grid;
   min-width: 400px;
   grid-template-columns: 1fr 1fr;
-  gap: 0;
   position: absolute;
   z-index: 99;
-  left: 290px;
-  top: 0;
-  border-radius: 3px;
+  left: 289px;
+  top: 0; 
+  border-radius: 0px 0px 6px 6px;
   box-shadow: ${({theme}) => theme.boxShadows.shadowMenu};
   border: 1px solid ${({theme}) => theme.colors.palette.borderToolbarButtonHover};
+  margin-top: -1px;
 `;
 
 export const CategorySelectorDropdownSubmenuLink = styled.a`
@@ -108,7 +107,12 @@ export const CategorySelectorDropdownSubmenuLink = styled.a`
   text-decoration: none;
   color: ${({theme}) => theme.colors.palette.textNormal};
   white-space: nowrap;
+  display: block;
   
+  &:nth-child(odd) {
+    border-right: ${({isDesktopClient, theme}) => isDesktopClient ? `1px solid ${theme.colors.palette.borderToolbar}` : undefined};
+  }
+
   &:hover {
     ${(p) => {
       const {isDesktopClient, theme} = p;
