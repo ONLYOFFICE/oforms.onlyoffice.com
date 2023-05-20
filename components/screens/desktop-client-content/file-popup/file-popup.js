@@ -85,7 +85,7 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
                   </div>
                 </div>
                 <div>
-                  <div className="file-info-item">
+                  <div className="file-info-item file-info-item__selector">
                     <div><span className="file-info-label">{t("FileType")}:</span>{" "}</div>
                     <div className="file-select">
                       <div

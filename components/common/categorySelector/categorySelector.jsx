@@ -124,6 +124,7 @@ export const CategorySelector = (props) => {
                             className="category-selector__submenu"
                             onMouseEnter={() => setIsCategoryOpen(true)}
                             onMouseLeave={() => setIsCategoryOpen(false)}
+                            inOneColumn={categories.data.length <= 8}
                         >
                             {categories.data?.map((categorie) => desktopClientController(
                                 <Link
@@ -168,6 +169,7 @@ export const CategorySelector = (props) => {
                             className="category-selector__submenu"
                             onMouseEnter={() => setIsTypeOpen(true)}
                             onMouseLeave={() => setIsTypeOpen(false)}
+                            inOneColumn={types.data.length <= 8}
                         >
                             {types.data?.map((type) => desktopClientController(
                                     <Link
@@ -213,6 +215,7 @@ export const CategorySelector = (props) => {
                             className="category-selector__submenu"
                             onMouseEnter={() => setIsCompilationsOpen(true)}
                             onMouseLeave={() => setIsCompilationsOpen(false)}
+                            inOneColumn={compilations.data.length <= 8}
                         >
                             {compilations.data?.map((compilation) => desktopClientController(
                                     <Link

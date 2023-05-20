@@ -58,7 +58,7 @@ export const CategorySelectorDropdownItem = styled.span`
         fill: ${isDesktopClient ? theme.colors.palette.textNormal : theme.colors.primary};
       }
     `
-    if(isOpen) return styles;
+    if (isOpen) return styles;
   }}
 `;
 
@@ -85,17 +85,29 @@ export const CategorySelectorDropdownLink = styled.a`
 export const CategorySelectorDropdownSubmenu = styled.div`
   background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
   padding: 16px 0;
-  display: grid;
-  min-width: 400px;
-  grid-template-columns: 1fr 1fr;
   position: absolute;
   z-index: 99;
   left: 289px;
-  top: 0; 
-  border-radius: 0px 0px 6px 6px;
+  top: 0;
+  border-radius: 0 0 6px 6px;
   box-shadow: ${({theme}) => theme.boxShadows.shadowMenu};
   border: 1px solid ${({theme}) => theme.colors.palette.borderToolbarButtonHover};
   margin-top: -1px;
+  ${(p) => {
+    const {inOneColumn} = p
+    if (!inOneColumn) {
+      return css`
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      `
+    } else {
+      return css`
+        & a:nth-child(odd) {
+          border-right: none;
+        }
+      `
+    }
+  }}
 `;
 
 export const CategorySelectorDropdownSubmenuLink = styled.a`
@@ -108,9 +120,16 @@ export const CategorySelectorDropdownSubmenuLink = styled.a`
   color: ${({theme}) => theme.colors.palette.textNormal};
   white-space: nowrap;
   display: block;
-  
+
   &:nth-child(odd) {
-    border-right: ${({isDesktopClient, theme}) => isDesktopClient ? `1px solid ${theme.colors.palette.borderToolbar}` : undefined};
+    ${(p) => {
+        const { isDesktopClient, theme } = p;
+        if(isDesktopClient) {
+            return {
+                borderRight: `1px solid ${theme.colors.palette.borderToolbar}`
+            }
+        }
+    }}
   }
 
   &:hover {
