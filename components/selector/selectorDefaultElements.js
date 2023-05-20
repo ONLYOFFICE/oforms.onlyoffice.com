@@ -49,6 +49,7 @@ export const SelectorDefaultLabel = styled(Text)`
   font-size: 14px;
   line-height: 160%;
   color: ${({theme}) => theme.colors.palette.textSecondary};
+  cursor: pointer;
 `
 
 export const SelectorDefaultValue = styled(Text)`

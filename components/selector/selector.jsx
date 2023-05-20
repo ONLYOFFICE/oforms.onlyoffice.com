@@ -44,12 +44,11 @@ const Selector = (props) => {
         <>
             <StyledSelector
                 className={selectorClassName}
-                onClick={onCLick}
                 onMouseLeave={onMouseLeave}
             >
                 {
-                    headerRender !== undefined ? headerRender(value, label, isControlled ? isOpen : open) :
-                        <Header className="selector__header">
+                    headerRender !== undefined ? headerRender(label, value, isControlled ? isOpen : open) :
+                        <Header className="selector__header" onClick={onCLick}>
                             <HeaderLabel className="selector__label">{label}</HeaderLabel>
                             <HeaderValue className="selector__value">{value}</HeaderValue>
                             <HeaderIcon

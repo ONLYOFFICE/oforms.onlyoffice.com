@@ -12,6 +12,7 @@ import {
 } from "@components/common/categorySelector/styledCategorySelector";
 import {ChevronRight} from "../../../icons";
 import Link from "next/link";
+import {CategorySelectorHeader} from "@components/common/categorySelector/categorySelectorHeader";
 
 const desktopClientController = (desktopClientComponent, nonDesktopClientComponent, isDesktopClient) => {
     if (isDesktopClient) {
@@ -46,6 +47,7 @@ export const CategorySelector = (props) => {
     }, [theme, isDesktopClient])
     const localeHREF = category ? `/${locale}` : locale;
     const [isWindowMobile, setIsWindowMobile] = useState(false);
+    const [isOpen, setIsOpen] = useState(false)
 
     const onClear = () => {
         router.push(`${locale === "en" ? `/?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}` : `${localeHREF}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}`)
@@ -68,6 +70,17 @@ export const CategorySelector = (props) => {
             <Selector
                 label={isDesktopClient ? `${t("Categories")}:` : t("Categories")}
                 value={isDesktopClient && router.pathname === "/searchresult" ? `${t("Search results for")} '${queryDesktopClient}'` : categoryName}
+                isOpen={isOpen}
+                onVisibilityChange={(state) => setIsOpen(state)}
+                headerRender={(label, value) => (
+                    <CategorySelectorHeader
+                        label={label}
+                        value={value}
+                        setIsOpen={setIsOpen}
+                        isOpen={isOpen}
+                        onClear={onClear}
+                    />
+                )}
             >
                 <CategorySelectorDropdown className="category-selector__dropdown">
                     {
