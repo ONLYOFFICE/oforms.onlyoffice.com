@@ -409,7 +409,7 @@ const StyledDesktopClientContent = styled(Section)`
 
     .title-template {
       margin-bottom: 0;
-      padding: 12px;
+      padding: 12px 3px;
       text-align: center;
       font-weight: 400;
       font-size: 14px;
