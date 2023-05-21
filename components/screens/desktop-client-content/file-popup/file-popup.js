@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Text from "@components/common/text";
 import Button from "@components/common/button";
 import { CloseButton, StyledFilePopup } from "./styled-file-popup";
-import { ReactSVG } from "react-svg";
+import {ChevronDown} from "../../../../icons";
 
 const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, ...rest }) => {
   const docxfFile = cardData?.file_oform?.data?.filter((it)=> {return it?.attributes.name.split(".")[1] === "docxf";})[0]?.attributes?.url
@@ -93,11 +93,9 @@ const FilePopup = ({ t, currentLanguage, modalActive, setModalActive, cardData, 
                         onClick={openTypeDropdown}
                       >
                         <div className="file-select-title">{fileTypeData}</div>
-                        <img
-                          className="file-select-icon"
-                          src="https://static-oforms.onlyoffice.com/icons/chevron-down.svg"
-                          height="16px"
-                          width="16px"
+                        <ChevronDown
+                            size="16px"
+                            className="file-select-icon"
                         />
                       </div>
                       <div className="file-dropdown" onMouseLeave={closeTypeDropdown}>

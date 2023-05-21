@@ -223,6 +223,10 @@ const StyledFilePopup = styled.div`
     width: 16px;
     height: 16px;
     transition: transform 0.3s;
+    
+    & path {
+      fill: ${({theme}) => theme.colors.palette.iconNormal}
+    }
 
     svg {
       width: 16px;
