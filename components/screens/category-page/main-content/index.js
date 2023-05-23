@@ -18,7 +18,6 @@ const MainContent = ({
   sort,
   category,
   urlReqCategory,
-  header,
   types,
   categories,
   compilations

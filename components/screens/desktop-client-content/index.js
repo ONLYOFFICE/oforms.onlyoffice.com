@@ -8,6 +8,7 @@ import Text from "@components/common/text";
 import StyledDesktopClientContent from "./styled-desktop-client-content";
 import FilePopup from "./file-popup/file-popup";
 import {SortSelector} from "@components/common/sortSelector";
+import {useRouter} from "next/router";
 
 const DesktopClientContent = (props) => {
     const {
@@ -21,7 +22,6 @@ const DesktopClientContent = (props) => {
         compilations,
         isCategoryPage,
         header,
-        isDesktopClient,
         categoryName,
         queryDesktopClient
     } = props;
@@ -29,6 +29,8 @@ const DesktopClientContent = (props) => {
     const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
     const [boolTypeSortData, setBoolTypeSortData] = useState(false);
     const [cardData, setCardData] = useState("");
+    const router = useRouter();
+    const isDesktopClient = router.query.desktop
 
     const [modalActive, setModalActive] = useState(false);
     const handlerSetModal = () => {

@@ -30,8 +30,7 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
     const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
 
     const query = useRouter();
-    const isDesktop = query.query.desktop === "true";
-    const [isDesktopClient, setIsDesktopClient] = useState(isDesktop);
+    const isDesktopClient = query.query.desktop === "true";
 
     let nonStateObjectData = Object.assign({}, forms);
     let isLoading = false;
@@ -60,7 +59,6 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
             data: newData,
             meta: newFormsRequest.meta
         }
-        setNewForms(newObjectData);
         nonStateObjectData = Object.assign({}, newObjectData)
         isLoading = false;
     };
@@ -99,7 +97,6 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
                     types={types}
                     categories={categories}
                     compilations={compilations}
-                    isDesktopClient={isDesktopClient}
                 />
             </Layout>
             :
@@ -146,10 +143,10 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
 
 export const getServerSideProps = async (props) => {
     const { query, locale } = props;
-    const isDesktop = query.desktop === "true";
+    const isDesktopClient = query.desktop === "true";
     const page = query.page || 1;
     const sort = query._sort || "asc";
-    const pageSize = query.pageSize || isDesktop ? 32 : 9;
+    const pageSize = query.pageSize || isDesktopClient ? 32 : 9;
     const forms = await getAllForms(locale, page, sort, pageSize);
     const types = await getAllTypes(locale);
     const categories = await getAllCategories(locale);

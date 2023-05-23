@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, lazy, Suspense } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
@@ -26,7 +26,6 @@ const Footer = lazy(() => import("@components/screens/footer-content"), {
 const Category = ({
   categoryForms,
   categoryInfo,
-  urlReq,
   locale,
   sort,
   page,
@@ -43,9 +42,8 @@ const Category = ({
   const categoryName = categoryInfo.data[0].attributes.type;
   
   const [isCategoryPage, setIsCategoryPage] = useState(true);
-  const query = useRouter();
-  const isDesktop = query.query.desktop === "true";
-  const [isDesktopClient, setIsDesktopClient] = useState(isDesktop);
+  const router = useRouter()
+  const isDesktopClient = router.query.desktop;
 
   return isDesktopClient ?
     <Layout>
@@ -70,7 +68,6 @@ const Category = ({
         types={types}
         categories={categories}
         compilations={compilations}
-        isDesktopClient={isDesktopClient}
         categoryName={categoryName}
       />
     </Layout>
@@ -149,7 +146,6 @@ export const getServerSideProps = async ({ locale, query, ...ctx }) => {
       notFound: true,
       categoryForms,
       categoryInfo,
-      urlReq,
       locale,
       sort,
       page,
