@@ -62,9 +62,6 @@ const MainContent = ({
             </Text>
             <SortSelector
               typeSortData={typeSortData}
-              onChangeSelectTypeSort={onChangeSelectTypeSort}
-              locale={currentLanguage}
-              className="form-control"
               category={urlReqCategory}
               t={t}
             />

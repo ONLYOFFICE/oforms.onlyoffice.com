@@ -8,11 +8,18 @@ import SearchResult from "./search-result";
 
 const SearchContent = ({ t, currentLanguage, isDesktopClient, handlerSetModal, handlerCardData }) => {
   const [focusOnSearch, setFocusOnSearch] = useState(false);
-  const [searchItem, setSearchItem] = useState("");
+  const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState([]);
 
   const router = useRouter();
   const theme = router.query.theme
+  const searchQuery = router.query.query
+
+  useEffect(() => {
+    if(searchQuery) {
+      setSearchValue(searchQuery)
+    }
+  }, [searchQuery])
 
   const appTheme = useMemo(() => {
     if(theme && isDesktopClient) return theme
@@ -21,23 +28,23 @@ const SearchContent = ({ t, currentLanguage, isDesktopClient, handlerSetModal, h
 
   const onSearch = (e) => {
     e.preventDefault();
-    setSearchItem(e.target.value);
+    setSearchValue(e.target.value);
   };
 
   const onEnterPress = (e) => {
-    if (searchItem.length > 2) {
+    if (searchValue.length > 2) {
       if (isDesktopClient) {
-        e.code === 'Enter' && !(searchResultPathname) && Router.push(`/searchresult/?desktop=true?query=${searchItem}${appTheme !== undefined ? `&theme=${appTheme}` : ''}`)
-        e.code === 'Enter' && searchResultPathname && Router.push(`?desktop=true?query=${searchItem}${appTheme !== undefined ? `&theme=${appTheme}` : ''}`, null, { shallow: true })
+        e.code === 'Enter' && !(searchResultPathname) && Router.push(`/searchresult/?desktop=true&query=${searchValue}${appTheme !== undefined ? `&theme=${appTheme}` : ''}`)
+        e.code === 'Enter' && searchResultPathname && Router.push(`?desktop=true&query=${searchValue}${appTheme !== undefined ? `&theme=${appTheme}` : ''}`, null, { shallow: true })
       } else {
-        e.code === 'Enter' && !(searchResultPathname) && Router.push(`/searchresult/?query=${searchItem}`)
-        e.code === 'Enter' && searchResultPathname && Router.push(`?query=${searchItem}`, null, { shallow: true })
+        e.code === 'Enter' && !(searchResultPathname) && Router.push(`/searchresult/?query=${searchValue}`)
+        e.code === 'Enter' && searchResultPathname && Router.push(`?query=${searchValue}`, null, { shallow: true })
       }
     }
   };
 
   const clearValueSearch = () => {
-    setSearchItem("");
+    setSearchValue("");
   };
 
   const onCloseSearchResult = () => {
@@ -46,7 +53,7 @@ const SearchContent = ({ t, currentLanguage, isDesktopClient, handlerSetModal, h
 
   const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
   const searchReqData = () => {
-    const searchURL = `${CMSConfigAPI}/api/oforms?populate[0]=categories&locale=${currentLanguage}&filters[name_form][$containsi]=${searchItem}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`;
+    const searchURL = `${CMSConfigAPI}/api/oforms?populate[0]=categories&locale=${currentLanguage}&filters[name_form][$containsi]=${searchValue}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`;
     const delayDebounce = setTimeout(() => {
       axios
         .get(searchURL)
@@ -61,25 +68,26 @@ const SearchContent = ({ t, currentLanguage, isDesktopClient, handlerSetModal, h
   };
 
   useEffect(() => {
-    if (searchItem.length > 2) {
+    if (searchValue.length > 2) {
       searchReqData();
     } else {
       setSearchResult(null);
     }
-  }, [searchItem]);
+  }, [router]);
+
 
   return (
     <>
       <Search
         t={t}
         callback={onSearch}
-        valueSearch={searchItem}
+        valueSearch={searchValue}
         clearValueSearch={clearValueSearch}
         onEnterPress={onEnterPress}
       />
-      {searchItem.length > 2 && (
+      {searchValue.length > 2 && (
         <SearchResult
-          searchItem={searchItem}
+          searchValue={searchValue}
           resultItems={searchResult}
           onMouseLeaveSearchResult={onCloseSearchResult}
           resultMouseLeave={focusOnSearch}

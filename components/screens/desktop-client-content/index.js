@@ -1,7 +1,6 @@
 import {useState, useEffect} from "react";
 
 import Cards from "@components/screens/common/cards";
-// import CategorySelector from "@components/common/category-selector";
 import { CategorySelector } from "@components/common/categorySelector";
 import LanguageSelector from "@components/common/language-selector";
 import SearchContent from "@components/screens/heading-content/search";
@@ -22,7 +21,6 @@ const DesktopClientContent = (props) => {
         compilations,
         isCategoryPage,
         header,
-        urlReqCategory,
         isDesktopClient,
         categoryName,
         queryDesktopClient
@@ -31,10 +29,6 @@ const DesktopClientContent = (props) => {
     const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
     const [boolTypeSortData, setBoolTypeSortData] = useState(false);
     const [cardData, setCardData] = useState("");
-
-    const onChangeSelectTypeSort = (e) => {
-        setTypeSortData(e.target.value);
-    };
 
     const [modalActive, setModalActive] = useState(false);
     const handlerSetModal = () => {
@@ -69,7 +63,6 @@ const DesktopClientContent = (props) => {
                 <div className="box-doc-categories">
                     <CategorySelector
                         typeSortData={typeSortData}
-                        onChangeSelectTypeSort={onChangeSelectTypeSort}
                         locale={currentLanguage}
                         className="form-control"
                         t={t}
@@ -89,12 +82,8 @@ const DesktopClientContent = (props) => {
                         {countData} {t("Documents")}
                     </Text>
                     <SortSelector
-                        isDesktopClient={isDesktopClient}
                         typeSortData={typeSortData}
-                        onChangeSelectTypeSort={onChangeSelectTypeSort}
-                        locale={currentLanguage}
-                        className="form-control"
-                        category={urlReqCategory}
+                        category={categoryName}
                         t={t}
                     />
                 </div>

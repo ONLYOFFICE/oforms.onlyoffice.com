@@ -24,7 +24,6 @@ const desktopClientController = (desktopClientComponent, nonDesktopClientCompone
 
 export const CategorySelector = (props) => {
     const {
-        onChangeSelectTypeSort,
         typeSortData,
         t,
         locale,
@@ -50,7 +49,7 @@ export const CategorySelector = (props) => {
     const [isOpen, setIsOpen] = useState(false)
 
     const onClear = () => {
-        router.push(`${locale === "en" ? `/?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}` : `${localeHREF}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}`)
+        router.push(`/?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`)
     }
 
     useEffect(() => {
@@ -58,7 +57,6 @@ export const CategorySelector = (props) => {
     }, []);
     return (isWindowMobile ?
             <MobileSelector
-                onChangeSelectTypeSort={onChangeSelectTypeSort}
                 typeSortData={typeSortData}
                 t={t}
                 locale={locale}
@@ -86,7 +84,7 @@ export const CategorySelector = (props) => {
                     {
                         desktopClientController(
                             <Link
-                                href={`${locale === "en" ? `/?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}` : `${localeHREF}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}`}
+                                href={`/?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
                                 passHref
                             >
                                 <CategorySelectorDropdownLink
@@ -97,7 +95,7 @@ export const CategorySelector = (props) => {
                                 </CategorySelectorDropdownLink>
                             </Link>,
                             <Link
-                                href={`${locale === "en" ? "" : localeHREF}/`}
+                                href={`/`}
                                 passHref
                             >
                                 <CategorySelectorDropdownLink
@@ -128,7 +126,8 @@ export const CategorySelector = (props) => {
                         >
                             {categories.data?.map((categorie) => desktopClientController(
                                 <Link
-                                    href={`${locale === "en" ? "" : `/${localeHREF}`}/form/${categorie.attributes.urlReq}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
+                                    // href={`${locale === "en" ? "" : `/${localeHREF}`}/form/${categorie.attributes.urlReq}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
+                                    href={`/form/${categorie.attributes.urlReq}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
                                     passHref
                                 >
                                     <CategorySelectorDropdownSubmenuLink
@@ -140,7 +139,7 @@ export const CategorySelector = (props) => {
                                     </CategorySelectorDropdownSubmenuLink>
                                 </Link>,
                                 <Link
-                                    href={`${locale === "en" ? "" : `/${localeHREF}`}/form/${categorie.attributes.urlReq}`}
+                                    href={`/form/${categorie.attributes.urlReq}`}
                                     passHref
                                 >
                                     <CategorySelectorDropdownSubmenuLink
@@ -173,7 +172,7 @@ export const CategorySelector = (props) => {
                         >
                             {types.data?.map((type) => desktopClientController(
                                     <Link
-                                        href={`${locale === "en" ? "" : `/${localeHREF}`}/form/types/${type.attributes.urlReq}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
+                                        href={`/form/types/${type.attributes.urlReq}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
                                         passHref
                                     >
                                         <CategorySelectorDropdownSubmenuLink
@@ -185,7 +184,7 @@ export const CategorySelector = (props) => {
                                         </CategorySelectorDropdownSubmenuLink>
                                     </Link>,
                                     <Link
-                                        href={`${locale === "en" ? "" : `/${localeHREF}`}/form/types/${type.attributes.urlReq}`}
+                                        href={`/form/types/${type.attributes.urlReq}`}
                                         passHref
                                     >
                                         <CategorySelectorDropdownSubmenuLink
@@ -219,7 +218,7 @@ export const CategorySelector = (props) => {
                         >
                             {compilations.data?.map((compilation) => desktopClientController(
                                     <Link
-                                        href={`${locale === "en" ? "" : `/${localeHREF}`}/form/compilations/${compilation.attributes.urlReq}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
+                                        href={`/form/compilations/${compilation.attributes.urlReq}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
                                         passHref
                                     >
                                         <CategorySelectorDropdownSubmenuLink
@@ -231,7 +230,7 @@ export const CategorySelector = (props) => {
                                         </CategorySelectorDropdownSubmenuLink>
                                     </Link>,
                                     <Link
-                                        href={`${locale === "en" ? "" : `/${localeHREF}`}/form/compilations/${compilation.attributes.urlReq}`}
+                                        href={`/form/compilations/${compilation.attributes.urlReq}`}
                                         passHref
                                     >
                                         <CategorySelectorDropdownSubmenuLink

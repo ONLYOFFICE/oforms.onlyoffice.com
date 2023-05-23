@@ -46,8 +46,6 @@ const Category = ({
   const query = useRouter();
   const isDesktop = query.query.desktop === "true";
   const [isDesktopClient, setIsDesktopClient] = useState(isDesktop)
- 
-  
   return isDesktopClient ?
     <Layout>
       <Layout.PageHead>
@@ -68,7 +66,6 @@ const Category = ({
           page={+page}
           isCategoryPage={isCategoryPage}
           header={header}
-          urlReqCategory={urlReqCategory}
           types={types}
           categories={categories}
           compilations={compilations}
@@ -121,7 +118,7 @@ const Category = ({
 export const getServerSideProps = async ({ locale, query, ...ctx }) => {
   const isDesktop = query.desktop === "true";
   const page = query.page || 1;
-  const sort = query._sort || "ASC";
+  const sort = query._sort || "asc";
   const urlReq = query.category;
   const pageSize = query.pageSize || isDesktop ? 0 : 9;
   const cms = config.api.cms
@@ -130,7 +127,6 @@ export const getServerSideProps = async ({ locale, query, ...ctx }) => {
   );
   const resCategory = await fetch(
     `${cms}/api/categories/?filters[urlReq][$eq]=${urlReq}&locale=${locale}`
-
   );
 
   const categoryForms = await res.json();

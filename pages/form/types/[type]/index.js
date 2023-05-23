@@ -67,7 +67,6 @@ const Category = ({
         page={+page}
         isCategoryPage={isCategoryPage}
         header={header}
-        urlReqCategory={urlReqCategory}
         types={types}
         categories={categories}
         compilations={compilations}
@@ -120,7 +119,7 @@ const Category = ({
 export const getServerSideProps = async ({ locale, query, ...ctx }) => {
   const isDesktop = query.desktop === "true";
   const page = query.page || 1;
-  const sort = query._sort || "ASC";
+  const sort = query._sort || "asc";
   const urlReq = query.type;
   const pageSize = query.pageSize || isDesktop ? 0 : 9;
   const cms = config.api.cms

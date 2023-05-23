@@ -32,8 +32,6 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
     const query = useRouter();
     const isDesktop = query.query.desktop === "true";
     const [isDesktopClient, setIsDesktopClient] = useState(isDesktop);
-    const [newForms, setNewForms] = useState(forms);
-    const [hasMore, setHasMore] = useState(true);
 
     let nonStateObjectData = Object.assign({}, forms);
     let isLoading = false;
@@ -46,9 +44,6 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
         window.addEventListener('scroll', handleOnScroll);
         return () => window.removeEventListener('scroll', handleOnScroll);
     }, []);
-
-    useEffect(() => {
-    }, [newForms])
 
     const getMoreForms = async () => {
         if (isLoading) return;
@@ -98,7 +93,7 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
                 <DesktopClientContent
                     t={t}
                     currentLanguage={locale}
-                    data={newForms}
+                    data={forms}
                     sort={sort}
                     page={+page}
                     types={types}
@@ -149,10 +144,11 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
     )
 };
 
-export const getServerSideProps = async ({locale, query}) => {
+export const getServerSideProps = async (props) => {
+    const { query, locale } = props;
     const isDesktop = query.desktop === "true";
     const page = query.page || 1;
-    const sort = query._sort || "ASC";
+    const sort = query._sort || "asc";
     const pageSize = query.pageSize || isDesktop ? 32 : 9;
     const forms = await getAllForms(locale, page, sort, pageSize);
     const types = await getAllTypes(locale);

@@ -297,7 +297,6 @@ const StyledSelectorMobile = styled.div`
 `;
 
 const MobileSelector = ({
-                            onChangeSelectTypeSort,
                             typeSortData,
                             t,
                             locale,
