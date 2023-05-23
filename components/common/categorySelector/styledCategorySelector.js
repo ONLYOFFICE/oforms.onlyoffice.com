@@ -64,7 +64,6 @@ export const CategorySelectorDropdownItem = styled.span`
 export const CategorySelectorDropdownLink = styled.a`
   font-size: 16px;
   font-weight: 600;
-  text-transform: capitalize;
   text-decoration: none;
   color: ${({theme}) => theme.colors.palette.textNormal};
   padding: 15px 32px;
