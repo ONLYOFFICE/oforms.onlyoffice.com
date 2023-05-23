@@ -36,7 +36,6 @@ export const CategorySelectorDropdownItem = styled.span`
   font-size: 13px;
   cursor: pointer;
   white-space: nowrap;
-  text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 0.04em;
   color: ${({theme}) => theme.colors.palette.textNormal};
