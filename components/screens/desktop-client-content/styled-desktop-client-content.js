@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import Section from "@components/common/section";
 
 const StyledDesktopClientContent = styled(Section)`
-  padding: 32px 0;
   background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
   .section-page {
     box-sizing: border-box;
@@ -364,16 +363,16 @@ const StyledDesktopClientContent = styled(Section)`
 
     .card {
       width: 100%;
-      max-width: 188px;
+      max-width: 186px;
       height: initial;
       cursor: pointer;
+      
 
       &:hover {
-        filter: ${({theme}) => theme.dropShadows.shadowMenu};
-        //.image-boxshadow-template {
-        //  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-        //}
-
+        .image-boxshadow-template {
+          filter: ${({theme}) => theme.dropShadows.shadowMenu};
+          opacity: 1;
+        }
         .card-template {
           box-shadow: initial;
           background-color: initial;
@@ -389,6 +388,13 @@ const StyledDesktopClientContent = styled(Section)`
       border: 1px solid #E2E2E2;
       border-radius: 2px;
       transition: box-shadow 0.3s;
+      background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
+      opacity: ${({isDark}) => isDark ? 0.9 : undefined};
+      
+      & img {
+        display: block;
+        object-fit: cover;
+      }
     }
 
     .card-image {

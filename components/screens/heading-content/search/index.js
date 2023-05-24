@@ -6,12 +6,13 @@ import CONFIG from "@config/config";
 import Search from "@components/common/search-area";
 import SearchResult from "./search-result";
 
-const SearchContent = ({ t, currentLanguage, isDesktopClient, handlerSetModal, handlerCardData }) => {
+const SearchContent = ({ t, handlerSetModal, handlerCardData }) => {
   const [focusOnSearch, setFocusOnSearch] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState([]);
-
   const router = useRouter();
+  const locale = router.locale
+  const isDesktopClient = router.query.desktop;
   const theme = router.query.theme
   const searchQuery = router.query.query
 
@@ -53,7 +54,7 @@ const SearchContent = ({ t, currentLanguage, isDesktopClient, handlerSetModal, h
 
   const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
   const searchReqData = () => {
-    const searchURL = `${CMSConfigAPI}/api/oforms?populate[0]=categories&locale=${currentLanguage}&filters[name_form][$containsi]=${searchValue}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`;
+    const searchURL = `${CMSConfigAPI}/api/oforms?populate[0]=categories&locale=${locale}&filters[name_form][$containsi]=${searchValue}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`;
     const delayDebounce = setTimeout(() => {
       axios
         .get(searchURL)

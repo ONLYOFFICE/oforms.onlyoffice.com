@@ -9,6 +9,7 @@ import StyledDesktopClientContent from "./styled-desktop-client-content";
 import FilePopup from "./file-popup/file-popup";
 import {SortSelector} from "@components/common/sortSelector";
 import {useRouter} from "next/router";
+import {Header} from "@components/common/header";
 
 const DesktopClientContent = (props) => {
     const {
@@ -30,6 +31,7 @@ const DesktopClientContent = (props) => {
     const [boolTypeSortData, setBoolTypeSortData] = useState(false);
     const [cardData, setCardData] = useState("");
     const router = useRouter();
+    const theme = router.query.theme
     const isDesktopClient = router.query.desktop
 
     const [modalActive, setModalActive] = useState(false);
@@ -50,17 +52,8 @@ const DesktopClientContent = (props) => {
     }, [sort]);
 
     return (
-        <StyledDesktopClientContent>
-            <div className="box-heading">
-                <SearchContent
-                    t={t}
-                    currentLanguage={currentLanguage}
-                    isDesktopClient={isDesktopClient}
-                    handlerSetModal={handlerSetModal}
-                    handlerCardData={handlerCardData}
-                />
-                <LanguageSelector t={t} currentLanguage={currentLanguage}/>
-            </div>
+        <StyledDesktopClientContent isDark={(theme === 'theme-dark') || (theme === 'theme-contrast-dark')}>
+           <Header t={t} handlerSetModal={handlerSetModal} handlerCardData={handlerCardData} />
             <div className="box-doc-info-template">
                 <div className="box-doc-categories">
                     <CategorySelector
@@ -98,7 +91,6 @@ const DesktopClientContent = (props) => {
                 currentLanguage={currentLanguage}
                 page={page}
                 sort={sort}
-                isDesktopClient={isDesktopClient}
                 handlerSetModal={handlerSetModal}
                 handlerCardData={handlerCardData}
             />
