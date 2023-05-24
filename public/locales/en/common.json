@@ -50,7 +50,6 @@
   "Download": "download",
   "LoadMore": "Load More",
   "Categories": "Categories",
-  "Categoriess": "Categories:",
   "AccordionDescriptionFindTheTemplateFull": "We happily accept template suggestions to introduce these templates in our form library in the future. Please contact us at <1>marketing@onlyoffice.com</1> to submit your ideas.",
   "AccordionHeadingPossibleToEmbed": "Is it possible to embed a form in my website?",
   "AccordionDescriptionPossibleToEmbed": "It is technically possible. Please contact us at <1>{{AccordionDescriptionPossibleToEmbedLink}}</1>",
@@ -88,7 +87,7 @@
   "enhanced forms SmartArt new security settings Watch Window and more" : ": enhanced forms, SmartArt, new security settings, Watch Window, and more",
 
   "***********************MENU*************************": "***********************MENU*************************",
-  "SearchForms": "Search forms",
+  "FormSearch": "Form search",
   "Products & Features": "Products & Features",
   "ONLYOFFICE Docs": "ONLYOFFICE Docs",
   "Document Editor": "Document Editor",

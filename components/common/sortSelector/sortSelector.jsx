@@ -1,27 +1,56 @@
 import React, {useEffect, useMemo, useState} from "react";
-import {Selector, SelectorDefaultDropdown, SelectorDefaultDropdownItem} from "@components/selector";
+import Selector, {Dropdown, DropdownItem} from "@components/selector";
 import {useRouter} from "next/router";
+import Link from "next/link";
 
 export const SortSelector = (props) => {
     const {
-        onChangeSelectTypeSort,
         typeSortData,
         t,
-        locale,
         category,
-        isDesktopClient,
     } = props;
     const [selectorValue, setSelectorValue] = useState()
     const router = useRouter();
     const theme = router.query.theme
-    const catHREF = category ? `form/${category}/` : "";
-    const localeHREF = category ? `/${locale}` : locale;
-    const resultHREF = router.pathname === "/searchresult" ? `searchresult/?query=${router.query.query?.replace("?_sort=asc", "").replace("?_sort=desc", "")}` : '';
-    const resultDesktopHREF = router.pathname === "/searchresult" ? `searchresult/?desktop=${router.query.desktop?.replace("?_sort=asc", "").replace("?_sort=desc", "")}` : '';
+    const isDesktopClient = router.query.desktop
 
     const appTheme = useMemo(() => {
         if (theme && isDesktopClient) return theme
     }, [theme, isDesktopClient])
+
+    const getLinkForSort = (key) => {
+        const result = {
+            pathname: '/',
+            query: {
+                _sort: key
+            }
+        }
+
+        if (router.pathname === '/searchresult') {
+            result.pathname = '/searchresult'
+            result.query.query = router.query.query
+        }
+
+        if (category !== undefined) {
+            if (router.query.hasOwnProperty('compilation')) {
+                result.pathname = `/form/compilations/${router.query.compilation}`
+            } else if (router.query.hasOwnProperty('type')) {
+                result.pathname = `/form/types/${router.query.type}`
+            } else if(router.query.hasOwnProperty('category')) {
+                result.pathname = `/form/${router.query.category}`
+            }
+        }
+
+        if (isDesktopClient) {
+            result.query.desktop = true
+        }
+
+        if (appTheme) {
+            result.query.theme = appTheme
+        }
+
+        return result;
+    }
 
     useEffect(() => {
         if (typeSortData) {
@@ -35,45 +64,60 @@ export const SortSelector = (props) => {
                 label={t("SortBy")}
                 value={t(selectorValue)}
             >
-                <SelectorDefaultDropdown
-                    onClick={onChangeSelectTypeSort}
+                <Dropdown
                     as="div"
                 >
                     {isDesktopClient ?
-                        <SelectorDefaultDropdownItem
-                            as="a"
-                            href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultDesktopHREF}?_sort=asc${appTheme !== undefined ? `&theme=${theme}` : ''}` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=asc&desktop=true${appTheme !== undefined ? `&theme=${theme}` : ''}`}`}
-                            isActive={typeSortData === t("NameA-Z")}
-                            isDesktopClient
+                        <Link
+                            href={getLinkForSort('asc')}
+                            passHref
                         >
-                            {t("NameA-Z")}
-                        </SelectorDefaultDropdownItem>
+                            <DropdownItem
+                                as="a"
+                                isActive={typeSortData === t("NameA-Z")}
+                                isDesktopClient
+                            >
+                                {t("NameA-Z")}
+                            </DropdownItem>
+                        </Link>
                         :
-                        <SelectorDefaultDropdownItem
-                            as="a"
-                            href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultHREF}?_sort=asc` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=asc`}`}
+                        <Link
+                            href={getLinkForSort('asc')}
+                            passHref
                         >
-                            {t("NameA-Z")}
-                        </SelectorDefaultDropdownItem>
+                            <DropdownItem
+                                as="a"
+                            >
+                                {t("NameA-Z")}
+                            </DropdownItem>
+                        </Link>
                     }
                     {isDesktopClient ?
-                        <SelectorDefaultDropdownItem
-                            as="a"
-                            href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultDesktopHREF}?_sort=desc${appTheme !== undefined ? `&theme=${theme}` : ''}` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=desc&desktop=true${appTheme !== undefined ? `&theme=${theme}` : ''}`}`}
-                            isActive={typeSortData === t("NameZ-A")}
-                            isDesktopClient
+                        <Link
+                            href={getLinkForSort('desc')}
+                            passHref
                         >
-                            {t("NameZ-A")}
-                        </SelectorDefaultDropdownItem>
+                            <DropdownItem
+                                as="a"
+                                isActive={typeSortData === t("NameZ-A")}
+                                isDesktopClient
+                            >
+                                {t("NameZ-A")}
+                            </DropdownItem>
+                        </Link>
                         :
-                        <SelectorDefaultDropdownItem
-                            as="a"
-                            href={`${router.pathname === "/searchresult" ? `${locale === "en" ? "" : localeHREF}/${resultHREF}?_sort=desc` : `${locale === "en" ? "" : localeHREF}/${catHREF}?_sort=desc`}`}
+                        <Link
+                            href={getLinkForSort('desc')}
+                            passHref
                         >
-                            {t("NameZ-A")}
-                        </SelectorDefaultDropdownItem>
+                            <DropdownItem
+                                as="a"
+                            >
+                                {t("NameZ-A")}
+                            </DropdownItem>
+                        </Link>
                     }
-                </SelectorDefaultDropdown>
+                </Dropdown>
             </Selector>
         </>
     )

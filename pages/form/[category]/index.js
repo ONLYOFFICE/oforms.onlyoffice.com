@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, lazy, Suspense } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
@@ -26,7 +26,6 @@ const Footer = lazy(() => import("@components/screens/footer-content"), {
 const Category = ({
   categoryForms,
   categoryInfo,
-  urlReq,
   locale,
   sort,
   page,
@@ -44,10 +43,7 @@ const Category = ({
 
   const [isCategoryPage, setIsCategoryPage] = useState(true);
   const query = useRouter();
-  const isDesktop = query.query.desktop === "true";
-  const [isDesktopClient, setIsDesktopClient] = useState(isDesktop)
- 
-  
+  const isDesktopClient = query.query.desktop === "true";
   return isDesktopClient ?
     <Layout>
       <Layout.PageHead>
@@ -68,11 +64,9 @@ const Category = ({
           page={+page}
           isCategoryPage={isCategoryPage}
           header={header}
-          urlReqCategory={urlReqCategory}
           types={types}
           categories={categories}
           compilations={compilations}
-          isDesktopClient={isDesktopClient}
           categoryName={categoryName}
         />
     </Layout>
@@ -119,18 +113,17 @@ const Category = ({
 };
 
 export const getServerSideProps = async ({ locale, query, ...ctx }) => {
-  const isDesktop = query.desktop === "true";
+  const isDesktopClient = query.desktop === "true";
   const page = query.page || 1;
-  const sort = query._sort || "ASC";
+  const sort = query._sort || "asc";
   const urlReq = query.category;
-  const pageSize = query.pageSize || isDesktop ? 0 : 9;
+  const pageSize = query.pageSize || isDesktopClient ? 0 : 9;
   const cms = config.api.cms
   const res = await fetch(
     `${cms}/api/oforms/?filters[categories][urlReq][$eq]=${urlReq}&locale=${locale}&sort=name_form:${sort}&${pageSize ? `&pagination[pageSize]=${pageSize}` : ''}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
   );
   const resCategory = await fetch(
     `${cms}/api/categories/?filters[urlReq][$eq]=${urlReq}&locale=${locale}`
-
   );
 
   const categoryForms = await res.json();
@@ -153,7 +146,6 @@ export const getServerSideProps = async ({ locale, query, ...ctx }) => {
       notFound: true,
       categoryForms,
       categoryInfo,
-      urlReq,
       locale,
       sort,
       page,

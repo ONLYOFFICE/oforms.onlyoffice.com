@@ -97,9 +97,6 @@ const MainContent = ({ t, currentLanguage, data, page, sort, types, categories, 
             </Text>
             <SortSelector
               typeSortData={typeSortData}
-              onChangeSelectTypeSort={onChangeSelectTypeSort}
-              locale={currentLanguage}
-              className="form-control"
               t={t}
             />
           </div>

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-
-import { NImage } from "../image";
 import StyledLanguageSelector from "./styled-language-selector";
 import ItemsList from "./items-list";
+import {useRouter} from "next/router";
 
-const LanguageSelector = (props) => {
+const LanguageSelector = ({ t }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+  const locale = router.locale
 
   useEffect(() => {
     typeof window !== "undefined" &&
@@ -47,7 +48,6 @@ const LanguageSelector = (props) => {
     setIsOpen(false);
   };
 
-  const { currentLanguage, t } = props;
   const srcArrow = isOpen
     ? "https://static-oforms.onlyoffice.com/icons/arrow-drop-up.svg"
     : "https://static-oforms.onlyoffice.com/icons/arrow-drop-down.svg";
@@ -61,7 +61,7 @@ const LanguageSelector = (props) => {
       <img
         className="flag-image"
         alt="flag"
-        src={`https://static-oforms.onlyoffice.com/images/flags/${currentLanguage}.svg`}
+        src={`https://static-oforms.onlyoffice.com/images/flags/${locale}.svg`}
         width="18px"
         height="18px"
       />

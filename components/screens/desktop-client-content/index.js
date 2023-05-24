@@ -1,7 +1,6 @@
 import {useState, useEffect} from "react";
 
 import Cards from "@components/screens/common/cards";
-// import CategorySelector from "@components/common/category-selector";
 import { CategorySelector } from "@components/common/categorySelector";
 import LanguageSelector from "@components/common/language-selector";
 import SearchContent from "@components/screens/heading-content/search";
@@ -9,6 +8,8 @@ import Text from "@components/common/text";
 import StyledDesktopClientContent from "./styled-desktop-client-content";
 import FilePopup from "./file-popup/file-popup";
 import {SortSelector} from "@components/common/sortSelector";
+import {useRouter} from "next/router";
+import {Header} from "@components/common/header";
 
 const DesktopClientContent = (props) => {
     const {
@@ -22,8 +23,6 @@ const DesktopClientContent = (props) => {
         compilations,
         isCategoryPage,
         header,
-        urlReqCategory,
-        isDesktopClient,
         categoryName,
         queryDesktopClient
     } = props;
@@ -31,10 +30,9 @@ const DesktopClientContent = (props) => {
     const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
     const [boolTypeSortData, setBoolTypeSortData] = useState(false);
     const [cardData, setCardData] = useState("");
-
-    const onChangeSelectTypeSort = (e) => {
-        setTypeSortData(e.target.value);
-    };
+    const router = useRouter();
+    const theme = router.query.theme
+    const isDesktopClient = router.query.desktop
 
     const [modalActive, setModalActive] = useState(false);
     const handlerSetModal = () => {
@@ -54,22 +52,12 @@ const DesktopClientContent = (props) => {
     }, [sort]);
 
     return (
-        <StyledDesktopClientContent>
-            <div className="box-heading">
-                <SearchContent
-                    t={t}
-                    currentLanguage={currentLanguage}
-                    isDesktopClient={isDesktopClient}
-                    handlerSetModal={handlerSetModal}
-                    handlerCardData={handlerCardData}
-                />
-                <LanguageSelector t={t} currentLanguage={currentLanguage}/>
-            </div>
+        <StyledDesktopClientContent isDark={(theme === 'theme-dark') || (theme === 'theme-contrast-dark')}>
+           <Header t={t} handlerSetModal={handlerSetModal} handlerCardData={handlerCardData} />
             <div className="box-doc-info-template">
                 <div className="box-doc-categories">
                     <CategorySelector
                         typeSortData={typeSortData}
-                        onChangeSelectTypeSort={onChangeSelectTypeSort}
                         locale={currentLanguage}
                         className="form-control"
                         t={t}
@@ -89,12 +77,8 @@ const DesktopClientContent = (props) => {
                         {countData} {t("Documents")}
                     </Text>
                     <SortSelector
-                        isDesktopClient={isDesktopClient}
                         typeSortData={typeSortData}
-                        onChangeSelectTypeSort={onChangeSelectTypeSort}
-                        locale={currentLanguage}
-                        className="form-control"
-                        category={urlReqCategory}
+                        category={categoryName}
                         t={t}
                     />
                 </div>
@@ -107,7 +91,6 @@ const DesktopClientContent = (props) => {
                 currentLanguage={currentLanguage}
                 page={page}
                 sort={sort}
-                isDesktopClient={isDesktopClient}
                 handlerSetModal={handlerSetModal}
                 handlerCardData={handlerCardData}
             />

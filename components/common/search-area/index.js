@@ -32,7 +32,7 @@ const SearchArea = ({ clearValueSearch, valueSearch, callback, t, onEnterPress }
           className="presearch_title"
           overflow="unset"
           textOverflow="clip"
-          label={t("SearchForms")}
+          label={t("FormSearch")}
           color="#F5F5F5"
           fontWeight={600}
         />

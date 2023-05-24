@@ -66,19 +66,18 @@ const StyledFilePopup = styled.div`
   }
 
   .popup-body {
-    padding: 30px 46px 30px 31px;
-    display: flex;
+    padding: 27px;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 32px;
   }
 
   .file-img {
-    box-sizing: border-box;
-    flex: 0 0 400px;
-    margin-right: 32px;
     mix-blend-mode: normal;
     border-radius: 3px;
-
+    overflow: hidden;
     img {
-      object-fit: cover;
+      display: block;
     }
 
 
@@ -90,16 +89,19 @@ const StyledFilePopup = styled.div`
     font-size: 14px;
     line-height: 22px;
     color: #333333;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
   }
 
   .file-main-description {
-    margin-bottom: 24px;
     padding-bottom: 23px;
     border-bottom: 1px solid ${({theme}) => theme.colors.palette.borderToolbarButtonHover};
   }
 
   .file-title {
-    margin-bottom: 8px;
+    margin: 0 0 8px;
     font-weight: 700;
     font-size: 18px;
     line-height: 24px;
@@ -125,25 +127,28 @@ const StyledFilePopup = styled.div`
 
   .file-info {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
     flex-wrap: wrap;
-    margin-bottom: 24px;
+    row-gap: 12px;
+    column-gap: 24px;
   }
 
   .file-info-block {
     display: flex;
     align-items: center;
-    flex: 1 1 auto;
-    margin-right: 8px;
+    gap: 24px;
   }
 
   .file-info-item {
     display: flex;
     align-items: center;
     line-height: 22px;
-
-    &:not(:last-child) {
-      margin-right: 24px;
-    }
+  }
+  
+  .file-info-item__selector {
+    padding-right: 20px;
   }
 
   .file-info-label {
@@ -218,6 +223,10 @@ const StyledFilePopup = styled.div`
     width: 16px;
     height: 16px;
     transition: transform 0.3s;
+    
+    & path {
+      fill: ${({theme}) => theme.colors.palette.iconNormal}
+    }
 
     svg {
       width: 16px;
