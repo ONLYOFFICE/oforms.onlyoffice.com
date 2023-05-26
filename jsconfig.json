@@ -3,7 +3,7 @@
         "baseUrl": ".",
         "paths": {
             "@components/*": [
-                "components/*"
+                "./src/components/*"
             ],
             "@config/*": [
                 "config/*"
@@ -12,11 +12,20 @@
                 "public/*"
             ],
             "@utils/*": [
-                "utils/*"
+                "./src/utils/*"
             ],
             "@lib/*": [
-                "lib/*"
+                "./src/lib/*"
             ],
+            "@common/*": [
+                "./src/common/*"
+            ],
+            "@icons": [
+                "./src/icons/index.js"
+            ],
+            "@illustrations": [
+                "./src/illustrations/index.js"
+            ]
         }
     },
     "exclude": [

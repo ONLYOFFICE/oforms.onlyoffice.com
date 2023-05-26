@@ -13,7 +13,7 @@ import HeadSEO from "@components/screens/head-content";
 import HeadingContent from "@components/screens/heading-content";
 import MainInfo from "@components/screens/form-page/main";
 import {getCookie, setCookie} from "@utils/helpers/cookie";
-import Heading from "@components/common/heading";
+import Heading from "@common/heading";
 import CategoryContent from "@components/screens/form-page/category-content";
 import config from "@config/config.json";
 import AdventAnnounce from "@components/screens/heading-content/advent-announce";
