@@ -22,5 +22,5 @@ TextInput.propTypes = {
     autoFocus: PropTypes.bool,
     isClearable: PropTypes.bool,
     onClear: PropTypes.func,
-    onPressingEnterKey: PropTypes.func,
+    onKeyDown: PropTypes.func,
 }

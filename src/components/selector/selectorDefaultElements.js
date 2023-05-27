@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Text from "@common/text";
-import {ChevronDown} from "../../icons";
+import {ChevronDown} from "@icons";
 
 export const SelectorDefaultDropdown = styled.ul`
   list-style: none;

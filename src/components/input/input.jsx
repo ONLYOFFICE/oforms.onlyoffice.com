@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import PropTypes from "prop-types";
 import {InputIcon, InputLabel, InputStyled, InputWrapper} from "./input.styled.js";
 import classNames from "classnames";
@@ -29,17 +29,18 @@ export const Input = (props) => {
         autoFocus = false,
         isClearable = false,
         onClear,
-        onPressingEnterKey,
+        onKeyDown,
         ...otherProps
     } = props;
     const [inFocus, setInFocus] = useState(false);
     const [inputValue, setInputValue] = useState('')
+    const inputRef = useRef(null)
 
     const isControlled = value !== undefined
 
     useEffect(() => {
-        if(onPressingEnterKey !== undefined) {
-            window.addEventListener('keydown', handleKeyDown)
+        if(autoFocus && inputRef) {
+            inputRef.current.focus()
         }
 
         setInFocus(() => {
@@ -51,13 +52,10 @@ export const Input = (props) => {
         })
 
         setInputValue(() => defaultValue || '')
-
-
-        return () => window.removeEventListener('keydown', handleKeyDown)
     }, [])
 
     const handleKeyDown = (e) => {
-        if(e.code === 'Enter') onPressingEnterKey(e);
+        onKeyDown && onKeyDown(e)
     }
     const handleInput = (e) => {
         if (!isControlled) {
@@ -95,10 +93,11 @@ export const Input = (props) => {
                 value={isControlled ? value : inputValue}
                 onChange={handleInput}
                 className="input-component__input"
-                autoFocus={autoFocus}
                 onFocus={() => handleFocus('focus')}
                 onBlur={() => handleFocus('blur')}
                 inFocus={inFocus}
+                ref={inputRef}
+                onKeyDown={handleKeyDown}
                 {...otherProps}
             />
             {
@@ -125,5 +124,5 @@ Input.propTypes = {
     autoFocus: PropTypes.bool,
     isClearable: PropTypes.bool,
     onClear: PropTypes.func,
-    onPressingEnterKey: PropTypes.func,
+    onKeyDown: PropTypes.func,
 }

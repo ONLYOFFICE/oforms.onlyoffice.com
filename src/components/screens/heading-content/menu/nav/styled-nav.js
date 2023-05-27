@@ -7,6 +7,27 @@ const StyledNav = styled.nav`
     flex-direction: row;
     width: 100%;
   }
+  
+  .nav-item {
+    
+    @media screen and (max-width: 1660px) {
+      &:nth-last-child(1) .menu-items-wrapper {
+        right: 10px;
+      }
+    }
+    
+    @media screen and (max-width: 1340px) {
+      &:nth-last-child(2) .menu-items-wrapper {
+        right: 10px;
+      }
+    }
+
+    @media screen and (max-width: 1210px) {
+      &:nth-last-child(3) .menu-items-wrapper {
+        right: 10px;
+      }
+    }
+  }
 
   .navitem_features_menu {
     color: #fff;

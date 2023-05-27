@@ -1,5 +1,4 @@
 import {useState, useEffect} from "react";
-
 import Cards from "../common/cards";
 import { CategorySelector } from "@common/categorySelector";
 import Text from "@common/text";
@@ -9,6 +8,7 @@ import {SortSelector} from "@common/sortSelector";
 import {useRouter} from "next/router";
 import {Header} from "@common/header";
 import {TextInput} from "@common/textInput";
+import Dropdown from "@components/dropdown";
 
 const DesktopClientContent = (props) => {
     const {
@@ -32,6 +32,7 @@ const DesktopClientContent = (props) => {
     const router = useRouter();
     const theme = router.query.theme
     const isDesktopClient = router.query.desktop
+    const [value, setValue] = useState('')
 
     const [modalActive, setModalActive] = useState(false);
     const handlerSetModal = () => {
@@ -53,7 +54,6 @@ const DesktopClientContent = (props) => {
     return (
         <StyledDesktopClientContent isDark={(theme === 'theme-dark') || (theme === 'theme-contrast-dark')}>
            <Header t={t} handlerSetModal={handlerSetModal} handlerCardData={handlerCardData} />
-            <TextInput label="Xikmat" />
             <div className="box-doc-info-template">
                 <div className="box-doc-categories">
                     <CategorySelector
