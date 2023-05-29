@@ -3,7 +3,7 @@ import StyledLanguageSelector from "./styled-language-selector";
 import ItemsList from "./items-list";
 import {useRouter} from "next/router";
 
-const LanguageSelector = ({ t }) => {
+const LanguageSelector = ({ t, onClick }) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const locale = router.locale
@@ -40,7 +40,7 @@ const LanguageSelector = ({ t }) => {
     e.stopPropagation();
     if (e.target.closest(".flag-image") || e.target.closest(".arrow-image")) {
       setIsOpen(!isOpen);
-      props.onClick && props.onClick(e);
+      onClick && onClick(e);
     }
   };
 

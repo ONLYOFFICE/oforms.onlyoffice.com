@@ -1,5 +1,6 @@
 import Link from "@common/link";
 import Input from "@common/text-input"
+import {TextInput} from "@common/textInput";
 import Box from "./sub-components/box";
 import MenuItem from "../menu-item";
 import StyledNav from "./styled-nav";
@@ -630,13 +631,19 @@ const Nav = ({onClick, t, stateMobilePND, currentLanguage, ...rest}) => {
                     </MenuItem>
                 </Box>
                 <Box className="input-wrapper">
-                    <Input
-                        className="menu-input"
+                    {/*<Input*/}
+                    {/*    className="menu-input"*/}
+                    {/*    value={value}*/}
+                    {/*    onChange={(e) => setValue(e.target.value)}*/}
+                    {/*    placeholder={t('Search on site')}*/}
+                    {/*    height="40px"*/}
+                    {/*    onEnterPress={onSearch}*/}
+                    {/*/>*/}
+                    <TextInput
                         value={value}
                         onChange={(e) => setValue(e.target.value)}
-                        placeholder={t('Search on site')}
-                        height="40px"
-                        onEnterPress={onSearch}
+                        label={t('Search on site')}
+                        onKeyDown={onSearch}
                     />
                 </Box>
             </Box>
