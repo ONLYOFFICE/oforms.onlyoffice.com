@@ -5,16 +5,17 @@ import classNames from "classnames";
 import {XClose} from "@icons";
 
 const InputIconComponent = (props) => {
-    const {value, icon, isClearable, onClear} = props;
+    const {value, icon, isClearable, onClear, onIconClick, clearIcon} = props;
     if (isClearable && value) {
         return (
-            <InputIcon className="input-component__clear-icon">
+            clearIcon ??
+            <InputIcon className="input-component__clear-icon" onClick={onIconClick}>
                 <XClose size="30px" onClick={onClear}/>
             </InputIcon>
         )
     }
 
-    return icon !== undefined ? <InputIcon className="input-component__icon">{icon}</InputIcon> : <></>
+    return icon && <InputIcon className="input-component__icon">{icon}</InputIcon>
 }
 
 export const Input = (props) => {
@@ -29,7 +30,9 @@ export const Input = (props) => {
         autoFocus = false,
         isClearable = false,
         onClear,
-        onKeyDown,
+        onKeyPress,
+        onIconClick,
+        clearIcon,
         ...otherProps
     } = props;
     const [inFocus, setInFocus] = useState(false);
@@ -39,23 +42,17 @@ export const Input = (props) => {
     const isControlled = value !== undefined
 
     useEffect(() => {
-        if(autoFocus && inputRef) {
-            inputRef.current.focus()
-        }
-
-        setInFocus(() => {
-            if (isControlled) {
-                return value || autoFocus
-            } else {
-                return inputValue || defaultValue || autoFocus
-            }
-        })
-
         setInputValue(() => defaultValue || '')
-    }, [])
 
-    const handleKeyDown = (e) => {
-        onKeyDown && onKeyDown(e)
+        if(inputRef) {
+            if(autoFocus || inputValue || value || defaultValue) {
+                inputRef.current.focus()
+            }
+        }
+    }, [value, inputValue])
+
+    const handleKeyPress = (e) => {
+        onKeyPress && onKeyPress(e)
     }
     const handleInput = (e) => {
         if (!isControlled) {
@@ -97,7 +94,7 @@ export const Input = (props) => {
                 onBlur={() => handleFocus('blur')}
                 inFocus={inFocus}
                 ref={inputRef}
-                onKeyDown={handleKeyDown}
+                onKeyPress={handleKeyPress}
                 {...otherProps}
             />
             {
@@ -108,6 +105,8 @@ export const Input = (props) => {
                 onClear={handleClear}
                 isClearable={isClearable}
                 icon={icon}
+                onIconClick={onIconClick}
+                clearIcon={clearIcon}
             />
         </InputWrapper>
     )
@@ -124,5 +123,7 @@ Input.propTypes = {
     autoFocus: PropTypes.bool,
     isClearable: PropTypes.bool,
     onClear: PropTypes.func,
-    onKeyDown: PropTypes.func,
+    onKeyPress: PropTypes.func,
+    onIconClick: PropTypes.func,
+    clearIcon: PropTypes.element,
 }

@@ -1,11 +1,11 @@
 import Link from "@common/link";
-import Input from "@common/text-input"
 import {TextInput} from "@common/textInput";
 import Box from "./sub-components/box";
 import MenuItem from "../menu-item";
 import StyledNav from "./styled-nav";
 import {useState} from "react";
 import {useRouter} from "next/router";
+import {Loup} from "@icons";
 
 const Nav = ({onClick, t, stateMobilePND, currentLanguage, ...rest}) => {
     const [value, setValue] = useState('');
@@ -15,9 +15,8 @@ const Nav = ({onClick, t, stateMobilePND, currentLanguage, ...rest}) => {
     }`;
 
     const onSearch = (e) => {
-        if(e.key == 'Enter') {
-            router.push(`/searchresult?query=${value}`)
-        }
+        e.preventDefault()
+        router.push(`/searchresult?query=${value}`)
     }
     return (
         <StyledNav stateMobile={stateMobilePND} {...rest}>
@@ -639,12 +638,16 @@ const Nav = ({onClick, t, stateMobilePND, currentLanguage, ...rest}) => {
                     {/*    height="40px"*/}
                     {/*    onEnterPress={onSearch}*/}
                     {/*/>*/}
-                    <TextInput
-                        value={value}
-                        onChange={(e) => setValue(e.target.value)}
-                        label={t('Search on site')}
-                        onKeyDown={onSearch}
-                    />
+                    <form onSubmit={onSearch}>
+                        <TextInput
+                            value={value}
+                            onChange={(e) => setValue(e.target.value)}
+                            label={t('Search on site')}
+                            icon={<Loup size="30px"/>}
+                            isClearable
+                            onClear={() => setValue('')}
+                        />
+                    </form>
                 </Box>
             </Box>
             <Box className="phone_wrapper">

@@ -7,7 +7,7 @@ export const InputStyled = styled.input`
   width: 100%;
   display: block;
   margin: 0;
-  padding: 16px 0 16px 16px;
+  padding: 16px;
 
   & + label {
     ${({inFocus}) => {
@@ -41,7 +41,7 @@ export const InputIcon = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding-right: 16px;
   
   &.input-component__clear-icon {
     cursor: pointer;

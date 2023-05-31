@@ -10,11 +10,12 @@ export const MenuIcon = (props) => {
             height={size || ICON_DEFAULT_SIZE}
             viewBox="0 0 20 14"
             fill="none"
+            color={color || ICON_DEFAULT_COLOR}
             {...otherProps}
         >
-            <rect width="20" height="2" fill={color || ICON_DEFAULT_COLOR}/>
-            <rect y="6" width="20" height="2" fill={color || ICON_DEFAULT_COLOR}/>
-            <rect y="12" width="20" height="2" fill={color || ICON_DEFAULT_COLOR}/>
+            <rect width="20" height="2" fill="currentColor"/>
+            <rect y="6" width="20" height="2" fill="currentColor"/>
+            <rect y="12" width="20" height="2" fill="currentColor"/>
         </svg>
     )
 }

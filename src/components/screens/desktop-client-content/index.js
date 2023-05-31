@@ -7,8 +7,6 @@ import FilePopup from "./file-popup/file-popup";
 import {SortSelector} from "@common/sortSelector";
 import {useRouter} from "next/router";
 import {Header} from "@common/header";
-import {TextInput} from "@common/textInput";
-import Dropdown from "@components/dropdown";
 
 const DesktopClientContent = (props) => {
     const {
@@ -32,7 +30,6 @@ const DesktopClientContent = (props) => {
     const router = useRouter();
     const theme = router.query.theme
     const isDesktopClient = router.query.desktop
-    const [value, setValue] = useState('')
 
     const [modalActive, setModalActive] = useState(false);
     const handlerSetModal = () => {

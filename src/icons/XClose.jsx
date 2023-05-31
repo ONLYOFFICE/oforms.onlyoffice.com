@@ -10,11 +10,12 @@ export const XClose = (props) => {
             height={size || ICON_DEFAULT_SIZE}
             viewBox="0 0 24 24"
             fill="none"
+            color={color || ICON_DEFAULT_COLOR}
             {...otherProps}
         >
             <path
                 d="M8 8L15 15M15 8L8 15"
-                stroke={color || ICON_DEFAULT_COLOR}
+                stroke="currentColor"
                 strokeOpacity="0.8"
                 strokeWidth="1.5"
                 strokeLinecap="round"

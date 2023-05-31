@@ -24,7 +24,10 @@
     },
     "other": {
       "gray100": "#AAAAAA",
-      "gray200": "#F9F9F9"
+      "gray200": "#F9F9F9",
+      "gray300": "#666666",
+      "gray400": "#808080",
+      "white100": "#F5F5F5"
     },
     "primary": "#FF6F3D"
   },

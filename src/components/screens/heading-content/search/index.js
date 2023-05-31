@@ -3,7 +3,7 @@ import Router, { useRouter } from 'next/router'
 import axios from "axios";
 
 import CONFIG from "@config/config.json";
-import Search from "@common/search-area";
+import SearchArea from "@common/searchArea";
 import SearchResult from "./search-result";
 
 const SearchContent = ({ t, handlerSetModal, handlerCardData }) => {
@@ -33,13 +33,22 @@ const SearchContent = ({ t, handlerSetModal, handlerCardData }) => {
   };
 
   const onEnterPress = (e) => {
+    // if (searchValue.length > 2) {
+    //   if (isDesktopClient) {
+    //     e.code === 'Enter' && !(searchResultPathname) && Router.push(`/searchresult/?desktop=true&query=${searchValue}${appTheme !== undefined ? `&theme=${appTheme}` : ''}`)
+    //     e.code === 'Enter' && searchResultPathname && Router.push(`?desktop=true&query=${searchValue}${appTheme !== undefined ? `&theme=${appTheme}` : ''}`, null, { shallow: true })
+    //   } else {
+    //     e.code === 'Enter' && !(searchResultPathname) && Router.push(`/searchresult/?query=${searchValue}`)
+    //     e.code === 'Enter' && searchResultPathname && Router.push(`?query=${searchValue}`, null, { shallow: true })
+    //   }
+    // }
     if (searchValue.length > 2) {
       if (isDesktopClient) {
-        e.code === 'Enter' && !(searchResultPathname) && Router.push(`/searchresult/?desktop=true&query=${searchValue}${appTheme !== undefined ? `&theme=${appTheme}` : ''}`)
-        e.code === 'Enter' && searchResultPathname && Router.push(`?desktop=true&query=${searchValue}${appTheme !== undefined ? `&theme=${appTheme}` : ''}`, null, { shallow: true })
+        !(searchResultPathname) && Router.push(`/searchresult/?desktop=true&query=${searchValue}${appTheme !== undefined ? `&theme=${appTheme}` : ''}`)
+        searchResultPathname && Router.push(`?desktop=true&query=${searchValue}${appTheme !== undefined ? `&theme=${appTheme}` : ''}`, null, { shallow: true })
       } else {
-        e.code === 'Enter' && !(searchResultPathname) && Router.push(`/searchresult/?query=${searchValue}`)
-        e.code === 'Enter' && searchResultPathname && Router.push(`?query=${searchValue}`, null, { shallow: true })
+        !(searchResultPathname) && Router.push(`/searchresult/?query=${searchValue}`)
+        searchResultPathname && Router.push(`?query=${searchValue}`, null, { shallow: true })
       }
     }
   };
@@ -79,13 +88,23 @@ const SearchContent = ({ t, handlerSetModal, handlerCardData }) => {
 
   return (
     <>
-      <Search
-        t={t}
-        callback={onSearch}
-        valueSearch={searchValue}
-        clearValueSearch={clearValueSearch}
-        onEnterPress={onEnterPress}
+      {/*<Search*/}
+      {/*  t={t}*/}
+      {/*  callback={onSearch}*/}
+      {/*  valueSearch={searchValue}*/}
+      {/*  clearValueSearch={clearValueSearch}*/}
+      {/*  onEnterPress={onEnterPress}*/}
+      {/*/>*/}
+
+      <SearchArea
+          clearValueSearch={clearValueSearch}
+          valueSearch={searchValue}
+          callback={onSearch}
+          t={t}
+          onEnterPress={onEnterPress}
       />
+
+
       {searchValue.length > 2 && (
         <SearchResult
           searchValue={searchValue}
