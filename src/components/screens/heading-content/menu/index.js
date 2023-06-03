@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import Link from "@common/link";
 import InternalLink from "@common/internal-link";
-import LanguageSelector from "@common/language-selector";
+// import LanguageSelector from "@common/language-selector";
+import LanguageSelector from "@common/languageSelector";
 import Nav from "./nav/nav";
 import StyledMenu from "./styled-menu";
 import {MenuIcon} from "@icons";

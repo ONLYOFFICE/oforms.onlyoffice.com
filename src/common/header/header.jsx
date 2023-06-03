@@ -2,7 +2,7 @@ import React from "react";
 import {useRouter} from "next/router";
 import {StyledHeader} from "./styledHeader";
 import SearchContent from "@components/screens/heading-content/search";
-import LanguageSelector from "../language-selector";
+import LanguageSelector from "@common/languageSelector";
 import {useTranslation} from "next-i18next";
 
 export const Header = ({handlerSetModal, handlerCardData}) => {

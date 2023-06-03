@@ -1,3 +1,3 @@
-import LanguageSelector from "./languageSelector";
+import { LanguageSelector } from "./languageSelector";
 
 export default LanguageSelector;
