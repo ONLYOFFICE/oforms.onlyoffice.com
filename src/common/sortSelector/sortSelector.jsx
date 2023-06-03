@@ -3,6 +3,9 @@ import Selector, {Dropdown, DropdownItem} from "@components/selector";
 import {useRouter} from "next/router";
 import Link from "next/link";
 import {useTranslation} from "next-i18next";
+import {SelectorDefaultLabel} from "@components/selector/selectorDefaultElements";
+import {SortAsc, SortDesc} from "@icons";
+import {SortSelectorHeader, SortSelectorIcon} from "@common/sortSelector/styledSortSelector";
 
 export const SortSelector = (props) => {
     const {
@@ -13,7 +16,7 @@ export const SortSelector = (props) => {
     const router = useRouter();
     const theme = router.query.theme
     const isDesktopClient = router.query.desktop
-    const { t } = useTranslation('common')
+    const {t} = useTranslation('common')
 
     const appTheme = useMemo(() => {
         if (theme && isDesktopClient) return theme
@@ -37,7 +40,7 @@ export const SortSelector = (props) => {
                 result.pathname = `/form/compilations/${router.query.compilation}`
             } else if (router.query.hasOwnProperty('type')) {
                 result.pathname = `/form/types/${router.query.type}`
-            } else if(router.query.hasOwnProperty('category')) {
+            } else if (router.query.hasOwnProperty('category')) {
                 result.pathname = `/form/${router.query.category}`
             }
         }
@@ -59,6 +62,22 @@ export const SortSelector = (props) => {
         }
     }, [typeSortData])
 
+    if (isDesktopClient) {
+        const sort = router.query._sort || 'asc'
+        return (
+            <SortSelectorHeader>
+                <SelectorDefaultLabel>{t("SortBy")}</SelectorDefaultLabel>
+                <SortSelectorIcon>
+                    <Link href={getLinkForSort(sort === 'asc' ? 'desc' : 'asc')}>
+                        {
+                            sort === 'asc' ? <SortAsc size={24}/> : <SortDesc size={24}/>
+                        }
+                    </Link>
+                </SortSelectorIcon>
+            </SortSelectorHeader>
+        )
+    }
+
     return (
         <>
             <Selector
@@ -68,56 +87,26 @@ export const SortSelector = (props) => {
                 <Dropdown
                     as="div"
                 >
-                    {isDesktopClient ?
-                        <Link
-                            href={getLinkForSort('asc')}
-                            passHref
+                    <Link
+                        href={getLinkForSort('asc')}
+                        passHref
+                    >
+                        <DropdownItem
+                            as="a"
                         >
-                            <DropdownItem
-                                as="a"
-                                isActive={typeSortData === t("NameA-Z")}
-                                isDesktopClient
-                            >
-                                {t("NameA-Z")}
-                            </DropdownItem>
-                        </Link>
-                        :
-                        <Link
-                            href={getLinkForSort('asc')}
-                            passHref
+                            {t("NameA-Z")}
+                        </DropdownItem>
+                    </Link>
+                    <Link
+                        href={getLinkForSort('desc')}
+                        passHref
+                    >
+                        <DropdownItem
+                            as="a"
                         >
-                            <DropdownItem
-                                as="a"
-                            >
-                                {t("NameA-Z")}
-                            </DropdownItem>
-                        </Link>
-                    }
-                    {isDesktopClient ?
-                        <Link
-                            href={getLinkForSort('desc')}
-                            passHref
-                        >
-                            <DropdownItem
-                                as="a"
-                                isActive={typeSortData === t("NameZ-A")}
-                                isDesktopClient
-                            >
-                                {t("NameZ-A")}
-                            </DropdownItem>
-                        </Link>
-                        :
-                        <Link
-                            href={getLinkForSort('desc')}
-                            passHref
-                        >
-                            <DropdownItem
-                                as="a"
-                            >
-                                {t("NameZ-A")}
-                            </DropdownItem>
-                        </Link>
-                    }
+                            {t("NameZ-A")}
+                        </DropdownItem>
+                    </Link>
                 </Dropdown>
             </Selector>
         </>

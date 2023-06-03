@@ -239,7 +239,7 @@ const StyledFilePopup = styled.div`
     top: 100%;
     right: 0;
     border-radius: 2px;
-    padding-top: 4px;
+    padding: 4px 0;
     min-width: 106px;
     opacity: 0;
     visibility: hidden;
@@ -254,12 +254,11 @@ const StyledFilePopup = styled.div`
     .file-dropdown-item {
       color: ${({theme}) => theme.colors.palette.textNormal};
       
-      &:hover {
-        background-color: ${({theme}) => theme.colors.palette.highlightButtonHover};
-      }
-      
       &.selected {
-        background-color: ${({theme}) => theme.colors.palette.highlightButtonHover};
+        background-color: ${({theme}) => theme.colors.palette.canvasScrollThumb};
+      }
+      &:hover {
+        background-color: ${({theme}) => theme.colors.palette.canvasScrollThumbHover};
       }
     }
   }
