@@ -17,6 +17,7 @@
       "backgroundToolbar": "#F1F1F1",
       "backgroundPrimaryDialogButton": "#7D858C",
       "backgroundPrimaryDialogButtonHover": "#666D73",
+      "backgroundScrim": "rgba(0, 0, 0, 0.2)",
       "canvasScrollThumb": "#F1F1F1",
       "canvasScrollThumbHover": "#CFCFCF"
     },
