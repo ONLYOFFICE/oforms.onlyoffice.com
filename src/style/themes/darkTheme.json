@@ -16,7 +16,9 @@
       "backgroundNormal": "#333333",
       "backgroundToolbar": "#404040",
       "backgroundPrimaryDialogButton": "#DDDDDD",
-      "backgroundPrimaryDialogButtonHover": "#FCFCFC"
+      "backgroundPrimaryDialogButtonHover": "#FCFCFC",
+      "canvasScrollThumb": "#404040",
+      "canvasScrollThumbHover": "#999999"
     },
     "base": {
       "white": "#FFF",

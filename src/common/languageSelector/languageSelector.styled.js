@@ -2,17 +2,28 @@ import styled from "styled-components";
 
 export const LanguageSelectorStyled = styled.div`
   position: relative;
-  
+
   .lang-selector__icon {
     color: ${({theme}) => theme.colors.palette.iconNormal};
     transition: all 200ms ease-in-out;
     transform: rotate(${({isOpen}) => isOpen ? '180deg' : '0deg'});
   }
-  
+
   .lang-selector__dropdown {
     display: ${({isOpen}) => isOpen ? 'block' : 'none'};
     background-color: ${({isDesktopClient, theme}) =>
             isDesktopClient ? theme.colors.palette.backgroundNormal : theme.colors.base.white};
+  }
+
+  .lang-selector__link {
+    &.active {
+      background-color: ${({isDesktopClient, theme}) =>
+              isDesktopClient ? theme.colors.palette.canvasScrollThumb : undefined};
+    }
+    &:hover {
+      background-color: ${({isDesktopClient, theme}) =>
+              isDesktopClient ? theme.colors.palette.canvasScrollThumbHover : undefined};
+    }
   }
 `
 
@@ -37,6 +48,6 @@ export const LanguageSelectorDropdown = styled.div`
 `;
 
 export const LanguageSelectorLink = styled.a`
-  display: block;
+  display: flex;
   padding: 0 4px;
 `;
