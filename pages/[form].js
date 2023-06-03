@@ -156,20 +156,19 @@ const Form = ({form, locale, randomCarousel, types, categories, compilations}) =
                 />
             </Layout.PageHead>
             <Layout.PageAnnounce>
-                <AdventAnnounce t={t} currentLanguage={locale}/>
+                <AdventAnnounce currentLanguage={locale}/>
             </Layout.PageAnnounce>
             <Layout.PageHeader>
-                <HeadingContent template currentLanguage={locale} t={t} isInvert/>
+                <HeadingContent template currentLanguage={locale} isInvert/>
             </Layout.PageHeader>
             <Layout.SectionMain>
                 <MainInfo
                     data={data}
                     currentLanguage={locale}
-                    t={t}
                     link={linkOformEditor}
                 />
                 <Suspense>
-                    <FormBanner t={t} labelName={name_form} link={linkOformEditor}/>
+                    <FormBanner labelName={name_form} link={linkOformEditor}/>
                 </Suspense>
                 <CarouselContent
                     padding="112px 0 62px"
@@ -178,7 +177,6 @@ const Form = ({form, locale, randomCarousel, types, categories, compilations}) =
                     data={dataCarousel}
                     label={headingRentForms}
                     currentLanguage={locale}
-                    t={t}
                     description={true}
                 />
                 {
@@ -192,21 +190,20 @@ const Form = ({form, locale, randomCarousel, types, categories, compilations}) =
                         label={headingRecentlyViewed}
                         config={stateConfig}
                         currentLanguage={locale}
-                        t={t}
                     />
                 }
-                <CategoryContent t={t} types={types} locale={locale} categories={categories}
+                <CategoryContent types={types} locale={locale} categories={categories}
                                  compilations={compilations}/>
                 <Suspense>
-                    <Banner t={t} currentLanguage={locale}/>
+                    <Banner currentLanguage={locale}/>
                 </Suspense>
                 <Suspense>
-                    <Accordion t={t} currentLanguage={locale}/>
+                    <Accordion currentLanguage={locale}/>
                 </Suspense>
             </Layout.SectionMain>
             <Layout.PageFooter>
                 <Suspense>
-                    <Footer t={t} language={locale}/>
+                    <Footer language={locale}/>
                 </Suspense>
             </Layout.PageFooter>
         </Layout>

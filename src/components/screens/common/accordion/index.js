@@ -1,4 +1,4 @@
-import { Trans } from "next-i18next";
+import {Trans, useTranslation} from "next-i18next";
 
 import StyledAccordionContent from "./styled-accordion-content";
 import { AccordionItem } from "@common/accordion";
@@ -6,8 +6,9 @@ import Heading from "@common/heading";
 import Link from "@common/link";
 import Text from "@common/text";
 
-const AccordionContent = ({ t, currentLanguage }) => {
+const AccordionContent = ({ currentLanguage }) => {
   const lng = currentLanguage === "en" ? "" : `/${currentLanguage}`;
+  const { t } = useTranslation('common')
 
   const ONLYOFFICEDocs = t("ONLYOFFICEDocs");
   const ONLYOFFICEDesktopEditors = t("ONLYOFFICEDesktopEditors");

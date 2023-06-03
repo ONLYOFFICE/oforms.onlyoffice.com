@@ -57,7 +57,6 @@ const Category = ({
         />
       </Layout.PageHead>
       <DesktopClientContent
-        t={t}
         currentLanguage={locale}
         data={categoryForms}
         sort={sort}
@@ -81,15 +80,14 @@ const Category = ({
         />
       </Layout.PageHead>
       <Layout.PageAnnounce>
-        <AdventAnnounce t={t} currentLanguage={locale} />
+        <AdventAnnounce currentLanguage={locale} />
       </Layout.PageAnnounce>
       <Layout.PageHeader>
-        <HeadingContent t={t} currentLanguage={locale} />
+        <HeadingContent currentLanguage={locale} />
       </Layout.PageHeader>
       <Layout.SectionMain>
-        <InfoContent t={t} category={nameCategory} header={header}/>
+        <InfoContent category={nameCategory} header={header}/>
         <MainContent
-          t={t}
           currentLanguage={locale}
           data={categoryForms}
           sort={sort}
@@ -101,12 +99,12 @@ const Category = ({
           compilations={compilations}
         />
         <Suspense>
-          <Accordion t={t} currentLanguage={locale} />
+          <Accordion currentLanguage={locale} />
         </Suspense>
       </Layout.SectionMain>
       <Layout.PageFooter>
         <Suspense>
-          <Footer t={t} language={locale} />
+          <Footer language={locale} />
         </Suspense>
       </Layout.PageFooter>
     </Layout>

@@ -6,8 +6,10 @@ import Banner from "../../common/banner";
 import StyledInfoContent from "./styled-content";
 import {ShortCard} from "@common/card";
 import itemsShortCards from "@utils/data/pages/short-cards";
+import {useTranslation} from "next-i18next";
 
-const InfoContent = ({t, currentLanguage}) => {
+const InfoContent = ({currentLanguage}) => {
+    const { t } = useTranslation('common')
     let lng = currentLanguage === "en" ? "" : `/${currentLanguage}`;
     const shortCardItems = itemsShortCards[currentLanguage]?.map((it, idx) => {
         let url = it.linkUrl
@@ -15,7 +17,6 @@ const InfoContent = ({t, currentLanguage}) => {
         let href = `${lng}/editor/?filename=${url}&fillform=${it.fillForm}`;
         return (
             <ShortCard
-                t={t}
                 key={`items-short-card-${idx}`}
                 title={it.title}
                 subtitle={it.subtitle}
@@ -54,7 +55,7 @@ const InfoContent = ({t, currentLanguage}) => {
                     {shortCardItems}
                 </Scrollbar>
             </Box>
-            <Banner t={t} currentLanguage={currentLanguage}/>
+            <Banner currentLanguage={currentLanguage}/>
         </StyledInfoContent>
     );
 };

@@ -3,10 +3,12 @@ import Input from "@components/input";
 import {useRouter} from "next/router";
 import {SearchAreaDesc, SearchAreaStyled} from "@common/searchArea/searchArea.styled";
 import {Loup} from "@icons";
+import {useTranslation} from "next-i18next";
 
-export const SearchArea = ({ clearValueSearch, valueSearch, callback, t, onEnterPress }) => {
+export const SearchArea = ({ clearValueSearch, valueSearch, callback, onEnterPress }) => {
     const router = useRouter();
     const isDesktopClient = router.query.desktop;
+    const { t } = useTranslation('common')
 
     const onSubmit = (e) => {
         e.preventDefault()

@@ -5,8 +5,9 @@ import axios from "axios";
 import CONFIG from "@config/config.json";
 import SearchArea from "@common/searchArea";
 import SearchResult from "./search-result";
+import {useTranslation} from "next-i18next";
 
-const SearchContent = ({ t, handlerSetModal, handlerCardData }) => {
+const SearchContent = ({ handlerSetModal, handlerCardData }) => {
   const [focusOnSearch, setFocusOnSearch] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState([]);
@@ -15,6 +16,7 @@ const SearchContent = ({ t, handlerSetModal, handlerCardData }) => {
   const isDesktopClient = router.query.desktop;
   const theme = router.query.theme
   const searchQuery = router.query.query
+  const { t } = useTranslation('common')
 
   useEffect(() => {
     if(searchQuery) {
@@ -88,19 +90,10 @@ const SearchContent = ({ t, handlerSetModal, handlerCardData }) => {
 
   return (
     <>
-      {/*<Search*/}
-      {/*  t={t}*/}
-      {/*  callback={onSearch}*/}
-      {/*  valueSearch={searchValue}*/}
-      {/*  clearValueSearch={clearValueSearch}*/}
-      {/*  onEnterPress={onEnterPress}*/}
-      {/*/>*/}
-
       <SearchArea
           clearValueSearch={clearValueSearch}
           valueSearch={searchValue}
           callback={onSearch}
-          t={t}
           onEnterPress={onEnterPress}
       />
 

@@ -9,9 +9,9 @@ import {CategorySelector} from "@common/categorySelector";
 import Breadcrumb from "./breadcrumb";
 import StyledMainContent from "./style";
 import {SortSelector} from "@common/sortSelector";
+import {useTranslation} from "next-i18next";
 
 const MainContent = ({
-  t,
   currentLanguage,
   data,
   page,
@@ -22,6 +22,7 @@ const MainContent = ({
   categories,
   compilations
 }) => {
+  const { t } = useTranslation('common')
   const countData = data.meta?.pagination?.total;
   const countPage = data.meta?.pagination?.pageCount;
   const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
@@ -82,7 +83,7 @@ const MainContent = ({
       tabletPadding="84px 0 103px 0"
       mobileLPadding="66px 0"
     >
-      <Breadcrumb t={t} language={currentLanguage} category={category} />
+      <Breadcrumb language={currentLanguage} category={category} />
       <div className="idk-box-template">
         <Box className="box-doc-info-template">
           <div className="box-doc-categories" id="mob-box-doc-categories">
@@ -91,7 +92,6 @@ const MainContent = ({
               onChangeSelectTypeSort={onChangeSelectTypeSort}
               locale={currentLanguage}
               className="form-control"
-              t={t}
               types={types}
               categories={categories}
               compilations={compilations}
@@ -105,13 +105,11 @@ const MainContent = ({
             <SortSelector
               typeSortData={typeSortData}
               category={urlReqCategory}
-              t={t}
             />
           </div>
         </Box>
         <Box className="box-cards-template" justifyContent="flex-end">
           <Cards
-            t={t}
             data={data.data}
             typeSortData={boolTypeSortData}
             currentLanguage={currentLanguage}

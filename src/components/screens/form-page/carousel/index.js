@@ -47,7 +47,6 @@ const CarouselContent = ({
           </Heading>
         </StyledBox>
         <Carousel
-          t={t}
           items={data}
           className="card-carousel"
           settingsCarousel={customConfig}

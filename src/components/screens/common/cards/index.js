@@ -5,9 +5,9 @@ import StyledCards from "./styled-cards";
 import {useRouter} from "next/router";
 import {Empty} from "@common/empty";
 import {useMemo} from "react";
+import {useTranslation} from "next-i18next";
 
 const Cards = ({
-                   t,
                    data,
                    typeSortData,
                    currentLanguage,
@@ -20,6 +20,7 @@ const Cards = ({
     const router = useRouter()
     const isDesktopClient = router.query.desktop;
     const theme = router.query.theme
+    const { t } = useTranslation('common')
 
     const onClear = () => {
         if (theme) {
@@ -51,7 +52,6 @@ const Cards = ({
                                 className="card"
                                 key={id}
                                 arrayItems={it}
-                                t={t}
                                 currentLanguage={currentLanguage}
                                 isDesktopClient={isDesktopClient}
                                 handlerSetModal={handlerSetModal}
@@ -74,7 +74,6 @@ const Cards = ({
                                 className="card"
                                 key={id}
                                 arrayItems={it}
-                                t={t}
                                 currentLanguage={currentLanguage}
                                 isDesktopClient={isDesktopClient}
                                 handlerSetModal={handlerSetModal}

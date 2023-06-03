@@ -75,7 +75,6 @@ const SearchResult = ({
         />
       </Layout.PageHead>
       <DesktopClientContent
-        t={t}
         currentLanguage={locale}
         data={searchResults}
         sort={sort}
@@ -99,15 +98,14 @@ const SearchResult = ({
         />
       </Layout.PageHead>
       <Layout.PageAnnounce>
-        <AdventAnnounce t={t} currentLanguage={locale} />
+        <AdventAnnounce currentLanguage={locale} />
       </Layout.PageAnnounce>
       <Layout.PageHeader>
-        <HeadingContent t={t} currentLanguage={locale} />
+        <HeadingContent currentLanguage={locale} />
       </Layout.PageHeader>
       <Layout.SectionMain>
-        <InfoContent t={t} query={query} />
+        <InfoContent query={query} />
         <MainContent
-          t={t}
           currentLanguage={locale}
           sort={sort}
           data={searchResults}
@@ -117,12 +115,12 @@ const SearchResult = ({
           compilations={compilations}
         />
         <Suspense>
-          <Accordion t={t} currentLanguage={locale} />
+          <Accordion currentLanguage={locale} />
         </Suspense>
       </Layout.SectionMain>
       <Layout.PageFooter>
         <Suspense>
-          <Footer t={t} language={locale} />
+          <Footer language={locale} />
         </Suspense>
       </Layout.PageFooter>
     </Layout>

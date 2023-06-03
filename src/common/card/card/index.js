@@ -5,10 +5,10 @@ import Text from "../../text";
 import Button from "../../button";
 import Link from "./sub-components/link";
 import StyledCard, {LoupIconWrapper} from "./styled-card";
-import {Loup} from "../../../icons";
+import {Loup} from "@icons";
+import {useTranslation} from "next-i18next";
 
 const Card = ({
-                  t,
                   callback,
                   arrayItems,
                   currentLanguage,
@@ -26,6 +26,7 @@ const Card = ({
         categories,
         url,
     } = attributes;
+    const { t } = useTranslation('common')
     const imgUrlCard = card_prewiew?.data?.attributes?.url;
     let oformFile = file_oform?.data?.filter((it) => {
         let checkFormatFile = it?.attributes.name.split(".")[1] === "oform";

@@ -7,10 +7,10 @@ import FilePopup from "./file-popup/file-popup";
 import {SortSelector} from "@common/sortSelector";
 import {useRouter} from "next/router";
 import {Header} from "@common/header";
+import {useTranslation} from "next-i18next";
 
 const DesktopClientContent = (props) => {
     const {
-        t,
         currentLanguage,
         data,
         page,
@@ -23,6 +23,7 @@ const DesktopClientContent = (props) => {
         categoryName,
         queryDesktopClient
     } = props;
+    const { t } = useTranslation('common');
     const countData = data?.meta?.pagination?.total;
     const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
     const [boolTypeSortData, setBoolTypeSortData] = useState(false);
@@ -50,14 +51,13 @@ const DesktopClientContent = (props) => {
 
     return (
         <StyledDesktopClientContent isDark={(theme === 'theme-dark') || (theme === 'theme-contrast-dark')}>
-           <Header t={t} handlerSetModal={handlerSetModal} handlerCardData={handlerCardData} />
+           <Header handlerSetModal={handlerSetModal} handlerCardData={handlerCardData} />
             <div className="box-doc-info-template">
                 <div className="box-doc-categories">
                     <CategorySelector
                         typeSortData={typeSortData}
                         locale={currentLanguage}
                         className="form-control"
-                        t={t}
                         types={types}
                         categories={categories}
                         compilations={compilations}
@@ -76,13 +76,11 @@ const DesktopClientContent = (props) => {
                     <SortSelector
                         typeSortData={typeSortData}
                         category={categoryName}
-                        t={t}
                     />
                 </div>
             </div>
 
             <Cards
-                t={t}
                 data={data?.data}
                 typeSortData={boolTypeSortData}
                 currentLanguage={currentLanguage}
@@ -93,7 +91,6 @@ const DesktopClientContent = (props) => {
             />
 
             <FilePopup
-                t={t}
                 currentLanguage={currentLanguage}
                 modalActive={modalActive}
                 setModalActive={setModalActive}

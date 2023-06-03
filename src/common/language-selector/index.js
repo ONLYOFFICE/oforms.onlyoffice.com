@@ -3,7 +3,7 @@ import StyledLanguageSelector from "./styled-language-selector";
 import ItemsList from "./items-list";
 import {useRouter} from "next/router";
 
-const LanguageSelector = ({ t, onClick }) => {
+const LanguageSelector = ({ onClick }) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const locale = router.locale
@@ -74,7 +74,6 @@ const LanguageSelector = ({ t, onClick }) => {
         className={`languages-list lng-selector ${
           isOpen ? "language-selector-open" : "language-selector-closed"
         }`}
-        t={t}
         isOpen={isOpen}
         onCloseSelector={onCloseSelector}
       />

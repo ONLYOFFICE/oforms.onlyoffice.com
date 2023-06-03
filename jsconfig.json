@@ -23,6 +23,9 @@
             "@icons": [
                 "./src/icons/index.js"
             ],
+            "@icons/*": [
+                "./src/icons/*"
+            ],
             "@illustrations": [
                 "./src/illustrations/index.js"
             ]

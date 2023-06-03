@@ -7,9 +7,9 @@ import "slick-carousel/slick/slick-theme.css";
 import { Card } from "../card";
 import ShortCard from "./sub-components/short-carousel";
 import StyledCarousel from "./carousel-styled";
+import {useTranslation} from "next-i18next";
 
 const Carousel = ({
-  t,
   settingsCarousel,
   isArrows,
   items,
@@ -28,6 +28,7 @@ const Carousel = ({
     slidesToShow: 3,
     slidesToScroll: 1,
   };
+  const { t } = useTranslation('common')
 
   const sliders = items.map((item, idx) =>
       <ShortCard
@@ -35,7 +36,6 @@ const Carousel = ({
         arrayItems={item}
         className={`carousel-cards ${shortCard ? "short" : null}`}
         currentLanguage={currentLanguage}
-        t={t}
         shortCard={shortCard}
         description={description}
       />

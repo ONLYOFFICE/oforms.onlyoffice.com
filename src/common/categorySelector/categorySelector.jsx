@@ -13,6 +13,7 @@ import {
 import {ChevronRight} from "../../icons";
 import Link from "next/link";
 import {CategorySelectorHeader} from "./categorySelectorHeader";
+import {useTranslation} from "next-i18next";
 
 const desktopClientController = (desktopClientComponent, nonDesktopClientComponent, isDesktopClient) => {
     if (isDesktopClient) {
@@ -25,7 +26,6 @@ const desktopClientController = (desktopClientComponent, nonDesktopClientCompone
 export const CategorySelector = (props) => {
     const {
         typeSortData,
-        t,
         locale,
         category,
         types,
@@ -38,6 +38,7 @@ export const CategorySelector = (props) => {
     const [isCategoryOpen, setIsCategoryOpen] = useState(false);
     const [isTypeOpen, setIsTypeOpen] = useState(false);
     const [isCompilationsOpen, setIsCompilationsOpen] = useState(false);
+    const { t } = useTranslation('common')
 
     const router = useRouter();
     const theme = router.query.theme;
@@ -58,7 +59,6 @@ export const CategorySelector = (props) => {
     return (isWindowMobile ?
             <MobileSelector
                 typeSortData={typeSortData}
-                t={t}
                 locale={locale}
                 category={category}
                 types={types}

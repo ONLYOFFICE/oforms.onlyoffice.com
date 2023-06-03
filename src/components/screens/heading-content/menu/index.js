@@ -5,8 +5,9 @@ import LanguageSelector from "@common/language-selector";
 import Nav from "./nav/nav";
 import StyledMenu from "./styled-menu";
 import {MenuIcon} from "@icons";
+import {useTranslation} from "next-i18next";
 
-const Menu = ({ t, currentLanguage, template, isInvert }) => {
+const Menu = ({ currentLanguage, template, isInvert }) => {
   const [windowCheck, setWindowCheck] = useState("undefined");
   useEffect(() => {
     if (typeof window !== windowCheck) {
@@ -15,6 +16,7 @@ const Menu = ({ t, currentLanguage, template, isInvert }) => {
   }, [windowCheck]);
 
   const [stateMobile, setStateMobile] = useState(false);
+  const { t } = useTranslation('common')
 
   const toggleMobile = () => {
     setStateMobile(true);
@@ -73,13 +75,12 @@ const Menu = ({ t, currentLanguage, template, isInvert }) => {
         currentLanguage={currentLanguage}
         className={NavTemplateClassName}
         stateMobilePND={stateMobile}
-        t={t}
       />
       <div className="nav-item-lng">
         <Link className="nav-item-tel" href={`tel:${t("tel37166016425")}`}>
           {t("tel37166016425")}
         </Link>
-        <LanguageSelector t={t} currentLanguage={currentLanguage} />
+        <LanguageSelector />
       </div>
     </StyledMenu>
   );

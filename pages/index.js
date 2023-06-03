@@ -89,7 +89,6 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
                     />
                 </Layout.PageHead>
                 <DesktopClientContent
-                    t={t}
                     currentLanguage={locale}
                     data={forms}
                     sort={sort}
@@ -111,15 +110,14 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
                     />
                 </Layout.PageHead>
                 <Layout.PageAnnounce>
-                    <AdventAnnounce t={t} currentLanguage={locale}/>
+                    <AdventAnnounce currentLanguage={locale}/>
                 </Layout.PageAnnounce>
                 <Layout.PageHeader>
-                    <HeadingContent t={t} currentLanguage={locale}/>
+                    <HeadingContent currentLanguage={locale}/>
                 </Layout.PageHeader>
                 <Layout.SectionMain>
-                    <InfoContent t={t} currentLanguage={locale}/>
+                    <InfoContent currentLanguage={locale}/>
                     <MainContent
-                        t={t}
                         currentLanguage={locale}
                         data={forms}
                         sort={sort}
@@ -129,12 +127,12 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
                         compilations={compilations}
                     />
                     <Suspense>
-                        <Accordion t={t} currentLanguage={locale}/>
+                        <Accordion currentLanguage={locale}/>
                     </Suspense>
                 </Layout.SectionMain>
                 <Layout.PageFooter>
                     <Suspense>
-                        <Footer t={t} language={locale}/>
+                        <Footer language={locale}/>
                     </Suspense>
                 </Layout.PageFooter>
             </Layout>

@@ -3,9 +3,11 @@ import { CloseButton, StyledMailPopup } from "./styled-mail-popup";
 import Text from "@common/text";
 import Button from "@common/button";
 import Form from "./form";
+import {useTranslation} from "next-i18next";
 
-const MailPopup = ({ t, language, active, setActive, submitForm, ...rest }) => {
+const MailPopup = ({ language, active, setActive, submitForm, ...rest }) => {
   const [formComplete, setFormComplete] = useState(false);
+  const { t } = useTranslation('common ')
 
   const ActiveForm = active ? (
     <StyledMailPopup active={active} onClick={() => setActive(false)} {...rest}>
@@ -20,7 +22,7 @@ const MailPopup = ({ t, language, active, setActive, submitForm, ...rest }) => {
           </div>
           <div>
             {!formComplete ? (
-              <Form t={t} setFormComplete={setFormComplete} />
+              <Form setFormComplete={setFormComplete} />
             ) : (
               <div className="success">
                 <div className="captchaDescription">

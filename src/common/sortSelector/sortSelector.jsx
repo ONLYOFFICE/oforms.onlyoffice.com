@@ -2,17 +2,18 @@ import React, {useEffect, useMemo, useState} from "react";
 import Selector, {Dropdown, DropdownItem} from "@components/selector";
 import {useRouter} from "next/router";
 import Link from "next/link";
+import {useTranslation} from "next-i18next";
 
 export const SortSelector = (props) => {
     const {
         typeSortData,
-        t,
         category,
     } = props;
     const [selectorValue, setSelectorValue] = useState()
     const router = useRouter();
     const theme = router.query.theme
     const isDesktopClient = router.query.desktop
+    const { t } = useTranslation('common')
 
     const appTheme = useMemo(() => {
         if (theme && isDesktopClient) return theme

@@ -6,13 +6,15 @@ import StyledNav from "./styled-nav";
 import {useState} from "react";
 import {useRouter} from "next/router";
 import {Loup} from "@icons";
+import {useTranslation} from "next-i18next";
 
-const Nav = ({onClick, t, stateMobilePND, currentLanguage, ...rest}) => {
+const Nav = ({onClick, stateMobilePND, currentLanguage, ...rest}) => {
     const [value, setValue] = useState('');
     const router = useRouter()
     const hrefLang = `https://onlyoffice.com${
         currentLanguage === "en" ? "" : `/${currentLanguage}`
     }`;
+    const { t } = useTranslation('common')
 
     const onSearch = (e) => {
         e.preventDefault()

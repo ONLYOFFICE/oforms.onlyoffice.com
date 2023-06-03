@@ -6,9 +6,9 @@ import {CategorySelector} from "@common/categorySelector";
 
 import StyledMainContent from "./styled";
 import {SortSelector} from "@common/sortSelector";
+import {useTranslation} from "next-i18next";
 
 const MainContent = ({
-  t,
   currentLanguage,
   data,
   page,
@@ -21,7 +21,7 @@ const MainContent = ({
   const countData = data?.meta?.pagination?.total;
   const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
   const [boolTypeSortData, setBoolTypeSortData] = useState(false);
-
+  const { t } = useTranslation('common')
   const onChangeSelectTypeSort = (e) => {
     setTypeSortData(e.target.value);
   };
@@ -49,7 +49,6 @@ const MainContent = ({
               onChangeSelectTypeSort={onChangeSelectTypeSort}
               locale={currentLanguage}
               className="form-control"
-              t={t}
               types={types}
               categories={categories}
               compilations={compilations}
@@ -63,13 +62,11 @@ const MainContent = ({
             <SortSelector
               typeSortData={typeSortData}
               category={urlReqCategory}
-              t={t}
             />
           </div>
         </Box>
         <Box className="box-cards-template" justifyContent="flex-end">
           <Cards
-            t={t}
             data={data?.data}
             typeSortData={boolTypeSortData}
             currentLanguage={currentLanguage}

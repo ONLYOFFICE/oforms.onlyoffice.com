@@ -1,9 +1,10 @@
 import Box from "@common/box";
 import Heading from "@common/heading";
 import StyledCategoryContent from "./styled-category-content";
+import {useTranslation} from "next-i18next";
 
-const CategoryContent = ({ t, labelName, types, categories, compilations, locale }) => {
-
+const CategoryContent = ({ labelName, types, categories, compilations, locale }) => {
+  const { t } = useTranslation('common')
   const localeHREF = categories ? `/${locale}` : locale;
   
   return (

@@ -4,11 +4,13 @@ import Link from "../../card/card/sub-components/link";
 import Text from "../../text";
 import {LoupIconWrapper} from "../../card/card/styled-card";
 import {Loup} from "../../../icons";
+import {useTranslation} from "next-i18next";
 
-const ShortCard = ({ t, callback, arrayItems, currentLanguage, description, ...rest }) => {
+const ShortCard = ({ callback, arrayItems, currentLanguage, description, ...rest }) => {
   const { attributes } = arrayItems;
   const { name_form, card_prewiew, url, description_card, locale } = attributes;
   const imgUrlCard = card_prewiew?.data?.attributes?.url;
+  const { t } = useTranslation('common')
 
   const pathName =
       currentLanguage === "en" && locale === "en"

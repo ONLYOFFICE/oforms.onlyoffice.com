@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import StyledAdventAnnounce from "./styled-advent-announce";
+import {useTranslation} from "next-i18next";
 
-const AdventAnnounce = ({t, currentLanguage}) => {
+const AdventAnnounce = ({currentLanguage}) => {
   const [link, setLink] = useState('');
   const hrefLang = `https://onlyoffice.com/blog/${currentLanguage === "zh" ? "zh-hans" : `${currentLanguage}`
   }`;
+  const { t } = useTranslation('common')
 
   const setBlogLink = () => {
     setLink(`2023/04/meet-onlyoffice-docspace/`)

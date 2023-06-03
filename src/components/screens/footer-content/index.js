@@ -8,12 +8,14 @@ import MailPopup from "./sub-components/mail-popup";
 import ExternalLink from "@common/link";
 import IconButton from "@common/icon-button";
 import Text from "@common/text";
+import {useTranslation} from "next-i18next";
 
 const date = new Date();
 const currentYear = date.getFullYear();
 
-const Footer = ({ t, language }) => {
+const Footer = ({ language }) => {
   const POSITION_ELEMENTS_ITEM = [1, 2, 3, 4];
+  const { t } = useTranslation('common')
 
   const [modalActive, setModalActive] = useState(false);
   const handlerSetModal = (active) => {
@@ -101,7 +103,7 @@ const Footer = ({ t, language }) => {
           <span>{t("All rights reserved")}</span>
         </div>
       </div>
-      <MailPopup t={t} active={modalActive} setActive={setModalActive} />
+      <MailPopup active={modalActive} setActive={setModalActive} />
     </StyledFooter>
   );
 };

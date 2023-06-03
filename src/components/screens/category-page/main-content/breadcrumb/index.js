@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Box from "@common/box";
 import Link from "@common/internal-link";
 import Text from "@common/text";
+import {useTranslation} from "next-i18next";
 
 const StyledBreadcrumb = styled(Box)`
   gap: 10px;
@@ -40,8 +41,9 @@ border-bottom: 1px solid #e5e5e5;
   }
 `;
 
-const Breadcrumb = ({ category, language, t }) => {
+const Breadcrumb = ({ category, language }) => {
   const lnh = language === "en" ? "" : `${language}/`;
+  const { t } = useTranslation('common')
   return (
     <StyledBreadcrumb>
       <Link className="breadcrumb-links" href={`/${lnh}`}>

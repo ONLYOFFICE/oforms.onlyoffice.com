@@ -5,14 +5,16 @@ import { FOOTER_FORM_URL } from "@utils/constants";
 import TextInput from "@common/text-input";
 import Button from "@common/button";
 import Text from "@common/text";
+import {useTranslation} from "next-i18next";
 
-const Form = ({ setFormComplete, t }) => {
+const Form = ({ setFormComplete }) => {
   const [formEmail, setFormEmail] = useState("");
   const [formName, setFormName] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [nameError, setNameError] = useState(false);
   const [validFormEmail, setValidFormEmail] = useState(false);
   const [validFormName, setValidFormName] = useState(false);
+  const { t } = useTranslation('common')
 
   const emailIsValid = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);

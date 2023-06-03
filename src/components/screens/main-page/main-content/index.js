@@ -8,8 +8,10 @@ import Text from "@common/text";
 import Box from "@common/box";
 import StyledMainContent from "./styled-main-content";
 import {SortSelector} from "@common/sortSelector";
+import {useTranslation} from "next-i18next";
 
-const MainContent = ({ t, currentLanguage, data, page, sort, types, categories, compilations }) => {
+const MainContent = ({ currentLanguage, data, page, sort, types, categories, compilations }) => {
+  const { t } = useTranslation('common')
   const countData = data.meta?.pagination?.total;
   const countPage = data.meta?.pagination?.pageCount;
   const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
@@ -84,7 +86,6 @@ const MainContent = ({ t, currentLanguage, data, page, sort, types, categories, 
               onChangeSelectTypeSort={onChangeSelectTypeSort}
               locale={currentLanguage}
               className="form-control"
-              t={t}
               types={types}
               categories={categories}
               compilations={compilations}
@@ -97,13 +98,11 @@ const MainContent = ({ t, currentLanguage, data, page, sort, types, categories, 
             </Text>
             <SortSelector
               typeSortData={typeSortData}
-              t={t}
             />
           </div>
         </Box>
         <Box className="box-cards-template" justifyContent="flex-end">
           <Cards
-            t={t}
             data={data.data}
             typeSortData={boolTypeSortData}
             currentLanguage={currentLanguage}

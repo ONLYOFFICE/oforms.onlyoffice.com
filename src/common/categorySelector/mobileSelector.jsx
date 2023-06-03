@@ -4,6 +4,7 @@ import Text from "../text";
 
 import MenuItem from "@components/screens/heading-content/menu/menu-item";
 import styled from "styled-components";
+import {useTranslation} from "next-i18next";
 
 const StyledSelectorMobile = styled.div`
   display: flex;
@@ -298,7 +299,6 @@ const StyledSelectorMobile = styled.div`
 
 const MobileSelector = ({
                             typeSortData,
-                            t,
                             locale,
                             category,
                             types,
@@ -310,6 +310,7 @@ const MobileSelector = ({
     const [isCategorieOpen, setIsCategorieOpen] = useState(false);
     const [isTypeOpen, setIsTypeOpen] = useState(false);
     const [isCompilationsOpen, setIsCompilationsOpen] = useState(false);
+    const { t } = useTranslation('common')
 
 
     useEffect(() => {
