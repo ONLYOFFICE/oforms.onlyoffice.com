@@ -18,10 +18,10 @@ const MainContent = ({
   categories,
   compilations
 }) => {
+  const { t } = useTranslation('common')
   const countData = data?.meta?.pagination?.total;
   const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
   const [boolTypeSortData, setBoolTypeSortData] = useState(false);
-  const { t } = useTranslation('common')
   const onChangeSelectTypeSort = (e) => {
     setTypeSortData(e.target.value);
   };

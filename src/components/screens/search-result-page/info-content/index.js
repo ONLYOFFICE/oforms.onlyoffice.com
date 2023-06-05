@@ -1,9 +1,10 @@
 import Box from "@common/box";
 import Heading from "@common/heading";
 import StyledInfoContent from "./styled";
+import {useTranslation} from "next-i18next";
 
-const InfoContent = ({ t, query }) => {
- 
+const InfoContent = ({ query }) => {
+ const { t } = useTranslation('common')
   return (
     <StyledInfoContent>
       <Box

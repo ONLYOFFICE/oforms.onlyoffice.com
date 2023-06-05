@@ -2,8 +2,6 @@ import styled, {css} from "styled-components";
 
 export const StyledHeader = styled.header`
   padding-top: 32px;
-  display: flex;
-  align-items: center;
   
   ${({isDesktopClient, theme}) => {
       if(isDesktopClient) {
@@ -17,3 +15,19 @@ export const StyledHeader = styled.header`
       }
   }}
 `;
+
+export const HeaderBox = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+export const HeaderTitle = styled.h2`
+  margin: 0 0 23px 0;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 32px;
+  color: ${({theme}) => theme.colors.palette.textNormal};
+  padding-bottom: 12px;
+  border-bottom: 1px solid ${({theme}) => theme.colors.palette.borderToolbarButtonHover};
+`

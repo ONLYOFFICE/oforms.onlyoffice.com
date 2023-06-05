@@ -20,7 +20,7 @@ export const LanguageSelector = (props) => {
 
     const linkHref = useMemo(() => {
         const result = {
-            pathname: '',
+            pathname: '/',
             query: {}
         }
 

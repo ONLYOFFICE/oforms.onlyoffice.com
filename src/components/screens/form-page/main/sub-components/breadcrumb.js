@@ -4,6 +4,7 @@ import { device } from "../../../../utils/devices";
 import Box from "@common/box";
 import Link from "@common/internal-link";
 import Text from "@common/text";
+import {useTranslation} from "next-i18next";
 
 const StyledBreadcrumb = styled(Box)`
   gap: 10px;
@@ -72,8 +73,9 @@ const StyledBreadcrumb = styled(Box)`
   }
 `;
 
-const Breadcrumb = ({ name, categories, language, t, className, href }) => {
+const Breadcrumb = ({ name, categories, language, className, href }) => {
   const lnh = language === "en" ? "" : `${language}/`;
+  const { t } = useTranslation('common')
   return (
     <StyledBreadcrumb className={className ? className : null}>
       <Link className="breadcrumb-links home" href={`/${lnh}`}>

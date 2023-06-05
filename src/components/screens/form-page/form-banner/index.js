@@ -4,8 +4,10 @@ import Link from "@common/link";
 import Button from "@common/button";
 import Heading from "@common/heading";
 import StyledFormBanner from "./styled-form-banner";
+import {useTranslation} from "next-i18next";
 
-const FormBanner = ({ t, labelName, link }) => {
+const FormBanner = ({ labelName, link }) => {
+  const { t } = useTranslation('common')
   const HeadingBanner = (
     <Heading className="header" fontSize="24px" fontWeight="700" level={3}>
       {t("HowToCreateATemplate", { labelName })}
