@@ -11,7 +11,7 @@ export const SearchAreaStyled = styled.div`
         }
 
         .input-component__input {
-          padding: 6.5px 16px;
+          padding: 8px 16px 6.5px 16px;
           color: ${({theme}) => theme.colors.palette.textNormal};
           font-size: 14px;
           line-height: 160%;
@@ -29,7 +29,7 @@ export const SearchAreaStyled = styled.div`
         }
         
         .focus .input-component__label {
-          transform: translateY(-10px) scale(0.7);
+          transform: translateY(-9px) scale(0.7);
         }
       `
     }

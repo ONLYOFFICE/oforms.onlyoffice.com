@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {createGlobalStyle} from "styled-components";
 import Section from "@common/section";
 
 const StyledDesktopClientContent = styled(Section)`
@@ -453,6 +453,31 @@ const StyledDesktopClientContent = styled(Section)`
     .tempalates-cards-items .cards {
       justify-content: left;
     }
+  }
+`;
+
+export const DesktopGlobalStyles = createGlobalStyle`
+  body::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  body::-webkit-scrollbar-track {
+    background: ${({theme}) => theme.colors.palette.backgroundNormal};
+  }
+
+  body::-webkit-scrollbar-track:hover {
+    background: ${({theme}) => theme.colors.palette.scrollThumbHover};
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: ${({theme}) => theme.colors.palette.scrollThumb};
+    border-radius: 3px;
+  }
+  
+  // for firefox
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: ${({theme}) => theme.colors.palette.scrollThumb} ${({theme}) => theme.colors.palette.scrollThumbHover};
   }
 `;
 

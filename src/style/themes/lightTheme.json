@@ -19,7 +19,9 @@
       "backgroundPrimaryDialogButtonHover": "#1C1C1C",
       "backgroundScrim": "rgba(0, 0, 0, 0.2)",
       "canvasScrollThumb": "#F7F7F7",
-      "canvasScrollThumbHover": "#CBCBCB"
+      "canvasScrollThumbHover": "#CBCBCB",
+      "scrollThumb": "#E0E0E0",
+      "scrollThumbHover": "#F7F7F7"
     },
     "base": {
       "white": "#FFF",

@@ -1,8 +1,8 @@
 import {useState, useEffect} from "react";
 import Cards from "../common/cards";
-import { CategorySelector } from "@common/categorySelector";
+import {CategorySelector} from "@common/categorySelector";
 import Text from "@common/text";
-import StyledDesktopClientContent from "./styled-desktop-client-content";
+import StyledDesktopClientContent, {DesktopGlobalStyles} from "./styled-desktop-client-content";
 import FilePopup from "./file-popup/file-popup";
 import {SortSelector} from "@common/sortSelector";
 import {useRouter} from "next/router";
@@ -23,7 +23,7 @@ const DesktopClientContent = (props) => {
         categoryName,
         queryDesktopClient
     } = props;
-    const { t } = useTranslation('common');
+    const {t} = useTranslation('common');
     const countData = data?.meta?.pagination?.total;
     const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
     const [boolTypeSortData, setBoolTypeSortData] = useState(false);
@@ -51,7 +51,8 @@ const DesktopClientContent = (props) => {
 
     return (
         <StyledDesktopClientContent isDark={(theme === 'theme-dark') || (theme === 'theme-contrast-dark')}>
-           <Header handlerSetModal={handlerSetModal} handlerCardData={handlerCardData} />
+            <DesktopGlobalStyles/>
+            <Header handlerSetModal={handlerSetModal} handlerCardData={handlerCardData}/>
             <div className="box-doc-info-template">
                 <div className="box-doc-categories">
                     <CategorySelector

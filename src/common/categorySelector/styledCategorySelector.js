@@ -139,4 +139,14 @@ export const CategorySelectorDropdownSubmenuLink = styled.a`
       }
     }}
   }
+
+  ${(p) => {
+    const { theme, isActive } = p;
+    if(isActive) {
+      return {
+        backgroundColor: theme.colors.palette.highlightButtonHover,
+        color: theme.colors.palette.textNormal,
+      }
+    }
+  }}
 `;

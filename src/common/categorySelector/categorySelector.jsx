@@ -10,7 +10,7 @@ import {
     CategorySelectorDropdownSubmenu,
     CategorySelectorDropdownSubmenuLink
 } from "./styledCategorySelector";
-import {ChevronRight} from "../../icons";
+import {ChevronRight} from "@icons";
 import Link from "next/link";
 import {CategorySelectorHeader} from "./categorySelectorHeader";
 import {useTranslation} from "next-i18next";
@@ -35,19 +35,24 @@ export const CategorySelector = (props) => {
         categoryName,
         queryDesktopClient
     } = props;
+    const { t } = useTranslation('common')
     const [isCategoryOpen, setIsCategoryOpen] = useState(false);
     const [isTypeOpen, setIsTypeOpen] = useState(false);
     const [isCompilationsOpen, setIsCompilationsOpen] = useState(false);
-    const { t } = useTranslation('common')
-
     const router = useRouter();
+    const [isWindowMobile, setIsWindowMobile] = useState(false);
+    const [isOpen, setIsOpen] = useState(false)
     const theme = router.query.theme;
+
     const appTheme = useMemo(() => {
         if (theme && isDesktopClient) return theme
     }, [theme, isDesktopClient])
-    const localeHREF = category ? `/${locale}` : locale;
-    const [isWindowMobile, setIsWindowMobile] = useState(false);
-    const [isOpen, setIsOpen] = useState(false)
+
+    const checkedCategory = useMemo(() => {
+        if(isDesktopClient && router.query.hasOwnProperty('type') || router.query.hasOwnProperty('category') || router.query.hasOwnProperty('compilation')) {
+            return router.query.type ?? router.query.category ?? router.query.compilation
+        }
+    }, [router, isDesktopClient])
 
     const onClear = () => {
         router.push(`/?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`)
@@ -126,7 +131,6 @@ export const CategorySelector = (props) => {
                         >
                             {categories.data?.map((categorie) => desktopClientController(
                                 <Link
-                                    // href={`${locale === "en" ? "" : `/${localeHREF}`}/form/${categorie.attributes.urlReq}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
                                     href={`/form/${categorie.attributes.urlReq}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
                                     passHref
                                 >
@@ -134,6 +138,7 @@ export const CategorySelector = (props) => {
                                         key={categorie.id}
                                         className="category-selector__submenu-link"
                                         isDesktopClient
+                                        isActive={checkedCategory === categorie.attributes.urlReq}
                                     >
                                         {categorie.attributes.categorie}
                                     </CategorySelectorDropdownSubmenuLink>
@@ -179,6 +184,7 @@ export const CategorySelector = (props) => {
                                             key={type.id}
                                             className="category-selector__submenu-link"
                                             isDesktopClient
+                                            isActive={checkedCategory === type.attributes.urlReq}
                                         >
                                             {type.attributes.type}
                                         </CategorySelectorDropdownSubmenuLink>
@@ -225,6 +231,7 @@ export const CategorySelector = (props) => {
                                             key={compilation.id}
                                             className="category-selector__submenu-link"
                                             isDesktopClient
+                                            isActive={checkedCategory === compilation.attributes.urlReq}
                                         >
                                             {compilation.attributes.compilation}
                                         </CategorySelectorDropdownSubmenuLink>
