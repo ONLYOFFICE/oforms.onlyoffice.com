@@ -91,6 +91,11 @@
     "ONLYOFFICE Docs released" : "Sortie de ONLYOFFICE Docs v7.3",
     "ONLYOFFICE Docs v7.3 released" : "ONLYOFFICE Docs v7.3 est mis à jour",
     "enhanced forms SmartArt new security settings Watch Window and more" : " : formulaires améliorés, SmartArt, nouveaux paramètres de sécurité, fenêtre de surveillance, etc.",
+    "Search-result-for": "Résultats de la recherche pour",
+    "Nothing-found": "Aucun résultat n'a été trouvé",
+    "No-results-matching-your-query-could-be-found": "Aucun résultat correspondant à votre requête n'a pu être trouvé \n",
+    "Clear-filter": "Effacer le filtre",
+    "Templates": "Modèles",
 
     "***********************MENU*************************": "***********************MENU*************************",
     "FormSearch": "Rechercher des formulaires",

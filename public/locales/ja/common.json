@@ -92,6 +92,11 @@
   "ONLYOFFICE Docs released" : "ONLYOFFICE Docs v7.3リリース",
   "ONLYOFFICE Docs v7.3 released" : "ONLYOFFICE Docs v7.3がリリース",
   "enhanced forms SmartArt new security settings Watch Window and more" : "：フォームの強化、SmartArt、新しいセキュリティ設定、ウォッチウィンドウなど",
+  "Search-result-for": "の検索結果",
+  "Nothing-found": "何も見つかりませんでした",
+  "No-results-matching-your-query-could-be-found": "検索条件に一致する結果は見つかりませんでした。",
+  "Clear-filter": "フィルタを解除する",
+  "Templates": "テンプレート",
 
   "***********************MENU*************************": "***********************MENU*************************",
   "FormSearch": "フォーム検索",

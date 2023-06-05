@@ -72,7 +72,7 @@ export const CategorySelector = (props) => {
             /> :
             <Selector
                 label={isDesktopClient ? `${t("Categories")}:` : t("Categories")}
-                value={isDesktopClient && router.pathname === "/searchresult" ? `${t("Search results for")} '${queryDesktopClient}'` : categoryName}
+                value={isDesktopClient && router.pathname === "/searchresult" ? `${t("Search-result-for")} '${queryDesktopClient}'` : categoryName}
                 isOpen={isOpen}
                 onVisibilityChange={(state) => setIsOpen(state)}
                 headerRender={(label, value) => (
