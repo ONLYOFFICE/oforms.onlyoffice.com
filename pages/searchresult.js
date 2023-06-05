@@ -27,7 +27,6 @@ const Footer = lazy(() => import("@components/screens/footer-content"), {
 const SearchResult = ({
   locale,
   sort,
-  sortDesktop,
   page,
   types, 
   categories, 
@@ -37,15 +36,15 @@ const SearchResult = ({
 
   const [searchResults, setSearchResults] = useState([]);
   const router = useRouter();
-  const query = router.query?.query?.replace("?_sort=asc", "").replace("?_sort=desc", "");
-  const queryDesktopClient = router.query?.desktop?.replace("true?query=", "").replace("?_sort=asc", "").replace("?_sort=desc", "");
+  const query = router.query.query
+  const queryDesktopClient = router.query.query
 
   const isDesktop = router.query.desktop?.substr(0, 4);
   const [isDesktopClient, setIsDesktopClient] = useState(isDesktop);
 
   const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
   const searchReqData = () => {
-    const searchURL = `${CMSConfigAPI}/api/oforms/?sort=name_form:${isDesktopClient ? sortDesktop : sort}&populate[0]=categories&locale=${locale}&filters[name_form][$containsi]=${isDesktopClient ? queryDesktopClient : query}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`;
+    const searchURL = `${CMSConfigAPI}/api/oforms/?sort=name_form:${sort}&populate[0]=categories&locale=${locale}&filters[name_form][$containsi]=${isDesktopClient ? queryDesktopClient : query}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`;
     axios
       .get(searchURL)
       .then((response) => {
@@ -60,7 +59,8 @@ const SearchResult = ({
     } else {
       setSearchResults(null);
     }
-  }, [isDesktopClient ? queryDesktopClient : query]);
+  }, [router]);
+
 
   return isDesktopClient ?
     <Layout>
@@ -75,10 +75,9 @@ const SearchResult = ({
         />
       </Layout.PageHead>
       <DesktopClientContent
-        t={t}
         currentLanguage={locale}
         data={searchResults}
-        sort={sortDesktop}
+        sort={sort}
         page={+page}
         types={types}
         categories={categories}
@@ -99,15 +98,14 @@ const SearchResult = ({
         />
       </Layout.PageHead>
       <Layout.PageAnnounce>
-        <AdventAnnounce t={t} currentLanguage={locale} />
+        <AdventAnnounce currentLanguage={locale} />
       </Layout.PageAnnounce>
       <Layout.PageHeader>
-        <HeadingContent t={t} currentLanguage={locale} />
+        <HeadingContent currentLanguage={locale} />
       </Layout.PageHeader>
       <Layout.SectionMain>
-        <InfoContent t={t} query={query} />
+        <InfoContent query={query} />
         <MainContent
-          t={t}
           currentLanguage={locale}
           sort={sort}
           data={searchResults}
@@ -117,12 +115,12 @@ const SearchResult = ({
           compilations={compilations}
         />
         <Suspense>
-          <Accordion t={t} currentLanguage={locale} />
+          <Accordion currentLanguage={locale} />
         </Suspense>
       </Layout.SectionMain>
       <Layout.PageFooter>
         <Suspense>
-          <Footer t={t} language={locale} />
+          <Footer language={locale} />
         </Suspense>
       </Layout.PageFooter>
     </Layout>
@@ -131,8 +129,7 @@ const SearchResult = ({
 export const getServerSideProps = async ({ locale, query }) => {
   const isDesktop = query.desktop === "true";
   const page = query.page || 1;
-  const sort = query.query?.includes("?_sort=asc") && "asc" || query.query?.includes("?_sort=desc") && "desc" || "asc";
-  const sortDesktop = query.desktop?.includes("?_sort=asc") && "asc" || query.desktop?.includes("?_sort=desc") && "desc" || "asc";
+  const sort = query._sort || 'asc'
   const pageSize = query.pageSize || isDesktop ? 0 : 9;
   const forms = await getAllForms(locale, page, sort, pageSize);
   const types = await getAllTypes(locale);
@@ -146,7 +143,6 @@ export const getServerSideProps = async ({ locale, query }) => {
       page,
       locale,
       sort,
-      sortDesktop,
       types,
       categories,
       compilations

@@ -19,7 +19,7 @@ const ErrorPage = () => {
         />
       </Layout.PageHead>
       <Layout.SectionMain>
-        <Error404 t={t} />
+        <Error404/>
       </Layout.SectionMain>
     </Layout>
   );

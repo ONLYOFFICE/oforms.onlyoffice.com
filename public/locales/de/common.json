@@ -86,7 +86,6 @@
   "Meet ONLYOFFICE Docs SaaS": "Begrüßen Sie ONLYOFFICE Docs Cloud",
   "ONLYOFFICE Docs SaaS" : " ONLYOFFICE Docs Cloud",
   "Categories": "Kategorien",
-  "Categoriess": "Kategorien:",
   "Form description": "Beschreibung des Formulars",
   "Popular Compilations": "Populäre Sammlungen",
   "View all templates": "Alle Vorlagen ansehen",
@@ -95,7 +94,7 @@
   "Explore other categories": "Andere Kategorien entdecken",
 
   "***********************MENU*************************": "***********************MENÜ*************************",
-  "SearchForms": "Formulare finden",
+  "SearchForm": "Formulare finden",
   "Products & Features": "Produkte und Funktionen",
   "ONLYOFFICE Docs": "ONLYOFFICE Docs",
   "Document Editor": "Dokumenteneditor",
@@ -207,6 +206,11 @@
   "ONLYOFFICE Docs released" : "ONLYOFFICE Docs v7.3 veröffentlicht",
   "ONLYOFFICE Docs v7.3 released" : "ONLYOFFICE Docs v7.3 veröffentlicht",
   "enhanced forms SmartArt new security settings Watch Window and more" : ": verbesserte Formulare, SmartArt, neue Sicherheitseinstellungen, Überwachungsfenster und mehr",
+  "Search-result-for": "Suchergebnisse für",
+  "Nothing-found": "Nichts gefunden",
+  "No-results-matching-your-query-could-be-found": "Es konnten keine Ergebnisse gefunden werden, die Ihrer Anfrage entsprechen \n",
+  "Clear-filter": "Filter löschen",
+  "Templates": "Vorlagen",
 
   "PRODUCTS": "PRODUKTE",
   "Docs": "Docs",

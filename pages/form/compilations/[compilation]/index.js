@@ -1,7 +1,6 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, lazy, Suspense } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useRouter } from "next/router";
 import getAllTypes from "@lib/strapi/getTypes";
 import getAllCategories from "@lib/strapi/getCategories";
 import getAllCompilations from "@lib/strapi/getCompilations";
@@ -15,6 +14,7 @@ import DesktopClientContent from "@components/screens/desktop-client-content";
 import AdventAnnounce from "@components/screens/heading-content/advent-announce";
 
 import config from "@config/config.json";
+import {useRouter} from "next/router";
 
 const Accordion = lazy(() => import("@components/screens/common/accordion"), {
   loading: () => <div />,
@@ -26,7 +26,6 @@ const Footer = lazy(() => import("@components/screens/footer-content"), {
 const Category = ({
   categoryForms,
   categoryInfo,
-  urlReq,
   locale,
   sort,
   page,
@@ -41,11 +40,9 @@ const Category = ({
   const urlReqCategory = dataCategoryInfo.urlReq;
   const header = dataCategoryInfo.header_description; 
   const categoryName = categoryInfo.data[0].attributes.compilation;
-  
+  const router = useRouter()
   const [isCategoryPage, setIsCategoryPage] = useState(true);
-  const query = useRouter();
-  const isDesktop = query.query.desktop === "true";
-  const [isDesktopClient, setIsDesktopClient] = useState(isDesktop);
+  const isDesktopClient = router.query.desktop
 
   return isDesktopClient ?
     <Layout>
@@ -60,18 +57,15 @@ const Category = ({
         />
       </Layout.PageHead>
       <DesktopClientContent
-        t={t}
         currentLanguage={locale}
         data={categoryForms}
         sort={sort}
         page={+page}
         isCategoryPage={isCategoryPage}
         header={header}
-        urlReqCategory={urlReqCategory}
         types={types}
         categories={categories}
         compilations={compilations}
-        isDesktopClient={isDesktopClient}
         categoryName={categoryName}
       />
     </Layout>
@@ -86,15 +80,14 @@ const Category = ({
         />
       </Layout.PageHead>
       <Layout.PageAnnounce>
-        <AdventAnnounce t={t} currentLanguage={locale} />
+        <AdventAnnounce currentLanguage={locale} />
       </Layout.PageAnnounce>
       <Layout.PageHeader>
-        <HeadingContent t={t} currentLanguage={locale} />
+        <HeadingContent currentLanguage={locale} />
       </Layout.PageHeader>
       <Layout.SectionMain>
-        <InfoContent t={t} category={nameCategory} header={header}/>
+        <InfoContent category={nameCategory} header={header}/>
         <MainContent
-          t={t}
           currentLanguage={locale}
           data={categoryForms}
           sort={sort}
@@ -106,23 +99,23 @@ const Category = ({
           compilations={compilations}
         />
         <Suspense>
-          <Accordion t={t} currentLanguage={locale} />
+          <Accordion currentLanguage={locale} />
         </Suspense>
       </Layout.SectionMain>
       <Layout.PageFooter>
         <Suspense>
-          <Footer t={t} language={locale} />
+          <Footer language={locale} />
         </Suspense>
       </Layout.PageFooter>
     </Layout>
 };
 
 export const getServerSideProps = async ({ locale, query, ...ctx }) => {
-  const isDesktop = query.desktop === "true";
+  const isDesktopClient = query.desktop === "true";
   const page = query.page || 1;
-  const sort = query._sort || "ASC";
+  const sort = query._sort || "asc";
   const urlReq = query.compilation;
-  const pageSize = query.pageSize || isDesktop ? 0 : 9;
+  const pageSize = query.pageSize || isDesktopClient ? 0 : 9;
   const cms = config.api.cms
   const res = await fetch(
     `${cms}/api/oforms/?filters[compilations][urlReq][$eq]=${urlReq}&locale=${locale}&sort=name_form:${sort}&${pageSize ? `&pagination[pageSize]=${pageSize}` : ''}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
@@ -137,7 +130,6 @@ export const getServerSideProps = async ({ locale, query, ...ctx }) => {
   const compilations = await getAllCompilations(locale);
 
   if (categoryForms.data.length === 0) {
-    console.log(categoryForms.data.length);
     return {
       redirect: {
         destination: `https://oforms.teamlab.info/404`,
@@ -151,7 +143,6 @@ export const getServerSideProps = async ({ locale, query, ...ctx }) => {
       notFound: true,
       categoryForms,
       categoryInfo,
-      urlReq,
       locale,
       sort,
       page,
