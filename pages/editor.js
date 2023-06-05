@@ -8,7 +8,7 @@ import Helmet from "react-helmet"
 import CONFIG from "@config/config";
 import Layout from "@components/layout";
 import HeadSEO from "@components/screens/head-content";
-import Portal from "@components/common/portal";
+import Portal from "@common/portal";
 import StyledPlaceholder from "@components/screens/editor-page";
 
 const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";

@@ -1,0 +1,46 @@
+{
+  "mode": "light",
+  "colors": {
+    "palette": {
+      "textNormal": "rgba(0, 0, 0, 0.8)",
+      "textSecondary": "rgba(0, 0, 0, 0.6)",
+      "textInverse": "#FFFFFF",
+      "iconNormal": "rgba(0, 0, 0, 0.8)",
+      "borderRegularDivider": "#DFDFDF",
+      "borderPreviewSelect": "#888888",
+      "borderPreviewHover": "#BABABA",
+      "borderToolbarButtonHover": "#E0E0E0",
+      "borderToolbar": "#CBCBCB",
+      "highlightButtonPressedHover": "#BABABA",
+      "highlightButtonHover": "#E0E0E0",
+      "backgroundNormal": "#FFFFFF",
+      "backgroundToolbar": "#F7F7F7",
+      "backgroundPrimaryDialogButton": "#444444",
+      "backgroundPrimaryDialogButtonHover": "#1C1C1C",
+      "backgroundScrim": "rgba(0, 0, 0, 0.2)",
+      "canvasScrollThumb": "#F7F7F7",
+      "canvasScrollThumbHover": "#CBCBCB",
+      "scrollThumb": "#E0E0E0",
+      "scrollThumbHover": "#F7F7F7"
+    },
+    "base": {
+      "white": "#FFF",
+      "black": "#000"
+    },
+    "other": {
+      "gray100": "#AAAAAA",
+      "gray200": "#F9F9F9",
+      "gray300": "#666666",
+      "gray400": "#808080",
+      "white100": "#F5F5F5"
+    },
+    "primary": "#FF6F3D"
+  },
+  "dropShadows": {
+    "shadowMenu": "drop-shadow(0px 2px 5px rgba(0, 0, 0, 0.2))"
+  },
+  "boxShadows": {
+    "shadowWindow": "0px 4px 10px rgba(0, 0, 0, 0.2)",
+    "shadowMenu": "0px 2px 5px rgba(0, 0, 0, 0.2)"
+  }
+}

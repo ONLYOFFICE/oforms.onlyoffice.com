@@ -81,6 +81,11 @@
   "ONLYOFFICE Docs released" : "ONLYOFFICE 文档 v7.3 现已发布",
   "ONLYOFFICE Docs v7.3 released" : "ONLYOFFICE 文档 v7.3 现已发布",
   "enhanced forms SmartArt new security settings Watch Window and more" : "：增强的表单、SmartArt、全新安全性设置、查看窗口等功能",
+  "Search-result-for": "搜索结果",
+  "Nothing-found": "未找到任何内容",
+  "No-results-matching-your-query-could-be-found": "没有找到匹配查询的结果",
+  "Clear-filter": "清除过滤器",
+  "Templates": "模板",
 
   "***********************MENU*************************": "***********************MENU*************************",
   "FormSearch": "搜索表单",
