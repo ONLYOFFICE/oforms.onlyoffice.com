@@ -50,7 +50,9 @@ const DesktopClientContent = (props) => {
     }, [sort]);
 
     return (
-        <StyledDesktopClientContent isDark={(theme === 'theme-dark') || (theme === 'theme-contrast-dark')}>
+        <StyledDesktopClientContent
+            isDark={(theme === 'theme-dark') || (theme === 'theme-contrast-dark')}
+        >
             <DesktopGlobalStyles/>
             <Header handlerSetModal={handlerSetModal} handlerCardData={handlerCardData}/>
             <div className="box-doc-info-template">
@@ -80,7 +82,6 @@ const DesktopClientContent = (props) => {
                     />
                 </div>
             </div>
-
             <Cards
                 data={data?.data}
                 typeSortData={boolTypeSortData}

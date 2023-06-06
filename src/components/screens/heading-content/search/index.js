@@ -35,15 +35,6 @@ const SearchContent = ({ handlerSetModal, handlerCardData }) => {
   };
 
   const onEnterPress = (e) => {
-    // if (searchValue.length > 2) {
-    //   if (isDesktopClient) {
-    //     e.code === 'Enter' && !(searchResultPathname) && Router.push(`/searchresult/?desktop=true&query=${searchValue}${appTheme !== undefined ? `&theme=${appTheme}` : ''}`)
-    //     e.code === 'Enter' && searchResultPathname && Router.push(`?desktop=true&query=${searchValue}${appTheme !== undefined ? `&theme=${appTheme}` : ''}`, null, { shallow: true })
-    //   } else {
-    //     e.code === 'Enter' && !(searchResultPathname) && Router.push(`/searchresult/?query=${searchValue}`)
-    //     e.code === 'Enter' && searchResultPathname && Router.push(`?query=${searchValue}`, null, { shallow: true })
-    //   }
-    // }
     if (searchValue.length > 2) {
       if (isDesktopClient) {
         !(searchResultPathname) && Router.push(`/searchresult/?desktop=true&query=${searchValue}${appTheme !== undefined ? `&theme=${appTheme}` : ''}`)

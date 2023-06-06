@@ -1,7 +1,7 @@
 import styled, {css} from "styled-components";
 
 export const StyledHeader = styled.header`
-  padding-top: 32px;
+  padding-top: 41px;
   
   ${({isDesktopClient, theme}) => {
       if(isDesktopClient) {

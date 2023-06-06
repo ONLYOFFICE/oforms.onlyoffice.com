@@ -3,10 +3,12 @@ import Section from "@common/section";
 
 const StyledDesktopClientContent = styled(Section)`
   background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
+  padding: 0;
   .section-page {
     box-sizing: border-box;
     max-width: 100vw;
-    padding: 0 44px;
+    width: 100%;
+    padding: 0 37px;
   }
   .box-heading {
     position: relative;
@@ -115,7 +117,7 @@ const StyledDesktopClientContent = styled(Section)`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 24px 0 16px;
+    padding: 24px 0 21px;
   }
 
   .box-doc-info {
