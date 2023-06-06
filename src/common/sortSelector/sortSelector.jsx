@@ -20,7 +20,7 @@ export const SortSelector = (props) => {
     const sort = router.query._sort || 'ASC'
 
     const onSort = () => {
-        router.push(getLinkForSort(sort === 'ASC' ? 'DESC' : 'ASC'))
+        router.push(getLinkForSort(sort === 'ASC' ? 'desc' : 'ASC'))
     }
 
     const appTheme = useMemo(() => {
@@ -100,7 +100,7 @@ export const SortSelector = (props) => {
                         </DropdownItem>
                     </Link>
                     <Link
-                        href={getLinkForSort('DESC')}
+                        href={getLinkForSort('desc')}
                         passHref
                     >
                         <DropdownItem
