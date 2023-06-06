@@ -78,7 +78,6 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
         var scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
 
         if (scrolledToBottom) {
-            console.log("At bottom");
             getMoreForms();
         }
     }
