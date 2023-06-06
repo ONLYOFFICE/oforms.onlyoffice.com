@@ -28,46 +28,45 @@ const Footer = lazy(() => import("@components/screens/footer-content"), {
 const Index = ({forms, page, locale, sort, types, categories, compilations}) => {
     const {t} = useTranslation("common");
     const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
-
     const query = useRouter();
-    const isDesktopClient = query.query.desktop === "true";
-    const [data, setData] = useState(forms)
+    const isDesktop = query.query.desktop === "true";
+    const [isDesktopClient, setIsDesktopClient] = useState(isDesktop);
+    const [newForms, setNewForms] = useState(forms);
+
+    let nonStateObjectData = Object.assign({}, forms);
     let isLoading = false;
 
     useEffect(() => {
-        if (window.innerHeight >= window.document.querySelector('.section-page').clientHeight) {
+        if (document.body.offsetHeight <= window.innerHeight) {
             getMoreForms();
         }
 
-
-        setData(forms)
         window.addEventListener('scroll', handleOnScroll);
         return () => window.removeEventListener('scroll', handleOnScroll);
     }, []);
 
-    const getMoreForms = async () => {
-        if(isDesktopClient) {
-            try {
-                if (isLoading) return;
-                const nextPage = data?.meta.pagination.page + 1 || 1;
-                if (nextPage > data?.meta.pagination.pageCount) return;
-                isLoading = true;
-                const res = await fetch(
-                        `${CMSConfigAPI}/api/oforms/?sort=name_form:${sort}&pagination[pageSize]=32&pagination[page]=${nextPage}&populate=template_image&populate=file_oform&populate=card_prewiew&populate=categories&locale=${locale}`
-                    )
-                ;
-                const newFormsRequest = await res.json();
+    useEffect(() => {
+        setNewForms(forms)
+    }, [sort])
 
-                const newData = [...nonStateObjectData.data, ...newFormsRequest.data]
-                const newObjectData = {
-                    data: newData,
-                    meta: newFormsRequest.meta
-                }
-                setData(newObjectData)
-            } finally {
-                isLoading = false;
-            }
+    const getMoreForms = async () => {
+        if (isLoading) return;
+        const nextPage = nonStateObjectData?.meta.pagination.page + 1 || 1;
+        if(nextPage > nonStateObjectData?.meta.pagination.pageCount) return;
+        isLoading = true;
+        const res = await fetch(
+            `${CMSConfigAPI}/api/oforms/?sort=name_form:${sort}&pagination[pageSize]=32&pagination[page]=${nextPage}&populate=template_image&populate=file_oform&populate=card_prewiew&populate=categories&locale=${locale}`
+        );
+        const newFormsRequest = await res.json();
+
+        const newData = [...nonStateObjectData.data, ...newFormsRequest.data ]
+        const newObjectData = {
+            data: newData,
+            meta: newFormsRequest.meta
         }
+        setNewForms(newObjectData);
+        nonStateObjectData = Object.assign({}, newObjectData)
+        isLoading = false;
     };
 
     const handleOnScroll = () => {
@@ -97,7 +96,7 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
                 </Layout.PageHead>
                 <DesktopClientContent
                     currentLanguage={locale}
-                    data={data}
+                    data={newForms}
                     sort={sort}
                     page={+page}
                     types={types}
