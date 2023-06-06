@@ -23,7 +23,7 @@ const Pagination = ({
       {getPaginationGroup.map((item, index) => (
         <a
           href={`${locale === "en" ? "" : `${locale}/${category}`}?page=${item}${
-            sort !== undefined && sort !== "asc" ? `&_sort=${sort}` : ""
+            sort !== undefined && sort !== "ASC" ? `&_sort=${sort}` : ""
           }`}
           key={index + item}
         >

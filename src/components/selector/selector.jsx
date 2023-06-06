@@ -54,7 +54,6 @@ const Selector = (props) => {
                             <HeaderIcon
                                 className="selector__icon"
                                 size={18}
-                                isOpen={isControlled ? isOpen : open}
                             />
                         </Header>
                 }
