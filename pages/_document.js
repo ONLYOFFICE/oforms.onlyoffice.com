@@ -39,7 +39,6 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap"
           />
-          {/* <style data-href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" /> */}
         </Head>
         <body>
           <Main />

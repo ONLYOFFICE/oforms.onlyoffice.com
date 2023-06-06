@@ -20,12 +20,12 @@ const Pagination = ({
         href={page === 1 ? null :
           !category
             ? `${locale === "en" ? "" : `${locale}/`}?page=${page - 1}${
-                sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
+                sort !== undefined && sort !== "ASC" ? `&_sort=${sort}#forms` : ""
               }`
             : `${
                 locale === "en" ? "" : `/${locale}`
               }/form/${category}?page=${page - 1}${
-                sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
+                sort !== undefined && sort !== "ASC" ? `&_sort=${sort}#forms` : ""
               }`
         }
       >
@@ -45,12 +45,12 @@ const Pagination = ({
         href={page === countPage ? null :
           !category
             ? `${locale === "en" ? "" : `${locale}/`}?page=${page + 1}${
-                sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
+                sort !== undefined && sort !== "ASC" ? `&_sort=${sort}#forms` : ""
               }`
             : `${
                 locale === "en" ? "" : `/${locale}`
               }/form/${category}?page=${page + 1}${
-                sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
+                sort !== undefined && sort !== "ASC" ? `&_sort=${sort}#forms` : ""
               }`
         }
       >
@@ -73,12 +73,12 @@ const Pagination = ({
             (
             !category
               ? `${locale === "en" ? "" : `${locale}/`}?page=${item}${
-                  sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
+                  sort !== undefined && sort !== "ASC" ? `&_sort=${sort}#forms` : ""
                 }`
               : `${
                   locale === "en" ? "" : `/${locale}`
                 }/form/${category}?page=${item}${
-                  sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
+                  sort !== undefined && sort !== "ASC" ? `&_sort=${sort}#forms` : ""
                 }`
             ) : null
           }

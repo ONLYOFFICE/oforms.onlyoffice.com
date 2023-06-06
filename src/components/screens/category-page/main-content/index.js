@@ -69,7 +69,7 @@ const MainContent = ({
   };
 
   useEffect(() => {
-    if (sort === "desc") {
+    if (sort === "DESC") {
       setTypeSortData(t("NameZ-A"));
     } else {
       setTypeSortData(t("NameA-Z"));

@@ -58,7 +58,7 @@ const MainContent = ({ currentLanguage, data, page, sort, types, categories, com
   });
 
   useEffect(() => {
-    if (sort === "desc") {
+    if (sort === "DESC") {
       setTypeSortData(t("NameZ-A"));
     } else {
       setTypeSortData(t("NameA-Z"));

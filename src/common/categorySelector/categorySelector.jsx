@@ -132,6 +132,7 @@ export const CategorySelector = (props) => {
                             {categories.data?.map((categorie) => desktopClientController(
                                 <Link
                                     href={`/form/${categorie.attributes.urlReq}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
+                                    key={categorie.id}
                                     passHref
                                 >
                                     <CategorySelectorDropdownSubmenuLink
@@ -145,6 +146,7 @@ export const CategorySelector = (props) => {
                                 </Link>,
                                 <Link
                                     href={`/form/${categorie.attributes.urlReq}`}
+                                    key={categorie.id}
                                     passHref
                                 >
                                     <CategorySelectorDropdownSubmenuLink
@@ -178,6 +180,7 @@ export const CategorySelector = (props) => {
                             {types.data?.map((type) => desktopClientController(
                                     <Link
                                         href={`/form/types/${type.attributes.urlReq}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
+                                        key={type.id}
                                         passHref
                                     >
                                         <CategorySelectorDropdownSubmenuLink
@@ -191,6 +194,7 @@ export const CategorySelector = (props) => {
                                     </Link>,
                                     <Link
                                         href={`/form/types/${type.attributes.urlReq}`}
+                                        key={type.id}
                                         passHref
                                     >
                                         <CategorySelectorDropdownSubmenuLink
@@ -225,6 +229,7 @@ export const CategorySelector = (props) => {
                             {compilations.data?.map((compilation) => desktopClientController(
                                     <Link
                                         href={`/form/compilations/${compilation.attributes.urlReq}?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`}
+                                        key={compilation.id}
                                         passHref
                                     >
                                         <CategorySelectorDropdownSubmenuLink
@@ -238,6 +243,7 @@ export const CategorySelector = (props) => {
                                     </Link>,
                                     <Link
                                         href={`/form/compilations/${compilation.attributes.urlReq}`}
+                                        key={compilation.id}
                                         passHref
                                     >
                                         <CategorySelectorDropdownSubmenuLink
