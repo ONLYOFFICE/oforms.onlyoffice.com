@@ -113,7 +113,7 @@ const Category = ({
 export const getServerSideProps = async ({ locale, query, ...ctx }) => {
   const isDesktopClient = query.desktop === "true";
   const page = query.page || 1;
-  const sort = query._sort || "ASC";
+  const sort = query._sort || "asc";
   const urlReq = query.compilation;
   const pageSize = query.pageSize || isDesktopClient ? 0 : 9;
   const cms = config.api.cms

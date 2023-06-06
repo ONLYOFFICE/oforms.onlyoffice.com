@@ -17,10 +17,10 @@ export const SortSelector = (props) => {
     const theme = router.query.theme
     const isDesktopClient = router.query.desktop
     const {t} = useTranslation('common')
-    const sort = router.query._sort || 'ASC'
+    const sort = router.query._sort || 'asc'
 
     const onSort = () => {
-        router.push(getLinkForSort(sort === 'ASC' ? 'desc' : 'ASC'))
+        router.push(getLinkForSort(sort === 'asc' ? 'desc' : 'asc'))
     }
 
     const appTheme = useMemo(() => {
@@ -52,6 +52,8 @@ export const SortSelector = (props) => {
 
         if (isDesktopClient) {
             result.query.desktop = true
+        } else {
+
         }
 
         if (appTheme) {
@@ -73,7 +75,7 @@ export const SortSelector = (props) => {
                 <SelectorDefaultLabel>{t("SortBy")}</SelectorDefaultLabel>
                 <SortSelectorIcon onClick={onSort}>
                     {
-                        sort === 'ASC' ? <SortAsc size={24}/> : <SortDesc size={24}/>
+                        sort === 'asc' ? <SortAsc size={24}/> : <SortDesc size={24}/>
                     }
                 </SortSelectorIcon>
             </SortSelectorHeader>
@@ -90,7 +92,8 @@ export const SortSelector = (props) => {
                     as="div"
                 >
                     <Link
-                        href={getLinkForSort('ASC')}
+                        href={getLinkForSort('asc')}
+                        scroll={false}
                         passHref
                     >
                         <DropdownItem
@@ -101,6 +104,7 @@ export const SortSelector = (props) => {
                     </Link>
                     <Link
                         href={getLinkForSort('desc')}
+                        scroll={false}
                         passHref
                     >
                         <DropdownItem
