@@ -1,4 +1,4 @@
-import {useEffect } from "react";
+import {useEffect, useState} from "react";
 import {lazy, Suspense} from "react";
 import {useTranslation} from "next-i18next";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
@@ -31,36 +31,43 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
 
     const query = useRouter();
     const isDesktopClient = query.query.desktop === "true";
-
-    let nonStateObjectData = Object.assign({}, forms);
+    const [data, setData] = useState(forms)
     let isLoading = false;
 
     useEffect(() => {
-        if (document.body.offsetHeight <= window.innerHeight) {
+        if (window.innerHeight >= window.document.querySelector('.section-page').clientHeight) {
             getMoreForms();
         }
 
+
+        setData(forms)
         window.addEventListener('scroll', handleOnScroll);
         return () => window.removeEventListener('scroll', handleOnScroll);
     }, []);
 
     const getMoreForms = async () => {
-        if (isLoading) return;
-        const nextPage = nonStateObjectData?.meta.pagination.page + 1 || 1;
-        if (nextPage > nonStateObjectData?.meta.pagination.pageCount) return;
-        isLoading = true;
-        const res = await fetch(
-            `${CMSConfigAPI}/api/oforms/?sort=name_form:${sort}&pagination[pageSize]=32&pagination[page]=${nextPage}&populate=template_image&populate=file_oform&populate=card_prewiew&populate=categories&locale=${locale}`
-        );
-        const newFormsRequest = await res.json();
+        if(isDesktopClient) {
+            try {
+                if (isLoading) return;
+                const nextPage = data?.meta.pagination.page + 1 || 1;
+                if (nextPage > data?.meta.pagination.pageCount) return;
+                isLoading = true;
+                const res = await fetch(
+                        `${CMSConfigAPI}/api/oforms/?sort=name_form:${sort}&pagination[pageSize]=32&pagination[page]=${nextPage}&populate=template_image&populate=file_oform&populate=card_prewiew&populate=categories&locale=${locale}`
+                    )
+                ;
+                const newFormsRequest = await res.json();
 
-        const newData = [...nonStateObjectData.data, ...newFormsRequest.data]
-        const newObjectData = {
-            data: newData,
-            meta: newFormsRequest.meta
+                const newData = [...nonStateObjectData.data, ...newFormsRequest.data]
+                const newObjectData = {
+                    data: newData,
+                    meta: newFormsRequest.meta
+                }
+                setData(newObjectData)
+            } finally {
+                isLoading = false;
+            }
         }
-        nonStateObjectData = Object.assign({}, newObjectData)
-        isLoading = false;
     };
 
     const handleOnScroll = () => {
@@ -90,7 +97,7 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
                 </Layout.PageHead>
                 <DesktopClientContent
                     currentLanguage={locale}
-                    data={forms}
+                    data={data}
                     sort={sort}
                     page={+page}
                     types={types}
@@ -140,7 +147,7 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
 };
 
 export const getServerSideProps = async (props) => {
-    const { query, locale } = props;
+    const {query, locale} = props;
     const isDesktopClient = query.desktop === "true";
     const page = query.page || 1;
     const sort = query._sort || "asc";

@@ -6,7 +6,7 @@ const StyledDesktopClientContent = styled(Section)`
   .section-page {
     box-sizing: border-box;
     max-width: 100vw;
-    padding: 0 44px;
+    padding: 0 37px;
   }
   .box-heading {
     position: relative;
@@ -115,7 +115,7 @@ const StyledDesktopClientContent = styled(Section)`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 24px 0 16px;
+    padding: 24px 0 21px;
   }
 
   .box-doc-info {
