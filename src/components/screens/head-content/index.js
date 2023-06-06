@@ -49,11 +49,14 @@ const HeadSEO = ({
 
         <meta name="google" content="notranslate" />
 
-        <link
-          rel="icon"
-          href={isDesktopClient ? "https://static-oforms.onlyoffice.com/images/logo/favicon_desktop.png" : "https://static-oforms.onlyoffice.com/images/logo/favicon_general.png"}
-          type="image/x-icon"
-        />
+        {
+          !isDesktopClient &&
+            <link
+                rel="icon"
+                href="https://static-oforms.onlyoffice.com/images/logo/favicon_general.png"
+                type="image/x-icon"
+            />
+        }
 
         {languages.map((lng) => {
           const { key, shortKey } = lng;

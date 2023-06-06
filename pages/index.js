@@ -32,18 +32,12 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
     const isDesktop = query.query.desktop === "true";
     const [isDesktopClient, setIsDesktopClient] = useState(isDesktop);
     const [newForms, setNewForms] = useState(forms);
-
-    let nonStateObjectData = Object.assign({}, forms);
     let isLoading = false;
 
     useEffect(() => {
-        if (document.body.offsetHeight <= window.innerHeight) {
-            getMoreForms();
-        }
-
         window.addEventListener('scroll', handleOnScroll);
         return () => window.removeEventListener('scroll', handleOnScroll);
-    }, []);
+    }, [newForms]);
 
     useEffect(() => {
         setNewForms(forms)
@@ -51,21 +45,20 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
 
     const getMoreForms = async () => {
         if (isLoading) return;
-        const nextPage = nonStateObjectData?.meta.pagination.page + 1 || 1;
-        if(nextPage > nonStateObjectData?.meta.pagination.pageCount) return;
+        const nextPage = newForms?.meta.pagination.page + 1 || 1;
+        if(nextPage > newForms?.meta.pagination.pageCount) return;
         isLoading = true;
         const res = await fetch(
             `${CMSConfigAPI}/api/oforms/?sort=name_form:${sort}&pagination[pageSize]=32&pagination[page]=${nextPage}&populate=template_image&populate=file_oform&populate=card_prewiew&populate=categories&locale=${locale}`
         );
         const newFormsRequest = await res.json();
 
-        const newData = [...nonStateObjectData.data, ...newFormsRequest.data ]
+        const newData = [...newForms.data, ...newFormsRequest.data ]
         const newObjectData = {
             data: newData,
             meta: newFormsRequest.meta
         }
         setNewForms(newObjectData);
-        nonStateObjectData = Object.assign({}, newObjectData)
         isLoading = false;
     };
 
@@ -74,7 +67,6 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
         var scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
         var clientHeight = document.documentElement.clientHeight || window.innerHeight;
         var scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-
         if (scrolledToBottom) {
             getMoreForms();
         }
@@ -145,12 +137,11 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
     )
 };
 
-export const getServerSideProps = async (props) => {
-    const {query, locale} = props;
-    const isDesktopClient = query.desktop === "true";
+export const getServerSideProps = async ({ locale, query }) => {
+    const isDesktop = query.desktop === "true";
     const page = query.page || 1;
-    const sort = query._sort || "asc";
-    const pageSize = query.pageSize || isDesktopClient ? 32 : 9;
+    const sort = query._sort || "ASC";
+    const pageSize = query.pageSize || isDesktop ? 32 : 9;
     const forms = await getAllForms(locale, page, sort, pageSize);
     const types = await getAllTypes(locale);
     const categories = await getAllCategories(locale);
@@ -168,6 +159,7 @@ export const getServerSideProps = async (props) => {
             compilations
         },
     };
-};
+}
+
 
 export default Index;

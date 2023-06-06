@@ -70,7 +70,11 @@ export const SelectorDefaultHeader = styled.div`
 export const SelectorDefaultIcon = styled(ChevronDown)`
   cursor: pointer;
   transition: transform 200ms ease-in-out;
-  transform: ${({isOpen}) => isOpen ? 'rotate(180deg)' : 'rotate(0deg)'};
+  transform: rotate(0deg);
+  
+  &.open {
+    transform: rotate(180deg);
+  }
   path {
     fill: ${({theme}) => theme.colors.palette.iconNormal};
   }

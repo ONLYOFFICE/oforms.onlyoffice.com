@@ -3,6 +3,7 @@ import {Header, HeaderLabel, HeaderIcon, HeaderValue} from '@components/selector
 import {useRouter} from "next/router";
 import {XClose} from "../../icons";
 import {useTheme} from "styled-components";
+import classNames from "classnames";
 
 export const CategorySelectorHeader = (props) => {
     const {label, value, setIsOpen, isOpen, onClear} = props;
@@ -33,7 +34,7 @@ export const CategorySelectorHeader = (props) => {
         <Header onClick={onClick}>
             <HeaderLabel>{label}</HeaderLabel>
             <HeaderValue>{value}</HeaderValue>
-            <HeaderIcon isOpen={isOpen}/>
+            <HeaderIcon className={classNames({open: isOpen})}/>
         </Header>
     )
 }
