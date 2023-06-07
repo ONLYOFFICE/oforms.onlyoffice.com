@@ -42,7 +42,7 @@ export const LanguageSelectorDropdown = styled.div`
   top: 25px;
   padding: 4px 0;
   border: 1px solid ${({theme}) => theme.colors.palette.borderToolbar};
-  left: -4px;
+  left: -5px;
   border-radius: 2px;
   z-index: 100;
 `;
