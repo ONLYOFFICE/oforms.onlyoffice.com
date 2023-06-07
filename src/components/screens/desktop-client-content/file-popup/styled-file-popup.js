@@ -1,6 +1,18 @@
-import styled, { css } from "styled-components";
+import styled, {createGlobalStyle, css} from "styled-components";
 
-const StyledFilePopup = styled.div`
+export const PopupGlobalStyles = createGlobalStyle`
+  body {
+    overflow-y: hidden;
+  }
+  // for firefox
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: ${({theme}) => theme.colors.palette.scrollThumb} ${({theme}) => theme.colors.palette.scrollThumbHover};
+  }
+`
+
+export const StyledFilePopup = styled.div`
+  overflow-y: auto;
   position: fixed;
   top: 0;
   left: 0;
@@ -8,15 +20,36 @@ const StyledFilePopup = styled.div`
   height: 100%;
   background-color: ${({theme}) => theme.colors.palette.backgroundScrim};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  overflow-y: auto;
   z-index: 10;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s, visibility 0.3s;
 
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: ${({theme}) => theme.colors.palette.backgroundNormal};
+  }
+
+  &::-webkit-scrollbar-track:hover {
+    background: ${({theme}) => theme.colors.palette.scrollThumbHover};
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({theme}) => theme.colors.palette.scrollThumb};
+    border-radius: 3px;
+  }
+
   &.open {
     opacity: 1;
     visibility: visible;
+  }
+  
+  .popup-icon {
+    cursor: pointer;
+    color: ${({theme}) => theme.colors.palette.iconNormal}
   }
 
   .popup-wrapper {
@@ -46,9 +79,10 @@ const StyledFilePopup = styled.div`
 
   .popup-header {
     display: grid;
-    grid-template-columns: auto 19px;
+    grid-template-columns: 1fr max-content;
     gap: 24px;
-    padding: 10px 10px 9px 30px;
+    padding: 7px 10px 2px 30px;
+    align-items: center;
     border-bottom: 1px solid ${({theme}) => theme.colors.palette.borderToolbar};
 
     
@@ -278,15 +312,3 @@ const StyledFilePopup = styled.div`
     }
   }
 `;
-
-const CloseButton = styled.div`
-  margin-top: 1px;
-  width: 19px;
-  height: 19px;
-  cursor: pointer;
-  background-image: url('https://static-oforms.onlyoffice.com/icons/close-icon.svg');
-  background-repeat: no-repeat;
-  background-position: center center;
-`;
-
-export { CloseButton, StyledFilePopup };

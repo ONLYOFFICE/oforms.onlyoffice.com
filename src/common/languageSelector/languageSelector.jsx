@@ -88,7 +88,7 @@ export const LanguageSelector = (props) => {
                             <LanguageSelectorLink
                                 className={classNames('lang-selector__link', { 'active': lang.shortKey === router.locale })}
                             >
-                                <Flag locale={lang.shortKey}/>
+                                <Flag locale={lang.shortKey} size={24}/>
                             </LanguageSelectorLink>
                         </Link>
                     ))

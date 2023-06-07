@@ -1,8 +1,8 @@
 import {useState, useEffect} from "react";
 import Text from "@common/text";
 import Button from "@common/button";
-import {CloseButton, StyledFilePopup} from "./styled-file-popup";
-import {ChevronDown} from "@icons";
+import {PopupGlobalStyles, StyledFilePopup} from "./styled-file-popup";
+import {ChevronDown, XClose} from "@icons";
 import {useTranslation} from "next-i18next";
 
 const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...rest}) => {
@@ -51,13 +51,17 @@ const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...r
 
     return (
         <StyledFilePopup onClick={() => setModalActive(false)} className={modalActive ? "open" : ""} {...rest}>
+            {
+                modalActive && <PopupGlobalStyles />
+            }
             <div className="popup-wrapper">
                 <div onClick={(e) => e.stopPropagation()} className="popup-content">
                     <div className="popup-header">
                         <div className="popup-title">
                             {t("Form description")}
                         </div>
-                        <CloseButton onClick={() => setModalActive(false)}/>
+                        <XClose size={30} onClick={() => setModalActive(false)} className="popup-icon" />
+                        {/*<CloseButton onClick={() => setModalActive(false)}/>*/}
                     </div>
                     <div className="popup-body">
                         <div className="file-img">
