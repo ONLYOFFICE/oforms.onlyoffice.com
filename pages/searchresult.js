@@ -129,7 +129,7 @@ const SearchResult = ({
 export const getServerSideProps = async ({ locale, query }) => {
   const isDesktop = query.desktop === "true";
   const page = query.page || 1;
-  const sort = query._sort || 'ASC'
+  const sort = query._sort || 'asc'
   const pageSize = query.pageSize || isDesktop ? 0 : 9;
   const forms = await getAllForms(locale, page, sort, pageSize);
   const types = await getAllTypes(locale);
