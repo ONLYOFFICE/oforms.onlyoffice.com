@@ -5,20 +5,25 @@ export const SearchAreaStyled = styled.div`
 
     if (isDesktopClient) {
       return css`
+        align-items: flex-end;
         .search-area__desc {
           color: ${({theme}) => theme.colors.palette.textNormal};
-          border-right-color: ${({theme}) => theme.colors.palette.highlightButtonPressedHover};
+          padding-bottom: 2.5px;
+          gap: 12px;
+          &:after {
+            background-color: ${({theme}) => theme.colors.palette.highlightButtonPressedHover};;
+          }
         }
 
         .input-component__input {
-          padding: 8px 16px 6.5px 16px;
+          padding: 8px 0 0 12px;
           color: ${({theme}) => theme.colors.palette.textNormal};
           font-size: 14px;
           line-height: 160%;
         }
         
         .input-component__label {
-          top: 6px;
+          top: 7px;
           color: ${({theme}) => theme.colors.palette.textSecondary};
           font-size: 14px;
           line-height: 160%;
@@ -29,7 +34,7 @@ export const SearchAreaStyled = styled.div`
         }
         
         .focus .input-component__label {
-          transform: translateY(-9px) scale(0.7);
+          transform: translateY(-10px) scale(0.7);
         }
       `
     }
@@ -39,10 +44,13 @@ export const SearchAreaStyled = styled.div`
       margin: 0 auto;
       padding-bottom: 8px;
       border-bottom: 1px solid ${({theme}) => theme.colors.other.gray300};
+      align-items: center;
       
       .search-area__desc {
         color: ${({theme}) => theme.colors.other.white100};
-        border-right-color: ${({theme}) => theme.colors.other.gray100};
+        &:after {
+          background-color: ${({theme}) => theme.colors.other.gray100};
+        }
       }
 
       .input-component__input {
@@ -81,7 +89,6 @@ export const SearchAreaStyled = styled.div`
   
   width: 100%;
   display: flex;
-  align-items: center;
 
   form {
     flex-grow: 1;
@@ -91,11 +98,19 @@ export const SearchAreaStyled = styled.div`
 export const SearchAreaDesc = styled.p`
   margin: 0;
   white-space: nowrap;
-  padding-right: 24px;
-  border-right: 1px solid;
   font-weight: 700;
   font-size: 14px;
   line-height: 133%;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  &:after {
+    content: '';
+    display: inline-block;
+    width: 1px;
+    height: 16px;
+  }
   
   @media (max-width: 600px) {
     display: none;
