@@ -460,26 +460,26 @@ const StyledDesktopClientContent = styled(Section)`
 
 export const DesktopGlobalStyles = createGlobalStyle`
   body::-webkit-scrollbar {
-    width: 8px;
+    width: 8px !important;
   }
 
   body::-webkit-scrollbar-track {
-    background: ${({theme}) => theme.colors.palette.backgroundNormal};
+    background: ${({theme}) => theme.colors.palette.backgroundNormal} !important;
   }
 
   body::-webkit-scrollbar-track:hover {
-    background: ${({theme}) => theme.colors.palette.scrollThumbHover};
+    background: ${({theme}) => theme.colors.palette.scrollThumbHover} !important;
   }
 
   body::-webkit-scrollbar-thumb {
-    background-color: ${({theme}) => theme.colors.palette.scrollThumb};
+    background-color: ${({theme}) => theme.colors.palette.scrollThumb} !important;
     border-radius: 3px;
   }
   
   // for firefox
   * {
-    scrollbar-width: thin;
-    scrollbar-color: ${({theme}) => theme.colors.palette.scrollThumb} ${({theme}) => theme.colors.palette.scrollThumbHover};
+    scrollbar-width: thin !important;
+    scrollbar-color: ${({theme}) => theme.colors.palette.scrollThumb} ${({theme}) => theme.colors.palette.scrollThumbHover} !important;
   }
 `;
 
