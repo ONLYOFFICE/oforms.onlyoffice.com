@@ -49,6 +49,7 @@ const HeadSEO = ({
                       href="https://static-oforms.onlyoffice.com/images/logo/ONLYOFFICE-logo.png"/>
 
                 <meta name="google" content="notranslate"/>
+                <link rel="stylesheet" href="../../../style/scrollbar/scrollbar-contrast-dark.css"/>
 
                 {
                     !isDesktopClient &&
@@ -57,9 +58,6 @@ const HeadSEO = ({
                         href="https://static-oforms.onlyoffice.com/images/logo/favicon_general.png"
                         type="image/x-icon"
                     />
-                }
-                {
-                    isDesktopClient && <link rel="stylesheet" href="../../../style/global-style.css"/>
                 }
 
                 {languages.map((lng) => {
