@@ -4,6 +4,7 @@ import Button from "@common/button";
 import {PopupGlobalStyles, StyledFilePopup} from "./styled-file-popup";
 import {ChevronDown, XClose} from "@icons";
 import {useTranslation} from "next-i18next";
+import classNames from "classnames";
 
 const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...rest}) => {
     const docxfFile = cardData?.file_oform?.data?.filter((it) => {
@@ -50,7 +51,7 @@ const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...r
 
 
     return (
-        <StyledFilePopup onClick={() => setModalActive(false)} className={modalActive ? "open" : ""} {...rest}>
+        <StyledFilePopup onClick={() => setModalActive(false)} className={classNames('modal-with-scroll', {'open': modalActive})} {...rest}>
             {
                 modalActive && <PopupGlobalStyles />
             }

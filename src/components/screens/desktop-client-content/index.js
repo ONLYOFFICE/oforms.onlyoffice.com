@@ -8,7 +8,6 @@ import {SortSelector} from "@common/sortSelector";
 import {useRouter} from "next/router";
 import {Header} from "@common/header";
 import {useTranslation} from "next-i18next";
-
 const DesktopClientContent = (props) => {
     const {
         currentLanguage,
@@ -53,7 +52,6 @@ const DesktopClientContent = (props) => {
         <StyledDesktopClientContent
             isDark={(theme === 'theme-dark') || (theme === 'theme-contrast-dark')}
         >
-            <DesktopGlobalStyles/>
             <Header handlerSetModal={handlerSetModal} handlerCardData={handlerCardData}/>
             <div className="box-doc-info-template">
                 <div className="box-doc-categories">
