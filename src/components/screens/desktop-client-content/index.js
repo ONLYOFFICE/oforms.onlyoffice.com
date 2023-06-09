@@ -52,7 +52,6 @@ const DesktopClientContent = (props) => {
         <StyledDesktopClientContent
             isDark={(theme === 'theme-dark') || (theme === 'theme-contrast-dark')}
         >
-            {/*<DesktopGlobalStyles />*/}
             <Header handlerSetModal={handlerSetModal} handlerCardData={handlerCardData}/>
             <div className="box-doc-info-template">
                 <div className="box-doc-categories">

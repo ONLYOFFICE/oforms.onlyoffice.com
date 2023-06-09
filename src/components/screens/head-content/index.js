@@ -3,6 +3,9 @@ import Script from "next/script";
 import PropTypes from "prop-types";
 
 import languages from "@config/languages.json";
+import {useRouter} from "next/router";
+import {useMemo} from "react";
+import {css} from "styled-components";
 
 const HeadSEO = ({
                      metaSiteNameOg,
@@ -12,6 +15,194 @@ const HeadSEO = ({
                      title,
                      isDesktopClient,
                  }) => {
+    const router = useRouter()
+    const theme = router.query.theme || 'theme-classic'
+    const style = useMemo(() => {
+        let result;
+        switch (theme) {
+            case 'theme-classic': {
+                result = <style type="text/css">
+                    {`
+                        body::-webkit-scrollbar {
+                            width: 8px !important;
+                        }
+                        
+                        body::-webkit-scrollbar-track {
+                            background: #FFFFFF !important;
+                        }
+                        
+                        body::-webkit-scrollbar-track:hover {
+                            background: #F7F7F7 !important;
+                        }
+                        
+                        body::-webkit-scrollbar-thumb {
+                            background-color: #E0E0E0 !important;
+                            border-radius: 3px !important;
+                        }
+                        
+                        .modal-with-scroll::-webkit-scrollbar {
+                            width: 8px !important;
+                        }
+                        
+                        .modal-with-scroll::-webkit-scrollbar-track {
+                            background: #FFFFFF !important;
+                        }
+                        
+                        .modal-with-scroll::-webkit-scrollbar-track:hover {
+                            background: #CFCFCF !important;
+                        }
+                        
+                        .modal-with-scroll::-webkit-scrollbar-thumb {
+                            background-color: #E0E0E0 !important;
+                            border-radius: 3px !important;
+                        }
+                        
+                        * {
+                            scrollbar-width: thin !important;
+                            scrollbar-color: #E0E0E0 #F7F7F7 !important;
+                        }
+                    `}
+                </style>
+                break;
+            }
+            case 'theme-light': {
+                result = <style>
+                    {`
+                        body::-webkit-scrollbar {
+                            width: 8px !important;
+                        }
+                        
+                        body::-webkit-scrollbar-track {
+                            background: #FFFFFF !important;
+                        }
+                        
+                        body::-webkit-scrollbar-track:hover {
+                            background: #F7F7F7 !important;
+                        }
+                        
+                        body::-webkit-scrollbar-thumb {
+                            background-color: #E0E0E0 !important;
+                            border-radius: 3px !important;
+                        }
+                        
+                        .modal-with-scroll::-webkit-scrollbar {
+                            width: 8px !important;
+                        }
+                        
+                        .modal-with-scroll::-webkit-scrollbar-track {
+                            background: #FFFFFF !important;
+                        }
+                        
+                        .modal-with-scroll::-webkit-scrollbar-track:hover {
+                            background: #F7F7F7 !important;
+                        }
+                        
+                        .modal-with-scroll::-webkit-scrollbar-thumb {
+                            background-color: #E0E0E0 !important;
+                            border-radius: 3px !important;
+                        }
+                        
+                        * {
+                            scrollbar-width: thin !important;
+                            scrollbar-color: #E0E0E0 #F7F7F7 !important;
+                        }
+                    `}
+                </style>
+                break;
+            }
+            case 'theme-dark': {
+                result = <style type="text/css">
+                    {`
+                        body::-webkit-scrollbar {
+                            width: 8px !important;
+                        }
+
+                        body::-webkit-scrollbar-track {
+                            background: #333333 !important;
+                        }
+                        
+                        body::-webkit-scrollbar-track:hover {
+                            background: #404040 !important;
+                        }
+                        
+                        body::-webkit-scrollbar-thumb {
+                            background-color: #606060 !important;
+                            border-radius: 3px;
+                        }
+                        
+                        .modal-with-scroll::-webkit-scrollbar {
+                            width: 8px !important;
+                        }
+                        
+                        .modal-with-scroll::-webkit-scrollbar-track {
+                            background: #333333 !important;
+                        }
+                        
+                        .modal-with-scroll::-webkit-scrollbar-track:hover {
+                            background: #404040 !important;
+                        }
+                        
+                        .modal-with-scroll::-webkit-scrollbar-thumb {
+                            background-color: #606060 !important;
+                            border-radius: 3px !important;
+                        }
+                        
+                        * {
+                            scrollbar-width: thin !important;
+                            scrollbar-color: #606060 #404040 !important;
+                        }
+                    `}
+                </style>
+                break;
+            }
+            case 'theme-contrast-dark': {
+                result = <style type="text/css">
+                    {`
+                        body::-webkit-scrollbar {
+                            width: 8px !important;
+                        }
+                        
+                        body::-webkit-scrollbar-track {
+                            background: #1E1E1E !important;
+                        }
+                        
+                        body::-webkit-scrollbar-track:hover {
+                            background: #252525 !important;
+                        }
+                        
+                        body::-webkit-scrollbar-thumb {
+                            background-color: #606060 !important;
+                            border-radius: 3px !important;
+                        }
+                        
+                        .modal-with-scroll::-webkit-scrollbar {
+                            width: 8px !important;
+                        }
+                        
+                        .modal-with-scroll::-webkit-scrollbar-track {
+                            background: #1E1E1E !important;
+                        }
+                        
+                        .modal-with-scroll::-webkit-scrollbar-track:hover {
+                            background: #252525 !important;
+                        }
+                        
+                        .modal-with-scroll::-webkit-scrollbar-thumb {
+                            background-color: #606060 !important;
+                            border-radius: 3px !important;
+                        }
+                        
+                        * {
+                            scrollbar-width: thin !important;
+                            scrollbar-color: #606060 #252525 !important;
+                        }
+                    `}
+                </style>
+            }
+        }
+
+        return result
+    }, [theme])
     return (
         <>
             <Head>
@@ -49,8 +240,7 @@ const HeadSEO = ({
                       href="https://static-oforms.onlyoffice.com/images/logo/ONLYOFFICE-logo.png"/>
 
                 <meta name="google" content="notranslate"/>
-                <link rel="stylesheet" href="../../../style/scrollbar/scrollbar-contrast-dark.css"/>
-
+                { isDesktopClient && style}
                 {
                     !isDesktopClient &&
                     <link
