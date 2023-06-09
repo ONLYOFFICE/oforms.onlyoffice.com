@@ -23,20 +23,20 @@ const HeadSEO = ({
             case 'theme-classic': {
                 result = <style type="text/css">
                     {`
-                        body::-webkit-scrollbar {
+                        ::-webkit-scrollbar {
                             width: 8px !important;
                         }
                         
-                        body::-webkit-scrollbar-track {
+                        ::-webkit-scrollbar-track {
                             background: #FFFFFF !important;
                         }
                         
-                        body::-webkit-scrollbar-track:hover {
+                        ::-webkit-scrollbar-track:hover {
                             background: #F7F7F7 !important;
                         }
                         
-                        body::-webkit-scrollbar-thumb {
-                            background-color: #E0E0E0 !important;
+                        ::-webkit-scrollbar-thumb {
+                            background: #E0E0E0 !important;
                             border-radius: 3px !important;
                         }
                         
@@ -53,7 +53,7 @@ const HeadSEO = ({
                         }
                         
                         .modal-with-scroll::-webkit-scrollbar-thumb {
-                            background-color: #E0E0E0 !important;
+                            background: #E0E0E0 !important;
                             border-radius: 3px !important;
                         }
                         
@@ -68,20 +68,20 @@ const HeadSEO = ({
             case 'theme-light': {
                 result = <style>
                     {`
-                        body::-webkit-scrollbar {
+                        ::-webkit-scrollbar {
                             width: 8px !important;
                         }
                         
-                        body::-webkit-scrollbar-track {
+                        ::-webkit-scrollbar-track {
                             background: #FFFFFF !important;
                         }
                         
-                        body::-webkit-scrollbar-track:hover {
+                        ::-webkit-scrollbar-track:hover {
                             background: #F7F7F7 !important;
                         }
                         
-                        body::-webkit-scrollbar-thumb {
-                            background-color: #E0E0E0 !important;
+                        ::-webkit-scrollbar-thumb {
+                            background: #E0E0E0 !important;
                             border-radius: 3px !important;
                         }
                         
@@ -98,7 +98,7 @@ const HeadSEO = ({
                         }
                         
                         .modal-with-scroll::-webkit-scrollbar-thumb {
-                            background-color: #E0E0E0 !important;
+                            background: #E0E0E0 !important;
                             border-radius: 3px !important;
                         }
                         
@@ -113,20 +113,20 @@ const HeadSEO = ({
             case 'theme-dark': {
                 result = <style type="text/css">
                     {`
-                        body::-webkit-scrollbar {
+                        ::-webkit-scrollbar {
                             width: 8px !important;
                         }
 
-                        body::-webkit-scrollbar-track {
+                        ::-webkit-scrollbar-track {
                             background: #333333 !important;
                         }
                         
-                        body::-webkit-scrollbar-track:hover {
+                        ::-webkit-scrollbar-track:hover {
                             background: #404040 !important;
                         }
                         
-                        body::-webkit-scrollbar-thumb {
-                            background-color: #606060 !important;
+                        ::-webkit-scrollbar-thumb {
+                            background: #606060 !important;
                             border-radius: 3px;
                         }
                         
@@ -143,7 +143,7 @@ const HeadSEO = ({
                         }
                         
                         .modal-with-scroll::-webkit-scrollbar-thumb {
-                            background-color: #606060 !important;
+                            background: #606060 !important;
                             border-radius: 3px !important;
                         }
                         
@@ -158,20 +158,20 @@ const HeadSEO = ({
             case 'theme-contrast-dark': {
                 result = <style type="text/css">
                     {`
-                        body::-webkit-scrollbar {
+                        ::-webkit-scrollbar {
                             width: 8px !important;
                         }
                         
-                        body::-webkit-scrollbar-track {
+                        ::-webkit-scrollbar-track {
                             background: #1E1E1E !important;
                         }
                         
-                        body::-webkit-scrollbar-track:hover {
+                        ::-webkit-scrollbar-track:hover {
                             background: #252525 !important;
                         }
                         
                         ::-webkit-scrollbar-thumb {
-                            background-color: #606060 !important;
+                            background: #606060 !important;
                             border-radius: 3px !important;
                         }
                         
@@ -188,7 +188,7 @@ const HeadSEO = ({
                         }
                         
                         .modal-with-scroll::-webkit-scrollbar-thumb {
-                            background-color: #606060 !important;
+                            background: #606060 !important;
                             border-radius: 3px !important;
                         }
                         
