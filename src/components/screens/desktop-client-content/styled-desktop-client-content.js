@@ -475,7 +475,24 @@ export const DesktopGlobalStyles = createGlobalStyle`
     background-color: ${({theme}) => theme.colors.palette.scrollThumb} !important;
     border-radius: 3px;
   }
-  
+
+  .modal-with-scroll::-webkit-scrollbar {
+    width: 8px !important;
+  }
+
+  .modal-with-scroll::-webkit-scrollbar-track {
+    background: ${({theme}) => theme.colors.palette.backgroundNormal} !important;
+  }
+
+  .modal-with-scroll::-webkit-scrollbar-track:hover {
+    background: ${({theme}) => theme.colors.palette.scrollThumbHover} !important;
+  }
+
+  .modal-with-scroll::-webkit-scrollbar-thumb {
+    background-color: ${({theme}) => theme.colors.palette.scrollThumb} !important;
+    border-radius: 3px;
+  }
+
   // for firefox
   * {
     scrollbar-width: thin !important;

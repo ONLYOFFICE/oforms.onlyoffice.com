@@ -4,10 +4,7 @@ export const PopupGlobalStyles = createGlobalStyle`
   body {
     overflow-y: hidden;
   }
-  // for firefox
-  * {
-    scrollbar-width: thin !important;
-    scrollbar-color: ${({theme}) => theme.colors.palette.scrollThumb} ${({theme}) => theme.colors.palette.scrollThumbHover} !important;`
+`
 
 export const StyledFilePopup = styled.div`
   overflow-y: auto;
@@ -22,23 +19,6 @@ export const StyledFilePopup = styled.div`
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s, visibility 0.3s;
-
-  &::-webkit-scrollbar {
-    width: 8px !important;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: ${({theme}) => theme.colors.palette.backgroundNormal} !important;
-  }
-
-  &::-webkit-scrollbar-track:hover {
-    background: ${({theme}) => theme.colors.palette.scrollThumbHover} !important;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: ${({theme}) => theme.colors.palette.scrollThumb} !important;
-    border-radius: 3px;
-  }
 
   &.open {
     opacity: 1;
