@@ -170,7 +170,7 @@ const HeadSEO = ({
                             background: #252525 !important;
                         }
                         
-                        body::-webkit-scrollbar-thumb {
+                        ::-webkit-scrollbar-thumb {
                             background-color: #606060 !important;
                             border-radius: 3px !important;
                         }
