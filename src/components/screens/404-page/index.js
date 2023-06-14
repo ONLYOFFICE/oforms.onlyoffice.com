@@ -5,9 +5,22 @@ import InternalLink from "@common/internal-link";
 
 import Styled404 from "./styled";
 import {useTranslation} from "next-i18next";
+import {useRouter} from "next/router";
+import {useMemo} from "react";
 
 const Error404 = () => {
     const {t} = useTranslation('common')
+    const router = useRouter()
+    const isDesktopClient = router.asPath.includes('desktop=true')
+    const href = useMemo(() => {
+        const result = {
+            pathname: '/',
+            query: {}
+        }
+        if(isDesktopClient) result.query.desktop = true
+
+        return result;
+    }, [isDesktopClient])
     return (
         <Styled404>
             <Img
@@ -21,7 +34,7 @@ const Error404 = () => {
                     className="page-error-404-description"
                     label={t("404Descdription")}
                 />
-                <InternalLink className="page-error-404-btn" href="/" color="red">
+                <InternalLink className="page-error-404-btn" href={href} color="red">
                     <Button label={t("GoToHomePage")}/>
                 </InternalLink>
             </div>
