@@ -133,7 +133,7 @@ export const getServerSideProps = async ({ locale, query, ...ctx }) => {
   if (categoryForms.data.length === 0) {
     return {
       redirect: {
-        destination: `https://oforms.teamlab.info/404`,
+        destination: `/404${isDesktopClient ? '?desktop=true' : ''}`,
         permanent: true,
       },
     };

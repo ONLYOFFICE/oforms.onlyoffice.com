@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useCallback} from "react";
 import Text from "@common/text";
 import Button from "@common/button";
 import {PopupGlobalStyles, StyledFilePopup} from "./styled-file-popup";
@@ -25,15 +25,30 @@ const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...r
     useEffect(() => {
         setHref(docxfFile);
         setFileTypeData("docxf");
-    }, [modalActive])
+    }, [modalActive, docxfFile])
+
+    const onKeyDown = useCallback((e) => {
+        if(e.key === 'Escape') {
+            setModalActive(false)
+        }
+    }, [setModalActive])
+
+    useEffect(() => {
+        if(modalActive) {
+            window.addEventListener('keydown', onKeyDown)
+        } else {
+            window.removeEventListener('keydown', onKeyDown)
+        }
+        return () => window.removeEventListener('keydown', onKeyDown)
+    }, [modalActive, onKeyDown])
 
 
     const fileDescription = cardData.template_desc?.split("\n");
 
     const array = [
-        {title: `${currentLanguage == "ja" ? `docxf` : `docxf`}`, href: docxfFile},
-        {title: `${currentLanguage == "ja" ? `oform` : `oform`}`, href: oformFile},
-        {title: `${currentLanguage == "ja" ? `pdf` : `pdf`}`, href: pdfFile},
+        {title: `${currentLanguage === "ja" ? `docxf` : `docxf`}`, href: docxfFile},
+        {title: `${currentLanguage === "ja" ? `oform` : `oform`}`, href: oformFile},
+        {title: `${currentLanguage === "ja" ? `pdf` : `pdf`}`, href: pdfFile},
     ];
 
     const openTypeDropdown = () => {

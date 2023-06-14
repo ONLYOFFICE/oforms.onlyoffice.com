@@ -112,11 +112,11 @@ const Category = ({
 };
 
 export const getServerSideProps = async ({ locale, query, ...ctx }) => {
-  const isDesktop = query.desktop === "true";
+  const isDesktopClient = query.desktop === "true";
   const page = query.page || 1;
   const sort = query._sort || "asc";
   const urlReq = query.type;
-  const pageSize = query.pageSize || isDesktop ? 0 : 9;
+  const pageSize = query.pageSize || isDesktopClient ? 0 : 9;
   const cms = config.api.cms
   const res = await fetch(
     `${cms}/api/oforms/?filters[types][urlReq][$eq]=${urlReq}&locale=${locale}&sort=name_form:${sort}&${pageSize ? `&pagination[pageSize]=${pageSize}` : ''}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
@@ -133,7 +133,7 @@ export const getServerSideProps = async ({ locale, query, ...ctx }) => {
   if (categoryForms.data.length === 0) {
     return {
       redirect: {
-        destination: `https://oforms.teamlab.info/404`,
+        destination: `/404${isDesktopClient ? '?desktop=true' : ''}`,
         permanent: true,
       },
     };
