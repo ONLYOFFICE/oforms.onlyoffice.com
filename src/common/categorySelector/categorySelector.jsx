@@ -1,7 +1,6 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import Selector from "@components/selector";
 import {useRouter} from "next/router";
-import {isMobile} from "react-device-detect";
 import MobileSelector from "./mobileSelector";
 import {
     CategorySelectorDropdown,
@@ -40,9 +39,9 @@ export const CategorySelector = (props) => {
     const [isTypeOpen, setIsTypeOpen] = useState(false);
     const [isCompilationsOpen, setIsCompilationsOpen] = useState(false);
     const router = useRouter();
-    const [isWindowMobile, setIsWindowMobile] = useState(false);
     const [isOpen, setIsOpen] = useState(false)
     const theme = router.query.theme;
+    const [isMobile, setIsMobile] = useState(false)
 
     const appTheme = useMemo(() => {
         if (theme && isDesktopClient) return theme
@@ -58,10 +57,19 @@ export const CategorySelector = (props) => {
         router.push(`/?desktop=true${appTheme !== undefined ? `&theme=${appTheme}` : ''}`)
     }
 
+    const onResize = useCallback(() => {
+        setIsMobile(getIsMobile(window))
+    }, [])
+
+    const getIsMobile = (window) => window.innerWidth <= 850
+
     useEffect(() => {
-        isMobile ? setIsWindowMobile(true) : setIsWindowMobile(false)
-    }, []);
-    return (isWindowMobile ?
+        window.addEventListener('resize', onResize)
+        setIsMobile(getIsMobile(window))
+        return () => window.removeEventListener('resize', onResize)
+    }, [onResize])
+
+    return ((isMobile && !isDesktopClient) ?
             <MobileSelector
                 typeSortData={typeSortData}
                 locale={locale}

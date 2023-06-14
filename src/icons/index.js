@@ -6,3 +6,4 @@ export * from './XClose';
 export * from './Triangle';
 export * from './SortAsc';
 export * from './SortDesc';
+export * from './ChevronLeft';

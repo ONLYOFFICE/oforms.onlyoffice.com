@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import Section from "@common/section";
 
 const StyledMainContent = styled(Section)`
+  position: static;
   .heading-cards {
     padding-bottom: 40px;
     line-height: 133%;
