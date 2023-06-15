@@ -3,9 +3,16 @@ import Section from "@common/section";
 
 const StyledMainContent = styled(Section)`
   position: static;
+
   .heading-cards {
     padding-bottom: 40px;
     line-height: 133%;
+  }
+
+  .box-doc-info-template {
+    display: grid;
+    grid-template-columns: 1fr 150px 160px;
+    margin-bottom: 32px;
   }
 
   #mob-box-doc-categories {
@@ -16,29 +23,14 @@ const StyledMainContent = styled(Section)`
     margin-top: 32px;
   }
 
-  .box-doc-info-template {
-    padding: 17px 0 29px;
-    display: grid;
-    grid-auto-rows: auto;
-    grid-template-columns: 1fr 3fr;
-
-    .box-doc-info {
-      display: flex;
-      max-width: 832px;
-      justify-content: flex-end;
-      
-      .box-doc-categories{
-        margin-right: 64px;
-      }
-    }
-  }
-
   .reset-group-checkbox-mobile {
     display: none;
   }
+
   .tms-categories-svg {
     display: none;
   }
+
   .checkbox-group-filter-btn {
     display: none;
   }
@@ -51,47 +43,39 @@ const StyledMainContent = styled(Section)`
   .idk-box-template {
     display: grid;
     grid-template-columns: ${(props) =>
-      props.groupCheckboxIsOpen ? "1fr 5fr" : "auto"};
+            props.groupCheckboxIsOpen ? "1fr 5fr" : "auto"};
     min-height: 740px;
-    .box-doc-info-template {
-      grid-column-start: 1;
-      grid-column-end: 5;
-      grid-row-start: 1;
-      grid-row-end: 2;
-    }
 
     ${(props) =>
-      props.groupCheckboxIsOpen
-        ? css`
-            .checkbox-card-group {
-              display: block;
-              width: 280px;
-              grid-row-start: 2;
-              grid-column-start: 1;
-              grid-column-end: 2;
-            }
-            .tempalates-cards-items {
-              grid-row-start: 2;
-              max-width: 832px;
-              grid-column-start: 2;
-              grid-column-end: 6;
-            }
-          `
-        : css`
-            .checkbox-card-group {
-              display: none;
-            }
-            .box-doc-info-template {
-              grid-column-start: 1;
-              grid-column-end: 2;
-            }
-            .tempalates-cards-items {
-              grid-row-start: 2;
-              max-width: 100%;
-              grid-column-start: 1;
-              grid-column-end: 2;
-            }
-          `}
+            props.groupCheckboxIsOpen
+                    ? css`
+                      .checkbox-card-group {
+                        display: block;
+                        width: 280px;
+                        grid-row-start: 2;
+                        grid-column-start: 1;
+                        grid-column-end: 2;
+                      }
+
+                      .tempalates-cards-items {
+                        grid-row-start: 2;
+                        max-width: 832px;
+                        grid-column-start: 2;
+                        grid-column-end: 6;
+                      }
+                    `
+                    : css`
+                      .checkbox-card-group {
+                        display: none;
+                      }
+
+                      .tempalates-cards-items {
+                        grid-row-start: 2;
+                        max-width: 100%;
+                        grid-column-start: 1;
+                        grid-column-end: 2;
+                      }
+                    `}
   }
 
   .box-doc-categories {
@@ -127,6 +111,7 @@ const StyledMainContent = styled(Section)`
     .checkbox-card-group {
       max-width: 235px;
     }
+
     .box-cards-template {
       justify-content: center;
       align-items: flex-start;
@@ -148,11 +133,6 @@ const StyledMainContent = styled(Section)`
   }
 
   @media (max-width: 768px) {
-    .box-doc-info-template {
-      max-width: 690px;
-      min-width: 688px;
-      margin: 0 auto;
-    }
 
     .checkbox-card-group {
       position: absolute;
@@ -170,36 +150,39 @@ const StyledMainContent = styled(Section)`
       margin: 0 auto;
       grid-row-start: 2;
     }
+
     .idk-box-template {
       grid-template-columns: auto;
-      .box-doc-info-template {
-        grid-column-start: 1;
-        grid-column-end: 1;
-      }
+
       ${(props) =>
-        props.groupCheckboxIsOpen
-          ? css`
-              .tempalates-cards-items {
-                grid-row-start: 2;
-                grid-column-start: auto;
-                grid-column-end: auto;
-              }
-            `
-          : css`
-              .checkbox-card-group {
-                display: none;
-              }
-              .tempalates-cards-items {
-                grid-row-start: auto;
-                max-width: 100%;
-                grid-column-start: auto;
-                grid-column-end: auto;
-              }
-            `}
+              props.groupCheckboxIsOpen
+                      ? css`
+                        .tempalates-cards-items {
+                          grid-row-start: 2;
+                          grid-column-start: auto;
+                          grid-column-end: auto;
+                        }
+                      `
+                      : css`
+                        .checkbox-card-group {
+                          display: none;
+                        }
+
+                        .tempalates-cards-items {
+                          grid-row-start: auto;
+                          max-width: 100%;
+                          grid-column-start: auto;
+                          grid-column-end: auto;
+                        }
+                      `}
     }
   }
 
   @media (max-width: 700px) {
+    .box-doc-info-template {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
     .heading-cards {
       font-size: 24px;
       padding-bottom: 40px;
@@ -208,45 +191,51 @@ const StyledMainContent = styled(Section)`
     .idk-box-template {
       justify-content: center;
     }
-
-    .box-doc-info-template {
-      margin: 0;
-      min-width: auto;
-    }
   }
 
   @media (max-width: 600px) {
     ${(props) =>
-      props.groupCheckboxIsOpen
-        ? css`
-            .idk-box-template {
-              .checkbox-card-group {
-                height: 100%;
-                z-index: 1000;
-                width: 100vw;
-                display: block;
-                left: 0;
-                top: 0;
-                position: fixed;
-                overflow-y: scroll;
-                margin: 0;
-                max-width: 100%;
-              }
-            }
-          `
-        : css`
-            .checkbox-card-group {
-              display: none;
-            }
-            .tempalates-cards-items {
-              grid-row-start: auto;
-              max-width: 100%;
-              grid-column-start: auto;
-              grid-column-end: auto;
-            }
-          `}
+            props.groupCheckboxIsOpen
+                    ? css`
+                      .idk-box-template {
+                        .checkbox-card-group {
+                          height: 100%;
+                          z-index: 1000;
+                          width: 100vw;
+                          display: block;
+                          left: 0;
+                          top: 0;
+                          position: fixed;
+                          overflow-y: scroll;
+                          margin: 0;
+                          max-width: 100%;
+                        }
+                      }
+                    `
+                    : css`
+                      .checkbox-card-group {
+                        display: none;
+                      }
+
+                      .tempalates-cards-items {
+                        grid-row-start: auto;
+                        max-width: 100%;
+                        grid-column-start: auto;
+                        grid-column-end: auto;
+                      }
+                    `}
     .checkbox-card-group {
       padding: 0;
+    }
+
+    .box-doc-info-template {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      column-gap: 30px;
+      row-gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 34px;
     }
 
     .checkbox-group-filter-tems {
@@ -270,9 +259,11 @@ const StyledMainContent = styled(Section)`
     .reset-group-checkbox-mobile {
       display: block;
     }
+
     .tms-categories-svg {
       display: block;
     }
+
     .checkbox-group-filter-btn {
       display: block;
     }
@@ -294,12 +285,6 @@ const StyledMainContent = styled(Section)`
 
     .box-doc-info {
       justify-content: center;
-    }
-
-    .box-doc-info-template {
-      padding: 17px 0 26px;
-      display: flex;
-      flex-direction: column;
     }
 
     .tempalates-cards-items {
