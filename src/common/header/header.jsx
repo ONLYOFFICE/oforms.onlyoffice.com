@@ -1,7 +1,7 @@
 import React from "react";
 import {useRouter} from "next/router";
 import {HeaderBox, HeaderTitle, StyledHeader} from "./styledHeader";
-import SearchContent from "@components/screens/heading-content/search";
+import SearchContent from "../../screens/heading-content/search";
 import LanguageSelector from "@common/languageSelector";
 import {useTranslation} from "next-i18next";
 

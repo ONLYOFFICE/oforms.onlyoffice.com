@@ -265,6 +265,8 @@ export const StyledFilePopup = styled.div`
     
     .file-dropdown-item {
       color: ${({theme}) => theme.colors.palette.textNormal};
+      transition: color 0.3s, background-color 0.3s;
+      padding: 3px 11px 2px;
       
       &.selected {
         background-color: ${({theme}) => theme.colors.palette.canvasScrollThumb};
@@ -272,21 +274,6 @@ export const StyledFilePopup = styled.div`
       &:hover {
         background-color: ${({theme}) => theme.colors.palette.canvasScrollThumbHover};
       }
-    }
-  }
-
-  .file-dropdown-item {
-    display: block;
-    padding: 3px 11px 2px;
-    color: #000000;
-    transition: color 0.3s, background-color 0.3s;
-
-    &:hover {
-      background: #E0E0E0;
-    }
-
-    &.selected {
-      background-color: #CCCCCC;
     }
   }
 `;

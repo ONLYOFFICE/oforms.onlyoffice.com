@@ -21,6 +21,10 @@ const Error404 = () => {
 
         return result;
     }, [isDesktopClient])
+
+    if(isDesktopClient) {
+
+    }
     return (
         <Styled404>
             <Img

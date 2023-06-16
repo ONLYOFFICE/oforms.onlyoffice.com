@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { device } from "../../../../utils/devices";
+import { device } from "@components/utils/devices";
 
 import Box from "@common/box";
 import Link from "@common/internal-link";

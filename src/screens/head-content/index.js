@@ -40,6 +40,10 @@ const HeadSEO = ({
                             border-radius: 3px !important;
                         }
                         
+                        ::-webkit-scrollbar-thumb:hover {
+                            background: #CCCCCC !important;
+                        }
+                        
                         .modal-with-scroll::-webkit-scrollbar {
                             width: 8px !important;
                         }
@@ -49,7 +53,7 @@ const HeadSEO = ({
                         }
                         
                         .modal-with-scroll::-webkit-scrollbar-track:hover {
-                            background: #CFCFCF !important;
+                            background: #F7F7F7 !important;
                         }
                         
                         .modal-with-scroll::-webkit-scrollbar-thumb {
@@ -83,6 +87,10 @@ const HeadSEO = ({
                         ::-webkit-scrollbar-thumb {
                             background: #E0E0E0 !important;
                             border-radius: 3px !important;
+                        }
+                        
+                        ::-webkit-scrollbar-thumb:hover {
+                            background: #CCCCCC !important;
                         }
                         
                         .modal-with-scroll::-webkit-scrollbar {
@@ -126,6 +134,11 @@ const HeadSEO = ({
                         }
                         
                         ::-webkit-scrollbar-thumb {
+                            background: #404040 !important;
+                            border-radius: 3px;
+                        }
+                        
+                        ::-webkit-scrollbar-thumb:hover {
                             background: #606060 !important;
                             border-radius: 3px;
                         }
@@ -143,8 +156,12 @@ const HeadSEO = ({
                         }
                         
                         .modal-with-scroll::-webkit-scrollbar-thumb {
-                            background: #606060 !important;
+                            background: #404040 !important;
                             border-radius: 3px !important;
+                        }
+                        
+                        .modal-with-scroll::-webkit-scrollbar-thumb:hover {
+                            background: #606060 !important;
                         }
                         
                         * {
@@ -171,8 +188,12 @@ const HeadSEO = ({
                         }
                         
                         ::-webkit-scrollbar-thumb {
-                            background: #606060 !important;
+                            background: #404040 !important;
                             border-radius: 3px !important;
+                        }
+                        
+                        ::-webkit-scrollbar-thumb:hover {
+                            background: #666666 !important;
                         }
                         
                         .modal-with-scroll::-webkit-scrollbar {
@@ -188,8 +209,12 @@ const HeadSEO = ({
                         }
                         
                         .modal-with-scroll::-webkit-scrollbar-thumb {
-                            background: #606060 !important;
+                            background: #404040 !important;
                             border-radius: 3px !important;
+                        }
+                        
+                        .modal-with-scroll::-webkit-scrollbar-thumb:hover {
+                            background: #666666 !important;
                         }
                         
                         * {

@@ -2,7 +2,7 @@ import {useState, useEffect} from "react";
 import Cards from "../common/cards";
 import {CategorySelector} from "@common/categorySelector";
 import Text from "@common/text";
-import StyledDesktopClientContent, {DesktopGlobalStyles} from "./styled-desktop-client-content";
+import StyledDesktopClientContent from "./styled-desktop-client-content";
 import FilePopup from "./file-popup/file-popup";
 import {SortSelector} from "@common/sortSelector";
 import {useRouter} from "next/router";

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { device } from "../../../utils/devices";
+import { device } from "@components/utils/devices";
 
 const StyledMailPopup = styled.div`
   height: 100vh;

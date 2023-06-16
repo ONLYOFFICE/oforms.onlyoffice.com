@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { device } from "../../../utils/devices";
+import { device } from "@components/utils/devices";
 import Section from "@common/section";
 
 const mobileStyledMainInfo = css`

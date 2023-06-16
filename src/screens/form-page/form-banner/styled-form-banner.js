@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { device } from "../../../utils/devices";
+import { device } from "@components/utils/devices";
 
 const StyledFormBanner = styled.div`
   width: 100%;
