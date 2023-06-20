@@ -26,24 +26,22 @@ const StyledMailPopup = styled.div`
   }
 
   ${(props) =>
-    props.active &&
-    css`
-      opacity: 1;
-      pointer-events: all;
-    `}
-
+      props.active &&
+      css`
+        opacity: 1;
+        pointer-events: all;
+      `}
   .popup-content {
     width: 649px;
     height: 633px;
-    background: url('https://static-oforms.onlyoffice.com/images/forms/pop-up-bg.png');
-    background-position: 50% 18%;
-    background-repeat: no-repeat;
+    background: url('https://static-oforms.onlyoffice.com/images/forms/pop-up-bg.png') no-repeat 50% 18%;
     box-shadow: (0, 2px, 4px, rgba(0, 0, 0, 0.5));
 
     .PopupPanelCaption {
       padding: 110px 140px 0;
       display: block;
     }
+
     .dataForm {
       padding: 40px 140px 0;
     }
@@ -79,6 +77,7 @@ const StyledMailPopup = styled.div`
         padding: 110px 130px 0;
         display: block;
       }
+
       .dataForm {
         padding: 0 130px 0;
       }
@@ -92,6 +91,7 @@ const StyledMailPopup = styled.div`
       .PopupPanelCaption {
         padding: 110px 80px 0;
       }
+
       .dataForm {
         padding: 0 80px 0;
       }
@@ -161,7 +161,7 @@ const StyledMailForm = styled.div`
   }
 
   .form-header {
-    letter-spacing: none;
+    letter-spacing: normal;
     text-align: left;
     color: #333;
     background-color: transparent;

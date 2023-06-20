@@ -24,14 +24,14 @@ export const StyledFilePopup = styled.div`
     opacity: 1;
     visibility: visible;
   }
-  
+
   .popup-icon {
     cursor: pointer;
     color: ${({theme}) => theme.colors.palette.iconNormal}
   }
 
   .popup-wrapper {
-    box-sizing: border-box;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,16 +40,9 @@ export const StyledFilePopup = styled.div`
   }
 
   .popup-content {
-    box-sizing: border-box;
     border: 1px solid #CBCBCB;
     border-radius: 5px;
-    width: 100%;
-    max-width: 889px;
     overflow: hidden;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    background-color: #ffffff;
-
-    
     box-shadow: ${({theme}) => theme.boxShadows.shadowWindow};
     background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
     border: 1px solid ${({theme}) => theme.colors.palette.borderToolbar};
@@ -63,7 +56,7 @@ export const StyledFilePopup = styled.div`
     align-items: center;
     border-bottom: 1px solid ${({theme}) => theme.colors.palette.borderToolbar};
 
-    
+
     background-color: ${({theme}) => theme.colors.palette.backgroundToolbar};
   }
 
@@ -72,9 +65,13 @@ export const StyledFilePopup = styled.div`
     font-size: 18px;
     line-height: 20px;
     letter-spacing: 0.02em;
-    
-    
+
+
     color: ${({theme}) => theme.colors.palette.textNormal}
+  }
+
+  .file-img {
+    aspect-ratio: 53/75;
   }
 
   .popup-body {
@@ -88,6 +85,7 @@ export const StyledFilePopup = styled.div`
     mix-blend-mode: normal;
     border-radius: 3px;
     overflow: hidden;
+
     img {
       display: block;
     }
@@ -158,7 +156,7 @@ export const StyledFilePopup = styled.div`
     align-items: center;
     line-height: 22px;
   }
-  
+
   .file-info-item__selector {
     padding-right: 20px;
   }
@@ -214,6 +212,7 @@ export const StyledFilePopup = styled.div`
       .file-select-icon {
         transform: rotate(180deg);
       }
+
       ~ .file-dropdown {
         opacity: 1;
         visibility: visible;
@@ -235,7 +234,7 @@ export const StyledFilePopup = styled.div`
     width: 16px;
     height: 16px;
     transition: transform 0.3s;
-    
+
     & path {
       fill: ${({theme}) => theme.colors.palette.iconNormal}
     }
@@ -256,24 +255,62 @@ export const StyledFilePopup = styled.div`
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s, visibility 0.3s;
-    
-    
-    
+
+
     background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
     border: 1px solid ${({theme}) => theme.colors.palette.highlightButtonHover};
     box-shadow: ${({theme}) => theme.boxShadows.menuShadow};
-    
+
     .file-dropdown-item {
       color: ${({theme}) => theme.colors.palette.textNormal};
       transition: color 0.3s, background-color 0.3s;
       padding: 3px 11px 2px;
-      
+
       &.selected {
         background-color: ${({theme}) => theme.colors.palette.canvasScrollThumb};
       }
+
       &:hover {
         background-color: ${({theme}) => theme.colors.palette.canvasScrollThumbHover};
       }
+    }
+  }
+
+  .popup-content {
+    width: 100%;
+    max-width: 1130px;
+  }
+
+  .file-img {
+    width: 648px;
+    height: 916px;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .popup-content {
+      width: 100%;
+      max-width: 780px;
+    }
+
+    .file-img {
+      width: 290px;
+      height: auto;
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    .popup-content {
+      max-width: 430px;
+      width: 100%;
+    }
+
+    .popup-body {
+      grid-template-columns: 1fr;
+    }
+
+    .file-img {
+      width: auto;
+      height: auto;
     }
   }
 `;

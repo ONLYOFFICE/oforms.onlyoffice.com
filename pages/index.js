@@ -180,6 +180,8 @@ export const getServerSideProps = async ({locale, query}) => {
     const categories = await getAllCategories(locale);
     const compilations = await getAllCompilations(locale);
 
+    console.log(forms.attributes)
+
     return {
         props: {
             ...(await serverSideTranslations(locale, "common")),
