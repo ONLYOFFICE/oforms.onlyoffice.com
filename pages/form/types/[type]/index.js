@@ -130,10 +130,27 @@ export const getServerSideProps = async ({ locale, query, ...ctx }) => {
   const categories = await getAllCategories(locale);
   const compilations = await getAllCompilations(locale);
 
+  const getRedirect = () => {
+    const result = {
+      destination: '/404',
+      query: {}
+    }
+
+    if(isDesktopClient) {
+      result.query.desktop = true
+    }
+
+    if(theme) {
+      result.query.theme = theme
+    }
+
+    return result;
+  }
+
   if (categoryForms.data.length === 0) {
     return {
       redirect: {
-        destination: `/404${isDesktopClient ? '?desktop=true' : ''}`,
+        ...getRedirect(),
         permanent: true,
       },
     };

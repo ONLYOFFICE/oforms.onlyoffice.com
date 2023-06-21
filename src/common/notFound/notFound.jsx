@@ -10,6 +10,11 @@ import Link from "next/link";
 import {NotFound as NotFoundIllustration} from "@illustrations";
 import {useTranslation} from "next-i18next";
 import {useRouter} from "next/router";
+import {ThemeProvider} from "styled-components";
+import classic from '/src/style/themes/classicTheme.json'
+import light from '/src/style/themes/lightTheme.json'
+import dark from '/src/style/themes/darkTheme.json'
+import contrast from '/src/style/themes/contrastDarkTheme.json'
 
 
 const NotFoundForWebsite = ({t, theme}) => {
@@ -37,7 +42,6 @@ const NotFoundForWebsite = ({t, theme}) => {
 
 const NotFoundForDesktop = ({t, theme}) => {
     const isDark = theme === 'theme-dark' || theme === 'theme-contrast-dark'
-    console.log(isDark)
     const href = {
         pathname: '/',
         query: theme ? {
@@ -75,5 +79,20 @@ export const NotFound = () => {
         }
     }, [router.asPath])
 
-    return isDesktopClient ? <NotFoundForDesktop theme={theme} t={t}/> : <NotFoundForWebsite t={t} theme={theme}/>
+    const themeJson = useMemo(() => {
+        switch (theme) {
+            case "theme-light": return light;
+            case 'theme-dark': return dark;
+            case "theme-contrast-dark": return contrast;
+            default: return classic;
+        }
+    }, [theme])
+
+    return (
+        <ThemeProvider theme={themeJson}>
+            {
+                isDesktopClient ? <NotFoundForDesktop theme={theme} t={t}/> : <NotFoundForWebsite t={t} theme={theme}/>
+            }
+        </ThemeProvider>
+    )
 }

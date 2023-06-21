@@ -4,6 +4,7 @@ import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import Layout from "@components/layout";
 import HeadSEO from "../src/screens/head-content";
 import {NotFound} from "@common/notFound";
+import {useRouter} from "next/router";
 
 const ErrorPage = () => {
     const {t} = useTranslation("common");
@@ -26,10 +27,10 @@ const ErrorPage = () => {
 
 
 
-export const getStaticProps = async ({locale, ...other}, a) => {
+export const getStaticProps = async ({locale}) => {
     return {
         props: {
-            ...(await serverSideTranslations(locale, "common")),
+            ...(await serverSideTranslations(locale, "common"))
         },
     }
 }

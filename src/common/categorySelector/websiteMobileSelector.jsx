@@ -8,17 +8,17 @@ import {
 } from "@components/selector/selectorDefaultElements";
 import classNames from "classnames";
 import MenuItem from "@common/menuItem";
-import {ChevronDown, ChevronLeft, XClose} from "@icons";
+import {ChevronLeft, XClose} from "@icons";
 import MenuSection from "@common/menuSection/menuSection";
 import Link from "next/link";
 
-const MobileSelectorGlobalStyles = createGlobalStyle`
-    body {
-      overflow-y: hidden;
-    }
+const WebsiteMobileSelectorGlobalStyles = createGlobalStyle`
+  body {
+    overflow-y: hidden;
+  }
 `
 
-const MobileSelectorStyled = styled.div`
+const WebsiteMobileSelectorStyled = styled.div`
   .menu-item {
     padding: 12px 24px;
     cursor: pointer;
@@ -35,11 +35,11 @@ const MobileSelectorStyled = styled.div`
       color: ${({theme}) => theme.colors.primary}
     }
   }
-  
+
   .menu-item__icon {
     color: currentColor;
   }
-  
+
   .menu-section {
     position: absolute;
     background-color: #fff;
@@ -47,15 +47,15 @@ const MobileSelectorStyled = styled.div`
     top: 0;
     left: 0;
   }
-  
+
   .menu-section {
     height: 100%;
   }
-  
+
   .menu-section__header {
     padding: 12px;
   }
-  
+
   .menu-section__title {
     justify-content: center;
     font-weight: 600;
@@ -64,19 +64,19 @@ const MobileSelectorStyled = styled.div`
     color: ${({theme}) => theme.colors.primary};
     text-transform: uppercase;
   }
-  
+
   .menu-section__body {
     display: flex;
     flex-direction: column;
     padding-top: 12px;
   }
-  
+
   .menu-section__prefix, .menu-section__postfix {
     cursor: pointer;
   }
 `
 
-const MobileSelectorMenu = styled.div`
+const WebsiteMobileSelectorMenu = styled.div`
   display: block;
   position: fixed;
   z-index: 1000;
@@ -88,25 +88,25 @@ const MobileSelectorMenu = styled.div`
   overflow-y: auto;
 `
 
-const MobileSelectorTitle = styled.div`
+const WebsiteMobileSelectorTitle = styled.div`
   font-weight: 700;
   font-size: 16px;
   line-height: 133%;
   color: #444;
   text-transform: capitalize;
-  
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
+
   padding: 12px 16px;
-  
+
   & svg {
     cursor: pointer;
   }
 `
 
-const MenuSectionLink = styled.a`
+const WebsiteMenuSectionLink = styled.a`
   text-decoration: none;
   font-weight: 400;
   font-size: 16px;
@@ -116,7 +116,7 @@ const MenuSectionLink = styled.a`
 `
 
 
-const MobileSelector = (props) => {
+const WebsiteMobileSelector = (props) => {
     const {
         typeSortData,
         locale,
@@ -139,7 +139,7 @@ const MobileSelector = (props) => {
     }
 
     return (
-        <MobileSelectorStyled>
+        <WebsiteMobileSelectorStyled>
             <SelectorDefaultHeader onClick={() => setIsOpen(prevState => !prevState)}>
                 <SelectorDefaultLabel>{t('Categories')}</SelectorDefaultLabel>
                 <SelectorDefaultIcon className={classNames({'open': isOpen})}/>
@@ -147,13 +147,13 @@ const MobileSelector = (props) => {
             {
                 isOpen &&
                 <>
-                    <MobileSelectorMenu>
-                        <MobileSelectorTitle>
-                            Categories
-                            <XClose color="currentColor" size={30} onClick={onClose} />
-                        </MobileSelectorTitle>
+                    <WebsiteMobileSelectorMenu>
+                        <WebsiteMobileSelectorTitle>
+                            {t('Categories')}
+                            <XClose color="currentColor" size={30} onClick={onClose}/>
+                        </WebsiteMobileSelectorTitle>
                         <MenuItem
-                            title="View all templates"
+                            title={t("View all templates")}
                             icon={false}
                             href="/"
                             onClick={onClose}
@@ -161,20 +161,20 @@ const MobileSelector = (props) => {
 
 
                         <MenuItem
-                            title="Forms by branch"
+                            title={t("Forms by branch")}
                             onClick={() => setCategoriesOpen(true)}
                         />
                         {
                             categoriesOpen &&
                             <MenuSection
-                                title="Forms by branch"
-                                prefix={<ChevronLeft size={28} onClick={() => setCategoriesOpen(false)} />}
-                                postfix={<XClose size={34} onClick={onClose} />}
+                                title={t("Forms by branch")}
+                                prefix={<ChevronLeft size={28} onClick={() => setCategoriesOpen(false)}/>}
+                                postfix={<XClose size={34} onClick={onClose}/>}
                             >
                                 {
                                     categories.data.map(({attributes}) => (
                                         <Link href={`/form/${attributes.urlReq}`} passHref key={attributes.urlReq}>
-                                            <MenuSectionLink>{attributes.categorie}</MenuSectionLink>
+                                            <WebsiteMenuSectionLink>{attributes.categorie}</WebsiteMenuSectionLink>
                                         </Link>
                                     ))
                                 }
@@ -183,20 +183,21 @@ const MobileSelector = (props) => {
 
 
                         <MenuItem
-                            title="Forms by type"
+                            title={t("Forms by type")}
                             onClick={() => setTypesOpen(true)}
                         />
                         {
                             typesOpen &&
                             <MenuSection
-                                title="Forms by type"
-                                prefix={<ChevronLeft size={28} onClick={() => setTypesOpen(false)} />}
-                                postfix={<XClose size={34} onClick={onClose} />}
+                                title={t("Forms by type")}
+                                prefix={<ChevronLeft size={28} onClick={() => setTypesOpen(false)}/>}
+                                postfix={<XClose size={34} onClick={onClose}/>}
                             >
                                 {
                                     types.data.map(({attributes}) => (
-                                        <Link href={`/form/types/${attributes.urlReq}`} passHref key={attributes.urlReq}>
-                                            <MenuSectionLink>{attributes.type}</MenuSectionLink>
+                                        <Link href={`/form/types/${attributes.urlReq}`} passHref
+                                              key={attributes.urlReq}>
+                                            <WebsiteMenuSectionLink>{attributes.type}</WebsiteMenuSectionLink>
                                         </Link>
                                     ))
                                 }
@@ -205,20 +206,21 @@ const MobileSelector = (props) => {
 
 
                         <MenuItem
-                            title="Popular Compilations"
+                            title={t("Popular Compilations")}
                             onClick={() => setCompilationsOpen(true)}
                         />
                         {
                             compilationsOpen &&
                             <MenuSection
-                                title="Popular Compilations"
-                                prefix={<ChevronLeft size={28} onClick={() => setCompilationsOpen(false)} />}
-                                postfix={<XClose size={34} onClick={onClose} />}
+                                title={t("Popular Compilations")}
+                                prefix={<ChevronLeft size={28} onClick={() => setCompilationsOpen(false)}/>}
+                                postfix={<XClose size={34} onClick={onClose}/>}
                             >
                                 {
                                     compilations.data.map(({attributes}) => (
-                                        <Link href={`/form/compilations/${attributes.urlReq}`} passHref key={attributes.urlReq}>
-                                            <MenuSectionLink>{attributes.compilation}</MenuSectionLink>
+                                        <Link href={`/form/compilations/${attributes.urlReq}`} passHref
+                                              key={attributes.urlReq}>
+                                            <WebsiteMenuSectionLink>{attributes.compilation}</WebsiteMenuSectionLink>
                                         </Link>
                                     ))
                                 }
@@ -226,15 +228,13 @@ const MobileSelector = (props) => {
                         }
 
 
-                    </MobileSelectorMenu>
-                    <MobileSelectorGlobalStyles />
+                    </WebsiteMobileSelectorMenu>
+                    <WebsiteMobileSelectorGlobalStyles/>
                 </>
             }
-        </MobileSelectorStyled>
+        </WebsiteMobileSelectorStyled>
     );
 };
 
 
-export default MobileSelector;
-
-
+export default WebsiteMobileSelector;

@@ -7,6 +7,7 @@ export const NotFoundForWebsiteStyled = styled.div`
   justify-content: center;
   height: 100vh;
   width: 100vw;
+  background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
 
 
   .not-found__title {
@@ -53,6 +54,7 @@ export const NotFoundForDesktopStyled = styled.div`
   justify-content: center;
   height: 100vh;
   width: 100vw;
+  background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
 
   .not-found__title {
     font-weight: 700;

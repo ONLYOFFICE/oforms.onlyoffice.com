@@ -27,11 +27,16 @@ export const StyledFilePopup = styled.div`
 
   .popup-icon {
     cursor: pointer;
-    color: ${({theme}) => theme.colors.palette.iconNormal}
+    color: ${({theme}) => theme.colors.palette.iconNormal};
+    transition: transform 50ms ease-in-out;
+    
+    &:hover {
+      color: black;
+      transform: scale(1.3);
+    }
   }
 
   .popup-wrapper {
-
     display: flex;
     justify-content: center;
     align-items: center;
