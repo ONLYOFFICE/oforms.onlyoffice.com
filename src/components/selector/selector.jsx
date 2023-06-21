@@ -40,11 +40,20 @@ const Selector = (props) => {
         }
     }
 
+    const onMouseOver = () => {
+        if (isControlled) {
+            onVisibilityChange && onVisibilityChange(true)
+        } else {
+            setOpen(true)
+        }
+    }
+
     return (
         <>
             <StyledSelector
                 className={selectorClassName}
                 onMouseLeave={onMouseLeave}
+                onMouseOver={onMouseOver}
             >
                 {
                     headerRender !== undefined ? headerRender(label, value, isControlled ? isOpen : open) :
