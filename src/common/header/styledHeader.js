@@ -10,7 +10,10 @@ export const StyledHeader = styled.header`
             top: 0;
             z-index: 10;
             background-color: ${theme.colors.palette.backgroundNormal};
-            border-bottom: 1px solid ${theme.colors.palette.borderToolbarButtonHover};
+            
+            @media screen and (min-width: 600px) {
+              border-bottom: 1px solid ${theme.colors.palette.borderToolbarButtonHover};
+            }
           `
       }
   }}
