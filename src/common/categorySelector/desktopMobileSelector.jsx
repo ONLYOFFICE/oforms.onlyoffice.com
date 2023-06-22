@@ -33,7 +33,7 @@ const DesktopMobileSelectorStyled = styled.div`
 
   .menu-section__header {
     padding: 12px;
-    background-color: ${({theme}) => theme.colors.palette.highlightButtonHover};
+    background-color: ${({theme}) => theme.colors.palette.highlightButtonPressed};
   }
 
   .menu-section__title {
@@ -77,12 +77,12 @@ const DesktopMenuSectionLink = styled.a`
   text-decoration: none;
 
   &:hover {
-    background-color: ${({theme}) => theme.colors.palette.canvasScrollThumb};
+    background-color: ${({theme}) => theme.colors.palette.highlightButtonHover};
     color: ${({theme}) => theme.colors.palette.textNormal};
   }
 
   &.active {
-    background-color: ${({theme}) => theme.colors.palette.canvasScrollThumbHover};
+    background-color: ${({theme}) => theme.colors.palette.highlightButtonPressed};
     color: ${({theme}) => theme.colors.palette.textNormal};
   }
 `

@@ -29,7 +29,7 @@ export const StyledFilePopup = styled.div`
     cursor: pointer;
     color: ${({theme}) => theme.colors.palette.iconNormal};
     transition: transform 50ms ease-in-out;
-    
+
     &:hover {
       color: black;
       transform: scale(1.3);
@@ -272,40 +272,26 @@ export const StyledFilePopup = styled.div`
       padding: 3px 11px 2px;
 
       &.selected {
-        background-color: ${({theme}) => theme.colors.palette.canvasScrollThumb};
+        background-color: ${({theme}) => theme.colors.palette.highlightButtonPressed};
       }
 
       &:hover {
-        background-color: ${({theme}) => theme.colors.palette.canvasScrollThumbHover};
+        background-color: ${({theme}) => theme.colors.palette.highlightButtonHover};
       }
     }
   }
-
   .popup-content {
     width: 100%;
-    max-width: 1130px;
+    max-width: 886px;
   }
 
   .file-img {
-    width: 648px;
-    height: 916px;
+    width: 400px;
   }
 
-  @media screen and (max-width: 1200px) {
+  @media screen and (max-width: 920px) {
     .popup-content {
-      width: 100%;
-      max-width: 780px;
-    }
-
-    .file-img {
-      width: 290px;
-      height: auto;
-    }
-  }
-
-  @media screen and (max-width: 800px) {
-    .popup-content {
-      max-width: 430px;
+      max-width: min-content;
       width: 100%;
     }
 
@@ -314,8 +300,23 @@ export const StyledFilePopup = styled.div`
     }
 
     .file-img {
-      width: auto;
-      height: auto;
+      width: 324px;
+    }
+    
+    .file-info {
+      gap: 10px
+    }
+    
+    .file-content {
+      padding-bottom: 24px;
+    }
+    
+    .file-info-block {
+      gap: 12px;
+    }
+    
+    .file-info-item__selector {
+      padding-right: 0;
     }
   }
 `;

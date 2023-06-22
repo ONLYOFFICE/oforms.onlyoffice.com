@@ -24,7 +24,7 @@ export const HeaderBox = styled.div`
   align-items: center;
 `
 
-export const HeaderTitle = styled.h2`
+export const HeaderTitle = styled.h3`
   margin: 0 0 23px 0;
   font-style: normal;
   font-weight: 300;

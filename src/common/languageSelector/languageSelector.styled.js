@@ -18,11 +18,11 @@ export const LanguageSelectorStyled = styled.div`
   .lang-selector__link {
     &.active {
       background-color: ${({isDesktopClient, theme}) =>
-              isDesktopClient ? theme.colors.palette.canvasScrollThumb : undefined};
+              isDesktopClient ? theme.colors.palette.highlightButtonPressed : undefined};
     }
     &:hover {
       background-color: ${({isDesktopClient, theme}) =>
-              isDesktopClient ? theme.colors.palette.canvasScrollThumbHover : undefined};
+              isDesktopClient ? theme.colors.palette.highlightButtonHover : undefined};
     }
   }
 `
