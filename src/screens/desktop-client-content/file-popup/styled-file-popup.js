@@ -282,7 +282,7 @@ export const StyledFilePopup = styled.div`
   }
   .popup-content {
     width: 100%;
-    max-width: 886px;
+    max-width: 889px;
   }
 
   .file-img {
@@ -300,7 +300,7 @@ export const StyledFilePopup = styled.div`
     }
 
     .file-img {
-      width: 324px;
+      width: 326px;
     }
     
     .file-info {

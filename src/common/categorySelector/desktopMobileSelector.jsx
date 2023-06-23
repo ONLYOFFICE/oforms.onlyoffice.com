@@ -8,6 +8,8 @@ import MenuSection from "@common/menuSection/menuSection";
 import Link from "next/link";
 import {CategorySelectorHeader} from "@common/categorySelector/categorySelectorHeader";
 import {useRouter} from "next/router";
+import Selector from "@components/selector";
+import {CategorySelectorDropdown} from "@common/categorySelector/styledCategorySelector";
 
 const DesktopMobileSelectorStyled = styled.div`
   .menu-item {
@@ -46,7 +48,7 @@ const DesktopMobileSelectorStyled = styled.div`
 
   .menu-section__body {
     padding: 16px 0;
-    max-height: calc(100vh - 255px);
+    max-height: calc(100vh - 270px);
     overflow-y: auto;
   }
 
@@ -65,6 +67,7 @@ const DesktopMobileSelectorMenu = styled.div`
   grid-template-columns: 1fr;
   width: 320px;
   padding: 16px 0;
+  top: -10px;
 `
 
 const DesktopMenuSectionLink = styled.a`
@@ -135,130 +138,141 @@ export const DesktopMobileSelector = (props) => {
 
 
     return (
-        <DesktopMobileSelectorStyled onMouseLeave={() => setIsOpen(false)}>
-            <CategorySelectorHeader
+        <DesktopMobileSelectorStyled >
+            <Selector
                 label={t("Categories")}
                 value={router.pathname === "/searchresult" ? `${t("Search-result-for")} '${queryDesktopClient}'` : categoryName}
-                setIsOpen={setIsOpen}
                 isOpen={isOpen}
-                onClear={onClear}
-            />
-            {
-                isOpen && <DesktopMobileSelectorMenu>
-                    <MenuItem
-                        title={t("View all templates")}
-                        icon={false}
-                        href={getHref('/')}
-                        onClick={onClose}
+                onVisibilityChange={(state) => setIsOpen(state)}
+                headerRender={(label, value) => (
+                    <CategorySelectorHeader
+                        label={label}
+                        value={value}
+                        setIsOpen={setIsOpen}
+                        isOpen={isOpen}
+                        onClear={onClear}
                     />
-                    <MenuItem
-                        title={t("Forms by branch")}
-                        onClick={() => setCategoriesOpen(true)}
-                    />
+                )}
+            >
+                <CategorySelectorDropdown className="category-selector__dropdown">
                     {
-                        categoriesOpen &&
-                        <MenuSection
-                            title={t("Forms by branch")}
-                            prefix={
-                                <ChevronLeft
-                                    className="menu-icon"
-                                    size={28}
-                                    onClick={() => setCategoriesOpen(false)}
-                                />
-                            }
-                            postfix={<XClose size={34} onClick={onClose} className="menu-icon"/>}
-                        >
+                        <DesktopMobileSelectorMenu>
+                            <MenuItem
+                                title={t("View all templates")}
+                                icon={false}
+                                href={getHref('/')}
+                                onClick={onClose}
+                            />
+                            <MenuItem
+                                title={t("Forms by branch")}
+                                onClick={() => setCategoriesOpen(true)}
+                            />
                             {
-                                categories.data.map(({attributes}) => (
-                                    <Link
-                                        href={getHref(`/form/${attributes.urlReq}`)}
-                                        passHref
-                                        key={attributes.urlReq}
-                                    >
-                                        <DesktopMenuSectionLink
-                                            className={classNames({'active': categoryName === attributes.categorie})}
-                                        >
-                                            {attributes.categorie}
-                                        </DesktopMenuSectionLink>
-                                    </Link>
-                                ))
+                                categoriesOpen &&
+                                <MenuSection
+                                    title={t("Forms by branch")}
+                                    prefix={
+                                        <ChevronLeft
+                                            className="menu-icon"
+                                            size={28}
+                                            onClick={() => setCategoriesOpen(false)}
+                                        />
+                                    }
+                                    postfix={<XClose size={34} onClick={onClose} className="menu-icon"/>}
+                                >
+                                    {
+                                        categories.data.map(({attributes}) => (
+                                            <Link
+                                                href={getHref(`/form/${attributes.urlReq}`)}
+                                                passHref
+                                                key={attributes.urlReq}
+                                            >
+                                                <DesktopMenuSectionLink
+                                                    className={classNames({'active': categoryName === attributes.categorie})}
+                                                >
+                                                    {attributes.categorie}
+                                                </DesktopMenuSectionLink>
+                                            </Link>
+                                        ))
+                                    }
+                                </MenuSection>
                             }
-                        </MenuSection>
-                    }
 
 
-                    <MenuItem
-                        title={t("Forms by type")}
-                        onClick={() => setTypesOpen(true)}
-                    />
-                    {
-                        typesOpen &&
-                        <MenuSection
-                            title={t("Forms by type")}
-                            prefix={
-                                <ChevronLeft
-                                    className="menu-icon"
-                                    size={28}
-                                    onClick={() => setTypesOpen(false)}
-                                />
-                            }
-                            postfix={<XClose size={34} onClick={onClose} className="menu-icon"/>}
-                        >
+                            <MenuItem
+                                title={t("Forms by type")}
+                                onClick={() => setTypesOpen(true)}
+                            />
                             {
-                                types.data.map(({attributes}) => (
-                                    <Link
-                                        href={getHref(`/form/types/${attributes.urlReq}`)}
-                                        passHref
-                                        key={attributes.urlReq}
-                                    >
-                                        <DesktopMenuSectionLink
-                                            className={classNames({'active': categoryName === attributes.type})}
-                                        >
-                                            {attributes.type}
-                                        </DesktopMenuSectionLink>
-                                    </Link>
-                                ))
+                                typesOpen &&
+                                <MenuSection
+                                    title={t("Forms by type")}
+                                    prefix={
+                                        <ChevronLeft
+                                            className="menu-icon"
+                                            size={28}
+                                            onClick={() => setTypesOpen(false)}
+                                        />
+                                    }
+                                    postfix={<XClose size={34} onClick={onClose} className="menu-icon"/>}
+                                >
+                                    {
+                                        types.data.map(({attributes}) => (
+                                            <Link
+                                                href={getHref(`/form/types/${attributes.urlReq}`)}
+                                                passHref
+                                                key={attributes.urlReq}
+                                            >
+                                                <DesktopMenuSectionLink
+                                                    className={classNames({'active': categoryName === attributes.type})}
+                                                >
+                                                    {attributes.type}
+                                                </DesktopMenuSectionLink>
+                                            </Link>
+                                        ))
+                                    }
+                                </MenuSection>
                             }
-                        </MenuSection>
-                    }
 
 
-                    <MenuItem
-                        title={t("Popular Compilations")}
-                        onClick={() => setCompilationsOpen(true)}
-                    />
-                    {
-                        compilationsOpen &&
-                        <MenuSection
-                            title={t("Popular Compilations")}
-                            prefix={
-                                <ChevronLeft
-                                    className="menu-icon"
-                                    size={28}
-                                    onClick={() => setCompilationsOpen(false)}
-                                />
-                            }
-                            postfix={<XClose size={34} onClick={onClose} className="menu-icon"/>}
-                        >
+                            <MenuItem
+                                title={t("Popular Compilations")}
+                                onClick={() => setCompilationsOpen(true)}
+                            />
                             {
-                                compilations.data.map(({attributes}) => (
-                                    <Link
-                                        href={getHref(`/form/compilations/${attributes.urlReq}`)}
-                                        passHref
-                                        key={attributes.urlReq}
-                                    >
-                                        <DesktopMenuSectionLink
-                                            className={classNames({'active': categoryName === attributes.compilation})}
-                                        >
-                                            {attributes.compilation}
-                                        </DesktopMenuSectionLink>
-                                    </Link>
-                                ))
+                                compilationsOpen &&
+                                <MenuSection
+                                    title={t("Popular Compilations")}
+                                    prefix={
+                                        <ChevronLeft
+                                            className="menu-icon"
+                                            size={28}
+                                            onClick={() => setCompilationsOpen(false)}
+                                        />
+                                    }
+                                    postfix={<XClose size={34} onClick={onClose} className="menu-icon"/>}
+                                >
+                                    {
+                                        compilations.data.map(({attributes}) => (
+                                            <Link
+                                                href={getHref(`/form/compilations/${attributes.urlReq}`)}
+                                                passHref
+                                                key={attributes.urlReq}
+                                            >
+                                                <DesktopMenuSectionLink
+                                                    className={classNames({'active': categoryName === attributes.compilation})}
+                                                >
+                                                    {attributes.compilation}
+                                                </DesktopMenuSectionLink>
+                                            </Link>
+                                        ))
+                                    }
+                                </MenuSection>
                             }
-                        </MenuSection>
+                        </DesktopMobileSelectorMenu>
                     }
-                </DesktopMobileSelectorMenu>
-            }
+                </CategorySelectorDropdown>
+            </Selector>
         </DesktopMobileSelectorStyled>
     )
 }

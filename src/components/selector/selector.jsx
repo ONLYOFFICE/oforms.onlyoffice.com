@@ -41,6 +41,7 @@ const Selector = (props) => {
     }
 
     const onMouseOver = () => {
+        console.log(1)
         if (isControlled) {
             onVisibilityChange && onVisibilityChange(true)
         } else {
