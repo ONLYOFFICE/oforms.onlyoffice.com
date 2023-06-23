@@ -8,19 +8,19 @@ import getAllTypes from "@lib/strapi/getTypes";
 import getAllCategories from "@lib/strapi/getCategories";
 import getAllCompilations from "@lib/strapi/getCompilations";
 import Layout from "@components/layout";
-import HeadSEO from "@components/screens/head-content";
-import HeadingContent from "@components/screens/heading-content";
-import InfoContent from "@components/screens/main-page/info-content";
-import MainContent from "@components/screens/main-page/main-content";
-import DesktopClientContent from "@components/screens/desktop-client-content";
-import AdventAnnounce from "@components/screens/heading-content/advent-announce";
+import HeadSEO from "../src/screens/head-content";
+import HeadingContent from "../src/screens/heading-content";
+import InfoContent from "../src/screens/main-page/info-content";
+import MainContent from "../src/screens/main-page/main-content";
+import DesktopClientContent from "../src/screens/desktop-client-content";
+import AdventAnnounce from "../src/screens/heading-content/advent-announce";
 import CONFIG from "@config/config";
 
-const Accordion = lazy(() => import("@components/screens/common/accordion"), {
+const Accordion = lazy(() => import("../src/screens/common/accordion"), {
     suspense: true,
     ssr: false,
 });
-const Footer = lazy(() => import("@components/screens/footer-content"), {
+const Footer = lazy(() => import("../src/screens/footer-content"), {
     suspense: true,
     ssr: false,
 });

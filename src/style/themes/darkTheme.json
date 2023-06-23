@@ -12,7 +12,6 @@
       "borderToolbarButtonHover": "#5A5A5A",
       "borderToolbar": "#616161",
       "highlightButtonPressedHover": "#808080",
-      "highlightButtonHover": "#555555",
       "backgroundNormal": "#333333",
       "backgroundToolbar": "#404040",
       "backgroundPrimaryDialogButton": "#DDDDDD",
@@ -21,7 +20,9 @@
       "canvasScrollThumb": "#404040",
       "canvasScrollThumbHover": "#999999",
       "scrollThumb": "#606060",
-      "scrollThumbHover": "#404040"
+      "scrollThumbHover": "#404040",
+      "highlightButtonHover": "#555555",
+      "highlightButtonPressed": "#606060"
     },
     "base": {
       "white": "#FFF",

@@ -12,16 +12,17 @@
       "borderToolbarButtonHover": "#D8DADC",
       "borderToolbar": "#CBCBCB",
       "highlightButtonPressedHover": "#D8DADC",
-      "highlightButtonHover": "#D8DADC",
       "backgroundNormal": "#FFFFFF",
       "backgroundToolbar": "#F1F1F1",
-      "backgroundPrimaryDialogButton": "#7D858C",
-      "backgroundPrimaryDialogButtonHover": "#666D73",
+      "backgroundPrimaryDialogButton": "#444444",
+      "backgroundPrimaryDialogButtonHover": "#1C1C1C",
       "backgroundScrim": "rgba(0, 0, 0, 0.2)",
       "canvasScrollThumb": "#F1F1F1",
-      "canvasScrollThumbHover": "#CFCFCF",
+      "canvasScrollThumbHover": "#EBEBEB",
       "scrollThumb": "#E0E0E0",
-      "scrollThumbHover": "#F7F7F7"
+      "scrollThumbHover": "#F7F7F7",
+      "highlightButtonHover": "#EBEBEB",
+      "highlightButtonPressed": "#F5F5F5"
     },
     "base": {
       "white": "#FFF",
