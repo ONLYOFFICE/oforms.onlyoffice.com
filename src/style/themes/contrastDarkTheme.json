@@ -21,8 +21,8 @@
       "canvasScrollThumbHover": "#555555",
       "scrollThumb": "#606060",
       "scrollThumbHover": "#252525",
-      "highlightButtonHover": "#E0E0E0",
-      "highlightButtonPressed": "#CCCCCC"
+      "highlightButtonHover": "#424242",
+      "highlightButtonPressed": "#666666"
     },
     "base": {
       "white": "#FFF",
