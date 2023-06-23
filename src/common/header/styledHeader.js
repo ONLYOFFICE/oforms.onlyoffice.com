@@ -10,7 +10,10 @@ export const StyledHeader = styled.header`
             top: 0;
             z-index: 10;
             background-color: ${theme.colors.palette.backgroundNormal};
-            border-bottom: 1px solid ${theme.colors.palette.borderToolbarButtonHover};
+            
+            @media screen and (min-width: 600px) {
+              border-bottom: 1px solid ${theme.colors.palette.borderToolbarButtonHover};
+            }
           `
       }
   }}
@@ -21,7 +24,7 @@ export const HeaderBox = styled.div`
   align-items: center;
 `
 
-export const HeaderTitle = styled.h2`
+export const HeaderTitle = styled.h3`
   margin: 0 0 23px 0;
   font-style: normal;
   font-weight: 300;

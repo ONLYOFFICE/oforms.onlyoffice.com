@@ -7,19 +7,19 @@ import getAllCategories from "@lib/strapi/getCategories";
 import getAllCompilations from "@lib/strapi/getCompilations";
 
 import Layout from "@components/layout";
-import HeadSEO from "@components/screens/head-content";
-import HeadingContent from "@components/screens/heading-content";
-import InfoContent from "@components/screens/category-page/info-content";
-import MainContent from "@components/screens/category-page/main-content";
-import DesktopClientContent from "@components/screens/desktop-client-content";
-import AdventAnnounce from "@components/screens/heading-content/advent-announce";
+import HeadSEO from "../../../../src/screens/head-content";
+import HeadingContent from "../../../../src/screens/heading-content";
+import InfoContent from "../../../../src/screens/category-page/info-content";
+import MainContent from "../../../../src/screens/category-page/main-content";
+import DesktopClientContent from "../../../../src/screens/desktop-client-content";
+import AdventAnnounce from "../../../../src/screens/heading-content/advent-announce";
 
 import config from "@config/config.json";
 
-const Accordion = lazy(() => import("@components/screens/common/accordion"), {
+const Accordion = lazy(() => import("../../../../src/screens/common/accordion"), {
   loading: () => <div />,
 });
-const Footer = lazy(() => import("@components/screens/footer-content"), {
+const Footer = lazy(() => import("../../../../src/screens/footer-content"), {
   loading: () => <div />,
 });
 
@@ -112,11 +112,11 @@ const Category = ({
 };
 
 export const getServerSideProps = async ({ locale, query, ...ctx }) => {
-  const isDesktop = query.desktop === "true";
+  const isDesktopClient = query.desktop === "true";
   const page = query.page || 1;
   const sort = query._sort || "asc";
   const urlReq = query.type;
-  const pageSize = query.pageSize || isDesktop ? 0 : 9;
+  const pageSize = query.pageSize || isDesktopClient ? 0 : 9;
   const cms = config.api.cms
   const res = await fetch(
     `${cms}/api/oforms/?filters[types][urlReq][$eq]=${urlReq}&locale=${locale}&sort=name_form:${sort}&${pageSize ? `&pagination[pageSize]=${pageSize}` : ''}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
@@ -130,10 +130,27 @@ export const getServerSideProps = async ({ locale, query, ...ctx }) => {
   const categories = await getAllCategories(locale);
   const compilations = await getAllCompilations(locale);
 
+  const getRedirect = () => {
+    const result = {
+      destination: '/404',
+      query: {}
+    }
+
+    if(isDesktopClient) {
+      result.query.desktop = true
+    }
+
+    if(theme) {
+      result.query.theme = theme
+    }
+
+    return result;
+  }
+
   if (categoryForms.data.length === 0) {
     return {
       redirect: {
-        destination: `https://oforms.teamlab.info/404`,
+        ...getRedirect(),
         permanent: true,
       },
     };

@@ -3,38 +3,38 @@ import dynamic from "next/dynamic";
 import {Trans, useTranslation} from "next-i18next";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {localStorageCarousel, CAROUSEL_COOKIE} from "@utils/constants";
-import {shortCarouselSettings} from "@components/screens/form-page/carousel/config/carousel-config";
+import {shortCarouselSettings} from "../src/screens/form-page/carousel/config/carousel-config";
 
 import getAllTypes from "@lib/strapi/getTypes";
 import getAllCategories from "@lib/strapi/getCategories";
 import getAllCompilations from "@lib/strapi/getCompilations";
 import Layout from "@components/layout";
-import HeadSEO from "@components/screens/head-content";
-import HeadingContent from "@components/screens/heading-content";
-import MainInfo from "@components/screens/form-page/main";
+import HeadSEO from "../src/screens/head-content";
+import HeadingContent from "../src/screens/heading-content";
+import MainInfo from "../src/screens/form-page/main";
 import {getCookie, setCookie} from "@utils/helpers/cookie";
 import Heading from "@common/heading";
-import CategoryContent from "@components/screens/form-page/category-content";
+import CategoryContent from "../src/screens/form-page/category-content";
 import config from "@config/config.json";
-import AdventAnnounce from "@components/screens/heading-content/advent-announce";
+import AdventAnnounce from "../src/screens/heading-content/advent-announce";
 
 const CarouselContent = dynamic(
-    () => import("@components/screens/form-page/carousel"),
+    () => import("../src/screens/form-page/carousel"),
     {ssr: false}
 );
 const FormBanner = lazy(
-    () => import("@components/screens/form-page/form-banner"),
+    () => import("../src/screens/form-page/form-banner"),
     {
         loading: () => <div/>,
     }
 );
-const Banner = lazy(() => import("@components/screens/common/banner"), {
+const Banner = lazy(() => import("../src/screens/common/banner"), {
     loading: () => <div/>,
 });
-const Accordion = lazy(() => import("@components/screens/common/accordion"), {
+const Accordion = lazy(() => import("../src/screens/common/accordion"), {
     loading: () => <div/>,
 });
-const Footer = lazy(() => import("@components/screens/footer-content"), {
+const Footer = lazy(() => import("../src/screens/footer-content"), {
     loading: () => <div/>,
 });
 

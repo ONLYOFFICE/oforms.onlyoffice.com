@@ -6,10 +6,12 @@ export const SearchAreaStyled = styled.div`
     if (isDesktopClient) {
       return css`
         align-items: flex-end;
+
         .search-area__desc {
           color: ${({theme}) => theme.colors.palette.textNormal};
           padding-bottom: 2.5px;
           gap: 12px;
+
           &:after {
             background-color: ${({theme}) => theme.colors.palette.highlightButtonPressedHover};;
           }
@@ -21,7 +23,7 @@ export const SearchAreaStyled = styled.div`
           font-size: 14px;
           line-height: 160%;
         }
-        
+
         .input-component__label {
           top: 7px;
           color: ${({theme}) => theme.colors.palette.textSecondary};
@@ -32,9 +34,13 @@ export const SearchAreaStyled = styled.div`
         .input-component__icon svg, .input-component__clear-icon svg {
           color: ${({theme}) => theme.colors.palette.iconNormal};
         }
-        
+
         .focus .input-component__label {
           transform: translateY(-10px) scale(0.7);
+        }
+        
+        @media screen and (max-width: 601px) {
+          border-bottom: 1px solid ${({theme}) => theme.colors.palette.borderToolbarButtonHover};
         }
       `
     }
