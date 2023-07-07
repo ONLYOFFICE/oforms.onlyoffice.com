@@ -33,7 +33,7 @@ export const CategorySelector = (props) => {
         compilations,
         isDesktopClient,
         categoryName,
-        queryDesktopClient
+        queryDesktopClient,
     } = props;
     const {t} = useTranslation('common')
     const [isCategoryOpen, setIsCategoryOpen] = useState(false);
@@ -99,6 +99,7 @@ export const CategorySelector = (props) => {
             value={isDesktopClient && router.pathname === "/searchresult" ? `${t("Search-result-for")} '${queryDesktopClient}'` : categoryName}
             isOpen={isOpen}
             onVisibilityChange={(state) => setIsOpen(state)}
+            trigger={isDesktopClient ? 'click' : 'hover'}
             headerRender={(label, value) => (
                 <CategorySelectorHeader
                     label={label}

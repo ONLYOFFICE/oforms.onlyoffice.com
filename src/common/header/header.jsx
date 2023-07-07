@@ -15,7 +15,7 @@ export const Header = ({handlerSetModal, handlerCardData}) => {
         return (
             <StyledHeader isDesktopClient={isDesktopClient}>
                 <HeaderTitle>{t('Templates')}</HeaderTitle>
-                <HeaderBox>
+                <HeaderBox className="header__box">
                     <SearchContent
                         handlerSetModal={handlerSetModal}
                         handlerCardData={handlerCardData}

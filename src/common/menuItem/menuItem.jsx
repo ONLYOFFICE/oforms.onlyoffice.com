@@ -8,10 +8,11 @@ import classNames from "classnames";
 const MenuItem = (props) => {
     const {
         icon = true,
-        isOpen,
+        active,
         href,
         title,
         locale,
+        className,
         ...otherProps
     } = props;
 
@@ -36,7 +37,7 @@ const MenuItem = (props) => {
     }
 
     return (
-        <MenuItemStyled className={classNames('menu-item', {'open': isOpen})} {...otherProps}>
+        <MenuItemStyled className={classNames('menu-item', {'active': active})} {...otherProps}>
             <MenuItemTitle className="menu-item__title">{title}</MenuItemTitle>
             {
                 icon === true ?
@@ -53,8 +54,9 @@ MenuItem.propTypes = {
     href: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     locale: PropTypes.string,
     icon: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
-    isOpen: PropTypes.bool,
+    active: PropTypes.bool,
     title: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
+    className: PropTypes.string,
 }
 
 export default MenuItem;

@@ -20,7 +20,7 @@
     "next-i18next": "^11.0.0",
     "prop-types": "^15.8.1",
     "rc-dropdown": "^4.1.0",
-    "rc-menu": "^9.9.2",
+    "rc-menu": "^9.11.0",
     "react": "18.0.0",
     "react-custom-scrollbars": "^4.2.1",
     "react-device-detect": "^2.2.2",

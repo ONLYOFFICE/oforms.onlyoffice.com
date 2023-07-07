@@ -1,6 +1,7 @@
 import {useState, useEffect} from "react";
 import Cards from "../common/cards";
 import {CategorySelector} from "@common/categorySelector";
+import NewCategorySelector from '@common/newCategorySelector'
 import Text from "@common/text";
 import StyledDesktopClientContent from "./styled-desktop-client-content";
 import FilePopup from "./file-popup/file-popup";
@@ -8,6 +9,7 @@ import {SortSelector} from "@common/sortSelector";
 import {useRouter} from "next/router";
 import {Header} from "@common/header";
 import {useTranslation} from "next-i18next";
+import RcDropdown from "rc-dropdown";
 const DesktopClientContent = (props) => {
     const {
         currentLanguage,
@@ -29,7 +31,7 @@ const DesktopClientContent = (props) => {
     const [cardData, setCardData] = useState("");
     const router = useRouter();
     const theme = router.query.theme
-    const isDesktopClient = router.query.desktop
+    const isDesktopClient = router.query.desktop === 'true'
 
     const [modalActive, setModalActive] = useState(false);
     const handlerSetModal = () => {
@@ -49,54 +51,68 @@ const DesktopClientContent = (props) => {
     }, [sort]);
 
     return (
-        <StyledDesktopClientContent
-            isDark={(theme === 'theme-dark') || (theme === 'theme-contrast-dark')}
-        >
+        <>
             <Header handlerSetModal={handlerSetModal} handlerCardData={handlerCardData}/>
-            <div className="box-doc-info-template">
-                <div className="box-doc-categories">
-                    <CategorySelector
-                        typeSortData={typeSortData}
-                        locale={currentLanguage}
-                        className="form-control"
-                        types={types}
-                        categories={categories}
-                        compilations={compilations}
-                        isCategoryPage={isCategoryPage}
-                        isDesktopClient={isDesktopClient}
-                        header={header}
-                        categoryName={categoryName}
-                        queryDesktopClient={queryDesktopClient}
-                    />
+            <StyledDesktopClientContent
+                isDark={(theme === 'theme-dark') || (theme === 'theme-contrast-dark')}
+            >
+                <div className="box-doc-info-template">
+                    <div className="box-doc-categories">
+                        {/*<CategorySelector*/}
+                        {/*    typeSortData={typeSortData}*/}
+                        {/*    locale={currentLanguage}*/}
+                        {/*    className="form-control"*/}
+                        {/*    types={types}*/}
+                        {/*    categories={categories}*/}
+                        {/*    compilations={compilations}*/}
+                        {/*    isCategoryPage={isCategoryPage}*/}
+                        {/*    isDesktopClient={isDesktopClient}*/}
+                        {/*    header={header}*/}
+                        {/*    categoryName={categoryName}*/}
+                        {/*    queryDesktopClient={queryDesktopClient}*/}
+                        {/*/>*/}
+                        <NewCategorySelector
+                            typeSortData={typeSortData}
+                            locale={currentLanguage}
+                            types={types}
+                            categories={categories}
+                            compilations={compilations}
+                            isCategoryPage={isCategoryPage}
+                            isDesktopClient={isDesktopClient}
+                            header={header}
+                            categoryName={categoryName}
+                            queryDesktopClient={queryDesktopClient}
+                        />
+                    </div>
+                    <div className="box-doc-info">
+                        <Text className="box-doc-categories">
+                            {" "}
+                            {countData} {t("Documents")}
+                        </Text>
+                        <SortSelector
+                            typeSortData={typeSortData}
+                            category={categoryName}
+                        />
+                    </div>
                 </div>
-                <div className="box-doc-info">
-                    <Text className="box-doc-categories">
-                        {" "}
-                        {countData} {t("Documents")}
-                    </Text>
-                    <SortSelector
-                        typeSortData={typeSortData}
-                        category={categoryName}
-                    />
-                </div>
-            </div>
-            <Cards
-                data={data?.data}
-                typeSortData={boolTypeSortData}
-                currentLanguage={currentLanguage}
-                page={page}
-                sort={sort}
-                handlerSetModal={handlerSetModal}
-                handlerCardData={handlerCardData}
-            />
+                <Cards
+                    data={data?.data}
+                    typeSortData={boolTypeSortData}
+                    currentLanguage={currentLanguage}
+                    page={page}
+                    sort={sort}
+                    handlerSetModal={handlerSetModal}
+                    handlerCardData={handlerCardData}
+                />
 
-            <FilePopup
-                currentLanguage={currentLanguage}
-                modalActive={modalActive}
-                setModalActive={setModalActive}
-                cardData={cardData}
-            />
-        </StyledDesktopClientContent>
+                <FilePopup
+                    currentLanguage={currentLanguage}
+                    modalActive={modalActive}
+                    setModalActive={setModalActive}
+                    cardData={cardData}
+                />
+            </StyledDesktopClientContent>
+        </>
     );
 };
 
