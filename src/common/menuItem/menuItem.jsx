@@ -23,7 +23,7 @@ const MenuItem = (props) => {
                 passHref
                 locale={locale}
             >
-                <MenuItemStyled as="a" className="menu-item" {...otherProps}>
+                <MenuItemStyled as="a" className={classNames('menu-item', {'active': active})} {...otherProps}>
                     <MenuItemTitle className="menu-item__title">{title}</MenuItemTitle>
                     {
                         icon === true ?

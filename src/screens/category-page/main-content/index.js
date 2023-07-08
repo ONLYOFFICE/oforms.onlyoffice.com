@@ -88,13 +88,13 @@ const MainContent = ({
         <Box className="box-doc-info-template">
           <div className="box-doc-categories" id="mob-box-doc-categories">
             <CategorySelector
-              typeSortData={typeSortData}
-              onChangeSelectTypeSort={onChangeSelectTypeSort}
-              locale={currentLanguage}
-              className="form-control"
-              types={types}
-              categories={categories}
-              compilations={compilations}
+                typeSortData={typeSortData}
+                onChangeSelectTypeSort={onChangeSelectTypeSort}
+                locale={currentLanguage}
+                className="form-control"
+                types={types}
+                categories={categories}
+                compilations={compilations}
             />
           </div>
           <div className="box-doc-info">

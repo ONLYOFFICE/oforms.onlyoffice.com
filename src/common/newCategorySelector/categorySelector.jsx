@@ -63,6 +63,14 @@ const CategorySelector = (props) => {
         return () => window.removeEventListener('resize', onResize)
     }, [onResize])
 
+    const onVisibleChange = (open) => {
+        if(isDesktopClient) {
+            !open && setIsOpen(false)
+        } else {
+            setIsOpen(open)
+        }
+    }
+
     if (isMobile) {
         return isDesktopClient ?
             <DesktopMobileSelector
@@ -122,6 +130,8 @@ const CategorySelector = (props) => {
                             }
                         </RcMenuItem>
                         <RcSubMenu
+                            onMouseEnter={() => setIsCategoryOpen(true)}
+                            onMouseLeave={() => setIsCategoryOpen(false)}
                             title={
                                 desktopClientController(
                                     <MenuItem
@@ -136,12 +146,13 @@ const CategorySelector = (props) => {
                                 )
                             }
                         >
-                            <SubMenuBox inOneColumn={categories.data.length <= 8}>
+                            <SubMenuBox inOneColumn={categories.data.length <= 8} isDesktopClient={isDesktopClient}>
                                 {categories.data?.map((categorie) =>
                                     <RcMenuItem key={categorie.attributes.urlReqd}>
                                         {
                                             desktopClientController(
                                                 <MenuItem
+                                                    active={categorie.attributes.categorie === categoryName}
                                                     onClick={() => setIsOpen(false)}
                                                     href={{
                                                         pathname: `/form/${categorie.attributes.urlReq}`,
@@ -168,24 +179,29 @@ const CategorySelector = (props) => {
                             </SubMenuBox>
                         </RcSubMenu>
                         <RcSubMenu
+                            onMouseEnter={() => setIsTypeOpen(true)}
+                            onMouseLeave={() => setIsTypeOpen(false)}
                             title={
                                 desktopClientController(
                                     <MenuItem
+                                        active={isTypeOpen}
                                         title={t("Forms by type")}
                                     />,
                                     <MenuItem
+                                        active={isTypeOpen}
                                         title={t("Forms by type")}
                                     />,
                                     isDesktopClient
                                 )
                             }
                         >
-                            <SubMenuBox inOneColumn={types.data.length <= 8}>
+                            <SubMenuBox inOneColumn={types.data.length <= 8} isDesktopClient={isDesktopClient}>
                                 {types.data?.map((type) =>
                                     <RcMenuItem key={type.attributes.urlReq}>
                                         {
                                             desktopClientController(
                                                 <MenuItem
+                                                    active={type.attributes.type === categoryName}
                                                     onClick={() => setIsOpen(false)}
                                                     href={{
                                                         pathname: `/form/types/${type.attributes.urlReq}`,
@@ -212,24 +228,29 @@ const CategorySelector = (props) => {
                             </SubMenuBox>
                         </RcSubMenu>
                         <RcSubMenu
+                            onMouseEnter={() => setIsCompilationsOpen(true)}
+                            onMouseLeave={() => setIsCompilationsOpen(false)}
                             title={
                                 desktopClientController(
                                     <MenuItem
+                                        active={isCompilationsOpen}
                                         title={t("Popular Compilations")}
                                     />,
                                     <MenuItem
+                                        active={isCompilationsOpen}
                                         title={t("Popular Compilations")}
                                     />,
                                     isDesktopClient
                                 )
                             }
                         >
-                            <SubMenuBox inOneColumn={compilations.data.length <= 8}>
+                            <SubMenuBox inOneColumn={compilations.data.length <= 8} isDesktopClient={isDesktopClient}>
                                 {compilations.data?.map((compilation) =>
                                     <RcMenuItem key={compilation.attributes.urlReq}>
                                         {
                                             desktopClientController(
                                                 <MenuItem
+                                                    active={compilation.attributes.compilation === categoryName}
                                                     onClick={() => setIsOpen(false)}
                                                     href={{
                                                         pathname: `/form/${compilation.attributes.urlReq}`,
@@ -259,7 +280,7 @@ const CategorySelector = (props) => {
                 }
                 trigger={isDesktopClient ? 'click' : 'hover'}
                 visible={isOpen}
-                onVisibleChange={(open) => !open &&setIsOpen(open)}
+                onVisibleChange={onVisibleChange}
             >
                 <div>
                     <CategorySelectorHeader
@@ -267,7 +288,7 @@ const CategorySelector = (props) => {
                         value={value}
                         isOpen={isOpen}
                         onClear={onClear}
-                        onClick={() => setIsOpen(true)}
+                        onClick={() => isDesktopClient && setIsOpen(true)}
                     />
                 </div>
             </Dropdown>

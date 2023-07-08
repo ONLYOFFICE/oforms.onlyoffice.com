@@ -13,4 +13,3 @@ export const DropdownGlobalStyles = createGlobalStyle`
     display: none;
   }
 `
-

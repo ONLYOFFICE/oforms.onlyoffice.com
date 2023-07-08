@@ -58,22 +58,10 @@ const DesktopClientContent = (props) => {
             >
                 <div className="box-doc-info-template">
                     <div className="box-doc-categories">
-                        {/*<CategorySelector*/}
-                        {/*    typeSortData={typeSortData}*/}
-                        {/*    locale={currentLanguage}*/}
-                        {/*    className="form-control"*/}
-                        {/*    types={types}*/}
-                        {/*    categories={categories}*/}
-                        {/*    compilations={compilations}*/}
-                        {/*    isCategoryPage={isCategoryPage}*/}
-                        {/*    isDesktopClient={isDesktopClient}*/}
-                        {/*    header={header}*/}
-                        {/*    categoryName={categoryName}*/}
-                        {/*    queryDesktopClient={queryDesktopClient}*/}
-                        {/*/>*/}
-                        <NewCategorySelector
+                        <CategorySelector
                             typeSortData={typeSortData}
                             locale={currentLanguage}
+                            className="form-control"
                             types={types}
                             categories={categories}
                             compilations={compilations}
