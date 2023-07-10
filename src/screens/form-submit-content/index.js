@@ -133,9 +133,6 @@ const FormSubmitContent = ({ t, locale, categories }) => {
       "data": {
         "name_form": name,
         "description_card": description,
-        "card_prewiew": "",
-        "template_image": "",
-        "file_oform": "",
         "file_size": `${file.size.toString().substring(0, 2)} kB`,
         "file_last_update": moment(file.lastModifiedDate).locale(languageKey).format(
           languageKey === "zh" ? "Y年MM月DD" : languageKey === "ja" ? "Y年MM月DD日" : "MMMM D, y"
