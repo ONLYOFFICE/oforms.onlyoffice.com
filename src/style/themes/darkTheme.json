@@ -22,7 +22,8 @@
       "scrollThumb": "#606060",
       "scrollThumbHover": "#404040",
       "highlightButtonHover": "#555555",
-      "highlightButtonPressed": "#606060"
+      "highlightButtonPressed": "#606060",
+      "iconContrastPopover": "#F1F1F1"
     },
     "base": {
       "white": "#FFF",

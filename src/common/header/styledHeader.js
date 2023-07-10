@@ -11,6 +11,7 @@ export const StyledHeader = styled.header`
             z-index: 10;
             background-color: ${theme.colors.palette.backgroundNormal};
             
+            
             @media screen and (min-width: 600px) {
               .header__box {
                 border-bottom: 1px solid ${theme.colors.palette.borderToolbarButtonHover};

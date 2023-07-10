@@ -20,7 +20,7 @@ export const Header = ({handlerSetModal, handlerCardData}) => {
                         handlerSetModal={handlerSetModal}
                         handlerCardData={handlerCardData}
                     />
-                    <Loup style={{margin: '0 18px'}} />
+                    <Loup style={{margin: '0 18px'}} className="loup-icon" />
                     <LanguageSelector/>
                 </HeaderBox>
             </StyledHeader>

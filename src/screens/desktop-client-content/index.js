@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import Cards from "../common/cards";
-import {CategorySelector} from "@common/categorySelector";
+// import {CategorySelector} from "@common/categorySelector";
 import NewCategorySelector from '@common/newCategorySelector'
 import Text from "@common/text";
 import StyledDesktopClientContent from "./styled-desktop-client-content";
@@ -58,7 +58,7 @@ const DesktopClientContent = (props) => {
             >
                 <div className="box-doc-info-template">
                     <div className="box-doc-categories">
-                        <CategorySelector
+                        <NewCategorySelector
                             typeSortData={typeSortData}
                             locale={currentLanguage}
                             className="form-control"

@@ -48,7 +48,7 @@ const CategorySelector = (props) => {
     }, [])
 
     const onClear = () => {
-        const query = isDesktopClient ? {desktop: true} : {}
+        const query = isDesktopClient ? {desktop: true, theme: appTheme ?? 'classic-theme'} : {theme: appTheme}
         router.push({
             pathname: '/',
             query,

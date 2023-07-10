@@ -14,6 +14,14 @@ export const CategorySelectorGlobalStyles = createGlobalStyle`
   
   .menu-item {
     cursor: pointer;
+    padding: 15px 32px;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 133%;
+    letter-spacing: 0.52px;
+    text-decoration: none;
+    color: ${({theme}) => theme.colors.palette.textNormal};
   }
   
   .menu-item__icon {
@@ -22,8 +30,9 @@ export const CategorySelectorGlobalStyles = createGlobalStyle`
 
   .rc-menu-submenu-popup {
     position: absolute;
+    top: 191.5px !important;
     z-index: 1;
-    //opacity: 1;
+    opacity: 1;
   }
 
   .rc-menu-submenu-hidden {

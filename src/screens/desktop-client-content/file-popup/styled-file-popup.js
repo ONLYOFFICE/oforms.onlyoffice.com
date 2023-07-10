@@ -31,8 +31,7 @@ export const StyledFilePopup = styled.div`
     transition: transform 50ms ease-in-out;
 
     &:hover {
-      color: black;
-      transform: scale(1.3);
+      color: ${({theme}) => theme.colors.palette.iconContrastPopover};
     }
   }
 

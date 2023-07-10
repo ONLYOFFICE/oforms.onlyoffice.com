@@ -81,16 +81,7 @@ const MainContent = ({currentLanguage, data, page, sort, types, categories, comp
             />
             <div className="idk-box-template">
                 <Box className="box-doc-info-template">
-                    {/*<CategorySelector*/}
-                    {/*    typeSortData={typeSortData}*/}
-                    {/*    onChangeSelectTypeSort={onChangeSelectTypeSort}*/}
-                    {/*    locale={currentLanguage}*/}
-                    {/*    className="form-control"*/}
-                    {/*    types={types}*/}
-                    {/*    categories={categories}*/}
-                    {/*    compilations={compilations}*/}
-                    {/*/>*/}
-                    <NewCategorySelector
+                    <CategorySelector
                         typeSortData={typeSortData}
                         onChangeSelectTypeSort={onChangeSelectTypeSort}
                         locale={currentLanguage}
