@@ -1,6 +1,7 @@
 import StyledFormSubmitContent from "./styled-form-submit-content";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import jwt from "jsrsasign";
 import Heading from "@common/heading";
 import Text from "@common/text";
 import Button from "@common/button";
@@ -66,6 +67,46 @@ const FormSubmitContent = ({ t, locale, categories }) => {
       setFormValid(true);
     };
   }, [fileError, name, description, nameError, descriptionError, categoryError, languageError]);
+
+  // Send request for File preview
+  useEffect(() => {
+    if (file) {
+      setFileLoading(true);
+
+      const key = "";
+      const str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz0123456789";
+
+      for (const i = 1; i <= 12; i++) {
+        const char = Math.floor(Math.random() * str.length + 1);
+        key += str.charAt(char);
+      };
+
+      const payload = {
+        "filetype": "docxf",
+        "key": key,
+        "outputtype": "png",
+        "thumbnail": {
+          "aspect": 0,
+          "first": true,
+          "width": 544,
+          "height": 768
+        },
+        "title": file.name,
+        "url": "https://static-oforms.onlyoffice.com/image1_b8e15a6f9f.png"
+      };
+
+      const token = jwt.KJUR.jws.JWS.sign("HS256", JSON.stringify({ alg: "HS256" }), payload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+
+      axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, payload, {
+        headers: {
+          "Content-Type": "application/json",
+          "AuthorizationJwt": `Bearer ${token}`
+        }
+      }).then(() => {
+        setFileLoading(false);
+      });
+    }
+  }, [file]);
 
   const onChangeHandler = (e) => {
     switch (e.target.name) {
@@ -143,12 +184,10 @@ const FormSubmitContent = ({ t, locale, categories }) => {
         "locale": languageKey,
         "publishedAt": null
       }
-    }).then((response) => {
-      console.log(response)
+    }).then(() => {
+      // Show upload popup
+      setUploadPopup(true);
     });
-
-    // Show upload popup
-    setUploadPopup(true);
   };
 
   const clearForm = () => {
@@ -257,7 +296,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
             </div>
             <div className="file-info-item">
               <Text className="file-info-label">{t("FileSize")}:</Text>
-              <Text className="file-info-text">{file !== undefined ? file.size.toString().substring(0, 2) : 0} kb</Text>
+              <Text className="file-info-text">{file !== undefined && fileLoading === false ? file.size.toString().substring(0, 2) : 0} kb</Text>
             </div>
             <div className="file-info-item">
               <Text className="file-info-label">{t("Pages")}:</Text>
