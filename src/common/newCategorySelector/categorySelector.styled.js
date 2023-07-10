@@ -121,14 +121,14 @@ export const CategorySelectorGlobalStyles = createGlobalStyle`
 
 export const SubMenuBox = styled.div`
   width: 100%;
-  ${({inOneColumn, isDesktopClient}) => {
+  ${({inOneColumn, isDesktopClient, theme}) => {
     if (!inOneColumn) {
       return css`
         display: grid;
         grid-template-columns: 1fr 1fr;
 
         & li:nth-child(odd) {
-          border-right: ${isDesktopClient ? `1px solid ${({theme}) => theme.colors.palette.borderToolbarButtonHover}` : undefined};
+          border-right: ${isDesktopClient ? `1px solid ${theme.colors.palette.backgroundToolbar}` : undefined};
         }
       `
     }
