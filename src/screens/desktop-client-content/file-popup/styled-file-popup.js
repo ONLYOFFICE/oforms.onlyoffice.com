@@ -318,4 +318,15 @@ export const StyledFilePopup = styled.div`
       padding-right: 0;
     }
   }
+
+  @media screen and (max-width: 500px) {
+    .popup-content {
+      max-width: max-content;
+      width: 100%;
+    }
+
+    .file-img {
+      width: 100%;
+    }
+  }
 `;

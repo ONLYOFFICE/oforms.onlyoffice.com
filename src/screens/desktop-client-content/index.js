@@ -9,7 +9,6 @@ import {SortSelector} from "@common/sortSelector";
 import {useRouter} from "next/router";
 import {Header} from "@common/header";
 import {useTranslation} from "next-i18next";
-import RcDropdown from "rc-dropdown";
 const DesktopClientContent = (props) => {
     const {
         currentLanguage,
@@ -99,6 +98,7 @@ const DesktopClientContent = (props) => {
                     setModalActive={setModalActive}
                     cardData={cardData}
                 />
+
             </StyledDesktopClientContent>
         </>
     );

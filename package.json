@@ -19,6 +19,7 @@
     "next": "12.1.4",
     "next-i18next": "^11.0.0",
     "prop-types": "^15.8.1",
+    "rc-dialog": "^9.1.0",
     "rc-dropdown": "^4.1.0",
     "rc-menu": "^9.11.0",
     "react": "18.0.0",
