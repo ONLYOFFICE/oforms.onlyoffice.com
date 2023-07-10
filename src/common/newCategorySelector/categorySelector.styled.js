@@ -14,14 +14,22 @@ export const CategorySelectorGlobalStyles = createGlobalStyle`
   
   .menu-item {
     cursor: pointer;
-    padding: 15px 32px;
-    font-size: 13px;
+    padding: 10.5px 32px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 600;
     line-height: 133%;
-    letter-spacing: 0.52px;
+    letter-spacing: 0.56px;
     text-decoration: none;
     color: ${({theme}) => theme.colors.palette.textNormal};
+
+    &:hover {
+      background-color: ${({theme}) => theme.colors.palette.highlightButtonPressed};
+    }
+
+    &.active {
+      background-color: ${({theme}) => theme.colors.palette.highlightButtonHover};
+    }
   }
   
   .menu-item__icon {
