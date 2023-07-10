@@ -13,12 +13,12 @@ const StyledUploadFile = styled.div`
   flex-direction: column;
   height: 100%;
 
-  @media ${device.laptop} {
-    height: 360px;
+  @media ${device.laptopM} {
+    max-height: 620px;
   }
-
-  @media ${device.mobile} {
-    height: 300px;
+  
+  @media ${device.laptop} {
+    max-height: 100%;
   }
 
   label {
@@ -32,17 +32,9 @@ const StyledUploadFile = styled.div`
     top: 0;
     left: 0;
     width: 100%;
-    height: 768px;
+    height: 100%;
     opacity: 0;
     cursor: pointer;
-
-    @media ${device.laptop} {
-      height: 360px;
-    }
-  
-    @media ${device.mobile} {
-      height: 300px;
-    }
   }
 
   .upload-file {
@@ -50,7 +42,8 @@ const StyledUploadFile = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 768px;
+    height: 100%;
+    min-height: 768px;
     padding: 16px;
     border-radius: 3px;
     background-color: #F9F9F9;
@@ -62,27 +55,37 @@ const StyledUploadFile = styled.div`
       background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23666666FF' stroke-width='1' stroke-dasharray='6' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
     }
 
+    @media ${device.laptopM} {
+      min-height: 620px;
+    }
+
     &.filled {
       pointer-events: none;
+      height: auto;
+      min-height: initial;
+
+      @media ${device.laptop} {
+        max-height: 100%;
+      }
     }
 
     @media ${device.laptop} {
-      height: 360px;
+      min-height: 360px;
     }
   
     @media ${device.mobile} {
-      height: 300px;
+      min-height: 300px;
     }
   }
 
   .upload-img {
     position: relative;
     height: 100%;
-    max-height: 736px;
 
     img {
       width: 100%;
       height: 100%;
+      object-fit: contain;
     }
   }
 

@@ -46,7 +46,7 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
   return (
     <StyledUploadFile>
       <>
-        <label className={`upload-file ${drag ? "drag" : ""} ${file !== undefined ? "filled" : ""}`} name="file">
+        <label className={`upload-file ${drag ? "drag" : ""} ${file !== undefined && fileLoading === false ? "filled" : ""}`} name="file">
           <input 
             onDragStart={e => dragStartHandler(e)}
             onDragLeave={e => dragLeaveHandler(e)}
