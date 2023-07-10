@@ -16,6 +16,8 @@
     "axios": "^0.26.1",
     "classnames": "^2.3.2",
     "email-addresses": "^5.0.0",
+    "jsrsasign": "^10.8.6",
+    "moment": "^2.29.4",
     "next": "12.1.4",
     "next-i18next": "^11.0.0",
     "prop-types": "^15.8.1",
