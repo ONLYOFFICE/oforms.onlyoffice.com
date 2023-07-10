@@ -298,10 +298,6 @@ const FormSubmitContent = ({ t, locale, categories }) => {
               <Text className="file-info-label">{t("FileSize")}:</Text>
               <Text className="file-info-text">{file !== undefined && fileLoading === false ? file.size.toString().substring(0, 2) : 0} kb</Text>
             </div>
-            <div className="file-info-item">
-              <Text className="file-info-label">{t("Pages")}:</Text>
-              <Text className="file-info-text">0</Text>
-            </div>
           </div>
 
           <Button onClick={(e) => sendForm(e)} className="send-button" label={t("Send")} isDisabled={!formValid} />

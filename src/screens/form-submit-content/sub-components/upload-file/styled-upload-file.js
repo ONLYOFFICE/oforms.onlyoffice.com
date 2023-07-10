@@ -14,7 +14,7 @@ const StyledUploadFile = styled.div`
   height: 100%;
 
   @media ${device.laptopM} {
-    max-height: 620px;
+    max-height: 692px;
   }
   
   @media ${device.laptop} {
@@ -42,8 +42,7 @@ const StyledUploadFile = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    min-height: 768px;
+    height: 768px;
     padding: 16px;
     border-radius: 3px;
     background-color: #F9F9F9;
@@ -56,25 +55,25 @@ const StyledUploadFile = styled.div`
     }
 
     @media ${device.laptopM} {
-      min-height: 620px;
+      height: 692px;
     }
 
     &.filled {
       pointer-events: none;
       height: auto;
-      min-height: initial;
+      height: initial;
 
       @media ${device.laptop} {
-        max-height: 100%;
+        height: 100%;
       }
     }
 
     @media ${device.laptop} {
-      min-height: 360px;
+      height: 360px;
     }
   
     @media ${device.mobile} {
-      min-height: 300px;
+      height: 300px;
     }
   }
 
