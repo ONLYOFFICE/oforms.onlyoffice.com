@@ -38,7 +38,7 @@ export const CategorySelectorGlobalStyles = createGlobalStyle`
 
   .rc-menu-submenu-popup {
     position: absolute;
-    top: 191.5px !important;
+    top: 116px !important;
     z-index: 1;
     opacity: 1;
   }

@@ -4,6 +4,27 @@ import Section from "@common/section";
 const StyledDesktopClientContent = styled(Section)`
   background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
   padding: 0;
+  
+  .title {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 32px;
+    color: ${({theme}) => theme.colors.palette.textNormal}
+  }
+  
+  .header {
+    
+  }
+  
+  .header__box {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .header__secondbox {
+    display: flex;
+  }
   .section-page {
     box-sizing: border-box;
     max-width: 100vw;

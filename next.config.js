@@ -197,8 +197,7 @@ const nextConfig = {
             {
                 protocol: 'https',
                 hostname: 'nextconfig_domains.**',
-
-            },
+            }
         ],
     },
     compiler: {

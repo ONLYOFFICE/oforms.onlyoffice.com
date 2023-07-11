@@ -118,9 +118,6 @@ const WebsiteMenuSectionLink = styled.a`
 
 const WebsiteMobileSelector = (props) => {
     const {
-        typeSortData,
-        locale,
-        category,
         types,
         categories,
         compilations

@@ -1,14 +1,11 @@
 import {useState, useEffect} from "react";
 import Cards from "../common/cards";
-// import {CategorySelector} from "@common/categorySelector";
-import NewCategorySelector from '@common/newCategorySelector'
-import Text from "@common/text";
+import Header from '../common/header'
 import StyledDesktopClientContent from "./styled-desktop-client-content";
 import FilePopup from "./file-popup/file-popup";
-import {SortSelector} from "@common/sortSelector";
 import {useRouter} from "next/router";
-import {Header} from "@common/header";
 import {useTranslation} from "next-i18next";
+
 const DesktopClientContent = (props) => {
     const {
         currentLanguage,
@@ -33,6 +30,7 @@ const DesktopClientContent = (props) => {
     const isDesktopClient = router.query.desktop === 'true'
 
     const [modalActive, setModalActive] = useState(false);
+    const [inputActive, setInputActive] = useState(false)
     const handlerSetModal = () => {
         setModalActive(true);
     };
@@ -49,59 +47,60 @@ const DesktopClientContent = (props) => {
         }
     }, [sort]);
 
+    const onClear = () => {
+        if (theme) {
+            router.push({
+                pathname: '/',
+                query: {
+                    desktop: true,
+                    theme,
+                }
+            })
+        } else {
+            router.push({
+                pathname: '/',
+                query: {
+                    desktop: true,
+                }
+            })
+        }
+    }
+
     return (
-        <>
-            <Header handlerSetModal={handlerSetModal} handlerCardData={handlerCardData}/>
-            <StyledDesktopClientContent
-                isDark={(theme === 'theme-dark') || (theme === 'theme-contrast-dark')}
-            >
-                <div className="box-doc-info-template">
-                    <div className="box-doc-categories">
-                        <NewCategorySelector
-                            typeSortData={typeSortData}
-                            locale={currentLanguage}
-                            className="form-control"
-                            types={types}
-                            categories={categories}
-                            compilations={compilations}
-                            isCategoryPage={isCategoryPage}
-                            isDesktopClient={isDesktopClient}
-                            header={header}
-                            categoryName={categoryName}
-                            queryDesktopClient={queryDesktopClient}
-                        />
-                    </div>
-                    <div className="box-doc-info">
-                        <Text className="box-doc-categories">
-                            {" "}
-                            {countData} {t("Documents")}
-                        </Text>
-                        <SortSelector
-                            typeSortData={typeSortData}
-                            category={categoryName}
-                        />
-                    </div>
-                </div>
-                <Cards
-                    data={data?.data}
-                    typeSortData={boolTypeSortData}
-                    currentLanguage={currentLanguage}
-                    page={page}
-                    sort={sort}
-                    handlerSetModal={handlerSetModal}
-                    handlerCardData={handlerCardData}
-                />
+        <StyledDesktopClientContent
+            isDark={(theme === 'theme-dark') || (theme === 'theme-contrast-dark')}
+        >
+            <Header
+                typeSortData={typeSortData}
+                locale={currentLanguage}
+                className="form-control"
+                types={types}
+                categories={categories}
+                compilations={compilations}
+                isCategoryPage={isCategoryPage}
+                isDesktopClient={isDesktopClient}
+                header={header}
+                categoryName={categoryName}
+                queryDesktopClient={queryDesktopClient}
+            />
+            <Cards
+                data={data?.data}
+                typeSortData={boolTypeSortData}
+                currentLanguage={currentLanguage}
+                page={page}
+                sort={sort}
+                handlerSetModal={handlerSetModal}
+                handlerCardData={handlerCardData}
+            />
+            <FilePopup
+                currentLanguage={currentLanguage}
+                modalActive={modalActive}
+                setModalActive={setModalActive}
+                cardData={cardData}
+            />
+        </StyledDesktopClientContent>
 
-                <FilePopup
-                    currentLanguage={currentLanguage}
-                    modalActive={modalActive}
-                    setModalActive={setModalActive}
-                    cardData={cardData}
-                />
-
-            </StyledDesktopClientContent>
-        </>
-    );
-};
+    )
+}
 
 export default DesktopClientContent;

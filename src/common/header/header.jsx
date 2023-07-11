@@ -8,7 +8,7 @@ import {Loup} from "@icons";
 
 export const Header = ({handlerSetModal, handlerCardData}) => {
     const router = useRouter();
-    const isDesktopClient = router.query.desktop;
+    const isDesktopClient = router.query.desktop === 'true';
     const {t} = useTranslation('common')
 
     if (isDesktopClient) {

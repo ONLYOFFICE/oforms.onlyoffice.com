@@ -20,7 +20,6 @@ const desktopClientController = (desktopClientComponent, nonDesktopClientCompone
 const CategorySelector = (props) => {
     const {
         typeSortData,
-        locale,
         category,
         types,
         categories,
@@ -75,7 +74,6 @@ const CategorySelector = (props) => {
         return isDesktopClient ?
             <DesktopMobileSelector
                 typeSortData={typeSortData}
-                locale={locale}
                 category={category}
                 types={types}
                 categories={categories}
@@ -86,7 +84,6 @@ const CategorySelector = (props) => {
             /> :
             <WebsiteMobileSelector
                 typeSortData={typeSortData}
-                locale={locale}
                 category={category}
                 types={types}
                 categories={categories}
