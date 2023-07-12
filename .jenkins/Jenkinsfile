@@ -63,7 +63,13 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS',
                 passwordVariable: 'NEXT_PUBLIC_FILES_DOCSERVICE_SECRET',
-                usernameVariable: 'NEXT_PUBLIC_EDITOR_API_URL')]) {
+                usernameVariable: 'NEXT_PUBLIC_EDITOR_API_URL'),
+                usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS_AWS',
+                passwordVariable: 'NEXT_PUBLIC_SECRET_ACCESS_KEY',
+                usernameVariable: 'NEXT_PUBLIC_ACCESS_KEY_ID'),
+                usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS_BUCKET_REGION',
+                passwordVariable: 'NEXT_PUBLIC_BUCKET',
+                usernameVariable: 'NEXT_PUBLIC_REGION')]) {
 
           sh '''
           
@@ -73,6 +79,13 @@ pipeline {
             sed -i "s^nextconfig_domains^$domains^" next.config.js
             sed -i "s^var_next_public_editor_api_url^$NEXT_PUBLIC_EDITOR_API_URL^" .env.local
             sed -i "s^var_next_public_files_docservice_secret^$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET^" .env.local
+
+            sed -i "s^var_next_public_region^$NEXT_PUBLIC_REGION^" .env.local
+            sed -i "s^var_next_public_bucket^$NEXT_PUBLIC_BUCKET^" .env.local
+
+            sed -i "s^var_next_public_access_key_id^$NEXT_PUBLIC_ACCESS_KEY_ID^" .env.local
+            sed -i "s^var_next_public_secret_access_key^$NEXT_PUBLIC_SECRET_ACCESS_KEY^" .env.local
+            
               
             tar -czpf .jenkins/oforms.tar.gz \
               --exclude ".git" \

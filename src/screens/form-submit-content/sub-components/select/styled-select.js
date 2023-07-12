@@ -170,7 +170,6 @@ const StyledSelect = styled.div`
     padding: 8px 16px 8px 48px;
     font-size: 16px;
     line-height: 26px;
-    cursor: pointer;
 
     &.reset {
       background-image: url(${crossIcon.src});
@@ -190,8 +189,17 @@ const StyledSelect = styled.div`
       display: none;
     }
 
-    &:hover {
-      background-color: #F5F5F5;
+    &.no-options {
+      text-align: center;
+      padding: 8px 16px;
+    }
+
+    &:not(.no-options) {
+      cursor: pointer;
+
+      &:hover {
+        background-color: #F5F5F5;
+      }
     }
 
     @media ${device.mobile} {

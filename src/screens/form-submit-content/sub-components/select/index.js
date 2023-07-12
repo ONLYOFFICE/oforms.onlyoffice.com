@@ -2,18 +2,45 @@ import { useState, useEffect, useRef } from "react";
 import StyledSelect from "./styled-select";
 import Text from "@common/text";
 
-const Select = ({ t, label, labelMore, placeholder, options, selected, setSelected, isMulti, error, setError, errorText, valid, setValid, selectedActive, setSelectedActive, selectedIndex, setSelectedIndex, setLanguageKey }) => {
+const Select = ({ t, isMulti, label, labelMore, placeholder, categories, selected, setSelected, errorText, valid, setValid, error, setError, setCategoryId, setLanguageKey }) => {
   const [searchValue, setSearchValue] = useState("");
-  const [isActive, setIsActive] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [selectedError, setSelectedError] = useState(false);
+  const selectRef = useRef();
   const inputRef = useRef();
 
-  useEffect(() => {
-    typeof window !== "undefined" && isActive && window.addEventListener("click", handleClickOutside);
+  const categoriesData = categories?.data.map((category) => category);
+  const languageData = [
+    { title: t("English"), key: "en" },
+    { title: t("Chinese (Simplified)"), key: "zh" },
+    { title: t("French"), key: "fr" },
+    { title: t("German"), key: "de" },
+    { title: t("Portuguese"), key: "pt" },
+    { title: t("Spanish"), key: "es" }
+  ];
 
-    if (!isActive && selected.length === 0) {
+  const options = isMulti ? categoriesData : languageData;
+  const filteredOptions = options.filter((option) => isMulti ? option.attributes.categorie.toLowerCase().includes(searchValue.toLowerCase()) : option.title);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (selectRef.current && !selectRef.current.contains(event.target)) {
+        setIsOpen(false);
+      };
+  
+      if (selected.length === 0) {
+        setSelectedError(true);
+        setError(true);
+      };
+
+      setSearchValue("");
+    };
+
+    typeof window !== "undefined" && isOpen && window.addEventListener("click", handleClickOutside);
+
+    if (!isOpen && selected.length === 0) {
       setValid(false);
-    } else if (!isActive && selected.length > 0) {
+    } else if (!isOpen && selected.length > 0) {
       setValid(true);
     };
 
@@ -26,31 +53,33 @@ const Select = ({ t, label, labelMore, placeholder, options, selected, setSelect
     return () => {
       window.removeEventListener("click", handleClickOutside);
     };
-  }, [isActive]);
+  }, [isOpen]);
 
-  const handleState = () => {
+  const toggleOpen = () => {
     setValid(false);
-    setIsActive(!isActive);
+    setIsOpen(!isOpen);
     setSearchValue("");
     isMulti && inputRef.current.focus();
   };
 
-  const handleSelectOption = (e, i) => {
+  const handleOptionClick = (option) => {
     if (isMulti) {
-      let options = [...selectedActive];
-      options[i] = !options[i];
-      setSelectedActive(options);
+      if (selected.includes(option.attributes.categorie)) {
+        setSelected(selected.filter((item) => item !== option.attributes.categorie));
+      } else {
+        setSelected([...selected, option.attributes.categorie]);
+      };
 
-      setSelected((prev) => {
-        if (prev.includes(e.target.childNodes[0].data)) {
-          return prev.filter((select) => select !== e.target.childNodes[0].data);
+      setCategoryId((prev) => {
+        if (prev.includes(option.id)) {
+          return prev.filter((select) => select !== option.id);
         } else {
-          return [...prev, e.target.childNodes[0].data];
+          return [...prev, option.id];
         };
       });
     } else {
-      setSelectedIndex(i);
-      setSelected(e.target.childNodes[0].data);
+      setSelected(option.title);
+      setLanguageKey(option.key);
     };
 
     if (selected.length + 1 === 0) {
@@ -61,76 +90,65 @@ const Select = ({ t, label, labelMore, placeholder, options, selected, setSelect
       setError(false);
     };
 
-    setIsActive(false);
+    setIsOpen(false);
     setSearchValue("");
   };
 
-  const handleSelectReset = () => {
+  const handleClearSelection = () => {
     setSelected([]);
     setSearchValue("");
-    isMulti ? setSelectedActive(new Array(options.length).fill(false)) : setSelectedIndex(null);
-    setIsActive(false);
+    setIsOpen(false);
     setSelectedError(true);
     setError(true);
-  };
-
-  const handleClickOutside = (e) => {
-    setSearchValue("");
-
-    if (isActive && (!e.target.closest(".select-wrapper"))) {
-      setIsActive(false);
-    };
-
-    if (selected.length === 0) {
-      setSelectedError(true);
-      setError(true);
-    };
   };
 
   return (
     <StyledSelect className={selectedError && error ? "error" : ""}>
       <Text className="label">{label} <Text className="label-more">{labelMore}</Text></Text>
-      <div className="select-wrapper">
-        <div onClick={handleState} className={`select ${isActive ? "open" : ""} ${isMulti ? "multi" : ""} ${valid ? "valid" : ""}`}>
-          {!isActive && selected.length === 0 &&
+
+      <div ref={selectRef} className="select-wrapper">
+        <div onClick={toggleOpen} className={`select ${isOpen ? "open" : ""} ${isMulti ? "multi" : ""} ${valid ? "valid" : ""}`}>
+          {!isOpen && selected.length === 0 &&
             <Text className="placeholder">{placeholder}</Text>
           }
           <div className="select-value">{isMulti ? selected.join(', ') : selected}</div>
           {isMulti &&
             <input
-              onChange={(e) => setSearchValue(e.target.value)}
               ref={inputRef}
-              className={`select-input ${isActive ? "active" : ""}`}
-              value={searchValue}
-              name="select"
+              onChange={(e) => setSearchValue(e.target.value)}
+              className={`select-input ${isOpen ? "active" : ""}`}
               type="text"
+              value={searchValue}
             />
           }
           {isMulti &&
             <Text className="select-length">{selected.length > 0 && `(${selected.length})`}</Text>
           }
         </div>
-
-        {isActive &&
+        {isOpen && (
           <div className="select-options">
-            <div onClick={handleSelectReset} className="select-option reset">{t("Reset")}</div>
-            {options.map((option, i) => (
-              <div
-                onClick={e => { handleSelectOption(e, i); !isMulti && setLanguageKey(option.key) }}
-                key={i}
-                className={`
-                  select-option 
-                  ${(isMulti ? selectedActive[i] : selectedIndex === i) ? "selected" : ""} 
-                  ${isMulti ? option.toLowerCase().includes(searchValue.toLowerCase()) ? "" : "hidden" : ""}
-                `}
-              >
-                {isMulti ? option : option.title}
-              </div>
-            ))}
+            {filteredOptions.length > 0 ? 
+              <>
+                <div className="select-option reset" onClick={handleClearSelection}>
+                  {t("Reset")}
+                </div>
+                {filteredOptions.map((option) => (
+                  <div
+                    onClick={() => handleOptionClick(option)}
+                    key={isMulti ? option.attributes.categorie : option.title}
+                    className={`select-option ${selected.includes(isMulti ? option.attributes.categorie : option.title) ? "selected" : ""}`}
+                  >
+                    {isMulti ? option.attributes.categorie : option.title}
+                  </div>
+                ))}
+              </>
+            : 
+              <div className="select-option no-options">{t("No options")}</div>
+            }
           </div>
-        }
+        )}
       </div>
-      {!isActive && selectedError && <Text className="error-text">{isMulti && selected.length > 5 ? t("Maximum 5") : errorText}</Text>}
+      {!isOpen && selectedError && <Text className="error-text">{isMulti && selected.length > 5 ? t("Maximum 5") : errorText}</Text>}
     </StyledSelect>
   );
 };
