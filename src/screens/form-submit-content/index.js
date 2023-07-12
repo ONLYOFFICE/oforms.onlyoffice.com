@@ -86,8 +86,6 @@ const FormSubmitContent = ({ t, locale, categories }) => {
     try {
       const response = await s3.putObject(params).promise();
 
-      console.log(response);
-
       const payload = {
         "filetype": "docxf",
         "key": key,
@@ -99,7 +97,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
           "width": 544
         },
         "title": e.target.files[0].name,
-        "url": `https://static-oforms.onlyoffice.com/fillable_auto_repair_receipt_e79b2da2cf.docxf`
+        "url": `https:/${response.$response.request.httpRequest.path}`
       };
 
       const token = jwt.KJUR.jws.JWS.sign("HS256", JSON.stringify({ alg: "HS256" }), payload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
