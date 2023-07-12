@@ -48,6 +48,7 @@ const Header = (props) => {
 
     const onClear = () => {
         setValue('')
+        setInputActive(false)
         router.push({
             pathname: '/',
             query: {

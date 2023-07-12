@@ -5,15 +5,25 @@ export const HeaderStyled = styled.header`
   padding-top: 41px;
 
   .clear-icon {
-    color: ${({theme}) => theme.colors.palette.iconNormal};
-    position: absolute;
+    cursor: pointer;
+    color: ${({theme}) => theme.colors.palette.iconContrastPopover};
+    transition: transform 50ms ease-in-out;
     right: 0;
+    position: absolute;
+
+    &:hover {
+      color: ${({theme}) => theme.colors.palette.iconContrastPopoverHover};
+    }
   }
 
   .search-icon {
     color: ${({theme}) => theme.colors.palette.iconNormal};
     margin-right: 4px;
     cursor: pointer;
+    
+    &:hover {
+      
+    }
   }
 `
 
