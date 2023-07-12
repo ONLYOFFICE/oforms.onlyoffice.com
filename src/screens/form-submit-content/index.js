@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import jwt from "jsrsasign";
 import S3 from "aws-sdk/clients/s3";
+import ReCAPTCHA from "react-google-recaptcha";
 import Heading from "@common/heading";
 import Text from "@common/text";
 import Button from "@common/button";
@@ -43,6 +44,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
   const [descriptionError, setDescriptionError] = useState(true);
   const [categoryError, setCategoryError] = useState(true);
   const [languageError, setLanguageError] = useState(true);
+  const [recaptchaError, setRecaptchaError] = useState(true);
 
   const [fileLoading, setFileLoading] = useState(false);
   const [uploadPopup, setUploadPopup] = useState(false);
@@ -50,16 +52,24 @@ const FormSubmitContent = ({ t, locale, categories }) => {
 
   // Form validation
   useEffect(() => {
-    if (fileError || !(name.length > 0 && !nameError) || !(description.length > 0 && !descriptionError) || categoryError || languageError) {
+    if (fileError || !(name.length > 0 && !nameError) || !(description.length > 0 && !descriptionError) || categoryError || languageError || recaptchaError) {
       setFormValid(false);
     } else {
       setFormValid(true);
     };
-  }, [fileError, name, description, nameError, descriptionError, categoryError, languageError]);
+  }, [fileError, name, description, nameError, descriptionError, categoryError, languageError, recaptchaError]);
 
   // Send request to AWS
   const handleFileImageUpload = async (e) => {
     setFileLoading(true);
+
+    const key = "";
+    const str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (const i = 1; i <= 12; i++) {
+      const char = Math.floor(Math.random() * str.length + 1);
+      key += str.charAt(char);
+    };
 
     const s3 = new S3({
       accessKeyId: process.env.NEXT_PUBLIC_ACCESS_KEY_ID,
@@ -75,8 +85,32 @@ const FormSubmitContent = ({ t, locale, categories }) => {
 
     try {
       const response = await s3.putObject(params).promise();
-      console.log('File uploaded successfully:', response);
-      setFileLoading(false);
+
+      const payload = {
+        "filetype": "docxf",
+        "key": key,
+        "outputtype": "png",
+        "thumbnail": {
+          "aspect": 0,
+          "first": true,
+          "height": 768,
+          "width": 544
+        },
+        "title": e.target.files[0].name,
+        "url": `https:/${response.request.httpRequest.path}`
+      };
+
+      const token = jwt.KJUR.jws.JWS.sign("HS256", JSON.stringify({ alg: "HS256" }), payload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+
+      await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, payload, {
+        headers: {
+          "Content-Type": "application/json",
+          "AuthorizationJwt": `Bearer ${token}`
+        }
+      }).then((res) => {
+        console.log(res);
+        setFileLoading(false);
+      });
     } catch (error) {
       console.error('Error uploading file:', error);
     };
@@ -260,6 +294,11 @@ const FormSubmitContent = ({ t, locale, categories }) => {
               setValid={setLanguageValid}
               error={languageError}
               setError={setLanguageError}
+            />
+            <ReCAPTCHA
+              onChange={() => setRecaptchaError(false)}
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+              hl={locale}
             />
           </div>
 
