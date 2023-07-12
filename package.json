@@ -28,6 +28,7 @@
     "react-custom-scrollbars": "^4.2.1",
     "react-device-detect": "^2.2.2",
     "react-dom": "18.0.0",
+    "react-google-recaptcha": "^3.1.0",
     "react-helmet": "^6.1.0",
     "react-i18next": "^11.16.7",
     "react-infinite-scroll-component": "^6.1.0",
