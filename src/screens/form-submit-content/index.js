@@ -2,6 +2,7 @@ import StyledFormSubmitContent from "./styled-form-submit-content";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import jwt from "jsrsasign";
+import S3 from "aws-sdk/clients/s3";
 import Heading from "@common/heading";
 import Text from "@common/text";
 import Button from "@common/button";
@@ -19,21 +20,12 @@ import "moment/locale/ja";
 import "moment/locale/zh-cn";
 
 const FormSubmitContent = ({ t, locale, categories }) => {
-  const categoriesData = categories.data.map((category) => category.attributes.categorie);
-  const languageData = [
-    { title: t("English"), key: "en" },
-    { title: t("Chinese (Simplified)"), key: "zh" },
-    { title: t("French"), key: "fr" },
-    { title: t("German"), key: "de" },
-    { title: t("Portuguese"), key: "pt" },
-    { title: t("Spanish"), key: "es" }
-  ];
-
   const [file, setFile] = useState(undefined);
   const [fileValue, setFileValue] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState([]);
+  const [categoryId, setCategoryId] = useState([]);
   const [language, setLanguage] = useState([]);
   const [languageKey, setLanguageKey] = useState("");
 
@@ -56,9 +48,6 @@ const FormSubmitContent = ({ t, locale, categories }) => {
   const [uploadPopup, setUploadPopup] = useState(false);
   const [formValid, setFormValid] = useState(false);
 
-  const [selectedActive, setSelectedActive] = useState(new Array(categoriesData.length).fill(false));
-  const [selectedIndex, setSelectedIndex] = useState(null);
-
   // Form validation
   useEffect(() => {
     if (fileError || !(name.length > 0 && !nameError) || !(description.length > 0 && !descriptionError) || categoryError || languageError) {
@@ -68,45 +57,30 @@ const FormSubmitContent = ({ t, locale, categories }) => {
     };
   }, [fileError, name, description, nameError, descriptionError, categoryError, languageError]);
 
-  // Send request for File preview
-  useEffect(() => {
-    if (file) {
-      setFileLoading(true);
+  // Send request to AWS
+  const handleFileImageUpload = async (e) => {
+    setFileLoading(true);
 
-      const key = "";
-      const str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz0123456789";
+    const s3 = new S3({
+      accessKeyId: process.env.NEXT_PUBLIC_ACCESS_KEY_ID,
+      secretAccessKey: process.env.NEXT_PUBLIC_SECRET_ACCESS_KEY,
+      region: process.env.NEXT_PUBLIC_REGION,
+    });
 
-      for (const i = 1; i <= 12; i++) {
-        const char = Math.floor(Math.random() * str.length + 1);
-        key += str.charAt(char);
-      };
+    const params = {
+      Bucket: process.env.NEXT_PUBLIC_BUCKET,
+      Key: e.target.files[0].name,
+      Body: e.target.files[0]
+    };
 
-      const payload = {
-        "filetype": "docxf",
-        "key": key,
-        "outputtype": "png",
-        "thumbnail": {
-          "aspect": 0,
-          "first": true,
-          "width": 544,
-          "height": 768
-        },
-        "title": file.name,
-        "url": "https://static-oforms.onlyoffice.com/image1_b8e15a6f9f.png"
-      };
-
-      const token = jwt.KJUR.jws.JWS.sign("HS256", JSON.stringify({ alg: "HS256" }), payload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
-
-      axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, payload, {
-        headers: {
-          "Content-Type": "application/json",
-          "AuthorizationJwt": `Bearer ${token}`
-        }
-      }).then(() => {
-        setFileLoading(false);
-      });
-    }
-  }, [file]);
+    try {
+      const response = await s3.putObject(params).promise();
+      console.log('File uploaded successfully:', response);
+      setFileLoading(false);
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    };
+  };
 
   const onChangeHandler = (e) => {
     switch (e.target.name) {
@@ -123,6 +97,11 @@ const FormSubmitContent = ({ t, locale, categories }) => {
       case "file":
         setFileValue(e.target.value);
         !e.target.value.length < 1 && setFileError(false);
+
+        if (e.target.files[0]?.size < 10000000) {
+          handleFileImageUpload(e);
+        };
+
         break;
     };
   };
@@ -178,9 +157,8 @@ const FormSubmitContent = ({ t, locale, categories }) => {
         "file_last_update": moment(file.lastModifiedDate).locale(languageKey).format(
           languageKey === "zh" ? "Y年MM月DD" : languageKey === "ja" ? "Y年MM月DD日" : "MMMM D, y"
         ),
-        "file_pages": "",
         "template_desc": description,
-        "categorie": category,
+        "categorie": categoryId,
         "locale": languageKey,
         "publishedAt": null
       }
@@ -196,14 +174,14 @@ const FormSubmitContent = ({ t, locale, categories }) => {
     setName("");
     setDescription("");
     setCategory([]);
+    setCategoryId([]);
     setLanguage([]);
+    setLanguageKey("");
     setNameValid(false);
     setDescriptionValid(false);
     setCategoryValid(false);
     setLanguageValid(false);
     setFormValid(false);
-    setSelectedActive(new Array(categoriesData.length).fill(false));
-    setSelectedIndex(null);
   };
 
   return (
@@ -261,22 +239,20 @@ const FormSubmitContent = ({ t, locale, categories }) => {
               labelMore={(t("(maximum 5)"))}
               placeholder={t("Enter category or choose")}
               errorText={t("Form category is empty")}
-              options={categoriesData}
+              categories={categories}
               selected={category}
               setSelected={setCategory}
               valid={categoryValid}
               setValid={setCategoryValid}
               error={categoryError}
               setError={setCategoryError}
-              selectedActive={selectedActive}
-              setSelectedActive={setSelectedActive}
+              setCategoryId={setCategoryId}
             />
             <Select
               t={t}
               label={t("Language")}
               placeholder={t("Please select a language")}
               errorText={t("Language is empty")}
-              options={languageData}
               selected={language}
               setSelected={setLanguage}
               setLanguageKey={setLanguageKey}
@@ -284,8 +260,6 @@ const FormSubmitContent = ({ t, locale, categories }) => {
               setValid={setLanguageValid}
               error={languageError}
               setError={setLanguageError}
-              selectedIndex={selectedIndex}
-              setSelectedIndex={setSelectedIndex}
             />
           </div>
 
