@@ -11,15 +11,6 @@ const StyledUploadFile = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 100%;
-
-  @media ${device.laptopM} {
-    max-height: 692px;
-  }
-  
-  @media ${device.laptop} {
-    max-height: 100%;
-  }
 
   label {
     display: flex;
@@ -54,18 +45,21 @@ const StyledUploadFile = styled.div`
       background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23666666FF' stroke-width='1' stroke-dasharray='6' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
     }
 
-    @media ${device.laptopM} {
-      height: 692px;
-    }
-
     &.filled {
       pointer-events: none;
-      height: auto;
-      height: initial;
+      height: 736px;
 
+      @media ${device.laptopM} {
+        height: 624px;
+      }
+  
       @media ${device.laptop} {
         height: 100%;
       }
+    }
+
+    @media ${device.laptopM} {
+      height: 692px;
     }
 
     @media ${device.laptop} {

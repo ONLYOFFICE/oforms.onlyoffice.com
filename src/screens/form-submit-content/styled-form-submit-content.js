@@ -102,9 +102,34 @@ const StyledLoadingForm = styled(Section)`
   }
 
   .send-button {
+    position: relative;
     width: 100%;
     font-size: 13px;
     line-height: 17px;
+    transition: background-color 0.3s, opacity 0.3s;
+
+    &.loading {
+      font-size: 0;
+
+      &:after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 18px;
+        height: 18px;
+        margin: 0 auto;
+        border: 2px solid #ffffff;
+        border-radius: 75%;
+        border-right-color: transparent;
+        transform: translate(-50%, -50%);
+        animation: cssload-spin 1025ms infinite linear;
+      }
+      
+      @keyframes cssload-spin {
+        100%{ transform: translate(-50%, -50%) rotate(360deg); }
+      }
+    }
   }
 
   @media ${device.mobile} {
