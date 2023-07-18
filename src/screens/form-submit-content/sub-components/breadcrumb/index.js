@@ -8,7 +8,7 @@ const Breadcrumb = ({ t, language }) => {
   return (
     <StyledBreadcrumb>
       <Link className="breadcrumb-links home" href={`/${lnh}`}>{t("Forms")}</Link>
-      <Text className="breadcrumb-items-name" label={"Loading your form"} />
+      <Text className="breadcrumb-items-name" label={t("Loading your form")} />
     </StyledBreadcrumb>
   );
 };

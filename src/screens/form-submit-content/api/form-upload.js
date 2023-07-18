@@ -70,15 +70,15 @@ const formUploadApi = async (file, fileName, fileImg, name, description, categor
     // Сonvert card preview, template image, docxf, pdf, oform links to File data
     const fileImgFile = await axios.get(fileImg, { responseType: "blob" });
     const fileImgFileParams = new File([fileImgFile.data], `${fileNameSubstring}.png`, { type: "image/png" });
-    
-    const pdfFile = await axios.get(convertPdfFile, { responseType: "blob" });
-    const pdfFileParams = new File([pdfFile.data], `${fileNameSubstring}.pdf`, { type: pdfFile.headers["content-type"] });
-
-    const docxfFile = await axios.get(docxfResponse, { responseType: "blob" });
-    const docxfFileParams = new File([docxfFile.data], `${fileNameSubstring}.docxf`, { type: docxfFile.headers["content-type"] });
 
     const oformFile = await axios.get(result[0].data.fileUrl, { responseType: "blob" });
     const oformFileParams = new File([oformFile.data], `${fileNameSubstring}.oform`, { type: oformFile.headers["content-type"] });
+
+    const docxfFile = await axios.get(`https:/${docxfResponse}`, { responseType: "blob" });
+    const docxfFileParams = new File([docxfFile.data], `${fileNameSubstring}.docxf`, { type: docxfFile.headers["content-type"] });
+
+    const pdfFile = await axios.get(convertPdfFile, { responseType: "blob" });
+    const pdfFileParams = new File([pdfFile.data], `${fileNameSubstring}.pdf`, { type: "application/octet-stream" });
 
     const templateImgFile = await axios.get(result[1].data.fileUrl, { responseType: "blob" });
     const templateImgFileParams = new File([templateImgFile.data], `${fileNameSubstring}.png`, { type: "image/png" });
@@ -110,6 +110,12 @@ const formUploadApi = async (file, fileName, fileImg, name, description, categor
       templateImageData.append("refId", res.data.data.id);
       templateImageData.append("field", "template_image");
 
+      const oformFileData = new FormData();
+      oformFileData.append("files", oformFileParams);
+      oformFileData.append("ref", "api::oform.oform");
+      oformFileData.append("refId", res.data.data.id);
+      oformFileData.append("field", "file_oform");
+
       const docxfFileData = new FormData();
       docxfFileData.append("files", docxfFileParams);
       docxfFileData.append("ref", "api::oform.oform");
@@ -122,17 +128,11 @@ const formUploadApi = async (file, fileName, fileImg, name, description, categor
       pdfFileData.append("refId", res.data.data.id);
       pdfFileData.append("field", "file_oform");
 
-      const oformFileData = new FormData();
-      oformFileData.append("files", oformFileParams);
-      oformFileData.append("ref", "api::oform.oform");
-      oformFileData.append("refId", res.data.data.id);
-      oformFileData.append("field", "file_oform");
-
       await axios.post(uploadApiUrl, cardPreviewData)
       await axios.post(uploadApiUrl, templateImageData);
+      await axios.post(uploadApiUrl, oformFileData);
       await axios.post(uploadApiUrl, docxfFileData);
       await axios.post(uploadApiUrl, pdfFileData);
-      await axios.post(uploadApiUrl, oformFileData);
     }).then(() => {
       setUploadPopup(true);
       setFormLoading(false);

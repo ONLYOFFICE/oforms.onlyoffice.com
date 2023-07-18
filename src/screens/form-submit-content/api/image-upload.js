@@ -81,7 +81,7 @@ const imageUploadApi = async (file, name) => {
     });
 
     // Сonvert pdf link to File data
-    const pdfFile = await axios.get(`${pdfRequest.data.fileUrl}`, { responseType: "blob" });
+    const pdfFile = await axios.get(pdfRequest.data.fileUrl, { responseType: "blob" });
     const pdfFileParams = new File([pdfFile.data], `${nameSubstring}.pdf`, { type: pdfFile.headers["content-type"] });
 
     // PDF file pages
