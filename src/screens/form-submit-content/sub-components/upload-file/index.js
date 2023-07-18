@@ -63,7 +63,7 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
               <Heading className="upload-title" level={4}><span>{t("Upload .docxf file")}</span></Heading>
               <span className="upload-icon"></span>
               <Text className="upload-subtitle">{t("or drag&drop it here")}</Text>
-              <Text className="upload-size">({t("Max")} 10MB)</Text>
+              <Text className="upload-size">({t("Max 10MB")})</Text>
             </>
           :
             <div className="upload-img">
