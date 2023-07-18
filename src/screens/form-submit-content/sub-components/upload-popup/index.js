@@ -5,7 +5,7 @@ import Text from "@common/text";
 
 const UploadPopup = ({ t, file, uploadPopup, setUploadPopup, clearForm }) => {
   const closePopup = (e) => {
-    if (!e.target.closest(".popup-wrapper")) {
+    if (!e.target.closest(".popup-wrapper") || e.target.closest(".popup-btn-close") || e.target.closest(".popup-btn")) {
       setUploadPopup(false);
       clearForm();
     };
@@ -17,7 +17,7 @@ const UploadPopup = ({ t, file, uploadPopup, setUploadPopup, clearForm }) => {
         <div className="popup-wrapper">
           <div className="popup-top">
             <Heading className="popup-title" level={4}>{t("File upload")}</Heading>
-            <div onClick={() => setUploadPopup(false)} className="popup-btn-close"></div>
+            <div onClick={e => closePopup(e)} className="popup-btn-close"></div>
           </div>
           <div>
             <div className="upload-name">
@@ -36,7 +36,7 @@ const UploadPopup = ({ t, file, uploadPopup, setUploadPopup, clearForm }) => {
               </div>
             </div>
 
-            <Button onClick={() => setUploadPopup(false)} className="popup-btn" label={t("OK")} />
+            <Button onClick={e => closePopup(e)} className="popup-btn" label={t("OK")} />
           </div>
         </div>
       </div>

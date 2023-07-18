@@ -1,8 +1,7 @@
 import StyledFormSubmitContent from "./styled-form-submit-content";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import jwt from "jsrsasign";
-import S3 from "aws-sdk/clients/s3";
+import { useState, useEffect, useRef } from "react";
+import imageUploadApi from "./api/image-upload";
+import formUploadApi from "./api/form-upload";
 import ReCAPTCHA from "react-google-recaptcha";
 import Heading from "@common/heading";
 import Text from "@common/text";
@@ -12,13 +11,6 @@ import Select from "./sub-components/select";
 import Input from "./sub-components/input";
 import UploadFile from "./sub-components/upload-file";
 import UploadPopup from "./sub-components/upload-popup";
-import moment from "moment";
-import "moment/locale/fr";
-import "moment/locale/it";
-import "moment/locale/es";
-import "moment/locale/de";
-import "moment/locale/ja";
-import "moment/locale/zh-cn";
 
 const FormSubmitContent = ({ t, locale, categories }) => {
   const [file, setFile] = useState(undefined);
@@ -47,74 +39,24 @@ const FormSubmitContent = ({ t, locale, categories }) => {
   const [recaptchaError, setRecaptchaError] = useState(true);
 
   const [fileLoading, setFileLoading] = useState(false);
+  const [formLoading, setFormLoading] = useState(false);
   const [uploadPopup, setUploadPopup] = useState(false);
   const [formValid, setFormValid] = useState(false);
 
+  const [fileImg, setFileImg] = useState("");
+  const [convertPdfFile, setConvertPdfFile] = useState("");
+  const [docxfResponse, setDocxfResponse] = useState("");
+  const [filePages, setFilePages] = useState("");
+  const refRecaptcha = useRef();
+
   // Form validation
   useEffect(() => {
-    if (fileError || !(name.length > 0 && !nameError) || !(description.length > 0 && !descriptionError) || categoryError || languageError || recaptchaError) {
+    if (fileError || fileLoading || !(name.length > 0 && !nameError) || !(description.length > 0 && !descriptionError) || categoryError || languageError || recaptchaError) {
       setFormValid(false);
     } else {
       setFormValid(true);
     };
-  }, [fileError, name, description, nameError, descriptionError, categoryError, languageError, recaptchaError]);
-
-  // Send request to AWS
-  const handleFileImageUpload = async (e) => {
-    setFileLoading(true);
-
-    const key = "";
-    const str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz0123456789";
-
-    for (const i = 1; i <= 12; i++) {
-      const char = Math.floor(Math.random() * str.length + 1);
-      key += str.charAt(char);
-    };
-
-    const s3 = new S3({
-      accessKeyId: process.env.NEXT_PUBLIC_ACCESS_KEY_ID,
-      secretAccessKey: process.env.NEXT_PUBLIC_SECRET_ACCESS_KEY,
-      region: process.env.NEXT_PUBLIC_REGION,
-    });
-
-    const params = {
-      Bucket: process.env.NEXT_PUBLIC_BUCKET,
-      Key: e.target.files[0].name,
-      Body: e.target.files[0]
-    };
-
-    try {
-      const response = await s3.putObject(params).promise();
-
-      const payload = {
-        "filetype": "docxf",
-        "key": key,
-        "outputtype": "png",
-        "thumbnail": {
-          "aspect": 0,
-          "first": true,
-          "height": 768,
-          "width": 544
-        },
-        "title": e.target.files[0].name,
-        "url": `https:/${response.$response.request.httpRequest.path}`
-      };
-
-      const token = jwt.KJUR.jws.JWS.sign("HS256", JSON.stringify({ alg: "HS256" }), payload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
-
-      await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, payload, {
-        headers: {
-          "Content-Type": "application/json",
-          "AuthorizationJwt": `Bearer ${token}`
-        }
-      }).then((res) => {
-        console.log(res);
-        setFileLoading(false);
-      });
-    } catch (error) {
-      console.error('Error uploading file:', error);
-    };
-  };
+  }, [fileError, fileLoading, name, description, nameError, descriptionError, categoryError, languageError || recaptchaError]);
 
   const onChangeHandler = (e) => {
     switch (e.target.name) {
@@ -180,26 +122,28 @@ const FormSubmitContent = ({ t, locale, categories }) => {
     };
   };
 
-  const sendForm = (e) => {
-    e.preventDefault();
+  // Get image from AWS
+  const handleFileImageUpload = async (e) => {
+    setFileLoading(true);
 
-    axios.post(`https://oforms.teamlab.info/dashboard/api/oforms`, {
-      "data": {
-        "name_form": name,
-        "description_card": description,
-        "file_size": `${file.size.toString().substring(0, 2)} kB`,
-        "file_last_update": moment(file.lastModifiedDate).locale(languageKey).format(
-          languageKey === "zh" ? "Y年MM月DD" : languageKey === "ja" ? "Y年MM月DD日" : "MMMM D, y"
-        ),
-        "template_desc": description,
-        "categorie": categoryId,
-        "locale": languageKey,
-        "publishedAt": null
-      }
-    }).then(() => {
-      // Show upload popup
-      setUploadPopup(true);
-    });
+    const file = e.target.files[0];
+    const name = e.target.files[0].name;
+
+    const res = await imageUploadApi(file, name);
+
+    setFileImg(res[0]);
+    setConvertPdfFile(res[1]);
+    setDocxfResponse(res[2]);
+    setFilePages(res[3]);
+    setFileLoading(false);
+  };
+
+  const sendForm = async (e) => {
+    e.preventDefault();
+    setFormLoading(true);
+
+    const fileName = file.name;
+    await formUploadApi(file, fileName, fileImg, name, description, categoryId, languageKey, convertPdfFile, filePages, docxfResponse, setUploadPopup, setFormLoading);
   };
 
   const clearForm = () => {
@@ -216,6 +160,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
     setCategoryValid(false);
     setLanguageValid(false);
     setFormValid(false);
+    refRecaptcha.current.reset();
   };
 
   return (
@@ -236,7 +181,8 @@ const FormSubmitContent = ({ t, locale, categories }) => {
             setFileFilled={setFileFilled}
             onChangeHandler={onChangeHandler}
             fileLoading={fileLoading}
-            errorText={t("Upload file is empty")}
+            fileImg={fileImg}
+            errorText={t("File is empty")}
           />
         </div>
         <div className="content">
@@ -296,6 +242,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
               setError={setLanguageError}
             />
             <ReCAPTCHA
+              ref={refRecaptcha}
               onChange={() => setRecaptchaError(false)}
               sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
               hl={locale}
@@ -311,9 +258,13 @@ const FormSubmitContent = ({ t, locale, categories }) => {
               <Text className="file-info-label">{t("FileSize")}:</Text>
               <Text className="file-info-text">{file !== undefined && fileLoading === false ? file.size.toString().substring(0, 2) : 0} kb</Text>
             </div>
+            <div className="file-info-item">
+              <Text className="file-info-label">{t("Pages")}:</Text>
+              <Text className="file-info-text">{file !== undefined && fileLoading === false ? filePages : 0}</Text>
+            </div>
           </div>
 
-          <Button onClick={(e) => sendForm(e)} className="send-button" label={t("Send")} isDisabled={!formValid} />
+          <Button onClick={(e) => sendForm(e)} className={`send-button ${formLoading ? "loading" : ""}`} label={t("Send")} isDisabled={!formValid || formLoading} />
         </div>
       </div>
 

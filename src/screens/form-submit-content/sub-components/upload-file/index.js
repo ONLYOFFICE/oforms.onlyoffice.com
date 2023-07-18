@@ -4,7 +4,7 @@ import StyledUploadFile from "./styled-upload-file";
 import Heading from "@common/heading";
 import Text from "@common/text";
 
-const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, fileError, setFileError,  fileFilled, setFileFilled, fileLoading, onChangeHandler }) => {
+const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, fileError, setFileError,  fileFilled, setFileFilled, fileLoading, fileImg, onChangeHandler }) => {
   const [drag, setDrag] = useState(false);
   const [errorPopup, setErrorPopup] = useState(false);
   const inputRef = useRef();
@@ -71,7 +71,7 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
                 fileLoading ?
                   <div className="upload-img-loading"></div>
                 :
-                  <img src="https://static-oforms.onlyoffice.com/image1_b8e15a6f9f.png" alt="" />
+                  <img src={fileImg} alt={file.name} />
               }
             </div>
           }

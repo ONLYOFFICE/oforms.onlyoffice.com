@@ -148,7 +148,7 @@ const Select = ({ t, isMulti, label, labelMore, placeholder, categories, selecte
           </div>
         )}
       </div>
-      {!isOpen && selectedError && <Text className="error-text">{isMulti && selected.length > 5 ? t("Maximum 5") : errorText}</Text>}
+      {!isOpen && selectedError && <Text className="error-text">{isMulti && selected.length > 5 ? t("maximum 5") : errorText}</Text>}
     </StyledSelect>
   );
 };
