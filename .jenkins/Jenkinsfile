@@ -97,7 +97,7 @@ pipeline {
 
             sed -i "s^var_next_public_access_key_id^$NEXT_PUBLIC_ACCESS_KEY_ID^" .env.local
             sed -i "s^var_next_public_secret_access_key^$NEXT_PUBLIC_SECRET_ACCESS_KEY^" .env.local
-            
+            sed -i "s^var_next_public_recaptcha_site_key^$NEXT_PUBLIC_RECAPTCHA_SITE_KEY^" .env.local
               
             tar -czpf .jenkins/oforms.tar.gz \
               --exclude ".git" \
