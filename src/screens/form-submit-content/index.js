@@ -216,7 +216,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
               isMulti
               t={t}
               label={t("Form category")}
-              labelMore={(t("(maximum 5)"))}
+              labelMore={`(${t("maximum 5")})`}
               placeholder={t("Enter category or choose")}
               errorText={t("Form category is empty")}
               categories={categories}
