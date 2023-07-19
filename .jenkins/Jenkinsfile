@@ -64,6 +64,9 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS',
                 passwordVariable: 'NEXT_PUBLIC_FILES_DOCSERVICE_SECRET',
                 usernameVariable: 'NEXT_PUBLIC_EDITOR_API_URL'),
+                usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS_TEST',
+                passwordVariable: 'NEXT_PUBLIC_FILES_DOCSERVICE_SECRET_TEST',
+                usernameVariable: 'NEXT_PUBLIC_EDITOR_API_URL_TEST'),
                 usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS_AWS',
                 passwordVariable: 'NEXT_PUBLIC_SECRET_ACCESS_KEY',
                 usernameVariable: 'NEXT_PUBLIC_ACCESS_KEY_ID'),
@@ -72,7 +75,12 @@ pipeline {
                 usernameVariable: 'NEXT_PUBLIC_REGION')]) {
 
           sh '''
-          
+            echo "${BRANCH_NAME}"
+            if [[ ${BRANCH_NAME} == "test_deploy" ]]; then
+              $NEXT_PUBLIC_EDITOR_API_URL=$NEXT_PUBLIC_EDITOR_API_URL_TEST
+              $NEXT_PUBLIC_FILES_DOCSERVICE_SECRET=$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET_TEST
+            fi
+
             sed -i "s^config_docEditorUrlg^$docEditorUrl^" config/config.json
             sed -i "s^config_cms^$cms^" config/config.json
             sed -i "s^config_appServer^$appServer^" config/config.json
@@ -101,7 +109,8 @@ pipeline {
           transfers: [sshTransfer(cleanRemote: false, 
             excludes: '', 
             execCommand: '''
-              sudo bash /home/ubuntu/deploy/.jenkins/build.sh |& tee -a > /home/ubuntu/deploy/www-cms-marketplace_deploy.log
+              # sudo bash /home/ubuntu/deploy/.jenkins/build.sh |& tee -a > /home/ubuntu/deploy/www-cms-marketplace_deploy.log
+              echo "ok"
             ''', 
             execTimeout: 600000, 
             flatten: false, 
