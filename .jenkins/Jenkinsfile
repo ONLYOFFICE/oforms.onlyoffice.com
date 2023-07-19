@@ -6,7 +6,7 @@ switch(BRANCH_NAME) {
     region="info"
     cloud_front_distribution_id="E3OQ4LKWZZXBRX"
     site_url="https://oforms.teamlab.info"
-    docEditorUrl="https://doc-linux.teamlab.info"
+    docEditorUrl="https://oforms-docs.teamlab.info"
     cms="https://oforms.teamlab.info/dashboard"
     appServer="https://oforms.teamlab.info/"
     domains="static-oforms.teamlab.info"
