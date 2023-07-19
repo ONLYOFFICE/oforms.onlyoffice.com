@@ -60,7 +60,7 @@ pipeline {
         appServer="${appServer}"
         domains="${domains}"
       }
-      steps {
+      steps { 
         withCredentials([usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS',
                 passwordVariable: 'NEXT_PUBLIC_FILES_DOCSERVICE_SECRET',
                 usernameVariable: 'NEXT_PUBLIC_EDITOR_API_URL'),
