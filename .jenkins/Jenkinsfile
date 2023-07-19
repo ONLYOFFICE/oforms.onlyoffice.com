@@ -77,8 +77,8 @@ pipeline {
           sh '''
             echo "${BRANCH_NAME}"
             if [[ ${BRANCH_NAME} == "test_deploy" ]]; then
-              $NEXT_PUBLIC_EDITOR_API_URL=$NEXT_PUBLIC_EDITOR_API_URL_TEST
-              $NEXT_PUBLIC_FILES_DOCSERVICE_SECRET=$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET_TEST
+              NEXT_PUBLIC_EDITOR_API_URL=$NEXT_PUBLIC_EDITOR_API_URL_TEST
+              NEXT_PUBLIC_FILES_DOCSERVICE_SECRET=$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET_TEST
             fi
 
             sed -i "s^config_docEditorUrlg^$docEditorUrl^" config/config.json
