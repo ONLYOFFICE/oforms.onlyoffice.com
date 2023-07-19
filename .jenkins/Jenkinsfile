@@ -72,7 +72,11 @@ pipeline {
                 usernameVariable: 'NEXT_PUBLIC_ACCESS_KEY_ID'),
                 usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS_BUCKET_REGION',
                 passwordVariable: 'NEXT_PUBLIC_BUCKET',
-                usernameVariable: 'NEXT_PUBLIC_REGION')]) {
+                usernameVariable: 'NEXT_PUBLIC_REGION'),
+                string(credentialsId: 'NEXT_PUBLIC_RECAPTCHA_CREDS_SITE_KEY', 
+                variable: 'NEXT_PUBLIC_RECAPTCHA_SITE_KEY'),
+                string(credentialsId: 'NEXT_PUBLIC_RECAPTCHA_CREDS_SITE_KEY_TEST', 
+                variable: 'NEXT_PUBLIC_RECAPTCHA_SITE_KEY_TEST')]) {
 
           sh '''
             echo "${BRANCH_NAME}"
