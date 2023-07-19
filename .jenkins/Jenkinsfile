@@ -80,7 +80,7 @@ pipeline {
               NEXT_PUBLIC_EDITOR_API_URL=$NEXT_PUBLIC_EDITOR_API_URL_TEST
               NEXT_PUBLIC_FILES_DOCSERVICE_SECRET=$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET_TEST
             fi
-
+            echo "docEditorUrl = $docEditorUrl"
             sed -i "s^config_docEditorUrlg^$docEditorUrl^" config/config.json
             sed -i "s^config_cms^$cms^" config/config.json
             sed -i "s^config_appServer^$appServer^" config/config.json
