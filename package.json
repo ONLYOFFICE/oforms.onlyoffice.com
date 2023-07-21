@@ -17,6 +17,8 @@
     "axios": "^0.26.1",
     "classnames": "^2.3.2",
     "email-addresses": "^5.0.0",
+    "formidable": "^3.5.0",
+    "fs": "^0.0.1-security",
     "jsrsasign": "^10.8.6",
     "moment": "^2.29.4",
     "next": "12.1.4",
@@ -48,4 +50,3 @@
     "source-map-explorer": "^2.5.2"
   }
 }
- 

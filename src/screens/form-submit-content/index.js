@@ -1,7 +1,8 @@
 import StyledFormSubmitContent from "./styled-form-submit-content";
 import { useState, useEffect, useRef } from "react";
-import imageUploadApi from "./api/image-upload";
-import formUploadApi from "./api/form-upload";
+import filePagesApi from "./api/file-pages";
+import sendFormApi from "./api/send-form";
+import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
 import Heading from "@common/heading";
 import Text from "@common/text";
@@ -44,8 +45,8 @@ const FormSubmitContent = ({ t, locale, categories }) => {
   const [formValid, setFormValid] = useState(false);
 
   const [fileImg, setFileImg] = useState("");
-  const [convertPdfFile, setConvertPdfFile] = useState("");
-  const [docxfResponse, setDocxfResponse] = useState("");
+  const [pdfConvertUrl, setPdfConvertUrl] = useState("");
+  const [docxfAwsUrl, setDocxfAwsUrl] = useState("");
   const [filePages, setFilePages] = useState("");
   const refRecaptcha = useRef();
 
@@ -126,15 +127,18 @@ const FormSubmitContent = ({ t, locale, categories }) => {
   const handleFileImageUpload = async (e) => {
     setFileLoading(true);
 
-    const file = e.target.files[0];
-    const name = e.target.files[0].name;
+    const formData = new FormData();
+    formData.append("file", e.target.files[0]);
 
-    const res = await imageUploadApi(file, name);
+    const res = await axios.post("/api/image-upload", formData);
+    const { pngConvertUrl, pdfConvertUrl, docxfAwsUrl, fileName } = res.data[0];
 
-    setFileImg(res[0]);
-    setConvertPdfFile(res[1]);
-    setDocxfResponse(res[2]);
-    setFilePages(res[3]);
+    const filePagesApiRes = await filePagesApi(pdfConvertUrl, fileName);
+
+    setFileImg(pngConvertUrl);
+    setPdfConvertUrl(pdfConvertUrl);
+    setDocxfAwsUrl(docxfAwsUrl);
+    setFilePages(filePagesApiRes.toString());
     setFileLoading(false);
   };
 
@@ -142,8 +146,33 @@ const FormSubmitContent = ({ t, locale, categories }) => {
     e.preventDefault();
     setFormLoading(true);
 
+    const res = await axios.post("/api/form-upload", {
+      "fileName": file.name,
+      "docxfAwsUrl": docxfAwsUrl
+    });
+
+    const { oformConvertUrl, templateImageUrl } = res.data[0];
+    const fileSize = file.size;
     const fileName = file.name;
-    await formUploadApi(file, fileName, fileImg, name, description, categoryId, languageKey, convertPdfFile, filePages, docxfResponse, setUploadPopup, setFormLoading);
+    const fileLastModifiedDate = file.lastModifiedDate;
+
+    await sendFormApi(
+      oformConvertUrl,
+      templateImageUrl,
+      docxfAwsUrl,
+      fileSize,
+      fileName,
+      fileImg,
+      pdfConvertUrl,
+      name,
+      fileLastModifiedDate,
+      languageKey,
+      filePages,
+      description,
+      categoryId,
+      setUploadPopup,
+      setFormLoading
+    );
   };
 
   const clearForm = () => {
