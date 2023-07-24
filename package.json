@@ -13,9 +13,14 @@
   "dependencies": {
     "@callstack/react-theme-provider": "^3.0.7",
     "@reduxjs/toolkit": "^1.8.1",
+    "aws-sdk": "^2.1413.0",
     "axios": "^0.26.1",
     "classnames": "^2.3.2",
     "email-addresses": "^5.0.0",
+    "formidable": "^3.5.0",
+    "fs": "^0.0.1-security",
+    "jsrsasign": "^10.8.6",
+    "moment": "^2.29.4",
     "next": "12.1.4",
     "next-i18next": "^11.0.0",
     "prop-types": "^15.8.1",
@@ -25,6 +30,7 @@
     "react-custom-scrollbars": "^4.2.1",
     "react-device-detect": "^2.2.2",
     "react-dom": "18.0.0",
+    "react-google-recaptcha": "^3.1.0",
     "react-helmet": "^6.1.0",
     "react-i18next": "^11.16.7",
     "react-infinite-scroll-component": "^6.1.0",
@@ -44,3 +50,4 @@
     "source-map-explorer": "^2.5.2"
   }
 }
+

@@ -6,10 +6,11 @@ switch(BRANCH_NAME) {
     region="info"
     cloud_front_distribution_id="E3OQ4LKWZZXBRX"
     site_url="https://oforms.teamlab.info"
-    docEditorUrl="https://doc-linux.teamlab.info"
+    docEditorUrl="https://oforms-docs.teamlab.info"
     cms="https://oforms.teamlab.info/dashboard"
     appServer="https://oforms.teamlab.info/"
     domains="static-oforms.teamlab.info"
+
     break
   case "production_deploy":
     aws_region="us-west-2"
@@ -17,10 +18,12 @@ switch(BRANCH_NAME) {
     MONITOR_ID = '58439000014815195'
     cloud_front_distribution_id="E18Y5OI4JS5NAJ"
     site_url="https://oforms.onlyoffice.com"
-    docEditorUrl="https://asc.docs.onlyoffice.com"
+    //docEditorUrl="https://asc.docs.onlyoffice.com"
+    docEditorUrl="https://oforms-docs.teamlab.info"
     cms="https://oforms.onlyoffice.com/dashboard"
     appServer="https://oforms.onlyoffice.com/"
     domains="static-oforms.onlyoffice.com"
+
     break
   default:
     println("Branch: ${BRANCH_NAME} do not for deploy.")
@@ -58,22 +61,54 @@ pipeline {
         appServer="${appServer}"
         domains="${domains}"
       }
-      steps {
-        sh '''
-        
-          sed -i "s^config_docEditorUrlg^$docEditorUrl^" config/config.json
-          sed -i "s^config_cms^$cms^" config/config.json
-          sed -i "s^config_appServer^$appServer^" config/config.json
-          sed -i "s^nextconfig_domains^$domains^" next.config.js
+      steps { 
+        withCredentials([usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS',
+                passwordVariable: 'NEXT_PUBLIC_FILES_DOCSERVICE_SECRET',
+                usernameVariable: 'NEXT_PUBLIC_EDITOR_API_URL'),
+                usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS_TEST',
+                passwordVariable: 'NEXT_PUBLIC_FILES_DOCSERVICE_SECRET_TEST',
+                usernameVariable: 'NEXT_PUBLIC_EDITOR_API_URL_TEST'),
+                usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS_AWS',
+                passwordVariable: 'NEXT_PUBLIC_SECRET_ACCESS_KEY',
+                usernameVariable: 'NEXT_PUBLIC_ACCESS_KEY_ID'),
+                usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS_BUCKET_REGION',
+                passwordVariable: 'NEXT_PUBLIC_BUCKET',
+                usernameVariable: 'NEXT_PUBLIC_REGION'),
+                string(credentialsId: 'NEXT_PUBLIC_RECAPTCHA_CREDS_SITE_KEY', 
+                variable: 'NEXT_PUBLIC_RECAPTCHA_SITE_KEY'),
+                string(credentialsId: 'NEXT_PUBLIC_RECAPTCHA_CREDS_SITE_KEY_TEST', 
+                variable: 'NEXT_PUBLIC_RECAPTCHA_SITE_KEY_TEST')]) {
+
+          sh '''
+            if [[ ${BRANCH_NAME} == "test_deploy" ]]; then
+              # NEXT_PUBLIC_EDITOR_API_URL=$NEXT_PUBLIC_EDITOR_API_URL_TEST
+              # NEXT_PUBLIC_FILES_DOCSERVICE_SECRET=$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET_TEST
+              NEXT_PUBLIC_RECAPTCHA_SITE_KEY=$NEXT_PUBLIC_RECAPTCHA_SITE_KEY_TEST
+            fi
+
+            sed -i "s^config_docEditorUrl^$docEditorUrl^" config/config.json
+            sed -i "s^config_cms^$cms^" config/config.json
+            sed -i "s^config_appServer^$appServer^" config/config.json
+            sed -i "s^nextconfig_domains^$domains^" next.config.js
+            sed -i "s^var_next_public_editor_api_url^$NEXT_PUBLIC_EDITOR_API_URL_TEST^" .env.local
+            sed -i "s^var_next_public_files_docservice_secret^$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET_TEST^" .env.local
+
+            sed -i "s^var_next_public_region^$NEXT_PUBLIC_REGION^" .env.local
+            sed -i "s^var_next_public_bucket^$NEXT_PUBLIC_BUCKET^" .env.local
+
+            sed -i "s^var_next_public_access_key_id^$NEXT_PUBLIC_ACCESS_KEY_ID^" .env.local
+            sed -i "s^var_next_public_secret_access_key^$NEXT_PUBLIC_SECRET_ACCESS_KEY^" .env.local
+            sed -i "s^var_next_public_recaptcha_site_key^$NEXT_PUBLIC_RECAPTCHA_SITE_KEY^" .env.local
+              
+            tar -czpf .jenkins/oforms.tar.gz \
+              --exclude ".git" \
+              --exclude ".gitignore" \
+              --exclude ".jenkins" \
+              --exclude "README.md" .
             
-          tar -czpf .jenkins/oforms.tar.gz \
-            --exclude ".git" \
-            --exclude ".gitignore" \
-            --exclude ".jenkins" \
-            --exclude "README.md" .
-          
-          echo "Deploy from ${BRANCH_NAME} is starting."
-        '''
+            echo "Deploy from ${BRANCH_NAME} is starting."
+          '''
+        }
         
         sshPublisher(publishers: [sshPublisherDesc(configName: "strapi_oforms@${region}", 
           transfers: [sshTransfer(cleanRemote: false, 
