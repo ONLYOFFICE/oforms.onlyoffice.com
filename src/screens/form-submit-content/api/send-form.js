@@ -21,9 +21,7 @@ const sendFormApi = async (
   languageKey,
   filePages,
   description,
-  categoryId,
-  setUploadPopup,
-  setFormLoading
+  categoryId
 ) => {
   const fileNameSubstring = fileName.substring(0, fileName.length - 6);
   const uploadApiUrl = `${CONFIG.api.cms}/api/upload`;
@@ -94,9 +92,6 @@ const sendFormApi = async (
     await axios.post(uploadApiUrl, oformFileData);
     await axios.post(uploadApiUrl, docxfFileData);
     await axios.post(uploadApiUrl, pdfFileData);
-  }).then(() => {
-    setUploadPopup(true);
-    setFormLoading(false);
   });
 
   return;

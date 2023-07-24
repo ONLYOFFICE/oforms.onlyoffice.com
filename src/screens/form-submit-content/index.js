@@ -130,15 +130,15 @@ const FormSubmitContent = ({ t, locale, categories }) => {
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
 
-    const res = await axios.post("/api/image-upload", formData);
-    const { pngConvertUrl, pdfConvertUrl, docxfAwsUrl, fileName } = res.data[0];
+    const imageUploadResponse = await axios.post("/api/image-upload", formData);
+    const { pngConvertUrl, pdfConvertUrl, docxfAwsUrl, fileName } = imageUploadResponse.data[0];
 
-    const filePagesApiRes = await filePagesApi(pdfConvertUrl, fileName);
+    const filePagesApiResponse = await filePagesApi(pdfConvertUrl, fileName);
 
     setFileImg(pngConvertUrl);
     setPdfConvertUrl(pdfConvertUrl);
     setDocxfAwsUrl(docxfAwsUrl);
-    setFilePages(filePagesApiRes.toString());
+    setFilePages(filePagesApiResponse.toString());
     setFileLoading(false);
   };
 
@@ -146,12 +146,12 @@ const FormSubmitContent = ({ t, locale, categories }) => {
     e.preventDefault();
     setFormLoading(true);
 
-    const res = await axios.post("/api/form-upload", {
+    const formUploadResponse = await axios.post("/api/form-upload", {
       "fileName": file.name,
       "docxfAwsUrl": docxfAwsUrl
     });
 
-    const { oformConvertUrl, templateImageUrl } = res.data[0];
+    const { oformConvertUrl, templateImageUrl } = formUploadResponse.data[0];
     const fileSize = file.size;
     const fileName = file.name;
     const fileLastModifiedDate = file.lastModifiedDate;
@@ -169,10 +169,15 @@ const FormSubmitContent = ({ t, locale, categories }) => {
       languageKey,
       filePages,
       description,
-      categoryId,
-      setUploadPopup,
-      setFormLoading
+      categoryId
     );
+
+    await axios.post("/api/image-delete", {
+      "name": file.name,
+    }).then(() => {
+      setUploadPopup(true);
+      setFormLoading(false);
+    });
   };
 
   const clearForm = () => {
