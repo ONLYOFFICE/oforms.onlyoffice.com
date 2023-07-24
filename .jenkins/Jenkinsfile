@@ -18,8 +18,8 @@ switch(BRANCH_NAME) {
     MONITOR_ID = '58439000014815195'
     cloud_front_distribution_id="E18Y5OI4JS5NAJ"
     site_url="https://oforms.onlyoffice.com"
-    //docEditorUrl="https://asc.docs.onlyoffice.com"
-    docEditorUrl="https://oforms-docs.teamlab.info"
+    docEditorUrl="https://asc.docs.onlyoffice.com"
+    //docEditorUrl="https://oforms-docs.teamlab.info"
     cms="https://oforms.onlyoffice.com/dashboard"
     appServer="https://oforms.onlyoffice.com/"
     domains="static-oforms.onlyoffice.com"
