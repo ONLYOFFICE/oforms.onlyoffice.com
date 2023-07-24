@@ -55,6 +55,7 @@ pipeline {
                 branch 'production_deploy' }
       }
       environment {
+        aws_region = "${aws_region}"
         region = "${region}"
         docEditorUrl="${docEditorUrl}"
         cms="${cms}"
@@ -93,8 +94,8 @@ pipeline {
             sed -i "s^var_next_public_editor_api_url^$NEXT_PUBLIC_EDITOR_API_URL_TEST^" .env.local
             sed -i "s^var_next_public_files_docservice_secret^$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET_TEST^" .env.local
 
-            sed -i "s^var_next_public_region^$NEXT_PUBLIC_REGION^" .env.local
-            sed -i "s^var_next_public_bucket^$NEXT_PUBLIC_BUCKET^" .env.local
+            sed -i "s^var_next_public_region^$aws_region^" .env.local
+            sed -i "s^var_next_public_bucket^$domains^" .env.local
 
             sed -i "s^var_next_public_access_key_id^$NEXT_PUBLIC_ACCESS_KEY_ID^" .env.local
             sed -i "s^var_next_public_secret_access_key^$NEXT_PUBLIC_SECRET_ACCESS_KEY^" .env.local
