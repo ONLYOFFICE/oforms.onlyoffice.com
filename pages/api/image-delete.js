@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 
     s3.deleteObject(params);
 
-    return res.status(200).send("Form submitted successfully");
+    return res.status(200).send("File deleted successfully");
   } catch (error) {
     console.log(error)
     return res.status(500).send("Error");
