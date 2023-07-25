@@ -71,7 +71,7 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
                 fileLoading ?
                   <div className="upload-img-loading"></div>
                 :
-                  <img src={fileImg} alt={file.name} />
+                  <img src={fileImg} alt={file.name.substring(0, file.name.length - 6)} />
               }
             </div>
           }

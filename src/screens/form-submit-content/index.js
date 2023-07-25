@@ -1,7 +1,5 @@
 import StyledFormSubmitContent from "./styled-form-submit-content";
 import { useState, useEffect, useRef } from "react";
-import filePagesApi from "./api/file-pages";
-import sendFormApi from "./api/send-form";
 import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
 import Heading from "@common/heading";
@@ -131,14 +129,10 @@ const FormSubmitContent = ({ t, locale, categories }) => {
     formData.append("file", e.target.files[0]);
 
     const imageUploadResponse = await axios.post("/api/image-upload", formData);
-    const { pngConvertUrl, pdfConvertUrl, docxfAwsUrl, fileName } = imageUploadResponse.data[0];
-
-    const filePagesApiResponse = await filePagesApi(pdfConvertUrl, fileName);
+    const { pngConvertUrl, filePages } = imageUploadResponse.data;
 
     setFileImg(pngConvertUrl);
-    setPdfConvertUrl(pdfConvertUrl);
-    setDocxfAwsUrl(docxfAwsUrl);
-    setFilePages(filePagesApiResponse.toString());
+    setFilePages(filePages);
     setFileLoading(false);
   };
 
@@ -146,38 +140,19 @@ const FormSubmitContent = ({ t, locale, categories }) => {
     e.preventDefault();
     setFormLoading(true);
 
-    const formUploadResponse = await axios.post("/api/form-upload", {
-      "fileName": file.name,
-      "docxfAwsUrl": docxfAwsUrl
-    });
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("fileImg", fileImg);
+    formData.append("filePages", filePages);
+    formData.append("categoryId", categoryId);
+    formData.append("languageKey", languageKey);
 
-    const { oformConvertUrl, templateImageUrl } = formUploadResponse.data[0];
-    const fileSize = file.size;
-    const fileName = file.name;
-    const fileLastModifiedDate = file.lastModifiedDate;
+    await axios.post("/api/form-upload", formData);
 
-    await sendFormApi(
-      oformConvertUrl,
-      templateImageUrl,
-      docxfAwsUrl,
-      fileSize,
-      fileName,
-      fileImg,
-      pdfConvertUrl,
-      name,
-      fileLastModifiedDate,
-      languageKey,
-      filePages,
-      description,
-      categoryId
-    );
-
-    await axios.post("/api/image-delete", {
-      "name": file.name,
-    }).then(() => {
-      setUploadPopup(true);
-      setFormLoading(false);
-    });
+    setUploadPopup(true);
+    setFormLoading(false);
   };
 
   const clearForm = () => {

@@ -16,7 +16,6 @@ export default async function handler(req, res) {
   form.parse(req, async (err, fields, files) => {
     try {
       const name = files.file[0].originalFilename;
-      const nameSubstring = name.substring(0, name.length - 6);
 
       // Generate a unique key for payload
       let key = "";
@@ -93,12 +92,10 @@ export default async function handler(req, res) {
         }
       });
 
-      return res.status(200).json([{
+      return res.status(200).json({
         "pngConvertUrl": docxfRequest.data.fileUrl,
-        "pdfConvertUrl": pdfRequest.data.fileUrl,
-        "docxfAwsUrl": url,
-        "fileName": nameSubstring,
-      }]);
+        "filePages": "1"
+      });
     } catch (error) {
       console.log(error)
       return res.status(500).send("Error");
