@@ -44,8 +44,10 @@ const FormSubmitContent = ({ t, locale, categories }) => {
   const [uploadPopup, setUploadPopup] = useState(false);
   const [formValid, setFormValid] = useState(false);
 
-  const [fileImg, setFileImg] = useState("");
+  const [cardPreviewUrl, setCardPreviewUrl] = useState("");
   const [pdfUrl, setPdfUrl] = useState("");
+  const [docxfUrl, setDocxfUrl] = useState("");
+  const [oformKey, setOformKey] = useState("");
   const [filePages, setFilePages] = useState("");
   const refRecaptcha = useRef();
 
@@ -131,13 +133,14 @@ const FormSubmitContent = ({ t, locale, categories }) => {
 
     const imageUploadResponse = await axios.post("/api/image-upload", formData);
 
-    const { pngConvertUrl, pdfConvertUrl } = imageUploadResponse.data;
+    const { pngConvertUrl, pdfConvertUrl, docxfConverUrl } = imageUploadResponse.data;
     const fileName = e.target.files[0].name;
 
     const filePagesApiResponse = await filePagesApi(pdfConvertUrl, fileName.substring(0, fileName.length - 6));
 
     setPdfUrl(pdfConvertUrl);
-    setFileImg(pngConvertUrl);
+    setDocxfUrl(docxfConverUrl);
+    setCardPreviewUrl(pngConvertUrl);
     setFilePages(filePagesApiResponse.toString());
     setFileLoading(false);
   };
@@ -146,22 +149,23 @@ const FormSubmitContent = ({ t, locale, categories }) => {
     e.preventDefault();
     setFormLoading(true);
 
-    const formData = new FormData();
-    formData.append("file", file);
+    const res = await axios.post("/api/form-upload", {
+      "fileName": file.name,
+      "docxfUrl": docxfUrl
+    });
 
-    const res = await axios.post("/api/form-upload", formData);
-
-    const { oformConvertUrl, docxfConvertUrl, templateImageConvertUrl } = res.data;
+    const { oformConvertUrl, templateImageConvertUrl, oformConvertName } = res.data;
     const fileSize = file.size;
     const fileName = file.name;
     const fileLastModifiedDate = file.lastModifiedDate;
+    setOformKey(oformConvertName);
 
     await sendFormApi(
       oformConvertUrl,
-      docxfConvertUrl,
+      docxfUrl,
       templateImageConvertUrl,
       pdfUrl,
-      fileImg,
+      cardPreviewUrl,
       fileSize,
       fileName,
       name,
@@ -171,9 +175,13 @@ const FormSubmitContent = ({ t, locale, categories }) => {
       description,
       categoryId
     );
-    
-    setUploadPopup(true);
-    setFormLoading(false);
+
+    await axios.post("/api/files-delete", {
+      "oformKey": oformKey,
+    }).then(() => {
+      setUploadPopup(true);
+      setFormLoading(false);
+    });
   };
 
   const clearForm = () => {
@@ -211,7 +219,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
             setFileFilled={setFileFilled}
             onChangeHandler={onChangeHandler}
             fileLoading={fileLoading}
-            fileImg={fileImg}
+            cardPreviewUrl={cardPreviewUrl}
             errorText={t("File is empty")}
           />
         </div>

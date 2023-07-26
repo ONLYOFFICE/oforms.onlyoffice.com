@@ -4,7 +4,7 @@ import StyledUploadFile from "./styled-upload-file";
 import Heading from "@common/heading";
 import Text from "@common/text";
 
-const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, fileError, setFileError,  fileFilled, setFileFilled, fileLoading, fileImg, onChangeHandler }) => {
+const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, fileError, setFileError,  fileFilled, setFileFilled, fileLoading, cardPreviewUrl, onChangeHandler }) => {
   const [drag, setDrag] = useState(false);
   const [errorPopup, setErrorPopup] = useState(false);
   const inputRef = useRef();
@@ -71,7 +71,7 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
                 fileLoading ?
                   <div className="upload-img-loading"></div>
                 :
-                  <img src={fileImg} alt={file.name.substring(0, file.name.length - 6)} />
+                  <img src={cardPreviewUrl} alt={file.name.substring(0, file.name.length - 6)} />
               }
             </div>
           }

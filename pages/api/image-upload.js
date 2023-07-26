@@ -15,7 +15,7 @@ export default async function handler(req, res) {
 
   form.parse(req, async (err, fields, files) => {
     try {
-      const name = files.file[0].originalFilename;
+      const fileName = files.file[0].originalFilename;
 
       // Generate a unique key for payload
       let key = "";
@@ -26,32 +26,26 @@ export default async function handler(req, res) {
         key += str.charAt(char);
       };
 
-      // Data for AWS S3
+      // Data for Amazon S3
       const s3 = new S3({
         accessKeyId: process.env.NEXT_PUBLIC_ACCESS_KEY_ID,
         secretAccessKey: process.env.NEXT_PUBLIC_SECRET_ACCESS_KEY,
         region: process.env.NEXT_PUBLIC_REGION,
       });
 
-      // AWS params for docxf
+      // Amazon S3 params for docxf
       const params = {
         Bucket: process.env.NEXT_PUBLIC_BUCKET,
-        Key: name,
+        Key: fileName,
         Body: fs.createReadStream(files.file[0].filepath)
       };
 
-      const urlParams = {
-        Bucket: process.env.NEXT_PUBLIC_BUCKET,
-        Key: name,
-      };
-
-      // Get docxf response from AWS
-      await s3.putObject(params).promise();
-      const awsUrl = s3.getSignedUrl("getObject", urlParams);
-      const url = awsUrl.replace("/s3.amazonaws.com", "");
+      // Get docxf response from Amazon S3
+      const docxfAwsResponse = await s3.upload(params).promise();
+      const docxfAwsUrl = docxfAwsResponse.Location.replace("/s3.amazonaws.com", "");
 
       // Payload data
-      const pngPayload = {
+      const cardPreviewPayload = {
         "filetype": "docxf",
         "key": key,
         "outputtype": "png",
@@ -61,27 +55,27 @@ export default async function handler(req, res) {
           "height": 1448,
           "width": 1024
         },
-        "title": name,
-        "url": url
+        "title": fileName,
+        "url": docxfAwsUrl
       };
 
       const pdfPayload = {
         "filetype": "docxf",
         "key": key,
         "outputtype": "pdf",
-        "title": name,
-        "url": url
+        "title": fileName,
+        "url": docxfAwsUrl
       };
 
       // Generate tokens for AuthorizationJwt
-      const pngToken = jwt.KJUR.jws.JWS.sign("HS256", JSON.stringify({ alg: "HS256" }), pngPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+      const cardPreviewToken = jwt.KJUR.jws.JWS.sign("HS256", JSON.stringify({ alg: "HS256" }), cardPreviewPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
       const pdfToken = jwt.KJUR.jws.JWS.sign("HS256", JSON.stringify({ alg: "HS256" }), pdfPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
 
       // Send request to ConvertService and get result
-      const pngRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, pngPayload, {
+      const cardPreviewRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, cardPreviewPayload, {
         headers: {
           "Content-Type": "application/json",
-          "AuthorizationJwt": `Bearer ${pngToken}`
+          "AuthorizationJwt": `Bearer ${cardPreviewToken}`
         }
       });
 
@@ -92,11 +86,37 @@ export default async function handler(req, res) {
         }
       });
 
-      await s3.deleteObject(urlParams).promise();
+      // Get response png and pdf files from Amazon S3
+      const cardPreviewResponse = await axios.get(cardPreviewRequest.data.fileUrl, { responseType: "arraybuffer" });
+      const pdfResponse = await axios.get(pdfRequest.data.fileUrl, { responseType: "arraybuffer" });
+
+      // Payload data
+      const cardPreviewParams = {
+        Bucket: process.env.NEXT_PUBLIC_BUCKET,
+        Key: `${fileName.substring(0, fileName.length - 6)}?card_preview.png`,
+        Body: cardPreviewResponse.data,
+        ContentType: cardPreviewResponse.headers["content-type"]
+      };
+
+      const pdfParams = {
+        Bucket: process.env.NEXT_PUBLIC_BUCKET,
+        Key: `${fileName.substring(0, fileName.length - 6)}.pdf`,
+        Body: pdfResponse.data,
+        ContentType: pdfResponse.headers["content-type"]
+      };
+
+      // Upload files to Amazon s3
+      const cardPreviewAwsResponse = await s3.upload(cardPreviewParams).promise();
+      const pdfAwsResponse = await s3.upload(pdfParams).promise();
+
+      // Get location file and rename
+      const cardPreviewAwstUrl = cardPreviewAwsResponse.Location.replace("/s3.amazonaws.com", "");
+      const pdfAwstUrl = pdfAwsResponse.Location.replace("/s3.amazonaws.com", "");
 
       return res.status(200).json({
-        "pngConvertUrl": pngRequest.data.fileUrl,
-        "pdfConvertUrl": pdfRequest.data.fileUrl
+        "pngConvertUrl": cardPreviewAwstUrl,
+        "pdfConvertUrl": pdfAwstUrl,
+        "docxfConverUrl": docxfAwsUrl
       });
     } catch (error) {
       console.log(error)

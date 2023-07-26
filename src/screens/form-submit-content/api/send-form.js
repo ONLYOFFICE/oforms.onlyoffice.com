@@ -10,10 +10,10 @@ import "moment/locale/zh-cn";
 
 const sendFormApi = async (
   oformConvertUrl,
-  docxfConvertUrl,
+  docxfUrl,
   templateImageConvertUrl,
   pdfUrl,
-  fileImg,
+  cardPreviewUrl,
   fileSize,
   fileName,
   name,
@@ -27,13 +27,13 @@ const sendFormApi = async (
   const uploadApiUrl = `${CONFIG.api.cms}/api/upload`;
 
   // Сonvert card preview, template image, docxf, pdf, oform links to File data
-  const fileImgFile = await axios.get(fileImg, { responseType: "blob" });
-  const fileImgFileParams = new File([fileImgFile.data], `${fileNameSubstring}.png`, { type: "image/png" });
+  const cardPreviewUrlFile = await axios.get(cardPreviewUrl, { responseType: "blob" });
+  const cardPreviewUrlFileParams = new File([cardPreviewUrlFile.data], `${fileNameSubstring}.png`, { type: "image/png" });
 
   const oformFile = await axios.get(oformConvertUrl, { responseType: "blob" });
   const oformFileParams = new File([oformFile.data], `${fileNameSubstring}.oform`, { type: oformFile.headers["content-type"] });
 
-  const docxfFile = await axios.get(docxfConvertUrl, { responseType: "blob" });
+  const docxfFile = await axios.get(docxfUrl, { responseType: "blob" });
   const docxfFileParams = new File([docxfFile.data], `${fileNameSubstring}.docxf`, { type: docxfFile.headers["content-type"] });
 
   const pdfFile = await axios.get(pdfUrl, { responseType: "blob" });
@@ -58,7 +58,7 @@ const sendFormApi = async (
     }
   }).then(async (res) => {
     const cardPreviewData = new FormData();
-    cardPreviewData.append("files", fileImgFileParams);
+    cardPreviewData.append("files", cardPreviewUrlFileParams);
     cardPreviewData.append("ref", "api::oform.oform");
     cardPreviewData.append("refId", res.data.data.id);
     cardPreviewData.append("field", "card_prewiew");
