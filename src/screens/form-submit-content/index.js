@@ -1,5 +1,7 @@
 import StyledFormSubmitContent from "./styled-form-submit-content";
 import { useState, useEffect, useRef } from "react";
+import filePagesApi from "./api/file-pages";
+import sendFormApi from "./api/send-form";
 import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
 import Heading from "@common/heading";
@@ -43,8 +45,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
   const [formValid, setFormValid] = useState(false);
 
   const [fileImg, setFileImg] = useState("");
-  const [pdfConvertUrl, setPdfConvertUrl] = useState("");
-  const [docxfAwsUrl, setDocxfAwsUrl] = useState("");
+  const [pdfUrl, setPdfUrl] = useState("");
   const [filePages, setFilePages] = useState("");
   const refRecaptcha = useRef();
 
@@ -129,10 +130,15 @@ const FormSubmitContent = ({ t, locale, categories }) => {
     formData.append("file", e.target.files[0]);
 
     const imageUploadResponse = await axios.post("/api/image-upload", formData);
-    const { pngConvertUrl, filePages } = imageUploadResponse.data;
 
+    const { pngConvertUrl, pdfConvertUrl } = imageUploadResponse.data;
+    const fileName = e.target.files[0].name;
+
+    const filePagesApiResponse = await filePagesApi(pdfConvertUrl, fileName.substring(0, fileName.length - 6));
+
+    setPdfUrl(pdfConvertUrl);
     setFileImg(pngConvertUrl);
-    setFilePages(filePages);
+    setFilePages(filePagesApiResponse.toString());
     setFileLoading(false);
   };
 
@@ -142,15 +148,30 @@ const FormSubmitContent = ({ t, locale, categories }) => {
 
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("name", name);
-    formData.append("description", description);
-    formData.append("fileImg", fileImg);
-    formData.append("filePages", filePages);
-    formData.append("categoryId", categoryId);
-    formData.append("languageKey", languageKey);
 
-    await axios.post("/api/form-upload", formData);
+    const res = await axios.post("/api/form-upload", formData);
 
+    const { oformConvertUrl, docxfConvertUrl, templateImageConvertUrl } = res.data;
+    const fileSize = file.size;
+    const fileName = file.name;
+    const fileLastModifiedDate = file.lastModifiedDate;
+
+    await sendFormApi(
+      oformConvertUrl,
+      docxfConvertUrl,
+      templateImageConvertUrl,
+      pdfUrl,
+      fileImg,
+      fileSize,
+      fileName,
+      name,
+      fileLastModifiedDate,
+      languageKey,
+      filePages,
+      description,
+      categoryId
+    );
+    
     setUploadPopup(true);
     setFormLoading(false);
   };

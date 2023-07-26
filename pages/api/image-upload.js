@@ -51,7 +51,7 @@ export default async function handler(req, res) {
       const url = awsUrl.replace("/s3.amazonaws.com", "");
 
       // Payload data
-      const docxfPayload = {
+      const pngPayload = {
         "filetype": "docxf",
         "key": key,
         "outputtype": "png",
@@ -74,14 +74,14 @@ export default async function handler(req, res) {
       };
 
       // Generate tokens for AuthorizationJwt
-      const docxfToken = jwt.KJUR.jws.JWS.sign("HS256", JSON.stringify({ alg: "HS256" }), docxfPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+      const pngToken = jwt.KJUR.jws.JWS.sign("HS256", JSON.stringify({ alg: "HS256" }), pngPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
       const pdfToken = jwt.KJUR.jws.JWS.sign("HS256", JSON.stringify({ alg: "HS256" }), pdfPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
 
       // Send request to ConvertService and get result
-      const docxfRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, docxfPayload, {
+      const pngRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, pngPayload, {
         headers: {
           "Content-Type": "application/json",
-          "AuthorizationJwt": `Bearer ${docxfToken}`
+          "AuthorizationJwt": `Bearer ${pngToken}`
         }
       });
 
@@ -92,9 +92,11 @@ export default async function handler(req, res) {
         }
       });
 
+      await s3.deleteObject(urlParams).promise();
+
       return res.status(200).json({
-        "pngConvertUrl": docxfRequest.data.fileUrl,
-        "filePages": "1"
+        "pngConvertUrl": pngRequest.data.fileUrl,
+        "pdfConvertUrl": pdfRequest.data.fileUrl
       });
     } catch (error) {
       console.log(error)
