@@ -77,13 +77,18 @@ pipeline {
                 string(credentialsId: 'NEXT_PUBLIC_RECAPTCHA_CREDS_SITE_KEY', 
                 variable: 'NEXT_PUBLIC_RECAPTCHA_SITE_KEY'),
                 string(credentialsId: 'NEXT_PUBLIC_RECAPTCHA_CREDS_SITE_KEY_TEST', 
-                variable: 'NEXT_PUBLIC_RECAPTCHA_SITE_KEY_TEST')]) {
+                variable: 'NEXT_PUBLIC_RECAPTCHA_SITE_KEY_TEST'),
+                string(credentialsId: 'NEXT_PUBLIC_STRAPI_API_TOKEN', 
+                variable: 'NEXT_PUBLIC_STRAPI_API_TOKEN'),
+                string(credentialsId: 'NEXT_PUBLIC_STRAPI_API_TOKEN_TEST', 
+                variable: 'NEXT_PUBLIC_STRAPI_API_TOKEN_TEST')]) {
 
           sh '''
             if [[ ${BRANCH_NAME} == "test_deploy" ]]; then
               NEXT_PUBLIC_EDITOR_API_URL=$NEXT_PUBLIC_EDITOR_API_URL_TEST
               NEXT_PUBLIC_FILES_DOCSERVICE_SECRET=$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET_TEST
               NEXT_PUBLIC_RECAPTCHA_SITE_KEY=$NEXT_PUBLIC_RECAPTCHA_SITE_KEY_TEST
+              NEXT_PUBLIC_STRAPI_API_TOKEN=$NEXT_PUBLIC_STRAPI_API_TOKEN_TEST
             fi
 
             sed -i "s^config_docEditorUrl^$docEditorUrl^" config/config.json
@@ -93,6 +98,7 @@ pipeline {
 
             sed -i "s^var_next_public_editor_api_url^$NEXT_PUBLIC_EDITOR_API_URL^" .env.local
             sed -i "s^var_next_public_files_docservice_secret^$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET^" .env.local
+            sed -i "s^var_next_public_strapi_api_token^$NEXT_PUBLIC_STRAPI_API_TOKEN^" .env.local
 
             sed -i "s^var_next_public_region^$aws_region^" .env.local
             sed -i "s^var_next_public_bucket^$domains^" .env.local
