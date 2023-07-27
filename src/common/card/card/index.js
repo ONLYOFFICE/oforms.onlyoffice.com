@@ -94,7 +94,6 @@ const Card = ({
                         />
                     )}
                 </Text>
-
                 <Text
                     className="subtitle-template text-overflow-templapte"
                     label={description_card}

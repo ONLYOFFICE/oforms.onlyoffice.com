@@ -147,7 +147,7 @@ export const DesktopMobileSelector = (props) => {
 
 
     return (
-        <DesktopMobileSelectorStyled>
+        <DesktopMobileSelectorStyled className="dropdown-component">
             <Selector
                 label={t("Categories")}
                 value={router.pathname === "/searchresult" ? `${t("Search-result-for")} '${queryDesktopClient}'` : categoryName}

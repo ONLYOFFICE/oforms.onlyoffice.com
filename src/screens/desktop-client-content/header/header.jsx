@@ -22,7 +22,6 @@ const Header = (props) => {
         types,
         categories,
         compilations,
-        isDesktopClient,
         categoryName,
         queryDesktopClient,
     } = props;
@@ -61,14 +60,14 @@ const Header = (props) => {
     return (
         <HeaderStyled>
             <HeaderTitle>Templates</HeaderTitle>
-            <HeaderBox>
+            <HeaderBox active={inputActive}>
                 <CategorySelector
                     typeSortData={typeSortData}
                     className="form-control"
                     types={types}
                     categories={categories}
                     compilations={compilations}
-                    isDesktopClient={isDesktopClient}
+                    isDesktopClient={true}
                     categoryName={categoryName}
                     queryDesktopClient={queryDesktopClient}
                 />

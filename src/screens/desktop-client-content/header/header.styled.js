@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const HeaderStyled = styled.header`
-  padding-bottom: 21px;
-  padding-top: 41px;
+  padding: 40px 50px 0 40px;
 
   .clear-icon {
     cursor: pointer;
@@ -40,6 +39,20 @@ export const HeaderBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  
+  @media screen and (max-width: 900px) {
+    justify-content: ${({active}) => active ? 'right' : undefined};
+    .dropdown-component {
+      display: ${({active}) => active ? 'none' : undefined};
+    }
+  }
+  
+  @media screen and (max-width: 400px) {
+    justify-content: right;
+    .dropdown-component {
+      display: none;
+    }
+  }
 `
 
 export const HeaderInputWrapper = styled.div`
@@ -61,7 +74,7 @@ export const HeaderInput = styled.input`
   border: none;
   outline: none;
   margin: 0;
-  width: ${({active}) => active ? '250px' : 0} ;
+  width: ${({active}) => active ? '250px' : 0};
   transition: width 300ms ease-in-out;
   color: ${({theme}) => theme.colors.palette.textNormal};
 `

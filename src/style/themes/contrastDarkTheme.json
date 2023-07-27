@@ -24,7 +24,10 @@
       "highlightButtonHover": "#424242",
       "highlightButtonPressed": "#666666",
       "iconContrastPopover": "#E8E8E8",
-      "iconContrastPopoverHover": "#FFFFFF"
+      "iconContrastPopoverHover": "#FFFFFF",
+      "toTopIcon": "#121212",
+      "toTopIconBackground": "#E6E6E6",
+      "toTopIconBackgroundHover": "#A6A6A6"
     },
     "base": {
       "white": "#FFF",
