@@ -1,11 +1,15 @@
 import S3 from "aws-sdk/clients/s3";
 import axios from "axios";
 import jwt from "jsrsasign";
+import FormData from "form-data";
+import CONFIG from "@config/config";
 
 export default async function handler(req, res) {
-  const { fileName, docxfUrl } = req.body;
-
   try {
+    const { сardPreviewUrl, pdfFileUrl, name, description, fileSize, fileName, fileLastModifiedDate, languageKey, categoryId, filePages } = req.body;
+    const fileNameSubstring = fileName.substring(0, fileName.length - 6);
+    const uploadApiUrl = `${CONFIG.api.cms}/api/upload`;
+
     // Generate a unique key for payload
     let key = "";
     let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -24,15 +28,23 @@ export default async function handler(req, res) {
 
     // Payload data
     const oformPayload = {
-      "filetype": "docxf",
+      "filetype": "pdf",
       "key": key,
       "outputtype": "oform",
       "title": fileName,
-      "url": docxfUrl
+      "url": pdfFileUrl
+    };
+
+    const docxfPayload = {
+      "filetype": "pdf",
+      "key": key,
+      "outputtype": "docxf",
+      "title": fileName,
+      "url": pdfFileUrl
     };
 
     const templateImagePayload = {
-      "filetype": "docxf",
+      "filetype": "pdf",
       "key": key,
       "outputtype": "png",
       "thumbnail": {
@@ -42,11 +54,12 @@ export default async function handler(req, res) {
         "width": 648
       },
       "title": fileName,
-      "url": docxfUrl
+      "url": pdfFileUrl
     };
 
     // Generate tokens for AuthorizationJwt
     const oformToken = jwt.KJUR.jws.JWS.sign("HS256", JSON.stringify({ alg: "HS256" }), oformPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+    const docxfToken = jwt.KJUR.jws.JWS.sign("HS256", JSON.stringify({ alg: "HS256" }), docxfPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
     const templateImageToken = jwt.KJUR.jws.JWS.sign("HS256", JSON.stringify({ alg: "HS256" }), templateImagePayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
 
     // Send requests to ConvertService and get result
@@ -57,6 +70,13 @@ export default async function handler(req, res) {
       }
     });
 
+    const docxfRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, docxfPayload, {
+      headers: {
+        "Content-Type": "application/json",
+        "AuthorizationJwt": `Bearer ${docxfToken}`
+      }
+    });
+
     const templateImageRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, templateImagePayload, {
       headers: {
         "Content-Type": "application/json",
@@ -64,40 +84,97 @@ export default async function handler(req, res) {
       }
     });
 
-    // Get response oform and template image files from Amazon S3
-    const oformResponse = await axios.get(oformRequest.data.fileUrl, { responseType: "arraybuffer" });
-    const templateImageResponse = await axios.get(templateImageRequest.data.fileUrl, { responseType: "arraybuffer" });
+    // Send Form
+    await axios.post(`${CONFIG.api.cms}/api/oforms`, {
+      "data": {
+        "name_form": name,
+        "file_size": `${fileSize.toString().substring(0, 2)} kB`,
+        "file_last_update": fileLastModifiedDate,
+        "file_pages": filePages,
+        "template_desc": description,
+        "categories": categoryId,
+        "locale": languageKey,
+        "publishedAt": null
+      }
+    }, {
+      headers: {
+        "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+      }
+    }).then(async (response) => {
+      const cardPreviewResponse = await axios.get(сardPreviewUrl, { responseType: "arraybuffer" });
+      const cardPreviewData = new FormData();
+      cardPreviewData.append("files", Buffer.from(cardPreviewResponse.data), `${fileNameSubstring}.png`);
+      cardPreviewData.append("ref", "api::oform.oform");
+      cardPreviewData.append("refId", response.data.data.id);
+      cardPreviewData.append("field", "card_prewiew");
 
-    // Payload data
-    const oformParams = {
-      Bucket: process.env.NEXT_PUBLIC_BUCKET,
-      Key: `${fileName.substring(0, fileName.length - 6)}.oform`,
-      Body: oformResponse.data,
-      ContentType: oformResponse.headers["content-type"]
-    };
+      const templateImageResponse = await axios.get(templateImageRequest.data.fileUrl, { responseType: "arraybuffer" });
+      const templateImageData = new FormData();
+      templateImageData.append("files", Buffer.from(templateImageResponse.data), `${fileNameSubstring}.png`);
+      templateImageData.append("ref", "api::oform.oform");
+      templateImageData.append("refId", response.data.data.id);
+      templateImageData.append("field", "template_image");
 
-    const templateImageParams = {
-      Bucket: process.env.NEXT_PUBLIC_BUCKET,
-      Key: `${fileName.substring(0, fileName.length - 6)}?template_image.png`,
-      Body: templateImageResponse.data,
-      ContentType: templateImageResponse.headers["content-type"]
-    };
+      const oformFileResponse = await axios.get(oformRequest.data.fileUrl, { responseType: "arraybuffer" });
+      const oformFileData = new FormData();
+      oformFileData.append("files", Buffer.from(oformFileResponse.data), { filename: `${fileNameSubstring}.oform`, contentType: "application/octet-stream" });
+      oformFileData.append("ref", "api::oform.oform");
+      oformFileData.append("refId", response.data.data.id);
+      oformFileData.append("field", "file_oform");
 
-    // Upload files to Amazon s3
-    const oformRes = await s3.upload(oformParams).promise();
-    const templateImageRes = await s3.upload(templateImageParams).promise();
+      const docxfFileResponse = await axios.get(docxfRequest.data.fileUrl, { responseType: "arraybuffer" });
+      const docxfFileData = new FormData();
+      docxfFileData.append("files", Buffer.from(docxfFileResponse.data), { filename: `${fileNameSubstring}.docxf`, contentType: "application/octet-stream" });
+      docxfFileData.append("ref", "api::oform.oform");
+      docxfFileData.append("refId", response.data.data.id);
+      docxfFileData.append("field", "file_oform");
 
-    // Get location file and rename
-    const oformConvertUrl = oformRes.Location.replace("/s3.amazonaws.com", "");
-    const templateImageConvertUrl = templateImageRes.Location.replace("/s3.amazonaws.com", "");
+      const pdfFileResponse = await axios.get(pdfFileUrl, { responseType: "arraybuffer" });
+      const pdfFileData = new FormData();
+      pdfFileData.append("files", Buffer.from(pdfFileResponse.data), { filename: `${fileNameSubstring}.pdf`, contentType: "application/octet-stream" });
+      pdfFileData.append("ref", "api::oform.oform");
+      pdfFileData.append("refId", response.data.data.id);
+      pdfFileData.append("field", "file_oform");
 
-    return res.status(200).json({
-      "oformConvertUrl": oformConvertUrl,
-      "templateImageConvertUrl": templateImageConvertUrl,
-      "oformConvertName": oformRes.Key
+      await axios.post(uploadApiUrl, cardPreviewData, {
+        headers: {
+          ...cardPreviewData.getHeaders(),
+          "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+        }
+      });
+
+      await axios.post(uploadApiUrl, templateImageData, {
+        headers: {
+          ...templateImageData.getHeaders(),
+          "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+        }
+      });
+
+      await axios.post(uploadApiUrl, oformFileData, {
+        headers: {
+          ...oformFileData.getHeaders(),
+          "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+        }
+      });
+
+      await axios.post(uploadApiUrl, docxfFileData, {
+        headers: {
+          ...docxfFileData.getHeaders(),
+          "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+        }
+      });
+
+      await axios.post(uploadApiUrl, pdfFileData, {
+        headers: {
+          ...pdfFileData.getHeaders(),
+          "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+        }
+      });
     });
+
+    return res.status(200).send("Form submitted successfully");
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(500).send("Error");
   };
 };

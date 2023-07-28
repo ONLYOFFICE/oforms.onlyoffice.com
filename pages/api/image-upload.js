@@ -86,40 +86,39 @@ export default async function handler(req, res) {
         }
       });
 
-      // Get response png and pdf files from Amazon S3
-      const cardPreviewResponse = await axios.get(cardPreviewRequest.data.fileUrl, { responseType: "arraybuffer" });
-      const pdfResponse = await axios.get(pdfRequest.data.fileUrl, { responseType: "arraybuffer" });
+      // Number of pages in PDF
+      function countPagesInPDF(buffer) {
+        const pdfBytes = new Uint8Array(buffer);
+        let pageCount = 0;
+        const pageCountRegex = /\/Type\s*\/Page\b/g;
+        const pdfString = pdfBytes.reduce((str, byte) => str + String.fromCharCode(byte), "");
+        let match;
 
-      // Payload data
-      const cardPreviewParams = {
-        Bucket: process.env.NEXT_PUBLIC_BUCKET,
-        Key: `${fileName.substring(0, fileName.length - 6)}?card_preview.png`,
-        Body: cardPreviewResponse.data,
-        ContentType: cardPreviewResponse.headers["content-type"]
+        while ((match = pageCountRegex.exec(pdfString)) !== null) {
+          pageCount++;
+        }
+
+        return pageCount;
       };
 
-      const pdfParams = {
+      // Delete temporary file
+      fs.promises.unlink(files.file[0].filepath);
+
+      // Delete file in Amazon S3
+      await s3.deleteObject({
         Bucket: process.env.NEXT_PUBLIC_BUCKET,
-        Key: `${fileName.substring(0, fileName.length - 6)}.pdf`,
-        Body: pdfResponse.data,
-        ContentType: pdfResponse.headers["content-type"]
-      };
+        Key: fileName
+      }).promise();
 
-      // Upload files to Amazon s3
-      const cardPreviewAwsResponse = await s3.upload(cardPreviewParams).promise();
-      const pdfAwsResponse = await s3.upload(pdfParams).promise();
-
-      // Get location file and rename
-      const cardPreviewAwstUrl = cardPreviewAwsResponse.Location.replace("/s3.amazonaws.com", "");
-      const pdfAwstUrl = pdfAwsResponse.Location.replace("/s3.amazonaws.com", "");
-
-      return res.status(200).json({
-        "pngConvertUrl": cardPreviewAwstUrl,
-        "pdfConvertUrl": pdfAwstUrl,
-        "docxfConverUrl": docxfAwsUrl
+      await axios.get(pdfRequest.data.fileUrl, { responseType: "arraybuffer" }).then((response) => {
+        return res.status(200).json({
+          "pngConvertUrl": cardPreviewRequest.data.fileUrl,
+          "pdfConvertUrl": pdfRequest.data.fileUrl,
+          "filePages": countPagesInPDF(Buffer.from(response.data))
+        });
       });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       return res.status(500).send("Error");
     };
   });

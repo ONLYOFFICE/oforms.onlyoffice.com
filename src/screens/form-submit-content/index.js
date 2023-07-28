@@ -1,7 +1,5 @@
 import StyledFormSubmitContent from "./styled-form-submit-content";
 import { useState, useEffect, useRef } from "react";
-import filePagesApi from "./api/file-pages";
-import sendFormApi from "./api/send-form";
 import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
 import Heading from "@common/heading";
@@ -12,6 +10,13 @@ import Select from "./sub-components/select";
 import Input from "./sub-components/input";
 import UploadFile from "./sub-components/upload-file";
 import UploadPopup from "./sub-components/upload-popup";
+import moment from "moment";
+import "moment/locale/fr";
+import "moment/locale/it";
+import "moment/locale/es";
+import "moment/locale/de";
+import "moment/locale/ja";
+import "moment/locale/zh-cn";
 
 const FormSubmitContent = ({ t, locale, categories }) => {
   const [file, setFile] = useState(undefined);
@@ -45,9 +50,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
   const [formValid, setFormValid] = useState(false);
 
   const [cardPreviewUrl, setCardPreviewUrl] = useState("");
-  const [pdfUrl, setPdfUrl] = useState("");
-  const [docxfUrl, setDocxfUrl] = useState("");
-  const [oformKey, setOformKey] = useState("");
+  const [pdfFileUrl, setPdfFileUrl] = useState("");
   const [filePages, setFilePages] = useState("");
   const refRecaptcha = useRef();
 
@@ -133,15 +136,11 @@ const FormSubmitContent = ({ t, locale, categories }) => {
 
     const imageUploadResponse = await axios.post("/api/image-upload", formData);
 
-    const { pngConvertUrl, pdfConvertUrl, docxfConverUrl } = imageUploadResponse.data;
-    const fileName = e.target.files[0].name;
+    const { pngConvertUrl, pdfConvertUrl, filePages } = imageUploadResponse.data;
 
-    const filePagesApiResponse = await filePagesApi(pdfConvertUrl, fileName.substring(0, fileName.length - 6));
-
-    setPdfUrl(pdfConvertUrl);
-    setDocxfUrl(docxfConverUrl);
+    setPdfFileUrl(pdfConvertUrl);
     setCardPreviewUrl(pngConvertUrl);
-    setFilePages(filePagesApiResponse.toString());
+    setFilePages(filePages.toString());
     setFileLoading(false);
   };
 
@@ -149,35 +148,19 @@ const FormSubmitContent = ({ t, locale, categories }) => {
     e.preventDefault();
     setFormLoading(true);
 
-    const res = await axios.post("/api/form-upload", {
+    await axios.post("/api/form-upload", {
+      "сardPreviewUrl": cardPreviewUrl,
+      "pdfFileUrl": pdfFileUrl,
+      "name": name,
+      "description": description,
+      "fileSize": file.size,
       "fileName": file.name,
-      "docxfUrl": docxfUrl
-    });
-
-    const { oformConvertUrl, templateImageConvertUrl, oformConvertName } = res.data;
-    const fileSize = file.size;
-    const fileName = file.name;
-    const fileLastModifiedDate = file.lastModifiedDate;
-    setOformKey(oformConvertName);
-
-    await sendFormApi(
-      oformConvertUrl,
-      docxfUrl,
-      templateImageConvertUrl,
-      pdfUrl,
-      cardPreviewUrl,
-      fileSize,
-      fileName,
-      name,
-      fileLastModifiedDate,
-      languageKey,
-      filePages,
-      description,
-      categoryId
-    );
-
-    await axios.post("/api/files-delete", {
-      "oformKey": oformKey,
+      "fileLastModifiedDate": moment(file.lastModified).locale(languageKey).format(
+        languageKey === "zh" ? "Y年MM月DD" : languageKey === "ja" ? "Y年MM月DD日" : "MMMM D, y"
+      ),
+      "languageKey": languageKey,
+      "categoryId": categoryId,
+      "filePages": filePages
     }).then(() => {
       setUploadPopup(true);
       setFormLoading(false);
