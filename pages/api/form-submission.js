@@ -1,12 +1,18 @@
-import S3 from "aws-sdk/clients/s3";
 import axios from "axios";
 import jwt from "jsrsasign";
 import FormData from "form-data";
 import CONFIG from "@config/config";
 
 export default async function handler(req, res) {
+  const { сardPreviewUrl, pdfFileUrl, name, description, fileSize, fileName, fileLastModifiedDate, languageKey, categoryId, filePages } = req.body;
+
   try {
-    const { сardPreviewUrl, pdfFileUrl, name, description, fileSize, fileName, fileLastModifiedDate, languageKey, categoryId, filePages } = req.body;
+    await axios.get(сardPreviewUrl);
+  } catch (error) {
+    return res.json({ status: "error" });
+  };
+
+  try {
     const fileNameSubstring = fileName.substring(0, fileName.length - 6);
     const uploadApiUrl = `${CONFIG.api.cms}/api/upload`;
 
@@ -18,13 +24,6 @@ export default async function handler(req, res) {
       let char = Math.floor(Math.random() * str.length + 1);
       key += str.charAt(char);
     };
-
-    // Data for Amazon S3
-    const s3 = new S3({
-      accessKeyId: process.env.NEXT_PUBLIC_ACCESS_KEY_ID,
-      secretAccessKey: process.env.NEXT_PUBLIC_SECRET_ACCESS_KEY,
-      region: process.env.NEXT_PUBLIC_REGION,
-    });
 
     // Payload data
     const oformPayload = {
@@ -175,6 +174,6 @@ export default async function handler(req, res) {
     return res.status(200).send("Form submitted successfully");
   } catch (error) {
     console.log(error);
-    return res.status(500).send("Error");
+    return res.status(500).send("An error occurred while submitting the form");
   };
 };

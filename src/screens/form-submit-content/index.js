@@ -52,6 +52,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
   const [cardPreviewUrl, setCardPreviewUrl] = useState("");
   const [pdfFileUrl, setPdfFileUrl] = useState("");
   const [filePages, setFilePages] = useState("");
+  const [errorFormSubmit, setErrorFormSubmit] = useState(false);
   const refRecaptcha = useRef();
 
   // Form validation
@@ -73,16 +74,6 @@ const FormSubmitContent = ({ t, locale, categories }) => {
       case "description":
         setDescription(e.target.value);
         !e.target.value.length < 1 && setDescriptionError(false);
-        break;
-
-      case "file":
-        setFileValue(e.target.value);
-        !e.target.value.length < 1 && setFileError(false);
-
-        if (e.target.files[0]?.size < 10000000) {
-          handleFileImageUpload(e);
-        };
-
         break;
     };
   };
@@ -134,7 +125,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
 
-    const imageUploadResponse = await axios.post("/api/image-upload", formData);
+    const imageUploadResponse = await axios.post("/api/file-upload", formData);
 
     const { pngConvertUrl, pdfConvertUrl, filePages } = imageUploadResponse.data;
 
@@ -146,9 +137,10 @@ const FormSubmitContent = ({ t, locale, categories }) => {
 
   const sendForm = async (e) => {
     e.preventDefault();
+    setErrorFormSubmit(false);
     setFormLoading(true);
 
-    await axios.post("/api/form-upload", {
+    const sendFormResponse = await axios.post("/api/form-submission", {
       "сardPreviewUrl": cardPreviewUrl,
       "pdfFileUrl": pdfFileUrl,
       "name": name,
@@ -161,10 +153,22 @@ const FormSubmitContent = ({ t, locale, categories }) => {
       "languageKey": languageKey,
       "categoryId": categoryId,
       "filePages": filePages
-    }).then(() => {
+    });
+
+    if (sendFormResponse.data.status === "error") {
+      clearForm();
+      setFormLoading(false);
+      setErrorFormSubmit(true);
+
+      setTimeout(() => {
+        setErrorFormSubmit(false);
+      }, 10000);
+
+      return;
+    } else {
       setUploadPopup(true);
       setFormLoading(false);
-    });
+    };
   };
 
   const clearForm = () => {
@@ -203,6 +207,9 @@ const FormSubmitContent = ({ t, locale, categories }) => {
             onChangeHandler={onChangeHandler}
             fileLoading={fileLoading}
             cardPreviewUrl={cardPreviewUrl}
+            handleFileImageUpload={handleFileImageUpload}
+            errorFormSubmit={errorFormSubmit}
+            setErrorFormSubmit={setErrorFormSubmit}
             errorText={t("File is empty")}
           />
         </div>

@@ -1,12 +1,14 @@
 
 import { useState, useRef } from "react";
 import StyledUploadFile from "./styled-upload-file";
+import ErrorPopup from "./error-popup";
 import Heading from "@common/heading";
 import Text from "@common/text";
 
-const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, fileError, setFileError,  fileFilled, setFileFilled, fileLoading, cardPreviewUrl, onChangeHandler }) => {
+const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, fileError, setFileError, fileFilled, setFileFilled, fileLoading, cardPreviewUrl, errorFormSubmit, setErrorFormSubmit, handleFileImageUpload }) => {
   const [drag, setDrag] = useState(false);
-  const [errorPopup, setErrorPopup] = useState(false);
+  const [errorFileSize, setErrorFileSize] = useState(false);
+  const [errorFileValid, setErrorFileValid] = useState(false);
   const inputRef = useRef();
 
   const dragStartHandler = (e) => {
@@ -19,20 +21,64 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
     setDrag(false);
   };
 
-  const onHandleFileChange = (e) => {
-    if (e.target.files[0]?.size < 10000000) {
-      setFile(e.target.files[0]);
-    } else if (e.target.files[0] !== undefined) {
-      setErrorPopup(true);
-      setTimeout(() => {
-        setErrorPopup(false);
-      }, 10000);
-    } else {
-      if (e.target.files[0] === undefined) {
+  const onHandleFileChange = async (e) => {
+    setErrorFileSize(false);
+    setErrorFileValid(false);
+
+    setFileValue(e.target.value);
+    !e.target.value.length < 1 && setFileError(false);
+
+    function arraysEqual(a, b) {
+      if (a.length !== b.length) {
+        return false;
+      };
+      for (let i = 0; i < a.length; i++) {
+        if (a[i] !== b[i]) {
+          return false;
+        };
+      };
+      return true;
+    };
+
+    const onLoadFileValid = (file) => {
+      const reader = new FileReader();
+
+      return new Promise((resolve, reject) => {
+        reader.onload = (e) => {
+          if (arraysEqual([0x50, 0x4B, 0x03, 0x04], new Uint8Array(e.target.result).slice(0, 4))) {
+            resolve(true);
+          } else {
+            resolve(false);
+          };
+        };
+
+        reader.readAsArrayBuffer(file);
+      });
+    };
+
+    const fileValid = await onLoadFileValid(e.target.files[0]);
+
+    if (fileValid && (e.target.files[0].type === "" || e.target.files[0].type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
+      if (e.target.files[0]?.size < 10000000) {
+        handleFileImageUpload(e);
+        setFile(e.target.files[0]);
+      } else if (e.target.files[0] !== undefined) {
+        setErrorFileSize(true);
+        setFileValue("");
+        setTimeout(() => {
+          setErrorFileSize(false);
+        }, 10000);
+      } else if (e.target.files[0] === undefined) {
         setFile(undefined);
         setFileError(true);
         setFileFilled(true);
       };
+    } else {
+      setErrorFileValid(true);
+      setFileValue("");
+      setTimeout(() => {
+        setErrorFileValid(false);
+      }, 10000);
     };
   };
 
@@ -46,16 +92,16 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
   return (
     <StyledUploadFile>
       <>
-        <label className={`upload-file ${drag ? "drag" : ""} ${file !== undefined && !file.value ? "load": ""} ${file !== undefined && fileLoading === false ? "filled" : ""}`} name="file">
-          <input 
+        <label className={`upload-file ${drag ? "drag" : ""} ${file !== undefined && !file.value ? "load" : ""} ${file !== undefined && fileLoading === false ? "filled" : ""}`} name="file">
+          <input
             onDragStart={e => dragStartHandler(e)}
             onDragLeave={e => dragLeaveHandler(e)}
             onDragOver={e => dragStartHandler(e)}
-            onChange={e => {onHandleFileChange(e); onChangeHandler(e)}} 
-            ref={inputRef} 
-            value={fileValue} 
-            name="file" 
-            type="file" 
+            onChange={e => onHandleFileChange(e)}
+            ref={inputRef}
+            value={fileValue}
+            name="file"
+            type="file"
             accept=".docxf"
           />
           {file === undefined ?
@@ -86,14 +132,14 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
           <Text className="error-text">{errorText}</Text>
         }
       </>
-      {errorPopup &&
-        <div onClick={() => setErrorPopup(false)} className="error-popup">
-          <div className="error-popup-close-btn"></div>
-          <div className="error-popup-wrapper">
-            <Text className="error-popup-title">{t("Your file is too big!")}</Text>
-            <Text className="error-popup-text">{t("Max size 10MB. Please choose another one")}</Text>
-          </div>
-        </div>
+      {errorFileSize &&
+        <ErrorPopup onClick={() => setErrorFileSize(false)} title={t("Your file is too big!")} text={t("Max size 10MB. Please choose another one")} />
+      }
+      {errorFileValid &&
+        <ErrorPopup onClick={() => setErrorFileValid(false)} title={t("Invalid file")} text={t("Please select a valid DOCXF file")} />
+      }
+      {errorFormSubmit &&
+        <ErrorPopup onClick={() => setErrorFormSubmit(false)} title={t("Send error due to delay")} text={t("Please fill out the form again")} />
       }
     </StyledUploadFile>
   );

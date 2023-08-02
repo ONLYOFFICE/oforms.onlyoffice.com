@@ -119,7 +119,7 @@ export default async function handler(req, res) {
       });
     } catch (error) {
       console.log(error);
-      return res.status(500).send("Error");
+      return res.status(500).send("An error occurred while retrieving data");
     };
   });
 };
