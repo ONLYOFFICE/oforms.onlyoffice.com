@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   try {
     await axios.get(сardPreviewUrl);
   } catch (error) {
-    return res.json({ status: "error" });
+    return res.json({ error: "card_prewiew" });
   };
 
   try {
@@ -84,92 +84,96 @@ export default async function handler(req, res) {
     });
 
     // Send Form
-    await axios.post(`${CONFIG.api.cms}/api/oforms`, {
-      "data": {
-        "name_form": name,
-        "file_size": `${fileSize.toString().substring(0, 2)} kB`,
-        "file_last_update": fileLastModifiedDate,
-        "file_pages": filePages,
-        "template_desc": description,
-        "categories": categoryId,
-        "locale": languageKey,
-        "publishedAt": null
-      }
-    }, {
-      headers: {
-        "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
-      }
-    }).then(async (response) => {
-      const cardPreviewResponse = await axios.get(сardPreviewUrl, { responseType: "arraybuffer" });
-      const cardPreviewData = new FormData();
-      cardPreviewData.append("files", Buffer.from(cardPreviewResponse.data), `${fileNameSubstring}.png`);
-      cardPreviewData.append("ref", "api::oform.oform");
-      cardPreviewData.append("refId", response.data.data.id);
-      cardPreviewData.append("field", "card_prewiew");
-
-      const templateImageResponse = await axios.get(templateImageRequest.data.fileUrl, { responseType: "arraybuffer" });
-      const templateImageData = new FormData();
-      templateImageData.append("files", Buffer.from(templateImageResponse.data), `${fileNameSubstring}.png`);
-      templateImageData.append("ref", "api::oform.oform");
-      templateImageData.append("refId", response.data.data.id);
-      templateImageData.append("field", "template_image");
-
-      const oformFileResponse = await axios.get(oformRequest.data.fileUrl, { responseType: "arraybuffer" });
-      const oformFileData = new FormData();
-      oformFileData.append("files", Buffer.from(oformFileResponse.data), { filename: `${fileNameSubstring}.oform`, contentType: "application/octet-stream" });
-      oformFileData.append("ref", "api::oform.oform");
-      oformFileData.append("refId", response.data.data.id);
-      oformFileData.append("field", "file_oform");
-
-      const docxfFileResponse = await axios.get(docxfRequest.data.fileUrl, { responseType: "arraybuffer" });
-      const docxfFileData = new FormData();
-      docxfFileData.append("files", Buffer.from(docxfFileResponse.data), { filename: `${fileNameSubstring}.docxf`, contentType: "application/octet-stream" });
-      docxfFileData.append("ref", "api::oform.oform");
-      docxfFileData.append("refId", response.data.data.id);
-      docxfFileData.append("field", "file_oform");
-
-      const pdfFileResponse = await axios.get(pdfFileUrl, { responseType: "arraybuffer" });
-      const pdfFileData = new FormData();
-      pdfFileData.append("files", Buffer.from(pdfFileResponse.data), { filename: `${fileNameSubstring}.pdf`, contentType: "application/octet-stream" });
-      pdfFileData.append("ref", "api::oform.oform");
-      pdfFileData.append("refId", response.data.data.id);
-      pdfFileData.append("field", "file_oform");
-
-      await axios.post(uploadApiUrl, cardPreviewData, {
+    try {
+      await axios.post(`${CONFIG.api.cms}/api/oforms`, {
+        "data": {
+          "name_form": name,
+          "file_size": `${fileSize.toString().substring(0, 2)} kB`,
+          "file_last_update": fileLastModifiedDate,
+          "file_pages": filePages,
+          "template_desc": description,
+          "categories": categoryId,
+          "locale": languageKey,
+          "publishedAt": null
+        }
+      }, {
         headers: {
-          ...cardPreviewData.getHeaders(),
           "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
         }
-      });
+      }).then(async (response) => {
+        const cardPreviewResponse = await axios.get(сardPreviewUrl, { responseType: "arraybuffer" });
+        const cardPreviewData = new FormData();
+        cardPreviewData.append("files", Buffer.from(cardPreviewResponse.data), `${fileNameSubstring}.png`);
+        cardPreviewData.append("ref", "api::oform.oform");
+        cardPreviewData.append("refId", response.data.data.id);
+        cardPreviewData.append("field", "card_prewiew");
 
-      await axios.post(uploadApiUrl, templateImageData, {
-        headers: {
-          ...templateImageData.getHeaders(),
-          "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
-        }
-      });
+        const templateImageResponse = await axios.get(templateImageRequest.data.fileUrl, { responseType: "arraybuffer" });
+        const templateImageData = new FormData();
+        templateImageData.append("files", Buffer.from(templateImageResponse.data), `${fileNameSubstring}.png`);
+        templateImageData.append("ref", "api::oform.oform");
+        templateImageData.append("refId", response.data.data.id);
+        templateImageData.append("field", "template_image");
 
-      await axios.post(uploadApiUrl, oformFileData, {
-        headers: {
-          ...oformFileData.getHeaders(),
-          "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
-        }
-      });
+        const oformFileResponse = await axios.get(oformRequest.data.fileUrl, { responseType: "arraybuffer" });
+        const oformFileData = new FormData();
+        oformFileData.append("files", Buffer.from(oformFileResponse.data), { filename: `${fileNameSubstring}.oform`, contentType: "application/octet-stream" });
+        oformFileData.append("ref", "api::oform.oform");
+        oformFileData.append("refId", response.data.data.id);
+        oformFileData.append("field", "file_oform");
 
-      await axios.post(uploadApiUrl, docxfFileData, {
-        headers: {
-          ...docxfFileData.getHeaders(),
-          "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
-        }
-      });
+        const docxfFileResponse = await axios.get(docxfRequest.data.fileUrl, { responseType: "arraybuffer" });
+        const docxfFileData = new FormData();
+        docxfFileData.append("files", Buffer.from(docxfFileResponse.data), { filename: `${fileNameSubstring}.docxf`, contentType: "application/octet-stream" });
+        docxfFileData.append("ref", "api::oform.oform");
+        docxfFileData.append("refId", response.data.data.id);
+        docxfFileData.append("field", "file_oform");
 
-      await axios.post(uploadApiUrl, pdfFileData, {
-        headers: {
-          ...pdfFileData.getHeaders(),
-          "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
-        }
+        const pdfFileResponse = await axios.get(pdfFileUrl, { responseType: "arraybuffer" });
+        const pdfFileData = new FormData();
+        pdfFileData.append("files", Buffer.from(pdfFileResponse.data), { filename: `${fileNameSubstring}.pdf`, contentType: "application/octet-stream" });
+        pdfFileData.append("ref", "api::oform.oform");
+        pdfFileData.append("refId", response.data.data.id);
+        pdfFileData.append("field", "file_oform");
+
+        await axios.post(uploadApiUrl, cardPreviewData, {
+          headers: {
+            ...cardPreviewData.getHeaders(),
+            "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+          }
+        });
+
+        await axios.post(uploadApiUrl, templateImageData, {
+          headers: {
+            ...templateImageData.getHeaders(),
+            "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+          }
+        });
+
+        await axios.post(uploadApiUrl, oformFileData, {
+          headers: {
+            ...oformFileData.getHeaders(),
+            "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+          }
+        });
+
+        await axios.post(uploadApiUrl, docxfFileData, {
+          headers: {
+            ...docxfFileData.getHeaders(),
+            "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+          }
+        });
+
+        await axios.post(uploadApiUrl, pdfFileData, {
+          headers: {
+            ...pdfFileData.getHeaders(),
+            "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+          }
+        });
       });
-    });
+    } catch {
+      return res.json({ error: "name_form" });
+    };
 
     return res.status(200).send("Form submitted successfully");
   } catch (error) {

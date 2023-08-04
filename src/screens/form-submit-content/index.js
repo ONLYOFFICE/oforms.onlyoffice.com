@@ -1,5 +1,6 @@
 import StyledFormSubmitContent from "./styled-form-submit-content";
 import { useState, useEffect, useRef } from "react";
+import { getCookie, setCookie } from "@utils/helpers/cookie";
 import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
 import Heading from "@common/heading";
@@ -18,7 +19,7 @@ import "moment/locale/de";
 import "moment/locale/ja";
 import "moment/locale/zh-cn";
 
-const FormSubmitContent = ({ t, locale, categories }) => {
+const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
   const [file, setFile] = useState(undefined);
   const [fileValue, setFileValue] = useState("");
   const [name, setName] = useState("");
@@ -29,6 +30,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
   const [languageKey, setLanguageKey] = useState("");
 
   const [nameValid, setNameValid] = useState(false);
+  const [nameExistsValid, setNameExistsValid] = useState(false);
   const [descriptionValid, setDescriptionValid] = useState(false);
   const [categoryValid, setCategoryValid] = useState(false);
   const [languageValid, setLanguageValid] = useState(false);
@@ -43,6 +45,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
   const [categoryError, setCategoryError] = useState(true);
   const [languageError, setLanguageError] = useState(true);
   const [recaptchaError, setRecaptchaError] = useState(true);
+  const [cardPreviewError, setCardPreviewError] = useState(false);
 
   const [fileLoading, setFileLoading] = useState(false);
   const [formLoading, setFormLoading] = useState(false);
@@ -52,8 +55,39 @@ const FormSubmitContent = ({ t, locale, categories }) => {
   const [cardPreviewUrl, setCardPreviewUrl] = useState("");
   const [pdfFileUrl, setPdfFileUrl] = useState("");
   const [filePages, setFilePages] = useState("");
-  const [errorFormSubmit, setErrorFormSubmit] = useState(false);
+  const [fileName, setFileName] = useState("");
+  const [fileSize, setFileSize] = useState("0");
+  const [fileLastModified, setFileLastModified] = useState("");
   const refRecaptcha = useRef();
+
+  useEffect(() => {
+    if (queryIndexData) {
+      const imageuploadCookie = getCookie("imageUpload");
+      const formSubmitCookie = getCookie("formSubmit");
+
+      if (!formSubmitCookie) {
+        setCardPreviewUrl(queryIndexData[0]);
+        setPdfFileUrl(queryIndexData[1]);
+        setFilePages(queryIndexData[2].toString());
+        setFileLastModified(queryIndexData[3]);
+        setFileName(queryIndexData[4]);
+        setFileSize(queryIndexData[5]);
+        setFileError(false);
+        setFile(true);
+
+        if (queryIndexData[6]) {
+          setName(queryIndexData[6]);
+          setNameValid(true);
+          setNameError(false);
+        };
+
+        if (imageuploadCookie === queryIndexData[0]) {
+          setCardPreviewUrl("");
+          setFile(undefined);
+        };
+      };
+    };
+  }, []);
 
   // Form validation
   useEffect(() => {
@@ -81,6 +115,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
   const onFocusHandler = (e) => {
     switch (e.target.name) {
       case "name":
+        setNameExistsValid(false);
         setNameError(false);
         setNameValid(false);
         break;
@@ -95,6 +130,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
   const onBlurHandler = (e) => {
     switch (e.target.name) {
       case "name":
+        setNameExistsValid(false);
         setNameFilled(true);
 
         if (name && !nameError) {
@@ -132,12 +168,15 @@ const FormSubmitContent = ({ t, locale, categories }) => {
     setPdfFileUrl(pdfConvertUrl);
     setCardPreviewUrl(pngConvertUrl);
     setFilePages(filePages.toString());
+    setFileName(e.target.files[0].name);
+    setFileSize(e.target.files[0].size.toString().substring(0, 2));
+    setFileLastModified(e.target.files[0].lastModified);
     setFileLoading(false);
   };
 
   const sendForm = async (e) => {
     e.preventDefault();
-    setErrorFormSubmit(false);
+    setCardPreviewError(false);
     setFormLoading(true);
 
     const sendFormResponse = await axios.post("/api/form-submission", {
@@ -145,9 +184,9 @@ const FormSubmitContent = ({ t, locale, categories }) => {
       "pdfFileUrl": pdfFileUrl,
       "name": name,
       "description": description,
-      "fileSize": file.size,
-      "fileName": file.name,
-      "fileLastModifiedDate": moment(file.lastModified).locale(languageKey).format(
+      "fileSize": fileSize,
+      "fileName": fileName,
+      "fileLastModifiedDate": moment(fileLastModified).locale(languageKey).format(
         languageKey === "zh" ? "Y年MM月DD" : languageKey === "ja" ? "Y年MM月DD日" : "MMMM D, y"
       ),
       "languageKey": languageKey,
@@ -155,19 +194,33 @@ const FormSubmitContent = ({ t, locale, categories }) => {
       "filePages": filePages
     });
 
-    if (sendFormResponse.data.status === "error") {
+    if (sendFormResponse.data.error === "card_prewiew") {
       clearForm();
       setFormLoading(false);
-      setErrorFormSubmit(true);
+      setCardPreviewError(true);
 
       setTimeout(() => {
-        setErrorFormSubmit(false);
+        setCardPreviewError(false);
       }, 10000);
 
       return;
+    } else if (sendFormResponse.data.error === "name_form") {
+      setNameExistsValid(true);
+      setNameValid(false);
+      setNameError(true);
+      setFormLoading(false);
+      setRecaptchaError(true);
+      refRecaptcha.current.reset();
+
+      return;
     } else {
+      const url = new URL(window.location.href);
+      url.search = "";
+      window.history.replaceState({}, document.title, url.pathname);
       setUploadPopup(true);
       setFormLoading(false);
+      setCookie("formSubmit", "", 1);
+      setCookie("imageUpload", cardPreviewUrl, 1);
     };
   };
 
@@ -207,9 +260,12 @@ const FormSubmitContent = ({ t, locale, categories }) => {
             onChangeHandler={onChangeHandler}
             fileLoading={fileLoading}
             cardPreviewUrl={cardPreviewUrl}
+            fileName={fileName}
+            setFileSize={setFileSize}
+            setFilePages={setFilePages}
             handleFileImageUpload={handleFileImageUpload}
-            errorFormSubmit={errorFormSubmit}
-            setErrorFormSubmit={setErrorFormSubmit}
+            cardPreviewError={cardPreviewError}
+            setCardPreviewError={setCardPreviewError}
             errorText={t("File is empty")}
           />
         </div>
@@ -220,7 +276,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
             <Input
               label={t("Form name")}
               placeholder={t("Price quote template")}
-              errorText={(nameFilled && nameError) && t("Form name is empty")}
+              errorText={nameExistsValid && t("Form with the same name already exists") || (nameFilled && nameError) && t("Form name is empty")}
               className={`${nameFilled && nameError ? "error" : ""} ${nameValid ? "valid" : ""}`}
               name="name"
               value={name}
@@ -284,7 +340,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
             </div>
             <div className="file-info-item">
               <Text className="file-info-label">{t("FileSize")}:</Text>
-              <Text className="file-info-text">{file !== undefined && fileLoading === false ? file.size.toString().substring(0, 2) : 0} kb</Text>
+              <Text className="file-info-text">{file !== undefined && fileLoading === false ? fileSize.toString().substring(0, 2) : 0} kb</Text>
             </div>
             <div className="file-info-item">
               <Text className="file-info-label">{t("Pages")}:</Text>
@@ -296,7 +352,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
         </div>
       </div>
 
-      <UploadPopup t={t} file={file} uploadPopup={uploadPopup} setUploadPopup={setUploadPopup} clearForm={clearForm} />
+      <UploadPopup t={t} file={file} uploadPopup={uploadPopup} fileName={fileName} setUploadPopup={setUploadPopup} clearForm={clearForm} />
     </StyledFormSubmitContent>
   );
 };
