@@ -11,6 +11,7 @@ import Select from "./sub-components/select";
 import Input from "./sub-components/input";
 import UploadFile from "./sub-components/upload-file";
 import UploadPopup from "./sub-components/upload-popup";
+import ErrorPopup from "./sub-components/error-popup";
 import moment from "moment";
 import "moment/locale/fr";
 import "moment/locale/it";
@@ -28,6 +29,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
   const [categoryId, setCategoryId] = useState([]);
   const [language, setLanguage] = useState([]);
   const [languageKey, setLanguageKey] = useState("");
+  const [fileNameError, setFileNameError] = useState("");
 
   const [nameValid, setNameValid] = useState(false);
   const [nameExistsValid, setNameExistsValid] = useState(false);
@@ -46,6 +48,9 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
   const [languageError, setLanguageError] = useState(true);
   const [recaptchaError, setRecaptchaError] = useState(true);
   const [cardPreviewError, setCardPreviewError] = useState(false);
+  const [fileNullError, setFileNullError] = useState(false);
+  const [fileLargeError, setFileLargeError] = useState(false);
+  const [fileValidError, setFileValidError] = useState(false);
 
   const [fileLoading, setFileLoading] = useState(false);
   const [formLoading, setFormLoading] = useState(false);
@@ -214,6 +219,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
 
       return;
     } else {
+      axios.post("/api/email");
       const url = new URL(window.location.href);
       url.search = "";
       window.history.replaceState({}, document.title, url.pathname);
@@ -264,8 +270,10 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
             setFileSize={setFileSize}
             setFilePages={setFilePages}
             handleFileImageUpload={handleFileImageUpload}
-            cardPreviewError={cardPreviewError}
-            setCardPreviewError={setCardPreviewError}
+            setFileNullError={setFileNullError}
+            setFileLargeError={setFileLargeError}
+            setFileValidError={setFileValidError}
+            setFileNameError={setFileNameError}
             errorText={t("File is empty")}
           />
         </div>
@@ -275,8 +283,8 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
             <Text className="subtitle" as="p">{t("Please fill out all the fields before sending the form.")}</Text>
             <Input
               label={t("Form name")}
-              placeholder={t("Price quote template")}
-              errorText={nameExistsValid && t("Form with the same name already exists") || (nameFilled && nameError) && t("Form name is empty")}
+              placeholder={t("Enter name")}
+              errorText={nameExistsValid && t("Please rename your form or choose another one.") || (nameFilled && nameError) && t("Form name is empty")}
               className={`${nameFilled && nameError ? "error" : ""} ${nameValid ? "valid" : ""}`}
               name="name"
               value={name}
@@ -350,6 +358,19 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
 
           <Button onClick={(e) => sendForm(e)} className={`send-button ${formLoading ? "loading" : ""}`} label={t("Send")} isDisabled={!formValid || formLoading} />
         </div>
+
+        {fileLargeError &&
+          <ErrorPopup onClick={() => setFileLargeError(false)} t={t} fileName={fileNameError} text={t("Your file is too big! Max size 10MB. Please choose another one.")} />
+        }
+        {fileValidError &&
+          <ErrorPopup onClick={() => setFileValidError(false)} t={t} fileName={fileNameError} text={t("Invalid file format! The uploaded file is not valid. Please choose a DOCXF file.")} />
+        }
+        {cardPreviewError &&
+          <ErrorPopup onClick={() => setCardPreviewError(false)} t={t} text={t("Page timed out! Please upload a file once again.")} />
+        }
+        {fileNullError &&
+          <ErrorPopup onClick={() => setFileNullError(false)} t={t} fileName={fileNameError} text={t("Invalid file size! The uploaded file has zero size. Please choose another one.")} />
+        }
       </div>
 
       <UploadPopup t={t} file={file} uploadPopup={uploadPopup} fileName={fileName} setUploadPopup={setUploadPopup} clearForm={clearForm} />

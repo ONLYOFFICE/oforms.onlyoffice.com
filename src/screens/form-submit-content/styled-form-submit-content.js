@@ -7,6 +7,7 @@ const StyledLoadingForm = styled(Section)`
   padding: 56px 0 102px;
 
   .wrapper {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 32px;
