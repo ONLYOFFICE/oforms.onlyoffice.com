@@ -1,6 +1,7 @@
 import axios from "axios";
 import jwt from "jsrsasign";
 import FormData from "form-data";
+import nodemailer from "nodemailer";
 import CONFIG from "@config/config";
 
 export default async function handler(req, res) {
@@ -170,6 +171,24 @@ export default async function handler(req, res) {
             "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
           }
         });
+
+        const transporter = nodemailer.createTransport({
+          host: process.env.NEXT_PUBLIC_EMAIL_HOST,
+          port: process.env.NEXT_PUBLIC_EMAIL_PORT,
+          auth: {
+            user: process.env.NEXT_PUBLIC_EMAIL_AUTH_USER,
+            pass: process.env.NEXT_PUBLIC_EMAIL_AUTH_PASSWORD,
+          },
+        });
+
+        const mailOptions = {
+          from: `oforms.onlyoffice.com <${process.env.NEXT_PUBLIC_EMAIL_AUTH_USER}>`,
+          to: ["denis.tyan@onlyoffice.com"],
+          subject: "У вас новая форма из https://oforms.onlyoffice.com/form-submit",
+          text: "У вас новая форма из https://oforms.onlyoffice.com/form-submit. Проверьте, пожалуйста.",
+        };
+
+        await transporter.sendMail(mailOptions);
       });
     } catch {
       return res.json({ error: "name_form" });
