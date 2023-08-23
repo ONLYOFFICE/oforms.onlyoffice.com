@@ -10,6 +10,7 @@ switch(BRANCH_NAME) {
     cms="https://oforms.teamlab.info/dashboard"
     appServer="https://oforms.teamlab.info/"
     domains="static-oforms.teamlab.info"
+    email_port="587"
 
     break
   case "production_deploy":
@@ -22,6 +23,7 @@ switch(BRANCH_NAME) {
     cms="https://oforms.onlyoffice.com/dashboard"
     appServer="https://oforms.onlyoffice.com/"
     domains="static-oforms.onlyoffice.com"
+    email_port="587"
 
     break
   default:
@@ -60,6 +62,7 @@ pipeline {
         cms="${cms}"
         appServer="${appServer}"
         domains="${domains}"
+        email_port="${email_port}"
       }
       steps { 
         withCredentials([usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS',
@@ -81,7 +84,13 @@ pipeline {
                 string(credentialsId: 'NEXT_PUBLIC_STRAPI_API_TOKEN', 
                 variable: 'NEXT_PUBLIC_STRAPI_API_TOKEN'),
                 string(credentialsId: 'NEXT_PUBLIC_STRAPI_API_TOKEN_TEST', 
-                variable: 'NEXT_PUBLIC_STRAPI_API_TOKEN_TEST')]) {
+                variable: 'NEXT_PUBLIC_STRAPI_API_TOKEN_TEST'),
+                string(credentialsId: 'oforms_email_server', variable: 'NEXT_PUBLIC_EMAIL_HOST'), 
+                string(credentialsId: 'oforms_email_accoiunt_1', variable: 'NEXT_PUBLIC_EMAIL_ACCOUNT_1'), 
+                string(credentialsId: 'oforms_email_account_2', variable: 'NEXT_PUBLIC_EMAIL_ACCOUNT_2'), 
+                usernamePassword(credentialsId: 'oforms_email_user', 
+                passwordVariable: 'NEXT_PUBLIC_EMAIL_AUTH_PASSWORD', 
+                usernameVariable: 'NEXT_PUBLIC_EMAIL_AUTH_USER')]) {
 
           sh '''
             if [[ ${BRANCH_NAME} == "test_deploy" ]]; then
@@ -106,7 +115,14 @@ pipeline {
             sed -i "s^var_next_public_secret_access_key^$NEXT_PUBLIC_SECRET_ACCESS_KEY^" .env.local
 
             sed -i "s^var_next_public_recaptcha_site_key^$NEXT_PUBLIC_RECAPTCHA_SITE_KEY^" .env.local
-              
+
+            sed -i "s^var_next_public_email_host^$NEXT_PUBLIC_EMAIL_HOST^" .env.local
+            sed -i "s^var_next_public_email_port^$email_port^" .env.local
+            sed -i "s^var_next_public_email_auth_user^$NEXT_PUBLIC_EMAIL_AUTH_USER^" .env.local
+            sed -i "s^var_next_public_email_auth_password^$NEXT_PUBLIC_EMAIL_AUTH_PASSWORD^" .env.local
+            sed -i "s^var_next_public_email_account_1^$NEXT_PUBLIC_EMAIL_ACCOUNT_1^" .env.local
+            sed -i "s^var_next_public_email_account_2^$NEXT_PUBLIC_EMAIL_ACCOUNT_2^" .env.local  
+            
             tar -czpf .jenkins/oforms.tar.gz \
               --exclude ".git" \
               --exclude ".gitignore" \
