@@ -59,7 +59,7 @@ const Header = (props) => {
 
     return (
         <HeaderStyled>
-            <HeaderTitle>Templates</HeaderTitle>
+            <HeaderTitle>{t("Templates")}</HeaderTitle>
             <HeaderBox active={inputActive}>
                 <CategorySelector
                     typeSortData={typeSortData}

@@ -61,6 +61,7 @@ const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...r
 
     const openTypeDropdown = () => {
         setIsOpenType(true);
+        
     };
 
     const closeTypeDropdown = () => {
@@ -136,7 +137,7 @@ const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...r
                                         <div className="file-select">
                                             <div
                                                 className={"file-select-placeholder" + (isOpenType ? " open" : "")}
-                                                onClick={openTypeDropdown}
+                                                onClick={() => setIsOpenType(!isOpenType)}
                                             >
                                                 <div className="file-select-title">{fileTypeData}</div>
                                                 <ChevronDown
