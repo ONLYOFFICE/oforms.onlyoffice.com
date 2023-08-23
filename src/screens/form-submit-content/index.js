@@ -11,6 +11,7 @@ import Select from "./sub-components/select";
 import Input from "./sub-components/input";
 import UploadFile from "./sub-components/upload-file";
 import UploadPopup from "./sub-components/upload-popup";
+import ErrorPopup from "./sub-components/error-popup";
 import moment from "moment";
 import "moment/locale/fr";
 import "moment/locale/it";
@@ -45,7 +46,8 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
   const [categoryError, setCategoryError] = useState(true);
   const [languageError, setLanguageError] = useState(true);
   const [recaptchaError, setRecaptchaError] = useState(true);
-  const [cardPreviewError, setCardPreviewError] = useState(false);
+  const [fileNameError, setFileNameError] = useState("");
+  const [errorTextPopup, setErrorTextPopup] = useState("");
 
   const [fileLoading, setFileLoading] = useState(false);
   const [formLoading, setFormLoading] = useState(false);
@@ -71,7 +73,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
         setFilePages(queryIndexData[2].toString());
         setFileLastModified(queryIndexData[3]);
         setFileName(queryIndexData[4]);
-        setFileSize(queryIndexData[5]);
+        setFileSize((queryIndexData[5] / 1024).toFixed(0));
         setFileError(false);
         setFile(true);
 
@@ -91,7 +93,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
 
   // Form validation
   useEffect(() => {
-    if (fileError || fileLoading || !(name.length > 0 && !nameError) || !(description.length > 0 && !descriptionError) || categoryError || languageError || recaptchaError) {
+    if (fileError || fileLoading || !(name.length > 0 && !nameError) || !(description.length > 0 && !descriptionError) || name.length > 100 && !nameError || description.length > 300 && !descriptionError || categoryError || languageError || recaptchaError) {
       setFormValid(false);
     } else {
       setFormValid(true);
@@ -102,12 +104,12 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
     switch (e.target.name) {
       case "name":
         setName(e.target.value);
-        !e.target.value.length < 1 && setNameError(false);
+        !e.target.value.length < 1 || !e.target.value.length > 100 && setNameError(false);
         break;
 
       case "description":
         setDescription(e.target.value);
-        !e.target.value.length < 1 && setDescriptionError(false);
+        !e.target.value.length < 1 || !e.target.value.length > 300 && setDescriptionError(false);
         break;
     };
   };
@@ -156,6 +158,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
 
   // Get image from AWS
   const handleFileImageUpload = async (e) => {
+    setErrorTextPopup("");
     setFileLoading(true);
 
     const formData = new FormData();
@@ -168,15 +171,15 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
     setPdfFileUrl(pdfConvertUrl);
     setCardPreviewUrl(pngConvertUrl);
     setFilePages(filePages.toString());
-    setFileName(e.target.files[0].name);
-    setFileSize(e.target.files[0].size.toString().substring(0, 2));
-    setFileLastModified(e.target.files[0].lastModified);
+    setFileName(e.target.files[0]?.name);
+    setFileSize(e.target.files[0]?.size);
+    setFileLastModified(e.target.files[0]?.lastModified);
     setFileLoading(false);
   };
 
   const sendForm = async (e) => {
     e.preventDefault();
-    setCardPreviewError(false);
+    setErrorTextPopup("");
     setFormLoading(true);
 
     const sendFormResponse = await axios.post("/api/form-submission", {
@@ -197,10 +200,10 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
     if (sendFormResponse.data.error === "card_prewiew") {
       clearForm();
       setFormLoading(false);
-      setCardPreviewError(true);
+      setErrorTextPopup(t("Page timed out! Please upload a file once again."));
 
       setTimeout(() => {
-        setCardPreviewError(false);
+        setErrorTextPopup("");
       }, 10000);
 
       return;
@@ -264,8 +267,9 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
             setFileSize={setFileSize}
             setFilePages={setFilePages}
             handleFileImageUpload={handleFileImageUpload}
-            cardPreviewError={cardPreviewError}
-            setCardPreviewError={setCardPreviewError}
+            setFileNameError={setFileNameError}
+            setErrorTextPopup={setErrorTextPopup}
+            setFileLoading={setFileLoading}
             errorText={t("File is empty")}
           />
         </div>
@@ -275,9 +279,9 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
             <Text className="subtitle" as="p">{t("Please fill out all the fields before sending the form.")}</Text>
             <Input
               label={t("Form name")}
-              placeholder={t("Price quote template")}
-              errorText={nameExistsValid && t("Form with the same name already exists") || (nameFilled && nameError) && t("Form name is empty")}
-              className={`${nameFilled && nameError ? "error" : ""} ${nameValid ? "valid" : ""}`}
+              placeholder={t("Enter name")}
+              errorText={nameExistsValid && t("Please rename your form or choose another one.") || (nameFilled && nameError) && name.length < 1 ? t("Form name is empty") : name.length > 100 ? t("You are limited to 100 characters") : null}
+              className={`${(nameFilled && nameError) && name.length < 1 || name.length > 100 ? "error" : ""} ${nameValid ? "valid" : ""}`}
               name="name"
               value={name}
               onFocus={(e) => onFocusHandler(e)}
@@ -288,8 +292,8 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
               isTextarea
               label={t("Form description")}
               placeholder={t("Give more details about your form, such as who will benefit from it, in which industry, etc.")}
-              errorText={(descriptionFilled && descriptionError) && t("Form description is empty")}
-              className={`${descriptionFilled && descriptionError ? "error" : ""} ${descriptionValid ? "valid" : ""}`}
+              errorText={(descriptionFilled && descriptionError) && description.length < 1 ? t("Form description is empty") : description.length > 300 ? t("You are limited to 300 characters") : null}
+              className={`${(descriptionFilled && descriptionError) && description.length < 1 || description.length > 300 ? "error" : ""} ${descriptionValid ? "valid" : ""}`}
               name="description"
               value={description}
               onFocus={(e) => onFocusHandler(e)}
@@ -340,7 +344,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
             </div>
             <div className="file-info-item">
               <Text className="file-info-label">{t("FileSize")}:</Text>
-              <Text className="file-info-text">{file !== undefined && fileLoading === false ? fileSize.toString().substring(0, 2) : 0} kb</Text>
+              <Text className="file-info-text">{file !== undefined && fileLoading === false ? (fileSize / 1024).toFixed(0) : 0} kb</Text>
             </div>
             <div className="file-info-item">
               <Text className="file-info-label">{t("Pages")}:</Text>
@@ -350,6 +354,10 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
 
           <Button onClick={(e) => sendForm(e)} className={`send-button ${formLoading ? "loading" : ""}`} label={t("Send")} isDisabled={!formValid || formLoading} />
         </div>
+
+        {errorTextPopup !== "" &&
+          <ErrorPopup onClick={() => setErrorTextPopup("")} t={t} fileName={fileNameError} text={errorTextPopup} />
+        }
       </div>
 
       <UploadPopup t={t} file={file} uploadPopup={uploadPopup} fileName={fileName} setUploadPopup={setUploadPopup} clearForm={clearForm} />
