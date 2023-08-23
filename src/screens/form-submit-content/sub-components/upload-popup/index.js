@@ -21,7 +21,7 @@ const UploadPopup = ({ t, file, uploadPopup, fileName, setUploadPopup, clearForm
           </div>
           <div>
             <div className="upload-name">
-            <span className="upload-name-file">{file !== undefined ? fileName : ""}<span>.docxf</span></span>
+              <span className="upload-name-file">{file !== undefined ? fileName : ""}<span>.docxf</span></span>
             </div>
 
             <div className="upload-descr">
