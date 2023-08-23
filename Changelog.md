@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.5
+
+### Fixes
+- add new page /form-submit
+
 ## 1.1.4
 
 ### Fixes
