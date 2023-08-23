@@ -15,7 +15,7 @@ export default async function handler(req, res) {
 
   form.parse(req, async (err, fields, files) => {
     try {
-      const fileName = files.file[0].originalFilename;
+      const fileName = `${Date.now()}_${files.file[0].originalFilename}`;
 
       // Generate a unique key for payload
       let key = "";
