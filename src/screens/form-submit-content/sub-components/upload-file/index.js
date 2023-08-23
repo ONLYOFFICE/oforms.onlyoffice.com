@@ -2,15 +2,11 @@
 import { useState, useRef } from "react";
 import { setCookie } from "@utils/helpers/cookie";
 import StyledUploadFile from "./styled-upload-file";
-import ErrorPopup from "./error-popup";
 import Heading from "@common/heading";
 import Text from "@common/text";
 
-const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, fileError, setFileError, fileFilled, setFileFilled, fileLoading, cardPreviewUrl, fileName, setFileSize, setFilePages, cardPreviewError, setCardPreviewError, handleFileImageUpload }) => {
+const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, fileError, setFileError, fileFilled, setFileFilled, fileLoading, cardPreviewUrl, fileName, setFileSize, setFilePages, handleFileImageUpload, setFileNameError, setErrorTextPopup, setFileLoading }) => {
   const [drag, setDrag] = useState(false);
-  const [fileNullError, setFileNullError] = useState(false);
-  const [fileLargeError, setFileLargeError] = useState(false);
-  const [fileValidError, setFileValidError] = useState(false);
   const inputRef = useRef();
 
   const dragStartHandler = (e) => {
@@ -24,10 +20,13 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
   };
 
   const onHandleFileChange = async (e) => {
-    setFileLargeError(false);
-    setFileValidError(false);
-    setFileNullError(false);
+    if (e.target.files[0] === undefined) {
+      setFileValue("");
 
+      return true;
+    };
+
+    setFileNameError(e.target.files[0].name.toString().slice(0, -6));
     setFileValue(e.target.value);
     !e.target.value.length < 1 && setFileError(false);
 
@@ -58,19 +57,22 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
 
     if (fileValid && (e.target.files[0].type === "" || e.target.files[0].type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
       if (e.target.files[0].size === 0) {
-        setFileNullError(true);
+        setErrorTextPopup(t("Invalid file size! The uploaded file has zero size. Please choose another one."));
+        setFileLoading(false);
+        setFileValue("");
+        setFile(undefined);
 
         setTimeout(() => {
-          setFileNullError(false);
+          setErrorTextPopup("");
         }, 10000);
       } else if (e.target.files[0].size < 10000000) {
         handleFileImageUpload(e);
         setFile(e.target.files[0]);
       } else if (e.target.files[0] !== undefined) {
-        setFileLargeError(true);
+        setErrorTextPopup(t("Your file is too big! Max size 10MB. Please choose another one."));
         setFileValue("");
         setTimeout(() => {
-          setFileLargeError(false);
+          setErrorTextPopup("");
         }, 10000);
       } else if (e.target.files[0] === undefined) {
         setFile(undefined);
@@ -78,10 +80,12 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
         setFileFilled(true);
       };
     } else {
-      setFileValidError(true);
+      setErrorTextPopup(t("Invalid file format! The uploaded file is not valid. Please choose a DOCXF file."));
+      setFileLoading(false);
+      setFile(undefined);
       setFileValue("");
       setTimeout(() => {
-        setFileValidError(false);
+        setErrorTextPopup("");
       }, 10000);
     };
   };
@@ -139,18 +143,6 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
           <Text className="error-text">{errorText}</Text>
         }
       </>
-      {fileLargeError &&
-        <ErrorPopup onClick={() => setFileLargeError(false)} title={t("Your file is too big!")} text={t("Max size 10MB. Please choose another one")} />
-      }
-      {fileValidError &&
-        <ErrorPopup onClick={() => setFileValidError(false)} title={t("Your file is invalid")} text={t("Please select a valid DOCXF file")} />
-      }
-      {cardPreviewError &&
-        <ErrorPopup onClick={() => setCardPreviewError(false)} title={t("Form submission delay")} text={t("Please fill out the form again")} />
-      }
-      {fileNullError &&
-        <ErrorPopup onClick={() => setFileNullError(false)} title={t("Your file is invalid")} text={t("Your file is zero size. Please choose another one")} />
-      }
     </StyledUploadFile>
   );
 };
