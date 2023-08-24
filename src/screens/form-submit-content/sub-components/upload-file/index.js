@@ -8,6 +8,9 @@ import Text from "@common/text";
 const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, fileError, setFileError, fileFilled, setFileFilled, fileLoading, cardPreviewUrl, fileName, setFileSize, setFilePages, handleFileImageUpload, setFileNameError, setErrorTextPopup, setFileLoading }) => {
   const [drag, setDrag] = useState(false);
   const inputRef = useRef();
+  const nullFileTimerRef = useRef(null);
+  const largeFileTimerRef = useRef(null);
+  const formatFileTimerRef = useRef(null);
 
   const dragStartHandler = (e) => {
     e.preventDefault();
@@ -62,7 +65,11 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
         setFileValue("");
         setFile(undefined);
 
-        setTimeout(() => {
+        if (nullFileTimerRef.current) {
+          clearTimeout(nullFileTimerRef.current);
+        };
+    
+        nullFileTimerRef.current = setTimeout(() => {
           setErrorTextPopup("");
         }, 10000);
       } else if (e.target.files[0].size < 10000000) {
@@ -71,7 +78,12 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
       } else if (e.target.files[0] !== undefined) {
         setErrorTextPopup(t("Your file is too big! Max size 10MB. Please choose another one."));
         setFileValue("");
-        setTimeout(() => {
+
+        if (largeFileTimerRef.current) {
+          clearTimeout(largeFileTimerRef.current);
+        };
+    
+        largeFileTimerRef.current = setTimeout(() => {
           setErrorTextPopup("");
         }, 10000);
       } else if (e.target.files[0] === undefined) {
@@ -84,7 +96,12 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
       setFileLoading(false);
       setFile(undefined);
       setFileValue("");
-      setTimeout(() => {
+
+      if (formatFileTimerRef.current) {
+        clearTimeout(formatFileTimerRef.current);
+      };
+  
+      formatFileTimerRef.current = setTimeout(() => {
         setErrorTextPopup("");
       }, 10000);
     };

@@ -61,6 +61,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
   const [fileSize, setFileSize] = useState("0");
   const [fileLastModified, setFileLastModified] = useState("");
   const refRecaptcha = useRef();
+  const cardPreviewTimerRef = useRef(null);
 
   useEffect(() => {
     if (queryIndexData) {
@@ -202,7 +203,11 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
       setFormLoading(false);
       setErrorTextPopup(t("Page timed out! Please upload a file once again."));
 
-      setTimeout(() => {
+      if (cardPreviewTimerRef.current) {
+        clearTimeout(cardPreviewTimerRef.current);
+      };
+  
+      cardPreviewTimerRef.current = setTimeout(() => {
         setErrorTextPopup("");
       }, 10000);
 
