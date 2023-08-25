@@ -48,6 +48,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
   const [recaptchaError, setRecaptchaError] = useState(true);
   const [fileNameError, setFileNameError] = useState("");
   const [errorTextPopup, setErrorTextPopup] = useState("");
+  const [previewError, setPreviewError] = useState(false);
 
   const [fileLoading, setFileLoading] = useState(false);
   const [formLoading, setFormLoading] = useState(false);
@@ -74,7 +75,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
         setFilePages(queryIndexData[2].toString());
         setFileLastModified(queryIndexData[3]);
         setFileName(queryIndexData[4]);
-        setFileSize((queryIndexData[5] / 1024).toFixed(0));
+        setFileSize(queryIndexData[5]);
         setFileError(false);
         setFile(true);
 
@@ -157,7 +158,6 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
     };
   };
 
-  // Get image from AWS
   const handleFileImageUpload = async (e) => {
     setErrorTextPopup("");
     setFileLoading(true);
@@ -165,18 +165,35 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
 
-    const imageUploadResponse = await axios.post("/api/file-upload", formData);
+    try {
+      const imageUploadResponse = await axios.post("/api/file-upload", formData);
 
-    const { pngConvertUrl, pdfConvertUrl, filePages } = imageUploadResponse.data;
+      const { pngConvertUrl, pdfConvertUrl } = imageUploadResponse.data;
+      const pdfCountPagesResponse = await axios.post("/api/pdf-count-pages", { pdfConvertUrl });
 
-    setPdfFileUrl(pdfConvertUrl);
-    setCardPreviewUrl(pngConvertUrl);
-    setFilePages(filePages.toString());
-    setFileName(e.target.files[0]?.name);
-    setFileSize(e.target.files[0]?.size);
-    setFileLastModified(e.target.files[0]?.lastModified);
-    setFileLoading(false);
+      setPdfFileUrl(pdfConvertUrl);
+      setCardPreviewUrl(pngConvertUrl);
+      setFilePages(pdfCountPagesResponse.data.filePages.toString());
+      setFileName(e.target.files[0]?.name);
+      setFileSize(e.target.files[0]?.size);
+      setFileLastModified(e.target.files[0]?.lastModified);
+      setFileLoading(false);
+    } catch (error) {
+      if (error.response) {
+        setPreviewError(true);
+        setErrorTextPopup(t("Page timed out! Please upload a file once again."));
+      };
+    };
   };
+
+  useEffect(() => {
+    if (previewError) {
+      setFileLoading(false);
+      setFile(undefined);
+      setFileValue("");
+      setPreviewError(false);
+    };
+  }, [previewError]);
 
   const sendForm = async (e) => {
     e.preventDefault();
@@ -206,7 +223,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
       if (cardPreviewTimerRef.current) {
         clearTimeout(cardPreviewTimerRef.current);
       };
-  
+
       cardPreviewTimerRef.current = setTimeout(() => {
         setErrorTextPopup("");
       }, 10000);
@@ -286,7 +303,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
               label={t("Form name")}
               placeholder={t("Enter name")}
               errorText={nameExistsValid && t("Please rename your form or choose another one.") || (nameFilled && nameError) && name.length < 1 ? t("Form name is empty") : name.length > 100 ? t("You are limited to 100 characters") : null}
-              className={`${(nameFilled && nameError) && name.length < 1 || name.length > 100 ? "error" : ""} ${nameValid ? "valid" : ""}`}
+              className={`${(nameFilled && nameError) && name.length < 1 || name.length > 100 || nameExistsValid ? "error" : ""} ${nameValid ? "valid" : ""}`}
               name="name"
               value={name}
               onFocus={(e) => onFocusHandler(e)}
