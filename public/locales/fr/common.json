@@ -103,6 +103,8 @@
     "Form name": "Nom du formulaire",
     "Enter name": "Saisissez le nom",
     "Form name is empty": "Le nom du formulaire est vide",
+    "You are limited to 100 characters": "La limite est de 100 caractères",
+    "You are limited to 300 characters": "La limite est de 300 caractères",
     "Give more details about your form, such as who will benefit from it, in which industry, etc.": "Donnez plus de détails sur votre formulaire : qui en bénéficiera, dans quel sécteur d'activité, etc.",
     "Form description is empty": "La decription du formulaire est vide",
     "Form category": "Catégorie de formulaire",

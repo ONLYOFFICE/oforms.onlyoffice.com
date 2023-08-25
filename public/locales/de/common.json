@@ -99,6 +99,8 @@
   "Form name": "Name des Formulars",
   "Enter name": "Geben Sie den Namen ein",
   "Form name is empty": "Formularname ist leer",
+  "You are limited to 100 characters": "Sie sind auf 100 Zeichen beschränkt",
+  "You are limited to 300 characters": "Sie sind auf 300 Zeichen beschränkt",
   "Give more details about your form, such as who will benefit from it, in which industry, etc.": "Geben Sie weitere Einzelheiten zu Ihrem Formular an, z. B. wer davon profitieren wird, in welcher Branche, usw.",
   "Form description is empty": "Formularbeschreibung ist leer",
   "Form category": "Kategorie des Formulars",
