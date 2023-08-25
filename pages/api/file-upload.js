@@ -86,21 +86,6 @@ export default async function handler(req, res) {
         }
       });
 
-      // Number of pages in PDF
-      function countPagesInPDF(buffer) {
-        const pdfBytes = new Uint8Array(buffer);
-        let pageCount = 0;
-        const pageCountRegex = /\/Type\s*\/Page\b/g;
-        const pdfString = pdfBytes.reduce((str, byte) => str + String.fromCharCode(byte), "");
-        let match;
-
-        while ((match = pageCountRegex.exec(pdfString)) !== null) {
-          pageCount++;
-        }
-
-        return pageCount;
-      };
-
       // Delete temporary file
       fs.promises.unlink(files.file[0].filepath);
 
@@ -110,12 +95,9 @@ export default async function handler(req, res) {
         Key: fileName
       }).promise();
 
-      await axios.get(pdfRequest.data.fileUrl, { responseType: "arraybuffer" }).then((response) => {
-        return res.status(200).json({
-          "pngConvertUrl": cardPreviewRequest.data.fileUrl,
-          "pdfConvertUrl": pdfRequest.data.fileUrl,
-          "filePages": countPagesInPDF(Buffer.from(response.data))
-        });
+      return res.status(200).json({
+        "pngConvertUrl": cardPreviewRequest.data.fileUrl,
+        "pdfConvertUrl": pdfRequest.data.fileUrl,
       });
     } catch (error) {
       console.log(error);
