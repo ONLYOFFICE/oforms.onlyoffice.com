@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     try {
       const formName = fields.formName === undefined ? "" : fields.formName[0];
       const language = fields.language === undefined ? "" : fields.language[0];
-      const fileName = files.file[0].originalFilename;
+      const fileName = `${Date.now()}_${files.file[0].originalFilename}`;
       const fileSize = files.file[0].size;
       const fileLastModified = files.file[0].lastModifiedDate;
       const fileNameSubstring = files.file[0].originalFilename.substring(0, files.file[0].originalFilename.length - 6);
@@ -98,19 +98,12 @@ export default async function handler(req, res) {
       });
 
       // Number of pages in PDF
-      function countPagesInPDF(buffer) {
-        const pdfBytes = new Uint8Array(buffer);
-        let pageCount = 0;
-        const pageCountRegex = /\/Type\s*\/Page\b/g;
-        const pdfString = pdfBytes.reduce((str, byte) => str + String.fromCharCode(byte), "");
-        let match;
-
-        while ((match = pageCountRegex.exec(pdfString)) !== null) {
-          pageCount++;
-        }
-
-        return pageCount;
-      };
+      const response = await axios.get(pdfRequest.data.fileUrl, { responseType: "arraybuffer" });
+      const pdfContent = Buffer.from(response.data).toString("utf-8");
+      const matches = pdfContent.match(/\/Count\s+(\d+)/g);
+  
+      const lastMatch = matches[matches.length - 1];
+      const pageCount = parseInt(lastMatch.match(/\d+/)[0]);
 
       // Delete temporary file
       fs.promises.unlink(files.file[0].filepath);
@@ -121,12 +114,10 @@ export default async function handler(req, res) {
         Key: fileName
       }).promise();
 
-      await axios.get(pdfRequest.data.fileUrl, { responseType: "arraybuffer" }).then((response) => {
-        const compressedData = zlib.deflateSync(`${cardPreviewRequest.data.fileUrl};${pdfRequest.data.fileUrl};${countPagesInPDF(Buffer.from(response.data))};${fileLastModified};${fileNameSubstring};${fileSize};${formName}`);
-        const compressedString = compressedData.toString("base64");
+      const compressedData = zlib.deflateSync(`${cardPreviewRequest.data.fileUrl};${pdfRequest.data.fileUrl};${pageCount};${fileLastModified};${fileNameSubstring};${fileSize};${formName}`);
+      const compressedString = compressedData.toString("base64");
 
-        return res.status(200).send(`${CMSConfigAPI}${`${currentLanguage}`}form-submit?index=${compressedString}`);
-      });
+      return res.status(200).send(`${CMSConfigAPI}${`${currentLanguage}`}form-submit?index=${compressedString}`);
     } catch (error) {
       console.log(error);
       return res.status(500).send("Error");
