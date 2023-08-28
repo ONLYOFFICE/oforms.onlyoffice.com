@@ -136,7 +136,7 @@ pipeline {
           transfers: [sshTransfer(cleanRemote: false, 
             excludes: '', 
             execCommand: '''
-              sudo bash /home/ubuntu/deploy/.jenkins/build.sh |& tee -a > /home/ubuntu/deploy/www-cms-marketplace_deploy.log
+              sudo bash /home/ubuntu/deploy/.jenkins/build.sh |& tee -a > /home/ubuntu/deploy/oforms_deploy.log
             ''', 
             execTimeout: 600000, 
             flatten: false, 
