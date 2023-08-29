@@ -5,8 +5,7 @@ switch(BRANCH_NAME) {
     aws_region="us-east-1"
     region="info"
     cloud_front_distribution_id="E3OQ4LKWZZXBRX"
-    site_url="https://oforms.teamlab.info"
-    docEditorUrl="https://doc-linux.teamlab.info"
+    site_url="https://oforms.teamlab.info"   
     cms="https://oforms.teamlab.info/dashboard"
     appServer="https://oforms.teamlab.info/"
     domains="static-oforms.teamlab.info"
@@ -18,8 +17,7 @@ switch(BRANCH_NAME) {
     region="com"
     MONITOR_ID = '58439000014815195'
     cloud_front_distribution_id="E18Y5OI4JS5NAJ"
-    site_url="https://oforms.onlyoffice.com"
-    docEditorUrl="https://asc.docs.onlyoffice.com"
+    site_url="https://oforms.onlyoffice.com"    
     cms="https://oforms.onlyoffice.com/dashboard"
     appServer="https://oforms.onlyoffice.com/"
     domains="static-oforms.onlyoffice.com"
@@ -57,8 +55,7 @@ pipeline {
       }
       environment {
         aws_region = "${aws_region}"
-        region = "${region}"
-        docEditorUrl="${docEditorUrl}"
+        region = "${region}"        
         cms="${cms}"
         appServer="${appServer}"
         domains="${domains}"
