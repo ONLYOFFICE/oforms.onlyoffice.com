@@ -129,9 +129,11 @@ const Select = ({ t, isMulti, label, labelMore, placeholder, categories, selecte
           <div className="select-options">
             {filteredOptions.length > 0 ? 
               <>
-                <div className="select-option reset" onClick={handleClearSelection}>
-                  {t("Reset")}
-                </div>
+                {isMulti &&
+                  <div className="select-option reset" onClick={handleClearSelection}>
+                    {t("Reset")}
+                  </div>
+                }
                 {filteredOptions.map((option) => (
                   <div
                     onClick={() => handleOptionClick(option)}

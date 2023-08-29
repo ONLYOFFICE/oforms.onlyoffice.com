@@ -1,7 +1,6 @@
 import StyledFormSubmitContent from "./styled-form-submit-content";
 import { useState, useEffect, useRef } from "react";
-import filePagesApi from "./api/file-pages";
-import sendFormApi from "./api/send-form";
+import { getCookie, setCookie } from "@utils/helpers/cookie";
 import axios from "axios";
 import ReCAPTCHA from "react-google-recaptcha";
 import Heading from "@common/heading";
@@ -12,8 +11,16 @@ import Select from "./sub-components/select";
 import Input from "./sub-components/input";
 import UploadFile from "./sub-components/upload-file";
 import UploadPopup from "./sub-components/upload-popup";
+import ErrorPopup from "./sub-components/error-popup";
+import moment from "moment";
+import "moment/locale/fr";
+import "moment/locale/it";
+import "moment/locale/es";
+import "moment/locale/de";
+import "moment/locale/ja";
+import "moment/locale/zh-cn";
 
-const FormSubmitContent = ({ t, locale, categories }) => {
+const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
   const [file, setFile] = useState(undefined);
   const [fileValue, setFileValue] = useState("");
   const [name, setName] = useState("");
@@ -24,6 +31,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
   const [languageKey, setLanguageKey] = useState("");
 
   const [nameValid, setNameValid] = useState(false);
+  const [nameExistsValid, setNameExistsValid] = useState(false);
   const [descriptionValid, setDescriptionValid] = useState(false);
   const [categoryValid, setCategoryValid] = useState(false);
   const [languageValid, setLanguageValid] = useState(false);
@@ -38,21 +46,56 @@ const FormSubmitContent = ({ t, locale, categories }) => {
   const [categoryError, setCategoryError] = useState(true);
   const [languageError, setLanguageError] = useState(true);
   const [recaptchaError, setRecaptchaError] = useState(true);
+  const [fileNameError, setFileNameError] = useState("");
+  const [errorTextPopup, setErrorTextPopup] = useState("");
+  const [previewError, setPreviewError] = useState(false);
 
   const [fileLoading, setFileLoading] = useState(false);
   const [formLoading, setFormLoading] = useState(false);
   const [uploadPopup, setUploadPopup] = useState(false);
   const [formValid, setFormValid] = useState(false);
 
-  const [fileImg, setFileImg] = useState("");
-  const [pdfConvertUrl, setPdfConvertUrl] = useState("");
-  const [docxfAwsUrl, setDocxfAwsUrl] = useState("");
+  const [cardPreviewUrl, setCardPreviewUrl] = useState("");
+  const [pdfFileUrl, setPdfFileUrl] = useState("");
   const [filePages, setFilePages] = useState("");
+  const [fileName, setFileName] = useState("");
+  const [fileSize, setFileSize] = useState("0");
+  const [fileLastModified, setFileLastModified] = useState("");
   const refRecaptcha = useRef();
+  const cardPreviewTimerRef = useRef(null);
+
+  useEffect(() => {
+    if (queryIndexData) {
+      const imageuploadCookie = getCookie("imageUpload");
+      const formSubmitCookie = getCookie("formSubmit");
+
+      if (!formSubmitCookie) {
+        setCardPreviewUrl(queryIndexData[0]);
+        setPdfFileUrl(queryIndexData[1]);
+        setFilePages(queryIndexData[2].toString());
+        setFileLastModified(queryIndexData[3]);
+        setFileName(queryIndexData[4]);
+        setFileSize(queryIndexData[5]);
+        setFileError(false);
+        setFile(true);
+
+        if (queryIndexData[6]) {
+          setName(queryIndexData[6]);
+          setNameValid(true);
+          setNameError(false);
+        };
+
+        if (imageuploadCookie === queryIndexData[0]) {
+          setCardPreviewUrl("");
+          setFile(undefined);
+        };
+      };
+    };
+  }, []);
 
   // Form validation
   useEffect(() => {
-    if (fileError || fileLoading || !(name.length > 0 && !nameError) || !(description.length > 0 && !descriptionError) || categoryError || languageError || recaptchaError) {
+    if (fileError || fileLoading || !(name.length > 0 && !nameError) || !(description.length > 0 && !descriptionError) || name.length > 100 && !nameError || description.length > 300 && !descriptionError || categoryError || languageError || recaptchaError) {
       setFormValid(false);
     } else {
       setFormValid(true);
@@ -63,22 +106,12 @@ const FormSubmitContent = ({ t, locale, categories }) => {
     switch (e.target.name) {
       case "name":
         setName(e.target.value);
-        !e.target.value.length < 1 && setNameError(false);
+        !e.target.value.length < 1 || !e.target.value.length > 100 && setNameError(false);
         break;
 
       case "description":
         setDescription(e.target.value);
-        !e.target.value.length < 1 && setDescriptionError(false);
-        break;
-
-      case "file":
-        setFileValue(e.target.value);
-        !e.target.value.length < 1 && setFileError(false);
-
-        if (e.target.files[0]?.size < 10000000) {
-          handleFileImageUpload(e);
-        };
-
+        !e.target.value.length < 1 || !e.target.value.length > 300 && setDescriptionError(false);
         break;
     };
   };
@@ -86,6 +119,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
   const onFocusHandler = (e) => {
     switch (e.target.name) {
       case "name":
+        setNameExistsValid(false);
         setNameError(false);
         setNameValid(false);
         break;
@@ -100,6 +134,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
   const onBlurHandler = (e) => {
     switch (e.target.name) {
       case "name":
+        setNameExistsValid(false);
         setNameFilled(true);
 
         if (name && !nameError) {
@@ -123,61 +158,95 @@ const FormSubmitContent = ({ t, locale, categories }) => {
     };
   };
 
-  // Get image from AWS
   const handleFileImageUpload = async (e) => {
+    setErrorTextPopup("");
     setFileLoading(true);
 
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
 
-    const imageUploadResponse = await axios.post("/api/image-upload", formData);
-    const { pngConvertUrl, pdfConvertUrl, docxfAwsUrl, fileName } = imageUploadResponse.data[0];
+    try {
+      const imageUploadResponse = await axios.post("/api/file-upload", formData);
 
-    const filePagesApiResponse = await filePagesApi(pdfConvertUrl, fileName);
+      const { pngConvertUrl, pdfConvertUrl } = imageUploadResponse.data;
+      const pdfCountPagesResponse = await axios.post("/api/pdf-count-pages", { pdfConvertUrl });
 
-    setFileImg(pngConvertUrl);
-    setPdfConvertUrl(pdfConvertUrl);
-    setDocxfAwsUrl(docxfAwsUrl);
-    setFilePages(filePagesApiResponse.toString());
-    setFileLoading(false);
+      setPdfFileUrl(pdfConvertUrl);
+      setCardPreviewUrl(pngConvertUrl);
+      setFilePages(pdfCountPagesResponse.data.filePages.toString());
+      setFileName(e.target.files[0]?.name);
+      setFileSize(e.target.files[0]?.size);
+      setFileLastModified(e.target.files[0]?.lastModified);
+      setFileLoading(false);
+    } catch (error) {
+      if (error.response) {
+        setPreviewError(true);
+        setErrorTextPopup(t("Page timed out! Please upload a file once again."));
+      };
+    };
   };
+
+  useEffect(() => {
+    if (previewError) {
+      setFileLoading(false);
+      setFile(undefined);
+      setFileValue("");
+      setPreviewError(false);
+    };
+  }, [previewError]);
 
   const sendForm = async (e) => {
     e.preventDefault();
+    setErrorTextPopup("");
     setFormLoading(true);
 
-    const formUploadResponse = await axios.post("/api/form-upload", {
-      "fileName": file.name,
-      "docxfAwsUrl": docxfAwsUrl
+    const sendFormResponse = await axios.post("/api/form-submission", {
+      "сardPreviewUrl": cardPreviewUrl,
+      "pdfFileUrl": pdfFileUrl,
+      "name": name,
+      "description": description,
+      "fileSize": fileSize,
+      "fileName": fileName,
+      "fileLastModifiedDate": moment(fileLastModified).locale(languageKey).format(
+        languageKey === "zh" ? "Y年MM月DD" : languageKey === "ja" ? "Y年MM月DD日" : "MMMM D, y"
+      ),
+      "languageKey": languageKey,
+      "categoryId": categoryId,
+      "filePages": filePages
     });
 
-    const { oformConvertUrl, templateImageUrl } = formUploadResponse.data[0];
-    const fileSize = file.size;
-    const fileName = file.name;
-    const fileLastModifiedDate = file.lastModifiedDate;
+    if (sendFormResponse.data.error === "card_prewiew") {
+      clearForm();
+      setFormLoading(false);
+      setErrorTextPopup(t("Page timed out! Please upload a file once again."));
 
-    await sendFormApi(
-      oformConvertUrl,
-      templateImageUrl,
-      docxfAwsUrl,
-      fileSize,
-      fileName,
-      fileImg,
-      pdfConvertUrl,
-      name,
-      fileLastModifiedDate,
-      languageKey,
-      filePages,
-      description,
-      categoryId
-    );
+      if (cardPreviewTimerRef.current) {
+        clearTimeout(cardPreviewTimerRef.current);
+      };
 
-    await axios.post("/api/image-delete", {
-      "name": file.name,
-    }).then(() => {
+      cardPreviewTimerRef.current = setTimeout(() => {
+        setErrorTextPopup("");
+      }, 10000);
+
+      return;
+    } else if (sendFormResponse.data.error === "name_form") {
+      setNameExistsValid(true);
+      setNameValid(false);
+      setNameError(true);
+      setFormLoading(false);
+      setRecaptchaError(true);
+      refRecaptcha.current.reset();
+
+      return;
+    } else {
+      const url = new URL(window.location.href);
+      url.search = "";
+      window.history.replaceState({}, document.title, url.pathname);
       setUploadPopup(true);
       setFormLoading(false);
-    });
+      setCookie("formSubmit", "", 1);
+      setCookie("imageUpload", cardPreviewUrl, 1);
+    };
   };
 
   const clearForm = () => {
@@ -215,7 +284,14 @@ const FormSubmitContent = ({ t, locale, categories }) => {
             setFileFilled={setFileFilled}
             onChangeHandler={onChangeHandler}
             fileLoading={fileLoading}
-            fileImg={fileImg}
+            cardPreviewUrl={cardPreviewUrl}
+            fileName={fileName}
+            setFileSize={setFileSize}
+            setFilePages={setFilePages}
+            handleFileImageUpload={handleFileImageUpload}
+            setFileNameError={setFileNameError}
+            setErrorTextPopup={setErrorTextPopup}
+            setFileLoading={setFileLoading}
             errorText={t("File is empty")}
           />
         </div>
@@ -225,9 +301,9 @@ const FormSubmitContent = ({ t, locale, categories }) => {
             <Text className="subtitle" as="p">{t("Please fill out all the fields before sending the form.")}</Text>
             <Input
               label={t("Form name")}
-              placeholder={t("Price quote template")}
-              errorText={(nameFilled && nameError) && t("Form name is empty")}
-              className={`${nameFilled && nameError ? "error" : ""} ${nameValid ? "valid" : ""}`}
+              placeholder={t("Enter name")}
+              errorText={nameExistsValid && t("Please rename your form or choose another one.") || (nameFilled && nameError) && name.length < 1 ? t("Form name is empty") : name.length > 100 ? t("You are limited to 100 characters") : null}
+              className={`${(nameFilled && nameError) && name.length < 1 || name.length > 100 || nameExistsValid ? "error" : ""} ${nameValid ? "valid" : ""}`}
               name="name"
               value={name}
               onFocus={(e) => onFocusHandler(e)}
@@ -238,8 +314,8 @@ const FormSubmitContent = ({ t, locale, categories }) => {
               isTextarea
               label={t("Form description")}
               placeholder={t("Give more details about your form, such as who will benefit from it, in which industry, etc.")}
-              errorText={(descriptionFilled && descriptionError) && t("Form description is empty")}
-              className={`${descriptionFilled && descriptionError ? "error" : ""} ${descriptionValid ? "valid" : ""}`}
+              errorText={(descriptionFilled && descriptionError) && description.length < 1 ? t("Form description is empty") : description.length > 300 ? t("You are limited to 300 characters") : null}
+              className={`${(descriptionFilled && descriptionError) && description.length < 1 || description.length > 300 ? "error" : ""} ${descriptionValid ? "valid" : ""}`}
               name="description"
               value={description}
               onFocus={(e) => onFocusHandler(e)}
@@ -290,7 +366,7 @@ const FormSubmitContent = ({ t, locale, categories }) => {
             </div>
             <div className="file-info-item">
               <Text className="file-info-label">{t("FileSize")}:</Text>
-              <Text className="file-info-text">{file !== undefined && fileLoading === false ? file.size.toString().substring(0, 2) : 0} kb</Text>
+              <Text className="file-info-text">{file !== undefined && fileLoading === false ? (fileSize / 1024).toFixed(0) : 0} kb</Text>
             </div>
             <div className="file-info-item">
               <Text className="file-info-label">{t("Pages")}:</Text>
@@ -300,9 +376,13 @@ const FormSubmitContent = ({ t, locale, categories }) => {
 
           <Button onClick={(e) => sendForm(e)} className={`send-button ${formLoading ? "loading" : ""}`} label={t("Send")} isDisabled={!formValid || formLoading} />
         </div>
+
+        {errorTextPopup !== "" &&
+          <ErrorPopup onClick={() => setErrorTextPopup("")} t={t} fileName={fileNameError} text={errorTextPopup} />
+        }
       </div>
 
-      <UploadPopup t={t} file={file} uploadPopup={uploadPopup} setUploadPopup={setUploadPopup} clearForm={clearForm} />
+      <UploadPopup t={t} file={file} uploadPopup={uploadPopup} fileName={fileName} setUploadPopup={setUploadPopup} clearForm={clearForm} />
     </StyledFormSubmitContent>
   );
 };

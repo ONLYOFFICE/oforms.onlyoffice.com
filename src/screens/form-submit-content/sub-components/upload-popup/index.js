@@ -3,7 +3,7 @@ import Heading from "@common/heading";
 import Button from "@common/button";
 import Text from "@common/text";
 
-const UploadPopup = ({ t, file, uploadPopup, setUploadPopup, clearForm }) => {
+const UploadPopup = ({ t, file, uploadPopup, fileName, setUploadPopup, clearForm }) => {
   const closePopup = (e) => {
     if (!e.target.closest(".popup-wrapper") || e.target.closest(".popup-btn-close") || e.target.closest(".popup-btn")) {
       setUploadPopup(false);
@@ -21,7 +21,7 @@ const UploadPopup = ({ t, file, uploadPopup, setUploadPopup, clearForm }) => {
           </div>
           <div>
             <div className="upload-name">
-              <span className="upload-name-file">{file !== undefined ? file.name.substring(0, file.name.length - 6) : ""}<span>.docxf</span></span>
+              <span className="upload-name-file">{file !== undefined ? fileName : ""}<span>.docxf</span></span>
             </div>
 
             <div className="upload-descr">
