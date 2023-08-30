@@ -20,7 +20,7 @@
     "form-data": "^4.0.0",
     "formidable": "^3.5.0",
     "fs": "^0.0.1-security",
-    "jsrsasign": "^10.8.6",
+    "jsonwebtoken": "^9.0.1",
     "moment": "^2.29.4",
     "next": "12.1.4",
     "next-i18next": "^11.0.0",
@@ -52,4 +52,4 @@
     "eslint-config-next": "12.1.4",
     "source-map-explorer": "^2.5.2"
   }
-} 
+}
