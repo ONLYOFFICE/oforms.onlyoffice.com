@@ -82,7 +82,7 @@ export const LanguageSelector = (props) => {
                         <Link
                             key={lang.key}
                             href={linkHref}
-                            locale={lang.shortKey}
+                            locale={router.asPath === "/form-submit" ? `${lang.shortKey === "en" ? "" : `${lang.shortKey}/`}form-submit` : lang.shortKey}
                             passHref
                         >
                             <LanguageSelectorLink

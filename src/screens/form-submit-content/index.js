@@ -7,7 +7,8 @@ import Heading from "@common/heading";
 import Text from "@common/text";
 import Button from "@common/button";
 import Breadcrumb from "./sub-components/breadcrumb";
-import Select from "./sub-components/select";
+import LanguageSelect from "./sub-components/select/language-select";
+import CategorySelect from "./sub-components/select/category-select";
 import Input from "./sub-components/input";
 import UploadFile from "./sub-components/upload-file";
 import UploadPopup from "./sub-components/upload-popup";
@@ -29,6 +30,8 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
   const [categoryId, setCategoryId] = useState([]);
   const [language, setLanguage] = useState([]);
   const [languageKey, setLanguageKey] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+  const [categoriesData, setCategoriesData] = useState(categories?.data);
 
   const [nameValid, setNameValid] = useState(false);
   const [nameExistsValid, setNameExistsValid] = useState(false);
@@ -322,8 +325,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
               onChange={(e) => onChangeHandler(e)}
               onBlur={(e) => onBlurHandler(e)}
             />
-            <Select
-              isMulti
+            <CategorySelect
               t={t}
               label={t("Form category")}
               labelMore={`(${t("maximum 5")})`}
@@ -337,8 +339,11 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
               error={categoryError}
               setError={setCategoryError}
               setCategoryId={setCategoryId}
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+              categoriesData={categoriesData}
             />
-            <Select
+            <LanguageSelect
               t={t}
               label={t("Language")}
               placeholder={t("Please select a language")}
@@ -350,6 +355,11 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
               setValid={setLanguageValid}
               error={languageError}
               setError={setLanguageError}
+              setCategory={setCategory}
+              setCategoryValid={setCategoryValid}
+              setSearchValue={setSearchValue}
+              categoriesData={categoriesData}
+              setCategoriesData={setCategoriesData}
             />
             <ReCAPTCHA
               ref={refRecaptcha}
