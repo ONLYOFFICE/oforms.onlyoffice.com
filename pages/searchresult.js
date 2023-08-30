@@ -54,7 +54,7 @@ const SearchResult = ({
   };
 
   useEffect(() => {
-    if (isDesktopClient ? queryDesktopClient : query?.length > 2) {
+    if (isDesktopClient ? queryDesktopClient : query?.length >= 2) {
       searchReqData();
     } else {
       setSearchResults(null);
