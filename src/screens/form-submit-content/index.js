@@ -357,6 +357,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
               setError={setLanguageError}
               setCategory={setCategory}
               setCategoryValid={setCategoryValid}
+              setCategoryId={setCategoryId}
               setSearchValue={setSearchValue}
               categoriesData={categoriesData}
               setCategoriesData={setCategoriesData}

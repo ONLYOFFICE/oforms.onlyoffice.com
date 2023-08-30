@@ -3,7 +3,7 @@ import axios from "axios";
 import StyledSelect from "./styled-select";
 import Text from "@common/text";
 
-const LanguageSelect = ({ t, label, labelMore, placeholder, selected, setSelected, errorText, valid, setValid, error, setError, setLanguageKey, setSearchValue, setCategory, setCategoryValid, categoriesData, setCategoriesData }) => {
+const LanguageSelect = ({ t, label, labelMore, placeholder, selected, setSelected, errorText, valid, setValid, error, setError, setLanguageKey, setSearchValue, setCategory, setCategoryValid, setCategoryId, categoriesData, setCategoriesData }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedError, setSelectedError] = useState(false);
   const selectRef = useRef();
@@ -65,6 +65,7 @@ const LanguageSelect = ({ t, label, labelMore, placeholder, selected, setSelecte
 
     if (categoriesData[0].attributes.locale !== res.data.categories.data[0].attributes.locale) {
       setCategory([]);
+      setCategoryId([]);
       setSearchValue("");
       setCategoryValid("");
     };
