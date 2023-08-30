@@ -35,7 +35,7 @@ const SearchContent = ({ handlerSetModal, handlerCardData }) => {
   };
 
   const onEnterPress = (e) => {
-    if (searchValue.length > 2) {
+    if (searchValue.length >= 2) {
       if (isDesktopClient) {
         !(searchResultPathname) && Router.push(`/searchresult/?desktop=true&query=${searchValue}${appTheme !== undefined ? `&theme=${appTheme}` : ''}`)
         searchResultPathname && Router.push(`?desktop=true&query=${searchValue}${appTheme !== undefined ? `&theme=${appTheme}` : ''}`, null, { shallow: true })
