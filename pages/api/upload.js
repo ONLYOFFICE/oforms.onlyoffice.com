@@ -1,7 +1,7 @@
 import fs from "fs";
 import formidable from "formidable";
 import axios from "axios";
-import jwt from "jsrsasign";
+import jwt from "jsonwebtoken";
 import S3 from "aws-sdk/clients/s3";
 import zlib from "zlib";
 import CONFIG from "@config/config";
@@ -79,8 +79,8 @@ export default async function handler(req, res) {
       };
 
       // Generate tokens for AuthorizationJwt
-      const cardPreviewToken = jwt.KJUR.jws.JWS.sign("HS256", JSON.stringify({ alg: "HS256" }), cardPreviewPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
-      const pdfToken = jwt.KJUR.jws.JWS.sign("HS256", JSON.stringify({ alg: "HS256" }), pdfPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+      const cardPreviewToken = jwt.sign(cardPreviewPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+      const pdfToken = jwt.sign(pdfPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
 
       // Send request to ConvertService and get result
       const cardPreviewRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, cardPreviewPayload, {

@@ -87,6 +87,7 @@ const StyledUploadPopup = styled.div`
     padding-left: 40px;
     font-size: 14px;
     line-height: 32px;
+    word-break: break-word;
     background-image: url("https://static-oforms.onlyoffice.com/icons/oform.svg");
     background-repeat: no-repeat;
     background-size: 32px;
