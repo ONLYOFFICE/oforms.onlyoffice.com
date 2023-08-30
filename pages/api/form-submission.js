@@ -1,5 +1,5 @@
 import axios from "axios";
-import jwt from "jsrsasign";
+import jwt from "jsonwebtoken";
 import FormData from "form-data";
 import nodemailer from "nodemailer";
 import CONFIG from "@config/config";
@@ -58,9 +58,9 @@ export default async function handler(req, res) {
     };
 
     // Generate tokens for AuthorizationJwt
-    const oformToken = jwt.KJUR.jws.JWS.sign("HS256", JSON.stringify({ alg: "HS256" }), oformPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
-    const docxfToken = jwt.KJUR.jws.JWS.sign("HS256", JSON.stringify({ alg: "HS256" }), docxfPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
-    const templateImageToken = jwt.KJUR.jws.JWS.sign("HS256", JSON.stringify({ alg: "HS256" }), templateImagePayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+    const oformToken = jwt.sign(oformPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+    const docxfToken = jwt.sign(docxfPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+    const templateImageToken = jwt.sign(templateImagePayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
 
     // Send requests to ConvertService and get result
     const oformRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, oformPayload, {
