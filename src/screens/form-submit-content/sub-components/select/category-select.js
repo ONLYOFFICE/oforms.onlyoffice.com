@@ -2,8 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import StyledSelect from "./styled-select";
 import Text from "@common/text";
 
-const CategorySelect = ({ t, label, labelMore, placeholder, categories, selected, setSelected, errorText, valid, setValid, error, setError, setCategoryId, categoriesData }) => {
-  const [searchValue, setSearchValue] = useState("");
+const CategorySelect = ({ t, label, labelMore, placeholder, selected, setSelected, errorText, valid, setValid, error, setError, setCategoryId, searchValue, setSearchValue, categoriesData }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedError, setSelectedError] = useState(false);
   const selectRef = useRef();

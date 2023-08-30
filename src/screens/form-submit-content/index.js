@@ -30,6 +30,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
   const [categoryId, setCategoryId] = useState([]);
   const [language, setLanguage] = useState([]);
   const [languageKey, setLanguageKey] = useState("");
+  const [searchValue, setSearchValue] = useState("");
   const [categoriesData, setCategoriesData] = useState(categories?.data);
 
   const [nameValid, setNameValid] = useState(false);
@@ -338,6 +339,8 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
               error={categoryError}
               setError={setCategoryError}
               setCategoryId={setCategoryId}
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
               categoriesData={categoriesData}
             />
             <LanguageSelect
@@ -352,6 +355,10 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
               setValid={setLanguageValid}
               error={languageError}
               setError={setLanguageError}
+              setCategory={setCategory}
+              setCategoryValid={setCategoryValid}
+              setSearchValue={setSearchValue}
+              categoriesData={categoriesData}
               setCategoriesData={setCategoriesData}
             />
             <ReCAPTCHA
