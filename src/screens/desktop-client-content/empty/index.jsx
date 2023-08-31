@@ -2,11 +2,11 @@ import React from "react";
 import {StyledEmpty} from "./styledEmpty";
 import {Empty as EmptyIllustration} from '@illustrations'
 import {useRouter} from "next/router";
-import Text from "../text";
+import Text from "@common/text";
 import {useTranslation} from "next-i18next";
 import PropTypes from "prop-types";
 
-export const Empty = (props) => {
+const Empty = (props) => {
     const router = useRouter()
     const theme = router.query.theme;
     const {children, onClear} = props;
@@ -31,3 +31,5 @@ Empty.propTypes = {
     onClear: PropTypes.func,
     children: PropTypes.element,
 }
+
+export default Empty;

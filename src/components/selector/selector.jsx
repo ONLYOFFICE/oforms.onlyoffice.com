@@ -16,6 +16,7 @@ const Selector = (props) => {
         onVisibilityChange,
         className,
         headerRender,
+        trigger = 'click',
     } = props;
 
     const [open, setOpen] = useState(false);
@@ -41,7 +42,6 @@ const Selector = (props) => {
     }
 
     const onMouseOver = () => {
-        console.log(1)
         if (isControlled) {
             onVisibilityChange && onVisibilityChange(true)
         } else {
@@ -53,8 +53,8 @@ const Selector = (props) => {
         <>
             <StyledSelector
                 className={selectorClassName}
-                onMouseLeave={onMouseLeave}
-                onMouseOver={onMouseOver}
+                onMouseLeave={trigger === 'hover' ? onMouseLeave : undefined}
+                onMouseOver={trigger === 'hover' ? onMouseOver: undefined}
             >
                 {
                     headerRender !== undefined ? headerRender(label, value, isControlled ? isOpen : open) :
@@ -86,6 +86,7 @@ Selector.propType = {
     onVisibilityChange: PropTypes.func,
     className: PropTypes.string,
     headerRender: PropTypes.func,
+    trigger: PropTypes.oneOf(['click', 'hover'])
 }
 
 export default Selector;

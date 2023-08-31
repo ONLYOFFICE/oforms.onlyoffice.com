@@ -22,7 +22,12 @@
       "scrollThumb": "#E0E0E0",
       "scrollThumbHover": "#E0E0E0",
       "highlightButtonHover": "#E0E0E0",
-      "highlightButtonPressed": "#CCCCCC"
+      "highlightButtonPressed": "#CCCCCC",
+      "iconContrastPopover": "#7A7A7A",
+      "iconContrastPopoverHover": "#444444",
+      "toTopIcon": "#FFFFFF",
+      "toTopIconBackground": "#444444",
+      "toTopIconBackgroundHover": "#1C1C1C"
     },
     "base": {
       "white": "#FFF",

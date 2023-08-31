@@ -27,83 +27,10 @@ const Footer = lazy(() => import("../src/screens/footer-content"), {
 
 const Index = ({forms, page, locale, sort, types, categories, compilations}) => {
     const {t} = useTranslation("common");
-    const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
     const router = useRouter();
     const isDesktopClient = router.query.desktop === 'true'
-    const [data, setData] = useState(forms)
-    const [isLoading, setIsLoading] = useState(false)
 
 
-    const getForms = useCallback(async (page) => {
-        try {
-            const nextPage = page ?? data.meta.pagination.page + 1
-            if (isLoading || nextPage > data.meta.pagination.pageCount) return
-
-            setIsLoading(true)
-            const formsRes = await fetch(
-                `${CMSConfigAPI}/api/oforms/?sort=name_form:${sort}&pagination[pageSize]=32&pagination[page]=${nextPage}&populate=template_image&populate=file_oform&populate=card_prewiew&populate=categories&locale=${locale}`
-            )
-            const forms = await formsRes.json()
-            const result = {
-                data: [...data.data, ...forms.data],
-                meta: forms.meta,
-            }
-            setData((prev) => result)
-            setIsLoading(false)
-            return result;
-        } catch (e) {
-            setIsLoading(false)
-            return data;
-        }
-    }, [isLoading, sort, CMSConfigAPI, locale, data])
-
-    const getContentHeight = useCallback(() => {
-        if (document) {
-            const target = document.body?.firstChild?.firstChild?.firstChild?.firstChild
-            return target?.clientHeight || 0
-        }
-
-        return 0
-    }, [])
-
-    const handleScroll = useCallback(() => {
-        const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-        const scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
-        const clientHeight = document.documentElement.clientHeight || window.innerHeight;
-        const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-
-        if (scrolledToBottom) {
-            getForms();
-        }
-    }, [getForms])
-
-    const handleResize = useCallback( () => {
-        const contentHeight = getContentHeight();
-        const screenHeight = document?.body.clientHeight;
-        if(contentHeight + 30 <= screenHeight) {
-            getForms()
-        }
-    }, [getContentHeight, getForms])
-
-    useEffect(() => {
-        setData(forms)
-    }, [forms])
-
-    useEffect(() => {
-        if(isDesktopClient) {
-            window.addEventListener('scroll', handleScroll)
-            window.addEventListener('resize', handleResize)
-        }
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll)
-            window.removeEventListener('resize', handleResize)
-        }
-    }, [data, forms, handleScroll, handleResize, isDesktopClient])
-
-    useEffect(() => {
-        if(isDesktopClient) handleResize()
-    }, [])
 
 
     return (
@@ -116,17 +43,18 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
                         metaDescription={t("titleIndexPage")}
                         metaDescriptionOg={t("metaDescriptionOgIndexPage")}
                         metaKeywords={t("metaKeywordsIndexPage")}
-                        isDesktopClient={isDesktopClient}
+                        isDesktopClient
                     />
                 </Layout.PageHead>
                 <DesktopClientContent
                     currentLanguage={locale}
-                    data={data}
+                    data={forms}
                     sort={sort}
                     page={+page}
                     types={types}
                     categories={categories}
                     compilations={compilations}
+                    locale={locale}
                 />
             </Layout>
             :

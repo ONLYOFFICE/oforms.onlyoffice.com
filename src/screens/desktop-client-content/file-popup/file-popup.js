@@ -5,6 +5,7 @@ import {PopupGlobalStyles, StyledFilePopup} from "./styled-file-popup";
 import {ChevronDown, XClose} from "@icons";
 import {useTranslation} from "next-i18next";
 import classNames from "classnames";
+import Dropdown from "@components/dropdown";
 
 const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...rest}) => {
     const docxfFile = cardData?.file_oform?.data?.filter((it) => {
@@ -33,13 +34,20 @@ const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...r
         }
     }, [setModalActive])
 
+    const onClick = (e) => {
+        console.log(e.target.closest('.file-dropdown'))
+        if(e.target.closest('.file-dropdown')) closeTypeDropdown()
+    }
+
     useEffect(() => {
         if(modalActive) {
             window.addEventListener('keydown', onKeyDown)
         } else {
             window.removeEventListener('keydown', onKeyDown)
         }
-        return () => window.removeEventListener('keydown', onKeyDown)
+        return () => {
+            window.removeEventListener('keydown', onKeyDown)
+        }
     }, [modalActive, onKeyDown])
 
 
@@ -53,6 +61,7 @@ const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...r
 
     const openTypeDropdown = () => {
         setIsOpenType(true);
+        
     };
 
     const closeTypeDropdown = () => {
@@ -64,14 +73,26 @@ const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...r
         closeTypeDropdown();
     };
 
+    const onClose = () => {
+        setModalActive(false)
+        closeTypeDropdown()
+    }
+
+    const onSecondModalClose = (e) => {
+        e.stopPropagation()
+        if(!e.target.closest('.file-info-item')) {
+            closeTypeDropdown()
+        }
+    }
+
 
     return (
-        <StyledFilePopup onClick={() => setModalActive(false)} className={classNames('modal-with-scroll', {'open': modalActive})} {...rest}>
+        <StyledFilePopup onClick={onClose} className={classNames('modal-with-scroll', {'open': modalActive})} {...rest}>
             {
                 modalActive && <PopupGlobalStyles />
             }
             <div className="popup-wrapper">
-                <div onClick={(e) => e.stopPropagation()} className="popup-content">
+                <div onClick={onSecondModalClose} className="popup-content">
                     <div className="popup-header">
                         <div className="popup-title">
                             {t("Form description")}
@@ -116,7 +137,7 @@ const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...r
                                         <div className="file-select">
                                             <div
                                                 className={"file-select-placeholder" + (isOpenType ? " open" : "")}
-                                                onClick={openTypeDropdown}
+                                                onClick={() => setIsOpenType(!isOpenType)}
                                             >
                                                 <div className="file-select-title">{fileTypeData}</div>
                                                 <ChevronDown
@@ -124,7 +145,7 @@ const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...r
                                                     className="file-select-icon"
                                                 />
                                             </div>
-                                            <div className="file-dropdown" onMouseLeave={closeTypeDropdown}>
+                                            <div className="file-dropdown">
                                                 {array.map((item, index) => (
                                                     <div
                                                         onClick={() => {

@@ -8,19 +8,19 @@ import {Loup} from "@icons";
 
 export const Header = ({handlerSetModal, handlerCardData}) => {
     const router = useRouter();
-    const isDesktopClient = router.query.desktop;
+    const isDesktopClient = router.query.desktop === 'true';
     const {t} = useTranslation('common')
 
     if (isDesktopClient) {
         return (
             <StyledHeader isDesktopClient={isDesktopClient}>
                 <HeaderTitle>{t('Templates')}</HeaderTitle>
-                <HeaderBox>
+                <HeaderBox className="header__box">
                     <SearchContent
                         handlerSetModal={handlerSetModal}
                         handlerCardData={handlerCardData}
                     />
-                    <Loup style={{margin: '0 18px'}} />
+                    <Loup style={{margin: '0 18px'}} className="loup-icon" />
                     <LanguageSelector/>
                 </HeaderBox>
             </StyledHeader>

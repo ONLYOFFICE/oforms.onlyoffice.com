@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {DropdownGlobalStyles, DropdownWrapper} from "./dropdown.styled";
 import classNames from "classnames";
 
-export const Dropdown = (props) => {
+const Dropdown = (props) => {
     const {
         overlay,
         trigger = 'hover',
@@ -15,6 +15,8 @@ export const Dropdown = (props) => {
         defaultVisible,
         getPopupContainer,
         children,
+        prefixCls = 'dropdown-component__overlay',
+        transitionName,
         ...otherProps
     } = props
     return (
@@ -28,16 +30,19 @@ export const Dropdown = (props) => {
                 overlay={overlay}
                 onVisibleChange={onVisibleChange}
                 placement={placement}
-                prefixCls="dropdown-component__overlay"
+                prefixCls={prefixCls}
                 defaultVisible={defaultVisible}
                 minOverlayWidthMatchTrigger={true}
                 getPopupContainer={getPopupContainer}
+                transitionName={transitionName}
             >{children}
             </RcDropdown>
             <DropdownGlobalStyles />
         </DropdownWrapper>
     )
 }
+
+export default Dropdown;
 
 
 Dropdown.propTypes = {
@@ -50,4 +55,6 @@ Dropdown.propTypes = {
     placement: PropTypes.oneOf(['top', 'topCenter', 'topRight', 'bottomLeft', 'bottom', 'bottomRight']),
     getPopupContainer: PropTypes.func,
     children: PropTypes.element,
+    prefixCls: PropTypes.string,
+    transitionName: PropTypes.string,
 }

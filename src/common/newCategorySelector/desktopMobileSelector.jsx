@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useTranslation} from "next-i18next";
 import styled from "styled-components";
 import classNames from "classnames";
@@ -6,10 +6,10 @@ import {ChevronLeft, XClose} from "@icons";
 import MenuItem from "@common/menuItem";
 import MenuSection from "@common/menuSection/menuSection";
 import Link from "next/link";
-import {CategorySelectorHeader} from "@common/categorySelector/categorySelectorHeader";
+import {CategorySelectorHeader} from "./categorySelectorHeader";
 import {useRouter} from "next/router";
 import Selector from "@components/selector";
-import {CategorySelectorDropdown} from "@common/categorySelector/styledCategorySelector";
+import {CategorySelectorDropdown} from "./styledCategorySelector";
 
 const DesktopMobileSelectorStyled = styled.div`
   .menu-item {
@@ -31,6 +31,7 @@ const DesktopMobileSelectorStyled = styled.div`
     background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
     box-shadow: ${({theme}) => theme.boxShadows.shadowMenu};
     width: 320px;
+    z-index: 1;
   }
 
   .menu-section__header {
@@ -59,7 +60,7 @@ const DesktopMobileSelectorStyled = styled.div`
 
 const DesktopMobileSelectorMenu = styled.div`
   position: absolute;
-  z-index: 10;
+  z-index: 1;
   background-color: ${({theme}) => theme.colors.palette.backgroundNormal};
   box-shadow: ${({theme}) => theme.boxShadows.shadowMenu};
 
@@ -133,9 +134,20 @@ export const DesktopMobileSelector = (props) => {
         return result;
     }
 
+    const onClick = (e) => {
+        if(!e.target.closest('.category-selector__dropdown') && !e.target.closest('.menu-section') && !e.target.closest('.selector') || e.target.closest('.menu-link')) {
+            setIsOpen(false)
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener('click', onClick)
+        return () => window.removeEventListener('click', onClick)
+    }, [])
+
 
     return (
-        <DesktopMobileSelectorStyled >
+        <DesktopMobileSelectorStyled className="dropdown-component">
             <Selector
                 label={t("Categories")}
                 value={router.pathname === "/searchresult" ? `${t("Search-result-for")} '${queryDesktopClient}'` : categoryName}
@@ -145,7 +157,7 @@ export const DesktopMobileSelector = (props) => {
                     <CategorySelectorHeader
                         label={label}
                         value={value}
-                        setIsOpen={setIsOpen}
+                        onClick={() => setIsOpen(true)}
                         isOpen={isOpen}
                         onClear={onClear}
                     />
@@ -185,7 +197,7 @@ export const DesktopMobileSelector = (props) => {
                                                 key={attributes.urlReq}
                                             >
                                                 <DesktopMenuSectionLink
-                                                    className={classNames({'active': categoryName === attributes.categorie})}
+                                                    className={classNames('menu-link', {'active': categoryName === attributes.categorie})}
                                                 >
                                                     {attributes.categorie}
                                                 </DesktopMenuSectionLink>
@@ -221,7 +233,7 @@ export const DesktopMobileSelector = (props) => {
                                                 key={attributes.urlReq}
                                             >
                                                 <DesktopMenuSectionLink
-                                                    className={classNames({'active': categoryName === attributes.type})}
+                                                    className={classNames('menu-link', {'active': categoryName === attributes.type})}
                                                 >
                                                     {attributes.type}
                                                 </DesktopMenuSectionLink>
@@ -257,7 +269,7 @@ export const DesktopMobileSelector = (props) => {
                                                 key={attributes.urlReq}
                                             >
                                                 <DesktopMenuSectionLink
-                                                    className={classNames({'active': categoryName === attributes.compilation})}
+                                                    className={classNames('menu-link', {'active': categoryName === attributes.compilation})}
                                                 >
                                                     {attributes.compilation}
                                                 </DesktopMenuSectionLink>
