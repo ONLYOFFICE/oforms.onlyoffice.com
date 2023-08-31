@@ -2,7 +2,7 @@
     "defaultLanguage": "en",
     "docEditorUrl": "config_docEditorUrl", 
     "api": {
-        "cms": "https://cors-anywhere.herokuapp.com/https://oforms.onlyoffice.com/dashboard",
+        "cms": "https://oforms.onlyoffice.com/dashboard",
         "url": "",
         "timeout": "30000"
     },
