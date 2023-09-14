@@ -18,6 +18,7 @@ export const SortSelector = (props) => {
     const isDesktopClient = router.query.desktop
     const {t} = useTranslation('common')
     const sort = router.query._sort || 'asc'
+    const [isOpen, setIsOpen] = useState(false)
 
     const onSort = () => {
         router.push(getLinkForSort(sort === 'asc' ? 'desc' : 'asc'))
@@ -87,6 +88,9 @@ export const SortSelector = (props) => {
             <Selector
                 label={t("SortBy")}
                 value={t(selectorValue)}
+                onVisibilityChange={setIsOpen}
+                isOpen={isOpen}
+                trigger="hover"
             >
                 <Dropdown
                     as="div"
