@@ -7,6 +7,7 @@ import getAllForms from "@lib/strapi/getForms";
 import getAllTypes from "@lib/strapi/getTypes";
 import getAllCategories from "@lib/strapi/getCategories";
 import getAllCompilations from "@lib/strapi/getCompilations";
+import getCategoriesMenu from "@lib/strapi/getCategoriesMenu";
 
 import CONFIG from "@config/config";
 import Layout from "@components/layout";
@@ -31,6 +32,7 @@ const SearchResult = ({
   types, 
   categories, 
   compilations,
+  categoriesMenu
 }) => {
   const { t } = useTranslation("common");
 
@@ -113,6 +115,7 @@ const SearchResult = ({
           types={types}
           categories={categories}
           compilations={compilations}
+          categoriesMenu={categoriesMenu}
         />
         <Suspense>
           <Accordion currentLanguage={locale} />
@@ -135,6 +138,7 @@ export const getServerSideProps = async ({ locale, query }) => {
   const types = await getAllTypes(locale);
   const categories = await getAllCategories(locale);
   const compilations = await getAllCompilations(locale);
+  const categoriesMenu = await getCategoriesMenu(locale);
   
   return {
     props: {
@@ -145,7 +149,8 @@ export const getServerSideProps = async ({ locale, query }) => {
       sort,
       types,
       categories,
-      compilations
+      compilations,
+      categoriesMenu
     },
   };
 };

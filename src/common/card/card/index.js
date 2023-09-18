@@ -4,6 +4,7 @@ import Box from "../../box";
 import Text from "../../text";
 import Button from "../../button";
 import Link from "./sub-components/link";
+import NextLink from "next/link";
 import StyledCard, {LoupIconWrapper} from "./styled-card";
 import {Loup} from "@icons";
 import {useTranslation} from "next-i18next";
@@ -15,6 +16,7 @@ const Card = ({
                   handlerSetModal,
                   handlerCardData,
                   isDesktopClient,
+                  categorieKey,
                   ...rest
               }) => {
     const {attributes} = arrayItems;
@@ -62,6 +64,7 @@ const Card = ({
                     />
                 </div>
             ) : (
+                categorieKey === currentLanguage ?
                 <Link href={pathName} className="image-boxshadow-template">
                     <img
                         className="card-image"
@@ -73,6 +76,20 @@ const Card = ({
                         <Loup size="24px" color="#FFF" />
                     </LoupIconWrapper>
                 </Link>
+                :
+                <NextLink locale={`${categorieKey === "en" ? "" : `${categorieKey}/`}${url}`} href="" passHref>
+                    <a className="image-boxshadow-template">
+                        <img
+                            className="card-image"
+                            src={imgUrlCard}
+                            alt={name_form}
+                            style={{width: "100%", height: "100%"}}
+                        />
+                        <LoupIconWrapper className="card-image__icon">
+                            <Loup size="24px" color="#FFF" />
+                        </LoupIconWrapper>
+                    </a>
+                </NextLink>
             )}
             <Box
                 className="card-template"
@@ -86,12 +103,21 @@ const Card = ({
                             label={name_form}
                         />
                     ) : (
+                        categorieKey === currentLanguage ?
                         <Link
                             className="title-template title-overflow-templapte"
                             title={name_form}
                             href={pathName}
                             label={name_form}
                         />
+                        :
+                        <NextLink locale={`${categorieKey === "en" ? "" : `${categorieKey}/`}${url}`} href="" passHref>
+                            <Link
+                                className="title-template title-overflow-templapte"
+                                title={name_form}
+                                label={name_form}
+                            />
+                        </NextLink>
                     )}
                 </Text>
                 <Text
@@ -99,18 +125,32 @@ const Card = ({
                     label={description_card}
                 />
                 <Box className="btn-container" justifyContent="space-between">
-                    <Link
-                        target="_blank"
-                        href={linkOformEditor}
-                        className="btn-container-link"
-                    >
-                        <Button
-                            isScale
-                            typeButton="primary"
-                            className="redactor-btn-template"
-                            label={t("FillOut")}
-                        />
-                    </Link>
+                    {
+                        categorieKey === currentLanguage ?
+                        <Link
+                            target="_blank"
+                            href={linkOformEditor}
+                            className="btn-container-link"
+                        >
+                            <Button
+                                isScale
+                                typeButton="primary"
+                                className="redactor-btn-template"
+                                label={t("FillOut")}
+                            />
+                        </Link>
+                        :
+                        <NextLink locale={`${categorieKey === "en" ? "" : `${categorieKey}/`}editor/?filename=${url}&fillform=${fillForm}`} target="_blank" href="" passHref>
+                            <a className="btn-container-link">
+                                <Button
+                                    isScale
+                                    typeButton="primary"
+                                    className="redactor-btn-template"
+                                    label={t("FillOut")}
+                                />
+                            </a>
+                        </NextLink>
+                    }
                     <Link href={urlOform} download className="btn-container-link">
                         <Button
                             isScale

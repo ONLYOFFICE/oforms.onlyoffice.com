@@ -10,6 +10,7 @@ import Breadcrumb from "./breadcrumb";
 import StyledMainContent from "./style";
 import {SortSelector} from "@common/sortSelector";
 import {useTranslation} from "next-i18next";
+import { useRouter } from "next/router";
 
 const MainContent = ({
   currentLanguage,
@@ -20,14 +21,22 @@ const MainContent = ({
   urlReqCategory,
   types,
   categories,
-  compilations
+  compilations,
+  categoriesMenu
 }) => {
   const { t } = useTranslation('common')
+  const router = useRouter();
   const countData = data.meta?.pagination?.total;
   const countPage = data.meta?.pagination?.pageCount;
   const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
   const [boolTypeSortData, setBoolTypeSortData] = useState(false);
   const [pageLimit, setPageLimit] = useState(countPage > 7 ? 7 : countPage);
+  const [categorieKey, setCategorieKey] = useState(router.locale);
+  const [categoriesMenuName, setCategoriesMenuName] = useState({
+    formsBranch: categoriesMenu?.data[0]?.attributes.name,
+    formsType: categoriesMenu?.data[1]?.attributes.name,
+    formsCompilations: categoriesMenu?.data[2]?.attributes.name
+  });
 
   const arrayStart = [...Array(countPage).keys()].map(i => i+1)
     .filter(item => item % pageLimit === 0)
@@ -95,6 +104,8 @@ const MainContent = ({
                 types={types}
                 categories={categories}
                 compilations={compilations}
+                categorieKey={categorieKey}
+                categoriesMenuName={categoriesMenuName}
             />
           </div>
           <div className="box-doc-info">

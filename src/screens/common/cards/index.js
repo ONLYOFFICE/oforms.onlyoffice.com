@@ -15,6 +15,7 @@ const Cards = ({
                    handlerSetModal,
                    handlerCardData,
                    searchResults,
+                   categorieKey,
                    ...rest
                }) => {
     const router = useRouter()
@@ -56,6 +57,7 @@ const Cards = ({
                                 isDesktopClient={isDesktopClient}
                                 handlerSetModal={handlerSetModal}
                                 handlerCardData={handlerCardData}
+                                categorieKey={categorieKey}
                             />
                         ))
                     ) : data?.length === 0 ? (

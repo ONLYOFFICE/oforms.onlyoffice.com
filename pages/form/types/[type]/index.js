@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import getAllTypes from "@lib/strapi/getTypes";
 import getAllCategories from "@lib/strapi/getCategories";
 import getAllCompilations from "@lib/strapi/getCompilations";
+import getCategoriesMenu from "@lib/strapi/getCategoriesMenu";
 
 import Layout from "@components/layout";
 import HeadSEO from "../../../../src/screens/head-content";
@@ -32,6 +33,7 @@ const Category = ({
   types, 
   categories, 
   compilations,
+  categoriesMenu
 }) => {
   const { t } = useTranslation("common");
   const dataCategoryInfo = categoryInfo.data[0].attributes;
@@ -98,6 +100,7 @@ const Category = ({
           types={types}
           categories={categories}
           compilations={compilations}
+          categoriesMenu={categoriesMenu}
         />
         <Suspense>
           <Accordion currentLanguage={locale} />
@@ -129,6 +132,7 @@ export const getServerSideProps = async ({ locale, query, ...ctx }) => {
   const types = await getAllTypes(locale);
   const categories = await getAllCategories(locale);
   const compilations = await getAllCompilations(locale);
+  const categoriesMenu = await getCategoriesMenu(locale);
 
   const getRedirect = () => {
     const result = {
@@ -167,6 +171,7 @@ export const getServerSideProps = async ({ locale, query, ...ctx }) => {
       types,
       categories,
       compilations,
+      categoriesMenu
     },
   };
 };

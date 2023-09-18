@@ -40,6 +40,10 @@ const StyledMainContent = styled(Section)`
     align-items: flex-start;
   }
 
+  .lang-selector {
+    margin-left: 24px;
+  }
+
   .idk-box-template {
     display: grid;
     grid-template-columns: ${(props) =>

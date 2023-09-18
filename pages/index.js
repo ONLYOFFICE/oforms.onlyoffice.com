@@ -7,6 +7,7 @@ import getAllForms from "@lib/strapi/getForms";
 import getAllTypes from "@lib/strapi/getTypes";
 import getAllCategories from "@lib/strapi/getCategories";
 import getAllCompilations from "@lib/strapi/getCompilations";
+import getCategoriesMenu from "@lib/strapi/getCategoriesMenu";
 import Layout from "@components/layout";
 import HeadSEO from "../src/screens/head-content";
 import HeadingContent from "../src/screens/heading-content";
@@ -25,7 +26,7 @@ const Footer = lazy(() => import("../src/screens/footer-content"), {
     ssr: false,
 });
 
-const Index = ({forms, page, locale, sort, types, categories, compilations}) => {
+const Index = ({forms, page, locale, sort, types, categories, compilations, categoriesMenu}) => {
     const {t} = useTranslation("common");
     const router = useRouter();
     const isDesktopClient = router.query.desktop === 'true'
@@ -84,6 +85,7 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
                         types={types}
                         categories={categories}
                         compilations={compilations}
+                        categoriesMenu={categoriesMenu}
                     />
                     <Suspense>
                         <Accordion currentLanguage={locale}/>
@@ -107,6 +109,7 @@ export const getServerSideProps = async ({locale, query}) => {
     const types = await getAllTypes(locale);
     const categories = await getAllCategories(locale);
     const compilations = await getAllCompilations(locale);
+    const categoriesMenu = await getCategoriesMenu(locale);
 
     return {
         props: {
@@ -117,7 +120,8 @@ export const getServerSideProps = async ({locale, query}) => {
             sort,
             types,
             categories,
-            compilations
+            compilations,
+            categoriesMenu
         },
     };
 }

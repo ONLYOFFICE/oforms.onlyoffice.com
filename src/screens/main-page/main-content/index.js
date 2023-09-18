@@ -10,14 +10,54 @@ import Box from "@common/box";
 import StyledMainContent from "./styled-main-content";
 import {SortSelector} from "@common/sortSelector";
 import {useTranslation} from "next-i18next";
+import { useRouter } from "next/router";
+import axios from "axios";
+import CategoryLanguageSelector from "@common/category-language-selector";
 
-const MainContent = ({currentLanguage, data, page, sort, types, categories, compilations}) => {
+const MainContent = ({currentLanguage, data, page, sort, types, categories, compilations, categoriesMenu}) => {
     const {t} = useTranslation('common')
-    const countData = data.meta?.pagination?.total;
-    const countPage = data.meta?.pagination?.pageCount;
+    const router = useRouter();
+    const [formsData, setFormsData] = useState(data.data);
+    const [countData, setCountData] = useState(data.meta?.pagination?.total);
+    const [countPage, setCountPage] = useState(data.meta?.pagination?.pageCount);
     const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
     const [boolTypeSortData, setBoolTypeSortData] = useState(false);
     const [pageLimit, setPageLimit] = useState(countPage > 7 ? 7 : countPage);
+
+    const [categorieKey, setCategorieKey] = useState(router.locale);
+    const [categoriesData, setCategoriesData] = useState(categories);
+    const [typesData, setTypesData] = useState(types);
+    const [compilationsData, setCompilationsData] = useState(compilations);
+    const [categoriesMenuName, setCategoriesMenuName] = useState({
+        formsBranch: categoriesMenu?.data[0]?.attributes.name,
+        formsType: categoriesMenu?.data[1]?.attributes.name,
+        formsCompilations: categoriesMenu?.data[2]?.attributes.name
+    });
+
+    const fetchFormsData = async (locale) => {
+        try {
+            const formsResponse = await axios.post("/api/forms", {
+                "locale": locale,
+                "_sort": router.query._sort || "asc",
+                "page": router.query.page || 1,
+                "pageSize": router.query.pageSize || 9
+            });
+
+            setFormsData(formsResponse.data.forms.data);
+            setCountData(formsResponse.data.forms.meta?.pagination?.total);
+            setCountPage(formsResponse.data.forms.meta?.pagination?.page);
+        } catch (error) {
+            console.error(error);
+        };
+    };
+
+    useEffect(() => {
+        if (categorieKey === currentLanguage) {
+            setFormsData(data.data); 
+        } else {
+            fetchFormsData(categorieKey);
+        };
+    }, [router.query._sort]);
 
     const arrayStart = [...Array(countPage).keys()].map(i => i + 1)
         .filter(item => item % pageLimit === 0)
@@ -81,15 +121,28 @@ const MainContent = ({currentLanguage, data, page, sort, types, categories, comp
             />
             <div className="idk-box-template">
                 <Box className="box-doc-info-template">
-                    <CategorySelector
-                        typeSortData={typeSortData}
-                        onChangeSelectTypeSort={onChangeSelectTypeSort}
-                        locale={currentLanguage}
-                        className="form-control"
-                        types={types}
-                        categories={categories}
-                        compilations={compilations}
-                    />
+                    <Box>
+                        <CategorySelector
+                            typeSortData={typeSortData}
+                            onChangeSelectTypeSort={onChangeSelectTypeSort}
+                            locale={currentLanguage}
+                            className="form-control"
+                            types={typesData}
+                            categories={categoriesData}
+                            compilations={compilationsData}
+                            categorieKey={categorieKey}
+                            categoriesMenuName={categoriesMenuName}
+                        />
+                        <CategoryLanguageSelector 
+                            setCategoriesData={setCategoriesData}
+                            setTypesData={setTypesData}
+                            setCompilationsData={setCompilationsData}
+                            categorieKey={categorieKey}
+                            setCategorieKey={setCategorieKey}
+                            setCategoriesMenuName={setCategoriesMenuName}
+                            fetchFormsData={fetchFormsData}
+                        />
+                    </Box>
                     <Text className="box-doc-categories">
                         {" "}
                         {countData} {t("Documents")}
@@ -100,11 +153,12 @@ const MainContent = ({currentLanguage, data, page, sort, types, categories, comp
                 </Box>
                 <Box className="box-cards-template" justifyContent="flex-end">
                     <Cards
-                        data={data.data}
+                        data={formsData}
                         typeSortData={boolTypeSortData}
                         currentLanguage={currentLanguage}
                         page={page}
                         sort={sort}
+                        categorieKey={categorieKey}
                     />
                 </Box>
                 {

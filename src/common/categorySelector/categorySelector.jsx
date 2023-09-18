@@ -34,6 +34,8 @@ export const CategorySelector = (props) => {
         isDesktopClient,
         categoryName,
         queryDesktopClient,
+        categorieKey,
+        categoriesMenuName
     } = props;
     const {t} = useTranslation('common')
     const [isCategoryOpen, setIsCategoryOpen] = useState(false);
@@ -144,7 +146,7 @@ export const CategorySelector = (props) => {
                     isDesktopClient={isDesktopClient}
                     isOpen={isCategoryOpen}
                 >
-                    {t("Forms by branch")}
+                    {isDesktopClient ? t("Forms by branch") : categoriesMenuName?.formsBranch}
                     <ChevronRight className="arrow-right"/>
                 </CategorySelectorDropdownItem>
                 {isCategoryOpen && categories.data?.length > 0 && (
@@ -169,6 +171,7 @@ export const CategorySelector = (props) => {
                                     {categorie.attributes.categorie}
                                 </CategorySelectorDropdownSubmenuLink>
                             </Link>,
+                            categorieKey === locale ?
                             <Link
                                 href={`/form/${categorie.attributes.urlReq}`}
                                 key={categorie.id}
@@ -179,6 +182,21 @@ export const CategorySelector = (props) => {
                                     className="category-selector__submenu-link"
                                 >
                                     {categorie.attributes.categorie}
+                                </CategorySelectorDropdownSubmenuLink>
+                            </Link>
+                            :
+                            categorie.attributes.localizations?.data.length > 0 && categorie.attributes.localizations?.data.find(el => el.attributes.locale === locale) &&
+                            <Link
+                                href=""
+                                locale={`${categorieKey === "en" ? "" : `${categorieKey}/`}form/${categorie.attributes.urlReq}`}
+                                key={categorie.id}
+                                passHref
+                            >  
+                                <CategorySelectorDropdownSubmenuLink
+                                    key={categorie.id}
+                                    className="category-selector__submenu-link"
+                                >
+                                    {categorie.attributes.localizations.data.find(el => el.attributes.locale === locale)?.attributes.categorie}
                                 </CategorySelectorDropdownSubmenuLink>
                             </Link>,
                             isDesktopClient
@@ -192,7 +210,7 @@ export const CategorySelector = (props) => {
                     isDesktopClient={isDesktopClient}
                     isOpen={isTypeOpen}
                 >
-                    {t("Forms by type")}
+                    {isDesktopClient ? t("Forms by type") : categoriesMenuName?.formsType}
                     <ChevronRight className="arrow-right"/>
                 </CategorySelectorDropdownItem>
                 {isTypeOpen && types.data?.length > 0 && (
@@ -217,6 +235,7 @@ export const CategorySelector = (props) => {
                                         {type.attributes.type}
                                     </CategorySelectorDropdownSubmenuLink>
                                 </Link>,
+                                categorieKey === locale ?
                                 <Link
                                     href={`/form/types/${type.attributes.urlReq}`}
                                     key={type.id}
@@ -227,6 +246,21 @@ export const CategorySelector = (props) => {
                                         className="category-selector__submenu-link"
                                     >
                                         {type.attributes.type}
+                                    </CategorySelectorDropdownSubmenuLink>
+                                </Link>
+                                :
+                                type.attributes.localizations?.data.length > 0 && type.attributes.localizations?.data.find(el => el.attributes.locale === locale) &&
+                                <Link
+                                    href=""
+                                    locale={`${categorieKey === "en" ? "" : `${categorieKey}/`}form/types/${type.attributes.urlReq}`}
+                                    key={type.id}
+                                    passHref
+                                >  
+                                    <CategorySelectorDropdownSubmenuLink
+                                        key={type.id}
+                                        className="category-selector__submenu-link"
+                                    >
+                                        {type.attributes.localizations.data.find(el => el.attributes.locale === locale)?.attributes.type}
                                     </CategorySelectorDropdownSubmenuLink>
                                 </Link>,
                                 isDesktopClient
@@ -241,7 +275,7 @@ export const CategorySelector = (props) => {
                     isDesktopClient={isDesktopClient}
                     isOpen={isCompilationsOpen}
                 >
-                    {t("Popular Compilations")}
+                    {isDesktopClient ? t("Popular Compilations") : categoriesMenuName?.formsCompilations}
                     <ChevronRight className="arrow-right"/>
                 </CategorySelectorDropdownItem>
                 {isCompilationsOpen && compilations.data?.length > 0 && (
@@ -266,6 +300,7 @@ export const CategorySelector = (props) => {
                                         {compilation.attributes.compilation}
                                     </CategorySelectorDropdownSubmenuLink>
                                 </Link>,
+                                categorieKey === locale ?
                                 <Link
                                     href={`/form/compilations/${compilation.attributes.urlReq}`}
                                     key={compilation.id}
@@ -276,6 +311,21 @@ export const CategorySelector = (props) => {
                                         className="category-selector__submenu-link"
                                     >
                                         {compilation.attributes.compilation}
+                                    </CategorySelectorDropdownSubmenuLink>
+                                </Link>
+                                :
+                                compilation.attributes.localizations?.data.length > 0 && compilation.attributes.localizations?.data.find(el => el.attributes.locale === locale) &&
+                                <Link
+                                    href=""
+                                    locale={`${categorieKey === "en" ? "" : `${categorieKey}/`}form/compilations/${compilation.attributes.urlReq}`}
+                                    key={compilation.id}
+                                    passHref
+                                >  
+                                    <CategorySelectorDropdownSubmenuLink
+                                        key={compilation.id}
+                                        className="category-selector__submenu-link"
+                                    >
+                                        {compilation.attributes.localizations.data.find(el => el.attributes.locale === locale)?.attributes.compilation}
                                     </CategorySelectorDropdownSubmenuLink>
                                 </Link>,
                                 isDesktopClient

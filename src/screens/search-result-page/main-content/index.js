@@ -8,6 +8,7 @@ import {CategorySelector} from "@common/categorySelector";
 import StyledMainContent from "./styled";
 import {SortSelector} from "@common/sortSelector";
 import {useTranslation} from "next-i18next";
+import { useRouter } from "next/router";
 
 const MainContent = ({
                          currentLanguage,
@@ -17,12 +18,20 @@ const MainContent = ({
                          urlReqCategory,
                          types,
                          categories,
-                         compilations
+                         compilations,
+                         categoriesMenu
                      }) => {
     const {t} = useTranslation('common')
+    const router = useRouter();
     const countData = data?.meta?.pagination?.total;
     const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
     const [boolTypeSortData, setBoolTypeSortData] = useState(false);
+    const [categorieKey, setCategorieKey] = useState(router.locale);
+    const [categoriesMenuName, setCategoriesMenuName] = useState({
+      formsBranch: categoriesMenu?.data[0]?.attributes.name,
+      formsType: categoriesMenu?.data[1]?.attributes.name,
+      formsCompilations: categoriesMenu?.data[2]?.attributes.name
+    });
     const onChangeSelectTypeSort = (e) => {
         setTypeSortData(e.target.value);
     };
@@ -53,6 +62,8 @@ const MainContent = ({
                             types={types}
                             categories={categories}
                             compilations={compilations}
+                            categorieKey={categorieKey}
+                            categoriesMenuName={categoriesMenuName}
                         />
                     </div>
                     <div className="box-doc-info">
