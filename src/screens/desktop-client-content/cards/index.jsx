@@ -27,7 +27,7 @@ const Cards = (props) => {
                 items.map(data => <Card key={data.id} data={data} onClick={onCardClick} isDark={isDark} />)
             }
             {
-                (isLoading && isLoading !== 'error') && (
+                true && (
                     <>
                         <Skeleton />
                         <Skeleton />

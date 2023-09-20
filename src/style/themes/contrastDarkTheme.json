@@ -27,7 +27,8 @@
       "iconContrastPopoverHover": "#FFFFFF",
       "toTopIcon": "#121212",
       "toTopIconBackground": "#E6E6E6",
-      "toTopIconBackgroundHover": "#A6A6A6"
+      "toTopIconBackgroundHover": "#A6A6A6",
+      "skeletonBorder": "#616161"
     },
     "base": {
       "white": "#FFF",

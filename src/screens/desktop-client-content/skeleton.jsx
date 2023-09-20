@@ -23,7 +23,7 @@ const SkeletonStyledBody = styled.div`
   background-size: 200% 100%;
   background-position: -100% 0;
   border-radius: 2px;
-  border: 1px solid var(--dark-border-toolbar, #616161);
+  border: 1px solid ${({theme}) => theme.colors.palette.skeletonBorder};
   animation: ${run} 2s linear infinite;
 `
 
