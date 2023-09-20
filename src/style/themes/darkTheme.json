@@ -42,6 +42,9 @@
     },
     "primary": "#FF6F3D"
   },
+  "gradients": {
+    "skeleton": "linear-gradient(270deg, rgba(255, 255, 255, 0.00) 23.13%, rgba(255, 255, 255, 0.08) 50.52%, rgba(255, 255, 255, 0.00) 78.12%), rgba(255, 255, 255, 0.04)"
+  },
   "dropShadows": {
     "shadowMenu": "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.4))"
   },

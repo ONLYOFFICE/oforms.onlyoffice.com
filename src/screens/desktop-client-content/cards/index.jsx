@@ -1,26 +1,47 @@
-import React, {useRef, useState} from "react";
-import {CardsBox, CardsStyled, ToTopButton} from "./cards.styled";
-import PropTypes from "prop-types";
-import Card from "../card";
-import Empty from "../empty";
-import {ToTop} from "@icons";
+import React, { useRef, useState } from 'react'
+import { CardsStyled, ToTopButton } from './cards.styled'
+import PropTypes from 'prop-types'
+import Card from '../card'
+import Empty from '../empty'
+import { ToTop } from '@icons'
+import { Skeleton } from '../skeleton'
 
 const Cards = (props) => {
-    const {items, onCardClick, onClear, isDark, topTop, toTopButtonActive, ...otherProps} = props;
+    const {
+        items,
+        onCardClick,
+        onClear,
+        isDark,
+        topTop,
+        toTopButtonActive,
+        isLoading,
+        ...otherProps
+    } = props
 
     if (items.length === 0) {
-        return <Empty onClear={onClear}/>
+        return <Empty onClear={onClear} />
     }
     return (
         <CardsStyled {...otherProps}>
             {
-                items.map(data => <Card key={data.id} data={data} onClick={onCardClick} isDark={isDark}/>)
+                items.map(data => <Card key={data.id} data={data} onClick={onCardClick} isDark={isDark} />)
+            }
+            {
+                (isLoading && isLoading !== 'error') && (
+                    <>
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
+                    </>
+                )
             }
             <ToTopButton onClick={topTop} active={toTopButtonActive}>
-                <ToTop/>
+                <ToTop />
             </ToTopButton>
         </CardsStyled>
-)
+    )
 }
 
 Cards.propTypes = {
@@ -30,5 +51,6 @@ Cards.propTypes = {
     isDark: PropTypes.bool,
     topTop: PropTypes.func,
     toTopButtonActive: PropTypes.bool,
+    isLoading: PropTypes.bool.isRequired,
 }
-export default Cards;
+export default Cards
