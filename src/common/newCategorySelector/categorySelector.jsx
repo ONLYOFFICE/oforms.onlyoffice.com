@@ -1,13 +1,13 @@
-import React, {useCallback, useEffect, useMemo, useState} from "react";
-import Dropdown from "@components/dropdown";
-import RcMenu, {Item as RcMenuItem, SubMenu as RcSubMenu} from 'rc-menu'
-import {useTranslation} from "next-i18next";
-import {useRouter} from "next/router";
-import MenuItem from "@common/menuItem";
-import {CategorySelectorGlobalStyles, SubMenuBox} from "./categorySelector.styled";
-import {CategorySelectorHeader} from "./categorySelectorHeader";
-import {DesktopMobileSelector} from "./desktopMobileSelector";
-import WebsiteMobileSelector from "./websiteMobileSelector";
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import Dropdown from '@components/dropdown'
+import RcMenu, { Item as RcMenuItem, SubMenu as RcSubMenu } from 'rc-menu'
+import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
+import MenuItem from '@common/menuItem'
+import { CategorySelectorGlobalStyles, SubMenuBox } from './categorySelector.styled'
+import { CategorySelectorHeader } from './categorySelectorHeader'
+import { DesktopMobileSelector } from './desktopMobileSelector'
+import WebsiteMobileSelector from './websiteMobileSelector'
 
 const desktopClientController = (desktopClientComponent, nonDesktopClientComponent, isDesktopClient) => {
     if (isDesktopClient) {
@@ -27,15 +27,15 @@ const CategorySelector = (props) => {
         isDesktopClient,
         categoryName,
         queryDesktopClient,
-    } = props;
+    } = props
 
-    const {t} = useTranslation('common')
-    const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-    const [isTypeOpen, setIsTypeOpen] = useState(false);
-    const [isCompilationsOpen, setIsCompilationsOpen] = useState(false);
-    const router = useRouter();
+    const { t } = useTranslation('common')
+    const [isCategoryOpen, setIsCategoryOpen] = useState(false)
+    const [isTypeOpen, setIsTypeOpen] = useState(false)
+    const [isCompilationsOpen, setIsCompilationsOpen] = useState(false)
+    const router = useRouter()
     const [isOpen, setIsOpen] = useState(false)
-    const theme = router.query.theme;
+    const theme = router.query.theme
     const [isMobile, setIsMobile] = useState(false)
 
     const appTheme = useMemo(() => {
@@ -47,7 +47,7 @@ const CategorySelector = (props) => {
     }, [])
 
     const onClear = () => {
-        const query = isDesktopClient ? {desktop: true, theme: appTheme ?? 'classic-theme'} : {theme: appTheme}
+        const query = isDesktopClient ? { desktop: true, theme: appTheme ?? 'classic-theme' } : { theme: appTheme }
         router.push({
             pathname: '/',
             query,
@@ -63,7 +63,7 @@ const CategorySelector = (props) => {
     }, [onResize])
 
     const onVisibleChange = (open) => {
-        if(isDesktopClient) {
+        if (isDesktopClient) {
             !open && setIsOpen(false)
         } else {
             setIsOpen(open)
@@ -91,8 +91,8 @@ const CategorySelector = (props) => {
             />
     }
 
-    const label = isDesktopClient ? `${t("Categories")}:` : t("Categories")
-    const value = isDesktopClient && router.pathname === "/searchresult" ? `${t("Search-result-for")} '${queryDesktopClient}'` : categoryName
+    const label = isDesktopClient ? `${t('Categories')}:` : t('Categories')
+    const value = isDesktopClient && router.pathname === '/searchresult' ? `${t('Search-result-for')} '${queryDesktopClient}'` : categoryName
 
 
     return (
@@ -100,9 +100,9 @@ const CategorySelector = (props) => {
             <Dropdown
                 overlay={
                     <RcMenu
-                        mode="vertical"
+                        mode='vertical'
                     >
-                        <RcMenuItem key="all-templates">
+                        <RcMenuItem key='all-templates'>
                             {
                                 desktopClientController(
                                     <MenuItem
@@ -112,17 +112,17 @@ const CategorySelector = (props) => {
                                             query: appTheme ? {
                                                 desktop: true,
                                                 theme: appTheme,
-                                            } : {desktop: true}
+                                            } : { desktop: true },
                                         }}
-                                        title={t("View all templates")}
+                                        title={t('View all templates')}
                                         icon={false}
                                     />,
                                     <MenuItem
-                                        href="/"
-                                        title={t("View all templates")}
+                                        href='/'
+                                        title={t('View all templates')}
                                         icon={false}
                                     />,
-                                    isDesktopClient
+                                    isDesktopClient,
                                 )
                             }
                         </RcMenuItem>
@@ -133,18 +133,18 @@ const CategorySelector = (props) => {
                                 desktopClientController(
                                     <MenuItem
                                         active={isCategoryOpen}
-                                        title={t("Forms by branch")}
+                                        title={t('Forms by branch')}
                                     />,
                                     <MenuItem
                                         active={isCategoryOpen}
-                                        title={t("Forms by branch")}
+                                        title={t('Forms by branch')}
                                     />,
-                                    isDesktopClient
+                                    isDesktopClient,
                                 )
                             }
                         >
                             <SubMenuBox inOneColumn={categories.data.length <= 8} isDesktopClient={isDesktopClient}>
-                                {categories.data?.map((categorie) =>
+                                {categories.data?.map((categorie) => categorie.attributes.oforms.data.length == 0 ? null :
                                     <RcMenuItem key={categorie.attributes.urlReqd}>
                                         {
                                             desktopClientController(
@@ -156,7 +156,7 @@ const CategorySelector = (props) => {
                                                         query: appTheme ? {
                                                             desktop: true,
                                                             theme: appTheme,
-                                                        } : {desktop: true}
+                                                        } : { desktop: true },
                                                     }}
                                                     title={categorie.attributes.categorie}
                                                     icon={false}
@@ -168,10 +168,10 @@ const CategorySelector = (props) => {
                                                     title={categorie.attributes.categorie}
                                                     icon={false}
                                                 />,
-                                                isDesktopClient
+                                                isDesktopClient,
                                             )
                                         }
-                                    </RcMenuItem>
+                                    </RcMenuItem>,
                                 )}
                             </SubMenuBox>
                         </RcSubMenu>
@@ -182,18 +182,18 @@ const CategorySelector = (props) => {
                                 desktopClientController(
                                     <MenuItem
                                         active={isTypeOpen}
-                                        title={t("Forms by type")}
+                                        title={t('Forms by type')}
                                     />,
                                     <MenuItem
                                         active={isTypeOpen}
-                                        title={t("Forms by type")}
+                                        title={t('Forms by type')}
                                     />,
-                                    isDesktopClient
+                                    isDesktopClient,
                                 )
                             }
                         >
                             <SubMenuBox inOneColumn={types.data.length <= 8} isDesktopClient={isDesktopClient}>
-                                {types.data?.map((type) =>
+                                {types.data?.map((type) => type.attributes.oforms.data.length == 0 ? null :
                                     <RcMenuItem key={type.attributes.urlReq}>
                                         {
                                             desktopClientController(
@@ -205,7 +205,7 @@ const CategorySelector = (props) => {
                                                         query: appTheme ? {
                                                             desktop: true,
                                                             theme: appTheme,
-                                                        } : {desktop: true}
+                                                        } : { desktop: true },
                                                     }}
                                                     title={type.attributes.type}
                                                     icon={false}
@@ -217,10 +217,10 @@ const CategorySelector = (props) => {
                                                     title={type.attributes.type}
                                                     icon={false}
                                                 />,
-                                                isDesktopClient
+                                                isDesktopClient,
                                             )
                                         }
-                                    </RcMenuItem>
+                                    </RcMenuItem>,
                                 )}
                             </SubMenuBox>
                         </RcSubMenu>
@@ -231,18 +231,18 @@ const CategorySelector = (props) => {
                                 desktopClientController(
                                     <MenuItem
                                         active={isCompilationsOpen}
-                                        title={t("Popular Compilations")}
+                                        title={t('Popular Compilations')}
                                     />,
                                     <MenuItem
                                         active={isCompilationsOpen}
-                                        title={t("Popular Compilations")}
+                                        title={t('Popular Compilations')}
                                     />,
-                                    isDesktopClient
+                                    isDesktopClient,
                                 )
                             }
                         >
                             <SubMenuBox inOneColumn={compilations.data.length <= 8} isDesktopClient={isDesktopClient}>
-                                {compilations.data?.map((compilation) =>
+                                {compilations.data?.map((compilation) => compilation.attributes.oforms.data.length == 0 ? null :
                                     <RcMenuItem key={compilation.attributes.urlReq}>
                                         {
                                             desktopClientController(
@@ -254,7 +254,7 @@ const CategorySelector = (props) => {
                                                         query: appTheme ? {
                                                             desktop: true,
                                                             theme: appTheme,
-                                                        } : {desktop: true}
+                                                        } : { desktop: true },
                                                     }}
                                                     title={compilation.attributes.compilation}
                                                     icon={false}
@@ -266,10 +266,10 @@ const CategorySelector = (props) => {
                                                     title={compilation.attributes.compilation}
                                                     icon={false}
                                                 />,
-                                                isDesktopClient
+                                                isDesktopClient,
                                             )
                                         }
-                                    </RcMenuItem>
+                                    </RcMenuItem>,
                                 )}
                             </SubMenuBox>
                         </RcSubMenu>
@@ -289,7 +289,7 @@ const CategorySelector = (props) => {
                     />
                 </div>
             </Dropdown>
-            <CategorySelectorGlobalStyles isDesktopClient={isDesktopClient}/>
+            <CategorySelectorGlobalStyles isDesktopClient={isDesktopClient} />
         </>
     )
 }
