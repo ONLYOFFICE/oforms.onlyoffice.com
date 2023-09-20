@@ -13,9 +13,10 @@ const run = keyframes`
 const SkeletonStyled = styled.li`
   width: 186px;
   
-  display: grid;
-  grid-template-rows: 260px 22px;
-  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 312px;
 `
 
 const SkeletonStyledBody = styled.div`
@@ -25,6 +26,7 @@ const SkeletonStyledBody = styled.div`
   border-radius: 2px;
   border: 1px solid ${({theme}) => theme.colors.palette.skeletonBorder};
   animation: ${run} 2s linear infinite;
+  height: 260px;
 `
 
 const SkeletonStyledTitle = styled.div`
@@ -32,6 +34,8 @@ const SkeletonStyledTitle = styled.div`
   background-size: 200% 100%;
   background-position: -100% 0;
   animation: ${run} 2s linear infinite;
+  height: 22px;
+  margin-bottom: 10px;
 `
 
 export const Skeleton = () => {
