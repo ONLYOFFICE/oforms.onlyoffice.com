@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react'
-import { CardsStyled, ToTopButton } from './cards.styled'
+import React, { useEffect, useRef, useState } from 'react'
+import { CardsStyled, CardsWrapper, ToTopButton } from './cards.styled'
 import PropTypes from 'prop-types'
 import Card from '../card'
 import Empty from '../empty'
@@ -17,30 +17,49 @@ const Cards = (props) => {
         isLoading,
         ...otherProps
     } = props
+    const [skeletonCount, setSkeletonCount] = useState(4)
+    const listRef = useRef(null)
+
+    useEffect(() => {
+        onResize()
+        window.addEventListener('resize', onResize)
+
+        return () => window.removeEventListener('resize', onResize)
+    }, [items])
 
     if (items.length === 0) {
         return <Empty onClear={onClear} />
     }
+
+    const onResize = () => {
+        const containerWidth = listRef.current.clientWidth
+        const itemWidth = listRef.current.firstChild.clientWidth
+        const gap = !Number.isNaN(Number.parseInt(window.getComputedStyle(listRef.current).gap)) ?
+            Number.parseInt(window.getComputedStyle(listRef.current).gap) : 0
+        const countOfItems = items.length
+
+        const countOfItemsPerRow = Math.floor((containerWidth + gap) / (itemWidth + gap))
+        const skeletonCount = Math.ceil(countOfItems / countOfItemsPerRow) * countOfItemsPerRow - countOfItems
+
+        setSkeletonCount(skeletonCount !== 0 ? skeletonCount : countOfItemsPerRow)
+    }
+
+    console.log(skeletonCount)
+
     return (
-        <CardsStyled {...otherProps}>
-            {
-                items.map(data => <Card key={data.id} data={data} onClick={onCardClick} isDark={isDark} />)
-            }
-            {
-                true && (
-                    <>
-                        <Skeleton />
-                        <Skeleton />
-                        <Skeleton />
-                        <Skeleton />
-                        <Skeleton />
-                    </>
-                )
-            }
+        <CardsWrapper {...otherProps}>
+            <CardsStyled ref={listRef} className='cards-list'>
+                {
+                    items.map(data => <Card key={data.id} data={data} onClick={onCardClick} isDark={isDark} />)
+                }
+                {
+                    isLoading && new Array(skeletonCount).fill(undefined).map((_, index) => <Skeleton key={index}  />)
+                }
+            </CardsStyled>
             <ToTopButton onClick={topTop} active={toTopButtonActive}>
                 <ToTop />
             </ToTopButton>
-        </CardsStyled>
+        </CardsWrapper>
     )
 }
 
