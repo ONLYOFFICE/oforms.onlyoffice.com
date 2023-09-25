@@ -6,6 +6,9 @@ const getCategories = async (locale) => {
     `${CMSConfigAPI}/api/categories/?locale=${locale}&populate=oforms`
   );
   const data = await res.json();
+  data.data = data.data.filter(category => {
+    return category.attributes.oforms.data.length !== 0
+  })
   return data;
 };
 

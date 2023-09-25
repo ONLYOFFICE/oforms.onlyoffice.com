@@ -6,7 +6,11 @@ const getAllTypes = async (locale) => {
     `${CMSConfigAPI}/api/types/?locale=${locale}&populate=oforms`
   );
   const data = await res.json();
-  return data;
+  data.data = data.data.filter(type => {
+    console.log(type)
+    return type.attributes.oforms.data.length !== 0
+  })
+  return data
 };
 
 export default getAllTypes;
