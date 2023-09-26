@@ -44,8 +44,6 @@ const Cards = (props) => {
         setSkeletonCount(skeletonCount !== 0 ? skeletonCount : countOfItemsPerRow)
     }
 
-    console.log(skeletonCount)
-
     return (
         <CardsWrapper {...otherProps}>
             <CardsStyled ref={listRef} className='cards-list'>

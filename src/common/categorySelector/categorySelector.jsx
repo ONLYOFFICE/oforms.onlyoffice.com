@@ -70,8 +70,6 @@ export const CategorySelector = (props) => {
         return () => window.removeEventListener('resize', onResize)
     }, [onResize])
 
-    console.log(categories)
-
     if (isMobile) {
         return isDesktopClient ?
             <DesktopMobileSelector

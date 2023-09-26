@@ -35,7 +35,6 @@ const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...r
     }, [setModalActive])
 
     const onClick = (e) => {
-        console.log(e.target.closest('.file-dropdown'))
         if(e.target.closest('.file-dropdown')) closeTypeDropdown()
     }
 
