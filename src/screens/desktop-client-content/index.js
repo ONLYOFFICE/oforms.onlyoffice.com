@@ -29,6 +29,7 @@ const DesktopClientContent = (props) => {
     const router = useRouter();
     const theme = router.query.theme
     const [toTopButtonActive, setToTopButtonActive] = useState(false)
+    const [isError, setIsError] = useState(false)
 
     const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
 
@@ -82,15 +83,15 @@ const DesktopClientContent = (props) => {
         if (scrolledToBottom) {
             getForms();
         }
-    }, [forms])
+    }, [forms, isLoading, isError])
 
-    const handleResize = useCallback(() => {
+    const handleResize = () => {
         const contentHeight = getContentHeight() + 157;
         const screenHeight = document?.body.clientHeight;
         if (contentHeight + 30 <= screenHeight) {
             getForms()
         }
-    }, [getContentHeight])
+    }
 
 
     useEffect(() => {
@@ -99,7 +100,7 @@ const DesktopClientContent = (props) => {
 
     useEffect(() => {
         handleResize()
-    }, [])
+    }, [isError, isLoading])
 
     const toTop = () => {
         document.body?.firstChild?.firstChild?.firstChild?.firstChild.childNodes[1].scrollTo({
@@ -109,10 +110,10 @@ const DesktopClientContent = (props) => {
     }
 
 
-    const getForms = useCallback(async (page) => {
+    const getForms = async (page) => {
         try {
             const nextPage = page ?? forms.meta.pagination.page + 1
-            if (isLoading || nextPage > forms.meta.pagination.pageCount) return
+            if (isLoading || nextPage > forms.meta.pagination.pageCount || isError) return
             setIsLoading(true)
             const formsRes = await fetch(
                 `${CMSConfigAPI}/api/oforms/?sort=name_form:${sort}&pagination[pageSize]=32&pagination[page]=${nextPage}&populate=template_image&populate=file_oform&populate=card_prewiew&populate=categories&locale=${locale}`
@@ -126,10 +127,11 @@ const DesktopClientContent = (props) => {
             setIsLoading(false)
             return result;
         } catch (e) {
+            setIsError(true)
             setIsLoading(false)
             return data;
         }
-    }, [isLoading, sort, CMSConfigAPI, locale, forms])
+    }
 
     useEffect(() => {
         if (sort === "desc") {
@@ -137,6 +139,7 @@ const DesktopClientContent = (props) => {
         } else {
             setTypeSortData(t("NameA-Z"));
         }
+        setIsError(false)
     }, [sort]);
 
     return (
@@ -162,6 +165,7 @@ const DesktopClientContent = (props) => {
                 isDark={(theme === 'theme-dark') || (theme === 'theme-contrast-dark')}
                 onScroll={handleScroll}
                 toTopButtonActive={toTopButtonActive}
+                isLoading={isLoading}
             />
             <FilePopup
                 currentLanguage={currentLanguage}
