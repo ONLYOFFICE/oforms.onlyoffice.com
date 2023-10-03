@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import StyledFooter from "./styled-footer";
-import Social from "./data/social-items";
+import SocialLinks from "./sub-components/social-links";
 import Items from "./data/footer-items";
 import FooterItem from "./sub-components/footer-item";
 import MailPopup from "./sub-components/mail-popup";
@@ -30,7 +30,7 @@ const Footer = ({ language }) => {
       {POSITION_ELEMENTS_ITEM.map((elements_in_div, id) => (
         <div className="footer-item-group" key={id}>
           {Items.map((it, idx) => {
-            return elements_in_div === it.position ? (
+            return elements_in_div === it.position && !(language === "zh" && it.className === "comparison") ? (
               <FooterItem
                 dis
                 heading={t(it.heading)}
@@ -70,33 +70,7 @@ const Footer = ({ language }) => {
       ))}
       <div className="footer-item-group last">
         <FooterItem heading={`${t("Follow us on")}:`} className="follow">
-          <div className="footer-social-links">
-            {Social.map((item) => (
-              <ExternalLink
-                className="footer-social"
-                href={item.href}
-                title={item.title}
-                rel={item.rel}
-                alt={item.title}
-                target="_blank"
-                key={item.title}
-                as={item.title === "OnlyOffice" ? "div" : "a"}
-                onClick={
-                  item.title === "OnlyOffice"
-                    ? () => handlerSetModal(true)
-                    : null
-                }
-              >
-                <IconButton
-                  className={item.className}
-                  iconName={item.src}
-                  size={item.size}
-                  grayed={item.filter}
-                  key={item.title}
-                />
-              </ExternalLink>
-            ))}
-          </div>
+          <SocialLinks language={language} handlerSetModal={handlerSetModal} />
         </FooterItem>
         <div className="footer-copyright-block">
           <span>{t("© Ascensio System SIA", {currentYear})}</span>
