@@ -6,17 +6,17 @@ const Items = [
         link: [
             {
                 localize: true,
-                label: "Document editor",
+                label: "Document Editor",
                 href: "/document-editor.aspx",
             },
             {
                 localize: true,
-                label: "Spreadsheet editor",
+                label: "Spreadsheet Editor",
                 href: "/spreadsheet-editor.aspx",
             },
             {
                 localize: true,
-                label: "Presentations editor",
+                label: "Presentation Editor",
                 href: "/presentation-editor.aspx",
             },
             {
@@ -26,7 +26,7 @@ const Items = [
             },
             {
                 localize: true,
-                label: "PDF reader and converter",
+                label: "PDF reader & converter",
                 href: "/pdf-reader.aspx",
             },
             {

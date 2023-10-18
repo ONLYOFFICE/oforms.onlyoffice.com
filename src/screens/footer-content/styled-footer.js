@@ -19,28 +19,6 @@ const StyledFooterTablet = css`
     padding: 32px 0;
     border: none;
 
-    .footer-social-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 24px 26px;
-      margin: 0 auto;
-      max-width: 300px;
-
-      .footer-social {
-        padding-right: 0px;
-        width: 24px;
-        border: initial;
-        border-radius: initial;
-
-        > div {
-          border-radius: initial;
-          width: 24px;
-          height: 24px;
-        }
-      }
-    }
-
     .footer-copyright {
       padding: 10px 0px 50px 0px;
     }
@@ -104,6 +82,10 @@ const StyledFooter = styled.div`
       padding-top: 40px;
       gap: 24px;
       border-top: 1px solid #e2e2e2;
+
+      .footer-items-group {
+        overflow: initial;
+      }
     }
   }
 
@@ -119,33 +101,6 @@ const StyledFooter = styled.div`
     font-size: 13px;
     line-height: 18px;
     color: #444444;
-  }
-
-  .footer-social-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 40px);
-    gap: 21px;
-
-    .footer-social {
-      list-style-type: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0;
-      vertical-align: middle;
-      background-color: #f9f9f9;
-      border-radius: 50%;
-      cursor: pointer;
-
-      > div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-      }
-    }
   }
 
   .footer-copyright-block {
@@ -165,6 +120,10 @@ const StyledFooter = styled.div`
 
   .footer-item-follow {
     padding-bottom: 0;
+  }
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 0.65fr 0.79fr 0.79fr 1fr;
   }
 
   @media ${device.laptop} {
@@ -188,10 +147,6 @@ const StyledFooter = styled.div`
 
       .footer-items-group {
         width: 100%;
-      }
-
-      .footer-social-links {
-        justify-content: center;
       }
 
       .footer-copyright-block {
