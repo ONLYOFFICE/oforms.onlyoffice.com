@@ -9,6 +9,7 @@ const AdventAnnounce = ({currentLanguage}) => {
     currentLanguage === "de" ? "https://www.onlyoffice.com/blog/de/2023/10/onlyoffice-docs-7-5-veroeffentlicht" :
     currentLanguage === "es" ? "https://www.onlyoffice.com/blog/es/2023/10/disponible-onlyoffice-docs-7-5" :
     currentLanguage === "it" ? "https://www.onlyoffice.com/blog/it/2023/10/onlyoffice-docs-7-5" :
+    currentLanguage === "ja" ? "https://www.onlyoffice.com/blog/ja/2023/10/onlyoffice-docs-7-5-released" :
     currentLanguage === "zh" ? "https://www.onlyoffice.com/blog/zh-hans/2023/10/onlyoffice-docs-7-5-released" : 
     "https://www.onlyoffice.com/blog/2023/10/onlyoffice-docs-7-5-released";
 
