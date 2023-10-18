@@ -17,7 +17,7 @@ const AdventAnnounce = ({currentLanguage}) => {
       <div className="advent-announce advent-mobile-hide">        
         <a href={href} target="_blank" rel="noreferrer noopener">
           <div className="advent-announce-text">
-            <b>{t("ONLYOFFICE Docs v7.5 released")}{`${currentLanguage === "zh" ? "：" : ": "}`}</b>{t("PDF Editor, automatic hyphenation, Page Breaks and tracer arrows in sheets, Screen Readers, and more")}
+            <b>{t("ONLYOFFICE Docs v7.5 released")}{`${currentLanguage === "zh" ? "：" : currentLanguage === "ja" ? "： " : ": "}`}</b>{t("PDF Editor, automatic hyphenation, Page Breaks and tracer arrows in sheets, Screen Readers, and more")}
           </div>
         </a>
       </div>
