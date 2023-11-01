@@ -653,8 +653,8 @@ const Nav = ({onClick, stateMobilePND, currentLanguage, ...rest}) => {
                 </Box>
             </Box>
             <Box className="phone_wrapper">
-                <Link className="nav-item-mobile-tel" href="tel:+371 660 164 25">
-                    +371 660 164 25
+                <Link className="nav-item-mobile-tel" href="tel:+37163399867">
+                    +371 633 998 67
                 </Link>
             </Box>
         </StyledNav>

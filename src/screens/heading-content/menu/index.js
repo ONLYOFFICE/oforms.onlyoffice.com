@@ -78,8 +78,8 @@ const Menu = ({ currentLanguage, template, isInvert }) => {
         stateMobilePND={stateMobile}
       />
       <div className="nav-item-lng">
-        <Link className="nav-item-tel" href={`tel:${t("tel37166016425")}`}>
-          {t("tel37166016425")}
+        <Link className="nav-item-tel" href="tel:+37163399867">
+          {t("tel37163399867")}
         </Link>
         <LanguageSelector />
       </div>
