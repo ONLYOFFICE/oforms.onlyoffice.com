@@ -53,7 +53,7 @@ export default async function handler(req, res) {
 
       // Get docxf response from Amazon S3
       const docxfAwsResponse = await s3.upload(params).promise();
-      const docxfAwsUrl = docxfAwsResponse.Location.replace("/s3.amazonaws.com", "");
+      const docxfAwsUrl = `https://${docxfAwsResponse.Bucket}/${docxfAwsResponse.key}`;
 
       // Payload data
       const cardPreviewPayload = {
