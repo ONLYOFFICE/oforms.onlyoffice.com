@@ -87,7 +87,7 @@
   "Clear-filter": "清除过滤器",
   "Templates": "模板",
   "File is empty": "文件为空",
-  "Please rename your form or choose another one.": "请重新命名表单，或选择其他文件。",
+  "Duplicate file name. Please rename your form or choose another one.": "文件名重复。请重新命名表单，或选择其他文件。",
   "Uploading your form": "表单上传中",
   "Please fill out all the fields before sending the form.": "发送表单前，请填写所有字段。",
   "Form name": "表单名称",

@@ -98,7 +98,7 @@
   "Clear-filter": "フィルタを解除する",
   "Templates": "テンプレート",
   "File is empty": "ファイルが空です",
-  "Please rename your form or choose another one.": "ファイル名を変更するか、別のファイル名を選択してください。",
+  "Duplicate file name. Please rename your form or choose another one.": "ファイル名の重複。ファイル名を変更するか、別のファイル名を選択してください。",
   "Uploading your form": "フォームのアップロード",
   "Please fill out all the fields before sending the form.": "フォームを送信する前に、すべてのフィールドに入力してください。",
   "Form name": "フォーム名",

@@ -97,7 +97,7 @@
   "Clear-filter": "Borrar filtro",
   "Templates": "Plantillas",
   "File is empty": "El archivo está vacío",
-  "Please rename your form or choose another one.": "Por favor, cambie el nombre de su formulario o elija otro.",
+  "Duplicate file name. Please rename your form or choose another one.": "Nombre de archivo duplicado. Por favor, cambie el nombre de su formulario o elija otro.",
   "Uploading your form": "Subiendo tu formulario",
   "Please fill out all the fields before sending the form.": "Por favor, rellena todos los campos antes de enviar el formulario.",
   "Form name": "Nombre del formulario",

@@ -107,10 +107,8 @@ const StyledSelect = styled.div`
       border-color: #444444;
       background-color: #FFFFFF;
 
-      &:not(.multi) {
-        &:after {
-          transform: translateY(-50%) rotate(180deg);
-        }
+      &:after {
+        transform: translateY(-50%) rotate(180deg);
       }
     }
 
@@ -119,18 +117,20 @@ const StyledSelect = styled.div`
       background-color: #F9FEEF;
     }
 
-    &:not(.multi) {
-      &:after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        right: 24px;
-        width: 24px;
-        height: 24px;
-        background-image: url(${arrowDownIcon.src});
-        background-repeat: no-repeat;
-        transform: translateY(-50%);
-      }
+    &.category-select {
+      padding: 15px 96px 15px 15px;
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 24px;
+      width: 24px;
+      height: 24px;
+      background-image: url(${arrowDownIcon.src});
+      background-repeat: no-repeat;
+      transform: translateY(-50%);
     }
 
     @media ${device.mobile} {
@@ -141,9 +141,10 @@ const StyledSelect = styled.div`
 
   .select-length {
     position: absolute;
-    right: 25px;
+    right: 60px;
     font-size: 16px;
     line-height: 26px;
+    cursor: pointer;
 
     @media ${device.mobile} {
       font-size: 13px;

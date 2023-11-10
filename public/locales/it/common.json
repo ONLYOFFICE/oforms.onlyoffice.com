@@ -120,7 +120,7 @@
   "Search on site": "Cerca sul sito",
   "FEATURES": "FUNZIONALITÀ",
   "File is empty": "Il file è vuoto",
-  "Please rename your form or choose another one.": "Ti preghiamo di rinominare il tuo modulo o scegline un altro.",
+  "Duplicate file name. Please rename your form or choose another one.": "Nome del file duplicato. Ti preghiamo di rinominare il tuo modulo o scegline un altro.",
   "Uploading your form": "Caricamento del modulo",
   "Please fill out all the fields before sending the form.": "Ti preghiamo di compilare tutti i campi prima di inviare il modulo.",
   "Form name": "Nome del modulo",
