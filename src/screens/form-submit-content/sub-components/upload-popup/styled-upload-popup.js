@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import { device } from "@components/utils/devices";
-import closeIcon from "@public/icons/close-btn.svg";
-import checkIcon from "@public/icons/check.svg";
 
 const StyledUploadPopup = styled.div`
   position: fixed;
@@ -64,7 +62,7 @@ const StyledUploadPopup = styled.div`
   .popup-btn-close {
     width: 24px;
     height: 24px;
-    background-image: url(${closeIcon.src});
+    background-image: url("https://static-oforms.onlyoffice.com/icons/close-btn.svg");
     background-repeat: no-repeat;
     background-size: 15px;
     background-position: center;
@@ -110,7 +108,7 @@ const StyledUploadPopup = styled.div`
 
   .upload-descr-item {
     padding-left: 32px;
-    background-image: url(${checkIcon.src});
+    background-image: url("https://static-oforms.onlyoffice.com/icons/check.svg");
     background-repeat: no-repeat;
     background-size: 24px;
     background-position: left top;
