@@ -1,53 +1,203 @@
 import styled from "styled-components";
+import { device } from "@components/utils/devices";
 
-export const LanguageSelectorStyled = styled.div`
+const StyledLanguageSelector = styled.div`
   position: relative;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .2s cubic-bezier(.16,.68,.43,.99);
 
-  .lang-selector__icon {
-    color: ${({theme}) => theme.colors.palette.iconNormal};
-    transition: all 200ms ease-in-out;
-    transform: rotate(${({isOpen}) => isOpen ? '180deg' : '0deg'});
-  }
+  &.is-open {
+    .language-list {
+      display: block;
 
-  .lang-selector__dropdown {
-    display: ${({isOpen}) => isOpen ? 'block' : 'none'};
-    background-color: ${({isDesktopClient, theme}) =>
-            isDesktopClient ? theme.colors.palette.backgroundNormal : theme.colors.base.white};
-  }
+      &:before {
+        animation: 0.3s forwards ease-in-out menuLineLeft;
+      }
 
-  .lang-selector__link {
-    &.active {
-      background-color: ${({isDesktopClient, theme}) =>
-              isDesktopClient ? theme.colors.palette.highlightButtonPressed : undefined};
+      &:after {
+        animation: 0.3s forwards ease-in-out menuLineRight;
+      }
     }
-    &:hover {
-      background-color: ${({isDesktopClient, theme}) =>
-              isDesktopClient ? theme.colors.palette.highlightButtonHover : undefined};
+
+    .arrow-image {
+      transform: translateY(0) rotate(180deg);
     }
   }
-`
 
-export const LanguageSelectorHeader = styled.div`
-  width: 48px;
-  display: grid;
-  grid-template-columns: 24px max-content;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
+  .language-button {
+    display: flex;
+    align-items: center;
+    border: none;
+    padding: 0;
+    min-height: 72px;
+    background-color: transparent;
+  }
+
+  .flag-image {
+    box-sizing: initial;
+    padding-right: 5px;
+  }
+
+  .arrow-image,
+  .flag-image {
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .flag-image,
+  .language-link {
+    display: block;
+    width: 24px;
+    height: 24px;
+    text-decoration: none;
+    background-image: url("https://static-oforms.onlyoffice.com/icons/flags.png");
+    background-repeat: no-repeat;
+    cursor: pointer;
+
+    &.fr {
+      background-position-y: -48px;
+    }
+
+    &.de {
+      background-position-y: -72px;
+    }
+
+    &.es {
+      background-position-y: -96px;
+    }
+
+    &.pt-br {
+      background-position-y: -120px;
+    }
+
+    &.it {
+      background-position-y: -144px;
+    }
+
+    &.cs {
+      background-position-y: -168px;
+    }
+
+    &.ja {
+      background-position-y: -216px;
+    }
+
+    &.zh {
+      background-position-y: -240px;
+    }
+  }
+
+  .arrow-image {
+    width: 8px;
+    height 6px;
+    transform: translateY(2px);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+
+    > div {
+      display: flex;
+      width: 8px;
+      height 6px;
+
+      svg {
+        display: flex;
+      }
+    }
+  }
+
+  .title-lng {
+    display: inline-block;
+    font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+    color: #333;
+    padding-left: 8px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    width: fit-content;
+  }
+
+  .language-list {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    display: ${(props) => (props.isOpen ? "block" : "none")};
+    border-radius: 0 0 8px 8px;
+    margin: 0;
+    padding: 16px;
+    max-width: 56px;
+    z-index: 100;
+    background-color: #ffffff;
+    box-shadow: 0 20px 50px rgba(85,85,85,0.15);
+    transform: translateX(-50%);
+    list-style-type: none;
+
+    &:before {
+      display: block;
+      position: absolute;
+      width: 0;
+      content: "";
+      height: 1px;
+      background-color: #FF642E;
+      transition: width 0.2s ease-in-out;
+      left: 50%;
+      top: 0;
+    }
+
+    &:after {
+      display: block;
+      position: absolute;
+      width: 0;
+      content: "";
+      height: 1px;
+      background-color: #FF642E;
+      transition: width 0.2s ease-in-out;
+      left: 50%;
+      top: 0;
+    }
+  }
+
+  .language-item {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    .language-item-image {
+      margin-top: -1px;
+    }
+  
+    .title-lng:hover {
+      color: #ff865c;
+      cursor: pointer;
+    }
+  }
+
+  @keyframes menuLineLeft {
+    0 {
+      width: 0;
+      left: 50%;
+    }
+
+    100% {
+      width: 50%;
+      left: 0;
+    }
+  }
+
+  @keyframes menuLineRight {
+    0 {
+      width: 0;
+    }
+
+    100% {
+      width: 50%;
+    }
+  }
+
+  @media screen and ${device.laptop} {
+    .language-button {
+      min-height: 48px;
+    }
+  }
 `;
 
-export const LanguageSelectorDropdown = styled.div`
-  position: absolute;
-  box-shadow: ${({theme}) => theme.boxShadows.shadowMenu};
-  top: 25px;
-  padding: 4px 0;
-  border: 1px solid ${({theme}) => theme.colors.palette.borderToolbar};
-  left: -5px;
-  border-radius: 2px;
-  z-index: 100;
-`;
-
-export const LanguageSelectorLink = styled.a`
-  display: flex;
-  padding: 0 4px;
-`;
+export default StyledLanguageSelector;
