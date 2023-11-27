@@ -12,6 +12,7 @@ const TextInput = ({
   id,
   type,
   placeholder,
+  label,
   labelColor,
   colorHover,
   onChange,
@@ -56,6 +57,7 @@ const TextInput = ({
         <StyledTextInput
           type={type}
           className={className}
+          placeholder={placeholder}
           disabled={isDisabled}
           isAutoFocussed={isAutoFocussed}
           defaultInput={defaultInput}
@@ -81,7 +83,7 @@ const TextInput = ({
           labelColor={labelColor}
           className="input-label"
         >
-          {placeholder}
+          {label}
         </Label>
         {isError && errorText && (
           <Text className="error-text" fontSize="13px" color="#CB0000">
