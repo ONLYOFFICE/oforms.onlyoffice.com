@@ -2,10 +2,10 @@ import Menu from "./menu";
 import SearchContent from "./search";
 import StyledHeadingContent from "./styled-headig";
 
-const HeadingContent = ({ template, currentLanguage, isInvert, templateForm }) => {
+const HeadingContent = ({ t, template, currentLanguage, isInvert, templateForm, stateMobile, setStateMobile }) => {
   return (
     <StyledHeadingContent template={template} templateForm={templateForm}>
-      <Menu template={template} currentLanguage={currentLanguage} isInvert={isInvert} />
+      <Menu t={t} template={template} locale={currentLanguage} isInvert={isInvert} stateMobile={stateMobile} setStateMobile={setStateMobile} />
       {!template ? (
         <SearchContent currentLanguage={currentLanguage} />
       ) : null}

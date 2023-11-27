@@ -64,6 +64,7 @@ const Form = ({form, locale, randomCarousel, types, categories, compilations}) =
         retrievedString !== undefined ? JSON.parse(retrievedString) : [];
     const [itemsClient, setItemsClient] = useState(parsedObjectLocalStorage);
     const [stateConfig, setConfig] = useState(shortCarouselSettings);
+    const [stateMobile, setStateMobile] = useState(false);
 
     const clientSideCarousel = () => {
         setCookie(CAROUSEL_COOKIE, "oforms-items", 1);
@@ -156,10 +157,10 @@ const Form = ({form, locale, randomCarousel, types, categories, compilations}) =
                 />
             </Layout.PageHead>
             <Layout.PageAnnounce>
-                <AdventAnnounce currentLanguage={locale}/>
+                <AdventAnnounce t={t} currentLanguage={locale} stateMobile={stateMobile} />
             </Layout.PageAnnounce>
             <Layout.PageHeader>
-                <HeadingContent template currentLanguage={locale} isInvert/>
+                <HeadingContent t={t} template currentLanguage={locale} isInvert stateMobile={stateMobile} setStateMobile={setStateMobile} />
             </Layout.PageHeader>
             <Layout.SectionMain>
                 <MainInfo
@@ -203,7 +204,7 @@ const Form = ({form, locale, randomCarousel, types, categories, compilations}) =
             </Layout.SectionMain>
             <Layout.PageFooter>
                 <Suspense>
-                    <Footer language={locale}/>
+                    <Footer t={t} locale={locale}/>
                 </Suspense>
             </Layout.PageFooter>
         </Layout>

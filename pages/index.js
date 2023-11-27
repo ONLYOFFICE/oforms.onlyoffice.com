@@ -32,6 +32,7 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
     const isDesktopClient = router.query.desktop === 'true'
     const [data, setData] = useState(forms)
     const [isLoading, setIsLoading] = useState(false)
+    const [stateMobile, setStateMobile] = useState(false);
 
 
     const getForms = useCallback(async (page) => {
@@ -141,10 +142,10 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
                     />
                 </Layout.PageHead>
                 <Layout.PageAnnounce>
-                    <AdventAnnounce currentLanguage={locale}/>
+                    <AdventAnnounce t={t} currentLanguage={locale} stateMobile={stateMobile} />
                 </Layout.PageAnnounce>
                 <Layout.PageHeader>
-                    <HeadingContent currentLanguage={locale}/>
+                    <HeadingContent t={t} currentLanguage={locale} stateMobile={stateMobile} setStateMobile={setStateMobile} />
                 </Layout.PageHeader>
                 <Layout.SectionMain>
                     <InfoContent currentLanguage={locale}/>
@@ -163,7 +164,7 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
                 </Layout.SectionMain>
                 <Layout.PageFooter>
                     <Suspense>
-                        <Footer language={locale}/>
+                        <Footer t={t} locale={locale}/>
                     </Suspense>
                 </Layout.PageFooter>
             </Layout>
