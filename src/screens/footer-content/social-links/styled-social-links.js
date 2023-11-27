@@ -9,22 +9,22 @@ const StyledSocialLinks = styled.div`
   &.zh {
     gap: 8px;
 
-    @media (max-width: 1024px) {
+    @media screen and ${device.laptop} {
       gap: 18px;
     }
 
-    @media (max-width: 600px) {
+    @media screen and (max-width: 600px) {
       gap: 16px;
     }
   }
 
   &.ja,
   &.zh {
-    @media (max-width: 600px) {
+    @media screen and (max-width: 600px) {
       column-gap: 20px;
     }
 
-    @media (max-width: 539px) {
+    @media screen and (max-width: 539px) {
       column-gap: 24px;
     }
   }
@@ -37,8 +37,8 @@ const StyledSocialLinks = styled.div`
     vertical-align: middle;
     width: 40px;
     height: 40px;
-    background-image: url("https://static-blog.onlyoffice.com/images/social-icons/color_social_icons.svg");
-    background-color: #f9f9f9;
+    background-image: url("https://static-oforms.onlyoffice.com/icons/color_social_icons.svg");
+    background-color: #F9F9F9;
     background-repeat: no-repeat;
     background-position: 0;
     border-radius: 50%;
@@ -90,7 +90,12 @@ const StyledSocialLinks = styled.div`
     }
 
     &.tiktok {
-      background-image: url("https://static-www.onlyoffice.com/v9.5.0/images/tiktok_footer.svg");
+      background-image: url("https://static-oforms.onlyoffice.com/images/social-icons/tiktok.react.svg");
+      background-position: center;
+    }
+
+    &.telegram {
+      background-image: url("https://static-oforms.onlyoffice.com/icons/telegram.svg");
       background-position: center;
     }
 
@@ -112,11 +117,6 @@ const StyledSocialLinks = styled.div`
     
     &.bilibili {
       background-position-x: -706px;
-    }
-
-    &.telegram {
-      background-image: url("https://static-www.onlyoffice.com/v9.5.0/images/telegram_footer.svg");
-      background-position: center;
     }
   }
 
@@ -142,7 +142,7 @@ const StyledSocialLinks = styled.div`
     background-position: center;
     background-size: 24px 24px;
     background-repeat: no-repeat;
-    background-color: #f9f9f9;
+    background-color: #F9F9F9;
     filter: grayscale(1);
 
     &:hover {
@@ -151,16 +151,15 @@ const StyledSocialLinks = styled.div`
   }
 
   .wdgt-wechat {
-    background-image: url("https://static-www.onlyoffice.com/v9.5.0/images/logo_wechat.png");
+    background-image: url("https://static-oforms.onlyoffice.com/icons/social-wechat.png");
   }
 
   .wdgt-line {
-    background-image: url("https://static-www.onlyoffice.com/v9.5.0/images/line.svg");
+    background-image: url("https://static-oforms.onlyoffice.com/icons/line.react.svg");
   }
 
   .popup-qr-code {
-    box-sizing: initial;
-    background-color: #fff;
+    background-color: #FFFFFF;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center bottom;
@@ -186,54 +185,14 @@ const StyledSocialLinks = styled.div`
     &.wechat-qr-code {
       top: -270px;
       height: 218px;
-      background-image: url("https://static-www.onlyoffice.com/v9.5.0/images/qrcode_for_wechat.jpg");
-
-      @media (max-width: 620px) {
-        left: -60px;
-      }
-
-      @media (max-width: 552px) {
-        left: 60px;
-      }
-
-      @media (max-width: 520px) {
-        left: 50%;
-      }
-
-      @media (max-width: 329px) {
-        left: 60px;
-      }
+      background-image: url("https://static-oforms.onlyoffice.com/icons/qrcode_for_wechat.jpg");
     }
 
     &.line-qr-code {
       top: -218px;
       height: 160px;
-      background-image: url("https://static-www.onlyoffice.com/v9.5.0/images/qr-code-line.png");
-
-      @media (max-width: 1062px) {
-        left: 60px;
-      }
-
-      @media (max-width: 1025px) {
-        left: -60px;
-      }
-
-      @media (max-width: 744px) {
-        left: 50%;
-      }
-
-      @media (max-width: 520px) {
-        left: -60px;
-      }
-
-      @media (max-width: 456px) {
-        left: 50%;
-      }
+      background-image: url("https://static-oforms.onlyoffice.com/icons/qr-code-line.jpg");
     }
-  }
-
-  @media ${device.laptop} {
-    justify-content: center;
   }
 `;
 
