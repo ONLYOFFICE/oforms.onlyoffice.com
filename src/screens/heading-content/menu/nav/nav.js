@@ -62,6 +62,7 @@ const Nav = ({ t, locale, ...rest }) => {
         <MenuItem heading={t("Developers")} id="navitem-developers">
           <div className="menu-wrapper">
             <div className="outer-box">
+              <Link id="navitem-developers-all-dev-solutions" className="dropdown-item" href={`${hrefLang}/for-developers.aspx`} label={t("All Developer solutions")} />
               <Link id="navitem-developers-docs-dev" className="dropdown-item" href={`${hrefLang}/developer-edition.aspx`} label={t("Docs Developer")} />
               <Link id="navitem-developers-conversion-api" className="dropdown-item" href={`${hrefLang}/conversion-api.aspx`} label={t("Conversion API")} />
               <Link id="navitem-developers-doc-builder" className="dropdown-item" href={`${hrefLang}/document-builder.aspx`} label={t("Document Builder")} />

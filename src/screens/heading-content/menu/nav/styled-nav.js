@@ -405,6 +405,12 @@ const StyledNav = styled.nav`
     }
   }
 
+  #navitem-developers-all-dev-solutions {
+    &:before {
+      background-position-y: -1508px;
+    }
+  }
+
   #navitem-developers-docs-dev,
   #navitem-pricing-docs-dev,
   #navitem-download-docs-dev {
