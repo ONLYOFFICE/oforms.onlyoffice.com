@@ -53,7 +53,7 @@ const FormSubmit = ({ locale, categories, queryIndexData }) => {
 };
 
 export const getServerSideProps = async ({ locale, query, req, res }) => {
-  const categories = await getAllCategories(locale);
+  const categories = await getAllCategories(locale === "pt" ? "pt-br" : locale);
 
   const queryResult = await new Promise(async (resolve) => {
     if (query.index) {

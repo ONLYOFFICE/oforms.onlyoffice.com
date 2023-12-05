@@ -120,16 +120,16 @@ export const getServerSideProps = async ({ locale, query, ...ctx }) => {
   const pageSize = query.pageSize || isDesktopClient ? 0 : 9;
   const cms = config.api.cms
   const res = await fetch(
-    `${cms}/api/oforms/?filters[types][urlReq][$eq]=${urlReq}&locale=${locale}&sort=name_form:${sort}&${pageSize ? `&pagination[pageSize]=${pageSize}` : ''}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
+    `${cms}/api/oforms/?filters[types][urlReq][$eq]=${urlReq}&locale=${locale === "pt" ? "pt-br" : locale}&sort=name_form:${sort}&${pageSize ? `&pagination[pageSize]=${pageSize}` : ''}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
   );
   const resCategory = await fetch(
-    `${cms}/api/types/?filters[urlReq][$eq]=${urlReq}&locale=${locale}`
+    `${cms}/api/types/?filters[urlReq][$eq]=${urlReq}&locale=${locale === "pt" ? "pt-br" : locale}`
   );
   const categoryForms = await res.json();
   const categoryInfo = await resCategory.json();
-  const types = await getAllTypes(locale);
-  const categories = await getAllCategories(locale);
-  const compilations = await getAllCompilations(locale);
+  const types = await getAllTypes(locale === "pt" ? "pt-br" : locale);
+  const categories = await getAllCategories(locale === "pt" ? "pt-br" : locale);
+  const compilations = await getAllCompilations(locale === "pt" ? "pt-br" : locale);
 
   const getRedirect = () => {
     const result = {

@@ -214,22 +214,19 @@ const Form = ({form, locale, randomCarousel, types, categories, compilations}) =
 export const getServerSideProps = async ({locale, ...context}) => {
     const cms = config.api.cms
     const res = await fetch(
-        `${cms}/api/oforms?filters[url][$eq]=${context.query.form}&locale=${locale}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`
+        `${cms}/api/oforms?filters[url][$eq]=${context.query.form}&locale=${locale === "pt" ? "pt-br" : locale}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`
     );
     const form = await res.json();
     const randomCarouselItems = await fetch(
-        `${cms}/api/oforms/?locale=${locale}&pagination[pageSize]=7&pagination[page]=2&populate=file_oform&populate=categories&populate=card_prewiew`
+        `${cms}/api/oforms/?locale=${locale === "pt" ? "pt-br" : locale}&pagination[pageSize]=7&pagination[page]=2&populate=file_oform&populate=categories&populate=card_prewiew`
     );
     const randomCarousel = await randomCarouselItems.json();
-    const types = await getAllTypes(locale);
-    const categories = await getAllCategories(locale);
-    const compilations = await getAllCompilations(locale);
+    const types = await getAllTypes(locale === "pt" ? "pt-br" : locale);
+    const categories = await getAllCategories(locale === "pt" ? "pt-br" : locale);
+    const compilations = await getAllCompilations(locale === "pt" ? "pt-br" : locale);
     if (form.data.length === 0) {
         return {
-            redirect: {
-                destination: `https://oforms.teamlab.info/404`,
-                permanent: true,
-            },
+            notFound: true
         };
     }
 

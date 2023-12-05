@@ -84,7 +84,7 @@ const OformsEditorPage = ({ data, serfilename }) => {
 export const getServerSideProps = async (context) => {
   const serfilename = context.query.filename;
   const res = await fetch(
-    `${CMSConfigAPI}/api/oforms/?filters[url][$eq]=${context.query.filename}&locale=${context.locale}`
+    `${CMSConfigAPI}/api/oforms/?filters[url][$eq]=${context.query.filename}&locale=${context.locale === "pt" ? "pt-br" : context.locale}`
   );
   const data = await res.json();
   if (data.data.length === 0) {

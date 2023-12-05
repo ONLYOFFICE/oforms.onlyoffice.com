@@ -132,10 +132,10 @@ export const getServerSideProps = async ({ locale, query }) => {
   const page = query.page || 1;
   const sort = query._sort || 'asc'
   const pageSize = query.pageSize || isDesktop ? 0 : 9;
-  const forms = await getAllForms(locale, page, sort, pageSize);
-  const types = await getAllTypes(locale);
-  const categories = await getAllCategories(locale);
-  const compilations = await getAllCompilations(locale);
+  const forms = await getAllForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize);
+  const types = await getAllTypes(locale === "pt" ? "pt-br" : locale);
+  const categories = await getAllCategories(locale === "pt" ? "pt-br" : locale);
+  const compilations = await getAllCompilations(locale === "pt" ? "pt-br" : locale);
   
   return {
     props: {
