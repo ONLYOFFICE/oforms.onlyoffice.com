@@ -62,7 +62,7 @@ const Cards = ({
                         isDesktopClient ? <Empty onClear={onClear}/> :
                             <div className="no-more-result-block">
                                 <Img
-                                    src="https://static-oforms.teamlab.info/icons/bg-errors.react.svg"
+                                    src="https://static-oforms.onlyoffice.com/icons/bg-errors.react.svg"
                                     className="no-more-result-image"
                                     alt="No more results"
                                 />
