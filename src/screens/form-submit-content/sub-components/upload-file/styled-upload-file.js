@@ -1,9 +1,5 @@
 import styled from "styled-components";
 import { device } from "@components/utils/devices";
-import fileIcon from "@public/icons/file.svg";
-import uploadIcon from "@public/icons/upload.svg";
-import changeIcon from "@public/icons/change.svg";
-import deleteIcon from "@public/icons/delete.svg";
 
 const StyledUploadFile = styled.div`
   position: relative;
@@ -131,7 +127,7 @@ const StyledUploadFile = styled.div`
         display: inline-flex;
         width: 32px;
         height: 32px;
-        background-image: url(${fileIcon.src});
+        background-image: url("https://static-oforms.onlyoffice.com/icons/file.svg");
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
@@ -148,7 +144,7 @@ const StyledUploadFile = styled.div`
     display: inline-flex;
     width: 72px;
     height: 72px;
-    background-image: url(${uploadIcon.src});
+    background-image: url("https://static-oforms.onlyoffice.com/icons/upload.svg");
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -223,7 +219,7 @@ const StyledUploadFile = styled.div`
 
   .upload-change-btn {
     margin-right: 10px;
-    background-image: url(${changeIcon.src});
+    background-image: url("https://static-oforms.onlyoffice.com/icons/change.svg");
 
     &:after {
       top: calc(100% - 8px);
@@ -232,7 +228,7 @@ const StyledUploadFile = styled.div`
   }
 
   .upload-delete-btn {
-    background-image: url(${deleteIcon.src});
+    background-image: url("https://static-oforms.onlyoffice.com/icons/delete.svg");
 
     &:after {
       top: calc(100% - 8px);

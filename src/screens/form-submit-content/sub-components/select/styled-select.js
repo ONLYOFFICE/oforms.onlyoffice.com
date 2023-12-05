@@ -1,8 +1,5 @@
 import styled from "styled-components";
 import { device } from "@components/utils/devices";
-import arrowDownIcon from "@public/icons/arrow-gray-down.svg";
-import crossIcon from "@public/icons/close-btn.svg";
-import checkGrayIcon from "@public/icons/check-gray.svg";
 
 const StyledSelect = styled.div`
   &:not(:last-child) {
@@ -128,7 +125,7 @@ const StyledSelect = styled.div`
       right: 24px;
       width: 24px;
       height: 24px;
-      background-image: url(${arrowDownIcon.src});
+      background-image: url("https://static-oforms.onlyoffice.com/icons/arrow-gray-down.svg");
       background-repeat: no-repeat;
       transform: translateY(-50%);
     }
@@ -173,7 +170,7 @@ const StyledSelect = styled.div`
     line-height: 26px;
 
     &.reset {
-      background-image: url(${crossIcon.src});
+      background-image: url("https://static-oforms.onlyoffice.com/icons/close-btn.svg");
       background-repeat: no-repeat;
       background-position: 20px center;
     }
@@ -181,7 +178,7 @@ const StyledSelect = styled.div`
     &.selected {
       color: #FF6F3D;
       background-color: transparent;
-      background-image: url(${checkGrayIcon.src});
+      background-image: url("https://static-oforms.onlyoffice.com/icons/check-gray.svg");
       background-repeat: no-repeat;
       background-position: 16px center;
     }
