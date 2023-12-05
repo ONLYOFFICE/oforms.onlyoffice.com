@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import bannerLeft from "@public/images/banners/banner-left.svg";
-import bannerLeftMobile from "@public/images/banners/banner-left-mobile.svg";
-import bannerRight from "@public/images/banners/banner-right.svg";
-import bannerRightMobile from "@public/images/banners/banner-right-mobile.svg";
+import { device } from "@components/utils/devices";
 
 const StyledAdventAnnounce = styled.div`
   .advent-announce {
@@ -20,7 +17,12 @@ const StyledAdventAnnounce = styled.div`
       position: absolute;
       display: block;
       width: 100%;
+      height: 100%;
       text-decoration: none;
+
+      @media screen and ${device.laptop} {
+        height: 48px;
+      }
     }
 
     .advent-announce-text {
@@ -34,10 +36,10 @@ const StyledAdventAnnounce = styled.div`
       font-weight: 400;
       line-height: normal;
       letter-spacing: 0.01em;
-      height: 56px;
+      height: 44px;
       color: #fff;
       text-decoration: none;
-      z-index: 0;
+      z-index: 10;
       max-width: 595px;
       padding: 6px 0;
 
@@ -51,18 +53,18 @@ const StyledAdventAnnounce = styled.div`
         z-index: -1;
         background-repeat: no-repeat;
 
-        @media (max-width: 1023px) {
+        @media screen and ${device.laptop} {
           height: 48px;
         }
       }
 
       &:before {
-        background-image: url(${bannerLeft.src});
+        background-image: url("https://static-oforms.onlyoffice.com/images/banners/banner-left.svg");
         left: -436px;
         width: 419px;
 
-        @media (max-width: 1023px) {
-          background-image: url(${bannerLeftMobile.src});
+        @media screen and ${device.laptop} {
+          background-image: url("https://static-oforms.onlyoffice.com/images/banners/banner-left-mobile.svg");
           background-position: center;
           top: -16px;
           left: -61px;
@@ -73,13 +75,13 @@ const StyledAdventAnnounce = styled.div`
       }
 
       &:after {
-        background-image: url(${bannerRight.src});
+        background-image: url("https://static-oforms.onlyoffice.com/images/banners/banner-right.svg");
         top: 8px;
         right: -360px;
         width: 352px;
 
-        @media (max-width: 1023px) {
-          background-image: url(${bannerRightMobile.src});
+        @media screen and ${device.laptop} {
+          background-image: url("https://static-oforms.onlyoffice.com/images/banners/banner-right-mobile.svg");
           background-position: center;
           top: 0;
           right: -33px;
@@ -88,15 +90,50 @@ const StyledAdventAnnounce = styled.div`
         }
       }
 
-      @media (max-width: 1024px) {
+      @media screen and ${device.laptop} {
+        background-color: transparent;
         display: inline-block;
         height: auto;
         font-size: 13px;
         line-height: normal;
         padding: 15px 0;
-        white-space: normal;
-        width: auto !important;
       }
+    }
+
+    @media screen and ${device.laptop} {
+      &.is-open {
+        transform: translate3d(429px, 0, 0);
+        transition: transform 0.2s cubic-bezier(0.16,0.68,0.43,0.99);
+      }
+    }
+
+    @media (max-width: 592px) {
+      &.is-open {
+        transform: translate3d(380px, 0, 0);
+      }
+    }
+
+    @media (max-width: 430px) {
+      &.is-open {
+        transform: translate3d(288px, 0, 0);
+      }
+    }
+  }
+
+  .advent-desktop-hide {
+    display: none;
+
+    @media screen and ${device.laptop} {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+    }
+  }
+
+  .advent-mobile-hide {
+    @media screen and ${device.laptop} {
+      display: none;
     }
   }
 
@@ -116,20 +153,13 @@ const StyledAdventAnnounce = styled.div`
     }
   }
 
-  .advent-desktop-hide {
-    display: none;
+  @media screen and ${device.laptop} {
+    overflow-x: hidden;
 
-    @media (max-width: 1024px) {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 48px;
-    }
-  }
-
-  .advent-mobile-hide {
-    @media (max-width: 1024px) {
-      display: none;
+    &.active {
+      ~ header {
+        overflow-x: hidden;
+      }
     }
   }
 `;

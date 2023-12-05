@@ -42,6 +42,7 @@ const Category = ({
     const categoryName = categoryInfo.data[0].attributes.categorie;
 
     const [isCategoryPage, setIsCategoryPage] = useState(true);
+    const [stateMobile, setStateMobile] = useState(false);
     const query = useRouter();
     const isDesktopClient = query.query.desktop === "true";
     return isDesktopClient ?
@@ -80,10 +81,10 @@ const Category = ({
                 />
             </Layout.PageHead>
             <Layout.PageAnnounce>
-                <AdventAnnounce currentLanguage={locale}/>
+                <AdventAnnounce t={t} currentLanguage={locale} stateMobile={stateMobile} />
             </Layout.PageAnnounce>
             <Layout.PageHeader>
-                <HeadingContent currentLanguage={locale}/>
+                <HeadingContent t={t} currentLanguage={locale} stateMobile={stateMobile} setStateMobile={setStateMobile} />
             </Layout.PageHeader>
             <Layout.SectionMain>
                 <InfoContent category={nameCategory} header={header}/>
@@ -104,7 +105,7 @@ const Category = ({
             </Layout.SectionMain>
             <Layout.PageFooter>
                 <Suspense>
-                    <Footer language={locale}/>
+                    <Footer t={t} locale={locale}/>
                 </Suspense>
             </Layout.PageFooter>
         </Layout>
