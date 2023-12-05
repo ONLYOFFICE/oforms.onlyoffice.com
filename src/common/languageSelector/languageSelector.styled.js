@@ -101,7 +101,7 @@ const StyledLanguageSelector = styled.div`
       background-position-y: -96px;
     }
 
-    &.pt-br {
+    &.pt {
       background-position-y: -120px;
     }
 
