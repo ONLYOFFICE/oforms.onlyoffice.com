@@ -5,24 +5,9 @@
     "iconName": "en.svg"
   },
   {
-    "key": "zh-CN",
-    "shortKey": "zh",
-    "iconName": "zh.svg"
-  },
-  {
-    "key": "it-IT",
-    "shortKey": "it",
-    "iconName": "it.svg"
-  },
-  {
     "key": "fr-FR",
     "shortKey": "fr",
     "iconName": "fr.svg"
-  },
-  {
-    "key": "es-ES",
-    "shortKey": "es",
-    "iconName": "es.svg"
   },
   {
     "key": "de-DE",
@@ -30,8 +15,23 @@
     "iconName": "de.svg"
   },
   {
+    "key": "es-ES",
+    "shortKey": "es",
+    "iconName": "es.svg"
+  },
+  {
+    "key": "it-IT",
+    "shortKey": "it",
+    "iconName": "it.svg"
+  },
+  {
     "key": "ja-Jp",
     "shortKey": "ja",
     "iconName": "ja.svg"
+  },
+  {
+    "key": "zh-CN",
+    "shortKey": "zh",
+    "iconName": "zh.svg"
   }
 ]
