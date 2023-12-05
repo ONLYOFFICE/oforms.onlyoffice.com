@@ -10,18 +10,48 @@ const StyledLanguageSelector = styled.div`
   &.is-open {
     .language-list {
       display: block;
-
-      &:before {
-        animation: 0.3s forwards ease-in-out menuLineLeft;
-      }
-
-      &:after {
-        animation: 0.3s forwards ease-in-out menuLineRight;
-      }
     }
 
     .arrow-image {
       transform: translateY(0) rotate(180deg);
+    }
+
+    .chevron-down {
+      transform: rotate(180deg);
+    }
+
+    &:not(.is-desktop-client) {
+      .language-list {
+        &:before {
+          animation: 0.3s forwards ease-in-out menuLineLeft;
+        }
+  
+        &:after {
+          animation: 0.3s forwards ease-in-out menuLineRight;
+        }
+      }
+    }
+  }
+
+  &.is-desktop-client {
+    .language-button {
+      min-height: initial;
+    }
+
+    .language-list {
+      position: absolute;
+      top: 25px;
+      left: 14px;
+      border: 1px solid rgb(203, 203, 203);
+      border-radius: 2px;
+      padding: 4px;
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 5px;
+    }
+  }
+
+  &:not(.is-desktop-client) {
+    .flag-image {
+      padding-right: 5px;
     }
   }
 
@@ -32,11 +62,14 @@ const StyledLanguageSelector = styled.div`
     padding: 0;
     min-height: 72px;
     background-color: transparent;
+
+    svg {
+      cursor: pointer;
+    }
   }
 
   .flag-image {
     box-sizing: initial;
-    padding-right: 5px;
   }
 
   .arrow-image,

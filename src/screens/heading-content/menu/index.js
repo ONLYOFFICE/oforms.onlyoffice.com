@@ -54,7 +54,7 @@ const Menu = ({ t, locale, template, stateMobile, setStateMobile }) => {
       <Nav locale={locale} t={t} />
       <div className="nav-selector-wrapper">
         <PhoneMenu t={t} locale={locale} />
-        <LanguageSelector t={t} locale={locale} />
+        <LanguageSelector t={t} />
       </div>
     </StyledHeading>
   );
