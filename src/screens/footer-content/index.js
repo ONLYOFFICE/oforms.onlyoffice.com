@@ -102,14 +102,14 @@ const Footer = ({ t, locale }) => {
         }
         <FooterItem heading={t("Contact us")} className="contacts">
           <Text className="contact-text">
-            {`${t("Sales questions")}${locale === "zh" || "ja" ? "" : " "}`}<ExternalLink className="footer-link-contact" label={t("sales@onlyoffice.com")} href="mailto:sales@onlyoffice.com" />
+            {`${t("Sales questions")}${locale === "zh" || locale === "ja" ? "" : " "}`}<ExternalLink className="footer-link-contact" label={t("sales@onlyoffice.com")} href="mailto:sales@onlyoffice.com" />
           </Text>
           <Text className="contact-text">
-            {`${t("Partner inquiries")}${locale === "zh" || "ja" ? "" : " "}`}
+            {`${t("Partner inquiries")}${locale === "zh" || locale === "ja" ? "" : " "}`}
             <ExternalLink className="footer-link-contact" label={t("partners@onlyoffice.com")} href="mailto:partners@onlyoffice.com" />
           </Text>
           <Text className="contact-text">
-            {`${t("Press inquiries")}${locale === "zh" || "ja" ? "" : " "}`}
+            {`${t("Press inquiries")}${locale === "zh" || locale === "ja" ? "" : " "}`}
             <ExternalLink className="footer-link-contact" label={t("press@onlyoffice.com")} href="mailto:press@onlyoffice.com" />
           </Text>
           <ExternalLink href={`${hrefLang}/call-back-form.aspx`} className="footer-link" label={t("Request a call")} />
