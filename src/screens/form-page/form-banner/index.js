@@ -24,7 +24,7 @@ const FormBanner = ({ labelName, link }) => {
           <Box className="banner_title">
             {/*eslint-disable*/}
             <img
-              src="https://static-oforms.onlyoffice.com/icons/pensil-icon.svg"
+              src="https://static-oforms.onlyoffice.com/icons/pensil-icon.react.svg"
               height="33px"
               width="33px"
             />

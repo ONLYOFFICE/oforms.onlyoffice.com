@@ -14,7 +14,7 @@ const Pagination = ({ currentPage, goToPreviousPage, getPaginationGroup, changeP
       >
         <img
           className="arrow"
-          src="https://static-oforms.onlyoffice.com/icons/arrow-left.svg"
+          src="https://static-oforms.onlyoffice.com/icons/arrow-left.react.svg"
           wrapper="svg"
         ></img>
       </Link>
@@ -33,7 +33,7 @@ const Pagination = ({ currentPage, goToPreviousPage, getPaginationGroup, changeP
       >
         <img
           className="arrow"
-          src="https://static-oforms.onlyoffice.com/icons/arrow-right.svg"
+          src="https://static-oforms.onlyoffice.com/icons/arrow-right.react.svg"
           wrapper="svg"
         ></img>
       </Link>
