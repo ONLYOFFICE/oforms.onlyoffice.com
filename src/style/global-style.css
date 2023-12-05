@@ -71,3 +71,9 @@ body {
 #__next {
     flex-grow: 1;
 }
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}
