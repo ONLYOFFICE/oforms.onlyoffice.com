@@ -47,6 +47,7 @@ const StyledFooterItem = styled.div`
       text-transform: uppercase;
       letter-spacing: 0.04em;
       text-decoration: none;
+      overflow: initial;
       transition: color 0.2s;
     }
 
@@ -90,7 +91,7 @@ const StyledFooterItem = styled.div`
       z-index: -1;
       width: 24px;
       height: 24px;
-      background-image: url("https://static-oforms.onlyoffice.com/icons/chevron-down.svg");
+      background-image: url("https://static-oforms.onlyoffice.com/icons/chevron-down.react.svg");
       background-repeat: no-repeat;
       background-size: 24px 24px;
   
