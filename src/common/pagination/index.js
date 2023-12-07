@@ -31,7 +31,7 @@ const Pagination = ({
       >
         <img
           className={`arrow ${page === 1 && "disabled"}`}
-          src="https://static-oforms.onlyoffice.com/icons/arrow-left.react.svg"
+          src="https://static-oforms.onlyoffice.com/icons/arrow-left.svg"
           wrapper="svg"
         />
       </a>
@@ -56,7 +56,7 @@ const Pagination = ({
       >
         <img
           className={`arrow ${page === countPage && "disabled"}`}
-          src="https://static-oforms.onlyoffice.com/icons/arrow-right.react.svg"
+          src="https://static-oforms.onlyoffice.com/icons/arrow-right.svg"
           wrapper="svg"
         />
       </a>
