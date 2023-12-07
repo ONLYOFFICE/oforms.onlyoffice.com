@@ -11,6 +11,7 @@ const StyledFooter = styled.div`
   margin: 0 auto;
   height: auto;
   max-width: 1120px;
+  overflow: hidden;
 
   .footer-item-group {
     position: relative;
@@ -115,6 +116,22 @@ const StyledFooter = styled.div`
         grid-column: span 4;
         column-gap: 32px;
       }
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    .popup-qr-code.line-qr-code {
+      left: initial;
+      right: 0;
+      transform: initial;
+    }
+  }
+
+  @media screen and (max-width: 791px) {
+    .popup-qr-code.line-qr-code {
+      left: 50%;
+      right: initial;
+      transform: translateX(-50%);
     }
   }
 
@@ -255,6 +272,22 @@ const StyledFooter = styled.div`
     .popup-qr-code.wechat-qr-code {
       left: 0;
       right: initial;
+    }
+  }
+
+  @media screen and (max-width: 551px) {
+    .popup-qr-code.line-qr-code {
+      left: initial;
+      right: 0;
+      transform: initial;
+    }
+  }
+
+  @media screen and (max-width: 455px) {
+    .popup-qr-code.line-qr-code {
+      left: 50%;
+      right: initial;
+      transform: translateX(-50%);
     }
   }
 

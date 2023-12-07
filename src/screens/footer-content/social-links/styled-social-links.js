@@ -159,6 +159,7 @@ const StyledSocialLinks = styled.div`
   }
 
   .popup-qr-code {
+    box-sizing: initial;
     background-color: #FFFFFF;
     background-size: contain;
     background-repeat: no-repeat;
