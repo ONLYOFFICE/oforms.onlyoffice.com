@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { device } from "@components/utils/devices";
+import menuBlog1 from "@public/images/menu-pics/menu-blog-1.jpg";
+import menuBlog2 from "@public/images/menu-pics/menu-blog-2.jpg";
 
 const StyledNav = styled.nav`
   position: absolute;
@@ -644,13 +646,13 @@ const StyledNav = styled.nav`
     margin-bottom: 32px;
 
     .menu-blog-img {
-      background-image: url("https://static-oforms.onlyoffice.com/images/menu-pics/menu-blog-1.png");
+      background-image: url(${menuBlog1.src});
     }
   }
 
   #blog-box-2 {
     .menu-blog-img {
-      background-image: url("https://static-oforms.onlyoffice.com/images/menu-pics/menu-blog-2.png");
+      background-image: url(${menuBlog2.src});
     }
   }
 

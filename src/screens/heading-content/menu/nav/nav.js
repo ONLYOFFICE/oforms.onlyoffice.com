@@ -204,13 +204,13 @@ const Nav = ({ t, locale, ...rest }) => {
               <div id="blog-box">
                 <Link id="blog-box-1" className="dropdown-item-box" href={t("blogLink1")}>
                   <div className="menu-blog-img"></div>
-                  <div className="menu-blog-header">{t("ONLYOFFICE Docs 7.5 released: PDF Editor, automatic hyphenation, Page Breaks and tracer arrows in sheets, Screen Readers, and more")}</div>
-                  <div className="menu-blog-date">{t("18 October 2023")}</div>
+                  <div className="menu-blog-header">{t("Meet ONLYOFFICE DocSpace 2.0 with Public rooms, plugins, data reassignment, and more")}</div>
+                  <div className="menu-blog-date">{t("4 December 2023")}</div>
                 </Link>
                 <Link id="blog-box-2" className="dropdown-item-box" href={t("blogLink2")}>
                   <div className="menu-blog-img"></div>
-                  <div className="menu-blog-header">{t("New integration available: ONLYOFFICE & Box")}</div>
-                  <div className="menu-blog-date">{t("27 September 2023")}</div>
+                  <div className="menu-blog-header">{t("New integration available: ONLYOFFICE Docs and Dropbox")}</div>
+                  <div className="menu-blog-date">{t("30 November 2023")}</div>
                 </Link>
               </div>
             </div>
