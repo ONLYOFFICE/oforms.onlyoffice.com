@@ -55,6 +55,10 @@ const StyledLanguageSelector = styled.div`
     }
   }
 
+  .chevron-down {
+    color: ${({theme}) => theme.colors.palette.iconNormal};
+  }
+
   .language-button {
     display: flex;
     align-items: center;
