@@ -21,7 +21,6 @@ const Cards = (props) => {
     const listRef = useRef(null)
 
     useEffect(() => {
-        onResize()
         window.addEventListener('resize', onResize)
 
         return () => window.removeEventListener('resize', onResize)
