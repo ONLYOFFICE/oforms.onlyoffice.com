@@ -145,7 +145,7 @@ const CategorySelector = (props) => {
                         >
                             <SubMenuBox inOneColumn={categories.data.length <= 8} isDesktopClient={isDesktopClient}>
                                 {categories.data?.map((categorie) => categorie.attributes.oforms.data.length == 0 ? null :
-                                    <RcMenuItem key={categorie.attributes.urlReqd}>
+                                    <RcMenuItem key={categorie.attributes.urlReq}>
                                         {
                                             desktopClientController(
                                                 <MenuItem
@@ -250,7 +250,7 @@ const CategorySelector = (props) => {
                                                     active={compilation.attributes.compilation === categoryName}
                                                     onClick={() => setIsOpen(false)}
                                                     href={{
-                                                        pathname: `/form/${compilation.attributes.urlReq}`,
+                                                        pathname: `/form/compilations/${compilation.attributes.urlReq}`,
                                                         query: appTheme ? {
                                                             desktop: true,
                                                             theme: appTheme,
