@@ -20,7 +20,6 @@ const Card = (props) => {
 
     const onLoad = () => {
         setIsLoaded(true)
-        console.log('onLoad image: ', name)
     }
 
     if(!isLoaded) {
