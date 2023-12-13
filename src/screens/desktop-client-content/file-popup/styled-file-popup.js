@@ -74,10 +74,6 @@ export const StyledFilePopup = styled.div`
     color: ${({theme}) => theme.colors.palette.textNormal}
   }
 
-  .file-img {
-    aspect-ratio: 53/75;
-  }
-
   .popup-body {
     padding: 27px;
     display: grid;
@@ -86,6 +82,7 @@ export const StyledFilePopup = styled.div`
   }
 
   .file-img {
+    align-self: start;
     mix-blend-mode: normal;
     border-radius: 3px;
     overflow: hidden;
