@@ -138,7 +138,7 @@ const nextConfig = {
             },
             {
                 source: '/pt-PT',
-                destination: '/en',
+                destination: '/pt',
                 permanent: false,
             },
             {
