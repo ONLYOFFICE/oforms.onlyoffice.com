@@ -141,6 +141,23 @@ const StyledAdventAnnounce = styled.div`
     @media (max-width: 1023px) {
       background-image: url(${docspaceRightDecorMobile.src});
       background-position: center right;
+
+      &.is-open {
+        transform: translate3d(429px, 0, 0);
+        transition: transform .2s cubic-bezier(.16,.68,.43,.99);
+      }
+    }
+    
+    @media (max-width: 592px) {
+      &.is-open {
+        transform: translate3d(calc(100vw - 64px), 0, 0);
+      }
+    }
+
+    @media (max-width: 375px) {
+      &.is-open {
+        transform: translate3d(calc(100vw - 32px), 0, 0);
+      }
     }
   }
 
@@ -238,23 +255,6 @@ const StyledAdventAnnounce = styled.div`
       ~ header {
         overflow-x: hidden;
       }
-    }
-
-    &.is-open {
-      transform: translate3d(429px, 0, 0);
-      transition: transform .2s cubic-bezier(.16,.68,.43,.99);
-    }
-  }
-
-  @media (max-width: 592px) {
-    &.is-open {
-      transform: translate3d(380px, 0, 0);
-    }
-  }
-
-  @media (max-width: 430px) {
-    &.is-open {
-      transform: translate3d(288px, 0, 0);
     }
   }
 `;
