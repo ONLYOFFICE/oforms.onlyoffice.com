@@ -77,8 +77,11 @@ const DesktopClientContent = (props) => {
         const clientHeight = document.body?.firstChild?.firstChild?.firstChild?.firstChild.childNodes[1].clientHeight;
         const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
 
-        if (scrollTop + clientHeight >= scrollHeight / 2 && scrollHeight >= 3000) setToTopButtonActive(true)
+        if(scrollTop >= 300) setToTopButtonActive(true)
         else setToTopButtonActive(false)
+
+        // if (scrollTop + clientHeight >= scrollHeight / 2 && scrollHeight >= 3000) setToTopButtonActive(true)
+        // else setToTopButtonActive(false)
 
         if (scrolledToBottom) {
             getForms();
