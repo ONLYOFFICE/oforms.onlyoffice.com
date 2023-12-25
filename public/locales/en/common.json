@@ -92,6 +92,8 @@
   "Templates": "Templates",
 
   "***********************MENU*************************": "***********************MENU*************************",
+  "blogLink1": "https://www.onlyoffice.com/blog/2023/12/onlyoffice-docspace-2-0-released",
+  "blogLink2": "https://www.onlyoffice.com/blog/2023/11/new-integration-available-onlyoffice-docs-and-dropbox",
   "FormSearch": "Form search",
   "Products & Features": "Products & Features",
   "ONLYOFFICE Docs": "ONLYOFFICE Docs",
@@ -276,5 +278,7 @@
   "Join us at Univention Summit 2022": "Join us at Univention Summit 2022",
   "Edit and collaborate on docs within your eLearning platform": "Edit and collaborate on docs within your eLearning platform",
   "ONLYOFFICE for education": "ONLYOFFICE for education",
-  "Search": "Search"
+  "Search": "Search",
+  "AdventAnnounceDesktop": "Meet <b>ONLYOFFICE DocSpace 2.0</b> with Public rooms, plugins, data reassignment, and more",
+  "AdventAnnounceMobile": "Meet <b>ONLYOFFICE DocSpace 2.0</b>"
 }
