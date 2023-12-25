@@ -7,4 +7,4 @@ module.exports = {
     locales: availableLanguages,
     localeDetection: true,
   },
-};
+};   
