@@ -2,7 +2,7 @@
     "defaultLanguage": "en",
     "docEditorUrl": "config_docEditorUrl", 
     "api": {
-        "cms": "config_cms",
+        "cms": "https://oforms.teamlab.info/dashboard",
         "url": "",
         "timeout": "30000"
     },

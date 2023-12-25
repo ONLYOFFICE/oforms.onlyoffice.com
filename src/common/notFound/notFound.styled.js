@@ -88,7 +88,7 @@ export const NotFoundForDesktopBox = styled.div`
 `;
 
 export const NotFoundForWebsiteIllustration = styled.div`
-  background-image: url("https://static-oforms.onlyoffice.com/icons/bg-errors.svg");
+  background-image: url("https://static-oforms.onlyoffice.com/icons/bg-errors.react.svg");
   background-repeat: no-repeat;
   background-size: cover;
   width: 518px;

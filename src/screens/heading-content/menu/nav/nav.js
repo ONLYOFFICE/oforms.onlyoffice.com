@@ -1,664 +1,228 @@
-import Link from "@common/link";
-import {TextInput} from "@common/textInput";
-import Box from "./sub-components/box";
-import MenuItem from "../menu-item";
 import StyledNav from "./styled-nav";
-import {useState} from "react";
-import {useRouter} from "next/router";
-import {Loup} from "@icons";
-import {useTranslation} from "next-i18next";
+import MenuItem from "../menu-item";
+import Link from "@common/link";
+import Text from "@common/text";
 
-const Nav = ({onClick, stateMobilePND, currentLanguage, ...rest}) => {
-    const [value, setValue] = useState('');
-    const router = useRouter()
-    const hrefLang = `https://onlyoffice.com${
-        currentLanguage === "en" ? "" : `/${currentLanguage}`
-    }`;
-    const { t } = useTranslation('common')
+const Nav = ({ t, locale, ...rest }) => {
+  const hrefLang = `https://onlyoffice.com${locale === "en" ? "" : `/${locale}`}`;
 
-    const onSearch = (e) => {
-        e.preventDefault()
-        router.push(`/searchresult?query=${value}`)
-    }
-    return (
-        <StyledNav stateMobile={stateMobilePND} {...rest}>
-            <Box className="menu-box">
-                <Box className="menu-items-box">
-                    <MenuItem heading={t("PRODUCTS")} id="navitem_products">
-                        <Box className="menu-wrapper">
-                            <Box className="outer-box with-border">
+  return (
+    <StyledNav className={`nav-item-links ${locale}`} {...rest}>
+      <ul>
+        <MenuItem heading={t("Products")} id="navitem-products">
+          <div className="menu-wrapper">
+            <div className="outer-box with-border">
+              <div className="dropdown-item-group">
+                <Link id="navitem-products-docs" className="dropdown-item" href={`${hrefLang}/office-suite.aspx`} label={t("Docs")} />
+                <Text className="dropdown-item-text">{t("Doc editors to integrate into your business platform")}</Text>
+              </div>
+              <div className="dropdown-item-group">
+                <Link id="navitem-products-docspace" className="dropdown-item" href={`${hrefLang}/docspace.aspx`} label={t("DocSpace")} />
+                <Text className="dropdown-item-text">{t("Customizable rooms for document collaboration")}</Text>
+              </div>
+              <div className="dropdown-item-group">
+                <Link id="navitem-products-workspace" className="dropdown-item" href={`${hrefLang}/workspace.aspx`} label={t("Workspace")} />
+                <Text className="dropdown-item-text">{t("Business platform to manage your team activities")}</Text>
+              </div>
+              <div className="dropdown-item-group">
+                <Link id="navitem-products-connectors" className="dropdown-item" href={`${hrefLang}/all-connectors.aspx`} label={t("Connectors")} />
+                <Text className="dropdown-item-text">{t("Ready-to-use apps to integrate Docs with your platform")}</Text>
+              </div>
+            </div>
+            <div className="outer-box with-border">
+              <div id="navitem-products-mob-desktop-apps" className="dropdown-item-label">{t("Desktop & mobile apps")}</div>
+              <Link id="navitem-products-for-desktop" className="dropdown-item" href={`${hrefLang}/desktop.aspx`} label={t("For desktop")} />
+              <Link id="navitem-products-for-ios" className="dropdown-item" href={`${hrefLang}/office-for-ios.aspx`} label={t("For iOS")} />
+              <Link id="navitem-products-for-android" className="dropdown-item" href={`${hrefLang}/office-for-android.aspx`} label={t("For Android")} />
+            </div>
+            <div className="outer-box">
+              <div className="dropdown-item-label">{t("Perform your tasks online")}</div>
+              <Link id="navitem-products-find-templates" className="dropdown-item" href={`https://oforms.onlyoffice.com/${locale === "en" ? "" : locale}`} label={t("Find form templates")} />
+              <Link id="navitem-products-oforms" className="dropdown-item" href={`https://oforms.onlyoffice.com/${locale === "en" ? "" : locale}`} label={t("Fill out oforms")} />
+              <Link id="navitem-products-convert-text" className="dropdown-item" href={`${hrefLang}/text-file-converter.aspx`} label={t("Convert text files")} />
+              <Link id="navitem-products-convert-spreadsheets" className="dropdown-item" href={`${hrefLang}/spreadsheet-converter.aspx`} label={t("Convert spreadsheets")} />
+              <Link id="navitem-products-convert-presentations" className="dropdown-item" href={`${hrefLang}/presentation-converter.aspx`} label={t("Convert presentations")} />
+              <Link id="navitem-products-convert-pdfs" className="dropdown-item" href={`${hrefLang}/pdf-converter.aspx`} label={t("Convert PDFs")} />
+            </div>
+          </div>
+        </MenuItem>
 
-                                <Box className="link-wrapper">
-                                    <Link
-                                        href={`${hrefLang}/office-suite.aspx`}
-                                        className="dropdown-item"
-                                        id="navitem_products_docs"
-                                    >
-                                        {t("Docs")}
-                                    </Link>
-                                    {t("Editors to integrate into your business platform")}
-                                </Box>
+        <MenuItem heading={t("Enterprise")} id="navitem-enterprise">
+          <div className="menu-wrapper">
+            <div className="outer-box">
+              <Link id="navitem-enterprise-overview" className="dropdown-item" href={`${hrefLang}/for-enterprises.aspx`} label={t("All Enterprise solutions")} />
+              <Link id="navitem-enterprise-docspace-enterprise" className="dropdown-item" href={`${hrefLang}/docspace-enterprise.aspx`} label={t("DocSpace Enterprise")} />
+              <Link id="navitem-enterprise-docs-enterprise" className="dropdown-item" href={`${hrefLang}/docs-enterprise.aspx`} label={t("Docs Enterprise")} />
+              <Link id="navitem-enterprise-pricing" className="dropdown-item" href={`${hrefLang}/docs-enterprise-prices.aspx`} label={t("Pricing")} />
+              <Link id="navitem-enterprise-get" className="dropdown-item" href={`${hrefLang}/download-docs.aspx`} label={t("Get it now")} />
+            </div>
+          </div>
+        </MenuItem>
 
-                                <Box className="link-wrapper">
-                                    <Link
-                                        href={`${hrefLang}/docspace.aspx`}
-                                        className="dropdown-item"
-                                        id="navitem_products_docspace"
-                                    >
-                                        {t("DocSpace")}
-                                    </Link>
-                                    {t("Platform to collaborate with your partners and clients")}
-                                </Box>
+        <MenuItem heading={t("Developers")} id="navitem-developers">
+          <div className="menu-wrapper">
+            <div className="outer-box">
+              <Link id="navitem-developers-all-dev-solutions" className="dropdown-item" href={`${hrefLang}/for-developers.aspx`} label={t("All Developer solutions")} />
+              <Link id="navitem-developers-docs-dev" className="dropdown-item" href={`${hrefLang}/developer-edition.aspx`} label={t("Docs Developer")} />
+              <Link id="navitem-developers-conversion-api" className="dropdown-item" href={`${hrefLang}/conversion-api.aspx`} label={t("Conversion API")} />
+              <Link id="navitem-developers-doc-builder" className="dropdown-item" href={`${hrefLang}/document-builder.aspx`} label={t("Document Builder")} />
+              <Link id="navitem-developers-api-doc" className="dropdown-item" href="https://api.onlyoffice.com/" label={t("API Documentation")} />
+              <Link id="navitem-developers-pricing" className="dropdown-item" href={`${hrefLang}/developer-edition-prices.aspx`} label={t("Pricing")} />
+              <Link id="navitem-developers-get" className="dropdown-item" href={`${hrefLang}/download-docs.aspx?from=downloadintegrationmenu#docs-developer`} label={t("Get it now")} />
+            </div>
+            <div className="outer-box bg-gray">
+              <Link className="dropdown-item-box" href={`${hrefLang}/see-it-in-action.aspx`}>
+                <div id="navitem-developers-see-it" className="dropdown-item-title">{t("See it in action!")}</div>
+                <div id="see-it-div" className="menu-pic-div">
+                  <div id="see-it-img" className="menu-pic-img"></div>
+                  <p id="see-it-header" className="menu-pic-header">{t("Curious to know what the interface looks like and try the main functionality without registration?")}</p>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </MenuItem>
 
-                                <Box className="link-wrapper">
-                                    <Link
-                                        href={`${hrefLang}/workspace.aspx`}
-                                        className="dropdown-item"
-                                        id="navitem_products_workspace"
-                                    >
-                                        {t("Workspace")}
-                                    </Link>
-                                    {t("Platform to collaborate with your team")}
-                                </Box>
+        <MenuItem heading={t("Get ONLYOFFICE")} id="navitem-download">
+          <div className="menu-wrapper">
+            <div className="outer-box with-border">
+              <div id="navitem-download-for-business" className="dropdown-item-label">{t("For business")}</div>
+              <div id="navitem-download-docspace" className="dropdown-item">{t("DocSpace")}</div>
+              <div className="inner-box">
+                <div className="inner-box-links">
+                  <Link id="navitem-download-docspace-signin" className="nav-2nd-menu-link" href={`${hrefLang}/docspace-signin.aspx`} label={t("Sign in")} />
+                  /
+                  <Link id="navitem-download-docspace-signup" className="nav-2nd-menu-link" href={`${hrefLang}/docspace-registration.aspx`} label={t("Sign up for cloud")} />
+                </div>
+                <Link id="navitem-download-docspace-onpremises" className="nav-2nd-menu-link" href={`${hrefLang}/download-docspace.aspx?from=downloadintegrationmenu#docspace-enterprise`} label={t("Install on-premises")} />
+              </div>
+              <div id="navitem-download-docs-enterprise" className="dropdown-item">{t("Docs Enterprise")}</div>
+              <div className="inner-box">
+                <div className="inner-box-links">
+                  <Link id="navitem-download-docs-enterprise-signin" className="nav-2nd-menu-link" href={`${hrefLang}/docs-cloud-signin.aspx`} label={t("Sign in")} />
+                  /
+                  <Link id="navitem-download-docs-enterprise-signup" className="nav-2nd-menu-link" href={`${hrefLang}/docs-registration.aspx`} label={t("Sign up for cloud")} />
+                </div>
+                <Link id="navitem-download-docs-enterprise-onpremises" className="nav-2nd-menu-link" href={`${hrefLang}/download-docs.aspx?from=downloadintegrationmenu#docs-enterprise`} label={t("Install on-premises")} />
+              </div>
+              <div id="navitem-download-workspace" className="dropdown-item">{t("Workspace")}</div>
+              <div className="inner-box">
+                <Link id="navitem-download-signin" className="nav-2nd-menu-link" href={`${hrefLang}/signin.aspx`} label={t("Sign in")} />
+                <Link id="navitem-download-onpremises" className="nav-2nd-menu-link" href={`${hrefLang}/download-workspace.aspx`} label={t("Install on-premises")} />
+              </div>
+              <Link id="navitem-download-connectors" className="dropdown-item" href={`${hrefLang}/download-connectors.aspx`} label={t("Connectors")} />
+              <Link id="navitem-download-desktop-mob" className="dropdown-item" href={`${hrefLang}/download-desktop.aspx`} label={t("Desktop & mobile apps")} />
+            </div>
+            <div className="outer-box">
+              <div id="navitem-download-for-dev" className="dropdown-item-label">{t("For developers")}</div>
+              <div id="navitem-download-docs-dev" className="dropdown-item">{t("Docs Developer")}</div>
+              <div className="inner-box">
+                <Link id="navitem-download-enterprise-onpremises" className="nav-2nd-menu-link" href={`${hrefLang}/download-docs.aspx?from=downloadintegrationmenu#docs-developer`} label={t("Install on-premises")} />
+              </div>
+              <Link id="navitem-download-docs-builder" className="dropdown-item" href={`${hrefLang}/download-builder.aspx`} label={t("Document Builder")} />
+              <div className="outer-box-line"></div>
+              <div id="navitem-download-for-community" className="dropdown-item-label">{t("For community")}</div>
+              <Link id="navitem-download-docs-community" className="dropdown-item" href={`${hrefLang}/download-docs.aspx#docs-community`} label={t("Docs Community")} />
+              <Link id="navitem-download-code-git" className="dropdown-item" href="https://github.com/ONLYOFFICE/" label={t("Code on GitHub")} />
+            </div>
+          </div>
+        </MenuItem>
 
-                                <Box className="link-wrapper">
-                                    <Link
-                                        href={`${hrefLang}/all-connectors.aspx`}
-                                        className="dropdown-item"
-                                        id="navitem_products_connectors"
-                                    >
-                                        {t("Connectors")}
-                                    </Link>
-                                    {t("Ready-to-use apps to integrate Docs with your platform")}
-                                </Box>
+        <MenuItem heading={t("Pricing")} id="navitem-pricing">
+          <div className="menu-wrapper">
+            <div className="outer-box">
+              <div id="navitem-pricing-for-business" className="dropdown-item-label">{t("For business")}</div>
+              <Link id="navitem-pricing-docs-docspace" className="dropdown-item" href={`${hrefLang}/docspace-prices.aspx`} label={t("DocSpace")} />
+              <Link id="navitem-pricing-docs-enterprice" className="dropdown-item" href={`${hrefLang}/docs-enterprise-prices.aspx`} label={t("Docs Enterprise")} />
+              <Link id="navitem-prices-workspace" className="dropdown-item" href={`${hrefLang}/workspace-prices.aspx`} label={t("Workspace")} />
+              <div className="outer-box-line"></div>
+              <div id="navitem-pricing-for-dev" className="dropdown-item-label">{t("For developers")}</div>
+              <Link id="navitem-pricing-docs-dev" className="dropdown-item" href={`${hrefLang}/developer-edition-prices.aspx`} label={t("Docs Developer")} />
+            </div>
+            <div className="outer-box bg-gray">
+              <Link className="dropdown-item-box" href={`${hrefLang}/find-partners.aspx`}>
+                <div id="navitem-pricing-partner" className="dropdown-item-title">{t("Buy from an ONLYOFFICE reseller")}</div>
+                <div id="reseller-div" className="menu-pic-div">
+                  <div id="reseller-img" className="menu-pic-img"></div>
+                  <p id="reseller-header" className="menu-pic-header">{t("Find out the list of all the authorized ONLYOFFICE resellers in your area")}</p>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </MenuItem>
 
-                            </Box>
-                            <Box className="outer-box with-border">
-                                <Link
-                                    id="navitem_product_desktop_mob_apps"
-                                    className="dropdown-item mobile-no-link"
-                                >
-                                    {t("DESKTOP & MOBILE APPS")}
-                                </Link>
-                                <Link
-                                    id="navitem_product_clients_apps"
-                                    href={`${hrefLang}/desktop.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("For desktop")}
-                                </Link>
-                                <Link
-                                    id="navitem_product_clients_mobile_ios"
-                                    href={`${hrefLang}/office-for-ios.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("For iOS")}
-                                </Link>
-                                <Link
-                                    id="navitem_product_clients_mobile_android"
-                                    href={`${hrefLang}/office-for-android.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("For Android")}
-                                </Link>
-                            </Box>
-                            <Box className="outer-box">
-                                <Link
-                                    id="navitem_product_perform_your_tasks_online"
-                                    className="dropdown-item mobile-no-link"
-                                >
-                                    {t("PERFORM YOUR TASKS ONLINE")}
-                                </Link>
-                                <Link
-                                    id="navitem_product_find_and_fill_out_oforms"
-                                    href={`https://oforms.onlyoffice.com/${currentLanguage}`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Find and fill out oforms")}
-                                </Link>
-                                <Link
-                                    id="navitem_product_convert_text_files"
-                                    href={`${hrefLang}/text-file-converter.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Convert text files")}
-                                </Link>
-                                <Link
-                                    id="navitem_product_convert_spreadsheets"
-                                    href={`${hrefLang}/spreadsheet-converter.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Convert spreadsheets")}
-                                </Link>
-                                <Link
-                                    id="navitem_product_convert_presentations"
-                                    href={`${hrefLang}/presentation-converter.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Convert presentations")}
-                                </Link>
-                                <Link
-                                    id="navitem_product_convert_pdfs"
-                                    href={`${hrefLang}/pdf-converter.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Convert PDFs")}
-                                </Link>
-                            </Box>
-                        </Box>
-                    </MenuItem>
+        <MenuItem heading={t("Partners")} id="navitem-partners">
+          <div className="menu-wrapper">
+            <div className="outer-box">
+              <Link id="navitem-partners-resellers" className="dropdown-item" href={`${hrefLang}/resellers.aspx`} label={t("Resellers")} />
+              <Link id="navitem-partners-affiliates" className="dropdown-item" href={`${hrefLang}/affiliates.aspx`} label={t("Affiliates")} />
+              <Link id="navitem-partners-hosting-providers" className="dropdown-item" href={`${hrefLang}/hosting-providers.aspx`} label={t("Hosting providers")} />
+              <Link id="navitem-partners-technology-partners" className="dropdown-item" href={`${hrefLang}/technology-partners.aspx`} label={t("Technology partners")} />
+              <Link id="navitem-partners-find-partners" className="dropdown-item" href={`${hrefLang}/find-partners.aspx`} label={t("Find partners")} />
+              <Link id="navitem-partners-submit-request" className="dropdown-item" href={`${hrefLang}/partnership-request.aspx`} label={t("Submit request")} />
+            </div>
+            <div className="outer-box bg-gray">
+              <Link className="dropdown-item-box" href={`${hrefLang}/events.aspx`}>
+                <div id="navitem-latest-events" className="dropdown-item-title">{t("Events")}</div>
+                <div id="latest-events-div" className="menu-pic-div">
+                  <div id="latest-events-img" className="menu-pic-img"></div>
+                  <p id="latest-events-header" className="menu-pic-header">{t("Meet the ONLYOFFICE team")}</p>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </MenuItem>
 
-                    <MenuItem
-                        heading={t("ENTERPRISE")}
-                        id="navitem_enterprise"
-                        href={`https://www.onlyoffice.com/${currentLanguage}/for-enterprises.aspx`}
-                    />
-
-                    <MenuItem heading={t("DEVELOPERS")} id="navitem_dev">
-                        <Box className="menu-wrapper menu-wrapper_dev">
-                            <Box className="outer-box">
-                                <Link
-                                    id="navitem_dev_docs_developer"
-                                    href={`${hrefLang}/developer-edition.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Docs Developer")}
-                                </Link>
-                                <Link
-                                    id="navitem_dev_conversion_api"
-                                    href={`${hrefLang}/conversion-api.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Conversion API")}
-                                </Link>
-                                <Link
-                                    id="navitem_dev_document_builder"
-                                    href={`${hrefLang}/document-builder.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Document Builder")}
-                                </Link>
-                                <Link
-                                    id="navitem_dev_api_documentation"
-                                    href={`https://api.onlyoffice.com/${currentLanguage}`}
-                                    className="dropdown-item"
-                                >
-                                    {t("API Documentation")}
-                                </Link>
-                                <Link
-                                    id="navitem_dev_pricing"
-                                    href={`${hrefLang}/developer-edition-prices.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Pricing")}
-                                </Link>
-                                <Link
-                                    id="navitem_dev_get_it_now"
-                                    href={`${hrefLang}/download-docs.aspx?from=downloadintegrationmenu#docs-developer`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Get It Now")}
-                                </Link>
-                            </Box>
-                            <Box className="outer-box gray">
-                                <Link
-                                    href={`${hrefLang}/download-docs.aspx?from=downloadintegrationmenu#docs-developer`}
-                                    className="link-wrapper-with-img"
-                                >
-                                    <Link
-                                        id="navitem_dev_see_it_in_action"
-                                        className="link-wrapper-with-img_link"
-                                    >
-                                        {t("See it in action")}
-                                    </Link>
-                                    <Box className="link-wrapper-with-img_img" id="see_it_in_action"/>
-                                    <Link
-                                        id="navitem_dev_see_it_in_action"
-                                    >
-                                        {t("Curious to know what the interface looks like and try the main functionality?")}
-                                    </Link>
-                                </Link>
-                            </Box>
-                        </Box>
-                    </MenuItem>
-
-                    <MenuItem heading={t("GET ONLYOFFICE")} id="navitem_get_onlyoffice">
-                        <Box className="menu-wrapper">
-                            <Box className="outer-box with-border">
-                                <Link
-                                    className="dropdown-item mobile-no-link"
-                                    id="navitem_get_onlyoffice_for_business"
-                                >
-                                    {t("FOR BUSINESS")}
-                                </Link>
-                                <Box className="second-link-wrapper">
-                                    <Link
-                                        id="navitem_get_onlyoffice_docspace"
-                                        className="dropdown-item"
-                                    >
-                                        {t("DocSpace")}
-                                    </Link>
-                                    <Link
-                                        id="navitem_get_onlyoffice_sign_up_for_cloud"
-                                        className="second-link-wrapper_link"
-                                        href={`${hrefLang}/docspace-registration.aspx`}
-                                    >
-                                        {t("Sign up for cloud")}
-                                    </Link>
-                                </Box>
-                                <Box className="second-link-wrapper">
-                                    <Link
-                                        id="navitem_get_onlyoffice_docs_enterprise"
-                                        className="dropdown-item"
-                                    >
-                                        {t("Docs Enterprise")}
-                                    </Link>
-                                    <Link
-                                        id="navitem_get_onlyoffice_sign_up_for_cloud"
-                                        className="second-link-wrapper_link"
-                                        href={`${hrefLang}/docs-registration.aspx`}
-                                    >
-                                        {t("Sign up for cloud")}
-                                    </Link>
-                                    <Link
-                                        id="navitem_get_onlyoffice_sign_up_for_cloud"
-                                        className="second-link-wrapper_link"
-                                        href={`${hrefLang}/download-docs.aspx?from=downloadintegrationmenu#docs-enterprise`}
-                                    >
-                                        {t("Install on-premises")}
-                                    </Link>
-                                </Box>
-                                <Box className="second-link-wrapper">
-                                    <Link
-                                        id="navitem_get_onlyoffice_workspace"
-                                        className="dropdown-item"
-                                    >
-                                        {t("Workspace")}
-                                    </Link>
-                                    <Box className="second-link-wrapper_twins">
-                                        <Link
-                                            id="navitem_get_onlyoffice_sign_in"
-                                            className="second-link-wrapper_link"
-                                            href={`${hrefLang}/signin.aspx`}
-                                        >
-                                            {t("Sign in")}
-                                        </Link>/
-                                        <Link
-                                            id="navitem_get_onlyoffice_sign_up_for_cloud"
-                                            className="second-link-wrapper_link"
-                                            href={`${hrefLang}/registration.aspx`}
-                                        >
-                                            {t("Sign up for cloud")}
-                                        </Link>
-                                    </Box>
-                                    <Link
-                                        id="navitem_get_onlyoffice_sign_up_for_cloud"
-                                        className="second-link-wrapper_link"
-                                        href={`${hrefLang}/download-workspace.aspx`}
-                                    >
-                                        {t("Install on-premises")}
-                                    </Link>
-                                </Box>
-                                <Link
-                                    className="dropdown-item"
-                                    id="navitem_get_only_office_connectors"
-                                    href={`${hrefLang}/download-connectors.aspx`}
-                                >
-                                    {t("Connectors")}
-                                </Link>
-                                <Link
-                                    className="dropdown-item"
-                                    id="navitem_get_only_office_download_desktop"
-                                    href={`${hrefLang}/download-desktop.aspx`}
-                                >
-                                    {t("Desktop&mobile apps")}
-                                </Link>
-                            </Box>
-                            <Box className="outer-box-wrapper">
-                                <Box className="outer-box with-horizontal-border">
-                                    <Link
-                                        className="dropdown-item mobile-no-link"
-                                        id="navitem_get_onlyoffice_for_dev"
-                                    >
-                                        {t("For developers")}
-                                    </Link>
-                                    <Box className="second-link-wrapper">
-                                        <Link
-                                            id="navitem_get_onlyoffice_docs_dev"
-                                            className="dropdown-item"
-                                        >
-                                            {t("Docs Developer")}
-                                        </Link>
-                                        <Link
-                                            id="navitem_get_onlyoffice_sign_up_for_cloud"
-                                            className="second-link-wrapper_link"
-                                            href={`${hrefLang}/download-docs.aspx?from=downloadintegrationmenu#docs-developer`}
-                                        >
-                                            {t("Install on-premises")}
-                                        </Link>
-                                    </Box>
-                                    <Link
-                                        id="navitem_get_onlyoffice_docs_builder"
-                                        className="dropdown-item"
-                                        href={`${hrefLang}/download-builder.aspx`}
-                                    >
-                                        {t("Document builder")}
-                                    </Link>
-                                </Box>
-                                <Box className="outer-box">
-                                    <Link
-                                        className="dropdown-item mobile-no-link"
-                                        id="navitem_get_onlyoffice_for_dev"
-                                    >
-                                        {t("For community")}
-                                    </Link>
-                                    <Link
-                                        id="navitem_get_onlyoffice_docs_community"
-                                        className="dropdown-item"
-                                        href={`${hrefLang}/download-docs.aspx#docs-community`}
-                                    >
-                                        {t("Docs Community")}
-                                    </Link>
-                                    <Link
-                                        id="navitem_get_onlyoffice_code_git"
-                                        className="dropdown-item"
-                                        href={`https://github.com/ONLYOFFICE/`}
-                                    >
-                                        {t("Code on GitHub")}
-                                    </Link>
-                                </Box>
-                            </Box>
-                        </Box>
-                    </MenuItem>
-
-                    <MenuItem heading={t("Pricing")} id="navitem_prices" currentLang={currentLanguage}>
-                        <Box className="menu-wrapper menu-wrapper_pricing">
-                            <Box className="outer-box gap38">
-                                <Box className="inner-box with-border">
-                                    <Link
-                                        className="dropdown-item mobile-no-link"
-                                        id="navitem_prices_for_business"
-                                    >
-                                        {t("For business")}
-                                    </Link>
-                                    <Link
-                                        id="navitem_prices_docspace"
-                                        className="dropdown-item"
-                                        href={`${hrefLang}/docspace-prices.aspx`}
-                                    >
-                                        {t("DocSpace")}
-                                    </Link>
-                                    <Link
-                                        id="navitem_prices_docs_enterprice"
-                                        href={`${hrefLang}/docs-enterprise-prices.aspx`}
-                                        className="dropdown-item"
-                                    >
-                                        {t("Docs Enterprise")}
-                                    </Link>
-                                    <Link
-                                        id="navitem_prices_workspace"
-                                        href={`${hrefLang}/workspace-prices.aspx`}
-                                        className="dropdown-item"
-                                    >
-                                        {t("Workspace")}
-                                    </Link>
-                                </Box>
-                                <Box className="inner-box">
-                                    <Link
-                                        className="dropdown-item mobile-no-link"
-                                        id="navitem_prices_for_dev"
-                                    >
-                                        {t("For developers")}
-                                    </Link>
-                                    <Link
-                                        id="navitem_prices_docs_dev"
-                                        href={`${hrefLang}/developer-edition-prices.aspx`}
-                                        className="dropdown-item"
-                                    >
-                                        {t("Docs Developer")}
-                                    </Link>
-                                </Box>
-                            </Box>
-
-                            <Box className="outer-box gray">
-                                <Link
-                                    href={`${hrefLang}/find-partners.aspx`}
-                                    className="link-wrapper-with-img"
-                                >
-                                    <Link
-                                        id="navitem_dev_see_it_in_action"
-                                        className="link-wrapper-with-img_link"
-                                    >
-                                        {t("Buy from an ONLYOFFICE partner")}
-                                    </Link>
-                                    <Box className="link-wrapper-with-img_img" id="reseller"/>
-                                    <Link
-                                        id="navitem_dev_see_it_in_action"
-                                    >
-                                        {t("Curious to know what the interface looks like and try the main functionality?")}
-                                    </Link>
-                                </Link>
-                            </Box>
-                        </Box>
-                    </MenuItem>
-
-                    <MenuItem heading={t("Partners")} id="navitem_partners">
-                        <Box className="menu-wrapper menu-wrapper_partners">
-                            <Box className="outer-box">
-                                <Link
-                                    id="navitem_partners_resellers"
-                                    href={`${hrefLang}/resellers.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Resellers")}
-                                </Link>
-                                <Link
-                                    id="navitem_partners_hosters"
-                                    href={`${hrefLang}/affiliates.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Affiliates")}
-                                </Link>
-                                <Link
-                                    id="navitem_partners_providers"
-                                    href={`${hrefLang}/hosting-providers.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Hosting providers")}
-                                </Link>
-                                <Link
-                                    id="navitem_partners_technology_partners"
-                                    href={`${hrefLang}/technology-partners.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Technology Partners")}
-                                </Link>
-                                <Link
-                                    id="navitem_partners_find_partners"
-                                    href={`${hrefLang}/find-partners.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Find partners")}
-                                </Link>
-                                <Link
-                                    id="navitem_partners_submit_request"
-                                    href={`${hrefLang}/partnership-request.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Submit request")}
-                                </Link>
-                            </Box>
-                            <Box className="outer-box gray">
-                                <Link
-                                    href={`${hrefLang}/find-partners.aspx`}
-                                    className="link-wrapper-with-img"
-                                >
-                                    <Link
-                                        id="navitem_dev_see_it_in_action"
-                                        className="link-wrapper-with-img_link"
-                                    >
-                                        {t("Events")}
-                                    </Link>
-                                    <Box className="link-wrapper-with-img_img" id="events"/>
-                                    <Link
-                                        id="navitem_dev_see_it_in_action"
-                                    >
-                                        {t("Meet the ONLYOFFICE team")}
-                                    </Link>
-                                </Link>
-                            </Box>
-                        </Box>
-                    </MenuItem>
-
-                    <MenuItem heading={t("Resources")} id="navitem_resources">
-                        <Box className="menu-wrapper">
-                            <Box className="outer-box with-border without-border-on-mobile without-pb-on-mobile">
-                                <Link
-                                    id="navitem_resources_about"
-                                    href={`${hrefLang}/about.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("About ONLYOFFICE")}
-                                </Link>
-                                <Link
-                                    id="navitem_resources_customers"
-                                    href={`${hrefLang}/customers.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Customers")}
-                                </Link>
-                                <Link
-                                    id="navitem_resources_contribute"
-                                    href={`${hrefLang}/contribute.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Contribute")}
-                                </Link>
-                                <Link
-                                    id="navitem_resources_vacancies"
-                                    href={`${hrefLang}/vacancies.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Jobs")}
-                                </Link>
-                                <Link
-                                    id="navitem_resources_awards"
-                                    href={`${hrefLang}/awards.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Awards")}
-                                </Link>
-                                <Link
-                                    id="navitem_resources_events"
-                                    href={`${hrefLang}/events.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Events")}
-                                </Link>
-                                <Link
-                                    id="navitem_resources_giftshop"
-                                    href="https://shop.spreadshirt.com/onlyoffice"
-                                    className="dropdown-item"
-                                >
-                                    {t("Gift shop")}
-                                </Link>
-                                <Link
-                                    id="navitem_resources_contacts"
-                                    href={`${hrefLang}/contacts.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Contacts")}
-                                </Link>
-                            </Box>
-                            <Box className="outer-box">
-                                <Link
-                                    id="navitem_resources_blog"
-                                    href="https://www.onlyoffice.com/blog/"
-                                    className="dropdown-item"
-                                >
-                                    {t("Blog")}
-                                </Link>
-                                <Link
-                                    id="navitem_resources_forum"
-                                    href="https://forum.onlyoffice.com/"
-                                    className="dropdown-item"
-                                >
-                                    {t("Forum")}
-                                </Link>
-                                <Link
-                                    id="navitem_resources_pressdownloads"
-                                    href={`${hrefLang}/press-downloads.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Press downloads")}
-                                </Link>
-                                <Link
-                                    id="navitem_resources_help"
-                                    href="https://helpcenter.onlyoffice.com/index.aspx"
-                                    className="dropdown-item"
-                                >
-                                    {t("Help Center")}
-                                </Link>
-                                <Link
-                                    id="navitem_resources_whitepapers"
-                                    href={`${hrefLang}/whitepapers.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("White papers")}
-                                </Link>
-                                <Link
-                                    id="navitem_resources_webinars"
-                                    href={`${hrefLang}/webinars.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Webinars")}
-                                </Link>
-                                <Link
-                                    id="navitem_resources_training_courses"
-                                    href={`${hrefLang}/training-courses.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Training courses")}
-                                </Link>
-                                <Link
-                                    id="navitem_resources_compare"
-                                    href={`${hrefLang}/training-courses.aspx`}
-                                    className="dropdown-item"
-                                >
-                                    {t("Compare to other suites")}
-                                </Link>
-                            </Box>
-                        </Box>
-                    </MenuItem>
-                </Box>
-                <Box className="input-wrapper">
-                    {/*<Input*/}
-                    {/*    className="menu-input"*/}
-                    {/*    value={value}*/}
-                    {/*    onChange={(e) => setValue(e.target.value)}*/}
-                    {/*    placeholder={t('Search on site')}*/}
-                    {/*    height="40px"*/}
-                    {/*    onEnterPress={onSearch}*/}
-                    {/*/>*/}
-                    <form onSubmit={onSearch}>
-                        <TextInput
-                            value={value}
-                            onChange={(e) => setValue(e.target.value)}
-                            label={t('Search on site')}
-                            icon={<Loup size="30px"/>}
-                            isClearable
-                            onClear={() => setValue('')}
-                        />
-                    </form>
-                </Box>
-            </Box>
-            <Box className="phone_wrapper">
-                <Link className="nav-item-mobile-tel" href="tel:+371 660 164 25">
-                    +371 660 164 25
+        <MenuItem heading={t("Resources")} id="navitem-resources">
+          <div className="menu-wrapper">
+            <div className="outer-box with-border">
+              <div id="navitem-resources-abous-us" className="dropdown-item-label">{t("About us")}</div>
+              <Link id="navitem-resources-about" className="dropdown-item" href={`${hrefLang}/about.aspx`} label={t("Company")} />
+              <Link id="navitem-resources-customers" className="dropdown-item" href={`${hrefLang}/customers.aspx`} label={t("Customers")} />
+              <Link id="navitem-resources-success-stories" className="dropdown-item" href={`${hrefLang}/customers.aspx#stories`} label={t("Success stories")} />
+              <Link id="navitem-resources-awards" className="dropdown-item" href={`${hrefLang}/awards.aspx`} label={t("Awards")} />
+              <Link id="navitem-resources-events" className="dropdown-item" href={`${hrefLang}/events.aspx`} label={t("Events")} />
+              <Link id="navitem-resources-pressdownloads" className="dropdown-item" href={`${hrefLang}/press-downloads.aspx`} label={t("Press downloads")} />
+              <Link id="navitem-resources-giftshop" className="dropdown-item" href="https://shop.spreadshirt.com/onlyoffice" label={t("Gift shop")} />
+              <Link id="navitem-resources-contacts" className="dropdown-item" href={`${hrefLang}/contacts.aspx`} label={t("Contacts")} />
+            </div>
+            <div className="outer-box">
+              <div id="navitem-resources-collaborate" className="dropdown-item-label">{t("Collaborate")}</div>
+              <Link id="navitem-resources-for-contribute" className="dropdown-item" href={`${hrefLang}/contribute.aspx`} label={t("For contributers")} />
+              <Link id="navitem-resources-for-translators" className="dropdown-item" href="https://helpcenter.onlyoffice.com/guides/become-translator.aspx" label={t("For translators")} />
+              <Link id="navitem-resources-for-influencers" className="dropdown-item" href={`${hrefLang}/influencer-program.aspx`} label={t("For influencers")} />
+              <Link id="navitem-resources-vacancies" className="dropdown-item" href={`${hrefLang}/vacancies.aspx`} label={t("Vacancies")} />
+              <div className="outer-box-line"></div>
+              <div id="navitem-resources-get-help" className="dropdown-item-label">{t("Get help")}</div>
+              <Link id="navitem-resources-forum" className="dropdown-item" href="https://forum.onlyoffice.com/" label={t("Forum")} />
+              <Link id="navitem-resources-help" className="dropdown-item" href="https://helpcenter.onlyoffice.com/index.aspx" label={t("Help Center")} />
+              <Link id="navitem-resources-training-courses" className="dropdown-item" href={`${hrefLang}/training-courses.aspx`} label={t("Training courses")} />
+              <Link id="navitem-resources-webinars" className="dropdown-item" href={`${hrefLang}/webinars.aspx`} label={t("Webinars")} />
+              <Link id="navitem-resources-whitepapers" className="dropdown-item" href={`${hrefLang}/whitepapers.aspx`} label={t("White papers")} />
+            </div>
+            <div className="outer-box bg-gray">
+              <Link id="navitem-resources-blog" className="dropdown-item" href={`https://onlyoffice.com/blog${locale === "en" ? "" : locale === "zh" ? "/zh-hans" : `/${locale}`}`} label={t("Blog")} />
+              <div id="blog-box">
+                <Link id="blog-box-1" className="dropdown-item-box" href={t("blogLink1")}>
+                  <div className="menu-blog-img"></div>
+                  <div className="menu-blog-header">{t("Meet ONLYOFFICE DocSpace 2.0 with Public rooms, plugins, data reassignment, and more")}</div>
+                  <div className="menu-blog-date">{t("4 December 2023")}</div>
                 </Link>
-            </Box>
-        </StyledNav>
-    )
+                <Link id="blog-box-2" className="dropdown-item-box" href={t("blogLink2")}>
+                  <div className="menu-blog-img"></div>
+                  <div className="menu-blog-header">{t("New integration available: ONLYOFFICE Docs and Dropbox")}</div>
+                  <div className="menu-blog-date">{t("30 November 2023")}</div>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </MenuItem>
+      </ul>
+
+      <a className="phone-mobile" href="tel:+37163399867">
+        +371 633 998 67
+      </a>
+    </StyledNav>
+  );
 };
 
 export default Nav;

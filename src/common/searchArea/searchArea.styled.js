@@ -16,6 +16,10 @@ export const SearchAreaStyled = styled.div`
             background-color: ${({theme}) => theme.colors.palette.highlightButtonPressedHover};;
           }
         }
+        
+        .loup-icon {
+          color: ${({theme}) => theme.colors.palette.iconNormal};
+        }
 
         .input-component__input {
           padding: 8px 0 0 12px;

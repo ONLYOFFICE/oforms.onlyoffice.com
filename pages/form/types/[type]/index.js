@@ -42,6 +42,7 @@ const Category = ({
   const categoryName = categoryInfo.data[0].attributes.type;
   
   const [isCategoryPage, setIsCategoryPage] = useState(true);
+  const [stateMobile, setStateMobile] = useState(false);
   const router = useRouter()
   const isDesktopClient = router.query.desktop;
 
@@ -81,10 +82,10 @@ const Category = ({
         />
       </Layout.PageHead>
       <Layout.PageAnnounce>
-        <AdventAnnounce currentLanguage={locale} />
+        <AdventAnnounce t={t} currentLanguage={locale} stateMobile={stateMobile} />
       </Layout.PageAnnounce>
       <Layout.PageHeader>
-        <HeadingContent currentLanguage={locale} />
+        <HeadingContent t={t} currentLanguage={locale} stateMobile={stateMobile} setStateMobile={setStateMobile} />
       </Layout.PageHeader>
       <Layout.SectionMain>
         <InfoContent category={nameCategory} header={header}/>
@@ -105,7 +106,7 @@ const Category = ({
       </Layout.SectionMain>
       <Layout.PageFooter>
         <Suspense>
-          <Footer language={locale} />
+          <Footer t={t} locale={locale}/>
         </Suspense>
       </Layout.PageFooter>
     </Layout>
@@ -119,16 +120,16 @@ export const getServerSideProps = async ({ locale, query, ...ctx }) => {
   const pageSize = query.pageSize || isDesktopClient ? 0 : 9;
   const cms = config.api.cms
   const res = await fetch(
-    `${cms}/api/oforms/?filters[types][urlReq][$eq]=${urlReq}&locale=${locale}&sort=name_form:${sort}&${pageSize ? `&pagination[pageSize]=${pageSize}` : ''}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
+    `${cms}/api/oforms/?filters[types][urlReq][$eq]=${urlReq}&locale=${locale === "pt" ? "pt-br" : locale}&sort=name_form:${sort}&${pageSize ? `&pagination[pageSize]=${pageSize}` : ''}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
   );
   const resCategory = await fetch(
-    `${cms}/api/types/?filters[urlReq][$eq]=${urlReq}&locale=${locale}`
+    `${cms}/api/types/?filters[urlReq][$eq]=${urlReq}&locale=${locale === "pt" ? "pt-br" : locale}`
   );
   const categoryForms = await res.json();
   const categoryInfo = await resCategory.json();
-  const types = await getAllTypes(locale);
-  const categories = await getAllCategories(locale);
-  const compilations = await getAllCompilations(locale);
+  const types = await getAllTypes(locale === "pt" ? "pt-br" : locale);
+  const categories = await getAllCategories(locale === "pt" ? "pt-br" : locale);
+  const compilations = await getAllCompilations(locale === "pt" ? "pt-br" : locale);
 
   const getRedirect = () => {
     const result = {

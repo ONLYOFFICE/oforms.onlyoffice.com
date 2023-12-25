@@ -4,6 +4,7 @@ import {Empty as EmptyIllustration} from '@illustrations'
 import {useRouter} from "next/router";
 import Text from "../text";
 import {useTranslation} from "next-i18next";
+import PropTypes from "prop-types";
 
 export const Empty = (props) => {
     const router = useRouter()
@@ -24,4 +25,9 @@ export const Empty = (props) => {
             <Text as="span" className="empty__clear" onClick={onClear}>{t("Clear-filter")}</Text>
         </StyledEmpty>
     )
+}
+
+Empty.propTypes = {
+    onClear: PropTypes.func,
+    children: PropTypes.element,
 }

@@ -33,7 +33,7 @@ export const CategorySelector = (props) => {
         compilations,
         isDesktopClient,
         categoryName,
-        queryDesktopClient
+        queryDesktopClient,
     } = props;
     const {t} = useTranslation('common')
     const [isCategoryOpen, setIsCategoryOpen] = useState(false);
@@ -99,6 +99,7 @@ export const CategorySelector = (props) => {
             value={isDesktopClient && router.pathname === "/searchresult" ? `${t("Search-result-for")} '${queryDesktopClient}'` : categoryName}
             isOpen={isOpen}
             onVisibilityChange={(state) => setIsOpen(state)}
+            trigger={isDesktopClient ? 'click' : 'hover'}
             headerRender={(label, value) => (
                 <CategorySelectorHeader
                     label={label}
@@ -146,7 +147,7 @@ export const CategorySelector = (props) => {
                     {t("Forms by branch")}
                     <ChevronRight className="arrow-right"/>
                 </CategorySelectorDropdownItem>
-                {isCategoryOpen && categories.data?.length > 0 && (
+                {isCategoryOpen && (
                     <CategorySelectorDropdownSubmenu
                         className="category-selector__submenu"
                         onMouseEnter={() => setIsCategoryOpen(true)}
@@ -194,7 +195,7 @@ export const CategorySelector = (props) => {
                     {t("Forms by type")}
                     <ChevronRight className="arrow-right"/>
                 </CategorySelectorDropdownItem>
-                {isTypeOpen && types.data?.length > 0 && (
+                {isTypeOpen && (
                     <CategorySelectorDropdownSubmenu
                         className="category-selector__submenu"
                         onMouseEnter={() => setIsTypeOpen(true)}
@@ -243,7 +244,7 @@ export const CategorySelector = (props) => {
                     {t("Popular Compilations")}
                     <ChevronRight className="arrow-right"/>
                 </CategorySelectorDropdownItem>
-                {isCompilationsOpen && compilations.data?.length > 0 && (
+                {isCompilationsOpen && (
                     <CategorySelectorDropdownSubmenu
                         className="category-selector__submenu"
                         onMouseEnter={() => setIsCompilationsOpen(true)}

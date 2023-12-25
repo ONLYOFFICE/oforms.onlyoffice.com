@@ -26,7 +26,7 @@ export const SearchArea = ({ clearValueSearch, valueSearch, callback, onEnterPre
                     onChange={callback}
                     onClear={clearValueSearch}
                     label={t("SearchIputPlaceholder")}
-                    icon={!isDesktopClient ? <Loup /> : undefined}
+                    icon={!isDesktopClient ? <Loup className="loup-icon" /> : undefined}
                     isClearable
                     className="search-area__input"
                 />

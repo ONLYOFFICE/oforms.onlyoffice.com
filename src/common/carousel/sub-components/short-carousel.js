@@ -38,6 +38,9 @@ const ShortCard = ({ callback, arrayItems, currentLanguage, description, ...rest
         className="card-template"
         flexDirection="column"
         alignItems="stretch"
+        style={{
+            width: '100%'
+        }}
       >
         <Link
           className="title-template title-overflow-templapte"

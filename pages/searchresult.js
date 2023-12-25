@@ -41,6 +41,7 @@ const SearchResult = ({
 
   const isDesktop = router.query.desktop?.substr(0, 4);
   const [isDesktopClient, setIsDesktopClient] = useState(isDesktop);
+  const [stateMobile, setStateMobile] = useState(false);
 
   const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
   const searchReqData = () => {
@@ -98,10 +99,10 @@ const SearchResult = ({
         />
       </Layout.PageHead>
       <Layout.PageAnnounce>
-        <AdventAnnounce currentLanguage={locale} />
+        <AdventAnnounce t={t} currentLanguage={locale} stateMobile={stateMobile} />
       </Layout.PageAnnounce>
       <Layout.PageHeader>
-        <HeadingContent currentLanguage={locale} />
+        <HeadingContent t={t} currentLanguage={locale} stateMobile={stateMobile} setStateMobile={setStateMobile} />
       </Layout.PageHeader>
       <Layout.SectionMain>
         <InfoContent query={query} />
@@ -120,7 +121,7 @@ const SearchResult = ({
       </Layout.SectionMain>
       <Layout.PageFooter>
         <Suspense>
-          <Footer language={locale} />
+          <Footer t={t} locale={locale}/>
         </Suspense>
       </Layout.PageFooter>
     </Layout>
@@ -131,10 +132,10 @@ export const getServerSideProps = async ({ locale, query }) => {
   const page = query.page || 1;
   const sort = query._sort || 'asc'
   const pageSize = query.pageSize || isDesktop ? 0 : 9;
-  const forms = await getAllForms(locale, page, sort, pageSize);
-  const types = await getAllTypes(locale);
-  const categories = await getAllCategories(locale);
-  const compilations = await getAllCompilations(locale);
+  const forms = await getAllForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize);
+  const types = await getAllTypes(locale === "pt" ? "pt-br" : locale);
+  const categories = await getAllCategories(locale === "pt" ? "pt-br" : locale);
+  const compilations = await getAllCompilations(locale === "pt" ? "pt-br" : locale);
   
   return {
     props: {

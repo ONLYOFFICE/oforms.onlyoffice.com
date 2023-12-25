@@ -89,7 +89,7 @@ const CategorySelect = ({ t, label, labelMore, placeholder, selected, setSelecte
       <Text className="label">{label} <Text className="label-more">{labelMore}</Text></Text>
 
       <div ref={selectRef} className="select-wrapper">
-        <div onClick={toggleOpen} className={`select multi ${isOpen ? "open" : ""} ${valid ? "valid" : ""}`}>
+        <div onClick={toggleOpen} className={`select category-select ${isOpen ? "open" : ""} ${valid ? "valid" : ""}`}>
           {!isOpen && selected.length === 0 &&
             <Text className="placeholder">{placeholder}</Text>
           }

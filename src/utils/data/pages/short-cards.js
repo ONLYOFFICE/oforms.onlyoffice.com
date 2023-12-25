@@ -188,6 +188,33 @@ const ja = [
   },
 ];
 
-const itemsShortCards = { en: en, zh: zh, it: it, fr: fr, es: es, de: de, ja: ja };
+const pt = [
+  {
+    title: "Formulário de Plano Semanal 1",
+    subtitle: "Formulários de Planejamento",
+    linkUrl: "/formulario-de-plano-semanal-1",
+    fillForm: "plano_semanal_1_0c300047b9.oform",
+  },
+  {
+    title: "Formulário de Rota de Viagem 1",
+    subtitle: "Formulários de Planejamento",
+    linkUrl: "/formulario-de-rota-de-viagem-1",
+    fillForm: "Itinerario_de_viagem_1_4b2a8a8cf3.oform",
+  },
+  {
+    title: "Formulário de Certificado de Realização 1",
+    subtitle: "Formulários Diversos",
+    linkUrl: "/formulario-de-certificado-de-realizacao-1",
+    fillForm: "Certificado_de_conclusao_1_6ec6e490bd.oform",
+  },
+  {
+    title: "Formulário de Escalação de Futebol 1",
+    subtitle: "Formulários Diversos",
+    linkUrl: "/formulario-de-escalacao-de-futebol-1",
+    fillForm: "Escalacao_de_futebol_1_010d054c38.oform",
+  },
+];
+
+const itemsShortCards = { en: en, zh: zh, it: it, fr: fr, es: es, de: de, ja: ja , pt: pt};
 
 export default itemsShortCards;

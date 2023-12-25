@@ -93,9 +93,6 @@ const DesktopMenuSectionLink = styled.a`
 export const DesktopMobileSelector = (props) => {
     const {t} = useTranslation('common')
     const {
-        typeSortData,
-        locale,
-        category,
         types,
         categories,
         compilations,

@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { useTranslation } from "next-i18next";
+import { useState } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import zlib from "zlib";
 import getAllCategories from "@lib/strapi/getCategories";
@@ -15,6 +16,7 @@ const Footer = lazy(() => import("../src/screens/footer-content"), {
 
 const FormSubmit = ({ locale, categories, queryIndexData }) => {
   const { t } = useTranslation("common");
+  const [stateMobile, setStateMobile] = useState(false);
 
   return (
     <Layout>
@@ -28,10 +30,10 @@ const FormSubmit = ({ locale, categories, queryIndexData }) => {
         />
       </Layout.PageHead>
       <Layout.PageAnnounce>
-        <AdventAnnounce currentLanguage={locale} />
+        <AdventAnnounce t={t} currentLanguage={locale} stateMobile={stateMobile} />
       </Layout.PageAnnounce>
       <Layout.PageHeader>
-        <HeadingContent currentLanguage={locale} template isInvert templateForm />
+        <HeadingContent t={t} currentLanguage={locale} template isInvert templateForm stateMobile={stateMobile} setStateMobile={setStateMobile} />
       </Layout.PageHeader>
       <Layout.SectionMain>
         <FormSubmitContent
@@ -43,7 +45,7 @@ const FormSubmit = ({ locale, categories, queryIndexData }) => {
       </Layout.SectionMain>
       <Layout.PageFooter>
         <Suspense>
-          <Footer language={locale} />
+          <Footer t={t} locale={locale}/>
         </Suspense>
       </Layout.PageFooter>
     </Layout>
@@ -51,7 +53,7 @@ const FormSubmit = ({ locale, categories, queryIndexData }) => {
 };
 
 export const getServerSideProps = async ({ locale, query, req, res }) => {
-  const categories = await getAllCategories(locale);
+  const categories = await getAllCategories(locale === "pt" ? "pt-br" : locale);
 
   const queryResult = await new Promise(async (resolve) => {
     if (query.index) {

@@ -27,12 +27,11 @@ export const StyledFilePopup = styled.div`
 
   .popup-icon {
     cursor: pointer;
-    color: ${({theme}) => theme.colors.palette.iconNormal};
+    color: ${({theme}) => theme.colors.palette.iconContrastPopover};
     transition: transform 50ms ease-in-out;
 
     &:hover {
-      color: black;
-      transform: scale(1.3);
+      color: ${({theme}) => theme.colors.palette.iconContrastPopoverHover};
     }
   }
 
@@ -75,10 +74,6 @@ export const StyledFilePopup = styled.div`
     color: ${({theme}) => theme.colors.palette.textNormal}
   }
 
-  .file-img {
-    aspect-ratio: 53/75;
-  }
-
   .popup-body {
     padding: 27px;
     display: grid;
@@ -87,6 +82,7 @@ export const StyledFilePopup = styled.div`
   }
 
   .file-img {
+    align-self: start;
     mix-blend-mode: normal;
     border-radius: 3px;
     overflow: hidden;
@@ -317,6 +313,17 @@ export const StyledFilePopup = styled.div`
     
     .file-info-item__selector {
       padding-right: 0;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .popup-content {
+      max-width: max-content;
+      width: 100%;
+    }
+
+    .file-img {
+      width: 100%;
     }
   }
 `;
