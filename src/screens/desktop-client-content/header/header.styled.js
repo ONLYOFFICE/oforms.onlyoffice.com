@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const HeaderStyled = styled.header`
-  padding: 40px 50px 0 40px;
 
   .clear-icon {
     cursor: pointer;
@@ -32,7 +31,8 @@ export const HeaderTitle = styled.h3`
   font-weight: 300;
   line-height: 32px;
   margin: 0 0 13px 0;
-  color: ${({theme}) => theme.colors.palette.textNormal}
+  color: ${({theme}) => theme.colors.palette.textNormal};
+  user-select: none;
 `
 
 export const HeaderBox = styled.div`

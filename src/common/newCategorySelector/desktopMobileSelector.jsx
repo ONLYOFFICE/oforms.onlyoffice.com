@@ -79,6 +79,7 @@ const DesktopMenuSectionLink = styled.a`
   display: block;
   padding: 8px 32px;
   text-decoration: none;
+    user-select: none;
 
   &:hover {
     background-color: ${({theme}) => theme.colors.palette.highlightButtonHover};
@@ -198,6 +199,7 @@ export const DesktopMobileSelector = (props) => {
                                             >
                                                 <DesktopMenuSectionLink
                                                     className={classNames('menu-link', {'active': categoryName === attributes.categorie})}
+                                                    draggable={false}
                                                 >
                                                     {attributes.categorie}
                                                 </DesktopMenuSectionLink>

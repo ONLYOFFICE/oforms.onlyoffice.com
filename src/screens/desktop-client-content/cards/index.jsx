@@ -15,6 +15,7 @@ const Cards = (props) => {
         topTop,
         toTopButtonActive,
         isLoading,
+        scrolledContainerRef,
         ...otherProps
     } = props
     const [skeletonCount, setSkeletonCount] = useState(4)
@@ -44,7 +45,7 @@ const Cards = (props) => {
     }
 
     return (
-        <CardsWrapper {...otherProps}>
+        <CardsWrapper {...otherProps} className="new-cards">
             <CardsStyled ref={listRef} className='cards-list'>
                 {
                     items.map(data => <Card key={data.id} data={data} onClick={onCardClick} isDark={isDark} />)

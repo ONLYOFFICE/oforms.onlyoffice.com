@@ -1,4 +1,4 @@
-import {useState, useEffect, useCallback} from "react";
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Cards from "../common/cards";
 import NewCards from './cards'
 import Header from './header'
@@ -30,6 +30,8 @@ const DesktopClientContent = (props) => {
     const theme = router.query.theme
     const [toTopButtonActive, setToTopButtonActive] = useState(false)
     const [isError, setIsError] = useState(false)
+
+    const scrolledContainerRef = useRef(null)
 
     const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
 
@@ -64,7 +66,7 @@ const DesktopClientContent = (props) => {
 
     const getContentHeight = useCallback(() => {
         if (document) {
-            const target = document.body?.firstChild?.firstChild?.firstChild?.firstChild.childNodes[1]
+            const target = document.body?.firstChild?.firstChild?.firstChild?.childNodes[1]
             return target?.scrollHeight || 0
         }
 
@@ -72,9 +74,9 @@ const DesktopClientContent = (props) => {
     }, [])
 
     const handleScroll = useCallback(() => {
-        const scrollTop = document.body?.firstChild?.firstChild?.firstChild?.firstChild.childNodes[1].scrollTop;
-        const scrollHeight = document.body?.firstChild?.firstChild?.firstChild?.firstChild.childNodes[1].scrollHeight;
-        const clientHeight = document.body?.firstChild?.firstChild?.firstChild?.firstChild.childNodes[1].clientHeight;
+        const scrollTop = document.body?.firstChild?.firstChild?.firstChild?.childNodes[1].scrollTop;
+        const scrollHeight = document.body?.firstChild?.firstChild?.firstChild?.childNodes[1].scrollHeight;
+        const clientHeight = document.body?.firstChild?.firstChild?.firstChild?.childNodes[1].clientHeight;
         const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
 
         if(scrollTop >= 300) setToTopButtonActive(true)
@@ -106,7 +108,7 @@ const DesktopClientContent = (props) => {
     }, [isError, isLoading])
 
     const toTop = () => {
-        document.body?.firstChild?.firstChild?.firstChild?.firstChild.childNodes[1].scrollTo({
+        document.body?.firstChild?.firstChild?.firstChild?.childNodes[1].scrollTo({
             top: 0,
             behavior: 'smooth'
         })
@@ -169,6 +171,7 @@ const DesktopClientContent = (props) => {
                 onScroll={handleScroll}
                 toTopButtonActive={toTopButtonActive}
                 isLoading={isLoading}
+                scrolledContainerRef={scrolledContainerRef}
             />
             <FilePopup
                 currentLanguage={currentLanguage}

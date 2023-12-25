@@ -1,19 +1,23 @@
 import styled from "styled-components";
 
 export const MenuItemStyled = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
 `
 
-export const MenuItemTitle = styled.span``
+export const MenuItemTitle = styled.span`
+    user-select: none;
+`
 
 export const MenuItemIcon = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     & svg {
-      width: 24px;
-      height: 24px;
+        width: 24px;
+        height: 24px;
     }
 `

@@ -22,13 +22,14 @@ export const CategorySelectorGlobalStyles = createGlobalStyle`
     letter-spacing: 0.56px;
     text-decoration: none;
     color: ${({theme}) => theme.colors.palette.textNormal};
-
-    &:hover {
-      background-color: ${({theme}) => theme.colors.palette.highlightButtonPressed};
+    transition: background-color 300ms ease-out;
+    
+    &.hover, &:hover {
+      background-color: ${({theme}) => theme.colors.palette.highlightButtonHover};
     }
 
     &.active {
-      background-color: ${({theme}) => theme.colors.palette.highlightButtonHover};
+      background-color: ${({theme}) => theme.colors.palette.highlightButtonPressed};
     }
   }
   

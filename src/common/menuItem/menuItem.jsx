@@ -9,6 +9,7 @@ const MenuItem = (props) => {
     const {
         icon = true,
         active,
+        hover,
         href,
         title,
         locale,
@@ -23,7 +24,7 @@ const MenuItem = (props) => {
                 passHref
                 locale={locale}
             >
-                <MenuItemStyled as="a" className={classNames('menu-item', {'active': active})} {...otherProps}>
+                <MenuItemStyled draggable={false} as="a" className={classNames('menu-item ss', {'active': active}, {'hover': hover})} {...otherProps}>
                     <MenuItemTitle className="menu-item__title">{title}</MenuItemTitle>
                     {
                         icon === true ?
@@ -37,7 +38,7 @@ const MenuItem = (props) => {
     }
 
     return (
-        <MenuItemStyled className={classNames('menu-item', {'active': active})} {...otherProps}>
+        <MenuItemStyled className={classNames('menu-item', {'active': active}, {'hover': hover})} {...otherProps}>
             <MenuItemTitle className="menu-item__title">{title}</MenuItemTitle>
             {
                 icon === true ?
@@ -55,6 +56,7 @@ MenuItem.propTypes = {
     locale: PropTypes.string,
     icon: PropTypes.oneOfType([PropTypes.bool, PropTypes.element]),
     active: PropTypes.bool,
+    hover: PropTypes.bool,
     title: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
     className: PropTypes.string,
 }

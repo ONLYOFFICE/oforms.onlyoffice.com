@@ -16,32 +16,27 @@ const HeadSEO = ({
                      isDesktopClient,
                  }) => {
     const router = useRouter()
-    const theme = router.query.theme || 'theme-classic'
+    const theme = router.query.theme || 'theme-classic-light'
     const style = useMemo(() => {
         let result;
         switch (theme) {
-            case 'theme-classic': {
+            case 'theme-classic-light': {
                 result = <style type="text/css">
                     {`
-                        ::-webkit-scrollbar {
-                            width: 8px !important;
-                        }
-                        
-                        ::-webkit-scrollbar-track {
-                            background: #FFFFFF !important;
-                        }
-                        
-                        ::-webkit-scrollbar-track:hover {
-                            background: #F7F7F7 !important;
-                        }
-                        
                         ::-webkit-scrollbar-thumb {
-                            background: #E0E0E0 !important;
-                            border-radius: 3px !important;
+                            background-color: #E0E0E0 !important;
                         }
                         
                         ::-webkit-scrollbar-thumb:hover {
-                            background: #CCCCCC !important;
+                            background-color: #ccc !important;
+                        }
+
+                        ::-webkit-scrollbar-track {
+                            background-color: #FFF !important;
+                        }
+                        
+                        ::-webkit-scrollbar-track:hover {
+                            background-color: rgba(0,0,0,0.03) !important;
                         }
                         
                         .modal-with-scroll::-webkit-scrollbar {
@@ -72,25 +67,20 @@ const HeadSEO = ({
             case 'theme-light': {
                 result = <style>
                     {`
-                        ::-webkit-scrollbar {
-                            width: 8px !important;
-                        }
-                        
-                        ::-webkit-scrollbar-track {
-                            background: #FFFFFF !important;
-                        }
-                        
-                        ::-webkit-scrollbar-track:hover {
-                            background: #F7F7F7 !important;
-                        }
-                        
                         ::-webkit-scrollbar-thumb {
-                            background: #E0E0E0 !important;
-                            border-radius: 3px !important;
+                            background-color: #E0E0E0 !important;
                         }
                         
                         ::-webkit-scrollbar-thumb:hover {
-                            background: #CCCCCC !important;
+                            background-color: #ccc !important;
+                        }
+
+                        ::-webkit-scrollbar-track {
+                            background-color: #FFF !important;
+                        }
+                        
+                        ::-webkit-scrollbar-track:hover {
+                            background-color: rgba(0,0,0,0.03) !important;
                         }
                         
                         .modal-with-scroll::-webkit-scrollbar {
@@ -121,26 +111,20 @@ const HeadSEO = ({
             case 'theme-dark': {
                 result = <style type="text/css">
                     {`
-                        ::-webkit-scrollbar {
-                            width: 8px !important;
-                        }
-
-                        ::-webkit-scrollbar-track {
-                            background: #333333 !important;
-                        }
-                        
-                        ::-webkit-scrollbar-track:hover {
-                            background: #404040 !important;
-                        }
-                        
                         ::-webkit-scrollbar-thumb {
-                            background: #404040 !important;
-                            border-radius: 3px;
+                            background-color: #555 !important;
                         }
                         
                         ::-webkit-scrollbar-thumb:hover {
-                            background: #606060 !important;
-                            border-radius: 3px;
+                            background-color: #606060 !important;
+                        }
+
+                        ::-webkit-scrollbar-track {
+                            background-color: #333 !important;
+                        }
+                        
+                        ::-webkit-scrollbar-track:hover {
+                            background-color: rgba(255,255,255,0.03) !important;
                         }
                         
                         .modal-with-scroll::-webkit-scrollbar {
@@ -175,25 +159,20 @@ const HeadSEO = ({
             case 'theme-contrast-dark': {
                 result = <style type="text/css">
                     {`
-                        ::-webkit-scrollbar {
-                            width: 8px !important;
-                        }
-                        
-                        ::-webkit-scrollbar-track {
-                            background: #1E1E1E !important;
-                        }
-                        
-                        ::-webkit-scrollbar-track:hover {
-                            background: #252525 !important;
-                        }
-                        
                         ::-webkit-scrollbar-thumb {
-                            background: #404040 !important;
-                            border-radius: 3px !important;
+                            background-color: #424242 !important;
                         }
                         
                         ::-webkit-scrollbar-thumb:hover {
-                            background: #666666 !important;
+                            background-color: #666666 !important;
+                        }
+
+                        ::-webkit-scrollbar-track {
+                            background-color: #1e1e1e !important;
+                        }
+                        
+                        ::-webkit-scrollbar-track:hover {
+                            background-color: rgba(255,255,255,0.03) !important;
                         }
                         
                         .modal-with-scroll::-webkit-scrollbar {

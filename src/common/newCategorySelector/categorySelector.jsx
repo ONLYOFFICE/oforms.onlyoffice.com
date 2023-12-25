@@ -132,11 +132,11 @@ const CategorySelector = (props) => {
                             title={
                                 desktopClientController(
                                     <MenuItem
-                                        active={isCategoryOpen}
+                                        hover={isCategoryOpen}
                                         title={t('Forms by branch')}
                                     />,
                                     <MenuItem
-                                        active={isCategoryOpen}
+                                        hover={isCategoryOpen}
                                         title={t('Forms by branch')}
                                     />,
                                     isDesktopClient,
@@ -181,11 +181,11 @@ const CategorySelector = (props) => {
                             title={
                                 desktopClientController(
                                     <MenuItem
-                                        active={isTypeOpen}
+                                        hover={isTypeOpen}
                                         title={t('Forms by type')}
                                     />,
                                     <MenuItem
-                                        active={isTypeOpen}
+                                        hover={isTypeOpen}
                                         title={t('Forms by type')}
                                     />,
                                     isDesktopClient,
@@ -230,11 +230,11 @@ const CategorySelector = (props) => {
                             title={
                                 desktopClientController(
                                     <MenuItem
-                                        active={isCompilationsOpen}
+                                        hover={isCompilationsOpen}
                                         title={t('Popular Compilations')}
                                     />,
                                     <MenuItem
-                                        active={isCompilationsOpen}
+                                        hover={isCompilationsOpen}
                                         title={t('Popular Compilations')}
                                     />,
                                     isDesktopClient,

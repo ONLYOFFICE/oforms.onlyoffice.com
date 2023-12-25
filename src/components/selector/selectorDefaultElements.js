@@ -44,21 +44,23 @@ export const SelectorDefaultDropdownItem = styled.li`
 `;
 
 export const SelectorDefaultLabel = styled(Text)`
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 160%;
-  color: ${({theme}) => theme.colors.palette.textSecondary};
-  cursor: pointer;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    color: ${({ theme }) => theme.colors.palette.textSecondary};
+    cursor: pointer;
+    user-select: none;
 `
 
 export const SelectorDefaultValue = styled(Text)`
-  font-style: normal;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 133%;
-  color: ${({theme}) => theme.colors.palette.textNormal};
-  cursor: pointer;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 133%;
+    color: ${({ theme }) => theme.colors.palette.textNormal};
+    cursor: pointer;
+    user-select: none;
 `
 
 export const SelectorDefaultHeader = styled.div`

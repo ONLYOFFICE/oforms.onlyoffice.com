@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const MenuSectionStyled = styled.div`
-    
+    user-select: none;
 `
 
 export const MenuSectionHeader = styled.header`

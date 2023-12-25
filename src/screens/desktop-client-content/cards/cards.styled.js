@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const CardsWrapper = styled.div`
-  padding: 0 50px 40px 40px;
   max-height: inherit;
   overflow-y: auto;
 `
@@ -29,7 +28,7 @@ export const ToTopButton = styled.button`
   
   position: absolute;
   bottom: 85px;
-  right: 12px;
+  right: 64px;
   
   rect {
     fill: ${({theme}) => theme.colors.palette.toTopIconBackground};

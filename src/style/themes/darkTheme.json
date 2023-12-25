@@ -28,6 +28,9 @@
       "toTopIcon": "#333333",
       "toTopIconBackground": "#DDDDDD",
       "toTopIconBackgroundHover": "#FCFCFC",
+      "backgroundPrimaryButton": "#DDDDDD",
+      "backgroundPrimaryButtonHover": "#E5E5E5",
+      "backgroundPrimaryButtonPressed": "#E5E5E5",
       "skeletonBorder": "#616161"
     },
     "base": {

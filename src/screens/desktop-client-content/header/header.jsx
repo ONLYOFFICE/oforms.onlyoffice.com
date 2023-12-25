@@ -28,7 +28,7 @@ const Header = (props) => {
     const [inputActive, setInputActive] = useState(!!queryDesktopClient)
     const [value, setValue] = useState(queryDesktopClient ?? '')
     const router = useRouter()
-    const theme = router.query.theme ?? 'theme-classic'
+    const theme = router.query.theme ?? 'theme-classic-light'
     const {t} = useTranslation('common');
 
     const onSubmit = (e) => {

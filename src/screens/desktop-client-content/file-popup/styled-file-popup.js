@@ -189,14 +189,14 @@ export const StyledFilePopup = styled.div`
 
 
     color: ${({theme}) => theme.colors.palette.textInverse};
-    background-color: ${({theme}) => theme.colors.palette.backgroundPrimaryDialogButton};
+    background-color: ${({theme}) => theme.colors.palette.backgroundPrimaryButton};
 
     &:hover {
-      background-color: ${({theme}) => theme.colors.palette.backgroundPrimaryDialogButtonHover};
+      background-color: ${({theme}) => theme.colors.palette.backgroundPrimaryButtonHover};
     }
 
     &:active {
-      opacity: 0.4;
+        background-color: ${({theme}) => theme.colors.palette.backgroundPrimaryButtonPressed};
     }
   }
 
