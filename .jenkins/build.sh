@@ -1,5 +1,7 @@
 #!/bin/bash
 
+### Settings
+
 # Timestamp
 CURRENT_DATE=$(date "+%Y%m%d-%H%M%S")
 
@@ -8,14 +10,24 @@ DOCKER_CONTAINER_TAG="node:16-alpine"
 EXPOSE_PORT="30000"
 APP_NAME="oforms.onlyoffice.com"
 APP_DIR="/app/$APP_NAME"
+BUILD_DIR="/app/${APP_NAME}_BUILD"
 SOURCE_ARCHIVE_PATH="/home/ubuntu/deploy/.jenkins/oforms.tar.gz"
 BACKUP_DIR="/app/backups"
 BACKUP_NAME="$APP_NAME-$CURRENT_DATE.tar.gz"
 
-# Stop application container if it exists
-if docker ps -a | grep -wq "$APP_NAME"; then
-    docker stop "$APP_NAME"
-fi
+### BUILD STAGE
+
+# Create folder with sources and extract sources to it
+mkdir -p "$BUILD_DIR"
+tar -xzf "$SOURCE_ARCHIVE_PATH" -C "$BUILD_DIR"
+find "$BUILD_DIR" -type d -exec chmod 755 {} \;
+find "$BUILD_DIR" -type f -exec chmod 644 {} \;
+cd "$BUILD_DIR"
+
+# Build application
+docker run --rm -v "$BUILD_DIR":"$APP_DIR" -w "$APP_DIR" "$DOCKER_CONTAINER_TAG" sh -c "yarn && yarn build"
+
+### DEPLOY STAGE
 
 # Archive the folder with date-time stamp
 tar -czf "$BACKUP_DIR/$BACKUP_NAME" -C "$APP_DIR" .
@@ -24,19 +36,17 @@ tar -czf "$BACKUP_DIR/$BACKUP_NAME" -C "$APP_DIR" .
 cd "$BACKUP_DIR"
 ls -1t "$APP_NAME-*.tar.gz" | tail -n +8 | xargs -I {} rm -- {}
 
+# Stop application container if it exists
+if docker ps -a | grep -wq "$APP_NAME"; then
+    docker stop "$APP_NAME"
+fi
+
 # Remove the original /app/www-cms-marketplace folder
 rm -rf "$APP_DIR"
 
-# Create folder with sources and extract sources to it
-mkdir -p "$APP_DIR"
-tar -xzf "$SOURCE_ARCHIVE_PATH" -C "$APP_DIR"
-find "$APP_DIR" -type d -exec chmod 755 {} \;
-find "$APP_DIR" -type f -exec chmod 644 {} \;
-cd "$APP_DIR"
+# Copy built app to app dir
+mv $BUILD_DIR $APP_DIR
 
-# Build application
-docker run --rm -v "$APP_DIR":"$APP_DIR" -w "$APP_DIR" "$DOCKER_CONTAINER_TAG" sh -c "yarn && yarn build"
- 
 # Start container if it exists or build and start it
 if docker ps -a | grep -wq "$APP_NAME"; then
     # Get the image tag of the existing container
