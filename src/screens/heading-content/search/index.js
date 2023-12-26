@@ -32,6 +32,12 @@ const SearchContent = ({ handlerSetModal, handlerCardData }) => {
   const onSearch = (e) => {
     e.preventDefault();
     setSearchValue(e.target.value);
+
+    if (searchValue.length > 2) {
+      searchReqData();
+    } else {
+      setSearchResult(null);
+    }
   };
 
   const onEnterPress = (e) => {
@@ -44,6 +50,8 @@ const SearchContent = ({ handlerSetModal, handlerCardData }) => {
         searchResultPathname && Router.push(`?query=${searchValue}`, null, { shallow: true })
       }
     }
+
+    setFocusOnSearch(false);
   };
 
   const clearValueSearch = () => {
@@ -69,15 +77,6 @@ const SearchContent = ({ handlerSetModal, handlerCardData }) => {
 
     return () => clearTimeout(delayDebounce);
   };
-
-  useEffect(() => {
-    if (searchValue.length > 2) {
-      searchReqData();
-    } else {
-      setSearchResult(null);
-    }
-  }, [router, searchValue]);
-
 
   return (
     <>
