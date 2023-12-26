@@ -119,7 +119,7 @@ const DesktopClientContent = (props) => {
             if (isLoading || nextPage > forms.meta.pagination.pageCount || isError) return
             setIsLoading(true)
             const formsRes = await fetch(
-                `${CMSConfigAPI}/api/oforms/?sort=name_form:${sort}&pagination[pageSize]=32&pagination[page]=${nextPage}&populate=template_image&populate=file_oform&populate=card_prewiew&populate=categories&locale=${locale}`
+                `${CMSConfigAPI}/api/oforms/?sort=name_form:${sort}&pagination[pageSize]=32&pagination[page]=${nextPage}&populate=template_image&populate=file_oform&populate=card_prewiew&populate=categories&locale=${locale === "pt" ? "pt-br" : locale}`
             )
             const newForms = await formsRes.json()
             const result = {

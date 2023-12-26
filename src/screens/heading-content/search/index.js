@@ -56,7 +56,7 @@ const SearchContent = ({ handlerSetModal, handlerCardData }) => {
 
   const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
   const searchReqData = () => {
-    const searchURL = `${CMSConfigAPI}/api/oforms?populate[0]=categories&locale=${locale}&filters[name_form][$containsi]=${searchValue}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`;
+    const searchURL = `${CMSConfigAPI}/api/oforms?populate[0]=categories&locale=${locale === "pt" ? "pt-br" : locale}&filters[name_form][$containsi]=${searchValue}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`;
     const delayDebounce = setTimeout(() => {
       axios
         .get(searchURL)
