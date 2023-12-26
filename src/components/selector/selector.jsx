@@ -49,6 +49,11 @@ const Selector = (props) => {
         }
     }
 
+    const handleChildrenClick = (e) => {
+        e.stopPropagation();
+        onMouseLeave();
+    };
+
     return (
         <>
             <StyledSelector
@@ -71,7 +76,9 @@ const Selector = (props) => {
                     className={`selector__dropdown`}
                     isOpen={isControlled ? isOpen : open}
                 >
-                    {children}
+                    {React.Children.map(children, (child) =>
+                        React.cloneElement(child, { onClick: handleChildrenClick })
+                    )}
                 </StyledSelectorDropdown>
             </StyledSelector>
         </>
