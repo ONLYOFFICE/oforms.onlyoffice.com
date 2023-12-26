@@ -76,7 +76,7 @@ const SearchContent = ({ handlerSetModal, handlerCardData }) => {
     } else {
       setSearchResult(null);
     }
-  }, [router]);
+  }, [router, searchValue]);
 
 
   return (
