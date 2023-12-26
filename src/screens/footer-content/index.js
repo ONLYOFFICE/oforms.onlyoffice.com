@@ -75,7 +75,7 @@ const Footer = ({ t, locale }) => {
       </div>
       <div className="footer-item-group">
         <FooterItem heading={t("Get news")} className="get-news">
-          <ExternalLink className="footer-link" href={`https://onlyoffice.com/blog${locale === "en" ? "" : locale === "zh" ? "/zh-hans" : `/${locale}`}`} label={t("Blog")} />
+          <ExternalLink className="footer-link" href={`https://onlyoffice.com/blog${locale === "en" ? "" : locale === "zh" ? "/zh-hans" : locale === "pt" ? "/pt-br" : `/${locale}`}`} label={t("Blog")} />
         </FooterItem>
         <FooterItem heading={t("Get help")} className="get-help">
           <ExternalLink className="footer-link" href="https://forum.onlyoffice.com/" label={t("Forum")} />
