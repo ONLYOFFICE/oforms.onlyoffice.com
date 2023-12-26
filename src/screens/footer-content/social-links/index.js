@@ -12,7 +12,7 @@ const SocialLinks = ({ locale, handlerSetModal }) => {
       <ExternalLink className="social-link twitter" href="https://twitter.com/ONLY_OFFICE" rel="nofollow" title="Twitter" alt="Twitter"></ExternalLink>
       <ExternalLink className="social-link linkedin" href="https://www.linkedin.com/company/ascensio-system-sia/" rel="nofollow" title="LinkedIn" alt="LinkedIn"></ExternalLink>
       <ExternalLink className="social-link youtube" href="https://www.youtube.com/user/onlyofficeTV" rel="nofollow" title="YouTube" alt="YouTube"></ExternalLink>
-      <ExternalLink className="social-link blog" href={`https://www.onlyoffice.com/blog/${locale === "en" ? "" : locale}`} title="Blog" alt="Blog"></ExternalLink>
+      <ExternalLink className="social-link blog" href={`https://www.onlyoffice.com/blog/${locale === "en" ? "" : locale === "pt" ? "pt-br" : locale}`} title="Blog" alt="Blog"></ExternalLink>
       <ExternalLink className="social-link medium" href="https://medium.com/onlyoffice" title="Medium" alt="Medium"></ExternalLink>
 
       {locale !== "zh" &&
