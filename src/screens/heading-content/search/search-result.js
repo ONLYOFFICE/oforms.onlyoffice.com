@@ -15,7 +15,7 @@ const SearchResult = ({
   const searchResultArray = resultItems?.data?.length > 0 ? resultItems?.data : [];
   return (
     <>
-      {resultMouseLeave && searchItem !== "" && (
+      {resultMouseLeave && (
         <StyledSearchResult className="search-result-wrapper" onMouseLeave={onMouseLeaveSearchResult}>
           <div className="search-result">
             {searchResultArray.length > 0 ? (

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
     StyledSelector,
     StyledSelectorDropdown,
@@ -20,6 +20,7 @@ const Selector = (props) => {
     } = props;
 
     const [open, setOpen] = useState(false);
+    const selectorRef = useRef(null);
 
     const isControlled = isOpen !== undefined;
 
@@ -49,9 +50,29 @@ const Selector = (props) => {
         }
     }
 
+    const handleChildrenClick = (e) => {
+        e.stopPropagation();
+        onMouseLeave();
+    };
+
+    useEffect(() => {
+        const handleOutsideClick = (e) => {
+            if (selectorRef.current && !selectorRef.current.contains(e.target)) {
+                onMouseLeave();
+            }
+        };
+
+        document.addEventListener("mousedown", handleOutsideClick);
+
+        return () => {
+            document.removeEventListener("mousedown", handleOutsideClick);
+        };
+    }, []);
+
     return (
         <>
             <StyledSelector
+                ref={selectorRef}
                 className={selectorClassName}
                 onMouseLeave={trigger === 'hover' ? onMouseLeave : undefined}
                 onMouseOver={trigger === 'hover' ? onMouseOver: undefined}
@@ -71,7 +92,9 @@ const Selector = (props) => {
                     className={`selector__dropdown`}
                     isOpen={isControlled ? isOpen : open}
                 >
-                    {children}
+                    {React.Children.map(children, (child) =>
+                        React.cloneElement(child, { onClick: handleChildrenClick })
+                    )}
                 </StyledSelectorDropdown>
             </StyledSelector>
         </>
