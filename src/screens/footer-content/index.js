@@ -43,7 +43,7 @@ const Footer = ({ t, locale }) => {
           <ExternalLink className="footer-link" href={`${hrefLang}/pdf-reader.aspx`} label={t("PDF Editor")} />
           <ExternalLink className="footer-link" href={`${hrefLang}/security.aspx`} label={t("Security")} />
           <ExternalLink className="footer-link" href={`${hrefLang}/accessibility.aspx`} label={t("Accessibility")} />
-          <ExternalLink className="footer-link" href={`${hrefLang}/app-directory/chatgpt`} label={t("AI helper")} />
+          <ExternalLink className="footer-link" href={`https://onlyoffice.com/app-directory${locale === "fr" || locale === "de" || locale === "es" ? `/${locale}` : ""}/openai`} label={t("AI helper")} />
           <ExternalLink className="footer-link" href={`https://onlyoffice.com/app-directory${locale === "fr" || locale === "de" || locale === "es" ? `/${locale}` : ""}`} label={t("App Directory")} />
         </FooterItem>
         <FooterItem heading={t("Connectors")} className="connectors">
