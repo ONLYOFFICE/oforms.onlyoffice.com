@@ -73,9 +73,9 @@ export const SortSelector = (props) => {
 
     if (isDesktopClient) {
         return (
-            <SortSelectorHeader>
+            <SortSelectorHeader onClick={onSort}>
                 <SelectorDefaultLabel>{t("SortBy")}</SelectorDefaultLabel>
-                <SortSelectorIcon onClick={onSort}>
+                <SortSelectorIcon>
                     {
                         sort === 'asc' ? <SortAsc size={24}/> : <SortDesc size={24}/>
                     }
