@@ -14,7 +14,7 @@ const AccordionContent = ({ currentLanguage }) => {
   const ONLYOFFICEDesktopEditors = t("ONLYOFFICEDesktopEditors");
   const AccordionDescriptionDocsUseLocallyLink = t(
     "AccordionDescriptionDocsUseLocallyLink"
-  );
+  )
 
   const AccordionDescriptionDocsUseLocally = (
     <Text as={"p"} className="text-trans-accordion">

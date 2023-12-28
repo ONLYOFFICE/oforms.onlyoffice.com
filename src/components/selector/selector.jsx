@@ -27,9 +27,9 @@ const Selector = (props) => {
 
     const onCLick = () => {
         if (isControlled) {
-            onVisibilityChange && onVisibilityChange(true)
+            onVisibilityChange && onVisibilityChange(!isOpen)
         } else {
-            setOpen(true)
+            setOpen(isOpen)
         }
     }
 
