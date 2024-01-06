@@ -33,7 +33,7 @@ export const CardImage = styled.img`
 
 export const CardTitle = styled.h4`
   margin: 0;
-  color: ${({theme}) => theme.colors.palette.iconNormal};
+  color: ${({theme}) => theme.colors.newPalette.textNormal};
   text-align: center;
   font-size: 14px;
   font-style: normal;

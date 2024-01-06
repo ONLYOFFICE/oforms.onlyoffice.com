@@ -18,7 +18,7 @@ export const CategorySelectorHeader = (props) => {
                 <HeaderValue onClick={onClick}>{value}</HeaderValue>
                 <XClose
                     size="24px"
-                    color={theme.colors.palette.iconNormal}
+                    color={theme.colors.newPalette.iconNormal}
                     style={{cursor: 'pointer'}}
                     onClick={onClear}
                 />

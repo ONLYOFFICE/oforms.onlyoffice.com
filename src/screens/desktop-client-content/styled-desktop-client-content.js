@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Section from "@common/section";
 
 const StyledDesktopClientContent = styled.section`
-    background-color: ${({ theme }) => theme.colors.palette.backgroundNormal};
+    background-color: ${({ theme }) => theme.colors.newPalette.backgroundNormal};
     padding: 40px;
     height: 100dvh;
     

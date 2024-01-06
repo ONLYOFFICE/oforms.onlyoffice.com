@@ -3,7 +3,6 @@ import {useState, useEffect} from "react";
 import Cards from "../../common/cards";
 import Pagination from "@common/pagination";
 import {CategorySelector} from "@common/categorySelector";
-import NewCategorySelector from "@common/newCategorySelector"
 import Heading from "@common/heading";
 import Text from "@common/text";
 import Box from "@common/box";

@@ -11,7 +11,7 @@ const StyledMainContent = styled(Section)`
 
   .box-doc-info-template {
     display: grid;
-    grid-template-columns: 1fr 150px 160px;
+    grid-template-columns: 1fr max-content max-content;
     margin-bottom: 32px;
   }
 
@@ -85,6 +85,7 @@ const StyledMainContent = styled(Section)`
     justify-content: flex-start;
     align-items: baseline;
     cursor: pointer;
+      margin-right: 32px;
 
     .categories-svg {
       margin-left: 7px;

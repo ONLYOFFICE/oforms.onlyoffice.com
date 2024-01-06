@@ -14,7 +14,7 @@ export const CategorySelectorHeader = (props) => {
     if (isDesktopClient && value !== undefined) {
         return (
             <Header>
-                <HeaderLabel onClick={onClick}>{label}</HeaderLabel>
+                <HeaderLabel isDesktopClient={isDesktopClient} onClick={onClick}>{label}</HeaderLabel>
                 <HeaderValue onClick={onClick}>{value}</HeaderValue>
                 <XClose
                     size="24px"
@@ -28,7 +28,7 @@ export const CategorySelectorHeader = (props) => {
 
     return (
         <Header onClick={onClick}>
-            <HeaderLabel>{label}</HeaderLabel>
+            <HeaderLabel isDesktopClient={isDesktopClient}>{label}</HeaderLabel>
             <HeaderValue>{value}</HeaderValue>
             <HeaderIcon className={classNames({open: isOpen})}/>
         </Header>

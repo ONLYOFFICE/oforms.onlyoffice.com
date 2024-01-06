@@ -1,4 +1,7 @@
 import React, {useState} from "react";
+import {useRouter} from "next/router";
+import {useTranslation} from "next-i18next";
+
 import {
     HeaderBox,
     HeaderForm,
@@ -9,10 +12,9 @@ import {
 } from "./header.styled";
 import CategorySelector from "@common/newCategorySelector";
 import LanguageSelector from "@common/languageSelector";
+import { SearchInput } from '@components/desktop/searchInput';
 import {SortSelector} from "@common/sortSelector";
 import {Loup, XClose} from "@icons";
-import {useRouter} from "next/router";
-import {useTranslation} from "next-i18next";
 
 const Header = (props) => {
     const {
@@ -72,20 +74,7 @@ const Header = (props) => {
                     queryDesktopClient={queryDesktopClient}
                 />
                 <HeaderInputWrapper>
-                    <HeaderForm onSubmit={onSubmit} active={inputActive}>
-                        <Loup size="24px" onClick={() => setInputActive(prevState => !prevState)} className="search-icon" />
-                        {
-                            <HeaderInput
-                                active={inputActive}
-                                value={value}
-                                onChange={(e) => setValue(e.target.value)}
-                                placeholder={t('Search')}
-                            />
-                        }
-                        {
-                            inputActive && value.trim().length !== 0 && <XClose onClick={onClear} size="30px" className="clear-icon" />
-                        }
-                    </HeaderForm>
+                    <SearchInput />
                     <SortSelector
                         typeSortData={typeSortData}
                         category={categoryName}

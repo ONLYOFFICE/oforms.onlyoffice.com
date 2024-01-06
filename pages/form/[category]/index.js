@@ -45,32 +45,37 @@ const Category = ({
     const [stateMobile, setStateMobile] = useState(false);
     const query = useRouter();
     const isDesktopClient = query.query.desktop === "true";
-    return isDesktopClient ?
-        <Layout>
-            <Layout.PageHead>
-                <HeadSEO
-                    title={t("titleIndexPage")}
-                    metaSiteNameOg={t("metaSiteNameOg")}
-                    metaDescription={t("titleIndexPage")}
-                    metaDescriptionOg={t("metaDescriptionOgIndexPage")}
-                    metaKeywords={t("metaKeywordsIndexPage")}
-                    isDesktopClient={isDesktopClient}
+
+    if(isDesktopClient) {
+        return (
+            <Layout>
+                <Layout.PageHead>
+                    <HeadSEO
+                        title={t("titleIndexPage")}
+                        metaSiteNameOg={t("metaSiteNameOg")}
+                        metaDescription={t("titleIndexPage")}
+                        metaDescriptionOg={t("metaDescriptionOgIndexPage")}
+                        metaKeywords={t("metaKeywordsIndexPage")}
+                        isDesktopClient={isDesktopClient}
+                    />
+                </Layout.PageHead>
+                <DesktopClientContent
+                    currentLanguage={locale}
+                    data={categoryForms}
+                    sort={sort}
+                    page={+page}
+                    isCategoryPage={isCategoryPage}
+                    header={header}
+                    types={types}
+                    categories={categories}
+                    compilations={compilations}
+                    categoryName={categoryName}
                 />
-            </Layout.PageHead>
-            <DesktopClientContent
-                currentLanguage={locale}
-                data={categoryForms}
-                sort={sort}
-                page={+page}
-                isCategoryPage={isCategoryPage}
-                header={header}
-                types={types}
-                categories={categories}
-                compilations={compilations}
-                categoryName={categoryName}
-            />
-        </Layout>
-        :
+            </Layout>
+        )
+    }
+
+    return (
         <Layout>
             <Layout.PageHead>
                 <HeadSEO
@@ -109,6 +114,7 @@ const Category = ({
                 </Suspense>
             </Layout.PageFooter>
         </Layout>
+    )
 };
 
 export const getServerSideProps = async ({locale, query, ...ctx}) => {

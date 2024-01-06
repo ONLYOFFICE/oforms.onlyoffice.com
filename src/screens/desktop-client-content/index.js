@@ -31,6 +31,7 @@ const DesktopClientContent = (props) => {
     const [toTopButtonActive, setToTopButtonActive] = useState(false)
     const [isError, setIsError] = useState(false)
 
+
     const scrolledContainerRef = useRef(null)
 
     const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
