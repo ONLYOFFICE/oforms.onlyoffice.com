@@ -27,12 +27,13 @@ export const SearchInput = () => {
     } = useSearchInput();
 
     return (
-        <SearchInputForm onSubmit={onSubmit}>
+        <SearchInputForm onSubmit={onSubmit} $inputMounted={isSearchInputMounted}>
             <SearchInputLoupWrapper type='button' onClick={onToggle}>
                 <Loup size={24} />
             </SearchInputLoupWrapper>
 
             {
+                isSearchInputMounted &&
                 <SearchInputWrapper
                     className={cn({
                         'inputExpanded': isSearchInputExpanded,

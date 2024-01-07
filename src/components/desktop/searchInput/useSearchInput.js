@@ -40,7 +40,7 @@ export const useSearchInput = () => {
             setIsSearchInputExpanded(false);
             setTimeout(() => {
                 setIsSearchInputMounted(false);
-            }, 200);
+            }, 160);
             setIsClearButtonVisible(false);
             return;
         }
@@ -78,7 +78,7 @@ export const useSearchInput = () => {
 
         if (trimmedInputValue) {
             goToPathname('/searchresult', {query: trimmedInputValue})
-        } else {
+        } else if(router.pathname === '/searchresult') {
             goToPathname()
         }
     };

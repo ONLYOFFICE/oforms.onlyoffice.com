@@ -1,6 +1,6 @@
-import React, {useState} from "react";
-import {useRouter} from "next/router";
-import {useTranslation} from "next-i18next";
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 
 import {
     HeaderBox,
@@ -8,13 +8,12 @@ import {
     HeaderInput,
     HeaderInputWrapper,
     HeaderStyled,
-    HeaderTitle
-} from "./header.styled";
-import CategorySelector from "@common/newCategorySelector";
-import LanguageSelector from "@common/languageSelector";
+    HeaderTitle,
+} from './header.styled';
+import CategorySelector from '@common/newCategorySelector';
+import LanguageSelector from '@common/languageSelector';
 import { SearchInput } from '@components/desktop/searchInput';
-import {SortSelector} from "@common/sortSelector";
-import {Loup, XClose} from "@icons";
+import { SortSelector } from '@common/sortSelector';
 
 const Header = (props) => {
     const {
@@ -27,45 +26,45 @@ const Header = (props) => {
         categoryName,
         queryDesktopClient,
     } = props;
-    const [inputActive, setInputActive] = useState(!!queryDesktopClient)
-    const [value, setValue] = useState(queryDesktopClient ?? '')
-    const router = useRouter()
-    const theme = router.query.theme ?? 'theme-classic-light'
-    const {t} = useTranslation('common');
+    const [inputActive, setInputActive] = useState(!!queryDesktopClient);
+    const [value, setValue] = useState(queryDesktopClient ?? '');
+    const router = useRouter();
+    const theme = router.query.theme ?? 'theme-classic-light';
+    const { t } = useTranslation('common');
 
     const onSubmit = (e) => {
-        e.preventDefault()
-        if(value.trim()) {
+        e.preventDefault();
+        if (value.trim()) {
             router.push({
                 pathname: '/searchresult',
                 query: {
                     desktop: true,
                     query: value.trim(),
-                    theme
-                }
-            })
-        } else onClear()
-    }
+                    theme,
+                },
+            });
+        } else onClear();
+    };
 
     const onClear = () => {
-        setValue('')
-        setInputActive(false)
+        setValue('');
+        setInputActive(false);
         router.push({
             pathname: '/',
             query: {
                 desktop: true,
-                theme
-            }
-        })
-    }
+                theme,
+            },
+        });
+    };
 
     return (
         <HeaderStyled>
-            <HeaderTitle>{t("Templates")}</HeaderTitle>
+            <HeaderTitle>{t('Templates')}</HeaderTitle>
             <HeaderBox active={inputActive}>
                 <CategorySelector
                     typeSortData={typeSortData}
-                    className="form-control"
+                    className='form-control'
                     types={types}
                     categories={categories}
                     compilations={compilations}
@@ -75,15 +74,12 @@ const Header = (props) => {
                 />
                 <HeaderInputWrapper>
                     <SearchInput />
-                    <SortSelector
-                        typeSortData={typeSortData}
-                        category={categoryName}
-                    />
+                    <SortSelector />
                     <LanguageSelector />
                 </HeaderInputWrapper>
             </HeaderBox>
         </HeaderStyled>
-    )
-}
+    );
+};
 
 export default Header;

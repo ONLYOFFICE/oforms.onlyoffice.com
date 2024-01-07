@@ -2,11 +2,17 @@ import styled from "styled-components";
 
 export const DesktopSortSelector = styled.div``
 
-export const DesktopSortSelectorIconWrapper = styled.div`
+export const DesktopSortSelectorIconWrapper = styled.button`
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    
     svg {
         color: ${({theme}) => theme.colors.newPalette.iconNormal};
     }
