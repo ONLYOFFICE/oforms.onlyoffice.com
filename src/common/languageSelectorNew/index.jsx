@@ -1,0 +1,103 @@
+import React from 'react';
+import cn from 'classnames';
+import Link from 'next/link';
+
+import {
+    LanguageSelectorFlag,
+    LanguageSelectorIconWrapper,
+    LanguageSelectorStyled,
+    LanguageSelectorHeader,
+    DesktopLanguageSelectorList,
+    DesktopLanguageSelectorItemLink,
+    WebsiteLanguageSelectorList,
+    WebsiteLanguageSelectorItemLink,
+} from './languageSelector.styled';
+import { useLanguageSelector } from './useLanguageSelector';
+import { ChevronDown, Triangle } from '@icons';
+
+export const LanguageSelector = () => {
+    const {
+        isDesktopClient,
+        isOpen,
+        currentLanguage,
+        desktopLanguageSelectorRef,
+        languages,
+        linkHref,
+        onToggle,
+        onMouseEnter,
+        onMouseLeave,
+    } = useLanguageSelector();
+
+    if (isDesktopClient) {
+        return (
+            <LanguageSelectorStyled
+                ref={desktopLanguageSelectorRef}
+                className={cn({ 'expanded': isOpen })}
+                $isDesktopClient
+            >
+                <LanguageSelectorHeader
+                    onClick={onToggle}
+                    $isDesktopClient
+                >
+                    <LanguageSelectorFlag className={currentLanguage} />
+                    <LanguageSelectorIconWrapper $isDesktopClient className='chevron-icon'>
+                        <ChevronDown size={24} />
+                    </LanguageSelectorIconWrapper>
+                </LanguageSelectorHeader>
+                {
+                    isOpen &&
+                    <DesktopLanguageSelectorList>
+                        {
+                            languages.map((lang, idx) => (
+                                <li key={idx}>
+                                    <Link href={linkHref} locale={lang} passHref>
+                                        <DesktopLanguageSelectorItemLink
+                                            className={cn({ 'current': lang === currentLanguage })}
+                                        >
+                                            <LanguageSelectorFlag className={lang} />
+                                        </DesktopLanguageSelectorItemLink>
+                                    </Link>
+                                </li>
+                            ))
+                        }
+                    </DesktopLanguageSelectorList>
+                }
+            </LanguageSelectorStyled>
+        );
+    }
+
+    return (
+        <LanguageSelectorStyled
+            onMouseLeave={onMouseLeave}
+            onMouseEnter={onMouseEnter}
+            className={cn({ 'expanded': isOpen })}
+        >
+            <LanguageSelectorHeader
+                onClick={onToggle}
+            >
+                <LanguageSelectorFlag className={currentLanguage} />
+                <LanguageSelectorIconWrapper className='chevron-icon'>
+                    <Triangle size={8} />
+                </LanguageSelectorIconWrapper>
+            </LanguageSelectorHeader>
+            {
+                isOpen &&
+                <WebsiteLanguageSelectorList>
+                    {
+                        languages.map((lang, idx) => (
+                            <li key={idx}>
+                                <Link href={linkHref} passHref locale={lang}>
+                                    <WebsiteLanguageSelectorItemLink
+                                        className={cn({ 'current': lang === currentLanguage })}
+                                    >
+                                        <LanguageSelectorFlag className={lang} />
+                                    </WebsiteLanguageSelectorItemLink>
+                                </Link>
+                            </li>
+                        ))
+                    }
+                </WebsiteLanguageSelectorList>
+            }
+        </LanguageSelectorStyled>
+    );
+};

@@ -1,24 +1,6 @@
 import styled from 'styled-components';
 
-export const HeaderStyled = styled.header`
-
-    .clear-icon {
-        cursor: pointer;
-        color: ${({ theme }) => theme.colors.newPalette.iconNormal};
-        transition: transform 50ms ease-in-out;
-        right: 0;
-        position: absolute;
-
-        &:hover {
-            color: ${({ theme }) => theme.colors.palette.iconContrastPopoverHover};
-        }
-    }
-
-    .search-icon {
-        color: ${({ theme }) => theme.colors.newPalette.iconNormal};
-        cursor: pointer;
-    }
-`;
+export const HeaderStyled = styled.header``;
 
 export const HeaderTitle = styled.h3`
     font-size: 24px;
@@ -54,35 +36,4 @@ export const HeaderInputWrapper = styled.div`
     display: flex;
     gap: 16px;
     align-items: center;
-`;
-
-export const HeaderForm = styled.form`
-    display: flex;
-    align-items: center;
-    height: 30px;
-    position: relative;
-
-    .search-icon {
-        margin-right: 0;
-    }
-
-    &.active {
-        border-bottom: ${({ theme }) =>
-                `1px solid ${theme.colors.palette.borderToolbarButtonHover}`};
-
-        .search-icon {
-            margin-right: 4px;
-        }
-    }
-`;
-
-export const HeaderInput = styled.input`
-    background-color: transparent;
-    border: none;
-    outline: none;
-    margin: 0;
-    padding: 0;
-    width: ${({ active }) => active ? '250px' : 0};
-    transition: width 300ms ease-in-out;
-    color: ${({ theme }) => theme.colors.newPalette.textNormal};
 `;
