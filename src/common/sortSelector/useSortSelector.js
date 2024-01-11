@@ -1,13 +1,15 @@
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { useIsDesktopClient } from 'src/hooks';
 
 export const useSortSelector = () => {
     const router = useRouter();
     const { t } = useTranslation('common');
 
+    const { isDesktopClient } = useIsDesktopClient();
+
     const theme = router.query.theme;
-    const isDesktopClient = router.query.desktop;
     const sortOrder = router.query._sort || 'asc';
     const sortText = sortOrder === 'asc' ? 'NameA-Z' : 'NameZ-A';
 
@@ -74,7 +76,7 @@ export const useSortSelector = () => {
         setCloseTimeoutId(id);
     };
 
-    const onClick = () => {
+    const onToggle = () => {
         setIsOpen((prev) => !prev);
     };
 
@@ -84,7 +86,7 @@ export const useSortSelector = () => {
         onSort,
         onMouseEnter,
         onMouseLeave,
-        onClick,
+        onToggle,
         isOpen,
         isDesktopClient,
         sortOrder,

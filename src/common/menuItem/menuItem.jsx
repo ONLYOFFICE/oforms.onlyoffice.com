@@ -24,7 +24,7 @@ const MenuItem = (props) => {
                 passHref
                 locale={locale}
             >
-                <MenuItemStyled draggable={false} as="a" className={classNames('menu-item ss', {'active': active}, {'hover': hover})} {...otherProps}>
+                <MenuItemStyled draggable={false} as="a" className={classNames('menu-item', {'active': active}, {'hover': hover})} {...otherProps}>
                     <MenuItemTitle className="menu-item__title">{title}</MenuItemTitle>
                     {
                         icon === true ?

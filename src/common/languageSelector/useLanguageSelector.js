@@ -1,12 +1,13 @@
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'next-i18next';
+import { useIsDesktopClient } from 'src/hooks';
 
 export const useLanguageSelector = () => {
     const router = useRouter();
     const { i18n } = useTranslation();
 
-    const isDesktopClient = router.query.desktop === 'true';
+    const { isDesktopClient } = useIsDesktopClient();
 
     const [isOpen, setIsOpen] = useState(false);
     const [websiteLanguageSelectorTimeoutId, setWebsiteLanguageSelectorTimeoutId] = useState(null);
@@ -30,21 +31,13 @@ export const useLanguageSelector = () => {
         return href;
     }, [isDesktopClient, router.query]);
 
-    const onOpen = () => {
-        setIsOpen(true);
-    };
-
-    const onClose = () => {
-        setIsOpen(false);
-    };
-
     const onToggle = () => {
         setIsOpen(prevState => !prevState);
     };
 
     const onMouseLeave = () => {
         const id = setTimeout(() => {
-            onClose();
+            setIsOpen(false);
         }, 300);
         setWebsiteLanguageSelectorTimeoutId(id);
     };
@@ -52,12 +45,12 @@ export const useLanguageSelector = () => {
     const onMouseEnter = () => {
         clearTimeout(websiteLanguageSelectorTimeoutId);
         setWebsiteLanguageSelectorTimeoutId(null);
-        onOpen();
+        setIsOpen(true);
     };
 
     const onClick = (event) => {
         if (desktopLanguageSelectorRef.current && !desktopLanguageSelectorRef.current.contains(event.target)) {
-            onClose();
+            setIsOpen(false);
         }
     };
 

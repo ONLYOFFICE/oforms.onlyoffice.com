@@ -8,7 +8,8 @@ import {
     HeaderTitle,
 } from './header.styled';
 import CategorySelector from '@common/newCategorySelector';
-import {LanguageSelector} from '@common/languageSelectorNew'
+
+import { LanguageSelector } from 'src/common/languageSelector';
 import { SearchInput } from '@components/desktop/searchInput';
 import { SortSelector } from '@common/sortSelector';
 

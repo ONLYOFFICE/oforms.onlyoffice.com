@@ -26,7 +26,7 @@ export const SortSelector = () => {
         onSort,
         onMouseLeave,
         onMouseEnter,
-        onClick,
+        onToggle,
         getLinkForSort,
     } = useSortSelector()
 
@@ -42,7 +42,7 @@ export const SortSelector = () => {
 
     return (
         <WebsiteSortSelector onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            <WebsiteSortSelectorHeader onClick={onClick}>
+            <WebsiteSortSelectorHeader onClick={onToggle}>
                 <WebsiteSortSelectorLabel>{t('SortBy')}</WebsiteSortSelectorLabel>
                 <WebsiteSortSelectorValue>{t(sortText)}</WebsiteSortSelectorValue>
                 <WebsiteSortSelectorIconWrapper isOpen={isOpen}>

@@ -1,0 +1,1 @@
+export { useIsDesktopClient } from './useIsDesktopClient';

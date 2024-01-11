@@ -2,7 +2,7 @@ import StyledHeading from './styled-menu';
 import { useState, useEffect } from 'react';
 import Nav from './nav/nav';
 import PhoneMenu from './phone-menu';
-import { LanguageSelector } from '@common/languageSelectorNew';
+import { LanguageSelector } from 'src/common/languageSelector';
 import ExternalLink from '@common/link';
 import { ReactSVG } from 'react-svg';
 

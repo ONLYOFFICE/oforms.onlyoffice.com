@@ -1,239 +1,168 @@
-import styled from "styled-components";
-import { device } from "@components/utils/devices";
+import styled, { keyframes } from 'styled-components';
 
-const StyledLanguageSelector = styled.div`
-  position: relative;
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform .2s cubic-bezier(.16,.68,.43,.99);
-
-  &.is-open {
-    .language-list {
-      display: block;
+const runningLine = keyframes`
+    from {
+        width: 0;
     }
 
-    .arrow-image {
-      transform: translateY(0) rotate(180deg);
+    to {
+        width: 50%;
     }
+`;
 
-    .chevron-down {
-      transform: rotate(180deg);
-    }
-
-    &:not(.is-desktop-client) {
-      .language-list {
-        &:before {
-          animation: 0.3s forwards ease-in-out menuLineLeft;
-        }
-  
-        &:after {
-          animation: 0.3s forwards ease-in-out menuLineRight;
-        }
-      }
-    }
-  }
-
-  &.is-desktop-client {
-    .language-button {
-      min-height: initial;
-    }
-
-    .language-list {
-      position: absolute;
-      top: 25px;
-      left: 14px;
-      border: 1px solid rgb(203, 203, 203);
-      border-radius: 2px;
-      padding: 4px;
-      box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 5px;
-    }
-  }
-
-  &:not(.is-desktop-client) {
-    .flag-image {
-      padding-right: 5px;
-    }
-  }
-
-  .chevron-down {
-    color: ${({theme}) => theme.colors.palette.iconNormal};
-  }
-
-  .language-button {
-    display: flex;
-    align-items: center;
-    border: none;
-    padding: 0;
-    min-height: 72px;
-    background-color: transparent;
-
-    svg {
-      cursor: pointer;
-    }
-  }
-
-  .flag-image {
-    box-sizing: initial;
-  }
-
-  .arrow-image,
-  .flag-image {
-    cursor: pointer;
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .flag-image,
-  .language-link {
-    display: block;
-    width: 24px;
-    height: 24px;
-    text-decoration: none;
+export const LanguageSelectorFlag = styled.span`
     background-image: url("https://static-www.onlyoffice.com/images/flags/flags.svg");
     background-repeat: no-repeat;
-    cursor: pointer;
-      
+
+    width: 24px;
+    height: 24px;
+
     &.en {
         background-position-y: -24px;
     }
+
     &.fr {
-      background-position-y: -72px;
+        background-position-y: -72px;
     }
 
     &.de {
-      background-position-y: 0px;
+        background-position-y: 0;
     }
 
     &.es {
-      background-position-y: -48px;
+        background-position-y: -48px;
     }
 
     &.pt {
-      background-position-y: -192px;
+        background-position-y: -192px;
     }
 
     &.it {
-      background-position-y: -96px;
+        background-position-y: -96px;
     }
 
     &.ja {
-      background-position-y: -360px;
+        background-position-y: -360px;
     }
 
     &.zh {
-      background-position-y: -168px;
+        background-position-y: -168px;
     }
-  }
+`;
 
-  .arrow-image {
-    width: 8px;
-    height 6px;
-    transform: translateY(2px);
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
+export const LanguageSelectorIconWrapper = styled.div`
+    display: flex;
 
-    > div {
-      display: flex;
-      width: 8px;
-      height 6px;
+    transition: transform 200ms ease-in-out;
 
-      svg {
-        display: flex;
-      }
+    svg {
+        color: ${({ theme, $isDesktopClient }) => $isDesktopClient ? theme.colors.newPalette.iconNormal : '#FFF'};
     }
-  }
+`;
 
-  .title-lng {
-    display: inline-block;
-    font-size: 14px;
-    font-family: "Open Sans", sans-serif;
-    color: #333;
-    padding-left: 8px;
-    vertical-align: middle;
-    text-transform: uppercase;
-    width: fit-content;
-  }
+export const LanguageSelectorStyled = styled.div`
+    position: relative;
+    height: ${({$isDesktopClient}) => $isDesktopClient ? undefined : '72px'};
 
-  .language-list {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    display: ${(props) => (props.isOpen ? "block" : "none")};
-    border-radius: 0 0 8px 8px;
+    &.expanded {
+        .chevron-icon {
+            transform: rotate(180deg);
+        }
+    }
+`;
+
+export const LanguageSelectorHeader = styled.button`
+    display: flex;
+    align-items: center;
+    height: 100%;
+
     margin: 0;
-    padding: 16px;
-    max-width: 56px;
-    z-index: 100;
-    background-color: #ffffff;
-    box-shadow: 0 20px 50px rgba(85,85,85,0.15);
-    transform: translateX(-50%);
-    list-style-type: none;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    
+    gap: ${({$isDesktopClient}) => $isDesktopClient ? undefined : '5px'};
+`;
 
-    &:before {
-      display: block;
-      position: absolute;
-      width: 0;
-      content: "";
-      height: 1px;
-      background-color: #FF642E;
-      transition: width 0.2s ease-in-out;
-      left: 50%;
-      top: 0;
+export const DesktopLanguageSelectorList = styled.ul`
+    margin: 0;
+    padding: 4px 0;
+    list-style: none;
+
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid ${({ theme }) => theme.colors.newPalette.highlightButtonPressed};
+    background-color: ${({ theme }) => theme.colors.newPalette.backgroundNormal};
+    border-radius: 2px;
+
+    position: absolute;
+    z-index: 1;
+    left: -5px;
+`;
+
+export const DesktopLanguageSelectorItemLink = styled.a`
+    padding: 0 4px;
+    display: flex;
+
+    &:hover {
+        background-color: ${({ theme }) => theme.colors.newPalette.highlightButtonHover};
+    }
+
+    &.current {
+        background-color: ${({ theme }) => theme.colors.newPalette.highlightButtonPressed};
+    }
+`;
+
+export const WebsiteLanguageSelectorList = styled.ul`
+    margin: 0;
+    list-style: none;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    position: absolute;
+    z-index: 1;
+    left: -10px;
+    top: 100%;
+
+    background-color: #fff;
+    padding: 16px;
+    box-shadow: 0 20px 50px rgba(85, 85, 85, 0.15);
+    border-radius: 0 0 8px 8px;
+
+    &:after, &:before {
+        animation-name: ${runningLine};
+        animation-duration: 300ms;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-in-out;
     }
 
     &:after {
-      display: block;
-      position: absolute;
-      width: 0;
-      content: "";
-      height: 1px;
-      background-color: #FF642E;
-      transition: width 0.2s ease-in-out;
-      left: 50%;
-      top: 0;
-    }
-  }
-
-  .language-item {
-    outline: none;
-    -webkit-tap-highlight-color: transparent;
-    .language-item-image {
-      margin-top: -1px;
-    }
-  
-    .title-lng:hover {
-      color: #ff865c;
-      cursor: pointer;
-    }
-  }
-
-  @keyframes menuLineLeft {
-    0 {
-      width: 0;
-      left: 50%;
+        display: block;
+        position: absolute;
+        width: 50%;
+        content: "";
+        height: 1px;
+        background-color: #FF642E;
+        left: 50%;
+        top: 0;
     }
 
-    100% {
-      width: 50%;
-      left: 0;
+    &:before {
+        display: block;
+        position: absolute;
+        width: 50%;
+        content: "";
+        height: 1px;
+        background-color: #FF642E;
+        right: 50%;
+        top: 0;
     }
-  }
-
-  @keyframes menuLineRight {
-    0 {
-      width: 0;
-    }
-
-    100% {
-      width: 50%;
-    }
-  }
-
-  @media screen and ${device.laptop} {
-    .language-button {
-      min-height: 48px;
-    }
-  }
 `;
 
-export default StyledLanguageSelector;
+export const WebsiteLanguageSelectorItemLink = styled.a`
+    display: flex;
+`;
