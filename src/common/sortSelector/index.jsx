@@ -12,6 +12,7 @@ import {
     WebsiteSortSelectorIconWrapper,
     WebsiteSortSelectorLabel,
     WebsiteSortSelectorValue,
+    WebsiteSortSelectorDropdownItemLink,
 } from './sortSelector.styled';
 import { ChevronDown, SortAsc, SortDesc } from '@icons';
 import { useSortSelector } from './useSortSelector';
@@ -23,10 +24,12 @@ export const SortSelector = () => {
         isOpen,
         sortOrder,
         sortText,
+        websiteSortSelectorRef,
         onSort,
         onMouseLeave,
         onMouseEnter,
         onToggle,
+        onKeyDown,
         getLinkForSort,
     } = useSortSelector()
 
@@ -41,8 +44,16 @@ export const SortSelector = () => {
     }
 
     return (
-        <WebsiteSortSelector onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            <WebsiteSortSelectorHeader onClick={onToggle}>
+        <WebsiteSortSelector
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+            ref={websiteSortSelectorRef}
+        >
+            <WebsiteSortSelectorHeader
+                tabIndex={0}
+                onClick={onToggle}
+                onKeyDown={onKeyDown}
+            >
                 <WebsiteSortSelectorLabel>{t('SortBy')}</WebsiteSortSelectorLabel>
                 <WebsiteSortSelectorValue>{t(sortText)}</WebsiteSortSelectorValue>
                 <WebsiteSortSelectorIconWrapper isOpen={isOpen}>
@@ -62,15 +73,42 @@ export const SortSelector = () => {
 };
 
 const WebsiteSortSelectorDropdownComponent = (props) => {
-    const { t, getLinkForSort, sortText } = props;
+    const {
+        t,
+        getLinkForSort,
+        sortText,
+    } = props;
     return (
         <WebsiteSortSelectorDropdown>
-            <WebsiteSortSelectorDropdownItem className={cn({ 'active': sortText === 'NameA-Z' })}>
-                <Link scroll={false} href={getLinkForSort('asc')}>{t('NameA-Z')}</Link>
+
+            <WebsiteSortSelectorDropdownItem>
+                <Link
+                    scroll={false}
+                    href={getLinkForSort('asc')}
+                    passHref
+                >
+                    <WebsiteSortSelectorDropdownItemLink
+                        className={cn({ 'active': sortText === 'NameA-Z' })}
+                    >
+                        {t('NameA-Z')}
+                    </WebsiteSortSelectorDropdownItemLink>
+                </Link>
             </WebsiteSortSelectorDropdownItem>
-            <WebsiteSortSelectorDropdownItem className={cn({ 'active': sortText === 'NameZ-A' })}>
-                <Link scroll={false} href={getLinkForSort('desc')}>{t('NameZ-A')}</Link>
+
+            <WebsiteSortSelectorDropdownItem>
+                <Link
+                    scroll={false}
+                    href={getLinkForSort('desc')}
+                    passHref
+                >
+                    <WebsiteSortSelectorDropdownItemLink
+                        className={cn({ 'active': sortText === 'NameZ-A' })}
+                    >
+                        {t('NameZ-A')}
+                    </WebsiteSortSelectorDropdownItemLink>
+                </Link>
             </WebsiteSortSelectorDropdownItem>
+
         </WebsiteSortSelectorDropdown>
     );
 };

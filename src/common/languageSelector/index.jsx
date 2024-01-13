@@ -20,23 +20,26 @@ export const LanguageSelector = () => {
         isDesktopClient,
         isOpen,
         currentLanguage,
-        desktopLanguageSelectorRef,
+        languageSelectorRef,
         languages,
         linkHref,
         onToggle,
         onMouseEnter,
         onMouseLeave,
+        onKeyDown,
     } = useLanguageSelector();
 
     if (isDesktopClient) {
         return (
             <LanguageSelectorStyled
-                ref={desktopLanguageSelectorRef}
+                ref={languageSelectorRef}
                 className={cn({ 'expanded': isOpen })}
                 $isDesktopClient
             >
                 <LanguageSelectorHeader
+                    tabIndex={0}
                     onClick={onToggle}
+                    onKeyDown={onKeyDown}
                     $isDesktopClient
                 >
                     <LanguageSelectorFlag className={currentLanguage} />
@@ -68,12 +71,15 @@ export const LanguageSelector = () => {
 
     return (
         <LanguageSelectorStyled
+            ref={languageSelectorRef}
             onMouseLeave={onMouseLeave}
             onMouseEnter={onMouseEnter}
             className={cn({ 'expanded': isOpen })}
         >
             <LanguageSelectorHeader
+                tabIndex={0}
                 onClick={onToggle}
+                onKeyDown={onKeyDown}
             >
                 <LanguageSelectorFlag className={currentLanguage} />
                 <LanguageSelectorIconWrapper className='chevron-icon'>

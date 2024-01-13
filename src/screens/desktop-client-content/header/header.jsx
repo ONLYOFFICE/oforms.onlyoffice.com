@@ -8,6 +8,7 @@ import {
     HeaderTitle,
 } from './header.styled';
 import CategorySelector from '@common/newCategorySelector';
+import { CategorySelector as CategorySelectorNew } from '@common/categorySelectorNew'
 
 import { LanguageSelector } from 'src/common/languageSelector';
 import { SearchInput } from '@components/desktop/searchInput';
@@ -41,6 +42,12 @@ const Header = (props) => {
                     isDesktopClient={true}
                     categoryName={categoryName}
                     queryDesktopClient={queryDesktopClient}
+                />
+                <CategorySelectorNew
+                    types={types}
+                    categories={categories}
+                    compilations={compilations}
+                    categoryName={categoryName}
                 />
                 <HeaderInputWrapper>
                     <SearchInput />

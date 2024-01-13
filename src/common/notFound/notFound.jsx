@@ -15,6 +15,7 @@ import classic from '/src/style/themes/classicTheme.json'
 import light from '/src/style/themes/lightTheme.json'
 import dark from '/src/style/themes/darkTheme.json'
 import contrast from '/src/style/themes/contrastDarkTheme.json'
+import { useIsDesktopClient } from 'src/hooks';
 
 
 const NotFoundForWebsite = ({t, theme}) => {
@@ -69,7 +70,7 @@ export const NotFound = () => {
     const {t} = useTranslation("common");
     const router = useRouter()
     // TODO: FIXME
-    const isDesktopClient = router.asPath.includes('?desktop=true') || router.asPath.includes('&desktop=true')
+    const {isDesktopClient} = useIsDesktopClient()
     const theme = useMemo(() => {
         const path = router.asPath;
         if (path.includes('?theme=theme-') || path.includes('&theme=theme-')) {

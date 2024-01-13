@@ -5,14 +5,14 @@ import { useIsDesktopClient } from 'src/hooks';
 
 export const useLanguageSelector = () => {
     const router = useRouter();
-    const { i18n } = useTranslation();
+    const { i18n: { language } } = useTranslation('common');
 
     const { isDesktopClient } = useIsDesktopClient();
 
     const [isOpen, setIsOpen] = useState(false);
     const [websiteLanguageSelectorTimeoutId, setWebsiteLanguageSelectorTimeoutId] = useState(null);
 
-    const desktopLanguageSelectorRef = useRef(null);
+    const languageSelectorRef = useRef(null);
 
     const linkHref = useMemo(() => {
         const theme = router.query.theme;
@@ -49,18 +49,21 @@ export const useLanguageSelector = () => {
     };
 
     const onClick = (event) => {
-        if (desktopLanguageSelectorRef.current && !desktopLanguageSelectorRef.current.contains(event.target)) {
+        if (languageSelectorRef.current && !languageSelectorRef.current.contains(event.target)) {
             setIsOpen(false);
         }
     };
 
+    const onKeyDown = (event) => {
+        if (event.code === 'Enter' || event.code === 'Space') {
+            event.preventDefault();
+            onToggle();
+        }
+    };
+
     useEffect(() => {
-        if (isDesktopClient) {
-            if (isOpen) {
-                window.addEventListener('click', onClick);
-            } else {
-                window.removeEventListener('click', onClick);
-            }
+        if (isOpen) {
+            window.addEventListener('click', onClick);
         } else {
             window.removeEventListener('click', onClick);
         }
@@ -71,12 +74,13 @@ export const useLanguageSelector = () => {
     return {
         isDesktopClient,
         isOpen,
-        currentLanguage: i18n.language,
-        desktopLanguageSelectorRef,
+        currentLanguage: language,
+        languageSelectorRef,
         languages,
         onToggle,
         onMouseLeave,
         onMouseEnter,
+        onKeyDown,
         linkHref,
     };
 };

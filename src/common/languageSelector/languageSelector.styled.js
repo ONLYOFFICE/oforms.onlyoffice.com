@@ -71,7 +71,7 @@ export const LanguageSelectorStyled = styled.div`
     }
 `;
 
-export const LanguageSelectorHeader = styled.button`
+export const LanguageSelectorHeader = styled.header`
     display: flex;
     align-items: center;
     height: 100%;
@@ -105,13 +105,15 @@ export const DesktopLanguageSelectorList = styled.ul`
 export const DesktopLanguageSelectorItemLink = styled.a`
     padding: 0 4px;
     display: flex;
-
-    &:hover {
-        background-color: ${({ theme }) => theme.colors.newPalette.highlightButtonHover};
-    }
+    
+    outline: none;
 
     &.current {
         background-color: ${({ theme }) => theme.colors.newPalette.highlightButtonPressed};
+    }
+
+    &:hover, &:focus {
+        background-color: ${({ theme }) => theme.colors.newPalette.highlightButtonHover};
     }
 `;
 

@@ -4,10 +4,11 @@ import {useRouter} from "next/router";
 import {SearchAreaDesc, SearchAreaStyled} from "@common/searchArea/searchArea.styled";
 import {Loup} from "@icons";
 import {useTranslation} from "next-i18next";
+import { useIsDesktopClient } from 'src/hooks';
 
 export const SearchArea = ({ clearValueSearch, valueSearch, callback, onEnterPress }) => {
     const router = useRouter();
-    const isDesktopClient = router.query.desktop;
+    const {isDesktopClient} = useIsDesktopClient()
     const { t } = useTranslation('common')
 
     const onSubmit = (e) => {

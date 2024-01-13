@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useIsDesktopClient } from 'src/hooks';
@@ -13,14 +13,12 @@ export const useSortSelector = () => {
     const sortOrder = router.query._sort || 'asc';
     const sortText = sortOrder === 'asc' ? 'NameA-Z' : 'NameZ-A';
 
+    const websiteSortSelectorRef = useRef(null);
+
     const [closeTimeoutId, setCloseTimeoutId] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
 
-    const appTheme = useMemo(() => {
-        if (theme && isDesktopClient) return theme;
-
-        return null;
-    }, [isDesktopClient, theme]);
+    const appTheme = (theme && isDesktopClient) ? theme : null;
 
     const getLinkForSort = (sortOrder) => {
         // initialize variable and add _sort query
@@ -80,6 +78,35 @@ export const useSortSelector = () => {
         setIsOpen((prev) => !prev);
     };
 
+    const onKeyDown = (event) => {
+        if (event.code === 'Enter' || event.code === 'Space') {
+            event.preventDefault();
+            onToggle();
+        }
+    };
+
+    const onClick = (event) => {
+        if (websiteSortSelectorRef.current && !websiteSortSelectorRef.current.contains(event.target)) {
+            setIsOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        if (!isDesktopClient) {
+            if (isOpen) {
+                window.addEventListener('click', onClick);
+            } else {
+                window.removeEventListener('click', onClick);
+            }
+        } else {
+            window.removeEventListener('click', onClick);
+        }
+
+        return () => {
+            window.removeEventListener('click', onClick);
+        };
+    }, [isDesktopClient, isOpen]);
+
     return {
         t,
         getLinkForSort,
@@ -87,9 +114,11 @@ export const useSortSelector = () => {
         onMouseEnter,
         onMouseLeave,
         onToggle,
+        onKeyDown,
         isOpen,
         isDesktopClient,
+        websiteSortSelectorRef,
         sortOrder,
         sortText,
-    }
+    };
 };

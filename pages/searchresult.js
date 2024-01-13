@@ -16,6 +16,7 @@ import InfoContent from "../src/screens/search-result-page/info-content";
 import MainContent from "../src/screens/search-result-page/main-content";
 import DesktopClientContent from "../src/screens/desktop-client-content";
 import AdventAnnounce from "../src/screens/heading-content/advent-announce";
+import { useIsDesktopClient } from 'src/hooks';
 
 const Accordion = lazy(() => import("../src/screens/common/accordion"), {
   loading: () => <div />,
@@ -39,8 +40,7 @@ const SearchResult = ({
   const query = router.query.query
   const queryDesktopClient = router.query.query
 
-  const isDesktop = router.query.desktop?.substr(0, 4);
-  const [isDesktopClient, setIsDesktopClient] = useState(isDesktop);
+  const {isDesktopClient} = useIsDesktopClient()
   const [stateMobile, setStateMobile] = useState(false);
 
   const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";

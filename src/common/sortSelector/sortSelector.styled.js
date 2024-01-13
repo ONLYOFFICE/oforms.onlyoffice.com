@@ -84,19 +84,21 @@ export const WebsiteSortSelectorDropdownItem = styled.li`
     font-style: normal;
     font-weight: 400;
     line-height: 160%;
+`
+
+export const WebsiteSortSelectorDropdownItemLink = styled.a`
+    padding: 8px 16px;
+    display: block;
+    color: inherit;
+    text-decoration: none;
     
-    a {
-        padding: 8px 16px;
-        display: block;
-        color: inherit;
-        text-decoration: none;
-    }
-    
-    &.active a {
+    outline: none;
+
+    &.active {
         color: #FF6F3D;
     }
     
-    &:hover {
+    &:hover, &:focus {
         background-color: #F5F5F5;
     }
 `
