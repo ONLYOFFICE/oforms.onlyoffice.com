@@ -4,8 +4,15 @@ import { useIsDesktopClient } from 'src/hooks';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 
-const listItems = ['Forms by branch', 'Forms by type', 'Popular Compilations'];
+const getIsValueVisible = (isDesktopClient, categoryName, pathname, searchQuery) => {
+    const isSearchResultRoute = pathname === '/searchresult';
 
+    const isCategoryVisible = categoryName !== undefined && !isSearchResultRoute;
+
+    const isSearchQueryVisible = isSearchResultRoute && searchQuery !== undefined;
+
+    return isCategoryVisible || isSearchQueryVisible;
+}
 
 export const useCategorySelector = ({ categoryName }) => {
     const { t } = useTranslation('common');
@@ -15,41 +22,13 @@ export const useCategorySelector = ({ categoryName }) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [timeoutId, setTimeoutId] = useState(null);
-    const [selectorSubListConditions, setSelectorSubListConditions] = useState(new Array(listItems.length).fill(false));
 
     const categorySelectorRef = useRef(null);
 
     const searchQuery = router.query.query;
-    const isValueVisible = (categoryName !== undefined && router.pathname !== '/searchresult') ||
-        (router.pathname === '/searchresult' && searchQuery !== undefined);
-    const isClearIconVisible =
-        (router.pathname === '/searchresult' && router.query.query !== undefined) || categoryName !== undefined;
-    const isDropdownIndicatorIconVisible = !isClearIconVisible;
-
-    const getLinkHref = (pathname) => {
-        const query = {};
-        const theme = router.query.theme;
-
-        if (isDesktopClient) {
-            query.desktop = true;
-
-            if (theme) query.theme = theme;
-        }
-
-        return {
-            pathname,
-            query,
-        };
-    };
-
-    const handleSelectorSubListConditions = (index, state) => {
-        setSelectorSubListConditions(() => {
-            const newState = new Array(listItems.length).fill(false);
-            newState[index] = state;
-
-            return newState;
-        });
-    };
+    const isValueVisible = getIsValueVisible(isDesktopClient, categoryName, router.pathname, searchQuery)
+    const isClearIconVisible = isValueVisible;
+    const isDropdownIndicatorIconVisible = !isValueVisible;
 
     const onToggle = () => {
         setIsOpen(prevState => !prevState);
@@ -81,6 +60,23 @@ export const useCategorySelector = ({ categoryName }) => {
         }
     };
 
+    const onClear = (event) => {
+        event.stopPropagation();
+
+        const theme = router.query.theme;
+        const query = {};
+
+        if (isDesktopClient) {
+            query.desktop = true;
+
+            if (theme) {
+                query.theme = theme;
+            }
+        }
+
+        router.push({ pathname: '/', query });
+    };
+
     useEffect(() => {
         if (isOpen) {
             window.addEventListener('click', onClick);
@@ -102,13 +98,10 @@ export const useCategorySelector = ({ categoryName }) => {
         isOpen,
         searchQuery,
         categorySelectorRef,
-        listItems,
-        selectorSubListConditions,
         onMouseEnter,
         onMouseLeave,
         onToggle,
         onKeyDown,
-        getLinkHref,
-        handleSelectorSubListConditions,
+        onClear,
     };
 };

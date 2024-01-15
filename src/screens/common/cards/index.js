@@ -10,7 +10,6 @@ import { useIsDesktopClient } from 'src/hooks';
 
 const Cards = ({
                    data,
-                   typeSortData,
                    currentLanguage,
                    groupCheckboxIsOpen,
                    handlerSetModal,

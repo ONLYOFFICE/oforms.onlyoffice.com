@@ -112,7 +112,7 @@ export const DesktopLanguageSelectorItemLink = styled.a`
         background-color: ${({ theme }) => theme.colors.newPalette.highlightButtonPressed};
     }
 
-    &:hover, &:focus {
+    &:hover, &:focus-visible {
         background-color: ${({ theme }) => theme.colors.newPalette.highlightButtonHover};
     }
 `;

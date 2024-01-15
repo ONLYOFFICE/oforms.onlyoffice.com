@@ -98,7 +98,7 @@ export const WebsiteSortSelectorDropdownItemLink = styled.a`
         color: #FF6F3D;
     }
     
-    &:hover, &:focus {
+    &:hover, &:focus-visible {
         background-color: #F5F5F5;
     }
 `

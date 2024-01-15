@@ -136,7 +136,6 @@ export const getServerSideProps = async ({ locale, query }) => {
   const types = await getAllTypes(locale === "pt" ? "pt-br" : locale);
   const categories = await getAllCategories(locale === "pt" ? "pt-br" : locale);
   const compilations = await getAllCompilations(locale === "pt" ? "pt-br" : locale);
-  console.table([query, {'sort': sort}, {'locale': locale}])
   
   return {
     props: {

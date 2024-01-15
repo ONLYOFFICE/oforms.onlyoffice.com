@@ -4,19 +4,16 @@ import Link from 'next/link';
 
 import { useCategorySelector } from './useCategorySelector';
 import {
-    CategorySelectorClearIconWrapper,
+    CategorySelectorStyled,
+    DesktopCategorySelectorClearIconWrapper,
     CategorySelectorDropdownIndicatorIconWrapper,
-    CategorySelectorItemIconWrapper,
-    CategorySelectorDropdown,
-    DesktopCategorySelector,
-    DesktopCategorySelectorHeader,
+    CategorySelectorHeader,
     DesktopCategorySelectorLabel,
     DesktopCategorySelectorValue,
-    DesktopCategorySelectorList,
-    DesktopCategorySelectorItem,
-    CategorySelectorSubDropdown,
+    WebsiteCategorySelectorLabel,
 } from '@common/categorySelectorNew/categorySelector.styled';
-import { ChevronDown, ChevronRight, XClose } from '@icons';
+import { CategorySelectorDropdown } from './categorySelectorDropdown';
+import { ChevronDown, XClose } from '@icons';
 
 export const CategorySelector = (props) => {
     const {
@@ -25,6 +22,7 @@ export const CategorySelector = (props) => {
         compilations,
         categoryName,
     } = props;
+
     const {
         t,
         isDesktopClient,
@@ -34,24 +32,24 @@ export const CategorySelector = (props) => {
         isOpen,
         searchQuery,
         categorySelectorRef,
-        listItems,
-        selectorSubListConditions,
         onToggle,
         onKeyDown,
-        getLinkHref,
-        handleSelectorSubListConditions,
+        onClear,
+        onMouseLeave,
+        onMouseEnter,
     } = useCategorySelector({ categoryName });
 
-    if (isDesktopClient) {
+    if(isDesktopClient) {
         return (
-            <DesktopCategorySelector
+            <CategorySelectorStyled
                 ref={categorySelectorRef}
                 className={cn({ 'expanded': isOpen })}
             >
-                <DesktopCategorySelectorHeader
+                <CategorySelectorHeader
                     onClick={onToggle}
                     onKeyDown={onKeyDown}
                     tabIndex={0}
+                    $isDesktopClient
                 >
                     <DesktopCategorySelectorLabel>
                         {t('Categories')}
@@ -63,9 +61,9 @@ export const CategorySelector = (props) => {
                     }
                     {
                         isClearIconVisible &&
-                        <CategorySelectorClearIconWrapper>
+                        <DesktopCategorySelectorClearIconWrapper onClick={onClear}>
                             <XClose size={24} />
-                        </CategorySelectorClearIconWrapper>
+                        </DesktopCategorySelectorClearIconWrapper>
                     }
                     {
                         isDropdownIndicatorIconVisible &&
@@ -76,46 +74,50 @@ export const CategorySelector = (props) => {
                             <ChevronDown size={24} />
                         </CategorySelectorDropdownIndicatorIconWrapper>
                     }
-                </DesktopCategorySelectorHeader>
+                </CategorySelectorHeader>
                 {
                     isOpen &&
-                    <CategorySelectorDropdown>
-                        <DesktopCategorySelectorList>
-                            <DesktopCategorySelectorItem className="with-link">
-                                <Link
-                                    href={getLinkHref('/')}
-                                    passHref
-                                >
-                                    {t('View all templates')}
-                                </Link>
-                            </DesktopCategorySelectorItem>
-                            {
-                                listItems.map((item, idx) => (
-                                    <DesktopCategorySelectorItem
-                                        key={item}
-                                        tabIndex={0}
-                                        onMouseEnter={() => handleSelectorSubListConditions(idx, true)}
-                                        onMouseLeave={() => handleSelectorSubListConditions(idx, false)}
-                                        onFocus={() => handleSelectorSubListConditions(idx, true)}
-                                        onBlur={() => handleSelectorSubListConditions(idx, false)}
-                                    >
-                                        {t(item)}
-                                        <CategorySelectorItemIconWrapper $isDesktopClient>
-                                            <ChevronRight size={24} />
-                                        </CategorySelectorItemIconWrapper>
-                                        {
-                                            selectorSubListConditions[idx] &&
-                                            <CategorySelectorSubDropdown>
-                                                Sublist {item}
-                                            </CategorySelectorSubDropdown>
-                                        }
-                                    </DesktopCategorySelectorItem>
-                                ))
-                            }
-                        </DesktopCategorySelectorList>
-                    </CategorySelectorDropdown>
+                    <CategorySelectorDropdown
+                        types={types}
+                        categories={categories}
+                        compilations={compilations}
+                        categoryName={categoryName}
+                    />
                 }
-            </DesktopCategorySelector>
+            </CategorySelectorStyled>
         );
     }
+
+    return (
+        <CategorySelectorStyled
+            ref={categorySelectorRef}
+            className={cn({ 'expanded': isOpen })}
+            onMouseLeave={onMouseLeave}
+            onMouseEnter={onMouseEnter}
+        >
+            <CategorySelectorHeader
+                onClick={onToggle}
+                onKeyDown={onKeyDown}
+                tabIndex={0}
+            >
+                <WebsiteCategorySelectorLabel>
+                    {t('Categories')}
+                </WebsiteCategorySelectorLabel>
+                <CategorySelectorDropdownIndicatorIconWrapper
+                    className='chevron-icon'
+                >
+                    <ChevronDown size={24} />
+                </CategorySelectorDropdownIndicatorIconWrapper>
+            </CategorySelectorHeader>
+            {
+                isOpen &&
+                <CategorySelectorDropdown
+                    types={types}
+                    categories={categories}
+                    compilations={compilations}
+                    categoryName={categoryName}
+                />
+            }
+        </CategorySelectorStyled>
+    )
 };

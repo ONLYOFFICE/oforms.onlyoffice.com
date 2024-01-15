@@ -104,6 +104,7 @@ const Category = ({
                     types={types}
                     categories={categories}
                     compilations={compilations}
+                    categoryName={categoryName}
                 />
                 <Suspense>
                     <Accordion currentLanguage={locale}/>

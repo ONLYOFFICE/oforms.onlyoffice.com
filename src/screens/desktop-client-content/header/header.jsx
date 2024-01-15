@@ -7,7 +7,6 @@ import {
     HeaderStyled,
     HeaderTitle,
 } from './header.styled';
-import CategorySelector from '@common/newCategorySelector';
 import { CategorySelector as CategorySelectorNew } from '@common/categorySelectorNew'
 
 import { LanguageSelector } from 'src/common/languageSelector';
@@ -33,16 +32,16 @@ const Header = (props) => {
         <HeaderStyled>
             <HeaderTitle>{t('Templates')}</HeaderTitle>
             <HeaderBox active={inputActive}>
-                <CategorySelector
-                    typeSortData={typeSortData}
-                    className='form-control'
-                    types={types}
-                    categories={categories}
-                    compilations={compilations}
-                    isDesktopClient={true}
-                    categoryName={categoryName}
-                    queryDesktopClient={queryDesktopClient}
-                />
+                {/*<CategorySelector*/}
+                {/*    typeSortData={typeSortData}*/}
+                {/*    className='form-control'*/}
+                {/*    types={types}*/}
+                {/*    categories={categories}*/}
+                {/*    compilations={compilations}*/}
+                {/*    isDesktopClient={true}*/}
+                {/*    categoryName={categoryName}*/}
+                {/*    queryDesktopClient={queryDesktopClient}*/}
+                {/*/>*/}
                 <CategorySelectorNew
                     types={types}
                     categories={categories}

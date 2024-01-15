@@ -1,9 +1,9 @@
-import {useState, useEffect} from "react";
+import {useEffect} from "react";
 import Cards from "../../common/cards";
 
 import Text from "@common/text";
 import Box from "@common/box";
-import {CategorySelector} from "@common/categorySelector";
+import {CategorySelector} from "@common/categorySelectorNew";
 
 import StyledMainContent from "./styled";
 import {SortSelector} from "@common/sortSelector";
@@ -21,11 +21,6 @@ const MainContent = ({
                      }) => {
     const {t} = useTranslation('common')
     const countData = data?.meta?.pagination?.total;
-    const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
-    const [boolTypeSortData, setBoolTypeSortData] = useState(false);
-    const onChangeSelectTypeSort = (e) => {
-        setTypeSortData(e.target.value);
-    };
 
     useEffect(() => {
         if (sort === "desc") {
@@ -46,10 +41,6 @@ const MainContent = ({
                 <Box className="box-doc-info-template">
                     <div className="box-doc-categories" id="mob-box-doc-categories">
                         <CategorySelector
-                            typeSortData={typeSortData}
-                            onChangeSelectTypeSort={onChangeSelectTypeSort}
-                            locale={currentLanguage}
-                            className="form-control"
                             types={types}
                             categories={categories}
                             compilations={compilations}
@@ -60,16 +51,12 @@ const MainContent = ({
                             {" "}
                             {data?.data?.length > 0 ? data.data.length : countData ? data === null : 0} {t("Documents")}
                         </Text>
-                        <SortSelector
-                            typeSortData={typeSortData}
-                            category={urlReqCategory}
-                        />
+                        <SortSelector />
                     </div>
                 </Box>
                 <Box className="box-cards-template" justifyContent="flex-end">
                     <Cards
                         data={data?.data}
-                        typeSortData={boolTypeSortData}
                         currentLanguage={currentLanguage}
                         page={page}
                         sort={sort}

@@ -4,7 +4,7 @@ import Cards from "../../common/cards";
 import Pagination from "@common/pagination";
 import Text from "@common/text";
 import Box from "@common/box";
-import {CategorySelector} from "@common/categorySelector";
+import {CategorySelector as CategorySelectorNew} from "@common/categorySelectorNew"
 
 import Breadcrumb from "./breadcrumb";
 import StyledMainContent from "./style";
@@ -20,7 +20,8 @@ const MainContent = ({
   urlReqCategory,
   types,
   categories,
-  compilations
+  compilations,
+  categoryName,
 }) => {
   const { t } = useTranslation('common')
   const countData = data.meta?.pagination?.total;
@@ -87,14 +88,11 @@ const MainContent = ({
       <div className="idk-box-template">
         <Box className="box-doc-info-template">
           <div className="box-doc-categories" id="mob-box-doc-categories">
-            <CategorySelector
-                typeSortData={typeSortData}
-                onChangeSelectTypeSort={onChangeSelectTypeSort}
-                locale={currentLanguage}
-                className="form-control"
+            <CategorySelectorNew
                 types={types}
                 categories={categories}
                 compilations={compilations}
+                categoryName={categoryName}
             />
           </div>
           <div className="box-doc-info">
