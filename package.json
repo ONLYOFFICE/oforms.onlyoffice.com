@@ -1,43 +1,24 @@
 {
   "name": "oforms.onlyoffice.com",
-  "version": "2.0.7",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 30000",
+    "dev": "next dev --turbo",
     "build": "next build",
-    "start": "next start -p 30000",
-    "lint": "next lint",
-    "clean": "rimraf .next",
-    "analyze": "npm run build && source-map-explorer .next/static/**/*.js"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "axios": "^0.26.1",
-    "classnames": "^2.3.2",
-    "moment": "^2.29.4",
-    "next": "12.1.4",
-    "next-i18next": "^11.0.0",
-    "prop-types": "^15.8.1",
-    "rc-dialog": "^9.1.0",
-    "rc-dropdown": "^4.1.0",
-    "rc-menu": "^9.11.0",
-    "react": "18.0.0",
-    "react-custom-scrollbars": "^4.2.1",
-    "react-dom": "18.0.0",
-    "react-google-recaptcha": "^3.1.0",
-    "react-helmet": "^6.1.0",
-    "react-i18next": "^11.16.7",
-    "react-onclickoutside": "^6.12.1",
-    "react-share": "^4.4.0",
-    "react-slick": "^0.28.1",
-    "react-svg": "^14.1.17",
-    "sharp": "^0.30.3",
-    "slick-carousel": "^1.8.1",
-    "styled-components": "^5.3.5",
-    "zlib": "^1.0.5"
+    "react": "^18",
+    "react-dom": "^18",
+    "next": "14.0.4"
   },
   "devDependencies": {
-    "eslint": "8.12.0",
-    "eslint-config-next": "12.1.4",
-    "source-map-explorer": "^2.5.2"
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.4"
   }
 }

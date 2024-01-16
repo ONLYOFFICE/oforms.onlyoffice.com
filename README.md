@@ -1,62 +1,40 @@
-# oforms.onlyoffice.com
- 
- 
-## How to install
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-You must have yarn and latest node.js installed.
+## Getting Started
 
-### Installs Node.js (npm and npx are included in the installation)
-
-You need to install LTS version
-
-[Node.js](https://nodejs.org/)
-
-### Installs yarn globally
-
-npm i -g yarn
-
-### It should respond with a version number
-
-yarn -v
-node -v
-
-### To install dependencies:
+First, run the development server:
 
 ```bash
-yarn
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-### Run the development server:
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```bash
-yarn develop
-```
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-or
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-```bash
-gatsby develop
-```
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-Open [http://localhost:8000](http://localhost:8000) with your browser to see the result.
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-### Build
+## Learn More
 
-Run:
+To learn more about Next.js, take a look at the following resources:
 
-```bash
-yarn build
-```
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-to build website into /public folder with one page per locale automatically generated.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-Open [http://localhost:9000](http://localhost:9000) with your browser to see the result.
+## Deploy on Vercel
 
-## Project info
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-### The stack we are using:
-
-- [Gatsbyjs](https://www.gatsbyjs.com) - The static site generator
-- [styled-components](https://styled-components.com/) - Visual primitives for the component age
-
-Official website: [https://www.onlyoffice.com](https://www.onlyoffice.com/?utm_source=github&utm_medium=cpc&utm_campaign=AppServer "https://www.onlyoffice.com/?utm_source=github&utm_medium=cpc&utm_campaign=AppServer")
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
