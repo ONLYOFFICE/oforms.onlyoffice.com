@@ -10,7 +10,7 @@ const StyledHeading = styled.div`
   margin: 0 auto;
   padding: 0 24px;
   height: 72px;
-  background-color: transparent;
+    background: rgba(255, 255, 255, 0.05);
 
   &.main {
     .heading-nav-item {

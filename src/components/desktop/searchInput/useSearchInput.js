@@ -30,7 +30,7 @@ export const useSearchInput = () => {
         router.push({
             pathname,
             query: combinedQuery,
-        })
+        }, undefined, {shallow: true})
     };
 
     const onToggle = () => {

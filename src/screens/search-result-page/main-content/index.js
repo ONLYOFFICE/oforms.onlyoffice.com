@@ -22,14 +22,6 @@ const MainContent = ({
     const {t} = useTranslation('common')
     const countData = data?.meta?.pagination?.total;
 
-    useEffect(() => {
-        if (sort === "desc") {
-            setTypeSortData(t("NameZ-A"));
-        } else {
-            setTypeSortData(t("NameA-Z"));
-        }
-    }, [sort]);
-
     return (
         <StyledMainContent
             background="#F5F5F5"

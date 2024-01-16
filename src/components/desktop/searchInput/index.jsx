@@ -38,7 +38,6 @@ export const SearchInput = () => {
                     className={cn({
                         'inputExpanded': isSearchInputExpanded,
                         'withoutAnimation': isWithoutAnimation,
-                        'inputMounted': isSearchInputMounted,
                     })}
                 >
                     <SearchInputStyled

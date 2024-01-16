@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import getAllForms from "@lib/strapi/getForms";
 import getAllTypes from "@lib/strapi/getTypes";
 import getAllCategories from "@lib/strapi/getCategories";
 import getAllCompilations from "@lib/strapi/getCompilations";
@@ -128,11 +127,8 @@ const SearchResult = ({
 };
 
 export const getServerSideProps = async ({ locale, query }) => {
-  const isDesktop = query.desktop === "true";
   const page = query.page || 1;
   const sort = query._sort || 'asc'
-  const pageSize = query.pageSize || isDesktop ? 0 : 9;
-  const forms = await getAllForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize);
   const types = await getAllTypes(locale === "pt" ? "pt-br" : locale);
   const categories = await getAllCategories(locale === "pt" ? "pt-br" : locale);
   const compilations = await getAllCompilations(locale === "pt" ? "pt-br" : locale);
@@ -140,7 +136,6 @@ export const getServerSideProps = async ({ locale, query }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale, "common")),
-      forms,
       page,
       locale,
       sort,
