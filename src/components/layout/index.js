@@ -73,8 +73,16 @@ class Layout extends React.Component {
       }
     });
 
+    const handleDragOver = (e) => {
+      e.preventDefault();
+    };
+    
+    const handleDrop = (e) => {
+      e.preventDefault();
+    };
+
     return (
-      <StyledLayout id="page-layout" className="layout">
+      <StyledLayout onDragOver={handleDragOver} onDrop={handleDrop} id="page-layout" className="layout">
         {children}
         {headContent && <Head>{headContent.props.children}</Head>}
         {announceContent && <Announce>{announceContent.props.children}</Announce>}
