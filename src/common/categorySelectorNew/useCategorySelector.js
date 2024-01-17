@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next';
 
-import { useIsDesktopClient } from 'src/hooks';
+import { usePageContext } from 'src/hooks';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 
@@ -18,7 +18,7 @@ export const useCategorySelector = ({ categoryName }) => {
     const { t } = useTranslation('common');
     const router = useRouter();
 
-    const { isDesktopClient } = useIsDesktopClient();
+    const { isDesktopClient } = usePageContext();
 
     const [isOpen, setIsOpen] = useState(false);
     const [timeoutId, setTimeoutId] = useState(null);

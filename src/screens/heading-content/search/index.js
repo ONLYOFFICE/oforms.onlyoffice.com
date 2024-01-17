@@ -6,7 +6,7 @@ import CONFIG from "@config/config.json";
 import {SearchArea} from '@components/website/searchArea'
 import SearchResult from "./search-result";
 import {useTranslation} from "next-i18next";
-import { useIsDesktopClient } from 'src/hooks';
+import { usePageContext } from 'src/hooks';
 
 const SearchContent = ({ handlerSetModal, handlerCardData }) => {
   const [focusOnSearch, setFocusOnSearch] = useState(false);
@@ -14,7 +14,7 @@ const SearchContent = ({ handlerSetModal, handlerCardData }) => {
   const [searchResult, setSearchResult] = useState([]);
   const router = useRouter();
   const locale = router.locale
-  const {isDesktopClient} = useIsDesktopClient()
+  const {isDesktopClient} = usePageContext()
   const theme = router.query.theme
   const searchQuery = router.query.query
   const { t } = useTranslation('common')

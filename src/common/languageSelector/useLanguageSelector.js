@@ -1,16 +1,15 @@
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'next-i18next';
-import { useIsDesktopClient } from 'src/hooks';
+import { usePageContext } from 'src/hooks';
 
 export const useLanguageSelector = () => {
     const router = useRouter();
     const { i18n: { language } } = useTranslation('common');
 
-    const { isDesktopClient } = useIsDesktopClient();
+    const { isDesktopClient } = usePageContext();
 
     const [isOpen, setIsOpen] = useState(false);
-    const [websiteLanguageSelectorTimeoutId, setWebsiteLanguageSelectorTimeoutId] = useState(null);
 
     const languageSelectorRef = useRef(null);
 
@@ -36,15 +35,10 @@ export const useLanguageSelector = () => {
     };
 
     const onMouseLeave = () => {
-        const id = setTimeout(() => {
-            setIsOpen(false);
-        }, 300);
-        setWebsiteLanguageSelectorTimeoutId(id);
+        setIsOpen(false);
     };
 
     const onMouseEnter = () => {
-        clearTimeout(websiteLanguageSelectorTimeoutId);
-        setWebsiteLanguageSelectorTimeoutId(null);
         setIsOpen(true);
     };
 

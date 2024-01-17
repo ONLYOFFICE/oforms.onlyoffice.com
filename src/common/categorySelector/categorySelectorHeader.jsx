@@ -4,12 +4,12 @@ import {useRouter} from "next/router";
 import {XClose} from "@icons";
 import {useTheme} from "styled-components";
 import classNames from "classnames";
-import { useIsDesktopClient } from 'src/hooks';
+import { usePageContext } from 'src/hooks';
 
 export const CategorySelectorHeader = (props) => {
     const {label, value, isOpen, onClear, onClick} = props;
     const router = useRouter()
-    const {isDesktopClient} = useIsDesktopClient()
+    const {isDesktopClient} = usePageContext()
     const theme = useTheme()
 
     if (isDesktopClient && value !== undefined) {

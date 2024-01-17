@@ -8,12 +8,12 @@ import lightTheme from '../src/style/themes/lightTheme.json';
 import {useRouter} from "next/router";
 import {ThemeProvider} from "styled-components";
 import {Base} from "@components/themes";
-import { useIsDesktopClient } from 'src/hooks';
+import { usePageContext } from 'src/hooks';
 
 const App = ({Component, pageProps}) => {
     const router = useRouter();
     const mode = router.query.theme;
-    const {isDesktopClient} = useIsDesktopClient()
+    const {isDesktopClient} = usePageContext()
     const theme = useMemo(() => {
         if(isDesktopClient && mode !== undefined) {
             switch (mode) {

@@ -1,12 +1,17 @@
-import StyledHeading from './styled-menu';
+import {
+    HeadingSubmitLink,
+    StyledHeading,
+    HeadingSelectorsWrapper,
+    HeadingSelectorsBox
+} from './styled-menu';
 import { useState, useEffect } from 'react';
 import Nav from './nav/nav';
-import PhoneMenu from './phone-menu';
 import { LanguageSelector } from 'src/common/languageSelector';
 import ExternalLink from '@common/link';
 import { ReactSVG } from 'react-svg';
+import { PhoneInfo } from '@components/website/phoneInfo';
 
-const Menu = ({ t, locale, template, stateMobile, setStateMobile }) => {
+const Menu = ({ t, locale, template, stateMobile, setStateMobile, isInvert }) => {
     const [windowCheck, setWindowCheck] = useState('undefined');
 
     const logo = template
@@ -55,10 +60,18 @@ const Menu = ({ t, locale, template, stateMobile, setStateMobile }) => {
             </ExternalLink>
             <div className='overlay'></div>
             <Nav locale={locale} t={t} />
-            <div className='nav-selector-wrapper'>
-                <PhoneMenu t={t} locale={locale} />
-                <LanguageSelector />
-            </div>
+            <HeadingSelectorsWrapper>
+                <HeadingSelectorsBox>
+                    <PhoneInfo isInvert={isInvert} />
+                    <LanguageSelector isInvert={isInvert} />
+                </HeadingSelectorsBox>
+                <HeadingSubmitLink
+                    className={isInvert ? 'inverted' : undefined}
+                    href={``}
+                >
+                    {t('Submit form')}
+                </HeadingSubmitLink>
+            </HeadingSelectorsWrapper>
         </StyledHeading>
     );
 };

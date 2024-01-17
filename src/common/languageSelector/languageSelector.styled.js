@@ -58,11 +58,14 @@ export const LanguageSelectorIconWrapper = styled.div`
     svg {
         color: ${({ theme, $isDesktopClient }) => $isDesktopClient ? theme.colors.newPalette.iconNormal : '#FFF'};
     }
+    
+    &.inverted svg {
+        color: #444444;
+    }
 `;
 
 export const LanguageSelectorStyled = styled.div`
     position: relative;
-    height: ${({$isDesktopClient}) => $isDesktopClient ? undefined : '72px'};
 
     &.expanded {
         .chevron-icon {

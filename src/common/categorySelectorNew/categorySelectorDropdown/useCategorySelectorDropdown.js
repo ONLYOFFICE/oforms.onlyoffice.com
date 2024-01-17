@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 
-import { useIsDesktopClient } from 'src/hooks';
+import { usePageContext } from 'src/hooks';
 
 export const useCategorySelectorDropdown = (props) => {
     const {
@@ -36,7 +36,7 @@ export const useCategorySelectorDropdown = (props) => {
     const router = useRouter();
     const { t } = useTranslation('common');
 
-    const { isDesktopClient } = useIsDesktopClient();
+    const { isDesktopClient } = usePageContext();
 
     const [selectorSubListConditions, setSelectorSubListConditions] = useState(new Array(list.length).fill(false));
 

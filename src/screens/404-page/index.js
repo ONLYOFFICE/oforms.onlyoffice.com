@@ -7,12 +7,12 @@ import Styled404 from "./styled";
 import {useTranslation} from "next-i18next";
 import {useRouter} from "next/router";
 import {useMemo} from "react";
-import { useIsDesktopClient } from 'src/hooks';
+import { usePageContext } from 'src/hooks';
 
 const Error404 = () => {
     const {t} = useTranslation('common')
     const router = useRouter()
-    const {isDesktopClient} = useIsDesktopClient()
+    const {isDesktopClient} = usePageContext()
     const href = useMemo(() => {
         const result = {
             pathname: '/',

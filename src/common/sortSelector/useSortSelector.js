@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import { useIsDesktopClient } from 'src/hooks';
+import { usePageContext } from 'src/hooks';
 
 export const useSortSelector = () => {
     const router = useRouter();
     const { t } = useTranslation('common');
 
-    const { isDesktopClient } = useIsDesktopClient();
+    const { isDesktopClient } = usePageContext();
 
     const theme = router.query.theme;
     const sortOrder = router.query._sort || 'asc';

@@ -14,7 +14,7 @@ import InfoContent from "../src/screens/main-page/info-content";
 import MainContent from "../src/screens/main-page/main-content";
 import DesktopClientContent from "../src/screens/desktop-client-content";
 import AdventAnnounce from "../src/screens/heading-content/advent-announce";
-import { useIsDesktopClient } from 'src/hooks';
+import { usePageContext } from 'src/hooks';
 
 const Accordion = lazy(() => import("../src/screens/common/accordion"), {
     suspense: true,
@@ -28,7 +28,7 @@ const Footer = lazy(() => import("../src/screens/footer-content"), {
 const Index = ({forms, page, locale, sort, types, categories, compilations}) => {
     const {t} = useTranslation("common");
     const router = useRouter();
-    const {isDesktopClient} = useIsDesktopClient()
+    const {isDesktopClient} = usePageContext()
     const [stateMobile, setStateMobile] = useState(false);
 
     return (

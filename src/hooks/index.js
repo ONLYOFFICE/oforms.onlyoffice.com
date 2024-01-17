@@ -1,1 +1,1 @@
-export { useIsDesktopClient } from './useIsDesktopClient';
+export { usePageContext } from './usePageContext';

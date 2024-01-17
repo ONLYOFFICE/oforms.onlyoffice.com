@@ -15,7 +15,7 @@ import AdventAnnounce from "../../../../src/screens/heading-content/advent-annou
 
 import config from "@config/config.json";
 import {useRouter} from "next/router";
-import { useIsDesktopClient } from 'src/hooks';
+import { usePageContext } from 'src/hooks';
 
 const Accordion = lazy(() => import("../../../../src/screens/common/accordion"), {
   loading: () => <div />,
@@ -44,7 +44,7 @@ const Category = ({
   const router = useRouter()
   const [isCategoryPage, setIsCategoryPage] = useState(true);
   const [stateMobile, setStateMobile] = useState(false);
-  const {isDesktopClient} = useIsDesktopClient()
+  const {isDesktopClient} = usePageContext()
 
   return isDesktopClient ?
     <Layout>

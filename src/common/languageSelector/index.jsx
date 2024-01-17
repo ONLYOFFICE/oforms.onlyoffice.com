@@ -15,7 +15,7 @@ import {
 import { useLanguageSelector } from './useLanguageSelector';
 import { ChevronDown, Triangle } from '@icons';
 
-export const LanguageSelector = () => {
+export const LanguageSelector = ({isInvert}) => {
     const {
         isDesktopClient,
         isOpen,
@@ -82,7 +82,7 @@ export const LanguageSelector = () => {
                 onKeyDown={onKeyDown}
             >
                 <LanguageSelectorFlag className={currentLanguage} />
-                <LanguageSelectorIconWrapper className='chevron-icon'>
+                <LanguageSelectorIconWrapper className={cn('chevron-icon', {'inverted': isInvert})}>
                     <Triangle size={8} />
                 </LanguageSelectorIconWrapper>
             </LanguageSelectorHeader>

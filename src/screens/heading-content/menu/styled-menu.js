@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { device } from "@components/utils/devices";
 
-const StyledHeading = styled.div`
+export const StyledHeading = styled.div`
   position: relative;
   box-sizing: border-box;
   display: flex;
@@ -221,4 +221,37 @@ const StyledHeading = styled.div`
   }
 `;
 
-export default StyledHeading;
+export const HeadingSubmitLink = styled.a`
+    background-color: #FF6F3D;
+    border-radius: 3px;
+    padding: 11px 16px;
+
+    color: #FFF;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 133%;
+    letter-spacing: 0.52px;
+    text-transform: uppercase;
+    height: max-content;
+    margin: auto 0;
+    
+    &.inverted {
+        padding: 15px 16px;
+        border-radius: 3px;
+        border: 1px solid #AAA;
+        background-color: transparent;
+        color: #444444;
+    }
+`
+
+export const HeadingSelectorsWrapper = styled.div`
+    display: flex;
+    gap: 32px;
+    height: 100%;
+`
+
+export const HeadingSelectorsBox = styled.div`
+    display: flex;
+    gap: 20px;
+`

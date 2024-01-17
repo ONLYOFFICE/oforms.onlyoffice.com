@@ -6,7 +6,7 @@ import {useRouter} from "next/router";
 import {Empty} from "@common/empty";
 import {useMemo} from "react";
 import {useTranslation} from "next-i18next";
-import { useIsDesktopClient } from 'src/hooks';
+import { usePageContext } from 'src/hooks';
 
 const Cards = ({
                    data,
@@ -18,7 +18,7 @@ const Cards = ({
                    ...rest
                }) => {
     const router = useRouter()
-    const {isDesktopClient} = useIsDesktopClient();
+    const {isDesktopClient} = usePageContext();
     const theme = router.query.theme
     const { t } = useTranslation('common')
 
