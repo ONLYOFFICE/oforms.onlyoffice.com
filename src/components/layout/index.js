@@ -81,7 +81,7 @@ class Layout extends React.Component {
     };
     
     const handleDrop = (e) => {
-      window.sdk["DropOfficeFiles"]();
+      window.AscDesktopEditor["DropOfficeFiles"]();
 
       e.preventDefault();
       return false;
