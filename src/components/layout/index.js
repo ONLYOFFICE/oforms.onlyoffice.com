@@ -73,8 +73,22 @@ class Layout extends React.Component {
       }
     });
 
+    const handleDragOver = (e) => {
+      e.dataTransfer.dropEffect = "copy";
+
+      e.preventDefault();
+      return false;
+    };
+    
+    const handleDrop = (e) => {
+      window.sdk["DropOfficeFiles"]();
+
+      e.preventDefault();
+      return false;
+    };
+
     return (
-      <StyledLayout id="page-layout" className="layout">
+      <StyledLayout onDragOver={handleDragOver} onDrop={handleDrop} id="page-layout" className="layout">
         {children}
         {headContent && <Head>{headContent.props.children}</Head>}
         {announceContent && <Announce>{announceContent.props.children}</Announce>}
