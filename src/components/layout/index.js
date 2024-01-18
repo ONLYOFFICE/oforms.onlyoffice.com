@@ -74,11 +74,17 @@ class Layout extends React.Component {
     });
 
     const handleDragOver = (e) => {
+      e.dataTransfer.dropEffect = "copy";
+
       e.preventDefault();
+      return false;
     };
     
     const handleDrop = (e) => {
+      window.sdk["DropOfficeFiles"]();
+
       e.preventDefault();
+      return false;
     };
 
     return (
