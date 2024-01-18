@@ -32,6 +32,11 @@ const nextConfig = {
     async redirects() {
         return [
             {
+                source: '/ar',
+                destination: '/en',
+                permanent: false,
+            },
+            {
                 source: '/be',
                 destination: '/en',
                 permanent: false,
@@ -190,6 +195,7 @@ const nextConfig = {
                 destination: '/en',
                 permanent: false,
             },
+            
         ]
     },
     reactStrictMode: true,
