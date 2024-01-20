@@ -43,8 +43,8 @@ const Footer = ({ t, locale }) => {
           <ExternalLink className="footer-link" href={`${hrefLang}/pdf-reader.aspx`} label={t("PDF Editor")} />
           <ExternalLink className="footer-link" href={`${hrefLang}/security.aspx`} label={t("Security")} />
           <ExternalLink className="footer-link" href={`${hrefLang}/accessibility.aspx`} label={t("Accessibility")} />
-          <ExternalLink className="footer-link" href={`${hrefLang}/app-directory/chatgpt`} label={t("AI helper")} />
-          <ExternalLink className="footer-link" href={`${hrefLang}/app-directory`} label={t("App Directory")} />
+          <ExternalLink className="footer-link" href={`https://onlyoffice.com/app-directory${locale === "fr" || locale === "de" || locale === "es" ? `/${locale}` : ""}/openai`} label={t("AI helper")} />
+          <ExternalLink className="footer-link" href={`https://onlyoffice.com/app-directory${locale === "fr" || locale === "de" || locale === "es" ? `/${locale}` : ""}`} label={t("App Directory")} />
         </FooterItem>
         <FooterItem heading={t("Connectors")} className="connectors">
           <ExternalLink className="footer-link" href={`${hrefLang}/office-for-nextcloud.aspx`} label={t("Nextcloud")} />
@@ -75,7 +75,7 @@ const Footer = ({ t, locale }) => {
       </div>
       <div className="footer-item-group">
         <FooterItem heading={t("Get news")} className="get-news">
-          <ExternalLink className="footer-link" href={`https://onlyoffice.com/blog${locale === "en" ? "" : locale === "zh" ? "/zh-hans" : `/${locale}`}`} label={t("Blog")} />
+          <ExternalLink className="footer-link" href={`https://onlyoffice.com/blog${locale === "en" ? "" : locale === "zh" ? "/zh-hans" : locale === "pt" ? "/pt-br" : `/${locale}`}`} label={t("Blog")} />
         </FooterItem>
         <FooterItem heading={t("Get help")} className="get-help">
           <ExternalLink className="footer-link" href="https://forum.onlyoffice.com/" label={t("Forum")} />

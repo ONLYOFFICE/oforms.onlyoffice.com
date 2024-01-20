@@ -34,6 +34,12 @@ const SearchContent = ({ handlerSetModal, handlerCardData }) => {
   const onSearch = (e) => {
     e.preventDefault();
     setSearchValue(e.target.value);
+
+    if (searchValue.length > 2) {
+      searchReqData();
+    } else {
+      setSearchResult(null);
+    }
   };
 
   const onEnterPress = (e) => {
@@ -46,6 +52,8 @@ const SearchContent = ({ handlerSetModal, handlerCardData }) => {
         searchResultPathname && Router.push(`?query=${searchValue}`, null, { shallow: true })
       }
     }
+
+    setFocusOnSearch(false);
   };
 
   const clearValueSearch = () => {
@@ -58,7 +66,7 @@ const SearchContent = ({ handlerSetModal, handlerCardData }) => {
 
   const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
   const searchReqData = () => {
-    const searchURL = `${CMSConfigAPI}/api/oforms?populate[0]=categories&locale=${locale}&filters[name_form][$containsi]=${searchValue}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`;
+    const searchURL = `${CMSConfigAPI}/api/oforms?populate[0]=categories&locale=${locale === "pt" ? "pt-br" : locale}&filters[name_form][$containsi]=${searchValue}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`;
     const delayDebounce = setTimeout(() => {
       axios
         .get(searchURL)
@@ -71,15 +79,6 @@ const SearchContent = ({ handlerSetModal, handlerCardData }) => {
 
     return () => clearTimeout(delayDebounce);
   };
-
-  useEffect(() => {
-    if (searchValue.length > 2) {
-      searchReqData();
-    } else {
-      setSearchResult(null);
-    }
-  }, [router]);
-
 
   return (
     <>

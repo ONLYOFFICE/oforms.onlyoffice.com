@@ -200,7 +200,7 @@ const Nav = ({ t, locale, ...rest }) => {
               <Link id="navitem-resources-whitepapers" className="dropdown-item" href={`${hrefLang}/whitepapers.aspx`} label={t("White papers")} />
             </div>
             <div className="outer-box bg-gray">
-              <Link id="navitem-resources-blog" className="dropdown-item" href={`https://onlyoffice.com/blog${locale === "en" ? "" : locale === "zh" ? "/zh-hans" : `/${locale}`}`} label={t("Blog")} />
+              <Link id="navitem-resources-blog" className="dropdown-item" href={`https://onlyoffice.com/blog${locale === "en" ? "" : locale === "zh" ? "/zh-hans" : locale === "pt" ? "/pt-br" : `/${locale}`}`} label={t("Blog")} />
               <div id="blog-box">
                 <Link id="blog-box-1" className="dropdown-item-box" href={t("blogLink1")}>
                   <div className="menu-blog-img"></div>

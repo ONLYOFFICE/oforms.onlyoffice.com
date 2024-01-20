@@ -17,7 +17,7 @@ const ShortCard = ({ callback, arrayItems, currentLanguage, description, ...rest
       ? `/${url}`
       : locale === "en"
       ? `/${url}`
-      : `/${locale}/${url}`;
+      : `/${locale === "pt-BR" ? "pt" : locale}/${url}`;
   const CardDescription = () => {
     return description && (
         <Text
