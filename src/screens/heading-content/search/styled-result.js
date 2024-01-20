@@ -37,4 +37,10 @@ const StyledSearchResult = styled.div`
   }
 `;
 
+export const SearchAreaWrapper = styled.div`
+    max-width: 1200px;
+    padding: 0 40px;
+    margin: 0 auto;
+`
+
 export default StyledSearchResult;

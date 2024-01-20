@@ -34,6 +34,10 @@ export const PhoneInfoIconWrapper = styled.button`
     &.inverted svg {
         color: #444444;
     }
+    
+    &.open svg {
+        color: #FF642E;
+    }
 `;
 
 export const PhoneInfoDropdown = styled.div`

@@ -15,7 +15,7 @@ import {
 import { useLanguageSelector } from './useLanguageSelector';
 import { ChevronDown, Triangle } from '@icons';
 
-export const LanguageSelector = ({isInvert}) => {
+export const LanguageSelector = ({isInvert, className}) => {
     const {
         isDesktopClient,
         isOpen,
@@ -33,7 +33,7 @@ export const LanguageSelector = ({isInvert}) => {
         return (
             <LanguageSelectorStyled
                 ref={languageSelectorRef}
-                className={cn({ 'expanded': isOpen })}
+                className={cn({ 'expanded': isOpen, className })}
                 $isDesktopClient
             >
                 <LanguageSelectorHeader

@@ -10,6 +10,7 @@ import { LanguageSelector } from 'src/common/languageSelector';
 import ExternalLink from '@common/link';
 import { ReactSVG } from 'react-svg';
 import { PhoneInfo } from '@components/website/phoneInfo';
+import Link from 'next/link';
 
 const Menu = ({ t, locale, template, stateMobile, setStateMobile, isInvert }) => {
     const [windowCheck, setWindowCheck] = useState('undefined');
@@ -60,17 +61,19 @@ const Menu = ({ t, locale, template, stateMobile, setStateMobile, isInvert }) =>
             </ExternalLink>
             <div className='overlay'></div>
             <Nav locale={locale} t={t} />
-            <HeadingSelectorsWrapper>
+            <HeadingSelectorsWrapper className="nav-selector-wrapper">
                 <HeadingSelectorsBox>
-                    <PhoneInfo isInvert={isInvert} />
+                    <PhoneInfo className="phone-menu" isInvert={isInvert} />
                     <LanguageSelector isInvert={isInvert} />
                 </HeadingSelectorsBox>
-                <HeadingSubmitLink
-                    className={isInvert ? 'inverted' : undefined}
-                    href={``}
-                >
-                    {t('Submit form')}
-                </HeadingSubmitLink>
+                <Link href="/form-submit" passHref>
+                    <HeadingSubmitLink
+                        className={isInvert ? 'inverted' : undefined}
+                        href={``}
+                    >
+                        {t('Submit form')}
+                    </HeadingSubmitLink>
+                </Link>
             </HeadingSelectorsWrapper>
         </StyledHeading>
     );

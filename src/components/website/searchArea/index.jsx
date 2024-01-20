@@ -27,7 +27,7 @@ export const SearchArea = () => {
     return (
         <SearchAreaWrapper>
             <SearchAreaDesc>{t('FormSearch')}</SearchAreaDesc>
-            <SearchAreaLine />
+            <SearchAreaLine/>
             <SearchAreaForm onSubmit={onSubmit}>
                 <SearchAreaInput
                     onFocus={onFocus}

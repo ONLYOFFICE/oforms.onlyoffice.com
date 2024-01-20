@@ -6,13 +6,13 @@ const focusAnimation = keyframes`
     }
     
     to {
-        transform: translateY(-20px) scale(0.7);
+        transform: translateY(-16px) scale(0.7);
     }
 `
 
 const blurAnimation = keyframes`
     from {
-        transform: translateY(-20px) scale(0.7);
+        transform: translateY(-16px) scale(0.7);
     }
     
     to {
@@ -24,11 +24,12 @@ export const SearchAreaWrapper = styled.div`
     display: flex;
     align-items: center;
     gap: 16px;
-
-    max-width: 1120px;
-    padding-bottom: 7px;
+    
     border-bottom: 1px solid #666666;
-    margin: 0 auto;
+    
+    @media screen and (min-width: 561px) {
+        padding-bottom: 7px;
+    }
 `;
 
 export const SearchAreaDesc = styled.span`
@@ -36,12 +37,21 @@ export const SearchAreaDesc = styled.span`
     font-size: 14px;
     font-weight: 700;
     line-height: 133%;
+    padding-left: 16px;
+    
+    @media screen and (max-width: 560px) {
+        display: none;
+    }
 `;
 
 export const SearchAreaLine = styled.div`
     width: 1px;
     height: 16px;
     background-color: #AAA;
+
+    @media screen and (max-width: 560px) {
+        display: none;
+    }
 `;
 
 export const SearchAreaForm = styled.form`
@@ -63,6 +73,10 @@ export const SearchAreaInput = styled.input`
     color: #fff;
 
     flex-grow: 1;
+    
+    @media screen and (max-width: 560px) {
+        padding: 16px 0 16px 8px;
+    }
 `;
 
 export const SearchAreaInputLabel = styled.label`
@@ -82,12 +96,21 @@ export const SearchAreaInputLabel = styled.label`
     animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
 
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: calc(100% - 65px);
+    
     &:not(.initial):not(.focus) {
         animation-name: ${blurAnimation};
     }
 
     &.focus {
         animation-name: ${focusAnimation};
+    }
+
+    @media screen and (max-width: 560px) {
+        left: 8px;
     }
 `;
 
@@ -102,5 +125,9 @@ export const SearchAreaSearchIconWrapper = styled.button`
     
     svg {
         color: #AAAAAA;
+    }
+    
+    @media screen and (max-width: 560px) {
+        padding: 16px 8px 16px 0;
     }
 `

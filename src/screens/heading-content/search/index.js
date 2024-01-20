@@ -7,6 +7,7 @@ import {SearchArea} from '@components/website/searchArea'
 import SearchResult from "./search-result";
 import {useTranslation} from "next-i18next";
 import { usePageContext } from 'src/hooks';
+import { SearchAreaWrapper } from './styled-result';
 
 const SearchContent = ({ handlerSetModal, handlerCardData }) => {
   const [focusOnSearch, setFocusOnSearch] = useState(false);
@@ -82,7 +83,9 @@ const SearchContent = ({ handlerSetModal, handlerCardData }) => {
 
   return (
     <>
-      <SearchArea />
+      <SearchAreaWrapper>
+        <SearchArea />
+      </SearchAreaWrapper>
       {searchValue.length > 2 && (
         <SearchResult
           searchValue={searchValue}

@@ -41,11 +41,6 @@ export const StyledHeading = styled.div`
     background-color: transparent;
   }
 
-  .nav-selector-wrapper {
-    display: flex;
-    align-items: center;
-  }
-
   .phone-menu {
     margin-right: 10px;
   }
@@ -234,6 +229,7 @@ export const HeadingSubmitLink = styled.a`
     letter-spacing: 0.52px;
     text-transform: uppercase;
     height: max-content;
+    text-decoration: none;
     margin: auto 0;
     
     &.inverted {
@@ -242,6 +238,10 @@ export const HeadingSubmitLink = styled.a`
         border: 1px solid #AAA;
         background-color: transparent;
         color: #444444;
+    }
+    
+    @media screen and (max-width: 1500px) {
+        display: none;
     }
 `
 

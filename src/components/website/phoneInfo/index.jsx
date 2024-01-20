@@ -12,7 +12,7 @@ import {
 } from './phoneInfo.styled';
 import { Phone } from '@icons';
 
-export const PhoneInfo = ({ isInvert }) => {
+export const PhoneInfo = ({ isInvert, className }) => {
     const {
         t,
         isOpen,
@@ -28,9 +28,10 @@ export const PhoneInfo = ({ isInvert }) => {
             ref={phoneInfoStyledRef}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
+            className={className}
         >
             <PhoneInfoIconWrapper
-                className={cn({ 'inverted': isInvert })}
+                className={cn({ 'inverted': isInvert, 'open': isOpen })}
                 onClick={onToggle}
             >
                 <Phone size={24} />
