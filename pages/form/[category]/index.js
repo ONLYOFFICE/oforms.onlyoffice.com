@@ -16,6 +16,7 @@ import AdventAnnounce from "../../../src/screens/heading-content/advent-announce
 
 import config from "@config/config.json";
 import { usePageContext } from 'src/hooks';
+import { FormGridExplorer } from '../../../src/widgets/website/formGridExplorer';
 
 const Accordion = lazy(() => import("../../../src/screens/common/accordion"), {
     loading: () => <div/>,
@@ -37,15 +38,15 @@ const Category = ({
     const {t} = useTranslation("common");
     const dataCategoryInfo = categoryInfo.data[0].attributes;
     const {seo_title, seo_description} = dataCategoryInfo;
-    const nameCategory = dataCategoryInfo.categorie;
     const urlReqCategory = dataCategoryInfo.urlReq;
     const header = dataCategoryInfo.header_description;
     const categoryName = categoryInfo.data[0].attributes.categorie;
 
     const [isCategoryPage, setIsCategoryPage] = useState(true);
     const [stateMobile, setStateMobile] = useState(false);
-    const query = useRouter();
     const {isDesktopClient} = usePageContext();
+
+    console.log(categoryName)
 
     if(isDesktopClient) {
         return (
@@ -93,14 +94,21 @@ const Category = ({
                 <HeadingContent t={t} currentLanguage={locale} stateMobile={stateMobile} setStateMobile={setStateMobile} />
             </Layout.PageHeader>
             <Layout.SectionMain>
-                <InfoContent category={nameCategory} header={header}/>
-                <MainContent
-                    currentLanguage={locale}
-                    data={categoryForms}
-                    sort={sort}
-                    page={+page}
-                    category={nameCategory}
-                    urlReqCategory={urlReqCategory}
+                <InfoContent category={categoryName} header={header}/>
+                {/*<MainContent*/}
+                {/*    currentLanguage={locale}*/}
+                {/*    data={categoryForms}*/}
+                {/*    sort={sort}*/}
+                {/*    page={+page}*/}
+                {/*    category={categoryName}*/}
+                {/*    urlReqCategory={urlReqCategory}*/}
+                {/*    types={types}*/}
+                {/*    categories={categories}*/}
+                {/*    compilations={compilations}*/}
+                {/*    categoryName={categoryName}*/}
+                {/*/>*/}
+                <FormGridExplorer
+                    forms={categoryForms}
                     types={types}
                     categories={categories}
                     compilations={compilations}
@@ -127,6 +135,7 @@ export const getServerSideProps = async ({locale, query, ...ctx}) => {
     const urlReq = query.category;
     const pageSize = query.pageSize || isDesktopClient ? 0 : 9;
     const cms = config.api.cms
+    console.log(urlReq)
     const res = await fetch(
         `${cms}/api/oforms/?filters[categories][urlReq][$eq]=${urlReq}&locale=${locale === "pt" ? "pt-br" : locale}&sort=name_form:${sort}&${pageSize ? `&pagination[pageSize]=${pageSize}` : ''}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
     );
@@ -139,6 +148,8 @@ export const getServerSideProps = async ({locale, query, ...ctx}) => {
     const types = await getAllTypes(locale === "pt" ? "pt-br" : locale);
     const categories = await getAllCategories(locale === "pt" ? "pt-br" : locale);
     const compilations = await getAllCompilations(locale === "pt" ? "pt-br" : locale);
+
+    console.log()
 
     const getDestination = () => {
         let destination = '/404'

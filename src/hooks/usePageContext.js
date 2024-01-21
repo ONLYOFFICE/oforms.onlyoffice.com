@@ -7,6 +7,9 @@ export const usePageContext = () => {
     const isFormSubmitPage = router.route === '/form-submit';
     const isInvert = isFormPage || isFormSubmitPage;
 
+    const getCurrentPathWithoutQuery = () => {
+    }
+
     return {
         isDesktopClient,
         isInvert,

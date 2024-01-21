@@ -16,6 +16,7 @@ import AdventAnnounce from "../../../../src/screens/heading-content/advent-annou
 import config from "@config/config.json";
 import {useRouter} from "next/router";
 import { usePageContext } from 'src/hooks';
+import { FormGridExplorer } from '../../../../src/widgets/website/formGridExplorer';
 
 const Accordion = lazy(() => import("../../../../src/screens/common/accordion"), {
   loading: () => <div />,
@@ -89,16 +90,23 @@ const Category = ({
       </Layout.PageHeader>
       <Layout.SectionMain>
         <InfoContent category={nameCategory} header={header}/>
-        <MainContent
-          currentLanguage={locale}
-          data={categoryForms}
-          sort={sort}
-          page={+page}
-          category={nameCategory}
-          urlReqCategory= {`compilations/${urlReqCategory}`}
-          types={types}
-          categories={categories}
-          compilations={compilations}
+        {/*<MainContent*/}
+        {/*  currentLanguage={locale}*/}
+        {/*  data={categoryForms}*/}
+        {/*  sort={sort}*/}
+        {/*  page={+page}*/}
+        {/*  category={nameCategory}*/}
+        {/*  urlReqCategory= {`compilations/${urlReqCategory}`}*/}
+        {/*  types={types}*/}
+        {/*  categories={categories}*/}
+        {/*  compilations={compilations}*/}
+        {/*/>*/}
+        <FormGridExplorer
+            forms={categoryForms}
+            types={types}
+            categories={categories}
+            compilations={compilations}
+            categoryName={categoryName}
         />
         <Suspense>
           <Accordion currentLanguage={locale} />

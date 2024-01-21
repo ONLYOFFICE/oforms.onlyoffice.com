@@ -14,6 +14,7 @@ import MainContent from "../src/screens/main-page/main-content";
 import DesktopClientContent from "../src/screens/desktop-client-content";
 import AdventAnnounce from "../src/screens/heading-content/advent-announce";
 import { usePageContext } from 'src/hooks';
+import { FormGridExplorer } from '../src/widgets/website/formGridExplorer';
 
 const Accordion = lazy(() => import("../src/screens/common/accordion"), {
     suspense: true,
@@ -72,11 +73,17 @@ const Index = ({forms, page, locale, sort, types, categories, compilations}) => 
                 </Layout.PageHeader>
                 <Layout.SectionMain>
                     <InfoContent currentLanguage={locale}/>
-                    <MainContent
-                        currentLanguage={locale}
-                        data={forms}
-                        sort={sort}
-                        page={+page}
+                    {/*<MainContent*/}
+                    {/*    currentLanguage={locale}*/}
+                    {/*    data={forms}*/}
+                    {/*    sort={sort}*/}
+                    {/*    page={+page}*/}
+                    {/*    types={types}*/}
+                    {/*    categories={categories}*/}
+                    {/*    compilations={compilations}*/}
+                    {/*/>*/}
+                    <FormGridExplorer
+                        forms={forms}
                         types={types}
                         categories={categories}
                         compilations={compilations}
