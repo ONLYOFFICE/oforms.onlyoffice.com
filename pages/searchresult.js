@@ -12,10 +12,10 @@ import Layout from "@components/layout";
 import HeadSEO from "../src/screens/head-content";
 import HeadingContent from "../src/screens/heading-content";
 import InfoContent from "../src/screens/search-result-page/info-content";
-import MainContent from "../src/screens/search-result-page/main-content";
 import DesktopClientContent from "../src/screens/desktop-client-content";
 import AdventAnnounce from "../src/screens/heading-content/advent-announce";
 import { usePageContext } from 'src/hooks';
+import { FormGridExplorer } from '../src/widgets/website/formGridExplorer';
 
 const Accordion = lazy(() => import("../src/screens/common/accordion"), {
   loading: () => <div />,
@@ -34,7 +34,7 @@ const SearchResult = ({
 }) => {
   const { t } = useTranslation("common");
 
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState({data: [], meta: {}});
   const router = useRouter();
   const query = router.query.query
   const queryDesktopClient = router.query.query
@@ -105,14 +105,20 @@ const SearchResult = ({
       </Layout.PageHeader>
       <Layout.SectionMain>
         <InfoContent query={query} />
-        <MainContent
-          currentLanguage={locale}
-          sort={sort}
-          data={searchResults}
-          page={+page}
-          types={types}
-          categories={categories}
-          compilations={compilations}
+        {/*<MainContent*/}
+        {/*  currentLanguage={locale}*/}
+        {/*  sort={sort}*/}
+        {/*  data={searchResults}*/}
+        {/*  page={+page}*/}
+        {/*  types={types}*/}
+        {/*  categories={categories}*/}
+        {/*  compilations={compilations}*/}
+        {/*/>*/}
+        <FormGridExplorer
+              types={types}
+              categories={categories}
+              compilations={compilations}
+              forms={searchResults}
         />
         <Suspense>
           <Accordion currentLanguage={locale} />

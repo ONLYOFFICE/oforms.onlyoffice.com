@@ -72,13 +72,13 @@ export const FormGridExplorerFormsCount = styled.span`
     }
 `;
 
-export const FormGridWrapper = styled.div`
-    margin-bottom: 32px;
-`;
+export const PaginationWrapper = styled.div`
+    margin-top: 32px;
+`
 
 export const FormGridExplorerLoadMoreButton = styled.button`
     display: block;
-    margin: 0 auto 32px auto;
+    margin: 32px auto 0 auto;
     padding: 16px 20px;
     background-color: transparent;
     border-radius: 3px;
@@ -93,4 +93,13 @@ export const FormGridExplorerLoadMoreButton = styled.button`
     letter-spacing: 0.48px;
     text-transform: uppercase;
     cursor: pointer;
+    
+    &:hover {
+        border: 1px solid #FF6F3D;
+        color: #FF6F3D;
+    }
+    
+    @media screen and (max-width: 350px) {
+        width: 100%;
+    }
 `;

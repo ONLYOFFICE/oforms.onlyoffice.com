@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'next-i18next';
 
 export const useFormGrid = () => {
+    const { t } = useTranslation('common')
+
     const [isWithoutActive, setIsWithoutActive] = useState(false);
 
     const handleWindowWidth = () => {
@@ -14,6 +17,7 @@ export const useFormGrid = () => {
     }, []);
 
     return {
+        t,
         isWithoutActive,
     }
 };

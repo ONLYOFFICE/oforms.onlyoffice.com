@@ -27,12 +27,35 @@ export const FormGridItemImgLink = styled.a`
     border-radius: 3px;
     overflow: hidden;
     display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 14px;
+    background-color: #FFFFFF;
+    position: relative;
+    
+    &:hover div {
+        display: flex;
+    }
 `;
 
 export const FormGridItemImg = styled.img`
     width: inherit;
+    min-height: 420px;
 `;
+
+export const FormGridItemLoupIconWrapper = styled.div`
+    position: absolute;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    background: rgba(51, 51, 51, 0.70);
+    
+    display: none;
+    padding: 24px;
+    
+    svg {
+        color: #FFFFFF;
+    }
+`
 
 export const FormGridItemBox = styled.div`
     padding: 24px;

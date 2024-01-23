@@ -96,7 +96,7 @@ const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...r
                         <div className="popup-title">
                             {t("Form description")}
                         </div>
-                        <XClose size={30} onClick={() => setModalActive(false)} className="popup-icon" />
+                        <XClose size={19} onClick={() => setModalActive(false)} className="popup-icon" />
                         {/*<CloseButton onClick={() => setModalActive(false)}/>*/}
                     </div>
                     <div className="popup-body">

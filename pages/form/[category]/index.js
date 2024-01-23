@@ -10,13 +10,13 @@ import Layout from "@components/layout";
 import HeadSEO from "../../../src/screens/head-content";
 import HeadingContent from "../../../src/screens/heading-content";
 import InfoContent from "../../../src/screens/category-page/info-content";
-import MainContent from "../../../src/screens/category-page/main-content";
 import DesktopClientContent from "../../../src/screens/desktop-client-content";
 import AdventAnnounce from "../../../src/screens/heading-content/advent-announce";
 
 import config from "@config/config.json";
 import { usePageContext } from 'src/hooks';
 import { FormGridExplorer } from '../../../src/widgets/website/formGridExplorer';
+import getFormsByCategory from '@lib/strapi/getFormsByCategory';
 
 const Accordion = lazy(() => import("../../../src/screens/common/accordion"), {
     loading: () => <div/>,
@@ -45,8 +45,6 @@ const Category = ({
     const [isCategoryPage, setIsCategoryPage] = useState(true);
     const [stateMobile, setStateMobile] = useState(false);
     const {isDesktopClient} = usePageContext();
-
-    console.log(categoryName)
 
     if(isDesktopClient) {
         return (
@@ -135,44 +133,46 @@ export const getServerSideProps = async ({locale, query, ...ctx}) => {
     const urlReq = query.category;
     const pageSize = query.pageSize || isDesktopClient ? 0 : 9;
     const cms = config.api.cms
-    console.log(urlReq)
-    const res = await fetch(
-        `${cms}/api/oforms/?filters[categories][urlReq][$eq]=${urlReq}&locale=${locale === "pt" ? "pt-br" : locale}&sort=name_form:${sort}&${pageSize ? `&pagination[pageSize]=${pageSize}` : ''}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
-    );
+
+    const categoryForms = await getFormsByCategory({
+        categoryName: 'categories',
+        categoryValue: urlReq,
+        locale: locale === "pt" ? "pt-br" : locale,
+        sort,
+        page,
+        pageSize,
+    });
     const resCategory = await fetch(
         `${cms}/api/categories/?filters[urlReq][$eq]=${urlReq}&locale=${locale === "pt" ? "pt-br" : locale}`
     );
 
-    const categoryForms = await res.json();
     const categoryInfo = await resCategory.json();
     const types = await getAllTypes(locale === "pt" ? "pt-br" : locale);
     const categories = await getAllCategories(locale === "pt" ? "pt-br" : locale);
     const compilations = await getAllCompilations(locale === "pt" ? "pt-br" : locale);
 
-    console.log()
-
-    const getDestination = () => {
-        let destination = '/404'
+    const getRedirect = () => {
+        const result = {
+            destination: '/404',
+            query: {}
+        }
 
         if(isDesktopClient) {
-            destination += '?desktop=true'
+            result.query.desktop = true
         }
 
-        if(theme) {
-            destination += `&theme=${theme}`
+        if(query.theme) {
+            result.query.theme = query.theme
         }
 
-        return destination;
+        return result;
     }
 
 
     if (categoryForms.data.length === 0) {
         return {
             redirect: {
-                destination: getDestination(),
-                query: {
-                    desktop: true,
-                },
+                ...getRedirect(),
                 permanent: true,
             },
         };

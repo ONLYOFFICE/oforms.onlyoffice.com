@@ -14,6 +14,8 @@ import {
 } from '@common/categorySelectorNew/categorySelector.styled';
 import { CategorySelectorDropdown } from './categorySelectorDropdown';
 import { ChevronDown, XClose } from '@icons';
+import { DesktopMobileSelector } from './mobileSelectors/desktopMobileSelector';
+import WebsiteMobileSelector from './mobileSelectors/websiteMobileSelector';
 
 export const CategorySelector = (props) => {
     const {
@@ -30,14 +32,36 @@ export const CategorySelector = (props) => {
         isClearIconVisible,
         isDropdownIndicatorIconVisible,
         isOpen,
+        isMobile,
         searchQuery,
         categorySelectorRef,
+        theme,
         onToggle,
         onKeyDown,
         onClear,
         onMouseLeave,
         onMouseEnter,
     } = useCategorySelector({ categoryName });
+
+    // FIXME: Rewrite mobile selectors
+    if (isMobile) {
+        return isDesktopClient ?
+            <DesktopMobileSelector
+                typeSortData={categoryName}
+                types={types}
+                categories={categories}
+                compilations={compilations}
+                categoryName={categoryName}
+                theme={theme}
+                queryDesktopClient={searchQuery}
+            /> :
+            <WebsiteMobileSelector
+                typeSortData={categoryName}
+                types={types}
+                categories={categories}
+                compilations={compilations}
+            />
+    }
 
     if(isDesktopClient) {
         return (

@@ -16,7 +16,9 @@ import {
     FormGridItemFillOutLink,
     FormGridItemDownloadLink,
     FormGridItemTitleLink,
+    FormGridItemLoupIconWrapper,
 } from './formGridItem.styled';
+import { Loup } from '@icons';
 
 export const FormGridItem = (props) => {
     const {
@@ -47,6 +49,9 @@ export const FormGridItem = (props) => {
                         $isActive={isActive}
                         tabIndex={-1}
                     >
+                        <FormGridItemLoupIconWrapper>
+                            <Loup size={24} />
+                        </FormGridItemLoupIconWrapper>
                         <FormGridItemImg src={formImgPreview} alt={formTitle} />
                     </FormGridItemImgLink>
                 </Link>

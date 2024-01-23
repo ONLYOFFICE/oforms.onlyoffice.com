@@ -10,7 +10,7 @@ import {
     SearchAreaInputLabel,
     SearchAreaSearchIconWrapper,
 } from './searchArea.styled';
-import { Loup } from '@icons';
+import { Loup, XClose } from '@icons';
 
 export const SearchArea = () => {
     const {
@@ -18,10 +18,12 @@ export const SearchArea = () => {
         isFocused,
         isWithoutAnimation,
         inputValue,
+        isClearIconVisible,
         onBlur,
         onFocus,
         onSubmit,
         onChange,
+        onClear,
     } = useSearchArea();
 
     return (
@@ -45,9 +47,18 @@ export const SearchArea = () => {
                 >
                     {t('SearchInputPlaceholder')}
                 </SearchAreaInputLabel>
-                <SearchAreaSearchIconWrapper type="submit">
-                    <Loup size={24} />
-                </SearchAreaSearchIconWrapper>
+                {
+                    !isClearIconVisible &&
+                    <SearchAreaSearchIconWrapper type="submit">
+                        <Loup size={24} />
+                    </SearchAreaSearchIconWrapper>
+                }
+                {
+                    isClearIconVisible &&
+                    <SearchAreaSearchIconWrapper type="button" onClick={onClear}>
+                        <XClose size={24} />
+                    </SearchAreaSearchIconWrapper>
+                }
             </SearchAreaForm>
         </SearchAreaWrapper>
     );

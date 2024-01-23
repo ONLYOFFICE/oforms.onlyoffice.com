@@ -9,7 +9,6 @@ import Layout from "@components/layout";
 import HeadSEO from "../../../../src/screens/head-content";
 import HeadingContent from "../../../../src/screens/heading-content";
 import InfoContent from "../../../../src/screens/category-page/info-content";
-import MainContent from "../../../../src/screens/category-page/main-content";
 import DesktopClientContent from "../../../../src/screens/desktop-client-content";
 import AdventAnnounce from "../../../../src/screens/heading-content/advent-announce";
 
@@ -17,6 +16,7 @@ import config from "@config/config.json";
 import {useRouter} from "next/router";
 import { usePageContext } from 'src/hooks';
 import { FormGridExplorer } from '../../../../src/widgets/website/formGridExplorer';
+import getFormsByCategory from '@lib/strapi/getFormsByCategory';
 
 const Accordion = lazy(() => import("../../../../src/screens/common/accordion"), {
   loading: () => <div />,
@@ -127,13 +127,20 @@ export const getServerSideProps = async ({ locale, query, ...ctx }) => {
   const urlReq = query.compilation;
   const pageSize = query.pageSize || isDesktopClient ? 0 : 9;
   const cms = config.api.cms
-  const res = await fetch(
-    `${cms}/api/oforms/?filters[compilations][urlReq][$eq]=${urlReq}&locale=${locale === "pt" ? "pt-br" : locale}&sort=name_form:${sort}&${pageSize ? `&pagination[pageSize]=${pageSize}` : ''}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
-  );
+
+  const categoryForms = await getFormsByCategory({
+    categoryName: 'compilations',
+    categoryValue: urlReq,
+    locale: locale === "pt" ? "pt-br" : locale,
+    sort,
+    page,
+    pageSize,
+  });
+
   const resCategory = await fetch(
     `${cms}/api/compilations/?filters[urlReq][$eq]=${urlReq}&locale=${locale === "pt" ? "pt-br" : locale}`
   );
-  const categoryForms = await res.json();
+
   const categoryInfo = await resCategory.json();
   const types = await getAllTypes(locale === "pt" ? "pt-br" : locale);
   const categories = await getAllCategories(locale === "pt" ? "pt-br" : locale);
@@ -149,8 +156,8 @@ export const getServerSideProps = async ({ locale, query, ...ctx }) => {
       result.query.desktop = true
     }
 
-    if(theme) {
-      result.query.theme = theme
+    if(query.theme) {
+      result.query.theme = query.theme
     }
 
     return result;

@@ -49,7 +49,7 @@ export const SearchInput = () => {
                     {
                         isClearButtonVisible &&
                         <SearchInputXCloseWrapper type='button' onClick={onClear}>
-                            <XClose size={24} />
+                            <XClose size={16} />
                         </SearchInputXCloseWrapper>
                     }
                 </SearchInputWrapper>

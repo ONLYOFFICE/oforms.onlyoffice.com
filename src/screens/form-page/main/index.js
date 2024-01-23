@@ -1,14 +1,26 @@
 import Box from "@common/box";
 import Text from "@common/text";
 import Link from "@common/link";
+import NextLink from 'next/link'
 import Button from "@common/button";
 import Heading from "@common/heading";
 import ButtonSelector from "@common/button-selector";
 
 import Breadcrumb from "./sub-components/breadcrumb";
 import ShareButtonsGroup from "./sub-components/icon-buttons";
-import StyledMainInfo from "./styled-main";
+import StyledMainInfo, {
+    OpenAsSelector,
+    OpenAsSelectorDropdown,
+    OpenAsSelectorDropdownItem,
+    OpenAsSelectorDropdownLink,
+    OpenAsSelectorDropdownList,
+    OpenAsSelectorHeader,
+    OpenAsSelectorHeaderDesc,
+    OpenAsSelectorHeaderIconWrapper,
+} from './styled-main';
 import {useTranslation} from "next-i18next";
+import { ChevronDown } from '@icons';
+import { useEffect, useRef, useState } from 'react';
 
 const MainInfo = ({currentLanguage, data, link}) => {
     const {
@@ -58,6 +70,29 @@ const MainInfo = ({currentLanguage, data, link}) => {
     const SVG_FILE_TYPE = "https://static-oforms.onlyoffice.com/icons/oform.svg";
     const baseURL = typeof window !== "undefined" ? window.location.href : null;
     const linkSuggestChanges = `mailto:marketing@onlyoffice.com?subject=Suggesting changes for Form ${name_form}&body=Suggesting changes for Form ${name_form}.`;
+
+    const [isOpen, setIsOpen] = useState(false);
+    const ref = useRef(null);
+
+    const handleClick = () => {
+        if (ref.current && !ref.current.contains(event.target)) {
+            setIsOpen(false);
+        }
+    }
+
+    const openDesktop = () => {
+        // window.open("oo-office://open|f|https://static-oforms.onlyoffice.com/application_for_survivor_benefits_114bb9d9b9.oform");
+    }
+
+    useEffect(() => {
+        if (isOpen) {
+            window.addEventListener('click', handleClick);
+        } else {
+            window.removeEventListener('click', handleClick);
+        }
+
+        return () => window.removeEventListener('click', handleClick);
+    }, [isOpen]);
 
     return (
         <StyledMainInfo background="#F9F9F9" tabletPadding="96px 0" mobileLPadding="96px 0">
@@ -133,9 +168,38 @@ const MainInfo = ({currentLanguage, data, link}) => {
                     </div>
                 </Box>
                 <Box className="file-main-buttons">
-                    <Link target="_blank" style={{width: "100%"}} href={link}>
-                        <Button isScale label={t("OpenAndFill")}/>
-                    </Link>
+                    <OpenAsSelector ref={ref}>
+                        <OpenAsSelectorHeader onClick={() => setIsOpen(prev => !prev)}>
+                            <OpenAsSelectorHeaderDesc>{t("Open as")}</OpenAsSelectorHeaderDesc>
+                            <OpenAsSelectorHeaderIconWrapper>
+                                <ChevronDown size={24} />
+                            </OpenAsSelectorHeaderIconWrapper>
+                        </OpenAsSelectorHeader>
+                        {
+                            isOpen &&
+                            <OpenAsSelectorDropdown>
+                                <OpenAsSelectorDropdownList>
+                                    <OpenAsSelectorDropdownItem className="without-padding">
+                                        <NextLink
+                                            target="_blank"
+                                          href={link}
+                                            passHref
+                                        >
+                                            <OpenAsSelectorDropdownLink>
+                                                {t("OpenAndFill")}
+                                            </OpenAsSelectorDropdownLink>
+                                        </NextLink>
+                                    </OpenAsSelectorDropdownItem>
+                                    <OpenAsSelectorDropdownItem onClick={openDesktop}>
+                                        {t('Open in Desktop')}
+                                    </OpenAsSelectorDropdownItem>
+                                    <OpenAsSelectorDropdownItem>
+                                        {t('Open in Docspace')}
+                                    </OpenAsSelectorDropdownItem>
+                                </OpenAsSelectorDropdownList>
+                            </OpenAsSelectorDropdown>
+                        }
+                    </OpenAsSelector>
                     <ButtonSelector
                         isScale
                         array={array}

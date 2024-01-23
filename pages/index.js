@@ -109,7 +109,7 @@ export const getServerSideProps = async ({locale, query}) => {
     const forms = await getAllForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize);
     const types = await getAllTypes(locale === "pt" ? "pt-br" : locale);
     const categories = await getAllCategories(locale === "pt" ? "pt-br" : locale);
-    const compilations = await getAllCompilations(locale === "pt" ? "pt-br" : locale);
+    const compilations = await getAllCompilations(locale === "pt" ? "pt-br" : locale)
 
     return {
         props: {

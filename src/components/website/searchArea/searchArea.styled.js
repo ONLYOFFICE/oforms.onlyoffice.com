@@ -4,29 +4,29 @@ const focusAnimation = keyframes`
     from {
         transform: translateY(0) scale(1);
     }
-    
+
     to {
         transform: translateY(-16px) scale(0.7);
     }
-`
+`;
 
 const blurAnimation = keyframes`
     from {
         transform: translateY(-16px) scale(0.7);
     }
-    
+
     to {
         transform: translateY(0) scale(1);
     }
-`
+`;
 
 export const SearchAreaWrapper = styled.div`
     display: flex;
     align-items: center;
     gap: 16px;
-    
+
     border-bottom: 1px solid #666666;
-    
+
     @media screen and (min-width: 561px) {
         padding-bottom: 7px;
     }
@@ -38,7 +38,7 @@ export const SearchAreaDesc = styled.span`
     font-weight: 700;
     line-height: 133%;
     padding-left: 16px;
-    
+
     @media screen and (max-width: 560px) {
         display: none;
     }
@@ -73,7 +73,7 @@ export const SearchAreaInput = styled.input`
     color: #fff;
 
     flex-grow: 1;
-    
+
     @media screen and (max-width: 560px) {
         padding: 16px 0 16px 8px;
     }
@@ -92,7 +92,7 @@ export const SearchAreaInputLabel = styled.label`
     transform: translateY(0);
     transform-origin: left top;
 
-    animation-duration: ${({$isWithoutAnimation}) => $isWithoutAnimation ? '0ms' : '200ms'};
+    animation-duration: ${({ $isWithoutAnimation }) => $isWithoutAnimation ? '0ms' : '200ms'};
     animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
 
@@ -100,7 +100,7 @@ export const SearchAreaInputLabel = styled.label`
     white-space: nowrap;
     text-overflow: ellipsis;
     width: calc(100% - 65px);
-    
+
     &:not(.initial):not(.focus) {
         animation-name: ${blurAnimation};
     }
@@ -120,14 +120,14 @@ export const SearchAreaSearchIconWrapper = styled.button`
     border: none;
     margin: 0;
     padding: 16px 16px 16px 0;
-    
+
     cursor: pointer;
-    
+
     svg {
         color: #AAAAAA;
     }
-    
+
     @media screen and (max-width: 560px) {
         padding: 16px 8px 16px 0;
     }
-`
+`;

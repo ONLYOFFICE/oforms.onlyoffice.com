@@ -20,6 +20,7 @@ export const useCategorySelector = ({ categoryName }) => {
 
     const { isDesktopClient } = usePageContext();
 
+    const [isMobile, setIsMobile] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [timeoutId, setTimeoutId] = useState(null);
 
@@ -29,6 +30,8 @@ export const useCategorySelector = ({ categoryName }) => {
     const isValueVisible = getIsValueVisible(isDesktopClient, categoryName, router.pathname, searchQuery)
     const isClearIconVisible = isValueVisible;
     const isDropdownIndicatorIconVisible = !isValueVisible;
+
+    const theme = router.query.theme
 
     const onToggle = () => {
         setIsOpen(prevState => !prevState);
@@ -77,7 +80,14 @@ export const useCategorySelector = ({ categoryName }) => {
         router.push({ pathname: '/', query });
     };
 
+    const handleWindowWidth = () => {
+        setIsMobile(window.innerWidth <= 1000)
+    }
+
     useEffect(() => {
+        handleWindowWidth()
+        window.addEventListener('resize', handleWindowWidth)
+
         if (isOpen) {
             window.addEventListener('click', onClick);
         } else {
@@ -85,6 +95,7 @@ export const useCategorySelector = ({ categoryName }) => {
         }
 
         return () => {
+            window.removeEventListener('resize', handleWindowWidth)
             window.removeEventListener('click', onClick);
         };
     }, [isOpen]);
@@ -96,8 +107,10 @@ export const useCategorySelector = ({ categoryName }) => {
         isClearIconVisible,
         isDropdownIndicatorIconVisible,
         isOpen,
+        isMobile,
         searchQuery,
         categorySelectorRef,
+        theme,
         onMouseEnter,
         onMouseLeave,
         onToggle,

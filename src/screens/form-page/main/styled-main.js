@@ -350,4 +350,94 @@ const StyledMainInfo = styled(Section)`
   }
 `;
 
+export const OpenAsSelector = styled.div`
+    position: relative;
+`;
+
+export const OpenAsSelectorHeader = styled.div`
+    display: flex;
+    align-items: center;
+    background: #FF6F3D;
+    color: #FFF;
+    border-radius: 3px;
+    width: 251px;
+    cursor: pointer;
+`;
+
+export const OpenAsSelectorHeaderDesc = styled.p`
+    margin: 0;
+    text-align: center;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 133%; /* 17.29px */
+    letter-spacing: 0.52px;
+    text-transform: uppercase;
+    padding: 19px 24px;
+    color: inherit;
+    width: 100%;
+    flex-grow: 1;
+    height: 100%;
+    user-select: none;
+`;
+
+export const OpenAsSelectorHeaderIconWrapper = styled.div`
+    padding: 16px;
+    border-left: 1px solid #FFF;
+
+    svg {
+        color: inherit;
+    }
+`;
+
+export const OpenAsSelectorDropdown = styled.div`
+    position: absolute;
+    top: calc(100% + 10px);
+    z-index: 1;
+    border-radius: 3px;
+    border: 1px solid #666;
+    background: #FFF;
+    width: 100%;
+
+    box-shadow: 0px 7px 25px 0px rgba(85, 85, 85, 0.15);
+`;
+
+export const OpenAsSelectorDropdownList = styled.ul`
+    list-style: none;
+    margin: 0;
+    padding: 8px 0px 8px 1px;
+`;
+
+export const OpenAsSelectorDropdownItem = styled.li`
+    display: flex;
+    color: #444;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%; /* 25.6px */
+    padding: 8px 16px;
+    cursor: pointer;
+    
+    &.without-padding {
+        padding: 0;
+    }
+    
+    &:hover {
+        color: #FF6F3D;
+        background: #F5F5F5;
+    }
+`;
+
+export const OpenAsSelectorDropdownLink = styled.a`
+    flex-grow: 1;
+    color: inherit;
+    padding: 8px 16px;
+    
+    text-decoration: none;
+    
+    &:hover {
+        text-decoration: none;
+    }
+`
+
 export default StyledMainInfo;

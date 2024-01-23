@@ -151,6 +151,7 @@ export const DesktopMobileSelector = (props) => {
         <DesktopMobileSelectorStyled className="dropdown-component">
             <Selector
                 label={t("Categories")}
+                custom
                 value={router.pathname === "/searchresult" ? `${t("Search-result-for")} '${queryDesktopClient}'` : categoryName}
                 isOpen={isOpen}
                 onVisibilityChange={(state) => setIsOpen(state)}
@@ -188,7 +189,7 @@ export const DesktopMobileSelector = (props) => {
                                             onClick={() => setCategoriesOpen(false)}
                                         />
                                     }
-                                    postfix={<XClose size={34} onClick={onClose} className="menu-icon"/>}
+                                    postfix={<XClose size={24} onClick={onClose} className="menu-icon"/>}
                                 >
                                     {
                                         categories.data.map(({attributes}) => (

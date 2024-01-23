@@ -17,6 +17,7 @@ const Selector = (props) => {
         className,
         headerRender,
         trigger = 'click',
+        custom,
     } = props;
 
     const [open, setOpen] = useState(false);
@@ -52,7 +53,7 @@ const Selector = (props) => {
 
     const handleChildrenClick = (e) => {
         e.stopPropagation();
-        onMouseLeave();
+        !custom && onMouseLeave();
     };
 
     useEffect(() => {

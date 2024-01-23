@@ -12,6 +12,8 @@ export const useSearchArea = () => {
     const [isWithoutAnimation, setIsWithoutAnimation] = useState(isSearchPage);
     const [inputValue, setInputValue] = useState(isSearchPage ? router.query.query : '');
 
+    const isClearIconVisible = !!inputValue;
+
     const onFocus = () => {
         setIsFocused(true);
 
@@ -28,6 +30,11 @@ export const useSearchArea = () => {
         setInputValue(event.target.value);
     };
 
+    const onClear = () => {
+        setInputValue('')
+        isSearchPage && router.replace('/', undefined, {shallow: true});
+    }
+
     const onSubmit = (event) => {
         event.preventDefault();
 
@@ -36,7 +43,7 @@ export const useSearchArea = () => {
         if (trimmedValue.length >= 3) {
             router.push(`/searchresult?query=${trimmedValue}`, undefined, { shallow: true });
         } else if (trimmedValue === '' && isSearchPage) {
-            router.push('/');
+            onClear()
         }
     };
 
@@ -49,5 +56,7 @@ export const useSearchArea = () => {
         onBlur,
         onSubmit,
         onChange,
+        onClear,
+        isClearIconVisible,
     };
 };
