@@ -40,6 +40,7 @@ export const useCategorySelectorDropdown = (props) => {
 
     const [selectorSubListConditions, setSelectorSubListConditions] = useState(new Array(list.length).fill(false));
 
+
     const handleSelectorSubListConditions = (index, state) => {
         setSelectorSubListConditions(() => {
             const newState = new Array(list.length).fill(false);

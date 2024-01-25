@@ -7,6 +7,7 @@ import { ChevronRight } from '@icons';
 import {
     CategorySelectorItemIconWrapper,
     CategorySelectorSubDropdown,
+    CategorySelectorItemTitle,
     DesktopCategorySelectorItem,
     DesktopCategorySelectorList,
     DesktopCategorySelectorSubList,
@@ -26,6 +27,7 @@ export const CategorySelectorDropdown = (props) => {
         categories,
         compilations,
         categoryName,
+        isTablet,
     } = props;
 
     const {
@@ -42,6 +44,7 @@ export const CategorySelectorDropdown = (props) => {
         compilations,
         categoryName,
     });
+
     if (isDesktopClient) {
         return (
             <CategorySelectorDropdownStyled>
@@ -65,13 +68,17 @@ export const CategorySelectorDropdown = (props) => {
                                 onFocus={() => handleSelectorSubListConditions(idx, true)}
                                 onBlur={() => handleSelectorSubListConditions(idx, false)}
                             >
-                                {t(item.title)}
+                                <CategorySelectorItemTitle>
+                                    {t(item.title)}
+                                </CategorySelectorItemTitle>
                                 <CategorySelectorItemIconWrapper $isDesktopClient>
                                     <ChevronRight size={24} />
                                 </CategorySelectorItemIconWrapper>
                                 {
                                     selectorSubListConditions[idx] &&
-                                    <CategorySelectorSubDropdown $isDesktopClient>
+                                    <CategorySelectorSubDropdown
+                                        $isDesktopClient
+                                    >
                                         <DesktopCategorySelectorSubList
                                             className={cn({ 'one-column': item.items.length <= 10 })}
                                         >
@@ -124,7 +131,9 @@ export const CategorySelectorDropdown = (props) => {
                             onFocus={() => handleSelectorSubListConditions(idx, true)}
                             onBlur={() => handleSelectorSubListConditions(idx, false)}
                         >
-                            {t(item.title)}
+                            <CategorySelectorItemTitle>
+                                {t(item.title)}
+                            </CategorySelectorItemTitle>
                             <CategorySelectorItemIconWrapper>
                                 <ChevronRight size={24} />
                             </CategorySelectorItemIconWrapper>
@@ -132,7 +141,7 @@ export const CategorySelectorDropdown = (props) => {
                                 selectorSubListConditions[idx] &&
                                 <CategorySelectorSubDropdown>
                                     <WebsiteCategorySelectorSubList
-                                        className={cn({ 'one-column': item.items.length <= 10 })}
+                                        className={cn({ 'one-column': item.items.length <= 10 || isTablet })}
                                     >
                                         {
                                             item.items.map((data, idx) => (

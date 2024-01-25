@@ -1,8 +1,11 @@
 import React from 'react';
 import cn from 'classnames';
-import Link from 'next/link';
+
+import { CategorySelectorDropdown } from './categorySelectorDropdown';
+import { MobileCategorySelectorDropdown } from './mobileCategorySelectorDropdown';
 
 import { useCategorySelector } from './useCategorySelector';
+
 import {
     CategorySelectorStyled,
     DesktopCategorySelectorClearIconWrapper,
@@ -12,10 +15,7 @@ import {
     DesktopCategorySelectorValue,
     WebsiteCategorySelectorLabel,
 } from '@common/categorySelectorNew/categorySelector.styled';
-import { CategorySelectorDropdown } from './categorySelectorDropdown';
 import { ChevronDown, XClose } from '@icons';
-import { DesktopMobileSelector } from './mobileSelectors/desktopMobileSelector';
-import WebsiteMobileSelector from './mobileSelectors/websiteMobileSelector';
 
 export const CategorySelector = (props) => {
     const {
@@ -32,10 +32,10 @@ export const CategorySelector = (props) => {
         isClearIconVisible,
         isDropdownIndicatorIconVisible,
         isOpen,
+        isTablet,
         isMobile,
         searchQuery,
         categorySelectorRef,
-        theme,
         onToggle,
         onKeyDown,
         onClear,
@@ -43,31 +43,12 @@ export const CategorySelector = (props) => {
         onMouseEnter,
     } = useCategorySelector({ categoryName });
 
-    // FIXME: Rewrite mobile selectors
-    if (isMobile) {
-        return isDesktopClient ?
-            <DesktopMobileSelector
-                typeSortData={categoryName}
-                types={types}
-                categories={categories}
-                compilations={compilations}
-                categoryName={categoryName}
-                theme={theme}
-                queryDesktopClient={searchQuery}
-            /> :
-            <WebsiteMobileSelector
-                typeSortData={categoryName}
-                types={types}
-                categories={categories}
-                compilations={compilations}
-            />
-    }
-
-    if(isDesktopClient) {
+    if (isDesktopClient) {
         return (
             <CategorySelectorStyled
                 ref={categorySelectorRef}
                 className={cn({ 'expanded': isOpen })}
+                $isDesktopClient
             >
                 <CategorySelectorHeader
                     onClick={onToggle}
@@ -99,15 +80,18 @@ export const CategorySelector = (props) => {
                         </CategorySelectorDropdownIndicatorIconWrapper>
                     }
                 </CategorySelectorHeader>
-                {
-                    isOpen &&
-                    <CategorySelectorDropdown
-                        types={types}
-                        categories={categories}
-                        compilations={compilations}
-                        categoryName={categoryName}
-                    />
-                }
+                <CombinedCategorySelectorDropdown
+                    isOpen={isOpen}
+                    isMobile={isMobile}
+
+                    isTablet={isTablet}
+                    isDesktopClient
+
+                    types={types}
+                    categories={categories}
+                    compilations={compilations}
+                    categoryName={categoryName}
+                />
             </CategorySelectorStyled>
         );
     }
@@ -133,15 +117,43 @@ export const CategorySelector = (props) => {
                     <ChevronDown size={24} />
                 </CategorySelectorDropdownIndicatorIconWrapper>
             </CategorySelectorHeader>
-            {
-                isOpen &&
-                <CategorySelectorDropdown
-                    types={types}
-                    categories={categories}
-                    compilations={compilations}
-                    categoryName={categoryName}
-                />
-            }
+            <CombinedCategorySelectorDropdown
+                isOpen={isOpen}
+                isMobile={isMobile}
+
+                isTablet={isTablet}
+
+                types={types}
+                categories={categories}
+                compilations={compilations}
+                categoryName={categoryName}
+            />
         </CategorySelectorStyled>
-    )
+    );
+};
+
+const CombinedCategorySelectorDropdown = (props) => {
+    const {
+        isOpen,
+        isMobile,
+        isDesktopClient,
+        isTablet,
+        ...categorySelectorDropdownProps
+    } = props;
+
+    if (!isOpen) return null;
+
+    // for desktop client in mobile and tablet versions or for website in mobile version
+    if (
+        (isDesktopClient && (isMobile || isTablet)) ||
+        (!isDesktopClient && isMobile)
+    ) {
+        return (
+            <MobileCategorySelectorDropdown isTablet={isTablet} {...categorySelectorDropdownProps} />
+        );
+    }
+
+    return (
+        <CategorySelectorDropdown isTablet={isTablet} {...categorySelectorDropdownProps} />
+    );
 };

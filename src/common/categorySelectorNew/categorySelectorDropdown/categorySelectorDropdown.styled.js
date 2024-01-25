@@ -47,9 +47,21 @@ export const CategorySelectorItemIconWrapper = styled.div`
 
 export const CategorySelectorDropdownStyled = styled.div`
     position: absolute;
-    z-index: 2;
+    z-index: 1;
     width: max-content;
     top: 100%;
+`;
+
+export const CategorySelectorItemTitle = styled.p`
+    margin: 0;
+    
+    @media screen and (max-width: 1400px) {
+        max-width: 250px;
+    }
+
+    @media screen and (max-width: 1200px) {
+        max-width: 210px;
+    }
 `;
 
 export const DesktopCategorySelectorList = styled(CategorySelectorList)`
@@ -75,6 +87,7 @@ export const DesktopCategorySelectorItem = styled.li`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 10px;
 
     color: ${({ theme }) => theme.colors.newPalette.textNormal};
     padding: 8px 32px;
@@ -134,11 +147,14 @@ export const DesktopCategorySelectorSubLink = styled.a`
     line-height: 160%;
     text-decoration: none;
     color: ${({ theme }) => theme.colors.newPalette.textNormal};
+    
+    display: flex;
+    align-items: center;
+    height: 100%;
 
     padding: 8px 32px;
 
     width: 100%;
-    display: block;
 
     &.selected {
         background-color: ${({ theme }) => theme.colors.newPalette.highlightButtonPressed};
@@ -146,6 +162,14 @@ export const DesktopCategorySelectorSubLink = styled.a`
 
     &:hover, &:focus-visible {
         background-color: ${({ theme }) => theme.colors.newPalette.highlightButtonHover};
+    }
+
+    @media screen and (max-width: 1400px) {
+        max-width: 410px;
+    }
+    
+    @media screen and (max-width: 1200px) {
+        max-width: 320px;
     }
 `;
 
@@ -210,11 +234,13 @@ export const WebsiteCategorySelectorSubLink = styled.a`
     font-style: normal;
     font-weight: 400;
     line-height: 150%;
-    
+
     text-decoration: none;
-    
-    display: block;
-    
+
+    display: flex;
+    align-items: center;
+    height: 100%;
+
     &.selected {
         color: #FF6F3D;
     }
@@ -222,5 +248,13 @@ export const WebsiteCategorySelectorSubLink = styled.a`
     &:hover, &:focus-visible {
         //background-color: #F9F9F9;
         color: #FF6F3D;
+    }
+
+    @media screen and (max-width: 1400px) {
+        max-width: 410px;
+    }
+
+    @media screen and (max-width: 1200px) {
+        max-width: 320px;
     }
 `;

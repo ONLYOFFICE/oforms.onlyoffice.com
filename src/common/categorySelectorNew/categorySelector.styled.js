@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { MOBILE_BREAKPOINT } from './useCategorySelector';
+
 export const CategorySelectorStyled = styled.div`
     position: relative;
     width: max-content;
@@ -7,13 +9,17 @@ export const CategorySelectorStyled = styled.div`
     &.expanded .chevron-icon {
         transform: rotate(180deg);
     }
+
+    @media screen and (max-width: ${MOBILE_BREAKPOINT}px) {
+        position: ${({ $isDesktopClient }) => !$isDesktopClient ? 'static' : undefined};
+    }
 `;
 
 export const CategorySelectorHeader = styled.header`
     display: flex;
     align-items: center;
     cursor: pointer;
-    gap: ${({$isDesktopClient}) => $isDesktopClient ? '8px' : '10px'};
+    gap: ${({ $isDesktopClient }) => $isDesktopClient ? '8px' : '10px'};
 `;
 
 export const DesktopCategorySelectorClearIconWrapper = styled.button`
@@ -69,4 +75,4 @@ export const WebsiteCategorySelectorLabel = styled.span`
     font-weight: 700;
     line-height: 133%;
     letter-spacing: -0.36px;
-`
+`;
