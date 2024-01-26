@@ -52,29 +52,6 @@ const AccordionContent = ({ currentLanguage }) => {
     </Text>
   );
 
-  const AccordionDescriptionFormatTheFormsLink = t(
-    "AccordionDescriptionFormatTheFormsLink"
-  );
-  const AccordionDescriptionFormatTheForms = (
-    <Text as={"p"} className="text-trans-accordion">
-      <Trans
-        i18nKey="AccordionDescriptionFormatTheForms"
-        AccordionDescriptionFormatTheFormsLink={t(
-          "AccordionDescriptionFormatTheFormsLink"
-        )}
-      >
-        All forms are stored in .OFORM format
-        <Link
-          display="contents"
-          className="link-trans-acc"
-          href="https://www.onlyoffice.com/whitepapers.aspx"
-        >
-          {{ AccordionDescriptionFormatTheFormsLink }}
-        </Link>
-      </Trans>
-    </Text>
-  );
-
   const AccordionDescriptionFindTheTemplateLink = t(
     "AccordionDescriptionFindTheTemplateLink"
   );
@@ -204,10 +181,7 @@ const AccordionContent = ({ currentLanguage }) => {
         {t("AccordionDescriptionModifyTheForms")}
       </AccordionItem>
       <AccordionItem heading={t("AccordionHeadingFormatTheForms")}>
-        {AccordionDescriptionFormatTheForms}
-      </AccordionItem>
-      <AccordionItem heading={t("AccordionHeadingExportOtherFormats")}>
-        {t("AccordionDescriptionExportOtherFormats")}
+        {t("AccordionDescriptionFormatTheForms")}
       </AccordionItem>
       <AccordionItem heading={t("AccordionHeadingAdditionalSoftware")}>
         {AccordionDescriptionDesktopANDDocs}
