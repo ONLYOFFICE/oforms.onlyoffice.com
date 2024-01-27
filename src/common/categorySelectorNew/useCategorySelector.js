@@ -39,6 +39,8 @@ export const useCategorySelector = ({ categoryName }) => {
         setIsOpen(prevState => !prevState);
     };
 
+    const onClose = () => setIsOpen(false);
+
     const onMouseEnter = () => {
         if (isMobile) return;
 
@@ -64,7 +66,6 @@ export const useCategorySelector = ({ categoryName }) => {
     };
 
     const onClick = (event) => {
-        console.log('click');
         if (categorySelectorRef.current && !categorySelectorRef.current.contains(event.target)) {
             setIsOpen(false);
         }
@@ -137,5 +138,6 @@ export const useCategorySelector = ({ categoryName }) => {
         onToggle,
         onKeyDown,
         onClear,
+        onClose,
     };
 };

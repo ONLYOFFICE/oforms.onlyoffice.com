@@ -1,4 +1,4 @@
-import { usePageContext } from 'src/hooks';
+import { usePageContext } from '../../../../hooks';
 import { useTranslation } from 'next-i18next';
 
 export const useMobileCategorySelectorDropdown = () => {

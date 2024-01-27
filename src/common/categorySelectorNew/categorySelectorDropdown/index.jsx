@@ -20,6 +20,9 @@ import {
     WebsiteCategorySelectorSubList,
     WebsiteCategorySelectorSubLink,
 } from './categorySelectorDropdown.styled';
+import {
+    MobileCategorySelectorDropdown,
+} from '@common/categorySelectorNew/categorySelectorDropdown/mobileCategorySelectorDropdown';
 
 export const CategorySelectorDropdown = (props) => {
     const {
@@ -28,6 +31,8 @@ export const CategorySelectorDropdown = (props) => {
         compilations,
         categoryName,
         isTablet,
+        isMobile,
+        onClose,
     } = props;
 
     const {
@@ -44,6 +49,21 @@ export const CategorySelectorDropdown = (props) => {
         compilations,
         categoryName,
     });
+
+    // for desktop client in mobile version and tablet version for website in mobile version
+    if (
+        (isDesktopClient && (isMobile || isTablet)) ||
+        (!isDesktopClient && isMobile)
+    ) {
+        return (
+            <MobileCategorySelectorDropdown
+                onClose={onClose}
+                list={list}
+                selectorSubListConditions={selectorSubListConditions}
+                handleSelectorSubListConditions={handleSelectorSubListConditions}
+            />
+        );
+    }
 
     if (isDesktopClient) {
         return (
@@ -66,7 +86,7 @@ export const CategorySelectorDropdown = (props) => {
                                 onMouseEnter={() => handleSelectorSubListConditions(idx, true)}
                                 onMouseLeave={() => handleSelectorSubListConditions(idx, false)}
                                 onFocus={() => handleSelectorSubListConditions(idx, true)}
-                                onBlur={() => handleSelectorSubListConditions(idx, false)}
+                                className={cn({ 'active': selectorSubListConditions[idx] })}
                             >
                                 <CategorySelectorItemTitle>
                                     {t(item.title)}
@@ -129,7 +149,7 @@ export const CategorySelectorDropdown = (props) => {
                             onMouseEnter={() => handleSelectorSubListConditions(idx, true)}
                             onMouseLeave={() => handleSelectorSubListConditions(idx, false)}
                             onFocus={() => handleSelectorSubListConditions(idx, true)}
-                            onBlur={() => handleSelectorSubListConditions(idx, false)}
+                            className={cn({ 'active': selectorSubListConditions[idx] })}
                         >
                             <CategorySelectorItemTitle>
                                 {t(item.title)}

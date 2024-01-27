@@ -62,11 +62,14 @@ export const CategorySelectorItemTitle = styled.p`
     @media screen and (max-width: 1200px) {
         max-width: 210px;
     }
+    
+    @media screen and (max-width: 1000px) {
+        max-width: 250px;
+    }
 `;
 
 export const DesktopCategorySelectorList = styled(CategorySelectorList)`
     position: relative;
-
     padding: 24px 0;
     min-width: 277px;
 
@@ -155,6 +158,7 @@ export const DesktopCategorySelectorSubLink = styled.a`
     padding: 8px 32px;
 
     width: 100%;
+    outline: none;
 
     &.selected {
         background-color: ${({ theme }) => theme.colors.newPalette.highlightButtonPressed};
@@ -199,7 +203,7 @@ export const WebsiteCategorySelectorItem = styled.li`
     outline: none;
     cursor: pointer;
 
-    &:hover, &:focus-visible, &.with-link a:focus-visible {
+    &:hover, &:focus-visible, &.with-link a:focus-visible, &.active {
         background-color: #F9F9F9;
         color: #FF6F3D;
     }
@@ -240,6 +244,7 @@ export const WebsiteCategorySelectorSubLink = styled.a`
     display: flex;
     align-items: center;
     height: 100%;
+    outline: none;
 
     &.selected {
         color: #FF6F3D;
@@ -256,5 +261,9 @@ export const WebsiteCategorySelectorSubLink = styled.a`
 
     @media screen and (max-width: 1200px) {
         max-width: 320px;
+    }
+
+    @media screen and (max-width: 1000px) {
+        max-width: 350px;
     }
 `;

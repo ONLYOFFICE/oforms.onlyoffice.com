@@ -2,7 +2,6 @@ import React from 'react';
 import cn from 'classnames';
 
 import { CategorySelectorDropdown } from './categorySelectorDropdown';
-import { MobileCategorySelectorDropdown } from './mobileCategorySelectorDropdown';
 
 import { useCategorySelector } from './useCategorySelector';
 
@@ -37,6 +36,7 @@ export const CategorySelector = (props) => {
         searchQuery,
         categorySelectorRef,
         onToggle,
+        onClose,
         onKeyDown,
         onClear,
         onMouseLeave,
@@ -80,18 +80,18 @@ export const CategorySelector = (props) => {
                         </CategorySelectorDropdownIndicatorIconWrapper>
                     }
                 </CategorySelectorHeader>
-                <CombinedCategorySelectorDropdown
-                    isOpen={isOpen}
-                    isMobile={isMobile}
-
-                    isTablet={isTablet}
-                    isDesktopClient
-
-                    types={types}
-                    categories={categories}
-                    compilations={compilations}
-                    categoryName={categoryName}
-                />
+                {
+                    isOpen &&
+                    <CategorySelectorDropdown
+                        isMobile={isMobile}
+                        isTablet={isTablet}
+                        types={types}
+                        categories={categories}
+                        compilations={compilations}
+                        categoryName={categoryName}
+                        onClose={onClose}
+                    />
+                }
             </CategorySelectorStyled>
         );
     }
@@ -117,43 +117,18 @@ export const CategorySelector = (props) => {
                     <ChevronDown size={24} />
                 </CategorySelectorDropdownIndicatorIconWrapper>
             </CategorySelectorHeader>
-            <CombinedCategorySelectorDropdown
-                isOpen={isOpen}
-                isMobile={isMobile}
-
-                isTablet={isTablet}
-
-                types={types}
-                categories={categories}
-                compilations={compilations}
-                categoryName={categoryName}
-            />
+            {
+                isOpen &&
+                <CategorySelectorDropdown
+                    isMobile={isMobile}
+                    isTablet={isTablet}
+                    types={types}
+                    categories={categories}
+                    compilations={compilations}
+                    categoryName={categoryName}
+                    onClose={onClose}
+                />
+            }
         </CategorySelectorStyled>
-    );
-};
-
-const CombinedCategorySelectorDropdown = (props) => {
-    const {
-        isOpen,
-        isMobile,
-        isDesktopClient,
-        isTablet,
-        ...categorySelectorDropdownProps
-    } = props;
-
-    if (!isOpen) return null;
-
-    // for desktop client in mobile and tablet versions or for website in mobile version
-    if (
-        (isDesktopClient && (isMobile || isTablet)) ||
-        (!isDesktopClient && isMobile)
-    ) {
-        return (
-            <MobileCategorySelectorDropdown isTablet={isTablet} {...categorySelectorDropdownProps} />
-        );
-    }
-
-    return (
-        <CategorySelectorDropdown isTablet={isTablet} {...categorySelectorDropdownProps} />
     );
 };
