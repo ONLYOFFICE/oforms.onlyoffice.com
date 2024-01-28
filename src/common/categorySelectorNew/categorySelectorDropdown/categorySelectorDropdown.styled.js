@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 
-const CategorySelectorList = styled.ul`
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-`;
+import {
+    CategorySelectorIconWrapper,
+    CategorySelectorList,
+    DesktopCategorySelectorSubListItemLink,
+    WebsiteCategorySelectorSubListItemLink
+} from '../common.styled'
 
 const CategorySelectorSubList = styled.ul`
     list-style: none;
@@ -21,12 +20,6 @@ const CategorySelectorSubList = styled.ul`
     }
 `;
 
-export const CategorySelectorFakeBlock = styled.div`
-    width: 100%;
-    user-select: none;
-    height: ${({ $isDesktopClient }) => $isDesktopClient ? '5px' : '17px'};
-`;
-
 export const CategorySelectorSubDropdown = styled.div`
     position: absolute;
     z-index: 1;
@@ -35,15 +28,7 @@ export const CategorySelectorSubDropdown = styled.div`
     top: ${({ $isDesktopClient }) => $isDesktopClient ? '-1px' : '0px'};
 `;
 
-export const CategorySelectorItemIconWrapper = styled.div`
-    display: flex;
-    color: inherit;
-
-    svg {
-        color: ${({ theme, $isDesktopClient }) =>
-                $isDesktopClient ? theme.colors.newPalette.iconNormal : 'inherit'};
-    }
-`;
+export const CategorySelectorItemIconWrapper = styled(CategorySelectorIconWrapper)``;
 
 export const CategorySelectorDropdownStyled = styled.div`
     position: absolute;
@@ -54,7 +39,7 @@ export const CategorySelectorDropdownStyled = styled.div`
 
 export const CategorySelectorItemTitle = styled.p`
     margin: 0;
-    
+
     @media screen and (max-width: 1400px) {
         max-width: 250px;
     }
@@ -62,7 +47,7 @@ export const CategorySelectorItemTitle = styled.p`
     @media screen and (max-width: 1200px) {
         max-width: 210px;
     }
-    
+
     @media screen and (max-width: 1000px) {
         max-width: 250px;
     }
@@ -79,48 +64,6 @@ export const DesktopCategorySelectorList = styled(CategorySelectorList)`
     box-shadow: ${({ theme }) => theme.boxShadows.shadowWindow};
 `;
 
-
-export const DesktopCategorySelectorItem = styled.li`
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 133%;
-    letter-spacing: 0.56px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-
-    color: ${({ theme }) => theme.colors.newPalette.textNormal};
-    padding: 8px 32px;
-    cursor: pointer;
-
-    outline: none;
-
-    &.selected {
-        background-color: ${({ theme }) => theme.colors.newPalette.highlightButtonPressed};
-    }
-
-    &:hover, &:focus-visible, &.with-link a:focus-visible {
-        background-color: ${({ theme }) => theme.colors.newPalette.highlightButtonHover};
-    }
-
-    &.with-link {
-        padding: 0;
-
-        a {
-            outline: none;
-            color: inherit;
-            text-decoration: none;
-            font-size: inherit;
-            line-height: inherit;
-            display: block;
-            width: 100%;
-            padding: 8px 32px;
-        }
-    }
-`;
 
 export const DesktopCategorySelectorSubList = styled(CategorySelectorSubList)`
     cursor: auto;
@@ -143,35 +86,11 @@ export const DesktopCategorySelectorSubItem = styled.li`
     }
 `;
 
-export const DesktopCategorySelectorSubLink = styled.a`
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 160%;
-    text-decoration: none;
-    color: ${({ theme }) => theme.colors.newPalette.textNormal};
-    
-    display: flex;
-    align-items: center;
-    height: 100%;
-
-    padding: 8px 32px;
-
-    width: 100%;
-    outline: none;
-
-    &.selected {
-        background-color: ${({ theme }) => theme.colors.newPalette.highlightButtonPressed};
-    }
-
-    &:hover, &:focus-visible {
-        background-color: ${({ theme }) => theme.colors.newPalette.highlightButtonHover};
-    }
-
+export const DesktopCategorySelectorSubLink = styled(DesktopCategorySelectorSubListItemLink)`
     @media screen and (max-width: 1400px) {
         max-width: 410px;
     }
-    
+
     @media screen and (max-width: 1200px) {
         max-width: 320px;
     }
@@ -186,43 +105,6 @@ export const WebsiteCategorySelectorList = styled(CategorySelectorList)`
     min-width: 291px;
 `;
 
-export const WebsiteCategorySelectorItem = styled.li`
-    color: #444;
-
-    font-size: 13px;
-    letter-spacing: 0.52px;
-    line-height: 133%;
-    font-weight: 600;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 12px 32px;
-
-    outline: none;
-    cursor: pointer;
-
-    &:hover, &:focus-visible, &.with-link a:focus-visible, &.active {
-        background-color: #F9F9F9;
-        color: #FF6F3D;
-    }
-
-    &.with-link {
-        font-size: 16px;
-        padding: 0;
-
-        a {
-            width: 100%;
-            outline: none;
-            display: block;
-            padding: 12px 32px;
-            color: inherit;
-            text-decoration: none;
-        }
-    }
-`;
-
 export const WebsiteCategorySelectorSubList = styled(CategorySelectorSubList)`
     padding: 24px 0;
     border-radius: 0px 0px 6px 6px;
@@ -230,31 +112,7 @@ export const WebsiteCategorySelectorSubList = styled(CategorySelectorSubList)`
     background-color: #FFF;
 `;
 
-export const WebsiteCategorySelectorSubLink = styled.a`
-    padding: 12px 32px;
-
-    color: #444;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 150%;
-
-    text-decoration: none;
-
-    display: flex;
-    align-items: center;
-    height: 100%;
-    outline: none;
-
-    &.selected {
-        color: #FF6F3D;
-    }
-
-    &:hover, &:focus-visible {
-        //background-color: #F9F9F9;
-        color: #FF6F3D;
-    }
-
+export const WebsiteCategorySelectorSubLink = styled(WebsiteCategorySelectorSubListItemLink)`
     @media screen and (max-width: 1400px) {
         max-width: 410px;
     }

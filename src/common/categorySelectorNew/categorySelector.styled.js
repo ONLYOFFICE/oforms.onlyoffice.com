@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 import { MOBILE_BREAKPOINT } from './useCategorySelector';
+import { CategorySelectorIconWrapper } from './common.styled'
+
 
 export const CategorySelectorStyled = styled.div`
     position: relative;
@@ -22,31 +24,9 @@ export const CategorySelectorHeader = styled.header`
     gap: ${({ $isDesktopClient }) => $isDesktopClient ? '8px' : '10px'};
 `;
 
-export const DesktopCategorySelectorClearIconWrapper = styled.button`
-    display: flex;
-    cursor: pointer;
 
-    margin: 0;
-    padding: 0;
-    border: none;
-    background-color: transparent;
-
-    svg {
-        color: ${({ theme }) => theme.colors.newPalette.iconNormal};
-    }
-`;
-
-export const CategorySelectorDropdownIndicatorIconWrapper = styled.span`
-    display: flex;
-    height: 25px;
-
-
+export const CategorySelectorDropdownIndicatorIconWrapper = styled(CategorySelectorIconWrapper)`
     transition: transform 200ms ease-in-out;
-
-    svg {
-        color: ${({ theme, $isDesktopClient }) =>
-                $isDesktopClient ? theme.colors.newPalette.iconNormal : '#444444'};
-    }
 `;
 
 

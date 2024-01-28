@@ -67,7 +67,7 @@ export const FormGridExplorerFormsCount = styled.span`
     font-weight: 400;
     line-height: 160%;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 700px) {
         display: none;
     }
 `;

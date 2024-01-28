@@ -40,7 +40,19 @@ export const FormGridItemImgLink = styled.a`
 
 export const FormGridItemImg = styled.img`
     width: inherit;
-    min-height: 420px;
+    min-height: 421px;
+    
+    @media screen and (max-width: 770px) {
+        min-height: auto;
+    }
+    
+    @media screen and (max-width: 450px) {
+        min-height: 421px;
+    }
+    
+    @media screen and (max-width: 370px) {
+        min-height: auto;
+    }
 `;
 
 export const FormGridItemLoupIconWrapper = styled.div`

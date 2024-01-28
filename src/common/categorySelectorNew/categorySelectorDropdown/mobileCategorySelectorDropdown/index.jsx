@@ -1,19 +1,8 @@
 import React from 'react';
 
-import { useMobileCategorySelectorDropdown } from './useMobileCategorySelectorDropdown';
-import {
-    RemoveScrollFromHTML,
-    WebsiteMobileCategorySelectorDropdownStyled,
-    WebsiteMobileCategorySelectorDropdownHeader,
-    WebsiteMobileCategorySelectorDropdownTitle,
-    WebsiteMobileCategorySelectorDropdownIconWrapper,
-    WebsiteMobileCategorySelectorDropdownList,
-    // WebsiteMobileCategorySelectorDropdownItem,
-    // WebsiteMobileCategorySelectorDropdownContent,
-    // WebsiteMobileCategorySelectorDropdownSubList,
-    // WebsiteMobileCategorySelectorDropdownSubItem, WebsiteMobileCategorySelectorSubDropdown,
-} from './mobileCategorySelectorDropdown.styled';
-import { ChevronRight, XClose } from '@icons';
+import { Website } from './website'
+import { Desktop } from './desktop'
+import { usePageContext } from 'src/hooks';
 
 
 export const MobileCategorySelectorDropdown = (props) => {
@@ -21,65 +10,36 @@ export const MobileCategorySelectorDropdown = (props) => {
         onClose,
         list,
         selectorSubListConditions,
-        handleSelectorSubListConditions
+        selectorActiveSubListIndex,
+        handleSelectorSubListConditions,
+        getLinkHref,
+        getIsActiveCategory,
     } = props;
-    const {
-        t,
-        isDesktopClient,
-    } = useMobileCategorySelectorDropdown();
+    const { isDesktopClient } = usePageContext();
 
     if (isDesktopClient) {
-        return null;
+        return (
+            <Desktop
+                onClose={onClose}
+                list={list}
+                selectorSubListConditions={selectorSubListConditions}
+                selectorActiveSubListIndex={selectorActiveSubListIndex}
+                handleSelectorSubListConditions={handleSelectorSubListConditions}
+                getLinkHref={getLinkHref}
+                getIsActiveCategory={getIsActiveCategory}
+            />
+        );
     }
 
     return (
-        <WebsiteMobileCategorySelectorDropdownStyled>
-            <RemoveScrollFromHTML />
-            {/*<WebsiteMobileCategorySelectorDropdownContent>*/}
-            {/*    <WebsiteMobileCategorySelectorDropdownHeader>*/}
-            {/*        <WebsiteMobileCategorySelectorDropdownTitle>*/}
-            {/*            {t('Categories')}*/}
-            {/*        </WebsiteMobileCategorySelectorDropdownTitle>*/}
-            {/*        <WebsiteMobileCategorySelectorDropdownIconWrapper*/}
-            {/*            onClick={onClose}*/}
-            {/*        >*/}
-            {/*            <XClose size={24} />*/}
-            {/*        </WebsiteMobileCategorySelectorDropdownIconWrapper>*/}
-            {/*    </WebsiteMobileCategorySelectorDropdownHeader>*/}
-            {/*    <WebsiteMobileCategorySelectorDropdownList>*/}
-            {/*        {*/}
-            {/*            list.map((item, idx) => (*/}
-            {/*                <WebsiteMobileCategorySelectorDropdownItem*/}
-            {/*                    key={item.title}*/}
-            {/*                    tabIndex={0}*/}
-            {/*                    onClick={() => handleSelectorSubListConditions(idx, true)}*/}
-            {/*                >*/}
-            {/*                    {t(item.title)}*/}
-            {/*                    <WebsiteMobileCategorySelectorDropdownIconWrapper*/}
-            {/*                        $isItemIcon*/}
-            {/*                        as="div"*/}
-            {/*                    >*/}
-            {/*                        <ChevronRight size={24} />*/}
-            {/*                    </WebsiteMobileCategorySelectorDropdownIconWrapper>*/}
-            {/*                    {*/}
-            {/*                        selectorSubListConditions[idx] &&*/}
-            {/*                        <WebsiteMobileCategorySelectorSubDropdown>*/}
-            {/*                            <WebsiteMobileCategorySelectorDropdownSubList>*/}
-            {/*                                {*/}
-            {/*                                    item.items.map(data => (*/}
-            {/*                                        <WebsiteMobileCategorySelectorDropdownSubItem key={data.id}>*/}
-            {/*                                            {data.attributes[item.itemTitleKey]}*/}
-            {/*                                        </WebsiteMobileCategorySelectorDropdownSubItem>*/}
-            {/*                                    ))*/}
-            {/*                                }*/}
-            {/*                            </WebsiteMobileCategorySelectorDropdownSubList>*/}
-            {/*                        </WebsiteMobileCategorySelectorSubDropdown>*/}
-            {/*                    }*/}
-            {/*                </WebsiteMobileCategorySelectorDropdownItem>*/}
-            {/*            ))*/}
-            {/*        }*/}
-            {/*    </WebsiteMobileCategorySelectorDropdownList>*/}
-            {/*</WebsiteMobileCategorySelectorDropdownContent>*/}
-        </WebsiteMobileCategorySelectorDropdownStyled>
+        <Website
+            onClose={onClose}
+            list={list}
+            selectorSubListConditions={selectorSubListConditions}
+            handleSelectorSubListConditions={handleSelectorSubListConditions}
+            getLinkHref={getLinkHref}
+            getIsActiveCategory={getIsActiveCategory}
+            selectorActiveSubListIndex={selectorActiveSubListIndex}
+        />
     );
 };

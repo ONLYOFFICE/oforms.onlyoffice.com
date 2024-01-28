@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 
@@ -39,12 +39,19 @@ export const useCategorySelectorDropdown = (props) => {
     const { isDesktopClient } = usePageContext();
 
     const [selectorSubListConditions, setSelectorSubListConditions] = useState(new Array(list.length).fill(false));
+    const [selectorActiveSubListIndex, setSelectorActiveSubListIndex] = useState(null);
 
 
     const handleSelectorSubListConditions = (index, state) => {
         setSelectorSubListConditions(() => {
             const newState = new Array(list.length).fill(false);
-            newState[index] = state;
+
+            if (index !== undefined && state !== undefined) {
+                newState[index] = state;
+                setSelectorActiveSubListIndex(state ? index : null);
+            } else {
+                setSelectorActiveSubListIndex(null);
+            }
 
             return newState;
         });
@@ -73,6 +80,7 @@ export const useCategorySelectorDropdown = (props) => {
         list,
         isDesktopClient,
         selectorSubListConditions,
+        selectorActiveSubListIndex,
         handleSelectorSubListConditions,
         getLinkHref,
         getIsActiveCategory,

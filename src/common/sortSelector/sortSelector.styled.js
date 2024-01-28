@@ -39,6 +39,10 @@ export const WebsiteSortSelectorLabel = styled.h4`
     letter-spacing: 0.52px;
     text-transform: uppercase;
     margin: 0;
+    
+    @media screen and (max-width: 600px) {
+        display: none;
+    }
 `
 
 export const WebsiteSortSelectorValue = styled.span`
@@ -74,6 +78,7 @@ export const WebsiteSortSelectorDropdown = styled.ul`
     flex-direction: column;
     
     position: absolute;
+    width: max-content;
     z-index: 1;
     right: 0;
 `

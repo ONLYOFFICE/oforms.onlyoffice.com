@@ -1,28 +1,12 @@
 import React from 'react';
-import Link from 'next/link';
-import cn from 'classnames';
+
+import { Desktop } from './desktop'
+import { Website } from './website'
 
 import { useCategorySelectorDropdown } from './useCategorySelectorDropdown';
-import { ChevronRight } from '@icons';
-import {
-    CategorySelectorItemIconWrapper,
-    CategorySelectorSubDropdown,
-    CategorySelectorItemTitle,
-    DesktopCategorySelectorItem,
-    DesktopCategorySelectorList,
-    DesktopCategorySelectorSubList,
-    DesktopCategorySelectorSubLink,
-    DesktopCategorySelectorSubItem,
-    CategorySelectorDropdownStyled,
-    CategorySelectorFakeBlock,
-    WebsiteCategorySelectorList,
-    WebsiteCategorySelectorItem,
-    WebsiteCategorySelectorSubList,
-    WebsiteCategorySelectorSubLink,
-} from './categorySelectorDropdown.styled';
 import {
     MobileCategorySelectorDropdown,
-} from '@common/categorySelectorNew/categorySelectorDropdown/mobileCategorySelectorDropdown';
+} from './mobileCategorySelectorDropdown';
 
 export const CategorySelectorDropdown = (props) => {
     const {
@@ -39,6 +23,7 @@ export const CategorySelectorDropdown = (props) => {
         t,
         list,
         selectorSubListConditions,
+        selectorActiveSubListIndex,
         handleSelectorSubListConditions,
         isDesktopClient,
         getLinkHref,
@@ -60,132 +45,36 @@ export const CategorySelectorDropdown = (props) => {
                 onClose={onClose}
                 list={list}
                 selectorSubListConditions={selectorSubListConditions}
+                selectorActiveSubListIndex={selectorActiveSubListIndex}
                 handleSelectorSubListConditions={handleSelectorSubListConditions}
+                getLinkHref={getLinkHref}
+                getIsActiveCategory={getIsActiveCategory}
             />
         );
     }
 
     if (isDesktopClient) {
         return (
-            <CategorySelectorDropdownStyled>
-                <CategorySelectorFakeBlock $isDesktopClient />
-                <DesktopCategorySelectorList>
-                    <DesktopCategorySelectorItem className='with-link'>
-                        <Link
-                            href={getLinkHref('/')}
-                            passHref
-                        >
-                            {t('View all templates')}
-                        </Link>
-                    </DesktopCategorySelectorItem>
-                    {
-                        list.map((item, idx) => (
-                            <DesktopCategorySelectorItem
-                                key={item.title}
-                                tabIndex={0}
-                                onMouseEnter={() => handleSelectorSubListConditions(idx, true)}
-                                onMouseLeave={() => handleSelectorSubListConditions(idx, false)}
-                                onFocus={() => handleSelectorSubListConditions(idx, true)}
-                                className={cn({ 'active': selectorSubListConditions[idx] })}
-                            >
-                                <CategorySelectorItemTitle>
-                                    {t(item.title)}
-                                </CategorySelectorItemTitle>
-                                <CategorySelectorItemIconWrapper $isDesktopClient>
-                                    <ChevronRight size={24} />
-                                </CategorySelectorItemIconWrapper>
-                                {
-                                    selectorSubListConditions[idx] &&
-                                    <CategorySelectorSubDropdown
-                                        $isDesktopClient
-                                    >
-                                        <DesktopCategorySelectorSubList
-                                            className={cn({ 'one-column': item.items.length <= 10 })}
-                                        >
-                                            {
-                                                item.items.map((data, idx) => (
-                                                    <DesktopCategorySelectorSubItem key={data.id}>
-                                                        <Link
-                                                            href={getLinkHref(item.itemPrefixForHref + data.attributes.urlReq)}
-                                                            passHref
-                                                        >
-                                                            <DesktopCategorySelectorSubLink
-                                                                className={cn({ 'selected': getIsActiveCategory(data.attributes[item.itemTitleKey]) })}
-                                                            >
-                                                                {data.attributes[item.itemTitleKey]}
-                                                            </DesktopCategorySelectorSubLink>
-                                                        </Link>
-                                                    </DesktopCategorySelectorSubItem>
-                                                ))
-                                            }
-                                        </DesktopCategorySelectorSubList>
-                                    </CategorySelectorSubDropdown>
-                                }
-                            </DesktopCategorySelectorItem>
-                        ))
-                    }
-                </DesktopCategorySelectorList>
-            </CategorySelectorDropdownStyled>
+            <Desktop
+                t={t}
+                list={list}
+                selectorSubListConditions={selectorSubListConditions}
+                handleSelectorSubListConditions={handleSelectorSubListConditions}
+                getLinkHref={getLinkHref}
+                getIsActiveCategory={getIsActiveCategory}
+            />
         );
     }
 
     return (
-        <CategorySelectorDropdownStyled>
-            <CategorySelectorFakeBlock />
-            <WebsiteCategorySelectorList>
-                <WebsiteCategorySelectorItem className='with-link'>
-                    <Link
-                        href={getLinkHref('/')}
-                        passHref
-                    >
-                        {t('View all templates')}
-                    </Link>
-                </WebsiteCategorySelectorItem>
-                {
-                    list.map((item, idx) => (
-                        <WebsiteCategorySelectorItem
-                            key={item.title}
-                            tabIndex={0}
-                            onMouseEnter={() => handleSelectorSubListConditions(idx, true)}
-                            onMouseLeave={() => handleSelectorSubListConditions(idx, false)}
-                            onFocus={() => handleSelectorSubListConditions(idx, true)}
-                            className={cn({ 'active': selectorSubListConditions[idx] })}
-                        >
-                            <CategorySelectorItemTitle>
-                                {t(item.title)}
-                            </CategorySelectorItemTitle>
-                            <CategorySelectorItemIconWrapper>
-                                <ChevronRight size={24} />
-                            </CategorySelectorItemIconWrapper>
-                            {
-                                selectorSubListConditions[idx] &&
-                                <CategorySelectorSubDropdown>
-                                    <WebsiteCategorySelectorSubList
-                                        className={cn({ 'one-column': item.items.length <= 10 || isTablet })}
-                                    >
-                                        {
-                                            item.items.map((data, idx) => (
-                                                <li key={data.id}>
-                                                    <Link
-                                                        href={getLinkHref(item.itemPrefixForHref + data.attributes.urlReq)}
-                                                        passHref
-                                                    >
-                                                        <WebsiteCategorySelectorSubLink
-                                                            className={cn({ 'selected': getIsActiveCategory(data.attributes[item.itemTitleKey]) })}
-                                                        >
-                                                            {data.attributes[item.itemTitleKey]}
-                                                        </WebsiteCategorySelectorSubLink>
-                                                    </Link>
-                                                </li>
-                                            ))
-                                        }
-                                    </WebsiteCategorySelectorSubList>
-                                </CategorySelectorSubDropdown>
-                            }
-                        </WebsiteCategorySelectorItem>
-                    ))
-                }
-            </WebsiteCategorySelectorList>
-        </CategorySelectorDropdownStyled>
+        <Website
+            t={t}
+            list={list}
+            selectorSubListConditions={selectorSubListConditions}
+            handleSelectorSubListConditions={handleSelectorSubListConditions}
+            getLinkHref={getLinkHref}
+            getIsActiveCategory={getIsActiveCategory}
+            isTablet={isTablet}
+        />
     );
 };

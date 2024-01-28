@@ -39,9 +39,11 @@ export const useCategorySelector = ({ categoryName }) => {
         setIsOpen(prevState => !prevState);
     };
 
-    const onClose = () => setIsOpen(false);
+    const onClose = () => {
+        setIsOpen(false);
+    }
 
-    const onMouseEnter = () => {
+    const onMouseEnter = (event) => {
         if (isMobile) return;
 
         clearTimeout(timeoutId);
@@ -59,7 +61,7 @@ export const useCategorySelector = ({ categoryName }) => {
     };
 
     const onKeyDown = (event) => {
-        if (event.code === 'Enter' || event.code === 'Space') {
+        if ((event.code === 'Enter' || event.code === 'Space') && event.target.nodeName !== 'BUTTON') {
             event.preventDefault();
             onToggle();
         }

@@ -5,15 +5,15 @@ import { CategorySelectorDropdown } from './categorySelectorDropdown';
 
 import { useCategorySelector } from './useCategorySelector';
 
+import { CategorySelectorIconWrapper } from './common.styled';
 import {
     CategorySelectorStyled,
-    DesktopCategorySelectorClearIconWrapper,
     CategorySelectorDropdownIndicatorIconWrapper,
     CategorySelectorHeader,
     DesktopCategorySelectorLabel,
     DesktopCategorySelectorValue,
     WebsiteCategorySelectorLabel,
-} from '@common/categorySelectorNew/categorySelector.styled';
+} from './categorySelector.styled';
 import { ChevronDown, XClose } from '@icons';
 
 export const CategorySelector = (props) => {
@@ -66,13 +66,17 @@ export const CategorySelector = (props) => {
                     }
                     {
                         isClearIconVisible &&
-                        <DesktopCategorySelectorClearIconWrapper onClick={onClear}>
-                            <XClose size={24} />
-                        </DesktopCategorySelectorClearIconWrapper>
+                        <CategorySelectorIconWrapper
+                            onClick={onClear}
+                            $isDesktopClient
+                        >
+                            <XClose size={18} />
+                        </CategorySelectorIconWrapper>
                     }
                     {
                         isDropdownIndicatorIconVisible &&
                         <CategorySelectorDropdownIndicatorIconWrapper
+                            as='div'
                             className='chevron-icon'
                             $isDesktopClient
                         >
@@ -112,6 +116,7 @@ export const CategorySelector = (props) => {
                     {t('Categories')}
                 </WebsiteCategorySelectorLabel>
                 <CategorySelectorDropdownIndicatorIconWrapper
+                    as='span'
                     className='chevron-icon'
                 >
                     <ChevronDown size={24} />
