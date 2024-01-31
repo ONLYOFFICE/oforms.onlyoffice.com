@@ -12,9 +12,9 @@ const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...r
         return it?.attributes.name.split(".")[1] === "docxf";
     })[0]?.attributes?.url
 
-    const pdfFile = cardData?.file_oform?.data?.filter((it) => {
-        return it?.attributes.name.split(".")[1] === "pdf";
-    })[0]?.attributes?.url
+    // const pdfFile = cardData?.file_oform?.data?.filter((it) => {
+    //     return it?.attributes.name.split(".")[1] === "pdf";
+    // })[0]?.attributes?.url
 
     const [fileTypeData, setFileTypeData] = useState("docxf");
     const [isOpenType, setIsOpenType] = useState(false);
@@ -52,7 +52,7 @@ const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...r
 
     const array = [
         {title: `${currentLanguage === "ja" ? `docxf` : `docxf`}`, href: docxfFile},
-        {title: `${currentLanguage === "ja" ? `pdf` : `pdf`}`, href: pdfFile},
+        // {title: `${currentLanguage === "ja" ? `pdf` : `pdf`}`, href: pdfFile},
     ];
 
     const openTypeDropdown = () => {
@@ -133,15 +133,15 @@ const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...r
                                         <div className="file-select">
                                             <div
                                                 className={"file-select-placeholder" + (isOpenType ? " open" : "")}
-                                                onClick={() => setIsOpenType(!isOpenType)}
+                                                // onClick={() => setIsOpenType(!isOpenType)}
                                             >
                                                 <div className="file-select-title">{fileTypeData}</div>
-                                                <ChevronDown
+                                                {/* <ChevronDown
                                                     size="16px"
                                                     className="file-select-icon"
-                                                />
+                                                /> */}
                                             </div>
-                                            <div className="file-dropdown">
+                                            {/* <div className="file-dropdown">
                                                 {array.map((item, index) => (
                                                     <div
                                                         onClick={() => {
@@ -154,7 +154,7 @@ const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...r
                                                         {item.title}
                                                     </div>
                                                 ))}
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                 </div>
