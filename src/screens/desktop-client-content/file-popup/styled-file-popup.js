@@ -202,7 +202,7 @@ export const StyledFilePopup = styled.div`
 
   .file-select {
     position: relative;
-    cursor: pointer;
+    // cursor: pointer;
   }
 
   .file-select-placeholder {
