@@ -11,9 +11,7 @@ const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...r
     const docxfFile = cardData?.file_oform?.data?.filter((it) => {
         return it?.attributes.name.split(".")[1] === "docxf";
     })[0]?.attributes?.url
-    const oformFile = cardData?.file_oform?.data?.filter((it) => {
-        return it?.attributes.name.split(".")[1] === "oform";
-    })[0]?.attributes?.url
+
     const pdfFile = cardData?.file_oform?.data?.filter((it) => {
         return it?.attributes.name.split(".")[1] === "pdf";
     })[0]?.attributes?.url
@@ -54,7 +52,6 @@ const FilePopup = ({currentLanguage, modalActive, setModalActive, cardData, ...r
 
     const array = [
         {title: `${currentLanguage === "ja" ? `docxf` : `docxf`}`, href: docxfFile},
-        {title: `${currentLanguage === "ja" ? `oform` : `oform`}`, href: oformFile},
         {title: `${currentLanguage === "ja" ? `pdf` : `pdf`}`, href: pdfFile},
     ];
 
