@@ -28,11 +28,11 @@ const Card = ({
     } = attributes;
     const { t } = useTranslation('common')
     const imgUrlCard = card_prewiew?.data?.attributes?.url;
-    let oformFile = file_oform?.data?.filter((it) => {
-        let checkFormatFile = it?.attributes.name.split(".")[1] === "oform";
+    let pdfFile = file_oform?.data?.filter((it) => {
+        let checkFormatFile = it?.attributes.name.split(".")[1] === "pdf";
         return checkFormatFile ? it?.attributes?.url : null;
     });
-    let urlOform = oformFile[0]?.attributes?.url;
+    let urlPdf = pdfFile[0]?.attributes?.url;
 
     const pathName =
         currentLanguage === "en"
@@ -44,8 +44,8 @@ const Card = ({
             ? ""
             : `/${currentLanguage}`;
 
-    const fillForm = `${oformFile[0]?.attributes?.hash}.oform`;
-    const linkOformEditor = `${localeLinkEditor}/editor/?filename=${url}&fillform=${fillForm}`;
+    const fillForm = `${pdfFile[0]?.attributes?.hash}.pdf`;
+    const linkPdfEditor = `${localeLinkEditor}/editor/?filename=${url}&fillform=${fillForm}`;
 
     return (
         <StyledCard {...rest} onClick={isDesktopClient ? () => {
@@ -101,7 +101,7 @@ const Card = ({
                 <Box className="btn-container" justifyContent="space-between">
                     <Link
                         target="_blank"
-                        href={linkOformEditor}
+                        href={linkPdfEditor}
                         className="btn-container-link"
                     >
                         <Button
@@ -111,7 +111,7 @@ const Card = ({
                             label={t("FillOut")}
                         />
                     </Link>
-                    <Link href={urlOform} download className="btn-container-link">
+                    <Link href={urlPdf} download className="btn-container-link">
                         <Button
                             isScale
                             className="download-btn-template"
