@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import docspaceLeft from "@public/images/banners/docspace-left.svg";
-import docspaceRight from "@public/images/banners/docspace-right.svg";
-import docspaceLeftDecor from "@public/images/banners/docspace-left-decor.svg";
-import docspaceRightDecor from "@public/images/banners/docspace-right-decor.svg";
-import docspaceLeftDecorMobile from "@public/images/banners/docspace-left-decor-mobile.svg";
-import docspaceRightDecorMobile from "@public/images/banners/docspace-right-decor-mobile.svg";
+import { device } from "@components/utils/devices";
+import arrowInCircle from "@public/images/banners/arrow-in-circle.svg";
+import docsLeft from "@public/images/banners/docs-8-0-left.svg";
+import docsRight from "@public/images/banners/docs-8-0-right.svg";
+import docsLeftMob from "@public/images/banners/docs-8-0-left-mob.svg";
+import docsRightMob from "@public/images/banners/docs-8-0-right-mob.svg";
 
 const StyledAdventAnnounce = styled.div`
   .advent-announce {
@@ -16,10 +16,7 @@ const StyledAdventAnnounce = styled.div`
     height: 56px;
     overflow: hidden;
     text-align: center;
-    background-color: #5694DB;
-    background-image: url(${docspaceLeft.src}), url(${docspaceRight.src});
-    background-repeat: no-repeat;
-    background-position: top left, center right;
+    background: linear-gradient(270deg, #FF8D5C 19.21%, #FFB979 95.78%), var(--Links-Color_Link_Hover, #FF6F3D);
 
     a {
       position: absolute;
@@ -28,7 +25,7 @@ const StyledAdventAnnounce = styled.div`
       height: 100%;
       text-decoration: none;
 
-      @media (max-width: 1023px) {
+      @media screen and ${device.laptop} {
         height: 48px;
       }
     }
@@ -42,106 +39,85 @@ const StyledAdventAnnounce = styled.div`
       text-align: center;
       margin: 0 auto;
       font-size: 14px;
-      font-weight: 400;
+      font-weight: 700;
       line-height: normal;
       letter-spacing: 0.14px;
+      width: 100%;
       height: 100%;
+      max-width: 855px;
       color: #fff;
       text-decoration: none;
       z-index: 10;
-      width: max-content;
-      max-width: 670px;
-      padding: 6px 0 6px 13px;
 
-      &:before,
-      &:after {
+      span {
+        display: flex;
+        align-items: center;
+
+        &:after {
+          content: "";
+          display: inline-flex;
+          margin-left: 6px;
+          min-width: 24px;
+          height: 24px;
+          background-image: url(${arrowInCircle.src});
+          background-repeat: no-repeat;
+          background-position: center;
+
+          @media screen and ${device.laptop} {
+            content: none;
+          }
+        }
+      }
+
+      &:after,
+      &:before {
         content: "";
         display: block;
+        position: absolute;
+        top: 0;
+        height: 56px;
         background-repeat: no-repeat;
         background-position: center;
         z-index: -1;
 
-        @media (max-width: 1023px) {
+        @media screen and ${device.laptop} {
           height: 48px;
         }
       }
 
       &:before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: -66px;
-        min-width: 59px;
-        height: 56px;
-        background-image: url(${docspaceLeftDecor.src});
-        transform: translateY(-50%);
-        pointer-events: none;
+        left: -294px;
+        width: 243px;
+        background-image: url(${docsLeft.src});
 
-        @media (max-width: 1023px) {
-          left: 0;
-          min-width: 57px;
-          background-image: url(${docspaceLeftDecorMobile.src});
+        @media screen and ${device.laptop} {
+          left: -50px;
+          width: 56px;
+          background-image: url(${docsLeftMob.src});
         }
       }
 
       &:after {
-        margin-left: 8px;
-        min-width: 26px;
-        height: 24px;
-        background-image: url(${docspaceRightDecor.src});
-        pointer-events: none;
-      }
+        right: -292px;
+        width: 238px;
+        background-image: url(${docsRight.src});
 
-      @media screen and (max-width: 1440px) {
-        span {
-          &:before {
-            content: "";
-            position: absolute;
-            width: 310px;
-            height: 56px;
-            top: 0;
-            left: -402px;
-            background-image: url(${docspaceLeft.src});
-            background-repeat: no-repeat;
-          }
-    
-          &:after {
-            content: "";
-            position: absolute;
-            width: 338px;
-            height: 56px;
-            top: 0;
-            right: -394px;
-            background-image: url(${docspaceRight.src});
-            background-repeat: no-repeat;
-            background-position: center;
-          }
+        @media screen and ${device.laptop} {
+          top: 4px;
+          right: -48px;
+          width: 45px;
+          height: 44px;
+          background-image: url(${docsRightMob.src});
         }
       }
 
-      @media (max-width: 1023px) {
-        padding: 0;
-        font-size: 14px;
-        width: 100%;
-        max-width: 320px;
-
-        span {
-          &:before,
-          &:after {
-            content: none;
-          }
-        }
+      @media screen and ${device.laptop} {
+        letter-spacing: initial;
+        width: max-content;
       }
     }
 
-    @media (max-width: 1440px) {
-      background-image: none;
-    }
-
-    @media (max-width: 1023px) {
-      background-image: url(${docspaceRightDecorMobile.src});
-      background-position: center right;
-
+    @media screen and ${device.laptop} {
       &.is-open {
         transform: translate3d(429px, 0, 0);
         transition: transform .2s cubic-bezier(.16,.68,.43,.99);
@@ -153,7 +129,7 @@ const StyledAdventAnnounce = styled.div`
         transform: translate3d(calc(100vw - 64px), 0, 0);
       }
     }
-
+  
     @media (max-width: 375px) {
       &.is-open {
         transform: translate3d(calc(100vw - 32px), 0, 0);
@@ -164,91 +140,67 @@ const StyledAdventAnnounce = styled.div`
   .advent-desktop-hide {
     display: none;
 
-    @media (max-width: 1023px) {
+    @media screen and ${device.laptop} {
       display: flex;
-      align-items: center;
-      justify-content: center;
       height: 48px;
     }
   }
 
   .advent-mobile-hide {
-    @media (max-width: 1023px) {
+    @media screen and ${device.laptop} {
       display: none;
     }
   }
 
-  &.es {
-    .advent-announce-text {
-      max-width: 724px;
-
-      @media (max-width: 1023px) {
-        max-width: 354px;
-      }
-    }
-  }
-
   &.fr {
-    .advent-announce-text {
-      max-width: 816px;
-
-      @media (max-width: 1023px) {
-        max-width: 364px;
+    .advent-announce {
+      .advent-announce-text {
+        max-width: 884px;
       }
     }
   }
 
   &.de {
-    .advent-announce-text {
-      max-width: 742px;
+    .advent-announce {
+      .advent-announce-text {
+        max-width: 774px;
+      }
+    }
+  }
 
-      @media (max-width: 1023px) {
-        max-width: 380px;
+  &.es {
+    .advent-announce {
+      .advent-announce-text {
+        max-width: 816px;
       }
     }
   }
 
   &.pt {
-    .advent-announce-text {
-      max-width: 738px;
-
-      @media (max-width: 1023px) {
-        max-width: 360px;
-      }
-    }
-  }
-
-  &.it {
-    .advent-announce-text {
-      max-width: 738px;
-
-      @media (max-width: 1023px) {
-        max-width: 336px;
+    .advent-announce {
+      .advent-announce-text {
+        max-width: 888px;
       }
     }
   }
 
   &.ja {
-    .advent-announce-text {
-      @media (max-width: 1023px) {
-        max-width: 328px;
+    .advent-announce {
+      .advent-announce-text {
+        max-width: 870px;
       }
     }
   }
 
   &.zh {
-    .advent-announce-text {
-      span {
-        &:before {
-          @media (max-width: 1440px) {
-            left: -452px;
-          }
-        }
+    .advent-announce {
+      .advent-announce-text {
+        max-width: 680px;
       }
     }
   }
 
-  @media (max-width: 1023px) {
+  @media screen and ${device.laptop} {
     overflow-x: hidden;
 
     &.active {
