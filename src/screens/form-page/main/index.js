@@ -39,10 +39,6 @@ const MainInfo = ({currentLanguage, data, link}) => {
     const transDownloadAs = t("DownloadAs");
     const array = [
         {
-            title: `${currentLanguage == "ja" ? `OFORM${transDownloadAs}` : `${transDownloadAs} OFORM`}`,
-            href: oformFile[0]?.attributes?.url
-        },
-        {
             title: `${currentLanguage == "ja" ? `DOCXF${transDownloadAs}` : `${transDownloadAs} DOCXF`}`,
             href: docxfFile[0]?.attributes?.url
         },

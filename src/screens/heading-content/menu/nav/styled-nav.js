@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { device } from "@components/utils/devices";
+import menuIcons from "@public/icons/menu-icons.svg";
+import menuResellerFr from "@public/images/menu-pics/menu-reseller-fr.svg";
 import menuBlog1 from "@public/images/menu-pics/menu-blog-1.jpg";
-import menuBlog2 from "@public/images/menu-pics/menu-blog-2.jpg";
+import menuBlog2 from "@public/images/menu-pics/menu-blog-2.png";
 
 const StyledNav = styled.nav`
   position: absolute;
@@ -12,7 +14,14 @@ const StyledNav = styled.nav`
   max-width: 936px;
   height: 72px;
   transform: translateX(-50%);
-  z-index: 2; 
+  z-index: 2;
+
+  &.hidden {
+    .nav-wrapper ul li:not(.active),
+    .phone-mobile {
+      display: none;
+    }
+  }
 
   ul {
     display: flex;
@@ -21,9 +30,13 @@ const StyledNav = styled.nav`
     padding: 0;
   }
 
+  .nav-wrapper {
+    height: 100%;
+  }
+
   &.fr {
     #reseller-img {
-      background-image: url("https://static-oforms.onlyoffice.com/images/menu-pics/menu-reseller-fr.png");
+      background-image: url(${menuResellerFr.src});
     }
   }
 
@@ -37,7 +50,7 @@ const StyledNav = styled.nav`
         width: 0;
         content: "";
         height: 1px;
-        background-color: #ff642e;
+        background-color: #FF6F3D;
         transition: width 0.2s ease-in-out;
         left: 50%;
         top: 0;
@@ -49,7 +62,7 @@ const StyledNav = styled.nav`
         width: 0;
         content: "";
         height: 1px;
-        background-color: #ff642e;
+        background-color: #FF6F3D;
         transition: width 0.2s ease-in-out;
         left: 50%;
         top: 0;
@@ -73,7 +86,8 @@ const StyledNav = styled.nav`
         position: absolute;
         top: 50%;
         right: 0;
-        width: 1px;
+        border-right: 1px solid #ebebeb;
+        max-width: 1px;
         height: calc(100% - 64px);
         transform: translateY(-50%);
         background-color: #ebebeb;
@@ -89,11 +103,12 @@ const StyledNav = styled.nav`
     }
 
     &:not(:last-child) {
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
   }
 
   .dropdown-item-box {
+    display: block;
     text-decoration: none;
   }
 
@@ -115,12 +130,12 @@ const StyledNav = styled.nav`
       display: block;
       width: 24px;
       height: 24px;
-      background-image: url("https://static-oforms.onlyoffice.com/icons/menu-icons.svg");
+      background-image: url(${menuIcons.src});
       background-repeat: no-repeat;
     }
 
     &:not(:last-child) {
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
 
     &.no-bold {
@@ -146,7 +161,7 @@ const StyledNav = styled.nav`
     margin-bottom: 16px;
     padding: 0 32px;
     font-size: 16px;
-    line-height: 26px;
+    line-height: 24px;
     font-weight: 700;
     color: #444444;
     text-decoration: none;
@@ -165,12 +180,12 @@ const StyledNav = styled.nav`
   }
 
   .dropdown-item-label {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     border-radius: 5px;
     padding: 4px 32px;
     font-size: 13px;
     font-weight: 600;
-    line-height: 24px;
+    line-height: 16px;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: #808080;
@@ -206,14 +221,14 @@ const StyledNav = styled.nav`
 
   .inner-box {
     &:not(:last-child) {
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
   }
 
   .inner-box-links {
     display: flex;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
 
     #navitem-download-docspace-signin,
     #navitem-download-docs-enterprise-signin {
@@ -232,13 +247,13 @@ const StyledNav = styled.nav`
     display: flex;
     padding: 0 32px 0 72px;
     font-size: 14px;
-    line-height: 22px;
+    line-height: 23px;
     font-feature-settings: "tnum" on, "lnum" on;
     color: #444444;
     text-decoration: none;
 
     &:not(:last-child) {
-      margin-bottom: 12px;
+      margin-bottom: 6px;
     }
 
     &:hover {
@@ -314,13 +329,20 @@ const StyledNav = styled.nav`
   #navitem-download-workspace,
   #navitem-download-docspace,
   #navitem-download-docs-dev {
+    margin-bottom: 8px;
+  }
+
+  #navitem-pricing-for-business,
+  #navitem-pricing-for-dev {
     margin-bottom: 16px;
   }
 
   #navitem-products-docspace,
   #navitem-enterprise-docspace-enterprise,
   #navitem-pricing-docs-docspace,
-  #navitem-download-docspace {
+  #navitem-download-docspace,
+  #navitem-sign-in-docspace-mob,
+  #navitem-pricing-family-pack {
     &:before {
       background-position-y: -1170px;
     }
@@ -344,6 +366,12 @@ const StyledNav = styled.nav`
   #navitem-products-connectors {
     &:before {
       background-position-y: -1196px;
+    }
+  }
+
+  #navitem-products-marketplace {
+    &:before {
+      background-position-y: -1560px;
     }
   }
 
@@ -418,6 +446,12 @@ const StyledNav = styled.nav`
   #navitem-download-docs-dev {
     &:before {
       background-position-y: -806px;
+    }
+  }
+
+  #navitem-pricing-home-server {
+    &:before {
+      background-position-y: -1534px;
     }
   }
 
@@ -536,6 +570,12 @@ const StyledNav = styled.nav`
   #navitem-resources-awards {
     &:before {
       background-position-y: -390px;
+    }
+  }
+
+  #navitem-resources-certificates {
+    &:before {
+      background-position-y: -1586px;
     }
   }
 
@@ -677,6 +717,7 @@ const StyledNav = styled.nav`
 
   .menu-blog-date {
     color: #808080;
+    font-size: 14px;
     line-height: 1.6em;
   }
 
@@ -691,7 +732,8 @@ const StyledNav = styled.nav`
       }
     }
 
-    #navitem-developers {
+    #navitem-developers,
+    #navitem-pricing {
       .outer-box {
         &:first-child {
           width: max-content;
@@ -710,6 +752,12 @@ const StyledNav = styled.nav`
 
     #navitem-products {
       .outer-box {
+        &:nth-child(2) {
+          width: max-content;
+          min-width: 312px;
+          max-width: 330px;
+        }
+
         &:last-child {
           width: max-content;
           min-width: 312px;
@@ -742,9 +790,7 @@ const StyledNav = styled.nav`
 
   @media screen and (max-width: 1300px) {
     max-width: 756px;
-  }
 
-  @media screen and (max-width: 1100px) {
     #navitem-products {
       .outer-box {
         &:last-child {
@@ -775,20 +821,30 @@ const StyledNav = styled.nav`
     transform: translate3d(-100%,0,0);
     transition: transform .2s cubic-bezier(.16,.68,.43,.99);
 
+    #navitem-products {
+      .outer-box {
+        &:last-child {
+          max-width: 100%;
+        }
+      }
+    }
+
     ul {
       display: flex;
       flex-direction: column;
       justify-content: initial;
-      height: 100%;
+      min-height: calc(100% - 54px);
     }
 
     .menu-items-wrapper {
       text-align: left;
+      border-radius: 0;
     }
 
     .menu-wrapper {
       flex-direction: column;
-      padding: 24px 0;
+      padding: 16px 0;
+      height: 100%;
     }
 
     .mobile-heading-nav-item {
@@ -834,7 +890,10 @@ const StyledNav = styled.nav`
           left: 50%;
           bottom: 0;
           width: calc(100% - 48px);
-          height: 1px;
+          max-width: initial;
+          max-height: 1px;
+          border-right: none;
+          border-bottom: 1px solid #ebebeb;
           transform: translateX(-50%);
         }
       }
@@ -897,6 +956,12 @@ const StyledNav = styled.nav`
       &:not(:last-child) {
         margin-bottom: 8px;
       }
+
+      .dropdown-item {
+        &:not(:last-child) {
+          margin-bottom: 0;
+        }
+      }
     }
 
     .inner-box {
@@ -952,7 +1017,7 @@ const StyledNav = styled.nav`
 
     #navitem-resources {
       .menu-wrapper {
-        padding: 24px 0 0 0;
+        padding: 16px 0 0 0;
 
         .outer-box {
           padding: 0;
@@ -1001,8 +1066,7 @@ const StyledNav = styled.nav`
   
       .menu-wrapper {
         flex-direction: column;
-        padding: 24px 0 0;
-        height: 100%;
+        padding: 16px 0 0;
       }
 
       .outer-box {
@@ -1014,6 +1078,13 @@ const StyledNav = styled.nav`
         &.bg-gray {
           margin-top: auto;
         }
+      }
+    }
+
+    #navitem-enterprise {
+      .menu-wrapper {
+        padding: 16px 0;
+        height: initial;
       }
     }
 
@@ -1051,7 +1122,7 @@ const StyledNav = styled.nav`
       #navitem-download-docspace-signup,
       #navitem-download-docs-enterprise-signup {
         flex: 1 1 100%;
-        padding: 4px 16px 4px 56px;
+        padding: 9px 16px 9px 56px;
       }
     }
   }

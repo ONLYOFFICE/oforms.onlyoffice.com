@@ -42,11 +42,11 @@ const Form = ({form, locale, randomCarousel, types, categories, compilations}) =
     const {t} = useTranslation("common");
     const data = form.data[0].attributes;
     const {seo_title, seo_description, url, file_oform, name_form} = data;
-    const oformFile = file_oform?.data?.filter((it) => {
-        return it?.attributes.name.split(".")[1] === "oform";
+    const pdfFile = file_oform?.data?.filter((it) => {
+        return it?.attributes.name.split(".")[1] === "pdf";
     });
-    const fillForm = `${oformFile[0]?.attributes?.hash}.oform`;
-    const linkOformEditor = `editor/?filename=${url}&fillform=${fillForm}`;
+    const fillForm = `${pdfFile[0]?.attributes?.hash}.pdf`;
+    const linkPdfEditor = `editor/?filename=${url}&fillform=${fillForm}`;
 
     const dataCarousel = randomCarousel?.data;
     // Carousel client data
@@ -166,10 +166,10 @@ const Form = ({form, locale, randomCarousel, types, categories, compilations}) =
                 <MainInfo
                     data={data}
                     currentLanguage={locale}
-                    link={linkOformEditor}
+                    link={linkPdfEditor}
                 />
                 <Suspense>
-                    <FormBanner labelName={name_form} link={linkOformEditor}/>
+                    <FormBanner labelName={name_form} link={linkPdfEditor}/>
                 </Suspense>
                 <CarouselContent
                     padding="112px 0 62px"

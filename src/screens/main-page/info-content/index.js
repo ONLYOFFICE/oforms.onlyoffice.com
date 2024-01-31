@@ -34,7 +34,6 @@ const InfoContent = ({currentLanguage}) => {
             mobileLPadding="60px 0 113px 0"
         >
             <Heading className="heading-info-content">
-                <span style={{color: "#FF6F3D"}}>{t("OFORMS")}: </span>
                 {t("FREEforms")}
             </Heading>
             <Heading

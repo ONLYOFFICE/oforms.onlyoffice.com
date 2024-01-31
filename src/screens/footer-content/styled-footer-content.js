@@ -39,6 +39,12 @@ const StyledFooter = styled.div`
     font-size: 13px;
     line-height: 18px;
     overflow: initial;
+    color: #FF6F3D;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 
   .contact-text {

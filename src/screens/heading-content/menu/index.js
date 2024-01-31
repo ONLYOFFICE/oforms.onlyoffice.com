@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Nav from "./nav/nav";
 import PhoneMenu from "./phone-menu";
 import LanguageSelector from "@common/languageSelector";
-import ExternalLink from "@common/link";
+import InternalLink from "@common/internal-link";
 import { ReactSVG } from "react-svg";
 
 const Menu = ({ t, locale, template, stateMobile, setStateMobile }) => {
@@ -47,9 +47,9 @@ const Menu = ({ t, locale, template, stateMobile, setStateMobile }) => {
       <button onClick={toggleMobile} className="nav-btn-mobile">
         <ReactSVG src="/icons/mob-menu.svg" />
       </button>
-      <ExternalLink className="nav-item-logo" href={curLang}>
+      <InternalLink className="nav-item-logo" href={curLang}>
         <img src={logo} alt="logo"/>
-      </ExternalLink>
+      </InternalLink>
       <div className="overlay"></div>
       <Nav locale={locale} t={t} />
       <div className="nav-selector-wrapper">

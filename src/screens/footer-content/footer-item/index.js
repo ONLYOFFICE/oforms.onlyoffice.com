@@ -1,7 +1,7 @@
 import StyledFooterItem from "./styled-footer-item";
 import { useState, useRef } from "react";
 import Heading from "@common/heading";
-import ExternalLink from "@common/link";
+import InternalLink from "@common/internal-link";
 
 const FooterItem = ({ children, className, heading, href }) => {
   const content = useRef();
@@ -19,7 +19,7 @@ const FooterItem = ({ children, className, heading, href }) => {
           level={6}
           onClick={onHandleClick}
         >
-          <ExternalLink href={href} label={heading} />
+          <InternalLink href={href} label={heading} />
         </Heading>
       :
         <Heading

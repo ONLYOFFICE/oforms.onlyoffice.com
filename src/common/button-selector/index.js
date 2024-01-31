@@ -59,8 +59,7 @@ ButtonSelector.propTypes = {
 
 ButtonSelector.defaultProps = {
   array: [
-    { title: "Download as DOCXF", href: "/404" },
-    { title: "Download as OFORM", href: "/401" },
+    { title: "Download as DOCXF", href: "/404" }
   ],
   defaultVal: "Download as",
 };

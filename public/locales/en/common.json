@@ -11,12 +11,9 @@
   "AccordionDescriptionDocsUseLocally": "Use ONLYOFFICE Docs online or ONLYOFFICE Dekstop Editors to fill forms in the preferred location and create your own. <1>{{AccordionDescriptionDocsUseLocallyLink}}</1>.",
   "AccordionDescriptionDocsUseLocallyLink": "Read more about creating forms in ONLYOFFICE",
   "AccordionHeadingModifyTheForms": "Can I modify the forms?",
-  "AccordionDescriptionModifyTheForms": "No, it is not possible to modify the OFORM forms. You can only fill in the content in the existing body, or export the form into DOCXF and modify the text file.",
+  "AccordionDescriptionModifyTheForms": "No, it is not possible to modify the forms. You can only fill in the content in the existing body, or export the form into DOCXF and modify the text file.",
   "AccordionHeadingFormatTheForms": "What format does ONLYOFFICE use for the forms?",
-  "AccordionDescriptionFormatTheForms": "All forms are stored in .OFORM format. <1>{{AccordionDescriptionFormatTheFormsLink}}</1>.",
-  "AccordionDescriptionFormatTheFormsLink": "Read the format specification",
-  "AccordionHeadingExportOtherFormats": "Can I export the filled forms into other formats?",
-  "AccordionDescriptionExportOtherFormats": "Yes, you can export your documents in DOCX and PDF.",
+  "AccordionDescriptionFormatTheForms": "Ready forms are saved and distributed in PDF.",
   "AccordionHeadingAdditionalSoftware": "Do I need additional software to work with ONLYOFFICE forms?",
   "AccordionDescriptionAdditionalSoftware": "You can use <1>{{ ONLYOFFICEDocs }}</1> or free <2>{{ ONLYOFFICEDesktopEditors }}</2> to work with the forms.",
   "ONLYOFFICEDocs": "ONLYOFFICE Docs",
@@ -31,7 +28,6 @@
   "RecentlyViewed": "<1>Recently</1> viewed",
   "© Ascensio System SIA": "© Ascensio System SIA 2009-{{currentYear}}.",
   "All rights reserved": "All rights reserved",
-  "OFORMS": "OFORMS",
   "FREEforms": " FREE ready-to-fill out online forms",
   "FillOutTheForms": "Fill out the forms online in one click or download and open them in ONLYOFFICE.",
   "FeaturedForms": "Featured forms",
@@ -93,7 +89,7 @@
 
   "***********************MENU*************************": "***********************MENU*************************",
   "blogLink1": "https://www.onlyoffice.com/blog/2023/12/onlyoffice-docspace-2-0-released",
-  "blogLink2": "https://www.onlyoffice.com/blog/2023/11/new-integration-available-onlyoffice-docs-and-dropbox",
+  "blogLink2": "https://www.onlyoffice.com/blog/2024/01/onlyoffice-docs-8-0-released",
   "FormSearch": "Form search",
   "Products & Features": "Products & Features",
   "ONLYOFFICE Docs": "ONLYOFFICE Docs",
@@ -279,6 +275,6 @@
   "Edit and collaborate on docs within your eLearning platform": "Edit and collaborate on docs within your eLearning platform",
   "ONLYOFFICE for education": "ONLYOFFICE for education",
   "Search": "Search",
-  "AdventAnnounceDesktop": "Meet <b>ONLYOFFICE DocSpace 2.0</b> with Public rooms, plugins, data reassignment, and more",
-  "AdventAnnounceMobile": "Meet <b>ONLYOFFICE DocSpace 2.0</b>"
+  "AdventAnnounceDesktop": "ONLYOFFICE Docs 8.0 released: PDF forms, RTL, Goal Seek and chart wizard in sheets, updated plugins UI, and more",
+  "AdventAnnounceMobile": "ONLYOFFICE Docs 8.0 released"
 }
