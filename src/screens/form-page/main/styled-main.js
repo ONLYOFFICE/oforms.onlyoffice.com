@@ -197,6 +197,13 @@ const StyledMainInfo = styled(Section)`
       grid-column-end: 3;
       grid-row-start: 2;
       grid-row-end: 3;
+
+      .file-info {
+        > div {
+          display: flex;
+          align-items: center;
+        }
+      }
     }
     /* @media ${device.laptop} {
       .template-main-description {
