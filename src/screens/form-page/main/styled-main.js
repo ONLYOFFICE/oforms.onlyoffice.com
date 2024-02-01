@@ -301,6 +301,7 @@ const StyledMainInfo = styled(Section)`
     .file-info {
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
       max-width: 455px;
       padding-bottom: 40px;
     }
