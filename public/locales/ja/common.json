@@ -63,7 +63,7 @@
   "DownloadAs": "としてダウンロード",
   "DownloadAsButton": "名前を付けてダウンロード",
   "Share": "共有",
-  "HowToCreateATemplate": "ONLYOFFICEで{{ラベル名}}を作成する方法",
+  "HowToCreateATemplate": "ONLYOFFICEで{{labelName}}を作成する方法",
   "ClickFillOut": "フォームエディタをオンラインで起動するには、「記入」をクリックします",
   "FillInTheNecessary": "空欄に必要な情報を入力します",
   "DownloadTheReadyDoc": "エディタから準備できた文書をダウンロードします",
