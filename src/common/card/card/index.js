@@ -4,6 +4,7 @@ import Box from "../../box";
 import Text from "../../text";
 import Button from "../../button";
 import Link from "./sub-components/link";
+import ExternalLink from "@common/link";
 import StyledCard, {LoupIconWrapper} from "./styled-card";
 import {Loup} from "@icons";
 import {useTranslation} from "next-i18next";
@@ -111,14 +112,14 @@ const Card = ({
                             label={t("FillOut")}
                         />
                     </Link>
-                    <Link href={urlPdf} download className="btn-container-link">
+                    <ExternalLink href={urlPdf} className="btn-container-link">
                         <Button
                             isScale
                             className="download-btn-template"
                             typeButton="transparent"
                             label={t("Download")}
                         />
-                    </Link>
+                    </ExternalLink>
                 </Box>
             </Box>
         </StyledCard>
