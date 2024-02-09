@@ -118,7 +118,7 @@ const Nav = ({ t, locale, ...rest }) => {
                   <InternalLink id="navitem-download-signin" className="nav-2nd-menu-link" href={`${hrefLang}/signin.aspx`} label={t("Sign in")} />
                   <InternalLink id="navitem-download-onpremises" className="nav-2nd-menu-link" href={`${hrefLang}/download-workspace.aspx`} label={t("Install on-premises")} />
                 </div>
-                <InternalLink id="navitem-download-connectors" className="dropdown-item" href={`${hrefLang}/download-connectors.aspx`} label={t("Connectors")} />
+                <InternalLink id="navitem-download-connectors" className="dropdown-item" href={`${hrefLang}/all-connectors.aspx`} label={t("Connectors")} />
                 <InternalLink id="navitem-download-desktop-mob" className="dropdown-item" href={`${hrefLang}/download-desktop.aspx`} label={t("Desktop & mobile apps")} />
               </div>
               <div className="outer-box">
