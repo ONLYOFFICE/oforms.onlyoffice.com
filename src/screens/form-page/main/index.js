@@ -1,7 +1,8 @@
+import { useState } from "react";
+import { scriptProtocolCheck } from "./check-is-app-installed";
 import Box from "@common/box";
 import Text from "@common/text";
 import Link from "@common/link";
-import Button from "@common/button";
 import Heading from "@common/heading";
 import ButtonSelector from "@common/button-selector";
 
@@ -9,6 +10,7 @@ import Breadcrumb from "./sub-components/breadcrumb";
 import ShareButtonsGroup from "./sub-components/icon-buttons";
 import StyledMainInfo from "./styled-main";
 import {useTranslation} from "next-i18next";
+import DesktopNotInstalledPopup from "./sub-components/desktop-popup";
 
 const MainInfo = ({currentLanguage, data, link}) => {
     const {
@@ -22,11 +24,11 @@ const MainInfo = ({currentLanguage, data, link}) => {
         categories,
     } = data;
     const { t } = useTranslation('common')
+    const [popupActive, setPopupActive] = useState(false);
+    const [isInstalled, setIsInstalled] = useState(true);
+
     const imgUrlCard = template_image.data?.attributes?.url;
     // split file format
-    const oformFile = file_oform?.data?.filter((it) => {
-        return it?.attributes.name.split(".")[1] === "oform";
-    });
     const pdfFile = file_oform?.data?.filter((it) => {
         return it?.attributes.name.split(".")[1] === "pdf";
     });
@@ -37,7 +39,19 @@ const MainInfo = ({currentLanguage, data, link}) => {
     const file_description = template_desc?.split("\n");
 
     const transDownloadAs = t("DownloadAs");
-    const array = [
+
+    const handleButtonClick = () => {
+        scriptProtocolCheck(
+          `oo-office://open|f|${pdfFile[0]?.attributes?.url}`,
+          () => setIsInstalled(false),
+          () => setIsInstalled(true),
+          () => setIsInstalled(false)
+        );
+
+        setPopupActive(true);
+    };
+
+    const downloadAsArray = [
         {
             title: `${currentLanguage == "ja" ? `DOCXF${transDownloadAs}` : `${transDownloadAs} DOCXF`}`,
             href: docxfFile[0]?.attributes?.url
@@ -45,6 +59,17 @@ const MainInfo = ({currentLanguage, data, link}) => {
         {
             title: `${currentLanguage == "ja" ? `PDF${transDownloadAs}` : `${transDownloadAs} PDF`}`,
             href: pdfFile[0]?.attributes?.url
+        },
+    ];
+
+    const openAndFillArray = [
+        {
+            title: t("Open in web"),
+            href: link
+        },
+        {
+            title: t("Open in Desktop"),
+            onClick: handleButtonClick
         },
     ];
 
@@ -129,19 +154,15 @@ const MainInfo = ({currentLanguage, data, link}) => {
                     </div>
                 </Box>
                 <Box className="file-main-buttons">
-                    <Link target="_blank" style={{width: "100%"}} href={link}>
-                        <Button isScale label={t("OpenAndFill")}/>
-                    </Link>
-                    <ButtonSelector
-                        isScale
-                        array={array}
-                        defaultVal={`${currentLanguage}` == "ja" ? `${t("DownloadAsButton")}` : `${t("DownloadAs")}`}
-                        className="file-download-button"
-                        label={t("DownloadAs")}
-                    />
+                    <ButtonSelector label={t("OpenAndFill")} array={openAndFillArray} />
+                    <ButtonSelector label={t("DownloadAs")} array={downloadAsArray} typeButton="secondary" />
                 </Box>
                 <ShareButtonsGroup name={name_form} baseURL={baseURL}/>
             </div>
+
+            {!isInstalled &&
+                <DesktopNotInstalledPopup t={t} locale={currentLanguage} popupActive={popupActive} setPopupActive={setPopupActive} />
+            }
         </StyledMainInfo>
     );
 };
