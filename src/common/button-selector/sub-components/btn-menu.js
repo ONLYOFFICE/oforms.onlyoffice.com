@@ -2,21 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import StyledBtnMenu from "./styled-btn-menu";
 
-const BtnMenu = ({ className, callbackItem, array, selected, ...rest }) => {
+const BtnMenu = ({ className, callbackItem, array, ...rest }) => {
   return (
     <StyledBtnMenu {...rest}>
       {array.map((item, index) => (
-        <a target="_blank"
-          rel="noreferrer"
-          key={index}
-          href={item.href}
-          className={`dropdownItem ${
-            selected === item?.title ? "selected" : ""
-          }`}
-          download
-        >
-          {item.title}
-        </a>
+        item.href ?
+          <a key={index} href={item.href} className="dropdown-item" download={item.download} target="_blank" rel="noreferrer">
+            {item.title}
+          </a>
+        :
+          <button key={index} onClick={item.onClick} className="dropdown-item">
+            {item.title}
+          </button>
       ))}
     </StyledBtnMenu>
   );

@@ -1,49 +1,51 @@
 import styled from "styled-components";
 import { Base } from "@components/themes";
+import { device } from "@components/utils/devices";
 
 const StyledBtnSelector = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-  white-space: nowrap;
-  align-items: center;
-  justify-content: space-between;
-  outline: none;
-  position: relative;
-  border-radius: 3px;
   box-sizing: border-box;
-  border: 1px solid #aaaaaa;
-  cursor: pointer;
-  ${(props) => props.isActive && `border: 1px solid #666;`}
+  position: relative;
+  width: 100%;
 
-  &:hover {
-      border: 1px solid ${(props) => props.isActive ? `#666;` : `#FF6F3D;`};
+  .btn-selector-label {
+    display: flex;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: ${(props) => props.typeButton === "primary" ? "#FF6F3D" : props.typeButton === "secondary" ? "transparent" : "transparent"};
+    ${props => props.typeButton === "secondary" && `border: 1px solid ${props.isActive ? '#666' : '#aaaaaa'}`};
+    transition: background-color 0.3s;
+
+    &:hover {
+      ${(props) => 
+        props.typeButton === "primary" ? 
+          `background-color: ${`${props.isActive ? `#FF6F3D` : `#ff865c`}`};` : 
+        props.typeButton === "secondary" ? `
+          border-color: ${`${props.isActive ? `#333` : `#FF6F3D`}`};
       
+          .placeholder {
+            color: ${`${props.isActive ? `#333` : `#FF6F3D`}`};
+          }
 
-      .placeholder{
-        color: #FF6F3D;
-        ${(props) => props.isActive && `color: #333;`}
-        text-transform: uppercase;
+          .indicator-container {
+            border-color: ${`${props.isActive ? `#666;` : `#FF6F3D`}`};
+          }
 
-        & ~ .indicatorContainer .indicatorSeparator{
-          background-color:${(props) => props.isActive ? `#666;` : `#FF6F3D;`};;
-        }
+          path {
+            fill: ${`${props.isActive ? `#666` : `#FF6F3D`}`};
+          }
+        ` : null
       }
-      .chevronContainer path{
-        fill: ${(props) => props.isActive ? `#666;` : `#FF6F3D;`};;
-      }
+    }
   }
-  
-
-  ${(props) => props.isScale && `width: 100%;`}
 
   .placeholder {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     display: block;
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 133%;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 18px;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     padding: 0;
@@ -51,43 +53,39 @@ const StyledBtnSelector = styled.div`
     border: none;
     background: transparent;
     width: 100%;
-    color: inherit;
     border-radius: 0;
     height: 100%;
     text-decoration: none;
-    padding: 20px 10px 19px;
-    ${(props) => props.isActive && `color: #333;`}
+    padding: 19px 24px;
+    color: ${(props) => props.typeButton === "primary" ? "#fff" : props.typeButton === "secondary" ? `#333` : "inherit"};
+
+    @media ${device.mobile} {
+      padding: 15px 16px;
+      font-weight: 600;
+    }
   }
 
-  .indicatorContainer {
+  .indicator-container {
     display: flex;
-    box-sizing: border-box;
+    justify-content: center;
     align-items: center;
-    cursor: pointer;
+    border-left: 1px solid ${(props) => props.typeButton === "primary" ? "#fff" : props.typeButton === "secondary" ? `#666` : "#fff"};
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
 
-    &:hover{
-      .indicatorSeparator{
-        background-color:${(props) => props.isActive ? `#666;` : `#FF6F3D;`};;
-      }
+    @media ${device.mobile} {
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
     }
   }
 
-  .indicatorSeparator {
-    align-self: stretch;
-    background-color: ${(props) => props.isActive ? `#666;` : `rgb(204, 204, 204);`};
-    width: 1px;
-    box-sizing: border-box;
-  }
-
-  .chevronContainer {
-    padding: 15px 16px 10px;
-
-    &.up {
-      transform: rotate(180deg);
-    }
+  .chevron-down {
+    transform: ${(props) => props.isActive && `rotate(180deg)`};
 
     path {
-      fill: ${(props) => props.isActive && `#666;`}
+      fill: ${(props) => props.typeButton === "primary" ? "#fff" : props.typeButton === "secondary" ? `#666}` : "#fff"};
     }
   }
 `;
