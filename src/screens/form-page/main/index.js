@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { isMobile, isTablet } from "react-device-detect";
 import { scriptProtocolCheck } from "./check-is-app-installed";
 import Box from "@common/box";
 import Text from "@common/text";
@@ -67,10 +68,13 @@ const MainInfo = ({currentLanguage, data, link}) => {
             title: t("Open in web"),
             href: link
         },
-        {
-            title: t("Open in Desktop"),
-            onClick: handleButtonClick
-        },
+        ...(isMobile || isTablet ? [] : [
+            {
+                id: "open-in-desktop-btn",
+                title: t("Open in Desktop"),
+                onClick: handleButtonClick
+            }
+        ])
     ];
 
     const category = categories.data[0].attributes.categorie;

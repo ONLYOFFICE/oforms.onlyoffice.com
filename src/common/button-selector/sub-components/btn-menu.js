@@ -11,7 +11,7 @@ const BtnMenu = ({ className, callbackItem, array, ...rest }) => {
             {item.title}
           </a>
         :
-          <button key={index} onClick={item.onClick} className="dropdown-item">
+          <button id={item.id} key={index} onClick={item.onClick} className="dropdown-item">
             {item.title}
           </button>
       ))}
