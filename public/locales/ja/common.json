@@ -214,11 +214,11 @@
   "Get help": "ヘルプ",
   "Get news": "ニュース",
   "Blog": "ブログ",
-  "Meet ONLYOFFICE DocSpace 2.0 with Public rooms, plugins, data reassignment, and more": "ONLYOFFICE DocSpace 2.0の紹介：パブリックルーム、プラグイン、データ再配置など",
-  "4 December 2023": "2023年12月04日",
+  "Collaborate on documents within Zoom meetings: ONLYOFFICE DocSpace app for Zoom available": "Zoom会議中のドキュメントコラボレーション： Zoom用ONLYOFFICE DocSpaceアプリが利用可能に",
+  "27 February 2024": "2024年02月27日",
   "ONLYOFFICE Docs 8.0 released: PDF forms, RTL, Goal Seek and chart wizard in sheets, updated plugins UI, and more": "ONLYOFFICE Docs 8.0リリース： PDFフォーム、RTL、シート内のゴールシークとチャートウィザード、プラグインUIの更新など",
   "30 January 2024": "2024年01月30日",
-  "blogLink1": "https://www.onlyoffice.com/blog/ja/2023/12/onlyoffice-docspace-2-0-released",
+  "blogLink1": "https://www.onlyoffice.com/blog/ja/2024/02/onlyoffice-docspace-app-for-zoom",
   "blogLink2": "https://www.onlyoffice.com/blog/ja/2024/01/onlyoffice-docs-8-0-released",
   "Phone": "電話番号",
   "FormSearch": "フォーム検索",
@@ -386,6 +386,6 @@
   "Search": "検索",
 
   "***********************Banner*************************": "***********************Banner*************************",
-  "AdventAnnounceDesktop": "ONLYOFFICE Docs 8.0リリース： PDFフォーム、RTL、シート内のゴールシークとチャートウィザード、プラグインUIの更新など",
-  "AdventAnnounceMobile": "ONLYOFFICE Docs 8.0リリース"
+  "AdventAnnounceDesktop": "<b>Zoom会議中のドキュメントコラボレーション：</b> Zoom用ONLYOFFICE DocSpaceアプリが利用可能に",
+  "AdventAnnounceMobile": "<b>ONLYOFFICE＆Zoomの連携</b>"
 }

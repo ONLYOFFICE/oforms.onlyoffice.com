@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import { device } from "@components/utils/devices";
-import arrowInCircle from "@public/images/banners/arrow-in-circle.svg";
-import docsLeft from "@public/images/banners/docs-8-0-left.svg";
-import docsRight from "@public/images/banners/docs-8-0-right.svg";
-import docsLeftMob from "@public/images/banners/docs-8-0-left-mob.svg";
-import docsRightMob from "@public/images/banners/docs-8-0-right-mob.svg";
+import bannerLeft from "@public/images/banners/banner-left.svg";
+import bannerRight from "@public/images/banners/banner-right.svg";
+import bannerLeftMobile from "@public/images/banners/banner-left-mobile.svg";
+import bannerRightMobile from "@public/images/banners/banner-right-mobile.svg";
 
 const StyledAdventAnnounce = styled.div`
   .advent-announce {
@@ -16,7 +15,7 @@ const StyledAdventAnnounce = styled.div`
     height: 56px;
     overflow: hidden;
     text-align: center;
-    background: linear-gradient(270deg, #FF8D5C 19.21%, #FFB979 95.78%), var(--Links-Color_Link_Hover, #FF6F3D);
+    background-color: #0B5CFF;
 
     a {
       position: absolute;
@@ -36,38 +35,17 @@ const StyledAdventAnnounce = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
       margin: 0 auto;
       font-size: 14px;
-      font-weight: 700;
-      line-height: normal;
-      letter-spacing: 0.14px;
+      line-height: 19px;
+      letter-spacing: 0.01em;
+      text-align: center;
       width: 100%;
       height: 100%;
-      max-width: 855px;
+      max-width: max-content;
       color: #fff;
       text-decoration: none;
       z-index: 10;
-
-      span {
-        display: flex;
-        align-items: center;
-
-        &:after {
-          content: "";
-          display: inline-flex;
-          margin-left: 6px;
-          min-width: 24px;
-          height: 24px;
-          background-image: url(${arrowInCircle.src});
-          background-repeat: no-repeat;
-          background-position: center;
-
-          @media screen and ${device.laptop} {
-            content: none;
-          }
-        }
-      }
 
       &:after,
       &:before {
@@ -86,34 +64,27 @@ const StyledAdventAnnounce = styled.div`
       }
 
       &:before {
-        left: -294px;
-        width: 243px;
-        background-image: url(${docsLeft.src});
+        right: calc(100% + 12px);
+        width: 382px;
+        background-image: url(${bannerLeft.src});
 
         @media screen and ${device.laptop} {
-          left: -50px;
-          width: 56px;
-          background-image: url(${docsLeftMob.src});
+          right: calc(100% - 13px);
+          width: 69px;
+          background-image: url(${bannerLeftMobile.src});
         }
       }
 
       &:after {
-        right: -292px;
-        width: 238px;
-        background-image: url(${docsRight.src});
+        left: calc(100% - 7px);
+        width: 396px;
+        background-image: url(${bannerRight.src});
 
         @media screen and ${device.laptop} {
-          top: 4px;
-          right: -48px;
-          width: 45px;
-          height: 44px;
-          background-image: url(${docsRightMob.src});
+          left: calc(100% - 48px);
+          width: 92px;
+          background-image: url(${bannerRightMobile.src});
         }
-      }
-
-      @media screen and ${device.laptop} {
-        letter-spacing: initial;
-        width: max-content;
       }
     }
 
@@ -149,54 +120,6 @@ const StyledAdventAnnounce = styled.div`
   .advent-mobile-hide {
     @media screen and ${device.laptop} {
       display: none;
-    }
-  }
-
-  &.fr {
-    .advent-announce {
-      .advent-announce-text {
-        max-width: 884px;
-      }
-    }
-  }
-
-  &.de {
-    .advent-announce {
-      .advent-announce-text {
-        max-width: 774px;
-      }
-    }
-  }
-
-  &.es {
-    .advent-announce {
-      .advent-announce-text {
-        max-width: 816px;
-      }
-    }
-  }
-
-  &.pt {
-    .advent-announce {
-      .advent-announce-text {
-        max-width: 888px;
-      }
-    }
-  }
-
-  &.ja {
-    .advent-announce {
-      .advent-announce-text {
-        max-width: 870px;
-      }
-    }
-  }
-
-  &.zh {
-    .advent-announce {
-      .advent-announce-text {
-        max-width: 680px;
-      }
     }
   }
 

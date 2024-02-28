@@ -215,11 +215,11 @@
   "Vacancies": "Vacancias",
   "Get help": "Obtener ayuda",
   "Get news": "Obtener noticias",
-  "Meet ONLYOFFICE DocSpace 2.0 with Public rooms, plugins, data reassignment, and more": "Descubre ONLYOFFICE DocSpace 2.0 con salas públicas, plugins, reasignación de datos y mucho más",
-  "4 December 2023": "4 de diciembre de 2023",
+  "Collaborate on documents within Zoom meetings: ONLYOFFICE DocSpace app for Zoom available": "Colabora en documentos durante las reuniones de Zoom: Disponible la aplicación ONLYOFFICE DocSpace para Zoom",
+  "27 February 2024": "27 de febrero de 2024",
   "ONLYOFFICE Docs 8.0 released: PDF forms, RTL, Goal Seek and chart wizard in sheets, updated plugins UI, and more": "Disponible ONLYOFFICE Docs 8.0: formularios PDF, RTL, Búsqueda de objetivos y asistente de gráficos en hojas, UI de plugins actualizada y más",
   "30 January 2024": "30 de enero de 2024",
-  "blogLink1": "https://www.onlyoffice.com/blog/es/2023/12/disponible-onlyoffice-docspace-2-0",
+  "blogLink1": "https://www.onlyoffice.com/blog/es/2024/02/app-onlyoffice-docspace-para-zoom",
   "blogLink2": "https://www.onlyoffice.com/blog/es/2024/01/onlyoffice-docs-8-0",
   "Phone": "Teléfono",
   "FormSearch": "Buscar formularios",
@@ -385,6 +385,6 @@
   "Search": "Buscar",
 
   "***********************Banner*************************": "***********************Banner*************************",
-  "AdventAnnounceDesktop": "Disponible ONLYOFFICE Docs 8.0: formularios PDF, RTL, Búsqueda de objetivos y asistente de gráficos en hojas, UI de plugins actualizada y más",
-  "AdventAnnounceMobile": "Disponible ONLYOFFICE Docs 8.0"
+  "AdventAnnounceDesktop": "<b>Colabora en documentos durante las reuniones de Zoom:</b> Disponible la aplicación ONLYOFFICE DocSpace para Zoom",
+  "AdventAnnounceMobile": "<b>Integración de Zoom con ONLYOFFICE</b>"
 }
