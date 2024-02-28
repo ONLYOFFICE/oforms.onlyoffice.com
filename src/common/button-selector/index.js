@@ -1,53 +1,47 @@
-import React, { useState } from "react";
-import onClickOutSide from "react-onclickoutside";
-import { ReactSVG } from "react-svg";
 import PropTypes from "prop-types";
-
 import StyledBtnSelector from "./styled-btn-selector";
+import { useState, useEffect, useRef } from "react";
 import BtnMenu from "./sub-components/btn-menu";
-import {ChevronDown} from "../../icons";
+import { ChevronDown } from "../../icons";
 
-const ButtonSelector = ({
-  isScale,
-  label,
-  array,
-  children,
-  ...rest
-}) => {
+const ButtonSelector = ({ label, children, array, ...rest }) => {
   const [isActive, setIsActive] = useState(false);
-  const [href, setHref] = useState();
-
-  ButtonSelector.handleClickOutside = () => setIsActive(false);
+  const dropdownRef = useRef(null);
 
   const onSetIsActive = (e) => {
     setIsActive(!isActive);
   };
 
-  const classNameIndicator = `chevronContainer ${isActive ? "up" : ""}`;
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsActive(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <StyledBtnSelector {...rest} isScale={isScale} isActive={isActive} onClick={onSetIsActive}>
-      <div className="placeholder" download >
-        {label}
+    <StyledBtnSelector className="btn-selector" onClick={onSetIsActive} ref={dropdownRef} isActive={isActive} {...rest}>
+      <div className="btn-selector-label">
+        <div className="placeholder">
+          {label}
+        </div>
+        <div className="indicator-container">
+          <ChevronDown className="chevron-down" />
+        </div>
       </div>
-      <div className="indicatorContainer">
-        <span className="indicatorSeparator" />
-        <ChevronDown />
-      </div>
+
       {isActive && (
-        <BtnMenu
-          callbackItem={(item) => {
-            setHref(item.href);
-            setIsActive(false);
-          }}
-          array={array}
-        />
+        <BtnMenu array={array} />
       )}
     </StyledBtnSelector>
   );
-};
-
-const clickOutsideConfig = {
-  handleClickOutside: () => ButtonSelector.handleClickOutside,
 };
 
 ButtonSelector.propTypes = {
@@ -55,13 +49,11 @@ ButtonSelector.propTypes = {
   array: PropTypes.array,
   /** Set default value for select item */
   defaultVal: PropTypes.string,
+  typeButton: PropTypes.oneOf(["primary", "secondary"]),
 };
 
 ButtonSelector.defaultProps = {
-  array: [
-    { title: "Download as DOCXF", href: "/404" }
-  ],
-  defaultVal: "Download as",
+  typeButton: "primary"
 };
 
-export default onClickOutSide(ButtonSelector, clickOutsideConfig);
+export default ButtonSelector;

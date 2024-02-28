@@ -60,6 +60,11 @@
   "FileSize": "Dateigröße",
   "Pages": "Seiten",
   "OpenAndFill": "Öffnen und ausfüllen",
+  "Open in web": "Im Web öffnen",
+  "Open in Desktop": "Auf dem Desktop öffnen",
+  "ONLYOFFICE Desktop Editors not installed": "ONLYOFFICE Desktop-Editoren sind nicht installiert",
+  "Please download it and install to use this plugin. Go to the Download page to get ONLYOFFICE Desktop Editors for Windows, Linux, or macOS.": "Bitte laden Sie es herunter und installieren Sie es, um dieses Plugin zu verwenden. Gehen Sie zur <a href=\"https://www.onlyoffice.com/de/download-desktop.aspx\" target=\"_blank\" rel=\"noreferrer noopener\">Download-Seite</a>, um ONLYOFFICE Desktop-Editoren für Windows, Linux oder macOS zu erhalten.",
+  "Get ONLYOFFICE desktop": "ONLYOFFICE Desktop-App erhalten",
   "DownloadAs": "Herunterladen als",
   "Share": "Teilen",
   "HowToCreateATemplate": "{{labelName}} in ONLYOFFICE erstellen",
@@ -205,11 +210,11 @@
   "Vacancies": "Stellenangebote",
   "Get help": "Hilfe bekommen",
   "Get news": "Nachrichten erhalten",
-  "Meet ONLYOFFICE DocSpace 2.0 with Public rooms, plugins, data reassignment, and more": "ONLYOFFICE DocSpace 2.0 ist da mit öffentlichen Räumen, Plugins, Neuzuweisung von Daten und mehr",
-  "4 December 2023": "4. Dezember 2023",
+  "Collaborate on documents within Zoom meetings: ONLYOFFICE DocSpace app for Zoom available": "Arbeiten Sie in Zoom-Meetings gemeinsam an Dokumenten: ONLYOFFICE DocSpace App für Zoom verfügbar",
+  "27 February 2024": "27. Februar 2024",
   "ONLYOFFICE Docs 8.0 released: PDF forms, RTL, Goal Seek and chart wizard in sheets, updated plugins UI, and more": "ONLYOFFICE Docs 8.0 veröffentlicht: PDF-Formulare, RTL, Zielsuche und Diagramm-Assistent in Tabellen, aktualisierte Plugins UI und mehr",
   "30 January 2024": "30. Januar 2024",
-  "blogLink1": "https://www.onlyoffice.com/blog/de/2023/12/onlyoffice-docspace-2-0-veroeffentlicht",
+  "blogLink1": "https://www.onlyoffice.com/blog/de/2024/02/onlyoffice-docspace-app-fuer-zoom-arbeiten-sie-in-videokonferenzen-an-dokumenten-zusammen",
   "blogLink2": "https://www.onlyoffice.com/blog/de/2024/01/onlyoffice-docs-8-0-veroeffentlicht",
   "Phone": "Telefon",
   "SearchForm": "Formulare finden",
@@ -384,6 +389,6 @@
   "Search": "Suche",
 
   "***********************Banner*************************": "***********************Banner*************************",
-  "AdventAnnounceDesktop": "ONLYOFFICE Docs 8.0 veröffentlicht: PDF-Formulare, RTL, Zielsuche und Diagramm-Assistent in Tabellen, aktualisierte Plugins UI und mehr",
-  "AdventAnnounceMobile": "ONLYOFFICE Docs 8.0 veröffentlicht"
+  "AdventAnnounceDesktop": "<b>Arbeiten Sie in Zoom-Meetings gemeinsam an Dokumenten:</b> ONLYOFFICE DocSpace App für Zoom verfügbar",
+  "AdventAnnounceMobile": "<b>Integration von ONLYOFFICE und Zoom</b>"
 }

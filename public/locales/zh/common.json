@@ -55,6 +55,11 @@
   "FileSize": "文件大小",
   "Pages": "页数",
   "OpenAndFill": "打开并填写",
+  "Open in web": "在网页中打开",
+  "Open in Desktop": "在桌面版中打开",
+  "ONLYOFFICE Desktop Editors not installed": "ONLYOFFICE 桌面编辑器未安装",
+  "Please download it and install to use this plugin. Go to the Download page to get ONLYOFFICE Desktop Editors for Windows, Linux, or macOS.": "要使用该插件，请下载并安装编辑器桌面版。前往<a href=\"https://www.onlyoffice.com/zh/download-desktop.aspx\" target=\"_blank\" rel=\"noreferrer noopener\">下载页面</a>，获取适用于 Windows、Linux 或 macOS 的 ONLYOFFICE 桌面编辑器。",
+  "Get ONLYOFFICE desktop": "获取 ONLYOFFICE 桌面版",
   "DownloadAs": "下载为",
   "Share": "分享",
   "HowToCreateATemplate": "如何在ONLYOFFICE中创建 {{labelName}} ",
@@ -217,11 +222,11 @@
   "Vacancies": "职位空缺",
   "Get help": "获取帮助",
   "Get news": "了解新闻",
-  "Meet ONLYOFFICE DocSpace 2.0 with Public rooms, plugins, data reassignment, and more": "了解 ONLYOFFICE 协作空间 2.0，包括公共房间、插件、数据重新分配等更新",
-  "4 December 2023": "2023年12月04日",
+  "Collaborate on documents within Zoom meetings: ONLYOFFICE DocSpace app for Zoom available": "在 Zoom 会议中协作处理文档：适用于 Zoom 的 ONLYOFFICE 协作空间应用程序现已发布",
+  "27 February 2024": "2024年02月27日",
   "ONLYOFFICE Docs 8.0 released: PDF forms, RTL, Goal Seek and chart wizard in sheets, updated plugins UI, and more": "ONLYOFFICE 文档 8.0 现已发布：PDF 表单、RTL、单变量求解和表格中的图表向导、更新插件 UI 等",
   "30 January 2024": "2024年01月30日",
-  "blogLink1": "https://www.onlyoffice.com/blog/zh-hans/2023/12/onlyoffice-docspace-2-0-released",
+  "blogLink1": "https://www.onlyoffice.com/blog/zh-hans/2024/02/onlyoffice-docspace-app-for-zoom",
   "blogLink2": "https://www.onlyoffice.com/blog/zh-hans/2024/01/onlyoffice-docs-8-0-released",
   "Phone": "电话",
   "FormSearch": "搜索表单",
@@ -386,6 +391,6 @@
   "Search": "搜索",
 
   "***********************Banner*************************": "***********************Banner*************************",
-  "AdventAnnounceDesktop": "ONLYOFFICE 文档 8.0 现已发布：PDF 表单、RTL、单变量求解和表格中的图表向导、更新插件 UI 等",
-  "AdventAnnounceMobile": "ONLYOFFICE 文档 8.0 现已发布"
+  "AdventAnnounceDesktop": "<b>在 Zoom 会议中协作处理文档：</b>适用于 Zoom 的 ONLYOFFICE 协作空间应用程序现已发布",
+  "AdventAnnounceMobile": "<b>ONLYOFFICE 与 Zoom 集成</b>"
 }

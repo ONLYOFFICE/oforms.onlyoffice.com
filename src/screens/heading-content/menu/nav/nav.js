@@ -118,7 +118,7 @@ const Nav = ({ t, locale, ...rest }) => {
                   <InternalLink id="navitem-download-signin" className="nav-2nd-menu-link" href={`${hrefLang}/signin.aspx`} label={t("Sign in")} />
                   <InternalLink id="navitem-download-onpremises" className="nav-2nd-menu-link" href={`${hrefLang}/download-workspace.aspx`} label={t("Install on-premises")} />
                 </div>
-                <InternalLink id="navitem-download-connectors" className="dropdown-item" href={`${hrefLang}/download-connectors.aspx`} label={t("Connectors")} />
+                <InternalLink id="navitem-download-connectors" className="dropdown-item" href={`${hrefLang}/all-connectors.aspx`} label={t("Connectors")} />
                 <InternalLink id="navitem-download-desktop-mob" className="dropdown-item" href={`${hrefLang}/download-desktop.aspx`} label={t("Desktop & mobile apps")} />
               </div>
               <div className="outer-box">
@@ -218,8 +218,8 @@ const Nav = ({ t, locale, ...rest }) => {
                 <div id="blog-box">
                   <InternalLink id="blog-box-1" className="dropdown-item-box" href={t("blogLink1")}>
                     <div className="menu-blog-img"></div>
-                    <div className="menu-blog-header">{t("Meet ONLYOFFICE DocSpace 2.0 with Public rooms, plugins, data reassignment, and more")}</div>
-                    <div className="menu-blog-date">{t("4 December 2023")}</div>
+                    <div className="menu-blog-header">{t("Collaborate on documents within Zoom meetings: ONLYOFFICE DocSpace app for Zoom available")}</div>
+                    <div className="menu-blog-date">{t("27 February 2024")}</div>
                   </InternalLink>
                   <InternalLink id="blog-box-2" className="dropdown-item-box" href={t("blogLink2")}>
                     <div className="menu-blog-img"></div>

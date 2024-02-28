@@ -49,7 +49,7 @@ const mobileStyledMainInfo = css`
     }
 
     .file-main-buttons {
-      display: block;
+      flex-direction: column;
       padding-top: 24px;
     }
   }
@@ -155,6 +155,7 @@ const tabletStyledMainInfo = css`
     }
 
     .file-main-buttons {
+      flex-wrap: initial;
       grid-row-start: 1;
       width: 100%;
       padding-bottom: 0px;
@@ -309,6 +310,10 @@ const StyledMainInfo = styled(Section)`
     .file-main-buttons {
       padding-bottom: 40px;
       gap: 16px;
+
+      @media (max-width: 1200px) {
+        flex-wrap: wrap;
+      }
     }
 
     .file-main-iconbuttons {
@@ -333,28 +338,6 @@ const StyledMainInfo = styled(Section)`
   .main-info-description {
     font-size: 16px;
     line-height: 26px;
-  }
-  /** */
-  
-  .file-download-button {
-    display: grid;
-    grid-template-columns: 8fr 2fr;
-    align-items: stretch;
-
-    &:hover {
-      path {
-        fill: ${({theme}) => theme.colors.primary};
-      }
-    }
-    
-    .indicatorContainer {
-      display: grid;
-      grid-template-columns: 1px 1fr;
-      
-      & svg {
-        width: 100%;
-      }
-    }
   }
 `;
 
