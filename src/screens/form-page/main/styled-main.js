@@ -168,13 +168,6 @@ const tabletStyledMainInfo = css`
       gap: 5px;
     }
   }
-
-  .btn-selector {
-    button.dropdown-item {
-      opacity: 0.3;
-      pointer-events: none;
-    }
-  }
 `;
 
 const StyledMainInfo = styled(Section)`
