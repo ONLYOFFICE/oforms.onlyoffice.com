@@ -218,8 +218,8 @@ const Nav = ({ t, locale, ...rest }) => {
                 <div id="blog-box">
                   <InternalLink id="blog-box-1" className="dropdown-item-box" href={t("blogLink1")}>
                     <div className="menu-blog-img"></div>
-                    <div className="menu-blog-header">{t("Meet ONLYOFFICE DocSpace 2.0 with Public rooms, plugins, data reassignment, and more")}</div>
-                    <div className="menu-blog-date">{t("4 December 2023")}</div>
+                    <div className="menu-blog-header">{t("Collaborate on documents within Zoom meetings: ONLYOFFICE DocSpace app for Zoom available")}</div>
+                    <div className="menu-blog-date">{t("27 February 2024")}</div>
                   </InternalLink>
                   <InternalLink id="blog-box-2" className="dropdown-item-box" href={t("blogLink2")}>
                     <div className="menu-blog-img"></div>

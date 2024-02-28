@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { device } from "@components/utils/devices";
 import menuIcons from "@public/icons/menu-icons.svg";
 import menuResellerFr from "@public/images/menu-pics/menu-reseller-fr.svg";
-import menuBlog1 from "@public/images/menu-pics/menu-blog-1.jpg";
+import menuBlog1 from "@public/images/menu-pics/menu-blog-1.png";
 import menuBlog2 from "@public/images/menu-pics/menu-blog-2.png";
 
 const StyledNav = styled.nav`
@@ -717,7 +717,7 @@ const StyledNav = styled.nav`
 
   .menu-blog-date {
     color: #808080;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.6em;
   }
 
