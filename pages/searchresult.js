@@ -45,7 +45,8 @@ const SearchResult = ({
 
   const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
   const searchReqData = () => {
-    const searchURL = `${CMSConfigAPI}/api/oforms/?sort=name_form:${sort}&populate[0]=categories&locale=${locale === "pt" ? "pt-br" : locale}&filters[name_form][$containsi]=${isDesktopClient ? queryDesktopClient : query}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`;
+    const searchQuery = locale === "en" || locale === "fr" || locale === "pt" ? query.toLowerCase() === "curriculum vitae" || query.toLowerCase() === "curriculum" || query.toLowerCase() === "vitae" ? "cv" : query : query;
+    const searchURL = `${CMSConfigAPI}/api/oforms/?sort=name_form:${sort}&populate[0]=categories&locale=${locale === "pt" ? "pt-br" : locale}&filters[name_form][$containsi]=${searchQuery}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`;
     axios
       .get(searchURL)
       .then((response) => {
@@ -55,7 +56,7 @@ const SearchResult = ({
   };
 
   useEffect(() => {
-    if (isDesktopClient ? queryDesktopClient : query?.length > 2) {
+    if (query?.length >= 2) {
       searchReqData();
     } else {
       setSearchResults(null);

@@ -5,6 +5,8 @@ const StyledSearchResult = styled.div`
   width: 100%;
 
   .search-result {
+    display: flex;
+    flex-direction: column;
     max-width: 928px;
     min-height: 55px;
     max-height: 300px;
