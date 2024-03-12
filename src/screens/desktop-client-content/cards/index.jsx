@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { CardsStyled, CardsWrapper, ToTopButton } from './cards.styled'
 import PropTypes from 'prop-types'
 import Card from '../card'
-import Empty from '../empty'
+import { Empty } from '@common/empty'
 import { ToTop } from '@icons'
 import { Skeleton } from '../skeleton'
 
@@ -50,7 +50,7 @@ const Cards = (props) => {
                     items.map(data => <Card key={data.id} data={data} onClick={onCardClick} isDark={isDark} />)
                 }
                 {
-                    isLoading && new Array(skeletonCount).fill(undefined).map((_, index) => <Skeleton key={index}  />)
+                    isLoading && new Array(skeletonCount).fill(undefined).map((_, index) => <Skeleton key={index} />)
                 }
             </CardsStyled>
             <ToTopButton onClick={topTop} active={toTopButtonActive}>
