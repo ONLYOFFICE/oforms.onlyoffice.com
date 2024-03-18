@@ -126,6 +126,20 @@ const DesktopClientContent = (props) => {
                 data: [...forms.data, ...newForms.data],
                 meta: newForms.meta,
             }
+
+            const imageLoadPromises = newForms.data.map(async (form) => {
+                const templateImage = new Image();
+                templateImage.src = form.attributes.card_prewiew?.data?.attributes?.url;
+                const templateImageLoaded = new Promise((resolve) => {
+                    templateImage.onload = () => resolve(true);
+                    templateImage.onerror = () => resolve(false);
+                });
+    
+                return templateImageLoaded;
+            });
+
+            await Promise.all(imageLoadPromises);
+
             setForms(result)
             setIsLoading(false)
             return result;

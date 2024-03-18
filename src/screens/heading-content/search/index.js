@@ -16,7 +16,7 @@ const SearchContent = ({ handlerSetModal, handlerCardData }) => {
   const isDesktopClient = router.query.desktop;
   const theme = router.query.theme
   const searchQuery = router.query.query
-  const { t } = useTranslation('common')
+  const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
 
   useEffect(() => {
     if(searchQuery) {
@@ -33,7 +33,22 @@ const SearchContent = ({ handlerSetModal, handlerCardData }) => {
     e.preventDefault();
     setSearchValue(e.target.value);
 
-    if (searchValue.length > 2) {
+    if (e.target.value.length >= 2) {
+      const searchReqData = () => {
+        const query = locale === "en" || locale === "fr" || locale === "pt" ? e.target.value.toLowerCase() === "curriculum vitae" || e.target.value.toLowerCase() === "curriculum" || e.target.value.toLowerCase() === "vitae" ? "cv" : e.target.value : e.target.value;
+        const searchURL = `${CMSConfigAPI}/api/oforms?populate[0]=categories&locale=${locale === "pt" ? "pt-br" : locale}&filters[name_form][$containsi]=${query}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`;
+        const delayDebounce = setTimeout(() => {
+          axios
+            .get(searchURL)
+            .then((response) => {
+              setSearchResult(response.data);
+              setFocusOnSearch(true);
+            })
+            .catch((error) => console.log(error));
+        }, 2500);
+    
+        return () => clearTimeout(delayDebounce);
+      };
       searchReqData();
     } else {
       setSearchResult(null);
@@ -62,22 +77,6 @@ const SearchContent = ({ handlerSetModal, handlerCardData }) => {
     setFocusOnSearch(false);
   };
 
-  const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
-  const searchReqData = () => {
-    const searchURL = `${CMSConfigAPI}/api/oforms?populate[0]=categories&locale=${locale === "pt" ? "pt-br" : locale}&filters[name_form][$containsi]=${searchValue}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`;
-    const delayDebounce = setTimeout(() => {
-      axios
-        .get(searchURL)
-        .then((response) => {
-          setSearchResult(response.data);
-          setFocusOnSearch(true);
-        })
-        .catch((error) => console.log(error));
-    }, 2500);
-
-    return () => clearTimeout(delayDebounce);
-  };
-
   return (
     <>
       <SearchArea
@@ -88,7 +87,7 @@ const SearchContent = ({ handlerSetModal, handlerCardData }) => {
       />
 
 
-      {searchValue.length > 2 && (
+      {searchValue.length >= 2 && (
         <SearchResult
           searchValue={searchValue}
           resultItems={searchResult}
