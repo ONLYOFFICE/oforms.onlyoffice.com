@@ -7,7 +7,6 @@ const getAllTypes = async (locale) => {
   );
   const data = await res.json();
   data.data = data.data.filter(type => {
-    console.log(type)
     return type.attributes.oforms.data.length !== 0
   })
   return data
