@@ -1,49 +1,32 @@
+import StyledErrorContent from "./styled-404-page";
 import Text from "@common/text";
-import Button from "@common/button";
-import {Img} from "@common/image";
 import InternalLink from "@common/internal-link";
+import Heading from "@common/heading";
 
-import Styled404 from "./styled";
-import {useTranslation} from "next-i18next";
-import {useRouter} from "next/router";
-import {useMemo} from "react";
-
-const Error404 = () => {
-    const {t} = useTranslation('common')
-    const router = useRouter()
-    const isDesktopClient = router.asPath.includes('desktop=true')
-    const href = useMemo(() => {
-        const result = {
-            pathname: '/',
-            query: {}
-        }
-        if(isDesktopClient) result.query.desktop = true
-
-        return result;
-    }, [isDesktopClient])
-
-    if(isDesktopClient) {
-
-    }
-    return (
-        <Styled404>
-            <Img
-                src="https://static-oforms.onlyoffice.com/icons/bg-errors.react.svg"
-                className="page-error-404-image"
-                alt="page-error-404"
-            />
-            <div className="page-error-404-container">
-                <Text className="page-error-404-heading" label={t("404Error!")}/>
-                <Text
-                    className="page-error-404-description"
-                    label={t("404Descdription")}
-                />
-                <InternalLink className="page-error-404-btn" href={href} color="red">
-                    <Button label={t("GoToHomePage")}/>
-                </InternalLink>
-            </div>
-        </Styled404>
-    );
+const Error404 = ({ t, heading, text, isDesktopClient, theme }) => {
+  return (
+    <StyledErrorContent className={isDesktopClient ? "is-desktop-client" : ""} theme={theme}>
+      {isDesktopClient ?
+        <div className="error-desktop-content">
+          <div className="error-desktop-image"></div>
+          <div>
+            <Heading className="error-desktop-title" level={4} label={t("Nothing-found")} />
+            <InternalLink className="error-desktop-link" href={`/?desktop=true${theme ? `&theme=${theme}` : ""}`} label={t("GoToHomePage")} />
+          </div>
+        </div>
+      :
+        <>
+          <div className="error-image"></div>
+          <div className="error-container">
+            <Heading className="error-heading" level={1} label={heading} />
+            <Text className="error-description" label={text} />
+            <InternalLink className="error-btn" href="/" label={t("GoToHomePage")} />
+          </div>
+        </>
+      }
+    </StyledErrorContent>
+  );
 };
 
 export default Error404;
+
