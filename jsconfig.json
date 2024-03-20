@@ -5,6 +5,9 @@
             "@components/*": [
                 "./src/components/*"
             ],
+            "@src/*": [
+                "./src/*"
+            ],
             "@config/*": [
                 "config/*"
             ],
@@ -23,12 +26,6 @@
             "@icons": [
                 "./src/icons/index.js"
             ],
-            "@icons/*": [
-                "./src/icons/*"
-            ],
-            "@illustrations": [
-                "./src/illustrations/index.js"
-            ]
         }
     },
     "exclude": [
