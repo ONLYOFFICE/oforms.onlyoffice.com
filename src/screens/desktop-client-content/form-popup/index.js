@@ -61,7 +61,7 @@ const FormPopup = ({ t, data, modalActive, setModalActive, theme }) => {
                   </div>
                 </div>
                 <div className="form-info-item">
-                  <span className="form-info-label">{t("File type")}:</span>
+                  <span className="form-info-label">{t("FileType")}:</span>
                   <span className="form-info-value">docxf</span>
                 </div>
               </div>
