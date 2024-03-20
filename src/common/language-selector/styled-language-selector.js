@@ -42,10 +42,45 @@ const StyledLanguageSelector = styled.div`
       position: absolute;
       top: 25px;
       left: 14px;
-      border: 1px solid rgb(203, 203, 203);
+      border: 1px solid ${props =>
+        props.theme === "theme-light" ? "#E0E0E0" :
+        props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "#616161" :
+        "#CBCBCB"
+      };
       border-radius: 2px;
-      padding: 4px;
-      box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 5px;
+      padding: 4px 0;
+      box-shadow: 1px solid ${props =>
+        props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "0px 2px 5px 0px rgba(0, 0, 0, 0.4)" : 
+        "0px 4px 10px 0px rgba(0, 0, 0, 0.2)"
+      };
+      background-color: ${props =>
+        props.theme === "theme-dark" ? "#333333" :
+        props.theme === "theme-contrast-dark" ? "#1E1E1E" : 
+        "#FFFFFF"
+      };
+    }
+
+    .language-link {
+      width: 32px;
+      background-position-x: 4px;
+
+      &:hover {
+        background-color: ${props =>
+          props.theme === "theme-light" ? "#EBEBEB" :
+          props.theme === "theme-dark" ? "#555555" :
+          props.theme === "theme-contrast-dark" ? "#424242" : 
+          "#E0E0E0"
+        };
+      }
+
+      &:active {
+        background-color: ${props =>
+          props.theme === "theme-light" ? "#F1F1F1" :
+          props.theme === "theme-dark" ? "#606060" :
+          props.theme === "theme-contrast-dark" ? "#666666" : 
+          "#CBCBCB"
+        };
+      }
     }
   }
 
@@ -56,7 +91,13 @@ const StyledLanguageSelector = styled.div`
   }
 
   .chevron-down {
-    color: ${({theme}) => theme.colors.palette.iconNormal};
+    path {
+      fill: ${props =>
+        props.theme === "theme-light" ? "#444444" :
+        props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "rgba(255, 255, 255, 0.8)" : 
+        "rgba(0, 0, 0, 0.8)"
+      };
+    }
   }
 
   .language-button {
@@ -141,6 +182,15 @@ const StyledLanguageSelector = styled.div`
       svg {
         display: flex;
       }
+    }
+  }
+
+  .chevron-down {
+    width: 24px;
+    height: 24px;
+
+    > div {
+      display: flex;
     }
   }
 
