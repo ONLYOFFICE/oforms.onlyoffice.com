@@ -2,8 +2,8 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import Layout from "@components/layout";
-import HeadSEO from "../../src/screens/head-content";
-import Error404 from "../../src/screens/404-page";
+import HeadSEO from "@src/screens/head-content";
+import Error404 from "@src/screens/404-page";
 
 const ErrorPage = () => {
   const { t } = useTranslation("common");
