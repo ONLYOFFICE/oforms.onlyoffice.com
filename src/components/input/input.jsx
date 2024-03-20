@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import PropTypes from "prop-types";
 import {InputIcon, InputLabel, InputStyled, InputWrapper} from "./input.styled.js";
-import classNames from "classnames";
 import {XClose} from "@icons";
 
 const InputIconComponent = (props) => {
@@ -83,7 +82,7 @@ export const Input = (props) => {
 
     return (
         <InputWrapper
-            className={classNames('input-component', className, {'focus': inFocus})}
+            className={`input-component ${className} ${inFocus ? "focus" : ""}`}
             width={width}
         >
             <InputStyled
