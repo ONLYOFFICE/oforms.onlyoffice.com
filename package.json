@@ -11,11 +11,8 @@
     "analyze": "npm run build && source-map-explorer .next/static/**/*.js"
   },
   "dependencies": {
-    "@callstack/react-theme-provider": "^3.0.7",
-    "@reduxjs/toolkit": "^1.8.1",
     "aws-sdk": "^2.1413.0",
     "axios": "^0.26.1",
-    "classnames": "^2.3.2",
     "email-addresses": "^5.0.0",
     "form-data": "^4.0.0",
     "formidable": "^3.5.0",
@@ -26,9 +23,6 @@
     "next-i18next": "^11.0.0",
     "nodemailer": "^6.9.4",
     "prop-types": "^15.8.1",
-    "rc-dialog": "^9.1.0",
-    "rc-dropdown": "^4.1.0",
-    "rc-menu": "^9.11.0",
     "react": "18.0.0",
     "react-custom-scrollbars": "^4.2.1",
     "react-device-detect": "^2.2.2",
@@ -36,16 +30,11 @@
     "react-google-recaptcha": "^3.1.0",
     "react-helmet": "^6.1.0",
     "react-i18next": "^11.16.7",
-    "react-infinite-scroll-component": "^6.1.0",
-    "react-onclickoutside": "^6.12.1",
-    "react-redux": "^8.0.1",
     "react-share": "^4.4.0",
     "react-slick": "^0.28.1",
     "react-svg": "^14.1.17",
-    "sharp": "^0.30.3",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.5",
-    "with-redux-wrapper": "^1.0.0",
     "zlib": "^1.0.5"
   },
   "devDependencies": {
@@ -53,5 +42,4 @@
     "eslint-config-next": "12.1.4",
     "source-map-explorer": "^2.5.2"
   }
-}  
- 
+}
