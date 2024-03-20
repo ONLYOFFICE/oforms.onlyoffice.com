@@ -24,7 +24,7 @@ const StyledShortCard = styled.div`
       }
 
       .card-template {
-        background-color: ${({theme}) => theme.colors.base.white} !important;
+        background-color: #fff !important;
       }
     }
   }
