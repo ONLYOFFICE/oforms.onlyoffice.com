@@ -1,177 +1,141 @@
-import {useState, lazy, Suspense} from "react";
-import {useTranslation} from "next-i18next";
-import {serverSideTranslations} from "next-i18next/serverSideTranslations";
-import {useRouter} from "next/router";
+import { useState } from "react";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import config from "@config/config.json";
 import getAllTypes from "@lib/strapi/getTypes";
 import getAllCategories from "@lib/strapi/getCategories";
 import getAllCompilations from "@lib/strapi/getCompilations";
-
 import Layout from "@components/layout";
-import HeadSEO from "../../../src/screens/head-content";
-import HeadingContent from "../../../src/screens/heading-content";
-import InfoContent from "../../../src/screens/category-page/info-content";
-import MainContent from "../../../src/screens/category-page/main-content";
-import DesktopClientContent from "../../../src/screens/desktop-client-content";
-import AdventAnnounce from "../../../src/screens/heading-content/advent-announce";
+import HeadSEO from "@src/screens/head-content";
+import HeadingContent from "@src/screens/heading-content";
+import InfoContent from "@src/screens/category-page/info-content";
+import MainContent from "@src/screens/category-page/main-content";
+import DesktopClientContent from "@src/screens/desktop-client-content";
+import AdventAnnounce from "@src/screens/heading-content/advent-announce";
+import Accordion from "@src/screens/common/accordion";
+import Footer from "@src/screens/footer-content";
 
-import config from "@config/config.json";
+const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, categories, compilations, isDesktopClient, theme }) => {
+  const isCategoryPage = true;
+  const { t } = useTranslation("common");
+  const [stateMobile, setStateMobile] = useState(false);
 
-const Accordion = lazy(() => import("../../../src/screens/common/accordion"), {
-    loading: () => <div/>,
-});
-const Footer = lazy(() => import("../../../src/screens/footer-content"), {
-    loading: () => <div/>,
-});
-
-const Category = ({
-                      categoryForms,
-                      categoryInfo,
-                      locale,
-                      sort,
-                      page,
-                      types,
-                      categories,
-                      compilations,
-                  }) => {
-    const {t} = useTranslation("common");
-    const dataCategoryInfo = categoryInfo.data[0].attributes;
-    const {seo_title, seo_description} = dataCategoryInfo;
-    const nameCategory = dataCategoryInfo.categorie;
-    const urlReqCategory = dataCategoryInfo.urlReq;
-    const header = dataCategoryInfo.header_description;
-    const categoryName = categoryInfo.data[0].attributes.categorie;
-
-    const [isCategoryPage, setIsCategoryPage] = useState(true);
-    const [stateMobile, setStateMobile] = useState(false);
-    const query = useRouter();
-    const isDesktopClient = query.query.desktop === "true";
-    return isDesktopClient ?
-        <Layout>
-            <Layout.PageHead>
-                <HeadSEO
-                    title={t("titleIndexPage")}
-                    metaSiteNameOg={t("metaSiteNameOg")}
-                    metaDescription={t("titleIndexPage")}
-                    metaDescriptionOg={t("metaDescriptionOgIndexPage")}
-                    metaKeywords={t("metaKeywordsIndexPage")}
-                    isDesktopClient={isDesktopClient}
-                />
-            </Layout.PageHead>
-            <DesktopClientContent
-                currentLanguage={locale}
-                data={categoryForms}
-                sort={sort}
-                page={+page}
-                isCategoryPage={isCategoryPage}
-                header={header}
-                types={types}
-                categories={categories}
-                compilations={compilations}
-                categoryName={categoryName}
-            />
-        </Layout>
-        :
-        <Layout>
-            <Layout.PageHead>
-                <HeadSEO
-                    title={seo_title}
-                    metaDescription={seo_description}
-                    metaDescriptionOg={seo_description}
-                    metaKeywords={seo_title}
-                />
-            </Layout.PageHead>
-            <Layout.PageAnnounce>
-                <AdventAnnounce t={t} currentLanguage={locale} stateMobile={stateMobile} />
-            </Layout.PageAnnounce>
-            <Layout.PageHeader>
-                <HeadingContent t={t} currentLanguage={locale} stateMobile={stateMobile} setStateMobile={setStateMobile} />
-            </Layout.PageHeader>
-            <Layout.SectionMain>
-                <InfoContent category={nameCategory} header={header}/>
-                <MainContent
-                    currentLanguage={locale}
-                    data={categoryForms}
-                    sort={sort}
-                    page={+page}
-                    category={nameCategory}
-                    urlReqCategory={urlReqCategory}
-                    types={types}
-                    categories={categories}
-                    compilations={compilations}
-                />
-                <Suspense>
-                    <Accordion currentLanguage={locale}/>
-                </Suspense>
-            </Layout.SectionMain>
-            <Layout.PageFooter>
-                <Suspense>
-                    <Footer t={t} locale={locale}/>
-                </Suspense>
-            </Layout.PageFooter>
-        </Layout>
+  return (
+    isDesktopClient ? (
+      <Layout>
+        <Layout.PageHead>
+          <HeadSEO
+            title={t("titleIndexPage")}
+            metaSiteNameOg={t("metaSiteNameOg")}
+            metaDescription={t("titleIndexPage")}
+            metaDescriptionOg={t("metaDescriptionOgIndexPage")}
+            metaKeywords={t("metaKeywordsIndexPage")}
+            isDesktopClient={isDesktopClient}
+          />
+        </Layout.PageHead>
+        <Layout.SectionMain>
+          <DesktopClientContent
+            t={t}
+            locale={locale}
+            data={categoryForms}
+            sort={sort}
+            types={types}
+            categories={categories}
+            compilations={compilations}
+            categoryName={categoryInfo.data[0].attributes.categorie}
+            isDesktopClient={isDesktopClient}
+            isCategoryPage={isCategoryPage}
+            theme={theme}
+          />
+        </Layout.SectionMain>
+      </Layout>
+    ) : (
+      <Layout>
+        <Layout.PageHead>
+          <HeadSEO
+            title={categoryInfo.data[0].attributes.seo_title}
+            metaDescription={categoryInfo.data[0].attributes.seo_description}
+            metaDescriptionOg={categoryInfo.data[0].attributes.seo_description}
+            metaKeywords={categoryInfo.data[0].attributes.seo_title}
+          />
+        </Layout.PageHead>
+        <Layout.PageAnnounce>
+          <AdventAnnounce t={t} currentLanguage={locale} stateMobile={stateMobile} />
+        </Layout.PageAnnounce>
+        <Layout.PageHeader>
+          <HeadingContent t={t} currentLanguage={locale} stateMobile={stateMobile} setStateMobile={setStateMobile} />
+        </Layout.PageHeader>
+        <Layout.SectionMain>
+          <InfoContent 
+            category={categoryInfo.data[0].attributes.categorie} 
+            header={categoryInfo.data[0].attributes.header_description}
+          />
+          <MainContent
+            currentLanguage={locale}
+            data={categoryForms}
+            sort={sort}
+            page={+page}
+            category={categoryInfo.data[0].attributes.categorie}
+            categoryName={categoryInfo.data[0].attributes.categorie}
+            urlReqCategory={categoryInfo.data[0].attributes.urlReq}
+            types={types}
+            categories={categories}
+            compilations={compilations}
+          />
+          <Accordion currentLanguage={locale} />
+        </Layout.SectionMain>
+        <Layout.PageFooter>
+          <Footer t={t} locale={locale} />
+        </Layout.PageFooter>
+      </Layout>
+    )
+  )
 };
 
-export const getServerSideProps = async ({locale, query, ...ctx}) => {
-    const isDesktopClient = query.desktop === "true";
-    const theme = query.theme
-    const page = query.page || 1;
-    const sort = query._sort || "asc";
-    const urlReq = query.category;
-    const pageSize = query.pageSize || isDesktopClient ? 0 : 9;
-    const cms = config.api.cms
-    const res = await fetch(
-        `${cms}/api/oforms/?filters[categories][urlReq][$eq]=${urlReq}&locale=${locale === "pt" ? "pt-br" : locale}&sort=name_form:${sort}&${pageSize ? `&pagination[pageSize]=${pageSize}` : ''}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
-    );
-    const resCategory = await fetch(
-        `${cms}/api/categories/?filters[urlReq][$eq]=${urlReq}&locale=${locale === "pt" ? "pt-br" : locale}`
-    );
+export const getServerSideProps = async ({ locale, query }) => {
+  const isDesktopClient = query.desktop === "true";
+  const theme = query.theme;
+  const page = query.page || 1;
+  const sort = query._sort || "asc";
+  const urlReq = query.category;
+  const pageSize = query.pageSize || isDesktopClient ? 0 : 9;
+  const cms = config.api.cms;
+  const types = await getAllTypes(locale === "pt" ? "pt-br" : locale);
+  const categories = await getAllCategories(locale === "pt" ? "pt-br" : locale);
+  const compilations = await getAllCompilations(locale === "pt" ? "pt-br" : locale);
 
-    const categoryForms = await res.json();
-    const categoryInfo = await resCategory.json();
-    const types = await getAllTypes(locale === "pt" ? "pt-br" : locale);
-    const categories = await getAllCategories(locale === "pt" ? "pt-br" : locale);
-    const compilations = await getAllCompilations(locale === "pt" ? "pt-br" : locale);
+  const res = await fetch(
+    `${cms}/api/oforms/?filters[categories][urlReq][$eq]=${urlReq}&locale=${locale === "pt" ? "pt-br" : locale}&sort=name_form:${sort}&${pageSize ? `&pagination[pageSize]=${pageSize}` : ''}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
+  );
+  const resCategory = await fetch(
+    `${cms}/api/categories/?filters[urlReq][$eq]=${urlReq}&locale=${locale === "pt" ? "pt-br" : locale}`
+  );
 
-    const getDestination = () => {
-        let destination = '/404'
+  const categoryForms = await res.json();
+  const categoryInfo = await resCategory.json();
 
-        if(isDesktopClient) {
-            destination += '?desktop=true'
-        }
-
-        if(theme) {
-            destination += `&theme=${theme}`
-        }
-
-        return destination;
-    }
-
-
-    if (categoryForms.data.length === 0) {
-        return {
-            redirect: {
-                destination: getDestination(),
-                query: {
-                    desktop: true,
-                },
-                permanent: true,
-            },
-        };
-    }
+  if (categoryForms.data.length === 0) {
     return {
-        props: {
-            ...(await serverSideTranslations(locale, "common")),
-            notFound: true,
-            categoryForms,
-            categoryInfo,
-            locale,
-            sort,
-            page,
-            types,
-            categories,
-            compilations,
-        },
-    };
+      notFound: true
+    }
+  };
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, "common")),
+      notFound: true,
+      categoryForms,
+      categoryInfo,
+      locale,
+      sort,
+      page,
+      types,
+      categories,
+      compilations,
+      isDesktopClient,
+      theme: isDesktopClient ? theme || "" : null
+    },
+  };
 };
 
 export default Category;
