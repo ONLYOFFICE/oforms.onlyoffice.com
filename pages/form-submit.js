@@ -1,18 +1,14 @@
-import { lazy, Suspense } from "react";
 import { useTranslation } from "next-i18next";
 import { useState } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import zlib from "zlib";
 import getAllCategories from "@lib/strapi/getCategories";
 import Layout from "@components/layout";
-import HeadSEO from "../src/screens/head-content";
-import HeadingContent from "../src/screens/heading-content";
-import AdventAnnounce from "../src/screens/heading-content/advent-announce";
-import FormSubmitContent from "../src/screens/form-submit-content";
-
-const Footer = lazy(() => import("../src/screens/footer-content"), {
-  loading: () => <div />,
-});
+import HeadSEO from "@src/screens/head-content";
+import HeadingContent from "@src/screens/heading-content";
+import AdventAnnounce from "@src/screens/heading-content/advent-announce";
+import FormSubmitContent from "@src/screens/form-submit-content";
+import Footer from "@src/screens/footer-content";
 
 const FormSubmit = ({ locale, categories, queryIndexData }) => {
   const { t } = useTranslation("common");
@@ -44,9 +40,7 @@ const FormSubmit = ({ locale, categories, queryIndexData }) => {
         />
       </Layout.SectionMain>
       <Layout.PageFooter>
-        <Suspense>
-          <Footer t={t} locale={locale}/>
-        </Suspense>
+        <Footer t={t} locale={locale}/>
       </Layout.PageFooter>
     </Layout>
   )
@@ -83,6 +77,5 @@ export const getServerSideProps = async ({ locale, query, req, res }) => {
     },
   };
 }
-
 
 export default FormSubmit;
