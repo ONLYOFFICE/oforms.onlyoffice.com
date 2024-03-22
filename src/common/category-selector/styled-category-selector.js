@@ -197,7 +197,8 @@ const StyledCategorySelector = styled.div`
     justify-content: space-between;
     padding: 12px 32px;
     font-size: 16px;
-    line-height: 21px;
+    line-height: 24px;
+    min-height: 40px;
     color: #444444;
     white-space: nowrap;
     cursor: pointer;
@@ -218,9 +219,10 @@ const StyledCategorySelector = styled.div`
     }
 
     @media screen and (max-width: 896px) {
-      padding: 16px 16px 16px 24px;
+      padding: 12px 16px 12px 24px;
       font-weight: 700;
       letter-spacing: -0.02em;
+      min-height: 48px;
       white-space: initial;
     }
   }
@@ -357,7 +359,7 @@ const StyledCategorySelector = styled.div`
 
     .category-selector-dropdown {
       position: absolute;
-      top: 100%;
+      top: calc(100% - 1px);
       left: 0;
       padding: 24px 0;
       border: 1px solid ${props =>
@@ -390,6 +392,12 @@ const StyledCategorySelector = styled.div`
         &.active {
           border: none;
           box-shadow: none;
+          background-color: transparent;
+
+          .category-selector-item {
+            opacity: 0;
+            visibility: hidden;
+          }
         }
       }
 
@@ -402,7 +410,7 @@ const StyledCategorySelector = styled.div`
       padding: 8px 32px;
       font-size: 16px;
       font-weight: 600;
-      line-height: 21px;
+      line-height: 24px;
       color: ${props =>
         props.theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
         props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
@@ -535,6 +543,7 @@ const StyledCategorySelector = styled.div`
     .category-selector-links {
       @media screen and ${device.laptop} {
         overflow-y: auto;
+        height: calc(-190px + 100vh);
         max-height: 496px;
       }
 

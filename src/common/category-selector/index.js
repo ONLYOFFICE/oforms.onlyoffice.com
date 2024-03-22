@@ -1,5 +1,5 @@
 import StyledCategorySelector from "./styled-category-selector";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ReactSVG } from "react-svg";
 import InternalLink from "@common/internal-link";
 import Heading from "@common/heading";
@@ -10,7 +10,6 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isTypeOpen, setIsTypeOpen] = useState(false);
   const [isCompilationsOpen, setIsCompilationsOpen] = useState(false);
-  const selectorRef = useRef(null);
   const router = useRouter();
 
   const handleClose = () => {
@@ -21,20 +20,22 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
   };
 
   useEffect(() => {
-    if (isDesktopClient) {
-      const handleClickOutside = (e) => {
-        if (selectorRef.current && !selectorRef.current.contains(e.target) && e.target.classList.contains("category-selector-header-btn")) {
+    if (isDesktopClient && window.innerWidth <= 1024) {
+      const handleClickOutside = (event) => {
+        if (isOpen && !event.target.closest(".category-selector")) {
           handleClose();
         }
       };
 
-      document.addEventListener("click", handleClickOutside);
-  
+      if (isOpen) {
+        document.addEventListener("click", handleClickOutside);
+      }
+
       return () => {
         document.removeEventListener("click", handleClickOutside);
       };
     }
-  }, []);
+  }, [isOpen]);
 
   const menuOnMouseEnter = (setIsOpenFunction) => {
     if (isDesktopClient) {
@@ -49,8 +50,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
   return (
     <StyledCategorySelector
       {...(!isDesktopClient && {onMouseEnter: () => setIsOpen(true)})}
-      onMouseLeave={() => setIsOpen(false)}
-      ref={selectorRef}
+      onMouseLeave={() => isDesktopClient && window.innerWidth >= 1024 && setIsOpen(false)}
       theme={theme}
       className={`category-selector ${isDesktopClient ? `desktop-client ${hideCategorySelector ? "hide-mobile" : ""}` : ""}`}
     >
@@ -90,7 +90,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
             />
           </div>
           {categories.data.length > 0 &&
-            <div onMouseEnter={() => menuOnMouseEnter(setIsCategoryOpen)} onMouseLeave={() => setIsCategoryOpen(false)}>
+            <div onMouseEnter={() => menuOnMouseEnter(setIsCategoryOpen)} onMouseLeave={() => isDesktopClient && window.innerWidth >= 1024 && setIsCategoryOpen(false)}>
               <Heading
                 onClick={() => (isDesktopClient && window.innerWidth < 1024) && setIsCategoryOpen(true)}
                 level={5}
@@ -104,7 +104,10 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
                   <div className="category-selector-header">
                     <button
                       onMouseEnter={() => window.innerWidth >= 1024 && setIsCategoryOpen(false)}
-                      onClick={() => window.innerWidth < 1024 && setIsCategoryOpen(false)}
+                      onClick={(e) => window.innerWidth < 1024 && (
+                        e.stopPropagation(),
+                        setIsCategoryOpen(false)
+                      )}
                       className="category-selector-header-btn"
                     >
                       <ReactSVG src="/icons/arrow-left.react.svg" />
@@ -132,7 +135,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
             </div>
           }
           {types.data.length > 0 &&
-            <div onMouseEnter={() => menuOnMouseEnter(setIsTypeOpen)} onMouseLeave={() => setIsTypeOpen(false)}>
+            <div onMouseEnter={() => menuOnMouseEnter(setIsTypeOpen)} onMouseLeave={() => isDesktopClient && window.innerWidth >= 1024 && setIsTypeOpen(false)}>
               <Heading 
                 onClick={() => (isDesktopClient && window.innerWidth < 1024) && setIsTypeOpen(true)} 
                 level={5} 
@@ -146,7 +149,10 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
                   <div className="category-selector-header">
                     <button 
                       onMouseEnter={() => window.innerWidth >= 1024 && setIsTypeOpen(false)} 
-                      onClick={() => window.innerWidth < 1024 && setIsTypeOpen(false)} 
+                      onClick={(e) => window.innerWidth < 1024 && (
+                        e.stopPropagation(),
+                        setIsTypeOpen(false)
+                      )}
                       className="category-selector-header-btn"
                     >
                       <ReactSVG src="/icons/arrow-left.react.svg" />
@@ -174,7 +180,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
             </div>
           }
           {compilations.data.length > 0 &&
-            <div onMouseEnter={() => menuOnMouseEnter(setIsCompilationsOpen)} onMouseLeave={() => setIsCompilationsOpen(false)}>
+            <div onMouseEnter={() => menuOnMouseEnter(setIsCompilationsOpen)} onMouseLeave={() => isDesktopClient && window.innerWidth >= 1024 && setIsCompilationsOpen(false)}>
               <Heading
                 onClick={() => (isDesktopClient && window.innerWidth < 1024) && setIsCompilationsOpen(true)}
                 level={5}
@@ -188,7 +194,10 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
                   <div className="category-selector-header">
                     <button
                       onMouseEnter={() => window.innerWidth >= 1024 && setIsCompilationsOpen(false)}
-                      onClick={() => window.innerWidth < 1024 && setIsCompilationsOpen(false)}
+                      onClick={(e) => window.innerWidth < 1024 && (
+                        e.stopPropagation(),
+                        setIsCompilationsOpen(false)
+                      )}
                       className="category-selector-header-btn"
                     >
                       <ReactSVG src="/icons/arrow-left.react.svg" />
