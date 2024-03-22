@@ -1,11 +1,10 @@
 import StyledSearchInput from "./styled-search-input";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { ReactSVG } from "react-svg";
 
 const SearchInput = ({ t, setHideCategorySelector, theme }) => {
   const router = useRouter();
-  const selectorRef = useRef(null);
   const [inputValue, setInputValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [showCrossBtn, setShowCrossBtn] = useState(false);
@@ -31,17 +30,25 @@ const SearchInput = ({ t, setHideCategorySelector, theme }) => {
       }
     }
 
+    window.addEventListener("resize", resizeHandler);
+
+    return () => {
+      window.removeEventListener("resize", resizeHandler);
+    };
+  }, []);
+
+  useEffect(() => {
     const handleClickOutside = (event) => {
       if (router.pathname === "/searchresult") {
         if (window.innerWidth < 592) {
-          if (selectorRef.current && !selectorRef.current.contains(event.target)) {
+          if (isOpen && !event.target.closest(".search")) {
             setShowCrossBtn(false);
             setIsOpen(false);
             setHideCategorySelector(false);
           }
         }
       } else {
-        if (selectorRef.current && !selectorRef.current.contains(event.target)) {
+        if (isOpen && !event.target.closest(".search")) {
           setShowCrossBtn(false);
           setIsOpen(false);
           setHideCategorySelector(false);
@@ -49,14 +56,14 @@ const SearchInput = ({ t, setHideCategorySelector, theme }) => {
       }
     };
 
-    window.addEventListener("resize", resizeHandler);
-    window.addEventListener("click", handleClickOutside);
+    if (isOpen) {
+      document.addEventListener("click", handleClickOutside);
+    }
 
     return () => {
-      window.removeEventListener("click", handleClickOutside);
-      window.removeEventListener("resize", resizeHandler);
+      document.removeEventListener("click", handleClickOutside);
     };
-  }, []);
+  }, [isOpen]);
 
   const handleSearchInput = (e) => {
     e.preventDefault();
@@ -116,7 +123,7 @@ const SearchInput = ({ t, setHideCategorySelector, theme }) => {
   };
 
   return (
-    <StyledSearchInput ref={selectorRef} theme={theme} className={`search ${isOpen ? "open" : ""}`}>
+    <StyledSearchInput theme={theme} className={`search ${isOpen ? "open" : ""}`}>
       <button onClick={handleShowSearch} className="search-input-btn search-btn">
         <ReactSVG src="/icons/search.svg" />
       </button>

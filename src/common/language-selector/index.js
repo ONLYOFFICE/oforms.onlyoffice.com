@@ -1,5 +1,5 @@
 import StyledLanguageSelector from "./styled-language-selector";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { ReactSVG } from "react-svg";
 import languages from "@config/languages.json";
@@ -8,7 +8,6 @@ import InternalLink from "@common/internal-link";
 const LanguageSelector = ({ theme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const selectorRef = useRef(null);
   const isDesktopClient = router.query.desktop === "true";
 
   const onCloseSelector = () => {
@@ -20,24 +19,25 @@ const LanguageSelector = ({ theme }) => {
   useEffect(() => {
     if (isDesktopClient) {
       const handleClickOutside = (event) => {
-        if (selectorRef.current && !selectorRef.current.contains(event.target)) {
+        if (isOpen && !event.target.closest(".language-selector")) {
           setIsOpen(false);
         }
       };
 
-      document.addEventListener("click", handleClickOutside);
+      if (isOpen) {
+        document.addEventListener("click", handleClickOutside);
+      }
 
       return () => {
         document.removeEventListener("click", handleClickOutside);
       };
     }
-  }, []);
+  }, [isOpen]);
 
   return (
     <StyledLanguageSelector
       {...(!isDesktopClient && { onMouseEnter: () => setIsOpen(true), onMouseLeave: () => onCloseSelector() })}
       onClick={() => setIsOpen(!isOpen)}
-      ref={selectorRef}
       className={`language-selector ${isOpen ? "is-open" : ""} ${isDesktopClient ? "is-desktop-client" : ""}`}
       theme={theme}
     >

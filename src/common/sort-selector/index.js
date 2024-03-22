@@ -1,5 +1,5 @@
 import StyledSortSelector from "./styled-sort-selector";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { ReactSVG } from "react-svg";
 
@@ -7,7 +7,6 @@ const SortSelector = ({ t, sort }) => {
   const router = useRouter();
   const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
 
   useEffect(() => {
     if (sort === "desc") {
@@ -19,17 +18,19 @@ const SortSelector = ({ t, sort }) => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      if (isDropdownOpen && !event.target.closest(".sort-selector")) {
         closeDropdown();
       }
     };
 
-    document.addEventListener("click", handleClickOutside);
+    if (isDropdownOpen) {
+      document.addEventListener("click", handleClickOutside);
+    }
 
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, []);
+  }, [isDropdownOpen]);
 
   const closeDropdown = () => {
     setDropdownOpen(false);
@@ -45,7 +46,7 @@ const SortSelector = ({ t, sort }) => {
   };
 
   return (
-    <StyledSortSelector ref={dropdownRef} onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
+    <StyledSortSelector className="sort-selector" onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
       <button onClick={() => setDropdownOpen(!isDropdownOpen)} className="sort-btn">
         <span className="sort-label">{t("SortBy")}</span>
         <span className="sort-name">{typeSortData}</span>
