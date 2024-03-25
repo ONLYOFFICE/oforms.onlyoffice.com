@@ -8,35 +8,35 @@ export const SearchAreaStyled = styled.div`
         align-items: flex-end;
 
         .search-area__desc {
-          color: ${({theme}) => theme.colors.palette.textNormal};
+          color: #444444;
           padding-bottom: 2.5px;
           gap: 12px;
 
           &:after {
-            background-color: ${({theme}) => theme.colors.palette.highlightButtonPressedHover};;
+            background-color: #D8DADC;
           }
         }
         
         .loup-icon {
-          color: ${({theme}) => theme.colors.palette.iconNormal};
+          color: "rgba(0, 0, 0, 0.8)";
         }
 
         .input-component__input {
           padding: 8px 0 0 12px;
-          color: ${({theme}) => theme.colors.palette.textNormal};
+          color: #444444;
           font-size: 14px;
           line-height: 160%;
         }
 
         .input-component__label {
           top: 7px;
-          color: ${({theme}) => theme.colors.palette.textSecondary};
+          color: #A5A5A5;
           font-size: 14px;
           line-height: 160%;
         }
 
         .input-component__icon svg, .input-component__clear-icon svg {
-          color: ${({theme}) => theme.colors.palette.iconNormal};
+          color: rgba(0, 0, 0, 0.8);
         }
 
         .focus .input-component__label {
@@ -44,7 +44,7 @@ export const SearchAreaStyled = styled.div`
         }
         
         @media screen and (max-width: 601px) {
-          border-bottom: 1px solid ${({theme}) => theme.colors.palette.borderToolbarButtonHover};
+          border-bottom: 1px solid #D8DADC;
         }
       `
     }
@@ -53,30 +53,30 @@ export const SearchAreaStyled = styled.div`
       max-width: 1120px;
       margin: 0 auto;
       padding-bottom: 8px;
-      border-bottom: 1px solid ${({theme}) => theme.colors.other.gray300};
+      border-bottom: 1px solid #666666;
       align-items: center;
       
       .search-area__desc {
-        color: ${({theme}) => theme.colors.other.white100};
+        color: #F5F5F5;
         &:after {
-          background-color: ${({theme}) => theme.colors.other.gray100};
+          background-color: #AAAAAA;
         }
       }
 
       .input-component__input {
-        color: ${({theme}) => theme.colors.base.white};
+        color: #FFF;
         font-size: 16px;
         line-height: 22px;
       }
 
       .input-component__label {
-        color: ${({theme}) => theme.colors.other.gray400};
+        color: #808080;
         font-size: 16px;
         line-height: 22px;
       }
       
       .input-component__icon svg, .input-component__clear-icon svg {
-        color: ${({theme}) => theme.colors.other.gray400};
+        color: #808080;
       }
 
       .focus .input-component__label {

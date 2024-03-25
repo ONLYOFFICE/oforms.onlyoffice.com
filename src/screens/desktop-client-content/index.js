@@ -1,198 +1,214 @@
-import {useState, useEffect, useCallback} from "react";
-import Cards from "../common/cards";
-import NewCards from './cards'
-import Header from './header'
 import StyledDesktopClientContent from "./styled-desktop-client-content";
-import FilePopup from "./file-popup/file-popup";
-import {useRouter} from "next/router";
-import {useTranslation} from "next-i18next";
-import CONFIG from "@config/config.json";
+import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/router";
+import { ReactSVG } from "react-svg";
+import CONFIG from "@config/config";
+import Heading from "@common/heading";
+import InternalLink from "@src/common/internal-link";
+import Text from "@src/common/text";
+import CategorySelector from "@common/category-selector";
+import LanguageSelector from "@src/common/language-selector";
+import SortSelector from "./sort-selector";
+import Card from "./card";
+import FormPopup from "./form-popup";
+import SearchInput from "./search-input";
+import SkeletonCard from "./skeleton-card";
 
-const DesktopClientContent = (props) => {
-    const {
-        currentLanguage,
-        data,
-        page,
-        sort,
-        types,
-        categories,
-        compilations,
-        isCategoryPage,
-        header,
-        categoryName,
-        queryDesktopClient,
-        locale,
-    } = props;
-    const {t} = useTranslation('common');
-    const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
-    const [cardData, setCardData] = useState("");
-    const router = useRouter();
-    const theme = router.query.theme
-    const [toTopButtonActive, setToTopButtonActive] = useState(false)
-    const [isError, setIsError] = useState(false)
+const DesktopClientContent = ({ t, locale, data, sort, categories, types, compilations, isDesktopClient, theme, isCategoryPage, categoryName }) => {
+  const [formsData, setFormsData] = useState(data);
+  const [cardData, setCardData] = useState();
+  const [newFormsLength, setNewFormsLength] = useState(5);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [modalActive, setModalActive] = useState(false);
+  const [showScrollToTopBtn, setShowScrollToTopBtn] = useState(false);
+  const [hideCategorySelector, setHideCategorySelector] = useState(false);
+  const wrapperRef = useRef(null);
+  const bottomObserver = useRef(null);
+  const router = useRouter();
 
-    const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
+  useEffect(() => {
+    const loadImages = async () => {
+      const imageLoadPromises = formsData?.data?.map(async (form) => {
+        const templateImage = new Image();
+  
+        templateImage.src = form.attributes.card_prewiew?.data?.attributes?.url;
+        const templateImageLoaded = new Promise((resolve) => {
+          templateImage.onload = () => resolve(true);
+          templateImage.onerror = () => resolve(false);
+        });
+  
+        return templateImageLoaded;
+      });
+  
+      await Promise.all(imageLoadPromises);
 
-    const [modalActive, setModalActive] = useState(false);
-
-    const [isLoading, setIsLoading] = useState(false)
-    const [forms, setForms] = useState(data)
-
-    const handlerCardData = (_, cardData) => {
-        setModalActive(true);
-        setCardData(cardData.attributes);
+      setIsLoading(false);
     };
 
-    const onClear = () => {
-        if (theme) {
-            router.push({
-                pathname: '/',
-                query: {
-                    desktop: true,
-                    theme,
-                }
-            })
-        } else {
-            router.push({
-                pathname: '/',
-                query: {
-                    desktop: true,
-                }
-            })
-        }
+    if (formsData.length === 0) {
+      setIsLoading(false);
+    } else {
+      loadImages();
     }
 
-    const getContentHeight = useCallback(() => {
-        if (document) {
-            const target = document.body?.firstChild?.firstChild?.firstChild?.firstChild.childNodes[1]
-            return target?.scrollHeight || 0
-        }
+    const handleScroll = () => {
+      if (wrapperRef.current) {
+        const { scrollTop, scrollHeight, clientHeight } = wrapperRef.current;
+        const isScrolled = scrollTop > (scrollHeight - clientHeight) * 0.5;
+        setShowScrollToTopBtn(isScrolled);
+      }
+    };
 
-        return 0
-    }, [])
-
-    const handleScroll = useCallback(() => {
-        const scrollTop = document.body?.firstChild?.firstChild?.firstChild?.firstChild.childNodes[1].scrollTop;
-        const scrollHeight = document.body?.firstChild?.firstChild?.firstChild?.firstChild.childNodes[1].scrollHeight;
-        const clientHeight = document.body?.firstChild?.firstChild?.firstChild?.firstChild.childNodes[1].clientHeight;
-        const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-
-        if(scrollTop >= 300) setToTopButtonActive(true)
-        else setToTopButtonActive(false)
-
-        // if (scrollTop + clientHeight >= scrollHeight / 2 && scrollHeight >= 3000) setToTopButtonActive(true)
-        // else setToTopButtonActive(false)
-
-        if (scrolledToBottom) {
-            getForms();
-        }
-    }, [forms, isLoading, isError])
-
-    const handleResize = () => {
-        const contentHeight = getContentHeight() + 157;
-        const screenHeight = document?.body.clientHeight;
-        if (contentHeight + 30 <= screenHeight) {
-            getForms()
-        }
+    if (wrapperRef.current) {
+      wrapperRef.current.addEventListener("scroll", handleScroll);
     }
 
+    return () => {
+      if (wrapperRef.current) {
+        wrapperRef.current.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, []);
 
-    useEffect(() => {
-        setForms(data)
-    }, [data])
+  useEffect(() => {
+    const handleObserver = (entries) => {
+      if (entries[0].isIntersecting) {
+        handleLoadMoreForms();
+      }
+    };
 
-    useEffect(() => {
-        handleResize()
-    }, [isError, isLoading])
+    const observer = new IntersectionObserver(handleObserver, { threshold: 0.5 });
 
-    const toTop = () => {
-        document.body?.firstChild?.firstChild?.firstChild?.firstChild.childNodes[1].scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        })
+    if (bottomObserver.current) {
+      observer.observe(bottomObserver.current);
     }
 
+    return () => {
+      if (bottomObserver.current) {
+        observer.unobserve(bottomObserver.current);
+      }
+    };
+  }, [formsData]);
 
-    const getForms = async (page) => {
-        try {
-            const nextPage = page ?? forms.meta.pagination.page + 1
-            if (isLoading || nextPage > forms.meta.pagination.pageCount || isError) return
-            setIsLoading(true)
-            const formsRes = await fetch(
-                `${CMSConfigAPI}/api/oforms/?sort=name_form:${sort}&pagination[pageSize]=32&pagination[page]=${nextPage}&populate=template_image&populate=file_oform&populate=card_prewiew&populate=categories&locale=${locale === "pt" ? "pt-br" : locale}`
-            )
-            const newForms = await formsRes.json()
-            const result = {
-                data: [...forms.data, ...newForms.data],
-                meta: newForms.meta,
-            }
+  useEffect(() => {
+    setFormsData(data);
+  }, [sort, data]);
 
-            const imageLoadPromises = newForms.data.map(async (form) => {
-                const templateImage = new Image();
-                templateImage.src = form.attributes.card_prewiew?.data?.attributes?.url;
-                const templateImageLoaded = new Promise((resolve) => {
-                    templateImage.onload = () => resolve(true);
-                    templateImage.onerror = () => resolve(false);
-                });
-    
-                return templateImageLoaded;
-            });
+  const handleCardData = (data) => {
+    setCardData(data);
+    setModalActive(true);
+  };
 
-            await Promise.all(imageLoadPromises);
+  const handleLoadMoreForms = async () => {
+    try {
+      if (formsData.meta.pagination.page === formsData.meta.pagination.pageCount) {
+        return;
+      }
 
-            setForms(result)
-            setIsLoading(false)
-            return result;
-        } catch (e) {
-            setIsError(true)
-            setIsLoading(false)
-            return data;
-        }
+      setIsLoadingMore(true);
+
+      const formsRes = await fetch(`${CONFIG.api.cms}/api/oforms/?sort=name_form:${sort}&pagination[pageSize]=32&pagination[page]=${formsData.meta.pagination.page + 1}&populate=template_image&populate=file_oform&populate=card_prewiew&populate=categories&locale=${locale === "pt" ? "pt-br" : locale}`);
+      const newForms = await formsRes.json();
+      const result = {
+        data: [...formsData.data, ...newForms.data],
+        meta: newForms.meta
+      };
+
+      setNewFormsLength(newForms.data.length);
+
+      const imageLoadPromises = newForms.data.map(async (form) => {
+        const templateImage = new Image();
+  
+        templateImage.src = form.attributes.card_prewiew?.data?.attributes?.url;
+        const templateImageLoaded = new Promise((resolve) => {
+          templateImage.onload = () => resolve(true);
+          templateImage.onerror = () => resolve(false);
+        });
+  
+        return templateImageLoaded;
+      });
+  
+      await Promise.all(imageLoadPromises);
+
+      setFormsData(result);
+      setIsLoadingMore(false);
+    } catch {
+      setIsLoadingMore(true);
     }
+  };
 
-    useEffect(() => {
-        if (sort === "desc") {
-            setTypeSortData(t("NameZ-A"));
-        } else {
-            setTypeSortData(t("NameA-Z"));
+  const scrollToTop = () => {
+    wrapperRef.current.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return (
+    <StyledDesktopClientContent theme={theme}>
+      <div className="header">
+        <Heading className="header-title" level={1} label={t("Templates")} />
+
+        <div className="header-wrapper">
+          <CategorySelector
+            t={t}
+            locale={locale}
+            categories={categories}
+            types={types}
+            compilations={compilations}
+            isDesktopClient={isDesktopClient}
+            isCategoryPage={isCategoryPage}
+            categoryName={categoryName}
+            hideCategorySelector={hideCategorySelector}
+            theme={theme}
+          />
+          <SearchInput t={t} setHideCategorySelector={setHideCategorySelector} theme={theme} />
+          <SortSelector sort={sort} theme={theme} />
+          <LanguageSelector theme={theme} />
+        </div>
+      </div>
+
+      <div ref={wrapperRef} className="wrapper">
+        {formsData.length === 0 || formsData.data.length === 0 ?
+          <div className="error-desktop-content">
+            <div className="error-desktop-image"></div>
+            <div>
+              <Heading className="error-desktop-title" level={4} label={t("Nothing-found")} />
+              <Text className="error-desktop-text" label={t("No-results-matching-your-query-could-be-found")} />
+              <InternalLink className="error-desktop-link" href={`/?desktop=true${theme ? `&theme=${theme}` : ""}`} label={t("Clear-filter")} />
+            </div>
+          </div>
+        :
+        <ul className="cards">
+          {isLoading ?
+            [...new Array(formsData?.data?.length)].map((_, index) => <SkeletonCard key={index} theme={theme} />)
+          :
+            formsData?.data?.map((data) => (
+              <li className="card-item" key={data.id}>
+                <Card data={data} handleCardData={handleCardData} theme={theme} />
+              </li>
+            ))
+          }
+          {isLoadingMore && router.pathname !== "/searchresult" &&
+            [...new Array(newFormsLength)].map((_, index) => <SkeletonCard key={index} theme={theme} />)
+          }
+        </ul>
         }
-        setIsError(false)
-    }, [sort]);
+        <div ref={bottomObserver} />
+        {showScrollToTopBtn &&
+          <button onClick={scrollToTop} className="scroll-to-top-btn">
+            <ReactSVG src="/icons/chevron-up.svg" />
+          </button>
+        }
+      </div>
 
-    return (
-        <StyledDesktopClientContent>
-            <Header
-                typeSortData={typeSortData}
-                locale={currentLanguage}
-                className="form-control"
-                types={types}
-                categories={categories}
-                compilations={compilations}
-                isCategoryPage={isCategoryPage}
-                isDesktopClient
-                header={header}
-                categoryName={categoryName}
-                queryDesktopClient={queryDesktopClient}
-            />
-            <NewCards
-                topTop={toTop}
-                items={forms?.data ?? []}
-                onCardClick={handlerCardData}
-                onClear={onClear}
-                isDark={(theme === 'theme-dark') || (theme === 'theme-contrast-dark')}
-                onScroll={handleScroll}
-                toTopButtonActive={toTopButtonActive}
-                isLoading={isLoading}
-            />
-            <FilePopup
-                currentLanguage={currentLanguage}
-                modalActive={modalActive}
-                setModalActive={setModalActive}
-                cardData={cardData}
-            />
-        </StyledDesktopClientContent>
-
-    )
-}
+      <FormPopup
+        t={t}
+        data={cardData}
+        modalActive={modalActive}
+        setModalActive={setModalActive}
+        theme={theme}
+      />
+    </StyledDesktopClientContent>
+  );
+};
 
 export default DesktopClientContent;

@@ -18,7 +18,7 @@ const StyledCard = styled.div`
     box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
     height: 458px;
     padding: 13px;
-    background-color: ${({theme}) => theme.colors.base.white};
+    background-color: #fff;
     border: 1px solid #E2E2E2;
     position: relative;
 
@@ -65,7 +65,7 @@ const StyledCard = styled.div`
   &:hover,
   &:active {
     .card-template {
-      background-color: ${({theme}) => theme.colors.base.white};
+      background-color: #fff;
       padding-bottom: 32px;
       box-shadow: 0px 20px 50px rgba(85, 85, 85, 0.15);
       border: 1px solid #CCCCCC;

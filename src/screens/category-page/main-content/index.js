@@ -4,11 +4,11 @@ import Cards from "../../common/cards";
 import Pagination from "@common/pagination";
 import Text from "@common/text";
 import Box from "@common/box";
-import {CategorySelector} from "@common/categorySelector";
+import CategorySelector from "@common/category-selector";
 
 import Breadcrumb from "./breadcrumb";
 import StyledMainContent from "./style";
-import {SortSelector} from "@common/sortSelector";
+import SortSelector from "@common/sort-selector";
 import {useTranslation} from "next-i18next";
 
 const MainContent = ({
@@ -17,6 +17,7 @@ const MainContent = ({
   page,
   sort,
   category,
+  categoryName,
   urlReqCategory,
   types,
   categories,
@@ -25,7 +26,6 @@ const MainContent = ({
   const { t } = useTranslation('common')
   const countData = data.meta?.pagination?.total;
   const countPage = data.meta?.pagination?.pageCount;
-  const [typeSortData, setTypeSortData] = useState(t("NameA-Z"));
   const [boolTypeSortData, setBoolTypeSortData] = useState(false);
   const [pageLimit, setPageLimit] = useState(countPage > 7 ? 7 : countPage);
 
@@ -64,18 +64,6 @@ const MainContent = ({
     };
   });
 
-  const onChangeSelectTypeSort = (e) => {
-    setTypeSortData(e.target.value);
-  };
-
-  useEffect(() => {
-    if (sort === "desc") {
-      setTypeSortData(t("NameZ-A"));
-    } else {
-      setTypeSortData(t("NameA-Z"));
-    }
-  }, [sort]);
-
   return (
     <StyledMainContent
       background="#F5F5F5"
@@ -88,13 +76,11 @@ const MainContent = ({
         <Box className="box-doc-info-template">
           <div className="box-doc-categories" id="mob-box-doc-categories">
             <CategorySelector
-                typeSortData={typeSortData}
-                onChangeSelectTypeSort={onChangeSelectTypeSort}
-                locale={currentLanguage}
-                className="form-control"
-                types={types}
-                categories={categories}
-                compilations={compilations}
+              t={t}
+              types={types}
+              categories={categories}
+              compilations={compilations}
+              categoryName={categoryName}
             />
           </div>
           <div className="box-doc-info">
@@ -102,10 +88,7 @@ const MainContent = ({
               {" "}
               {countData} {t("Documents")}
             </Text>
-            <SortSelector
-              typeSortData={typeSortData}
-              category={urlReqCategory}
-            />
+            <SortSelector t={t} sort={sort} />
           </div>
         </Box>
         <Box className="box-cards-template" justifyContent="flex-end">

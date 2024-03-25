@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const TextInputWrapper = styled.div`
   & .input-component {
-    border: 1px solid ${({theme}) => theme.colors.other.gray100};
+    border: 1px solid #AAAAAA;
   }
 
   & .input-component__input {
@@ -15,6 +15,6 @@ export const TextInputWrapper = styled.div`
     font-weight: 400;
     font-size: 14px;
     line-height: 19px;
-    color: ${({theme}) => theme.colors.other.gray100}
+    color: #AAAAAA;
   }
 `;

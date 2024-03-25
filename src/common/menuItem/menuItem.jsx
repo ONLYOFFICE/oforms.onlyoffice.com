@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import {MenuItemIcon, MenuItemStyled, MenuItemTitle} from "@common/menuItem/menuItem.styled";
 import Link from "next/link";
 import {ChevronDown} from "@icons";
-import classNames from "classnames";
 
 const MenuItem = (props) => {
     const {
@@ -23,7 +22,7 @@ const MenuItem = (props) => {
                 passHref
                 locale={locale}
             >
-                <MenuItemStyled as="a" className={classNames('menu-item', {'active': active})} {...otherProps}>
+                <MenuItemStyled as="a" className={`menu-item ${active ? "active" : ""}`} {...otherProps}>
                     <MenuItemTitle className="menu-item__title">{title}</MenuItemTitle>
                     {
                         icon === true ?
@@ -37,7 +36,7 @@ const MenuItem = (props) => {
     }
 
     return (
-        <MenuItemStyled className={classNames('menu-item', {'active': active})} {...otherProps}>
+        <MenuItemStyled className={`menu-item ${active ? "active" : ""}`} {...otherProps}>
             <MenuItemTitle className="menu-item__title">{title}</MenuItemTitle>
             {
                 icon === true ?
