@@ -34,12 +34,14 @@ const StyledShortCard = styled.div`
     width: ${(props) => (props.shortCard ? "160px" : "324px")};
   }
   .image-boxshadow-template {
+    display: inline-block;
     box-shadow: 0px 7px 15px rgba(85, 85, 85, 0.1);
     height: ${(props) => (props.shortCard ? "214px" : "458px")};
     padding: ${(props) => (props.shortCard ? "0" : "13px")};
     background-color: #fff;
     border: 1px solid #E2E2E2;
     position: relative;
+    overflow: hidden;
   }
 
   .image-template {
