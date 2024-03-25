@@ -151,6 +151,10 @@ const StyledNav = styled.nav`
       }
     }
 
+    &.active {
+      color: #FF6F3D;
+    }
+
     &:hover {
       color: #FF6F3D;
     }
