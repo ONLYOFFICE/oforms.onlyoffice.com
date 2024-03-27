@@ -543,8 +543,16 @@ const StyledCategorySelector = styled.div`
     .category-selector-links {
       @media screen and ${device.laptop} {
         overflow-y: auto;
-        height: calc(-190px + 100vh);
+        height: 100%;
         max-height: 496px;
+      }
+
+      @media screen and (max-height: 1000px) {
+        max-height: 330px;
+      }
+
+      @media screen and (max-height: 768px) {
+        max-height: 210px;
       }
 
       ::-webkit-scrollbar {
