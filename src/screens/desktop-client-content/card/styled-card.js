@@ -10,8 +10,7 @@ const StyledCard = styled.div`
       "#CBCBCB"
     };
     width: 186px;
-    height: 260px;
-    object-fit: cover;
+    object-fit: contain;
     ${props => (props.theme === "theme-dark" || props.theme === "theme-contrast-dark") && "opacity: 0.9;"}
     transition: border-color 0.3s, box-shadow 0.3s;
   }
