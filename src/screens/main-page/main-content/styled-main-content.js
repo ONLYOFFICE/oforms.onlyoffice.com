@@ -10,9 +10,14 @@ const StyledMainContent = styled(Section)`
   }
 
   .box-doc-info-template {
-    display: grid;
-    grid-template-columns: 1fr 150px 160px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
     margin-bottom: 32px;
+
+    .category-selector {
+      margin-right: auto;
+    }
   }
 
   #mob-box-doc-categories {

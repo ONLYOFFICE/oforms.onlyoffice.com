@@ -1,33 +1,32 @@
 import PropTypes from "prop-types";
 import StyledBtnSelector from "./styled-btn-selector";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import BtnMenu from "./sub-components/btn-menu";
 import { ChevronDown } from "../../icons";
 
 const ButtonSelector = ({ label, children, array, ...rest }) => {
   const [isActive, setIsActive] = useState(false);
-  const dropdownRef = useRef(null);
-
-  const onSetIsActive = (e) => {
-    setIsActive(!isActive);
-  };
-
-  const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setIsActive(false);
-    }
-  };
 
   useEffect(() => {
-    document.addEventListener('click', handleClickOutside);
+    const handleClickOutside = (event) => {
+      if (isActive && !event.target.closest(".btn-selector")) {
+        setIsActive(false);
+      }
+
+      console.log(1)
+    };
+
+    if (isActive) {
+      document.addEventListener("click", handleClickOutside);
+    }
 
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
-  }, []);
+  }, [isActive]);
 
   return (
-    <StyledBtnSelector className="btn-selector" onClick={onSetIsActive} ref={dropdownRef} isActive={isActive} {...rest}>
+    <StyledBtnSelector className="btn-selector" onClick={() => setIsActive(!isActive)} isActive={isActive} {...rest}>
       <div className="btn-selector-label">
         <div className="placeholder">
           {label}
