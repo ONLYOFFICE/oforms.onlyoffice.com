@@ -63,6 +63,7 @@ const StyledNavMenu = styled.li`
 
   @media screen and (min-width: 1024px) {
     .menu-items-wrapper {
+      top: 99%;
       left: 50%;
       transform: translateX(-50%);
     }

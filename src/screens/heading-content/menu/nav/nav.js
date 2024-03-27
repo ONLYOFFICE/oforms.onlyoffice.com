@@ -46,7 +46,7 @@ const Nav = ({ t, locale, ...rest }) => {
               </div>
               <div className="outer-box">
                 <div className="dropdown-item-label">{t("Perform your tasks online")}</div>
-                <InternalLink id="navitem-products-find-templates" className="dropdown-item active" href={`https://oforms.onlyoffice.com/${locale === "en" ? "" : locale}`} label={t("Find form templates")} />
+                <InternalLink id="navitem-products-find-templates" className="dropdown-item" href={`https://oforms.onlyoffice.com/${locale === "en" ? "" : locale}`} label={t("Find form templates")} />
                 <InternalLink id="navitem-products-oforms" className="dropdown-item" href={`https://oforms.onlyoffice.com/${locale === "en" ? "" : locale}`} label={t("Fill out forms online")} />
                 <InternalLink id="navitem-products-convert-text" className="dropdown-item" href={`${hrefLang}/text-file-converter.aspx`} label={t("Convert text files")} />
                 <InternalLink id="navitem-products-convert-spreadsheets" className="dropdown-item" href={`${hrefLang}/spreadsheet-converter.aspx`} label={t("Convert spreadsheets")} />

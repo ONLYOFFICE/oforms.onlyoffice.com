@@ -207,7 +207,7 @@ const StyledLanguageSelector = styled.div`
 
   .language-list {
     position: absolute;
-    top: 100%;
+    top: 99%;
     left: 50%;
     display: ${(props) => (props.isOpen ? "block" : "none")};
     border-radius: 0 0 8px 8px;

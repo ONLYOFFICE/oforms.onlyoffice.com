@@ -151,10 +151,6 @@ const StyledNav = styled.nav`
       }
     }
 
-    &.active {
-      color: #FF6F3D;
-    }
-
     &:hover {
       color: #FF6F3D;
     }
@@ -312,6 +308,23 @@ const StyledNav = styled.nav`
     background-image: url("https://static-oforms.onlyoffice.com/images/menu-pics/menu_for_developers.png");
   }
 
+  #navitem-products {
+    .heading-nav-item {
+      position: relative;
+      color: #FF6F3D;
+
+      &:after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        border-bottom: 1px solid #FF6F3D;
+        width: calc(100% - 40px);
+        transform: translateX(-50%);
+      }
+    }
+  }
+
   #navitem-download-docspace,
   #navitem-download-docs-enterprise,
   #navitem-download-workspace,
@@ -398,6 +411,8 @@ const StyledNav = styled.nav`
   }
 
   #navitem-products-find-templates {
+    color: #FF6F3D;
+
     &:before {
       background-position-y: -1378px;
     }
@@ -801,6 +816,12 @@ const StyledNav = styled.nav`
           max-width: 360px;
         }
       }
+
+      .heading-nav-item {
+        &:after {
+          width: calc(100% - 20px);
+        }
+      }
     }
   }
 
@@ -829,6 +850,15 @@ const StyledNav = styled.nav`
       .outer-box {
         &:last-child {
           max-width: 100%;
+        }
+      }
+
+      .heading-nav-item {
+        color: #444444;
+        background-color: #F9F9F9;
+
+        &:after {
+          content: none;
         }
       }
     }
