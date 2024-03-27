@@ -54,8 +54,8 @@ const DesktopClientContent = ({ t, locale, data, sort, categories, types, compil
 
     const handleScroll = () => {
       if (wrapperRef.current) {
-        const { scrollTop, scrollHeight, clientHeight } = wrapperRef.current;
-        const isScrolled = scrollTop > (scrollHeight - clientHeight) * 0.5;
+        const { scrollTop } = wrapperRef.current;
+        const isScrolled = scrollTop > 310;
         setShowScrollToTopBtn(isScrolled);
       }
     };

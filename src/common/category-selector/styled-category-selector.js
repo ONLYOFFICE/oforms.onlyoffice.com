@@ -560,14 +560,6 @@ const StyledCategorySelector = styled.div`
         };
       }
 
-      ::-webkit-scrollbar-thumb:hover {
-        background-color: ${props =>
-          props.theme === "theme-dark" ? "#606060" :
-          props.theme === "theme-contrast-dark" ? "#606060" :
-          "#CCCCCC"
-        };
-      }
-
       a {
         padding: 8px 32px;
         color: ${props =>

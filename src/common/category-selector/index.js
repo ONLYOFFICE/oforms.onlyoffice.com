@@ -50,7 +50,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
   return (
     <StyledCategorySelector
       {...(!isDesktopClient && {onMouseEnter: () => setIsOpen(true)})}
-      onMouseLeave={() => isDesktopClient && window.innerWidth >= 1024 && setIsOpen(false)}
+      onMouseLeave={() => isDesktopClient ? window.innerWidth >= 1024 && setIsOpen(false) : setIsOpen(false)}
       theme={theme}
       className={`category-selector ${isDesktopClient ? `desktop-client ${hideCategorySelector ? "hide-mobile" : ""}` : ""}`}
     >
@@ -90,7 +90,10 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
             />
           </div>
           {categories.data.length > 0 &&
-            <div onMouseEnter={() => menuOnMouseEnter(setIsCategoryOpen)} onMouseLeave={() => isDesktopClient && window.innerWidth >= 1024 && setIsCategoryOpen(false)}>
+            <div 
+              onMouseEnter={() => menuOnMouseEnter(setIsCategoryOpen)} 
+              onMouseLeave={() => isDesktopClient ? window.innerWidth >= 1024 && setIsCategoryOpen(false) : setIsCategoryOpen(false)}
+            >
               <Heading
                 onClick={() => (isDesktopClient && window.innerWidth < 1024) && setIsCategoryOpen(true)}
                 level={5}
@@ -135,7 +138,10 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
             </div>
           }
           {types.data.length > 0 &&
-            <div onMouseEnter={() => menuOnMouseEnter(setIsTypeOpen)} onMouseLeave={() => isDesktopClient && window.innerWidth >= 1024 && setIsTypeOpen(false)}>
+            <div 
+              onMouseEnter={() => menuOnMouseEnter(setIsTypeOpen)} 
+              onMouseLeave={() => isDesktopClient ? window.innerWidth >= 1024 && setIsTypeOpen(false) : setIsTypeOpen(false)}
+            >
               <Heading 
                 onClick={() => (isDesktopClient && window.innerWidth < 1024) && setIsTypeOpen(true)} 
                 level={5} 
@@ -180,7 +186,10 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
             </div>
           }
           {compilations.data.length > 0 &&
-            <div onMouseEnter={() => menuOnMouseEnter(setIsCompilationsOpen)} onMouseLeave={() => isDesktopClient && window.innerWidth >= 1024 && setIsCompilationsOpen(false)}>
+            <div 
+              onMouseEnter={() => menuOnMouseEnter(setIsCompilationsOpen)} 
+              onMouseLeave={() => isDesktopClient ? window.innerWidth >= 1024 && setIsCompilationsOpen(false) : setIsCompilationsOpen(false)}
+            >
               <Heading
                 onClick={() => (isDesktopClient && window.innerWidth < 1024) && setIsCompilationsOpen(true)}
                 level={5}
