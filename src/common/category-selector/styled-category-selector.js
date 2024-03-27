@@ -547,12 +547,12 @@ const StyledCategorySelector = styled.div`
         max-height: 496px;
       }
 
-      @media screen and (max-height: 1000px) {
+      @media screen and (max-height: 660px) and (max-width: 1024px) {
         max-height: 330px;
       }
 
-      @media screen and (max-height: 768px) {
-        max-height: 210px;
+      @media screen and (max-height: 490px) and (max-width: 1024px) {
+        max-height: 200px;
       }
 
       ::-webkit-scrollbar {
