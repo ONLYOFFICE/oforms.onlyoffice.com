@@ -218,6 +218,11 @@ const StyledCategorySelector = styled.div`
       background-color: #F5F5F5;
     }
 
+    &.active {
+      color: #FF6F3D;
+      background-color: #F5F5F5;
+    }
+
     @media screen and (max-width: 896px) {
       padding: 12px 16px 12px 24px;
       font-weight: 700;
@@ -440,6 +445,21 @@ const StyledCategorySelector = styled.div`
       }
 
       &:hover {
+        color: ${props =>
+          props.theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
+          props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
+          props.theme === "theme-contrast-dark" ? "#E8E8E8" : 
+          "#444444"
+        };
+        background-color: ${props =>
+          props.theme === "theme-light" ? "#CBCBCB" :
+          props.theme === "theme-dark" ? "#555555" :
+          props.theme === "theme-contrast-dark" ? "#424242" : 
+          "#F5F5F5"
+        };
+      }
+
+      &.active {
         color: ${props =>
           props.theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
           props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :

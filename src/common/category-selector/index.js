@@ -20,6 +20,10 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
   };
 
   useEffect(() => {
+    setIsOpen(false);
+  }, [router]);
+
+  useEffect(() => {
     if (isDesktopClient && window.innerWidth <= 1024) {
       const handleClickOutside = (event) => {
         if (isOpen && !event.target.closest(".category-selector")) {
@@ -47,6 +51,16 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
     }
   };
 
+  const handleClearValue = () => {
+    router.push({
+      pathname: "/",
+      query: {
+        desktop: router.query.desktop,
+        theme: router.query.theme
+      }
+    });
+  };
+
   return (
     <StyledCategorySelector
       {...(!isDesktopClient && {onMouseEnter: () => setIsOpen(true)})}
@@ -66,7 +80,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
         {isCategoryPage &&
           <>
             <div onClick={() => setIsOpen(!isOpen)} className="category-selector-name">{categoryName}</div>
-            <button onClick={() => router.push("/?desktop=true")} className="category-selector-btn">
+            <button onClick={handleClearValue} className="category-selector-btn">
               <ReactSVG src="/icons/cross-small.svg" />
             </button>
           </>
@@ -83,7 +97,6 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
           </div>
           <div>
             <InternalLink
-              onClick={() => setIsOpen(false)}
               className="category-selector-item"
               href={isDesktopClient ? `/?desktop=true${theme ? `&theme=${theme}` : ""}` : "/"}
               label={t("View all templates")}
@@ -97,7 +110,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
               <Heading
                 onClick={() => (isDesktopClient && window.innerWidth < 1024) && setIsCategoryOpen(true)}
                 level={5}
-                className="category-selector-item"
+                className={`category-selector-item ${isCategoryOpen ? "active" : ""}`}
               >
                 {t("Forms by branch")}
                 <ReactSVG src="/icons/arrow-right.svg" />
@@ -145,7 +158,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
               <Heading 
                 onClick={() => (isDesktopClient && window.innerWidth < 1024) && setIsTypeOpen(true)} 
                 level={5} 
-                className="category-selector-item"
+                className={`category-selector-item ${isTypeOpen ? "active" : ""}`}
               >
                 {t("Forms by type")}
                 <ReactSVG src="/icons/arrow-right.svg" />
@@ -193,7 +206,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
               <Heading
                 onClick={() => (isDesktopClient && window.innerWidth < 1024) && setIsCompilationsOpen(true)}
                 level={5}
-                className="category-selector-item"
+                className={`category-selector-item ${isCompilationsOpen ? "active" : ""}`}
               >
                 {t("Popular Compilations")}
                 <ReactSVG src="/icons/arrow-right.svg" />
