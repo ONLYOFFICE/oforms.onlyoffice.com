@@ -37,16 +37,9 @@ export const StyledFormPopup = styled.div`
   ::-webkit-scrollbar-thumb {
     border-radius: 3px;
     background-color: ${props =>
-      props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "#404040" :
-      "#E0E0E0"
-    };
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: ${props =>
       props.theme === "theme-dark" ? "#606060" :
       props.theme === "theme-contrast-dark" ? "#666666" :
-      "#CCCCCC"
+      "#C1C1C1"
     };
   }
   
