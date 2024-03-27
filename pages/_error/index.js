@@ -14,7 +14,7 @@ const ErrorPage = () => {
         <HeadSEO title={t("Error Page")} metaDescription={t("Error Page")} />
       </Layout.PageHead>
       <Layout.SectionMain>
-        <Error404/>
+        <Error404 t={t} />
       </Layout.SectionMain>
     </Layout>
   );
