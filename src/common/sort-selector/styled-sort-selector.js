@@ -14,16 +14,18 @@ const StyledSortSelector = styled.div`
 
   .sort-label {
     margin-right: 8px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 160%;
-    color: #a5a5a5;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 17px;
+    letter-spacing: 0.04em;
+    color: #808080;
+    text-transform: uppercase;
   }
 
   .sort-name {
-    font-weight: 700;
     font-size: 14px;
-    line-height: 133%;
+    font-weight: 600;
+    line-height: 22px;
     color: #444444;
   }
 

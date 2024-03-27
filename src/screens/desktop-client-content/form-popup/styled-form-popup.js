@@ -166,6 +166,7 @@ export const StyledFormPopup = styled.div`
   .popup-body {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    align-items: start;
     gap: 32px;
     padding: 27px;
 

@@ -20,7 +20,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
   };
 
   useEffect(() => {
-    setIsOpen(false);
+    handleClose(false);
   }, [router]);
 
   useEffect(() => {
