@@ -14,22 +14,22 @@ const HeadSEO = ({ metaSiteNameOg, metaDescription, metaDescriptionOg, metaKeywo
         ::-webkit-scrollbar {
           border-radius: 5px !important;
           width: 8px !important;
-          background-color: #404040 !important;
+          background: #404040 !important;
         }
           
         ::-webkit-scrollbar-thumb {
           border-radius: 3px !important;
-          background-color: #606060 !important;
+          background: #606060 !important;
         }
 
         .category-selector-links::-webkit-scrollbar {
           width: 8px !important;
-          background-color: transparent !important;
+          background: transparent !important;
         }
             
         .category-selector-links::-webkit-scrollbar-thumb {
           border-radius: 3px !important;
-          background-color: #404040 !important;
+          background: #404040 !important;
         }
       `;
       break;
@@ -38,22 +38,22 @@ const HeadSEO = ({ metaSiteNameOg, metaDescription, metaDescriptionOg, metaKeywo
         ::-webkit-scrollbar {
           border-radius: 5px !important;
           width: 8px !important;
-          background-color: #252525 !important;
+          background: #252525 !important;
         }
           
         ::-webkit-scrollbar-thumb {
           border-radius: 3px !important;
-          background-color: #666666 !important;
+          background: #666666 !important;
         }
 
         .category-selector-links::-webkit-scrollbar {
           width: 8px !important;
-          background-color: transparent !important;
+          background: transparent !important;
         }
 
         .category-selector-links::-webkit-scrollbar-thumb {
           border-radius: 3px !important;
-          background-color: #404040 !important;
+          background: #404040 !important;
         }
       `;
       break;
@@ -62,22 +62,22 @@ const HeadSEO = ({ metaSiteNameOg, metaDescription, metaDescriptionOg, metaKeywo
         ::-webkit-scrollbar {
           border-radius: 5px !important;
           width: 8px !important;
-          background-color: #F7F7F7 !important;
+          background: #F7F7F7 !important;
         }
           
         ::-webkit-scrollbar-thumb {
           border-radius: 3px !important;
-          background-color: #C1C1C1 !important;
+          background: #C1C1C1 !important;
         }
 
         .category-selector-links::-webkit-scrollbar {
           width: 8px !important;
-          background-color: transparent !important;
+          background: transparent !important;
         }
 
         .category-selector-links::-webkit-scrollbar-thumb {
           border-radius: 3px !important;
-          background-color: #E0E0E0 !important;
+          background: #E0E0E0 !important;
         }
       `;
   }

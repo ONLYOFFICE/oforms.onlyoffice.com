@@ -62,6 +62,7 @@ const StyledDesktopClientContent = styled(Section)`
   }
 
   .wrapper {
+    margin-right: 2px;
     padding: 0 48px 40px 40px;
     overflow-y: auto;
 
@@ -139,7 +140,7 @@ const StyledDesktopClientContent = styled(Section)`
 
   .scroll-to-top-btn {
     position: fixed;
-    right: 14px;
+    right: 12px;
     bottom: 44px;
     border: none;
     border-radius: 2px;
