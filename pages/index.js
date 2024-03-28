@@ -30,7 +30,6 @@ const Index = ({ forms, page, locale, sort, types, categories, compilations, isD
             metaDescriptionOg={t("metaDescriptionOgIndexPage")}
             metaKeywords={t("metaKeywordsIndexPage")}
             isDesktopClient={isDesktopClient}
-            theme={theme}
           />
         </Layout.PageHead>
         <Layout.SectionMain>

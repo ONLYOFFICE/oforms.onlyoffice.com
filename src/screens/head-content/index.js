@@ -2,8 +2,86 @@ import Head from "next/head";
 import Script from "next/script";
 import PropTypes from "prop-types";
 import languages from "@config/languages.json";
+import { useRouter } from "next/router";
 
-const HeadSEO = ({ metaSiteNameOg, metaDescription, metaDescriptionOg, metaKeywords, title, isDesktopClient, theme }) => {
+const HeadSEO = ({ metaSiteNameOg, metaDescription, metaDescriptionOg, metaKeywords, title, isDesktopClient }) => {
+  const router = useRouter();
+  let style;
+
+  switch (router.query.theme) {
+    case "theme-dark":
+      style = `
+        ::-webkit-scrollbar {
+          border-radius: 5px !important;
+          width: 8px !important;
+          background-color: #404040 !important;
+        }
+          
+        ::-webkit-scrollbar-thumb {
+          border-radius: 3px !important;
+          background-color: #606060 !important;
+        }
+
+        .category-selector-links::-webkit-scrollbar {
+          width: 8px !important;
+          background-color: transparent !important;
+        }
+            
+        .category-selector-links::-webkit-scrollbar-thumb {
+          border-radius: 3px !important;
+          background-color: #404040 !important;
+        }
+      `;
+      break;
+    case "theme-contrast-dark":
+      style = `
+        ::-webkit-scrollbar {
+          border-radius: 5px !important;
+          width: 8px !important;
+          background-color: #252525 !important;
+        }
+          
+        ::-webkit-scrollbar-thumb {
+          border-radius: 3px !important;
+          background-color: #666666 !important;
+        }
+
+        .category-selector-links::-webkit-scrollbar {
+          width: 8px !important;
+          background-color: transparent !important;
+        }
+
+        .category-selector-links::-webkit-scrollbar-thumb {
+          border-radius: 3px !important;
+          background-color: #404040 !important;
+        }
+      `;
+      break;
+    default:
+      style = `
+        ::-webkit-scrollbar {
+          border-radius: 5px !important;
+          width: 8px !important;
+          background-color: #F7F7F7 !important;
+        }
+          
+        ::-webkit-scrollbar-thumb {
+          border-radius: 3px !important;
+          background-color: #C1C1C1 !important;
+        }
+
+        .category-selector-links::-webkit-scrollbar {
+          width: 8px !important;
+          background-color: transparent !important;
+        }
+
+        .category-selector-links::-webkit-scrollbar-thumb {
+          border-radius: 3px !important;
+          background-color: #E0E0E0 !important;
+        }
+      `;
+  }
+
   return (
     <>
       <Head>
@@ -26,40 +104,7 @@ const HeadSEO = ({ metaSiteNameOg, metaDescription, metaDescriptionOg, metaKeywo
 
         {isDesktopClient &&
           <style type="text/css">
-            {`
-              ::-webkit-scrollbar {
-                border-radius: 5px;
-                width: 8px;
-                background-color: ${
-                  theme === "theme-dark" ? "#404040" :
-                  theme === "theme-contrast-dark" ? "#252525" :
-                  "#F7F7F7"
-                };
-              }
-                
-              ::-webkit-scrollbar-thumb {
-                border-radius: 3px;
-                background-color: ${
-                  theme === "theme-dark" ? "#606060" :
-                  theme === "theme-contrast-dark" ? "#666666" :
-                  "#C1C1C1"
-                };
-              }
-
-              .category-selector-links {
-                &::-webkit-scrollbar {
-                  width: 8px;
-                  background-color: transparent;
-                }
-                  
-                &::-webkit-scrollbar-thumb {
-                  border-radius: 3px;
-                  background-color: ${
-                    theme === "theme-dark" || theme === "theme-contrast-dark" ? "#404040" : "#E0E0E0"
-                  };
-                }
-              }
-            `}
+            {style}
           </style>
         }
         
