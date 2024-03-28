@@ -62,7 +62,6 @@ const StyledDesktopClientContent = styled(Section)`
   }
 
   .wrapper {
-    margin-right: 2px;
     padding: 0 48px 40px 40px;
     overflow-y: auto;
 
