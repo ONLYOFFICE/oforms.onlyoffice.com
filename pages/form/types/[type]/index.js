@@ -31,6 +31,7 @@ const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, cate
             metaDescriptionOg={t("metaDescriptionOgIndexPage")}
             metaKeywords={t("metaKeywordsIndexPage")}
             isDesktopClient={isDesktopClient}
+            theme={theme}
           />
         </Layout.PageHead>
         <Layout.SectionMain>
