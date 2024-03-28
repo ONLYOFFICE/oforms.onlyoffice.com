@@ -28,12 +28,14 @@ const SearchInput = ({ t, setHideCategorySelector, theme }) => {
       if (router.query.query) {
         setInputValue(router.query.query);
       }
+
+      window.addEventListener("resize", resizeHandler);
     }
 
-    window.addEventListener("resize", resizeHandler);
-
     return () => {
-      window.removeEventListener("resize", resizeHandler);
+      if (router.pathname === "/searchresult") {
+        window.removeEventListener("resize", resizeHandler);
+      }
     };
   }, []);
 

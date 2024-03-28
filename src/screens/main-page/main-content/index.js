@@ -65,6 +65,7 @@ const MainContent = ({ t, currentLanguage, data, page, sort, types, categories, 
         <Box className="box-doc-info-template">
           <CategorySelector
             t={t}
+            locale={currentLanguage}
             types={types}
             categories={categories}
             compilations={compilations}

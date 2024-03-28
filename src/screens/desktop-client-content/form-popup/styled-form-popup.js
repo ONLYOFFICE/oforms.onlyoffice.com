@@ -24,25 +24,6 @@ export const StyledFormPopup = styled.div`
     visibility visible;
   }
 
-  ::-webkit-scrollbar {
-    border-radius: 5px;
-    width: 8px;
-    background-color: ${props =>
-      props.theme === "theme-dark" ? "#404040" :
-      props.theme === "theme-contrast-dark" ? "#252525" :
-      "#F7F7F7"
-    };
-  }
-    
-  ::-webkit-scrollbar-thumb {
-    border-radius: 3px;
-    background-color: ${props =>
-      props.theme === "theme-dark" ? "#606060" :
-      props.theme === "theme-contrast-dark" ? "#666666" :
-      "#C1C1C1"
-    };
-  }
-  
   .popup-wrapper {
     display: flex;
     justify-content: center;

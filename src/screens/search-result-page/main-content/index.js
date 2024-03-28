@@ -18,6 +18,7 @@ const MainContent = ({ t, currentLanguage, data, page, sort, types, categories, 
           <div className="box-doc-categories" id="mob-box-doc-categories">
             <CategorySelector
               t={t}
+              locale={currentLanguage}
               types={types}
               categories={categories}
               compilations={compilations}

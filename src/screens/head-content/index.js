@@ -3,7 +3,7 @@ import Script from "next/script";
 import PropTypes from "prop-types";
 import languages from "@config/languages.json";
 
-const HeadSEO = ({ metaSiteNameOg, metaDescription, metaDescriptionOg, metaKeywords, title, isDesktopClient }) => {
+const HeadSEO = ({ metaSiteNameOg, metaDescription, metaDescriptionOg, metaKeywords, title, isDesktopClient, theme }) => {
   return (
     <>
       <Head>
@@ -24,6 +24,45 @@ const HeadSEO = ({ metaSiteNameOg, metaDescription, metaDescriptionOg, metaKeywo
         <meta name="google" content="notranslate" />
         <meta name="theme-light" />
 
+        {isDesktopClient &&
+          <style type="text/css">
+            {`
+              ::-webkit-scrollbar {
+                border-radius: 5px;
+                width: 8px;
+                background-color: ${
+                  theme === "theme-dark" ? "#404040" :
+                  theme === "theme-contrast-dark" ? "#252525" :
+                  "#F7F7F7"
+                };
+              }
+                
+              ::-webkit-scrollbar-thumb {
+                border-radius: 3px;
+                background-color: ${
+                  theme === "theme-dark" ? "#606060" :
+                  theme === "theme-contrast-dark" ? "#666666" :
+                  "#C1C1C1"
+                };
+              }
+
+              .category-selector-links {
+                &::-webkit-scrollbar {
+                  width: 8px;
+                  background-color: transparent;
+                }
+                  
+                &::-webkit-scrollbar-thumb {
+                  border-radius: 3px;
+                  background-color: ${
+                    theme === "theme-dark" || theme === "theme-contrast-dark" ? "#404040" : "#E0E0E0"
+                  };
+                }
+              }
+            `}
+          </style>
+        }
+        
         {!isDesktopClient &&
           <link
             rel="icon"
