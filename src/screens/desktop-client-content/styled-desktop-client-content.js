@@ -10,6 +10,10 @@ const StyledDesktopClientContent = styled(Section)`
     props.theme === "theme-contrast-dark" ? "#1E1E1E" : 
     "#ffffff"
   };
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
   .header {
     padding: 40px 50px 20px 40px;
