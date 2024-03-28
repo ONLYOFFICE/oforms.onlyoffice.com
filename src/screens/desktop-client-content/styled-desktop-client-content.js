@@ -139,7 +139,7 @@ const StyledDesktopClientContent = styled(Section)`
 
   .scroll-to-top-btn {
     position: fixed;
-    right: 12px;
+    right: 14px;
     bottom: 44px;
     border: none;
     border-radius: 2px;
