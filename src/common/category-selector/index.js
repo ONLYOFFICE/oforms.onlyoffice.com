@@ -52,12 +52,17 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
   };
 
   const handleClearValue = () => {
+    const query = {
+      desktop: router.query.desktop,
+    };
+    
+    if (router.query.theme) {
+      query.theme = router.query.theme;
+    }
+    
     router.push({
       pathname: "/",
-      query: {
-        desktop: router.query.desktop,
-        theme: router.query.theme
-      }
+      query: query
     });
   };
 
@@ -66,7 +71,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
       {...(!isDesktopClient && {onMouseEnter: () => setIsOpen(true)})}
       onMouseLeave={() => isDesktopClient ? window.innerWidth >= 1024 && setIsOpen(false) : setIsOpen(false)}
       theme={theme}
-      className={`category-selector ${isDesktopClient ? `desktop-client ${hideCategorySelector ? "hide-mobile" : ""}` : ""}`}
+      className={`category-selector ${locale} ${isDesktopClient ? `desktop-client ${hideCategorySelector ? "hide-mobile" : ""}` : ""}`}
     >
       <div className="category-selector-heading">
         <Heading 
