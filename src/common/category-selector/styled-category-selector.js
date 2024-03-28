@@ -287,9 +287,11 @@ const StyledCategorySelector = styled.div`
       font-size: 16px;
       line-height: 24px;
       color: #444444;
-      width: max-content;
-      min-width: 100%;
-      max-width: 420px;
+      width: 100%;
+      max-width: 400px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
 
       &:hover {
         color: #FF6F3D;
@@ -299,17 +301,17 @@ const StyledCategorySelector = styled.div`
         color: #FF6F3D;
       }
 
-      @media screen and (max-width: 1250px) {
-        max-width: 290px;
-      }
-
       @media screen and (max-width: 1024px) {
-        max-width: 100%;
+        white-space: initial;
+        text-overflow: initial;
+        overflow: initial;
+        width: max-content;
+        min-width: 100%;
+        max-width: 420px;
       }
 
       @media screen and (max-width: 896px) {
         padding: 12px 16px;
-        width: 100%;
       }
     }
 
@@ -322,8 +324,64 @@ const StyledCategorySelector = styled.div`
     }
   }
 
+  &:not(.desktop-client) {
+    .category-selector-links a {
+      @media screen and (max-width: 1200px) {
+        max-width: 300px;
+      }
+
+      @media screen and (max-width: 1024px) {
+        max-width: 420px;
+      }
+
+      @media screen and (max-width: 896px) {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+      }
+    }
+  }
+
   &.desktop-client {
     transition: width 0.3s, opacity 0.3s, visibility 0.3s;
+
+    &.fr {
+      .category-selector-links a {
+        @media screen and (max-width: 1270px) {
+          max-width: calc(280px + (400 - 280) * ((100vw - 1024px) / (1270 - 1024)));
+        }
+
+        @media screen and (max-width: 1024px) {
+          max-width: 100%;
+        }
+      }
+    }
+  
+    &.de,
+    &.it {
+      .category-selector-links a {
+        @media screen and (max-width: 1090px) {
+          max-width: calc(320px + (400 - 320) * ((100vw - 1024px) / (1090 - 1024)));
+        }
+
+        @media screen and (max-width: 1024px) {
+          max-width: 100%;
+        }
+      }
+    }
+
+    &.es,
+    &.pt {
+      .category-selector-links a {
+        @media screen and (max-width: 1180px) {
+          max-width: calc(320px + (400 - 320) * ((100vw - 1024px) / (1180 - 1024)));
+        }
+
+        @media screen and (max-width: 1024px) {
+          max-width: 100%;
+        }
+      }
+    }
 
     &.hide-mobile {
       @media screen and (max-width: 592px) {
@@ -575,19 +633,6 @@ const StyledCategorySelector = styled.div`
         max-height: 200px;
       }
 
-      ::-webkit-scrollbar {
-        width: 8px;
-        background-color: transparent;
-      }
-        
-      ::-webkit-scrollbar-thumb {
-        border-radius: 3px;
-        background-color: ${props =>
-          props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "#404040" :
-          "#E0E0E0"
-        };
-      }
-
       a {
         padding: 8px 32px;
         color: ${props =>
@@ -619,6 +664,12 @@ const StyledCategorySelector = styled.div`
             props.theme === "theme-contrast-dark" ? "#424242" : 
             "#F5F5F5"
           };
+        }
+
+        @media screen and ${device.laptop} {
+          width: 100%;
+          min-width: 100%;
+          max-width: 100%;
         }
       }
     }
