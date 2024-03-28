@@ -45,7 +45,6 @@ const SearchResult = ({ locale, sort, page, types, categories, compilations, isD
             compilations={compilations}
             isDesktopClient={isDesktopClient}
             queryDesktopClient={searchQuery}
-            theme={theme}
           />
         </Layout.SectionMain>
       </Layout>
