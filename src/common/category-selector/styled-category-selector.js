@@ -612,12 +612,6 @@ const StyledCategorySelector = styled.div`
       }
     }
 
-    .category-selector-links-wrapper {
-      @media screen and ${device.laptop} {
-        padding-right: 2px;
-      }
-    }
-
     .category-selector-links {
       @media screen and ${device.laptop} {
         overflow-y: auto;
