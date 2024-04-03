@@ -139,7 +139,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
                     </button>
                   </div>
                   <div className="category-selector-links-wrapper">
-                    <ul className="category-selector-links">
+                    <ul className={`category-selector-links ${categories.data.length > 8 ? "category-selector-links-columns" : ""}`}>
                       {categories.data?.map((categorie) => (
                         <li key={categorie.id}>
                           <InternalLink
@@ -187,7 +187,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
                     </button>
                   </div>
                   <div className="category-selector-links-wrapper">
-                    <ul className="category-selector-links">
+                    <ul className={`category-selector-links ${types.data.length > 8 ? "category-selector-links-columns" : ""}`}>
                       {types.data?.map((type) => (
                         <li key={type.id}>
                           <InternalLink 
@@ -235,7 +235,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isDeskto
                     </button>
                   </div>
                   <div className="category-selector-links-wrapper">
-                    <ul className="category-selector-links">
+                  <ul className={`category-selector-links ${compilations.data.length > 8 ? "category-selector-links-columns" : ""}`}>
                       {compilations.data?.map((compilation) => (
                         <li key={compilation.id}>
                           <InternalLink 
