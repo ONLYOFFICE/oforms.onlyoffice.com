@@ -274,9 +274,6 @@ const StyledCategorySelector = styled.div`
   }
 
   .category-selector-links {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
     padding: 0;
     margin: 0;
     list-style-type: none;
@@ -315,8 +312,14 @@ const StyledCategorySelector = styled.div`
       }
     }
 
-    @media screen and ${device.laptop} {
-      grid-template-columns: initial;
+    &.category-selector-links-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+
+      @media screen and ${device.laptop} {
+        grid-template-columns: initial;
+      }
     }
 
     @media screen and (max-width: 896px) {
