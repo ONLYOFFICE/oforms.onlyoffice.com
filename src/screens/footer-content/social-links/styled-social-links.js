@@ -37,7 +37,7 @@ const StyledSocialLinks = styled.div`
     vertical-align: middle;
     width: 40px;
     height: 40px;
-    background-image: url("https://static-oforms.onlyoffice.com/icons/color_social_icons.svg");
+    background-image: url("https://static-oforms.onlyoffice.com/icons/color_social_icons-1.svg");
     background-color: #F9F9F9;
     background-repeat: no-repeat;
     background-position: 0;
