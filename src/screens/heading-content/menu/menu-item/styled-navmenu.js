@@ -64,7 +64,7 @@ const StyledNavMenu = styled.li`
         content: "";
         width: 10px;
         height: 10px;
-        background-image: url("${process.env.NEXT_PUBLIC_STATIC_URL}/images/icons/arrow-gray.svg");
+        background-image: url("https://static-oforms.onlyoffice.com/icons/arrow-gray.svg");
         background-position: 50% 50%;
         background-repeat: no-repeat;
         background-size: auto 100%;
