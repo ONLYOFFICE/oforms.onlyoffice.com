@@ -191,7 +191,7 @@ const Nav = ({ t, locale, ...rest }) => {
                   </ul>
                 </div>
                 <div className="menu-box-bottom-links">
-                  <InternalLink className="menu-link ai-assistant" href={`https://onlyoffice.com/app-directory${locale === "fr" || locale === "de" || locale === "es" ? `/${locale}` : ""}/openai`} label={t("AI assistant")} />
+                  <InternalLink className="menu-link ai-assistant" href={`${appDirectoryLang}/openai`} label={t("AI assistant")} />
                   <InternalLink className="menu-link accessibility" href={`${hrefLang}/accessibility.aspx`} label={t("Accessibility")} />
                   <InternalLink className="menu-link security" href={`${hrefLang}/security.aspx`} label={t("Security")} />
                 </div>
