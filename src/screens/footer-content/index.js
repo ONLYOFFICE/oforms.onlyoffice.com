@@ -26,32 +26,11 @@ const Footer = ({ t, locale }) => {
           <InternalLink className="footer-link" href={`${hrefLang}/for-enterprises.aspx`} label={t("Enterprises")} />
           <InternalLink className="footer-link" href={`${hrefLang}/home-use.aspx`} label={t("Home use")} />
           <InternalLink className="footer-link" href={`${hrefLang}/for-developers.aspx`} label={t("Developers")} />
-          <InternalLink className="footer-link" href={`${hrefLang}/for-hosting-providers.aspx`} label={t("Hosting providers")} />
           <InternalLink className="footer-link" href={`${hrefLang}/for-government.aspx`} label={t("Government")} />
           <InternalLink className="footer-link" href={`${hrefLang}/healthcare.aspx`} label={t("Healthcare")} />
           <InternalLink className="footer-link" href={`${hrefLang}/for-research.aspx`} label={t("Research")} />
           <InternalLink className="footer-link" href={`${hrefLang}/education.aspx`} label={t("Education")} />
           <InternalLink className="footer-link" href={`${hrefLang}/nonprofit-organizations.aspx`} label={t("Nonprofits")} />
-        </FooterItem>
-      </div>
-      <div className="footer-item-group">
-        <FooterItem heading={t("Features")} className="features">
-          <InternalLink className="footer-link" href={`${hrefLang}/document-editor.aspx`} label={t("Document Editor")} />
-          <InternalLink className="footer-link" href={`${hrefLang}/spreadsheet-editor.aspx`} label={t("Spreadsheet Editor")} />
-          <InternalLink className="footer-link" href={`${hrefLang}/presentation-editor.aspx`} label={t("Presentation Editor")} />
-          <InternalLink className="footer-link" href={`${hrefLang}/form-creator.aspx`} label={t("Form creator")} />
-          <InternalLink className="footer-link" href={`${hrefLang}/pdf-reader.aspx`} label={t("PDF Editor")} />
-          <InternalLink className="footer-link" href={`${hrefLang}/security.aspx`} label={t("Security")} />
-          <InternalLink className="footer-link" href={`${hrefLang}/accessibility.aspx`} label={t("Accessibility")} />
-          <InternalLink className="footer-link" href={`https://onlyoffice.com/app-directory${locale === "fr" || locale === "de" || locale === "es" ? `/${locale}` : ""}/openai`} label={t("AI helper")} />
-          <InternalLink className="footer-link" href={`https://onlyoffice.com/app-directory${locale === "fr" || locale === "de" || locale === "es" ? `/${locale}` : ""}`} label={t("App Directory")} />
-        </FooterItem>
-        <FooterItem heading={t("Connectors")} className="connectors">
-          <InternalLink className="footer-link" href={`${hrefLang}/office-for-nextcloud.aspx`} label={t("Nextcloud")} />
-          <InternalLink className="footer-link" href={`${hrefLang}/office-for-moodle.aspx`} label={t("Moodle")} />
-          <InternalLink className="footer-link" href={`${hrefLang}/office-for-odoo.aspx`} label={t("Odoo")} />
-          <InternalLink className="footer-link" href={`${hrefLang}/office-for-wordpress.aspx`} label={t("WordPress")} />
-          <InternalLink className="footer-link" href={`${hrefLang}/all-connectors.aspx`} label={t("Others")} />
         </FooterItem>
       </div>
       <div className="footer-item-group">
@@ -102,15 +81,13 @@ const Footer = ({ t, locale }) => {
         }
         <FooterItem heading={t("Contact us")} className="contacts">
           <Text className="contact-text">
-            {`${t("Sales questions")}${locale === "zh" || locale === "ja" ? "" : " "}`}<InternalLink className="footer-link-contact" label={t("sales@onlyoffice.com")} href="mailto:sales@onlyoffice.com" />
+            {t("Sales questions")}{locale === "zh" || locale === "ja" ? "" : " "}<InternalLink className="footer-link-contact" label={t("sales@onlyoffice.com")} href="mailto:sales@onlyoffice.com" />
           </Text>
           <Text className="contact-text">
-            {`${t("Partner inquiries")}${locale === "zh" || locale === "ja" ? "" : " "}`}
-            <InternalLink className="footer-link-contact" label={t("partners@onlyoffice.com")} href="mailto:partners@onlyoffice.com" />
+            {t("Partner inquiries")}{locale === "zh" || locale === "ja" ? "" : " "}<InternalLink className="footer-link-contact" label={t("partners@onlyoffice.com")} href="mailto:partners@onlyoffice.com" />
           </Text>
           <Text className="contact-text">
-            {`${t("Press inquiries")}${locale === "zh" || locale === "ja" ? "" : " "}`}
-            <InternalLink className="footer-link-contact" label={t("press@onlyoffice.com")} href="mailto:press@onlyoffice.com" />
+            {t("Press inquiries")}{locale === "zh" || locale === "ja" ? "" : " "}<InternalLink className="footer-link-contact" label={t("press@onlyoffice.com")} href="mailto:press@onlyoffice.com" />
           </Text>
           <InternalLink href={`${hrefLang}/call-back-form.aspx`} className="footer-link" label={t("Request a call")} />
         </FooterItem>
