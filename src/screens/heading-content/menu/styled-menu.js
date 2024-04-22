@@ -93,7 +93,7 @@ const StyledHeading = styled.div`
         visibility: visible;
       }
   
-      .nav-item-links {
+      .nav {
         transform: translate3d(0, 0, 0);
       }
     }

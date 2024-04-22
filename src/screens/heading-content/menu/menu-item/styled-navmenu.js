@@ -5,6 +5,28 @@ const StyledNavMenu = styled.li`
   list-style-type: none;
   padding: 0;
 
+  @keyframes menuLineLeft {
+    0 {
+      width: 0;
+      left: 50%;
+    }
+
+    100% {
+      width: 50%;
+      left: 0;
+    }
+  }
+
+  @keyframes menuLineRight {
+    0 {
+      width: 0;
+    }
+
+    100% {
+      width: 50%;
+    }
+  }
+
   .heading-nav-item {
     border: none;
     padding: 28px 20px;
@@ -17,11 +39,9 @@ const StyledNavMenu = styled.li`
     text-transform: uppercase;
     background-color: transparent;
     cursor: pointer;
-  }
 
-  @media screen and (min-width: 1024px) {
-    .heading-nav-item {
-      &.active {
+    &.active {
+      @media screen and (min-width: 1024px) {
         color: #FF6F3D;
 
         + .menu-items-wrapper {
@@ -38,53 +58,8 @@ const StyledNavMenu = styled.li`
       }
     }
 
-    @keyframes menuLineLeft {
-      0 {
-        width: 0;
-        left: 50%;
-      }
-  
-      100% {
-        width: 50%;
-        left: 0;
-      }
-    }
-  
-    @keyframes menuLineRight {
-      0 {
-        width: 0;
-      }
-  
-      100% {
-        width: 50%;
-      }
-    }
-  }
-
-  @media screen and (min-width: 1024px) {
-    .menu-items-wrapper {
-      top: 99%;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
-
-  @media screen and (max-width: 1300px) {
-    .heading-nav-item {
-      padding: 28px 10px;
-    }
-  }
-
-  @media screen and ${device.laptop} {
-    .heading-nav-item {
-      position: relative;
-      padding: 16px 40px 16px 24px;
-      font-size: 16px;
-      line-height: 24px;
-      font-weight: 700;
-      text-align: left;
-
-      &:before {
+    &:before {
+      @media screen and ${device.laptop} {
         display: block;
         content: "";
         width: 10px;
@@ -97,28 +72,44 @@ const StyledNavMenu = styled.li`
         right: 24px;
         top: 50%;
         transform: translateY(-50%);
-        transition: 0.1s linear;
       }
+    }
 
-      &:hover {
-        color: #444444;
-        background-color: #F9F9F9;
+    &:hover {
+      @media screen and ${device.laptop} {
+        background-color: #f9f9f9;
       }
+    }
+
+    @media screen and (max-width: 1300px) {
+      padding: 28px 10px;
+    }
+
+    @media screen and ${device.laptop} {
+      position: relative;
+      padding: 16px 40px 16px 24px;
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: 700;
+      text-align: left;
     }
   }
 `;
 
 const StyledMenuItemsWrapper = styled.div`
-  width: auto;
-  height: auto;
-  margin: auto;
   background-color: #ffffff;
   border-radius: 0 0 9px 9px;
-  z-index: 5000;
+  z-index: 10;
   position: absolute;
   display: flex;
   box-shadow: 0 20px 50px rgba(85, 85, 85, 0.15);
   overflow: hidden;
+
+  @media screen and (min-width: 1024px) {
+    top: 99%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
   @media screen and (max-width: 1024px) {
     padding: 0;

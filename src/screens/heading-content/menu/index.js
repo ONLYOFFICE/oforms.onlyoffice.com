@@ -37,7 +37,7 @@ const Menu = ({ t, locale, template, stateMobile, setStateMobile }) => {
   };
 
   const handleClickOutside = (e) => {
-    if (windowCheck && stateMobile && !e.target.closest(".nav-item-links")) {
+    if (windowCheck && stateMobile && !e.target.closest(".nav")) {
       onCloseMenu();
     };
   };
