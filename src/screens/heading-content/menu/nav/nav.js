@@ -9,7 +9,7 @@ const Nav = ({ t, locale, ...rest }) => {
   const [navHidden, setNavHidden] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const hrefLang = `https://onlyoffice.com${locale === "en" ? "" : `/${locale}`}`;
-  const appDirectoryLang = `https://onlyoffice.com/app-directory${locale === "pt" || locale === "it" ? "" : `/${locale}`}`
+  const appDirectoryLang = `https://onlyoffice.com/app-directory${locale === "en" || locale === "pt" || locale === "it" ? "" : `/${locale}`}`
   const windowCheck = typeof window !== "undefined" && window.innerWidth <= 1024;
 
   useEffect(() => {
