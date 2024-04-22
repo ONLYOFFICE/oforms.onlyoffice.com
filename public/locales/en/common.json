@@ -88,7 +88,7 @@
   "Templates": "Templates",
 
   "***********************MENU*************************": "***********************MENU*************************",
-  "blogLink1": "https://www.onlyoffice.com/blog/2024/02/onlyoffice-docspace-app-for-zoom",
+  "blogLink1": "https://www.onlyoffice.com/blog/2024/04/onlyoffice-docspace-2-5-released",
   "blogLink2": "https://www.onlyoffice.com/blog/2024/01/onlyoffice-docs-8-0-released",
   "FormSearch": "Form search",
   "Products & Features": "Products & Features",
@@ -275,6 +275,6 @@
   "Edit and collaborate on docs within your eLearning platform": "Edit and collaborate on docs within your eLearning platform",
   "ONLYOFFICE for education": "ONLYOFFICE for education",
   "Search": "Search",
-  "AdventAnnounceDesktop": "<b>Collaborate on documents within Zoom meetings:</b> ONLYOFFICE DocSpace app for Zoom available",
-  "AdventAnnounceMobile": "<b>ONLYOFFICE Zoom integration</b>"
+  "AdventAnnounceDesktop": "<span>ONLYOFFICE</span> <b>DocSpace 2.5 released:</b> Public rooms improvements, user groups, storage management, embedding presets, and more",
+  "AdventAnnounceMobile": "ONLYOFFICE <b>DocSpace 2.5 released</b>"
 }

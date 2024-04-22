@@ -218,7 +218,7 @@
     "27 February 2024": "27 février 2024",
     "ONLYOFFICE Docs 8.0 released: PDF forms, RTL, Goal Seek and chart wizard in sheets, updated plugins UI, and more": "ONLYOFFICE Docs 8.0 est disponible : formulaires PDF, RTL, recherche d'objectifs et assistant graphique dans les feuilles de calcul, mise à jour de l'interface utilisateur des plugins, et plus encore",
     "30 January 2024": "30 janvier 2024",
-    "blogLink1": "https://www.onlyoffice.com/blog/fr/2024/02/application-onlyoffice-docspace-pour-zoom",
+    "blogLink1": "https://www.onlyoffice.com/blog/2024/04/onlyoffice-docspace-2-5-released",
     "blogLink2": "https://www.onlyoffice.com/blog/fr/2024/01/onlyoffice-docs-8-0",
     "Phone": "Téléphone",
     "FormSearch": "Rechercher des formulaires",
@@ -384,6 +384,6 @@
     "Search": "Rechercher",
 
     "***********************Banner*************************": "***********************Banner*************************",
-    "AdventAnnounceDesktop": "<b>Collaborez sur des documents lors de réunions Zoom :</b> l'application ONLYOFFICE DocSpace pour Zoom est disponible",
-    "AdventAnnounceMobile": "<b>Intégration de Zoom et ONLYOFFICE</b>"
+    "AdventAnnounceDesktop": "<b>Lancement</b> <span>d'ONLYOFFICE</span> <b>DocSpace 2.5:</b> Améliorations apportées qux salles publiques, groupes d'utilisateurs, gestion de stockage, préréglages d'intégration et plus encore",
+    "AdventAnnounceMobile": "<b>Lancement</b> d'ONLYOFFICE <b>DocSpace 2.5</b>"
 }

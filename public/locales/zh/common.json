@@ -226,7 +226,7 @@
   "27 February 2024": "2024年02月27日",
   "ONLYOFFICE Docs 8.0 released: PDF forms, RTL, Goal Seek and chart wizard in sheets, updated plugins UI, and more": "ONLYOFFICE 文档 8.0 现已发布：PDF 表单、RTL、单变量求解和表格中的图表向导、更新插件 UI 等",
   "30 January 2024": "2024年01月30日",
-  "blogLink1": "https://www.onlyoffice.com/blog/zh-hans/2024/02/onlyoffice-docspace-app-for-zoom",
+  "blogLink1": "https://www.onlyoffice.com/blog/zh-hans/2024/04/onlyoffice-docspace-2-5-released",
   "blogLink2": "https://www.onlyoffice.com/blog/zh-hans/2024/01/onlyoffice-docs-8-0-released",
   "Phone": "电话",
   "FormSearch": "搜索表单",
@@ -391,6 +391,6 @@
   "Search": "搜索",
 
   "***********************Banner*************************": "***********************Banner*************************",
-  "AdventAnnounceDesktop": "<b>在 Zoom 会议中协作处理文档：</b>适用于 Zoom 的 ONLYOFFICE 协作空间应用程序现已发布",
-  "AdventAnnounceMobile": "<b>ONLYOFFICE 与 Zoom 集成</b>"
+  "AdventAnnounceDesktop": "<span>ONLYOFFICE</span> <b>协作空间 2.5 现已发布：</b>改进公共房间、用户群组、存储管理、嵌入预设等",
+  "AdventAnnounceMobile": "ONLYOFFICE <b>协作空间 2.5 现已发布</b>"
 }
