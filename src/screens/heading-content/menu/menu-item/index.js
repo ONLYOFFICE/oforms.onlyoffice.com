@@ -2,51 +2,41 @@ import { StyledNavMenu, StyledMenuItemsWrapper } from "./styled-navmenu";
 import { useState, useEffect } from "react";
 import Heading from "@common/heading";
 
-const MenuItem = ({ children, heading, navHidden, setNavHidden, ...rest }) => {
+const MenuItem = ({ children, heading, navHidden, setNavHidden, className }) => {
+  const windowCheck = typeof window !== "undefined" && window.innerWidth <= 1024;
   const [showMenu, setShowMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(0);
-  const [windowHeight, setWindowHeight] = useState(0);
-
-  const handleHoverMenu = () => {
-    setShowMenu(true);
-  };
-
-  const handleLeaveMenu = () => {
-    setShowMenu(false);
-  };
 
   const toggleMenu = () => {
     setShowMobileMenu(!showMobileMenu);
     setNavHidden(!navHidden);
   };
 
-  let resizeWindow = () => {
-    setWindowWidth(window.innerWidth);
-    setWindowHeight(window.innerHeight);
-  };
-
-  const windowCheck = typeof window !== "undefined" && window.innerWidth <= 1024;
-
   useEffect(() => {
     if (window.innerWidth <= 1024) {
       setShowMenu(false);
     }
-  }, []);
 
-  useEffect(() => {
-    resizeWindow();
+    let resizeWindow = () => {
+      if (window.innerWidth > 1024) {
+        setShowMobileMenu(false);
+        setNavHidden(false);
+      }
+    };
+
     window.addEventListener("resize", resizeWindow);
 
-    return () => window.removeEventListener("resize", resizeWindow);
-  }, [windowWidth, windowHeight]);
+    return () => {
+      window.removeEventListener("resize", resizeWindow);
+    };
+  }, []);
 
   return (
-    <StyledNavMenu onMouseLeave={handleLeaveMenu} {...rest} className={`nav-item ${windowCheck && showMobileMenu ? "active" : ""}`}>
+    <StyledNavMenu onMouseLeave={() => setShowMenu(false)} className={`nav-item ${windowCheck && showMobileMenu ? "active" : ""} ${className ? className : ""}`}>
       <button
         className={`heading-nav-item ${showMenu ? "active": ""}`}
         onClick={toggleMenu}
-        onMouseEnter={handleHoverMenu}
+        onMouseEnter={() => setShowMenu(true)}
       >{heading}</button>
       {(windowCheck ? showMobileMenu : showMenu) && (
         <StyledMenuItemsWrapper isOpen={showMobileMenu} className="menu-items-wrapper">
