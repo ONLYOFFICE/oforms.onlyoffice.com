@@ -89,10 +89,6 @@ const StyledFooter = styled.div`
           font-size: 12px;
           line-height: 26px;
           color: #444444;
-
-          &:first-child {
-            margin-right: 0;
-          }
         }
       }
     }
@@ -171,11 +167,7 @@ const StyledFooter = styled.div`
     }
 
     span {
-      &:first-child {
-        @media screen and ${device.laptop} {
-          margin-right: 3px;
-        }
-      }
+      margin: 0 1px;
     }
   }
 
@@ -267,6 +259,8 @@ const StyledFooter = styled.div`
     @media screen and (max-width: 600px) {
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
+      flex-direction: initial;
       margin: 0 0 8px;
       line-height: 18px;
       color: #AAAAAA;
