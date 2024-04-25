@@ -62,14 +62,13 @@ const StyledNavMenu = styled.li`
       @media screen and ${device.laptop} {
         display: block;
         content: "";
-        width: 10px;
-        height: 10px;
+        width: 24px;
+        height: 24px;
         background-image: url("https://static-oforms.onlyoffice.com/icons/arrow-gray.svg");
         background-position: 50% 50%;
         background-repeat: no-repeat;
-        background-size: auto 100%;
         position: absolute;
-        right: 24px;
+        right: 16px;
         top: 50%;
         transform: translateY(-50%);
       }
