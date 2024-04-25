@@ -25,6 +25,26 @@ const StyledNav = styled.nav`
   }
 
   &.zh {
+    .menu-label {
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0.04em;
+      color: #808080;
+    }
+
+    .nav-products {
+      .menu-box {
+        &:nth-child(2),
+        &:nth-child(3) {
+          .menu-submenu {
+            .menu-link {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+
     .menu-block-img {
       &.blog-1 {
         background-image: url(${menuBlog1Zh.src});
@@ -150,21 +170,23 @@ const StyledNav = styled.nav`
 
       &:nth-child(2),
       &:nth-child(3) {
-        .menu-link {
-          font-size: 13px;
-          font-weight: 600;
-
-          &:not(:last-child) {
-            margin-bottom: 6px;
-
-            @media screen and ${device.laptop} {
-              margin-bottom: 12px;
+        .menu-submenu {
+          .menu-link {
+            font-size: 13px;
+            font-weight: 600;
+  
+            &:not(:last-child) {
+              margin-bottom: 6px;
+  
+              @media screen and ${device.laptop} {
+                margin-bottom: 12px;
+              }
             }
-          }
-
-          @media screen and ${device.laptop} {
-            font-size: 14px;
-            line-height: 24px;
+  
+            @media screen and ${device.laptop} {
+              font-size: 14px;
+              line-height: 24px;
+            }
           }
         }
       }
@@ -178,24 +200,26 @@ const StyledNav = styled.nav`
           }
         }
 
-        .menu-link {
-          padding: 0 32px 0 36px;
-
-          &:before {
-            left: 0;
-
-            @media screen and ${device.laptop} {
-              top: 0;
-              left: 24px;
+        .menu-submenu {
+          .menu-link {
+            padding: 0 32px 0 36px;
+  
+            &:before {
+              left: 0;
+  
+              @media screen and ${device.laptop} {
+                top: 0;
+                left: 24px;
+              }
             }
-          }
-
-          &.feature-overview {
-            margin-bottom: 16px;
-          }
-
-          @media screen and ${device.laptop} {
-            padding: 0 24px 0 60px;
+  
+            &.feature-overview {
+              margin-bottom: 16px;
+            }
+  
+            @media screen and ${device.laptop} {
+              padding: 0 24px 0 60px;
+            }
           }
         }
 
