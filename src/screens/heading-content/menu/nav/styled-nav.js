@@ -25,26 +25,29 @@ const StyledNav = styled.nav`
   }
 
   &.zh {
+    .menu-label {
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0.04em;
+      color: #808080;
+    }
+
+    .nav-products {
+      .menu-box {
+        &:nth-child(2),
+        &:nth-child(3) {
+          .menu-submenu {
+            .menu-link {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+
     .menu-block-img {
       &.blog-1 {
         background-image: url(${menuBlog1Zh.src});
-      }
-    }
-  }
-
-  &.fr,
-  &.de {
-    .nav-login {
-      .mobile-heading-nav-item:after {
-        width: 170px;
-      }
-    }
-  }
-
-  &.es {
-    .nav-login {
-      .mobile-heading-nav-item:after {
-        width: 210px;
       }
     }
   }
@@ -70,45 +73,6 @@ const StyledNav = styled.nav`
       flex-direction: column;
       justify-content: initial;
       min-height: calc(100% - 54px);
-    }
-  }
-
-  .nav-login {
-    display: none;
-
-    .heading-nav-item {
-      padding: 16px 40px 16px 56px;
-
-      &:after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 24px;
-        width: 24px;
-        height: 24px;
-        background-image: url("https://static-oforms.onlyoffice.com/icons/sign-in.svg");
-        background-repeat: no-repeat;
-        transform: translateY(-50%);
-      }
-    }
-
-    .mobile-heading-nav-item {
-      &:after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 120px;
-        height: 24px;
-        background-image: url("https://static-oforms.onlyoffice.com/icons/sign-in-orange.svg");
-        background-repeat: no-repeat;
-        transform: translate(-50%, -50%);
-      }
-    }
-
-    @media screen and ${device.laptop} {
-      display: block;
-      margin-top: auto;
     }
   }
 
@@ -188,13 +152,143 @@ const StyledNav = styled.nav`
     .menu-box {
       &:not(:last-child) {
         @media screen and ${device.laptop} {
-          margin-bottom: 16px;
+          margin-bottom: 12px;
+        }
+      }
+
+      &:first-child {
+        width: max-content;
+        min-width: 312px;
+        max-width: 320px;
+
+        @media screen and ${device.laptop} {
+          width: 100%;
+          min-width: initial;
+          max-width: initial;
+        }
+      }
+
+      &:nth-child(2),
+      &:nth-child(3) {
+        .menu-submenu {
+          .menu-link {
+            font-size: 13px;
+            font-weight: 600;
+  
+            &:not(:last-child) {
+              margin-bottom: 6px;
+  
+              @media screen and ${device.laptop} {
+                margin-bottom: 12px;
+              }
+            }
+  
+            @media screen and ${device.laptop} {
+              font-size: 14px;
+              line-height: 24px;
+            }
+          }
         }
       }
 
       &:nth-child(2) {
+        .menu-label {
+          margin: 0 32px 12px 0;
+
+          @media screen and ${device.laptop} {
+            margin: 0 24px 12px;
+          }
+        }
+
+        .menu-submenu {
+          .menu-link {
+            padding: 0 32px 0 36px;
+  
+            &:before {
+              left: 0;
+  
+              @media screen and ${device.laptop} {
+                top: 0;
+                left: 24px;
+              }
+            }
+  
+            &.feature-overview {
+              margin-bottom: 16px;
+            }
+  
+            @media screen and ${device.laptop} {
+              padding: 0 24px 0 60px;
+            }
+          }
+        }
+
+        .menu-submenu-text {
+          margin: 0 32px 16px 0;
+
+          @media screen and ${device.laptop} {
+            margin: 0 24px 16px;
+          }
+        }
+
         @media screen and ${device.laptop} {
           margin-bottom: 0;
+        }
+      }
+
+      &:nth-child(3) {
+        .menu-box-inner {
+          @media screen and ${device.laptop} {
+            .menu-link {
+              padding: 0 24px 0 60px;
+
+              &:before {
+                top: 0;
+              }
+            }
+          }
+        }
+
+        .menu-link {
+          &.online-services {
+            margin-bottom: 8px;
+
+            &:after {
+              @media screen and ${device.laptop} {
+                content: "";
+                display: inline-flex;
+                margin-left: 4px;
+                width: 24px;
+                min-width: 24px;
+                height: 24px;
+                background-image: url("https://static-oforms.onlyoffice.com/icons/arrow-gray.svg");
+                background-repeat: no-repeat;
+                background-position: center;
+              }
+            }
+      
+            &:hover {
+              &:after {
+                @media screen and ${device.laptop} {
+                  background-image: url("https://static-oforms.onlyoffice.com/icons/arrow-red.svg");
+                }
+              }
+      
+              @media screen and ${device.laptop} {
+                color: #FF6F3D;
+              }
+            }
+      
+            @media screen and ${device.laptop} {
+              justify-content: space-between;
+              margin-bottom: 0;
+              padding: 4px 16px 4px 60px;
+              font-size: 16px;
+              line-height: 24px;
+              font-weight: 700;
+              color: #FF6F3D;
+            }
+          }
         }
       }
     }
@@ -274,7 +368,7 @@ const StyledNav = styled.nav`
             }
           }
 
-          .menu-box-btn-mobile {
+          .menu-link.online-services {
             @media screen and ${device.laptop} {
               display: none;
             }
@@ -336,8 +430,7 @@ const StyledNav = styled.nav`
   .nav-developers,
   .nav-pricing,
   .nav-partners,
-  .nav-resources,
-  .nav-login {
+  .nav-resources {
     .menu-items-wrapper {
       @media screen and ${device.laptop} {
         display: flex;
@@ -357,14 +450,16 @@ const StyledNav = styled.nav`
     box-sizing: border-box;
     position: sticky;
     top: 0;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
     border-bottom: 1px solid #f2f2f2;
     font-size: 16px;
     font-weight: 700;
     letter-spacing: 0.04em;
     line-height: 24px;
-    padding: 16px 32px;
+    padding: 4px 32px;
     width: 100%;
     height: 56px;
     min-height: 56px;
@@ -441,62 +536,44 @@ const StyledNav = styled.nav`
   .menu-box-btn {
     position: relative;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     border: none;
-    padding: 0 28px 0 0;
+    padding: 0;
     margin: 0;
     width: 100%;
     background-color: transparent;
+    text-align: initial;
     cursor: pointer;
 
     &:after {
       content: "";
-      position: absolute;
-      top: 50%;
-      right: 0;
+      display: inline-flex;
+      margin-left: 4px;
       width: 24px;
+      min-width: 24px;
       height: 24px;
       background-image: url("https://static-oforms.onlyoffice.com/icons/arrow-gray.svg");
       background-repeat: no-repeat;
       background-position: center;
-      transform: translateY(-50%);
-
-      @media screen and ${device.laptop} {
-        right: 16px;
-      }
     }
 
-    &:not(:last-child) {
-      margin-bottom: 16px;
-    }
-
-    .menu-link {
-      cursor: pointer;
-      padding: 0 0 0 68px;
-
+    &.menu-link {
       &:not(:last-child) {
-        margin-bottom: 4px;
+        margin-bottom: 16px;
+  
+        @media screen and ${device.laptop} {
+          margin-bottom: 12px;
+        }
       }
 
       @media screen and ${device.laptop} {
-        padding: 4px 0 4px 58px;
-      }
-    }
-
-    .menu-box-text {
-      padding: 0 0 0 32px;
-      cursor: pointer;
-
-      @media screen and ${device.laptop} {
-        padding: 0 0 0 24px;
+        padding: 4px 16px 4px 60px;
       }
     }
 
     &:hover,
     &.active {
-      .menu-link {
-        color: #FF6F3D;
-      }
+      color: #FF6F3D;
 
       &:after {
         background-image: url("https://static-oforms.onlyoffice.com/icons/arrow-red.svg");
@@ -508,61 +585,35 @@ const StyledNav = styled.nav`
     }
   }
 
-  .menu-box-btn-mobile {
+  .menu-submenu {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .menu-submenu-text {
+    display: block;
+    margin: 0 32px 16px;
+    font-size: 13px;
+    line-height: 20px;
+    color: #666666;
+
     @media screen and ${device.laptop} {
-      position: relative;
-      cursor: pointer;
-    }
-
-    &:after {
-      @media screen and ${device.laptop} {
-        content: "";
-        position: absolute;
-        top: 50%;
-        right: 16px;
-        width: 24px;
-        height: 24px;
-        background-image: url("https://static-oforms.onlyoffice.com/icons/arrow-gray.svg");
-        background-repeat: no-repeat;
-        background-position: center;
-        transform: translateY(-50%);
-      }
-    }
-
-    .menu-link,
-    .menu-box-text {
-      @media screen and ${device.laptop} {
-        cursor: pointer;
-      }
-    }
-    
-    &:hover,
-    &.active {
-      .menu-link.online-services {
-        @media screen and ${device.laptop} {
-          color: #FF6F3D;
-        }
-      }
-
-      &:after {
-        @media screen and ${device.laptop} {
-          background-image: url("https://static-oforms.onlyoffice.com/icons/arrow-red.svg");
-        }
-      }
+      margin: 0 24px 16px;
+      color: #808080;
     }
   }
 
-  .menu-box-text {
-    padding: 0 32px;
-    font-size: 12px;
-    line-height: 18px;
-    color: #808080;
+  .menu-submenu-text-pc {
+    @media screen and ${device.laptop} {
+      display: none;
+    }
+  }
+
+  .menu-submenu-text-mobile {
+    display: none;
 
     @media screen and ${device.laptop} {
       display: block;
-      padding: 0 24px;
-      font-size: 13px;
-      line-height: 20px;
     }
   }
 
@@ -583,37 +634,7 @@ const StyledNav = styled.nav`
 
   .menu-submenu-wrapper {
     &:not(:last-child) {
-      margin-bottom: 24px;
-    }
-  }
-
-  .menu-submenu-link {
-    display: flex;
-    padding: 0 32px;
-    font-size: 13px;
-    line-height: 20px;
-    color: #444444;
-
-    &:not(:last-child) {
-      margin-bottom: 8px;
-    }
-
-    &.overview {
       margin-bottom: 16px;
-    }
-
-    &.active {
-      color: #FF6F3D;
-    }
-
-    &:hover {
-      color: #FF6F3D;
-    }
-
-    @media screen and ${device.laptop} {
-      padding: 0 24px;
-      font-size: 16px;
-      line-height: 24px;
     }
   }
 
@@ -636,7 +657,8 @@ const StyledNav = styled.nav`
     align-items: center;
     
     .menu-label {
-      margin: 0 16px 0 0;
+      padding: 4px 4px 0 0;
+      margin: 0 32px 0 0;
 
       @media screen and ${device.laptop} {
         margin: 0 0 16px 0;
@@ -717,7 +739,7 @@ const StyledNav = styled.nav`
         margin: 0 16px 0 0;
 
         @media screen and ${device.laptop} {
-          margin: 0 0 8px 0;
+          margin: 0 0 12px 0;
         }
       }
 
@@ -742,11 +764,7 @@ const StyledNav = styled.nav`
     width: 312px;
 
     &.bg-gray {
-      background-color: #f9f9f9;
-
-      .menu-label {
-        background-color: #ffffff;
-      }
+      background-color: #F8F9F9;
 
       @media screen and ${device.laptop} {
         display: flex;
@@ -775,7 +793,7 @@ const StyledNav = styled.nav`
 
     &:not(:last-child) {
       @media screen and ${device.laptop} {
-        margin-bottom: 32px;
+        margin-bottom: 24px;
       }
     }
 
@@ -788,10 +806,6 @@ const StyledNav = styled.nav`
   .menu-box-wrapper {
     &:not(:last-child) {
       margin-bottom: 24px;
-
-      @media screen and ${device.laptop} {
-        margin-bottom: 32px;
-      }
     }
   }
 
@@ -803,17 +817,18 @@ const StyledNav = styled.nav`
 
   .menu-box-link {
     display: flex;
-    padding: 0 32px 0 72px;
+    padding: 0 32px 0 68px;
     font-size: 13px;
     line-height: 20px;
+    font-weight: 600;
     color: #444444;
     text-decoration: none;
 
     &.left {
-      padding: 0 8px 0 72px;
+      padding: 0 8px 0 68px;
 
       @media screen and ${device.laptop} {
-        padding: 0 8px 0 56px;
+        padding: 0 8px 0 60px;
       }
     }
 
@@ -824,17 +839,17 @@ const StyledNav = styled.nav`
         padding: 0 24px 0 8px;
       }
 
-      @media screen and ${device.mobileM} {
+      @media screen and (max-width: 399px) {
         flex: 1 1 100%;
         margin-top: 4px;
-        padding: 0 8px 0 56px;
+        padding: 0 8px 0 60px;
       }
     }
 
     &.sign-in {
       margin-bottom: 4px;
 
-      @media screen and ${device.mobileM} {
+      @media screen and ${device.laptop} {
         margin-bottom: 8px;
       }
     }
@@ -844,7 +859,9 @@ const StyledNav = styled.nav`
     }
 
     @media screen and ${device.laptop} {
-      padding: 0 24px 0 56px;
+      padding: 0 24px 0 60px;
+      font-size: 14px;
+      line-height: 21px;
     }
   }
 
@@ -855,9 +872,14 @@ const StyledNav = styled.nav`
     font-size: 13px;
     line-height: 20px;
 
-    @media screen and ${device.mobileM} {
-      flex-wrap: wrap;
+    @media screen and ${device.laptop} {
       margin-bottom: 8px;
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    @media screen and (max-width: 399px) {
+      flex-wrap: wrap;
     }
   }
 
@@ -879,7 +901,7 @@ const StyledNav = styled.nav`
       display: block;
       width: 24px;
       height: 24px;
-      background-image: url("https://static-oforms.onlyoffice.com/icons/menu-icons-1.svg");
+      background-image: url("https://static-oforms.onlyoffice.com/icons/menu-icons-2.svg");
       background-repeat: no-repeat;
 
       @media screen and ${device.laptop} {
@@ -897,6 +919,260 @@ const StyledNav = styled.nav`
 
       @media screen and ${device.laptop} {
         margin-bottom: 8px;
+      }
+    }
+
+    &.no-img {
+      &:before {
+        content: none;
+      }
+    }
+
+    &.feature-overview {
+      &:before {
+        background-position-y: -1690px;
+      }
+    }
+
+    &.document-editor {
+      &:before {
+        background-position-y: -1716px;
+      }
+    }
+
+    &.spreadsheet-editor {
+      &:before {
+        background-position-y: -1040px;
+      }
+    }
+
+    &.presentation-editor {
+      &:before {
+        background-position-y: -1742px;
+      }
+    }
+
+    &.pdf-editor {
+      &:before {
+        background-position-y: -1820px;
+      }
+    }
+
+    &.form-creator {
+      &:before {
+        background-position-y: -1768px;
+      }
+    }
+
+    &.e-book-creator {
+      &:before {
+        background-position-y: -1846px;
+      }
+    }
+
+    &.collaboration-features {
+      &:before {
+        background-position-y: -1872px;
+      }
+    }
+
+    &.collaboration-rooms {
+      &:before {
+        background-position-y: -1898px;
+      }
+    }
+
+    &.meeting-rooms {
+      &:before {
+        background-position-y: -1924px;
+      }
+    }
+
+    &.custom-rooms {
+      &:before {
+        background-position-y: -1950px;
+      }
+    }
+
+    &.markdown-editor {
+      &:before {
+        background-position-y: -1794px;
+      }
+    }
+
+    &.documents {
+      &:before {
+        background-position-y: -2002px;
+      }
+    }
+
+    &.crm {
+      &:before {
+        background-position-y: -2028px;
+      }
+    }
+
+    &.projects {
+      &:before {
+        background-position-y: -2080px;
+      }
+    }
+
+    &.mails {
+      &:before {
+        background-position-y: -2106px;
+      }
+    }
+
+    &.calendar {
+      &:before {
+        background-position-y: -2054px;
+      }
+    }
+
+    &.box {
+      &:before {
+        background-position-y: -2184px;
+      }
+    }
+
+    &.confluence {
+      &:before {
+        background-position-y: -2132px;
+      }
+    }
+
+    &.dropbox {
+      &:before {
+        background-position-y: -2210px;
+      }
+    }
+
+    &.moodles {
+      &:before {
+        background-position-y: -2236px;
+      }
+    }
+
+    &.nextcloud {
+      &:before {
+        background-position-y: -2262px;
+      }
+    }
+
+    &.odoo {
+      &:before {
+        background-position-y: -2288px;
+      }
+    }
+
+    &.owncloud {
+      &:before {
+        background-position-y: -2158px;
+      }
+    }
+
+    &.zoom {
+      &:before {
+        background-position-y: -2314px;
+      }
+    }
+
+    &.wordpress {
+      &:before {
+        background-position-y: -2340px;
+      }
+    }
+
+    &.chatgpt {
+      &:before {
+        background-position-y: -2366px;
+      }
+    }
+
+    &.zhipu-copilot {
+      &:before {
+        background-position-y: -2392px;
+      }
+    }
+
+    &.apertium {
+      &:before {
+        background-position-y: -2418px;
+      }
+    }
+
+    &.deepl {
+      &:before {
+        background-position-y: -2444px;
+      }
+    }
+
+    &.translator {
+      &:before {
+        background-position-y: -2470px;
+      }
+    }
+
+    &.jitsi {
+      &:before {
+        background-position-y: -2496px;
+      }
+    }
+
+    &.telegram {
+      &:before {
+        background-position-y: -2522px;
+      }
+    }
+
+    &.rainbow {
+      &:before {
+        background-position-y: -2548px;
+      }
+    }
+
+    &.public-rooms {
+      &:before {
+        background-position-y: -1976px;
+      }
+    }
+
+    &.find-pdf-form-templates {
+      color: #FF6F3D;
+
+      &:before {
+        background-position-y: -1404px;
+      }
+    }
+
+    &.fill-out-pdf-forms-online {
+      &:before {
+        background-position-y: -702px;
+      }
+    }
+
+    &.convert-text-files {
+      &:before {
+        background-position-y: -1222px;
+      }
+    }
+
+    &.convert-spreadsheets {
+      &:before {
+        background-position-y: -1248px;
+      }
+    }
+
+    &.convert-presentations {
+      &:before {
+        background-position-y: -1274px;
+      }
+    }
+
+    &.convert-pdfs {
+      &:before {
+        background-position-y: -1326px;
       }
     }
 
@@ -1213,7 +1489,7 @@ const StyledNav = styled.nav`
     }
 
     @media screen and ${device.laptop} {
-      padding: 4px 24px 4px 58px;
+      padding: 4px 24px 4px 60px;
     }
   }
 
@@ -1224,21 +1500,19 @@ const StyledNav = styled.nav`
   }
 
   .menu-label {
-    border-radius: 3px;
-    margin: 0 32px 16px;
-    padding: 4px 4px 0 0;
+    margin: 0 32px 12px;
     font-size: 10px;
     font-weight: 600;
-    line-height: 13px;
+    line-height: 14px;
     letter-spacing: 0.3em;
     color: #666666;
-    background-color: #F9F9F9;
     text-transform: uppercase;
 
     @media screen and ${device.laptop} {
       margin: 0 24px 16px;
+      padding: 4px 4px 0 0;
       font-size: 11px;
-      line-height: 15px;
+      line-height: 14px;
     }
   }
 
@@ -1259,6 +1533,10 @@ const StyledNav = styled.nav`
     font-size: 16px;
     line-height: 24px;
     font-weight: 700;
+
+    &:hover {
+      color: #ff6f3d;
+    }
   }
 
   .menu-block-img {
@@ -1291,8 +1569,13 @@ const StyledNav = styled.nav`
 
   .menu-block-text {
     font-size: 14px;
-    line-height: 21px;
+    line-height: 20px;
     color: #444444;
+    cursor: pointer;
+
+    &:hover {
+      color: #ff6f3d;
+    }
   }
 
   .menu-blog-title {
