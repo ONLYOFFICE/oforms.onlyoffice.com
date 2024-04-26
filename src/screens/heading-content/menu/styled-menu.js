@@ -1,5 +1,11 @@
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { device } from "@components/utils/devices";
+
+const GlobalStyles = createGlobalStyle`
+  html {
+    ${({ stateMobile }) => (stateMobile ? "overflow: hidden;" : "")}
+  }
+`;
 
 const StyledHeading = styled.div`
   position: relative;
@@ -221,4 +227,4 @@ const StyledHeading = styled.div`
   }
 `;
 
-export default StyledHeading;
+export { StyledHeading, GlobalStyles };
