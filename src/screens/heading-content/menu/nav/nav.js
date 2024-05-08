@@ -45,13 +45,13 @@ const Nav = ({ t, locale, ...rest }) => {
                       <Text className="menu-submenu-text" label={t("Doc editors to integrate into your business platform")} />
                       <InternalLink className="menu-link feature-overview" href={`${hrefLang}/office-suite.aspx`} label={t("Feature overview")} />
                       <div className="menu-label">{t("Editors")}</div>
-                      <InternalLink className="menu-link document-editor" href={`${hrefLang}/document-editor.aspx#docs-download`} label={t("Document editor")} />
-                      <InternalLink className="menu-link spreadsheet-editor" href={`${hrefLang}/spreadsheet-editor.aspx#docs-download`} label={t("Spreadsheet editor")} />
-                      <InternalLink className="menu-link presentation-editor" href={`${hrefLang}/presentation-editor.aspx#docs-download`} label={t("Presentation editor")} />
-                      <InternalLink className="menu-link pdf-editor" href={`${hrefLang}/pdf-editor.aspx#docs-download`} label={t("PDF editor")} />
-                      <InternalLink className="menu-link form-creator" href={`${hrefLang}/form-creator.aspx#docs-download`} label={t("Form creator")} />
-                      <InternalLink className="menu-link e-book-creator" href={`${hrefLang}/e-book.aspx#docs-download`} label={t("E-book creator")} />
-                      <InternalLink className="menu-link collaboration-features" href={`${hrefLang}/seamless-collaboration.aspx#docs-download`} label={t("Collaboration features")} />
+                      <InternalLink className="menu-link document-editor" href={`${hrefLang}/document-editor.aspx?docs-download`} label={t("Document editor")} />
+                      <InternalLink className="menu-link spreadsheet-editor" href={`${hrefLang}/spreadsheet-editor.aspx?docs-download`} label={t("Spreadsheet editor")} />
+                      <InternalLink className="menu-link presentation-editor" href={`${hrefLang}/presentation-editor.aspx?docs-download`} label={t("Presentation editor")} />
+                      <InternalLink className="menu-link pdf-editor" href={`${hrefLang}/pdf-editor.aspx?docs-download`} label={t("PDF editor")} />
+                      <InternalLink className="menu-link form-creator" href={`${hrefLang}/form-creator.aspx?docs-download`} label={t("Form creator")} />
+                      <InternalLink className="menu-link e-book-creator" href={`${hrefLang}/e-book.aspx?docs-download`} label={t("E-book creator")} />
+                      <InternalLink className="menu-link collaboration-features" href={`${hrefLang}/seamless-collaboration.aspx?docs-download`} label={t("Collaboration features")} />
                     </div>
                   }
                   {activeTab === 1 &&
