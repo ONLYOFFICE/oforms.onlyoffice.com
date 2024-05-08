@@ -501,6 +501,7 @@ const StyledNav = styled.nav`
         transition: width 0.2s ease-in-out;
         left: 50%;
         top: 0;
+        z-index: 1;
       }
 
       &:after {
@@ -513,6 +514,7 @@ const StyledNav = styled.nav`
         transition: width 0.2s ease-in-out;
         left: 50%;
         top: 0;
+        z-index: 1;
       }
     }
 
