@@ -37,21 +37,23 @@ const Footer = ({ t, locale }) => {
       </div>
       <div className="footer-item-group">
         <FooterItem heading={t("Features")} className="features">
-          <InternalLink className="footer-link" href={`${hrefLang}/document-editor.aspx`} label={t("Document editor")} />
-          <InternalLink className="footer-link" href={`${hrefLang}/spreadsheet-editor.aspx`} label={t("Spreadsheet editor")} />
-          <InternalLink className="footer-link" href={`${hrefLang}/presentation-editor.aspx`} label={t("Presentation editor")} />
+          <InternalLink className="footer-link" href={`${hrefLang}/document-editor.aspx`} label={t("Document Editor")} />
+          <InternalLink className="footer-link" href={`${hrefLang}/spreadsheet-editor.aspx`} label={t("Spreadsheet Editor")} />
+          <InternalLink className="footer-link" href={`${hrefLang}/presentation-editor.aspx`} label={t("Presentation Editor")} />
           <InternalLink className="footer-link" href={`${hrefLang}/form-creator.aspx`} label={t("Form creator")} />
-          <InternalLink className="footer-link" href={`${hrefLang}/pdf-reader.aspx`} label={t("PDF editor")} />
+          <InternalLink className="footer-link" href={`${hrefLang}/pdf-reader.aspx`} label={t("PDF Editor")} />
+          <InternalLink className="footer-link" href={`${hrefLang}/e-book.aspx`} label={t("E-book creator")} />
           <InternalLink className="footer-link" href={`${hrefLang}/security.aspx`} label={t("Security")} />
           <InternalLink className="footer-link" href={`${hrefLang}/accessibility.aspx`} label={t("Accessibility")} />
           <InternalLink className="footer-link" href={`${appDirectoryHrefLang}/openai`} label={t("AI helper")} />
-          <InternalLink className="footer-link" href={appDirectoryHrefLang} label={t("App Directory")} />
+          <InternalLink className="footer-link" href={appDirectoryHrefLang} label={t("Marketplace")} />
         </FooterItem>
         <FooterItem heading={t("Connectors")} className="connectors">
           <InternalLink className="footer-link" href={`${hrefLang}/office-for-nextcloud.aspx`} label={t("Nextcloud")} />
           <InternalLink className="footer-link" href={`${hrefLang}/office-for-moodle.aspx`} label={t("Moodle")} />
           <InternalLink className="footer-link" href={`${hrefLang}/office-for-odoo.aspx`} label={t("Odoo")} />
           <InternalLink className="footer-link" href={`${hrefLang}/office-for-wordpress.aspx`} label={t("WordPress")} />
+          <InternalLink className="footer-link" href={`${hrefLang}/office-for-zoom.aspx`} label={t("Zoom")} />
           <InternalLink className="footer-link" href={`${hrefLang}/all-connectors.aspx`} label={t("Others")} />
         </FooterItem>
       </div>
