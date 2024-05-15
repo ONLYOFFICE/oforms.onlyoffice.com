@@ -1,9 +1,6 @@
 import styled from "styled-components";
 import { device } from "@components/utils/devices";
-import menuResellerFr from "@public/images/menu-pics/menu-reseller-fr.svg";
-import menuBlog1 from "@public/images/menu-pics/menu-blog-1.png";
-import menuBlog1Zh from "@public/images/menu-pics/menu-blog-1-zh.jpg";
-import menuBlog2 from "@public/images/menu-pics/menu-blog-2.png";
+import menuResselerFr from "@public/images/menu-pics/menu-reseller-fr.svg";
 
 const StyledNav = styled.nav`
   position: absolute;
@@ -19,35 +16,15 @@ const StyledNav = styled.nav`
   &.fr {
     .menu-block-img {
       &.reseller {
-        background-image: url(${menuResellerFr.src});
+        background-image: url(${menuResselerFr.src});
       }
     }
   }
 
   &.zh {
-    .menu-label {
-      font-size: 12px;
-      line-height: 16px;
-      letter-spacing: 0.04em;
-      color: #808080;
-    }
-
-    .nav-products {
-      .menu-box {
-        &:nth-child(2),
-        &:nth-child(3) {
-          .menu-submenu {
-            .menu-link {
-              font-size: 14px;
-            }
-          }
-        }
-      }
-    }
-
     .menu-block-img {
       &.blog-1 {
-        background-image: url(${menuBlog1Zh.src});
+        background-image: url("https://static-oforms.onlyoffice.com/images/menu-pics/menu-blog-1-1-zh.jpg");
       }
     }
   }
@@ -104,6 +81,36 @@ const StyledNav = styled.nav`
   }
 
   .nav-products {
+    .menu-box {
+      &:nth-child(2) {
+        width: max-content;
+        min-width: 312px;
+        max-width: 330px;
+
+        @media screen and ${device.laptop} {
+          width: 100%;
+          min-width: 100%;
+          max-width: 100%;
+        }
+      }
+
+      &:last-child {
+        width: max-content;
+        min-width: 312px;
+        max-width: 520px;
+
+        @media screen and (max-width: 1300px) {
+          max-width: 312px;
+        }
+
+        @media screen and ${device.laptop} {
+          width: 100%;
+          min-width: 100%;
+          max-width: 100%;
+        }
+      }
+    }
+
     .heading-nav-item {
       position: relative;
       color: #ff6f3d;
@@ -131,261 +138,22 @@ const StyledNav = styled.nav`
         background-color: #f9f9f9;
       }
     }
-
-    .menu-items-wrapper {
-      @media screen and ${device.laptop} {
-        height: 100%;
-      }
-    }
-    
-    .menu-wrapper {
-      display: block;
-
-      @media screen and ${device.laptop} {
-        box-sizing: border-box;
-        display: flex;
-        padding-bottom: 0;
-        height: calc(100% - 56px);
-      }
-    }
-
-    .menu-box {
-      &:not(:last-child) {
-        @media screen and ${device.laptop} {
-          margin-bottom: 12px;
-        }
-      }
-
-      &:first-child {
-        width: max-content;
-        min-width: 312px;
-        max-width: 320px;
-
-        @media screen and ${device.laptop} {
-          width: 100%;
-          min-width: initial;
-          max-width: initial;
-        }
-      }
-
-      &:nth-child(2),
-      &:nth-child(3) {
-        .menu-submenu {
-          .menu-link {
-            font-size: 13px;
-            font-weight: 600;
-  
-            &:not(:last-child) {
-              margin-bottom: 6px;
-  
-              @media screen and ${device.laptop} {
-                margin-bottom: 12px;
-              }
-            }
-  
-            @media screen and ${device.laptop} {
-              font-size: 14px;
-              line-height: 24px;
-            }
-          }
-        }
-      }
-
-      &:nth-child(2) {
-        .menu-label {
-          margin: 0 32px 12px 0;
-
-          @media screen and ${device.laptop} {
-            margin: 0 24px 12px;
-          }
-        }
-
-        .menu-submenu {
-          .menu-link {
-            padding: 0 32px 0 36px;
-  
-            &:before {
-              left: 0;
-  
-              @media screen and ${device.laptop} {
-                top: 0;
-                left: 24px;
-              }
-            }
-  
-            &.feature-overview {
-              margin-bottom: 16px;
-            }
-  
-            @media screen and ${device.laptop} {
-              padding: 0 24px 0 60px;
-            }
-          }
-        }
-
-        .menu-submenu-text {
-          margin: 0 32px 16px 0;
-
-          @media screen and ${device.laptop} {
-            margin: 0 24px 16px;
-          }
-        }
-
-        @media screen and ${device.laptop} {
-          margin-bottom: 0;
-        }
-      }
-
-      &:nth-child(3) {
-        .menu-box-inner {
-          @media screen and ${device.laptop} {
-            .menu-link {
-              padding: 0 24px 0 60px;
-
-              &:before {
-                top: 0;
-              }
-            }
-          }
-        }
-
-        .menu-link {
-          &.online-services {
-            margin-bottom: 8px;
-
-            &:after {
-              @media screen and ${device.laptop} {
-                content: "";
-                display: inline-flex;
-                margin-left: 4px;
-                width: 24px;
-                min-width: 24px;
-                height: 24px;
-                background-image: url("https://static-oforms.onlyoffice.com/icons/arrow-gray.svg");
-                background-repeat: no-repeat;
-                background-position: center;
-              }
-            }
-      
-            &:hover {
-              &:after {
-                @media screen and ${device.laptop} {
-                  background-image: url("https://static-oforms.onlyoffice.com/icons/arrow-red.svg");
-                }
-              }
-      
-              @media screen and ${device.laptop} {
-                color: #FF6F3D;
-              }
-            }
-      
-            @media screen and ${device.laptop} {
-              justify-content: space-between;
-              margin-bottom: 0;
-              padding: 4px 16px 4px 60px;
-              font-size: 16px;
-              line-height: 24px;
-              font-weight: 700;
-              color: #FF6F3D;
-            }
-          }
-        }
-      }
-    }
-
-    .menu-box.bg-gray {
-      @media screen and ${device.laptop} {
-        padding: 0;
-        margin-top: 0;
-        background-color: transparent;
-      }
-    }
-
-    &.tab-active {
-      .menu-items-wrapper {
-        @media screen and ${device.laptop} {
-          height: 100%;
-        }
-
-        > .mobile-heading-nav-item {
-          @media screen and ${device.laptop} {
-            display: none;
-          }
-        }
-      }
-
-      .menu-wrapper {
-        @media screen and ${device.laptop} {
-          padding: 0;
-          height: 100%;
-        } 
-      }
-
-      .menu-wrapper-box {
-        .menu-box {
-          &:first-child,
-          &:last-child {
-            @media screen and ${device.laptop} {
-              display: none;
-            }
-          }
-        }
-
-        .menu-submenu {
-          @media screen and ${device.laptop} {
-            display: block;
-          }
-        }
-      }
-    }
-
-    &.online-services-tab-active {
-      .menu-items-wrapper {
-        @media screen and ${device.laptop} {
-          height: 100%;
-        }
-
-        > .mobile-heading-nav-item {
-          @media screen and ${device.laptop} {
-            display: none;
-          }
-        }
-      }
-
-      .menu-wrapper {
-        @media screen and ${device.laptop} {
-          padding: 0;
-          height: 100%;
-        } 
-      }
-
-      .menu-wrapper-box {
-        .menu-box {
-          &:first-child,
-          &:nth-child(2) {
-            @media screen and ${device.laptop} {
-              display: none;
-            }
-          }
-
-          .menu-link.online-services {
-            @media screen and ${device.laptop} {
-              display: none;
-            }
-          }
-        }
-
-        .menu-submenu {
-          @media screen and ${device.laptop} {
-            display: block;
-          }
-        }
-      }
-    }
   }
 
   .nav-enterprise {
     position: relative;
+
+    .menu-box {
+      width: max-content;
+      min-width: 312px;
+      max-width: 410px;
+
+      @media screen and ${device.laptop} {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+      }
+    }
 
     @media screen and ${device.laptop} {
       position: initial;
@@ -403,25 +171,63 @@ const StyledNav = styled.nav`
 
   .nav-enterprise {
     .menu-box {
-      @media screen and (min-width: 1024px) {
-        width: max-content;
-        min-width: 312px;
-        max-width: 410px;
+      width: max-content;
+      min-width: 312px;
+      max-width: 410px;
+
+      @media screen and ${device.laptop} {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
       }
     }
   }
 
   .nav-developers,
+  .nav-pricing {
+    .menu-box {
+      &:first-child {
+        width: max-content;
+        min-width: 312px;
+        max-width: 520px;
+
+        @media screen and ${device.laptop} {
+          width: 100%;
+          min-width: 100%;
+          max-width: 100%;
+        }
+      }
+    }
+  }
+
   .nav-get-onlyoffice,
-  .nav-pricing,
-  .nav-partners,
+  .nav-partners {
+    .menu-box {
+      &:first-child {
+        width: max-content;
+        min-width: 312px;
+        max-width: 520px;
+
+        @media screen and ${device.laptop} {
+          width: 100%;
+          min-width: 100%;
+          max-width: 100%;
+        }
+      }
+    }
+  }
+
   .nav-resources {
     .menu-box {
       &:first-child {
-        @media screen and (min-width: 1024px) {
-          width: max-content;
-          min-width: 312px;
-          max-width: 520px;
+        width: max-content;
+        min-width: 312px;
+        max-width: 320px;
+
+        @media screen and ${device.laptop} {
+          width: 100%;
+          min-width: 100%;
+          max-width: 100%;
         }
       }
     }
@@ -441,7 +247,38 @@ const StyledNav = styled.nav`
 
     .menu-wrapper {
       @media screen and ${device.laptop} {
-        padding: 24px 0 0 0;
+        padding: 16px 0 0 0;
+      }
+    }
+  }
+
+  .nav-pricing,
+  .nav-developers {
+    .menu-box {
+      &:not(:last-child) {
+        @media screen and ${device.laptop} {
+          padding: 0;
+          margin-bottom: 24px;
+        }
+      }
+    }
+  }
+
+  .nav-get-onlyoffice {
+    .menu-link:not([href]) {
+      @media screen and ${device.laptop} {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .nav-resources {
+    .menu-box {
+      &:nth-child(2) {
+        @media screen and ${device.laptop} {
+          padding: 0;
+          margin-bottom: 24px;
+        }
       }
     }
   }
@@ -520,7 +357,7 @@ const StyledNav = styled.nav`
 
     @media screen and ${device.laptop} {
       flex-direction: column;
-      padding: 24px 0;
+      padding: 16px 0;
       height: 100%;
       text-align: left;
     }
@@ -535,228 +372,9 @@ const StyledNav = styled.nav`
     }
   }
 
-  .menu-box-btn {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    border: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    background-color: transparent;
-    text-align: initial;
-    cursor: pointer;
-
-    &:after {
-      content: "";
-      display: inline-flex;
-      margin-left: 4px;
-      width: 24px;
-      min-width: 24px;
-      height: 24px;
-      background-image: url("https://static-oforms.onlyoffice.com/icons/arrow-gray.svg");
-      background-repeat: no-repeat;
-      background-position: center;
-    }
-
-    &.menu-link {
-      &:not(:last-child) {
-        margin-bottom: 16px;
-  
-        @media screen and ${device.laptop} {
-          margin-bottom: 12px;
-        }
-      }
-
-      @media screen and ${device.laptop} {
-        padding: 4px 16px 4px 60px;
-      }
-    }
-
-    &:hover,
-    &.active {
-      color: #FF6F3D;
-
-      &:after {
-        background-image: url("https://static-oforms.onlyoffice.com/icons/arrow-red.svg");
-      }
-    }
-
-    @media screen and ${device.laptop} {
-      padding: 0 48px 0 0;
-    }
-  }
-
-  .menu-submenu {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .menu-submenu-text {
-    display: block;
-    margin: 0 32px 16px;
-    font-size: 13px;
-    line-height: 20px;
-    color: #666666;
-
-    @media screen and ${device.laptop} {
-      margin: 0 24px 16px;
-      color: #808080;
-    }
-  }
-
-  .menu-submenu-text-pc {
-    @media screen and ${device.laptop} {
-      display: none;
-    }
-  }
-
-  .menu-submenu-text-mobile {
-    display: none;
-
-    @media screen and ${device.laptop} {
-      display: block;
-    }
-  }
-
-  .menu-submenu {
-    .mobile-heading-nav-item {
-      display: none;
-
-      @media screen and ${device.laptop} {
-        display: block;
-        margin-bottom: 24px;
-      }
-    }
-
-    @media screen and ${device.laptop} {
-      display: none;
-    }
-  }
-
   .menu-submenu-wrapper {
     &:not(:last-child) {
       margin-bottom: 16px;
-    }
-  }
-
-  .menu-box-bottom {
-    display: flex;
-    justify-content: space-between;
-    border-top: 1px solid #E2E2E2;
-    padding: 12px 24px;
-
-    @media screen and ${device.laptop} {
-      justify-content: initial;
-      flex-direction: column;
-      margin-top: 24px;
-      padding: 0 0 24px;
-    }
-  }
-
-  .menu-apps {
-    display: flex;
-    align-items: center;
-    
-    .menu-label {
-      padding: 4px 4px 0 0;
-      margin: 0 32px 0 0;
-
-      @media screen and ${device.laptop} {
-        margin: 0 0 16px 0;
-      }
-    }
-
-    @media screen and ${device.laptop} {
-      align-items: initial;
-      flex-direction: column;
-      padding: 24px 24px 0 24px;
-    }
-  }
-
-  .menu-apps-list {
-    display: flex;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-
-    li {
-      display: inline-flex;
-
-      &:not(:last-child) {
-        margin-right: 16px;
-      }
-    }
-  }
-
-  .menu-app-link {
-    display: inline-flex;
-    width: 32px;
-    min-width: 32px;
-    height: 32px;
-    background-image: url("https://static-oforms.onlyoffice.com/icons/platforms.svg");
-
-    &.macos {
-      background-position-x: -52px;
-    }
-
-    &.linux {
-      background-position-x: -104px;
-    }
-
-    &.android {
-      background-position-x: -154px;
-    }
-
-    &.ios {
-      background-position-x: -206px;
-    }
-
-    &:hover {
-      background-position-y: -52px;
-    }
-  }
-
-  .menu-box-bottom-links {
-    display: flex;
-    align-items: center;
-
-    .menu-link {
-      padding: 0 0 0 32px;
-      font-size: 13px;
-      font-weight: 400;
-      line-height: 24px;
-
-      &:before {
-        left: 0;
-
-        @media screen and ${device.laptop} {
-          top: 0;
-          left: 24px;
-        }
-      }
-
-      &:not(:last-child) {
-        margin: 0 16px 0 0;
-
-        @media screen and ${device.laptop} {
-          margin: 0 0 12px 0;
-        }
-      }
-
-      @media screen and ${device.laptop} {
-        padding: 0 24px 0 56px;
-        font-size: 16px;
-        line-height: 24px;
-      }
-    }
-
-    @media screen and ${device.laptop} {
-      align-items: initial;
-      flex-direction: column;
-      padding-top: 24px;
-      order: -1;
     }
   }
 
@@ -788,21 +406,73 @@ const StyledNav = styled.nav`
         transform: translateY(-50%);
 
         @media screen and ${device.laptop} {
-          content: none;
+          top: initial;
+          left: 50%;
+          bottom: 0;
+          width: calc(100% - 48px);
+          max-width: initial;
+          max-height: 1px;
+          border-right: none;
+          border-bottom: 1px solid #ebebeb;
+          transform: translateX(-50%);
         }
       }
     }
 
     &:not(:last-child) {
       @media screen and ${device.laptop} {
-        margin-bottom: 24px;
+        margin-bottom: 32px;
+      }
+    }
+
+    &:last-child:not(.bg-gray) {
+      @media screen and ${device.laptop} {
+        padding: 0;
       }
     }
 
     @media screen and ${device.laptop} {
-      padding: 0;
+      padding: 0 0 32px;
       width: 100%;
     }
+  }
+
+  .menu-box-item {
+    .menu-link {
+      &:not(:last-child) {
+        margin-bottom: 8px;
+
+        @media screen and ${device.laptop} {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+
+      @media screen and ${device.laptop} {
+        margin-bottom: 8px;
+      }
+    }
+  }
+
+  .menu-box-text {
+    display: block;
+    padding: 0 32px;
+    font-size: 14px;
+    line-height: 21px;
+    color: #666666;
+
+    @media screen and ${device.laptop} {
+      padding: 0 24px 8px;
+      line-height: 22px;
+    }
+  }
+
+  .menu-box-line {
+    border-bottom: 1px solid #EBEBEB;
+    margin: 32px;
   }
 
   .menu-box-wrapper {
@@ -819,40 +489,38 @@ const StyledNav = styled.nav`
 
   .menu-box-link {
     display: flex;
-    padding: 0 32px 0 68px;
-    font-size: 13px;
-    line-height: 20px;
-    font-weight: 600;
+    padding: 0 32px 0 72px;
+    font-size: 14px;
+    line-height: 23px;
     color: #444444;
     text-decoration: none;
 
     &.left {
-      padding: 0 8px 0 68px;
+      padding: 0px 8px 0px 72px;
 
       @media screen and ${device.laptop} {
-        padding: 0 8px 0 60px;
+        padding: 9px 8px 9px 56px;
       }
     }
 
     &.right {
-      padding: 0 32px 0 8px;
+      padding: 0px 48px 0px 8px;
 
       @media screen and ${device.laptop} {
-        padding: 0 24px 0 8px;
+        padding: 9px 24px 9px 8px;
       }
 
       @media screen and (max-width: 399px) {
-        flex: 1 1 100%;
-        margin-top: 4px;
-        padding: 0 8px 0 60px;
+        padding: 9px 16px 9px 56px;
+        width: 100%;
       }
     }
 
     &.sign-in {
-      margin-bottom: 4px;
+      margin-bottom: 6px;
 
       @media screen and ${device.laptop} {
-        margin-bottom: 8px;
+        margin-bottom: 0;
       }
     }
 
@@ -861,21 +529,21 @@ const StyledNav = styled.nav`
     }
 
     @media screen and ${device.laptop} {
-      padding: 0 24px 0 60px;
+      padding: 9px 24px 9px 56px;
       font-size: 14px;
-      line-height: 21px;
+      line-height: 22px;
     }
   }
 
   .menu-box-links {
     display: flex;
     align-items: center;
-    margin-bottom: 4px;
-    font-size: 13px;
-    line-height: 20px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    line-height: 23px;
 
     @media screen and ${device.laptop} {
-      margin-bottom: 8px;
+      margin-bottom: 0;
       font-size: 16px;
       line-height: 24px;
     }
@@ -903,11 +571,11 @@ const StyledNav = styled.nav`
       display: block;
       width: 24px;
       height: 24px;
-      background-image: url("https://static-oforms.onlyoffice.com/icons/menu-icons-2.svg");
+      background-image: url("https://static-oforms.onlyoffice.com/icons/menu-icons.svg");
       background-repeat: no-repeat;
 
       @media screen and ${device.laptop} {
-        top: 4px;
+        top: 8px;
         left: 24px;
       }
     }
@@ -924,231 +592,39 @@ const StyledNav = styled.nav`
       }
     }
 
-    &.no-img {
+    &.marketplace {
       &:before {
-        content: none;
+        background-position-y: -1560px;
       }
     }
 
-    &.feature-overview {
+    &.for-desktop {
       &:before {
-        background-position-y: -1690px;
+        background-position-y: -52px;
       }
     }
 
-    &.document-editor {
+    &.for-ios {
       &:before {
-        background-position-y: -1716px;
+        background-position-y: -78px;
       }
     }
 
-    &.spreadsheet-editor {
+    &.for-android {
       &:before {
-        background-position-y: -1040px;
+        background-position-y: -104px;
       }
     }
 
-    &.presentation-editor {
-      &:before {
-        background-position-y: -1742px;
-      }
-    }
-
-    &.pdf-editor {
-      &:before {
-        background-position-y: -1820px;
-      }
-    }
-
-    &.form-creator {
-      &:before {
-        background-position-y: -1768px;
-      }
-    }
-
-    &.e-book-creator {
-      &:before {
-        background-position-y: -1846px;
-      }
-    }
-
-    &.collaboration-features {
-      &:before {
-        background-position-y: -1872px;
-      }
-    }
-
-    &.collaboration-rooms {
-      &:before {
-        background-position-y: -1898px;
-      }
-    }
-
-    &.meeting-rooms {
-      &:before {
-        background-position-y: -1924px;
-      }
-    }
-
-    &.custom-rooms {
-      &:before {
-        background-position-y: -1950px;
-      }
-    }
-
-    &.markdown-editor {
-      &:before {
-        background-position-y: -1794px;
-      }
-    }
-
-    &.documents {
-      &:before {
-        background-position-y: -2002px;
-      }
-    }
-
-    &.crm {
-      &:before {
-        background-position-y: -2028px;
-      }
-    }
-
-    &.projects {
-      &:before {
-        background-position-y: -2080px;
-      }
-    }
-
-    &.mails {
-      &:before {
-        background-position-y: -2106px;
-      }
-    }
-
-    &.calendar {
-      &:before {
-        background-position-y: -2054px;
-      }
-    }
-
-    &.box {
-      &:before {
-        background-position-y: -2184px;
-      }
-    }
-
-    &.confluence {
-      &:before {
-        background-position-y: -2132px;
-      }
-    }
-
-    &.dropbox {
-      &:before {
-        background-position-y: -2210px;
-      }
-    }
-
-    &.moodles {
-      &:before {
-        background-position-y: -2236px;
-      }
-    }
-
-    &.nextcloud {
-      &:before {
-        background-position-y: -2262px;
-      }
-    }
-
-    &.odoo {
-      &:before {
-        background-position-y: -2288px;
-      }
-    }
-
-    &.owncloud {
-      &:before {
-        background-position-y: -2158px;
-      }
-    }
-
-    &.zoom {
-      &:before {
-        background-position-y: -2314px;
-      }
-    }
-
-    &.wordpress {
-      &:before {
-        background-position-y: -2340px;
-      }
-    }
-
-    &.chatgpt {
-      &:before {
-        background-position-y: -2366px;
-      }
-    }
-
-    &.zhipu-copilot {
-      &:before {
-        background-position-y: -2392px;
-      }
-    }
-
-    &.apertium {
-      &:before {
-        background-position-y: -2418px;
-      }
-    }
-
-    &.deepl {
-      &:before {
-        background-position-y: -2444px;
-      }
-    }
-
-    &.translator {
-      &:before {
-        background-position-y: -2470px;
-      }
-    }
-
-    &.jitsi {
-      &:before {
-        background-position-y: -2496px;
-      }
-    }
-
-    &.telegram {
-      &:before {
-        background-position-y: -2522px;
-      }
-    }
-
-    &.rainbow {
-      &:before {
-        background-position-y: -2548px;
-      }
-    }
-
-    &.public-rooms {
-      &:before {
-        background-position-y: -1976px;
-      }
-    }
-
-    &.find-pdf-form-templates {
+    &.find-form-templates {
       color: #FF6F3D;
 
       &:before {
-        background-position-y: -1404px;
+        background-position-y: -1378px;
       }
     }
 
-    &.fill-out-pdf-forms-online {
+    &.fill-out-forms-online {
       &:before {
         background-position-y: -702px;
       }
@@ -1178,47 +654,15 @@ const StyledNav = styled.nav`
       }
     }
 
-    &.ai-assistant {
+    &.documents {
       &:before {
-        background-position-y: -1664px;
-      }
-    }
-
-    &.accessibility {
-      &:before {
-        background-position-y: -1560px;
-      }
-    }
-
-    &.security {
-      &:before {
-        background-position-y: -624px;
-      }
-    }
-
-    &.marketplace {
-      &:before {
-        background-position-y: -1612px;
-      }
-    }
-
-    &.online-services {
-      &:before {
-        background-position-y: -1352px;
-      }
-
-      &:not(:last-child) {
-        margin-bottom: 8px;
-      }
-
-      &:hover {
-        color: #444444;
+        background-position-y: -2002px;
       }
     }
 
     &.all-enterprise-solutions {
       &:before {
-        background-position-y: -1378px;
+        background-position-y: -1352px;
       }
     }
 
@@ -1248,7 +692,7 @@ const StyledNav = styled.nav`
 
     &.all-developer-solutions {
       &:before {
-        background-position-y: -1534px;
+        background-position-y: -1508px;
       }
     }
 
@@ -1266,13 +710,13 @@ const StyledNav = styled.nav`
 
     &.document-builder {
       &:before {
-        background-position-y: -834px;
+        background-position-y: -832px;
       }
     }
 
     &.api-documentation {
       &:before {
-        background-position-y: -885px;
+        background-position-y: -884px;
       }
     }
 
@@ -1290,13 +734,13 @@ const StyledNav = styled.nav`
 
     &.desktop-mobile-apps {
       &:before {
-        background-position-y: -155px;
+        background-position-y: -156px;
       }
     }
 
     &.docs-community {
       &:before {
-        background-position-y: -1586px;
+        background-position-y: -962px;
       }
     }
 
@@ -1308,7 +752,7 @@ const StyledNav = styled.nav`
 
     &.docs-home-server {
       &:before {
-        background-position-y: -1586px;
+        background-position-y: -1534px;
       }
     }
 
@@ -1362,13 +806,13 @@ const StyledNav = styled.nav`
 
     &.customers {
       &:before {
-        background-position-y: -361px;
+        background-position-y: -364px;
       }  
     }
 
     &.success-stories {
       &:before {
-        background-position-y: -1430px;
+        background-position-y: -1404px;
       }  
     }
 
@@ -1380,7 +824,7 @@ const StyledNav = styled.nav`
 
     &.certificates {
       &:before {
-        background-position-y: -1636px;
+        background-position-y: -1586px;
       }  
     }
 
@@ -1398,7 +842,7 @@ const StyledNav = styled.nav`
 
     &.gift-shop {
       &:before {
-        background-position-y: -519px;
+        background-position-y: -520px;
       }  
     }
 
@@ -1410,19 +854,19 @@ const StyledNav = styled.nav`
 
     &.for-contributers {
       &:before {
-        background-position-y: -1456px;
+        background-position-y: -1430px;
       }  
     }
 
     &.for-translators {
       &:before {
-        background-position-y: -1482px;
+        background-position-y: -1456px;
       }  
     }
 
     &.for-influencers {
       &:before {
-        background-position-y: -1506px;
+        background-position-y: -1482px;
       }  
     }
 
@@ -1468,12 +912,16 @@ const StyledNav = styled.nav`
       &:before {
         content: none;
       }
+
+      @media screen and ${device.laptop} {
+        margin-bottom: 16px;
+      }
     }
 
     &.workspace,
     &.workspace-cloud {
       &:before {
-        background-position-y: -25px;
+        background-position-y: -26px;
       }
     }
 
@@ -1491,7 +939,7 @@ const StyledNav = styled.nav`
     }
 
     @media screen and ${device.laptop} {
-      padding: 4px 24px 4px 60px;
+      padding: 8px 24px 8px 58px;
     }
   }
 
@@ -1502,19 +950,22 @@ const StyledNav = styled.nav`
   }
 
   .menu-label {
-    margin: 0 32px 12px;
-    font-size: 10px;
+    margin-bottom: 16px;
+    border-radius: 5px;
+    padding: 4px 32px;
+    font-size: 13px;
     font-weight: 600;
-    line-height: 14px;
-    letter-spacing: 0.3em;
-    color: #666666;
+    line-height: 16px;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
+    color: #808080;
 
     @media screen and ${device.laptop} {
-      margin: 0 24px 16px;
-      padding: 4px 4px 0 0;
-      font-size: 11px;
-      line-height: 14px;
+      margin-bottom: 8px;
+      padding: 8px 24px;
+      font-size: 12px;
+      line-height: 24px;
+      letter-spacing: 0.05em;
     }
   }
 
@@ -1526,7 +977,7 @@ const StyledNav = styled.nav`
     text-decoration: none;
 
     &:not(:last-child) {
-      margin-bottom: 16px;
+      margin-bottom: 32px;
     }
   }
 
@@ -1561,17 +1012,17 @@ const StyledNav = styled.nav`
     }
 
     &.blog-1 {
-      background-image: url(${menuBlog1.src});
+      background-image: url("https://static-oforms.onlyoffice.com/images/menu-pics/menu-blog-1-1.png");
     }
 
     &.blog-2 {
-      background-image: url(${menuBlog2.src});
+      background-image: url("https://static-oforms.onlyoffice.com/images/menu-pics/menu-blog-2-1.png");
     }
   }
 
   .menu-block-text {
     font-size: 14px;
-    line-height: 20px;
+    line-height: 21px;
     color: #444444;
     cursor: pointer;
 
@@ -1582,8 +1033,8 @@ const StyledNav = styled.nav`
 
   .menu-blog-title {
     margin-bottom: 8px;
-    font-size: 13px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 1.6em;
     color: #444444;
     
     &:hover {
@@ -1593,7 +1044,7 @@ const StyledNav = styled.nav`
 
   .menu-blog-date {
     font-size: 13px;
-    line-height: 21px;
+    line-height: 1.6em;
     color: #808080;
   }
 
