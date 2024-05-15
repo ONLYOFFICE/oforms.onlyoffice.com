@@ -5,23 +5,22 @@ const StyledFooter = styled.div`
   box-sizing: initial;
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 258px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 257px;
   column-gap: 32px;
   padding: 56px 32px 60px;
   margin: 0 auto;
   height: auto;
   max-width: 1120px;
-  overflow: hidden;
 
   .footer-item-group {
     position: relative;
 
-    &:nth-child(4) {
-      @media screen and ${device.tablet} {
+    &:nth-child(5) {
+      @media screen and (max-width: 969px) {
         display: grid;
         align-items: start;
         grid-template-columns: 1fr 1fr;
-        grid-column: span 3;
+        grid-column: span 4;
         column-gap: 32px;
       }
 
@@ -39,7 +38,7 @@ const StyledFooter = styled.div`
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
-    grid-column: span 4;
+    grid-column: span 5;
     border-top: 1px solid #e2e2e2;
     margin-top: 24px;
     padding-top: 40px;
@@ -54,14 +53,24 @@ const StyledFooter = styled.div`
       @media screen and ${device.laptop} {
         text-align: center;
       }
+
+      @media screen and (max-width: 600px) {
+        display: none;
+      }
+    }
+
+    .footer-follow {
+      @media screen and (max-width: 600px) {
+        padding: 56px 0 0;
+      }
     }
 
     @media screen and ${device.laptop} {
       grid-template-columns: initial;
     }
 
-    @media screen and ${device.tablet} {
-      grid-column: span 3;
+    @media screen and (max-width: 969px) {
+      grid-column: span 4;
     }
 
     @media screen and (max-width: 600px) {
@@ -71,59 +80,6 @@ const StyledFooter = styled.div`
       padding: 0;
       margin-top: 0;
       border-top: 0;
-
-      .footer-item-heading {
-        display: none;
-      }
-
-      .footer-follow {
-        padding: 56px 0 0;
-      }
-
-      .footer-copyright-block {
-        margin-top: 32px;
-        text-align: center;
-  
-        span {
-          display: block;
-          font-size: 12px;
-          line-height: 26px;
-          color: #444444;
-        }
-      }
-    }
-  }
-
-  .social-link-links {
-    .social-link {
-      @media screen and (max-width: 600px) {
-        padding-right: 0;
-        width: 40px;
-        height: 40px;
-        border: initial;
-        border-radius: 50%;
-      }
-
-      > div {
-        @media screen and (max-width: 600px) {
-          border-radius: 50%;
-          width: 24px;
-          height: 24px;
-        }
-      }
-    }
-
-    @media screen and ${device.laptop} {
-      justify-content: center;
-    }
-
-    @media screen and (max-width: 600px) {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 16px;
-      margin: 0 auto;
-      max-width: 100%;
     }
   }
 
@@ -143,6 +99,11 @@ const StyledFooter = styled.div`
     &:hover {
       text-decoration: none;
     }
+
+    @media screen and (max-width: 600px) {
+      font-size: 12px;
+      line-height: 20px;
+    }
   }
 
   .contact-text {
@@ -150,6 +111,11 @@ const StyledFooter = styled.div`
     font-size: 13px;
     line-height: 18px;
     color: #444444;
+
+    @media screen and (max-width: 600px) {
+      font-size: 12px;
+      line-height: 20px;
+    }
   }
 
   .footer-copyright-block {
@@ -160,14 +126,31 @@ const StyledFooter = styled.div`
     color: #444444;
     text-align: right;
 
+    span {
+      @media screen and ${device.laptop} {
+        margin: 0 1px;
+      }
+
+      @media screen and (max-width: 600px) {
+        display: block;
+        font-size: 12px;
+        line-height: 26px;
+        color: #444444;
+      }
+    }
+
     @media screen and ${device.laptop} {
-      display: block;
+      flex-direction: initial;
+      justify-content: center;
       margin: 32px 0 0;
       text-align: center;
     }
 
-    span {
-      margin: 0 1px;
+    @media screen and (max-width: 600px) {
+      flex-wrap: wrap;
+      margin-top: 32px;
+      line-height: 18px;
+      color: #AAAAAA;
     }
   }
 
@@ -175,36 +158,20 @@ const StyledFooter = styled.div`
     color: #AAAAAA;
     font-size: 13px;
     line-height: 1.4em;
-  }
-
-  .footer-item-follow {
-    padding-bottom: 0;
 
     @media screen and (max-width: 600px) {
-      padding: 32px 0;
-      border: none;
-  
-      .footer-items-group {
-        max-height: 100% !important;
-      }
-  
-      .footer-item-heading-arrow {
-        display: none;
-      }
-  
-      .footer-item-heading {
-        display: none;
-      }
+      font-size: 13px;
+      line-height: 26px;
     }
   }
-
+  
   .popup-qr-code.line-qr-code {
     @media screen and (max-width: 900px) {
       left: initial;
       right: 0;
       transform: initial;
     }
-  
+
     @media screen and (max-width: 791px) {
       left: 50%;
       right: initial;
@@ -216,7 +183,7 @@ const StyledFooter = styled.div`
       right: 0;
       transform: initial;
     }
-  
+
     @media screen and (max-width: 455px) {
       left: 50%;
       right: initial;
@@ -235,45 +202,26 @@ const StyledFooter = styled.div`
       left: 0;
       right: initial;
     }
-  
+
     @media screen and (max-width: 391px) {
       left: initial;
       right: 0;
     }
-  
+
     @media screen and (max-width: 327px) {
       left: 0;
       right: initial;
     }
   }
 
-  .contact-text,
-  .footer-link-contact {
-    @media screen and (max-width: 600px) {
-      font-size: 12px;
-      line-height: 20px;
-    }
-  }
-
-  .footer-copyright-block {
-    @media screen and (max-width: 600px) {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      flex-direction: initial;
-      margin: 0 0 8px;
-      line-height: 18px;
-      color: #AAAAAA;
-    }
-  }
-
   @media screen and ${device.laptop} {
+    vertical-align: top;
     padding: 56px 40px 64px;
     justify-content: center;
   }
 
-  @media screen and ${device.tablet} {
-    grid-template-columns: 1fr 1fr 1fr;
+  @media screen and (max-width: 969px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 
   @media screen and (max-width: 600px) {

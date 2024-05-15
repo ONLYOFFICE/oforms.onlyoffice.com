@@ -2,7 +2,7 @@ import { StyledNavMenu, StyledMenuItemsWrapper } from "./styled-navmenu";
 import { useState, useEffect } from "react";
 import Heading from "@common/heading";
 
-const MenuItem = ({ children, heading, navHidden, setNavHidden, className, ...rest }) => {
+const MenuItem = ({ children, heading, navHidden, setNavHidden, className }) => {
   const windowCheck = typeof window !== "undefined" && window.innerWidth <= 1024;
   const [showMenu, setShowMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -32,7 +32,7 @@ const MenuItem = ({ children, heading, navHidden, setNavHidden, className, ...re
   }, []);
 
   return (
-    <StyledNavMenu onMouseLeave={() => setShowMenu(false)} className={`nav-item ${windowCheck && showMobileMenu ? "active" : ""} ${className ? className : ""}`} {...rest}>
+    <StyledNavMenu onMouseLeave={() => setShowMenu(false)} className={`nav-item ${windowCheck && showMobileMenu ? "active" : ""} ${className ? className : ""}`}>
       <button
         className={`heading-nav-item ${showMenu ? "active": ""}`}
         onClick={toggleMenu}

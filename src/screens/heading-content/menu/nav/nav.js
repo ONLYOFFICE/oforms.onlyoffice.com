@@ -1,181 +1,60 @@
 import StyledNav from "./styled-nav";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import MenuItem from "../menu-item";
 import InternalLink from "@common/internal-link";
 import Text from "@common/text";
-import Heading from "@common/heading";
 
-const Nav = ({ t, locale, ...rest }) => {
+const Nav = ({ t, locale }) => {
   const [navHidden, setNavHidden] = useState(false);
-  const [activeTab, setActiveTab] = useState(0);
   const hrefLang = `https://onlyoffice.com${locale === "en" ? "" : `/${locale}`}`;
-  const appDirectoryHrefLang = `https://onlyoffice.com/app-directory${locale === "en" || locale === "pt" || locale === "it" ? "" : `/${locale}`}`
+  const appDirectoryHrefLang = `https://onlyoffice.com/app-directory${locale === "en" || locale === "pt" || locale === "it" ? "" : `/${locale}`}`;
+  const oformsHrefLang = `https://oforms.onlyoffice.com/${locale === "en" ? "" : locale}`;
+  const blogHrefLang = `https://onlyoffice.com/blog${locale === "en" ? "" : locale === "zh" ? "/zh-hans" : locale === "pt" ? "/pt-br" : `/${locale}`}`;
   const windowCheck = typeof window !== "undefined" && window.innerWidth <= 1024;
 
-  useEffect(() => {
-    if (window.innerWidth <= 1024) {
-      setActiveTab(null);
-    }
-  }, []);
-
   return (
-    <StyledNav className={`nav ${locale} ${windowCheck && navHidden ? "hidden" : ""}`} {...rest}>
+    <StyledNav className={`nav ${locale} ${windowCheck && navHidden ? "hidden" : ""}`}>
       <div className="nav-wrapper">
         <ul className="nav-items">
-          <MenuItem
-            onMouseEnter={() => window.innerWidth > 1024 && activeTab === null && setActiveTab(0)}
-            className={`nav-products ${activeTab !== null ? activeTab === 5 ? "online-services-tab-active" : "tab-active" : ""}`}
-            heading={t("Products")}
-            navHidden={navHidden}
-            setNavHidden={setNavHidden}
-          >
+          <MenuItem className="nav-products" heading={t("Products")} navHidden={navHidden} setNavHidden={setNavHidden}>
             <div className="menu-wrapper">
-              <div className="menu-wrapper-box">
-                <div className="menu-box">
-                  <button onClick={() => setActiveTab(0)} className={`menu-box-btn menu-link docs ${activeTab === 0 ? "active" : ""}`}>{t("Docs")}</button>
-                  <button onClick={() => setActiveTab(1)} className={`menu-box-btn menu-link docspace ${activeTab === 1 ? "active" : ""}`}>{t("DocSpace")}</button>
-                  <button onClick={() => setActiveTab(2)} className={`menu-box-btn menu-link workspace ${activeTab === 2 ? "active" : ""}`}>{t("Workspace")}</button>
-                  <button onClick={() => setActiveTab(3)} className={`menu-box-btn menu-link connectors ${activeTab === 3 ? "active" : ""}`}>{t("Connectors")}</button>
-                  <button onClick={() => setActiveTab(4)} className={`menu-box-btn menu-link marketplace ${activeTab === 4 ? "active" : ""}`}>{t("Marketplace")}</button>
+              <div className="menu-box with-border">
+                <div className="menu-box-item">
+                  <InternalLink className="menu-link docs" href={`${hrefLang}/office-suite.aspx`} label={t("Docs")} />
+                  <Text className="menu-box-text" label={t("Doc editors to integrate into your business platform")} />
                 </div>
-                <div className="menu-box">
-                  {activeTab === 0 &&
-                    <div className="menu-submenu">
-                      <button onClick={() => setActiveTab(null)} className="mobile-heading-nav-item">{t("Docs")}</button>
-                      <Text className="menu-submenu-text" label={t("Doc editors to integrate into your business platform")} />
-                      <InternalLink className="menu-link feature-overview" href={`${hrefLang}/office-suite.aspx`} label={t("Feature overview")} />
-                      <div className="menu-label">{t("Editors")}</div>
-                      <InternalLink className="menu-link document-editor" href={`${hrefLang}/document-editor.aspx?docs-download`} label={t("Document editor")} />
-                      <InternalLink className="menu-link spreadsheet-editor" href={`${hrefLang}/spreadsheet-editor.aspx?docs-download`} label={t("Spreadsheet editor")} />
-                      <InternalLink className="menu-link presentation-editor" href={`${hrefLang}/presentation-editor.aspx?docs-download`} label={t("Presentation editor")} />
-                      <InternalLink className="menu-link pdf-editor" href={`${hrefLang}/pdf-editor.aspx?docs-download`} label={t("PDF editor")} />
-                      <InternalLink className="menu-link form-creator" href={`${hrefLang}/form-creator.aspx?docs-download`} label={t("Form creator")} />
-                      <InternalLink className="menu-link e-book-creator" href={`${hrefLang}/e-book.aspx?docs-download`} label={t("E-book creator")} />
-                      <InternalLink className="menu-link collaboration-features" href={`${hrefLang}/seamless-collaboration.aspx?docs-download`} label={t("Collaboration features")} />
-                    </div>
-                  }
-                  {activeTab === 1 &&
-                    <div className="menu-submenu">
-                      <button onClick={() => setActiveTab(null)} className="mobile-heading-nav-item">{t("DocSpace")}</button>
-                      <Text className="menu-submenu-text" label={t("Customizable rooms for document collaboration")} />
-                      <div className="menu-submenu-wrapper">
-                        <InternalLink className="menu-link feature-overview" href={`${hrefLang}/docspace.aspx`} label={t("Feature overview")} />
-                        <div className="menu-label">{t("Rooms")}</div>
-                        <InternalLink className="menu-link collaboration-rooms" href={`${hrefLang}/collaboration-rooms.aspx`} label={t("Collaboration rooms")} />
-                        <InternalLink className="menu-link meeting-rooms" href={`${hrefLang}/office-for-zoom.aspx`} label={t("Meeting rooms")} />
-                        <InternalLink className="menu-link public-rooms" href={`${hrefLang}/public-rooms.aspx`} label={t("Public rooms")} />
-                        <InternalLink className="menu-link custom-rooms" href={`${hrefLang}/custom-rooms.aspx`} label={t("Custom rooms")} />
-                      </div>
-                      <div className="menu-submenu-wrapper">
-                        <div className="menu-label">{t("Editors")}</div>
-                        <InternalLink className="menu-link document-editor" href={`${hrefLang}/document-editor.aspx`} label={t("Document editor")} />
-                        <InternalLink className="menu-link spreadsheet-editor" href={`${hrefLang}/spreadsheet-editor.aspx`} label={t("Spreadsheet editor")} />
-                        <InternalLink className="menu-link presentation-editor" href={`${hrefLang}/presentation-editor.aspx`} label={t("Presentation editor")} />
-                        <InternalLink className="menu-link pdf-editor" href={`${hrefLang}/pdf-editor.aspx`} label={t("PDF editor")} />
-                        <InternalLink className="menu-link form-creator" href={`${hrefLang}/form-creator.aspx`} label={t("Form creator")} />
-                        <InternalLink className="menu-link e-book-creator" href={`${hrefLang}/e-book.aspx`} label={t("E-book creator")} />
-                        <InternalLink className="menu-link markdown-editor" href={`${appDirectoryHrefLang}/markdown`} label={t("Markdown editor")} />
-                        <InternalLink className="menu-link collaboration-features" href={`${hrefLang}/seamless-collaboration.aspx`} label={t("Collaboration features")} />
-                      </div>
-                    </div>
-                  }
-                  {activeTab === 2 &&
-                    <div className="menu-submenu">
-                      <button onClick={() => setActiveTab(null)} className="mobile-heading-nav-item">{t("Workspace")}</button>
-                      <Text className="menu-submenu-text" label={t("Business platform to manage your team activities")} />
-                      <InternalLink className="menu-link feature-overview" href={`${hrefLang}/workspace.aspx`} label={t("Feature overview")} />
-                      <div className="menu-label">{t("Modules")}</div>
-                      <InternalLink className="menu-link documents" href={`${hrefLang}/document-management.aspx`} label={t("Documents")} />
-                      <InternalLink className="menu-link crm" href={`${hrefLang}/crm.aspx`} label={t("CRM")} />
-                      <InternalLink className="menu-link projects" href={`${hrefLang}/projects.aspx`} label={t("Projects")} />
-                      <InternalLink className="menu-link mails" href={`${hrefLang}/mail.aspx`} label={t("Mails")} />
-                      <InternalLink className="menu-link calendar" href={`${hrefLang}/calendar.aspx`} label={t("Calendar")} />
-                    </div>
-                  }
-                  {activeTab === 3 &&
-                    <div className="menu-submenu">
-                      <button onClick={() => setActiveTab(null)} className="mobile-heading-nav-item">{t("Connectors")}</button>
-                      <Text className="menu-submenu-text" label={t("Ready-to-use apps to connect Docs or DocSpace to your business platform")} />
-                      <div className="menu-submenu-wrapper">
-                        <div className="menu-label">{t("For Docs")}</div>
-                        <InternalLink className="menu-link box" href={`${hrefLang}/office-for-box.aspx`} label={t("Box")} />
-                        <InternalLink className="menu-link confluence" href={`${hrefLang}/office-for-confluence.aspx`} label={t("Confluence")} />
-                        <InternalLink className="menu-link dropbox" href={`${hrefLang}/office-for-dropbox.aspx`} label={t("Dropbox")} />
-                        <InternalLink className="menu-link moodles" href={`${hrefLang}/office-for-moodle.aspx`} label={t("Moodle")} />
-                        <InternalLink className="menu-link nextcloud" href={`${hrefLang}/office-for-nextcloud.aspx`} label={t("Nextcloud")} />
-                        <InternalLink className="menu-link odoo" href={`${hrefLang}/office-for-odoo.aspx`} label={t("Odoo")} />
-                        <InternalLink className="menu-link owncloud" href={`${hrefLang}/office-for-owncloud.aspx`} label={t("ownCloud")} />
-                      </div>
-                      <div className="menu-submenu-wrapper">
-                        <div className="menu-label">{t("For DocSpace")}</div>
-                        <InternalLink className="menu-link zoom" href={`${hrefLang}/office-for-zoom.aspx`} label={t("Zoom")} />
-                        <InternalLink className="menu-link wordpress" href={`${hrefLang}/office-for-wordpress.aspx`} label={t("WordPress")} />
-                        <InternalLink className="menu-link no-img" href={`${hrefLang}/all-connectors.aspx`} label={t("See all connectors")} />
-                      </div>
-                    </div>
-                  }
-                  {activeTab === 4 &&
-                    <div className="menu-submenu">
-                      <button onClick={() => setActiveTab(null)} className="mobile-heading-nav-item">{t("Marketplace")}</button>
-                      <Text className="menu-submenu-text" label={t("Collection of plugins to extend Docs or DocSpace funtionality")} />
-                      <div className="menu-submenu-wrapper">
-                        <div className="menu-label">{t("AI assistants")}</div>
-                        <InternalLink className="menu-link chatgpt" href={`${appDirectoryHrefLang}/openai`} label={t("ChatGPT")} />
-                        <InternalLink className="menu-link zhipu-copilot" href={`${appDirectoryHrefLang}/zhipu`} label={t("ZhiPu Copilot")} />
-                      </div>
-                      <div className="menu-submenu-wrapper">
-                        <div className="menu-label">{t("Translators")}</div>
-                        <InternalLink className="menu-link apertium" href={`${appDirectoryHrefLang}/apertium`} label={t("Apertium")} />
-                        <InternalLink className="menu-link deepl" href={`${appDirectoryHrefLang}/deepl`} label={t("DeepL")} />
-                        <InternalLink className="menu-link translator" href={`${appDirectoryHrefLang}/translator`} label={t("Google")} />
-                      </div>
-                      <div className="menu-submenu-wrapper">
-                        <div className="menu-label">{t("Communication")}</div>
-                        <InternalLink className="menu-link jitsi" href={`${appDirectoryHrefLang}/jitsi`} label={t("Jitsi")} />
-                        <InternalLink className="menu-link telegram" href={`${appDirectoryHrefLang}/telegram`} label={t("Telegram")} />
-                        <InternalLink className="menu-link rainbow" href={`${appDirectoryHrefLang}/rainbow`} label={t("Rainbow")} />
-                        <InternalLink className="menu-link no-img" href={appDirectoryHrefLang} label={t("See all plugins")} />
-                      </div>
-                    </div>
-                  }
+                <div className="menu-box-item">
+                  <InternalLink className="menu-link docspace" href={`${hrefLang}/docspace.aspx`} label={t("DocSpace")} />
+                  <Text className="menu-box-text" label={t("Customizable rooms for document collaboration")} />
                 </div>
-                <div className="menu-box bg-gray">
-                  <Heading  onClick={() => windowCheck && setActiveTab(5)} className="menu-link online-services" level={4} label={t("Online services")} />
-                  <Text className="menu-submenu-text menu-submenu-text-pc" label={t("Perform tasks without registration")} />
-                  <div className="menu-submenu">
-                    <button onClick={() => setActiveTab(null)} className="mobile-heading-nav-item">{t("Online services")}</button>
-                    <Text className="menu-submenu-text menu-submenu-text-mobile" label={t("Perform tasks without registration")} />
-                    <div className="menu-box-inner">
-                      <div className="menu-label">{t("Templates")}</div>
-                      <InternalLink className="menu-link find-pdf-form-templates" href={`https://oforms.onlyoffice.com/${locale === "en" ? "" : locale}`} label={t("Find PDF form templates")} />
-                      <InternalLink className="menu-link fill-out-pdf-forms-online" href={`https://oforms.onlyoffice.com/${locale === "en" ? "" : locale}`} label={t("Fill out PDF forms online")} />
-                    </div>
-                    <div className="menu-box-inner">
-                      <div className="menu-label">{t("Convert")}</div>
-                      <InternalLink className="menu-link convert-text-files" href={`${hrefLang}/text-file-converter.aspx`} label={t("Convert text files")} />
-                      <InternalLink className="menu-link convert-spreadsheets" href={`${hrefLang}/spreadsheet-converter.aspx`} label={t("Convert spreadsheets")} />
-                      <InternalLink className="menu-link convert-presentations" href={`${hrefLang}/presentation-converter.aspx`} label={t("Convert presentations")} />
-                      <InternalLink className="menu-link convert-pdfs" href={`${hrefLang}/pdf-converter.aspx`} label={t("Convert PDFs")} />
-                    </div>
-                  </div>
+                <div className="menu-box-item">
+                  <InternalLink className="menu-link workspace" href={`${hrefLang}/workspace.aspx`} label={t("Workspace")} />
+                  <Text className="menu-box-text" label={t("Business platform to manage your team activities")} />
+                </div>
+                <div className="menu-box-item">
+                  <InternalLink className="menu-link connectors" href={`${hrefLang}/all-connectors.aspx`} label={t("Connectors")} />
+                  <Text className="menu-box-text" label={t("Ready-to-use apps to connect Docs or DocSpace to your business platform")} />
+                </div>
+                <div className="menu-box-item">
+                  <InternalLink className="menu-link marketplace" href={appDirectoryHrefLang} label={t("Marketplace")} />
+                  <Text className="menu-box-text" label={t("Collection of plugins to extend Docs or DocSpace funtionality")} />
                 </div>
               </div>
-              <div className="menu-box-bottom">
-                <div className="menu-apps">
-                  <span className="menu-label">{t("Apps")}</span>
-                  <ul className="menu-apps-list">
-                    <li><InternalLink className="menu-app-link windows" href={`${hrefLang}/desktop.aspx`} /></li>
-                    <li><InternalLink className="menu-app-link macos" href={`${hrefLang}/desktop.aspx`} /></li>
-                    <li><InternalLink className="menu-app-link linux" href={`${hrefLang}/desktop.aspx`} /></li>
-                    <li><InternalLink className="menu-app-link android" href={`${hrefLang}/office-for-android.aspx`} /></li>
-                    <li><InternalLink className="menu-app-link ios" href={`${hrefLang}/office-for-ios.aspx`} /></li>
-                  </ul>
-                </div>
-                <div className="menu-box-bottom-links">
-                  <InternalLink className="menu-link ai-assistant" href={`${appDirectoryHrefLang}/openai`} label={t("AI assistant")} /> 
-                  <InternalLink className="menu-link accessibility" href={`${hrefLang}/accessibility.aspx`} label={t("Accessibility")} />
-                  <InternalLink className="menu-link security" href={`${hrefLang}/security.aspx`} label={t("Security")} />
-                </div>
+
+              <div className="menu-box with-border">
+                <div className="menu-label">{t("Desktop & mobile apps")}</div>
+                <InternalLink className="menu-link for-desktop" href={`${hrefLang}/desktop.aspx`} label={t("For desktop")} />
+                <InternalLink className="menu-link for-ios" href={`${hrefLang}/office-for-ios.aspx`} label={t("For iOS")} />
+                <InternalLink className="menu-link for-android" href={`${hrefLang}/office-for-android.aspx`} label={t("For Android")} />
+              </div>
+              <div className="menu-box">
+                <div className="menu-label">{t("Perform your tasks online")}</div>
+                <InternalLink className="menu-link find-form-templates" href={oformsHrefLang} label={t("Find form templates")} />
+                <InternalLink className="menu-link fill-out-forms-online" href={oformsHrefLang} label={t("Fill out forms online")} />
+                <InternalLink className="menu-link convert-text-files" href={`${hrefLang}/text-file-converter.aspx`} label={t("Convert text files")} />
+                <InternalLink className="menu-link convert-spreadsheets" href={`${hrefLang}/spreadsheet-converter.aspx`} label={t("Convert spreadsheets")} />
+                <InternalLink className="menu-link convert-presentations" href={`${hrefLang}/presentation-converter.aspx`} label={t("Convert presentations")} />
+                <InternalLink className="menu-link convert-pdfs" href={`${hrefLang}/pdf-converter.aspx`} label={t("Convert PDFs")} />
               </div>
             </div>
           </MenuItem>
@@ -342,7 +221,7 @@ const Nav = ({ t, locale, ...rest }) => {
                 </div>
               </div>
               <div className="menu-box bg-gray">
-                <InternalLink className="menu-link blog" href={`https://onlyoffice.com/blog${locale === "en" ? "" : locale === "zh" ? "/zh-hans" : locale === "pt" ? "/pt-br" : `/${locale}`}`} label={t("Blog")} />
+                <InternalLink className="menu-link blog" href={blogHrefLang} label={t("Blog")} />
                 <InternalLink className="menu-block" href={t("blogLink1")}>
                   <div className="menu-block-img blog-1"></div>
                   <div className="menu-blog-title">{t("ONLYOFFICE DocSpace 2.5 released: Public rooms improvements, user groups, storage management, embedding presets, and more")}</div>
