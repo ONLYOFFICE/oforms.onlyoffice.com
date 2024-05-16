@@ -131,6 +131,7 @@ const Nav = ({ t, locale }) => {
                   </div>
                   <InternalLink className="menu-link document-builder" href={`${hrefLang}/download-builder.aspx`} label={t("Document Builder")} />
                 </div>
+                <div className="menu-box-line"></div>
                 <div className="menu-box-wrapper">
                   <div className="menu-label">{t("For community")}</div>
                   <InternalLink className="menu-link docs-community" href={`${hrefLang}/download-docs.aspx#docs-community`} label={t("Docs Community")} />
@@ -149,10 +150,12 @@ const Nav = ({ t, locale }) => {
                   <InternalLink className="menu-link docs-enterprise" href={`${hrefLang}/docs-enterprise-prices.aspx`} label={t("Docs Enterprise")} />
                   <InternalLink className="menu-link workspace" href={`${hrefLang}/workspace-prices.aspx`} label={t("Workspace")} />
                 </div>
+                <div className="menu-box-line"></div>
                 <div className="menu-box-wrapper">
                   <div className="menu-label">{t("For developers")}</div>
                   <InternalLink className="menu-link docs-developer" href={`${hrefLang}/developer-edition-prices.aspx`} label={t("Docs Developer")} />
                 </div>
+                <div className="menu-box-line"></div>
                 <div className="menu-box-wrapper">
                   <div className="menu-label">{t("For home use")}</div>
                   <InternalLink className="menu-link docs-home-server" href={`${hrefLang}/docs-home-server.aspx`} label={t("Docs Home Server")} />
@@ -211,6 +214,7 @@ const Nav = ({ t, locale }) => {
                   <InternalLink className="menu-link for-influencers" href={`${hrefLang}/influencer-program.aspx`} label={t("For influencers")} />
                   <InternalLink className="menu-link vacancies" href={`${hrefLang}/vacancies.aspx`} label={t("Vacancies")} />
                 </div>
+                <div className="menu-box-line"></div>
                 <div className="menu-box-wrapper">
                   <div className="menu-label">{t("Get help")}</div>
                   <InternalLink className="menu-link forum" href="https://forum.onlyoffice.com/" label={t("Forum")} />
