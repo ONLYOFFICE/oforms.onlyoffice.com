@@ -6,9 +6,10 @@ import Text from "@common/text";
 
 const Nav = ({ t, locale }) => {
   const [navHidden, setNavHidden] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
+  const [mobileTab, setMobileTab] = useState(false);
   const hrefLang = `https://onlyoffice.com${locale === "en" ? "" : `/${locale}`}`;
   const appDirectoryHrefLang = `https://onlyoffice.com/app-directory${locale === "en" || locale === "pt" || locale === "it" ? "" : `/${locale}`}`;
-  const oformsHrefLang = `https://oforms.onlyoffice.com/${locale === "en" ? "" : locale}`;
   const blogHrefLang = `https://onlyoffice.com/blog${locale === "en" ? "" : locale === "zh" ? "/zh-hans" : locale === "pt" ? "/pt-br" : `/${locale}`}`;
   const windowCheck = typeof window !== "undefined" && window.innerWidth <= 1024;
 
@@ -16,57 +17,131 @@ const Nav = ({ t, locale }) => {
     <StyledNav className={`nav ${locale} ${windowCheck && navHidden ? "hidden" : ""}`}>
       <div className="nav-wrapper">
         <ul className="nav-items">
-          <MenuItem className="nav-products" heading={t("Products")} navHidden={navHidden} setNavHidden={setNavHidden}>
+          <MenuItem className={`nav-products ${mobileTab ? "tab-active" : ""}`} heading={t("Products")} navHidden={navHidden} setNavHidden={setNavHidden}>
+            <button onClick={() => setMobileTab(false)} className="mobile-heading-nav-item nav-products-mobile-tab">{activeTab === 0 ? t("Docs") : activeTab === 1 ? t("DocSpace") : t("Workspace")}</button>
             <div className="menu-wrapper">
-              <div className="menu-box with-border">
-                <div className="menu-box-item">
-                  <InternalLink className="menu-link docs" href={`${hrefLang}/office-suite.aspx`} label={t("Docs")} />
-                  <Text className="menu-box-text" label={t("Doc editors to integrate into your business platform")} />
+              <div className="menu-wrapper-box">
+                <div className="menu-box">
+                  <button onClick={() => {setActiveTab(0); setMobileTab(true)}} className={`menu-box-item ${activeTab === 0 ? "active" : ""}`}>
+                    <Text className="menu-link docs" label={t("Docs")} />
+                    <Text className="menu-box-text" label={t("Doc editors to integrate into your business platform")} />
+                  </button>
+                  <button onClick={() => {setActiveTab(1); setMobileTab(true)}} className={`menu-box-item ${activeTab === 1 ? "active" : ""}`}>
+                    <Text className="menu-link docspace" label={t("DocSpace")} />
+                    <Text className="menu-box-text" label={t("Customizable rooms for document collaboration")} />
+                  </button>
+                  <button onClick={() => {setActiveTab(2); setMobileTab(true)}} className={`menu-box-item ${activeTab === 2 ? "active" : ""}`}>
+                    <Text className="menu-link workspace" label={t("Workspace")} />
+                    <Text className="menu-box-text" label={t("Business platform to manage your team activities")} />
+                  </button>
                 </div>
-                <div className="menu-box-item">
-                  <InternalLink className="menu-link docspace" href={`${hrefLang}/docspace.aspx`} label={t("DocSpace")} />
-                  <Text className="menu-box-text" label={t("Customizable rooms for document collaboration")} />
-                </div>
-                <div className="menu-box-item">
-                  <InternalLink className="menu-link workspace" href={`${hrefLang}/workspace.aspx`} label={t("Workspace")} />
-                  <Text className="menu-box-text" label={t("Business platform to manage your team activities")} />
-                </div>
-                <div className="menu-box-item">
-                  <InternalLink className="menu-link connectors" href={`${hrefLang}/all-connectors.aspx`} label={t("Connectors")} />
-                  <Text className="menu-box-text" label={t("Ready-to-use apps to connect Docs or DocSpace to your business platform")} />
-                </div>
-                <div className="menu-box-item">
-                  <InternalLink className="menu-link marketplace" href={appDirectoryHrefLang} label={t("Marketplace")} />
-                  <Text className="menu-box-text" label={t("Collection of plugins to extend Docs or DocSpace funtionality")} />
-                </div>
-              </div>
+                <div className="menu-box">
+                  {activeTab === 0 &&
+                    <>
+                      <InternalLink className="menu-label" href={`${hrefLang}/office-suite.aspx`} label={t("Features overview")} />
+                      <InternalLink className="menu-link document-editor" href={`${hrefLang}/document-editor.aspx?docs=download`} label={t("Document editor")} />
+                      <InternalLink className="menu-link spreadsheet-editor" href={`${hrefLang}/spreadsheet-editor.aspx?docs=download`} label={t("Spreadsheet editor")} />
+                      <InternalLink className="menu-link presentation-editor" href={`${hrefLang}/presentation-editor.aspx?docs=download`} label={t("Presentation editor")} />
+                      <InternalLink className="menu-link pdf-editor" href={`${hrefLang}/pdf-editor.aspx?docs=download`} label={t("PDF editor")} />
+                      <InternalLink className="menu-link form-creator" href={`${hrefLang}/form-creator.aspx?docs=download`} label={t("Form creator")} />
+                      <InternalLink className="menu-link e-book-creator" href={`${hrefLang}/e-book.aspx?docs=download`} label={t("E-book creator")} />
+                      <InternalLink className="menu-link collaboration-features" href={`${hrefLang}/seamless-collaboration.aspx?docs=download`} label={t("Collaboration features")} />
+                    </>
+                  }
+                  {activeTab === 1 &&
+                    <>
+                      <InternalLink className="menu-label" href={`${hrefLang}/docspace.aspx`} label={t("Features overview")} />
+                      <InternalLink className="menu-link collaboration-rooms" href={`${hrefLang}/collaboration-rooms.aspx`} label={t("Collaboration rooms")} />
+                      <InternalLink className="menu-link meeting-rooms" href={`${hrefLang}/office-for-zoom.aspx`} label={t("Meeting rooms")} />
+                      <InternalLink className="menu-link public-rooms" href={`${hrefLang}/public-rooms.aspx`} label={t("Public rooms")} />
+                      <InternalLink className="menu-link custom-rooms" href={`${hrefLang}/custom-rooms.aspx`} label={t("Custom rooms")} />
 
-              <div className="menu-box with-border">
-                <div className="menu-label">{t("Desktop & mobile apps")}</div>
-                <InternalLink className="menu-link for-desktop" href={`${hrefLang}/desktop.aspx`} label={t("For desktop")} />
-                <InternalLink className="menu-link for-ios" href={`${hrefLang}/office-for-ios.aspx`} label={t("For iOS")} />
-                <InternalLink className="menu-link for-android" href={`${hrefLang}/office-for-android.aspx`} label={t("For Android")} />
+                      <InternalLink className="menu-link document-editor" href={`${hrefLang}/document-editor.aspx`} label={t("Document editor")} />
+                      <InternalLink className="menu-link spreadsheet-editor" href={`${hrefLang}/spreadsheet-editor.aspx`} label={t("Spreadsheet editor")} />
+                      <InternalLink className="menu-link presentation-editor" href={`${hrefLang}/presentation-editor.aspx`} label={t("Presentation editor")} />
+                      <InternalLink className="menu-link pdf-editor" href={`${hrefLang}/pdf-editor.aspx`} label={t("PDF editor")} />
+                      <InternalLink className="menu-link form-creator" href={`${hrefLang}/form-creator.aspx`} label={t("Form creator")} />
+                      <InternalLink className="menu-link e-book-creator" href={`${hrefLang}/e-book.aspx`} label={t("E-book creator")} />
+                      <InternalLink className="menu-link markdown-editor" href={`${appDirectoryHrefLang}/markdown`} label={t("Markdown editor")} />
+                      <InternalLink className="menu-link collaboration-features" href={`${hrefLang}/seamless-collaboration.aspx`} label={t("Collaboration features")} />
+                    </>
+                  }
+                  {activeTab === 2 &&
+                    <>
+                      <InternalLink className="menu-label" href={`${hrefLang}/workspace.aspx`} label={t("Features overview")} />
+                      <InternalLink className="menu-link documents" href={`${hrefLang}/document-management.aspx`} label={t("Documents")} />
+                      <InternalLink className="menu-link crm" href={`${hrefLang}/crm.aspx`} label={t("CRM")} />
+                      <InternalLink className="menu-link projects" href={`${hrefLang}/projects.aspx`} label={t("Projects")} />
+                      <InternalLink className="menu-link mails" href={`${hrefLang}/mail.aspx`} label={t("Mails")} />
+                      <InternalLink className="menu-link calendar" href={`${hrefLang}/calendar.aspx`} label={t("Calendar")} />
+                    </>
+                  }
+                </div>
+                <div className="menu-box">
+                  {activeTab === 0 &&
+                    <>
+                      <InternalLink className="menu-label" href={`${hrefLang}/all-connectors.aspx`} label={t("Connectors")} />
+                      <InternalLink className="menu-link box" href={`${hrefLang}/office-for-box.aspx`} label={t("Box")} />
+                      <InternalLink className="menu-link confluence" href={`${hrefLang}/office-for-confluence.aspx`} label={t("Confluence")} />
+                      <InternalLink className="menu-link dropbox" href={`${hrefLang}/office-for-dropbox.aspx`} label={t("Dropbox")} />
+                      <InternalLink className="menu-link moodle" href={`${hrefLang}/office-for-moodle.aspx`} label={t("Moodle")} />
+                      <InternalLink className="menu-link nextcloud" href={`${hrefLang}/office-for-nextcloud.aspx`} label={t("Nextcloud")} />
+                      <InternalLink className="menu-link odoo" href={`${hrefLang}/office-for-odoo.aspx`} label={t("Odoo")} />
+                      <InternalLink className="menu-link owncloud" href={`${hrefLang}/office-for-owncloud.aspx`} label={t("ownCloud")} />
+                      <InternalLink className="menu-link no-img" href={`${hrefLang}/all-connectors.aspx`} label={t("See all connectors")} />
+                    </>
+                  }
+                  {activeTab === 1 &&
+                    <>
+                      <InternalLink className="menu-label" href={`${hrefLang}/all-connectors.aspx`} label={t("Connectors")} />
+                      <InternalLink className="menu-link zoom" href={`${hrefLang}/office-for-zoom.aspx`} label={t("Zoom")} />
+                      <InternalLink className="menu-link wordpress" href={`${hrefLang}/office-for-wordpress.aspx`} label={t("WordPress")} />
+                      <InternalLink className="menu-link drupal" href={`${hrefLang}/office-for-drupal.aspx`} label={t("Drupal")} />
+                      <InternalLink className="menu-link no-img" href={`${hrefLang}/all-connectors.aspx`} label={t("See all connectors")} />
+                    </>
+                  }
+                </div>
               </div>
-              <div className="menu-box">
-                <div className="menu-label">{t("Perform your tasks online")}</div>
-                <InternalLink className="menu-link find-form-templates" href={oformsHrefLang} label={t("Find form templates")} />
-                <InternalLink className="menu-link fill-out-forms-online" href={oformsHrefLang} label={t("Fill out forms online")} />
-                <InternalLink className="menu-link convert-text-files" href={`${hrefLang}/text-file-converter.aspx`} label={t("Convert text files")} />
-                <InternalLink className="menu-link convert-spreadsheets" href={`${hrefLang}/spreadsheet-converter.aspx`} label={t("Convert spreadsheets")} />
-                <InternalLink className="menu-link convert-presentations" href={`${hrefLang}/presentation-converter.aspx`} label={t("Convert presentations")} />
-                <InternalLink className="menu-link convert-pdfs" href={`${hrefLang}/pdf-converter.aspx`} label={t("Convert PDFs")} />
+              <div className="menu-wrapper-bottom">
+                <div className="menu-apps">
+                  <span className="menu-label">{t("Apps")}</span>
+                  <ul className="menu-apps-list">
+                    <li><InternalLink className="menu-app-link windows" href={`${hrefLang}/desktop.aspx`} /></li>
+                    <li><InternalLink className="menu-app-link macos" href={`${hrefLang}/desktop.aspx`} /></li>
+                    <li><InternalLink className="menu-app-link linux" href={`${hrefLang}/desktop.aspx`} /></li>
+                    <li><InternalLink className="menu-app-link android" href={`${hrefLang}/office-for-android.aspx`} /></li>
+                    <li><InternalLink className="menu-app-link ios" href={`${hrefLang}/office-for-ios.aspx`} /></li>
+                  </ul>
+                </div>
+                <div className="menu-wrapper-bottom-links">
+                  <InternalLink className="menu-link marketplace" href={appDirectoryHrefLang} label={t("Marketplace")} />
+                  <InternalLink className="menu-link ai-assistant" href={`${appDirectoryHrefLang}/openai`} label={t("AI assistant")} /> 
+                  <InternalLink className="menu-link for-desktop" href={`${hrefLang}/accessibility.aspx`} label={t("Accessibility")} />
+                  <InternalLink className="menu-link security" href={`${hrefLang}/security.aspx`} label={t("Security")} />
+                </div>
               </div>
             </div>
           </MenuItem>
 
           <MenuItem className="nav-enterprise" heading={t("Enterprise")} navHidden={navHidden} setNavHidden={setNavHidden}>
             <div className="menu-wrapper">
-              <div className="menu-box">
-                <InternalLink className="menu-link all-enterprise-solutions" href={`${hrefLang}/for-enterprises.aspx`} label={t("All Enterprise solutions")} />
-                <InternalLink className="menu-link docspace-enterprise" href={`${hrefLang}/docspace-enterprise.aspx`} label={t("DocSpace Enterprise")} />
-                <InternalLink className="menu-link docs-enterprise" href={`${hrefLang}/docs-enterprise.aspx`} label={t("Docs Enterprise")} />
-                <InternalLink className="menu-link pricing" href={`${hrefLang}/docs-enterprise-prices.aspx`} label={t("Pricing")} />
-                <InternalLink className="menu-link get-in-now" href={`${hrefLang}/download-docs.aspx`} label={t("Get it now")} />
+              <div className="menu-wrapper-box">
+                <div className="menu-box with-border">
+                  <div className="menu-label">{t("Docs Enterprise")}</div>
+                  <InternalLink className="menu-link docs-enterprise" href={`${hrefLang}/docs-enterprise.aspx`} label={t("Why Docs Enterprise")} />
+                  <InternalLink className="menu-link pricing" href={`${hrefLang}/docs-enterprise-prices.aspx`} label={t("Pricing")} />
+                  <InternalLink className="menu-link get-in-now" href={`${hrefLang}/download-docs.aspx`} label={t("Get it now")} />
+                </div>
+                <div className="menu-box">
+                  <div className="menu-label">{t("DocSpace Enterprise")}</div>
+                  <InternalLink className="menu-link docs-developer" href={`${hrefLang}/docspace-enterprise.aspx`} label={t("Why DocSpace Enterprise")} />
+                  <InternalLink className="menu-link pricing" href={`${hrefLang}/docspace-prices.aspx`} label={t("Pricing")} />
+                  <InternalLink className="menu-link get-in-now" href={`${hrefLang}/download-docspace.aspx`} label={t("Get it now")} />
+                </div>
+              </div>
+              <div className="menu-wrapper-bottom">
+                <InternalLink className="menu-link contact-sales" href="mailto:sales@onlyoffice.com" label={t("Contact sales")} />
+                <InternalLink className="menu-link request-demo" href={`${hrefLang}/demo-order.aspx`} label={t("Request demo")} />
               </div>
             </div>
           </MenuItem>
@@ -131,7 +206,6 @@ const Nav = ({ t, locale }) => {
                   </div>
                   <InternalLink className="menu-link document-builder" href={`${hrefLang}/download-builder.aspx`} label={t("Document Builder")} />
                 </div>
-                <div className="menu-box-line"></div>
                 <div className="menu-box-wrapper">
                   <div className="menu-label">{t("For community")}</div>
                   <InternalLink className="menu-link docs-community" href={`${hrefLang}/download-docs.aspx#docs-community`} label={t("Docs Community")} />
@@ -150,12 +224,10 @@ const Nav = ({ t, locale }) => {
                   <InternalLink className="menu-link docs-enterprise" href={`${hrefLang}/docs-enterprise-prices.aspx`} label={t("Docs Enterprise")} />
                   <InternalLink className="menu-link workspace" href={`${hrefLang}/workspace-prices.aspx`} label={t("Workspace")} />
                 </div>
-                <div className="menu-box-line"></div>
                 <div className="menu-box-wrapper">
                   <div className="menu-label">{t("For developers")}</div>
                   <InternalLink className="menu-link docs-developer" href={`${hrefLang}/developer-edition-prices.aspx`} label={t("Docs Developer")} />
                 </div>
-                <div className="menu-box-line"></div>
                 <div className="menu-box-wrapper">
                   <div className="menu-label">{t("For home use")}</div>
                   <InternalLink className="menu-link docs-home-server" href={`${hrefLang}/docs-home-server.aspx`} label={t("Docs Home Server")} />
@@ -214,7 +286,6 @@ const Nav = ({ t, locale }) => {
                   <InternalLink className="menu-link for-influencers" href={`${hrefLang}/influencer-program.aspx`} label={t("For influencers")} />
                   <InternalLink className="menu-link vacancies" href={`${hrefLang}/vacancies.aspx`} label={t("Vacancies")} />
                 </div>
-                <div className="menu-box-line"></div>
                 <div className="menu-box-wrapper">
                   <div className="menu-label">{t("Get help")}</div>
                   <InternalLink className="menu-link forum" href="https://forum.onlyoffice.com/" label={t("Forum")} />
