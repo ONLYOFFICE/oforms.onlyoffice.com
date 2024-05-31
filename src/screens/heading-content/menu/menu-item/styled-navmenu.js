@@ -41,18 +41,16 @@ const StyledNavMenu = styled.li`
     cursor: pointer;
 
     &.active {
-      @media screen and (min-width: 1024px) {
-        color: #FF6F3D;
+      color: #FF6F3D;
 
-        + .menu-items-wrapper {
-          .menu-wrapper {
-            &:before {
-              animation: 0.3s forwards ease-in-out menuLineLeft;
-            }
+      + .menu-items-wrapper {
+        .menu-wrapper {
+          &:before {
+            animation: 0.3s forwards ease-in-out menuLineLeft;
+          }
 
-            &:after {
-              animation: 0.3s forwards ease-in-out menuLineRight;
-            }
+          &:after {
+            animation: 0.3s forwards ease-in-out menuLineRight;
           }
         }
       }
@@ -87,47 +85,45 @@ const StyledNavMenu = styled.li`
     @media screen and ${device.laptop} {
       position: relative;
       padding: 16px 40px 16px 24px;
-      font-size: 16px;
+      font-size: 18px;
       line-height: 24px;
       font-weight: 700;
       text-align: left;
     }
   }
-`;
 
-const StyledMenuItemsWrapper = styled.div`
-  background-color: #ffffff;
-  border-radius: 0 0 9px 9px;
-  z-index: 10;
-  position: absolute;
-  display: flex;
-  box-shadow: 0 20px 50px rgba(85, 85, 85, 0.15);
-  overflow: hidden;
-
-  @media screen and (min-width: 1024px) {
+  .menu-items-wrapper {
+    background-color: #ffffff;
+    border-radius: 0 0 9px 9px;
+    z-index: 10;
+    position: absolute;
+    display: flex;
+    box-shadow: 0 20px 50px rgba(85, 85, 85, 0.15);
+    overflow: hidden;
     top: 99%;
     left: 50%;
     transform: translateX(-50%);
-  }
 
-  @media screen and (max-width: 1024px) {
-    padding: 0;
-    max-height: 100%;
-    margin: 0;
-    position: absolute;
-    left: ${(props) => (props.isOpen ? "0" : "-120vw")};
-    top: 0;
-    overflow: auto;
-    text-align: center;
-    font-size: 16px;
-    transition: right 0.5s;
-    width: 100%;
-    z-index: 5;
-    display: block;
-    box-sizing: border-box;
-    box-shadow: unset;
-    overflow-x: hidden;
+    @media screen and ${device.laptop} {
+      padding: 0;
+      max-height: 100%;
+      margin: 0;
+      position: absolute;
+      left: ${(props) => (props.isOpen ? "0" : "-120vw")};
+      top: 0;
+      overflow: auto;
+      text-align: center;
+      font-size: 16px;
+      transition: right 0.5s;
+      width: 100%;
+      z-index: 5;
+      display: block;
+      box-sizing: border-box;
+      box-shadow: unset;
+      overflow-x: hidden;
+      transform: initial;
+    }
   }
 `;
 
-export { StyledNavMenu, StyledMenuItemsWrapper };
+export default StyledNavMenu;

@@ -21,6 +21,14 @@ const StyledHeading = styled.div`
   &.main {
     .heading-nav-item {
       color: #FFFFFF;
+
+      &.active {
+        color: #FF6F3D;
+
+        @media screen and ${device.laptop} {
+          color: #444444;
+        }
+      }
     }
 
     .phone-btn,
