@@ -1,4 +1,4 @@
-import { StyledNavMenu, StyledMenuItemsWrapper } from "./styled-navmenu";
+import StyledNavMenu from "./styled-navmenu";
 import { useState, useEffect } from "react";
 import Heading from "@common/heading";
 
@@ -10,6 +10,7 @@ const MenuItem = ({ children, heading, navHidden, setNavHidden, className }) => 
   const toggleMenu = () => {
     setShowMobileMenu(!showMobileMenu);
     setNavHidden(!navHidden);
+    setShowMenu(!showMenu);
   };
 
   useEffect(() => {
@@ -32,19 +33,25 @@ const MenuItem = ({ children, heading, navHidden, setNavHidden, className }) => 
   }, []);
 
   return (
-    <StyledNavMenu onMouseLeave={() => setShowMenu(false)} className={`nav-item ${windowCheck && showMobileMenu ? "active" : ""} ${className ? className : ""}`}>
+    <StyledNavMenu
+      onMouseLeave={() => setShowMenu(false)}
+      isOpen={showMobileMenu}
+      className={`nav-item ${windowCheck && showMobileMenu ? "active" : ""} ${className ? className : ""}`}
+    >
       <button
         className={`heading-nav-item ${showMenu ? "active": ""}`}
         onClick={toggleMenu}
         onMouseEnter={() => setShowMenu(true)}
-      >{heading}</button>
+      >
+        {heading}
+      </button>
       {(windowCheck ? showMobileMenu : showMenu) && (
-        <StyledMenuItemsWrapper isOpen={showMobileMenu} className="menu-items-wrapper">
+        <div className="menu-items-wrapper">
           {windowCheck &&
             <Heading onClick={toggleMenu} className="mobile-heading-nav-item" label={heading} />
           }
           {children}
-        </StyledMenuItemsWrapper>
+        </div>
       )}
     </StyledNavMenu>
   );

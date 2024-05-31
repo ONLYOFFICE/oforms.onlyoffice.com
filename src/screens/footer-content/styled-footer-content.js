@@ -5,7 +5,7 @@ const StyledFooter = styled.div`
   box-sizing: initial;
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 257px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 258px;
   column-gap: 32px;
   padding: 56px 32px 60px;
   margin: 0 auto;
