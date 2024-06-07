@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { parse, serialize } from "cookie";
 import config from "@config/config.json";
 import getCompilations from "@lib/requests/getCompilations";
 import Layout from "@components/layout";
@@ -70,12 +71,7 @@ export const getServerSideProps = async ({ locale, req, res, ...context }) => {
   };
 
   const cookieName = `recentForms_${locale}`;
-  const cookies = req.headers.cookie ? req.headers.cookie.split("; ").reduce((acc, cookie) => {
-    const [name, value] = cookie.split("=");
-    acc[name] = decodeURIComponent(value);
-    return acc;
-  }, {}) : {};
-
+  const cookies = req.headers.cookie ? parse(req.headers.cookie) : {};
   let recentForms = cookies[cookieName] ? JSON.parse(cookies[cookieName]) : [];
   const maxForms = 6;
   const formData = {
@@ -88,9 +84,14 @@ export const getServerSideProps = async ({ locale, req, res, ...context }) => {
   recentForms = recentForms.filter((f) => f.id !== formData.id);
   recentForms.unshift(formData);
   recentForms = recentForms.slice(0, maxForms);
-
-  const cookieValue = `${cookieName}=${encodeURIComponent(JSON.stringify(recentForms))}; Path=/; Max-Age=${30 * 24 * 60 * 60}`;
-  res.setHeader("Set-Cookie", cookieValue);
+  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
+  res.setHeader("Set-Cookie", serialize(cookieName, JSON.stringify(recentForms), {
+    maxAge: 30 * 24 * 60 * 60,
+    secure: "true",
+    sameSite: "none"
+  }));
 
   return {
     props: {
