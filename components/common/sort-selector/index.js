@@ -15,7 +15,7 @@ const SortSelector = ({ t, locale, sort }) => {
     } else {
       setTypeSortData(t("Newest - Oldest"));
     }
-  }, [sort]);
+  }, [t, sort]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {

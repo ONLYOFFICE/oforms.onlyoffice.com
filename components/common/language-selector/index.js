@@ -36,7 +36,7 @@ const LanguageSelector = ({ theme }) => {
         document.removeEventListener("click", handleClickOutside);
       };
     }
-  }, [isOpen]);
+  }, [isOpen, isDesktopClient]);
 
   return (
     <StyledLanguageSelector

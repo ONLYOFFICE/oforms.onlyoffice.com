@@ -29,7 +29,7 @@ const Search = ({ t, locale, templateSecondary, templateTertiary, templateQuater
     } else {
       setSearchValue([]);
     }
-  }, 500), []);
+  }, 500), [locale]);
 
   const Highlight = ({ searchQuery, text }) => {
     if (!searchQuery) return text;
@@ -52,7 +52,7 @@ const Search = ({ t, locale, templateSecondary, templateTertiary, templateQuater
     if (router.pathname === "/searchresult") {
       setSearchItem(router.query.query);
     }
-  }, []);
+  }, [router.pathname, router.query.query]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
