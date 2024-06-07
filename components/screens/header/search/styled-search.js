@@ -196,7 +196,7 @@ const StyledSearch = styled.div`
 
   .search-results-popular-item,
   .search-results-no-results {
-    display: flex;
+    display: block;
     padding: 8px 16px;
     font-size: 16px;
     font-weight: 600;
