@@ -275,7 +275,6 @@ const StyledMain = styled(Section)`
     margin-bottom: 40px;
 
     @media screen and ${device.laptop} {
-      justify-content: center;
       margin-bottom: 32px;
     }
 
