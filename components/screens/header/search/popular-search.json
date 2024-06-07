@@ -1,0 +1,10 @@
+{
+  "en": ["Business card", "Invoice", "Report", "Resume"],
+  "fr": ["Business card fr", "Invoice fr", "Report fr", "Resume fr"],
+  "de": ["Business card de", "Invoice de", "Report de", "Resume de"],
+  "es": ["Business card es", "Invoice es", "Report es", "Resume es"],
+  "pt": ["Business card pt", "Invoice pt", "Report pt", "Resume pt"],
+  "it": ["Business card it", "Invoice it", "Report it", "Resume it"],
+  "ja": ["Business card ja", "Invoice ja", "Report ja", "Resume ja"],
+  "zh": ["Business card zh", "Invoice zh", "Report zh", "Resume zh"]
+}

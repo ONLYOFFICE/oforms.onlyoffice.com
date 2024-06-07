@@ -1,21 +1,21 @@
-import { useState } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useState } from "react";
 import config from "@config/config.json";
-import getAllTypes from "@lib/strapi/getTypes";
-import getAllCategories from "@lib/strapi/getCategories";
-import getAllCompilations from "@lib/strapi/getCompilations";
+import getTypes from "@lib/requests/getTypes";
+import getCategories from "@lib/requests/getCategories";
+import getCompilations from "@lib/requests/getCompilations";
 import Layout from "@components/layout";
-import HeadSEO from "@src/screens/head-content";
-import HeadingContent from "@src/screens/heading-content";
-import InfoContent from "@src/screens/category-page/info-content";
-import MainContent from "@src/screens/category-page/main-content";
-import DesktopClientContent from "@src/screens/desktop-client-content";
-import AdventAnnounce from "@src/screens/heading-content/advent-announce";
-import Accordion from "@src/screens/common/accordion";
-import Footer from "@src/screens/footer-content";
+import MainHead from "@components/screens/head";
+import DesktopClient from "@components/screens/desktop-client";
+import Header from "@components/screens/header";
+import AdventAnnounce from "@components/screens/header/advent-announce";
+import BannerFormSection from "@components/screens/common/banner-form-section";
+import CategoryContent from "@components/screens/category-content";
+import AccordionSection from "@components/screens/common/accordion-section";
+import Footer from "@components/screens/footer";
 
-const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, categories, compilations, isDesktopClient, theme }) => {
+const Category = ({ categoryForms, categoryInfo, locale, page, sort, types, categories, compilations, isDesktopClient, theme }) => {
   const isCategoryPage = true;
   const { t } = useTranslation("common");
   const [stateMobile, setStateMobile] = useState(false);
@@ -24,17 +24,17 @@ const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, cate
     isDesktopClient ? (
       <Layout>
         <Layout.PageHead>
-          <HeadSEO
-            title={t("titleIndexPage")}
-            metaSiteNameOg={t("metaSiteNameOg")}
-            metaDescription={t("titleIndexPage")}
-            metaDescriptionOg={t("metaDescriptionOgIndexPage")}
-            metaKeywords={t("metaKeywordsIndexPage")}
+          <MainHead
+            title={t("OFORMS – fill out forms online for free")}
+            metaSiteNameOg={t("OFORM Library")}
+            metaDescription={t("OFORMS – fill out forms online for free")}
+            metaDescriptionOg={t("Try powerful ready-to-fill out free online forms. Create documens with forms online or just download templates in the desirable format: DOCXF, OFORM, or PDF.")}
+            metaKeywords={t("OFORMS – fill out forms online for free")}
             isDesktopClient={isDesktopClient}
           />
         </Layout.PageHead>
         <Layout.SectionMain>
-          <DesktopClientContent
+          <DesktopClient
             t={t}
             locale={locale}
             data={categoryForms}
@@ -42,8 +42,7 @@ const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, cate
             types={types}
             categories={categories}
             compilations={compilations}
-            categoryName={categoryInfo.data[0].attributes.categorie}
-            isDesktopClient={isDesktopClient}
+            categoryName={categoryInfo.data[0]?.attributes.categorie}
             isCategoryPage={isCategoryPage}
             theme={theme}
           />
@@ -52,37 +51,41 @@ const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, cate
     ) : (
       <Layout>
         <Layout.PageHead>
-          <HeadSEO
-            title={categoryInfo.data[0].attributes.seo_title}
-            metaDescription={categoryInfo.data[0].attributes.seo_description}
-            metaDescriptionOg={categoryInfo.data[0].attributes.seo_description}
-            metaKeywords={categoryInfo.data[0].attributes.seo_title}
+          <MainHead
+            title={t("OFORMS – fill out forms online for free")}
+            metaSiteNameOg={t("OFORM Library")}
+            metaDescription={t("OFORMS – fill out forms online for free")}
+            metaDescriptionOg={t("Try powerful ready-to-fill out free online forms. Create documens with forms online or just download templates in the desirable format: DOCXF, OFORM, or PDF.")}
+            metaKeywords={t("OFORMS – fill out forms online for free")}
           />
         </Layout.PageHead>
-        <Layout.PageAnnounce>
-          <AdventAnnounce t={t} currentLanguage={locale} stateMobile={stateMobile} />
-        </Layout.PageAnnounce>
+        <AdventAnnounce t={t} locale={locale} stateMobile={stateMobile} />
         <Layout.PageHeader>
-          <HeadingContent t={t} currentLanguage={locale} stateMobile={stateMobile} setStateMobile={setStateMobile} />
+          <Header
+            t={t}
+            locale={locale}
+            stateMobile={stateMobile}
+            setStateMobile={setStateMobile}
+            templateTertiary
+          />
         </Layout.PageHeader>
         <Layout.SectionMain>
-          <InfoContent 
-            category={categoryInfo.data[0].attributes.categorie} 
-            header={categoryInfo.data[0].attributes.header_description}
-          />
-          <MainContent
-            currentLanguage={locale}
-            data={categoryForms}
+          <CategoryContent 
+            t={t}
+            locale={locale}
+            title={categoryInfo.data[0]?.attributes.categorie}
+            subtitle={t("Fill out the spreadsheets online in one click or download and open them them in ONLYOFFICE editors")}
+            forms={categoryForms}
             sort={sort}
-            page={+page}
-            category={categoryInfo.data[0].attributes.categorie}
-            categoryName={categoryInfo.data[0].attributes.categorie}
-            urlReqCategory={categoryInfo.data[0].attributes.urlReq}
-            types={types}
+            page={page}
             categories={categories}
+            types={types}
             compilations={compilations}
+            categoryName={categoryInfo.data[0]?.attributes.categorie}
+            categoryUrl={`form/${categoryInfo.data[0]?.attributes.urlReq}`}
           />
-          <Accordion currentLanguage={locale} />
+          <BannerFormSection t={t} locale={locale} />
+          <AccordionSection t={t} />
         </Layout.SectionMain>
         <Layout.PageFooter>
           <Footer t={t} locale={locale} />
@@ -100,12 +103,12 @@ export const getServerSideProps = async ({ locale, query }) => {
   const urlReq = query.category;
   const pageSize = query.pageSize || isDesktopClient ? 0 : 9;
   const cms = config.api.cms;
-  const types = await getAllTypes(locale === "pt" ? "pt-br" : locale);
-  const categories = await getAllCategories(locale === "pt" ? "pt-br" : locale);
-  const compilations = await getAllCompilations(locale === "pt" ? "pt-br" : locale);
+  const types = await getTypes(locale === "pt" ? "pt-br" : locale);
+  const categories = await getCategories(locale === "pt" ? "pt-br" : locale);
+  const compilations = await getCompilations(locale === "pt" ? "pt-br" : locale);
 
   const res = await fetch(
-    `${cms}/api/oforms/?filters[categories][urlReq][$eq]=${urlReq}&locale=${locale === "pt" ? "pt-br" : locale}&sort=name_form:${sort}&${pageSize ? `&pagination[pageSize]=${pageSize}` : ''}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
+    `${cms}/api/oforms/?filters[categories][urlReq][$eq]=${urlReq}&locale=${locale === "pt" ? "pt-br" : locale}&sort=name_form:${sort}&${pageSize ? `&pagination[pageSize]=${pageSize}` : ""}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew&populate=form_exts`
   );
   const resCategory = await fetch(
     `${cms}/api/categories/?filters[urlReq][$eq]=${urlReq}&locale=${locale === "pt" ? "pt-br" : locale}`
@@ -114,7 +117,7 @@ export const getServerSideProps = async ({ locale, query }) => {
   const categoryForms = await res.json();
   const categoryInfo = await resCategory.json();
 
-  if (categoryForms.data.length === 0) {
+  if (categoryForms.data === null) {
     return {
       notFound: true
     }
@@ -123,7 +126,6 @@ export const getServerSideProps = async ({ locale, query }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale, "common")),
-      notFound: true,
       categoryForms,
       categoryInfo,
       locale,

@@ -2,34 +2,39 @@ import { useTranslation } from "next-i18next";
 import { useState } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import zlib from "zlib";
-import getAllCategories from "@lib/strapi/getCategories";
+import getCategories from "@lib/requests/getCategories";
 import Layout from "@components/layout";
-import HeadSEO from "@src/screens/head-content";
-import HeadingContent from "@src/screens/heading-content";
-import AdventAnnounce from "@src/screens/heading-content/advent-announce";
-import FormSubmitContent from "@src/screens/form-submit-content";
-import Footer from "@src/screens/footer-content";
+import MainHead from "@components/screens/head";
+import Header from "@components/screens/header";
+import AdventAnnounce from "@components/screens/header/advent-announce";
+import FormSubmitContent from "@components/screens/form-submit-content";
+import Footer from "@components/screens/footer";
 
-const FormSubmit = ({ locale, categories, queryIndexData }) => {
+const FormSubmitPage = ({ locale, categories, queryIndexData }) => {
   const { t } = useTranslation("common");
   const [stateMobile, setStateMobile] = useState(false);
 
   return (
     <Layout>
       <Layout.PageHead>
-        <HeadSEO
-          title={t("titleIndexPage")}
-          metaSiteNameOg={t("metaSiteNameOg")}
-          metaDescription={t("titleIndexPage")}
-          metaDescriptionOg={t("metaDescriptionOgIndexPage")}
-          metaKeywords={t("metaKeywordsIndexPage")}
+        <MainHead
+          title={t("OFORMS – fill out forms online for free")}
+          metaSiteNameOg={t("OFORM Library")}
+          metaDescription={t("OFORMS – fill out forms online for free")}
+          metaDescriptionOg={t("Try powerful ready-to-fill out free online forms. Create documens with forms online or just download templates in the desirable format: DOCXF, OFORM, or PDF.")}
+          metaKeywords={t("OFORMS – fill out forms online for free")}
         />
       </Layout.PageHead>
-      <Layout.PageAnnounce>
-        <AdventAnnounce t={t} currentLanguage={locale} stateMobile={stateMobile} />
-      </Layout.PageAnnounce>
+      <AdventAnnounce t={t} locale={locale} stateMobile={stateMobile} />
       <Layout.PageHeader>
-        <HeadingContent t={t} currentLanguage={locale} template isInvert templateForm stateMobile={stateMobile} setStateMobile={setStateMobile} />
+        <Header
+          templatePrimary
+          t={t}
+          locale={locale}
+          templateTertiary
+          stateMobile={stateMobile}
+          setStateMobile={setStateMobile}
+        />
       </Layout.PageHeader>
       <Layout.SectionMain>
         <FormSubmitContent
@@ -47,7 +52,7 @@ const FormSubmit = ({ locale, categories, queryIndexData }) => {
 };
 
 export const getServerSideProps = async ({ locale, query, req, res }) => {
-  const categories = await getAllCategories(locale === "pt" ? "pt-br" : locale);
+  const categories = await getCategories(locale === "pt" ? "pt-br" : locale);
 
   const queryResult = await new Promise(async (resolve) => {
     if (query.index) {
@@ -74,8 +79,8 @@ export const getServerSideProps = async ({ locale, query, req, res }) => {
       locale,
       categories,
       queryIndexData: queryResult === false ? null : queryResult
-    },
+    }
   };
 }
 
-export default FormSubmit;
+export default FormSubmitPage;
