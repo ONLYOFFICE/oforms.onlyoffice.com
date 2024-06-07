@@ -40,7 +40,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
   return (
     <>
       <StyledMain>
-        <Breadcrumbs t={t} children={name_form} />
+        <Breadcrumbs t={t} label={name_form} />
 
         <div className="form-preview">
           <div className="form-info">
