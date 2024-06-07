@@ -2,28 +2,23 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Script from "next/script";
 import axios from "axios";
-import Head from "next/head";
 import Helmet from "react-helmet"
 
 import CONFIG from "@config/config";
 import Layout from "@components/layout";
-import HeadSEO from "@src/screens/head-content";
-import Portal from "@common/portal";
-import StyledPlaceholder from "@src/screens/editor-page";
+import MainHead from "@components/screens/head";
+import Portal from "@components/common/portal";
+import StyledPlaceholder from "@components/common/portal/styled-portal";
 
 const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
 
-const OformsEditorPage = ({ data, serfilename }) => {
-  const {
-    query: { filename, fillform },
-  } = useRouter();
+const EditorPage = ({ data, serfilename }) => {
+  const { query: { filename, fillform }} = useRouter();
   const [loadScript, setLoadScript] = useState(false);
   const [config, setConfig] = useState();
   const [check, setCheck] = useState(false);
 
-  const srcDocEditorAPI =
-    (CONFIG.docEditorUrl || "http://localhost") +
-    "/web-apps/apps/api/documents/api.js";
+  const srcDocEditorAPI = (CONFIG.docEditorUrl || "http://localhost") + "/web-apps/apps/api/documents/api.js";
 
   const getConfig = () => {
     if (serfilename === filename && fillform !== undefined) {
@@ -51,7 +46,7 @@ const OformsEditorPage = ({ data, serfilename }) => {
   return (
     <Layout headerContent={false} footerContent={false}>
       <Layout.PageHead>
-        <HeadSEO />
+        <MainHead />
         <Script
           id="doc-editor"
           src={srcDocEditorAPI}
@@ -62,7 +57,7 @@ const OformsEditorPage = ({ data, serfilename }) => {
       </Layout.PageHead>
       {check && loadScript ? (
         <>
-        <Helmet>          
+          <Helmet>          
             <script defer type="text/javascript">
               {`(window.docEditor = new DocsAPI.DocEditor("${filename}", ${config}))`}
             </script>
@@ -73,8 +68,6 @@ const OformsEditorPage = ({ data, serfilename }) => {
               <div id={filename} style={{ height: "100%" }} />
             </StyledPlaceholder>
           </Portal>
-          
-          
         </>
       ) : null}
     </Layout>
@@ -83,10 +76,9 @@ const OformsEditorPage = ({ data, serfilename }) => {
 
 export const getServerSideProps = async (context) => {
   const serfilename = context.query.filename;
-  const res = await fetch(
-    `${CMSConfigAPI}/api/oforms/?filters[url][$eq]=${context.query.filename}&locale=${context.locale === "pt" ? "pt-br" : context.locale}`
-  );
+  const res = await fetch(`${CMSConfigAPI}/api/oforms/?filters[url][$eq]=${context.query.filename}&locale=${context.locale === "pt" ? "pt-br" : context.locale}`);
   const data = await res.json();
+
   if (data.data.length === 0) {
     return {
       redirect: {
@@ -96,7 +88,12 @@ export const getServerSideProps = async (context) => {
     };
   }
 
-  return { props: { data, serfilename } };
+  return { 
+    props: {
+      data,
+      serfilename
+    }
+  };
 };
 
-export default OformsEditorPage;
+export default EditorPage;

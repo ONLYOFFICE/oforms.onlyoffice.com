@@ -1,34 +1,25 @@
 {
-    "compilerOptions": {
-        "baseUrl": ".",
-        "paths": {
-            "@components/*": [
-                "./src/components/*"
-            ],
-            "@src/*": [
-                "./src/*"
-            ],
-            "@config/*": [
-                "config/*"
-            ],
-            "@public/*": [
-                "public/*"
-            ],
-            "@utils/*": [
-                "./src/utils/*"
-            ],
-            "@lib/*": [
-                "./src/lib/*"
-            ],
-            "@common/*": [
-                "./src/common/*"
-            ],
-            "@icons": [
-                "./src/icons/index.js"
-            ],
-        }
-    },
-    "exclude": [
-        "node_modules"
-    ]
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": [
+        "components/*"
+      ],
+      "@config/*": [
+        "config/*"
+      ],
+      "@public/*": [
+        "public/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@lib/*": [
+        "lib/*"
+      ],
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }

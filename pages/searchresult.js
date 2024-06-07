@@ -1,22 +1,21 @@
 import { useState } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import getAllForms from "@lib/strapi/getForms";
-import getAllTypes from "@lib/strapi/getTypes";
-import getAllCategories from "@lib/strapi/getCategories";
-import getAllCompilations from "@lib/strapi/getCompilations";
+import getTypes from "@lib/requests/getTypes";
+import getCategories from "@lib/requests/getCategories";
+import getCompilations from "@lib/requests/getCompilations";
 import CONFIG from "@config/config";
 import Layout from "@components/layout";
-import HeadSEO from "@src/screens/head-content";
-import HeadingContent from "@src/screens/heading-content";
-import InfoContent from "@src/screens/search-result-page/info-content";
-import MainContent from "@src/screens/search-result-page/main-content";
-import DesktopClientContent from "@src/screens/desktop-client-content";
-import AdventAnnounce from "@src/screens/heading-content/advent-announce";
-import Accordion from "@src/screens/common/accordion";
-import Footer from "@src/screens/footer-content";
+import MainHead from "@components/screens/head";
+import Header from "@components/screens/header";
+import DesktopClient from "@components/screens/desktop-client";
+import AdventAnnounce from "@components/screens/header/advent-announce";
+import SearchResultContent from "@components/screens/search-result-content";
+import BannerFormSection from "@components/screens/common/banner-form-section";
+import AccordionSection from "@components/screens/common/accordion-section";
+import Footer from "@components/screens/footer";
 
-const SearchResult = ({ locale, sort, page, types, categories, compilations, isDesktopClient, searchQuery, searchData, theme }) => {
+const SearchResultPage = ({ isDesktopClient, theme, locale, sort, page, types, categories, compilations, searchQuery, searchData }) => {
   const { t } = useTranslation("common");
   const [stateMobile, setStateMobile] = useState(false);
 
@@ -24,26 +23,25 @@ const SearchResult = ({ locale, sort, page, types, categories, compilations, isD
     isDesktopClient ? (
       <Layout>
         <Layout.PageHead>
-          <HeadSEO
-            title={t("titleIndexPage")}
-            metaSiteNameOg={t("metaSiteNameOg")}
-            metaDescription={t("titleIndexPage")}
-            metaDescriptionOg={t("metaDescriptionOgIndexPage")}
-            metaKeywords={t("metaKeywordsIndexPage")}
+          <MainHead
+            title={t("OFORMS – fill out forms online for free")}
+            metaSiteNameOg={t("OFORM Library")}
+            metaDescription={t("OFORMS – fill out forms online for free")}
+            metaDescriptionOg={t("Try powerful ready-to-fill out free online forms. Create documens with forms online or just download templates in the desirable format: DOCXF, OFORM, or PDF.")}
+            metaKeywords={t("OFORMS – fill out forms online for free")}
             isDesktopClient={isDesktopClient}
             theme={theme}
           />
         </Layout.PageHead>
         <Layout.SectionMain>
-          <DesktopClientContent
+          <DesktopClient
             t={t}
-            currentLanguage={locale}
+            locale={locale}
             data={searchData}
             sort={sort}
             types={types}
             categories={categories}
             compilations={compilations}
-            isDesktopClient={isDesktopClient}
             queryDesktopClient={searchQuery}
           />
         </Layout.SectionMain>
@@ -51,33 +49,35 @@ const SearchResult = ({ locale, sort, page, types, categories, compilations, isD
     ) : (
       <Layout>
         <Layout.PageHead>
-          <HeadSEO
-            title={t("titleIndexPage")}
-            metaSiteNameOg={t("metaSiteNameOg")}
-            metaDescription={t("titleIndexPage")}
-            metaDescriptionOg={t("metaDescriptionOgIndexPage")}
-            metaKeywords={t("metaKeywordsIndexPage")}
+          <MainHead
+            title={t("OFORMS – fill out forms online for free")}
+            metaSiteNameOg={t("OFORM Library")}
+            metaDescription={t("OFORMS – fill out forms online for free")}
+            metaDescriptionOg={t("Try powerful ready-to-fill out free online forms. Create documens with forms online or just download templates in the desirable format: DOCXF, OFORM, or PDF.")}
+            metaKeywords={t("OFORMS – fill out forms online for free")}
           />
         </Layout.PageHead>
-        <Layout.PageAnnounce>
-          <AdventAnnounce t={t} currentLanguage={locale} stateMobile={stateMobile} />
-        </Layout.PageAnnounce>
+        <AdventAnnounce t={t} locale={locale} stateMobile={stateMobile} />
         <Layout.PageHeader>
-          <HeadingContent t={t} currentLanguage={locale} stateMobile={stateMobile} setStateMobile={setStateMobile} />
+          <Header
+            t={t}
+            locale={locale}
+            stateMobile={stateMobile}
+            setStateMobile={setStateMobile}
+            templateQuaternary
+          />
         </Layout.PageHeader>
         <Layout.SectionMain>
-          <InfoContent t={t} query={searchQuery} />
-          <MainContent
+          <SearchResultContent
             t={t}
-            currentLanguage={locale}
+            locale={locale}
+            searchQuery={searchQuery}
+            searchData={searchData}
             sort={sort}
-            data={searchData}
-            page={+page}
-            types={types}
-            categories={categories}
-            compilations={compilations}
+            page={page}
           />
-          <Accordion currentLanguage={locale} />
+          <BannerFormSection t={t} locale={locale} />
+          <AccordionSection t={t} />
         </Layout.SectionMain>
         <Layout.PageFooter>
           <Footer t={t} locale={locale} />
@@ -93,34 +93,37 @@ export const getServerSideProps = async ({ locale, query }) => {
   const page = query.page || 1;
   const sort = query._sort || "asc";
   const pageSize = query.pageSize || isDesktopClient ? 0 : 9;
-  const forms = await getAllForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize);
-  const types = await getAllTypes(locale === "pt" ? "pt-br" : locale);
-  const categories = await getAllCategories(locale === "pt" ? "pt-br" : locale);
-  const compilations = await getAllCompilations(locale === "pt" ? "pt-br" : locale);
   const searchQuery = query.query || "";
 
+  let types = null;
+  let categories = null;
+  let compilations = null;
+
+  if (isDesktopClient) {
+    types = await getTypes(locale === "pt" ? "pt-br" : locale);
+    categories = await getCategories(locale === "pt" ? "pt-br" : locale);
+    compilations = await getCompilations(locale === "pt" ? "pt-br" : locale);
+  }
+
   const searchName = locale === "en" || locale === "fr" || locale === "pt" ? searchQuery?.toLowerCase() === "curriculum vitae" || searchQuery?.toLowerCase() === "curriculum" || searchQuery?.toLowerCase() === "vitae" ? "cv" : searchQuery : searchQuery;
-  const searchRes = await fetch(
-    `${CONFIG.api.cms}/api/oforms/?sort=name_form:${sort}&populate[0]=categories&locale=${locale === "pt" ? "pt-br" : locale}&filters[name_form][$containsi]=${searchName}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew`
-  );
+  const searchRes = await fetch(`${CONFIG.api.cms}/api/oforms/?sort=name_form:${sort}&populate[0]=categories&locale=${locale === "pt" ? "pt-br" : locale}&filters[name_form][$containsi]=${searchName}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew${pageSize ? `&pagination[pageSize]=${pageSize}` : ""}&pagination[page]=${page}`);
   const searchData = await searchRes.json();
 
   return {
     props: {
       ...(await serverSideTranslations(locale, "common")),
-      forms,
-      page,
+      isDesktopClient,
+      theme: isDesktopClient ? theme || "" : null,
       locale,
       sort,
+      page,
       types,
       categories,
       compilations,
-      isDesktopClient,
       searchQuery,
       searchData: searchQuery === "" ? [] : searchData,
-      theme: isDesktopClient ? theme || "" : null
-    },
+    }
   };
 };
 
-export default SearchResult;
+export default SearchResultPage;
