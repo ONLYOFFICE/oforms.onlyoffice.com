@@ -16,7 +16,6 @@ const MainContent = ({ t, popularTemplates, categories, pptxForms, docxForms, pd
             <Heading className="info-title" level={1} dangerouslySetInnerHTML={{ __html: t("Free templates and fillable PDF forms") }} />
             <Text as="p" className="info-text" label={t("Fill out ready PDF forms. Download DOCX, XLSX, PPTX templates, easy editable online in just a few clicks")} />
           </div>
-          <Heading className="info-subtitle" level={4} label={t("Templates by Editor")} />
           <div className="info-editors">
             <EditorCard title={t("Fillable form")} linkUrl="/pdf-form-templates" imageUrl="fillable-form.svg" />
             <EditorCard title={t("Document")} linkUrl="/document-templates" imageUrl="document.svg" />
