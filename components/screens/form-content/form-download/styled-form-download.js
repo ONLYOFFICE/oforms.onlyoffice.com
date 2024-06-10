@@ -42,9 +42,9 @@ const StyledFormDownload = styled.div`
     display: flex;
     align-items: center;
     padding: 4px 5px 4px 4px;
-    margin-right: 5px;
     font-size: 14px;
     line-height: 22px;
+    transition: color 0.3s;
 
     &:before {
       content: "";
@@ -54,6 +54,10 @@ const StyledFormDownload = styled.div`
       height: 24px;
       background-repeat: no-repeat;
       background-position: center;
+    }
+
+    &:not(:last-child) {
+      margin-right: 5px;
     }
 
     &.pdf {
@@ -78,6 +82,10 @@ const StyledFormDownload = styled.div`
       &:before {
         background-image: url(${presIcon.src});
       }
+    }
+
+    &:hover {
+      color: #FF6F3D;
     }
   }
 
