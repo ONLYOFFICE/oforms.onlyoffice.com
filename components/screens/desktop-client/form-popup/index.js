@@ -1,11 +1,18 @@
 import { PopupGlobalStyles, StyledFormPopup } from "./styled-form-popup";
 import { useEffect } from "react";
+import { getUA } from "react-device-detect";
 import { ReactSVG } from "react-svg";
 import Heading from "@components/common/heading";
 import Text from "@components/common/text";
 import Button from "@components/common/button";
 
 const FormPopup = ({ t, data, modalActive, setModalActive, theme }) => {
+  const desktopEditorsVersion = getUA.match(/AscDesktopEditor\/([\d.]+)/);
+
+  const pdfFile = data?.attributes?.file_oform?.data?.filter((it) => {
+    return it?.attributes.name.split(".")[1] === "pdf";
+  })[0]?.attributes?.url;
+
   const docxfFile = data?.attributes.file_oform?.data?.filter((it) => {
     return it?.attributes.name.split(".")[1] === "docxf";
   })[0]?.attributes?.url;
@@ -25,6 +32,21 @@ const FormPopup = ({ t, data, modalActive, setModalActive, theme }) => {
       document.removeEventListener("keydown", handleEscapeKey);
     };
   }, [modalActive, handleEscapeKey]);
+
+  function compareDesktopEditorVersions(v1, v2) {
+    const v1parts = v1.split('.').map(Number);
+    const v2parts = v2.split('.').map(Number);
+    const len = Math.max(v1parts.length, v2parts.length);
+
+    for (let i = 0; i < len; i++) {
+      const num1 = v1parts[i] || 0;
+      const num2 = v2parts[i] || 0;
+      if (num1 > num2) return true;
+      if (num1 < num2) return false;
+    }
+
+    return true;
+  };
 
   return (
     <StyledFormPopup onClick={() => setModalActive(false)} theme={theme} className={`modal-with-scroll ${modalActive ? "active" : ""}`}>
@@ -62,11 +84,23 @@ const FormPopup = ({ t, data, modalActive, setModalActive, theme }) => {
                 </div>
                 <div className="form-info-item">
                   <span className="form-info-label">{t("FileType")}:</span>
-                  <span className="form-info-value">docxf</span>
+                  <span className="form-info-value">
+                    {getUA.includes("AscDesktopEditor") ? compareDesktopEditorVersions(desktopEditorsVersion[1], "8.1") ? "pdf" : "docxf" : "pdf"}
+                  </span>
                 </div>
               </div>
               <Button
-                onClick={() => window.AscDesktopEditor.openTemplate(docxfFile, `${data?.attributes.name_form}.docxf`)}
+                onClick={() => {
+                  if (getUA.includes("AscDesktopEditor")) {
+                    if (compareDesktopEditorVersions(desktopEditorsVersion[1], "8.1")) {
+                      window.AscDesktopEditor.openTemplate(pdfFile, `${data?.attributes.name_form}.pdf`);
+                    } else {
+                      window.AscDesktopEditor.openTemplate(docxfFile, `${data?.attributes.name_form}.docxf`);
+                    }
+                  } else {
+                    window.AscDesktopEditor.openTemplate(pdfFile, `${data?.attributes.name_form}.pdf`);
+                  }
+                }}
                 className="form-btn"
                 label={t("Open")}
               />
