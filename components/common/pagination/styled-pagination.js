@@ -34,7 +34,7 @@ const StyledPagination = styled.div`
     &.disabled {
       pointer-events: none;
       user-select: none;
-      opacity: 0.5;
+      opacity: 0.4;
     }
 
     &:not(.active) {
