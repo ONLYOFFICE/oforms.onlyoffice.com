@@ -817,6 +817,7 @@ const StyledNav = styled.nav`
     padding-left: 36px;
     font-size: 13px;
     line-height: 17px;
+    color: #333333;
     cursor: pointer;
   }
 

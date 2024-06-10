@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { parse, serialize } from "cookie";
 import config from "@config/config.json";
 import getCompilations from "@lib/requests/getCompilations";
 import Layout from "@components/layout";
@@ -13,9 +12,31 @@ import BannerFormSection from "@components/screens/common/banner-form-section";
 import AccordionSection from "@components/screens/common/accordion-section";
 import Footer from "@components/screens/footer";
 
-const FormPage = ({ locale, form, randomCarousel, compilations, recentForms }) => {
+const FormPage = ({ locale, form, randomCarousel, compilations }) => {
   const { t } = useTranslation("common");
   const [stateMobile, setStateMobile] = useState(false);
+  const [recentForms, setRecentForms] = useState([]);
+
+  useEffect(() => {
+    const localStorageKey = `recentForms_${locale}`;
+    const maxForms = 6;
+
+    let recentForms = JSON.parse(localStorage.getItem(localStorageKey)) || [];
+
+    const formData = {
+      id: form.data[0].id,
+      url: form.data[0].attributes.url ? form.data[0].attributes.url : null,
+      card_prewiew: form.data[0].attributes.card_prewiew.data.attributes.url ? form.data[0].attributes.card_prewiew.data.attributes.url : null,
+      name_form: form.data[0].attributes.name_form ? form.data[0].attributes.name_form : null
+    };
+
+    recentForms = recentForms.filter((f) => f.id !== formData.id);
+    recentForms.unshift(formData);
+    recentForms = recentForms.slice(0, maxForms);
+    setRecentForms(recentForms);
+
+    localStorage.setItem(localStorageKey, JSON.stringify(recentForms));
+  }, [form, locale]);
 
   return (
     <Layout>
@@ -56,7 +77,7 @@ const FormPage = ({ locale, form, randomCarousel, compilations, recentForms }) =
   );
 };
 
-export const getServerSideProps = async ({ locale, req, res, ...context }) => {
+export const getServerSideProps = async ({ locale, ...context }) => {
   const cms = config.api.cms;
   const res1 = await fetch(`${cms}/api/oforms/?filters[url][$eq]=${context.query.form}&locale=${locale === "pt" ? "pt-br" : locale}&populate=template_image&populate=card_prewiew&populate=file_oform`);
   const form = await res1.json();
@@ -70,37 +91,13 @@ export const getServerSideProps = async ({ locale, req, res, ...context }) => {
     };
   };
 
-  const cookieName = `recentForms_${locale}`;
-  const cookies = req.headers.cookie ? parse(req.headers.cookie) : {};
-  let recentForms = cookies[cookieName] ? JSON.parse(cookies[cookieName]) : [];
-  const maxForms = 6;
-  const formData = {
-    id: form.data[0].id,
-    url: form.data[0].attributes.url ? form.data[0].attributes.url : null,
-    card_prewiew: form.data[0].attributes.card_prewiew.data.attributes.url ? form.data[0].attributes.card_prewiew.data.attributes.url : null,
-    name_form: form.data[0].attributes.name_form ? form.data[0].attributes.name_form : null
-  };
-
-  recentForms = recentForms.filter((f) => f.id !== formData.id);
-  recentForms.unshift(formData);
-  recentForms = recentForms.slice(0, maxForms);
-  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
-  res.setHeader("Pragma", "no-cache");
-  res.setHeader("Expires", "0");
-  res.setHeader("Set-Cookie", serialize(cookieName, JSON.stringify(recentForms), {
-    maxAge: 30 * 24 * 60 * 60,
-    secure: "true",
-    sameSite: "none"
-  }));
-
   return {
     props: {
       ...(await serverSideTranslations(locale, "common")),
       locale,
       form,
       randomCarousel,
-      compilations,
-      recentForms
+      compilations
     },
   };
 };
