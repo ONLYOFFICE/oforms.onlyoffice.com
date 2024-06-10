@@ -17,10 +17,6 @@ const AccordionSection = ({ t }) => {
       content: t("Use ONLYOFFICE Docs online or ONLYOFFICE Dekstop Editors to fill forms in the preferred location and create your own. Read more about creating forms in ONLYOFFICE.")
     },
     {
-      title: t("Can I modify the forms?"),
-      content: t("No, it is not possible to modify the forms. You can only fill in the content in the existing body, or export the form into DOCXF and modify the text file.")
-    },
-    {
       title: t("What format does ONLYOFFICE use for the forms?"),
       content: t("Ready forms are saved and distributed in PDF.")
     },
