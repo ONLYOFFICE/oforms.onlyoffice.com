@@ -202,6 +202,7 @@ const DesktopClient = ({ t, locale, data, sort, categories, types, compilations,
 
       <FormPopup
         t={t}
+        locale={locale}
         data={cardData}
         modalActive={modalActive}
         setModalActive={setModalActive}

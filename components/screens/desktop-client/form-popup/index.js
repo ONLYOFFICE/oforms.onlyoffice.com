@@ -6,16 +6,14 @@ import Heading from "@components/common/heading";
 import Text from "@components/common/text";
 import Button from "@components/common/button";
 
-const FormPopup = ({ t, data, modalActive, setModalActive, theme }) => {
+const FormPopup = ({ t, locale, data, modalActive, setModalActive, theme }) => {
   const desktopEditorsVersion = getUA.match(/AscDesktopEditor\/([\d.]+)/);
-
-  const pdfFile = data?.attributes?.file_oform?.data?.filter((it) => {
-    return it?.attributes.name.split(".")[1] === "pdf";
-  })[0]?.attributes?.url;
-
-  const docxfFile = data?.attributes.file_oform?.data?.filter((it) => {
-    return it?.attributes.name.split(".")[1] === "docxf";
-  })[0]?.attributes?.url;
+  const pdfFile = data?.attributes.file_oform?.data?.filter((it) => it?.attributes.name.split(".")[1] === "pdf");
+  const docxFile = data?.attributes.file_oform?.data?.filter((it) => it?.attributes.name.split(".")[1] === "docx");
+  const docxfFile = data?.attributes.file_oform?.data?.filter((it) => it?.attributes.name.split(".")[1] === "docxf");
+  const pptxFile = data?.attributes.file_oform?.data?.filter((it) => it?.attributes.name.split(".")[1] === "pptx");
+  const xlsxFile = data?.attributes.file_oform?.data?.filter((it) => it?.attributes.name.split(".")[1] === "xlsx");
+  const fileSize = pdfFile?.[0]?.attributes.size || docxFile?.[0]?.attributes.size || pptxFile?.[0]?.attributes.size || xlsxFile?.[0]?.attributes.size;
 
   const handleEscapeKey = (event) => {
     if (event.key === "Escape") {
@@ -33,7 +31,7 @@ const FormPopup = ({ t, data, modalActive, setModalActive, theme }) => {
     };
   }, [modalActive, handleEscapeKey]);
 
-  function compareDesktopEditorVersions(v1, v2) {
+  const compareDesktopEditorVersions = (v1, v2) => {
     const v1parts = v1.split('.').map(Number);
     const v2parts = v2.split('.').map(Number);
     const len = Math.max(v1parts.length, v2parts.length);
@@ -46,6 +44,24 @@ const FormPopup = ({ t, data, modalActive, setModalActive, theme }) => {
     }
 
     return true;
+  };
+
+  const openTemplate = () => {
+    if (docxFile?.[0]) {
+      window.AscDesktopEditor.openTemplate(docxFile[0].attributes.url, `${data?.attributes.name_form}.docx`);
+    } else if (pptxFile?.[0]) {
+      window.AscDesktopEditor.openTemplate(pptxFile[0].attributes.url, `${data?.attributes.name_form}.pptx`);
+    } else if (xlsxFile?.[0]) {
+      window.AscDesktopEditor.openTemplate(xlsxFile[0].attributes.url, `${data?.attributes.name_form}.xlsx`);
+    } else if (getUA.includes("AscDesktopEditor")) {
+      if (compareDesktopEditorVersions(desktopEditorsVersion[1], "8.1")) {
+        window.AscDesktopEditor.openTemplate(pdfFile[0].attributes.url, `${data?.attributes.name_form}.pdf`);
+      } else {
+        window.AscDesktopEditor.openTemplate(docxfFile[0].attributes.url, `${data?.attributes.name_form}.docxf`);
+      }
+    } else {
+      window.AscDesktopEditor.openTemplate(pdfFile[0].attributes.url, `${data?.attributes.name_form}.pdf`);
+    }
   };
 
   return (
@@ -77,30 +93,21 @@ const FormPopup = ({ t, data, modalActive, setModalActive, theme }) => {
                     <span className="form-info-label">{t("File size")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</span>
                     <span className="form-info-value">{fileSize < 1024 ? `${fileSize.toFixed(0)} KB` : `${(fileSize / 1024).toFixed(0)} MB`}</span>
                   </div>
-                  <div className="form-info-item">
-                    <span className="form-info-label">{t("Pages")}:</span>
-                    <span className="form-info-value">{data?.attributes.file_pages}</span>
-                  </div>
                 </div>
                 <div className="form-info-item">
                   <span className="form-info-label">{t("File type")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</span>
                   <span className="form-info-value">
-                    {getUA.includes("AscDesktopEditor") ? compareDesktopEditorVersions(desktopEditorsVersion[1], "8.1") ? "pdf" : "docxf" : "pdf"}
+                    {
+                      docxFile?.[0]?.attributes.ext === ".docx" ? "docx" :
+                      pptxFile?.[0]?.attributes.ext === ".pptx" ? "pptx" :
+                      xlsxFile?.[0]?.attributes.ext === ".xlsx" ? "xlsx" :
+                      getUA.includes("AscDesktopEditor") ? compareDesktopEditorVersions(desktopEditorsVersion[1], "8.1") ? "pdf" : "docxf" : "pdf"
+                    }
                   </span>
                 </div>
               </div>
               <Button
-                onClick={() => {
-                  if (getUA.includes("AscDesktopEditor")) {
-                    if (compareDesktopEditorVersions(desktopEditorsVersion[1], "8.1")) {
-                      window.AscDesktopEditor.openTemplate(pdfFile, `${data?.attributes.name_form}.pdf`);
-                    } else {
-                      window.AscDesktopEditor.openTemplate(docxfFile, `${data?.attributes.name_form}.docxf`);
-                    }
-                  } else {
-                    window.AscDesktopEditor.openTemplate(pdfFile, `${data?.attributes.name_form}.pdf`);
-                  }
-                }}
+                onClick={openTemplate}
                 className="form-btn"
                 label={t("Open")}
               />
