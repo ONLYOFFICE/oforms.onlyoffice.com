@@ -17,10 +17,10 @@ const MainContent = ({ t, popularTemplates, categories, pptxForms, docxForms, pd
             <Text as="p" className="info-text" label={t("Fill out ready PDF forms. Download DOCX, XLSX, PPTX templates, easy editable online in just a few clicks")} />
           </div>
           <div className="info-editors">
-            <EditorCard title={t("Fillable form")} linkUrl="/pdf-form-templates" imageUrl="fillable-form.svg" />
-            <EditorCard title={t("Document")} linkUrl="/document-templates" imageUrl="document.svg" />
-            <EditorCard title={t("Spreadsheet")} linkUrl="/spreadsheet-templates" imageUrl="spreadsheet.svg" />
-            <EditorCard title={t("Presentation")} linkUrl="/presentation-templates" imageUrl="presentation.svg" />
+            <EditorCard title={t("Fillable forms")} linkUrl="/pdf-form-templates" imageUrl="fillable-form.svg" />
+            <EditorCard title={t("Documents")} linkUrl="/document-templates" imageUrl="document.svg" />
+            <EditorCard title={t("Spreadsheets")} linkUrl="/spreadsheet-templates" imageUrl="spreadsheet.svg" />
+            <EditorCard title={t("Presentations")} linkUrl="/presentation-templates" imageUrl="presentation.svg" />
           </div>
         </div>
         <BannerForm t={t} />

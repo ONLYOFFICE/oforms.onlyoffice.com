@@ -14,9 +14,17 @@ import CardSlider from "@components/screens/common/card-slider";
 import RecentlyViewed from "@components/screens/form-content/recently-viewed";
 import ExploreOtherTemplate from "@components/screens/form-content/explore-other-template";
 import DesktopNotInstalledPopup from "./desktop-popup";
+import moment from "moment";
+import "moment/locale/fr";
+import "moment/locale/it";
+import "moment/locale/es";
+import "moment/locale/pt-br";
+import "moment/locale/de";
+import "moment/locale/ja";
+import "moment/locale/zh-cn";
 
 const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilations }) => {
-  const { name_form, template_desc, template_image, file_oform, url, file_last_update, file_pages, file_size } = form.data[0].attributes;
+  const { name_form, template_desc, template_image, file_oform, url } = form.data[0].attributes;
   const [popupActive, setPopupActive] = useState(false);
   const [isInstalled, setIsInstalled] = useState(true);
 
@@ -25,10 +33,13 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
   const pptxFile = file_oform?.data?.filter((it) => it?.attributes.name.split(".")[1] === "pptx");
   const xlsxFile = file_oform?.data?.filter((it) => it?.attributes.name.split(".")[1] === "xlsx");
   const linkPdfEditor = `editor?filename=${url}&fillform=${`${pdfFile[0]?.attributes?.hash}.pdf`}`;
+  const fileSize = pdfFile[0]?.attributes.size || docxFile[0]?.attributes.size || pptxFile[0]?.attributes.size || xlsxFile[0]?.attributes.size;
+  const fileUpdatedAt = pdfFile[0]?.attributes.updatedAt || docxFile[0]?.attributes.updatedAt || pptxFile[0]?.attributes.updatedAt || xlsxFile[0]?.attributes.updatedAt;
+  const fileUrl = pdfFile[0]?.attributes.url || docxFile[0]?.attributes.url || pptxFile[0]?.attributes.url || xlsxFile[0]?.attributes.url;
 
   const handleButtonClick = () => {
     scriptProtocolCheck(
-      `oo-office://open|f|${pdfFile[0]?.attributes?.url}`,
+      `oo-office://open|f|${fileUrl}`,
       () => setIsInstalled(false),
       () => setIsInstalled(true),
       () => setIsInstalled(false)
@@ -54,7 +65,9 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
             <div className="form-row form-row-mobile">
               <div className="form-item last-updated">
                 <span className="form-item-label">{t("Last updated")}:</span>
-                <span className="form-item-info">{file_last_update}</span>
+                <span className="form-item-info">
+                  {moment(fileUpdatedAt).locale(locale === "pt" ? "pt-br" : locale === "zh" ? "zh-cn" : locale).format(locale === "ja" ? "Y年MM月DD日" : locale === "zh" ? "Y年MM月DD" : "MMMM D, y")}
+                </span>
               </div>
               <ExternalLink
                 className="suggest-changes-link"
@@ -77,7 +90,9 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
             <div className="form-row form-row-laptop">
               <div className="form-item last-updated">
                 <span className="form-item-label">{t("Last updated")}:</span>
-                <span className="form-item-info">{file_last_update}</span>
+                <span className="form-item-info">
+                  {moment(fileUpdatedAt).locale(locale === "pt" ? "pt-br" : locale === "zh" ? "zh-cn" : locale).format(locale === "ja" ? "Y年MM月DD日" : locale === "zh" ? "Y年MM月DD" : "MMMM D, y")}
+                </span>
               </div>
               <ExternalLink
                 className="suggest-changes-link"
@@ -87,12 +102,8 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
             </div>
             <div className="form-row form-row-info">
               <div className="form-item">
-                <span className="form-item-label">{t("File size")}:</span>
-                <span className="form-item-info">{file_size}</span>
-              </div>
-              <div className="form-item">
-                <span className="form-item-label">{t("Pages")}:</span>
-                <span className="form-item-info">{file_pages}</span>
+                <span className="form-item-label">{t("File size")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</span>
+                <span className="form-item-info">{fileSize < 1024 ? `${fileSize.toFixed(0)} kb` : `${(fileSize / 1024).toFixed(0)} mb`}</span>
               </div>
             </div>
             <FormDownload t={t} pdfFile={pdfFile} docxFile={docxFile} pptxFile={pptxFile} xlsxFile={xlsxFile} />
