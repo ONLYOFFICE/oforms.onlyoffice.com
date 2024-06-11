@@ -12,6 +12,14 @@ import ShareButtonsGroup from "./sub-components/icon-buttons";
 import StyledMainInfo from "./styled-main";
 import {useTranslation} from "next-i18next";
 import DesktopNotInstalledPopup from "./sub-components/desktop-popup";
+import moment from "moment";
+import "moment/locale/fr";
+import "moment/locale/it";
+import "moment/locale/es";
+import "moment/locale/pt-br";
+import "moment/locale/de";
+import "moment/locale/ja";
+import "moment/locale/zh-cn";
 
 const MainInfo = ({currentLanguage, data, link}) => {
     const {
@@ -19,9 +27,7 @@ const MainInfo = ({currentLanguage, data, link}) => {
         template_desc,
         template_image,
         file_oform,
-        file_last_update,
         file_pages,
-        file_size,
         categories,
     } = data;
     const { t } = useTranslation('common')
@@ -37,6 +43,8 @@ const MainInfo = ({currentLanguage, data, link}) => {
         return it?.attributes.name.split(".")[1] === "docxf";
     });
 
+    const fileSize = pdfFile[0]?.attributes.size;
+    const fileUpdatedAt = pdfFile[0]?.attributes.updatedAt
     const file_description = template_desc?.split("\n");
 
     const transDownloadAs = t("DownloadAs");
@@ -107,7 +115,7 @@ const MainInfo = ({currentLanguage, data, link}) => {
                             {t("LastUpdate")}:{" "}
                         </Text>
                         <Text isBold className="main-info-text">
-                            {file_last_update}
+                            {moment(fileUpdatedAt).locale(currentLanguage === "pt" ? "pt-br" : currentLanguage === "zh" ? "zh-cn" : currentLanguage).format(currentLanguage === "ja" ? "Y年MM月DD日" : currentLanguage === "zh" ? "Y年MM月DD" : "MMMM D, y")}
                         </Text>
                     </div>
                     <Link href={linkSuggestChanges} label={t("SuggestChanges")}/>
@@ -145,7 +153,7 @@ const MainInfo = ({currentLanguage, data, link}) => {
                             {t("FileSize")}:{" "}
                         </Text>
                         <Text isBold className="file-size-text">
-                            {file_size}
+                            {fileSize < 1024 ? `${fileSize.toFixed(0)} kb` : `${(fileSize / 1024).toFixed(0)} mb`}
                         </Text>
                     </div>
                     <div>
