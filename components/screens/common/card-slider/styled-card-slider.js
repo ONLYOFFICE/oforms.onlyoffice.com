@@ -78,10 +78,17 @@ const StyledCardSlider = styled.div`
     height: 48px;
     background-color: transparent;
     pointer-events: initial;
+    transition: box-shadow 0.3s;
     cursor: pointer;
 
     div {
       display: flex;
+    }
+
+    svg {
+      path {
+        transition: fill 0.3s;
+      }
     }
 
     &:hover {
