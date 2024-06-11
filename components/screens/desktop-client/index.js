@@ -54,8 +54,7 @@ const DesktopClient = ({ t, locale, data, sort, categories, types, compilations,
 
     const handleScroll = () => {
       if (wrapperRef.current) {
-        const { scrollTop } = wrapperRef.current;
-        const isScrolled = scrollTop > 310;
+        const isScrolled = wrapperRef.current.scrollTop > 310;
         setShowScrollToTopBtn(isScrolled);
       }
     };
@@ -72,23 +71,25 @@ const DesktopClient = ({ t, locale, data, sort, categories, types, compilations,
   }, []);
 
   useEffect(() => {
-    const handleObserver = (entries) => {
-      if (entries[0].isIntersecting) {
-        handleLoadMoreForms();
-      }
-    };
-
-    const observer = new IntersectionObserver(handleObserver, { threshold: 0.5 });
-
-    if (bottomObserver.current) {
-      observer.observe(bottomObserver.current);
-    }
-
-    return () => {
+    if (data.data.length > 0) {
+      const handleObserver = (entries) => {
+        if (entries[0].isIntersecting) {
+          handleLoadMoreForms();
+        }
+      };
+  
+      const observer = new IntersectionObserver(handleObserver, { threshold: 0.5 });
+  
       if (bottomObserver.current) {
-        observer.unobserve(bottomObserver.current);
+        observer.observe(bottomObserver.current);
       }
-    };
+  
+      return () => {
+        if (bottomObserver.current) {
+          observer.unobserve(bottomObserver.current);
+        }
+      };
+    }
   }, [formsData]);
 
   useEffect(() => {

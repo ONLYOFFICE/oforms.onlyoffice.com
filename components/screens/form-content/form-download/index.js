@@ -18,12 +18,6 @@ const FormDownload = ({ t, pdfFile, docxFile, pptxFile, xlsxFile }) => {
           <li>
             <span className="form-download-item">
               <ExternalLink className="form-download-link pdf" label="PDF" download href={pdfFile[0]?.attributes?.url} />
-              <span className="form-download-tooltip">
-                <button data-tooltip-id="pdf-tooltip"><ReactSVG src="/icons/info.svg" /></button>
-                <Tooltip id="pdf-tooltip" place="bottom-start">
-                  {t("Download a PDF document if you need an editable text without fields.")}
-                </Tooltip>
-              </span>
             </span>
           </li>
         }

@@ -16,7 +16,7 @@ const ExploreOtherTemplate = ({ t, locale, compilations }) => {
         </div>
       </div>
       <div className="popular-compilations">
-        <Heading className="explore-other-template-title" level={6} label={t("Popular Compilations")} />
+        <Heading className="explore-other-template-title" level={6} label={t("Popular compilations")} />
         <div className="explore-other-template-items">
           {compilations.data?.map((compilation) => (
             <InternalLink

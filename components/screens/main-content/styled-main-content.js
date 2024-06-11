@@ -50,11 +50,6 @@ const StyledHeading = styled(Section)`
     }
   }
 
-  .info-subtitle {
-    margin-bottom: 32px;
-    letter-spacing: -0.02em;
-  }
-
   .info-editors {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

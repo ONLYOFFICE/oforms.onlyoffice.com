@@ -273,13 +273,15 @@ const StyledCategorySelector = styled.div`
         color: #FF6F3D;
       }
 
+      @media screen and (max-width: 1200px) {
+        max-width: 300px;
+      }
+
       @media screen and (max-width: 1024px) {
         white-space: initial;
         text-overflow: initial;
         overflow: initial;
-        width: max-content;
-        min-width: 100%;
-        max-width: 420px;
+        max-width: 100%;
       }
 
       @media screen and (max-width: 896px) {
@@ -299,22 +301,6 @@ const StyledCategorySelector = styled.div`
 
     @media screen and (max-width: 896px) {
       padding: 16px 0;
-    }
-  }
-
-  .category-selector-links a {
-    @media screen and (max-width: 1200px) {
-      max-width: 300px;
-    }
-
-    @media screen and (max-width: 1024px) {
-      max-width: 420px;
-    }
-
-    @media screen and (max-width: 896px) {
-      width: 100%;
-      min-width: 100%;
-      max-width: 100%;
     }
   }
 `;
