@@ -59,7 +59,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
               <ExternalLink
                 className="suggest-changes-link"
                 href={`mailto:marketing@onlyoffice.com?subject=Suggesting changes for Form ${name_form}&body=Suggesting changes for Form ${name_form}.`}
-                label={t("Suggest chages")}
+                label={t("Suggest changes")}
               />
             </div>
           </div>
@@ -82,7 +82,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
               <ExternalLink
                 className="suggest-changes-link"
                 href={`mailto:marketing@onlyoffice.com?subject=Suggesting changes for Form ${name_form}&body=Suggesting changes for Form ${name_form}.`}
-                label={t("Suggest chages")}
+                label={t("Suggest changes")}
               />
             </div>
             <div className="form-row form-row-info">

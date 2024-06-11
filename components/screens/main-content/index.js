@@ -34,7 +34,7 @@ const MainContent = ({ t, popularTemplates, categories, pptxForms, docxForms, pd
           <PopularCategories t={t} categories={categories} />
         }
         {pdfForms.data.length > 0 &&
-          <CardsBlock className="pdf-fillable-form" t={t} title={t("PDF Fillable Forms")} linkUrl={"/pdf-form-templates"} data={pdfForms} />
+          <CardsBlock className="pdf-fillable-form" t={t} title={t("PDF fillable forms")} linkUrl={"/pdf-form-templates"} data={pdfForms} />
         }
         {docxForms.data.length > 0 &&
           <CardsBlock t={t} title={t("Document templates")} linkUrl={"/document-templates"} data={docxForms} />
