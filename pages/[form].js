@@ -19,7 +19,7 @@ const FormPage = ({ locale, form, randomCarousel, compilations }) => {
 
   useEffect(() => {
     const localStorageKey = `recentForms_${locale}`;
-    const maxForms = 6;
+    const maxForms = 7;
 
     let recentForms = JSON.parse(localStorage.getItem(localStorageKey)) || [];
 
