@@ -91,7 +91,7 @@ const FormPopup = ({ t, locale, data, modalActive, setModalActive, theme }) => {
                 <div className="form-info-block">
                   <div className="form-info-item">
                     <span className="form-info-label">{t("File size")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</span>
-                    <span className="form-info-value">{fileSize < 1024 ? `${fileSize.toFixed(0)} KB` : `${(fileSize / 1024).toFixed(0)} MB`}</span>
+                    <span className="form-info-value">{fileSize < 1024 ? `${fileSize.toFixed(0)} kb` : `${(fileSize / 1024).toFixed(0)} mb`}</span>
                   </div>
                 </div>
                 <div className="form-info-item">

@@ -103,7 +103,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
             <div className="form-row form-row-info">
               <div className="form-item">
                 <span className="form-item-label">{t("File size")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</span>
-                <span className="form-item-info">{fileSize < 1024 ? `${fileSize.toFixed(0)} KB` : `${(fileSize / 1024).toFixed(0)} MB`}</span>
+                <span className="form-item-info">{fileSize < 1024 ? `${fileSize.toFixed(0)} kb` : `${(fileSize / 1024).toFixed(0)} mb`}</span>
               </div>
             </div>
             <FormDownload t={t} pdfFile={pdfFile} docxFile={docxFile} pptxFile={pptxFile} xlsxFile={xlsxFile} />
