@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import ExternalLink from "@components/common/external-link";
 import Heading from "@components/common/heading";
 import Text from "@components/common/text";
-import InternalLink from "@components/common/internal-link";
 
 const BannerForm = ({ t }) => {
   const router = useRouter();
@@ -12,10 +11,8 @@ const BannerForm = ({ t }) => {
   return (
     <StyledBannerForm>
       <div className="banner-form-info">
-        <Heading className="banner-form-title" level={3} label={t("Build your own forms")} />
-        <Text as="p" className="banner-form-text">
-          {t("Create model documents, agreements, and contracts for any purpose with ONLYOFFICE Docs.")} <InternalLink label={t("Suggest form")} href="/form-submit" />
-        </Text>
+        <Heading className="banner-form-title" level={3} label={t("Build your own templates")} />
+        <Text as="p" className="banner-form-text" label={t("Create PDF forms, model documents, spreadseets and presentations for any purpose with ONLYOFFICE Docs.")} />
       </div>
       <div className="banner-form-btns">
         <ExternalLink

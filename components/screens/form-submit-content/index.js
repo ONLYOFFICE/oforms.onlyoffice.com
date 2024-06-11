@@ -300,12 +300,12 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
         </div>
         <div className="content">
           <div className="wrapper-content">
-            <Heading className="title" level={3}>{t("Uploading your form")}</Heading>
-            <Text className="subtitle" as="p">{t("Please fill out all the fields before sending the form.")}</Text>
+            <Heading className="title" level={3}>{t("Uploading your template")}</Heading>
+            <Text className="subtitle" as="p">{t("Please fill out all the fields before sending the template.")}</Text>
             <Input
-              label={`${t("Form name")}*`}
+              label={`${t("Template name")}*`}
               placeholder={t("Enter name")}
-              errorText={nameExistsValid ? t("Duplicate file name. Please rename your form or choose another one.") : nameFilled && nameError && name.length < 1 ? t("Form name is empty") : name.length > 100 ? t("You are limited to 100 characters") : null}
+              errorText={nameExistsValid ? t("Duplicate file name. Please rename your template or choose another one.") : nameFilled && nameError && name.length < 1 ? t("Template name is empty") : name.length > 100 ? t("You are limited to 100 characters") : null}
               className={`${(nameFilled && nameError) && name.length < 1 || name.length > 100 || nameExistsValid ? "error" : ""} ${nameValid ? "valid" : ""}`}
               name="name"
               value={name}
@@ -315,9 +315,9 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
             />
             <Input
               isTextarea
-              label={`${t("Form description")}*`}
-              placeholder={t("Give more details about your form, such as who will benefit from it, in which industry, etc.")}
-              errorText={(descriptionFilled && descriptionError) && description.length < 1 ? t("Form description is empty") : description.length > 300 ? t("You are limited to 300 characters") : null}
+              label={`${t("Template description")}*`}
+              placeholder={t("Give more details about your template, such as who will benefit from it, in which industry, etc.")}
+              errorText={(descriptionFilled && descriptionError) && description.length < 1 ? t("Template description is empty") : description.length > 300 ? t("You are limited to 300 characters") : null}
               className={`${(descriptionFilled && descriptionError) && description.length < 1 || description.length > 300 ? "error" : ""} ${descriptionValid ? "valid" : ""}`}
               name="description"
               value={description}
@@ -327,10 +327,10 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
             />
             <CategorySelect
               t={t}
-              label={`${t("Form category")}*`}
+              label={`${t("Template category")}*`}
               labelMore={`(${t("maximum 5")})`}
               placeholder={t("Enter category or choose")}
-              errorText={t("Form category is empty")}
+              errorText={t("Template category is empty")}
               categories={categories}
               selected={category}
               setSelected={setCategory}
@@ -373,7 +373,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
 
           <div className="file-info">
             <div className="file-info-item">
-              <Text className="file-info-label file-type">{t("File Type")}:</Text>
+              <Text className="file-info-label file-type">{t("File type")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</Text>
               <Text className="file-info-text">.docxf</Text>
             </div>
             <div className="file-info-item">

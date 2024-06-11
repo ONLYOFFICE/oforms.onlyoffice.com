@@ -56,7 +56,7 @@ const FormPopup = ({ t, data, modalActive, setModalActive, theme }) => {
       <div className="popup-wrapper">
         <div onClick={(e) => e.stopPropagation()} className="popup-content">
           <div className="popup-header">
-            <div className="popup-title">{t("Form description")}</div>
+            <div className="popup-title">{t("Template description")}</div>
             <button onClick={() => setModalActive(false)} className="popup-close-btn"><ReactSVG src="/icons/desktop-cross.svg" /></button>
           </div>
           <div className="popup-body">
@@ -74,8 +74,8 @@ const FormPopup = ({ t, data, modalActive, setModalActive, theme }) => {
               <div className="form-info">
                 <div className="form-info-block">
                   <div className="form-info-item">
-                    <span className="form-info-label">{t("FileSize")}:</span>
-                    <span className="form-info-value">{data?.attributes.file_size}</span>
+                    <span className="form-info-label">{t("File size")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</span>
+                    <span className="form-info-value">{fileSize < 1024 ? `${fileSize.toFixed(0)} KB` : `${(fileSize / 1024).toFixed(0)} MB`}</span>
                   </div>
                   <div className="form-info-item">
                     <span className="form-info-label">{t("Pages")}:</span>
@@ -83,7 +83,7 @@ const FormPopup = ({ t, data, modalActive, setModalActive, theme }) => {
                   </div>
                 </div>
                 <div className="form-info-item">
-                  <span className="form-info-label">{t("FileType")}:</span>
+                  <span className="form-info-label">{t("File type")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</span>
                   <span className="form-info-value">
                     {getUA.includes("AscDesktopEditor") ? compareDesktopEditorVersions(desktopEditorsVersion[1], "8.1") ? "pdf" : "docxf" : "pdf"}
                   </span>
