@@ -6,9 +6,8 @@ import Button from "@common/button";
 import { ReactSVG } from "react-svg";
 
 const FormPopup = ({ t, data, modalActive, setModalActive, theme }) => {
-  const docxfFile = data?.attributes.file_oform?.data?.filter((it) => {
-    return it?.attributes.name.split(".")[1] === "docxf";
-  })[0]?.attributes?.url;
+  const docxfFile = data?.attributes.file_oform?.data?.filter((it) => it?.attributes.name.split(".")[1] === "docxf");
+  const fileSize = docxfFile?.[0]?.attributes.size;
 
   const handleEscapeKey = (event) => {
     if (event.key === "Escape") {
@@ -53,7 +52,7 @@ const FormPopup = ({ t, data, modalActive, setModalActive, theme }) => {
                 <div className="form-info-block">
                   <div className="form-info-item">
                     <span className="form-info-label">{t("FileSize")}:</span>
-                    <span className="form-info-value">{data?.attributes.file_size}</span>
+                    <span className="form-info-value">{fileSize < 1024 ? `${fileSize.toFixed(0)} kb` : `${(fileSize / 1024).toFixed(0)} mb`}</span>
                   </div>
                   <div className="form-info-item">
                     <span className="form-info-label">{t("Pages")}:</span>
@@ -66,7 +65,7 @@ const FormPopup = ({ t, data, modalActive, setModalActive, theme }) => {
                 </div>
               </div>
               <Button
-                onClick={() => window.AscDesktopEditor.openTemplate(docxfFile, `${data?.attributes.name_form}.docxf`)}
+                onClick={() => window.AscDesktopEditor.openTemplate(docxfFile[0]?.attributes?.url, `${data?.attributes.name_form}.docxf`)}
                 className="form-btn"
                 label={t("Open")}
               />
