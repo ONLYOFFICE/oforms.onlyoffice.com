@@ -1,5 +1,5 @@
 import StyledSearchInput from "./styled-search-input";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { ReactSVG } from "react-svg";
 
@@ -8,6 +8,7 @@ const SearchInput = ({ t, setHideCategorySelector, theme }) => {
   const [inputValue, setInputValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [showCrossBtn, setShowCrossBtn] = useState(false);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     const resizeHandler = () => {
@@ -120,6 +121,7 @@ const SearchInput = ({ t, setHideCategorySelector, theme }) => {
 
   const handleShowSearch = () => {
     setIsOpen(true);
+    inputRef.current.focus();
     setHideCategorySelector(true);
     handleCheckInputValue();
   };
@@ -130,6 +132,7 @@ const SearchInput = ({ t, setHideCategorySelector, theme }) => {
         <ReactSVG src="/icons/search.svg" />
       </button>
       <input
+        ref={inputRef}
         onClick={handleCheckInputValue}
         onChange={handleSearchInput}
         onKeyDown={(e) => onKeyDownHandle(e)}

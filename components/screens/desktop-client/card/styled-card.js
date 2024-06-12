@@ -1,15 +1,16 @@
 import styled from "styled-components";
 
 const StyledCard = styled.div`
-  width: 186px;
+  width: 184px;
   cursor: pointer;
 
   .card-img {
+    box-sizing: border-box;
     border: 1px solid ${props =>
       props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "#616161" : 
       "#CBCBCB"
     };
-    width: 186px;
+    width: 184px;
     object-fit: contain;
     ${props => (props.theme === "theme-dark" || props.theme === "theme-contrast-dark") && "opacity: 0.9;"}
     transition: border-color 0.3s, box-shadow 0.3s;

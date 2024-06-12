@@ -99,20 +99,25 @@ export const getServerSideProps = async ({ locale, query }) => {
   let forms = null;
   let types = null;
   let compilations = null;
+  let popularTemplates = null;
+  let pptxForms = null;
+  let docxForms = null;
+  let pdfForms = null;
+  let xlsxForms = null;
+  const categories = await getCategories(locale === "pt" ? "pt-br" : locale);
 
   if (isDesktopClient) {
     forms = await getForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize);
     types = await getTypes(locale === "pt" ? "pt-br" : locale);
     compilations = await getCompilations(locale === "pt" ? "pt-br" : locale);
+  } else {
+    popularTemplates = await getPopularTemplates(locale === "pt" ? "pt-br" : locale, sort);
+    pptxForms = await getPptxForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize);
+    docxForms = await getDocxForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize);
+    pdfForms = await getPdfForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize);
+    xlsxForms = await getXlsxForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize);
   }
 
-  const categories = await getCategories(locale === "pt" ? "pt-br" : locale);
-  const popularTemplates = await getPopularTemplates(locale === "pt" ? "pt-br" : locale, sort);
-  const pptxForms = await getPptxForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize);
-  const docxForms = await getDocxForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize);
-  const pdfForms = await getPdfForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize);
-  const xlsxForms = await getXlsxForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize);
-  
   return {
     props: {
       ...(await serverSideTranslations(locale, "common")),

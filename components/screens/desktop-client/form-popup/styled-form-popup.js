@@ -159,18 +159,19 @@ export const StyledFormPopup = styled.div`
 
   .form-img {
     display: flex;
-    border: 1px solid ${props =>
-      props.theme === "theme-light" ? "#E0E0E0" :
-      props.theme === "theme-dark" ? "#5A5A5A" :
-      props.theme === "theme-contrast-dark" ? "#616161" : 
-      "#D8DADC"
-    };
-    border-radius: 5px;
-    overflow: hidden;
     
     img {
+      box-sizing: border-box;
+      border: 1px solid ${props =>
+        props.theme === "theme-light" ? "#E0E0E0" :
+        props.theme === "theme-dark" ? "#5A5A5A" :
+        props.theme === "theme-contrast-dark" ? "#616161" : 
+        "#D8DADC"
+      };
+      border-radius: 5px;
       width: 100%;
       object-fit: contain;
+      overflow: hidden;
       ${props => (props.theme === "theme-dark" || props.theme === "theme-contrast-dark") && "opacity: 0.9;"}
     }
   }

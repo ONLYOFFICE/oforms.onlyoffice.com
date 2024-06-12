@@ -11,12 +11,13 @@ const pulseAnimation = keyframes`
 
 const StyledSkeletonCard = styled.div`
   .skeleton-card-body {
+    box-sizing: border-box;
     margin-bottom: 12px;
     border: 1px solid ${props =>
       props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "#616161" : 
       "#CBCBCB"
     };
-    width: 186px;
+    width: 184px;
     height: 260px;
     background: ${props =>
       props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "linear-gradient(0deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.04)),linear-gradient(270deg, rgba(255, 255, 255, 0) 23.13%, rgba(255, 255, 255, 0.08) 50.52%, rgba(255, 255, 255, 0) 78.12%)" :
@@ -27,7 +28,7 @@ const StyledSkeletonCard = styled.div`
   }
 
   .skeleton-card-title {
-    width: 186px;
+    width: 184px;
     height: 22px;
     background: ${props =>
       props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "linear-gradient(0deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.04)),linear-gradient(270deg, rgba(255, 255, 255, 0) 23.13%, rgba(255, 255, 255, 0.08) 50.52%, rgba(255, 255, 255, 0) 78.12%)" :
