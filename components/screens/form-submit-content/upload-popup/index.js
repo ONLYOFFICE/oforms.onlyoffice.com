@@ -3,7 +3,7 @@ import Heading from "@components/common/heading";
 import Button from "@components/common/button";
 import Text from "@components/common/text";
 
-const UploadPopup = ({ t, file, uploadPopup, fileName, setUploadPopup, clearForm }) => {
+const UploadPopup = ({ t, uploadPopup, fileName, setUploadPopup, clearForm }) => {
   const closePopup = (e) => {
     if (!e.target.closest(".popup-wrapper") || e.target.closest(".popup-btn-close") || e.target.closest(".popup-btn")) {
       setUploadPopup(false);
@@ -21,7 +21,7 @@ const UploadPopup = ({ t, file, uploadPopup, fileName, setUploadPopup, clearForm
           </div>
           <div>
             <div className="upload-name">
-              <span className="upload-name-file">{file !== undefined ? fileName : ""}<span>.docxf</span></span>
+              <span className={`upload-name-file ${fileName?.match(/\.(\w+)$/)?.[1]}`}>{fileName.match(/(\S+)\.(?!.*\.)/)?.[1]}<span>{fileName?.match(/\.(\w+)$/)?.[0]}</span></span>
             </div>
 
             <div className="upload-descr">

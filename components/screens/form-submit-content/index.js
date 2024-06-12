@@ -380,7 +380,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
         }
       </div>
 
-      <UploadPopup t={t} file={file} uploadPopup={uploadPopup} fileName={fileName} setUploadPopup={setUploadPopup} clearForm={clearForm} />
+      <UploadPopup t={t} uploadPopup={uploadPopup} fileName={fileName} setUploadPopup={setUploadPopup} clearForm={clearForm} />
     </StyledFormSubmitContent>
   );
 };
