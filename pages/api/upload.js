@@ -21,8 +21,6 @@ export default async function handler(req, res) {
       const formName = fields.formName === undefined ? "" : fields.formName[0];
       const language = fields.language === undefined ? "" : fields.language[0];
       const fileName = `${Date.now()}_${files.file[0].originalFilename}`;
-      const fileSize = files.file[0].size;
-      const fileLastModified = files.file[0].lastModifiedDate;
       const fileNameSubstring = files.file[0].originalFilename.substring(0, files.file[0].originalFilename.length - 6);
       const CMSConfigAPI = CONFIG.api.cms.replace("dashboard", "");
       const hasLanguage = languages.some(item => item.shortKey === language);
@@ -114,7 +112,7 @@ export default async function handler(req, res) {
         Key: fileName
       }).promise();
 
-      const compressedData = zlib.deflateSync(`${cardPreviewRequest.data.fileUrl};${pdfRequest.data.fileUrl};${pageCount};${fileLastModified};${fileNameSubstring};${fileSize};${formName}`);
+      const compressedData = zlib.deflateSync(`${cardPreviewRequest.data.fileUrl};${pdfRequest.data.fileUrl};${pageCount};${fileNameSubstring};${formName}`);
       const compressedString = compressedData.toString("base64");
 
       return res.status(200).send(`${CMSConfigAPI}${`${currentLanguage}`}form-submit?index=${compressedString}`);

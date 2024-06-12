@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 import CONFIG from "@config/config";
 
 export default async function handler(req, res) {
-  const { сardPreviewUrl, pdfFileUrl, name, description, fileSize, fileName, fileLastModifiedDate, languageKey, categoryId, filePages } = req.body;
+  const { сardPreviewUrl, pdfFileUrl, name, description, fileName, languageKey, categoryId, filePages } = req.body;
 
   try {
     await axios.get(сardPreviewUrl);
@@ -89,8 +89,6 @@ export default async function handler(req, res) {
       await axios.post(`${CONFIG.api.cms}/api/oforms`, {
         "data": {
           "name_form": name,
-          "file_size": `${(fileSize / 1024).toFixed(0)} kB`,
-          "file_last_update": fileLastModifiedDate,
           "file_pages": filePages,
           "template_desc": description,
           "categories": categoryId,

@@ -18,9 +18,7 @@ const StyledSelect = styled.div`
   }
 
   .label {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+    display: block;
     margin-bottom: 8px;
     line-height: 24px;
 
