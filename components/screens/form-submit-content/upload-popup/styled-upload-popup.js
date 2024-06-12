@@ -1,5 +1,9 @@
 import styled from "styled-components";
 import { device } from "@utils/devices";
+import pdfIcon from "@public/icons/pdf-24.svg";
+import docIcon from "@public/icons/doc-24.svg";
+import tabIcon from "@public/icons/tab-24.svg";
+import presIcon from "@public/icons/pres-24.svg";
 
 const StyledUploadPopup = styled.div`
   position: fixed;
@@ -86,13 +90,28 @@ const StyledUploadPopup = styled.div`
     font-size: 14px;
     line-height: 32px;
     word-break: break-word;
-    background-image: url("https://static-oforms.onlyoffice.com/icons/oform.svg");
     background-repeat: no-repeat;
     background-size: 32px;
     background-position: left center;
 
     span {
       font-weight: 700;
+    }
+
+    &.pdf {
+      background-image: url(${pdfIcon.src});
+    }
+
+    &.docx {
+      background-image: url(${docIcon.src});
+    }
+
+    &.xlsx {
+      background-image: url(${tabIcon.src});
+    }
+
+    &.pptx {
+      background-image: url(${presIcon.src});
     }
   }
 
