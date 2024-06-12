@@ -25,86 +25,69 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
   const onHandleFileChange = async (e) => {
     if (e.target.files[0] === undefined) {
       setFileValue("");
-
       return true;
-    };
-
+    }
+  
+    const allowedFormats = [
+      "application/pdf",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    ];
+  
     setFileNameError(e.target.files[0].name.toString().slice(0, -6));
     setFileValue(e.target.value);
     !e.target.value.length < 1 && setFileError(false);
-
-    function arraysEqual(a, b) {
-      if (a.length !== b.length) {
-        return false;
-      };
-      for (let i = 0; i < a.length; i++) {
-        if (a[i] !== b[i]) {
-          return false;
-        };
-      };
-      return true;
-    };
-
-    const reader = new FileReader();
-    const fileValid = await new Promise((resolve) => {
-      reader.onload = (e) => {
-        if (arraysEqual([0x50, 0x4B, 0x03, 0x04], new Uint8Array(e.target.result).slice(0, 4))) {
-          resolve(true);
-        } else {
-          resolve(false);
-        };
-      };
-
-      reader.readAsArrayBuffer(e.target.files[0]);
-    });
-
-    if (fileValid && (e.target.files[0].type === "" || e.target.files[0].type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
-      if (e.target.files[0].size === 0) {
-        setErrorTextPopup(t("Invalid file size! The uploaded file has zero size. Please choose another one."));
-        setFileLoading(false);
-        setFileValue("");
-        setFile(undefined);
-
-        if (nullFileTimerRef.current) {
-          clearTimeout(nullFileTimerRef.current);
-        };
-    
-        nullFileTimerRef.current = setTimeout(() => {
-          setErrorTextPopup("");
-        }, 10000);
-      } else if (e.target.files[0].size < 10000000) {
-        handleFileImageUpload(e);
-        setFile(e.target.files[0]);
-      } else if (e.target.files[0] !== undefined) {
-        setErrorTextPopup(t("Your file is too big! Max size 10MB. Please choose another one."));
-        setFileValue("");
-
-        if (largeFileTimerRef.current) {
-          clearTimeout(largeFileTimerRef.current);
-        };
-    
-        largeFileTimerRef.current = setTimeout(() => {
-          setErrorTextPopup("");
-        }, 10000);
-      } else if (e.target.files[0] === undefined) {
-        setFile(undefined);
-        setFileError(true);
-        setFileFilled(true);
-      };
-    } else {
-      setErrorTextPopup(t("Invalid file format! The uploaded file is not valid. Please choose a DOCXF file."));
+  
+    if (!allowedFormats.includes(e.target.files[0].type)) {
+      setErrorTextPopup(t("Invalid file format! The uploaded file is not valid. Please choose a PDF, DOCX, PPTX, or XLSX file."));
       setFileLoading(false);
       setFile(undefined);
       setFileValue("");
-
+  
       if (formatFileTimerRef.current) {
         clearTimeout(formatFileTimerRef.current);
-      };
+      }
   
       formatFileTimerRef.current = setTimeout(() => {
         setErrorTextPopup("");
       }, 10000);
-    };
+  
+      return;
+    }
+  
+    if (e.target.files[0].size === 0) {
+      setErrorTextPopup(t("Invalid file size! The uploaded file has zero size. Please choose another one."));
+      setFileLoading(false);
+      setFileValue("");
+      setFile(undefined);
+  
+      if (nullFileTimerRef.current) {
+        clearTimeout(nullFileTimerRef.current);
+      }
+  
+      nullFileTimerRef.current = setTimeout(() => {
+        setErrorTextPopup("");
+      }, 10000);
+      return;
+    }
+  
+    if (e.target.files[0].size > 10000000) {
+      setErrorTextPopup(t("Your file is too big! Max size 10MB. Please choose another one."));
+      setFileValue("");
+  
+      if (largeFileTimerRef.current) {
+        clearTimeout(largeFileTimerRef.current);
+      }
+  
+      largeFileTimerRef.current = setTimeout(() => {
+        setErrorTextPopup("");
+      }, 10000);
+      return;
+    }
+  
+    handleFileImageUpload(e);
+    setFile(e.target.files[0]);
   };
 
   const onhandleFileRemove = () => {
@@ -130,7 +113,7 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
             value={fileValue}
             name="file"
             type="file"
-            accept=".docxf"
+            accept=".pdf, .docx, .pptx, .xlsx"
           />
           {file === undefined ? (
             <>

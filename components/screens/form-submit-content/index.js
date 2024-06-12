@@ -13,13 +13,6 @@ import Input from "./input";
 import UploadFile from "./upload-file";
 import UploadPopup from "./upload-popup";
 import ErrorPopup from "./error-popup";
-import moment from "moment";
-import "moment/locale/fr";
-import "moment/locale/it";
-import "moment/locale/es";
-import "moment/locale/de";
-import "moment/locale/ja";
-import "moment/locale/zh-cn";
 
 const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
   const [file, setFile] = useState(undefined);
@@ -63,7 +56,6 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
   const [filePages, setFilePages] = useState("");
   const [fileName, setFileName] = useState("");
   const [fileSize, setFileSize] = useState("0");
-  const [fileLastModified, setFileLastModified] = useState("");
   const refRecaptcha = useRef();
   const cardPreviewTimerRef = useRef(null);
 
@@ -76,9 +68,8 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
         setCardPreviewUrl(queryIndexData[0]);
         setPdfFileUrl(queryIndexData[1]);
         setFilePages(queryIndexData[2].toString());
-        setFileLastModified(queryIndexData[3]);
-        setFileName(queryIndexData[4]);
-        setFileSize(queryIndexData[5]);
+        setFileName(queryIndexData[3]);
+        setFileSize(queryIndexData[4]);
         setFileError(false);
         setFile(true);
 
@@ -179,7 +170,6 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
       setFilePages(pdfCountPagesResponse.data.filePages.toString());
       setFileName(e.target.files[0]?.name);
       setFileSize(e.target.files[0]?.size);
-      setFileLastModified(e.target.files[0]?.lastModified);
       setFileLoading(false);
     } catch (error) {
       if (error.response) {
@@ -208,11 +198,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
       "pdfFileUrl": pdfFileUrl,
       "name": name,
       "description": description,
-      "fileSize": fileSize,
       "fileName": fileName,
-      "fileLastModifiedDate": moment(fileLastModified).locale(languageKey).format(
-        languageKey === "zh" ? "Y年MM月DD" : languageKey === "ja" ? "Y年MM月DD日" : "MMMM D, y"
-      ),
       "languageKey": languageKey,
       "categoryId": categoryId,
       "filePages": filePages
@@ -373,8 +359,8 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
 
           <div className="file-info">
             <div className="file-info-item">
-              <Text className="file-info-label file-type">{t("File type")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</Text>
-              <Text className="file-info-text">.docxf</Text>
+              <Text className={`file-info-label file-type ${fileValue.match(/\.(\w+)$/)?.[1]}`}>{t("File type")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</Text>
+              <Text className="file-info-text">{fileValue.match(/\.(\w+)$/)?.[0]}</Text>
             </div>
             <div className="file-info-item">
               <Text className="file-info-label">{t("File size")}:</Text>

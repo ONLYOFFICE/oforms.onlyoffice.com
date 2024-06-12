@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { device } from "@utils/devices";
 import Section from "@components/common/section";
+import pdfIcon from "@public/icons/pdf-24.svg";
+import docIcon from "@public/icons/doc-24.svg";
+import tabIcon from "@public/icons/tab-24.svg";
+import presIcon from "@public/icons/pres-24.svg";
 
 const StyledFormSubmitContent = styled(Section)`
   background-color: #F5F5F5;
@@ -89,10 +93,25 @@ const StyledFormSubmitContent = styled(Section)`
 
     &.file-type {
       padding-right: 32px;
-      background-image: url("https://static-oforms.onlyoffice.com/icons/oform.svg");
       background-repeat: no-repeat;
       background-size: contain;
       background-position: right center;
+
+      &.pdf {
+        background-image: url(${pdfIcon.src});
+      }
+
+      &.docx {
+        background-image: url(${docIcon.src});
+      }
+
+      &.xlsx {
+        background-image: url(${tabIcon.src});
+      }
+
+      &.pptx {
+        background-image: url(${presIcon.src});
+      }
     }
   }
 
