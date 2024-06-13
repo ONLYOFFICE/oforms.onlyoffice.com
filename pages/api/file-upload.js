@@ -16,6 +16,7 @@ export default async function handler(req, res) {
   form.parse(req, async (err, fields, files) => {
     try {
       const fileName = `${Date.now()}_${files.file[0].originalFilename}`;
+      const fileType = files.file[0].originalFilename?.match(/\.(\w+)$/)?.[1];
 
       // Generate a unique key for payload
       let key = "";
@@ -33,20 +34,20 @@ export default async function handler(req, res) {
         region: process.env.NEXT_PUBLIC_REGION,
       });
 
-      // Amazon S3 params for docxf
+      // Amazon S3 params
       const params = {
         Bucket: process.env.NEXT_PUBLIC_BUCKET,
         Key: fileName,
         Body: fs.createReadStream(files.file[0].filepath)
       };
 
-      // Get docxf response from Amazon S3
-      const docxfAwsResponse = await s3.upload(params).promise();
-      const docxfAwsUrl = `https://${docxfAwsResponse.Bucket}/${docxfAwsResponse.key}`;
+      // Get response from Amazon S3
+      const awsResponse = await s3.upload(params).promise();
+      const awsUrl = `https://${awsResponse.Bucket}/${awsResponse.key}`;
 
       // Payload data
-      const cardPreviewPayload = {
-        "filetype": "docxf",
+      const templatePreviewPayload = {
+        "filetype": fileType,
         "key": key,
         "outputtype": "png",
         "thumbnail": {
@@ -56,26 +57,26 @@ export default async function handler(req, res) {
           "width": 1024
         },
         "title": fileName,
-        "url": docxfAwsUrl
+        "url": awsUrl
       };
 
       const pdfPayload = {
-        "filetype": "docxf",
+        "filetype": fileType,
         "key": key,
         "outputtype": "pdf",
         "title": fileName,
-        "url": docxfAwsUrl
+        "url": awsUrl
       };
 
       // Generate tokens for AuthorizationJwt
-      const cardPreviewToken = jwt.sign(cardPreviewPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+      const templatePreviewToken = jwt.sign(templatePreviewPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
       const pdfToken = jwt.sign(pdfPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
 
       // Send request to ConvertService and get result
-      const cardPreviewRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, cardPreviewPayload, {
+      const templatePreviewRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, templatePreviewPayload, {
         headers: {
           "Content-Type": "application/json",
-          "AuthorizationJwt": `Bearer ${cardPreviewToken}`
+          "AuthorizationJwt": `Bearer ${templatePreviewToken}`
         }
       });
 
@@ -96,12 +97,11 @@ export default async function handler(req, res) {
       }).promise();
 
       return res.status(200).json({
-        "pngConvertUrl": cardPreviewRequest.data.fileUrl,
+        "templatePreviewConvertUrl": templatePreviewRequest.data.fileUrl,
         "pdfConvertUrl": pdfRequest.data.fileUrl,
       });
     } catch (error) {
-      console.log(error);
-      return res.status(500).send("An error occurred while retrieving data");
+      return res.status(500).json({ error: error.message });
     };
   });
 };

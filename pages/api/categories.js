@@ -12,7 +12,6 @@ export default async function handler(req, res) {
       "categories": response.data
     });
   } catch (error) {
-    console.log(error);
-    return res.status(500).end();
+    return res.status(500).json({ error: error.message });
   };
 };

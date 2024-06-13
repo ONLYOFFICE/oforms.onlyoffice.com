@@ -15,6 +15,6 @@ export default async function handler(req, res) {
       "filePages": pageCount
     });
   } catch (error) {
-    return res.status(500).end();
+    return res.status(500).json({ error: error.message });
   };
 };
