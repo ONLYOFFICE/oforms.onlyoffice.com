@@ -21,6 +21,7 @@ export default async function handler(req, res) {
       const formName = fields.formName === undefined ? "" : fields.formName[0];
       const language = fields.language === undefined ? "" : fields.language[0];
       const fileName = `${Date.now()}_${files.file[0].originalFilename}`;
+      const fileType = files.file[0].originalFilename?.match(/\.(\w+)$/)?.[1];
       const fileNameSubstring = files.file[0].originalFilename.substring(0, files.file[0].originalFilename.length - 6);
       const CMSConfigAPI = CONFIG.api.cms.replace("dashboard", "");
       const hasLanguage = languages.some(item => item.shortKey === language);
@@ -42,20 +43,20 @@ export default async function handler(req, res) {
         region: process.env.NEXT_PUBLIC_REGION,
       });
 
-      // Amazon S3 params for docxf
+      // Amazon S3 params
       const params = {
         Bucket: process.env.NEXT_PUBLIC_BUCKET,
         Key: fileName,
         Body: fs.createReadStream(files.file[0].filepath)
       };
 
-      // Get docxf response from Amazon S3
-      const docxfAwsResponse = await s3.upload(params).promise();
-      const docxfAwsUrl = `https://${docxfAwsResponse.Bucket}/${docxfAwsResponse.key}`;
+      // Get response from Amazon S3
+      const awsResponse = await s3.upload(params).promise();
+      const awsUrl = `https://${awsResponse.Bucket}/${awsResponse.key}`;
 
       // Payload data
-      const cardPreviewPayload = {
-        "filetype": "docxf",
+      const templatePreviewPayload = {
+        "filetype": fileType,
         "key": key,
         "outputtype": "png",
         "thumbnail": {
@@ -65,26 +66,26 @@ export default async function handler(req, res) {
           "width": 1024
         },
         "title": fileName,
-        "url": docxfAwsUrl
+        "url": awsUrl
       };
 
       const pdfPayload = {
-        "filetype": "docxf",
+        "filetype": fileType,
         "key": key,
         "outputtype": "pdf",
         "title": fileName,
-        "url": docxfAwsUrl
+        "url": awsUrl
       };
 
       // Generate tokens for AuthorizationJwt
-      const cardPreviewToken = jwt.sign(cardPreviewPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+      const templatePreviewToken = jwt.sign(templatePreviewPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
       const pdfToken = jwt.sign(pdfPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
 
       // Send request to ConvertService and get result
-      const cardPreviewRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, cardPreviewPayload, {
+      const templatePreviewRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, templatePreviewPayload, {
         headers: {
           "Content-Type": "application/json",
-          "AuthorizationJwt": `Bearer ${cardPreviewToken}`
+          "AuthorizationJwt": `Bearer ${templatePreviewToken}`
         }
       });
 
@@ -112,13 +113,12 @@ export default async function handler(req, res) {
         Key: fileName
       }).promise();
 
-      const compressedData = zlib.deflateSync(`${cardPreviewRequest.data.fileUrl};${pdfRequest.data.fileUrl};${pageCount};${fileNameSubstring};${formName}`);
+      const compressedData = zlib.deflateSync(`${templatePreviewRequest.data.fileUrl};${pdfRequest.data.fileUrl};${pageCount};${fileNameSubstring};${formName}`);
       const compressedString = compressedData.toString("base64");
 
       return res.status(200).send(`${CMSConfigAPI}${`${currentLanguage}`}form-submit?index=${compressedString}`);
     } catch (error) {
-      console.log(error);
-      return res.status(500).send("Error");
+      return res.status(500).json({ error: error.message });
     };
   });
 };
