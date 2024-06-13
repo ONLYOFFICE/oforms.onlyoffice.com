@@ -106,7 +106,7 @@ export default async function handler(req, res) {
     if (fileType === "xlsx" || fileType === "pptx" || fileType === "docx") {
       filePayload = {
         "filetype": "pdf",
-        "key": key,
+        "key": generateKey(),
         "outputtype": fileType,
         "title": fileName,
         "url": pdfFileUrl
