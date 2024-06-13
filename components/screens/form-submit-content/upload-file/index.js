@@ -5,7 +5,7 @@ import { setCookie } from "@utils/helpers/cookie";
 import Heading from "@components/common/heading";
 import Text from "@components/common/text";
 
-const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, fileError, setFileError, fileFilled, setFileFilled, fileLoading, cardPreviewUrl, fileName, setFileSize, setFilePages, handleFileImageUpload, setFileNameError, setErrorTextPopup, setFileLoading }) => {
+const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, fileError, setFileError, fileFilled, setFileFilled, fileLoading, templatePreviewUrl, fileName, setFileSize, setFilePages, handleFileImageUpload, setFileNameError, setErrorTextPopup, setFileLoading }) => {
   const [drag, setDrag] = useState(false);
   const inputRef = useRef();
   const nullFileTimerRef = useRef(null);
@@ -97,7 +97,7 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
     setFileFilled(true);
     setFileSize("0");
     setFilePages("0");
-    setCookie("imageUpload", cardPreviewUrl, 1);
+    setCookie("imageUpload", templatePreviewUrl, 1);
   };
 
   return (
@@ -127,7 +127,7 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
               {fileLoading ? (
                 <div className="upload-img-loading"></div>
               ) : (
-                <img src={cardPreviewUrl} alt={fileName} />
+                <img src={templatePreviewUrl} alt={fileName} />
               )}
             </div>
           )}

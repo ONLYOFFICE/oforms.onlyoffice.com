@@ -51,7 +51,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
   const [uploadPopup, setUploadPopup] = useState(false);
   const [formValid, setFormValid] = useState(false);
 
-  const [cardPreviewUrl, setCardPreviewUrl] = useState("");
+  const [templatePreviewUrl, setTemplatePreviewUrl] = useState("");
   const [pdfFileUrl, setPdfFileUrl] = useState("");
   const [filePages, setFilePages] = useState("");
   const [fileName, setFileName] = useState("");
@@ -65,7 +65,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
       const formSubmitCookie = getCookie("formSubmit");
 
       if (!formSubmitCookie) {
-        setCardPreviewUrl(queryIndexData[0]);
+        setTemplatePreviewUrl(queryIndexData[0]);
         setPdfFileUrl(queryIndexData[1]);
         setFilePages(queryIndexData[2].toString());
         setFileName(queryIndexData[3]);
@@ -80,7 +80,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
         };
 
         if (imageuploadCookie === queryIndexData[0]) {
-          setCardPreviewUrl("");
+          setTemplatePreviewUrl("");
           setFile(undefined);
         };
       };
@@ -162,11 +162,11 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
     try {
       const imageUploadResponse = await axios.post("/api/file-upload", formData);
 
-      const { pngConvertUrl, pdfConvertUrl } = imageUploadResponse.data;
+      const { templatePreviewConvertUrl, pdfConvertUrl } = imageUploadResponse.data;
       const pdfCountPagesResponse = await axios.post("/api/pdf-count-pages", { pdfConvertUrl });
 
       setPdfFileUrl(pdfConvertUrl);
-      setCardPreviewUrl(pngConvertUrl);
+      setTemplatePreviewUrl(templatePreviewConvertUrl);
       setFilePages(pdfCountPagesResponse.data.filePages.toString());
       setFileName(e.target.files[0]?.name);
       setFileSize(e.target.files[0]?.size);
@@ -194,7 +194,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
     setFormLoading(true);
 
     const sendFormResponse = await axios.post("/api/form-submission", {
-      "сardPreviewUrl": cardPreviewUrl,
+      "templatePreviewUrl": templatePreviewUrl,
       "pdfFileUrl": pdfFileUrl,
       "name": name,
       "description": description,
@@ -234,7 +234,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
       setUploadPopup(true);
       setFormLoading(false);
       setCookie("formSubmit", "", 1);
-      setCookie("imageUpload", cardPreviewUrl, 1);
+      setCookie("imageUpload", templatePreviewUrl, 1);
     };
   };
 
@@ -273,7 +273,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
             setFileFilled={setFileFilled}
             onChangeHandler={onChangeHandler}
             fileLoading={fileLoading}
-            cardPreviewUrl={cardPreviewUrl}
+            templatePreviewUrl={templatePreviewUrl}
             fileName={fileName}
             setFileSize={setFileSize}
             setFilePages={setFilePages}

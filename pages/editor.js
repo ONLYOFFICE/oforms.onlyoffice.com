@@ -7,8 +7,6 @@ import Helmet from "react-helmet"
 import CONFIG from "@config/config";
 import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
-import Portal from "@components/common/portal";
-import StyledPlaceholder from "@components/common/portal/styled-portal";
 
 const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
 
@@ -62,12 +60,16 @@ const EditorPage = ({ data, serfilename }) => {
               {`(window.docEditor = new DocsAPI.DocEditor("${filename}", ${config}))`}
             </script>
           </Helmet>
-          
-          <Portal selector="#modal">
-            <StyledPlaceholder>
-              <div id={filename} style={{ height: "100%" }} />
-            </StyledPlaceholder>
-          </Portal>
+
+          <div style={{ 
+            position: "fixed",
+            top: "0",
+            width: "100vw",
+            height: "100vh",
+            zIndex: "1001",
+          }}>
+            <div id={filename} style={{ height: "100%" }} />
+          </div>
         </>
       ) : null}
     </Layout>

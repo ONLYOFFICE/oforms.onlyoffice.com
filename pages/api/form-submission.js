@@ -5,17 +5,23 @@ import nodemailer from "nodemailer";
 import CONFIG from "@config/config";
 
 export default async function handler(req, res) {
-  const { сardPreviewUrl, pdfFileUrl, name, description, fileName, languageKey, categoryId, filePages } = req.body;
+  const { templatePreviewUrl, pdfFileUrl, name, description, fileName, languageKey, categoryId, filePages } = req.body;
 
   try {
-    await axios.get(сardPreviewUrl);
+    await axios.get(templatePreviewUrl);
   } catch (error) {
     return res.json({ error: "card_prewiew" });
   };
 
   try {
     const fileNameSubstring = fileName.substring(0, fileName.length - 6);
+    const fileType = fileName?.match(/\.(\w+)$/)?.[1];
     const uploadApiUrl = `${CONFIG.api.cms}/api/upload`;
+
+    let filePayload = null;
+    let fileToken = null;
+    let fileRequest = null;
+    let fileResponse = null;
 
     // Generate a unique key for payload
     let key = "";
@@ -27,23 +33,7 @@ export default async function handler(req, res) {
     };
 
     // Payload data
-    const oformPayload = {
-      "filetype": "pdf",
-      "key": key,
-      "outputtype": "oform",
-      "title": fileName,
-      "url": pdfFileUrl
-    };
-
-    const docxfPayload = {
-      "filetype": "pdf",
-      "key": key,
-      "outputtype": "docxf",
-      "title": fileName,
-      "url": pdfFileUrl
-    };
-
-    const templateImagePayload = {
+    const cardPreviewPayload = {
       "filetype": "pdf",
       "key": key,
       "outputtype": "png",
@@ -57,32 +47,79 @@ export default async function handler(req, res) {
       "url": pdfFileUrl
     };
 
+    const cardDesktopPreviewPayload = {
+      "filetype": "pdf",
+      "key": key,
+      "outputtype": "png",
+      "thumbnail": {
+        "aspect": 0,
+        "first": true,
+        "height": 260,
+        "width": 184
+      },
+      "title": fileName,
+      "url": pdfFileUrl
+    };
+
+    const desktopPreviewPayload = {
+      "filetype": "pdf",
+      "key": key,
+      "outputtype": "png",
+      "thumbnail": {
+        "aspect": 0,
+        "first": true,
+        "height": 566,
+        "width": 400
+      },
+      "title": fileName,
+      "url": pdfFileUrl
+    };
+
     // Generate tokens for AuthorizationJwt
-    const oformToken = jwt.sign(oformPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
-    const docxfToken = jwt.sign(docxfPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
-    const templateImageToken = jwt.sign(templateImagePayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+    const cardPreviewToken = jwt.sign(cardPreviewPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+    const cardDesktopPreviewToken = jwt.sign(cardDesktopPreviewPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+    const desktopPreviewToken = jwt.sign(desktopPreviewPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
 
     // Send requests to ConvertService and get result
-    const oformRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, oformPayload, {
+    const cardPreviewRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, cardPreviewPayload, {
       headers: {
         "Content-Type": "application/json",
-        "AuthorizationJwt": `Bearer ${oformToken}`
+        "AuthorizationJwt": `Bearer ${cardPreviewToken}`
       }
     });
 
-    const docxfRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, docxfPayload, {
+    const cardDesktopPreviewRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, cardDesktopPreviewPayload, {
       headers: {
         "Content-Type": "application/json",
-        "AuthorizationJwt": `Bearer ${docxfToken}`
+        "AuthorizationJwt": `Bearer ${cardDesktopPreviewToken}`
       }
     });
 
-    const templateImageRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, templateImagePayload, {
+    const desktopPreviewRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, desktopPreviewPayload, {
       headers: {
         "Content-Type": "application/json",
-        "AuthorizationJwt": `Bearer ${templateImageToken}`
+        "AuthorizationJwt": `Bearer ${desktopPreviewToken}`
       }
     });
+
+    if (fileType === "xlsx" || fileType === "pptx" || fileType === "docx") {
+      filePayload = {
+        "filetype": "pdf",
+        "key": key,
+        "outputtype": fileType,
+        "title": fileName,
+        "url": pdfFileUrl
+      };
+
+      fileToken = jwt.sign(cardPreviewPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+
+      fileRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, filePayload, {
+        headers: {
+          "Content-Type": "application/json",
+          "AuthorizationJwt": `Bearer ${fileToken}`
+        }
+      });
+    }
 
     // Send Form
     try {
@@ -100,40 +137,40 @@ export default async function handler(req, res) {
           "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
         }
       }).then(async (response) => {
-        const cardPreviewResponse = await axios.get(сardPreviewUrl, { responseType: "arraybuffer" });
+        const templatePreviewResponse = await axios.get(templatePreviewUrl, { responseType: "arraybuffer" });
+        const templatePreviewData = new FormData();
+        templatePreviewData.append("files", Buffer.from(templatePreviewResponse.data), `${fileNameSubstring}.png`);
+        templatePreviewData.append("ref", "api::oform.oform");
+        templatePreviewData.append("refId", response.data.data.id);
+        templatePreviewData.append("field", "card_prewiew");
+
+        const cardPreviewResponse = await axios.get(cardPreviewRequest.data.fileUrl, { responseType: "arraybuffer" });
         const cardPreviewData = new FormData();
         cardPreviewData.append("files", Buffer.from(cardPreviewResponse.data), `${fileNameSubstring}.png`);
         cardPreviewData.append("ref", "api::oform.oform");
         cardPreviewData.append("refId", response.data.data.id);
-        cardPreviewData.append("field", "card_prewiew");
+        cardPreviewData.append("field", "template_image");
 
-        const templateImageResponse = await axios.get(templateImageRequest.data.fileUrl, { responseType: "arraybuffer" });
-        const templateImageData = new FormData();
-        templateImageData.append("files", Buffer.from(templateImageResponse.data), `${fileNameSubstring}.png`);
-        templateImageData.append("ref", "api::oform.oform");
-        templateImageData.append("refId", response.data.data.id);
-        templateImageData.append("field", "template_image");
+        const cardDesktopPreviewResponse = await axios.get(cardDesktopPreviewRequest.data.fileUrl, { responseType: "arraybuffer" });
+        const cardDesktopPreviewData = new FormData();
+        cardDesktopPreviewData.append("files", Buffer.from(cardDesktopPreviewResponse.data), `${fileNameSubstring}.png`);
+        cardDesktopPreviewData.append("ref", "api::oform.oform");
+        cardDesktopPreviewData.append("refId", response.data.data.id);
+        cardDesktopPreviewData.append("field", "card_desktop_preview");
 
-        const oformFileResponse = await axios.get(oformRequest.data.fileUrl, { responseType: "arraybuffer" });
-        const oformFileData = new FormData();
-        oformFileData.append("files", Buffer.from(oformFileResponse.data), { filename: `${fileNameSubstring}.oform`, contentType: "application/octet-stream" });
-        oformFileData.append("ref", "api::oform.oform");
-        oformFileData.append("refId", response.data.data.id);
-        oformFileData.append("field", "file_oform");
+        const desktopPreviewResponse = await axios.get(desktopPreviewRequest.data.fileUrl, { responseType: "arraybuffer" });
+        const desktopPreviewData = new FormData();
+        desktopPreviewData.append("files", Buffer.from(desktopPreviewResponse.data), `${fileNameSubstring}.png`);
+        desktopPreviewData.append("ref", "api::oform.oform");
+        desktopPreviewData.append("refId", response.data.data.id);
+        desktopPreviewData.append("field", "desktop_preview");
 
-        const docxfFileResponse = await axios.get(docxfRequest.data.fileUrl, { responseType: "arraybuffer" });
-        const docxfFileData = new FormData();
-        docxfFileData.append("files", Buffer.from(docxfFileResponse.data), { filename: `${fileNameSubstring}.docxf`, contentType: "application/octet-stream" });
-        docxfFileData.append("ref", "api::oform.oform");
-        docxfFileData.append("refId", response.data.data.id);
-        docxfFileData.append("field", "file_oform");
-
-        const pdfFileResponse = await axios.get(pdfFileUrl, { responseType: "arraybuffer" });
-        const pdfFileData = new FormData();
-        pdfFileData.append("files", Buffer.from(pdfFileResponse.data), { filename: `${fileNameSubstring}.pdf`, contentType: "application/octet-stream" });
-        pdfFileData.append("ref", "api::oform.oform");
-        pdfFileData.append("refId", response.data.data.id);
-        pdfFileData.append("field", "file_oform");
+        await axios.post(uploadApiUrl, templatePreviewData, {
+          headers: {
+            ...templatePreviewData.getHeaders(),
+            "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+          }
+        });
 
         await axios.post(uploadApiUrl, cardPreviewData, {
           headers: {
@@ -142,33 +179,49 @@ export default async function handler(req, res) {
           }
         });
 
-        await axios.post(uploadApiUrl, templateImageData, {
+        await axios.post(uploadApiUrl, cardDesktopPreviewData, {
           headers: {
-            ...templateImageData.getHeaders(),
+            ...cardDesktopPreviewData.getHeaders(),
             "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
           }
         });
 
-        await axios.post(uploadApiUrl, oformFileData, {
+        await axios.post(uploadApiUrl, desktopPreviewData, {
           headers: {
-            ...oformFileData.getHeaders(),
+            ...desktopPreviewData.getHeaders(),
             "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
           }
         });
 
-        await axios.post(uploadApiUrl, docxfFileData, {
-          headers: {
-            ...docxfFileData.getHeaders(),
-            "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
-          }
-        });
+        if (fileType === "xlsx" || fileType === "pptx" || fileType === "docx") {
+          fileResponse = await axios.get(fileRequest.data.fileUrl, { responseType: "arraybuffer" });
+          const fileData = new FormData();
+          fileData.append("files", Buffer.from(fileResponse.data), { filename: `${fileNameSubstring}.${fileType}`, contentType: "application/octet-stream" });
+          fileData.append("ref", "api::oform.oform");
+          fileData.append("refId", response.data.data.id);
+          fileData.append("field", "file_oform");
+          
+          await axios.post(uploadApiUrl, fileData, {
+            headers: {
+              ...fileData.getHeaders(),
+              "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+            }
+          });
+        } else {
+          const pdfFileResponse = await axios.get(pdfFileUrl, { responseType: "arraybuffer" });
+          const pdfFileData = new FormData();
+          pdfFileData.append("files", Buffer.from(pdfFileResponse.data), { filename: `${fileNameSubstring}.pdf`, contentType: "application/octet-stream" });
+          pdfFileData.append("ref", "api::oform.oform");
+          pdfFileData.append("refId", response.data.data.id);
+          pdfFileData.append("field", "file_oform");
 
-        await axios.post(uploadApiUrl, pdfFileData, {
-          headers: {
-            ...pdfFileData.getHeaders(),
-            "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
-          }
-        });
+          await axios.post(uploadApiUrl, pdfFileData, {
+            headers: {
+              ...pdfFileData.getHeaders(),
+              "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+            }
+          });
+        }
 
         const transporter = nodemailer.createTransport({
           host: process.env.NEXT_PUBLIC_EMAIL_HOST,
@@ -189,13 +242,11 @@ export default async function handler(req, res) {
         await transporter.sendMail(mailOptions);
       });
     } catch(error) {
-      console.log(error);
       return res.json({ error: "name_form" });
     };
 
-    return res.status(200).send("Form submitted successfully");
+    return res.status(200).end();
   } catch (error) {
-    console.log(error);
-    return res.status(500).send("An error occurred while submitting the form");
+    return res.status(500).json({ error: error.message });
   };
 };
