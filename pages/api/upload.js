@@ -28,12 +28,13 @@ export default async function handler(req, res) {
       const currentLanguage = hasLanguage ? language === "en" ? "" : `${language}/` : "";
 
       // Generate a unique key for payload
-      let key = "";
-      let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz0123456789";
-
-      for (let i = 1; i <= 12; i++) {
-        let char = Math.floor(Math.random() * str.length + 1);
-        key += str.charAt(char);
+      const generateKey = () => {
+        let key = "";
+        const str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for (let i = 0; i < 12; i++) {
+          key += str.charAt(Math.floor(Math.random() * str.length));
+        }
+        return key;
       };
 
       // Data for Amazon S3
@@ -57,7 +58,7 @@ export default async function handler(req, res) {
       // Payload data
       const templatePreviewPayload = {
         "filetype": fileType,
-        "key": key,
+        "key": generateKey(),
         "outputtype": "png",
         "thumbnail": {
           "aspect": 0,
@@ -71,7 +72,7 @@ export default async function handler(req, res) {
 
       const pdfPayload = {
         "filetype": fileType,
-        "key": key,
+        "key": generateKey(),
         "outputtype": "pdf",
         "title": fileName,
         "url": awsUrl
