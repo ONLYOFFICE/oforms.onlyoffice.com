@@ -24,18 +24,19 @@ export default async function handler(req, res) {
     let fileResponse = null;
 
     // Generate a unique key for payload
-    let key = "";
-    let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz0123456789";
-
-    for (let i = 1; i <= 12; i++) {
-      let char = Math.floor(Math.random() * str.length + 1);
-      key += str.charAt(char);
+    const generateKey = () => {
+      let key = "";
+      const str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      for (let i = 0; i < 12; i++) {
+        key += str.charAt(Math.floor(Math.random() * str.length));
+      }
+      return key;
     };
 
     // Payload data
     const cardPreviewPayload = {
       "filetype": "pdf",
-      "key": key,
+      "key": generateKey(),
       "outputtype": "png",
       "thumbnail": {
         "aspect": 0,
@@ -49,7 +50,7 @@ export default async function handler(req, res) {
 
     const cardDesktopPreviewPayload = {
       "filetype": "pdf",
-      "key": key,
+      "key": generateKey(),
       "outputtype": "png",
       "thumbnail": {
         "aspect": 0,
@@ -63,7 +64,7 @@ export default async function handler(req, res) {
 
     const desktopPreviewPayload = {
       "filetype": "pdf",
-      "key": key,
+      "key": generateKey(),
       "outputtype": "png",
       "thumbnail": {
         "aspect": 0,
@@ -194,9 +195,18 @@ export default async function handler(req, res) {
         });
 
         if (fileType === "xlsx" || fileType === "pptx" || fileType === "docx") {
+          let contentType;
+          if (fileType === "xlsx") {
+            contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+          } else if (fileType === "pptx") {
+            contentType = "application/vnd.openxmlformats-officedocument.presentationml.presentation";
+          } else if (fileType === "docx") {
+            contentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+          }
+
           fileResponse = await axios.get(fileRequest.data.fileUrl, { responseType: "arraybuffer" });
           const fileData = new FormData();
-          fileData.append("files", Buffer.from(fileResponse.data), { filename: `${fileNameSubstring}.${fileType}`, contentType: "application/octet-stream" });
+          fileData.append("files", Buffer.from(fileResponse.data), { filename: `${fileNameSubstring}.${fileType}`, contentType });
           fileData.append("ref", "api::oform.oform");
           fileData.append("refId", response.data.data.id);
           fileData.append("field", "file_oform");
@@ -210,7 +220,7 @@ export default async function handler(req, res) {
         } else {
           const pdfFileResponse = await axios.get(pdfFileUrl, { responseType: "arraybuffer" });
           const pdfFileData = new FormData();
-          pdfFileData.append("files", Buffer.from(pdfFileResponse.data), { filename: `${fileNameSubstring}.pdf`, contentType: "application/octet-stream" });
+          pdfFileData.append("files", Buffer.from(pdfFileResponse.data), { filename: `${fileNameSubstring}.pdf`, contentType: "application/pdf" });
           pdfFileData.append("ref", "api::oform.oform");
           pdfFileData.append("refId", response.data.data.id);
           pdfFileData.append("field", "file_oform");
