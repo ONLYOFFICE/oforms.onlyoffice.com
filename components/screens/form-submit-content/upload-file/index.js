@@ -5,7 +5,7 @@ import { setCookie } from "@utils/helpers/cookie";
 import Heading from "@components/common/heading";
 import Text from "@components/common/text";
 
-const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, fileError, setFileError, fileFilled, setFileFilled, fileLoading, templatePreviewUrl, fileName, setFileSize, setFilePages, handleFileImageUpload, setFileNameError, setErrorTextPopup, setFileLoading }) => {
+const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, fileError, setFileError, fileFilled, setFileFilled, fileLoading, templatePreviewUrl, fileName, setFileName, setFileSize, setFilePages, handleFileImageUpload, setErrorTextPopup, setFileLoading }) => {
   const [drag, setDrag] = useState(false);
   const inputRef = useRef();
   const nullFileTimerRef = useRef(null);
@@ -35,7 +35,6 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     ];
   
-    setFileNameError(e.target.files[0].name.toString().slice(0, -6));
     setFileValue(e.target.value);
     !e.target.value.length < 1 && setFileError(false);
   
@@ -94,6 +93,7 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
     setFile(undefined);
     setFileError(true);
     setFileValue("");
+    setFileName("");
     setFileFilled(true);
     setFileSize("0");
     setFilePages("0");
