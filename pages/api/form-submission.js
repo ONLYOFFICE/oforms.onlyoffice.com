@@ -26,8 +26,8 @@ export default async function handler(req, res) {
     try {
       const fileName = files.file[0].originalFilename;
       const uniqueFileName = `${Date.now()}_${fileName}`;
-      const fileNameSubstring = fileName.match(/(\S+)\.(?!.*\.)/)?.[1];
       const fileType = fileName?.match(/\.(\w+)$/)?.[1];
+      const fileNameSubstring = fileName.substring(0, fileName.length - fileName?.match(/\.(\w+)$/)?.[0].length);
       const uploadApiUrl = `${CONFIG.api.cms}/api/upload`;
 
       // Generate a unique key for payload
@@ -136,6 +136,7 @@ export default async function handler(req, res) {
             "template_desc": fields.description[0],
             "categories": fields.categoryId[0],
             "locale": fields.languageKey[0],
+            "form_exts": fileType,
             "publishedAt": null
           }
         }, {
@@ -143,7 +144,7 @@ export default async function handler(req, res) {
             "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
           }
         }).then(async (response) => {
-          const templatePreviewResponse = await axios.get(files.file[0].templatePreviewUrl, { responseType: "arraybuffer" });
+          const templatePreviewResponse = await axios.get(fields.templatePreviewUrl[0], { responseType: "arraybuffer" });
           const templatePreviewData = new FormData();
           templatePreviewData.append("files", Buffer.from(templatePreviewResponse.data), `${fileNameSubstring}.png`);
           templatePreviewData.append("ref", "api::oform.oform");
