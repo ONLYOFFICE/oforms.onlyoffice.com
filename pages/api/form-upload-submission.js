@@ -24,6 +24,8 @@ export default async function handler(req, res) {
     try {
       const uploadApiUrl = `${CONFIG.api.cms}/api/upload`;
       const queryUrl = fields.queryUrl[0];
+      const fileType = queryUrl?.match(/\.(\w+)$/)?.[1];
+      const fileNameSubstring = queryUrl.substring(0, queryUrl.length - queryUrl?.match(/\.(\w+)$/)?.[0].length);
       const parts = queryUrl.split('/');
       const fileName = parts[parts.length - 1];
       const uniqueFileName = `${Date.now()}_${fileName}`;
