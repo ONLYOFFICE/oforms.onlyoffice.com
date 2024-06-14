@@ -21,7 +21,7 @@ const UploadPopup = ({ t, uploadPopup, fileName, setUploadPopup, clearForm }) =>
           </div>
           <div>
             <div className="upload-name">
-              <span className={`upload-name-file ${fileName?.match(/\.(\w+)$/)?.[1]}`}>{fileName.match(/(\S+)\.(?!.*\.)/)?.[1]}<span>{fileName?.match(/\.(\w+)$/)?.[0]}</span></span>
+              <span className={`upload-name-file ${fileName?.match(/\.(\w+)$/)?.[1]}`}>{fileName.substring(0, fileName.length - fileName?.match(/\.(\w+)$/)?.[0].length)}<span>{fileName?.match(/\.(\w+)$/)?.[0]}</span></span>
             </div>
 
             <div className="upload-descr">

@@ -11,7 +11,7 @@ const ErrorPopup = ({ t, onClick, fileName, text }) => {
       </div>
       {fileName &&
         <div className="upload-name">
-          <span className="upload-name-file">{fileName.match(/(\S+)\.(?!.*\.)/)?.[1]}<span>{fileName?.match(/\.(\w+)$/)?.[0]}</span></span>
+          <span className="upload-name-file">{fileName.substring(0, fileName.length - fileName?.match(/\.(\w+)$/)?.[0].length)}<span>{fileName?.match(/\.(\w+)$/)?.[0]}</span></span>
         </div>
       }
 
