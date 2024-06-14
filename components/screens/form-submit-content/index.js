@@ -14,7 +14,7 @@ import UploadFile from "./upload-file";
 import UploadPopup from "./upload-popup";
 import ErrorPopup from "./error-popup";
 
-const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
+const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) => {
   const [file, setFile] = useState(undefined);
   const [fileValue, setFileValue] = useState("");
   const [name, setName] = useState("");
@@ -197,6 +197,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
     formData.append("description", description);
     formData.append("languageKey", languageKey);
     formData.append("categoryId", categoryId);
+    formData.append("formExt", formExts.data.findIndex(item => item.attributes.ext === fileName?.match(/\.(\w+)$/)?.[1]));
 
     const sendFormResponse = await axios.post("/api/form-submission", formData);
 

@@ -136,7 +136,7 @@ export default async function handler(req, res) {
             "template_desc": fields.description[0],
             "categories": fields.categoryId[0],
             "locale": fields.languageKey[0],
-            "form_exts": fileType,
+            "form_exts": fields.formExt[0],
             "publishedAt": null
           }
         }, {
