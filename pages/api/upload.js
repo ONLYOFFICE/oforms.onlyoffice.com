@@ -79,9 +79,18 @@ export default async function handler(req, res) {
         "url": awsUrl
       };
 
+      const filePayload = {
+        "filetype": fileType,
+        "key": generateKey(),
+        "outputtype": fileType,
+        "title": uniqueFileName,
+        "url": awsUrl
+      };
+
       // Generate tokens for AuthorizationJwt
       const templatePreviewToken = jwt.sign(templatePreviewPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
       const pdfToken = jwt.sign(pdfPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+      const fileToken = jwt.sign(filePayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
 
       // Send request to ConvertService and get result
       const templatePreviewRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, templatePreviewPayload, {
@@ -95,6 +104,13 @@ export default async function handler(req, res) {
         headers: {
           "Content-Type": "application/json",
           "AuthorizationJwt": `Bearer ${pdfToken}`
+        }
+      });
+
+      const fileRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, filePayload, {
+        headers: {
+          "Content-Type": "application/json",
+          "AuthorizationJwt": `Bearer ${fileToken}`
         }
       });
 
@@ -115,7 +131,7 @@ export default async function handler(req, res) {
         Key: uniqueFileName
       }).promise();
 
-      const compressedData = zlib.deflateSync(`${templatePreviewRequest.data.fileUrl};${pageCount};${fileName};${fileSize};${formName};${awsUrl};`);
+      const compressedData = zlib.deflateSync(`${templatePreviewRequest.data.fileUrl};${pageCount};${fileName};${fileSize};${formName};${fileRequest.data.fileUrl};`);
       const compressedString = compressedData.toString("base64");
 
       return res.status(200).send(`${CMSConfigAPI}${`${currentLanguage}`}form-submit?index=${compressedString}`);

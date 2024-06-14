@@ -14,13 +14,13 @@ const Card = ({ data }) => {
             <span className="card-template-format-item pdf"></span>
           }
           {data.attributes.form_exts?.data.some(ext => ext.attributes.ext === "docx") &&
-            <span className="card-template-format-item doc"></span>
+            <span className="card-template-format-item docx"></span>
           }
           {data.attributes.form_exts?.data.some(ext => ext.attributes.ext === "xlsx") &&
-            <span className="card-template-format-item tab"></span>
+            <span className="card-template-format-item xlsx"></span>
           }
           {data.attributes.form_exts?.data.some(ext => ext.attributes.ext === "pptx") &&
-            <span className="card-template-format-item pres"></span>
+            <span className="card-template-format-item pptx"></span>
           }
         </div>
       </InternalLink>

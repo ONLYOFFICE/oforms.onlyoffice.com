@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { device } from "@utils/devices";
+import flags from "@public/icons/flags.svg";
 
 const StyledLanguageSelector = styled.div`
   position: relative;
@@ -130,40 +131,40 @@ const StyledLanguageSelector = styled.div`
     width: 24px;
     height: 24px;
     text-decoration: none;
-    background-image: url("https://static-oforms.onlyoffice.com/icons/flags.png");
+    background-image: url(${flags.src});
     background-repeat: no-repeat;
     cursor: pointer;
 
-    &.fr {
-      background-position-y: -48px;
+    &.en {
+      background-position-y: -24px;
     }
 
-    &.de {
+    &.fr {
       background-position-y: -72px;
     }
 
+    &.de {
+      background-position-y: 0;
+    }
+
     &.es {
-      background-position-y: -96px;
+      background-position-y: -48px;
     }
 
     &.pt {
-      background-position-y: -120px;
+      background-position-y: -192px;
     }
 
     &.it {
-      background-position-y: -144px;
-    }
-
-    &.cs {
-      background-position-y: -168px;
+      background-position-y: -96px;
     }
 
     &.ja {
-      background-position-y: -216px;
+      background-position-y: -360px;
     }
 
     &.zh {
-      background-position-y: -240px;
+      background-position-y: -168px;
     }
   }
 

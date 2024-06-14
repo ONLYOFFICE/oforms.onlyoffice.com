@@ -10,9 +10,9 @@ const ExploreOtherTemplate = ({ t, locale, compilations }) => {
         <Heading className="explore-other-template-title" level={6} label={t("Templates by editor")} />
         <div className="explore-other-template-items">
           <InternalLink className="templates-editor-btn pdf" label={t("PDF Form")} href="pdf-form-templates" />
-          <InternalLink className="templates-editor-btn document" label={t("Document")} href="document-templates" />
-          <InternalLink className="templates-editor-btn spreadsheet" label={t("Spreadsheet")} href="spreadsheet-templates" />
-          <InternalLink className="templates-editor-btn presentation" label={t("Presentation")} href="presentation-templates" />
+          <InternalLink className="templates-editor-btn docx" label={t("Document")} href="document-templates" />
+          <InternalLink className="templates-editor-btn xlsx" label={t("Spreadsheet")} href="spreadsheet-templates" />
+          <InternalLink className="templates-editor-btn pptx" label={t("Presentation")} href="presentation-templates" />
         </div>
       </div>
       <div className="popular-compilations">

@@ -24,7 +24,7 @@ const FormDownload = ({ t, pdfFile, docxFile, pptxFile, xlsxFile }) => {
         {docxFile[0]?.attributes?.url &&
           <li>
             <span className="form-download-item">
-              <ExternalLink className="form-download-link doc" label="DOCX" download href={docxFile[0]?.attributes?.url} />
+              <ExternalLink className="form-download-link docx" label="DOCX" download href={docxFile[0]?.attributes?.url} />
               <span className="form-download-tooltip">
                 <button data-tooltip-id="doc-tooltip"><ReactSVG src="/icons/info.svg" /></button>
                 <Tooltip id="doc-tooltip" place="bottom-start">
@@ -37,7 +37,7 @@ const FormDownload = ({ t, pdfFile, docxFile, pptxFile, xlsxFile }) => {
         {xlsxFile[0]?.attributes?.url &&
           <li>
             <span className="form-download-item">
-              <ExternalLink className="form-download-link tab" label="XLSX" download href={xlsxFile[0]?.attributes?.url} />
+              <ExternalLink className="form-download-link xlsx" label="XLSX" download href={xlsxFile[0]?.attributes?.url} />
               <span className="form-download-tooltip">
                 <button data-tooltip-id="tab-tooltip"><ReactSVG src="/icons/info.svg" /></button>
                 <Tooltip id="tab-tooltip" place="bottom-start">
@@ -50,7 +50,7 @@ const FormDownload = ({ t, pdfFile, docxFile, pptxFile, xlsxFile }) => {
         {pptxFile[0]?.attributes?.url &&
           <li>
             <span className="form-download-item">
-              <ExternalLink className="form-download-link pres" label="PPTX" download href={pptxFile[0]?.attributes?.url} />
+              <ExternalLink className="form-download-link pptx" label="PPTX" download href={pptxFile[0]?.attributes?.url} />
               <span className="form-download-tooltip">
                 <button data-tooltip-id="pres-tooltip"><ReactSVG src="/icons/info.svg" /></button>
                 <Tooltip id="pres-tooltip" place="bottom-start">
