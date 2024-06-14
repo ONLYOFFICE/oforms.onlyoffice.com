@@ -42,7 +42,6 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
   const [categoryError, setCategoryError] = useState(true);
   const [languageError, setLanguageError] = useState(true);
   const [recaptchaError, setRecaptchaError] = useState(true);
-  const [fileNameError, setFileNameError] = useState("");
   const [errorTextPopup, setErrorTextPopup] = useState("");
   const [previewError, setPreviewError] = useState(false);
 
@@ -52,7 +51,6 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
   const [formValid, setFormValid] = useState(false);
 
   const [templatePreviewUrl, setTemplatePreviewUrl] = useState("");
-  const [pdfFileUrl, setPdfFileUrl] = useState("");
   const [filePages, setFilePages] = useState("");
   const [fileName, setFileName] = useState("");
   const [fileSize, setFileSize] = useState("0");
@@ -66,15 +64,15 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
 
       if (!formSubmitCookie) {
         setTemplatePreviewUrl(queryIndexData[0]);
-        setPdfFileUrl(queryIndexData[1]);
-        setFilePages(queryIndexData[2].toString());
-        setFileName(queryIndexData[3]);
-        setFileSize(queryIndexData[4]);
+
+        setFilePages(queryIndexData[1].toString());
+        setFileName(queryIndexData[2]);
+        setFileSize(queryIndexData[3]);
         setFileError(false);
         setFile(true);
 
-        if (queryIndexData[6]) {
-          setName(queryIndexData[6]);
+        if (queryIndexData[4]) {
+          setName(queryIndexData[4]);
           setNameValid(true);
           setNameError(false);
         };
@@ -165,7 +163,6 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
       const { templatePreviewConvertUrl, pdfConvertUrl } = imageUploadResponse.data;
       const pdfCountPagesResponse = await axios.post("/api/pdf-count-pages", { pdfConvertUrl });
 
-      setPdfFileUrl(pdfConvertUrl);
       setTemplatePreviewUrl(templatePreviewConvertUrl);
       setFilePages(pdfCountPagesResponse.data.filePages.toString());
       setFileName(e.target.files[0]?.name);
@@ -193,16 +190,15 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
     setErrorTextPopup("");
     setFormLoading(true);
 
-    const sendFormResponse = await axios.post("/api/form-submission", {
-      "templatePreviewUrl": templatePreviewUrl,
-      "pdfFileUrl": pdfFileUrl,
-      "name": name,
-      "description": description,
-      "fileName": fileName,
-      "languageKey": languageKey,
-      "categoryId": categoryId,
-      "filePages": filePages
-    });
+    const formData = new FormData();
+    formData.append("templatePreviewUrl", templatePreviewUrl);
+    formData.append("file", file);
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("languageKey", languageKey);
+    formData.append("categoryId", categoryId);
+
+    const sendFormResponse = await axios.post("/api/form-submission", formData);
 
     if (sendFormResponse.data.error === "card_prewiew") {
       clearForm();
@@ -275,10 +271,10 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
             fileLoading={fileLoading}
             templatePreviewUrl={templatePreviewUrl}
             fileName={fileName}
+            setFileName={setFileName}
             setFileSize={setFileSize}
             setFilePages={setFilePages}
             handleFileImageUpload={handleFileImageUpload}
-            setFileNameError={setFileNameError}
             setErrorTextPopup={setErrorTextPopup}
             setFileLoading={setFileLoading}
             errorText={t("File is empty")}
@@ -359,15 +355,15 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
 
           <div className="file-info">
             <div className="file-info-item">
-              <Text className={`file-info-label file-type ${fileValue.match(/\.(\w+)$/)?.[1]}`}>{t("File type")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</Text>
-              <Text className="file-info-text">{fileValue.match(/\.(\w+)$/)?.[0]}</Text>
+              <Text className={`file-info-label file-type ${fileName?.match(/\.(\w+)$/)?.[1]}`}>{t("File type")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</Text>
+              <Text className="file-info-text">{fileName?.match(/\.(\w+)$/)?.[0]}</Text>
             </div>
             <div className="file-info-item">
-              <Text className="file-info-label">{t("File size")}:</Text>
+              <Text className="file-info-label">{t("File size")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</Text>
               <Text className="file-info-text">{file !== undefined && fileLoading === false ? (fileSize / 1024).toFixed(0) : 0} kb</Text>
             </div>
             <div className="file-info-item">
-              <Text className="file-info-label">{t("Pages")}:</Text>
+              <Text className="file-info-label">{t("Pages")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</Text>
               <Text className="file-info-text">{file !== undefined && fileLoading === false ? filePages : 0}</Text>
             </div>
           </div>
@@ -376,7 +372,7 @@ const FormSubmitContent = ({ t, locale, categories, queryIndexData }) => {
         </div>
 
         {errorTextPopup !== "" &&
-          <ErrorPopup onClick={() => setErrorTextPopup("")} t={t} fileName={fileNameError} text={errorTextPopup} />
+          <ErrorPopup onClick={() => setErrorTextPopup("")} t={t} fileName={fileName} text={errorTextPopup} />
         }
       </div>
 
