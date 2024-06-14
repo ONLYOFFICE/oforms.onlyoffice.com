@@ -25,6 +25,7 @@ export default async function handler(req, res) {
 
     try {
       const fileName = files.file[0].originalFilename;
+      const uniqueFileName = `${Date.now()}_${fileName}`;
       const fileNameSubstring = fileName.match(/(\S+)\.(?!.*\.)/)?.[1];
       const fileType = fileName?.match(/\.(\w+)$/)?.[1];
       const uploadApiUrl = `${CONFIG.api.cms}/api/upload`;
@@ -49,7 +50,7 @@ export default async function handler(req, res) {
       // Amazon S3 params
       const params = {
         Bucket: process.env.NEXT_PUBLIC_BUCKET,
-        Key: fileName,
+        Key: uniqueFileName,
         Body: fs.createReadStream(files.file[0].filepath)
       };
 
@@ -68,7 +69,7 @@ export default async function handler(req, res) {
           "height": 916,
           "width": 648
         },
-        "title": fileName,
+        "title": uniqueFileName,
         "url": awsUrl
       };
 
@@ -82,7 +83,7 @@ export default async function handler(req, res) {
           "height": 260,
           "width": 184
         },
-        "title": fileName,
+        "title": uniqueFileName,
         "url": awsUrl
       };
 
@@ -96,7 +97,7 @@ export default async function handler(req, res) {
           "height": 566,
           "width": 400
         },
-        "title": fileName,
+        "title": uniqueFileName,
         "url": awsUrl
       };
 
@@ -222,6 +223,15 @@ export default async function handler(req, res) {
               "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
             }
           });
+
+          // Delete temporary file
+          fs.promises.unlink(files.file[0].filepath);
+
+          // Delete file in Amazon S3
+          await s3.deleteObject({
+            Bucket: process.env.NEXT_PUBLIC_BUCKET,
+            Key: uniqueFileName
+          }).promise();
 
           const transporter = nodemailer.createTransport({
             host: process.env.NEXT_PUBLIC_EMAIL_HOST,
