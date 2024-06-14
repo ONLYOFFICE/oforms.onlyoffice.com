@@ -1,4 +1,4 @@
-import StyledFormSubmitContent from "./styled-form-submitc-content";
+import StyledFormSubmitContent from "./styled-form-submit-content";
 import { useState, useEffect, useRef } from "react";
 import { getCookie, setCookie } from "@utils/helpers/cookie";
 import axios from "axios";
