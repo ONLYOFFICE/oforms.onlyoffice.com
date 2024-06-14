@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { device } from "@utils/devices";
 import searchIcon from "@public/icons/search-white.svg";
 import pdfIcon from "@public/icons/pdf-16.svg";
-import docIcon from "@public/icons/doc-16.svg";
-import tabIcon from "@public/icons/tab-16.svg";
-import presIcon from "@public/icons/pres-16.svg";
+import docxIcon from "@public/icons/docx-16.svg";
+import xlsxIcon from "@public/icons/xlsx-16.svg";
+import pptxIcon from "@public/icons/pptx-16.svg";
 
 const StyledCard = styled.div`
   max-width: 352px;
@@ -70,16 +70,16 @@ const StyledCard = styled.div`
       background-image: url(${pdfIcon.src});
     }
 
-    &.doc {
-      background-image: url(${docIcon.src});
+    &.docx {
+      background-image: url(${docxIcon.src});
     }
 
-    &.tab {
-      background-image: url(${tabIcon.src});
+    &.xlsx {
+      background-image: url(${xlsxIcon.src});
     }
 
-    &.pres {
-      background-image: url(${presIcon.src});
+    &.pptx {
+      background-image: url(${pptxIcon.src});
     }
   }
 

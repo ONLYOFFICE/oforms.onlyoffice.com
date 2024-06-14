@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import { device } from "@utils/devices";
 import pdfIcon from "@public/icons/pdf-24.svg";
-import docIcon from "@public/icons/doc-24.svg";
-import tabIcon from "@public/icons/tab-24.svg";
-import presIcon from "@public/icons/pres-24.svg";
+import docxIcon from "@public/icons/docx-24.svg";
+import xlsxIcon from "@public/icons/xlsx-24.svg";
+import pptxIcon from "@public/icons/pptx-24.svg";
 
 const StyledExploreOtherTemplate = styled.div`
   .templates-editor {
@@ -53,21 +52,21 @@ const StyledExploreOtherTemplate = styled.div`
       }
     }
 
-    &.document {
+    &.docx {
       &:before {
-        background-image: url(${docIcon.src});
+        background-image: url(${docxIcon.src});
       }
     }
 
-    &.spreadsheet {
+    &.xlsx {
       &:before {
-        background-image: url(${tabIcon.src});
+        background-image: url(${xlsxIcon.src});
       }
     }
 
-    &.presentation {
+    &.pptx {
       &:before {
-        background-image: url(${presIcon.src});
+        background-image: url(${pptxIcon.src});
       }
     }
 
