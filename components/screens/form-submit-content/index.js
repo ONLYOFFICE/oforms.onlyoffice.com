@@ -64,7 +64,6 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
 
       if (!formSubmitCookie) {
         setTemplatePreviewUrl(queryIndexData[0]);
-
         setFilePages(queryIndexData[1].toString());
         setFileName(queryIndexData[2]);
         setFileSize(queryIndexData[3]);
@@ -193,13 +192,14 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
     const formData = new FormData();
     formData.append("templatePreviewUrl", templatePreviewUrl);
     formData.append("file", file);
+    formData.append("queryUrl", queryIndexData?.[5] ? queryIndexData[5] : null);
     formData.append("name", name);
     formData.append("description", description);
     formData.append("languageKey", languageKey);
     formData.append("categoryId", categoryId);
     formData.append("formExt", [formExts.data.findIndex(item => item.attributes.ext === fileName?.match(/\.(\w+)$/)?.[1])]);
 
-    const sendFormResponse = await axios.post("/api/form-submission", formData);
+    const sendFormResponse = await axios.post(queryIndexData?.[5] ? "/api/form-upload-submission" : "/api/form-submission", formData);
 
     if (sendFormResponse.data.error === "card_prewiew") {
       clearForm();
@@ -238,6 +238,7 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
   const clearForm = () => {
     setFile(undefined);
     setFileValue("");
+    setFileName("");
     setName("");
     setDescription("");
     setCategory([]);
