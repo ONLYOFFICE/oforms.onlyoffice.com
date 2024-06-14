@@ -76,7 +76,7 @@ const LanguageSelect = ({ t, label, labelMore, placeholder, selected, setSelecte
 
   return (
     <StyledSelect className={selectedError && error ? "error" : ""}>
-      <Text onClick={() => ad()} className="label">{label} <Text className="label-more">{labelMore}</Text></Text>
+      <Text className="label">{label} <Text className="label-more">{labelMore}</Text></Text>
 
       <div ref={selectRef} className="select-wrapper">
         <div onClick={toggleOpen} className={`select ${isOpen ? "open" : ""} ${valid ? "valid" : ""}`}>

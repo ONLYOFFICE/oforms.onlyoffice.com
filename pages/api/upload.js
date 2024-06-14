@@ -20,9 +20,10 @@ export default async function handler(req, res) {
     try {
       const formName = fields.formName === undefined ? "" : fields.formName[0];
       const language = fields.language === undefined ? "" : fields.language[0];
-      const fileName = `${Date.now()}_${files.file[0].originalFilename}`;
-      const fileType = files.file[0].originalFilename?.match(/\.(\w+)$/)?.[1];
-      const fileNameSubstring = files.file[0].originalFilename.substring(0, files.file[0].originalFilename.length - 6);
+      const fileName = files.file[0].originalFilename;
+      const uniqueFileName = `${Date.now()}_${fileName}`;
+      const fileSize = files.file[0].size;
+      const fileType = fileName?.match(/\.(\w+)$/)?.[1];
       const CMSConfigAPI = CONFIG.api.cms.replace("dashboard", "");
       const hasLanguage = languages.some(item => item.shortKey === language);
       const currentLanguage = hasLanguage ? language === "en" ? "" : `${language}/` : "";
@@ -47,7 +48,7 @@ export default async function handler(req, res) {
       // Amazon S3 params
       const params = {
         Bucket: process.env.NEXT_PUBLIC_BUCKET,
-        Key: fileName,
+        Key: uniqueFileName,
         Body: fs.createReadStream(files.file[0].filepath)
       };
 
@@ -66,7 +67,7 @@ export default async function handler(req, res) {
           "height": 1448,
           "width": 1024
         },
-        "title": fileName,
+        "title": uniqueFileName,
         "url": awsUrl
       };
 
@@ -74,7 +75,7 @@ export default async function handler(req, res) {
         "filetype": fileType,
         "key": generateKey(),
         "outputtype": "pdf",
-        "title": fileName,
+        "title": uniqueFileName,
         "url": awsUrl
       };
 
@@ -111,10 +112,10 @@ export default async function handler(req, res) {
       // Delete file in Amazon S3
       await s3.deleteObject({
         Bucket: process.env.NEXT_PUBLIC_BUCKET,
-        Key: fileName
+        Key: uniqueFileName
       }).promise();
 
-      const compressedData = zlib.deflateSync(`${templatePreviewRequest.data.fileUrl};${pdfRequest.data.fileUrl};${pageCount};${fileNameSubstring};${formName}`);
+      const compressedData = zlib.deflateSync(`${templatePreviewRequest.data.fileUrl};${pageCount};${fileName};${fileSize};${formName};${awsUrl};`);
       const compressedString = compressedData.toString("base64");
 
       return res.status(200).send(`${CMSConfigAPI}${`${currentLanguage}`}form-submit?index=${compressedString}`);
