@@ -197,7 +197,7 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
     formData.append("description", description);
     formData.append("languageKey", languageKey);
     formData.append("categoryId", categoryId);
-    formData.append("formExt", formExts.data.findIndex(item => item.attributes.ext === fileName?.match(/\.(\w+)$/)?.[1]));
+    formData.append("formExt", [formExts.data.findIndex(item => item.attributes.ext === fileName?.match(/\.(\w+)$/)?.[1])]);
 
     const sendFormResponse = await axios.post("/api/form-submission", formData);
 
