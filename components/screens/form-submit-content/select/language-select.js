@@ -10,11 +10,13 @@ const LanguageSelect = ({ t, label, labelMore, placeholder, selected, setSelecte
 
   const languageData = [
     { title: t("English"), key: "en" },
-    { title: t("Chinese (Simplified)"), key: "zh" },
     { title: t("French"), key: "fr" },
     { title: t("German"), key: "de" },
+    { title: t("Spanish"), key: "es" },
     { title: t("Portuguese"), key: "pt" },
-    { title: t("Spanish"), key: "es" }
+    { title: t("Italian"), key: "it" },
+    { title: t("Japanese"), key: "ja" },
+    { title: t("Chinese (Simplified)"), key: "zh" },
   ];
 
   useEffect(() => {
