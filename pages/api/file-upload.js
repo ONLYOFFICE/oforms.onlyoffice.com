@@ -43,8 +43,8 @@ export default async function handler(req, res) {
       };
 
       // Get response from Amazon S3
-      const awsResponse = await s3.upload(params).promise();
-      const awsUrl = `https://${awsResponse.Bucket}/${awsResponse.key}`;
+      const s3Response = await s3.upload(params).promise();
+      const s3Url = `https://${s3Response.Bucket}/${s3Response.key}`;
 
       // Payload data
       const templatePreviewPayload = {
@@ -58,7 +58,7 @@ export default async function handler(req, res) {
           "width": 1024
         },
         "title": fileName,
-        "url": awsUrl
+        "url": s3Url
       };
 
       const pdfPayload = {
@@ -66,7 +66,7 @@ export default async function handler(req, res) {
         "key": generateKey(),
         "outputtype": "pdf",
         "title": fileName,
-        "url": awsUrl
+        "url": s3Url
       };
 
       // Generate tokens for AuthorizationJwt
@@ -99,7 +99,7 @@ export default async function handler(req, res) {
 
       return res.status(200).json({
         "templatePreviewConvertUrl": templatePreviewRequest.data.fileUrl,
-        "pdfConvertUrl": pdfRequest.data.fileUrl,
+        "pdfConvertUrl": pdfRequest.data.fileUrl
       });
     } catch (error) {
       return res.status(500).json({ error: error.message });

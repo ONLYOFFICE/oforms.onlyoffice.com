@@ -6,7 +6,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import Heading from "@components/common/heading";
 import Text from "@components/common/text";
 import Button from "@components/common/button";
-import Breadcrumb from "./breadcrumb";
+import Breadcrumbs from "./breadcrumbs";
 import LanguageSelect from "./select/language-select";
 import CategorySelect from "./select/category-select";
 import Input from "./input";
@@ -193,11 +193,12 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
     formData.append("templatePreviewUrl", templatePreviewUrl);
     formData.append("file", file);
     formData.append("queryUrl", queryIndexData?.[5] ? queryIndexData[5] : null);
+    formData.append("fileName", queryIndexData?.[2] ? queryIndexData[2] : null)
     formData.append("name", name);
     formData.append("description", description);
     formData.append("languageKey", languageKey);
     formData.append("categoryId", categoryId);
-    formData.append("formExt", [formExts.data.findIndex(item => item.attributes.ext === fileName?.match(/\.(\w+)$/)?.[1])]);
+    formData.append("formExt", [formExts.data.find(d => d.attributes.ext === fileName?.match(/\.(\w+)$/)?.[1]).id]);
 
     const sendFormResponse = await axios.post(queryIndexData?.[5] ? "/api/form-upload-submission" : "/api/form-submission", formData);
 
@@ -255,7 +256,7 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
 
   return (
     <StyledFormSubmitContent>
-      <Breadcrumb t={t} locale={locale} />
+      <Breadcrumbs t={t} locale={locale} />
 
       <div className="wrapper">
         <div className="upload-wrapper">
@@ -362,7 +363,7 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
             </div>
             <div className="file-info-item">
               <Text className="file-info-label">{t("File size")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</Text>
-              <Text className="file-info-text">{file !== undefined && fileLoading === false ? (fileSize / 1024).toFixed(0) : 0} kb</Text>
+              <Text className="file-info-text">{file !== undefined && fileLoading === false ? (fileSize / 1024) < 1024 ? `${(fileSize / 1024).toFixed(0)} kb` : `${((fileSize / 1024) / 1024).toFixed(1)} mb` : 0}</Text>
             </div>
             <div className="file-info-item">
               <Text className="file-info-label">{t("Pages")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</Text>
