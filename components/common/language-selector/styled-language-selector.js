@@ -50,9 +50,9 @@ const StyledLanguageSelector = styled.div`
       };
       border-radius: 2px;
       padding: 4px 0;
-      box-shadow: 1px solid ${props =>
-        props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "0px 2px 5px 0px rgba(0, 0, 0, 0.4)" : 
-        "0px 4px 10px 0px rgba(0, 0, 0, 0.2)"
+      box-shadow: ${props =>
+        props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "0 2px 5px 0 #00000066" : 
+        "0 4px 10px 0 #00000033"
       };
       background-color: ${props =>
         props.theme === "theme-dark" ? "#333333" :
