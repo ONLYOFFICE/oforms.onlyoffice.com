@@ -109,7 +109,7 @@ const DesktopClient = ({ t, locale, data, sort, categories, types, compilations,
 
       setIsLoadingMore(true);
 
-      const formsRes = await fetch(`${CONFIG.api.cms}/api/oforms/?sort=name_form:${sort}&pagination[pageSize]=32&pagination[page]=${formsData.meta.pagination.page + 1}&populate=template_image&populate=file_oform&populate=card_prewiew&populate=categories&locale=${locale === "pt" ? "pt-br" : locale}`);
+      const formsRes = await fetch(`${CONFIG.api.cms}/api/oforms/?sort=name_form:${sort}&pagination[pageSize]=32&pagination[page]=${formsData.meta.pagination.page + 1}&populate=template_image&populate=file_oform&populate=card_prewiew&populate=categories&populate=form_exts&locale=${locale === "pt" ? "pt-br" : locale}`);
       const newForms = await formsRes.json();
       const result = {
         data: [...formsData.data, ...newForms.data],
