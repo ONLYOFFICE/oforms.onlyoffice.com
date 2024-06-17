@@ -129,7 +129,7 @@ const Search = ({ t, locale, templateSecondary, templateTertiary, templateQuater
                     <Heading className="search-results-label" label={t("History")} level={6} />
                   }
                   {searchHistory?.map((item, index) => (
-                    <div className="search-results-item" key={index}>
+                    <div onClick={() => setSearchResult(false)} className="search-results-item" key={index}>
                       <InternalLink href={`/searchresult?query=${item}`} label={item} />
                       <button onClick={(e) => handleRemoveSearchHistoryItem(e, index)} className="search-results-btn">
                         <ReactSVG src="/icons/cross-circle.svg" />
@@ -138,7 +138,7 @@ const Search = ({ t, locale, templateSecondary, templateTertiary, templateQuater
                   ))}
                   <Heading className="search-results-label" label={t("Popular search")} level={6} />
                   {popularSearch[locale].map((item, index) => (
-                    <InternalLink className="search-results-popular-item" href={`/searchresult?query=${item}`} label={item} key={index} />
+                    <InternalLink onClick={() => setSearchResult(false)} className="search-results-popular-item" href={`/searchresult?query=${item}`} label={item} key={index} />
                   ))}
                 </div>
               ) : (
