@@ -55,8 +55,8 @@ export default async function handler(req, res) {
       };
 
       // Get response from Amazon S3
-      const awsResponse = await s3.upload(params).promise();
-      const awsUrl = `https://${awsResponse.Bucket}/${awsResponse.key}`;
+      const s3Response = await s3.upload(params).promise();
+      const s3Url = `https://${s3Response.Bucket}/${s3Response.key}`;
 
       // Payload data
       const cardPreviewPayload = {
@@ -70,7 +70,7 @@ export default async function handler(req, res) {
           "width": 648
         },
         "title": uniqueFileName,
-        "url": awsUrl
+        "url": s3Url
       };
 
       const cardDesktopPreviewPayload = {
@@ -84,7 +84,7 @@ export default async function handler(req, res) {
           "width": 184
         },
         "title": uniqueFileName,
-        "url": awsUrl
+        "url": s3Url
       };
 
       const desktopPreviewPayload = {
@@ -98,7 +98,7 @@ export default async function handler(req, res) {
           "width": 400
         },
         "title": uniqueFileName,
-        "url": awsUrl
+        "url": s3Url
       };
 
       // Generate tokens for AuthorizationJwt
@@ -183,7 +183,7 @@ export default async function handler(req, res) {
             contentType = "application/pdf";
           }
 
-          const fileResponse = await axios.get(awsUrl, { responseType: "arraybuffer" });
+          const fileResponse = await axios.get(s3Url, { responseType: "arraybuffer" });
           const fileData = new FormData();
           fileData.append("files", Buffer.from(fileResponse.data), { filename: `${fileNameSubstring}.${fileType}`, contentType });
           fileData.append("ref", "api::oform.oform");

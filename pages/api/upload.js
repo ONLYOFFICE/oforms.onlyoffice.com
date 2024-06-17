@@ -53,8 +53,8 @@ export default async function handler(req, res) {
       };
 
       // Get response from Amazon S3
-      const awsResponse = await s3.upload(params).promise();
-      const awsUrl = `https://${awsResponse.Bucket}/${awsResponse.key}`;
+      const s3Response = await s3.upload(params).promise();
+      const s3Url = `https://${s3Response.Bucket}/${s3Response.key}`;
 
       // Payload data
       const templatePreviewPayload = {
@@ -68,7 +68,7 @@ export default async function handler(req, res) {
           "width": 1024
         },
         "title": uniqueFileName,
-        "url": awsUrl
+        "url": s3Url
       };
 
       const pdfPayload = {
@@ -76,7 +76,7 @@ export default async function handler(req, res) {
         "key": generateKey(),
         "outputtype": "pdf",
         "title": uniqueFileName,
-        "url": awsUrl
+        "url": s3Url
       };
 
       const filePayload = {
@@ -84,7 +84,7 @@ export default async function handler(req, res) {
         "key": generateKey(),
         "outputtype": fileType,
         "title": uniqueFileName,
-        "url": awsUrl
+        "url": s3Url
       };
 
       // Generate tokens for AuthorizationJwt
@@ -131,7 +131,7 @@ export default async function handler(req, res) {
         Key: uniqueFileName
       }).promise();
 
-      const compressedData = zlib.deflateSync(`${templatePreviewRequest.data.fileUrl};${pageCount};${fileName};${fileSize};${formName};${fileRequest.data.fileUrl};`);
+      const compressedData = zlib.deflateSync(`${templatePreviewRequest.data.fileUrl};${pageCount};${fileName};${fileSize};${formName};${fileRequest.data.fileUrl}`);
       const compressedString = compressedData.toString("base64");
 
       return res.status(200).send(`${CMSConfigAPI}${`${currentLanguage}`}form-submit?index=${compressedString}`);
