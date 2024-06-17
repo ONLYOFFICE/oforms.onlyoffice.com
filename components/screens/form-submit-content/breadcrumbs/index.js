@@ -1,14 +1,14 @@
-import StyledBreadcrumb from "./styled-breadcrumb";
+import StyledBreadcrumbs from "./styled-breadcrumbs";
 import Link from "@components/common/internal-link";
 import Text from "@components/common/text";
 
-const Breadcrumb = ({ t, locale }) => {
+const Breadcrumbs = ({ t, locale }) => {
   return (
-    <StyledBreadcrumb>
+    <StyledBreadcrumbs>
       <Link className="breadcrumb-links home" href={`/${locale === "en" ? "" : `${locale}/`}`}>{t("Templates")}</Link>
       <Text className="breadcrumb-items-name" label={t("Loading your template")} />
-    </StyledBreadcrumb>
+    </StyledBreadcrumbs>
   );
 };
 
-export default Breadcrumb;
+export default Breadcrumbs;

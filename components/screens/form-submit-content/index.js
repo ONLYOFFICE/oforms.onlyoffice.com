@@ -6,7 +6,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import Heading from "@components/common/heading";
 import Text from "@components/common/text";
 import Button from "@components/common/button";
-import Breadcrumb from "./breadcrumb";
+import Breadcrumbs from "./breadcrumbs";
 import LanguageSelect from "./select/language-select";
 import CategorySelect from "./select/category-select";
 import Input from "./input";
@@ -255,7 +255,7 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
 
   return (
     <StyledFormSubmitContent>
-      <Breadcrumb t={t} locale={locale} />
+      <Breadcrumbs t={t} locale={locale} />
 
       <div className="wrapper">
         <div className="upload-wrapper">

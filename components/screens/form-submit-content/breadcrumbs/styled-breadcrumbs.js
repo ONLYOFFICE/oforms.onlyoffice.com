@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { device } from "@utils/devices";
 
-const StyledBreadcrumb = styled.div`
+const StyledBreadcrumbs = styled.div`
   margin-bottom: 32px;
   font-size: 14px;
   line-height: 24px;
@@ -43,4 +43,4 @@ const StyledBreadcrumb = styled.div`
   }
 `;
 
-export default StyledBreadcrumb;
+export default StyledBreadcrumbs;
