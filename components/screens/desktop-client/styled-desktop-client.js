@@ -152,10 +152,10 @@ const StyledDesktopClientContent = styled(Section)`
     width: 32px;
     height: 32px;
     background-color: ${props => 
-      props.theme === "theme-light" ? "#444444" :
+      props.theme === "theme-light" ? "#A5A5A5" :
       props.theme === "theme-dark" ? "#DDDDDD" :
       props.theme === "theme-contrast-dark" ? "#E6E6E6" : 
-      "#A5A5A5"
+      "#444444"
     };
     cursor: pointer;
     transition: background-color 0.3s;
@@ -172,10 +172,10 @@ const StyledDesktopClientContent = styled(Section)`
 
     &:hover {
       background-color: ${props =>
-        props.theme === "theme-light" ? "#1C1C1C" :
+        props.theme === "theme-light" ? "#C3C3C3" :
         props.theme === "theme-dark" ? "#FCFCFC" :
         props.theme === "theme-contrast-dark" ? "#A6A6A6" : 
-        "#C3C3C3"
+        "#1C1C1C"
       };
     }
   }

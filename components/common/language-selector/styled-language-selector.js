@@ -67,19 +67,19 @@ const StyledLanguageSelector = styled.div`
 
       &:hover {
         background-color: ${props =>
-          props.theme === "theme-light" ? "#EBEBEB" :
+          props.theme === "theme-light" ? "#E0E0E0" :
           props.theme === "theme-dark" ? "#555555" :
           props.theme === "theme-contrast-dark" ? "#424242" : 
-          "#E0E0E0"
+          "#EBEBEB"
         };
       }
 
-      &:active {
+      &.active {
         background-color: ${props =>
-          props.theme === "theme-light" ? "#F1F1F1" :
+          props.theme === "theme-light" ? "#CBCBCB" :
           props.theme === "theme-dark" ? "#606060" :
           props.theme === "theme-contrast-dark" ? "#666666" : 
-          "#CBCBCB"
+          "#F1F1F1"
         };
       }
     }

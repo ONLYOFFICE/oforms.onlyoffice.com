@@ -10,6 +10,7 @@ const StyledSortSelector = styled.button`
   svg {
     path {
       fill: ${props =>
+        props.theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
         props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
         props.theme === "theme-contrast-dark" ? "#E8E8E8" : 
         "#444444"
