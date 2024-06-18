@@ -29,7 +29,7 @@ export default async function handler(req, res) {
       const uniqueFileName = `${Date.now()}_${fileName}`;
       const fileType = fileName?.match(/\.(\w+)$/)?.[1];
       const fileNameSubstring = fileName.substring(0, fileName.length - fileName?.match(/\.(\w+)$/)?.[0].length);
-      const fileOrientation = files.file[0].fileOrientation;
+      const fileOrientation = fields.fileOrientation[0];
 
       // Generate a unique key for payload
       const generateKey = () => {
