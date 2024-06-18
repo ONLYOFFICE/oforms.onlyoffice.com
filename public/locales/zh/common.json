@@ -279,5 +279,8 @@
   "Get ONLYOFFICE desktop": "获取 ONLYOFFICE 桌面版",
   "Popular search": "热门搜索",
   "History": "搜索历史记录",
-  "Search by": "搜索"
+  "Search by": "搜索",
+  "Document": "文本文档",
+  "Spreadsheet": "电子表格",
+  "Presentation": "演示文稿"
 }

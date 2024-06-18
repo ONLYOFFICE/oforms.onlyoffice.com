@@ -262,5 +262,8 @@
   "Get ONLYOFFICE desktop": "Obtenir application desktop ONLYOFFICE",
   "Popular search": "Recherche populaire",
   "History": "Historique",
-  "Search by": "Rechercher par"
+  "Search by": "Rechercher par",
+  "Document": "Document texte",
+  "Spreadsheet": "Feuille de calcul",
+  "Presentation": "Présentation"
 }

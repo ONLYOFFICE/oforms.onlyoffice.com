@@ -28,6 +28,7 @@ export default async function handler(req, res) {
       const fileName = fields.fileName[0];
       const fileNameSubstring = fileName.substring(0, fileName.length - fileName?.match(/\.(\w+)$/)?.[0].length);
       const uniqueFileName = `${Date.now()}_${fileName}`;
+      const fileOrientation = files.file[0].fileOrientation;
 
       // Generate a unique key for payload
       const generateKey = () => {
@@ -41,42 +42,42 @@ export default async function handler(req, res) {
 
       // Payload data
       const cardPreviewPayload = {
-        "filetype": "pdf",
+        "filetype": fileType,
         "key": generateKey(),
         "outputtype": "png",
         "thumbnail": {
           "aspect": 0,
           "first": true,
-          "height": 916,
-          "width": 648
+          "height": fileOrientation === "vertical" ? 916 : 648,
+          "width": fileOrientation === "vertical" ? 648 : 916
         },
         "title": uniqueFileName,
         "url": queryUrl
       };
 
       const cardDesktopPreviewPayload = {
-        "filetype": "pdf",
+        "filetype": fileType,
         "key": generateKey(),
         "outputtype": "png",
         "thumbnail": {
           "aspect": 0,
           "first": true,
-          "height": 260,
-          "width": 184
+          "height": fileOrientation === "vertical" ? 260 : 184,
+          "width": fileOrientation === "vertical" ? 184 : 260
         },
         "title": uniqueFileName,
         "url": queryUrl
       };
 
       const desktopPreviewPayload = {
-        "filetype": "pdf",
+        "filetype": fileType,
         "key": generateKey(),
         "outputtype": "png",
         "thumbnail": {
           "aspect": 0,
           "first": true,
-          "height": 566,
-          "width": 400
+          "height": fileOrientation === "vertical" ? 566 : 400,
+          "width": fileOrientation === "vertical" ? 400 : 566
         },
         "title": uniqueFileName,
         "url": queryUrl

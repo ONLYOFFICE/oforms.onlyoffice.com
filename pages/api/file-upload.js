@@ -3,6 +3,7 @@ import formidable from "formidable";
 import axios from "axios";
 import jwt from "jsonwebtoken";
 import S3 from "aws-sdk/clients/s3";
+import { PDFDocument } from "pdf-lib";
 
 export const config = {
   api: {
@@ -47,20 +48,6 @@ export default async function handler(req, res) {
       const s3Url = `https://${s3Response.Bucket}/${s3Response.key}`;
 
       // Payload data
-      const templatePreviewPayload = {
-        "filetype": fileType,
-        "key": generateKey(),
-        "outputtype": "png",
-        "thumbnail": {
-          "aspect": 0,
-          "first": true,
-          "height": 1448,
-          "width": 1024
-        },
-        "title": fileName,
-        "url": s3Url
-      };
-
       const pdfPayload = {
         "filetype": fileType,
         "key": generateKey(),
@@ -70,21 +57,46 @@ export default async function handler(req, res) {
       };
 
       // Generate tokens for AuthorizationJwt
-      const templatePreviewToken = jwt.sign(templatePreviewPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
       const pdfToken = jwt.sign(pdfPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+
+      // Send request to ConvertService and get result
+      const pdfRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, pdfPayload, {
+        headers: {
+          "Content-Type": "application/json",
+          "AuthorizationJwt": `Bearer ${pdfToken}`
+        }
+      });
+
+      const pdfResponse = await axios.get(pdfRequest.data.fileUrl, { responseType: "arraybuffer"});
+      const pdfDoc = await PDFDocument.load(new Uint8Array(pdfResponse.data));
+      // page width and height
+      const { width, height } = pdfDoc.getPage(0).getSize();
+      // Number of pages in PDF
+      const pageCount = pdfDoc.getPageCount();
+
+      // Payload data
+      const templatePreviewPayload = {
+        "filetype": fileType,
+        "key": generateKey(),
+        "outputtype": "png",
+        "thumbnail": {
+          "aspect": 0,
+          "first": true,
+          "height": width > height ? 1024 : 1448,
+          "width": width > height ? 1448 : 1024
+        },
+        "title": fileName,
+        "url": s3Url
+      };
+
+      // Generate tokens for AuthorizationJwt
+      const templatePreviewToken = jwt.sign(templatePreviewPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
 
       // Send request to ConvertService and get result
       const templatePreviewRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, templatePreviewPayload, {
         headers: {
           "Content-Type": "application/json",
           "AuthorizationJwt": `Bearer ${templatePreviewToken}`
-        }
-      });
-
-      const pdfRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, pdfPayload, {
-        headers: {
-          "Content-Type": "application/json",
-          "AuthorizationJwt": `Bearer ${pdfToken}`
         }
       });
 
@@ -99,7 +111,8 @@ export default async function handler(req, res) {
 
       return res.status(200).json({
         "templatePreviewConvertUrl": templatePreviewRequest.data.fileUrl,
-        "pdfConvertUrl": pdfRequest.data.fileUrl
+        "pageCount": pageCount,
+        "fileOrientation": width > height ? "horizontal" : "vertical"
       });
     } catch (error) {
       return res.status(500).json({ error: error.message });
