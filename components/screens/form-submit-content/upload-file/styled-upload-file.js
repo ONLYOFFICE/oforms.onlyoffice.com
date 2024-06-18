@@ -45,15 +45,7 @@ const StyledUploadFile = styled.div`
 
     &.filled {
       pointer-events: none;
-      height: 736px;
-
-      @media ${device.laptopM} {
-        height: 624px;
-      }
-  
-      @media ${device.laptop} {
-        height: 100%;
-      }
+      height: 100%;
     }
 
     @media ${device.laptopM} {

@@ -54,6 +54,7 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
   const [filePages, setFilePages] = useState("");
   const [fileName, setFileName] = useState("");
   const [fileSize, setFileSize] = useState("0");
+  const [fileOrientation, setFileOrientation] = useState("");
   const refRecaptcha = useRef();
   const cardPreviewTimerRef = useRef(null);
 
@@ -158,12 +159,11 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
 
     try {
       const imageUploadResponse = await axios.post("/api/file-upload", formData);
+      const { templatePreviewConvertUrl, pageCount, fileOrientation } = imageUploadResponse.data;
 
-      const { templatePreviewConvertUrl, pdfConvertUrl } = imageUploadResponse.data;
-      const pdfCountPagesResponse = await axios.post("/api/pdf-count-pages", { pdfConvertUrl });
-
+      setFileOrientation(fileOrientation);
       setTemplatePreviewUrl(templatePreviewConvertUrl);
-      setFilePages(pdfCountPagesResponse.data.filePages.toString());
+      setFilePages(pageCount);
       setFileName(e.target.files[0]?.name);
       setFileSize(e.target.files[0]?.size);
       setFileLoading(false);
@@ -199,6 +199,7 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
     formData.append("languageKey", languageKey);
     formData.append("categoryId", categoryId);
     formData.append("formExt", [formExts.data.find(d => d.attributes.ext === fileName?.match(/\.(\w+)$/)?.[1]).id]);
+    formData.append("fileOrientation", fileOrientation);
 
     const sendFormResponse = await axios.post(queryIndexData?.[5] ? "/api/form-upload-submission" : "/api/form-submission", formData);
 
