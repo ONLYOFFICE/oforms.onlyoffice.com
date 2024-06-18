@@ -175,8 +175,14 @@ const nextConfig = {
         source: '/sl',
         destination: '/en',
         permanent: false,
-      }, {
+      }, 
+      {
         source: '/sv',
+        destination: '/en',
+        permanent: false,
+      },
+      {
+        source: '/sr',
         destination: '/en',
         permanent: false,
       },
