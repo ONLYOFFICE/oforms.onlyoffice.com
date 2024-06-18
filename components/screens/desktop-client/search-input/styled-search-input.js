@@ -40,9 +40,10 @@ const StyledSearchInput = styled.div`
 
       path {
         fill: ${props =>
+          props.theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
           props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
           props.theme === "theme-contrast-dark" ? "#E8E8E8" : 
-          "rgba(0, 0, 0, 0.8)"
+          "#444444"
         };
         transition: stroke 0.3s;
       }
@@ -57,10 +58,9 @@ const StyledSearchInput = styled.div`
     svg {
       path {
         stroke: ${props =>
-          props.theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
-          props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
-          props.theme === "theme-contrast-dark" ? "#E8E8E8" : 
-          "#444444"
+          props.theme === "theme-dark" ? "#BBBBBB" :
+          props.theme === "theme-contrast-dark" ? "#BBBBBB" : 
+          "#7A7A7A"
         };
       }
     }
@@ -69,8 +69,9 @@ const StyledSearchInput = styled.div`
       svg {
         path {
           stroke: ${props =>
-            props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "#BBBBBB" :
-            "#7A7A7A"
+            props.theme === "theme-dark" ? "#F1F1F1" :
+            props.theme === "theme-contrast-dark" ? "#FFFFFF" :
+            "#444444"
           };
         }
       }
@@ -80,9 +81,9 @@ const StyledSearchInput = styled.div`
       svg {
         path {
           stroke: ${props =>
-            props.theme === "theme-dark" ? "#F1F1F1" :
-            props.theme === "theme-contrast-dark" ? "#FFFFFF" : 
-            "#444444"
+            props.theme === "theme-dark" ? "#BBBBBB" :
+            props.theme === "theme-contrast-dark" ? "#BBBBBB" : 
+            "#7A7A7A"
           };
         }
       }

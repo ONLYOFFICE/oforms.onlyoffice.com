@@ -294,27 +294,27 @@ export const StyledFormPopup = styled.div`
       "#FFFFFF"
     };
     background-color: ${props =>
-      props.theme === "theme-light" ? "#444444" :
+      props.theme === "theme-light" ? "#A5A5A5" :
       props.theme === "theme-dark" ? "#DDDDDD" :
       props.theme === "theme-contrast-dark" ? "#E6E6E6" : 
-      "#A5A5A5"
+      "#444444"
     };
 
     &:hover {
       background-color: ${props =>
-        props.theme === "theme-light" ? "#1C1C1C" :
+        props.theme === "theme-light" ? "#C3C3C3" :
         props.theme === "theme-dark" ? "#FCFCFC" :
         props.theme === "theme-contrast-dark" ? "#A6A6A6" : 
-        "#C3C3C3"
+        "#1C1C1C"
       };
     }
 
     &:active {
       background-color: ${props =>
-        props.theme === "theme-light" ? "rgba(68, 68, 68, 0.4)" :
-        props.theme === "theme-dark" ? "rgba(221, 221, 221, 0.4)" :
-        props.theme === "theme-contrast-dark" ? "rgba(230, 230, 230, 0.4)" : 
-        "rgba(125, 133, 140, 0.4)"
+        props.theme === "theme-light" ? "#7D858C" :
+        props.theme === "theme-dark" ? "#DDDDDD" :
+        props.theme === "theme-contrast-dark" ? "#E6E6E6" : 
+        "#444444"
       };
     }
   }
