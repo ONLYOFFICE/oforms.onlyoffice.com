@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import x from "@public/icons/x.svg";
 
 const StyledShareButtons = styled.div`
   display: flex;
@@ -45,9 +46,9 @@ const StyledShareButtons = styled.div`
       transition: box-shadow 0.3s;
     }
 
-    &.twitter {
+    &.x {
       &:after {
-        background-image: url("https://static-oforms.onlyoffice.com/images/social-icons/twitter.react.svg");
+        background-image: url(${x.src});
       }
     }
 
