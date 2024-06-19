@@ -12,7 +12,7 @@ const BannerForm = ({ t }) => {
     <StyledBannerForm>
       <div className="banner-form-info">
         <Heading className="banner-form-title" level={3} label={t("Build your own templates")} />
-        <Text as="p" className="banner-form-text" label={t("Create PDF forms, model documents, spreadseets and presentations for any purpose with ONLYOFFICE Docs.")} />
+        <Text as="p" className="banner-form-text" label={t("Create PDF forms, model documents, spreadsheets and presentations for any purpose with ONLYOFFICE Docs.")} />
       </div>
       <div className="banner-form-btns">
         <ExternalLink
