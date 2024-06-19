@@ -2,7 +2,12 @@ import StyledBannerHowCreateForm from "./styled-banner-how-create-form";
 import Heading from "@components/common/heading";
 import ExternalLink from "@components/common/external-link";
 
-const BannerHowCreateForm = ({ t, linkPdfEditor, nameForm }) => {
+const BannerHowCreateForm = ({ t, form_exts, url, pdfFile, docxFile, pptxFile, xlsxFile, nameForm }) => {
+  const link = form_exts?.data.some(ext => ext.attributes.ext === "pdf") ? `editor?filename=${url}&fillform=${`${pdfFile[0]?.attributes?.hash}.pdf`}` :
+    form_exts?.data.some(ext => ext.attributes.ext === "docx") ? `editor?filename=${url}&fillform=${`${docxFile[0]?.attributes?.hash}.docx`}` :
+    form_exts?.data.some(ext => ext.attributes.ext === "xlsx") ? `editor?filename=${url}&fillform=${`${xlsxFile[0]?.attributes?.hash}.xlsx`}` :
+    form_exts?.data.some(ext => ext.attributes.ext === "pptx") ? `editor?filename=${url}&fillform=${`${pptxFile[0]?.attributes?.hash}.pptx`}` : null;
+
   return (
     <StyledBannerHowCreateForm className="banner-how-create-form">
       <div className="banner-body">
@@ -10,12 +15,12 @@ const BannerHowCreateForm = ({ t, linkPdfEditor, nameForm }) => {
           <span dangerouslySetInnerHTML={{__html: t("HowToCreateATemplate", { nameForm })}} />
         </Heading>
         <ol className="banner-list">
-          <li>{t("Click Fill Out to launch the form editor online")}</li>
-          <li>{t("Fill in the necessary information in the empty fields")}</li>
+          <li dangerouslySetInnerHTML={{__html: t("Click Fill Out to launch the corresponding editor online")}} />
+          <li><b>{t("Enter the necessary information and edit the template as you need")}</b></li>
           <li>{t("Download the ready document from the editor")}</li>
         </ol>
       </div>
-      <ExternalLink className="banner-btn" href={linkPdfEditor} label={t("Fill out")} />
+      <ExternalLink className="banner-btn" href={link} label={t("Fill out")} />
     </StyledBannerHowCreateForm>
   );
 };

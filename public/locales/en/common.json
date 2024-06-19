@@ -1,8 +1,8 @@
 {
-  "AdventAnnounceDesktop": "<span>ONLYOFFICE</span> <b>DocSpace 2.5 released:</b> Public rooms improvements, user groups, storage management, embedding presets, and more",
-  "AdventAnnounceMobile": "ONLYOFFICE <b>DocSpace 2.5 released</b>",
+  "AdventAnnounceDesktop": "<span>ONLYOFFICE Docs 8.1 released:</span> full-featured PDF Editor, Slide Master, improved RTL, enhanced collaboration in sheets, and more",
+  "AdventAnnounceMobile": "<span>ONLYOFFICE Docs 8.1</span> released",
   "Free templates and fillable PDF forms": "<span>Free</span> templates and fillable PDF forms",
-  "blogLink1": "https://www.onlyoffice.com/blog/2024/02/onlyoffice-docspace-app-for-zoom",
+  "blogLink1": "https://www.onlyoffice.com/blog/2024/06/onlyoffice-docs-8-1-released",
   "blogLink2": "https://www.onlyoffice.com/blog/2024/01/onlyoffice-docs-8-0-released",
   "© Ascensio System SIA": "© Ascensio System SIA 2009-{{currentYear}}.",
   "Use ONLYOFFICE Docs online or ONLYOFFICE Dekstop Editors to fill forms in the preferred location and create your own. Read more about creating forms in ONLYOFFICE.": "Use ONLYOFFICE Docs online or ONLYOFFICE Dekstop Editors to fill forms in the preferred location and create your own. <a href=\"https://www.onlyoffice.com/office-suite.aspx\" target=\"_blank\" rel=\"noreferrer noopener\">Read more about creating forms in ONLYOFFICE.</a>",
@@ -10,7 +10,8 @@
   "We happily accept template suggestions to introduce these templates in our form library in the future. Please contact us at marketing@onlyoffice.com to submit your ideas.": "We happily accept template suggestions to introduce these templates in our form library in the future. Please contact us at <a href=\"mailto:marketing@onlyoffice.com\" target=\"_blank\" rel=\"noreferrer noopener\">marketing@onlyoffice.com</a> to submit your ideas.",
   "It is technically possible. Please contact us at marketing@onlyoffice.com": "It is technically possible. Please contact us at <a href=\"mailto:marketing@onlyoffice.com\" target=\"_blank\" rel=\"noreferrer noopener\">marketing@onlyoffice.com</a>",
   "Please use our community forum to receive support, or send us an inquiry at support@onlyoffice.com.": "Please use our <a href=\"https://forum.onlyoffice.com/\" target=\"_blank\" rel=\"noreferrer noopener\">community</a> forum to receive support, or send us an inquiry at <a href=\"mailto:support@onlyoffice.com\" target=\"_blank\" rel=\"noreferrer noopener\">support@onlyoffice.com</a>.",
-  "HowToCreateATemplate": "How to create a <span>free</span> {{nameForm}} with ONLYOFFICE",
+  "HowToCreateATemplate": "How to create a {{nameForm}} with ONLYOFFICE",
+  "Click Fill Out to launch the corresponding editor online": "Click Fill Out to launch the <b>corresponding</b> editor online",
   "Other forms": "<span>Other</span> forms",
   "Recently viewed": "<span>Recently</span> viewed",
   "Please download it and install to use this plugin. Go to the Download page to get ONLYOFFICE Desktop Editors for Windows, Linux, or macOS.": "Please download it and install to use this plugin. Go to the <a href=\"https://www.onlyoffice.com/download-desktop.aspx\" target=\"_blank\" rel=\"noreferrer noopener\">Download page</a> to get ONLYOFFICE Desktop Editors for Windows, Linux, or macOS."

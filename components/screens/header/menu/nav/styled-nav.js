@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { device } from "@utils/devices";
+import blog1 from "@public/images/menu-pics/menu-blog-1-1.png";
 
 const StyledNav = styled.nav`
   margin: 0 auto;
@@ -11,14 +12,6 @@ const StyledNav = styled.nav`
     .menu-block-img {
       &.reseller {
         background-image: url("https://static-oforms.onlyoffice.com/images/menu-pics/menu-reseller-fr.svg");
-      }
-    }
-  }
-
-  &.zh {
-    .menu-block-img {
-      &.blog-1 {
-        background-image: url("https://static-oforms.onlyoffice.com/images/menu-pics/menu-blog-1-1-zh.jpg");
       }
     }
   }
@@ -1478,7 +1471,7 @@ const StyledNav = styled.nav`
     }
 
     &.blog-1 {
-      background-image: url("https://static-oforms.onlyoffice.com/images/menu-pics/menu-blog-1-1.png");
+      background-image: url(${blog1.src});
     }
 
     &.blog-2 {
