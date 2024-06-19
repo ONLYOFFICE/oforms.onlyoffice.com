@@ -24,7 +24,7 @@ import "moment/locale/ja";
 import "moment/locale/zh-cn";
 
 const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilations }) => {
-  const { name_form, template_desc, template_image, file_oform, url } = form.data[0].attributes;
+  const { name_form, template_desc, template_image, file_oform, form_exts, url } = form.data[0].attributes;
   const [popupActive, setPopupActive] = useState(false);
   const [isInstalled, setIsInstalled] = useState(true);
 
@@ -117,7 +117,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
           </div>
         </div>
 
-        <BannerHowCreateForm t={t} linkPdfEditor={linkPdfEditor} nameForm={name_form} />
+        <BannerHowCreateForm t={t} form_exts={form_exts} url={url} pdfFile={pdfFile} docxFile={docxFile} pptxFile={pptxFile} xlsxFile={xlsxFile} nameForm={name_form} />
         {!isInstalled &&
           <DesktopNotInstalledPopup t={t} locale={locale} popupActive={popupActive} setPopupActive={setPopupActive} />
         }

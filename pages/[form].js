@@ -79,8 +79,8 @@ const FormPage = ({ locale, form, randomCarousel, compilations }) => {
 
 export const getServerSideProps = async ({ locale, ...context }) => {
   const cms = config.api.cms;
-  const res1 = await fetch(`${cms}/api/oforms/?filters[url][$eq]=${context.query.form}&locale=${locale === "pt" ? "pt-br" : locale}&populate=template_image&populate=card_prewiew&populate=file_oform`);
-  const form = await res1.json();
+  const res = await fetch(`${cms}/api/oforms/?filters[url][$eq]=${context.query.form}&locale=${locale === "pt" ? "pt-br" : locale}&populate=template_image&populate=card_prewiew&populate=file_oform&populate=form_exts`);
+  const form = await res.json();
   const randomCarouselItems = await fetch(`${cms}/api/oforms/?locale=${locale === "pt" ? "pt-br" : locale}&pagination[pageSize]=7&pagination[page]=2&populate=card_prewiew`);
   const randomCarousel = await randomCarouselItems.json();
   const compilations = await getCompilations(locale === "pt" ? "pt-br" : locale);

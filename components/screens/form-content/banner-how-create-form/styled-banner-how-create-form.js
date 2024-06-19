@@ -24,12 +24,6 @@ const StyledBannerHowCreateForm = styled.div`
       background-image: url("https://static-oforms.onlyoffice.com/icons/pensil-icon.react.svg");
     }
 
-    span {
-      span {
-        color: #FF6F3D;
-      }
-    }
-
     @media screen and ${device.laptop} {
       font-size: 22px;
       line-height: 29px;

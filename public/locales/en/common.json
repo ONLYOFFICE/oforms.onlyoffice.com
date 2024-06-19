@@ -10,7 +10,8 @@
   "We happily accept template suggestions to introduce these templates in our form library in the future. Please contact us at marketing@onlyoffice.com to submit your ideas.": "We happily accept template suggestions to introduce these templates in our form library in the future. Please contact us at <a href=\"mailto:marketing@onlyoffice.com\" target=\"_blank\" rel=\"noreferrer noopener\">marketing@onlyoffice.com</a> to submit your ideas.",
   "It is technically possible. Please contact us at marketing@onlyoffice.com": "It is technically possible. Please contact us at <a href=\"mailto:marketing@onlyoffice.com\" target=\"_blank\" rel=\"noreferrer noopener\">marketing@onlyoffice.com</a>",
   "Please use our community forum to receive support, or send us an inquiry at support@onlyoffice.com.": "Please use our <a href=\"https://forum.onlyoffice.com/\" target=\"_blank\" rel=\"noreferrer noopener\">community</a> forum to receive support, or send us an inquiry at <a href=\"mailto:support@onlyoffice.com\" target=\"_blank\" rel=\"noreferrer noopener\">support@onlyoffice.com</a>.",
-  "HowToCreateATemplate": "How to create a <span>free</span> {{nameForm}} with ONLYOFFICE",
+  "HowToCreateATemplate": "How to create a {{nameForm}} with ONLYOFFICE",
+  "Click Fill Out to launch the corresponding editor online": "Click Fill Out to launch the <b>corresponding</b> editor online",
   "Other forms": "<span>Other</span> forms",
   "Recently viewed": "<span>Recently</span> viewed",
   "Please download it and install to use this plugin. Go to the Download page to get ONLYOFFICE Desktop Editors for Windows, Linux, or macOS.": "Please download it and install to use this plugin. Go to the <a href=\"https://www.onlyoffice.com/download-desktop.aspx\" target=\"_blank\" rel=\"noreferrer noopener\">Download page</a> to get ONLYOFFICE Desktop Editors for Windows, Linux, or macOS."
