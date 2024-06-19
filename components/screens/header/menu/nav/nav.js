@@ -299,8 +299,8 @@ const Nav = ({ t, locale }) => {
                 <InternalLink className="menu-link blog" href={blogHrefLang} label={t("Blog")} />
                 <InternalLink className="menu-block" href={t("blogLink1")}>
                   <div className="menu-block-img blog-1"></div>
-                  <div className="menu-blog-title">{t("ONLYOFFICE DocSpace 2.5 released: Public rooms improvements, user groups, storage management, embedding presets, and more")}</div>
-                  <div className="menu-blog-date">{t("22 April 2024")}</div>
+                  <div className="menu-blog-title">{t("ONLYOFFICE Docs 8.1 released: full-featured PDF Editor, Slide Master, improved RTL, enhanced collaboration in sheets, and more")}</div>
+                  <div className="menu-blog-date">{t("19 June 2024")}</div>
                 </InternalLink>
                 <InternalLink className="menu-block" href={t("blogLink2")}>
                   <div className="menu-block-img blog-2"></div>
