@@ -3,10 +3,10 @@ import Heading from "@components/common/heading";
 import ExternalLink from "@components/common/external-link";
 
 const BannerHowCreateForm = ({ t, form_exts, url, pdfFile, docxFile, pptxFile, xlsxFile, nameForm }) => {
-  const link = form_exts?.data.some(ext => ext.attributes.ext === "pdf") ? `editor?filename=${url}&fillform=${`${pdfFile[0]?.attributes?.hash}.pdf`}` :
-    form_exts?.data.some(ext => ext.attributes.ext === "docx") ? `editor?filename=${url}&fillform=${`${docxFile[0]?.attributes?.hash}.docx`}` :
+  const link = form_exts?.data.some(ext => ext.attributes.ext === "docx") ? `editor?filename=${url}&fillform=${`${docxFile[0]?.attributes?.hash}.docx`}` :
     form_exts?.data.some(ext => ext.attributes.ext === "xlsx") ? `editor?filename=${url}&fillform=${`${xlsxFile[0]?.attributes?.hash}.xlsx`}` :
-    form_exts?.data.some(ext => ext.attributes.ext === "pptx") ? `editor?filename=${url}&fillform=${`${pptxFile[0]?.attributes?.hash}.pptx`}` : null;
+    form_exts?.data.some(ext => ext.attributes.ext === "pptx") ? `editor?filename=${url}&fillform=${`${pptxFile[0]?.attributes?.hash}.pptx`}` : 
+    `editor?filename=${url}&fillform=${`${pdfFile[0]?.attributes?.hash}.pdf`}`;
 
   return (
     <StyledBannerHowCreateForm className="banner-how-create-form">
