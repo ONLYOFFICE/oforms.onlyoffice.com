@@ -136,10 +136,14 @@ const Search = ({ t, locale, templateSecondary, templateTertiary, templateQuater
                       </button>
                     </div>
                   ))}
-                  <Heading className="search-results-label" label={t("Popular search")} level={6} />
-                  {popularSearch[locale].map((item, index) => (
-                    <InternalLink onClick={() => setSearchResult(false)} className="search-results-popular-item" href={`/searchresult?query=${item}`} label={item} key={index} />
-                  ))}
+                  {popularSearch[locale].length > 0 &&
+                    <>
+                      <Heading className="search-results-label" label={t("Popular search")} level={6} />
+                      {popularSearch[locale].map((item, index) => (
+                        <InternalLink onClick={() => setSearchResult(false)} className="search-results-popular-item" href={`/searchresult?query=${item}`} label={item} key={index} />
+                      ))}
+                    </>
+                  }
                 </div>
               ) : (
                 <div className="search-results">
