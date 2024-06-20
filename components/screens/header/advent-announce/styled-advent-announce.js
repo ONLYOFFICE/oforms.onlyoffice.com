@@ -1,12 +1,9 @@
 import styled from "styled-components";
 import { device } from "@utils/devices";
-import bannerLeft from "@public/images/banners/banner-left.svg";
+import bannerLeft from "@public/images/banners/banner-left.png";
 import bannerLeftIcon from "@public/images/banners/banner-left-icon.svg";
-import bannerLeftMobile from "@public/images/banners/banner-left-mobile.svg";
-import bannerRight from "@public/images/banners/banner-right.svg";
+import bannerRight from "@public/images/banners/banner-right.png";
 import bannerRightIcon from "@public/images/banners/banner-right-icon.svg";
-import bannerRightMobile from "@public/images/banners/banner-right-mobile.svg";
-import bannerDecorMobile from "@public/images/banners/banner-decor-mobile.svg";
 import arrowRight from "@public/images/banners/arrow-right.svg";
 
 const StyledAdventAnnounce = styled.div`
@@ -19,7 +16,7 @@ const StyledAdventAnnounce = styled.div`
     height: 56px;
     overflow: hidden;
     text-align: center;
-    background: #FFFFFF;
+    background: #1C1A39;
 
     a {
       position: absolute;
@@ -29,12 +26,13 @@ const StyledAdventAnnounce = styled.div`
       text-decoration: none;
       background-image: url(${bannerLeft.src}), url(${bannerRight.src});
       background-repeat: no-repeat;
-      background-position: left, right;
+      background-position: top left, top right;
+      background-size: 344px 64px, 344px 64px;
 
       @media screen and ${device.laptop} {
         height: 48px;
-        background-image: url(${bannerDecorMobile.src}), url(${bannerLeftMobile.src}), url(${bannerRightMobile.src});
-        background-position: calc(50% + 6px) -2px, left top, right bottom;
+        background-image: url(${bannerLeft.src});
+        background-position: -80px 0;
       }
     }
 
@@ -52,7 +50,7 @@ const StyledAdventAnnounce = styled.div`
       width: max-content;
       max-width: 817px;
       height: 100%;
-      color: #385362;
+      color: #FFFFFF;
       text-decoration: none;
       z-index: 10;
 
@@ -110,7 +108,7 @@ const StyledAdventAnnounce = styled.div`
       }
 
       span {
-        color: #FF7E16;
+        color: #00FFDD;
       }
     }
 
@@ -141,7 +139,8 @@ const StyledAdventAnnounce = styled.div`
     }
   }
 
-   &.ja {
+  &.pt,
+  &.ja {
     .advent-announce-text {
       max-width: 814px;
     }
