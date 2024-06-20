@@ -24,8 +24,10 @@ const Footer = ({ t, locale }) => {
     <StyledFooter className={locale} locale={locale}>
       <div className="footer-item-group">
         <FooterItem heading={t("Templates")} className="solutions">
-          <InternalLink className="footer-link" href={oformsHrefLang} label={t("Find PDF form templates")} />
-          <InternalLink className="footer-link" href={oformsHrefLang} label={t("Fill out PDF forms online")} />
+          <InternalLink className="footer-link" href={oformsHrefLang} label={t("PDF form templates")} />
+          <InternalLink className="footer-link" href={oformsHrefLang} label={t("Text document templates")} />
+          <InternalLink className="footer-link" href={oformsHrefLang} label={t("Spreadsheet templates")} />
+          <InternalLink className="footer-link" href={oformsHrefLang} label={t("Presentation templates")} />
         </FooterItem>
         <FooterItem heading={t("Converters")} className="solutions">
           <InternalLink className="footer-link" href={`${hrefLang}/text-file-converter.aspx`} label={t("Convert text files")} />
