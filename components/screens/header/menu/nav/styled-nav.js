@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { device } from "@utils/devices";
-import blog1 from "@public/images/menu-pics/menu-blog-1-1.png";
+import blog1 from "@public/images/menu-pics/menu-blog-1-1.jpg";
 
 const StyledNav = styled.nav`
   margin: 0 auto;

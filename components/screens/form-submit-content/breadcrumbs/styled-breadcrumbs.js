@@ -6,7 +6,7 @@ const StyledBreadcrumbs = styled.div`
   font-size: 14px;
   line-height: 24px;
 
-  .breadcrumb-links {
+  .breadcrumbs-link {
     position: relative;
     margin-right: 23px;
     line-height: 24px;
@@ -31,9 +31,13 @@ const StyledBreadcrumbs = styled.div`
       color: #444444;
       overflow: initial;
     }
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
-  .breadcrumb-items-name {
+  .breadcrumbs-item {
     line-height: 24px;
     color: #808080;
   }
