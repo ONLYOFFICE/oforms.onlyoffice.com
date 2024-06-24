@@ -10,6 +10,7 @@ const TextInput = ({
     value,
     errorText,
     searchIcon,
+    inputClearBtn,
     onClick,
     onFocus,
     onChange,
@@ -36,14 +37,14 @@ const TextInput = ({
         {label &&
           <label className="label">{label}</label>
         }
-        {value.length > 0 &&
+        {inputClearBtn && value.length > 0 &&
           <button onClick={handlerClearValue} className="input-btn">
             <ReactSVG src="/icons/cross.svg" />
           </button>
         }
       </div>
       {errorText && 
-        <p className="error">{errorText}</p>
+        <p className="error-text">{errorText}</p>
       }
     </StyleTextInput>
   );
@@ -55,8 +56,9 @@ TextInput.propTypes = {
   className: PropTypes.string,
   type: PropTypes.string,
   value: PropTypes.string,
-  errorText: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  errorText: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
   searchIcon: PropTypes.bool,
+  inputClearBtn: PropTypes.bool,
   onClick: PropTypes.func,
   onFocus: PropTypes.func,
   onChange: PropTypes.func,
@@ -66,6 +68,7 @@ TextInput.propTypes = {
 
 TextInput.defaultProps = {
   type: "text",
+  inputClearBtn: true
 };
 
 export default TextInput;
