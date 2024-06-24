@@ -48,6 +48,7 @@ const StyledMailPopup = styled.div`
   }
 
   .mail-popup-body {
+    width: 100%;
     max-width: 370px;
 
     @media screen and (max-width: 399px) {
