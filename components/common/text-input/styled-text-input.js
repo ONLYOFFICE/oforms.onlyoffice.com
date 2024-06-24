@@ -89,6 +89,16 @@ const StyledTextInput = styled.div`
       fill: #666666;
     }
   }
+
+  .error-text {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    color: #cb0000;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 21px;
+  }
 `;
 
 export default StyledTextInput;

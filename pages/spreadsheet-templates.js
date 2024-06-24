@@ -80,7 +80,7 @@ export const getServerSideProps = async ({ locale, query }) => {
       page,
       forms,
       categories,
-      types,
+      types: types ? types : null,
       compilations
     }
   };
