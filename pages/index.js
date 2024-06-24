@@ -126,7 +126,7 @@ export const getServerSideProps = async ({ locale, query }) => {
       locale,
       sort,
       forms,
-      types,
+      types: types ? types : null,
       categories,
       compilations,
       popularTemplates,

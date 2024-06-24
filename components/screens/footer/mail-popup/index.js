@@ -92,22 +92,22 @@ const MailPopup = ({ t, locale, active, setActive, submitForm, ...rest }) => {
                 <Text className="mail-popup-text" label={t("Get the latest ONLYOFFICE news delivered to your inbox")} />
                 <form onSubmit={handleFormSubmit} className="mail-popup-inputs">
                   <TextInput
-                    className="mail-popup-input"
+                    className={`mail-popup-input ${firstNameError ? "error" : ""}`}
                     value={firstName}
                     onChange={handleNameInput}
                     placeholder={t("First name")}
                     name="firstName"
-                    errorText={t("First name is empty")}
-                    isError={firstNameError}
+                    errorText={firstNameError && t("First name is empty")}
+                    inputClearBtn={false}
                   />
                   <TextInput
-                    className="mail-popup-input"
+                    className={`mail-popup-input ${emailError ? "error" : ""}`}
                     value={email}
                     onChange={handleEmailInput}
                     placeholder={t("Your email")}
                     name="email"
-                    isError={emailError}
-                    errorText={emailErrorText}
+                    errorText={emailError && emailErrorText}
+                    inputClearBtn={false}
                   />
                   <Button className="mail-popup-btn" type="submit" label={t("Subscribe")} />
                 </form>
