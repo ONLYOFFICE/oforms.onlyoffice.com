@@ -24,11 +24,8 @@ const SearchResultPage = ({ isDesktopClient, theme, locale, sort, page, types, c
       <Layout>
         <Layout.PageHead>
           <MainHead
-            title={t("OFORMS – fill out forms online for free")}
-            metaSiteNameOg={t("OFORM Library")}
-            metaDescription={t("OFORMS – fill out forms online for free")}
-            metaDescriptionOg={t("Try powerful ready-to-fill out free online forms. Create documens with forms online or just download templates in the desirable format: DOCXF, OFORM, or PDF.")}
-            metaKeywords={t("OFORMS – fill out forms online for free")}
+            title={`${searchQuery === "" ? t("Search PDF forms and templates") : searchQuery} | ONLYOFFICE`}
+            description={t("Free templates and fillable PDF forms for any business purpose")}
             isDesktopClient={isDesktopClient}
             theme={theme}
           />
@@ -51,11 +48,8 @@ const SearchResultPage = ({ isDesktopClient, theme, locale, sort, page, types, c
       <Layout>
         <Layout.PageHead>
           <MainHead
-            title={t("OFORMS – fill out forms online for free")}
-            metaSiteNameOg={t("OFORM Library")}
-            metaDescription={t("OFORMS – fill out forms online for free")}
-            metaDescriptionOg={t("Try powerful ready-to-fill out free online forms. Create documens with forms online or just download templates in the desirable format: DOCXF, OFORM, or PDF.")}
-            metaKeywords={t("OFORMS – fill out forms online for free")}
+            title={`${searchQuery === "" ? t("Search PDF forms and templates") : searchQuery} | ONLYOFFICE`}
+            description={t("Free templates and fillable PDF forms for any business purpose")}
           />
         </Layout.PageHead>
         <AdventAnnounce t={t} locale={locale} stateMobile={stateMobile} />

@@ -16,6 +16,8 @@ const FormPage = ({ locale, form, randomCarousel, compilations }) => {
   const { t } = useTranslation("common");
   const [stateMobile, setStateMobile] = useState(false);
   const [recentForms, setRecentForms] = useState([]);
+  const seoTitle = form.data[0].attributes.seo_title ? form.data[0].attributes.seo_title : form.data[0].attributes.name_form;
+  const seoDescription = form.data[0].attributes.seo_description ? form.data[0].attributes.seo_description : form.data[0].attributes.description_card;
 
   useEffect(() => {
     const localStorageKey = `recentForms_${locale}`;
@@ -42,10 +44,8 @@ const FormPage = ({ locale, form, randomCarousel, compilations }) => {
     <Layout>
       <Layout.PageHead>
         <MainHead
-          title={form.data[0].attributes.seo_title}
-          metaDescription={form.data[0].attributes.seo_description}
-          metaDescriptionOg={form.data[0].attributes.seo_description}
-          metaKeywords={form.data[0].attributes.seo_title}
+          title={`${seoTitle} | ONLYOFFICE`}
+          description={seoDescription}
         />
       </Layout.PageHead>
       <AdventAnnounce t={t} locale={locale} stateMobile={stateMobile} />

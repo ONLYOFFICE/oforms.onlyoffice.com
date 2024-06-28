@@ -19,17 +19,16 @@ const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, cate
   const isCategoryPage = true;
   const { t } = useTranslation("common");
   const [stateMobile, setStateMobile] = useState(false);
+  const seoTitle = categoryInfo.data[0]?.attributes.seo_title ? categoryInfo.data[0]?.attributes.seo_title : categoryInfo.data[0]?.attributes.categorie;
+  const seoDescription = categoryInfo.data[0]?.attributes.seo_description ? categoryInfo.data[0]?.attributes.seo_description : categoryInfo.data[0]?.attributes.header_description;
 
   return (
     isDesktopClient ? (
       <Layout>
         <Layout.PageHead>
           <MainHead
-            title={t("OFORMS – fill out forms online for free")}
-            metaSiteNameOg={t("OFORM Library")}
-            metaDescription={t("OFORMS – fill out forms online for free")}
-            metaDescriptionOg={t("Try powerful ready-to-fill out free online forms. Create documens with forms online or just download templates in the desirable format: DOCXF, OFORM, or PDF.")}
-            metaKeywords={t("OFORMS – fill out forms online for free")}
+            title={seoTitle}
+            description={seoDescription}
             isDesktopClient={isDesktopClient}
           />
         </Layout.PageHead>
@@ -54,11 +53,8 @@ const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, cate
       <Layout>
         <Layout.PageHead>
           <MainHead
-            title={t("OFORMS – fill out forms online for free")}
-            metaSiteNameOg={t("OFORM Library")}
-            metaDescription={t("OFORMS – fill out forms online for free")}
-            metaDescriptionOg={t("Try powerful ready-to-fill out free online forms. Create documens with forms online or just download templates in the desirable format: DOCXF, OFORM, or PDF.")}
-            metaKeywords={t("OFORMS – fill out forms online for free")}
+            title={seoTitle}
+            description={seoDescription}
           />
         </Layout.PageHead>
         <AdventAnnounce t={t} locale={locale} stateMobile={stateMobile} />
@@ -76,7 +72,7 @@ const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, cate
             t={t}
             locale={locale}
             title={categoryInfo.data[0]?.attributes.compilation}
-            subtitle={t("Fill out the spreadsheets online in one click or download and open them them in ONLYOFFICE editors")}
+            subtitle={categoryInfo.data[0]?.attributes.header_description}
             forms={categoryForms}
             sort={sort}
             page={page}
