@@ -59,7 +59,7 @@ const SearchResultContent = ({ t, locale, searchQuery, searchData, sort, page })
         }
       </Breadcrumbs>
 
-      {searchData.data.length > 0 ? (
+      {searchData.data?.length > 0 ? (
         <>
           <Heading className="search-result-title" level={2} label={searchQuery ? `${t("Search results for")} '${searchQuery}'` : t("Search results")} />
           <div className="search-result-nav">
