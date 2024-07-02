@@ -71,7 +71,7 @@ const DesktopClient = ({ t, locale, data, sort, categories, types, compilations,
   }, []);
 
   useEffect(() => {
-    if (data.data.length > 0) {
+    if (data.data?.length > 0) {
       const handleObserver = (entries) => {
         if (entries[0].isIntersecting) {
           handleLoadMoreForms();

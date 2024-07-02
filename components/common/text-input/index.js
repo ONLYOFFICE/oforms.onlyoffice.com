@@ -29,7 +29,7 @@ const TextInput = ({
           onFocus={onFocus}
           onChange={onChange}
           onKeyDown={onKeyDown}
-          className={`input ${className} ${value.length > 0 ? "focus" : ""}`}
+          className={`input ${className} ${value?.length > 0 ? "focus" : ""}`}
           placeholder={placeholder}
           type={type}
           value={value}
@@ -37,7 +37,7 @@ const TextInput = ({
         {label &&
           <label className="label">{label}</label>
         }
-        {inputClearBtn && value.length > 0 &&
+        {inputClearBtn && value?.length > 0 &&
           <button onClick={handlerClearValue} className="input-btn">
             <ReactSVG src="/icons/cross.svg" />
           </button>

@@ -18,9 +18,7 @@ const Error404Page = () => {
       <Layout.PageHead>
         <MainHead
           title={t("Page 404")}
-          metaSiteNameOg={t("Page 404")}
-          metaDescription={t("Page 404")}
-          metaDescriptionOg={t("Page 404")}
+          description={t("Page 404")}
         />
       </Layout.PageHead>
       <Layout.SectionMain>
