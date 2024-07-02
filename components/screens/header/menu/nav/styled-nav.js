@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { device } from "@utils/devices";
 import sustainability from "@public/icons/sustainability.svg";
 import blog1 from "@public/images/menu-pics/menu-blog-1-1.jpg";
+import blog1Zh from "@public/images/menu-pics/menu-blog-1-1-zh.jpg";
 
 const StyledNav = styled.nav`
   margin: 0 auto;
@@ -13,6 +14,14 @@ const StyledNav = styled.nav`
     .menu-block-img {
       &.reseller {
         background-image: url("https://static-oforms.onlyoffice.com/images/menu-pics/menu-reseller-fr.svg");
+      }
+    }
+  }
+
+  &.zh {
+    .menu-block-img {
+      &.blog-1 {
+        background-image: url(${blog1Zh.src});
       }
     }
   }
