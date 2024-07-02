@@ -43,7 +43,6 @@
   "Install on-premises": "在本地部署版",
   "Sign in": "登录",
   "For community": "针对开源社区",
-  "Docs Community": "文档社区版",
   "Code on GitHub": "GitHub",
   "For home use": "家庭使用",
   "Docs Home Server": "文档家用服务器",
@@ -287,5 +286,9 @@
   "Search by": "搜索",
   "Document": "文本文档",
   "Spreadsheet": "电子表格",
-  "Presentation": "演示文稿"
+  "Presentation": "演示文稿",
+  "Sustainability": "可持续发展",
+  "SustainabilityLink": "https://www.onlyoffice.com/blog/zh-hans/2024/06/eco-friendly",
+  "Workspace Community": "工作区社区版",
+  "Docspace Community": "协作空间社区版"
 }

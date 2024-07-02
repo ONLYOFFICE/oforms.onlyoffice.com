@@ -41,7 +41,6 @@
   "For home use": "ご家庭での使用向け",
   "Docs Home Server": "Docsホームサーバー",
   "DocSpace Family Pack": "DocSpace ファミリーパック",
-  "Docs Community": "Docs コミュニティ",
   "Buy from an ONLYOFFICE reseller": "ONLYOFFICEの再販業者にご購入ください",
   "Find out the list of all the authorized ONLYOFFICE resellers in your area": "最寄りの認定 ONLYOFFICE パートナー 一覧表を御覧ください。",
   "Resellers": "再販業者",
@@ -276,5 +275,7 @@
   "Search by": "で検索",
   "Document": "ドキュメント",
   "Spreadsheet": "スプレッドシート",
-  "Presentation": "プレゼンテーション"
+  "Presentation": "プレゼンテーション",
+  "Sustainability": "サステナビリティ",
+  "SustainabilityLink": "https://www.onlyoffice.com/blog/ja/2024/06/eco-friendly"
 }
