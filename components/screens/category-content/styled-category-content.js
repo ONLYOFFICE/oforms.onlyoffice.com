@@ -66,11 +66,12 @@ const StyledCategoryContent = styled(Section)`
   }
 
   .category-header {
-    margin-bottom: 72px;
+    margin: 0 auto 72px;
+    max-width: 928px;
     text-align: center;
 
     @media screen and ${device.mobile} {
-      margin-bottom: 48px;
+      margin: 0 auto 48px;
     }
   }
 

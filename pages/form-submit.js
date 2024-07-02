@@ -19,11 +19,8 @@ const FormSubmitPage = ({ locale, categories, formExts, queryIndexData }) => {
     <Layout>
       <Layout.PageHead>
         <MainHead
-          title={t("OFORMS – fill out forms online for free")}
-          metaSiteNameOg={t("OFORM Library")}
-          metaDescription={t("OFORMS – fill out forms online for free")}
-          metaDescriptionOg={t("Try powerful ready-to-fill out free online forms. Create documens with forms online or just download templates in the desirable format: DOCXF, OFORM, or PDF.")}
-          metaKeywords={t("OFORMS – fill out forms online for free")}
+          title={t("ONLYOFFICE templates")}
+          description={t("Free templates and fillable PDF forms for any business purpose")}
         />
       </Layout.PageHead>
       <AdventAnnounce t={t} locale={locale} stateMobile={stateMobile} />

@@ -22,11 +22,8 @@ const PdfFormTemplatesPage = ({ locale, sort, page, forms, categories, types, co
     <Layout>
       <Layout.PageHead>
         <MainHead
-          title={t("OFORMS – fill out forms online for free")}
-          metaSiteNameOg={t("OFORM Library")}
-          metaDescription={t("OFORMS – fill out forms online for free")}
-          metaDescriptionOg={t("Try powerful ready-to-fill out free online forms. Create documens with forms online or just download templates in the desirable format: DOCXF, OFORM, or PDF.")}
-          metaKeywords={t("OFORMS – fill out forms online for free")}
+          title={`${t("PDF Form templates")} | ONLYOFFICE`}
+          description={t("Fill out the PDF forms online in one click or download and open them in ONLYOFFICE editors")}
         />
       </Layout.PageHead>
       <AdventAnnounce t={t} locale={locale} stateMobile={stateMobile} />
@@ -44,7 +41,7 @@ const PdfFormTemplatesPage = ({ locale, sort, page, forms, categories, types, co
           t={t}
           locale={locale}
           categoryName={t("PDF Form templates")}
-          subtitle={t("Fill out the spreadsheets online in one click or download and open them them in ONLYOFFICE editors")}
+          subtitle={t("Fill out the PDF forms online in one click or download and open them in ONLYOFFICE editors")}
           forms={forms}
           sort={sort}
           page={page}

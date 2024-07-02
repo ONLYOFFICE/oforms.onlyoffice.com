@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import languages from "@config/languages.json";
 import { useRouter } from "next/router";
 
-const MainHead = ({ metaSiteNameOg, metaDescription, metaDescriptionOg, metaKeywords, title, isDesktopClient }) => {
+const MainHead = ({ title, description, isDesktopClient }) => {
   const router = useRouter();
   let style;
 
@@ -91,16 +91,15 @@ const MainHead = ({ metaSiteNameOg, metaDescription, metaDescriptionOg, metaKeyw
         <title>{title}</title>
         <meta charSet="utf-8" />
         <meta property="og:type" content="website" />
-        <meta id="ctl00_MetaSiteNameOG" property="og:site_name" content={metaSiteNameOg} />
         <meta id="ctl00_MetaTitleOG" property="og:title" content={title} />
-        <meta id="ctl00_MetaDescriptionOG" property="og:description" content={metaDescriptionOg} />
+        <meta id="ctl00_MetaDescriptionOG" property="og:description" content={description} />
         <meta property="og:url" content="https://oforms.onlyoffice.com/" />
         <meta id="ctl00_MetaImageOG" property="og:image" content="https://static.onlyoffice.com/studio/tag/personal.11.5.3/skins/default/images/logo/fb_icon_325x325.jpg" />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, shrink-to-fit=no, viewport-fit=cover" />
-        <meta id="ctl00_MetaKeywords" name="keywords" content={metaKeywords} />
-        <meta name="description" content={metaDescription} />
+        <meta id="ctl00_MetaKeywords" name="keywords" content={title} />
+        <meta name="description" content={description} />
         <link rel="apple-touch-icon" href="https://static-oforms.onlyoffice.com/images/logo/ONLYOFFICE-logo.png" />
         <meta name="google" content="notranslate" />
         <meta name="theme-light" />
@@ -153,22 +152,14 @@ const MainHead = ({ metaSiteNameOg, metaDescription, metaDescriptionOg, metaKeyw
 };
 
 MainHead.propTypes = {
-  metaSiteNameOg: PropTypes.string,
   /** Description of your web page */
-  metaDescriptionOg: PropTypes.string,
-  /** Description of your web page */
-  metaDescription: PropTypes.string,
-  /** Keywords for search engines */
-  metaKeywords: PropTypes.string,
+  description: PropTypes.string,
   /** Title for your HTML document */
   title: PropTypes.string,
 };
 
 MainHead.defaultProps = {
-  metaSiteNameOg: "ONLYOFFICE",
-  metaDescriptionOg: null,
-  metaDescription: null,
-  metaKeywords: null,
+  description: null,
   title: null,
 };
 
