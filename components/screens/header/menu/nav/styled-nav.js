@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { device } from "@utils/devices";
+import sustainability from "@public/icons/sustainability.svg";
 import blog1 from "@public/images/menu-pics/menu-blog-1-1.jpg";
+import blog1Zh from "@public/images/menu-pics/menu-blog-1-1-zh.jpg";
 
 const StyledNav = styled.nav`
   margin: 0 auto;
@@ -12,6 +14,14 @@ const StyledNav = styled.nav`
     .menu-block-img {
       &.reseller {
         background-image: url("https://static-oforms.onlyoffice.com/images/menu-pics/menu-reseller-fr.svg");
+      }
+    }
+  }
+
+  &.zh {
+    .menu-block-img {
+      &.blog-1 {
+        background-image: url(${blog1Zh.src});
       }
     }
   }
@@ -179,11 +189,14 @@ const StyledNav = styled.nav`
     
     .menu-wrapper {
       display: block;
+      width: max-content;
 
       @media screen and ${device.laptop} {
         box-sizing: border-box;
         display: flex;
         padding: 0;
+        width: 100%;
+        max-width: 100%;
         height: calc(100% - 60px);
       }
     }
@@ -191,8 +204,19 @@ const StyledNav = styled.nav`
     .menu-box {
       padding: 24px;
 
+      &:first-child {
+        min-width: 344px;
+
+        @media screen and ${device.laptop} {
+          min-width: initial;
+        }
+      }
+
       &:nth-child(2),
       &:last-child {
+        width: 100%;
+        min-width: 332px;
+
         .menu-label {
           display: flex;
           align-items: center;
@@ -224,19 +248,38 @@ const StyledNav = styled.nav`
           font-size: 13px;
           font-weight: 600;
 
+          &:before {
+            @media screen and ${device.laptop} {
+              top: 0;
+            }
+          }
+
           &:not(:last-child) {
             margin-bottom: 4px;
+
+            @media screen and ${device.laptop} {
+              margin-bottom: 12px;
+            }
           }
 
           &.custom-rooms {
             &:not(:last-child) {
               margin-bottom: 12px;
+
+              @media screen and ${device.laptop} {
+                margin-bottom: 16px;
+              }
             }
+          }
+
+          @media screen and ${device.laptop} {
+            padding: 0 0 0 36px;
           }
         }
 
         @media screen and ${device.laptop} {
           display: none;
+          min-width: initial;
         }
       }
 
@@ -249,7 +292,7 @@ const StyledNav = styled.nav`
       }
 
       &:last-child {
-        padding: 24px 16px 24px 8px;
+        padding: 24px 32px 24px 8px;
 
         &:not(.bg-gray) {
           @media screen and ${device.laptop} {
@@ -265,6 +308,31 @@ const StyledNav = styled.nav`
 
       @media screen and ${device.laptop} {
         padding: 0;
+      }
+    }
+  }
+
+  .nav-get-onlyoffice {
+    .menu-items-wrapper {
+      @media screen and ${device.laptop} {
+        height: 100%;
+      }
+    }
+
+    .menu-wrapper {
+      display: block;
+
+      @media screen and ${device.laptop} {
+        box-sizing: border-box;
+        display: flex;
+        padding: 0;
+        height: calc(100% - 60px);
+      }
+    }
+
+    .menu-wrapper-box {
+      @media screen and ${device.laptop} {
+        padding: 24px;
       }
     }
   }
@@ -300,6 +368,12 @@ const StyledNav = styled.nav`
         font-size: 13px;
         font-weight: 600;
 
+        &:before {
+          @media screen and ${device.laptop} {
+            top: 0;
+          }
+        }
+
         &:not(:last-child) {
           margin-bottom: 0;
           margin-right: 32px;
@@ -311,8 +385,8 @@ const StyledNav = styled.nav`
         }
 
         @media screen and ${device.laptop} {
+          padding: 0 0 0 36px;
           font-size: 14px;
-          line-height: 21px;
         }
       }
 
@@ -320,7 +394,9 @@ const StyledNav = styled.nav`
         margin: 0;
       }
     }
+  }
 
+  .nav-enterprise {
     .menu-box {
       width: max-content;
       min-width: 312px;
@@ -362,6 +438,60 @@ const StyledNav = styled.nav`
   }
 
   .nav-pricing {
+    .menu-items-wrapper {
+      @media screen and ${device.laptop} {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+    }
+
+    .menu-wrapper {
+      display: block;
+
+      @media screen and ${device.laptop} {
+        box-sizing: border-box;
+        display: flex;
+        padding: 0;
+      }
+    }
+
+    .menu-wrapper-box {
+      @media screen and ${device.laptop} {
+        padding: 24px 24px 0;
+      }
+    }
+
+    .menu-wrapper-bottom {
+      justify-content: flex-end;
+
+      .menu-link {
+        font-size: 13px;
+        font-weight: 600;
+
+        &:before {
+          @media screen and ${device.laptop} {
+            top: 0;
+          }
+        }
+
+        &:not(:last-child) {
+          margin-bottom: 0;
+          margin-right: 32px;
+
+          @media screen and ${device.laptop} {
+            margin-bottom: 12px;
+            margin-right: 0;
+          }
+        }
+
+        @media screen and ${device.laptop} {
+          padding: 0 0 0 36px;
+          font-size: 14px;
+        }
+      }
+    }
+
     .menu-box {
       &:first-child {
         width: max-content;
@@ -418,7 +548,6 @@ const StyledNav = styled.nav`
   }
 
   .nav-developers,
-  .nav-pricing,
   .nav-partners,
   .nav-resources {
     .menu-items-wrapper {
@@ -616,7 +745,6 @@ const StyledNav = styled.nav`
   .menu-apps {
     display: flex;
     align-items: center;
-    margin-right: 32px;
 
     .menu-label {
       padding: 4px 0 0 0;
@@ -627,10 +755,17 @@ const StyledNav = styled.nav`
       }
     }
 
+    &:not(:last-child) {
+      margin-right: 32px;
+
+      @media screen and ${device.laptop} {
+        margin-right: 0;
+      }
+    }
+
     @media screen and ${device.laptop} {
       align-items: initial;
       flex-direction: column;
-      margin-right: 0;
     }
   }
 
@@ -680,9 +815,11 @@ const StyledNav = styled.nav`
   .menu-wrapper-bottom-links {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    row-gap: 8px;
 
     .menu-link {
-      padding: 0 0 0 36px;
+      padding: 0 0 0 32px;
       font-size: 13px;
       font-weight: 400;
       line-height: 24px;
@@ -702,14 +839,15 @@ const StyledNav = styled.nav`
       }
 
       @media screen and ${device.laptop} {
+        padding: 0 0 0 36px;
         font-size: 14px;
-        line-height: 21px;
       }
     }
 
     @media screen and ${device.laptop} {
       align-items: initial;
       flex-direction: column;
+      row-gap: initial;
       margin-bottom: 24px;
       order: -1;
     }
@@ -1114,6 +1252,12 @@ const StyledNav = styled.nav`
       }
     }
 
+    &.sustainability {
+      &:before {
+        background-image: url(${sustainability.src});
+      }
+    }
+
     &.marketplace {
       &:before {
         background-position-y: -1664px;
@@ -1195,12 +1339,6 @@ const StyledNav = styled.nav`
     &.desktop-mobile-apps {
       &:before {
         background-position-y: -156px;
-      }
-    }
-
-    &.docs-community {
-      &:before {
-        background-position-y: -962px;
       }
     }
 
