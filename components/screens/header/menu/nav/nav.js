@@ -209,7 +209,7 @@ const Nav = ({ t, locale }) => {
                   <div className="menu-box-wrapper">
                     <div className="menu-label">{t("For community")}</div>
                     <InternalLink className="menu-link workspace" href={`${hrefLang}/download-workspace.aspx#workspace-community`} label={t("Workspace Community")} />
-                    <InternalLink className="menu-link docspace" href={`${hrefLang}/download-docspace.aspx?from=downloadintegrationmenu#docspace-community`} label={t("Docspace Community")} />
+                    <InternalLink className="menu-link docspace-community" href={`${hrefLang}/download-docspace.aspx?from=downloadintegrationmenu#docspace-community`} label={t("Docspace Community")} />
                     <InternalLink className="menu-link code-on-github" href="https://github.com/ONLYOFFICE/" label={t("Code on GitHub")} />
                   </div>
                 </div>
