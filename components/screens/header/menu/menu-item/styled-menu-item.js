@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { device } from "@utils/devices";
 
-const StyledNavMenu = styled.li`
+const StyledMenuItem = styled.li`
   list-style-type: none;
   padding: 0;
 
@@ -93,6 +93,7 @@ const StyledNavMenu = styled.li`
       font-size: 18px;
       line-height: 24px;
       font-weight: 700;
+      height: 56px;
       text-align: left;
     }
   }
@@ -131,4 +132,4 @@ const StyledNavMenu = styled.li`
   }
 `;
 
-export default StyledNavMenu;
+export default StyledMenuItem;

@@ -111,8 +111,7 @@
   "Projects": "プロジェクト",
   "Mails": "メール",
   "Calendar": "カレンダー",
-  "See all connectors": "すべてのコネクタを見る",
-  "Apps": "アプリ",
+  "See more connectors": "コネクタをもっと見る",
   "AI assistant": "AIアシスタント",
   "Why Docs Enterprise": "Docs Enterpriseを選ぶ理由",
   "Why DocSpace Enterprise": "DocSpace Enterpriseを選ぶ理由",
@@ -274,5 +273,7 @@
   "For Linux": "Linux用",
   "For macOS": "macOS用",
   "For Android": "Android用",
-  "For iOS": "iOS用"
+  "For iOS": "iOS用",
+  "ONLYOFFICE%20Docs%20Enterprise%20request": "ONLYOFFICE%20Docsエンタープライズ版を申し込む",
+  "ONLYOFFICE%20sales%20request": "ONLYOFFICE営業部へのお問い合わせ"
 }
