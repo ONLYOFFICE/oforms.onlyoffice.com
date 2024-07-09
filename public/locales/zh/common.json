@@ -118,8 +118,7 @@
   "Projects": "项目",
   "Mails": "邮件",
   "Calendar": "日历",
-  "See all connectors": "查看所有连接器",
-  "Apps": "应用",
+  "See more connectors": "了解其他连接器",
   "AI assistant": "AI 助手",
   "Why Docs Enterprise": "为什么选择文档企业版",
   "Why DocSpace Enterprise": "为什么选择协作空间企业版",
@@ -287,5 +286,7 @@
   "For Linux": "适用于 Linux",
   "For macOS": "适用于 macOS",
   "For Android": "适用于 Android",
-  "For iOS": "适用于 iOS"
+  "For iOS": "适用于 iOS",
+  "ONLYOFFICE%20Docs%20Enterprise%20request": "申请%20ONLYOFFICE%20文档企业版",
+  "ONLYOFFICE%20sales%20request": "ONLYOFFICE%20购买申请"
 }
