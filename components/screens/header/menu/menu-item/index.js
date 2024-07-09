@@ -1,4 +1,4 @@
-import StyledNavMenu from "./styled-navmenu";
+import StyledMenuItem from "./styled-menu-item";
 import { useState, useEffect } from "react";
 import Heading from "@components/common/heading";
 
@@ -33,7 +33,7 @@ const MenuItem = ({ children, heading, navHidden, setNavHidden, className }) => 
   }, []);
 
   return (
-    <StyledNavMenu
+    <StyledMenuItem
       onMouseLeave={() => setShowMenu(false)}
       isOpen={showMobileMenu}
       className={`nav-item ${windowCheck && showMobileMenu ? "active" : ""} ${className ? className : ""}`}
@@ -53,7 +53,7 @@ const MenuItem = ({ children, heading, navHidden, setNavHidden, className }) => 
           {children}
         </div>
       )}
-    </StyledNavMenu>
+    </StyledMenuItem>
   );
 };
 
