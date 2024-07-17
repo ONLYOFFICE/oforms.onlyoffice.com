@@ -350,11 +350,11 @@ const StyledNav = styled.nav`
     .nav-get-onlyoffice {
       .menu-box {
         width: 100%;
-        min-width: 312px;
+        min-width: 264px;
 
         &:first-child {
           width: 100%;
-          min-width: 312px;
+          min-width: 264px;
         }
       }
     }
@@ -422,8 +422,8 @@ const StyledNav = styled.nav`
   .nav-enterprise {
     .menu-box {
       width: max-content;
-      min-width: 312px;
-      max-width: 410px;
+      min-width: 264px;
+      max-width: 362px;
 
       @media screen and ${device.laptop} {
         width: 100%;
@@ -437,8 +437,8 @@ const StyledNav = styled.nav`
     .menu-box {
       &:first-child {
         width: max-content;
-        min-width: 312px;
-        max-width: 460px;
+        min-width: 264px;
+        max-width: 412px;
 
         @media screen and ${device.laptop} {
           width: 100%;
@@ -518,8 +518,8 @@ const StyledNav = styled.nav`
     .menu-box {
       &:first-child {
         width: max-content;
-        min-width: 312px;
-        max-width: 520px;
+        min-width: 264px;
+        max-width: 472px;
 
         @media screen and ${device.laptop} {
           width: 100%;
@@ -535,8 +535,8 @@ const StyledNav = styled.nav`
     .menu-box {
       &:first-child {
         width: max-content;
-        min-width: 312px;
-        max-width: 520px;
+        min-width: 264px;
+        max-width: 472px;
 
         @media screen and ${device.laptop} {
           width: 100%;
@@ -551,8 +551,8 @@ const StyledNav = styled.nav`
     .menu-box {
       &:first-child {
         width: max-content;
-        min-width: 312px;
-        max-width: 320px;
+        min-width: 264px;
+        max-width: 272px;
 
         @media screen and ${device.laptop} {
           width: 100%;
@@ -696,10 +696,9 @@ const StyledNav = styled.nav`
   }
 
   .menu-box {
-    box-sizing: border-box;
     position: relative;
     padding: 24px;
-    width: 312px;
+    width: 264px;
 
     &.bg-gray {
       background-color: #F8F9F9;
@@ -748,7 +747,7 @@ const StyledNav = styled.nav`
 
     @media screen and ${device.laptop} {
       padding: 0;
-      width: 100%;
+      width: initial;
     }
   }
 
