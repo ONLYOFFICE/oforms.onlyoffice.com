@@ -21,7 +21,7 @@ export const StyledFormPopup = styled.div`
 
   &.active {
     opacity: 1;
-    visibility visible;
+    visibility: visible;
   }
 
   .popup-wrapper {

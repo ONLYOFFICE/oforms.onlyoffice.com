@@ -1,4 +1,26 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const menuLineLeft = keyframes`
+  0% {
+    width: 0;
+    left: 50%;
+  }
+
+  100% {
+    width: 50%;
+    left: 0;
+  }
+`;
+
+const menuLineRight = keyframes`
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 50%;
+  }
+`;
 
 const StyledPhoneMenu = styled.div`
   position: relative;
@@ -17,34 +39,12 @@ const StyledPhoneMenu = styled.div`
       display: block;
 
       &:before {
-        animation: 0.3s forwards ease-in-out menuLineLeft;
+        animation: ${menuLineLeft} 0.3s forwards ease-in-out;
       }
 
       &:after {
-        animation: 0.3s forwards ease-in-out menuLineRight;
+        animation: ${menuLineRight} 0.3s forwards ease-in-out;
       }
-    }
-  }
-
-  @keyframes menuLineLeft {
-    0 {
-      width: 0;
-      left: 50%;
-    }
-
-    100% {
-      width: 50%;
-      left: 0;
-    }
-  }
-
-  @keyframes menuLineRight {
-    0 {
-      width: 0;
-    }
-
-    100% {
-      width: 50%;
     }
   }
 

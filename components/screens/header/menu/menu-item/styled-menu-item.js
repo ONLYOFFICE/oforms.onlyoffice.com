@@ -1,31 +1,31 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { device } from "@utils/devices";
+
+const menuLineLeft = keyframes`
+  0% {
+    width: 0;
+    left: 50%;
+  }
+
+  100% {
+    width: 50%;
+    left: 0;
+  }
+`;
+
+const menuLineRight = keyframes`
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 50%;
+  }
+`;
 
 const StyledMenuItem = styled.li`
   list-style-type: none;
   padding: 0;
-
-  @keyframes menuLineLeft {
-    0 {
-      width: 0;
-      left: 50%;
-    }
-
-    100% {
-      width: 50%;
-      left: 0;
-    }
-  }
-
-  @keyframes menuLineRight {
-    0 {
-      width: 0;
-    }
-
-    100% {
-      width: 50%;
-    }
-  }
 
   .heading-nav-item {
     border: none;
@@ -47,11 +47,11 @@ const StyledMenuItem = styled.li`
       + .menu-items-wrapper {
         .menu-wrapper {
           &:before {
-            animation: 0.3s forwards ease-in-out menuLineLeft;
+            animation: ${menuLineLeft} 0.3s forwards ease-in-out;
           }
 
           &:after {
-            animation: 0.3s forwards ease-in-out menuLineRight;
+            animation: ${menuLineRight} 0.3s forwards ease-in-out;
           }
         }
       }

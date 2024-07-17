@@ -1,10 +1,16 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { device } from "@utils/devices";
 import Section from "@components/common/section";
 import pdfIcon from "@public/icons/pdf-24.svg";
 import docxIcon from "@public/icons/docx-24.svg";
 import xlsxIcon from "@public/icons/xlsx-24.svg";
 import pptxIcon from "@public/icons/pptx-24.svg";
+
+const loadSpin = keyframes`
+  100%  { 
+    transform: translate(-50%, -50%) rotate(360deg); 
+  }
+`;
 
 const StyledFormSubmitContent = styled(Section)`
   background-color: #F5F5F5;
@@ -142,11 +148,7 @@ const StyledFormSubmitContent = styled(Section)`
         border-radius: 75%;
         border-right-color: transparent;
         transform: translate(-50%, -50%);
-        animation: cssload-spin 1025ms infinite linear;
-      }
-      
-      @keyframes cssload-spin {
-        100%{ transform: translate(-50%, -50%) rotate(360deg); }
+        animation: ${loadSpin} 1025ms infinite linear;
       }
     }
   }
