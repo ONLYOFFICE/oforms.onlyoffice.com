@@ -94,6 +94,10 @@ const Nav = ({ t, locale }) => {
                   {activeTab === 1 &&
                     <>
                       <InternalLink className="menu-label" href={`${hrefLang}/all-connectors.aspx`} label={t("Connectors")} />
+                      <InternalLink className="menu-link zapier" href={`${hrefLang}/office-for-zapier.aspx`}>
+                        <span className="menu-link-new">{t("Zapier")}</span>
+                        <span className="menu-label-new">{t("New")}</span>
+                      </InternalLink>
                       <InternalLink className="menu-link zoom" href={`${hrefLang}/office-for-zoom.aspx`} label={t("Zoom")} />
                       <InternalLink className="menu-link wordpress" href={`${hrefLang}/office-for-wordpress.aspx`} label={t("WordPress")} />
                       <InternalLink className="menu-link drupal" href={`${hrefLang}/office-for-drupal.aspx`} label={t("Drupal")} />
