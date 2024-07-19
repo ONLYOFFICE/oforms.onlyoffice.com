@@ -65,7 +65,7 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS',
                 passwordVariable: 'NEXT_PUBLIC_FILES_DOCSERVICE_SECRET',
                 usernameVariable: 'NEXT_PUBLIC_EDITOR_API_URL'),
-                usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS_TEST',
+                usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS_TEST_KIM',
                 passwordVariable: 'NEXT_PUBLIC_FILES_DOCSERVICE_SECRET_TEST',
                 usernameVariable: 'NEXT_PUBLIC_EDITOR_API_URL_TEST'),
                 usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS_AWS',
