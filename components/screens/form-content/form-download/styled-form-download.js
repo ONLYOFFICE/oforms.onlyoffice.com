@@ -14,7 +14,7 @@ const StyledFormDownload = styled.div`
     font-weight: 600;
     letter-spacing: 0.04em;
     white-space: nowrap;
-    text-tranform: uppercase;
+    text-transform: uppercase;
   }
 
   .form-download-list {
