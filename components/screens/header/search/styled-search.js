@@ -96,31 +96,6 @@ const StyledSearch = styled.div`
     }
   }
 
-  .search-button {
-    position: absolute;
-    top 50%;
-    right: 16px;
-    display: inline-flex;
-    transform: translateY(-50%);
-    z-index: 1;
-    border: none;
-    padding: 0;
-    width: 24px;
-    min-width: 24px;
-    height: 24px;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    transition: none;
-
-    &.cross {
-      background-image: url("");
-    }
-
-    &:hover {
-      background-color: transparent;
-    }
-  }
-
   .search-title {
     border-left: 1px solid #AAAAAA;
     padding-left: 16px;

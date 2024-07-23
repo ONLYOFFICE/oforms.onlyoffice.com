@@ -1,6 +1,28 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { device } from "@utils/devices";
 import flags from "@public/icons/flags.svg";
+
+const menuLineLeft = keyframes`
+  0% {
+    width: 0;
+    left: 50%;
+  }
+
+  100% {
+    width: 50%;
+    left: 0;
+  }
+`;
+
+const menuLineRight = keyframes`
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 50%;
+  }
+`;
 
 const StyledLanguageSelector = styled.div`
   position: relative;
@@ -24,11 +46,11 @@ const StyledLanguageSelector = styled.div`
     &:not(.is-desktop-client) {
       .language-list {
         &:before {
-          animation: 0.3s forwards ease-in-out menuLineLeft;
+          animation: ${menuLineLeft} 0.3s forwards ease-in-out;
         }
   
         &:after {
-          animation: 0.3s forwards ease-in-out menuLineRight;
+          animation: ${menuLineRight} 0.3s forwards ease-in-out;
         }
       }
     }
@@ -170,7 +192,7 @@ const StyledLanguageSelector = styled.div`
 
   .arrow-image {
     width: 8px;
-    height 6px;
+    height: 6px;
     transform: translateY(2px);
     outline: none;
     -webkit-tap-highlight-color: transparent;
@@ -178,7 +200,7 @@ const StyledLanguageSelector = styled.div`
     > div {
       display: flex;
       width: 8px;
-      height 6px;
+      height: 6px;
 
       svg {
         display: flex;
@@ -249,6 +271,7 @@ const StyledLanguageSelector = styled.div`
   .language-item {
     outline: none;
     -webkit-tap-highlight-color: transparent;
+
     .language-item-image {
       margin-top: -1px;
     }
@@ -259,27 +282,6 @@ const StyledLanguageSelector = styled.div`
     }
   }
 
-  @keyframes menuLineLeft {
-    0 {
-      width: 0;
-      left: 50%;
-    }
-
-    100% {
-      width: 50%;
-      left: 0;
-    }
-  }
-
-  @keyframes menuLineRight {
-    0 {
-      width: 0;
-    }
-
-    100% {
-      width: 50%;
-    }
-  }
 
   @media screen and ${device.laptop} {
     .language-button {
