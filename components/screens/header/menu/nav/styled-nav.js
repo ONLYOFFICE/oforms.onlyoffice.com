@@ -3,6 +3,7 @@ import { device } from "@utils/devices";
 import menuIcons from "@public/icons/menu-icons-4.svg";
 import blog1 from "@public/images/menu-pics/menu-blog-1-1.jpg";
 import blog1Zh from "@public/images/menu-pics/menu-blog-1-1-zh.jpg";
+import zhDev from "@public/images/menu-pics/menu-banner-zh.svg";
 
 const StyledNav = styled.nav`
   margin: 0 auto;
@@ -1661,6 +1662,10 @@ const StyledNav = styled.nav`
 
     &.blog-2 {
       background-image: url("https://static-oforms.onlyoffice.com/images/menu-pics/menu-blog-2-1.png");
+    }
+
+    &.zh-dev-img {
+      background-image: url(${zhDev.src});
     }
   }
 

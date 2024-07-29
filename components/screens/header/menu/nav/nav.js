@@ -325,11 +325,21 @@ const Nav = ({ t, locale }) => {
                   <div className="menu-blog-title">{t("ONLYOFFICE Docs 8.1 released: full-featured PDF Editor, Slide Master, improved RTL, enhanced collaboration in sheets, and more")}</div>
                   <div className="menu-blog-date">{t("19 June 2024")}</div>
                 </InternalLink>
-                <InternalLink className="menu-block" href={t("blogLink2")}>
-                  <div className="menu-block-img blog-2"></div>
-                  <div className="menu-blog-title">{t("Collaborate on documents within Zoom meetings: ONLYOFFICE DocSpace app for Zoom available")}</div>
-                  <div className="menu-blog-date">{t("27 February 2024")}</div>
-                </InternalLink>
+                {locale === "zh" ? (
+                  <>
+                    <InternalLink className="menu-link blog" href="https://onlyoffice.com/zh/plugin-developer-competiton.aspx" label={t("比赛")} />
+                    <InternalLink className="menu-block" href="https://onlyoffice.com/zh/plugin-developer-competiton.aspx">
+                      <div className="menu-block-img zh-dev-img"></div>
+                      <div className="menu-blog-title">{t("2024 插件开发大赛：为 ONLYOFFICE 开发插件，赢取万元奖金！")}</div>
+                    </InternalLink>
+                  </>
+                ) : (
+                  <InternalLink className="menu-block" href={t("blogLink2")}>
+                    <div className="menu-block-img blog-2"></div>
+                    <div className="menu-blog-title">{t("Collaborate on documents within Zoom meetings: ONLYOFFICE DocSpace app for Zoom available")}</div>
+                    <div className="menu-blog-date">{t("27 February 2024")}</div>
+                  </InternalLink>
+                )}
               </div>
             </div>
           </MenuItem>
