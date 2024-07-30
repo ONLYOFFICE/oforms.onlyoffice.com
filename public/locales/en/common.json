@@ -1,6 +1,7 @@
 {
-  "AdventAnnounceDesktop": "<span>ONLYOFFICE Docs 8.1 released:</span> full-featured PDF Editor, Slide Master, improved RTL, enhanced collaboration in sheets, and more",
-  "AdventAnnounceMobile": "<span>ONLYOFFICE Docs 8.1</span> released",
+  "AdventAnnounceDesktop": "<b><span>ONLYOFFICE DocSpace 2.6</span> released</b>: Form Filling Rooms, LDAP, polished room and file management, and more",
+  "AdventAnnounceMobile": "<b><span>ONLYOFFICE DocSpace 2.6</span> released</b>",
+  "AdventAnnounceLink": "https://www.onlyoffice.com/blog/2024/07/onlyoffice-docspace-2-6-released",
   "Free templates and fillable PDF forms": "<span>Free</span> templates and fillable PDF forms",
   "blogLink1": "https://www.onlyoffice.com/blog/2024/06/onlyoffice-docs-8-1-released",
   "blogLink2": "https://www.onlyoffice.com/blog/2024/02/onlyoffice-docspace-app-for-zoom",
