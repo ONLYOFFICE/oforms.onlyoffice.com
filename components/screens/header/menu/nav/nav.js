@@ -55,6 +55,7 @@ const Nav = ({ t, locale }) => {
                       <InternalLink className="menu-link meeting-rooms" href={`${hrefLang}/office-for-zoom.aspx`} label={t("Meeting rooms")} />
                       <InternalLink className="menu-link public-rooms" href={`${hrefLang}/public-rooms.aspx`} label={t("Public rooms")} />
                       <InternalLink className="menu-link custom-rooms" href={`${hrefLang}/custom-rooms.aspx`} label={t("Custom rooms")} />
+                      <InternalLink className="menu-link form-filling-rooms" href={`${hrefLang}/form-filling-rooms.aspx`} label={t("Form filling rooms")} />
 
                       <InternalLink className="menu-link document-editor" href={`${hrefLang}/document-editor.aspx`} label={t("Document editor")} />
                       <InternalLink className="menu-link spreadsheet-editor" href={`${hrefLang}/spreadsheet-editor.aspx`} label={t("Spreadsheet editor")} />

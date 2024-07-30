@@ -252,7 +252,7 @@ const StyledNav = styled.nav`
             }
           }
 
-          &.custom-rooms {
+          &.form-filling-rooms {
             &:not(:last-child) {
               margin-bottom: 12px;
 
@@ -1152,6 +1152,12 @@ const StyledNav = styled.nav`
     &.custom-rooms {
       &:before {
         background-position-y: -2002px;
+      }
+    }
+
+    &.form-filling-rooms {
+      &:before {
+        background-position-y: -2782px;
       }
     }
 
