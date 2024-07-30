@@ -67,6 +67,7 @@ const Footer = ({ t, locale }) => {
             <InternalLink className="footer-link" href={`${hrefLang}/whitepapers.aspx`} label={t("White papers")} />
             <InternalLink className="footer-link" href={`${hrefLang}/support-contact-form.aspx`} label={t("Support contact form")} />
             <InternalLink className="footer-link" href={`${hrefLang}/demo-order.aspx`} label={t("Order demo")} />
+            <InternalLink className="footer-link" href={`${hrefLang}/legalterms.aspx`} label={t("Legal notice")} />
           </FooterItem>
         </div>
         {locale !== "zh" &&

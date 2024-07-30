@@ -55,6 +55,7 @@ const Nav = ({ t, locale }) => {
                       <InternalLink className="menu-link meeting-rooms" href={`${hrefLang}/office-for-zoom.aspx`} label={t("Meeting rooms")} />
                       <InternalLink className="menu-link public-rooms" href={`${hrefLang}/public-rooms.aspx`} label={t("Public rooms")} />
                       <InternalLink className="menu-link custom-rooms" href={`${hrefLang}/custom-rooms.aspx`} label={t("Custom rooms")} />
+                      <InternalLink className="menu-link form-filling-rooms" href={`${hrefLang}/form-filling-rooms.aspx`} label={t("Form filling rooms")} />
 
                       <InternalLink className="menu-link document-editor" href={`${hrefLang}/document-editor.aspx`} label={t("Document editor")} />
                       <InternalLink className="menu-link spreadsheet-editor" href={`${hrefLang}/spreadsheet-editor.aspx`} label={t("Spreadsheet editor")} />
@@ -213,7 +214,7 @@ const Nav = ({ t, locale }) => {
                   <div className="menu-box-wrapper">
                     <div className="menu-label">{t("For community")}</div>
                     <InternalLink className="menu-link workspace" href={`${hrefLang}/download-workspace.aspx#workspace-community`} label={t("Workspace Community")} />
-                    <InternalLink className="menu-link docspace-community" href={`${hrefLang}/download-docspace.aspx?from=downloadintegrationmenu#docspace-community`} label={t("Docspace Community")} />
+                    <InternalLink className="menu-link docspace-community" href={`${hrefLang}/download-docspace.aspx?from=downloadintegrationmenu#docspace-community`} label={t("DocSpace Community")} />
                     <InternalLink className="menu-link code-on-github" href="https://github.com/ONLYOFFICE/" label={t("Code on GitHub")} />
                   </div>
                 </div>
@@ -325,11 +326,21 @@ const Nav = ({ t, locale }) => {
                   <div className="menu-blog-title">{t("ONLYOFFICE Docs 8.1 released: full-featured PDF Editor, Slide Master, improved RTL, enhanced collaboration in sheets, and more")}</div>
                   <div className="menu-blog-date">{t("19 June 2024")}</div>
                 </InternalLink>
-                <InternalLink className="menu-block" href={t("blogLink2")}>
-                  <div className="menu-block-img blog-2"></div>
-                  <div className="menu-blog-title">{t("Collaborate on documents within Zoom meetings: ONLYOFFICE DocSpace app for Zoom available")}</div>
-                  <div className="menu-blog-date">{t("27 February 2024")}</div>
-                </InternalLink>
+                {locale === "zh" ? (
+                  <>
+                    <InternalLink className="menu-link blog" href="https://onlyoffice.com/zh/plugin-developer-competiton.aspx" label={t("比赛")} />
+                    <InternalLink className="menu-block" href="https://onlyoffice.com/zh/plugin-developer-competiton.aspx">
+                      <div className="menu-block-img zh-dev-img"></div>
+                      <div className="menu-blog-title">{t("2024 插件开发大赛：为 ONLYOFFICE 开发插件，赢取万元奖金！")}</div>
+                    </InternalLink>
+                  </>
+                ) : (
+                  <InternalLink className="menu-block" href={t("blogLink2")}>
+                    <div className="menu-block-img blog-2"></div>
+                    <div className="menu-blog-title">{t("Collaborate on documents within Zoom meetings: ONLYOFFICE DocSpace app for Zoom available")}</div>
+                    <div className="menu-blog-date">{t("27 February 2024")}</div>
+                  </InternalLink>
+                )}
               </div>
             </div>
           </MenuItem>
