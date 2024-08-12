@@ -47,7 +47,7 @@ const MainPage = ({ isDesktopClient, theme, locale, sort, forms, types, categori
         </Layout.SectionMain>
       </Layout>
     ) : (
-      <Layout>
+      <Layout locale={locale}>
         <Layout.PageHead>
           <MainHead
             title={t("ONLYOFFICE templates")}

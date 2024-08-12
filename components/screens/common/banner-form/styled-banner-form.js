@@ -3,6 +3,15 @@ import { device } from "@utils/devices";
 import pdfIcon from "@public/icons/pdf-48.svg";
 
 const StyledBannerForm = styled.div`
+  &.rtl {
+  .btn-transparent{
+    margin-right: 12px;
+    }
+    .banner-form-info {      
+      margin-right: 0px;
+    }
+  }
+
   display: flex;
   border: 1px solid #666666;
   border-radius: 3px;
@@ -138,6 +147,7 @@ const StyledBannerForm = styled.div`
       margin-right: 0;
       margin-bottom: 16px;
     }
+
   }
 
   .btn-transparent {

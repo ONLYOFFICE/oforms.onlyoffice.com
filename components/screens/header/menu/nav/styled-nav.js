@@ -11,6 +11,31 @@ const StyledNav = styled.nav`
   height: 72px;
   z-index: 2;
 
+  &.ar{
+    .menu-link{
+      padding-left: initial;
+      padding-right: 36px;
+       &:before {
+        right: 0px;
+      }
+      &.blog {
+        padding-right: 0px;
+      }
+      &.contact-sales{
+        margin-left: 32px;
+      }
+    }
+    .menu-box-item{
+      &:after{
+      left: 12px;
+      right: initial;
+      transform: translateY(-50%) rotate(180deg);
+      }
+    }
+      
+    
+  }
+
   &.fr {
     .menu-block-img {
       &.reseller {

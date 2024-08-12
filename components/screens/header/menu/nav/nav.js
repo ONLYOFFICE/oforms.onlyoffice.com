@@ -8,8 +8,8 @@ const Nav = ({ t, locale }) => {
   const [navHidden, setNavHidden] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [mobileTab, setMobileTab] = useState(false);
-  const hrefLang = `https://onlyoffice.com${locale === "en" ? "" : `/${locale}`}`;
-  const appDirectoryHrefLang = `https://onlyoffice.com/app-directory${locale === "en" || locale === "pt" || locale === "it" ? "" : `/${locale}`}`;
+  const hrefLang = `https://onlyoffice.com${locale === "en" || locale === "ar" ? "" : `/${locale}`}`;
+  const appDirectoryHrefLang = `https://onlyoffice.com/app-directory${locale === "en" || locale === "pt" || locale === "it" || locale === "ar" ? "" : `/${locale}`}`;
   const blogHrefLang = `https://onlyoffice.com/blog${locale === "en" ? "" : locale === "zh" ? "/zh-hans" : locale === "pt" ? "/pt-br" : `/${locale}`}`;
   const windowCheck = typeof window !== "undefined" && window.innerWidth <= 1024;
 
