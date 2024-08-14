@@ -11,6 +11,11 @@ const StyledShareButtons = styled.div`
     font-weight: 600;
     line-height: 21px;
     color: #AAAAAA;
+
+    &.ar {
+      margin-right: 0;
+      margin-left: 8px;
+    }
   }
 
   .share-buttons-list {

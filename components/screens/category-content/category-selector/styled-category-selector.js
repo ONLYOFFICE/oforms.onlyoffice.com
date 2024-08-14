@@ -109,6 +109,17 @@ const StyledCategorySelector = styled.div`
     background-color: #ffffff;
     box-shadow: 0 20px 50px 0 rgba(85, 85, 85, 0.15);
     z-index: 10;
+
+    &.ar {
+      left: auto;
+      right: 0;
+
+      .category-selector-item {
+        @media screen and (max-width: 896px) {
+          padding: 12px 24px 12px 16px;
+        }
+      }
+    }
     
     &:before {
       content: "";

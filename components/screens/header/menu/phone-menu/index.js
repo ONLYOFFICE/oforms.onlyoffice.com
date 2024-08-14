@@ -14,7 +14,7 @@ const PhoneMenu = ({ t, locale }) => {
 
   return (
     <StyledPhoneMenu onMouseLeave={() => onCloseSelector()} onClick={() => setIsOpen(!isOpen)} className={`phone-menu ${isOpen ? "open": ""}`}>
-      <button onMouseEnter={() => setIsOpen(true)} className="phone-btn">
+      <button onMouseEnter={() => setIsOpen(true)} className={`phone-btn ${locale === "ar" && "ar"}`}>
         <ReactSVG className="phone-icon" src="/icons/phone.svg" />
       </button>
 

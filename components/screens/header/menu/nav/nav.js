@@ -108,7 +108,7 @@ const Nav = ({ t, locale }) => {
                 </div>
               </div>
               <div className="menu-wrapper-bottom">
-                <div className="menu-apps">
+                <div className={`menu-apps ${locale === "ar" && "ar"}`}>
                   <ul className="menu-apps-list">
                     <li><InternalLink className="menu-app-link windows" href={`${hrefLang}/desktop.aspx`} /></li>
                     <li><InternalLink className="menu-app-link macos" href={`${hrefLang}/desktop.aspx`} /></li>
@@ -268,7 +268,7 @@ const Nav = ({ t, locale }) => {
             </div>
           </MenuItem>
 
-          <MenuItem className="nav-partners" heading={t("Partners")} navHidden={navHidden} setNavHidden={setNavHidden}>
+          <MenuItem className={`nav-partners ${locale === "ar" && "ar"}`} heading={t("Partners")} navHidden={navHidden} setNavHidden={setNavHidden}>
             <div className="menu-wrapper">
               <div className="menu-box">
                 <InternalLink className="menu-link resellers" href={`${hrefLang}/resellers.aspx`} label={t("Resellers")} />

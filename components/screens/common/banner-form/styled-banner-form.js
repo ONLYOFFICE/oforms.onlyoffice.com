@@ -4,11 +4,26 @@ import pdfIcon from "@public/icons/pdf-48.svg";
 
 const StyledBannerForm = styled.div`
   &.rtl {
-  .btn-transparent{
-    margin-right: 12px;
+    .btn-primary {
+      margin-right: 0;
+      margin-left: 12px;
+
+      @media screen and ${device.mobile} {
+        margin-left: 0;
+      }
     }
+
+    .advent-announce-text {
+      
+    }
+
     .banner-form-info {      
       margin-right: 0px;
+    }
+    
+    .banner-form-title::before {
+      margin-right: 0;
+      margin-left: 16px;
     }
   }
 

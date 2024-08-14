@@ -29,7 +29,7 @@ const Menu = ({ t, locale, templatePrimary, templateSecondary, templateTertiary,
   }, [stateMobile]);
 
   return (
-    <StyledHeading className={`navbar ${stateMobile ? "is-open" : ""} ${!templatePrimary && !templateSecondary && !templateTertiary && !templateQuaternary ? "main": ""}`}>
+    <StyledHeading className={`navbar ${locale === "ar" && "ar"} ${stateMobile ? "is-open" : ""} ${!templatePrimary && !templateSecondary && !templateTertiary && !templateQuaternary ? "main": ""}`}>
       <GlobalStyles stateMobile={stateMobile} />
       <button onClick={() => setStateMobile(true)} className="nav-btn-mobile">
         <ReactSVG src="/icons/mob-menu.svg" />

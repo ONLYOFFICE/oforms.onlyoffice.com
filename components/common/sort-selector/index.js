@@ -54,7 +54,7 @@ const SortSelector = ({ t, locale, sort }) => {
         <ReactSVG className={`sort-icon ${isDropdownOpen ? "open" : ""}`} src="/icons/chevron-down.svg" />
       </button>
       {isDropdownOpen && (
-        <ul className="sort-dropdown">
+        <ul className={`sort-dropdown ${locale === "ar" && "ar"}`}>
           <li>
             <button onClick={() => handleSortClick("asc")} className={`sort-dropdown-btn ${sort === "asc" ? "active" : ""}`}>{t("Newest - Oldest")}</button>
           </li>

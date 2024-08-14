@@ -34,6 +34,11 @@ const StyledAccordion = styled.div`
     height: 24px;
     background-repeat: no-repeat;
 
+    &.ar {
+      margin-right: 0;
+      margin-left: 8px;
+    }
+
     &.plus {
       background-image: url(${plusIcon.src});
     }
@@ -51,6 +56,10 @@ const StyledAccordion = styled.div`
   .accordion-text {
     padding: 2px 0 22px 34px;
     font-size: 14px;
+
+    &.ar {
+      padding: 2px 34px 22px 22px;
+    }
 
     a {
       color: #FF6F3D;

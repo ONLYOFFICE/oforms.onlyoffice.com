@@ -98,6 +98,32 @@ const StyledAdventAnnounce = styled.div`
     }
   }
 
+  &.ar {
+    .advent-announce-text {
+      padding: 0 90px 0 32px;
+
+      @media screen and ${device.laptop} {
+        padding: 0;
+      }
+
+      &::before {
+        right: 0;
+        left: auto;
+      }
+
+      &::after {
+        left: 0;
+        right: auto;
+        transform: rotate(180deg);
+
+        @media screen and ${device.laptop} {
+            margin-left: 0;
+            margin-right: 10px;
+        }
+      }
+    }
+  }
+
   &.fr,
   &.es {
     .advent-announce-text {
@@ -125,9 +151,10 @@ const StyledAdventAnnounce = styled.div`
 
   &.de,
   &.pt,
-  &.ja {
+  &.ja,
+  &.ar {
     .advent-announce-text {
-      @media screen and (max-width: 375px) {
+      @media screen and (max-width: 430px) {
         max-width: 222px;
       }
     }
