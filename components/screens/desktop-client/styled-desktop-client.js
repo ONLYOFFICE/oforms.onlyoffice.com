@@ -23,6 +23,36 @@ const StyledDesktopClientContent = styled(Section)`
       "#ffffff"
     };
 
+    &.ar {
+      .header-title {
+        text-align: end;
+      }
+
+      .header-wrapper {
+        flex-direction: row-reverse;
+
+        .category-selector {
+          margin-left: auto;
+          margin-right: 0;
+        }
+
+        .sort-btn {
+          margin-right: 0;
+          margin-left: 16px;
+        }
+
+        .search {
+          @media screen and (max-width: 768px) {
+            justify-content: start;
+          }
+
+          @media screen and (max-width: 592px) {
+            margin: 0 0 0 16px;
+          }
+        }
+      }
+    }
+
     @media screen and (max-width: 592px) {
       padding: 16px 16px 24px;
     }
@@ -52,6 +82,11 @@ const StyledDesktopClientContent = styled(Section)`
     .sort-btn {
       margin-right: 16px;
     }
+
+    .category-selector-dropdown {
+      right: 0;
+      left: auto;
+    }
   }
 
   .section-page {
@@ -70,6 +105,16 @@ const StyledDesktopClientContent = styled(Section)`
     padding: 0 48px 40px 40px;
     overflow-y: auto;
 
+    &.ar {
+      .cards {
+        flex-direction: row-reverse;
+      }
+
+      @media screen and (max-width: 592px) {
+        padding: 0 16px 40px 48px;
+      }
+    }
+
     @media screen and (max-width: 592px) {
       padding: 0 48px 40px 16px;
     }
@@ -86,10 +131,7 @@ const StyledDesktopClientContent = styled(Section)`
     margin-right: 24px;
     width: 108px;
     height: 108px;
-    background-image: url(${props =>
-      props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? emptyFilterDarkImg.src : 
-      emptyFilterImg.src
-    });
+    background-image: ${props => `url(${props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? emptyFilterDarkImg.src : emptyFilterImg.src})`};
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
