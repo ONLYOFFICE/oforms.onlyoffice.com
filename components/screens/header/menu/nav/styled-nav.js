@@ -11,6 +11,52 @@ const StyledNav = styled.nav`
   height: 72px;
   z-index: 2;
 
+  &.ar{
+    .menu-link{
+      padding-left: initial;
+      padding-right: 36px !important;
+      text-align: right;
+
+      &:before {
+        right: 0px;
+      }
+
+
+      &.blog {
+        padding-right: 0px;
+      }
+
+      &.contact-sales{
+        margin-left: 32px;
+      }
+    }
+
+    .menu-box-text {
+      padding-left: initial;
+      padding-right: 36px;
+    }
+
+    .menu-block-title,
+    .menu-block-text,
+    .menu-box-text, 
+    .menu-label {
+      text-align: right;
+    }
+
+    .menu-box-item{
+      &:after{
+      left: 12px;
+      right: initial;
+      transform: translateY(-50%) rotate(180deg);
+      }
+    }
+
+    .menu-link-new {
+      margin-left: 6px;
+      margin-right: 0;
+    }
+  }
+
   &.fr {
     .menu-block-img {
       &.reseller {
@@ -449,11 +495,22 @@ const StyledNav = styled.nav`
     }
   }
 
+  .nav-partners {
+    &.ar {
+      .menu-items-wrapper {
+        left: calc(45%);
+
+        @media screen and ${device.laptop} {
+          left: 0;
+        }
+      }
+    }
+  }
+
+
   .nav-pricing,
   .nav-partners {
     .menu-items-wrapper {
-      left: calc(50% + 156px);
-
       @media screen and ${device.laptop} {
         left: initial;
       }
@@ -462,6 +519,13 @@ const StyledNav = styled.nav`
 
   .nav-pricing {
     .menu-items-wrapper {
+
+      &.ar {
+      .menu-items-wrapper {
+        left: calc(45%);
+      }
+    }
+
       @media screen and ${device.laptop} {
         display: flex;
         flex-direction: column;
@@ -548,6 +612,13 @@ const StyledNav = styled.nav`
   }
 
   .nav-resources {
+
+    &.ar {
+      .menu-items-wrapper {
+        left: calc(50%);
+      }
+    }
+
     .menu-box {
       &:first-child {
         width: max-content;
@@ -774,6 +845,24 @@ const StyledNav = styled.nav`
 
       @media screen and ${device.laptop} {
         margin: 0 0 16px;
+      }
+    }
+
+    &.ar {
+      &:not(:last-child) {
+        margin-right: 0;
+        margin-left: 32px;
+
+        @media screen and ${device.laptop} {
+          margin-left: 0;
+        }
+      }
+
+      .menu-apps-list {
+          li:not(:last-child) {
+            margin-left: 16px;
+            margin-right: 0;
+          }
       }
     }
 

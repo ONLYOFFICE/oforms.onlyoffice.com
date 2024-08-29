@@ -38,6 +38,9 @@ const LanguageSelector = ({ theme }) => {
     }
   }, [isOpen, isDesktopClient]);
 
+  console.log(languages);
+  
+
   return (
     <StyledLanguageSelector
       {...(!isDesktopClient && { onMouseEnter: () => setIsOpen(true), onMouseLeave: () => onCloseSelector() })}

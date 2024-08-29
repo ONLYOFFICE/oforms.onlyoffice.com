@@ -145,7 +145,7 @@ const DesktopClient = ({ t, locale, data, sort, categories, types, compilations,
 
   return (
     <StyledDesktopClient theme={theme}>
-      <div className="header">
+      <div className={`header ${locale === "ar" && "ar"}`}>
         <Heading className="header-title" level={1} label={t("Templates")} />
 
         <div className="header-wrapper">
@@ -166,7 +166,7 @@ const DesktopClient = ({ t, locale, data, sort, categories, types, compilations,
         </div>
       </div>
 
-      <div ref={wrapperRef} className="wrapper">
+      <div ref={wrapperRef} className={`wrapper ${locale === "ar" && "ar"}`}>
         {formsData.length === 0 || formsData.data.length === 0 ?
           <div className="error-desktop-content">
             <div className="error-desktop-image"></div>

@@ -69,7 +69,7 @@ const FormPopup = ({ t, locale, data, modalActive, setModalActive, theme }) => {
       {modalActive &&
         <PopupGlobalStyles />
       }
-      <div className="popup-wrapper">
+      <div className={`popup-wrapper ${locale === "ar" && "ar"}`}>
         <div onClick={(e) => e.stopPropagation()} className="popup-content">
           <div className="popup-header">
             <div className="popup-title">{t("Template description")}</div>

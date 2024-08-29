@@ -10,7 +10,7 @@ const Menu = ({ t, locale, templatePrimary, templateSecondary, templateTertiary,
   const logo = templatePrimary || templateSecondary || templateTertiary || templateQuaternary
     ? "https://static-oforms.onlyoffice.com/images/logo/logo-black.react.svg"
     : "https://static-oforms.onlyoffice.com/images/logo/logo-white.react.svg";
-  const curLang = `https://www.onlyoffice.com${locale === "en" ? "" : `/${locale}`}`;
+  const curLang = `https://www.onlyoffice.com${locale === "en" || "ar" ? "" : `/${locale}`}`;
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.innerWidth <= 1024 && stateMobile) {
@@ -29,7 +29,7 @@ const Menu = ({ t, locale, templatePrimary, templateSecondary, templateTertiary,
   }, [stateMobile]);
 
   return (
-    <StyledHeading className={`navbar ${stateMobile ? "is-open" : ""} ${!templatePrimary && !templateSecondary && !templateTertiary && !templateQuaternary ? "main": ""}`}>
+    <StyledHeading className={`navbar ${locale === "ar" && "ar"} ${stateMobile ? "is-open" : ""} ${!templatePrimary && !templateSecondary && !templateTertiary && !templateQuaternary ? "main": ""}`}>
       <GlobalStyles stateMobile={stateMobile} />
       <button onClick={() => setStateMobile(true)} className="nav-btn-mobile">
         <ReactSVG src="/icons/mob-menu.svg" />

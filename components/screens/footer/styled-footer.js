@@ -31,6 +31,20 @@ const StyledFooter = styled.div`
     }
   }
 
+  &.ar {
+    .footer-apps-items {
+      li:not(:last-child) {
+        margin-right: 0;
+        margin-left: 16px;
+      }
+
+      a::before {
+        margin-right: 0;
+        margin-left: 8px;
+      }
+    }
+  }
+
   .footer-apps {
     margin-bottom: 40px;
 

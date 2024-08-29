@@ -19,7 +19,7 @@ const PdfFormTemplatesPage = ({ locale, sort, page, forms, categories, types, co
   const [stateMobile, setStateMobile] = useState(false);
 
   return (
-    <Layout>
+    <Layout locale={locale}>
       <Layout.PageHead>
         <MainHead
           title={`${t("PDF Form templates")} | ONLYOFFICE`}

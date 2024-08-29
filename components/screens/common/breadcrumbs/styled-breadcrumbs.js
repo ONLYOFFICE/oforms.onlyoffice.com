@@ -9,6 +9,27 @@ const StyledBreadcrumbs = styled.ul`
   margin: 0;
   list-style-type: none;
 
+  &.ar li:not(:last-child) {
+      margin-right: 0;
+      margin-left: 23px;
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: -16px;
+        width: 6px;
+        height: 8px;
+        background-image: url(${chevronRight.src});
+        background-repeat: no-repeat;
+        transform: translateY(-50%) rotate(180deg);
+      }
+
+      &::after {
+        display: none;
+      }
+  }
+
   li {
     position: relative;
     font-size: 14px;

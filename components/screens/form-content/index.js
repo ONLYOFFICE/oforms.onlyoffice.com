@@ -51,7 +51,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
   return (
     <>
       <StyledMain>
-        <Breadcrumbs t={t} label={name_form} />
+        <Breadcrumbs t={t} label={name_form} locale={locale}/>
 
         <div className="form-preview">
           <div className="form-info">
@@ -63,10 +63,10 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
               <span className="tag template-tag">{t("Editable template")}</span>
             </div>
             <div className="form-row form-row-mobile">
-              <div className="form-item last-updated">
-                <span className="form-item-label">{t("Last updated")}:</span>
+              <div className={`form-item last-updated ${locale === "ar" ? "ar" : ""}`}>
+                <span className={`form-item-label ${locale === "ar" ? "ar" : ""}`}>{t("Last updated")}:</span>
                 <span className="form-item-info">
-                  {moment(fileUpdatedAt).locale(locale === "pt" ? "pt-br" : locale === "zh" ? "zh-cn" : locale).format(locale === "ja" ? "Y年MM月DD日" : locale === "zh" ? "Y年MM月DD" : "MMMM D, y")}
+                  {moment(fileUpdatedAt).locale(locale === "pt" ? "pt-br" : locale === "zh" ? "zh-cn" : locale === "ar" ? "ar-sa": locale).format(locale === "ja" ? "Y年MM月DD日" : locale === "zh" ? "Y年MM月DD" : locale === "ar" ? "D MMMM, YYYY" : "MMMM D, y")}
                 </span>
               </div>
               <ExternalLink
@@ -77,7 +77,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
             </div>
           </div>
 
-          <div className="form-img">
+          <div className={`form-img ${locale === "ar" ? "ar" : ''}`}>
             <img src={template_image.data?.attributes?.url} alt={name_form} />
           </div>
 
@@ -88,8 +88,8 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
               ))}
             </div>
             <div className="form-row form-row-laptop">
-              <div className="form-item last-updated">
-                <span className="form-item-label">{t("Last updated")}:</span>
+              <div className={`form-item last-updated ${locale === "ar" ? "ar" : ""}`}>
+                <span className={`form-item-label ${locale === "ar" ? "ar" : ""}`}>{t("Last updated")}:</span>
                 <span className="form-item-info">
                   {moment(fileUpdatedAt).locale(locale === "pt" ? "pt-br" : locale === "zh" ? "zh-cn" : locale).format(locale === "ja" ? "Y年MM月DD日" : locale === "zh" ? "Y年MM月DD" : "MMMM D, y")}
                 </span>
@@ -102,22 +102,22 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
             </div>
             <div className="form-row form-row-info">
               <div className="form-item">
-                <span className="form-item-label">{t("File size")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</span>
+                <span className={`form-item-label ${locale === "ar" ? "ar" : ""}`}>{t("File size")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</span>
                 <span className="form-item-info">{fileSize < 1024 ? `${fileSize.toFixed(0)} kb` : `${(fileSize / 1024).toFixed(0)} mb`}</span>
               </div>
             </div>
             <FormDownload t={t} pdfFile={pdfFile} docxFile={docxFile} pptxFile={pptxFile} xlsxFile={xlsxFile} />
             <div className="form-btns">
               {pdfFile[0]?.attributes?.hash &&
-                <ExternalLink className="btn-primary" label={t("Fill out PDF form")} href={linkPdfEditor} />
+                <ExternalLink className={`btn-primary ${locale === "ar" ? "ar" : ''}`} label={t("Fill out PDF form")} href={linkPdfEditor} />
               }
               <Button onClick={handleButtonClick} className="btn-secondary" label={t("Edit template")} />
             </div>
-            <ShareButtons t={t} />
+            <ShareButtons t={t} locale={locale}/>
           </div>
         </div>
 
-        <BannerHowCreateForm t={t} form_exts={form_exts} url={url} pdfFile={pdfFile} docxFile={docxFile} pptxFile={pptxFile} xlsxFile={xlsxFile} nameForm={name_form} />
+        <BannerHowCreateForm t={t} locale={locale} form_exts={form_exts} url={url} pdfFile={pdfFile} docxFile={docxFile} pptxFile={pptxFile} xlsxFile={xlsxFile} nameForm={name_form} />
         {!isInstalled &&
           <DesktopNotInstalledPopup t={t} locale={locale} popupActive={popupActive} setPopupActive={setPopupActive} />
         }

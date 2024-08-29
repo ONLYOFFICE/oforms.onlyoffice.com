@@ -15,12 +15,13 @@ const TextInput = ({
     onFocus,
     onChange,
     onKeyDown,
-    handlerClearValue
+    handlerClearValue,
+    locale
   }) => {
 
   return (
     <StyleTextInput className="text-input" searchIcon={searchIcon} label={label}>
-      <div className="text-input-container">
+      <div className={`text-input-container ${locale === "ar" && "ar"}`}>
         {searchIcon &&
           <ReactSVG className="search-icon" src="/icons/search-input.svg" />
         }

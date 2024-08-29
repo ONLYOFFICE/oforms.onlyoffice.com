@@ -44,6 +44,15 @@ const StyledMain = styled(Section)`
     box-shadow: 0 7px 15px 0 rgba(85, 85, 85, 0.1);
     overflow: hidden;
 
+    &.ar {
+      margin-right: 0;
+      margin-left: 56px;
+
+      @media screen and ${device.mobile} {
+        margin: 0 0 32px;
+      }
+    }
+
     img {
       max-width: 100%;
     }
@@ -234,6 +243,11 @@ const StyledMain = styled(Section)`
       &:not(:last-child) {
         margin-right: 16px;
 
+        &.ar {
+          margin-right: 0;
+          margin-left: 16px;
+        }
+
         @media screen and ${device.mobile} {
           justify-content: center;
           margin-right: 0;
@@ -255,6 +269,11 @@ const StyledMain = styled(Section)`
   .form-item-label {
     margin-right: 8px;
     color: #AAAAAA;
+
+    &.ar {
+      margin-right: 0;
+      margin-left: 8px;
+    }
   }
 
   .form-item-info {
@@ -333,6 +352,11 @@ const StyledMain = styled(Section)`
     margin-right: 16px;
     background-color: #FF6F3D;
     transition: background-color 0.3s;
+
+    &.ar {
+      margin-right: 0;
+      margin-left: 16px;
+    }
 
     &:hover {
       background-color: #FF865C;

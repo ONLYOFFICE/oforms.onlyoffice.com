@@ -34,6 +34,12 @@ const StyledCardsBlock = styled.div`
     color: #FF6F3D;
     text-decoration: underline;
 
+    &.ar::after {
+      margin-left: 0;
+      margin-right: 8px;
+      transform: rotate(180deg);
+    }
+
     &:after {
       content: "";
       display: block;

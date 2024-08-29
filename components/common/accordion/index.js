@@ -2,10 +2,13 @@ import StyledAccordion from "./styled-accordion";
 import PropTypes from "prop-types";
 import { useRef, useState } from "react";
 import Heading from "@components/common/heading";
+import { useRouter } from 'next/router'
 
 const Accordion = ({ items }) => {
   const [activeIndexes, setActiveIndexes] = useState(Array(items.length).fill(false));
   const contentRefs = useRef([]);
+  const router = useRouter()
+  const locale = router.locale
 
   const toggleAccordion = (index) => {
     setActiveIndexes((prevActiveIndexes) => {
@@ -20,7 +23,7 @@ const Accordion = ({ items }) => {
       {items.map((item, index) => (
         <div className="accordion-item" key={index}>
           <button className="accordion-header" onClick={() => toggleAccordion(index)}>
-            <div className={`accordion-icon ${activeIndexes[index] ? "minus" : "plus"}`}></div>
+            <div className={`accordion-icon ${activeIndexes[index] ? "minus" : "plus"} ${locale === "ar" ? "ar" : ""}`}></div>
             <Heading className="accordion-heading" level={4} label={item.title} />
           </button>
           <div
@@ -31,7 +34,7 @@ const Accordion = ({ items }) => {
             }}
           >
             <div
-              className="accordion-text"
+              className={`accordion-text ${locale === "ar" ? "ar" : ""}`}
               dangerouslySetInnerHTML={{ __html: item.content }}
               suppressHydrationWarning
             ></div>
