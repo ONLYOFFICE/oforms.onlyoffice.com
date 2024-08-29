@@ -5,7 +5,7 @@ import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import ErrorContent from "@components/screens/404-content";
 
-const Error404Page = () => {
+const Error404Page = ({ locale }) => {
   const { t } = useTranslation("common");
   const router = useRouter();
   const isDesktopClient = router.asPath.includes("desktop=true");
