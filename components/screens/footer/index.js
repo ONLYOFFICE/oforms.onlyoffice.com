@@ -48,6 +48,10 @@ const Footer = ({ t, locale }) => {
           </FooterItem>
         </div>
         <div className="footer-item-group">
+          <FooterItem heading={t("For education")} className="for-education">
+            <InternalLink className="footer-link" href={`${hrefLang}/office-for-students.aspx`} label={t("For students")} />
+            <InternalLink className="footer-link" href={`${hrefLang}/office-for-educators.aspx`} label={t("For educators")} />
+          </FooterItem>
           <FooterItem heading={t("Get news")} className="get-news">
             <InternalLink className="footer-link" href={blogHrefLang} label={t("Blog")} />
           </FooterItem>
