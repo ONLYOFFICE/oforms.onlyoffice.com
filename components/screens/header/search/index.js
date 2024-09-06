@@ -100,7 +100,7 @@ const Search = ({ t, locale, templateSecondary, templateTertiary, templateQuater
   };
 
   return (
-    <StyledSearch className="search" templateSecondary={templateSecondary} templateTertiary={templateTertiary} templateQuaternary={templateQuaternary}>
+    <StyledSearch className="search" locale={locale} templateSecondary={templateSecondary} templateTertiary={templateTertiary} templateQuaternary={templateQuaternary}>
       <div className="search-wrapper">
         <div className={`search-container ${searchItem ? "value" : ""}`}>
           <div ref={searchRef} className="search-input">
@@ -164,7 +164,7 @@ const Search = ({ t, locale, templateSecondary, templateTertiary, templateQuater
                 </div>
             ))}
           </div>
-          <Text className={`search-title ${locale === "ar" ? "ar" : ''}`} label={t("All Templates")} />
+          <Text className="search-title" label={t("All Templates")} />
         </div>
       </div>
     </StyledSearch>

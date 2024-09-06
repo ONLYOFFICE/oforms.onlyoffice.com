@@ -68,7 +68,7 @@ const FormPage = ({ locale, form, randomCarousel, compilations }) => {
           compilations={compilations}
         />
         <BannerFormSection t={t} locale={locale} />
-        <AccordionSection t={t} />
+        <AccordionSection t={t} locale={locale} />
       </Layout.SectionMain>
       <Layout.PageFooter>
         <Footer t={t} locale={locale} />

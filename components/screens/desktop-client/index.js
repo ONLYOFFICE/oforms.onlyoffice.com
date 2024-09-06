@@ -144,8 +144,8 @@ const DesktopClient = ({ t, locale, data, sort, categories, types, compilations,
   };
 
   return (
-    <StyledDesktopClient theme={theme}>
-      <div className={`header ${locale === "ar" && "ar"}`}>
+    <StyledDesktopClient locale={locale} theme={theme}>
+      <div className="header">
         <Heading className="header-title" level={1} label={t("Templates")} />
 
         <div className="header-wrapper">
@@ -160,13 +160,13 @@ const DesktopClient = ({ t, locale, data, sort, categories, types, compilations,
             hideCategorySelector={hideCategorySelector}
             theme={theme}
           />
-          <SearchInput t={t} setHideCategorySelector={setHideCategorySelector} theme={theme} />
+          <SearchInput t={t} locale={locale} setHideCategorySelector={setHideCategorySelector} theme={theme} />
           <SortSelector sort={sort} theme={theme} />
-          <LanguageSelector theme={theme} />
+          <LanguageSelector locale={locale} theme={theme} />
         </div>
       </div>
 
-      <div ref={wrapperRef} className={`wrapper ${locale === "ar" && "ar"}`}>
+      <div ref={wrapperRef} className="wrapper">
         {formsData.length === 0 || formsData.data.length === 0 ?
           <div className="error-desktop-content">
             <div className="error-desktop-image"></div>

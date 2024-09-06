@@ -5,30 +5,10 @@ import chevronRight from "@public/icons/chevron-right.svg";
 const StyledBreadcrumbs = styled.ul`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   padding: 0;
   margin: 0;
   list-style-type: none;
-
-  &.ar li:not(:last-child) {
-      margin-right: 0;
-      margin-left: 23px;
-
-      &:before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: -16px;
-        width: 6px;
-        height: 8px;
-        background-image: url(${chevronRight.src});
-        background-repeat: no-repeat;
-        transform: translateY(-50%) rotate(180deg);
-      }
-
-      &::after {
-        display: none;
-      }
-  }
 
   li {
     position: relative;
@@ -53,18 +33,18 @@ const StyledBreadcrumbs = styled.ul`
     }
 
     &:not(:last-child) {
-      margin-right: 23px;
+      ${props => props.locale === "ar" ? "margin-left: 23px;" : "margin-right: 23px;"}
 
       &:after {
         content: "";
         position: absolute;
         top: 50%;
-        right: -16px;
+        ${props => props.locale === "ar" ? "left: -16px;" : "right: -16px;"}
         width: 6px;
         height: 8px;
         background-image: url(${chevronRight.src});
         background-repeat: no-repeat;
-        transform: translateY(-50%);
+        transform: ${props => props.locale === "ar" ? "translateY(-50%) rotate(180deg)" : "translateY(-50%)"};
       }
     }
 

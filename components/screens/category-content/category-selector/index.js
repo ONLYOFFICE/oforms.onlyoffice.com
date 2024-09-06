@@ -31,6 +31,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, category
     <StyledCategorySelector
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
+      locale={locale}
       className={`category-selector ${locale}`}
     >
       <div className="category-selector-heading">
@@ -45,7 +46,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, category
       </div>
 
       {isOpen &&
-        <div className={`category-selector-dropdown ${locale === "ar" && "ar"} ${isCategoryOpen === true || isTypeOpen === true || isCompilationsOpen === true ? "active" : ""}`}>
+        <div className={`category-selector-dropdown ${isCategoryOpen === true || isTypeOpen === true || isCompilationsOpen === true ? "active" : ""}`}>
           <div className="category-selector-header">
             <Heading className="category-selector-title" level={4} label={t("Categories")} />
             <button onClick={handleClose} className="category-selector-header-btn">

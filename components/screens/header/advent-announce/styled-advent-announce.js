@@ -20,7 +20,7 @@ const StyledAdventAnnounce = styled.div`
       align-items: center;
       justify-content: center;
       margin: 0 auto;
-      padding: 0 32px 0 90px;
+      padding: ${props => props.locale === "ar" ? "0 90px 0 32px" : "0 32px 0 90px"};
       font-size: 14px;
       line-height: 19px;
       letter-spacing: 0.01em;
@@ -44,7 +44,7 @@ const StyledAdventAnnounce = styled.div`
       }
 
       &:before {
-        left: 0;
+        ${props => props.locale === "ar" ? "right: 0;" : "left: 0;"}
         min-width: 85px;
         height: 57px;
         background-image: url(${bannerLeftIcon.src});
@@ -55,15 +55,16 @@ const StyledAdventAnnounce = styled.div`
       }
 
       &:after {
-        right: 0;
+        ${props => props.locale === "ar" ? "left: 0;" : "right: 0;"}
         min-width: 24px;
         height: 24px;
         background-image: url(${bannerArrowRight.src});
+        transform: ${props => props.locale === "ar" && "rotate(180deg)"};
 
         @media screen and ${device.laptop} {
           position: relative;
           right: initial;
-          margin-left: 10px;
+          ${props => props.locale === "ar" ? "margin-right: 10px;" : "margin-left: 10px;"}
         }
       }
 
@@ -80,46 +81,20 @@ const StyledAdventAnnounce = styled.div`
       background: linear-gradient(90deg, #2183A6 -20.49%, #1D4350 54.81%);
 
       &.is-open {
-        transform: translate3d(429px, 0, 0);
+        transform: ${props => props.locale === "ar" ? "translate3d(-429px, 0, 0)" : "translate3d(429px, 0, 0)"};
         transition: transform .2s cubic-bezier(.16,.68,.43,.99);
       }
     }
     
     @media (max-width: 592px) {
       &.is-open {
-        transform: translate3d(calc(100vw - 64px), 0, 0);
+        transform: ${props => props.locale === "ar" ? "translate3d(calc(-100vw + 64px), 0, 0)" : "translate3d(calc(100vw - 64px), 0, 0)"};
       }
     }
-  
+
     @media (max-width: 375px) {
       &.is-open {
-        transform: translate3d(calc(100vw - 32px), 0, 0);
-      }
-    }
-  }
-
-  &.ar {
-    .advent-announce-text {
-      padding: 0 90px 0 32px;
-
-      @media screen and ${device.laptop} {
-        padding: 0;
-      }
-
-      &::before {
-        right: 0;
-        left: auto;
-      }
-
-      &::after {
-        left: 0;
-        right: auto;
-        transform: rotate(180deg);
-
-        @media screen and ${device.laptop} {
-            margin-left: 0;
-            margin-right: 10px;
-        }
+        transform: ${props => props.locale === "ar" ? "translate3d(calc(-100vw + 32px), 0, 0)" : "translate3d(calc(100vw - 32px), 0, 0)"};
       }
     }
   }

@@ -25,7 +25,7 @@ const MainPage = ({ isDesktopClient, theme, locale, sort, forms, types, categori
 
   return (
     isDesktopClient ? (
-      <Layout>
+      <Layout locale={locale}>
         <Layout.PageHead>
           <MainHead
             title={t("ONLYOFFICE templates")}
@@ -66,6 +66,7 @@ const MainPage = ({ isDesktopClient, theme, locale, sort, forms, types, categori
         <Layout.SectionMain>
           <MainContent
             t={t}
+            locale={locale}
             popularTemplates={popularTemplates}
             categories={categories}
             pptxForms={pptxForms}
@@ -73,7 +74,7 @@ const MainPage = ({ isDesktopClient, theme, locale, sort, forms, types, categori
             pdfForms={pdfForms}
             xlsxForms={xlsxForms}
           />
-          <AccordionSection t={t} />
+          <AccordionSection t={t} locale={locale} />
         </Layout.SectionMain>
         <Layout.PageFooter>
           <Footer t={t} locale={locale} />

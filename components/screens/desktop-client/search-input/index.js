@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { ReactSVG } from "react-svg";
 
-const SearchInput = ({ t, setHideCategorySelector, theme }) => {
+const SearchInput = ({ t, locale, setHideCategorySelector, theme }) => {
   const router = useRouter();
   const [inputValue, setInputValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -127,7 +127,7 @@ const SearchInput = ({ t, setHideCategorySelector, theme }) => {
   };
 
   return (
-    <StyledSearchInput theme={theme} className={`search ${isOpen ? "open" : ""}`}>
+    <StyledSearchInput locale={locale} theme={theme} className={`search ${isOpen ? "open" : ""}`}>
       <button onClick={handleShowSearch} className="search-input-btn search-btn">
         <ReactSVG src="/icons/search.svg" />
       </button>

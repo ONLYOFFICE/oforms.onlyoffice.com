@@ -47,14 +47,19 @@ const SortSelector = ({ t, locale, sort }) => {
   };
 
   return (
-    <StyledSortSelector className="sort-selector" onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
+    <StyledSortSelector
+      onMouseEnter={() => setDropdownOpen(true)}
+      onMouseLeave={() => setDropdownOpen(false)} 
+      locale={locale}
+      className="sort-selector"
+    >
       <button onClick={() => setDropdownOpen(!isDropdownOpen)} className="sort-btn">
         <span className="sort-label">{t("Sort by")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</span>
         <span className="sort-name">{typeSortData}</span>
         <ReactSVG className={`sort-icon ${isDropdownOpen ? "open" : ""}`} src="/icons/chevron-down.svg" />
       </button>
       {isDropdownOpen && (
-        <ul className={`sort-dropdown ${locale === "ar" && "ar"}`}>
+        <ul className="sort-dropdown">
           <li>
             <button onClick={() => handleSortClick("asc")} className={`sort-dropdown-btn ${sort === "asc" ? "active" : ""}`}>{t("Newest - Oldest")}</button>
           </li>

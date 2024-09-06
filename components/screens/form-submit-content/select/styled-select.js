@@ -91,7 +91,7 @@ const StyledSelect = styled.div`
     position: relative;
     display: flex;
     align-items: center;
-    padding: 15px 50px 15px 15px;
+    padding: ${props => props.locale === "ar" ? "15px 15px 15px 50px" : "15px 50px 15px 15px"};
     width: 100%;
     border: 1px solid #AAAAAA;
     border-radius: 3px;
@@ -114,14 +114,14 @@ const StyledSelect = styled.div`
     }
 
     &.category-select {
-      padding: 15px 96px 15px 15px;
+      padding: ${props => props.locale === "ar" ? "15px 15px 15px 96px" : "15px 96px 15px 15px"};
     }
 
     &:after {
       content: "";
       position: absolute;
       top: 50%;
-      right: 24px;
+      ${props => props.locale === "ar" ? "left: 24px;" : "right: 24px;"}
       width: 24px;
       height: 24px;
       background-image: url("https://static-oforms.onlyoffice.com/icons/arrow-gray-down.svg");

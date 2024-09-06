@@ -77,7 +77,13 @@ class Layout extends React.Component {
     };
 
     return (
-      <StyledLayout onDragOver={handleDragOver} onDrop={handleDrop} id="page-layout" className={`layout ${locale === "ar" ? "rtl" : ""}`}>
+      <StyledLayout
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+        locale={locale}
+        id="page-layout"
+        className="layout"
+      >
         {children}
         {headContent && <Head>{headContent.props.children}</Head>}
         {headerContent && <Header>{headerContent.props.children}</Header>}

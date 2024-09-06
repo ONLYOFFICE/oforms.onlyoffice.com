@@ -51,7 +51,7 @@ const PdfFormTemplatesPage = ({ locale, sort, page, forms, categories, types, co
           categoryUrl="pdf-form-templates"
         />
         <BannerFormSection t={t} locale={locale} />
-        <AccordionSection t={t} />
+        <AccordionSection t={t} locale={locale} />
       </Layout.SectionMain>
       <Layout.PageFooter>
         <Footer t={t} locale={locale} />

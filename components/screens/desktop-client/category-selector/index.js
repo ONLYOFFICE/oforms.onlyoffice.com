@@ -65,6 +65,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isCatego
   return (
     <StyledCategorySelector
       onMouseLeave={() => window.innerWidth >= 1024 && setIsOpen(false)}
+      locale={locale}
       theme={theme}
       className={`category-selector ${locale} ${hideCategorySelector ? "hide-mobile" : ""}`}
     >
@@ -88,7 +89,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isCatego
       </div>
 
       {isOpen &&
-        <div className={`category-selector-dropdown ${locale === "ar" && "ar"} ${isCategoryOpen === true || isTypeOpen === true || isCompilationsOpen === true ? "active" : ""}`}>
+        <div className={`category-selector-dropdown ${isCategoryOpen === true || isTypeOpen === true || isCompilationsOpen === true ? "active" : ""}`}>
           <div className="category-selector-header">
             <Heading className="category-selector-title" level={4} label={t("Categories")} />
             <button onClick={handleClose} className="category-selector-header-btn">

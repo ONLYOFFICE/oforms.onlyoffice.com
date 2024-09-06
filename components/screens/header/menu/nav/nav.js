@@ -14,10 +14,10 @@ const Nav = ({ t, locale }) => {
   const windowCheck = typeof window !== "undefined" && window.innerWidth <= 1024;
 
   return (
-    <StyledNav className={`nav ${locale} ${windowCheck && navHidden ? "hidden" : ""}`}>
+    <StyledNav locale={locale} className={`nav ${locale} ${windowCheck && navHidden ? "hidden" : ""}`}>
       <div className="nav-wrapper">
         <ul className="nav-items">
-          <MenuItem className={`nav-products ${mobileTab ? "tab-active" : ""}`} heading={t("Products")} navHidden={navHidden} setNavHidden={setNavHidden}>
+          <MenuItem className={`nav-products ${mobileTab ? "tab-active" : ""}`} heading={t("Products")} locale={locale} navHidden={navHidden} setNavHidden={setNavHidden}>
             <button onClick={() => setMobileTab(false)} className="mobile-heading-nav-item nav-products-mobile-tab">{activeTab === 0 ? t("Docs") : activeTab === 1 ? t("DocSpace") : t("Workspace")}</button>
             <div className="menu-wrapper">
               <div className="menu-wrapper-box">
@@ -108,7 +108,7 @@ const Nav = ({ t, locale }) => {
                 </div>
               </div>
               <div className="menu-wrapper-bottom">
-                <div className={`menu-apps ${locale === "ar" && "ar"}`}>
+                <div className="menu-apps">
                   <ul className="menu-apps-list">
                     <li><InternalLink className="menu-app-link windows" href={`${hrefLang}/desktop.aspx`} /></li>
                     <li><InternalLink className="menu-app-link macos" href={`${hrefLang}/desktop.aspx`} /></li>
@@ -128,7 +128,7 @@ const Nav = ({ t, locale }) => {
             </div>
           </MenuItem>
 
-          <MenuItem className="nav-enterprise" heading={t("Enterprise")} navHidden={navHidden} setNavHidden={setNavHidden}>
+          <MenuItem className="nav-enterprise" heading={t("Enterprise")} locale={locale} navHidden={navHidden} setNavHidden={setNavHidden}>
             <div className="menu-wrapper">
               <div className="menu-wrapper-box">
                 <div className="menu-box with-border">
@@ -151,7 +151,7 @@ const Nav = ({ t, locale }) => {
             </div>
           </MenuItem>
 
-          <MenuItem className="nav-developers" heading={t("Developers")} navHidden={navHidden} setNavHidden={setNavHidden}>
+          <MenuItem className="nav-developers" heading={t("Developers")} locale={locale} navHidden={navHidden} setNavHidden={setNavHidden}>
             <div className="menu-wrapper">
               <div className="menu-box">
                 <InternalLink className="menu-link all-developer-solutions" href={`${hrefLang}/for-developers.aspx`} label={t("All Developer solutions")} />
@@ -172,7 +172,7 @@ const Nav = ({ t, locale }) => {
             </div>
           </MenuItem>
 
-          <MenuItem className="nav-get-onlyoffice" heading={t("Get ONLYOFFICE")} navHidden={navHidden} setNavHidden={setNavHidden}>
+          <MenuItem className="nav-get-onlyoffice" heading={t("Get ONLYOFFICE")} locale={locale} navHidden={navHidden} setNavHidden={setNavHidden}>
             <div className="menu-wrapper">
               <div className="menu-wrapper-box">
                 <div className="menu-box with-border">
@@ -234,7 +234,7 @@ const Nav = ({ t, locale }) => {
             </div>
           </MenuItem>
 
-          <MenuItem className="nav-pricing" heading={t("Pricing")} navHidden={navHidden} setNavHidden={setNavHidden}>
+          <MenuItem className="nav-pricing" heading={t("Pricing")} locale={locale} navHidden={navHidden} setNavHidden={setNavHidden}>
             <div className="menu-wrapper">
               <div className="menu-wrapper-box">
                 <div className="menu-box">
@@ -268,7 +268,7 @@ const Nav = ({ t, locale }) => {
             </div>
           </MenuItem>
 
-          <MenuItem className={`nav-partners ${locale === "ar" && "ar"}`} heading={t("Partners")} navHidden={navHidden} setNavHidden={setNavHidden}>
+          <MenuItem className="nav-partners" heading={t("Partners")} locale={locale} navHidden={navHidden} setNavHidden={setNavHidden}>
             <div className="menu-wrapper">
               <div className="menu-box">
                 <InternalLink className="menu-link resellers" href={`${hrefLang}/resellers.aspx`} label={t("Resellers")} />
@@ -288,7 +288,7 @@ const Nav = ({ t, locale }) => {
             </div>
           </MenuItem>
 
-          <MenuItem className="nav-resources" heading={t("Resources")} navHidden={navHidden} setNavHidden={setNavHidden}>
+          <MenuItem className="nav-resources" heading={t("Resources")} locale={locale} navHidden={navHidden} setNavHidden={setNavHidden}>
             <div className="menu-wrapper">
               <div className="menu-box with-border">
                 <div className="menu-label">{t("About us")}</div>

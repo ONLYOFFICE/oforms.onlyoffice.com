@@ -83,7 +83,7 @@ const StyledCategorySelector = styled.div`
 
     svg {
       display: flex;
-      margin-left: 10px;
+      ${props => props.locale === "ar" ? "margin-right: 10px;" : "margin-left: 10px;"}
 
       > div {
         display: flex;
@@ -103,24 +103,13 @@ const StyledCategorySelector = styled.div`
   .category-selector-dropdown {
     position: absolute;
     top: calc(100% + 17px);
-    left: 0;
+    ${props => props.locale === "ar" ? "right: 0;" : "left: 0;"}
     border-radius: 0 0 6px 6px;
     padding: 16px 0;
     background-color: #ffffff;
     box-shadow: 0 20px 50px 0 rgba(85, 85, 85, 0.15);
     z-index: 10;
 
-    &.ar {
-      left: auto;
-      right: 0;
-
-      .category-selector-item {
-        @media screen and (max-width: 896px) {
-          padding: 12px 24px 12px 16px;
-        }
-      }
-    }
-    
     &:before {
       content: "";
       position: absolute;
@@ -172,16 +161,19 @@ const StyledCategorySelector = styled.div`
     background-color: transparent;
     cursor: pointer;
 
+    svg {
+      transform: ${props => props.locale === "ar" && "rotate(180deg)"};
+    }
+
     path {
       fill: #444444;
     }
   }
 
   .category-selector-item {
+    position: relative;
     box-sizing: border-box;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding: 13px 32px;
     font-size: 16px;
     line-height: 22px;
@@ -191,13 +183,25 @@ const StyledCategorySelector = styled.div`
     cursor: pointer;
 
     &:not([href]) {
+      padding: ${props => props.locale === "ar" ? "13px 32px 13px 88px" : "13px 88px 13px 32px"};
       font-weight: 700;
       letter-spacing: -0.02em;
+
+      @media screen and (max-width: 896px) {
+        padding: ${props => props.locale === "ar" ? "12px 24px 12px 72px" : "12px 72px 12px 24px"};
+      }
     }
 
     svg {
+      position: absolute;
+      top: 50%;
+      ${props => props.locale === "ar" ? "left: 32px;" : "right: 32px;"}
       display: flex;
-      margin-left: 32px;
+      transform: ${props => props.locale === "ar" ? "translateY(-50%) rotate(180deg)" : "translateY(-50%)"};
+
+      @media screen and (max-width: 896px) {
+        ${props => props.locale === "ar" ? "left: 16px;" : "right: 16px;"}
+      }
     }
 
     &:hover {
@@ -211,7 +215,6 @@ const StyledCategorySelector = styled.div`
     }
 
     @media screen and (max-width: 896px) {
-      padding: 12px 16px 12px 24px;
       font-weight: 700;
       letter-spacing: -0.02em;
       min-height: 48px;
@@ -222,7 +225,7 @@ const StyledCategorySelector = styled.div`
   .category-selector-submenu {
     position: absolute;
     top: 0;
-    left: 100%;
+    ${props => props.locale === "ar" ? "right: 100%;" : "left: 100%;"}
     border-radius: 0 0 6px 6px;
     padding: 16px 0;
     background-color: #ffffff;
@@ -250,7 +253,7 @@ const StyledCategorySelector = styled.div`
     @media screen and (max-width: 896px) {
       position: fixed;
       top: 0;
-      left: 0;
+      ${props => props.locale === "ar" ? "right: 0;" : "left: 0;"}
       width: 100%;
       height: 100%;
       border-radius: initial;

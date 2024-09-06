@@ -29,7 +29,7 @@ const Menu = ({ t, locale, templatePrimary, templateSecondary, templateTertiary,
   }, [stateMobile]);
 
   return (
-    <StyledHeading className={`navbar ${locale === "ar" && "ar"} ${stateMobile ? "is-open" : ""} ${!templatePrimary && !templateSecondary && !templateTertiary && !templateQuaternary ? "main": ""}`}>
+    <StyledHeading locale={locale} className={`navbar ${stateMobile ? "is-open" : ""} ${!templatePrimary && !templateSecondary && !templateTertiary && !templateQuaternary ? "main": ""}`}>
       <GlobalStyles stateMobile={stateMobile} />
       <button onClick={() => setStateMobile(true)} className="nav-btn-mobile">
         <ReactSVG src="/icons/mob-menu.svg" />
@@ -41,7 +41,7 @@ const Menu = ({ t, locale, templatePrimary, templateSecondary, templateTertiary,
       <Nav locale={locale} t={t} />
       <div className="nav-selector-wrapper">
         <PhoneMenu t={t} locale={locale} />
-        <LanguageSelector t={t} />
+        <LanguageSelector t={t} locale={locale} />
       </div>
       <InternalLink className="submit-form-btn" label={t("Submit form")} href="/form-submit" />
     </StyledHeading>

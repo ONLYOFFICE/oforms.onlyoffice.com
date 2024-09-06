@@ -51,7 +51,7 @@ const SpreadsheetTemplatesPage = ({ locale, sort, page, forms, categories, types
           categoryUrl="spreadsheet-templates"
         />
         <BannerFormSection t={t} locale={locale} />
-        <AccordionSection t={t} />
+        <AccordionSection t={t} locale={locale} />
       </Layout.SectionMain>
       <Layout.PageFooter>
         <Footer t={t} locale={locale} />

@@ -20,8 +20,8 @@ const TextInput = ({
   }) => {
 
   return (
-    <StyleTextInput className="text-input" searchIcon={searchIcon} label={label}>
-      <div className={`text-input-container ${locale === "ar" && "ar"}`}>
+    <StyleTextInput className="text-input" searchIcon={searchIcon} label={label} locale={locale}>
+      <div className="text-input-container">
         {searchIcon &&
           <ReactSVG className="search-icon" src="/icons/search-input.svg" />
         }

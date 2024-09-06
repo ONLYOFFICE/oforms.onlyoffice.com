@@ -52,9 +52,9 @@ const CategoryContent = ({ t, locale, subtitle, sort, page, forms, categories, t
   });
 
   return (
-    <StyledCategoryContent>
+    <StyledCategoryContent locale={locale}>
       <div className="category-nav">
-        <ul className={`category-nav-list ${locale === "ar" ? "ar" : ""}`}>
+        <ul className="category-nav-list">
           <li><InternalLink className={router.pathname === "/" ? "active" : ""} href="/" label={t("Home")} /></li>
           <li><InternalLink className={router.pathname === "/pdf-form-templates" ? "active" : ""} href={`/pdf-form-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Form")} /></li>
           <li><InternalLink className={router.pathname === "/document-templates" ? "active" : ""} href={`/document-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Document")} /></li>

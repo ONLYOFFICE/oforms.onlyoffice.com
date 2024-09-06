@@ -163,7 +163,7 @@ const StyledCategorySelector = styled.div`
 
     svg {
       display: flex;
-      margin-left: 8px;
+      ${props => props.locale === "ar" ? "margin-right: 8px;" : "margin-left: 8px;"}
       width: 22px;
       height: 22px;
 
@@ -256,6 +256,7 @@ const StyledCategorySelector = styled.div`
   }
 
   .category-selector-item {
+    position: relative;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -275,18 +276,23 @@ const StyledCategorySelector = styled.div`
     cursor: pointer;
 
     &:not([href]) {
+      padding: ${props => props.locale === "ar" ? "8px 32px 8px 88px" : "8px 88px 8px 32px"};
       font-weight: 600;
       letter-spacing: 0.04em;
 
       @media screen and (max-width: 896px) {
+        padding: ${props => props.locale === "ar" ? "8px 32px 8px 64px" : "8px 64px 8px 32px"};
         font-size: 14px;
         line-height: 19px;
       }
     }
 
     svg {
+      position: absolute;
       display: flex;
-      margin-left: 32px;
+      top: 50%;
+      ${props => props.locale === "ar" ? "left: 32px;" : "right: 32px;"}
+      transform: ${props => props.locale === "ar" ? "translateY(-50%) rotate(180deg)" : "translateY(-50%)"};
 
       path {
         fill: ${props =>
@@ -295,10 +301,6 @@ const StyledCategorySelector = styled.div`
           props.theme === "theme-contrast-dark" ? "#E8E8E8" : 
           "#444444"
         };
-      }
-
-      @media screen and ${device.mobileL} {
-        margin-left: 8px;
       }
     }
 
@@ -341,7 +343,7 @@ const StyledCategorySelector = styled.div`
   .category-selector-submenu {
     position: absolute;
     top: 0;
-    left: 100%;
+    ${props => props.locale === "ar" ? "right: 100%;" : "left: 100%;"}
     border: 1px solid ${props =>
       props.theme === "theme-light" ? "#E0E0E0" :
       props.theme === "theme-dark" ? "#5A5A5A" :
@@ -384,7 +386,7 @@ const StyledCategorySelector = styled.div`
 
     @media screen and ${device.laptop} {
       position: absolute;
-      left: 0;
+      ${props => props.locale === "ar" ? "right: 0;" : "left: 0;"}
       height: initial;
       padding: 0;
       min-width: 320px;
@@ -405,6 +407,8 @@ const StyledCategorySelector = styled.div`
       }
 
       .category-selector-header-btn {
+        transform: ${props => props.locale === "ar" && "rotate(180deg)"};
+
         svg {
           path {
             fill: ${props =>

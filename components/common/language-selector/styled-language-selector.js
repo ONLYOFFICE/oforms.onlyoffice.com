@@ -65,6 +65,7 @@ const StyledLanguageSelector = styled.div`
       position: absolute;
       top: 25px;
       left: 14px;
+      left: ${props => props.locale === "ar" ? "36px" : "14px"};
       border: 1px solid ${props =>
         props.theme === "theme-light" ? "#E0E0E0" :
         props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "#616161" :
@@ -109,7 +110,7 @@ const StyledLanguageSelector = styled.div`
 
   &:not(.is-desktop-client) {
     .flag-image {
-      padding-right: 5px;
+      ${props => props.locale === "ar" ? "margin-left: 5px;" : "margin-right: 5px;"}
     }
   }
 

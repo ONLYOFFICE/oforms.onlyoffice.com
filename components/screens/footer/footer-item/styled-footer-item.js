@@ -111,7 +111,7 @@ const StyledFooterItem = styled.div`
     @media screen and (max-width: 600px) {
       display: block;
       position: absolute;
-      right: 0;
+      ${props => props.locale === "ar" ? "left: 0;" : "right: 0;"}
       top: 14px;
       z-index: -1;
       width: 24px;

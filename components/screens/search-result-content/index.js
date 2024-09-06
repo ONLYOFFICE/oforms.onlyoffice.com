@@ -49,7 +49,7 @@ const SearchResultContent = ({ t, locale, searchQuery, searchData, sort, page })
 
   return (
     <StyledSearchResultContent>
-      <Breadcrumbs t={t}>
+      <Breadcrumbs t={t} locale={locale}>
         {
           locale === "fr" ? `${t("Search by")} « ${searchQuery} »` :
           locale === "es" ? `${t("Search by")} «${searchQuery}»` :

@@ -63,7 +63,7 @@ const StyledMailPopup = styled.div`
     width: 100%;
   }
 
-  .mail-popup-input {
+  .input.mail-popup-input {
     border-color: #aaaaaa;
     margin-bottom: 26px;
     padding: 0 16px;
@@ -137,7 +137,7 @@ const StyledMailPopup = styled.div`
 
   .mail-popup-title {
     flex: 1 1 auto;
-    margin-right: 8px;
+    ${(props) => (props.locale === "ar" ? "margin-left: 8px;" : "margin-right: 8px;")}
     font-size: 18px;
     line-height: 20px;
     font-weight: 600;

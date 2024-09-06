@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import Heading from "@components/common/heading";
 import InternalLink from "@components/common/internal-link";
 
-const FooterItem = ({ children, className, heading, href }) => {
+const FooterItem = ({ children, locale, className, heading, href }) => {
   const content = useRef();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -12,7 +12,7 @@ const FooterItem = ({ children, className, heading, href }) => {
   };
 
   return (
-    <StyledFooterItem isOpen={isOpen} className={className ? `footer-item-${className}` : `footer-item`}>
+    <StyledFooterItem isOpen={isOpen} locale={locale} className={className ? `footer-item-${className}` : `footer-item`}>
       {href ? (
         <Heading
           className="footer-item-heading footer-item-heading-link"

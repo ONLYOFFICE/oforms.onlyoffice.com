@@ -256,7 +256,7 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
   };
 
   return (
-    <StyledFormSubmitContent>
+    <StyledFormSubmitContent locale={locale}>
       <Breadcrumbs t={t} locale={locale} />
 
       <div className="wrapper">
@@ -313,6 +313,7 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
             />
             <CategorySelect
               t={t}
+              locale={locale}
               label={`${t("Template category")}*`}
               labelMore={`(${t("maximum 5")})`}
               placeholder={t("Enter category or choose")}
@@ -331,6 +332,7 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
             />
             <LanguageSelect
               t={t}
+              locale={locale}
               label={`${t("Language")}*`}
               placeholder={t("Please select a language")}
               errorText={t("Language is empty")}

@@ -34,13 +34,8 @@ const StyledRecentlyViewed = styled.div`
   .short-card {
     margin-bottom: 16px;
 
-    &.ar:not(:last-child) {
-      margin-right: 0;
-      margin-left: 16px;
-    }
-
     &:not(:last-child) {
-      margin-right: 16px;
+      ${props => props.locale === "ar" ? "margin-left: 16px;" : "margin-right: 16px;"}
     }
   }
 `;

@@ -9,7 +9,7 @@ const BannerHowCreateForm = ({ t, locale, form_exts, url, pdfFile, docxFile, ppt
     `editor?filename=${url}&fillform=${`${pdfFile[0]?.attributes?.hash}.pdf`}`;
 
   return (
-    <StyledBannerHowCreateForm className={`banner-how-create-form ${locale === "ar" ? "ar" : ''}`}>
+    <StyledBannerHowCreateForm locale={locale} className="banner-how-create-form">
       <div className="banner-body">
         <Heading className="banner-title" level={3}>
           <span dangerouslySetInnerHTML={{__html: t("HowToCreateATemplate", { nameForm })}} />

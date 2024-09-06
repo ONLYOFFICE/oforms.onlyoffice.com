@@ -2,7 +2,7 @@ import StyledMenuItem from "./styled-menu-item";
 import { useState, useEffect } from "react";
 import Heading from "@components/common/heading";
 
-const MenuItem = ({ children, heading, navHidden, setNavHidden, className }) => {
+const MenuItem = ({ locale, children, heading, navHidden, setNavHidden, className }) => {
   const windowCheck = typeof window !== "undefined" && window.innerWidth <= 1024;
   const [showMenu, setShowMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -35,6 +35,7 @@ const MenuItem = ({ children, heading, navHidden, setNavHidden, className }) => 
   return (
     <StyledMenuItem
       onMouseLeave={() => setShowMenu(false)}
+      locale={locale}
       isOpen={showMobileMenu}
       className={`nav-item ${windowCheck && showMobileMenu ? "active" : ""} ${className ? className : ""}`}
     >

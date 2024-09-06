@@ -31,20 +31,6 @@ const StyledFooter = styled.div`
     }
   }
 
-  &.ar {
-    .footer-apps-items {
-      li:not(:last-child) {
-        margin-right: 0;
-        margin-left: 16px;
-      }
-
-      a::before {
-        margin-right: 0;
-        margin-left: 8px;
-      }
-    }
-  }
-
   .footer-apps {
     margin-bottom: 40px;
 
@@ -75,7 +61,7 @@ const StyledFooter = styled.div`
       margin-bottom: 16px;
 
       &:not(:last-child) {
-        margin-right: 16px;
+        ${props => props.locale === "ar" ? "margin-left: 16px;" : "margin-right: 16px;"}
       }
     }
 
@@ -94,7 +80,7 @@ const StyledFooter = styled.div`
       &:before {
         content: "";
         display: flex;
-        margin-right: 8px;
+        ${props => props.locale === "ar" ? "margin-left: 8px;" : "margin-right: 8px;"}
         width: 40px;
         height: 40px;
         background-repeat: no-repeat;
