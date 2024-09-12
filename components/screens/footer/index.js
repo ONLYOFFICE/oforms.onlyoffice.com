@@ -17,7 +17,7 @@ const Footer = ({ t, locale }) => {
   };
 
   const hrefLang = `https://onlyoffice.com${locale === "en" ? "" : `/${locale}`}`;
-  const oformsHrefLang = `https://oforms.onlyoffice.com/${locale === "en" ? "" : locale}`;
+  const oformsHrefLang = `https://oforms.onlyoffice.com${locale === "en" ? "" : `/${locale}`}`;
   const blogHrefLang = `https://onlyoffice.com/blog${locale === "en" ? "" : locale === "zh" ? "/zh-hans" : locale === "pt" ? "/pt-br" : `/${locale}`}`;
 
   return (
@@ -35,10 +35,10 @@ const Footer = ({ t, locale }) => {
       <div className="footer-items">
         <div className="footer-item-group">
           <FooterItem heading={t("Templates")} className="templates">
-            <InternalLink className="footer-link" href={oformsHrefLang} label={t("PDF form templates")} />
-            <InternalLink className="footer-link" href={oformsHrefLang} label={t("Text document templates")} />
-            <InternalLink className="footer-link" href={oformsHrefLang} label={t("Spreadsheet templates")} />
-            <InternalLink className="footer-link" href={oformsHrefLang} label={t("Presentation templates")} />
+            <InternalLink className="footer-link" href={`${oformsHrefLang}/pdf-form-templates`} label={t("PDF form templates")} />
+            <InternalLink className="footer-link" href={`${oformsHrefLang}/document-templates`} label={t("Text document templates")} />
+            <InternalLink className="footer-link" href={`${oformsHrefLang}/spreadsheet-templates`} label={t("Spreadsheet templates")} />
+            <InternalLink className="footer-link" href={`${oformsHrefLang}/presentation-templates`} label={t("Presentation templates")} />
           </FooterItem>
           <FooterItem heading={t("Converters")} className="solutions">
             <InternalLink className="footer-link" href={`${hrefLang}/text-file-converter.aspx`} label={t("Convert text files")} />
