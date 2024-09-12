@@ -137,11 +137,6 @@ const nextConfig = {
         permanent: false,
       },
       {
-        source: '/pt',
-        destination: '/pt-BR',
-        permanent: false,
-      },
-      {
         source: '/pt-PT',
         destination: '/pt',
         permanent: false,
