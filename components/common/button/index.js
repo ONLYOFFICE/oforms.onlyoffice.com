@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 const Button = ({
     label,
     children,
+    id,
     className,
     typeButton,
     type,
@@ -13,6 +14,7 @@ const Button = ({
 
   return (
     <StyledButton
+      id={id}
       className={className}
       typeButton={typeButton}
       type={type}
@@ -30,6 +32,7 @@ Button.propTypes = {
   typeButton: PropTypes.oneOf(["primary", "secondary"]),
   type: PropTypes.oneOf(["submit", "button"]),
   isDisabled: PropTypes.bool,
+  id: PropTypes.string,
   className: PropTypes.string,
   onClick: PropTypes.func
 };

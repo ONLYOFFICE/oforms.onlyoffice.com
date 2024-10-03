@@ -48,7 +48,7 @@ const SortSelector = ({ t, locale, sort }) => {
 
   return (
     <StyledSortSelector className="sort-selector" onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
-      <button onClick={() => setDropdownOpen(!isDropdownOpen)} className="sort-btn">
+      <button onClick={() => setDropdownOpen(!isDropdownOpen)} id="sort-btn" className="sort-btn">
         <span className="sort-label">{t("Sort by")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</span>
         <span className="sort-name">{typeSortData}</span>
         <ReactSVG className={`sort-icon ${isDropdownOpen ? "open" : ""}`} src="/icons/chevron-down.svg" />
@@ -56,10 +56,10 @@ const SortSelector = ({ t, locale, sort }) => {
       {isDropdownOpen && (
         <ul className="sort-dropdown">
           <li>
-            <button onClick={() => handleSortClick("asc")} className={`sort-dropdown-btn ${sort === "asc" ? "active" : ""}`}>{t("Newest - Oldest")}</button>
+            <button onClick={() => handleSortClick("asc")} id="sort-dropdown-asc-btn" className={`sort-dropdown-btn ${sort === "asc" ? "active" : ""}`}>{t("Newest - Oldest")}</button>
           </li>
           <li>
-            <button onClick={() => handleSortClick("desc")} className={`sort-dropdown-btn ${sort === "desc" ? "active" : ""}`}>{t("Oldest - Newest")}</button>
+            <button onClick={() => handleSortClick("desc")} id="sort-dropdown-desc-btn" className={`sort-dropdown-btn ${sort === "desc" ? "active" : ""}`}>{t("Oldest - Newest")}</button>
           </li>
         </ul>
       )}

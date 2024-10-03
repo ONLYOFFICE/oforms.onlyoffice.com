@@ -36,7 +36,7 @@ const UploadPopup = ({ t, uploadPopup, fileName, setUploadPopup, clearForm }) =>
               </div>
             </div>
 
-            <Button onClick={e => closePopup(e)} className="popup-btn" label={t("OK")} />
+            <Button onClick={e => closePopup(e)} id="upload-popup-btn" className="popup-btn" label={t("OK")} />
           </div>
         </div>
       </div>

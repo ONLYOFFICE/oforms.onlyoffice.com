@@ -108,6 +108,7 @@ const FormPopup = ({ t, locale, data, modalActive, setModalActive, theme }) => {
               </div>
               <Button
                 onClick={openTemplate}
+                id="form-popup-btn"
                 className="form-btn"
                 label={t("Open")}
               />

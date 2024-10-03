@@ -55,11 +55,11 @@ const CategoryContent = ({ t, locale, subtitle, sort, page, forms, categories, t
     <StyledCategoryContent>
       <div className="category-nav">
         <ul className="category-nav-list">
-          <li><InternalLink className={router.pathname === "/" ? "active" : ""} href="/" label={t("Home")} /></li>
-          <li><InternalLink className={router.pathname === "/pdf-form-templates" ? "active" : ""} href={`/pdf-form-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Form")} /></li>
-          <li><InternalLink className={router.pathname === "/document-templates" ? "active" : ""} href={`/document-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Document")} /></li>
-          <li><InternalLink className={router.pathname === "/spreadsheet-templates" ? "active" : ""} href={`/spreadsheet-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Spreadsheet")} /></li>
-          <li><InternalLink className={router.pathname === "/presentation-templates" ? "active" : ""} href={`/presentation-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Presentation")} /></li>
+          <li><InternalLink id="category-nav-home-link" className={router.pathname === "/" ? "active" : ""} href="/" label={t("Home")} /></li>
+          <li><InternalLink id="category-nav-pdf-form-link" className={router.pathname === "/pdf-form-templates" ? "active" : ""} href={`/pdf-form-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Form")} /></li>
+          <li><InternalLink id="category-nav-document-link" className={router.pathname === "/document-templates" ? "active" : ""} href={`/document-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Document")} /></li>
+          <li><InternalLink id="category-nav-spreadsheet-link" className={router.pathname === "/spreadsheet-templates" ? "active" : ""} href={`/spreadsheet-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Spreadsheet")} /></li>
+          <li><InternalLink id="category-nav-presentation-link" className={router.pathname === "/presentation-templates" ? "active" : ""} href={`/presentation-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Presentation")} /></li>
         </ul>
       </div>
       <div className="category-header">

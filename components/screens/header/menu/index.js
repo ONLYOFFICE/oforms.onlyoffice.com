@@ -43,7 +43,7 @@ const Menu = ({ t, locale, templatePrimary, templateSecondary, templateTertiary,
         <PhoneMenu t={t} locale={locale} />
         <LanguageSelector t={t} />
       </div>
-      <InternalLink className="submit-form-btn" label={t("Submit form")} href="/form-submit" />
+      <InternalLink id="submit-form-btn" className="submit-form-btn" label={t("Submit form")} href="/form-submit" />
     </StyledHeading>
   );
 };

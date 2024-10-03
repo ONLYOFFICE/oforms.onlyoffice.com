@@ -11,7 +11,7 @@ const ErrorContent = ({ t, heading, text, isDesktopClient, theme }) => {
           <div className="error-desktop-image"></div>
           <div>
             <Heading className="error-desktop-title" level={4} label={t("Nothing found")} />
-            <InternalLink className="error-desktop-link" href={`/?desktop=true${theme ? `&theme=${theme}` : ""}`} label={t("GoToHomePage")} />
+            <InternalLink id="error-desktop-link" className="error-desktop-link" href={`/?desktop=true${theme ? `&theme=${theme}` : ""}`} label={t("GoToHomePage")} />
           </div>
         </div>
       ) : (
@@ -20,7 +20,7 @@ const ErrorContent = ({ t, heading, text, isDesktopClient, theme }) => {
           <div className="error-container">
             <Heading className="error-heading" level={1} label={heading} />
             <Text className="error-description" label={text} />
-            <InternalLink className="error-btn" href="/" label={t("Go to home page")} />
+            <InternalLink id="error-btn" className="error-btn" href="/" label={t("Go to home page")} />
           </div>
         </>
       )}

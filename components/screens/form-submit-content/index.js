@@ -372,7 +372,7 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
             </div>
           </div>
 
-          <Button onClick={(e) => sendForm(e)} className={`send-button ${formLoading ? "loading" : ""}`} label={t("Send")} isDisabled={!formValid || formLoading} />
+          <Button onClick={(e) => sendForm(e)} id="form-submit-send-button" className={`send-button ${formLoading ? "loading" : ""}`} label={t("Send")} isDisabled={!formValid || formLoading} />
         </div>
 
         {errorTextPopup !== "" &&
