@@ -235,6 +235,11 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
       setCookie("formSubmit", "", 1);
       setCookie("imageUpload", templatePreviewUrl, 1);
     };
+        
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "newTemplateUploded",
+    });
   };
 
   const clearForm = () => {
