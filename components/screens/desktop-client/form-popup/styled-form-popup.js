@@ -104,10 +104,6 @@ export const StyledFormPopup = styled.div`
     background-color: transparent;
     cursor: pointer;
 
-    div {
-      display: flex;
-    }
-
     svg {
       path {
         stroke: ${props =>

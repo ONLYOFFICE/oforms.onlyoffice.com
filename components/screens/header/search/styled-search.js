@@ -46,11 +46,8 @@ const StyledSearch = styled.div`
   .text-input {
     .search-icon {
       left: 18px;
-
-      svg {
-        width: 20px;
-        height: 20px;
-      }
+      width: 20px;
+      height: 20px;
 
       path {
         fill: #AAAAAA;
@@ -160,12 +157,8 @@ const StyledSearch = styled.div`
     transform: translateY(-50%);
     cursor: pointer;
 
-    div {
-      display: flex;
-
-      svg {
-        width: 24px;
-      }
+    svg {
+      width: 24px;
     }
   }
 
