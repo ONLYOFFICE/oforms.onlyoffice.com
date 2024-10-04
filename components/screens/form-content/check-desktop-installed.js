@@ -9,6 +9,7 @@ function checkBrowser() {
     isOpera: /OPR|Opera/.test(userAgent),
     isFirefox: /Firefox/.test(userAgent),
     isChrome: /Chrome/.test(userAgent) && !/Edge/.test(userAgent),
+    isSafari: /Safari/.test(userAgent) && !/Chrome/.test(userAgent),
     isIOS: /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream,
   };
 }
