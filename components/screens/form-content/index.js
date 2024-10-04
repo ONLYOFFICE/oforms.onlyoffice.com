@@ -70,6 +70,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
                 </span>
               </div>
               <ExternalLink
+                id="suggest-changes-mobile-link"
                 className="suggest-changes-link"
                 href={`mailto:marketing@onlyoffice.com?subject=Suggesting%20changes%20for%20Form%20${name_form}&body=Suggesting%20changes%20for%20Form%20${name_form}.`}
                 label={t("Suggest changes")}
@@ -95,6 +96,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
                 </span>
               </div>
               <ExternalLink
+                id="suggest-changes-link"
                 className="suggest-changes-link"
                 href={`mailto:marketing@onlyoffice.com?subject=Suggesting%20changes%20for%20Form%20${name_form}&body=Suggesting%20changes%20for%20Form%20${name_form}.`}
                 label={t("Suggest changes")}
@@ -109,9 +111,9 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
             <FormDownload t={t} pdfFile={pdfFile} docxFile={docxFile} pptxFile={pptxFile} xlsxFile={xlsxFile} />
             <div className="form-btns">
               {pdfFile[0]?.attributes?.hash &&
-                <ExternalLink className={`btn-primary ${locale === "ar" ? "ar" : ''}`} label={t("Fill out PDF form")} href={linkPdfEditor} />
+                <ExternalLink id="fill-out-pdf-form-link" className={`btn-primary ${locale === "ar" ? "ar" : ''}`} label={t("Fill out PDF form")} href={linkPdfEditor} />
               }
-              <Button onClick={handleButtonClick} className="btn-secondary" label={t("Edit template")} />
+              <Button onClick={handleButtonClick} id="edit-template-btn" className="btn-secondary" label={t("Edit template")} />
             </div>
             <ShareButtons t={t} locale={locale}/>
           </div>

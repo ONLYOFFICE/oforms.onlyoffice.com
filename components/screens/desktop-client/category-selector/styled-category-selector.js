@@ -92,10 +92,6 @@ const StyledCategorySelector = styled.div`
     background-color: transparent;
     cursor: pointer;
 
-    div {
-      display: flex;
-    }
-
     svg {
       path {
         stroke: ${props =>
@@ -166,10 +162,6 @@ const StyledCategorySelector = styled.div`
       margin-left: 8px;
       width: 22px;
       height: 22px;
-
-      > div {
-        display: flex;
-      }
 
       path {
         fill: ${props =>

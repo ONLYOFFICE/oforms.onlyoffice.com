@@ -17,10 +17,10 @@ const MainContent = ({ t, popularTemplates, categories, pptxForms, docxForms, pd
             <Text as="p" className="info-text" label={t("Fill out ready PDF forms. Download DOCX, XLSX, PPTX templates, easy editable online in just a few clicks")} />
           </div>
           <div className="info-editors">
-            <EditorCard title={t("Fillable forms")} linkUrl="/pdf-form-templates" imageUrl="fillable-form.svg" />
-            <EditorCard title={t("Documents")} linkUrl="/document-templates" imageUrl="document.svg" />
-            <EditorCard title={t("Spreadsheets")} linkUrl="/spreadsheet-templates" imageUrl="spreadsheet.svg" />
-            <EditorCard title={t("Presentations")} linkUrl="/presentation-templates" imageUrl="presentation.svg" />
+            <EditorCard id="pdf-form-editor-card" title={t("Fillable forms")} linkUrl="/pdf-form-templates" imageUrl="fillable-form.svg" />
+            <EditorCard id="document-editor-card" title={t("Documents")} linkUrl="/document-templates" imageUrl="document.svg" />
+            <EditorCard id="spreadsheet-editor-card" title={t("Spreadsheets")} linkUrl="/spreadsheet-templates" imageUrl="spreadsheet.svg" />
+            <EditorCard id="presentation-editor-card" title={t("Presentations")} linkUrl="/presentation-templates" imageUrl="presentation.svg" />
           </div>
         </div>
         <BannerForm t={t} />
@@ -37,13 +37,13 @@ const MainContent = ({ t, popularTemplates, categories, pptxForms, docxForms, pd
           <CardsBlock className="pdf-fillable-form" t={t} title={t("PDF fillable forms")} linkUrl={"/pdf-form-templates"} data={pdfForms} />
         }
         {docxForms.data.length > 0 &&
-          <CardsBlock t={t} title={t("Document templates")} linkUrl={"/document-templates"} data={docxForms} />
+          <CardsBlock className="document-templates" t={t} title={t("Document templates")} linkUrl={"/document-templates"} data={docxForms} />
         }
         {xlsxForms.data.length > 0 &&
-          <CardsBlock t={t} title={t("Spreadsheet templates")} linkUrl={"/spreadsheet-templates"} data={xlsxForms} />
+          <CardsBlock className="spreadsheet-templates" t={t} title={t("Spreadsheet templates")} linkUrl={"/spreadsheet-templates"} data={xlsxForms} />
         }
         {pptxForms.data.length > 0 &&
-          <CardsBlock t={t} title={t("Presentation templates")} linkUrl={"/presentation-templates"} data={pptxForms} />
+          <CardsBlock className="presentation-templates" t={t} title={t("Presentation templates")} linkUrl={"/presentation-templates"} data={pptxForms} />
         }
       </StyledMain>
     </>

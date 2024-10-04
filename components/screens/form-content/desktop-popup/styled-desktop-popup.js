@@ -57,10 +57,6 @@ const StyledDesktopPopup = styled.div`
     background-color: transparent;
     cursor: pointer;
 
-    div {
-      display: flex;
-    }
-
     svg {
       path {
         fill: #444444;

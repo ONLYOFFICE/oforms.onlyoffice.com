@@ -55,10 +55,6 @@ const StyledPhoneMenu = styled.div`
     margin: 0;
     background-color: transparent;
     cursor: pointer;
-
-    div {
-      display: inline-flex;
-    }
   }
 
   .phone-wrapper {

@@ -81,10 +81,6 @@ const StyledCardSlider = styled.div`
     transition: box-shadow 0.3s;
     cursor: pointer;
 
-    div {
-      display: flex;
-    }
-
     svg {
       path {
         transition: fill 0.3s;

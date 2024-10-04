@@ -235,6 +235,11 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
       setCookie("formSubmit", "", 1);
       setCookie("imageUpload", templatePreviewUrl, 1);
     };
+        
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "newTemplateUploded",
+    });
   };
 
   const clearForm = () => {
@@ -372,7 +377,7 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
             </div>
           </div>
 
-          <Button onClick={(e) => sendForm(e)} className={`send-button ${formLoading ? "loading" : ""}`} label={t("Send")} isDisabled={!formValid || formLoading} />
+          <Button onClick={(e) => sendForm(e)} id="form-submit-send-button" className={`send-button ${formLoading ? "loading" : ""}`} label={t("Send")} isDisabled={!formValid || formLoading} />
         </div>
 
         {errorTextPopup !== "" &&

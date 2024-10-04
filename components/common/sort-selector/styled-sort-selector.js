@@ -42,10 +42,6 @@ const StyledSortSelector = styled.div`
   .sort-icon {
     margin-left: 8px;
 
-    > div {
-      display: flex;
-    }
-
     &.open {
       transform: rotate(180deg);
     }

@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { device } from "@utils/devices";
-import bannerLeftIcon from "@public/images/banners/banner-left-icon.svg";
-import bannerArrowRight from "@public/images/banners/arrow-right.svg";
+import bannerBg from "@public/images/banners/banner-bg.svg";
+import bannerBgMobile from "@public/images/banners/banner-bg-mobile.svg";
+import arrowRight from "@public/images/banners/arrow-right.svg";
 
 const StyledAdventAnnounce = styled.div`
   .advent-announce {
@@ -12,72 +13,107 @@ const StyledAdventAnnounce = styled.div`
     overflow: hidden;
     text-align: center;
     text-decoration: none;
-    background: linear-gradient(90deg, #2183A6 -20.49%, #1D4350 54.81%);
+    background-image: url(${bannerBg.src});
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #1B181F;
 
-    .advent-announce-text {
+    .advent-announce-wrapper {
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 0 4px 0 10px;
       margin: 0 auto;
-      padding: 0 32px 0 90px;
-      font-size: 14px;
-      line-height: 19px;
-      letter-spacing: 0.01em;
       text-align: center;
       width: max-content;
-      max-width: 560px;
       height: 100%;
-      color: #FFFFFF;
       text-decoration: none;
       z-index: 10;
 
-      &:after,
-      &:before {
-        content: "";
-        position: absolute;
-        background-repeat: no-repeat;
-
-        @media screen and ${device.laptop} {
-          height: 48px;
-        }
-      }
-
-      &:before {
-        left: 0;
-        min-width: 85px;
-        height: 57px;
-        background-image: url(${bannerLeftIcon.src});
-
-        @media screen and ${device.laptop} {
-          content: none;
-        }
-      }
-
       &:after {
-        right: 0;
-        min-width: 24px;
-        height: 24px;
-        background-image: url(${bannerArrowRight.src});
-
         @media screen and ${device.laptop} {
-          position: relative;
-          right: initial;
-          margin-left: 10px;
+          content: "";
+          display: block;
+          margin-left: 12px;
+          width: 22px;
+          min-width: 22px;
+          height: 22px;
+          background-image: url(${arrowRight.src});
+          background-repeat: no-repeat;
         }
       }
+    }
 
-      span {
-        color: #07D9CA;
+    .advent-announce-text {
+      font-size: 14px;
+      line-height: 22px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      color: #FFFFFF;
+
+      b {
+        font-size: 16px;
+        line-height: 22px;
+        font-weight: 800;
+
+        @media screen and ${device.laptop} {
+          font-size: 13px;
+          line-height: 18px;
+          font-weight: 700;
+        }
       }
 
       @media screen and ${device.laptop} {
-        padding: 0;
+        font-size: 13px;
+        line-height: 18px;
+      }
+    }
+
+    .advent-announce-link {
+      box-sizing: border-box;
+      display: inline-flex;
+      border-radius: 3px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      min-height: 36px;
+      text-decoration: none;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .advent-announce-blog-link {
+      border: 1px solid #AAAAAA;
+      margin-left: 24px;
+      padding: 9px 15px;
+      font-size: 12px;
+      line-height: 16px;
+      color: #FFFFFF;
+      transition: border-color 0.3s, color 0.3s;
+
+      &:hover {
+        border-color: #FF6F3D;
+        color: #FF6F3D;
+      }
+    }
+
+    .advent-announce-webinars-link {
+      margin-left: 8px;
+      padding: 9px 16px;
+      font-size: 13px;
+      line-height: 18px;
+      color: #444444;
+      background-color: #FFFFFF;
+      opacity: 0.9;
+      transition: opacity 0.3s;
+
+      &:hover {
+        opacity: 1;
       }
     }
 
     @media screen and ${device.laptop} {
-      background: linear-gradient(90deg, #2183A6 -20.49%, #1D4350 54.81%);
+      background-image: url(${bannerBgMobile.src});
 
       &.is-open {
         transform: translate3d(429px, 0, 0);
@@ -98,66 +134,81 @@ const StyledAdventAnnounce = styled.div`
     }
   }
 
-  &.ar {
-    .advent-announce-text {
-      padding: 0 90px 0 32px;
-
-      @media screen and ${device.laptop} {
+  &.en {
+    .advent-announce-wrapper {
+      @media screen and ${device.mobileM} {
         padding: 0;
-      }
-
-      &::before {
-        right: 0;
-        left: auto;
-      }
-
-      &::after {
-        left: 0;
-        right: auto;
-        transform: rotate(180deg);
-
-        @media screen and ${device.laptop} {
-            margin-left: 0;
-            margin-right: 10px;
-        }
+        max-width: 210px;
       }
     }
   }
 
-  &.fr,
+  &.fr {
+    .advent-announce-wrapper {
+      max-width: 888px;
+
+      @media screen and (max-width: 592px) {
+        padding: 0;
+        max-width: 234px;
+      }
+    }
+  }
+
+  &.de {
+    .advent-announce-wrapper {
+      max-width: 892px;
+
+      @media screen and (max-width: 592px) {
+        padding: 0;
+        max-width: 278px;
+      }
+    }
+  }
+
   &.es {
-    .advent-announce-text {
-      max-width: 524px;
+    .advent-announce-wrapper {
+      max-width: 820px;
+
+      @media screen and (max-width: 592px) {
+        padding: 0;
+        max-width: 218px;
+      }
     }
   }
 
   &.pt {
-    .advent-announce-text {
-      max-width: 572px;
+    .advent-announce-wrapper {
+      max-width: 854px;
+
+      @media screen and (max-width: 592px) {
+        padding: 0;
+        max-width: 232px;
+      }
     }
   }
 
   &.it {
-    .advent-announce-text {
-      max-width: 534px;
-    }
-  }
+    .advent-announce-wrapper {
+      max-width: 892px;
 
-  &.zh {
-    .advent-announce-text {
-      max-width: 590px;
-    }
-  }
-
-  &.de,
-  &.pt,
-  &.ja,
-  &.ar {
-    .advent-announce-text {
-      @media screen and (max-width: 430px) {
-        max-width: 222px;
+      @media screen and (max-width: 592px) {
+        padding: 0;
+        max-width: 228px;
       }
     }
+  }
+
+  &.ja {
+    .advent-announce-wrapper {
+      @media screen and (max-width: 592px) {
+        padding: 0;
+        max-width: 214px;
+      }
+    }
+  }
+
+  &.ar {
+    direction: initial;
   }
 
   .advent-desktop-hide {

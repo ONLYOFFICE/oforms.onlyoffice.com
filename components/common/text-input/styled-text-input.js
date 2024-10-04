@@ -45,11 +45,6 @@ const StyledTextInput = styled.div`
     transform: translateY(-50%);
     pointer-events: none;
 
-
-    div {
-      display: flex;
-    }
-
     path {
       fill: #808080;
     }

@@ -20,7 +20,7 @@ const BannerHowCreateForm = ({ t, locale, form_exts, url, pdfFile, docxFile, ppt
           <li>{t("Download the ready document from the editor")}</li>
         </ol>
       </div>
-      <ExternalLink className="banner-btn" href={link} label={t("Fill out")} />
+      <ExternalLink id="how-create-form-btn" className="banner-btn" href={link} label={t("Fill out")} />
     </StyledBannerHowCreateForm>
   );
 };

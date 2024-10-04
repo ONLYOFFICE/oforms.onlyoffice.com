@@ -200,25 +200,11 @@ const StyledLanguageSelector = styled.div`
     transform: translateY(2px);
     outline: none;
     -webkit-tap-highlight-color: transparent;
-
-    > div {
-      display: flex;
-      width: 8px;
-      height: 6px;
-
-      svg {
-        display: flex;
-      }
-    }
   }
 
   .chevron-down {
     width: 24px;
     height: 24px;
-
-    > div {
-      display: flex;
-    }
   }
 
   .title-lng {

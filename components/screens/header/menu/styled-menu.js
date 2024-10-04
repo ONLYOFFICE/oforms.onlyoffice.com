@@ -37,11 +37,9 @@ const StyledHeading = styled.div`
 
     .phone-btn,
     .arrow-image {
-      svg {
-        path {
-          fill: #FFFFFF;
-        }
-      } 
+      path {
+        fill: #FFFFFF;
+      }
     }
 
     .nav-btn-mobile {
@@ -130,16 +128,10 @@ const StyledHeading = styled.div`
     height: 14px;
     background-color: transparent;
 
-    div {
-      @media screen and ${device.laptop} {
-        display: flex;
-      }
-
-      svg {
-        rect {
-          @media screen and ${device.laptop} {
-            fill: #444444;
-          }
+    svg {
+      rect {
+        @media screen and ${device.laptop} {
+          fill: #444444;
         }
       }
     }

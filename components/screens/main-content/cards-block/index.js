@@ -12,7 +12,7 @@ const CardsBlock = ({ className, t, title, linkUrl, data }) => {
     <StyledCardsBlock className={`cards-block ${className ? className : ""}`}>
       <div className="cards-block-top">
         <Heading className="cards-block-title" level={3} label={title} />
-        <InternalLink className={`cards-block-link ${locale === "ar" ? "ar" : ''}`} href={linkUrl} label={t("Show all")} />
+        <InternalLink id={`cards-block-${className}-link`} className={`cards-block-link ${locale === "ar" ? "ar" : ''}`} href={linkUrl} label={t("Show all")} />
       </div>
       
       <div className="cards-block-list">

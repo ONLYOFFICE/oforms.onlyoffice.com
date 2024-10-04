@@ -16,11 +16,13 @@ const BannerForm = ({ t }) => {
       </div>
       <div className="banner-form-btns">
         <ExternalLink
+          id="banner-form-cloud-link"
           className="btn-primary"
           href={`https://www.onlyoffice.com${locale === "en" ? "" : `/${locale}`}/docspace-registration.aspx?utm_source=oforms&utm_medium=top_banner&utm_campaign=registration_docspace&utm_content=use_in_the_cloud`}
           label={t("Use in the cloud")}
         />
         <ExternalLink
+          id="banner-form-download-link"
           className="btn-transparent"
           href={`https://www.onlyoffice.com${locale === "en" ? "" : `/${locale}`}/download-desktop.aspx#desktop`}
           label={t("Download desktop app")}
