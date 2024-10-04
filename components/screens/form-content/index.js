@@ -1,6 +1,7 @@
 
 import { StyledMain, StyledForms } from "./styled-form-content";
 import { useState } from "react";
+import { scriptProtocolCheck } from "./check-desktop-installed";
 import Heading from "@components/common/heading";
 import Text from "@components/common/text";
 import ExternalLink from "@components/common/external-link";
@@ -36,25 +37,15 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
   const fileUpdatedAt = pdfFile[0]?.attributes.updatedAt || docxFile[0]?.attributes.updatedAt || pptxFile[0]?.attributes.updatedAt || xlsxFile[0]?.attributes.updatedAt;
   const fileUrl = pdfFile[0]?.attributes.url || docxFile[0]?.attributes.url || pptxFile[0]?.attributes.url || xlsxFile[0]?.attributes.url;
 
-  const handleButtonClick = (event) => {
-    event.preventDefault();
+  const handleButtonClick = () => {
+    scriptProtocolCheck(
+      `oo-office://open|f|${fileUrl}`,
+      () => setIsInstalled(false),
+      () => setIsInstalled(true),
+      () => setIsInstalled(false)
+    );
 
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    const userAgent = navigator.userAgent;
-    const isOpera = /OPR|Opera/.test(userAgent);
-    const isFirefox = /Firefox/.test(userAgent);
-    const isChrome = /Chrome/.test(userAgent) && !/Edge/.test(userAgent);
-    const isSafari = /Safari/.test(userAgent) && !/Chrome/.test(userAgent) && !/iPhone|iPad|iPod/.test(userAgent);
-
-    if (isFirefox || isChrome || isOpera || isSafari) {
-      window.location.href = encodeURI(`oo-office://open|f|${fileUrl}`);
-    } else {
-      setIsInstalled(false);
-      setPopupActive(true);
-    }
+    setPopupActive(true);
   };
 
   return (
