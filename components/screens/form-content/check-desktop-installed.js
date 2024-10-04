@@ -26,7 +26,7 @@ function openUriWithTimeoutHack(uri, failCb, successCb) {
     successCb();
   });
 
-  window.location = uri;
+  window.location.href = encodeURI(uri);
 }
 
 function openUriWithHiddenFrame(uri, failCb, successCb) {
@@ -44,7 +44,7 @@ function openUriWithHiddenFrame(uri, failCb, successCb) {
   });
 
   const iframe = createHiddenIframe(document.body);
-  iframe.src = uri;
+  iframe.src = encodeURI(uri);
 }
 
 function registerEvent(target, eventType, cb) {
