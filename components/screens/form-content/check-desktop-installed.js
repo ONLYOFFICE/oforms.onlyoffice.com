@@ -9,7 +9,6 @@ function checkBrowser() {
     isOpera: /OPR|Opera/.test(userAgent),
     isFirefox: /Firefox/.test(userAgent),
     isChrome: /Chrome/.test(userAgent) && !/Edge/.test(userAgent),
-    isSafari: /Safari/.test(userAgent) && !/Chrome/.test(userAgent),
     isIOS: /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream,
   };
 }
@@ -69,10 +68,8 @@ function protocolCheck(uri, failCb, successCb, unsupportedCb) {
     openUriWithTimeoutHack(uri, failCallback, successCallback);
   } else {
     const browser = checkBrowser();
-    if (browser.isFirefox || browser.isChrome || browser.isOpera) {
+    if (browser.isFirefox || browser.isChrome || browser.isOpera || browser.isSafari) {
       openUriWithTimeoutHack(uri, failCallback, successCallback);
-    } else if (browser.isSafari) {
-      openUriWithHiddenFrame(uri, failCallback, successCallback);
     } else {
       unsupportedCb && unsupportedCb();
     }
