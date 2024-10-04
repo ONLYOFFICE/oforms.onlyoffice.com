@@ -40,10 +40,6 @@ const StyledCategorySelector = styled.div`
     background-color: transparent;
     cursor: pointer;
 
-    div {
-      display: flex;
-    }
-
     svg {
       path {
         stroke: #444444;
@@ -84,10 +80,6 @@ const StyledCategorySelector = styled.div`
     svg {
       display: flex;
       margin-left: 10px;
-
-      > div {
-        display: flex;
-      }
 
       path {
         fill: #444444;

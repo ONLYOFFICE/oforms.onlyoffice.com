@@ -1,7 +1,6 @@
 import { PopupGlobalStyles, StyledFormPopup } from "./styled-form-popup";
 import { useEffect } from "react";
 import { getUA } from "react-device-detect";
-import { ReactSVG } from "react-svg";
 import Heading from "@components/common/heading";
 import Text from "@components/common/text";
 import Button from "@components/common/button";
@@ -73,7 +72,11 @@ const FormPopup = ({ t, locale, data, modalActive, setModalActive, theme }) => {
         <div onClick={(e) => e.stopPropagation()} className="popup-content">
           <div className="popup-header">
             <div className="popup-title">{t("Template description")}</div>
-            <button onClick={() => setModalActive(false)} className="popup-close-btn"><ReactSVG src="/icons/desktop-cross.svg" /></button>
+            <button onClick={() => setModalActive(false)} className="popup-close-btn">
+              <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 4L15 15M15 4L4 15" stroke="#444444" strokeWidth="2"/>
+              </svg>
+            </button>
           </div>
           <div className="popup-body">
             <div className="form-img">
