@@ -152,22 +152,29 @@ const Nav = ({ t, locale }) => {
           </MenuItem>
 
           <MenuItem className="nav-developers" heading={t("Developers")} navHidden={navHidden} setNavHidden={setNavHidden}>
-            <div className="menu-wrapper">
-              <div className="menu-box">
-                <InternalLink className="menu-link all-developer-solutions" href={`${hrefLang}/for-developers.aspx`} label={t("All Developer solutions")} />
-                <InternalLink className="menu-link docs-developer" href={`${hrefLang}/developer-edition.aspx`} label={t("Docs Developer")} />
-                <InternalLink className="menu-link conversion-api" href={`${hrefLang}/conversion-api.aspx`} label={t("Conversion API")} />
-                <InternalLink className="menu-link document-builder" href={`${hrefLang}/document-builder.aspx`} label={t("Document Builder")} />
-                <InternalLink className="menu-link api-documentation" href="https://api.onlyoffice.com/" label={t("API Documentation")} />
-                <InternalLink className="menu-link pricing" href={`${hrefLang}/developer-edition-prices.aspx`} label={t("Pricing")} />
-                <InternalLink className="menu-link get-in-now" href={`${hrefLang}/download-docs.aspx?from=downloadintegrationmenu#docs-developer`} label={t("Get it now")} />
+          <div className="menu-wrapper">
+              <div className="menu-wrapper-box">
+                <div className="menu-box">
+                  <div className="menu-box-wrapper">
+                    <div className="menu-label">{t("For All solutions")}</div>
+                    <InternalLink className="menu-link docs-developer" href={`${hrefLang}/developer-edition.aspx`} label={t("Why Docs Developer")} />
+                    <InternalLink className="menu-link sublink" href={`${hrefLang}/docspace-prices.aspx`} label={t("Automation API")} />
+                    <InternalLink className="menu-link sublink" href={`${hrefLang}/conversion-api.aspx`} label={t("Conversion API")} />
+                    <InternalLink className="menu-link sublink" href={`${hrefLang}/document-builder.aspx`} label={t("Document Builder")} />                    
+                  </div>                  
+                </div>
+                <div className="menu-box bg-gray">
+                  <InternalLink className="menu-block" href={`${hrefLang}/see-it-in-action.aspx`}>
+                    <div className="menu-block-title">{t("See it in action!")}</div>
+                    <div className="menu-block-img see-it-in-action"></div>
+                    <Text className="menu-block-text" as="p" label={t("Curious to know what the interface looks like and try the main functionality without registration?")} />
+                  </InternalLink>
+                </div>
               </div>
-              <div className="menu-box bg-gray">
-                <InternalLink className="menu-block" href={`${hrefLang}/see-it-in-action.aspx`}>
-                  <div className="menu-block-title">{t("See it in action!")}</div>
-                  <div className="menu-block-img see-it-in-action"></div>
-                  <Text className="menu-block-text" as="p" label={t("Curious to know what the interface looks like and try the main functionality without registration?")} />
-                </InternalLink>
+              <div className="menu-wrapper-bottom">
+                <InternalLink className="menu-link api-docs menu_link_bottom" href={`mailto:sales@onlyoffice.com?subject=${t("ONLYOFFICE%20sales%20request")}`} label={t("API Docs")} />
+                <InternalLink className="menu-link request-demo menu_link_bottom" href={`${hrefLang}/demo-order.aspx`} label={t("Schedule free demo")} />
+                <InternalLink className="menu-link contact-sales menu_link_bottom" href={`mailto:sales@onlyoffice.com?subject=${t("ONLYOFFICE%20for%20 developers")}`} label={t("Contact sales")} />
               </div>
             </div>
           </MenuItem>

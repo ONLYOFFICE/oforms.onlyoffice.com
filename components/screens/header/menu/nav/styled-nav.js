@@ -480,6 +480,27 @@ const StyledNav = styled.nav`
   }
 
   .nav-developers {
+    .menu-wrapper {
+      flex-direction: column;
+      .menu-wrapper-bottom{
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        gap: 24px;
+        .menu-link{
+          margin-bottom: 0;
+        }
+        .menu_link_bottom{          
+          font-size: 13px;
+          font-weight: 600;
+          line-height: 19.5px;
+        }
+        @media screen and ${device. laptop}{
+          flex-direction: column;
+          gap:12px;
+        }
+      }
+    }
     .menu-box {
       &:first-child {
         width: max-content;
@@ -1400,6 +1421,12 @@ const StyledNav = styled.nav`
       }
     }
 
+    &.api-docs {
+      &:before {
+        background-position-y: -885px;
+      }
+    }
+
     &.convert-pdfs {
       &:before {
         background-position-y: -1326px;
@@ -1431,6 +1458,7 @@ const StyledNav = styled.nav`
     }
 
     &.docs-developer {
+      margin-bottom: 8px;
       &:before {
         background-position-y: -806px;
       }
@@ -1657,6 +1685,17 @@ const StyledNav = styled.nav`
     &.docs-cloud {
       &:before {
         background-position-y: -782px;
+      }
+    }
+
+    &.sublink{
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 20.8px;
+      text-align: left;
+      margin-bottom: 4px;
+      &:before {
+        background: none;
       }
     }
 
