@@ -26,7 +26,7 @@
   "PDF editor": "PDFエディタ",
   "Marketplace": "マーケットプレイス",
   "E-book creator": "電子書籍クリエイター",
-  "Security": "安全 на セキュリティ",
+  "Security": "セキュリティ",
   "Accessibility": "アクセシビリティ",
   "AI helper": "AIヘルパー",
   "DocSpace Enterprise": "DocSpace エンタープライズ版",
@@ -284,5 +284,11 @@
   "New": "最新",
   "For education": "教育向け",
   "For students": "学生向け",
-  "For educators": "教育関係者向け"
+  "For educators": "教育関係者向け",
+
+  "For All solutions": "すべてのソリューション",
+  "Why Docs Developer": "Docs Developerを選ぶべき理由",
+  "Automation API": "自動化API",
+  "API Docs": "APIドキュメント",
+  "Schedule free demo": "無料デモを予約"
 }

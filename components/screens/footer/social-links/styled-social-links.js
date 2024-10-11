@@ -129,6 +129,7 @@ const StyledSocialLinks = styled.div`
     &.qiita {
       background-image: url("https://static-oforms.onlyoffice.com/icons/qiita_footer.svg");
       background-position: center;
+      background-size: 40px 40px;
     }
   }
 

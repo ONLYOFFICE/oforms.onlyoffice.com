@@ -484,7 +484,7 @@ const StyledNav = styled.nav`
       flex-direction: column;
       .menu-wrapper-box{
         flex-direction: row;
-        width: 624px;
+        width: 660px;
         flex-wrap: wrap;
         @media screen and ${device. laptop} {
           width: 100%;
@@ -1483,7 +1483,7 @@ const StyledNav = styled.nav`
 
     &.request-demo {
       &:before {
-        background-position-y: -1430px;
+        background-image: url("https://static-oforms.onlyoffice.com/icons/demo.svg");
       }
     }
 
