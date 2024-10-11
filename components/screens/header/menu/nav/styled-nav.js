@@ -482,7 +482,44 @@ const StyledNav = styled.nav`
   .nav-developers {
     .menu-wrapper {
       flex-direction: column;
+      .menu-wrapper-box{
+        flex-direction: row;
+        width: 624px;
+        flex-wrap: wrap;
+        @media screen and ${device. laptop} {
+          width: 100%;
+          .order-1{
+            order: 1;
+          }
+          .order-2{
+            order:3;            
+            margin-bottom: 0;
+            margin-top: 0;
+            .menu-block{
+              padding: 32px;
+            }
+          }
+          .order-3{
+            order:2;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 24px 24px 24px 0px;
+            position: relative;
+            &:before{
+              content: '';
+              position: absolute;
+              width: 117%;
+              left: -24px;
+              top: -1px;
+              border-top: 1px solid #E2E2E2;
+              z-index: -1; 
+            }
+          }
+        }
+      }
+    }
       .menu-wrapper-bottom{
+        width: 100%;
         display: flex;
         flex-direction: row;
         justify-content: end;
@@ -863,6 +900,7 @@ const StyledNav = styled.nav`
     .menu-label {
       padding: 4px 0 0 0;
       margin: 0 16px 0 0;
+      
 
       @media screen and ${device.laptop} {
         margin: 0 0 16px;
@@ -1084,6 +1122,34 @@ const StyledNav = styled.nav`
   }
 
   .menu-box-wrapper {
+    .header-link{
+      display: inline-block;
+      position: relative;
+      font-size: 10px;
+      font-weight: 600;
+      line-height: 13.3px;
+      letter-spacing: 0.3em;
+      text-align: left;
+      color: #666666;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      &:hover{
+        color: #FF6F3D;
+      }
+      &:after {
+        content:"";
+        position: absolute;
+        top: 50%;
+        right: -12px;
+        width:10px;
+        height:10px;
+        display:block;
+        background-image: url("https://static-oforms.onlyoffice.com/icons/arrow-gray-right.svg");
+        background-position: center;
+        background-repeat: no-repeat;
+        transform: translateY(-50%);
+      }
+    }
     &:not(:last-child) {
       margin-bottom: 16px;
     }

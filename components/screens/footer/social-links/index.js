@@ -2,25 +2,75 @@ import StyledSocialLinks from "./styled-social-links";
 import ExternalLink from "@components/common/external-link";
 
 const SocialLinks = ({ locale, handlerSetModal }) => {
+
+  const linkedinUrl = locale === "it" 
+    ? "https://www.linkedin.com/showcase/onlyoffice-italia/" 
+    : locale === "es" 
+      ? "https://www.linkedin.com/showcase/onlyoffice-en-espa%C3%B1ol/"
+      : locale === "fr"
+        ? "https://www.linkedin.com/showcase/onlyoffice-france/" 
+        : "https://www.linkedin.com/company/ascensio-system-sia/";
+
+  const xUrl = locale === "fr" 
+    ? "https://x.com/onlyoffice_fr"   
+    : locale === "ja"
+      ? "https://x.com/only_office_JA"
+      : "https://twitter.com/ONLY_OFFICE";
+
+  const telegramUrl = locale === "es"
+    ? "https://t.me/onlyoffice_es"
+    : locale === "fr"
+      ? "https://t.me/onlyofficefr"
+      : "https://t.me/onlyofficeofficial";
+
   return (
     <StyledSocialLinks className={`social-links ${locale}`}>
       <div onClick={() => handlerSetModal()} className="social-link subscribe-mail" title="OnlyOffice"></div>
 
-      {locale !== "zh" &&
-        <ExternalLink className="social-link facebook" href="https://www.facebook.com/pages/OnlyOffice/833032526736775" title="Facebook" />
-      }
-      <ExternalLink className="social-link twitter" href="https://twitter.com/ONLY_OFFICE" rel="nofollow" title="Twitter" />
-      <ExternalLink className="social-link linkedin" href="https://www.linkedin.com/company/ascensio-system-sia/" rel="nofollow" title="LinkedIn" />
-      <ExternalLink className="social-link youtube" href="https://www.youtube.com/user/onlyofficeTV" rel="nofollow" title="YouTube" />
-      <ExternalLink className="social-link blog" href={`https://www.onlyoffice.com/blog/${locale === "en" ? "" : locale === "pt" ? "pt-br" : locale}`} title="Blog" />
-      <ExternalLink className="social-link medium" href="https://medium.com/onlyoffice" title="Medium" />
+      
 
-      {locale !== "zh" &&
-        <ExternalLink className="social-link instagram" href="https://www.instagram.com/the_onlyoffice/" title="Instagram" />
+      {locale === "ja" && 
+        <>
+          <ExternalLink className="social-link blog" href={`https://www.onlyoffice.com/blog/${locale === "en" ? "" : locale === "pt" ? "pt-br" : locale}`} title="Blog" />
+          <ExternalLink className="social-link twitter" href={xUrl} rel="nofollow" title="Twitter" />      
+          <ExternalLink className="social-link note" href="https://note.com/onlyoffice/" title="Note" />
+          <ExternalLink className="social-link qiita" href="https://qiita.com/ONLYOFFICE" title="Qiita" />
+          <ExternalLink className="social-link discord" href="https://discord.gg/F3WhrAkZ" rel="nofollow" title="Diskord" />
+          <ExternalLink className="social-link youtube" href="https://www.youtube.com/user/onlyofficeTV" rel="nofollow" title="YouTube" />
+          <ExternalLink className="social-link tiktok" href="https://vm.tiktok.com/ZMLXbFEyd/" title="TikTok" />
+          <ExternalLink className="social-link github" href="https://github.com/ONLYOFFICE/" title="GitHub" />
+          <ExternalLink className="social-link linkedin" href={linkedinUrl} title="LinkedIn" />
+          <ExternalLink className="social-link facebook" href="https://www.facebook.com/pages/OnlyOffice/833032526736775" title="Facebook" />
+          <ExternalLink className="social-link medium" href="https://medium.com/onlyoffice" title="Medium" />
+          <ExternalLink className="social-link fosstodon" href="https://fosstodon.org/@ONLYOFFICE" title="Fosstodon" />
+          <ExternalLink className="social-link telegram" href={telegramUrl} title="Telegram" />
+        </>
       }
 
-      <ExternalLink className="social-link github" href="https://github.com/ONLYOFFICE/" title="GitHub" />
-      <ExternalLink className="social-link fosstodon" href="https://fosstodon.org/@ONLYOFFICE" title="Fosstodon" />
+      {locale !== "ja" && 
+        <>
+          <ExternalLink className="social-link blog" href={`https://www.onlyoffice.com/blog/${locale === "en" ? "" : locale === "pt" ? "pt-br" : locale}`} title="Blog" />
+          <ExternalLink className="social-link twitter" href={xUrl} rel="nofollow" title="Twitter" />     
+          <ExternalLink className="social-link discord" href="https://discord.gg/F3WhrAkZ" rel="nofollow" title="Diskord" />
+          <ExternalLink className="social-link youtube" href="https://www.youtube.com/user/onlyofficeTV" rel="nofollow" title="YouTube" />
+          <ExternalLink className="social-link tiktok" href="https://vm.tiktok.com/ZMLXbFEyd/" title="TikTok" />
+          <ExternalLink className="social-link github" href="https://github.com/ONLYOFFICE/" title="GitHub" />
+          <ExternalLink className="social-link linkedin" href={linkedinUrl} title="LinkedIn" />               
+          {locale !== "zh" &&
+            <ExternalLink className="social-link facebook" href="https://www.facebook.com/pages/OnlyOffice/833032526736775" title="Facebook" />
+          }                       
+          <ExternalLink className="social-link medium" href="https://medium.com/onlyoffice" title="Medium" />
+          
+         
+          <ExternalLink className="social-link fosstodon" href="https://fosstodon.org/@ONLYOFFICE" title="Fosstodon" />
+          {locale !== "zh" &&
+            <ExternalLink className="social-link telegram" href={telegramUrl} title="Telegram" />
+          }
+          {locale !== "zh" &&
+            <ExternalLink className="social-link instagram" href="https://www.instagram.com/the_onlyoffice/" title="Instagram" />
+          }
+        </>
+      }
 
       {locale === "zh" &&
         <div className="icon-item">
@@ -29,19 +79,6 @@ const SocialLinks = ({ locale, handlerSetModal }) => {
             <p>关注我们</p>
             <p>了解ONLYOFFICE最新信息</p>
           </div>
-        </div>
-      }
-
-      <ExternalLink className="social-link tiktok" href="https://vm.tiktok.com/ZMLXbFEyd/" title="TikTok" />
-
-      {locale !== "zh" &&
-        <ExternalLink className="social-link telegram" href="https://t.me/onlyofficeofficial" title="Telegram" />
-      }
-
-      {locale === "ja" &&
-        <div className="icon-item">
-          <span className="wdgt-line" title="LINE"></span>
-          <div className="popup-qr-code line-qr-code"></div>
         </div>
       }
 

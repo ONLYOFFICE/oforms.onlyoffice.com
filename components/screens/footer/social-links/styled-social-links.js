@@ -118,6 +118,18 @@ const StyledSocialLinks = styled.div`
     &.bilibili {
       background-position-x: -706px;
     }
+    &.discord {
+      background-image: url("https://static-oforms.onlyoffice.com/icons/discord_footer.svg");
+      background-position: center;
+    }
+    &.note {
+      background-image: url("https://static-oforms.onlyoffice.com/icons/note_footer.svg");
+      background-position: center;
+    }
+    &.qiita {
+      background-image: url("https://static-oforms.onlyoffice.com/icons/qiita_footer.svg");
+      background-position: center;
+    }
   }
 
   .icon-item {
