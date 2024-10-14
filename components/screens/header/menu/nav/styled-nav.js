@@ -483,15 +483,19 @@ const StyledNav = styled.nav`
     .menu-wrapper {
       flex-direction: column;
       .menu-wrapper-box{
+        width: ${props => props.locale === 'pt' ? `672px;` : `624px`};
         flex-direction: row;
-        width: 660px;
         flex-wrap: wrap;
+        .order-2{
+          width: ${props => props.locale === 'pt' ? `280px;` : `264px`};          
+        }
         @media screen and ${device. laptop} {
           width: 100%;
           .order-1{
             order: 1;
           }
           .order-2{
+            width:initial;
             order:3;            
             margin-bottom: 0;
             margin-top: 0;

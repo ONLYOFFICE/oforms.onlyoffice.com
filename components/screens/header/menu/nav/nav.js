@@ -14,7 +14,7 @@ const Nav = ({ t, locale }) => {
   const windowCheck = typeof window !== "undefined" && window.innerWidth <= 1024;
 
   return (
-    <StyledNav className={`nav ${locale} ${windowCheck && navHidden ? "hidden" : ""}`}>
+    <StyledNav locale={locale} className={`nav ${locale} ${windowCheck && navHidden ? "hidden" : ""}`}>
       <div className="nav-wrapper">
         <ul className="nav-items">
           <MenuItem className={`nav-products ${mobileTab ? "tab-active" : ""}`} heading={t("Products")} navHidden={navHidden} setNavHidden={setNavHidden}>
