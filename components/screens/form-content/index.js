@@ -111,7 +111,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
             <FormDownload t={t} pdfFile={pdfFile} docxFile={docxFile} pptxFile={pptxFile} xlsxFile={xlsxFile} />
             <div className="form-btns">
               {pdfFile[0]?.attributes?.hash &&
-                <ExternalLink className="btn-primary" label={t("Fill out PDF form")} href={linkPdfEditor} />
+                <ExternalLink id="fill-out-pdf-form-link" className="btn-primary" label={t("Fill out PDF form")} href={linkPdfEditor} />
               }
               <Button onClick={handleButtonClick} id="edit-template-btn" className="btn-secondary" label={t("Edit template")} />
             </div>
