@@ -207,10 +207,6 @@ const StyledAdventAnnounce = styled.div`
     }
   }
 
-  &.ar {
-    direction: initial;
-  }
-
   .advent-desktop-hide {
     display: none;
 

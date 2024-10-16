@@ -14,13 +14,12 @@ const TextInput = ({
     onFocus,
     onChange,
     onKeyDown,
-    handlerClearValue,
-    locale
+    handlerClearValue
   }) => {
 
   return (
     <StyleTextInput className="text-input" searchIcon={searchIcon} label={label}>
-      <div className={`text-input-container ${locale === "ar" && "ar"}`}>
+      <div className="text-input-container">
         {searchIcon &&
           <svg className="search-icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fillRule="evenodd" clipRule="evenodd" d="M0.537067 8.06817C0.941231 12.1003 4.54352 15.0419 8.58301 14.6385C9.46129 14.5508 10.2879 14.3122 11.0397 13.951C11.458 13.75 11.9661 13.8015 12.2949 14.1292L17.482 19.2983C17.8715 19.6865 18.5014 19.6873 18.8919 19.3001L19.7857 18.4139C20.1795 18.0234 20.1803 17.387 19.7874 16.9955L14.6218 11.8477C14.2889 11.5159 14.2388 10.9999 14.4471 10.5786C15.0353 9.38863 15.3074 8.02497 15.1654 6.60736C14.7612 2.57526 11.1589 -0.366397 7.1194 0.0369948C3.07991 0.440386 0.132902 4.03607 0.537067 8.06817ZM2.62682 7.85949C2.91551 10.7396 5.48858 12.8407 8.37393 12.5526C11.2593 12.2645 13.3643 9.69613 13.0756 6.81605C12.7869 3.93598 10.2138 1.83479 7.32849 2.12293C4.44314 2.41107 2.33813 4.97941 2.62682 7.85949Z" fill="#AAAAAA"/>

@@ -8,8 +8,8 @@ const Nav = ({ t, locale }) => {
   const [navHidden, setNavHidden] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [mobileTab, setMobileTab] = useState(false);
-  const hrefLang = `https://onlyoffice.com${locale === "en" || locale === "ar" ? "" : `/${locale}`}`;
-  const appDirectoryHrefLang = `https://onlyoffice.com/app-directory${locale === "en" || locale === "pt" || locale === "it" || locale === "ar" ? "" : `/${locale}`}`;
+  const hrefLang = `https://onlyoffice.com${locale === "en" ? "" : `/${locale}`}`;
+  const appDirectoryHrefLang = `https://onlyoffice.com/app-directory${locale === "en" || locale === "pt" || locale === "it" ? "" : `/${locale}`}`;
   const blogHrefLang = `https://onlyoffice.com/blog${locale === "en" ? "" : locale === "zh" ? "/zh-hans" : locale === "pt" ? "/pt-br" : `/${locale}`}`;
   const windowCheck = typeof window !== "undefined" && window.innerWidth <= 1024;
 
@@ -108,7 +108,7 @@ const Nav = ({ t, locale }) => {
                 </div>
               </div>
               <div className="menu-wrapper-bottom">
-                <div className={`menu-apps ${locale === "ar" && "ar"}`}>
+                <div className="menu-apps">
                   <ul className="menu-apps-list">
                     <li><InternalLink className="menu-app-link windows" href={`${hrefLang}/desktop.aspx`} /></li>
                     <li><InternalLink className="menu-app-link macos" href={`${hrefLang}/desktop.aspx`} /></li>
@@ -268,7 +268,7 @@ const Nav = ({ t, locale }) => {
             </div>
           </MenuItem>
 
-          <MenuItem className={`nav-partners ${locale === "ar" && "ar"}`} heading={t("Partners")} navHidden={navHidden} setNavHidden={setNavHidden}>
+          <MenuItem className="nav-partners" heading={t("Partners")} navHidden={navHidden} setNavHidden={setNavHidden}>
             <div className="menu-wrapper">
               <div className="menu-box">
                 <InternalLink className="menu-link resellers" href={`${hrefLang}/resellers.aspx`} label={t("Resellers")} />

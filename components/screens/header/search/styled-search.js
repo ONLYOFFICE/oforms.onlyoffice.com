@@ -102,13 +102,6 @@ const StyledSearch = styled.div`
     color: ${props => props.templateTertiary || props.templateQuaternary ? "#333333" : "#FFFFFF"};
     white-space: nowrap;
 
-    &.ar {
-      border-left: none;
-      padding-left: 0;
-      border-right: 1px solid #AAAAAA;
-      padding-right: 16px;
-    }
-
     @media screen and ${device.tablet} {
       display: none;
     }

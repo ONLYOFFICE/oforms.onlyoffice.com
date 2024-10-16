@@ -19,11 +19,6 @@ const StyledCategoryContent = styled(Section)`
     list-style-type: none;
     overflow-x: auto;
 
-    &.ar li:not(:last-child) {
-        margin-right: 0;
-        margin-left: 8px;
-    }
-
     li {
       &:not(:last-child) {
         margin-right: 8px;

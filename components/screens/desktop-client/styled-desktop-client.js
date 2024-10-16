@@ -16,58 +16,16 @@ const StyledDesktopClientContent = styled(Section)`
   user-select: none;
 
   .header {
-    padding: 40px 50px 20px 40px;
+    padding: 12px 50px 20px 40px;
     background-color: ${props =>
       props.theme === "theme-dark" ? "#333333" :
       props.theme === "theme-contrast-dark" ? "#1E1E1E" : 
       "#ffffff"
     };
 
-    &.ar {
-      .header-title {
-        text-align: end;
-      }
-
-      .header-wrapper {
-        flex-direction: row-reverse;
-
-        .category-selector {
-          margin-left: auto;
-          margin-right: 0;
-        }
-
-        .sort-btn {
-          margin-right: 0;
-          margin-left: 16px;
-        }
-
-        .search {
-          @media screen and (max-width: 768px) {
-            justify-content: start;
-          }
-
-          @media screen and (max-width: 592px) {
-            margin: 0 0 0 16px;
-          }
-        }
-      }
-    }
-
     @media screen and (max-width: 592px) {
       padding: 16px 16px 24px;
     }
-  }
-
-  .header-title {
-    margin-bottom: 12px;
-    font-size: 24px;
-    line-height: 32px;
-    font-weight: 300;
-    color: ${props =>
-      props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
-      props.theme === "theme-contrast-dark" ? "#E8E8E8" : 
-      "rgba(0, 0, 0, 0.8)"
-    };
   }
 
   .header-wrapper {
@@ -104,16 +62,6 @@ const StyledDesktopClientContent = styled(Section)`
     margin-right: 2px;
     padding: 0 48px 40px 40px;
     overflow-y: auto;
-
-    &.ar {
-      .cards {
-        flex-direction: row-reverse;
-      }
-
-      @media screen and (max-width: 592px) {
-        padding: 0 16px 40px 48px;
-      }
-    }
 
     @media screen and (max-width: 592px) {
       padding: 0 48px 40px 16px;

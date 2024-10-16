@@ -24,18 +24,6 @@ const StyledTextInput = styled.div`
     position: relative;
     display: flex;
     align-items: center;
-
-    &.ar {
-      .search-icon {
-        left: auto;
-        right: 8px;
-      }
-
-      .label {
-        left: auto;
-        right: 40px;
-      }
-    }
   }
 
   .search-icon {

@@ -8,25 +8,6 @@ const StyledBannerHowCreateForm = styled.div`
   border-radius: 3px;
   padding: 32px;
 
-  &.ar {
-    .banner-body {
-      margin-right: 0;
-      margin-left: 48px;
-    }
-
-    .banner-title {
-      &::before {
-        margin-right: 0;
-        margin-left: 16px;
-      }
-    }
-
-    .banner-list {
-      padding-left: 0;
-      padding-right: 56px;
-    }
-  }
-
   .banner-title {
     display: flex;
     align-items: center;
@@ -56,7 +37,6 @@ const StyledBannerHowCreateForm = styled.div`
 
     @media screen and ${device.laptop} {
       margin-right: 0;
-      margin-left: 0;
     }
   }
 
@@ -84,7 +64,6 @@ const StyledBannerHowCreateForm = styled.div`
 
     @media screen and ${device.laptop} {
       padding-left: 0;
-      padding-right: 0;
       margin: 0 0 16px 0;
     }
   }

@@ -19,7 +19,7 @@ const SpreadsheetTemplatesPage = ({ locale, sort, page, forms, categories, types
   const [stateMobile, setStateMobile] = useState(false);
 
   return (
-    <Layout locale={locale}>
+    <Layout>
       <Layout.PageHead>
         <MainHead
           title={`${t("Spreadsheet templates")} | ONLYOFFICE`}

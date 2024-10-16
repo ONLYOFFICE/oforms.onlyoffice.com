@@ -65,11 +65,6 @@ const StyledSortSelector = styled.div`
     box-shadow: rgba(85, 85, 85, 0.15) 0 20px 50px 0;
     z-index: 99;
 
-    &.ar {
-      left: 0;
-      right: auto;
-    }
-
     &:before {
       content: "";
       position: absolute;

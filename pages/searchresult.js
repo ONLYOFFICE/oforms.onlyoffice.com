@@ -21,7 +21,7 @@ const SearchResultPage = ({ isDesktopClient, theme, locale, sort, page, types, c
 
   return (
     isDesktopClient ? (
-      <Layout locale={locale}>
+      <Layout>
         <Layout.PageHead>
           <MainHead
             title={`${searchQuery === "" ? t("Search PDF forms and templates") : searchQuery} | ONLYOFFICE`}
