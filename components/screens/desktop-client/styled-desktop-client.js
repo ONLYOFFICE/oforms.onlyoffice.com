@@ -23,36 +23,6 @@ const StyledDesktopClientContent = styled(Section)`
       "#ffffff"
     };
 
-    &.ar {
-      .header-title {
-        text-align: end;
-      }
-
-      .header-wrapper {
-        flex-direction: row-reverse;
-
-        .category-selector {
-          margin-left: auto;
-          margin-right: 0;
-        }
-
-        .sort-btn {
-          margin-right: 0;
-          margin-left: 16px;
-        }
-
-        .search {
-          @media screen and (max-width: 768px) {
-            justify-content: start;
-          }
-
-          @media screen and (max-width: 592px) {
-            margin: 0 0 0 16px;
-          }
-        }
-      }
-    }
-
     @media screen and (max-width: 592px) {
       padding: 16px 16px 24px;
     }
@@ -104,16 +74,6 @@ const StyledDesktopClientContent = styled(Section)`
     margin-right: 2px;
     padding: 0 48px 40px 40px;
     overflow-y: auto;
-
-    &.ar {
-      .cards {
-        flex-direction: row-reverse;
-      }
-
-      @media screen and (max-width: 592px) {
-        padding: 0 16px 40px 48px;
-      }
-    }
 
     @media screen and (max-width: 592px) {
       padding: 0 48px 40px 16px;

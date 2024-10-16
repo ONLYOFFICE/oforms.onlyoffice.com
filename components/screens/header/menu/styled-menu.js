@@ -53,48 +53,6 @@ const StyledHeading = styled.div`
     }
   }
 
-  &.ar {
-    .nav-selector-wrapper {
-      margin-left: 32px;
-      margin-right: 0;
-
-      @media screen and ${device.mobile} {
-        margin-left: 0;
-      }
-    }
-
-    .nav-item-logo {
-      margin-right: 0;
-      margin-left: 32px;
-
-      @media screen and ${device.laptop} {
-        margin-left: auto;
-      }
-
-      img {
-        @media screen and (max-width: 1300px) {
-          transform: translateX(122px);
-        }
-
-        @media screen and ${device.laptop} {
-          transform: translateX(0);
-        }
-      }
-    }
-
-    .nav-btn-mobile {
-      @media screen and ${device.laptop} {
-        margin-right: 0;
-        margin-left: 32px;
-      }
-    }
-
-    .language-button {
-      flex-direction: row-reverse;
-    }
-
-  }
-
   .nav-item-logo {
     display: flex;
     margin-right: 32px;
@@ -190,12 +148,8 @@ const StyledHeading = styled.div`
   }
 
   .phone-btn {
-    &.ar .phone-icon{
-      transform: rotate(270deg);
-    }
-
     @media screen and (max-width: 1300px) {
-      padding: 24px 10px;
+      padding: 24px 5px;
     }
   }
 

@@ -55,7 +55,7 @@ const SortSelector = ({ t, locale, sort }) => {
         </svg>
       </button>
       {isDropdownOpen && (
-        <ul className={`sort-dropdown ${locale === "ar" && "ar"}`}>
+        <ul className="sort-dropdown">
           <li>
             <button onClick={() => handleSortClick("asc")} id="sort-dropdown-asc-btn" className={`sort-dropdown-btn ${sort === "asc" ? "active" : ""}`}>{t("Newest - Oldest")}</button>
           </li>

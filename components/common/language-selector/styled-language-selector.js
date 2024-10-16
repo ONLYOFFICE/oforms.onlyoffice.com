@@ -188,10 +188,6 @@ const StyledLanguageSelector = styled.div`
     &.zh {
       background-position-y: -240px;
     }
-
-    &.ar {
-      background-position-y: -336px;
-    }
   }
 
   .arrow-image {

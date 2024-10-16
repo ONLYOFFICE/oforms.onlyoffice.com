@@ -54,7 +54,7 @@ const CategoryContent = ({ t, locale, subtitle, sort, page, forms, categories, t
   return (
     <StyledCategoryContent>
       <div className="category-nav">
-        <ul className={`category-nav-list ${locale === "ar" ? "ar" : ""}`}>
+        <ul className="category-nav-list">
           <li><InternalLink id="category-nav-home-link" className={router.pathname === "/" ? "active" : ""} href="/" label={t("Home")} /></li>
           <li><InternalLink id="category-nav-pdf-form-link" className={router.pathname === "/pdf-form-templates" ? "active" : ""} href={`/pdf-form-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Form")} /></li>
           <li><InternalLink id="category-nav-document-link" className={router.pathname === "/document-templates" ? "active" : ""} href={`/document-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Document")} /></li>

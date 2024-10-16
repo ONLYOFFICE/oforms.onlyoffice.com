@@ -120,7 +120,6 @@ const Search = ({ t, locale, templateSecondary, templateTertiary, templateQuater
               type="text"
               label={t("Search PDF forms and templates")}
               searchIcon={true}
-              locale={locale}
             />
             {searchResult && (
               searchValue.length === 0 ? (
@@ -167,7 +166,7 @@ const Search = ({ t, locale, templateSecondary, templateTertiary, templateQuater
                 </div>
             ))}
           </div>
-          <Text className={`search-title ${locale === "ar" ? "ar" : ''}`} label={t("All Templates")} />
+          <Text className="search-title" label={t("All Templates")} />
         </div>
       </div>
     </StyledSearch>

@@ -50,7 +50,7 @@ const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, cate
         </Layout.SectionMain>
       </Layout>
     ) : (
-      <Layout locale={locale}>
+      <Layout>
         <Layout.PageHead>
           <MainHead
             title={seoTitle}

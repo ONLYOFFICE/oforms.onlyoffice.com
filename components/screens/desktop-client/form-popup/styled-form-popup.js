@@ -33,31 +33,6 @@ export const StyledFormPopup = styled.div`
     padding: 32px;
     min-height: 100%;
 
-    &.ar {
-      .popup-header {
-        padding: 10px 27px 10px 17px;
-        flex-direction: row-reverse;
-
-        @media screen and ${device.laptop} {
-          padding: 11px 26px 11px 17px;
-        }
-      }
-
-      .popup-body {
-        direction: rtl;
-
-        .form-info-block {
-          margin-right: 0;
-          margin-left: 24px;
-        }
-
-        .form-info-label {
-          margin-right: 0;
-          margin-left: 8px;
-        }
-      }
-    }
-
     @media screen and (max-width: 592px) {
       padding: 16px;
     }

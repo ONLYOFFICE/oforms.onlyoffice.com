@@ -3,30 +3,6 @@ import { device } from "@utils/devices";
 import pdfIcon from "@public/icons/pdf-48.svg";
 
 const StyledBannerForm = styled.div`
-  &.rtl {
-    .btn-primary {
-      margin-right: 0;
-      margin-left: 12px;
-
-      @media screen and ${device.mobile} {
-        margin-left: 0;
-      }
-    }
-
-    .advent-announce-text {
-      
-    }
-
-    .banner-form-info {      
-      margin-right: 0px;
-    }
-    
-    .banner-form-title::before {
-      margin-right: 0;
-      margin-left: 16px;
-    }
-  }
-
   display: flex;
   border: 1px solid #666666;
   border-radius: 3px;

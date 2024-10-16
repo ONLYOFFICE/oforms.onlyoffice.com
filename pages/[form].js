@@ -41,7 +41,7 @@ const FormPage = ({ locale, form, randomCarousel, compilations }) => {
   }, [form, locale]);
 
   return (
-    <Layout locale={locale}>
+    <Layout>
       <Layout.PageHead>
         <MainHead
           title={`${seoTitle} | ONLYOFFICE`}

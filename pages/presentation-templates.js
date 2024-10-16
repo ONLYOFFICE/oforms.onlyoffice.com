@@ -19,7 +19,7 @@ const PresentationTemplatesPage = ({ locale, sort, page, forms, categories, type
   const [stateMobile, setStateMobile] = useState(false);
 
   return (
-    <Layout locale={locale}>
+    <Layout>
       <Layout.PageHead>
         <MainHead
           title={`${t("Presentation templates")} | ONLYOFFICE`}

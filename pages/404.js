@@ -14,7 +14,7 @@ const Error404Page = ({ locale }) => {
     router.asPath.includes("theme=theme-contrast-dark") ? "theme-contrast-dark" : null;
 
   return (
-    <Layout locale={locale}>
+    <Layout>
       <Layout.PageHead>
         <MainHead
           title={t("Page 404")}

@@ -19,7 +19,7 @@ const DocumentTemplatesPage = ({ locale, sort, page, forms, categories, types, c
   const [stateMobile, setStateMobile] = useState(false);
 
   return (
-    <Layout locale={locale}>
+    <Layout>
       <Layout.PageHead>
         <MainHead
           title={`${t("Document templates")} | ONLYOFFICE`}
