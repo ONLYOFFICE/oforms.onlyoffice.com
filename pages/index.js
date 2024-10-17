@@ -83,9 +83,8 @@ const MainPage = ({ isDesktopClient, theme, locale, sort, forms, types, categori
   )
 };
 
-export const getServerSideProps = async ({ req, locale, query }) => {
-  const userAgent = req.headers["user-agent"];
-  const isDesktopClient = userAgent ? userAgent.includes("AscDesktopEditor") : false;
+export const getServerSideProps = async ({ locale, query }) => {
+  const isDesktopClient = query.desktop === "true";
   const theme = query.theme || null;
   const page = query.page || 1;
   const sort = query._sort || "asc";
