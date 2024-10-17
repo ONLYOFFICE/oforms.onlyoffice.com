@@ -7,7 +7,7 @@ const PopularCategories = ({ t, categories }) => {
     <StyledPopularCategories className="popular-categories">
       <Heading className="popular-categories-title" level={3} label={t("Popular categories")} />
       <div className="popular-categories-links">
-        {categories.data?.map((category) => (
+        {categories?.data?.map((category) => (
           <InternalLink className="popular-categories-link" href={`/form/${category.attributes.urlReq}`} label={category.attributes.categorie} key={category.id} />
         ))}
       </div>
