@@ -8,81 +8,83 @@ const MainHead = ({ title, description, isDesktopClient }) => {
   const router = useRouter();
   let style;
 
-  switch (router.query.theme) {
-    case "theme-dark":
-      style = `
-        ::-webkit-scrollbar {
-          border-radius: 3px !important;
-          width: 8px !important;
-          background: transparent !important;
-        }
-        
-        ::-webkit-scrollbar:hover {
-          border-radius: 3px !important;
-          width: 8px !important;
-          background: #404040 !important;
-        }
-
-        ::-webkit-scrollbar-thumb {
-          border-radius: 3px !important;
-          background: #404040 !important;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-          border-radius: 3px !important;
-          background: #606060 !important;
-        }
-      `;
-      break;
-    case "theme-contrast-dark":
-      style = `
-        ::-webkit-scrollbar {
-          border-radius: 3px !important;
-          width: 8px !important;
-          background: transparent !important;
-        }
-
-        ::-webkit-scrollbar:hover {
-          border-radius: 3px !important;
-          width: 8px !important;
-          background: #252525 !important;
-        }
+  if (isDesktopClient) {
+    switch (router.query.theme) {
+      case "theme-dark":
+        style = `
+          ::-webkit-scrollbar {
+            border-radius: 3px !important;
+            width: 8px !important;
+            background: transparent !important;
+          }
           
-        ::-webkit-scrollbar-thumb {
-          border-radius: 3px !important;
-          background: #404040 !important;
-        }
+          ::-webkit-scrollbar:hover {
+            border-radius: 3px !important;
+            width: 8px !important;
+            background: #404040 !important;
+          }
 
-        ::-webkit-scrollbar-thumb:hover {
-          border-radius: 3px !important;
-          background: #666666 !important;
-        }
-      `;
-      break;
-    default:
-      style = `
-        ::-webkit-scrollbar {
-          border-radius: 3px !important;
-          width: 8px !important;
-          background: transparent !important;
-        }
+          ::-webkit-scrollbar-thumb {
+            border-radius: 3px !important;
+            background: #404040 !important;
+          }
 
-        ::-webkit-scrollbar:hover {
-          border-radius: 3px !important;
-          width: 8px !important;
-          background: #F7F7F7 !important;
-        }
-          
-        ::-webkit-scrollbar-thumb {
-          border-radius: 3px !important;
-          background: #E0E0E0 !important;
-        }
+          ::-webkit-scrollbar-thumb:hover {
+            border-radius: 3px !important;
+            background: #606060 !important;
+          }
+        `;
+        break;
+      case "theme-contrast-dark":
+        style = `
+          ::-webkit-scrollbar {
+            border-radius: 3px !important;
+            width: 8px !important;
+            background: transparent !important;
+          }
 
-        ::-webkit-scrollbar-thumb:hover {
-          border-radius: 3px !important;
-          background: #CCCCCC !important;
-        }
-      `;
+          ::-webkit-scrollbar:hover {
+            border-radius: 3px !important;
+            width: 8px !important;
+            background: #252525 !important;
+          }
+            
+          ::-webkit-scrollbar-thumb {
+            border-radius: 3px !important;
+            background: #404040 !important;
+          }
+
+          ::-webkit-scrollbar-thumb:hover {
+            border-radius: 3px !important;
+            background: #666666 !important;
+          }
+        `;
+        break;
+      default:
+        style = `
+          ::-webkit-scrollbar {
+            border-radius: 3px !important;
+            width: 8px !important;
+            background: transparent !important;
+          }
+
+          ::-webkit-scrollbar:hover {
+            border-radius: 3px !important;
+            width: 8px !important;
+            background: #F7F7F7 !important;
+          }
+            
+          ::-webkit-scrollbar-thumb {
+            border-radius: 3px !important;
+            background: #E0E0E0 !important;
+          }
+
+          ::-webkit-scrollbar-thumb:hover {
+            border-radius: 3px !important;
+            background: #CCCCCC !important;
+          }
+        `;
+    }
   }
 
   return (

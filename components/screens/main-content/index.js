@@ -30,7 +30,7 @@ const MainContent = ({ t, popularTemplates, categories, pptxForms, docxForms, pd
         {popularTemplates.data.length > 0 &&
           <CardSlider t={t} title={t("Popular templates")} data={popularTemplates} />
         }
-        {categories.data.length > 0 &&
+        {categories?.data.length > 0 &&
           <PopularCategories t={t} categories={categories} />
         }
         {pdfForms.data.length > 0 &&

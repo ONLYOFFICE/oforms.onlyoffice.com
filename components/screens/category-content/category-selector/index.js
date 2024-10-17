@@ -96,8 +96,8 @@ const CategorySelector = ({ t, locale, categories, types, compilations, category
                     </button>
                   </div>
                   <div className="category-selector-links-wrapper">
-                    <ul className={`category-selector-links ${categories.data.length > 8 ? "category-selector-links-columns" : ""}`}>
-                      {categories.data?.map((categorie) => (
+                    <ul className={`category-selector-links ${categories?.data.length > 8 ? "category-selector-links-columns" : ""}`}>
+                      {categories?.data?.map((categorie) => (
                         <li key={categorie.id}>
                           <InternalLink
                             className={categoryName === categorie.attributes.categorie ? "active" : ""}
