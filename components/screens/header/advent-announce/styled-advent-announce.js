@@ -116,20 +116,20 @@ const StyledAdventAnnounce = styled.div`
       background-image: url(${bannerBgMobile.src});
 
       &.is-open {
-        transform: translate3d(429px, 0, 0);
+        transform: ${props => props.locale === "ar" ? "translate3d(-429px, 0, 0)" : "translate3d(429px, 0, 0)"};
         transition: transform .2s cubic-bezier(.16,.68,.43,.99);
       }
     }
     
     @media (max-width: 592px) {
       &.is-open {
-        transform: translate3d(calc(100vw - 64px), 0, 0);
+        transform: ${props => props.locale === "ar" ? "translate3d(calc(-100vw + 64px), 0, 0)" : "translate3d(calc(100vw - 64px), 0, 0)"};
       }
     }
   
     @media (max-width: 375px) {
       &.is-open {
-        transform: translate3d(calc(100vw - 32px), 0, 0);
+        transform: ${props => props.locale === "ar" ? "translate3d(calc(-100vw + 32px), 0, 0)" : "translate3d(calc(100vw - 32px), 0, 0)"};
       }
     }
   }
@@ -205,6 +205,10 @@ const StyledAdventAnnounce = styled.div`
         max-width: 214px;
       }
     }
+  }
+
+  &.ar {
+    direction: initial;
   }
 
   .advent-desktop-hide {

@@ -121,7 +121,7 @@ const StyledNav = styled.nav`
     &:before {
       @media screen and ${device.laptop} {
         content: "";
-        margin-right: 13px;
+        ${props => props.locale === "ar" ? "margin-left: 13px;" : "margin-right: 13px;"}
         width: 24px;
         height: 24px;
         background-image: url("https://static-oforms.onlyoffice.com/icons/phone.svg");
@@ -216,13 +216,14 @@ const StyledNav = styled.nav`
           &:after {
             content: "";
             display: inline-flex;
-            margin-left: 4px;
+            ${props => props.locale === "ar" ? "margin-right: 4px;" : "margin-left: 4px;"}
             width: 10px;
             min-width: 10px;
             height: 10px;
             background-image: url("https://static-oforms.onlyoffice.com/icons/chevron-right-small.svg");
             background-repeat: no-repeat;
             background-position: center;
+            transform: ${props => props.locale === "ar" && "rotate(180deg)"};
           }
 
           &:hover {
@@ -263,7 +264,7 @@ const StyledNav = styled.nav`
           }
 
           @media screen and ${device.laptop} {
-            padding: 0 0 0 36px;
+            padding: ${props => props.locale === "ar" ? "0 36px 0 0" : "0 0 0 36px"};
           }
         }
 
@@ -399,16 +400,16 @@ const StyledNav = styled.nav`
 
         &:not(:last-child) {
           margin-bottom: 0;
-          margin-right: 32px;
+          ${props => props.locale === "ar" ? "margin-left: 32px;" : "margin-right: 32px;"}
 
           @media screen and ${device.laptop} {
             margin-bottom: 12px;
-            margin-right: 0;
+            ${props => props.locale === "ar" ? "margin-left: 0;" : "margin-right: 0;"}
           }
         }
 
         @media screen and ${device.laptop} {
-          padding: 0 0 0 36px;
+          padding: ${props => props.locale === "ar" ? "0 36px 0 0" : "0 0 0 36px"};
           font-size: 14px;
         }
       }
@@ -452,6 +453,8 @@ const StyledNav = styled.nav`
   .nav-pricing,
   .nav-partners {
     .menu-items-wrapper {
+      left: ${props => props.locale === "ar" ? "calc(50% - 156px)" : "calc(50% + 156px)"};
+
       @media screen and ${device.laptop} {
         left: initial;
       }
@@ -498,16 +501,16 @@ const StyledNav = styled.nav`
 
         &:not(:last-child) {
           margin-bottom: 0;
-          margin-right: 32px;
+          ${props => props.locale === "ar" ? "margin-left: 32px;" : "margin-right: 32px;"}
 
           @media screen and ${device.laptop} {
             margin-bottom: 12px;
-            margin-right: 0;
+            ${props => props.locale === "ar" ? "margin-left: 0;" : "margin-right: 0;"}
           }
         }
 
         @media screen and ${device.laptop} {
-          padding: 0 0 0 36px;
+          padding: ${props => props.locale === "ar" ? "0 36px 0 0" : "0 0 0 36px"};
           font-size: 14px;
         }
       }
@@ -631,10 +634,10 @@ const StyledNav = styled.nav`
       content: "";
       width: 10px;
       height: 10px;
-      left: 14px;
       position: absolute;
+      ${props => props.locale === "ar" ? "right: 14px;" : "left: 14px;"}
       top: 50%;
-      transform: translateY(-50%) rotate(180deg);
+      transform: ${props => props.locale === "ar" ? "translateY(-50%)" : "translateY(-50%) rotate(180deg)"};
       transition: 0.1s linear;
     }
   }
@@ -680,7 +683,7 @@ const StyledNav = styled.nav`
       flex-direction: column;
       padding: 24px;
       height: 100%;
-      text-align: left;
+      text-align: ${props => props.locale === "ar" ? "right" : "left"};
     }
   }
 
@@ -768,7 +771,7 @@ const StyledNav = styled.nav`
 
     .menu-label {
       padding: 4px 0 0 0;
-      margin: 0 16px 0 0;
+      margin: ${props => props.locale === "ar" ? "0 0 0 16px" : "0 16px 0 0"};
 
       @media screen and ${device.laptop} {
         margin: 0 0 16px;
@@ -776,10 +779,10 @@ const StyledNav = styled.nav`
     }
 
     &:not(:last-child) {
-      margin-right: 32px;
+      ${props => props.locale === "ar" ? "margin-left: 32px;" : "margin-right: 32px;"}
 
       @media screen and ${device.laptop} {
-        margin-right: 0;
+        ${props => props.locale === "ar" ? "margin-left: 0;" : "margin-right: 0;"}
       }
     }
 
@@ -798,8 +801,9 @@ const StyledNav = styled.nav`
 
     li {
       display: inline-flex;
+
       &:not(:last-child) {
-        margin-right: 16px;
+        ${props => props.locale === "ar" ? "margin-left: 16px;" : "margin-right: 16px;"}
       }
     }
   }
@@ -839,7 +843,7 @@ const StyledNav = styled.nav`
     row-gap: 8px;
 
     .menu-link {
-      padding: 0 0 0 32px;
+      padding: ${props => props.locale === "ar" ? "0 32px 0 0" : "0 0 0 32px"};
       font-size: 13px;
       font-weight: 400;
       line-height: 24px;
@@ -851,7 +855,7 @@ const StyledNav = styled.nav`
       }
 
       &:not(:last-child) {
-        margin: 0 16px 0 0;
+        margin: ${props => props.locale === "ar" ? "0 0 0 16px" : "0 16px 0 0"};
 
         @media screen and ${device.laptop} {
           margin: 0 0 12px 0;
@@ -859,7 +863,7 @@ const StyledNav = styled.nav`
       }
 
       @media screen and ${device.laptop} {
-        padding: 0 0 0 36px;
+        padding: ${props => props.locale === "ar" ? "0 36px 0 0" : "0 0 0 36px"};
         font-size: 14px;
       }
     }
@@ -877,9 +881,9 @@ const StyledNav = styled.nav`
     position: relative;
     border: none;
     border-radius: 6px;
-    padding: 12px 40px 12px 12px;
+    padding: ${props => props.locale === "ar" ? "12px 12px 12px 40px" : "12px 40px 12px 12px"};
     width: 100%;
-    text-align: left;
+    text-align: ${props => props.locale === "ar" ? "right" : "left"};
     background-color: transparent;
     cursor: pointer;
 
@@ -887,7 +891,7 @@ const StyledNav = styled.nav`
       content: "";
       position: absolute;
       top: 50%;
-      right: 12px;
+      ${props => props.locale === "ar" ? "left: 12px;" : "right: 12px;"}
       display: inline-flex;
       width: 24px;
       min-width: 24px;
@@ -895,10 +899,10 @@ const StyledNav = styled.nav`
       background-image: url("https://static-oforms.onlyoffice.com/icons/arrow-gray.svg");
       background-repeat: no-repeat;
       background-position: center;
-      transform: translateY(-50%);
+      transform: ${props => props.locale === "ar" ? "translateY(-50%) rotate(180deg)" : "translateY(-50%)"};
 
       @media screen and ${device.laptop} {
-        right: 16px;
+        ${props => props.locale === "ar" ? "left: 16px;" : "right: 16px;"}
       }
     }
 
@@ -920,7 +924,7 @@ const StyledNav = styled.nav`
       }
 
       @media screen and ${device.laptop} {
-        padding: 0 0 0 36px;
+        padding: ${props => props.locale === "ar" ? "0 36px 0 0" : "0 0 0 36px"};
       }
     }
 
@@ -958,13 +962,13 @@ const StyledNav = styled.nav`
 
     @media screen and ${device.laptop} {
       border-radius: initial;
-      padding: 12px 44px 12px 24px;
+      padding: ${props => props.locale === "ar" ? "12px 12px 12px 44px" : "12px 44px 12px 24px"};
     }
   }
 
   .menu-box-text {
     display: block;
-    padding-left: 36px;
+    ${props => props.locale === "ar" ? "padding-right: 36px;" : "padding-left: 36px;"}
     font-size: 13px;
     line-height: 17px;
     color: #333333;
@@ -985,7 +989,7 @@ const StyledNav = styled.nav`
 
   .menu-box-link {
     display: flex;
-    margin-left: 36px;
+    ${props => props.locale === "ar" ? "margin-right: 36px;" : "margin-left: 36px;"}
     font-size: 13px;
     font-weight: 600;
     line-height: 20px;
@@ -993,11 +997,11 @@ const StyledNav = styled.nav`
     text-decoration: none;
 
     &.left {
-      margin: 0 7px 0 0;
+      margin: ${props => props.locale === "ar" ? "0 0 0 7px" : "0 7px 0 0"};
     }
 
     &.right {
-      margin: 0 0 0 7px;
+      margin: ${props => props.locale === "ar" ? "0 7px 0 0" : "0 0 0 7px"};
 
       @media screen and (max-width: 399px) {
         margin: 7px 0 0 0;
@@ -1026,7 +1030,7 @@ const StyledNav = styled.nav`
   .menu-box-links {
     display: flex;
     align-items: center;
-    margin-left: 36px;
+    ${props => props.locale === "ar" ? "margin-right: 36px;" : "margin-left: 36px;"}
     margin-bottom: 4px;
     font-size: 13px;
     line-height: 21px;
@@ -1046,7 +1050,7 @@ const StyledNav = styled.nav`
     position: relative;
     display: flex;
     align-items: center;
-    padding-left: 36px;
+    ${props => props.locale === "ar" ? "padding-right: 36px;" : "padding-left: 36px;"}
     font-size: 16px;
     line-height: 24px;
     font-weight: 700;
@@ -1056,7 +1060,7 @@ const StyledNav = styled.nav`
     &:before {
       content: "";
       position: absolute;
-      left: 0;
+      ${props => props.locale === "ar" ? "right: 0;" : "left: 0;"}
       top: 0;
       display: block;
       width: 24px;
@@ -1538,7 +1542,7 @@ const StyledNav = styled.nav`
     }
 
     &.blog {
-      padding-left: 0;
+      ${props => props.locale === "ar" ? "padding-right: 0;" : "padding-left: 0;"}
 
       &:before {
         content: none;
@@ -1570,7 +1574,7 @@ const StyledNav = styled.nav`
     }
 
     @media screen and ${device.laptop} {
-      padding: 4px 0 4px 36px;
+      padding: ${props => props.locale === "ar" ? "4px 36px 4px 0" : "4px 0 4px 36px"};
     }
   }
 
@@ -1581,7 +1585,7 @@ const StyledNav = styled.nav`
   }
 
   .menu-link-new {
-    margin-right: 6px;
+    ${props => props.locale === "ar" ? "margin-left: 6px;" : "margin-right: 6px;"}
   }
 
   .menu-label-new {
@@ -1603,7 +1607,7 @@ const StyledNav = styled.nav`
   .menu-label {
     display: block;
     margin-bottom: 12px;
-    padding: 4px 4px 0 0;
+    padding: ${props => props.locale === "ar" ? "4px 0 0 4px" : "4px 4px 0 0"};
     font-size: 10px;
     font-weight: 600;
     line-height: 14px;
@@ -1714,7 +1718,7 @@ const StyledNav = styled.nav`
     box-sizing: border-box;
     position: fixed;
     top: 0;
-    left: 0;
+    ${props => props.locale === "ar" ? "right: 0;" : "left: 0;"}
     display: flex;
     flex-direction: column;
     border-right: 1px solid #e5e5e5;
@@ -1728,16 +1732,16 @@ const StyledNav = styled.nav`
     z-index: 1002;
     overflow: auto;
     overflow-x: hidden;
-    transform: translate3d(-100%,0,0);
+    transform: ${props => props.locale === "ar" ? "translate3d(100%, 0, 0)" : "translate3d(-100%, 0, 0)"};
     transition: transform .2s cubic-bezier(.16,.68,.43,.99);
   }
 
   @media screen and (max-width: 592px) {
-    width: calc(100vw - 64px);
+    width: ${props => props.locale === "ar" ? "calc(-64px + 100vw)" : "calc(100vw - 64px)"};
   }
 
   @media screen and (max-width: 375px) {
-    width: calc(100vw - 32px);
+    width: ${props => props.locale === "ar" ? "calc(-32px + 100vw)" : "calc(100vw - 32px)"};
   }
 `;
 

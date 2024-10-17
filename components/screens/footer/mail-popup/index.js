@@ -79,7 +79,7 @@ const MailPopup = ({ t, locale, active, setActive, submitForm, ...rest }) => {
   };
 
   return (
-    <StyledMailPopup onClick={() => handleCloseForm()} className={active ? "show" : ""} {...rest}>
+    <StyledMailPopup onClick={() => handleCloseForm()} locale={locale} className={active ? "show" : ""} {...rest}>
       <div className="mail-popup-container">
         <div className="mail-popup-wrapper">
           <div onClick={(e) => e.stopPropagation()} className="mail-popup-body">

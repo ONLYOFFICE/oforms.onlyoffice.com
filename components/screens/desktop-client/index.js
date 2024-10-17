@@ -143,7 +143,7 @@ const DesktopClient = ({ t, locale, data, sort, categories, types, compilations,
   };
 
   return (
-    <StyledDesktopClient theme={theme}>
+    <StyledDesktopClient locale={locale} theme={theme}>
       <div className="header">
         <div className="header-wrapper">
           <CategorySelector
@@ -157,9 +157,9 @@ const DesktopClient = ({ t, locale, data, sort, categories, types, compilations,
             hideCategorySelector={hideCategorySelector}
             theme={theme}
           />
-          <SearchInput t={t} setHideCategorySelector={setHideCategorySelector} theme={theme} />
+          <SearchInput t={t} locale={locale} setHideCategorySelector={setHideCategorySelector} theme={theme} />
           <SortSelector sort={sort} theme={theme} />
-          <LanguageSelector theme={theme} />
+          <LanguageSelector locale={locale} theme={theme} />
         </div>
       </div>
 

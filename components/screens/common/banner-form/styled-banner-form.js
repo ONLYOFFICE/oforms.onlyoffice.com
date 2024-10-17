@@ -11,11 +11,11 @@ const StyledBannerForm = styled.div`
 
   .banner-form-info {
     flex: 0 1 588px;
-    margin-right: 48px;
+    ${props => props.locale === "ar" ? "margin-left: 48px;" : "margin-right: 48px;"}
 
     @media screen and ${device.laptop} {
       flex: initial;
-      margin-right: 0;
+      ${props => props.locale === "ar" ? "margin-left: 0;" : "margin-right: 0;"}
       margin-bottom: 24px;
     }
 
@@ -33,7 +33,7 @@ const StyledBannerForm = styled.div`
     &:before {
       content: "";
       display: inline-block;
-      margin-right: 16px;
+      ${props => props.locale === "ar" ? "margin-left: 16px;" : "margin-right: 16px;"}
       width: 48px;
       min-width: 48px;
       height: 48px;
@@ -41,7 +41,7 @@ const StyledBannerForm = styled.div`
       background-repeat: no-repeat;
 
       @media screen and ${device.laptop} {
-        margin-right: 0;
+        ${props => props.locale === "ar" ? "margin-left: 0;" : "margin-right: 0;"}
         margin-bottom: 4px;
       }
     }
@@ -126,7 +126,7 @@ const StyledBannerForm = styled.div`
   }
 
   .btn-primary {
-    margin-right: 12px;
+    ${props => props.locale === "ar" ? "margin-left: 12px;" : "margin-right: 12px;"}
     background-color: #FF6F3D;
     transition: background-color 0.3s;
 
@@ -135,10 +135,9 @@ const StyledBannerForm = styled.div`
     }
 
     @media screen and ${device.mobile} {
-      margin-right: 0;
+      ${props => props.locale === "ar" ? "margin-left: 0;" : "margin-right: 0;"}
       margin-bottom: 16px;
     }
-
   }
 
   .btn-transparent {

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useRef, useState } from "react";
 import Heading from "@components/common/heading";
 
-const Accordion = ({ items }) => {
+const Accordion = ({ locale, items }) => {
   const [activeIndexes, setActiveIndexes] = useState(Array(items.length).fill(false));
   const contentRefs = useRef([]);
 
@@ -16,7 +16,7 @@ const Accordion = ({ items }) => {
   };
 
   return (
-    <StyledAccordion>
+    <StyledAccordion locale={locale}>
       {items.map((item, index) => (
         <div className="accordion-item" key={index}>
           <button className="accordion-header" onClick={() => toggleAccordion(index)}>

@@ -2,7 +2,7 @@ import StyledAdventAnnounce from "./styled-advent-announce";
 
 const AdventAnnounce = ({ t, locale, stateMobile }) => {
   return (
-    <StyledAdventAnnounce className={`${locale} ${stateMobile ? "active": ""}`}>
+    <StyledAdventAnnounce locale={locale} className={`${locale} ${stateMobile ? "active": ""}`}>
       <div className="advent-announce advent-mobile-hide">
         <div className="advent-announce-wrapper">
           <div className="advent-announce-text" dangerouslySetInnerHTML={{ __html: t("AdventAnnounceDesktop")}}></div>

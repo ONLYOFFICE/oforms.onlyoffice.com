@@ -67,9 +67,9 @@ const StyledMenuItem = styled.li`
         background-position: 50% 50%;
         background-repeat: no-repeat;
         position: absolute;
-        right: 16px;
+        ${props => props.locale === "ar" ? "left: 24px;" : "right: 24px;"}
         top: 50%;
-        transform: translateY(-50%);
+        transform: ${props => props.locale === "ar" ? "translateY(-50%) rotate(180deg)" : "translateY(-50%)"};
       }
     }
 
@@ -89,12 +89,12 @@ const StyledMenuItem = styled.li`
 
     @media screen and ${device.laptop} {
       position: relative;
-      padding: 16px 40px 16px 24px;
+      padding: ${props => props.locale === "ar" ? "16px 24px 16px 40px" : "16px 40px 16px 24px"};
       font-size: 18px;
       line-height: 24px;
       font-weight: 700;
       height: 56px;
-      text-align: left;
+      text-align: ${props => props.locale === "ar" ? "right" : "left"};
     }
   }
 

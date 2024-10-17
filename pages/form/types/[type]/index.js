@@ -24,7 +24,7 @@ const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, cate
 
   return (
     isDesktopClient ? (
-      <Layout>
+      <Layout locale={locale}>
         <Layout.PageHead>
           <MainHead
             title={seoTitle}
@@ -50,7 +50,7 @@ const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, cate
         </Layout.SectionMain>
       </Layout>
     ) : (
-      <Layout>
+      <Layout locale={locale}>
         <Layout.PageHead>
           <MainHead
             title={seoTitle}
@@ -83,7 +83,7 @@ const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, cate
             categoryUrl={`form/types/${categoryInfo.data[0]?.attributes.urlReq}`}
           />
           <BannerFormSection t={t} locale={locale} />
-          <AccordionSection t={t} />
+          <AccordionSection t={t} locale={locale} />
         </Layout.SectionMain>
         <Layout.PageFooter>
           <Footer t={t} locale={locale} />

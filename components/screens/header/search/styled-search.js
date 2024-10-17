@@ -88,14 +88,14 @@ const StyledSearch = styled.div`
 
     .input-btn {
       @media screen and ${device.mobile} {
-        right: 8px;
+        ${props => props.locale === "ar" ? "left: 8px;" : "right: 8px;"}
       }
     }
   }
 
   .search-title {
-    border-left: 1px solid #AAAAAA;
-    padding-left: 16px;
+    ${props => props.locale === "ar" ? "border-right: 1px solid #AAAAAA;" : "border-left: 1px solid #AAAAAA;"}
+    ${props => props.locale === "ar" ? "padding-right: 16px;" : "padding-left: 16px;"}
     font-size: 14px;
     font-weight: 600;
     line-height: 19px;
@@ -136,7 +136,7 @@ const StyledSearch = styled.div`
     transition: color 0.3s, background-color 0.3s;
 
     a {
-      padding: 8px 50px 8px 16px;
+      padding: ${(props) => (props.locale === "ar" ? "8px 16px 8px 50px" : "8px 50px 8px 16px")};
       width: 100%;
     }
 
@@ -149,7 +149,7 @@ const StyledSearch = styled.div`
   .search-results-btn {
     position: absolute;
     top: 50%;
-    right: 16px;
+    ${(props) => (props.locale === "ar" ? "left: 16px;" : "right: 16px;")}
     display: flex;
     border: none;
     padding: 0;

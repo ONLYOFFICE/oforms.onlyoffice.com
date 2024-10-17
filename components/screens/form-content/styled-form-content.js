@@ -36,7 +36,7 @@ const StyledMain = styled(Section)`
     grid-area: 1 / 1 / 5 / 2;
     box-sizing: border-box;
     border-radius: 3px;
-    margin-right: 56px;
+    ${props => props.locale === "ar" ? "margin-left: 56px;" : "margin-right: 56px;"}
     padding: 16px;
     max-width: 544px;
     min-width: 544px;
@@ -232,7 +232,7 @@ const StyledMain = styled(Section)`
 
     &.last-updated {
       &:not(:last-child) {
-        margin-right: 16px;
+        ${props => props.locale === "ar" ? "margin-left: 16px;" : "margin-right: 16px;"}
 
         @media screen and ${device.mobile} {
           justify-content: center;
@@ -243,17 +243,17 @@ const StyledMain = styled(Section)`
     }
 
     &:not(:last-child) {
-      margin-right: 32px;
+      ${props => props.locale === "ar" ? "margin-left: 32px;" : "margin-right: 32px;"}
 
       @media screen and ${device.mobile} {
-        margin-right: 0;
+        ${props => props.locale === "ar" ? "margin-left: 0;" : "margin-right: 0;"}
         margin-bottom: 16px;
       }
     }
   }
 
   .form-item-label {
-    margin-right: 8px;
+    ${props => props.locale === "ar" ? "margin-left: 8px;" : "margin-right: 8px;"}
     color: #AAAAAA;
   }
 
@@ -330,7 +330,7 @@ const StyledMain = styled(Section)`
   }
 
   .btn-primary {
-    margin-right: 16px;
+    ${props => props.locale === "ar" ? "margin-left: 16px;" : "margin-right: 16px;"}
     background-color: #FF6F3D;
     transition: background-color 0.3s;
 

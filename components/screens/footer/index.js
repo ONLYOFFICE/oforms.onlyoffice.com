@@ -34,13 +34,13 @@ const Footer = ({ t, locale }) => {
       </div>
       <div className="footer-items">
         <div className="footer-item-group">
-          <FooterItem heading={t("Templates")} className="templates">
+          <FooterItem locale={locale} heading={t("Templates")} className="templates">
             <InternalLink className="footer-link" href={`${oformsHrefLang}/pdf-form-templates`} label={t("PDF form templates")} />
             <InternalLink className="footer-link" href={`${oformsHrefLang}/document-templates`} label={t("Text document templates")} />
             <InternalLink className="footer-link" href={`${oformsHrefLang}/spreadsheet-templates`} label={t("Spreadsheet templates")} />
             <InternalLink className="footer-link" href={`${oformsHrefLang}/presentation-templates`} label={t("Presentation templates")} />
           </FooterItem>
-          <FooterItem heading={t("Converters")} className="solutions">
+          <FooterItem locale={locale} heading={t("Converters")} className="solutions">
             <InternalLink className="footer-link" href={`${hrefLang}/text-file-converter.aspx`} label={t("Convert text files")} />
             <InternalLink className="footer-link" href={`${hrefLang}/spreadsheet-converter.aspx`} label={t("Convert spreadsheets")} />
             <InternalLink className="footer-link" href={`${hrefLang}/presentation-converter.aspx`} label={t("Convert presentations")} />
@@ -48,14 +48,14 @@ const Footer = ({ t, locale }) => {
           </FooterItem>
         </div>
         <div className="footer-item-group">
-          <FooterItem heading={t("For education")} className="for-education">
+          <FooterItem locale={locale} heading={t("For education")} className="for-education">
             <InternalLink className="footer-link" href={`${hrefLang}/office-for-students.aspx`} label={t("For students")} />
             <InternalLink className="footer-link" href={`${hrefLang}/office-for-educators.aspx`} label={t("For educators")} />
           </FooterItem>
-          <FooterItem heading={t("Get news")} className="get-news">
+          <FooterItem locale={locale} heading={t("Get news")} className="get-news">
             <InternalLink className="footer-link" href={blogHrefLang} label={t("Blog")} />
           </FooterItem>
-          <FooterItem heading={t("Collaborate")} className="collaborate">
+          <FooterItem locale={locale} heading={t("Collaborate")} className="collaborate">
             <InternalLink className="footer-link" href={`${hrefLang}/contribute.aspx`} label={t("For contributers")} />
             <InternalLink className="footer-link" href="https://helpcenter.onlyoffice.com/guides/become-translator.aspx" label={t("For translators")} />
             <InternalLink className="footer-link" href={`${hrefLang}/influencer-program.aspx`} label={t("For influencers")} />
@@ -63,7 +63,7 @@ const Footer = ({ t, locale }) => {
           </FooterItem>
         </div>
         <div className="footer-item-group">
-          <FooterItem heading={t("Get help")} className="get-help">
+          <FooterItem locale={locale} heading={t("Get help")} className="get-help">
             <InternalLink className="footer-link" href="https://forum.onlyoffice.com/" label={t("Forum")} />
             <InternalLink className="footer-link" href="https://helpcenter.onlyoffice.com/index.aspx" label={t("Help Center")} />
             <InternalLink className="footer-link" href={`${hrefLang}/training-courses.aspx`} label={t("Training courses")} />
@@ -76,7 +76,7 @@ const Footer = ({ t, locale }) => {
         </div>
         {locale !== "zh" &&
           <div className="footer-item-group">
-            <FooterItem heading={t("Comparison")} className="comparison" href={`${hrefLang}/document-editor-comparison.aspx`}>
+            <FooterItem locale={locale} heading={t("Comparison")} className="comparison" href={`${hrefLang}/document-editor-comparison.aspx`}>
               <InternalLink className="footer-link" href={`${hrefLang}/best-microsoft-office-alternative.aspx`} label={t("ONLYOFFICE Docs vs MS Office Online")} />
               <InternalLink className="footer-link" href={`${hrefLang}/best-google-docs-alternative.aspx`} label={t("ONLYOFFICE Docs vs Google Docs")} />
               <InternalLink className="footer-link" href={`${hrefLang}/best-zoho-docs-alternative.aspx`} label={t("ONLYOFFICE Docs vs Zoho Docs")} />
@@ -88,7 +88,7 @@ const Footer = ({ t, locale }) => {
           </div>
         }
         <div className="footer-item-group">
-          <FooterItem heading={t("Contact us")} className="contacts">
+          <FooterItem locale={locale} heading={t("Contact us")} className="contacts">
             <Text className="contact-text">
               {t("Sales questions")}{locale === "zh" || locale === "ja" ? "" : " "}<InternalLink className="footer-link-contact" label={t("sales@onlyoffice.com")} href="mailto:sales@onlyoffice.com" />
             </Text>
@@ -111,7 +111,7 @@ const Footer = ({ t, locale }) => {
           <span>{t("© Ascensio System SIA", {currentYear})}</span>
           <span>{t("All rights reserved")}</span>
         </div>
-        <MailPopup t={t} active={popupActive} setActive={setPopupActive} />
+        <MailPopup t={t} locale={locale} active={popupActive} setActive={setPopupActive} />
       </div>
     </StyledFooter>
   );

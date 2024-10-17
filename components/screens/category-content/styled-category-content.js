@@ -21,7 +21,7 @@ const StyledCategoryContent = styled(Section)`
 
     li {
       &:not(:last-child) {
-        margin-right: 8px;
+        ${props => props.locale === "ar" ? "margin-left: 8px;" : "margin-right: 8px;"}
       }
     }
 
@@ -111,7 +111,10 @@ const StyledCategoryContent = styled(Section)`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 16px 32px;
-    margin-bottom: 56px;
+
+    &:not(:last-child) {
+      margin-bottom: 56px;
+    }
 
     @media screen and ${device.laptop} {
       grid-template-columns: repeat(2, 1fr);

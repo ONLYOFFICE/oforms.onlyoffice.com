@@ -2,7 +2,7 @@ import StyledSelect from "./styled-select";
 import { useState, useEffect, useRef } from "react";
 import Text from "@components/common/text";
 
-const CategorySelect = ({ t, label, labelMore, placeholder, selected, setSelected, errorText, valid, setValid, error, setError, setCategoryId, searchValue, setSearchValue, categoriesData }) => {
+const CategorySelect = ({ t, locale, label, labelMore, placeholder, selected, setSelected, errorText, valid, setValid, error, setError, setCategoryId, searchValue, setSearchValue, categoriesData }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedError, setSelectedError] = useState(false);
   const selectRef = useRef();
@@ -85,7 +85,7 @@ const CategorySelect = ({ t, label, labelMore, placeholder, selected, setSelecte
   };
 
   return (
-    <StyledSelect className={selectedError && error ? "error" : ""}>
+    <StyledSelect locale={locale} className={selectedError && error ? "error" : ""}>
       <Text className="label">{label} <Text className="label-more">{labelMore}</Text></Text>
 
       <div ref={selectRef} className="select-wrapper">

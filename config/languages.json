@@ -30,5 +30,9 @@
   {
     "key": "zh-CN",
     "shortKey": "zh"
+  },
+  {
+    "key": "ar-AR",
+    "shortKey": "ar"
   }
 ]

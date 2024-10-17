@@ -21,7 +21,7 @@ const SearchResultPage = ({ isDesktopClient, theme, locale, sort, page, types, c
 
   return (
     isDesktopClient ? (
-      <Layout>
+      <Layout locale={locale}>
         <Layout.PageHead>
           <MainHead
             title={`${searchQuery === "" ? t("Search PDF forms and templates") : searchQuery} | ONLYOFFICE`}
@@ -45,7 +45,7 @@ const SearchResultPage = ({ isDesktopClient, theme, locale, sort, page, types, c
         </Layout.SectionMain>
       </Layout>
     ) : (
-      <Layout>
+      <Layout locale={locale}>
         <Layout.PageHead>
           <MainHead
             title={`${searchQuery === "" ? t("Search PDF forms and templates") : searchQuery} | ONLYOFFICE`}
@@ -72,7 +72,7 @@ const SearchResultPage = ({ isDesktopClient, theme, locale, sort, page, types, c
             page={page}
           />
           <BannerFormSection t={t} locale={locale} />
-          <AccordionSection t={t} />
+          <AccordionSection t={t} locale={locale} />
         </Layout.SectionMain>
         <Layout.PageFooter>
           <Footer t={t} locale={locale} />

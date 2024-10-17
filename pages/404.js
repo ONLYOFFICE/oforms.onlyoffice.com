@@ -5,7 +5,7 @@ import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import ErrorContent from "@components/screens/404-content";
 
-const Error404Page = ({ locale }) => {
+const Error404Page = () => {
   const { t } = useTranslation("common");
   const router = useRouter();
   const isDesktopClient = router.asPath.includes("desktop=true");
@@ -14,7 +14,7 @@ const Error404Page = ({ locale }) => {
     router.asPath.includes("theme=theme-contrast-dark") ? "theme-contrast-dark" : null;
 
   return (
-    <Layout>
+    <Layout locale={router.locale}>
       <Layout.PageHead>
         <MainHead
           title={t("Page 404")}
