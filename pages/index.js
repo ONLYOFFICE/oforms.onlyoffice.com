@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useRouter } from "next/router";
 import getForms from "@lib/requests/getForms";
 import getTypes from "@lib/requests/getTypes";
 import getCategories from "@lib/requests/getCategories";
@@ -20,13 +19,12 @@ import Footer from "@components/screens/footer";
 import MainContent from "@components/screens/main-content";
 import AccordionSection from "@components/screens/common/accordion-section";
 
-const MainPage = ({ locale, sort, forms, types, categories, compilations, popularTemplates, pptxForms, docxForms, pdfForms, xlsxForms }) => {
+const MainPage = ({ isDesktopClient, theme, locale, sort, forms, types, categories, compilations, popularTemplates, pptxForms, docxForms, pdfForms, xlsxForms }) => {
   const { t } = useTranslation("common");
-  const router = useRouter();
   const [stateMobile, setStateMobile] = useState(false);
 
   return (
-    router.query.desktop === "true" ? (
+    isDesktopClient ? (
       <Layout>
         <Layout.PageHead>
           <MainHead
@@ -44,7 +42,7 @@ const MainPage = ({ locale, sort, forms, types, categories, compilations, popula
             types={types}
             categories={categories}
             compilations={compilations}
-            theme={router.query.theme}
+            theme={theme}
           />
         </Layout.SectionMain>
       </Layout>
@@ -85,8 +83,10 @@ const MainPage = ({ locale, sort, forms, types, categories, compilations, popula
   )
 };
 
-export const getServerSideProps = async ({ locale, query }) => {
-  const isDesktopClient = query.desktop === "true" ? true : false;
+export const getServerSideProps = async ({ req, locale, query }) => {
+  const userAgent = req.headers["user-agent"];
+  const isDesktopClient = userAgent ? userAgent.includes("AscDesktopEditor") : false;
+  const theme = query.theme || null;
   const page = query.page || 1;
   const sort = query._sort || "asc";
   const pageSize = query.pageSize || (isDesktopClient ? 32 : 6);
@@ -104,6 +104,8 @@ export const getServerSideProps = async ({ locale, query }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale, "common")),
+      isDesktopClient,
+      theme,
       locale,
       sort,
       forms,
