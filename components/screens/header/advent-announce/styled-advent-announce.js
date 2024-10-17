@@ -3,6 +3,7 @@ import { device } from "@utils/devices";
 import bannerBg from "@public/images/banners/banner-bg.svg";
 import bannerBgMobile from "@public/images/banners/banner-bg-mobile.svg";
 import arrowRight from "@public/images/banners/arrow-right.svg";
+import pdfIcon from "@public/images/banners/docs-8-2-pdf.svg";
 
 const StyledAdventAnnounce = styled.div`
   .advent-announce {
@@ -17,6 +18,10 @@ const StyledAdventAnnounce = styled.div`
     background-position: center;
     background-repeat: no-repeat;
     background-color: #1B181F;
+    @media screen and ${device.laptop} {
+      display: none;
+    }
+
 
     .advent-announce-wrapper {
       position: relative;
@@ -31,7 +36,7 @@ const StyledAdventAnnounce = styled.div`
       text-decoration: none;
       z-index: 10;
 
-      &:after {
+      /* &:after {
         @media screen and ${device.laptop} {
           content: "";
           display: block;
@@ -42,15 +47,53 @@ const StyledAdventAnnounce = styled.div`
           background-image: url(${arrowRight.src});
           background-repeat: no-repeat;
         }
-      }
+      } */
     }
 
     .advent-announce-text {
+      position: relative;
       font-size: 14px;
       line-height: 22px;
       font-weight: 400;
       letter-spacing: 0.01em;
       color: #FFFFFF;
+      &:before{
+        content: "";
+        position: absolute;
+        display: inline-block;
+        left: -72px;
+        width: 64px;
+        min-width: 64px;
+        height: 64px;
+        background-image: url(${pdfIcon.src});
+        background-repeat: no-repeat;
+        background-size: contain;
+        top: 50%;
+        transform: translateY(-50%);
+        @media screen and ${device.laptop} {
+          display: none;
+        }
+        
+      }
+      &:after{
+        content: "";
+        position: absolute;
+        display: inline-block;
+        margin-left: 16px;
+        width: 18px;
+        min-width: 18px;
+        height: 18px;
+        background-image: url(${arrowRight.src});
+        background-repeat: no-repeat;
+        background-size: contain;
+        top: 50%;
+        transform: translateY(-50%);
+        @media screen and ${device.laptop} {
+          content: "";          
+          background-image: url(${arrowRight.src});
+          background-repeat: no-repeat;
+        }
+      }
 
       b {
         font-size: 16px;
@@ -134,7 +177,13 @@ const StyledAdventAnnounce = styled.div`
     }
   }
 
-  &.en {
+  &.en,
+  &.cs,
+  &.el,
+  &.hi,
+  &.ar,
+  &.sr,
+  &.hy {
     .advent-announce-wrapper {
       @media screen and ${device.mobileM} {
         padding: 0;
@@ -176,7 +225,7 @@ const StyledAdventAnnounce = styled.div`
     }
   }
 
-  &.pt {
+  &.pt-br {
     .advent-announce-wrapper {
       max-width: 854px;
 
