@@ -82,6 +82,11 @@ const nextConfig = {
         permanent: false,
       },
       {
+        source: '/he',
+        destination: '/en',
+        permanent: false,
+      },
+      {
         source: '/hi',
         destination: '/en',
         permanent: false,
