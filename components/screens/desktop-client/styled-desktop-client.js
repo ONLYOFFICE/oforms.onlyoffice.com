@@ -40,11 +40,6 @@ const StyledDesktopClientContent = styled(Section)`
     .sort-btn {
       margin-right: 16px;
     }
-
-    .category-selector-dropdown {
-      right: 0;
-      left: auto;
-    }
   }
 
   .section-page {
