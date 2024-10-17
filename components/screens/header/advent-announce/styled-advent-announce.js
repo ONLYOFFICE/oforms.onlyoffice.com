@@ -79,7 +79,7 @@ const StyledAdventAnnounce = styled.div`
         content: "";
         position: absolute;
         display: inline-block;
-        margin-left: 16px;
+        right: -34px;
         width: 18px;
         min-width: 18px;
         height: 18px;
