@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useRouter } from "next/router";
 import getForms from "@lib/requests/getForms";
 import getTypes from "@lib/requests/getTypes";
 import getCategories from "@lib/requests/getCategories";
@@ -19,12 +20,13 @@ import Footer from "@components/screens/footer";
 import MainContent from "@components/screens/main-content";
 import AccordionSection from "@components/screens/common/accordion-section";
 
-const MainPage = ({ isDesktopClient, theme, locale, sort, forms, types, categories, compilations, popularTemplates, pptxForms, docxForms, pdfForms, xlsxForms }) => {
+const MainPage = ({ locale, sort, forms, types, categories, compilations, popularTemplates, pptxForms, docxForms, pdfForms, xlsxForms }) => {
   const { t } = useTranslation("common");
+  const router = useRouter();
   const [stateMobile, setStateMobile] = useState(false);
 
   return (
-    isDesktopClient ? (
+    router.query.desktop === "true" ? (
       <Layout>
         <Layout.PageHead>
           <MainHead
@@ -42,7 +44,7 @@ const MainPage = ({ isDesktopClient, theme, locale, sort, forms, types, categori
             types={types}
             categories={categories}
             compilations={compilations}
-            theme={theme}
+            theme={router.query.theme}
           />
         </Layout.SectionMain>
       </Layout>

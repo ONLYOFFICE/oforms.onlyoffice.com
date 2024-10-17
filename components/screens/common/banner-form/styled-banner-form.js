@@ -138,6 +138,7 @@ const StyledBannerForm = styled.div`
       margin-right: 0;
       margin-bottom: 16px;
     }
+
   }
 
   .btn-transparent {

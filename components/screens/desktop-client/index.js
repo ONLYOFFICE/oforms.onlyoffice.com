@@ -145,8 +145,6 @@ const DesktopClient = ({ t, locale, data, sort, categories, types, compilations,
   return (
     <StyledDesktopClient theme={theme}>
       <div className="header">
-        <Heading className="header-title" level={1} label={t("Templates")} />
-
         <div className="header-wrapper">
           <CategorySelector
             t={t}

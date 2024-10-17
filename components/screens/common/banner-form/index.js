@@ -32,4 +32,4 @@ const BannerForm = ({ t }) => {
   );
 };
 
-export default BannerForm;
+export default BannerForm; 

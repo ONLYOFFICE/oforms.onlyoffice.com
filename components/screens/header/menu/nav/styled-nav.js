@@ -452,8 +452,6 @@ const StyledNav = styled.nav`
   .nav-pricing,
   .nav-partners {
     .menu-items-wrapper {
-      left: calc(50% + 156px);
-
       @media screen and ${device.laptop} {
         left: initial;
       }

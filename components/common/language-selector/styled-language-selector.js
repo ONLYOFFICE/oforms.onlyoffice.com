@@ -158,35 +158,35 @@ const StyledLanguageSelector = styled.div`
     cursor: pointer;
 
     &.en {
-      background-position-y: -24px;
-    }
-
-    &.fr {
-      background-position-y: -72px;
-    }
-
-    &.de {
       background-position-y: 0;
     }
 
-    &.es {
+    &.fr {
       background-position-y: -48px;
     }
 
-    &.pt {
-      background-position-y: -192px;
+    &.de {
+      background-position-y: -72px;
     }
 
-    &.it {
+    &.es {
       background-position-y: -96px;
     }
 
+    &.pt {
+      background-position-y: -120px;
+    }
+
+    &.it {
+      background-position-y: -144px;
+    }
+
     &.ja {
-      background-position-y: -360px;
+      background-position-y: -216px;
     }
 
     &.zh {
-      background-position-y: -168px;
+      background-position-y: -240px;
     }
   }
 
