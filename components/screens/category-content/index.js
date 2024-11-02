@@ -9,6 +9,7 @@ import InternalLink from "@components/common/internal-link";
 import Card from "@components/screens/common/card";
 import SortSelector from "@components/common/sort-selector";
 import Pagination from "@components/common/pagination";
+import EditorSelector from "./editor-selector";
 
 const CategoryContent = ({ t, locale, subtitle, sort, page, forms, categories, types, compilations, categoryName, categoryUrl }) => {
   const router = useRouter();
@@ -55,11 +56,22 @@ const CategoryContent = ({ t, locale, subtitle, sort, page, forms, categories, t
     <StyledCategoryContent>
       <div className="category-nav">
         <ul className="category-nav-list">
-          <li><InternalLink id="category-nav-home-link" className={router.pathname === "/" ? "active" : ""} href="/" label={t("Home")} /></li>
-          <li><InternalLink id="category-nav-pdf-form-link" className={router.pathname === "/pdf-form-templates" ? "active" : ""} href={`/pdf-form-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Form")} /></li>
-          <li><InternalLink id="category-nav-document-link" className={router.pathname === "/document-templates" ? "active" : ""} href={`/document-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Document")} /></li>
-          <li><InternalLink id="category-nav-spreadsheet-link" className={router.pathname === "/spreadsheet-templates" ? "active" : ""} href={`/spreadsheet-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Spreadsheet")} /></li>
-          <li><InternalLink id="category-nav-presentation-link" className={router.pathname === "/presentation-templates" ? "active" : ""} href={`/presentation-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Presentation")} /></li>
+          <li><CategorySelector
+            t={t}
+            locale={locale}
+            sort={sort}
+            categories={categories}
+            types={types}
+            compilations={compilations}
+            categoryName={categoryName}
+            activeUrl={router.pathname}
+          /></li>
+          <li><EditorSelector t={t} locale={locale} /></li>
+          <li className="separator"></li>
+          <li className="cat-desk-nav-li"><InternalLink id="category-nav-pdf-form-link" className={`cat-desk-nav-link ${router.pathname === "/pdf-form-templates" ? "active" : ""}`} href={`/pdf-form-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Form")} /></li>
+          <li className="cat-desk-nav-li"><InternalLink id="category-nav-document-link" className={`cat-desk-nav-link ${router.pathname === "/document-templates" ? "active" : ""}`} href={`/document-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Document")} /></li>
+          <li className="cat-desk-nav-li"><InternalLink id="category-nav-spreadsheet-link" className={`cat-desk-nav-link ${router.pathname === "/spreadsheet-templates" ? "active" : ""}`} href={`/spreadsheet-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Spreadsheet")} /></li>
+          <li className="cat-desk-nav-li"><InternalLink id="category-nav-presentation-link" className={`cat-desk-nav-link ${router.pathname === "/presentation-templates" ? "active" : ""}`} href={`/presentation-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Presentation")} /></li>
         </ul>
       </div>
       <div className="category-header">
@@ -69,16 +81,8 @@ const CategoryContent = ({ t, locale, subtitle, sort, page, forms, categories, t
       {forms.data.length > 0 ? (
         <>
           <div className="category-info">
-            <CategorySelector
-              t={t}
-              locale={locale}
-              sort={sort}
-              categories={categories}
-              types={types}
-              compilations={compilations}
-              categoryName={categoryName}
-            />
             <SortSelector t={t} locale={locale} sort={sort} />
+            <Text>{forms.meta.pagination.total} {t("Documents")}</Text>
           </div>
           <div className="category-items">
             {forms.data.map((data, index) => (

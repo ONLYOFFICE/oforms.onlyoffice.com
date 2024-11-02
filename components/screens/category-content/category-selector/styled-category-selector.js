@@ -3,6 +3,24 @@ import { device } from "@utils/devices";
 
 const StyledCategorySelector = styled.div`
   position: relative;
+  border: 1px solid #AAAAAA;
+  border-radius: 3px;
+  padding: 7px 8px 7px 16px;
+
+  &.active {
+    border-color: #FF6F3D;
+    > .category-selector-heading .category-selector-title {
+      color: #FF6F3D;
+
+      svg path {
+        fill: #FF6F3D;
+      }
+    }
+  }
+
+  &.editor {
+    display: none;
+  }
 
   .category-selector-heading {
     display: flex;
@@ -70,6 +88,11 @@ const StyledCategorySelector = styled.div`
     overflow: initial;
     white-space: nowrap;
     cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 17px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
 
     &.open {
       svg {
@@ -82,13 +105,8 @@ const StyledCategorySelector = styled.div`
       margin-left: 10px;
 
       path {
-        fill: #444444;
+        fill: #aaaaaa;
       }
-    }
-
-    @media screen and (max-width: 896px) {
-      font-size: 16px;
-      line-height: 21px;
     }
   }
 
@@ -293,6 +311,12 @@ const StyledCategorySelector = styled.div`
 
     @media screen and (max-width: 896px) {
       padding: 16px 0;
+    }
+  }
+
+  @media screen and ${device.mobile} {
+    &.editor {
+      display: block;
     }
   }
 `;
