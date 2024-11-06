@@ -59,7 +59,6 @@ const StyledHeading = styled.div`
     .oo-hm-item .oo-hm-item-heading {
       padding: 14px 24px;
       height: 72px;
-      color: #ffffff;
 
       @media screen and (max-width: 1460px) {
         padding: 14px 18px;
