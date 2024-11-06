@@ -7,7 +7,7 @@ import getFormExts from "@lib/requests/getFormExts";
 import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import Header from "@components/screens/header";
-import AdventAnnounce from "@components/screens/header/advent-announce";
+import AdventAnnounceBanner from "@components/screens/header/advent-announce-banner";
 import FormSubmitContent from "@components/screens/form-submit-content";
 import Footer from "@components/screens/footer";
 
@@ -23,7 +23,7 @@ const FormSubmitPage = ({ locale, categories, formExts, queryIndexData }) => {
           description={t("Free templates and fillable PDF forms for any business purpose")}
         />
       </Layout.PageHead>
-      <AdventAnnounce t={t} locale={locale} stateMobile={stateMobile} />
+      <AdventAnnounceBanner locale={locale} stateMobile={stateMobile} />
       <Layout.PageHeader>
         <Header
           templatePrimary
@@ -44,7 +44,7 @@ const FormSubmitPage = ({ locale, categories, formExts, queryIndexData }) => {
         />
       </Layout.SectionMain>
       <Layout.PageFooter>
-        <Footer t={t} locale={locale}/>
+        <Footer locale={locale}/>
       </Layout.PageFooter>
     </Layout>
   )

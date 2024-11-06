@@ -19,7 +19,7 @@ const StyledHeading = styled.div`
   background-color: transparent;
 
   &.main {
-    .heading-nav-item {
+    .oo-hm .oo-hm-item .oo-hm-item-heading {
       color: #FFFFFF;
 
       &.active {
@@ -50,6 +50,33 @@ const StyledHeading = styled.div`
           }
         }
       }
+    }
+  }
+
+  .oo-hm {
+    position: initial;
+
+    .oo-hm-item .oo-hm-item-heading {
+      padding: 14px 24px;
+      height: 72px;
+      color: #ffffff;
+
+      @media screen and (max-width: 1460px) {
+        padding: 14px 18px;
+      }
+
+      @media screen and (max-width: 1380px) {
+        padding: 14px 10px;
+      }
+
+      @media screen and (max-width: 1024px) {
+        padding: 16px 40px 16px 24px;
+        height: initial;
+      }
+    }
+
+    @media screen and (max-width: 1024px) {
+      position: fixed;
     }
   }
 
@@ -164,9 +191,9 @@ const StyledHeading = styled.div`
   }
 
   &.is-open {
-    .advent-announce,
     .nav-btn-mobile,
-    .nav-selector-wrapper {
+    .nav-selector-wrapper,
+    .submit-form-btn {
       @media screen and ${device.laptop} {
         transform: translate3d(429px, 0, 0);
         transition: transform 0.2s cubic-bezier(0.16,0.68,0.43,0.99);
@@ -183,7 +210,7 @@ const StyledHeading = styled.div`
 
     .nav-item-logo {
       @media screen and ${device.laptop} {
-        transform: translate3d(429px, 0, 0) translateX(-50%);
+        transform: translate3d(505px, 0, 0) translateX(-50%);
         transition: transform 0.2s cubic-bezier(0.16,0.68,0.43,0.99);
       }
 
@@ -196,30 +223,10 @@ const StyledHeading = styled.div`
       }
     }
 
-    .search_icon {
-      @media screen and ${device.laptop} {
-        transform: translate3d(429px, 0, 0) translateY(-50%);
-      }
-
-      @media screen and (max-width: 592px) {
-        transform: translate3d(380px, 0, 0) translateY(-50%);
-      }
-
-      @media screen and (max-width: 430px) {
-        transform: translate3d(288px, 0, 0) translateY(-50%);
-      }
-    }
-
     .overlay {
       @media screen and ${device.laptop} {
         opacity: 1;
         visibility: visible;
-      }
-    }
-
-    .nav {
-      @media screen and ${device.laptop} {
-        transform: translate3d(0, 0, 0);
       }
     }
   }
