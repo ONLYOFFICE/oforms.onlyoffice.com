@@ -1,6 +1,7 @@
 import { StyledHeading, GlobalStyles } from "./styled-menu";
 import { useEffect } from "react";
-import Nav from "./nav/nav";
+import { HeaderMenu } from "onlyoffice-react-ui-kit/header-menu";
+import "onlyoffice-react-ui-kit/header-menu/css";
 import PhoneMenu from "./phone-menu";
 import LanguageSelector from "@components/common/language-selector";
 import InternalLink from "@components/common/internal-link";
@@ -14,7 +15,7 @@ const Menu = ({ t, locale, templatePrimary, templateSecondary, templateTertiary,
   useEffect(() => {
     if (typeof window !== "undefined" && window.innerWidth <= 1024 && stateMobile) {
       const handleClickOutside = (e) => {
-        if (!e.target.closest(".nav")) {
+        if (!e.target.closest(".oo-hm")) {
           setStateMobile(false);
         };
       };
@@ -41,7 +42,7 @@ const Menu = ({ t, locale, templatePrimary, templateSecondary, templateTertiary,
         <img src={logo} alt="logo" />
       </InternalLink>
       <div className="overlay"></div>
-      <Nav locale={locale} t={t} />
+      <HeaderMenu locale={locale} isOpen={stateMobile} loginMenuMobile={true} />
       <div className="nav-selector-wrapper">
         <PhoneMenu t={t} locale={locale} />
         <LanguageSelector t={t} />
