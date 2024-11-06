@@ -1,7 +1,15 @@
 pipeline {
   agent { label 'ubuntu' }
   parameters {
-    string(name: 'BRANCH_NAME', defaultValue: 'test_deploy', description: 'Branch to deploy')
+    gitParameter (name: 'BRANCH_NAME',
+     type: 'PT_BRANCH',
+     branchFilter:'*',
+     listSize:'5',
+     defaultValue:'test_deploy',
+     selectedValue:'DEFAULT',
+     sortMode: 'ASCENDING_SMART',
+     description: 'Select branch name to build')
+    choice(name: 'EXECUTE', choices: ['True','False'],description: 'Choice "True" to run it or "False" to update job')
   }
   triggers {
     githubPush()
