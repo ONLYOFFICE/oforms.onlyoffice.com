@@ -42,7 +42,7 @@ const Menu = ({ t, locale, templatePrimary, templateSecondary, templateTertiary,
         <img src={logo} alt="logo" />
       </InternalLink>
       <div className="overlay"></div>
-      <HeaderMenu locale={locale} isOpen={stateMobile} loginMenuMobile={true} />
+      <HeaderMenu locale={locale} isOpen={stateMobile} />
       <div className="nav-selector-wrapper">
         <PhoneMenu t={t} locale={locale} />
         <LanguageSelector t={t} />
