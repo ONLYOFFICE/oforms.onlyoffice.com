@@ -64,6 +64,7 @@ pipeline {
     }
 
     stage('deploy') {
+      when { expression { return env.EXECUTE == "True" } }
       steps { 
         withCredentials([
           usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS',
@@ -160,6 +161,7 @@ pipeline {
     }
 
     stage('invalidation') {
+      when { expression { return env.EXECUTE == "True" } }
       steps {
         withCredentials([
           usernamePassword(credentialsId: 'aws_build_robot', 
