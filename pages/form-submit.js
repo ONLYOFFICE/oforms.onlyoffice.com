@@ -16,7 +16,7 @@ const FormSubmitPage = ({ locale, categories, formExts, queryIndexData }) => {
   const [stateMobile, setStateMobile] = useState(false);
 
   return (
-    <Layout>
+    <Layout locale={locale}>
       <Layout.PageHead>
         <MainHead
           title={t("ONLYOFFICE templates")}

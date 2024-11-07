@@ -3,9 +3,9 @@ import { Tooltip } from "react-tooltip";
 import Heading from "@components/common/heading";
 import ExternalLink from "@components/common/external-link";
 
-const FormDownload = ({ t, pdfFile, docxFile, pptxFile, xlsxFile }) => {
+const FormDownload = ({ t, locale, pdfFile, docxFile, pptxFile, xlsxFile }) => {
   return (
-    <StyledFormDownload className="form-download">
+    <StyledFormDownload locale={locale} className="form-download">
       <Heading
         className="form-download-title"
         level={6}

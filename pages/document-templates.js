@@ -19,7 +19,7 @@ const DocumentTemplatesPage = ({ locale, sort, page, forms, categories, types, c
   const [stateMobile, setStateMobile] = useState(false);
 
   return (
-    <Layout>
+    <Layout locale={locale}>
       <Layout.PageHead>
         <MainHead
           title={`${t("Document templates")} | ONLYOFFICE`}
@@ -51,7 +51,7 @@ const DocumentTemplatesPage = ({ locale, sort, page, forms, categories, types, c
           categoryUrl="document-templates"
         />
         <BannerFormSection t={t} locale={locale} />
-        <AccordionSection t={t} />
+        <AccordionSection t={t} locale={locale} />
       </Layout.SectionMain>
       <Layout.PageFooter>
         <Footer locale={locale} />

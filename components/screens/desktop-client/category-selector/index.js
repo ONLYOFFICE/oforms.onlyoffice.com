@@ -64,6 +64,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, isCatego
   return (
     <StyledCategorySelector
       onMouseLeave={() => window.innerWidth >= 1024 && setIsOpen(false)}
+      locale={locale}
       theme={theme}
       className={`category-selector ${locale} ${hideCategorySelector ? "hide-mobile" : ""}`}
     >

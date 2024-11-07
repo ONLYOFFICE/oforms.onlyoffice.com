@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Text from "@components/common/text";
 
-const LanguageSelect = ({ t, label, labelMore, placeholder, selected, setSelected, errorText, valid, setValid, error, setError, setLanguageKey, setSearchValue, setCategory, setCategoryValid, setCategoryId, categoriesData, setCategoriesData, setCategoryError }) => {
+const LanguageSelect = ({ t, locale, label, labelMore, placeholder, selected, setSelected, errorText, valid, setValid, error, setError, setLanguageKey, setSearchValue, setCategory, setCategoryValid, setCategoryId, categoriesData, setCategoriesData, setCategoryError }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedError, setSelectedError] = useState(false);
   const selectRef = useRef();
@@ -77,7 +77,7 @@ const LanguageSelect = ({ t, label, labelMore, placeholder, selected, setSelecte
   };
 
   return (
-    <StyledSelect className={selectedError && error ? "error" : ""}>
+    <StyledSelect locale={locale} className={selectedError && error ? "error" : ""}>
       <Text className="label">{label} <Text className="label-more">{labelMore}</Text></Text>
 
       <div ref={selectRef} className="select-wrapper">

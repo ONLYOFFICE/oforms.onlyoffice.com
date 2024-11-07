@@ -27,7 +27,7 @@ const MainPage = ({ locale, sort, forms, types, categories, compilations, popula
 
   return (
     router.query.desktop === "true" ? (
-      <Layout>
+      <Layout locale={locale}>
         <Layout.PageHead>
           <MainHead
             title={t("ONLYOFFICE templates")}
@@ -49,7 +49,7 @@ const MainPage = ({ locale, sort, forms, types, categories, compilations, popula
         </Layout.SectionMain>
       </Layout>
     ) : (
-      <Layout>
+      <Layout locale={locale}>
         <Layout.PageHead>
           <MainHead
             title={t("ONLYOFFICE templates")}
@@ -68,6 +68,7 @@ const MainPage = ({ locale, sort, forms, types, categories, compilations, popula
         <Layout.SectionMain>
           <MainContent
             t={t}
+            locale={locale}
             popularTemplates={popularTemplates}
             categories={categories}
             pptxForms={pptxForms}
@@ -75,7 +76,7 @@ const MainPage = ({ locale, sort, forms, types, categories, compilations, popula
             pdfForms={pdfForms}
             xlsxForms={xlsxForms}
           />
-          <AccordionSection t={t} />
+          <AccordionSection t={t} locale={locale} />
         </Layout.SectionMain>
         <Layout.PageFooter>
           <Footer locale={locale} />

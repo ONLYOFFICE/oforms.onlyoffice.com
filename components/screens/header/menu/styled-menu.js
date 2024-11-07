@@ -81,9 +81,19 @@ const StyledHeading = styled.div`
 
   .nav-item-logo {
     display: flex;
-    margin-right: 32px;
+    ${props => props.locale === "ar" ? "margin-left: 32px;" : "margin-right: 32px;"}
     width: 154px;
     height: 28px;
+
+    img {
+      @media screen and (max-width: 1300px) {
+        object-position: ${props => props.locale === "ar" && "122px center"};
+      }
+
+      @media screen and ${device.laptop} {
+        object-position: initial;
+      }
+    }
 
     @media screen and (max-width: 1300px) {
       overflow: hidden;
@@ -93,7 +103,7 @@ const StyledHeading = styled.div`
 
     @media screen and ${device.laptop} {
       display: block;
-      margin-right: auto;
+      ${props => props.locale === "ar" ? "margin-left: auto;" : "margin-right: auto;"}
       width: 152px;
       height: 28px;
     }
@@ -124,7 +134,7 @@ const StyledHeading = styled.div`
       box-sizing: border-box;
       display: flex;
       padding: 0;
-      margin-right: 32px;
+      ${props => props.locale === "ar" ? "margin-left: 32px;" : "margin-right: 32px;"}
       cursor: pointer;
     }
   }
@@ -132,15 +142,15 @@ const StyledHeading = styled.div`
   .nav-selector-wrapper {
     display: flex;
     align-items: center;
-    margin-right: 32px;
+    ${props => props.locale === "ar" ? "margin-left: 32px;" : "margin-right: 32px;"}
 
     @media screen and ${device.mobile} {
-      margin-right: 0;
+      ${props => props.locale === "ar" ? "margin-left: 0;" : "margin-right: 0;"}
     }
   }
 
   .phone-menu {
-    margin-right: 10px;
+    ${props => props.locale === "ar" ? "margin-left: 10px;" : "margin-right: 10px;"}
   }
 
   .submit-form-btn {
@@ -175,7 +185,7 @@ const StyledHeading = styled.div`
 
   .phone-btn {
     @media screen and (max-width: 1300px) {
-      padding: 24px 5px;
+      padding: 24px 10px;
     }
   }
 
@@ -194,31 +204,31 @@ const StyledHeading = styled.div`
     .nav-selector-wrapper,
     .submit-form-btn {
       @media screen and ${device.laptop} {
-        transform: translate3d(429px, 0, 0);
+        transform: ${props => props.locale === "ar" ? "translate3d(-429px, 0, 0)" : "translate3d(429px, 0, 0)"};
         transition: transform 0.2s cubic-bezier(0.16,0.68,0.43,0.99);
       }
 
       @media screen and (max-width: 592px) {
-        transform: translate3d(calc(100vw - 64px), 0, 0);
+        transform: ${props => props.locale === "ar" ? "translate3d(calc(-100vw + 64px), 0, 0)" : "translate3d(calc(100vw - 64px), 0, 0)"};
       }
 
       @media screen and (max-width: 375px) {
-        transform: translate3d(calc(100vw - 32px), 0, 0);
+        transform: ${props => props.locale === "ar" ? "translate3d(calc(-100vw + 32px), 0, 0)" : "translate3d(calc(100vw - 32px), 0, 0)"};
       }
     }
 
     .nav-item-logo {
       @media screen and ${device.laptop} {
-        transform: translate3d(505px, 0, 0) translateX(-50%);
+        transform: ${props => props.locale === "ar" ? "translate3d(-429px, 0, 0)" : "translate3d(429px, 0, 0)"};
         transition: transform 0.2s cubic-bezier(0.16,0.68,0.43,0.99);
       }
 
       @media screen and (max-width: 592px) {
-        transform: translate3d(380px, 0, 0) translateX(-50%);
+        transform: ${props => props.locale === "ar" ? "translate3d(-380px, 0, 0) translateX(-50%)" : "translate3d(380px, 0, 0) translateX(-50%)"};
       }
 
       @media screen and (max-width: 430px) {
-        transform: translate3d(288px, 0, 0) translateX(-50%);
+        transform: ${props => props.locale === "ar" ? "translate3d(-288px, 0, 0) translateX(-50%)" : "translate3d(288px, 0, 0) translateX(-50%)"};
       }
     }
 

@@ -17,7 +17,7 @@ const StyledSearchInput = styled.div`
     border-color: #D8DADC;
 
     @media screen and (max-width: 592px) {
-      margin: 0 16px 0 0;
+      margin: ${props => props.locale === "ar" ? "0 0 0 16px" : "0 16px 0 0"};
     }
 
     .search-input {
@@ -53,7 +53,7 @@ const StyledSearchInput = styled.div`
   .cross-btn {
     display: none;
     position: absolute;
-    right: 0;
+    ${props => props.locale === "ar" ? "left: 0;" : "right: 0;"}
 
     svg {
       path {

@@ -7,7 +7,7 @@ import CardSlider from "@components/screens/common/card-slider";
 import PopularCategories from "./popular-categories";
 import CardsBlock from "./cards-block";
 
-const MainContent = ({ t, popularTemplates, categories, pptxForms, docxForms, pdfForms, xlsxForms }) => {
+const MainContent = ({ t, locale, popularTemplates, categories, pptxForms, docxForms, pdfForms, xlsxForms }) => {
   return (
     <>
       <StyledHeading>
@@ -34,16 +34,16 @@ const MainContent = ({ t, popularTemplates, categories, pptxForms, docxForms, pd
           <PopularCategories t={t} categories={categories} />
         }
         {pdfForms.data.length > 0 &&
-          <CardsBlock className="pdf-fillable-form" t={t} title={t("PDF fillable forms")} linkUrl={"/pdf-form-templates"} data={pdfForms} />
+          <CardsBlock className="pdf-fillable-form" t={t} locale={locale} title={t("PDF fillable forms")} linkUrl={"/pdf-form-templates"} data={pdfForms} />
         }
         {docxForms.data.length > 0 &&
-          <CardsBlock className="document-templates" t={t} title={t("Document templates")} linkUrl={"/document-templates"} data={docxForms} />
+          <CardsBlock className="document-templates" t={t} locale={locale} title={t("Document templates")} linkUrl={"/document-templates"} data={docxForms} />
         }
         {xlsxForms.data.length > 0 &&
-          <CardsBlock className="spreadsheet-templates" t={t} title={t("Spreadsheet templates")} linkUrl={"/spreadsheet-templates"} data={xlsxForms} />
+          <CardsBlock className="spreadsheet-templates" t={t} locale={locale} title={t("Spreadsheet templates")} linkUrl={"/spreadsheet-templates"} data={xlsxForms} />
         }
         {pptxForms.data.length > 0 &&
-          <CardsBlock className="presentation-templates" t={t} title={t("Presentation templates")} linkUrl={"/presentation-templates"} data={pptxForms} />
+          <CardsBlock className="presentation-templates" t={t} locale={locale} title={t("Presentation templates")} linkUrl={"/presentation-templates"} data={pptxForms} />
         }
       </StyledMain>
     </>

@@ -34,11 +34,11 @@ const StyledDesktopClientContent = styled(Section)`
     align-items: center;
 
     .category-selector {
-      margin-right: auto;
+      ${props => props.locale === "ar" ? "margin-left: auto;" : "margin-right: auto;"}
     }
 
     .sort-btn {
-      margin-right: 16px;
+      ${props => props.locale === "ar" ? "margin-left: 16px;" : "margin-right: 16px;"}
     }
   }
 
@@ -59,7 +59,7 @@ const StyledDesktopClientContent = styled(Section)`
     overflow-y: auto;
 
     @media screen and (max-width: 592px) {
-      padding: 0 48px 40px 16px;
+      padding: ${props => props.locale === "ar" ? "0 16px 40px 48px" : "0 48px 40px 16px"};
     }
   }
 
@@ -71,7 +71,7 @@ const StyledDesktopClientContent = styled(Section)`
   }
 
   .error-desktop-image {
-    margin-right: 24px;
+    ${props => props.locale === "ar" ? "margin-left: 24px;" : "margin-right: 24px;"}
     width: 108px;
     height: 108px;
     background-image: ${props => `url(${props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? emptyFilterDarkImg.src : emptyFilterImg.src})`};
@@ -129,7 +129,7 @@ const StyledDesktopClientContent = styled(Section)`
 
   .scroll-to-top-btn {
     position: fixed;
-    right: 16px;
+    ${props => props.locale === "ar" ? "left: 16px;" : "right: 16px;"}
     bottom: 44px;
     border: none;
     border-radius: 2px;

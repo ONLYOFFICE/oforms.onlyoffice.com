@@ -28,7 +28,7 @@ const Input = ({ isTextarea, label, className, name, value, placeholder, onFocus
           />
         )}
         {errorText && 
-          <Text className="error-text" label={errorText} />
+          <Text className="error-text" label={errorText} as="p" />
         }
       </div>
     </StyledInput>

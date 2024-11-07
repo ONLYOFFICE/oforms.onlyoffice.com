@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import languages from "@config/languages.json";
 import InternalLink from "@components/common/internal-link";
 
-const LanguageSelector = ({ theme }) => {
+const LanguageSelector = ({ locale, theme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const isDesktopClient = router.query.desktop === "true";
@@ -42,6 +42,7 @@ const LanguageSelector = ({ theme }) => {
       {...(!isDesktopClient && { onMouseEnter: () => setIsOpen(true), onMouseLeave: () => onCloseSelector() })}
       onClick={() => setIsOpen(!isOpen)}
       className={`language-selector ${isOpen ? "is-open" : ""} ${isDesktopClient ? "is-desktop-client" : ""}`}
+      locale={locale}
       theme={theme}
     >
       <button className="language-button">

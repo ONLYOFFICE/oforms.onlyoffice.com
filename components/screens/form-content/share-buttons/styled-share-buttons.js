@@ -6,7 +6,7 @@ const StyledShareButtons = styled.div`
   align-items: center;
 
   .share-buttons-title {
-    margin-right: 8px;
+    ${props => props.locale === "ar" ? "margin-left: 8px;" : "margin-right: 8px;"}
     font-size: 13px;
     font-weight: 600;
     line-height: 21px;

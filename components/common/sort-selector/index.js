@@ -46,12 +46,17 @@ const SortSelector = ({ t, locale, sort }) => {
   };
 
   return (
-    <StyledSortSelector className="sort-selector" onMouseEnter={() => setDropdownOpen(true)} onMouseLeave={() => setDropdownOpen(false)}>
+    <StyledSortSelector
+      onMouseEnter={() => setDropdownOpen(true)}
+      onMouseLeave={() => setDropdownOpen(false)}
+      className="sort-selector"
+      locale={locale}
+    >
       <button onClick={() => setDropdownOpen(!isDropdownOpen)} id="sort-btn" className="sort-btn">
         <span className="sort-label">{t("Sort by")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</span>
         <span className="sort-name">{typeSortData}</span>
         <svg className={`sort-icon ${isDropdownOpen ? "open" : ""}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fillRule="evenodd" clipRule="evenodd" d="M11.4966 12.4016L8.31194 9.22434C8.01306 8.92615 7.52725 8.9249 7.22685 9.22155C6.92644 9.51821 6.92521 10.0004 7.22408 10.2986L10.9471 14.0131C11.1147 14.1803 11.3411 14.2541 11.5606 14.2344C11.738 14.2212 11.9117 14.1471 12.047 14.0121L15.7652 10.3025C16.064 10.0043 16.0628 9.52206 15.7624 9.2254C15.462 8.92875 14.9762 8.93 14.6773 9.22819L11.4966 12.4016Z" fill="black" fillOpacity="0.8"/>
+          <path fillRule="evenodd" clipRule="evenodd" d="M11.4966 12.4016L8.31194 9.22434C8.01306 8.92615 7.52725 8.9249 7.22685 9.22155C6.92644 9.51821 6.92521 10.0004 7.22408 10.2986L10.9471 14.0131C11.1147 14.1803 11.3411 14.2541 11.5606 14.2344C11.738 14.2212 11.9117 14.1471 12.047 14.0121L15.7652 10.3025C16.064 10.0043 16.0628 9.52206 15.7624 9.2254C15.462 8.92875 14.9762 8.93 14.6773 9.22819L11.4966 12.4016Z" fill="black" fillOpacity="0.8" />
         </svg>
       </button>
       {isDropdownOpen && (

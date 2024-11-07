@@ -19,7 +19,7 @@ const SpreadsheetTemplatesPage = ({ locale, sort, page, forms, categories, types
   const [stateMobile, setStateMobile] = useState(false);
 
   return (
-    <Layout>
+    <Layout locale={locale}>
       <Layout.PageHead>
         <MainHead
           title={`${t("Spreadsheet templates")} | ONLYOFFICE`}
@@ -51,7 +51,7 @@ const SpreadsheetTemplatesPage = ({ locale, sort, page, forms, categories, types
           categoryUrl="spreadsheet-templates"
         />
         <BannerFormSection t={t} locale={locale} />
-        <AccordionSection t={t} />
+        <AccordionSection t={t} locale={locale} />
       </Layout.SectionMain>
       <Layout.PageFooter>
         <Footer locale={locale} />

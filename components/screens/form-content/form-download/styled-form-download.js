@@ -10,7 +10,7 @@ const StyledFormDownload = styled.div`
   padding: 2px 0;
 
   .form-download-title {
-    margin-right: 8px;
+    ${props => props.locale === "ar" ? "margin-left: 8px;" : "margin-right: 8px;"}
     font-weight: 600;
     letter-spacing: 0.04em;
     white-space: nowrap;
@@ -49,7 +49,7 @@ const StyledFormDownload = styled.div`
     &:before {
       content: "";
       display: inline-flex;
-      margin-right: 5px;
+      ${props => props.locale === "ar" ? "margin-left: 5px;" : "margin-right: 5px;"}
       width: 24px;
       height: 24px;
       background-repeat: no-repeat;

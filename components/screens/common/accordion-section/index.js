@@ -2,7 +2,7 @@ import StyledAccordionSection from "./styled-accordion-section";
 import Heading from "@components/common/heading";
 import Accordion from "@components/common/accordion";
 
-const AccordionSection = ({ t }) => {
+const AccordionSection = ({ t, locale }) => {
   const items = [
     {
       title: t("Are ONLYOFFICE forms free to use?"),
@@ -45,7 +45,7 @@ const AccordionSection = ({ t }) => {
   return (
     <StyledAccordionSection>
       <Heading className="accordion-section-title" level={2} label={t("Frequently Asked Questions")} />
-      <Accordion items={items} />
+      <Accordion locale={locale} items={items} />
     </StyledAccordionSection>
   );
 };

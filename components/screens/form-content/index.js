@@ -22,6 +22,7 @@ import "moment/locale/pt-br";
 import "moment/locale/de";
 import "moment/locale/ja";
 import "moment/locale/zh-cn";
+import "moment/locale/ar-sa";
 
 const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilations }) => {
   const { name_form, template_desc, template_image, file_oform, form_exts, url } = form.data[0].attributes;
@@ -50,8 +51,8 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
 
   return (
     <>
-      <StyledMain>
-        <Breadcrumbs t={t} label={name_form} />
+      <StyledMain locale={locale}>
+        <Breadcrumbs t={t} label={name_form} locale={locale} />
 
         <div className="form-preview">
           <div className="form-info">
@@ -66,7 +67,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
               <div className="form-item last-updated">
                 <span className="form-item-label">{t("Last updated")}:</span>
                 <span className="form-item-info">
-                  {moment(fileUpdatedAt).locale(locale === "pt" ? "pt-br" : locale === "zh" ? "zh-cn" : locale).format(locale === "ja" ? "Y年MM月DD日" : locale === "zh" ? "Y年MM月DD" : "MMMM D, y")}
+                  {moment(fileUpdatedAt).locale(locale === "pt" ? "pt-br" : locale === "zh" ? "zh-cn" : locale === "ar" ? "ar-sa" : locale).format(locale === "ja" ? "Y年MM月DD日" : locale === "zh" ? "Y年MM月DD" : locale === "ar" ? "D MMMM, YYYY" : "MMMM D, y")}
                 </span>
               </div>
               <ExternalLink
@@ -92,7 +93,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
               <div className="form-item last-updated">
                 <span className="form-item-label">{t("Last updated")}:</span>
                 <span className="form-item-info">
-                  {moment(fileUpdatedAt).locale(locale === "pt" ? "pt-br" : locale === "zh" ? "zh-cn" : locale).format(locale === "ja" ? "Y年MM月DD日" : locale === "zh" ? "Y年MM月DD" : "MMMM D, y")}
+                  {moment(fileUpdatedAt).locale(locale === "pt" ? "pt-br" : locale === "zh" ? "zh-cn" : locale === "ar" ? "ar-sa" : locale).format(locale === "ja" ? "Y年MM月DD日" : locale === "zh" ? "Y年MM月DD" : locale === "ar" ? "D MMMM, YYYY" : "MMMM D, y")}
                 </span>
               </div>
               <ExternalLink
@@ -108,18 +109,18 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
                 <span className="form-item-info">{fileSize < 1024 ? `${fileSize.toFixed(0)} kb` : `${(fileSize / 1024).toFixed(0)} mb`}</span>
               </div>
             </div>
-            <FormDownload t={t} pdfFile={pdfFile} docxFile={docxFile} pptxFile={pptxFile} xlsxFile={xlsxFile} />
+            <FormDownload t={t} locale={locale} pdfFile={pdfFile} docxFile={docxFile} pptxFile={pptxFile} xlsxFile={xlsxFile} />
             <div className="form-btns">
               {pdfFile[0]?.attributes?.hash &&
                 <ExternalLink id="fill-out-pdf-form-link" className="btn-primary" label={t("Fill out PDF form")} href={linkPdfEditor} />
               }
               <Button onClick={handleButtonClick} id="edit-template-btn" className="btn-secondary" label={t("Edit template")} />
             </div>
-            <ShareButtons t={t} />
+            <ShareButtons t={t} locale={locale} />
           </div>
         </div>
 
-        <BannerHowCreateForm t={t} form_exts={form_exts} url={url} pdfFile={pdfFile} docxFile={docxFile} pptxFile={pptxFile} xlsxFile={xlsxFile} nameForm={name_form} />
+        <BannerHowCreateForm t={t} locale={locale} form_exts={form_exts} url={url} pdfFile={pdfFile} docxFile={docxFile} pptxFile={pptxFile} xlsxFile={xlsxFile} nameForm={name_form} />
         {!isInstalled &&
           <DesktopNotInstalledPopup t={t} locale={locale} popupActive={popupActive} setPopupActive={setPopupActive} />
         }
@@ -130,7 +131,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
           <CardSlider t={t} title={t("Other forms")} data={randomCarousel} />
         }
         {recentForms?.length > 1 &&
-          <RecentlyViewed t={t} recentForms={recentForms} />
+          <RecentlyViewed t={t} locale={locale} recentForms={recentForms} />
         }
         {compilations?.data.length > 0 &&
           <ExploreOtherTemplate t={t} locale={locale} compilations={compilations} />

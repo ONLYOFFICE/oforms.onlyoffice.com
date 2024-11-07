@@ -64,7 +64,12 @@ const FormPopup = ({ t, locale, data, modalActive, setModalActive, theme }) => {
   };
 
   return (
-    <StyledFormPopup onClick={() => setModalActive(false)} theme={theme} className={`modal-with-scroll ${modalActive ? "active" : ""}`}>
+    <StyledFormPopup
+      onClick={() => setModalActive(false)}
+      locale={locale}
+      theme={theme}
+      className={`modal-with-scroll ${modalActive ? "active" : ""}`}
+    >
       {modalActive &&
         <PopupGlobalStyles />
       }
@@ -74,7 +79,7 @@ const FormPopup = ({ t, locale, data, modalActive, setModalActive, theme }) => {
             <div className="popup-title">{t("Template description")}</div>
             <button onClick={() => setModalActive(false)} className="popup-close-btn">
               <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 4L15 15M15 4L4 15" stroke="#444444" strokeWidth="2"/>
+                <path d="M4 4L15 15M15 4L4 15" stroke="#444444" strokeWidth="2" />
               </svg>
             </button>
           </div>
@@ -102,9 +107,9 @@ const FormPopup = ({ t, locale, data, modalActive, setModalActive, theme }) => {
                   <span className="form-info-value">
                     {
                       docxFile?.[0]?.attributes.ext === ".docx" ? "docx" :
-                      pptxFile?.[0]?.attributes.ext === ".pptx" ? "pptx" :
-                      xlsxFile?.[0]?.attributes.ext === ".xlsx" ? "xlsx" :
-                      getUA.includes("AscDesktopEditor") ? compareDesktopEditorVersions(desktopEditorsVersion[1], "8.1") ? "pdf" : "docxf" : "pdf"
+                        pptxFile?.[0]?.attributes.ext === ".pptx" ? "pptx" :
+                          xlsxFile?.[0]?.attributes.ext === ".xlsx" ? "xlsx" :
+                            getUA.includes("AscDesktopEditor") ? compareDesktopEditorVersions(desktopEditorsVersion[1], "8.1") ? "pdf" : "docxf" : "pdf"
                     }
                   </span>
                 </div>

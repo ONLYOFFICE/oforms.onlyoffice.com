@@ -34,7 +34,7 @@ class Layout extends React.Component {
   static PageHead = PageHead;
 
   render() {
-    const { children } = this.props;
+    const { children, locale } = this.props;
     let headerContent = null;
     let mainContent = null;
     let footerContent = null;
@@ -68,7 +68,7 @@ class Layout extends React.Component {
       e.preventDefault();
       return false;
     };
-    
+
     const handleDrop = (e) => {
       window.AscDesktopEditor["DropOfficeFiles"]();
 
@@ -77,7 +77,13 @@ class Layout extends React.Component {
     };
 
     return (
-      <StyledLayout onDragOver={handleDragOver} onDrop={handleDrop} id="page-layout" className="layout">
+      <StyledLayout
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+        locale={locale}
+        id="page-layout"
+        className="layout"
+      >
         {children}
         {headContent && <Head>{headContent.props.children}</Head>}
         {headerContent && <Header>{headerContent.props.children}</Header>}

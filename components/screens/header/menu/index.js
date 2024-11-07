@@ -10,7 +10,7 @@ const Menu = ({ t, locale, templatePrimary, templateSecondary, templateTertiary,
   const logo = templatePrimary || templateSecondary || templateTertiary || templateQuaternary
     ? "https://static-oforms.onlyoffice.com/images/logo/logo-black.react.svg"
     : "https://static-oforms.onlyoffice.com/images/logo/logo-white.react.svg";
-  const curLang = `https://www.onlyoffice.com${locale === "en" ? "" : `/${locale}`}`;
+  const curLang = `https://www.onlyoffice.com${locale === "en" || "ar" ? "" : `/${locale}`}`;
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.innerWidth <= 1024 && stateMobile) {
@@ -29,7 +29,7 @@ const Menu = ({ t, locale, templatePrimary, templateSecondary, templateTertiary,
   }, [stateMobile]);
 
   return (
-    <StyledHeading className={`navbar ${stateMobile ? "is-open" : ""} ${!templatePrimary && !templateSecondary && !templateTertiary && !templateQuaternary ? "main": ""}`}>
+    <StyledHeading locale={locale} className={`navbar ${stateMobile ? "is-open" : ""} ${!templatePrimary && !templateSecondary && !templateTertiary && !templateQuaternary ? "main": ""}`}>
       <GlobalStyles stateMobile={stateMobile} />
       <button onClick={() => setStateMobile(true)} className="nav-btn-mobile">
         <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -45,7 +45,7 @@ const Menu = ({ t, locale, templatePrimary, templateSecondary, templateTertiary,
       <HeaderMenu locale={locale} isOpen={stateMobile} />
       <div className="nav-selector-wrapper">
         <PhoneMenu t={t} locale={locale} />
-        <LanguageSelector t={t} />
+        <LanguageSelector t={t} locale={locale} />
       </div>
       <InternalLink id="submit-form-btn" className="submit-form-btn" label={t("Submit form")} href="/form-submit" />
     </StyledHeading>
