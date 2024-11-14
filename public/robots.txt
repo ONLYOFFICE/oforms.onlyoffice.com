@@ -2,4 +2,4 @@ User-agent: *
 Disallow: *?fillform=*
 Disallow: *?_sort=*
 Disallow: *?page=*
-Sitemap: https://oforms.onlyoffice.com/sitemap.xml
+Sitemap: https://templates.onlyoffice.com/sitemap.xml
