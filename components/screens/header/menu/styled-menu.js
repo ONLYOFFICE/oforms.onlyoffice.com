@@ -72,23 +72,6 @@ const StyledHeading = styled.div`
   .oo-hm {
     position: initial;
 
-    &.fr,
-    &.de,
-    &.it {
-      .oo-hm-item {
-        &.oo-hm-item--pricing,
-        &.oo-hm-item--partners {
-          .oo-hm-items-wrapper {
-            left: calc(50% - 80px);
-
-            @media screen and ${device.laptop} {
-              left: auto;
-            }
-          }
-        }
-      }
-    }
-
     .oo-hm-item {
       &.oo-hm-item--get-onlyoffice-eu {
         .oo-hm-item-heading  {
@@ -111,21 +94,6 @@ const StyledHeading = styled.div`
             padding: 16px 48px 16px 56px;
             line-height: ${props => (props.locale === "de" || props.locale === "fr") && "24px"};
             max-width: ${props => (props.locale === "de" || props.locale === "fr") && "100%"};
-          }
-        }
-      }
-
-      &.oo-hm-item--pricing,
-      &.oo-hm-item--partners {
-        .oo-hm-items-wrapper {
-          left: calc(50% + 132px);
-
-          @media screen and (max-width: 1300px) {
-            left: calc(50% + 48px);
-          }
-
-          @media screen and ${device.laptop} {
-            left: auto;
           }
         }
       }
