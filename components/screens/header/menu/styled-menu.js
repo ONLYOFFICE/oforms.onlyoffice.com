@@ -19,19 +19,35 @@ const StyledHeading = styled.div`
   background-color: transparent;
 
   &.main {
-    .oo-hm .oo-hm-item .oo-hm-item-heading {
-      color: #FFFFFF;
+    .oo-hm {
+      .oo-hm-item {
+        .oo-hm-item-heading {
+          color: #FFFFFF;
 
-      &.active {
-        color: #FF6F3D;
+          &.active {
+            color: #FF6F3D;
 
-        @media screen and ${device.laptop} {
-          color: #444444;
+            @media screen and ${device.laptop} {
+              color: #444444;
+            }
+          }
+
+          @media screen and ${device.laptop} {
+            color: #444444;
+          }
         }
-      }
 
-      @media screen and ${device.laptop} {
-        color: #333333;
+        &.oo-hm-item--get-onlyoffice-eu {
+          .oo-hm-item-heading {
+            &.active {
+              color: #ffffff;
+
+              @media screen and ${device.laptop} {
+                color: #444444;
+              }
+            }
+          }
+        }
       }
     }
 
@@ -56,25 +72,60 @@ const StyledHeading = styled.div`
   .oo-hm {
     position: initial;
 
-    .oo-hm-item .oo-hm-item-heading {
-      padding: 14px 24px;
-      height: 72px;
+    .oo-hm-item {
+      &.oo-hm-item--get-onlyoffice-eu {
+        .oo-hm-item-heading  {
+          padding: 8px 12px 8px 40px;
+          height: ${props => (props.locale === "de" || props.locale === "fr" || props.locale === "it") && "initial"};
 
-      @media screen and (max-width: 1460px) {
-        padding: 14px 18px;
+          @media screen and (max-width: 1130px) {
+            padding: ${props => props.locale === "fr" && "11px 12px 11px 40px"};
+            line-height: ${props => props.locale === "fr" && "18px"};
+            max-width: ${props => props.locale === "fr" && "140px"};
+          }
+
+          @media screen and (max-width: 1080px) {
+            padding: ${props => props.locale === "de" && "11px 12px 11px 40px"};
+            line-height: ${props => props.locale === "de" && "18px"};
+            max-width: ${props => props.locale === "de" && "140px"};
+          }
+
+          @media screen and ${device.laptop} {
+            padding: 16px 48px 16px 56px;
+            line-height: ${props => (props.locale === "de" || props.locale === "fr") && "24px"};
+            max-width: ${props => (props.locale === "de" || props.locale === "fr") && "100%"};
+          }
+        }
       }
 
-      @media screen and (max-width: 1380px) {
-        padding: 14px 10px;
-      }
+      .oo-hm-item-heading {
+        padding: 14px 24px;
+        height: 72px;
 
-      @media screen and (max-width: 1024px) {
-        padding: 16px 40px 16px 24px;
-        height: initial;
-      }
-    }
+        @media screen and (max-width: 1520px) {
+          padding: ${props => props.locale === "fr" && "14px 18px"};
+        }
 
-    @media screen and (max-width: 1024px) {
+        @media screen and (max-width: 1460px) {
+          padding: 14px 18px;
+        }
+
+        @media screen and (max-width: 1380px) {
+          padding: ${props => props.locale === "fr" ? "14px 9px" : "14px 10px"};
+        }
+
+        @media screen and (max-width: 1050px) {
+          padding: ${props => props.locale === "fr" && "14px 7px"};
+        }
+
+        @media screen and ${device.laptop} {
+          padding: ${props => props.locale === "ar" ? "16px 24px 16px 40px" : "16px 40px 16px 24px"};
+          height: initial;
+        }
+      }
+    } 
+
+    @media screen and ${device.laptop} {
       position: fixed;
     }
   }
@@ -171,7 +222,11 @@ const StyledHeading = styled.div`
     }
 
     @media screen and (max-width: 1490px) {
-      max-width: 110px;
+      max-width: ${props => props.locale === "fr" ? "106px" : props.locale === "de" ? "80px" : (props.locale === "es" || props.locale === "pt") ? "96px" : ""};
+    }
+
+    @media screen and (max-width: 1080px) {
+      max-width: ${props => props.locale === "it" && "70px"};
     }
 
     @media screen and ${device.laptop} {
