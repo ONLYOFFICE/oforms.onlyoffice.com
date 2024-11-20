@@ -15,6 +15,7 @@ const StyledSearchResultContent = styled(Section)`
   }
 
   .search-result-title {
+    direction: initial;
     margin-bottom: 32px;
     text-align: center;
   }

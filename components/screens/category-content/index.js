@@ -52,7 +52,7 @@ const CategoryContent = ({ t, locale, subtitle, sort, page, forms, categories, t
   });
 
   return (
-    <StyledCategoryContent>
+    <StyledCategoryContent locale={locale}>
       <div className="category-nav">
         <ul className="category-nav-list">
           <li><InternalLink id="category-nav-home-link" className={router.pathname === "/" ? "active" : ""} href="/" label={t("Home")} /></li>

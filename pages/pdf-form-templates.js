@@ -8,7 +8,7 @@ import getCompilations from "@lib/requests/getCompilations";
 import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import Header from "@components/screens/header";
-import AdventAnnounce from "@components/screens/header/advent-announce";
+import AdventAnnounceBanner from "@components/screens/header/advent-announce-banner";
 import BannerFormSection from "@components/screens/common/banner-form-section";
 import CategoryContent from "@components/screens/category-content";
 import AccordionSection from "@components/screens/common/accordion-section";
@@ -19,14 +19,14 @@ const PdfFormTemplatesPage = ({ locale, sort, page, forms, categories, types, co
   const [stateMobile, setStateMobile] = useState(false);
 
   return (
-    <Layout>
+    <Layout locale={locale}>
       <Layout.PageHead>
         <MainHead
           title={`${t("PDF Form templates")} | ONLYOFFICE`}
           description={t("Fill out the PDF forms online in one click or download and open them in ONLYOFFICE editors")}
         />
       </Layout.PageHead>
-      <AdventAnnounce t={t} locale={locale} stateMobile={stateMobile} />
+      <AdventAnnounceBanner locale={locale} stateMobile={stateMobile} />
       <Layout.PageHeader>
         <Header
           t={t}
@@ -51,10 +51,10 @@ const PdfFormTemplatesPage = ({ locale, sort, page, forms, categories, types, co
           categoryUrl="pdf-form-templates"
         />
         <BannerFormSection t={t} locale={locale} />
-        <AccordionSection t={t} />
+        <AccordionSection t={t} locale={locale} />
       </Layout.SectionMain>
       <Layout.PageFooter>
-        <Footer t={t} locale={locale} />
+        <Footer locale={locale} />
       </Layout.PageFooter>
     </Layout>
   )

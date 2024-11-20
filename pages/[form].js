@@ -6,7 +6,7 @@ import getCompilations from "@lib/requests/getCompilations";
 import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import Header from "@components/screens/header";
-import AdventAnnounce from "@components/screens/header/advent-announce";
+import AdventAnnounceBanner from "@components/screens/header/advent-announce-banner";
 import FormContent from "@components/screens/form-content";
 import BannerFormSection from "@components/screens/common/banner-form-section";
 import AccordionSection from "@components/screens/common/accordion-section";
@@ -41,14 +41,14 @@ const FormPage = ({ locale, form, randomCarousel, compilations }) => {
   }, [form, locale]);
 
   return (
-    <Layout>
+    <Layout locale={locale}>
       <Layout.PageHead>
         <MainHead
           title={`${seoTitle} | ONLYOFFICE`}
           description={seoDescription}
         />
       </Layout.PageHead>
-      <AdventAnnounce t={t} locale={locale} stateMobile={stateMobile} />
+      <AdventAnnounceBanner locale={locale} stateMobile={stateMobile} />
       <Layout.PageHeader>
         <Header
           t={t}
@@ -68,10 +68,10 @@ const FormPage = ({ locale, form, randomCarousel, compilations }) => {
           compilations={compilations}
         />
         <BannerFormSection t={t} locale={locale} />
-        <AccordionSection t={t} />
+        <AccordionSection t={t} locale={locale} />
       </Layout.SectionMain>
       <Layout.PageFooter>
-        <Footer t={t} locale={locale} />
+        <Footer locale={locale} />
       </Layout.PageFooter>
     </Layout>
   );

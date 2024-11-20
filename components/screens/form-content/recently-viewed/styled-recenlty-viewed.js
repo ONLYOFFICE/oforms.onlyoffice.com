@@ -35,7 +35,7 @@ const StyledRecentlyViewed = styled.div`
     margin-bottom: 16px;
 
     &:not(:last-child) {
-      margin-right: 16px;
+      ${props => props.locale === "ar" ? "margin-left: 16px;" : "margin-right: 16px;"}
     }
   }
 `;

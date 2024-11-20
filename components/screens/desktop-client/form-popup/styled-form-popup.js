@@ -71,7 +71,7 @@ export const StyledFormPopup = styled.div`
       "#CBCBCB"
     };
     border-radius: 5px 5px 0 0;
-    padding: 10px 17px 10px 27px;
+    padding: ${props => props.locale === "ar" ? "10px 27px 10px 17px" : "10px 17px 10px 27px"};
     background-color: ${props =>
       props.theme === "theme-light" ? "#F7F7F7" :
       props.theme === "theme-dark" ? "#404040" :
@@ -80,7 +80,7 @@ export const StyledFormPopup = styled.div`
     };
 
     @media screen and ${device.laptop} {
-      padding: 11px 19px 11px 26px;
+      padding: ${props => props.locale === "ar" ? "11px 26px 11px 17px" : "11px 19px 11px 26px"};
     }
   }
 
@@ -237,7 +237,7 @@ export const StyledFormPopup = styled.div`
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    margin-right: 24px;
+    ${props => props.locale === "ar" ? "margin-left: 24px;" : "margin-right: 24px;"}
   }
 
   .form-info-item {
@@ -247,7 +247,7 @@ export const StyledFormPopup = styled.div`
   }
 
   .form-info-label {
-    margin-right: 8px;
+    ${props => props.locale === "ar" ? "margin-left: 8px;" : "margin-right: 8px;"}
     color: ${props =>
       props.theme === "theme-light" ? "rgba(0, 0, 0, 0.6)" :
       props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.6)" :

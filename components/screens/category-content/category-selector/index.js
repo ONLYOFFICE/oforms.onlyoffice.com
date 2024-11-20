@@ -30,6 +30,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, category
     <StyledCategorySelector
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
+      locale={locale}
       className={`category-selector ${locale}`}
     >
       <div className="category-selector-heading">

@@ -9,7 +9,7 @@ import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import Header from "@components/screens/header";
 import DesktopClient from "@components/screens/desktop-client";
-import AdventAnnounce from "@components/screens/header/advent-announce";
+import AdventAnnounceBanner from "@components/screens/header/advent-announce-banner";
 import SearchResultContent from "@components/screens/search-result-content";
 import BannerFormSection from "@components/screens/common/banner-form-section";
 import AccordionSection from "@components/screens/common/accordion-section";
@@ -21,7 +21,7 @@ const SearchResultPage = ({ isDesktopClient, theme, locale, sort, page, types, c
 
   return (
     isDesktopClient ? (
-      <Layout>
+      <Layout locale={locale}>
         <Layout.PageHead>
           <MainHead
             title={`${searchQuery === "" ? t("Search PDF forms and templates") : searchQuery} | ONLYOFFICE`}
@@ -45,14 +45,14 @@ const SearchResultPage = ({ isDesktopClient, theme, locale, sort, page, types, c
         </Layout.SectionMain>
       </Layout>
     ) : (
-      <Layout>
+      <Layout locale={locale}>
         <Layout.PageHead>
           <MainHead
             title={`${searchQuery === "" ? t("Search PDF forms and templates") : searchQuery} | ONLYOFFICE`}
             description={t("Free templates and fillable PDF forms for any business purpose")}
           />
         </Layout.PageHead>
-        <AdventAnnounce t={t} locale={locale} stateMobile={stateMobile} />
+        <AdventAnnounceBanner locale={locale} stateMobile={stateMobile} />
         <Layout.PageHeader>
           <Header
             t={t}
@@ -72,10 +72,10 @@ const SearchResultPage = ({ isDesktopClient, theme, locale, sort, page, types, c
             page={page}
           />
           <BannerFormSection t={t} locale={locale} />
-          <AccordionSection t={t} />
+          <AccordionSection t={t} locale={locale} />
         </Layout.SectionMain>
         <Layout.PageFooter>
-          <Footer t={t} locale={locale} />
+          <Footer locale={locale} />
         </Layout.PageFooter>
       </Layout>
     )

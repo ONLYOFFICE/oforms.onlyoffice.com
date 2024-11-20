@@ -19,19 +19,35 @@ const StyledHeading = styled.div`
   background-color: transparent;
 
   &.main {
-    .heading-nav-item {
-      color: #FFFFFF;
+    .oo-hm {
+      .oo-hm-item {
+        .oo-hm-item-heading {
+          color: #FFFFFF;
 
-      &.active {
-        color: #FF6F3D;
+          &.active {
+            color: #FF6F3D;
 
-        @media screen and ${device.laptop} {
-          color: #444444;
+            @media screen and ${device.laptop} {
+              color: #444444;
+            }
+          }
+
+          @media screen and ${device.laptop} {
+            color: #444444;
+          }
         }
-      }
 
-      @media screen and ${device.laptop} {
-        color: #333333;
+        &.oo-hm-item--get-onlyoffice-eu {
+          .oo-hm-item-heading {
+            &.active {
+              color: #ffffff;
+
+              @media screen and ${device.laptop} {
+                color: #444444;
+              }
+            }
+          }
+        }
       }
     }
 
@@ -53,11 +69,82 @@ const StyledHeading = styled.div`
     }
   }
 
+  .oo-hm {
+    position: initial;
+
+    .oo-hm-item {
+      &.oo-hm-item--get-onlyoffice-eu {
+        .oo-hm-item-heading  {
+          padding: 8px 12px 8px 40px;
+          height: ${props => (props.locale === "de" || props.locale === "fr" || props.locale === "it") && "initial"};
+
+          @media screen and (max-width: 1130px) {
+            padding: ${props => props.locale === "fr" && "11px 12px 11px 40px"};
+            line-height: ${props => props.locale === "fr" && "18px"};
+            max-width: ${props => props.locale === "fr" && "140px"};
+          }
+
+          @media screen and (max-width: 1080px) {
+            padding: ${props => props.locale === "de" && "11px 12px 11px 40px"};
+            line-height: ${props => props.locale === "de" && "18px"};
+            max-width: ${props => props.locale === "de" && "140px"};
+          }
+
+          @media screen and ${device.laptop} {
+            padding: 16px 48px 16px 56px;
+            line-height: ${props => (props.locale === "de" || props.locale === "fr") && "24px"};
+            max-width: ${props => (props.locale === "de" || props.locale === "fr") && "100%"};
+          }
+        }
+      }
+
+      .oo-hm-item-heading {
+        padding: 14px 24px;
+        height: 72px;
+
+        @media screen and (max-width: 1520px) {
+          padding: ${props => props.locale === "fr" && "14px 18px"};
+        }
+
+        @media screen and (max-width: 1460px) {
+          padding: 14px 18px;
+        }
+
+        @media screen and (max-width: 1380px) {
+          padding: ${props => props.locale === "fr" ? "14px 9px" : "14px 10px"};
+        }
+
+        @media screen and (max-width: 1050px) {
+          padding: ${props => props.locale === "fr" && "14px 7px"};
+        }
+
+        @media screen and ${device.laptop} {
+          padding: ${props => props.locale === "ar" ? "16px 24px 16px 40px" : "16px 40px 16px 24px"};
+          height: initial;
+        }
+      }
+    } 
+
+    @media screen and ${device.laptop} {
+      position: fixed;
+    }
+  }
+
   .nav-item-logo {
     display: flex;
-    margin-right: 32px;
+    ${props => props.locale === "ar" ? "margin-left: 32px;" : "margin-right: 32px;"}
     width: 154px;
     height: 28px;
+
+    img {
+      @media screen and (max-width: 1300px) {
+        object-position: ${props => props.locale === "ar" && "122px center"};
+      }
+
+      @media screen and ${device.laptop} {
+        object-position: initial;
+      }
+    }
 
     @media screen and (max-width: 1300px) {
       overflow: hidden;
@@ -67,7 +154,7 @@ const StyledHeading = styled.div`
 
     @media screen and ${device.laptop} {
       display: block;
-      margin-right: auto;
+      ${props => props.locale === "ar" ? "margin-left: auto;" : "margin-right: auto;"}
       width: 152px;
       height: 28px;
     }
@@ -98,7 +185,7 @@ const StyledHeading = styled.div`
       box-sizing: border-box;
       display: flex;
       padding: 0;
-      margin-right: 32px;
+      ${props => props.locale === "ar" ? "margin-left: 32px;" : "margin-right: 32px;"}
       cursor: pointer;
     }
   }
@@ -106,15 +193,15 @@ const StyledHeading = styled.div`
   .nav-selector-wrapper {
     display: flex;
     align-items: center;
-    margin-right: 32px;
+    ${props => props.locale === "ar" ? "margin-left: 32px;" : "margin-right: 32px;"}
 
     @media screen and ${device.mobile} {
-      margin-right: 0;
+      ${props => props.locale === "ar" ? "margin-left: 0;" : "margin-right: 0;"}
     }
   }
 
   .phone-menu {
-    margin-right: 10px;
+    ${props => props.locale === "ar" ? "margin-left: 10px;" : "margin-right: 10px;"}
   }
 
   .submit-form-btn {
@@ -135,7 +222,11 @@ const StyledHeading = styled.div`
     }
 
     @media screen and (max-width: 1490px) {
-      max-width: 110px;
+      max-width: ${props => props.locale === "fr" ? "106px" : props.locale === "de" ? "80px" : (props.locale === "es" || props.locale === "pt") ? "96px" : ""};
+    }
+
+    @media screen and (max-width: 1080px) {
+      max-width: ${props => props.locale === "it" && "70px"};
     }
 
     @media screen and ${device.laptop} {
@@ -149,7 +240,7 @@ const StyledHeading = styled.div`
 
   .phone-btn {
     @media screen and (max-width: 1300px) {
-      padding: 24px 5px;
+      padding: 24px 10px;
     }
   }
 
@@ -164,49 +255,35 @@ const StyledHeading = styled.div`
   }
 
   &.is-open {
-    .advent-announce,
     .nav-btn-mobile,
-    .nav-selector-wrapper {
+    .nav-selector-wrapper,
+    .submit-form-btn {
       @media screen and ${device.laptop} {
-        transform: translate3d(429px, 0, 0);
+        transform: ${props => props.locale === "ar" ? "translate3d(-429px, 0, 0)" : "translate3d(429px, 0, 0)"};
         transition: transform 0.2s cubic-bezier(0.16,0.68,0.43,0.99);
       }
 
       @media screen and (max-width: 592px) {
-        transform: translate3d(calc(100vw - 64px), 0, 0);
+        transform: ${props => props.locale === "ar" ? "translate3d(calc(-100vw + 64px), 0, 0)" : "translate3d(calc(100vw - 64px), 0, 0)"};
       }
 
       @media screen and (max-width: 375px) {
-        transform: translate3d(calc(100vw - 32px), 0, 0);
+        transform: ${props => props.locale === "ar" ? "translate3d(calc(-100vw + 32px), 0, 0)" : "translate3d(calc(100vw - 32px), 0, 0)"};
       }
     }
 
     .nav-item-logo {
       @media screen and ${device.laptop} {
-        transform: translate3d(429px, 0, 0) translateX(-50%);
+        transform: ${props => props.locale === "ar" ? "translate3d(-429px, 0, 0)" : "translate3d(429px, 0, 0)"};
         transition: transform 0.2s cubic-bezier(0.16,0.68,0.43,0.99);
       }
 
       @media screen and (max-width: 592px) {
-        transform: translate3d(380px, 0, 0) translateX(-50%);
+        transform: ${props => props.locale === "ar" ? "translate3d(-380px, 0, 0) translateX(-50%)" : "translate3d(380px, 0, 0) translateX(-50%)"};
       }
 
       @media screen and (max-width: 430px) {
-        transform: translate3d(288px, 0, 0) translateX(-50%);
-      }
-    }
-
-    .search_icon {
-      @media screen and ${device.laptop} {
-        transform: translate3d(429px, 0, 0) translateY(-50%);
-      }
-
-      @media screen and (max-width: 592px) {
-        transform: translate3d(380px, 0, 0) translateY(-50%);
-      }
-
-      @media screen and (max-width: 430px) {
-        transform: translate3d(288px, 0, 0) translateY(-50%);
+        transform: ${props => props.locale === "ar" ? "translate3d(-288px, 0, 0) translateX(-50%)" : "translate3d(288px, 0, 0) translateX(-50%)"};
       }
     }
 
@@ -214,12 +291,6 @@ const StyledHeading = styled.div`
       @media screen and ${device.laptop} {
         opacity: 1;
         visibility: visible;
-      }
-    }
-
-    .nav {
-      @media screen and ${device.laptop} {
-        transform: translate3d(0, 0, 0);
       }
     }
   }

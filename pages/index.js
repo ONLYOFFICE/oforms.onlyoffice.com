@@ -15,7 +15,7 @@ import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import Header from "@components/screens/header";
 import DesktopClient from "@components/screens/desktop-client";
-import AdventAnnounce from "@components/screens/header/advent-announce";
+import AdventAnnounceBanner from "@components/screens/header/advent-announce-banner";
 import Footer from "@components/screens/footer";
 import MainContent from "@components/screens/main-content";
 import AccordionSection from "@components/screens/common/accordion-section";
@@ -27,7 +27,7 @@ const MainPage = ({ locale, sort, forms, types, categories, compilations, popula
 
   return (
     router.query.desktop === "true" ? (
-      <Layout>
+      <Layout locale={locale}>
         <Layout.PageHead>
           <MainHead
             title={t("ONLYOFFICE templates")}
@@ -49,14 +49,14 @@ const MainPage = ({ locale, sort, forms, types, categories, compilations, popula
         </Layout.SectionMain>
       </Layout>
     ) : (
-      <Layout>
+      <Layout locale={locale}>
         <Layout.PageHead>
           <MainHead
             title={t("ONLYOFFICE templates")}
             description={t("Free templates and fillable PDF forms for any business purpose")}
           />
         </Layout.PageHead>
-        <AdventAnnounce t={t} locale={locale} stateMobile={stateMobile} />
+        <AdventAnnounceBanner locale={locale} stateMobile={stateMobile} />
         <Layout.PageHeader>
           <Header
             t={t}
@@ -68,6 +68,7 @@ const MainPage = ({ locale, sort, forms, types, categories, compilations, popula
         <Layout.SectionMain>
           <MainContent
             t={t}
+            locale={locale}
             popularTemplates={popularTemplates}
             categories={categories}
             pptxForms={pptxForms}
@@ -75,10 +76,10 @@ const MainPage = ({ locale, sort, forms, types, categories, compilations, popula
             pdfForms={pdfForms}
             xlsxForms={xlsxForms}
           />
-          <AccordionSection t={t} />
+          <AccordionSection t={t} locale={locale} />
         </Layout.SectionMain>
         <Layout.PageFooter>
-          <Footer t={t} locale={locale} />
+          <Footer locale={locale} />
         </Layout.PageFooter>
       </Layout>
     )
