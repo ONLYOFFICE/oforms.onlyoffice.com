@@ -49,6 +49,16 @@ const StyledHeading = styled.div`
           }
         }
       }
+
+      .oo-hm-item--products {
+        .oo-hm-item-heading {
+          color: #FF6F3D;
+
+          @media screen and ${device.laptop} {
+            color: #444444;
+          }
+        }
+      }
     }
 
     .phone-btn,
@@ -71,6 +81,40 @@ const StyledHeading = styled.div`
 
   .oo-hm {
     position: initial;
+
+    .oo-hm-item--products {
+      .oo-hm-item-heading {
+        position: relative;
+        color: #ff6f3d;
+
+        &:after {
+          content: "";
+          position: absolute;
+          left: 50%;
+          bottom: 0;
+          border-bottom: 1px solid #ff6f3d;
+          width: calc(100% - 40px);
+          transform: translateX(-50%);
+
+          @media screen and (max-width: 1300px) {
+            width: calc(100% - 20px);
+          }
+
+          @media screen and ${device.laptop} {
+            content: none;
+          }
+        }
+
+        @media screen and ${device.laptop} {
+          color: #444444;
+          background-color: #f9f9f9;
+        }
+      }
+
+      .oo-hm-item-link--templates {
+        color: #FF6F3D;
+      }
+    }
 
     .oo-hm-item {
       &.oo-hm-item--get-onlyoffice-eu {
