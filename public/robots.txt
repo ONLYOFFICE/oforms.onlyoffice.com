@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: *editor?filename=*
 Disallow: *?fillform=*
 Disallow: *?_sort=*
 Disallow: *?page=*
