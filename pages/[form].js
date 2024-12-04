@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import config from "@config/config.json";
-import getCompilations from "@lib/requests/getCompilations";
+import getForm from "@lib/requests/getForm";
+import getRandomForms from "@lib/requests/getRandomForms";
+import getCategories from "@lib/requests/getCategories";
 import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import Header from "@components/screens/header";
@@ -78,12 +79,9 @@ const FormPage = ({ locale, form, randomCarousel, compilations }) => {
 };
 
 export const getServerSideProps = async ({ locale, ...context }) => {
-  const cms = config.api.cms;
-  const res = await fetch(`${cms}/api/oforms/?filters[url][$eq]=${context.query.form}&locale=${locale === "pt" ? "pt-br" : locale}&populate=template_image&populate=card_prewiew&populate=file_oform&populate=form_exts`);
-  const form = await res.json();
-  const randomCarouselItems = await fetch(`${cms}/api/oforms/?locale=${locale === "pt" ? "pt-br" : locale}&pagination[pageSize]=7&pagination[page]=2&populate=card_prewiew`);
-  const randomCarousel = await randomCarouselItems.json();
-  const compilations = await getCompilations(locale === "pt" ? "pt-br" : locale);
+  const form = await getForm(locale, context.query.form);
+  const randomCarousel = await getRandomForms(locale, form.data[0].attributes.form_exts.data[0].attributes.ext);
+  const compilations = await getCategories(locale, "compilations", "compilation");
 
   if (form.data.length === 0) {
     return {

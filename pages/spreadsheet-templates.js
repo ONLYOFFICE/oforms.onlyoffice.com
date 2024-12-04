@@ -1,10 +1,8 @@
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useState } from "react";
-import getXlsxForms from "@lib/requests/getXlsxForms";
+import getExtForms from "@lib/requests/getExtForms";
 import getCategories from "@lib/requests/getCategories";
-import getTypes from "@lib/requests/getTypes";
-import getCompilations from "@lib/requests/getCompilations";
 import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import Header from "@components/screens/header";
@@ -64,10 +62,11 @@ export const getServerSideProps = async ({ locale, query }) => {
   const page = query.page || 1;
   const sort = query._sort || "asc";
   const pageSize = query.pageSize ? 0 : 9;
-  const forms = await getXlsxForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize);
-  const categories = await getCategories(locale === "pt" ? "pt-br" : locale);
-  const types = await getTypes(locale === "pt" ? "pt-br" : locale);
-  const compilations = await getCompilations(locale === "pt" ? "pt-br" : locale);
+
+  const forms = await getExtForms(locale, page, sort, pageSize, "xlsx");
+  const categories = await getCategories(locale, "categories", "categorie");
+  const types = await getCategories(locale, "types", "type");
+  const compilations = await getCategories(locale, "compilations", "compilation");
 
   return {
     props: {

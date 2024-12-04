@@ -51,8 +51,8 @@ const FormSubmitPage = ({ locale, categories, formExts, queryIndexData }) => {
 };
 
 export const getServerSideProps = async ({ locale, query, req, res }) => {
-  const categories = await getCategories(locale === "pt" ? "pt-br" : locale);
-  const formExts = await getFormExts(locale === "pt" ? "pt-br" : locale);
+  const categories = await getCategories(locale, "categories", "categorie", true);
+  const formExts = await getFormExts(locale);
 
   const queryResult = await new Promise(async (resolve) => {
     if (query.index) {

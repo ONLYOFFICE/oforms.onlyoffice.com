@@ -3,14 +3,9 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import getForms from "@lib/requests/getForms";
-import getTypes from "@lib/requests/getTypes";
 import getCategories from "@lib/requests/getCategories";
-import getCompilations from "@lib/requests/getCompilations";
 import getPopularTemplates from "@lib/requests/getPopularTemplates";
-import getPptxForms from "@lib/requests/getPptxForms";
-import getDocxForms from "@lib/requests/getDocxForms";
-import getPdfForms from "@lib/requests/getPdfForms";
-import getXlsxForms from "@lib/requests/getXlsxForms";
+import getExtForms from "@lib/requests/getExtForms";
 import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import Header from "@components/screens/header";
@@ -92,15 +87,15 @@ export const getServerSideProps = async ({ locale, query }) => {
   const sort = query._sort || "asc";
   const pageSize = query.pageSize || (isDesktopClient ? 32 : 6);
 
-  const categories = await getCategories(locale === "pt" ? "pt-br" : locale);
-  const forms = isDesktopClient ? await getForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize) : null;
-  const types = isDesktopClient ? await getTypes(locale === "pt" ? "pt-br" : locale) : null;
-  const compilations = isDesktopClient ? await getCompilations(locale === "pt" ? "pt-br" : locale) : null;
-  const popularTemplates = !isDesktopClient ? await getPopularTemplates(locale === "pt" ? "pt-br" : locale, sort) : null;
-  const pptxForms = !isDesktopClient ? await getPptxForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize) : null;
-  const docxForms = !isDesktopClient ? await getDocxForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize) : null;
-  const pdfForms = !isDesktopClient ? await getPdfForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize) : null;
-  const xlsxForms = !isDesktopClient ? await getXlsxForms(locale === "pt" ? "pt-br" : locale, page, sort, pageSize) : null;
+  const categories = await getCategories(locale, "categories", "categorie");
+  const forms = isDesktopClient ? await getForms(locale, page, sort, pageSize, isDesktopClient) : null;
+  const types = isDesktopClient ? await getCategories(locale, "types", "type") : null;
+  const compilations = isDesktopClient ? await getCategories(locale, "compilations", "compilation") : null;
+  const popularTemplates = !isDesktopClient ? await getPopularTemplates(locale, sort) : null;
+  const pptxForms = !isDesktopClient ? await getExtForms(locale, page, sort, pageSize, "pptx") : null;
+  const docxForms = !isDesktopClient ? await getExtForms(locale, page, sort, pageSize, "docx") : null;
+  const pdfForms = !isDesktopClient ? await getExtForms(locale, page, sort, pageSize, "pdf") : null;
+  const xlsxForms = !isDesktopClient ? await getExtForms(locale, page, sort, pageSize, "xlsx") : null;
 
   return {
     props: {

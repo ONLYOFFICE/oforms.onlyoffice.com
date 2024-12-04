@@ -2,8 +2,8 @@ import StyledSearch from "./styled-search";
 import { useState, useRef, useEffect, useCallback } from "react";
 import Router, { useRouter } from "next/router";
 import debounce from "lodash.debounce";
-import CONFIG from "@config/config";
 import popularSearch from "./popular-search.json";
+import getSearchResultInput from "@lib/requests/getSearchResultInput";
 import Text from "@components/common/text";
 import TextInput from "@components/common/text-input";
 import InternalLink from "@components/common/internal-link";
@@ -19,11 +19,8 @@ const Search = ({ t, locale, templateSecondary, templateTertiary, templateQuater
   const router = useRouter();
 
   const updateSearchValue = useCallback(debounce(async (e) => {
-    const searchName = locale === "en" || locale === "fr" || locale === "pt" ? e.target.value?.toLowerCase() === "curriculum vitae" || e.target.value?.toLowerCase() === "curriculum" || e.target.value?.toLowerCase() === "vitae" ? "cv" : e.target.value : e.target.value;
-
-    if (searchName) {
-      const searchRes = await fetch(`${CONFIG.api.cms}/api/oforms/?sort=name_form:asc&locale=${locale === "pt" ? "pt-br" : locale}&filters[name_form][$containsi]=${searchName}&pagination[pageSize]=5`);
-      const searchData = await searchRes.json();
+    if (e.target.value) {
+      const searchData = await getSearchResultInput(locale, e.target.value);
       setSearchValue(searchData);
     } else {
       setSearchValue([]);
