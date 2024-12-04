@@ -11,7 +11,7 @@ const BannerHowCreateForm = ({ t, locale, form_exts, url, pdfFile, docxFile, ppt
   return (
     <StyledBannerHowCreateForm locale={locale} className="banner-how-create-form">
       <div className="banner-body">
-        <Heading className="banner-title" level={3}>
+        <Heading className="banner-title" level={2}>
           <span dangerouslySetInnerHTML={{__html: t("HowToCreateATemplate", { nameForm })}} />
         </Heading>
         <ol className="banner-list">

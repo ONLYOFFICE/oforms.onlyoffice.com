@@ -56,7 +56,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
 
         <div className="form-preview">
           <div className="form-info">
-            <Heading className="form-title" level={2} label={name_form} />
+            <Heading className="form-title" level={1} label={name_form} />
             <div className="form-tags">
               {pdfFile[0]?.attributes?.url &&
                 <span className="tag form-tag">{t("Fillable form")}</span>

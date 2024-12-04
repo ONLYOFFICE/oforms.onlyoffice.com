@@ -105,9 +105,14 @@ const StyledMain = styled(Section)`
 
   .form-title {
     margin-bottom: 16px;
+    font-size: 32px;
+    line-height: 38px;
+    font-weight: 700;
     letter-spacing: -0.02em;
 
     @media screen and ${device.laptop} {
+      font-size: 24px;
+      line-height: 32px;
       text-align: center;
     }
 

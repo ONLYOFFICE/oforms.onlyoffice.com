@@ -44,7 +44,7 @@ const AccordionSection = ({ t, locale }) => {
 
   return (
     <StyledAccordionSection>
-      <Heading className="accordion-section-title" level={2} label={t("Frequently Asked Questions")} />
+      <Heading className="accordion-section-title" level={3} label={t("Frequently Asked Questions")} />
       <Accordion locale={locale} items={items} />
     </StyledAccordionSection>
   );
