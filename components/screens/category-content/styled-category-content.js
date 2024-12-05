@@ -17,39 +17,58 @@ const StyledCategoryContent = styled(Section)`
     padding: 0;
     margin: 0 0 56px 0;
     list-style-type: none;
-    overflow-x: auto;
 
-    li {
+    > li {
       &:not(:last-child) {
         ${props => props.locale === "ar" ? "margin-left: 8px;" : "margin-right: 8px;"}
       }
-    }
 
-    a {
-      display: inline-flex;
-      border: 1px solid #AAAAAA;
-      border-radius: 3px;
-      padding: 11px 24px;
-      font-size: 13px;
-      font-weight: 600;
-      line-height: 17px;
-      letter-spacing: 0.04em;
-      color: #444444;
-      text-transform: uppercase;
-      transition: border-color 0.3s, color 0.3s;
+        &.separator{
+          border-right: 1px solid #ccc;
+          content: "";
+          height: 24px;
+          margin: 8px 24px 8px 16px;
+          @media screen and ${device.mobile} {
+            display: none;
+          }
+        }
 
-      &:hover {
-        border-color: #FF6F3D;
-        color: #FF6F3D;
-      }
+        &.cat-desk-nav-li {
+          @media screen and ${device.mobile} {
+            display: none;
+          }
+        }
 
-      &.active {
-        border-color: #FF6F3D;
-        color: #FF6F3D;
-      }
+        > a {
+        display: inline-flex;
+        border: 1px solid #AAAAAA;
+        border-radius: 3px;
+        padding: 11px 24px 10px;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 17px;
+        letter-spacing: 0.04em;
+        color: #444444;
+        text-transform: uppercase;
+        transition: border-color 0.3s, color 0.3s;
 
-      @media screen and ${device.laptop} {
-        white-space: nowrap;
+        &:hover {
+          border-color: #FF6F3D;
+          color: #FF6F3D;
+        }
+
+        &.active {
+          border-color: #FF6F3D;
+          color: #FF6F3D;
+        }
+
+        @media screen and ${device.laptop} {
+          white-space: nowrap;
+        }
+
+        @media screen and ${device.tablet} {
+          padding: 11px 16px 10px;
+        }
       }
     }
 
@@ -57,11 +76,20 @@ const StyledCategoryContent = styled(Section)`
       flex-wrap: initial;
       padding: 0 40px;
       margin: 0 -40px 56px;
+      overflow-x: auto;
     }
 
     @media screen and ${device.mobile} {
-      padding: 0 16px;
-      margin: 0 -16px 40px;
+      margin: 0 auto 56px;
+      overflow-x: unset;
+      padding: 0;
+
+      > li:not(:last-child) {
+        margin-right: 0px;
+      }
+      > li:first-child {
+        margin-right: 8px;
+      }
     }
   }
 
@@ -79,6 +107,12 @@ const StyledCategoryContent = styled(Section)`
     display: flex;
     justify-content: space-between;
     margin-bottom: 32px;
+
+    > span {
+      color: #808080;
+      font-size: 14px;
+      font-weight: 600;
+    }
 
     @media screen and ${device.mobile} {
       margin-bottom: 24px;
@@ -128,10 +162,15 @@ const StyledCategoryContent = styled(Section)`
 
   @media screen and ${device.laptop} {
     padding: 56px 0 112px;
+    padding: 56px 0 144px;
+  }
+
+  @media screen and ${device.tablet} {
+    padding: 40px 0 112px;
   }
 
   @media screen and ${device.mobile} {
-    padding: 40px 0 120px;
+    padding: 24px 0 120px;
   }
 `;
 

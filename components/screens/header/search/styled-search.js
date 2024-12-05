@@ -3,25 +3,29 @@ import { device } from "@utils/devices";
 
 const StyledSearch = styled.div`
   box-sizing: border-box;
-  padding: 0 40px;
+  padding: ${props => props.templateTertiary ? "40px 40px 0" : "0 40px"};
   width: 100%;
   background-color: ${props => props.templateSecondary || props.templateQuaternary ? "#F9F9F9" : props.templateTertiary ? "#F5F5F5" : "#333333"};
 
   .search-wrapper {
     position: relative;
     margin: 0 auto;
+    display: ${props => props.templateTertiary ? "flex" : "block"};
+    justify-content: space-between;
     max-width: 1120px;
   }
 
   .search-container {
     display: flex;
     align-items: center;
-    padding: 16px 0 7px;
-    border-bottom: 1px solid ${props => props.templateTertiary || props.templateQuaternary ? "#AAAAAA" : "#666666"};
+    padding: ${props => props.templateTertiary ? "0" : "16px 0 7px"};
+    border-bottom: 1px solid ${props => props.templateQuaternary ? "#AAAAAA" : props.templateTertiary ? "transparent" : "#666666"};
     transition: border-color 0.3s;
+    max-width: ${props => props.templateTertiary ? "340px" :"1120px"};
+    width: ${props => props.templateTertiary ? "340px" :"100%"};
 
     &:not(.value):hover {
-      border-color: ${props => props.templateTertiary || props.templateQuaternary ? "#AAAAAA" : "#808080"};
+      border-color: ${props => props.templateQuaternary ? "#AAAAAA" : props.templateTertiary ? "transparent" : "#808080"};
 
       .search-icon {
         path {
@@ -35,11 +39,15 @@ const StyledSearch = styled.div`
     }
 
     @media screen and ${device.mobile} {
-      padding: 8px 0 7px;
+      max-width: ${props => props.templateTertiary ? "224px" :"1120px"};
+      padding: ${props => props.templateTertiary ? "0" : "8px 0 7px"};
     }
   }
 
   .search-input {
+    border: ${props => props.templateTertiary ? "1px solid #AAAAAA" :"none"};
+    border-radius: 3px;
+    position: relative;
     width: 100%;
   }
 
@@ -54,6 +62,10 @@ const StyledSearch = styled.div`
         transition: fill 0.3s;
       }
 
+      @media screen and ${device.tablet} {
+        left: ${props => props.templateTertiary ? "12px" : ""};
+      }
+
       @media screen and ${device.mobile} {
         left: 8px;
       }
@@ -62,11 +74,26 @@ const StyledSearch = styled.div`
     .input {
       border: none;
       color: ${props => props.templateTertiary || props.templateQuaternary ? "#333333" : "#FFFFFF"};
+      height: ${props => props.templateTertiary ? "48px" : "56px"};
+
+      &.focus, &:focus {
+        padding: ${props => props.templateTertiary ? "20px 48px 8px 48px" : "24px 48px 8px 48px"};
+      }
 
       &:focus + .label, 
       &.focus + .label {
-        @media screen and ${device.mobile} {
+        top: ${props => props.templateTertiary ? "4px" : "8px"};
+        @media screen and ${device.tablet} {
           top: 0;
+        }
+      }
+
+      @media screen and ${device.tablet} {
+        height: ${props => props.templateTertiary ? "38px" : "56px"};
+        padding: ${props => props.templateTertiary ? "4px 8px 4px 40px" : ""};
+
+        &.focus, &:focus {
+          padding: ${props => props.templateTertiary ? "12px 48px 4px 40px" : "24px 48px 8px 48px"};
         }
       }
 
@@ -76,6 +103,13 @@ const StyledSearch = styled.div`
     }
 
     .label {
+      top: ${props => props.templateTertiary ? "13px" : "16px"};
+
+      @media screen and ${device.tablet} {
+        left: ${props => props.templateTertiary ? "40px" : ""};
+        top: ${props => props.templateTertiary ? "8px" : "16px"};
+      }
+
       @media screen and ${device.mobile} {
         left: 40px;
         font-size: 13px;
@@ -101,6 +135,7 @@ const StyledSearch = styled.div`
     line-height: 19px;
     color: ${props => props.templateTertiary || props.templateQuaternary ? "#333333" : "#FFFFFF"};
     white-space: nowrap;
+    display: ${props => props.templateTertiary ? "none" :"block"};
 
     @media screen and ${device.tablet} {
       display: none;
@@ -188,8 +223,25 @@ const StyledSearch = styled.div`
     color: #FF6F3D;
   }
 
+  .back-btn {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+
+    .back-btn-link {
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 17px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      @media screen and ${device.mobile} {
+        display: none;
+      }
+    }
+  }
+
   @media screen and ${device.mobile} {
-    padding: 0 16px;
+    padding: ${props => props.templateTertiary ? "24px 16px 0" : "0 16px"};
   }
 `;
 export default StyledSearch;
