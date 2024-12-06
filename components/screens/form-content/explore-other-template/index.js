@@ -4,7 +4,7 @@ import InternalLink from "@components/common/internal-link";
 
 const ExploreOtherTemplate = ({ t, locale, compilations }) => {
   return (
-    <StyledExploreOtherTemplate className="explore-other-template">
+    <StyledExploreOtherTemplate className="explore-other-template" locale={locale}>
       <Heading className="explore-other-template-title" level={3} label={t("Explore other templates")} />
       <div className="templates-editor">
         <Heading className="explore-other-template-title" level={6} label={t("Templates by editor")} />

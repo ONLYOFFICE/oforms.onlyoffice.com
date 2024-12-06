@@ -31,7 +31,7 @@ const MainContent = ({ t, locale, popularTemplates, categories, pptxForms, docxF
           <CardSlider t={t} title={t("Popular templates")} data={popularTemplates} />
         }
         {categories?.data.length > 0 &&
-          <PopularCategories t={t} categories={categories} />
+          <PopularCategories t={t} locale={locale} categories={categories} />
         }
         {pdfForms.data.length > 0 &&
           <CardsBlock className="pdf-fillable-form" t={t} locale={locale} title={t("PDF fillable forms")} linkUrl={"/pdf-form-templates"} data={pdfForms} />
