@@ -289,10 +289,10 @@ const StyledMain = styled(Section)`
   }
 
   .form-btns {
-    margin-bottom: 40px;
+    margin-bottom: 24px;
 
     @media screen and ${device.laptop} {
-      margin-bottom: 32px;
+      margin-bottom: 16px;
       text-align: center;
       order: -1;
     }
@@ -313,6 +313,7 @@ const StyledMain = styled(Section)`
     box-sizing: border-box;
     display: inline-flex;
     border-radius: 3px;
+    margin-bottom: 16px;
     padding: 19px 24px;
     font-size: 13px;
     font-weight: 700;
