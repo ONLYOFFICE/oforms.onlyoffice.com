@@ -28,7 +28,7 @@ const MainContent = ({ t, locale, popularTemplates, categories, pptxForms, docxF
 
       <StyledMain>
         {popularTemplates.data.length > 0 &&
-          <CardSlider t={t} title={t("Popular templates")} data={popularTemplates} />
+          <CardSlider t={t} locale={locale} title={t("Popular templates")} data={popularTemplates} />
         }
         {categories?.data.length > 0 &&
           <PopularCategories t={t} locale={locale} categories={categories} />

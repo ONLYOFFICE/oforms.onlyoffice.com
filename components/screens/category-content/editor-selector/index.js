@@ -24,6 +24,7 @@ const EditorSelector = ({ t, locale }) => {
         router.pathname === "/pdf-form-templates" ||
         router.pathname === "/spreadsheet-templates" ||
         router.pathname === "/presentation-templates" ? "active" : ""}`}
+      locale={locale}
     >
       <div className="category-selector-heading">
         <Heading

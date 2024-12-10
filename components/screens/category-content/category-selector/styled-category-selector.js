@@ -92,6 +92,7 @@ const StyledCategorySelector = styled.div`
   .category-selector-title {
     display: inline-flex;
     align-items: center;
+    justify-content: space-between;
     overflow: initial;
     white-space: nowrap;
     cursor: pointer;
@@ -99,6 +100,7 @@ const StyledCategorySelector = styled.div`
     font-weight: 600;
     line-height: 17px;
     letter-spacing: 0.04em;
+    width: 100%;
     text-transform: uppercase;
 
     &.open {

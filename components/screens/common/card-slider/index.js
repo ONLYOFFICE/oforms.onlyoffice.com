@@ -6,7 +6,7 @@ import Heading from "@components/common/heading";
 import Card from "@components/screens/common/card";
 import "swiper/css";
 
-const CardSlider = ({ t, title, data }) => {
+const CardSlider = ({ t, locale, title, data }) => {
   const [isSliderEnabled, setIsSliderEnabled] = useState(true);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const CardSlider = ({ t, title, data }) => {
   }, []);
 
   return (
-    <StyledCardSlider className="card-slider">
+    <StyledCardSlider className="card-slider" locale={locale}>
       {title &&
         <Heading className="card-slider-title" level={3} dangerouslySetInnerHTML={{__html: title}} />
       }

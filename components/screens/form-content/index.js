@@ -128,7 +128,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
 
       <StyledForms>
         {randomCarousel?.data.length > 0 &&
-          <CardSlider t={t} title={t("Other forms")} data={randomCarousel} />
+          <CardSlider t={t} locale={locale} title={t("Other forms")} data={randomCarousel} />
         }
         {recentForms?.length > 1 &&
           <RecentlyViewed t={t} locale={locale} recentForms={recentForms} />

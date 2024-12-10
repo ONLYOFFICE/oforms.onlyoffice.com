@@ -79,6 +79,7 @@ const StyledCardSlider = styled.div`
     background-color: transparent;
     pointer-events: initial;
     transition: box-shadow 0.3s;
+    transform: ${props => props.locale === "ar" && "rotate(180deg)"};
     cursor: pointer;
 
     svg {

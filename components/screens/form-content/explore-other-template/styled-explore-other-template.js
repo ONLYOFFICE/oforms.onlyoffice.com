@@ -35,7 +35,7 @@ const StyledExploreOtherTemplate = styled.div`
     &:before {
       content: "";
       display: inline-flex;
-      margin-right: 4px;
+      ${props => props.locale === "ar" ? "margin-left: 4px;" : "margin-right: 4px;"}
       width: 24px;
       height: 24px;
       background-repeat: no-repeat;
