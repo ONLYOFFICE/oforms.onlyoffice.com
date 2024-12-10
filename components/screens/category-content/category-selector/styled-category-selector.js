@@ -321,7 +321,7 @@ const StyledCategorySelector = styled.div`
       }
 
       @media screen and (max-width: 1430px) {
-        max-width: ${props => props.locale === "en" || props.locale === "pt" && "calc(290px + (390 - 290) * ((100vw - 1024px) / (1430 - 1024)))"};
+        max-width: ${props => props.locale === "pt" && "calc(290px + (390 - 290) * ((100vw - 1024px) / (1430 - 1024)))"};
       }
 
       @media screen and (max-width: 1400px) {
@@ -329,12 +329,15 @@ const StyledCategorySelector = styled.div`
       }
 
       @media screen and (max-width: 1380px) {
-        max-width: ${props => props.locale === "de" && "calc(280px + (370 - 280) * ((100vw - 1024px) / (1380 - 1024)))"};
-        max-width: ${props => props.locale === "es" && "calc(296px + (380 - 296) * ((100vw - 1024px) / (1380 - 1024)))"};
+        max-width: ${props => (props.locale === "de" || props.locale === "es") && "calc(296px + (380 - 296) * ((100vw - 1024px) / (1380 - 1024)))"};
       }
 
       @media screen and (max-width: 1260px) {
         max-width: ${props => props.locale === "it" && "calc(306px + (370 - 306) * ((100vw - 1024px) / (1260 - 1024)))"};
+      }
+
+      @media screen and (max-width: 1180px) {
+        max-width: ${props => props.locale === "en" && "calc(284px + (340 - 284) * ((100vw - 1024px) / (1180 - 1024)))"};
       }
 
       @media screen and (max-width: 1130px) {
