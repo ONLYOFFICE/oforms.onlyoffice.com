@@ -28,12 +28,13 @@ const StyledSearchInput = styled.div`
       color: ${props => props.isMainPage ? "#FFFFFF" : "#333333"};
       height: ${props => props.isMainPage ? "56px" : "48px"};
       background-color: ${props => !props.isMainPage && "#F9F9F9"};
-      transition: ${props => !props.isMainPage && "border-color 0.3s"};
+      transition: ${props => !props.isMainPage && "border-color 0.3s, background-color 0.3s"};
 
       &.focus,
       &.has-value {
         border-color: ${props => !props.isMainPage && "#666666"};
         padding: ${props => !props.isMainPage && "12px 44px"};
+        background-color: ${props => !props.isMainPage && "#FFFFFF"};
 
         ~ .search-icon {
           path {
