@@ -61,7 +61,6 @@ const Category = ({ categoryForms, categoryInfo, locale, page, sort, types, cate
             locale={locale}
             stateMobile={stateMobile}
             setStateMobile={setStateMobile}
-            templateTertiary
           />
         </Layout.PageHeader>
         <Layout.SectionMain>

@@ -3,93 +3,110 @@ import Section from "@components/common/section";
 import { device } from "@utils/devices";
 
 const StyledCategoryContent = styled(Section)`
-  padding: 56px 0 144px;
+  padding: 40px 0 144px;
   background-color: #F5F5F5;
 
   .category-nav {
     display: flex;
     justify-content: center;
-  }
+    margin-bottom: 64px;
 
-  .category-nav-list {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0;
-    margin: 0 0 56px 0;
-    list-style-type: none;
+    .category-selector {
+      ${props => props.locale === "ar" ? "margin-left: 48px;" : "margin-right: 48px;"}
 
-    > li {
-      &:not(:last-child) {
-        ${props => props.locale === "ar" ? "margin-left: 8px;" : "margin-right: 8px;"}
+      &:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        ${props => props.locale === "ar" ? "left: -24px;" : "right: -24px;"}
+        border-right: 1px solid #CCCCCC;
+        height: calc(100% - 16px);
+        transform: translateY(-50%);
+
+        @media screen and ${device.mobile} {
+          content: none;
+        }
       }
 
-        &.separator{
-          border-right: 1px solid #ccc;
-          content: "";
-          height: 24px;
-          margin: 8px 24px 8px 16px;
-          @media screen and ${device.mobile} {
-            display: none;
-          }
-        }
+      .category-selector-title {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
 
-        &.cat-desk-nav-li {
-          @media screen and ${device.mobile} {
-            display: none;
-          }
-        }
-
-        > a {
-        display: inline-flex;
-        border: 1px solid #AAAAAA;
-        border-radius: 3px;
-        padding: 11px 24px 10px;
-        font-size: 13px;
-        font-weight: 600;
-        line-height: 17px;
-        letter-spacing: 0.04em;
-        color: #444444;
-        text-transform: uppercase;
-        transition: border-color 0.3s, color 0.3s;
-
-        &:hover {
-          border-color: #FF6F3D;
-          color: #FF6F3D;
-        }
-
-        &.active {
-          border-color: #FF6F3D;
-          color: #FF6F3D;
-        }
-
-        @media screen and ${device.laptop} {
-          white-space: nowrap;
-        }
-
-        @media screen and ${device.tablet} {
-          padding: 11px 16px 10px;
-        }
+      @media screen and ${device.mobile} {
+        ${props => props.locale === "ar" ? "margin-left: 0;" : "margin-right: 0;"}
       }
     }
 
+    @media screen and ${device.mobile} {
+      justify-content: initial;
+      margin-bottom: 40px;
+    }
+  }
+
+  .category-nav-container {
+    display: flex;
+    align-items: center;
+
     @media screen and ${device.laptop} {
-      flex-wrap: initial;
       padding: 0 40px;
-      margin: 0 -40px 56px;
+      margin: 0 -40px;
       overflow-x: auto;
     }
 
     @media screen and ${device.mobile} {
-      margin: 0 auto 56px;
-      overflow-x: unset;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
       padding: 0;
+      margin: 0;
+      width: 100%;
+    }
+  }
 
-      > li:not(:last-child) {
-        margin-right: 0px;
+  .category-nav-list {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+
+    li {
+      &:not(:last-child) {
+        ${props => props.locale === "ar" ? "margin-left: 8px;" : "margin-right: 8px;"}
       }
-      > li:first-child {
-        margin-right: 8px;
+    }
+
+    a {
+      display: inline-flex;
+      border: 1px solid #AAAAAA;
+      border-radius: 3px;
+      padding: 11px 24px;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 17px;
+      letter-spacing: 0.04em;
+      color: #444444;
+      text-transform: uppercase;
+      transition: border-color 0.3s, color 0.3s;
+
+      &:hover {
+        border-color: #FF6F3D;
+        color: #FF6F3D;
       }
+
+      &.active {
+        border-color: #FF6F3D;
+        color: #FF6F3D;
+      }
+
+      @media screen and ${device.laptop} {
+        white-space: nowrap;
+      }
+    }
+
+    @media screen and ${device.mobile} {
+      display: none;
     }
   }
 
@@ -160,17 +177,12 @@ const StyledCategoryContent = styled(Section)`
     }
   }
 
-  @media screen and ${device.laptop} {
-    padding: 56px 0 112px;
-    padding: 56px 0 144px;
-  }
-
   @media screen and ${device.tablet} {
-    padding: 40px 0 112px;
+    padding: 40px 0 120px;
   }
 
   @media screen and ${device.mobile} {
-    padding: 24px 0 120px;
+    padding: 24px 0 80px;
   }
 `;
 

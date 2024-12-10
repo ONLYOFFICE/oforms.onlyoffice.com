@@ -31,7 +31,6 @@ const DocumentTemplatesPage = ({ locale, sort, page, forms, categories, types, c
           locale={locale}
           stateMobile={stateMobile}
           setStateMobile={setStateMobile}
-          templateTertiary
         />
       </Layout.PageHeader>
       <Layout.SectionMain>

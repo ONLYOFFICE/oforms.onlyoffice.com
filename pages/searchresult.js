@@ -57,7 +57,6 @@ const SearchResultPage = ({ isDesktopClient, theme, locale, sort, page, types, c
             locale={locale}
             stateMobile={stateMobile}
             setStateMobile={setStateMobile}
-            templateQuaternary
           />
         </Layout.PageHeader>
         <Layout.SectionMain>

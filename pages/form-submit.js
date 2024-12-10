@@ -26,10 +26,9 @@ const FormSubmitPage = ({ locale, categories, formExts, queryIndexData }) => {
       <AdventAnnounceBanner locale={locale} stateMobile={stateMobile} />
       <Layout.PageHeader>
         <Header
-          templatePrimary
           t={t}
           locale={locale}
-          templateTertiary
+          headerBgColor="#f5f5f5"
           stateMobile={stateMobile}
           setStateMobile={setStateMobile}
         />

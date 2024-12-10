@@ -56,6 +56,9 @@ const MainPage = ({ locale, sort, forms, types, categories, compilations, popula
           <Header
             t={t}
             locale={locale}
+            headerBgColor="#444444"
+            isMainPage={true}
+            isSearch={true}
             stateMobile={stateMobile}
             setStateMobile={setStateMobile}
           />

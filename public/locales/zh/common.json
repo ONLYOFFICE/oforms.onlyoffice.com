@@ -144,7 +144,6 @@
   "Get ONLYOFFICE desktop": "获取 ONLYOFFICE 桌面版",
   "Popular search": "热门搜索",
   "History": "搜索历史记录",
-  "Search by": "搜索",
   "Document": "文本文档",
   "Spreadsheet": "电子表格",
   "Presentation": "演示文稿",
@@ -154,5 +153,6 @@
   "For macOS": "适用于 macOS",
   "For Android": "适用于 Android",
   "For iOS": "适用于 iOS",
-  "Fillable form": "可填写表单"
+  "Fillable form": "可填写表单",
+  "Search": "搜索"
 }

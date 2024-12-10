@@ -31,7 +31,6 @@ const SpreadsheetTemplatesPage = ({ locale, sort, page, forms, categories, types
           locale={locale}
           stateMobile={stateMobile}
           setStateMobile={setStateMobile}
-          templateTertiary
         />
       </Layout.PageHeader>
       <Layout.SectionMain>

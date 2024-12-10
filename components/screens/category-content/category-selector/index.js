@@ -31,6 +31,7 @@ const CategorySelector = ({ t, locale, categories, types, compilations, category
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
       className={`category-selector ${locale} ${activeUrl.startsWith("/form/") ? "active" : ""}`}
+      locale={locale}
     >
       <div className="category-selector-heading">
         <Heading 

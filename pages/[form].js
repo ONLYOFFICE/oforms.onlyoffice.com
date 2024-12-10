@@ -53,8 +53,8 @@ const FormPage = ({ locale, form, randomCarousel, compilations }) => {
       <Layout.PageHeader>
         <Header
           t={t}
-          templatePrimary
           locale={locale}
+          headerBgColor="#F9F9F9"
           stateMobile={stateMobile}
           setStateMobile={setStateMobile}
         />

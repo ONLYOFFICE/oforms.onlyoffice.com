@@ -1,6 +1,7 @@
 import StyledCategoryContent from "./styled-category-content";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import SearchTopSection from "@components/screens/common/search-top-section";
 import SearchNoResult from "@components/screens/common/search-no-result";
 import CategorySelector from "./category-selector";
 import Text from "@components/common/text";
@@ -54,27 +55,27 @@ const CategoryContent = ({ t, locale, subtitle, sort, page, forms, categories, t
 
   return (
     <StyledCategoryContent locale={locale}>
+      <SearchTopSection t={t} locale={locale} />
       <div className="category-nav">
-        <ul className="category-nav-list">
-          <li>
-            <CategorySelector
-              t={t}
-              locale={locale}
-              sort={sort}
-              categories={categories}
-              types={types}
-              compilations={compilations}
-              categoryName={categoryName}
-              activeUrl={router.pathname}
-            />
-          </li>
-          <li><EditorSelector t={t} locale={locale} /></li>
-          <li className="separator"></li>
-          <li className="cat-desk-nav-li"><InternalLink id="category-nav-pdf-form-link" className={`cat-desk-nav-link ${router.pathname === "/pdf-form-templates" ? "active" : ""}`} href={`/pdf-form-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Form")} /></li>
-          <li className="cat-desk-nav-li"><InternalLink id="category-nav-document-link" className={`cat-desk-nav-link ${router.pathname === "/document-templates" ? "active" : ""}`} href={`/document-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Document")} /></li>
-          <li className="cat-desk-nav-li"><InternalLink id="category-nav-spreadsheet-link" className={`cat-desk-nav-link ${router.pathname === "/spreadsheet-templates" ? "active" : ""}`} href={`/spreadsheet-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Spreadsheet")} /></li>
-          <li className="cat-desk-nav-li"><InternalLink id="category-nav-presentation-link" className={`cat-desk-nav-link ${router.pathname === "/presentation-templates" ? "active" : ""}`} href={`/presentation-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Presentation")} /></li>
-        </ul>
+        <div className="category-nav-container">
+          <CategorySelector
+            t={t}
+            locale={locale}
+            sort={sort}
+            categories={categories}
+            types={types}
+            compilations={compilations}
+            categoryName={categoryName}
+            activeUrl={router.pathname}
+          />
+          <EditorSelector t={t} locale={locale} />
+          <ul className="category-nav-list">
+            <li><InternalLink id="category-nav-pdf-form-link" className={`cat-desk-nav-link ${router.pathname === "/pdf-form-templates" ? "active" : ""}`} href={`/pdf-form-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Form")} /></li>
+            <li><InternalLink id="category-nav-document-link" className={`cat-desk-nav-link ${router.pathname === "/document-templates" ? "active" : ""}`} href={`/document-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Document")} /></li>
+            <li><InternalLink id="category-nav-spreadsheet-link" className={`cat-desk-nav-link ${router.pathname === "/spreadsheet-templates" ? "active" : ""}`} href={`/spreadsheet-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Spreadsheet")} /></li>
+            <li><InternalLink id="category-nav-presentation-link" className={`cat-desk-nav-link ${router.pathname === "/presentation-templates" ? "active" : ""}`} href={`/presentation-templates${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} label={t("Presentation")} /></li>
+          </ul>
+        </div>
       </div>
       <div className="category-header">
         <Heading className="category-title" level={2} label={categoryName} />

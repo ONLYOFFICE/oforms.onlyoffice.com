@@ -31,7 +31,6 @@ const PresentationTemplatesPage = ({ locale, sort, page, forms, categories, type
           locale={locale}
           stateMobile={stateMobile}
           setStateMobile={setStateMobile}
-          templateTertiary
         />
       </Layout.PageHeader>
       <Layout.SectionMain>
