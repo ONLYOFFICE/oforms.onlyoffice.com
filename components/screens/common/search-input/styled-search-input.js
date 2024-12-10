@@ -167,14 +167,11 @@ const StyledSearchInput = styled.div`
     font-weight: 600;
     line-height: 24px;
     color: #444444;
-
-    &:hover {
-      color: #FF6F3D;
-      background-color: #F5F5F5;
-    }
   }
 
   .search-results-popular-item {
+    transition: color 0.3s, background-color 0.3s;
+
     &:hover {
       color: #FF6F3D;
       background-color: #F5F5F5;
