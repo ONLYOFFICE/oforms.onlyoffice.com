@@ -21,6 +21,12 @@ const StyledCategorySelector = styled.div`
 
   &.editor {
     display: none;
+
+    .category-selector-title {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
   }
 
   .category-selector-heading {

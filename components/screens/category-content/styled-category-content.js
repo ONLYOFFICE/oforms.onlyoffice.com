@@ -28,12 +28,6 @@ const StyledCategoryContent = styled(Section)`
         }
       }
 
-      .category-selector-title {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-      }
-
       @media screen and ${device.mobile} {
         ${props => props.locale === "ar" ? "margin-left: 0;" : "margin-right: 0;"}
       }
