@@ -102,23 +102,23 @@ const MainHead = ({ title, description, isDesktopClient }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, shrink-to-fit=no, viewport-fit=cover" />
         <meta id="ctl00_MetaKeywords" name="keywords" content={title} />
         <meta name="description" content={description} />
-        <link rel="apple-touch-icon" href="https://static-oforms.onlyoffice.com/images/logo/ONLYOFFICE-logo.png" />
         <meta name="google" content="notranslate" />
-        <meta name="theme-light" />
 
-        {isDesktopClient &&
+        {isDesktopClient ? (
           <style type="text/css">
             {style}
           </style>
-        }
-        
-        {!isDesktopClient &&
-          <link
-            rel="icon"
-            href="https://static-oforms.onlyoffice.com/images/logo/favicon_general.png"
-            type="image/x-icon"
-          />
-        }
+        ) : (
+          <>
+            <link rel="shortcut icon" sizes="16x16" href="/images/logo/favicons/favicon.png" type="image/png" />
+            <link rel="shortcut icon" sizes="32x32" href="/images/logo/favicons/favicon32.png" type="image/png" />
+            <link rel="shortcut icon" sizes="64x64" href="/images/logo/favicons/favicon64.png" type="image/png" />
+            <link rel="icon" sizes="96x96" href="/images/logo/favicons/favicon.ico" type="image/x-icon" />
+            <link rel="apple-touch-icon" sizes="150x150" href="/images/logo/favicons/apple150.png" type="image/png" />
+            <link rel="apple-touch-icon" sizes="310x310" href="/images/logo/favicons/apple310.png" type="image/png" />
+            <link rel="apple-touch-icon" sizes="325x325" href="/images/logo/favicons/apple325.png" type="image/png" />
+          </>
+        )}
 
         {languages.map((lng) => {
           const { key, shortKey } = lng;
@@ -127,8 +127,7 @@ const MainHead = ({ title, description, isDesktopClient }) => {
             <link
               key={key}
               rel="alternate"
-              href={`https://oforms.onlyoffice.com/${shortKey === "en" ? "" : shortKey
-                }`}
+              href={`https://oforms.onlyoffice.com/${shortKey === "en" ? "" : shortKey}`}
             />
           );
         })}
