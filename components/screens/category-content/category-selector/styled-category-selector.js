@@ -3,6 +3,31 @@ import { device } from "@utils/devices";
 
 const StyledCategorySelector = styled.div`
   position: relative;
+  border: 1px solid #AAAAAA;
+  border-radius: 3px;
+  padding: 7px 8px 7px 16px;
+
+  &.active {
+    border-color: #FF6F3D;
+
+    > .category-selector-heading .category-selector-title {
+      color: #FF6F3D;
+
+      svg path {
+        fill: #FF6F3D;
+      }
+    }
+  }
+
+  &.editor {
+    display: none;
+
+    .category-selector-title {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
 
   .category-selector-heading {
     display: flex;
@@ -67,9 +92,16 @@ const StyledCategorySelector = styled.div`
   .category-selector-title {
     display: inline-flex;
     align-items: center;
+    justify-content: space-between;
     overflow: initial;
     white-space: nowrap;
     cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 17px;
+    letter-spacing: 0.04em;
+    width: 100%;
+    text-transform: uppercase;
 
     &.open {
       svg {
@@ -82,13 +114,8 @@ const StyledCategorySelector = styled.div`
       ${props => props.locale === "ar" ? "margin-right: 10px;" : "margin-left: 10px;"}
 
       path {
-        fill: #444444;
+        fill: #aaaaaa;
       }
-    }
-
-    @media screen and (max-width: 896px) {
-      font-size: 16px;
-      line-height: 21px;
     }
   }
 
@@ -116,6 +143,13 @@ const StyledCategorySelector = styled.div`
       }
     }
 
+    .category-selector-title {
+      @media screen and (max-width: 896px) {
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+
     @media screen and (max-width: 896px) {
       position: fixed;
       top: 0;
@@ -136,6 +170,7 @@ const StyledCategorySelector = styled.div`
 
     svg {
       display: flex;
+      transform: ${props => props.locale === "ar" && "rotate(180deg)"};
     }
 
     @media screen and (max-width: 896px) {
@@ -174,6 +209,7 @@ const StyledCategorySelector = styled.div`
     min-height: 48px;
     color: #444444;
     white-space: nowrap;
+    transition: color 0.3s, background-color 0.3s;
     cursor: pointer;
 
     &:not([href]) {
@@ -182,7 +218,7 @@ const StyledCategorySelector = styled.div`
       letter-spacing: -0.02em;
 
       @media screen and (max-width: 896px) {
-        padding: ${props => props.locale === "ar" ? "12px 24px 12px 72px" : "12px 72px 12px 24px"};
+        padding: ${props => props.locale === "ar" ? "12px 24px 12px 56px" : "12px 56px 12px 24px"};
       }
     }
 
@@ -209,6 +245,7 @@ const StyledCategorySelector = styled.div`
     }
 
     @media screen and (max-width: 896px) {
+      padding: 12px 24px;
       font-weight: 700;
       letter-spacing: -0.02em;
       min-height: 48px;
@@ -263,6 +300,7 @@ const StyledCategorySelector = styled.div`
     list-style-type: none;
 
     a {
+      box-sizing: border-box;
       display: block;
       padding: 12px 32px;
       font-size: 16px;
@@ -272,6 +310,7 @@ const StyledCategorySelector = styled.div`
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
+      transition: color 0.3s;
 
       &:hover {
         color: #FF6F3D;
@@ -281,8 +320,28 @@ const StyledCategorySelector = styled.div`
         color: #FF6F3D;
       }
 
-      @media screen and (max-width: 1200px) {
-        max-width: 300px;
+      @media screen and (max-width: 1430px) {
+        max-width: ${props => props.locale === "pt" && "calc(290px + (390 - 290) * ((100vw - 1024px) / (1430 - 1024)))"};
+      }
+
+      @media screen and (max-width: 1400px) {
+        max-width: ${props => props.locale === "fr" && "calc(274px + (370 - 274) * ((100vw - 1024px) / (1400 - 1024)))"};
+      }
+
+      @media screen and (max-width: 1380px) {
+        max-width: ${props => (props.locale === "de" || props.locale === "es") && "calc(296px + (380 - 296) * ((100vw - 1024px) / (1380 - 1024)))"};
+      }
+
+      @media screen and (max-width: 1260px) {
+        max-width: ${props => props.locale === "it" && "calc(306px + (370 - 306) * ((100vw - 1024px) / (1260 - 1024)))"};
+      }
+
+      @media screen and (max-width: 1180px) {
+        max-width: ${props => props.locale === "en" && "calc(284px + (340 - 284) * ((100vw - 1024px) / (1180 - 1024)))"};
+      }
+
+      @media screen and (max-width: 1130px) {
+        max-width: ${props => props.locale === "ja" && "calc(312px + (346 - 312) * ((100vw - 1024px) / (1130 - 1024)))"};
       }
 
       @media screen and (max-width: 1024px) {
@@ -309,6 +368,12 @@ const StyledCategorySelector = styled.div`
 
     @media screen and (max-width: 896px) {
       padding: 16px 0;
+    }
+  }
+
+  @media screen and ${device.mobile} {
+    &.editor {
+      display: block;
     }
   }
 `;

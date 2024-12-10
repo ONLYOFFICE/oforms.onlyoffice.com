@@ -323,7 +323,6 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
               labelMore={`(${t("maximum 5")})`}
               placeholder={t("Enter category or choose")}
               errorText={t("Template category is empty")}
-              categories={categories}
               selected={category}
               setSelected={setCategory}
               valid={categoryValid}

@@ -2,32 +2,18 @@ import StyledHeader from "./styled-header";
 import Menu from "./menu";
 import Search from "@components/screens/header/search";
 
-const Header = ({ t, locale, templatePrimary, templateSecondary, templateTertiary, templateQuaternary, stateMobile, setStateMobile }) => {
+const Header = ({ t, locale, headerBgColor, isMainPage, isSearch, stateMobile, setStateMobile }) => {
   return (
-    <StyledHeader
-      templatePrimary={templatePrimary}
-      templateSecondary={templateSecondary}
-      templateTertiary={templateTertiary}
-      templateQuaternary={templateQuaternary}
-    >
+    <StyledHeader headerBgColor={headerBgColor}>
       <Menu
         t={t}
         locale={locale}
-        templatePrimary={templatePrimary}
-        templateSecondary={templateSecondary}
-        templateTertiary={templateTertiary}
-        templateQuaternary={templateQuaternary}
+        isMainPage={isMainPage}
         stateMobile={stateMobile}
         setStateMobile={setStateMobile}
       />
-      {!templatePrimary &&
-        <Search
-          t={t}
-          locale={locale}
-          templateSecondary={templateSecondary}
-          templateTertiary={templateTertiary}
-          templateQuaternary={templateQuaternary}
-        />
+      {isSearch &&
+        <Search t={t} locale={locale} isMainPage={isMainPage} />
       }
     </StyledHeader>
   );

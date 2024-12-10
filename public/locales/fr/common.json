@@ -143,7 +143,6 @@
   "Get ONLYOFFICE desktop": "Obtenir application desktop ONLYOFFICE",
   "Popular search": "Recherche populaire",
   "History": "Historique",
-  "Search by": "Rechercher par",
   "Document": "Document texte",
   "Spreadsheet": "Feuille de calcul",
   "Presentation": "Présentation",
@@ -152,5 +151,6 @@
   "For Linux": "Pour Linux",
   "For macOS": "Pour macOS",
   "For Android": "Pour Android",
-  "For iOS": "Pour iOS"
+  "For iOS": "Pour iOS",
+    "Search": "Rechercher"
 }

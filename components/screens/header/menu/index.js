@@ -6,10 +6,10 @@ import PhoneMenu from "./phone-menu";
 import LanguageSelector from "@components/common/language-selector";
 import InternalLink from "@components/common/internal-link";
 
-const Menu = ({ t, locale, templatePrimary, templateSecondary, templateTertiary, templateQuaternary, stateMobile, setStateMobile }) => {
-  const logo = templatePrimary || templateSecondary || templateTertiary || templateQuaternary
-    ? "https://static-oforms.onlyoffice.com/images/logo/logo-black.react.svg"
-    : "https://static-oforms.onlyoffice.com/images/logo/logo-white.react.svg";
+const Menu = ({ t, locale, isMainPage, stateMobile, setStateMobile }) => {
+  const logo = isMainPage
+    ? "https://static-oforms.onlyoffice.com/images/logo/logo-white.react.svg"
+    : "https://static-oforms.onlyoffice.com/images/logo/logo-black.react.svg";
   const curLang = `https://www.onlyoffice.com${locale === "en" || "ar" ? "" : `/${locale}`}`;
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const Menu = ({ t, locale, templatePrimary, templateSecondary, templateTertiary,
   }, [stateMobile]);
 
   return (
-    <StyledHeading locale={locale} className={`navbar ${stateMobile ? "is-open" : ""} ${!templatePrimary && !templateSecondary && !templateTertiary && !templateQuaternary ? "main": ""}`}>
+    <StyledHeading locale={locale} className={`navbar ${stateMobile ? "is-open" : ""} ${isMainPage ? "main": ""}`}>
       <GlobalStyles stateMobile={stateMobile} />
       <button onClick={() => setStateMobile(true)} className="nav-btn-mobile">
         <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -141,7 +141,6 @@
   "Get ONLYOFFICE desktop": "ONLYOFFICEデスクトップを入手",
   "Popular search": "人気検索",
   "History": "履歴",
-  "Search by": "で検索",
   "Document": "ドキュメント",
   "Spreadsheet": "スプレッドシート",
   "Presentation": "プレゼンテーション",
@@ -150,5 +149,6 @@
   "For Linux": "Linux用",
   "For macOS": "macOS用",
   "For Android": "Android用",
-  "For iOS": "iOS用"
+  "For iOS": "iOS用",
+  "Search": "検索"
 }

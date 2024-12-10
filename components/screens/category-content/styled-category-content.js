@@ -3,21 +3,67 @@ import Section from "@components/common/section";
 import { device } from "@utils/devices";
 
 const StyledCategoryContent = styled(Section)`
-  padding: 56px 0 144px;
+  padding: 40px 0 144px;
   background-color: #F5F5F5;
 
   .category-nav {
     display: flex;
     justify-content: center;
+    margin-bottom: 64px;
+
+    .category-selector {
+      ${props => props.locale === "ar" ? "margin-left: 48px;" : "margin-right: 48px;"}
+
+      &:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        ${props => props.locale === "ar" ? "left: -24px;" : "right: -24px;"}
+        border-right: 1px solid #CCCCCC;
+        height: calc(100% - 16px);
+        transform: translateY(-50%);
+
+        @media screen and ${device.mobile} {
+          content: none;
+        }
+      }
+
+      @media screen and ${device.mobile} {
+        ${props => props.locale === "ar" ? "margin-left: 0;" : "margin-right: 0;"}
+      }
+    }
+
+    @media screen and ${device.mobile} {
+      justify-content: initial;
+      margin-bottom: 40px;
+    }
+  }
+
+  .category-nav-container {
+    display: flex;
+    align-items: center;
+
+    @media screen and ${device.laptop} {
+      padding: 0 40px;
+      margin: 0 -40px;
+      overflow-x: auto;
+    }
+
+    @media screen and ${device.mobile} {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+    }
   }
 
   .category-nav-list {
     display: flex;
-    flex-wrap: wrap;
     padding: 0;
-    margin: 0 0 56px 0;
+    margin: 0;
     list-style-type: none;
-    overflow-x: auto;
 
     li {
       &:not(:last-child) {
@@ -53,15 +99,8 @@ const StyledCategoryContent = styled(Section)`
       }
     }
 
-    @media screen and ${device.laptop} {
-      flex-wrap: initial;
-      padding: 0 40px;
-      margin: 0 -40px 56px;
-    }
-
     @media screen and ${device.mobile} {
-      padding: 0 16px;
-      margin: 0 -16px 40px;
+      display: none;
     }
   }
 
@@ -79,6 +118,12 @@ const StyledCategoryContent = styled(Section)`
     display: flex;
     justify-content: space-between;
     margin-bottom: 32px;
+
+    > span {
+      color: #808080;
+      font-size: 14px;
+      font-weight: 600;
+    }
 
     @media screen and ${device.mobile} {
       margin-bottom: 24px;
@@ -126,12 +171,12 @@ const StyledCategoryContent = styled(Section)`
     }
   }
 
-  @media screen and ${device.laptop} {
-    padding: 56px 0 112px;
+  @media screen and ${device.tablet} {
+    padding: 40px 0 120px;
   }
 
   @media screen and ${device.mobile} {
-    padding: 40px 0 120px;
+    padding: 24px 0 80px;
   }
 `;
 

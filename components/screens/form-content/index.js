@@ -33,7 +33,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
   const docxFile = file_oform?.data?.filter((it) => it?.attributes.name.split(".")[1] === "docx");
   const pptxFile = file_oform?.data?.filter((it) => it?.attributes.name.split(".")[1] === "pptx");
   const xlsxFile = file_oform?.data?.filter((it) => it?.attributes.name.split(".")[1] === "xlsx");
-  const linkPdfEditor = `editor?filename=${url}&fillform=${`${pdfFile[0]?.attributes?.hash}.pdf`}`;
+  const linkPdfEditor = `editor?lang=${locale}&filename=${url}&fillform=${`${pdfFile[0]?.attributes?.hash}.pdf`}`;
   const fileSize = pdfFile[0]?.attributes.size || docxFile[0]?.attributes.size || pptxFile[0]?.attributes.size || xlsxFile[0]?.attributes.size;
   const fileUpdatedAt = pdfFile[0]?.attributes.updatedAt || docxFile[0]?.attributes.updatedAt || pptxFile[0]?.attributes.updatedAt || xlsxFile[0]?.attributes.updatedAt;
   const fileUrl = pdfFile[0]?.attributes.url || docxFile[0]?.attributes.url || pptxFile[0]?.attributes.url || xlsxFile[0]?.attributes.url;
@@ -56,7 +56,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
 
         <div className="form-preview">
           <div className="form-info">
-            <Heading className="form-title" level={2} label={name_form} />
+            <Heading className="form-title" level={1} label={name_form} />
             <div className="form-tags">
               {pdfFile[0]?.attributes?.url &&
                 <span className="tag form-tag">{t("Fillable form")}</span>
@@ -128,7 +128,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
 
       <StyledForms>
         {randomCarousel?.data.length > 0 &&
-          <CardSlider t={t} title={t("Other forms")} data={randomCarousel} />
+          <CardSlider t={t} locale={locale} title={t("Other forms")} data={randomCarousel} />
         }
         {recentForms?.length > 1 &&
           <RecentlyViewed t={t} locale={locale} recentForms={recentForms} />

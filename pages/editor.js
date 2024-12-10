@@ -11,7 +11,7 @@ import MainHead from "@components/screens/head";
 const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
 
 const EditorPage = ({ data, serfilename }) => {
-  const { query: { filename, fillform }} = useRouter();
+  const { query: { lang, filename, fillform }} = useRouter();
   const [loadScript, setLoadScript] = useState(false);
   const [config, setConfig] = useState();
   const [check, setCheck] = useState(false);
@@ -20,7 +20,7 @@ const EditorPage = ({ data, serfilename }) => {
 
   const getConfig = () => {
     if (serfilename === filename && fillform !== undefined) {
-      const urlCMSConfigAPI = `${CMSConfigAPI}/api/config?title=${filename}&url=${fillform}`;
+      const urlCMSConfigAPI = `${CMSConfigAPI}/api/config?lang=${lang}&title=${filename}&url=${fillform}`;
       axios(urlCMSConfigAPI)
         .then((res) => {
           setConfig(JSON.stringify(res.data));

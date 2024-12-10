@@ -34,7 +34,7 @@ const StyledTextInput = styled.div`
     pointer-events: none;
 
     path {
-      fill: #808080;
+      transition: fill 0.3s;
     }
   }
 
@@ -56,10 +56,16 @@ const StyledTextInput = styled.div`
     }
 
     &:focus,
-    &.focus {
-      padding: 24px 48px 8px 48px;
+    &.has-value {
+      padding: 24px 48px 8px;
 
-      + .label {
+      ~ .search-icon {
+        path {
+          fill: #CCCCCC;
+        }
+      }
+
+      ~ .label {
         top: 8px;
         font-size: 12px;
         line-height: 16px;

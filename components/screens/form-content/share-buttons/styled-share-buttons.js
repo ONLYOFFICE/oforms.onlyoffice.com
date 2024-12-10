@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import x from "@public/icons/x.svg";
+import wechat from "@public/icons/wechat.svg";
+import weibo from "@public/icons/weibo.svg";
 
 const StyledShareButtons = styled.div`
   display: flex;
@@ -18,10 +20,16 @@ const StyledShareButtons = styled.div`
     padding: 0;
     margin: 0;
     list-style-type: none;
+
+    li {
+      display: inline-flex;
+    }
   }
 
   .share-button {
+    box-sizing: border-box;
     position: relative;
+    display: inline-flex;
     padding: 4px;
     width: 48px;
     height: 48px;
@@ -61,6 +69,19 @@ const StyledShareButtons = styled.div`
     &.linkedin {
       &:after {
         background-image: url("https://static-oforms.onlyoffice.com/images/social-icons/linkedin.react.svg");
+      }
+    }
+
+    &.wechat {
+      &:after {
+        background-image: url(${wechat.src});
+        background-size: 24px 24px;
+      }
+    }
+
+    &.weibo {
+      &:after {
+        background-image: url(${weibo.src});
       }
     }
 

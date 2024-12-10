@@ -47,7 +47,7 @@ const StyledSortSelector = styled.div`
     }
 
     @media screen and ${device.mobile} {
-      margin-left: 4px;
+      ${props => props.locale === "ar" ? "margin-right: 4px;" : "margin-left: 4px;"}
     }
   }
 

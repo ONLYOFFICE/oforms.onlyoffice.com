@@ -2,9 +2,9 @@ import StyledPopularCategories from "./styled-popular-categories";
 import InternalLink from "@components/common/internal-link";
 import Heading from "@components/common/heading";
 
-const PopularCategories = ({ t, categories }) => {
+const PopularCategories = ({ t, locale, categories }) => {
   return (
-    <StyledPopularCategories className="popular-categories">
+    <StyledPopularCategories className="popular-categories" locale={locale}>
       <Heading className="popular-categories-title" level={3} label={t("Popular categories")} />
       <div className="popular-categories-links">
         {categories?.data?.map((category) => (

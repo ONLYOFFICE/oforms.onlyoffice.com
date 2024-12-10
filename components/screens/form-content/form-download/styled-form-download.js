@@ -57,7 +57,7 @@ const StyledFormDownload = styled.div`
     }
 
     &:not(:last-child) {
-      margin-right: 5px;
+      ${props => props.locale === "ar" ? "margin-left: 5px;" : "margin-right: 5px;"}
     }
 
     &.pdf {
@@ -93,6 +93,9 @@ const StyledFormDownload = styled.div`
     display: inline-flex;
 
     button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       border: none;
       padding: 0;
       background-color: transparent;
