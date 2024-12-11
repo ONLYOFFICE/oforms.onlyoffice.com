@@ -49,8 +49,12 @@ const StyledSearchInput = styled.div`
           color: ${props => props.isMainPage && "#AAAAAA"};
         }
 
+        @media screen and ${device.tablet} {
+          padding: ${props => !props.isMainPage && "8px 40px"};
+        }
+
         @media screen and ${device.mobile} {
-          padding: ${props => props.isMainPage ? "24px 40px 8px" : "8px 40px"};
+          padding: ${props => props.isMainPage && "24px 40px 8px"};
         }
       }
 

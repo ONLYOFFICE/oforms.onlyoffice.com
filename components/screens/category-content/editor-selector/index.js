@@ -18,8 +18,8 @@ const EditorSelector = ({ t, locale }) => {
 
   return (
     <StyledCategorySelector
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
+      onMouseEnter={() => window.innerWidth > 1024 && setIsOpen(true)}
+      onMouseLeave={() => window.innerWidth > 1024 && setIsOpen(false)}
       className={`category-selector editor ${locale} ${router.pathname === "/document-templates" ||
         router.pathname === "/pdf-form-templates" ||
         router.pathname === "/spreadsheet-templates" ||
