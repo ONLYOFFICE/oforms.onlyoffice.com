@@ -167,6 +167,7 @@ const StyledCategorySelector = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: 12px 16px;
+    text-align: center;
 
     svg {
       display: flex;
