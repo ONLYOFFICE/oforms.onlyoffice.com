@@ -28,8 +28,8 @@ const CategorySelector = ({ t, locale, categories, types, compilations, category
 
   return (
     <StyledCategorySelector
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
+      onMouseEnter={() => window.innerWidth > 1024 && setIsOpen(true)}
+      onMouseLeave={() => window.innerWidth > 1024 && setIsOpen(false)}
       className={`category-selector ${locale} ${activeUrl.startsWith("/form/") ? "active" : ""}`}
       locale={locale}
     >
@@ -65,8 +65,9 @@ const CategorySelector = ({ t, locale, categories, types, compilations, category
           </div>
           {categories?.data.length > 0 &&
             <div 
-              onMouseEnter={() => menuOnMouseEnter(setIsCategoryOpen)} 
-              onMouseLeave={() => setIsCategoryOpen(false)}
+              onMouseEnter={() => window.innerWidth > 1024 && menuOnMouseEnter(setIsCategoryOpen)} 
+              onMouseLeave={() => window.innerWidth > 1024 && setIsCategoryOpen(false)}
+              onClick={() => window.innerWidth <= 1024 && menuOnMouseEnter(setIsCategoryOpen)}
             >
               <Heading level={5} className={`category-selector-item ${isCategoryOpen ? "active" : ""}`}>
                 {t("Forms by branch")}
@@ -78,8 +79,8 @@ const CategorySelector = ({ t, locale, categories, types, compilations, category
                 <div className="category-selector-submenu">
                   <div className="category-selector-header">
                     <button
-                      onMouseEnter={() => window.innerWidth >= 1024 && setIsCategoryOpen(false)}
-                      onClick={(e) => window.innerWidth < 1024 && (
+                      onMouseEnter={() => window.innerWidth > 1024 && setIsCategoryOpen(false)}
+                      onClick={(e) => window.innerWidth <= 1024 && (
                         e.stopPropagation(),
                         setIsCategoryOpen(false)
                       )}
@@ -115,8 +116,9 @@ const CategorySelector = ({ t, locale, categories, types, compilations, category
           }
           {types?.data.length > 0 &&
             <div 
-              onMouseEnter={() => menuOnMouseEnter(setIsTypeOpen)} 
-              onMouseLeave={() => setIsTypeOpen(false)}
+              onMouseEnter={() => window.innerWidth > 1024 && menuOnMouseEnter(setIsTypeOpen)} 
+              onMouseLeave={() => window.innerWidth > 1024 && setIsTypeOpen(false)}
+              onClick={() => window.innerWidth <= 1024 && menuOnMouseEnter(setIsCategoryOpen)}
             >
               <Heading level={5} className={`category-selector-item ${isTypeOpen ? "active" : ""}`}>
                 {t("Forms by type")}
@@ -128,8 +130,8 @@ const CategorySelector = ({ t, locale, categories, types, compilations, category
                 <div className="category-selector-submenu">
                   <div className="category-selector-header">
                     <button 
-                      onMouseEnter={() => window.innerWidth >= 1024 && setIsTypeOpen(false)} 
-                      onClick={(e) => window.innerWidth < 1024 && (
+                      onMouseEnter={() => window.innerWidth > 1024 && setIsTypeOpen(false)} 
+                      onClick={(e) => window.innerWidth <= 1024 && (
                         e.stopPropagation(),
                         setIsTypeOpen(false)
                       )}
@@ -165,8 +167,9 @@ const CategorySelector = ({ t, locale, categories, types, compilations, category
           }
           {compilations?.data.length > 0 &&
             <div 
-              onMouseEnter={() => menuOnMouseEnter(setIsCompilationsOpen)} 
-              onMouseLeave={() => setIsCompilationsOpen(false)}
+              onMouseEnter={() => window.innerWidth > 1024 && menuOnMouseEnter(setIsCompilationsOpen)} 
+              onMouseLeave={() => window.innerWidth > 1024 && setIsCompilationsOpen(false)}
+              onClick={() => window.innerWidth <= 1024 && menuOnMouseEnter(setIsCategoryOpen)}
             >
               <Heading level={5} className={`category-selector-item ${isCompilationsOpen ? "active" : ""}`}>
                 {t("Popular Compilations")}
@@ -178,8 +181,8 @@ const CategorySelector = ({ t, locale, categories, types, compilations, category
                 <div className="category-selector-submenu">
                   <div className="category-selector-header">
                     <button
-                      onMouseEnter={() => window.innerWidth >= 1024 && setIsCompilationsOpen(false)}
-                      onClick={(e) => window.innerWidth < 1024 && (
+                      onMouseEnter={() => window.innerWidth > 1024 && setIsCompilationsOpen(false)}
+                      onClick={(e) => window.innerWidth <= 1024 && (
                         e.stopPropagation(),
                         setIsCompilationsOpen(false)
                       )}

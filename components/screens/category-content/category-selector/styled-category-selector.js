@@ -138,19 +138,19 @@ const StyledCategorySelector = styled.div`
       left: 0;
       background-color: transparent;
 
-      @media screen and (max-width: 896px) {
+      @media screen and ${device.laptop} {
         content: none;
       }
     }
 
     .category-selector-title {
-      @media screen and (max-width: 896px) {
+      @media screen and ${device.laptop} {
         font-size: 16px;
         line-height: 24px;
       }
     }
 
-    @media screen and (max-width: 896px) {
+    @media screen and ${device.laptop} {
       position: fixed;
       top: 0;
       width: 100%;
@@ -174,7 +174,7 @@ const StyledCategorySelector = styled.div`
       transform: ${props => props.locale === "ar" && "rotate(180deg)"};
     }
 
-    @media screen and (max-width: 896px) {
+    @media screen and ${device.laptop} {
       position: sticky;
       top: 0;
       display: flex;
@@ -218,7 +218,7 @@ const StyledCategorySelector = styled.div`
       font-weight: 700;
       letter-spacing: -0.02em;
 
-      @media screen and (max-width: 896px) {
+      @media screen and ${device.laptop} {
         padding: ${props => props.locale === "ar" ? "12px 24px 12px 56px" : "12px 56px 12px 24px"};
       }
     }
@@ -230,7 +230,7 @@ const StyledCategorySelector = styled.div`
       display: flex;
       transform: ${props => props.locale === "ar" ? "translateY(-50%) rotate(180deg)" : "translateY(-50%)"};
 
-      @media screen and (max-width: 896px) {
+      @media screen and ${device.laptop} {
         ${props => props.locale === "ar" ? "left: 16px;" : "right: 16px;"}
       }
     }
@@ -245,7 +245,7 @@ const StyledCategorySelector = styled.div`
       background-color: #F5F5F5;
     }
 
-    @media screen and (max-width: 896px) {
+    @media screen and ${device.laptop} {
       padding: 12px 24px;
       font-weight: 700;
       letter-spacing: -0.02em;
@@ -282,7 +282,7 @@ const StyledCategorySelector = styled.div`
       white-space: nowrap;
     }
 
-    @media screen and (max-width: 896px) {
+    @media screen and ${device.laptop} {
       position: fixed;
       top: 0;
       ${props => props.locale === "ar" ? "right: 0;" : "left: 0;"}
@@ -352,7 +352,7 @@ const StyledCategorySelector = styled.div`
         max-width: 100%;
       }
 
-      @media screen and (max-width: 896px) {
+      @media screen and ${device.laptop} {
         padding: 12px 16px;
       }
     }
@@ -367,7 +367,7 @@ const StyledCategorySelector = styled.div`
       }
     }
 
-    @media screen and (max-width: 896px) {
+    @media screen and ${device.laptop} {
       padding: 16px 0;
     }
   }
