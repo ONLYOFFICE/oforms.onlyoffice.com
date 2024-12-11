@@ -87,7 +87,7 @@
   "Please fill out all the fields before sending the template.": "يرجى تعبئة الخانات قبل إرسال القالب. ",
   "Template name": "اسم القالب",
   "Duplicate file name. Please rename your template or choose another one.": "اسم الملف مكرر. يرجى إعادة تسمية القالب الخاص بك أو اختيار آخر.",
-  "Price quote template": "見積書のテンプレート",
+  "Price quote template": "Price quote template",
   "Template name is empty": "اسم القالب فارغ",
   "Give more details about your template, such as who will benefit from it, in which industry, etc.": "يرجى منح المزيد من التفاصيل عن القالب الخاص بك، مثل من سيتفيد منه، وفي أي مجال، وما إلى ذلك.",
   "Template description": "وصف القالب",
@@ -132,7 +132,7 @@
   "Nothing found": "لم يتم العثور على شيء",
   "No results matching your query could be found": "لم يتم العثور على نتائج تناسب استفسارك",
   "Clear filter": "إلغاء عامل التصفية",
-  "Templates": "テンプレート",
+  "Templates": "القوالب",
   "Download a XLSX document if you need an editable text without fields.": "نزّل مستند XLSX إذا كنت تحتاج إلى نص قابل للتحرير من دون خانات.",
   "Download a PDF document if you need an editable text without fields.":  "نزّل مستند PDF إذا كنت تحتاج إلى نص قابل للتحرير من دون خانات.",
   "Download a DOCX document if you need an editable text without fields.":  "نزّل مستند DOCX إذا كنت تحتاج إلى نص قابل للتحرير من دون خانات.",
@@ -149,5 +149,5 @@
   "Fillable form": "نموذج قابل للتعبئة",
   "OK": "نعم",
   "Open": "افتح",
-  "Search": "يبحث"
+  "Search": "بحث"
 }
