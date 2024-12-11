@@ -10,7 +10,7 @@ const Menu = ({ t, locale, isMainPage, stateMobile, setStateMobile }) => {
   const logo = isMainPage
     ? "https://static-oforms.onlyoffice.com/images/logo/logo-white.react.svg"
     : "https://static-oforms.onlyoffice.com/images/logo/logo-black.react.svg";
-  const curLang = `https://www.onlyoffice.com${locale === "en" || "ar" ? "" : `/${locale}`}`;
+  const curLang = `https://www.onlyoffice.com${(locale === "en" || locale === "ar") ? "" : `/${locale}`}`;
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.innerWidth <= 1024 && stateMobile) {
