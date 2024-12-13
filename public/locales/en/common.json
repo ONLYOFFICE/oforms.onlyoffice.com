@@ -9,5 +9,6 @@
   "Click Fill Out to launch the corresponding editor online": "Click Fill Out to launch the <b>corresponding</b> editor online",
   "Other forms": "<span>Other</span> forms",
   "Recently viewed": "<span>Recently</span> viewed",
-  "Please download it and install to use this plugin. Go to the Download page to get ONLYOFFICE Desktop Editors for Windows, Linux, or macOS.": "Please download it and install to use this plugin. Go to the <a href=\"https://www.onlyoffice.com/download-desktop.aspx\" target=\"_blank\" rel=\"noreferrer noopener\">Download page</a> to get ONLYOFFICE Desktop Editors for Windows, Linux, or macOS."
+  "Please download it and install to use this plugin. Go to the Download page to get ONLYOFFICE Desktop Editors for Windows, Linux, or macOS.": "Please download it and install to use this plugin. Go to the <a href=\"https://www.onlyoffice.com/download-desktop.aspx\" target=\"_blank\" rel=\"noreferrer noopener\">Download page</a> to get ONLYOFFICE Desktop Editors for Windows, Linux, or macOS.",
+  "SuggestingChangesLink": "Suggesting%20changes%20for%20Form%20{{name}}"
 }

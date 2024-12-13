@@ -22,7 +22,7 @@ const PhoneMenu = ({ t, locale }) => {
       <div className="phone-wrapper">
         <div className="phone-label">{t("Ascensio System SIA")}</div>
         <a className="phone-call" href="tel:+37163399867">{t("Phone")}: +371 63399867</a>
-        <ExternalLink className="phone-request-call" href={`https://onlyoffice.com${locale === "en" ? "" : `/${locale}`}${"/call-back-form.aspx"}`} label={t("Request a call")} />
+        <ExternalLink className="phone-request-call" href={`https://onlyoffice.com${(locale === "en" || locale === "ar") ? "" : `/${locale}`}${"/call-back-form.aspx"}`} label={t("Request a call")} />
       </div>
     </StyledPhoneMenu>
   );

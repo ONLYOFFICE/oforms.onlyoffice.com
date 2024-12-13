@@ -7,7 +7,7 @@ const Pagination = ({ page, countPage, getPaginationGroup, locale, sort, categor
   const router = useRouter();
 
   return (
-    <StyledPagination className="pagination">
+    <StyledPagination className="pagination" locale={locale}>
       <InternalLink
         className={`pagination-item pagination-item-prev ${page === 1 ? "disabled" : ""}`}
         href={router.pathname === "/searchresult"

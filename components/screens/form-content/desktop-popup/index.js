@@ -17,7 +17,7 @@ const DesktopPopup = ({ t, locale, popupActive, setPopupActive }) => {
           <div className="popup-body">
             <Heading className="popup-heading" level={4} label={t("ONLYOFFICE Desktop Editors not installed")} />
             <Text className="popup-text" dangerouslySetInnerHTML={{__html: t("Please download it and install to use this plugin. Go to the Download page to get ONLYOFFICE Desktop Editors for Windows, Linux, or macOS.")}} />
-            <InternalLink id="popup-btn" className="popup-btn" href={`https://www.onlyoffice.com${locale === "en" ? "" : `/${locale}`}/download-desktop.aspx`} label={t("Get ONLYOFFICE desktop")} />
+            <InternalLink id="popup-btn" className="popup-btn" href={`https://www.onlyoffice.com${(locale === "en" || locale === "ar") ? "" : `/${locale}`}/download-desktop.aspx`} label={t("Get ONLYOFFICE desktop")} />
           </div>
         </div>
       </div>

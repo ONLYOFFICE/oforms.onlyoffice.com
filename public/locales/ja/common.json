@@ -65,8 +65,8 @@
   "Edit template": "テンプレートを編集",
   "Share": "共有",
   "HowToCreateATemplate": "ONLYOFFICEで{{nameForm}}を作成する方法",
-  "Click Fill Out to launch the corresponding editor online": " オンラインで<b>該当</b>エディタを起動するために、「記入する」ボタンを押します。",
-  "Enter the necessary information and edit the template as you need": "必要な情報を入力し、必要に応じてテンプレートを編集します。",
+  "Click Fill Out to launch the corresponding editor online": "<b>対応する</b>エディタをオンラインで起動するには、「記入する」をクリックしてください",
+  "Enter the necessary information and edit the template as you need": "必要な情報を入力し、ニーズに応じてテンプレートを編集します",
   "Download the ready document from the editor": "準備できた文書をエディタからダウンロードします。",
   "Fill out": "記入",
   "Other forms": "<span>その他の<span>フォーム",
@@ -141,7 +141,6 @@
   "Get ONLYOFFICE desktop": "ONLYOFFICEデスクトップを入手",
   "Popular search": "人気検索",
   "History": "履歴",
-  "Search by": "で検索",
   "Document": "ドキュメント",
   "Spreadsheet": "スプレッドシート",
   "Presentation": "プレゼンテーション",
@@ -150,5 +149,13 @@
   "For Linux": "Linux用",
   "For macOS": "macOS用",
   "For Android": "Android用",
-  "For iOS": "iOS用"
+  "For iOS": "iOS用",
+  "Search": "検索",
+  "Home Templates": "テンプレートのトップページ",
+  "Editor": "エディタ",
+  "Fillable form": "入力フォーム",
+  "PDF Form": "PDFフォーム",
+  "Enter name": "名前を入力します",
+  "Search results for": "検索結果",
+  "SuggestingChangesLink": "Form%20{{name}}の変更を提案する"
 }

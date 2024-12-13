@@ -1,6 +1,6 @@
 import StyledSearchResultContent from "./styled-search-result-content";
 import { useState, useEffect } from "react";
-import Breadcrumbs from "@components/screens/common/breadcrumbs";
+import SearchTopSection from "@components/screens/common/search-top-section";
 import Card from "@components/screens/common/card";
 import SearchNoResult from "@components/screens/common/search-no-result";
 import Heading from "@components/common/heading";
@@ -49,19 +49,11 @@ const SearchResultContent = ({ t, locale, searchQuery, searchData, sort, page })
 
   return (
     <StyledSearchResultContent>
-      <Breadcrumbs t={t} locale={locale}>
-        {
-          locale === "fr" ? `${t("Search by")} « ${searchQuery} »` :
-          locale === "es" ? `${t("Search by")} «${searchQuery}»` :
-          locale === "ja" ? `"${searchQuery}"${t("Search by")}` :
-          locale === "zh" ? `${t("Search by")} “${searchQuery}”` :
-          `${t("Search by")} "${searchQuery}"`
-        }
-      </Breadcrumbs>
+      <SearchTopSection t={t} locale={locale} />
 
       {searchData.data?.length > 0 ? (
         <>
-          <Heading className="search-result-title" level={2} label={searchQuery ? `${t("Search results for")} '${searchQuery}'` : t("Search results")} />
+          <Heading className="search-result-title" level={2} label={searchQuery ? locale === "zh" ? `'${searchQuery}' ${t("Search results for")}` : `${t("Search results for")} '${searchQuery}'` : t("Search results")} />
           <div className="search-result-nav">
             <span className="search-result-length">{searchData.meta?.pagination.total ? searchData.meta?.pagination.total : 0} {t("templates")}</span>
             <SortSelector t={t} locale={locale} sort={sort} />

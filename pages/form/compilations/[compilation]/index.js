@@ -1,10 +1,9 @@
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useState } from "react";
-import config from "@config/config.json";
-import getTypes from "@lib/requests/getTypes";
 import getCategories from "@lib/requests/getCategories";
-import getCompilations from "@lib/requests/getCompilations";
+import getCategoryForms from "@lib/requests/getCategoryForms";
+import getCategoryInfo from "@lib/requests/getCategoryInfo";
 import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import DesktopClient from "@components/screens/desktop-client";
@@ -64,7 +63,6 @@ const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, cate
             locale={locale}
             stateMobile={stateMobile}
             setStateMobile={setStateMobile}
-            templateTertiary
           />
         </Layout.PageHeader>
         <Layout.SectionMain>
@@ -100,20 +98,12 @@ export const getServerSideProps = async ({ locale, query }) => {
   const sort = query._sort || "asc";
   const urlReq = query.compilation;
   const pageSize = query.pageSize || isDesktopClient ? 0 : 9;
-  const cms = config.api.cms;
-  const types = await getTypes(locale === "pt" ? "pt-br" : locale);
-  const categories = await getCategories(locale === "pt" ? "pt-br" : locale);
-  const compilations = await getCompilations(locale === "pt" ? "pt-br" : locale);
 
-  const res = await fetch(
-    `${cms}/api/oforms/?filters[compilations][urlReq][$eq]=${urlReq}&locale=${locale === "pt" ? "pt-br" : locale}&sort=name_form:${sort}&${pageSize ? `&pagination[pageSize]=${pageSize}` : ""}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew&populate=form_exts`
-  );
-  const resCategory = await fetch(
-    `${cms}/api/compilations/?filters[urlReq][$eq]=${urlReq}&locale=${locale === "pt" ? "pt-br" : locale}`
-  );
-
-  const categoryForms = await res.json();
-  const categoryInfo = await resCategory.json();
+  const categoryForms = await getCategoryForms(locale, sort, page, pageSize, urlReq, "compilations", isDesktopClient);
+  const categoryInfo = await getCategoryInfo(locale, urlReq, "compilations", "compilation");
+  const types = await getCategories(locale, "types", "type");
+  const categories = await getCategories(locale, "categories", "categorie");
+  const compilations = await getCategories(locale, "compilations", "compilation");
 
   if (categoryForms.data === null) {
     return {

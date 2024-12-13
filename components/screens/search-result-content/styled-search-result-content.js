@@ -3,19 +3,10 @@ import Section from "@components/common/section";
 import { device } from "@utils/devices";
 
 const StyledSearchResultContent = styled(Section)`
-  padding: 32px 0 144px;
-  background-color: #F9F9F9;
-
-  .breadcrumbs {
-    margin-bottom: 32px;
-
-    @media screen and ${device.mobile} {
-      justify-content: center;
-    }
-  }
+  padding: 40px 0 144px;
+  background-color: #F5F5F5;
 
   .search-result-title {
-    direction: initial;
     margin-bottom: 32px;
     text-align: center;
   }
@@ -76,8 +67,12 @@ const StyledSearchResultContent = styled(Section)`
     height: 340px;
   }
 
-  @media screen and ${device.laptop} {
-    padding: 32px 0 120px;
+  @media screen and ${device.tablet} {
+    padding: 40px 0 120px;
+  }
+
+  @media screen and ${device.mobile} {
+    padding: 24px 0 80px;
   }
 `;
 

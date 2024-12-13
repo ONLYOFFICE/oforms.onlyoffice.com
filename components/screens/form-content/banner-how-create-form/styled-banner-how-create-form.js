@@ -12,6 +12,8 @@ const StyledBannerHowCreateForm = styled.div`
     display: flex;
     align-items: center;
     margin-bottom: 16px;
+    font-size: 24px;
+    line-height: 32px;
     letter-spacing: -0.02em;
 
     &:before {

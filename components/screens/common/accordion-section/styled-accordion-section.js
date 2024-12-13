@@ -7,7 +7,14 @@ const StyledBannerForm = styled(Section)`
 
   .accordion-section-title {
     margin-bottom: 56px;
+    font-size: 32px;
+    line-height: 38px;
     letter-spacing: -0.02em;
+
+    @media screen and ${device.laptop} {
+      font-size: 24px;
+      line-height: 32px;
+    }
 
     @media screen and ${device.mobile} {
       margin-bottom: 24px;

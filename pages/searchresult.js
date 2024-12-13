@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import getTypes from "@lib/requests/getTypes";
+import getSearchResult from "@lib/requests/getSearchResult";
 import getCategories from "@lib/requests/getCategories";
-import getCompilations from "@lib/requests/getCompilations";
-import CONFIG from "@config/config";
 import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import Header from "@components/screens/header";
@@ -59,7 +57,6 @@ const SearchResultPage = ({ isDesktopClient, theme, locale, sort, page, types, c
             locale={locale}
             stateMobile={stateMobile}
             setStateMobile={setStateMobile}
-            templateQuaternary
           />
         </Layout.PageHeader>
         <Layout.SectionMain>
@@ -90,19 +87,10 @@ export const getServerSideProps = async ({ locale, query }) => {
   const pageSize = query.pageSize || isDesktopClient ? 0 : 9;
   const searchQuery = query.query || "";
 
-  let types = null;
-  let categories = null;
-  let compilations = null;
-
-  if (isDesktopClient) {
-    types = await getTypes(locale === "pt" ? "pt-br" : locale);
-    categories = await getCategories(locale === "pt" ? "pt-br" : locale);
-    compilations = await getCompilations(locale === "pt" ? "pt-br" : locale);
-  }
-
-  const searchName = locale === "en" || locale === "fr" || locale === "pt" ? searchQuery?.toLowerCase() === "curriculum vitae" || searchQuery?.toLowerCase() === "curriculum" || searchQuery?.toLowerCase() === "vitae" ? "cv" : searchQuery : searchQuery;
-  const searchRes = await fetch(`${CONFIG.api.cms}/api/oforms/?sort=name_form:${sort}&populate[0]=categories&locale=${locale === "pt" ? "pt-br" : locale}&filters[name_form][$containsi]=${searchName}&populate=template_image&populate=file_oform&populate=categories&populate=card_prewiew${pageSize ? `&pagination[pageSize]=${pageSize}` : ""}&pagination[page]=${page}`);
-  const searchData = await searchRes.json();
+  const types = isDesktopClient ? await getCategories(locale, "types", "type") : null;
+  const categories = isDesktopClient ? await getCategories(locale, "categories", "categorie") : null;
+  const compilations = isDesktopClient ? await getCategories(locale, "compilations", "compilation") : null;
+  const searchData = await getSearchResult(locale, page, sort, pageSize, searchQuery, isDesktopClient);
 
   return {
     props: {

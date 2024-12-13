@@ -64,7 +64,7 @@
   "Share": "Compartilhar",
   "HowToCreateATemplate": "Como criar um {{nameForm}} com ONLYOFFICE",
   "Click Fill Out to launch the corresponding editor online": "Clique em Preencher para iniciar o editor <b>correspondente</b> online",
-  "Enter the necessary information and edit the template as you need": "Insira as informações necessárias e edite o modelo conforme necessário",
+  "Enter the necessary information and edit the template as you need": "Digite as informações necessárias e edite o modelo conforme necessário",
   "Download the ready document from the editor": "Baixe o documento pronto do editor",
   "Fill out": "Preencher",
   "Other forms": "<span>Outros</span> Formulários",
@@ -142,7 +142,6 @@
   "Get ONLYOFFICE desktop": "Obtenha o ONLYOFFICE desktop",
   "Popular search": "Pesquisa popular",
   "History": "História",
-  "Search by": "Pesquisar por",
   "Document": "Documento",
   "Spreadsheet": "Planilha",
   "Presentation": "Apresentação",
@@ -151,5 +150,11 @@
   "For Linux": "Para Linux",
   "For macOS": "Para macOS",
   "For Android": "Para Android",
-  "For iOS": "Para iOS"
+  "For iOS": "Para iOS",
+  "Search": "Pesquisar",
+  "Home Templates": "Modelos de Página Inicial",
+  "Fillable form": "Formulário preenchível",
+  "PDF Form": "Formulário PDF",
+  "Search results for": "Resultados da pesquisa para",
+  "SuggestingChangesLink": "Sugerindo%20alterações%20para%20Formulário%20{{name}}"
 }
