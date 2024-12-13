@@ -53,7 +53,7 @@ const SearchResultContent = ({ t, locale, searchQuery, searchData, sort, page })
 
       {searchData.data?.length > 0 ? (
         <>
-          <Heading className="search-result-title" level={2} label={searchQuery ? `${t("Search results for")} '${searchQuery}'` : t("Search results")} />
+          <Heading className="search-result-title" level={2} label={searchQuery ? locale === "zh" ? `'${searchQuery}' ${t("Search results for")}` : `${t("Search results for")} '${searchQuery}'` : t("Search results")} />
           <div className="search-result-nav">
             <span className="search-result-length">{searchData.meta?.pagination.total ? searchData.meta?.pagination.total : 0} {t("templates")}</span>
             <SortSelector t={t} locale={locale} sort={sort} />

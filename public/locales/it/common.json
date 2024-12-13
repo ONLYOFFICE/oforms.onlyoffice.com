@@ -62,9 +62,9 @@
   "Fill out PDF form": "Compila il modulo PDF",
   "Edit template": "Modifica modello",
   "Share": "Condividere",
-  "HowToCreateATemplate": "Come creare un {{nameForm}} in ONLYOFFICE",
-  "Click Fill Out to launch the corresponding editor online": "Fai clic su Compila per avviare l'editor <b>corrispondente</b> online",
-  "Enter the necessary information and edit the template as you need": "Inserisci i dati necessari e modifica il modello secondo le tue esigenze",
+  "HowToCreateATemplate": "Come creare un {{nameForm}} con ONLYOFFICE",
+  "Click Fill Out to launch the corresponding editor online": "Clicca su Compila per lanciare l'editor online <b>corrispondente</b>",
+  "Enter the necessary information and edit the template as you need": "Inserisci le informazioni necessarie e modifica il modulo a seconda delle necessità",
   "Download the ready document from the editor": "Scarica il documento pronto dall'editor",
   "Fill out": "Compila",
   "Other forms": "<span>Altri</span> Moduli",
@@ -151,5 +151,10 @@
   "For macOS": "Per macOS",
   "For Android": "Per Android",
   "For iOS": "Per iOS",
-  "Search": "Ricerca"
+  "Search": "Ricerca",
+  "Home Templates": "Pagina iniziale",
+  "Fillable form": "Modulo compilabile",
+  "PDF Form": "Modulo PDF",
+  "Search results for": "Risultati della ricerca per",
+  "SuggestingChangesLink": "Suggerimento%20cambiementi%20per%20Modulo%20{{name}}"
 }

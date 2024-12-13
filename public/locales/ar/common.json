@@ -152,5 +152,6 @@
   "Search": "بحث",
   "Home Templates": "الصفحة الرئيسية للقوالب",
   "PDF Form": "نموذج PDF",
-  "Editor": "المحرر"
+  "Editor": "المحرر",
+  "SuggestingChangesLink": "Suggesting%20changes%20for%20Form%20{{name}}"
 }
