@@ -7,7 +7,6 @@ const StyledSearchResultContent = styled(Section)`
   background-color: #F5F5F5;
 
   .search-result-title {
-    direction: initial;
     margin-bottom: 32px;
     text-align: center;
   }

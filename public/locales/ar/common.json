@@ -153,5 +153,6 @@
   "Home Templates": "الصفحة الرئيسية للقوالب",
   "PDF Form": "نموذج PDF",
   "Editor": "المحرر",
-  "SuggestingChangesLink": "Suggesting%20changes%20for%20Form%20{{name}}"
+  "SuggestingChangesLink": "Suggesting%20changes%20for%20Form%20{{name}}",
+  "Search results for": "نتائج البحث عن"
 }
