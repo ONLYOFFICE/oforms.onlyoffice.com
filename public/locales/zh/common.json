@@ -64,9 +64,9 @@
   "Fill out PDF form": "填写 PDF 表单",
   "Edit template": "编辑模板",
   "Share": "分享",
-  "HowToCreateATemplate": "如何在ONLYOFFICE中创建{{nameForm}}",
-  "Click Fill Out to launch the corresponding editor online": "点击<b>填写</b>打开在线文档编辑器",
-  "Enter the necessary information and edit the template as you need": "输入所需的信息并编辑模板",
+  "HowToCreateATemplate": "如何使用 ONLYOFFICE 创建{{nameForm}}",
+  "Click Fill Out to launch the corresponding editor online": "点击填写在线启动<b>相应的</b>编辑器",
+  "Enter the necessary information and edit the template as you need": "输入必要信息并根据需要编辑模板",
   "Download the ready document from the editor": "从编辑器中下载已完成的文档",
   "Fill out": "填写",
   "Other forms": "<span>其他</span>表单",
@@ -154,5 +154,10 @@
   "For Android": "适用于 Android",
   "For iOS": "适用于 iOS",
   "Fillable form": "可填写表单",
-  "Search": "搜索"
+  "Search": "搜索",
+  "Home Templates": "首页",
+  "Editor": "编辑器",
+  "PDF Form": "PDF 表单",
+  "Search results for": "搜索结果",
+  "SuggestingChangesLink": "针对%20{{name}}%20表单%20提出%20修改建议"
 }

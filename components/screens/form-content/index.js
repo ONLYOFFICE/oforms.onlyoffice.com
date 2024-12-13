@@ -73,7 +73,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
               <ExternalLink
                 id="suggest-changes-mobile-link"
                 className="suggest-changes-link"
-                href={`mailto:marketing@onlyoffice.com?subject=Suggesting%20changes%20for%20Form%20${name_form}&body=Suggesting%20changes%20for%20Form%20${name_form}.`}
+                href={`mailto:marketing@onlyoffice.com?subject=${t("SuggestingChangesLink", { name: name_form })}&body=${t("SuggestingChangesLink", { name: name_form })}.`}
                 label={t("Suggest changes")}
               />
             </div>
@@ -99,7 +99,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
               <ExternalLink
                 id="suggest-changes-link"
                 className="suggest-changes-link"
-                href={`mailto:marketing@onlyoffice.com?subject=Suggesting%20changes%20for%20Form%20${name_form}&body=Suggesting%20changes%20for%20Form%20${name_form}.`}
+                href={`mailto:marketing@onlyoffice.com?subject=${t("SuggestingChangesLink", { name: name_form })}&body=${t("SuggestingChangesLink", { name: name_form })}.`}
                 label={t("Suggest changes")}
               />
             </div>

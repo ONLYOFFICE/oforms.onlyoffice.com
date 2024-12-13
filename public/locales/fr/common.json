@@ -152,5 +152,11 @@
   "For macOS": "Pour macOS",
   "For Android": "Pour Android",
   "For iOS": "Pour iOS",
-    "Search": "Rechercher"
+  "Search": "Rechercher",
+  "Home Templates": "Page d'accueil",
+  "Editor": "Éditeur",
+  "Fillable form": "Formulaire à remplir",
+  "PDF Form": "Formulaire PDF",
+  "Search results for": "Résultats de la recherche pour",
+  "SuggestingChangesLink": "Suggestion%20de%20modifications%20pour%20formulaire%20{{name}}"
 }
