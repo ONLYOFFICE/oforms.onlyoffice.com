@@ -95,7 +95,7 @@ const MainHead = ({ title, description, isDesktopClient }) => {
         <meta property="og:type" content="website" />
         <meta id="ctl00_MetaTitleOG" property="og:title" content={title} />
         <meta id="ctl00_MetaDescriptionOG" property="og:description" content={description} />
-        <meta property="og:url" content="https://oforms.onlyoffice.com/" />
+        <meta property="og:url" content="https://templates.onlyoffice.com/" />
         <meta id="ctl00_MetaImageOG" property="og:image" content="https://static.onlyoffice.com/studio/tag/personal.11.5.3/skins/default/images/logo/fb_icon_325x325.jpg" />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -127,7 +127,7 @@ const MainHead = ({ title, description, isDesktopClient }) => {
             <link
               key={key}
               rel="alternate"
-              href={`https://oforms.onlyoffice.com/${shortKey === "en" ? "" : shortKey}`}
+              href={`https://templates.onlyoffice.com/${shortKey === "en" ? "" : shortKey}`}
             />
           );
         })}
