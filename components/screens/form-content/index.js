@@ -93,7 +93,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
               <div className="form-item last-updated">
                 <span className="form-item-label">{t("Last updated")}:</span>
                 <span className="form-item-info">
-                  {moment(fileUpdatedAt).locale(locale === "pt" ? "pt-br" : locale === "zh" ? "zh-cn" : locale === "ar" ? "ar-sa" : locale).format(locale === "ja" ? "Y年MM月DD日" : locale === "zh" ? "Y年MM月DD" : locale === "ar" ? "D MMMM, YYYY" : "MMMM D, y")}
+                  {moment(fileUpdatedAt).locale(locale === "pt" ? "pt-br" : locale === "zh" ? "zh-cn" : locale === "ar" ? "ar-sa" : locale).format(locale === "ja" ? "Y年MM月DD日" : locale === "zh" ? "Y年MM月DD日" : locale === "ar" ? "D MMMM, YYYY" : "MMMM D, y")}
                 </span>
               </div>
               <ExternalLink
