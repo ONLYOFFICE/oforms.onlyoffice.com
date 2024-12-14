@@ -1,104 +1,127 @@
-import { lazy, Suspense } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-
+import { useState } from "react";
+import getCategories from "@lib/requests/getCategories";
+import getCategoryForms from "@lib/requests/getCategoryForms";
+import getCategoryInfo from "@lib/requests/getCategoryInfo";
 import Layout from "@components/layout";
-import HeadSEO from "@components/screens/head-content";
-import HeadingContent from "@components/screens/heading-content";
-import InfoContent from "@components/screens/category-page/info-content";
-import MainContent from "@components/screens/category-page/main-content";
+import MainHead from "@components/screens/head";
+import DesktopClient from "@components/screens/desktop-client";
+import Header from "@components/screens/header";
+import AdventAnnounceBanner from "@components/screens/header/advent-announce-banner";
+import BannerFormSection from "@components/screens/common/banner-form-section";
+import CategoryContent from "@components/screens/category-content";
+import AccordionSection from "@components/screens/common/accordion-section";
+import Footer from "@components/screens/footer";
 
-const Accordion = lazy(() => import("@components/screens/common/accordion"), {
-  loading: () => <div />,
-});
-const Footer = lazy(() => import("@components/screens/footer-content"), {
-  loading: () => <div />,
-});
-
-const Category = ({
-  categoryForms,
-  categoryInfo,
-  urlReq,
-  locale,
-  sort,
-  page,
-}) => {
+const Category = ({ categoryForms, categoryInfo, locale, page, sort, types, categories, compilations, isDesktopClient, theme }) => {
+  const isCategoryPage = true;
   const { t } = useTranslation("common");
-  const dataCategoryInfo = categoryInfo.data[0].attributes;
-  const { seo_title, seo_description } = dataCategoryInfo;
-  const nameCategory = dataCategoryInfo.categorie;
-  const urlReqCategory = dataCategoryInfo.urlReq;
+  const [stateMobile, setStateMobile] = useState(false);
+  const seoTitle = categoryInfo.data[0]?.attributes.seo_title ? categoryInfo.data[0]?.attributes.seo_title : categoryInfo.data[0]?.attributes.categorie;
+  const seoDescription = categoryInfo.data[0]?.attributes.seo_description ? categoryInfo.data[0]?.attributes.seo_description : categoryInfo.data[0]?.attributes.header_description;
 
   return (
-    <Layout>
-      <Layout.PageHead>
-        <HeadSEO
-          title={seo_title}
-          metaDescription={seo_description}
-          metaDescriptionOg={seo_description}
-          metaKeywords={seo_title}
-        />
-      </Layout.PageHead>
-      <Layout.PageHeader>
-        <HeadingContent t={t} currentLanguage={locale} />
-      </Layout.PageHeader>
-      <Layout.SectionMain>
-        <InfoContent t={t} category={nameCategory} />
-        <MainContent
-          t={t}
-          currentLanguage={locale}
-          data={categoryForms}
-          sort={sort}
-          page={+page}
-          category={nameCategory}
-          urlReqCategory={urlReqCategory}
-        />
-        <Suspense>
-          <Accordion t={t} currentLanguage={locale} />
-        </Suspense>
-      </Layout.SectionMain>
-      <Layout.PageFooter>
-        <Suspense>
-          <Footer t={t} language={locale} />
-        </Suspense>
-      </Layout.PageFooter>
-    </Layout>
-  );
+    isDesktopClient ? (
+      <Layout locale={locale}>
+        <Layout.PageHead>
+          <MainHead
+            title={seoTitle}
+            description={seoDescription}
+            isDesktopClient={isDesktopClient}
+          />
+        </Layout.PageHead>
+        <Layout.SectionMain>
+          <DesktopClient
+            t={t}
+            locale={locale}
+            data={categoryForms}
+            sort={sort}
+            types={types}
+            categories={categories}
+            compilations={compilations}
+            categoryName={categoryInfo.data[0]?.attributes.categorie}
+            isCategoryPage={isCategoryPage}
+            theme={theme}
+          />
+        </Layout.SectionMain>
+      </Layout>
+    ) : (
+      <Layout locale={locale}>
+        <Layout.PageHead>
+          <MainHead
+            title={seoTitle}
+            description={seoDescription}
+          />
+        </Layout.PageHead>
+        <AdventAnnounceBanner locale={locale} stateMobile={stateMobile} />
+        <Layout.PageHeader>
+          <Header
+            t={t}
+            locale={locale}
+            stateMobile={stateMobile}
+            setStateMobile={setStateMobile}
+          />
+        </Layout.PageHeader>
+        <Layout.SectionMain>
+          <CategoryContent 
+            t={t}
+            locale={locale}
+            title={categoryInfo.data[0]?.attributes.categorie}
+            subtitle={categoryInfo.data[0]?.attributes.header_description}
+            forms={categoryForms}
+            sort={sort}
+            page={page}
+            categories={categories}
+            types={types}
+            compilations={compilations}
+            categoryName={categoryInfo.data[0]?.attributes.categorie}
+            categoryUrl={`form/${categoryInfo.data[0]?.attributes.urlReq}`}
+          />
+          <BannerFormSection t={t} locale={locale} />
+          <AccordionSection t={t} locale={locale} />
+        </Layout.SectionMain>
+        <Layout.PageFooter>
+          <Footer locale={locale} />
+        </Layout.PageFooter>
+      </Layout>
+    )
+  )
 };
 
-export const getServerSideProps = async ({ locale, ...ctx }) => {
-  const page = ctx.query.page || 1;
-  const sort = ctx.query._sort || "ASC";
-  const urlReq = ctx.query.category;
-  const pageSize = ctx.query.pageSize || 9;
-  const res = await fetch(
-    `https://cmsoforms.onlyoffice.com/api/oforms/?filters[categories][urlReq][$eq]=${urlReq}&locale=${locale}&sort=name_form:${sort}&pagination[pageSize]=${pageSize}&pagination[page]=${page}&populate=file_oform&populate=card_prewiew`
-  );
-  const resCategory = await fetch(
-    `https://cmsoforms.onlyoffice.com/api/categories/?filters[urlReq][$eq]=${urlReq}&locale=${locale}`
-  );
+export const getServerSideProps = async ({ locale, query }) => {
+  const isDesktopClient = query.desktop === "true";
+  const theme = query.theme;
+  const page = query.page || 1;
+  const sort = query._sort || "asc";
+  const urlReq = query.category;
+  const pageSize = query.pageSize || isDesktopClient ? 0 : 9;
 
-  const categoryForms = await res.json();
-  const categoryInfo = await resCategory.json();
+  const categoryForms = await getCategoryForms(locale, sort, page, pageSize, urlReq, "categories", isDesktopClient);
+  const categoryInfo = await getCategoryInfo(locale, urlReq, "categories", "categorie");
+  const types = await getCategories(locale, "types", "type");
+  const categories = await getCategories(locale, "categories", "categorie");
+  const compilations = await getCategories(locale, "compilations", "compilation");
 
-  if (categoryForms.data.length === 0) {
+  if (categoryForms.data === null) {
     return {
-      redirect: {
-        destination: `https://oforms.teamlab.info/404`,
-        permanent: true,
-      },
-    };
-  }
+      notFound: true
+    }
+  };
+
   return {
     props: {
       ...(await serverSideTranslations(locale, "common")),
-      notFound: true,
       categoryForms,
       categoryInfo,
-      urlReq,
       locale,
       sort,
       page,
+      types: types ? types : null,
+      categories,
+      compilations,
+      isDesktopClient,
+      theme: isDesktopClient ? theme || "" : null
     },
   };
 };

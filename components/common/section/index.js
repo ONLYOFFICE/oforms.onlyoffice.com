@@ -1,12 +1,17 @@
-import React from "react";
 import StyledSection from "./styled-section";
+import PropTypes from "prop-types";
 
-const Section = (props) => {
+const Section = ({ className, children }) => {
   return (
-    <StyledSection {...props}>
-      <div className="section-page">{props.children}</div>
+    <StyledSection className={className}>
+      <div className="section-page">{children}</div>
     </StyledSection>
   );
+};
+
+Section.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node
 };
 
 export default Section;

@@ -34,7 +34,7 @@ class Layout extends React.Component {
   static PageHead = PageHead;
 
   render() {
-    const { children } = this.props;
+    const { children, locale } = this.props;
     let headerContent = null;
     let mainContent = null;
     let footerContent = null;
@@ -62,8 +62,28 @@ class Layout extends React.Component {
       }
     });
 
+    const handleDragOver = (e) => {
+      e.dataTransfer.dropEffect = "copy";
+
+      e.preventDefault();
+      return false;
+    };
+
+    const handleDrop = (e) => {
+      window.AscDesktopEditor["DropOfficeFiles"]();
+
+      e.preventDefault();
+      return false;
+    };
+
     return (
-      <StyledLayout id="page-layout" className="layout">
+      <StyledLayout
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+        locale={locale}
+        id="page-layout"
+        className="layout"
+      >
         {children}
         {headContent && <Head>{headContent.props.children}</Head>}
         {headerContent && <Header>{headerContent.props.children}</Header>}

@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.1.5
+
+### Fixes
+- add new page /form-submit
+
+## 1.1.4
+
+### Fixes
+- Updated header menu
+- Updated footer menu
+- Updated top banner
+
+## 1.1.3
+
+### Fixes
+- fix header menu
+- fix footer menu
+- fix "Download as" button
+
 ## 1.1.2
 
 ### Fixes

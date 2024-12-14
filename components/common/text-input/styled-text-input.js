@@ -1,106 +1,106 @@
 import styled from "styled-components";
-import { Base } from "../../themes";
-import { device } from "../../utils/devices";
 
-const StyledTextInput = styled.input`
-  position: ${(props) => props.theme.textInput.position};
-  display: ${(props) => props.theme.textInput.display};
-  margin: ${(props) => props.theme.textInput.margin};
-  padding: ${(props) => props.padding || props.theme.textInput.padding};
-  height: ${(props) => props.height || props.theme.textInput.height};
-  width: ${(props) =>
-    props.withButton ? "102%" : props.width || props.theme.textInput.width};
+const StyledTextInput = styled.div`
+  position: relative;
+  width: 100%;
 
-  padding-top: ${(props) => props.isPlaceholder && "12px"};
-  padding-bottom: ${(props) => !props.isPlaceholder && "2px"};
+  .label {
+    display: block;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333333;
+    pointer-events: none;
 
-  color: ${(props) => props.color || props.theme.textInput.textColor};
-  font-size: ${(props) => props.fontSize || props.theme.textInput.fontSize};
-  font-weight: ${(props) =>
-    props.fontWeight || props.theme.textInput.fontWeight};
-  overflow: ${(props) => props.theme.textInput.overflow};
-  line-height: ${(props) => props.theme.textInput.lineHeight};
-  text-decoration: ${(props) => props.theme.textInput.textDecoration};
-  text-transform: ${(props) => props.theme.textInput.textTransform};
-  text-shadow: ${(props) => props.theme.textInput.textShadow};
-  text-align: ${(props) => props.theme.textInput.textAlign};
-
-  outline: ${(props) => props.theme.textInput.outline};
-
-  border-radius: ${(props) => props.theme.textInput.borderRadius};
-  -moz-border-radius: ${(props) => props.theme.textInput.borderRadius};
-  -webkit-border-radius: ${(props) => props.theme.textInput.borderRadius};
-
-  box-shadow: ${(props) => props.theme.textInput.boxShadow};
-  box-sizing: ${(props) => props.theme.textInput.boxSizing};
-  border: ${(props) => props.theme.textInput.border};
-  z-index: 1;
-  border-right: ${(props) =>
-    (props.checkButton && "none") || props.theme.textInput.border};
-
-  border-color: ${(props) =>
-    (props.isError && props.theme.textInput.borderColorError) ||
-    (props.isSuccess && props.theme.textInput.borderColorSuccess) ||
-    props.theme.textInput.borderColor};
-
-  background-color: ${(props) =>
-    (props.isError && props.theme.textInput.backgroundColorError) ||
-    (props.isSuccess && props.theme.textInput.backgroundColorSuccess) ||
-    (props.backgroundColor && props.backgroundColor) ||
-    props.theme.textInput.backgroundColor};
-
-  cursor: text;
-  -webkit-appearance: none;
-
-  &:hover:not(:focus) {
-    border-color: ${(props) =>
-      (props.isError && props.theme.textInput.borderColorError) ||
-      (props.isSuccess && props.theme.textInput.borderColorSuccess) ||
-      props.theme.textInput.borderColorHover};
-
-    background-color: ${(props) =>
-      (props.isError && props.theme.textInput.backgroundColorError) ||
-      (props.isSuccess && props.theme.textInput.backgroundColorSuccess) ||
-      (props.backgroundColor && props.backgroundColor) ||
-      props.theme.textInput.backgroundColor};
+    ${(props) => props.label && `
+      position: absolute;
+      top: 16px;
+      ${props.locale === "ar" ? "right: 48px;" : "left: 48px;"}
+      color: #AAAAAA;
+      transition: top 0.3s, font-size 0.3s, line-height 0.3s, color 0.3s;
+    `}
   }
 
-  &:focus {
-    border-color: ${(props) => props.theme.textInput.borderColorHover};
-
-    background-color: ${(props) =>
-      (props.backgroundColor && props.backgroundColor) ||
-      props.theme.textInput.backgroundColor};
+  .text-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
   }
 
-  &:disabled {
-    cursor: default;
-    border-color: ${(props) => props.theme.textInput.borderColorDisabled};
-    background-color: ${(props) =>
-      props.theme.textInput.backgroundColorDisabled};
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    ${props => props.locale === "ar" ? "right: 16px;" : "left: 16px;"}
+    transform: translateY(-50%);
+    pointer-events: none;
+
+    path {
+      transition: fill 0.3s;
+    }
   }
 
-  @media ${device.tablet} {
-    width: ${(props) =>
-      props.withButton
-        ? "102%"
-        : props.width || props.theme.textInput.media.width};
-    font-size: ${(props) => props.fontSize || props.theme.textInput.fontSize};
+  .input {
+    box-sizing: border-box;
+    border: 1px solid #AAAAAA;
+    border-radius: 3px;
+    padding: ${(props) => (props.searchIcon ? "16px 48px" : "16px 48px 16px 16px")};
+    font-size: 16px;
+    line-height: 22px;
+    width: 100%;
+    height: 56px;
+    color: #AAAAAA;
+    background-color: transparent;
+    outline: none;
+    
+    &::placeholder {
+      color: ${(props) => (props.placeholder ? "transparent" : "#AAAAAA")};
+    }
+
+    &:focus,
+    &.has-value {
+      padding: 24px 48px 8px;
+
+      ~ .search-icon {
+        path {
+          fill: #CCCCCC;
+        }
+      }
+
+      ~ .label {
+        top: 8px;
+        font-size: 12px;
+        line-height: 16px;
+        color: #AAAAAA;
+      }
+    }
   }
 
-  @media (max-width: 592px) {
-    height: 48px;
+  .input-btn {
+    position: absolute;
+    top: 50%;
+    ${(props) => (props.locale === "ar" ? "left: 16px;" : "right: 16px;")}
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+    transform: translateY(-50%);
+    cursor: pointer;
+
+    path {
+      fill: #666666;
+    }
   }
 
-  @media ${device.mobileL} {
-    width: ${(props) =>
-      props.withButton
-        ? "102%"
-        : props.width || props.theme.textInput.media.width};
-    font-size: ${(props) => props.theme.textInput.media.fontSize};
+  .error-text {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    color: #cb0000;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 21px;
   }
 `;
-
-StyledTextInput.defaultProps = { theme: Base };
 
 export default StyledTextInput;

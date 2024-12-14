@@ -1,4 +1,3 @@
-import React from "react";
 import StyledHeader from "./styled-header";
 
 const Header = (props) => {

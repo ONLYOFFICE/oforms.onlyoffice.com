@@ -1,5 +1,3 @@
-import React from "react";
-
 const Head = (props) => {
   return <>{props.children}</>;
 };

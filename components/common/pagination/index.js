@@ -1,100 +1,53 @@
-import React from "react";
-
-import PageNumber from "./sub-components/page-number";
 import StyledPagination from "./styled-pagination";
-import { ReactSVG } from "react-svg";
+import PropTypes from "prop-types";
+import { useRouter } from "next/router";
+import InternalLink from "../internal-link";
 
-const Pagination = ({
-  page,
-  countPage,
-  getPaginationGroup,
-  category,
-  locale,
-  sort,
-}) => {
+const Pagination = ({ page, countPage, getPaginationGroup, locale, sort, categoryUrl }) => {
+  const router = useRouter();
 
-  const previousPage = () => {
-    return (
-      <a
-        className={`previous-page ${page === 1 && "disabled"}`}
-        href={page === 1 ? null :
-          !category
-            ? `${locale === "en" ? "" : `${locale}/`}?page=${page - 1}${
-                sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
-              }`
-            : `${
-                locale === "en" ? "" : `/${locale}`
-              }/form/${category}?page=${page - 1}${
-                sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
-              }`
-        }
-      >
-        <ReactSVG
-          className={`arrow ${page === 1 && "disabled"}`}
-          src="/icons/arrow-left.react.svg"
-          wrapper="svg"
-        />
-      </a>
-    );
-  };
-
-  const nextPage = () => {
-    return (
-      <a
-        className={`next-page ${page === countPage && "disabled"}`}
-        href={page === countPage ? null :
-          !category
-            ? `${locale === "en" ? "" : `${locale}/`}?page=${page + 1}${
-                sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
-              }`
-            : `${
-                locale === "en" ? "" : `/${locale}`
-              }/form/${category}?page=${page + 1}${
-                sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
-              }`
-        }
-      >
-        <ReactSVG
-          className={`arrow ${page === countPage && "disabled"}`}
-          src="/icons/arrow-right.react.svg"
-          wrapper="svg"
-        />
-      </a>
-    );
-  };
-  
   return (
-    <StyledPagination className="pagination">
-      {previousPage()}
+    <StyledPagination className="pagination" locale={locale}>
+      <InternalLink
+        className={`pagination-item pagination-item-prev ${page === 1 ? "disabled" : ""}`}
+        href={router.pathname === "/searchresult"
+          ? `${locale === "en" ? "" : `/${locale}`}/searchresult?query=${router.query.query}&page=${page - 1}${sort !== undefined && sort !== "asc" ? `&_sort=${sort}` : ""}`
+          : `${locale === "en" ? "" : `/${locale}`}/${categoryUrl}?page=${page - 1}${sort !== undefined && sort !== "asc" ? `&_sort=${sort}` : ""}`
+        }
+        tabIndex={page === 1 ? -1 : 0}
+      />
+
       {getPaginationGroup.map((item, index) => (
-        <a
-          href={
-            page !== item ? 
-            (
-            !category
-              ? `${locale === "en" ? "" : `${locale}/`}?page=${item}${
-                  sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
-                }`
-              : `${
-                  locale === "en" ? "" : `/${locale}`
-                }/form/${category}?page=${item}${
-                  sort !== undefined && sort !== "asc" ? `&_sort=${sort}#forms` : ""
-                }`
-            ) : null
+        <InternalLink
+          className={`pagination-item ${page === item ? "active" : ""}`}
+          href={router.pathname === "/searchresult"
+            ? `${locale === "en" ? "" : `/${locale}`}/searchresult?query=${router.query.query}&page=${item}${sort !== undefined && sort !== "asc" ? `&_sort=${sort}` : ""}`
+            : `${locale === "en" ? "" : `/${locale}`}/${categoryUrl}?page=${item}${sort !== undefined && sort !== "asc" ? `&_sort=${sort}` : ""}`
           }
-          key={index + item}
-        >
-          <PageNumber
-            className={`go-to-page ${page === item && " active"}`}
-            typeButton={page === item ? "secondary" : "transparent"}
-            label={String(item)}
-            key={index}
-          />
-        </a>
+          label={item}
+          tabIndex={page === item ? -1 : 0}
+          key={index}
+        />
       ))}
-      {nextPage()}
+
+      <InternalLink
+        className={`pagination-item pagination-item-next ${page === countPage ? "disabled" : ""}`}
+        href={router.pathname === "/searchresult"
+          ? `${locale === "en" ? "" : `/${locale}`}/searchresult?query=${router.query.query}&page=${page + 1}${sort !== undefined && sort !== "asc" ? `&_sort=${sort}` : ""}`
+          : `${locale === "en" ? "" : `/${locale}`}/${categoryUrl}?page=${page + 1}${sort !== undefined && sort !== "asc" ? `&_sort=${sort}` : ""}`
+        }
+        tabIndex={page === countPage ? -1 : 0}
+      />
     </StyledPagination>
   );
+};
+
+Pagination.propTypes = {
+  page: PropTypes.number,
+  countPage: PropTypes.number,
+  getPaginationGroup: PropTypes.arrayOf(PropTypes.number),
+  locale: PropTypes.string,
+  sort: PropTypes.string
 };
 
 export default Pagination;

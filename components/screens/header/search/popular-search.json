@@ -1,0 +1,11 @@
+{
+  "en": ["Business card", "Invoice", "Report", "Resume"],
+  "fr": ["Certificat", "Commercial", "Liste de contrôle", "Recette"],
+  "de": ["Krankmeldung", "Datenschutzerklärung", "Arbeitsvertrags", "Essensplan"],
+  "es": ["Carta de baja voluntaria", "Pacto de socios", "Bingo", "Objetivos SMART"],
+  "pt": ["Lista de compras", "Rota de viagem", "Modello obiettivo SMART", "Pianificatore di allenamento"],
+  "it": ["Autocertificazione", "Accordo", "Lista di controllo", "Di ricetta"],
+  "ja": ["旅行費用予算", "買い物リスト ", "遺産分割協議書", "ビンゴ"],
+  "zh": ["SMART目标表单", "旅行行程安排表单", "购物清单", "食材采购清单"],
+  "ar": ["Business card", "Invoice", "Report", "Resume"]
+}

@@ -5,7 +5,6 @@ export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
-
     try {
       ctx.renderPage = () =>
         originalRenderPage({
@@ -27,24 +26,13 @@ export default class MyDocument extends Document {
       sheet.seal();
     }
   }
+
   render() {
     return (
       <Html>
-        <Head>
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin="true"
-          />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap"
-          />
-          {/* <style data-href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" /> */}
-        </Head>
+        <Head></Head>
         <body>
           <Main />
-          <div id="modal"></div>
           <NextScript />
         </body>
       </Html>
