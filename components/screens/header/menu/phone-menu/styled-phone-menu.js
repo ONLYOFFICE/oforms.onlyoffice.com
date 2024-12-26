@@ -62,7 +62,7 @@ const StyledPhoneMenu = styled.div`
     display: none;
     position: absolute;
     top: 100%;
-    left: 50%;
+    ${props => props.locale === "ar" ? "right: 0" : "left: 0"};
     border-radius: 0 0 8px 8px;
     width: max-content;
     min-width: 250px;
@@ -71,7 +71,6 @@ const StyledPhoneMenu = styled.div`
     background-color: #FFFFFF;
     box-shadow: 0 20px 50px 0 rgba(85, 85, 85, 0.15);;
     z-index: 2;
-    transform: translateX(-50%);
 
     &:before {
       display: block;
@@ -95,6 +94,41 @@ const StyledPhoneMenu = styled.div`
       transition: width 0.2s ease-in-out;
       left: 50%;
       top: 0;
+    }
+
+    @media screen and (max-width: 1594px) {
+      left: ${props => props.locale === "ru" && "initial"};
+      right: ${props => props.locale === "ru" && "0"};
+    }
+
+    @media screen and (max-width: 1568px) {
+      left: ${props => props.locale === "fr" && "initial"};
+      right: ${props => props.locale === "fr" && "0"};
+    }
+
+    @media screen and (max-width: 1542px) {
+      left: ${props => props.locale === "es" && "initial"};
+      right: ${props => props.locale === "es" && "0"};
+    }
+
+    @media screen and (max-width: 1532px) {
+      left: ${props => props.locale === "ja" && "initial"};
+      right: ${props => props.locale === "ja" && "0"};
+    }
+
+    @media screen and (max-width: 1526px) {
+      left: ${props => props.locale === "de" && "initial"};
+      right: ${props => props.locale === "de" && "0"};
+    }
+
+    @media screen and (max-width: 1518px) {
+      left: ${props => (props.locale === "en" || props.locale === "zh" || props.locale === "it" || props.locale === "pt") && "initial"};
+      right: ${props => (props.locale === "en" || props.locale === "zh" || props.locale === "it" || props.locale === "pt") && "0"};
+    }
+
+    @media screen and (max-width: 1518px) {
+      right: ${props => props.locale === "ar" && "initial"};
+      left: ${props => props.locale === "ar" && "0"};
     }
   }
 
@@ -137,6 +171,30 @@ const StyledPhoneMenu = styled.div`
     &:hover {
       color: #FF6F3D;
     }
+  }
+
+  @media screen and (max-width: 1594px) {
+    position: ${props => props.locale === "ru" && "initial"};
+  }
+
+  @media screen and (max-width: 1568px) {
+    position: ${props => props.locale === "fr" && "initial"};
+  }
+
+  @media screen and (max-width: 1542px) {
+    position: ${props => props.locale === "es" && "initial"};
+  }
+
+  @media screen and (max-width: 1532px) {
+    position: ${props => props.locale === "ja" && "initial"};
+  }
+
+  @media screen and (max-width: 1526px) {
+    position: ${props => props.locale === "de" && "initial"};
+  }
+
+  @media screen and (max-width: 1518px) {
+    position: ${props => (props.locale === "en" || props.locale === "zh" || props.locale === "it" || props.locale === "pt" || props.locale === "ar") && "initial"};
   }
 `;
 
