@@ -242,9 +242,11 @@ const StyledHeading = styled.div`
     @media screen and ${device.laptop} {
       position: absolute;
       left: 50%;
+      margin: 0;
       width: 130px;
       height: 24px;
       transform: translateX(-50%);
+      overflow: initial;
     }
   }
 
