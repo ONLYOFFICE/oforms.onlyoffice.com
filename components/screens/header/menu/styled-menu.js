@@ -214,6 +214,15 @@ const StyledHeading = styled.div`
     }
   }
 
+  .oo-hm {
+    .oo-hm-item.oo-hm-item--download,
+    .oo-hm-item.oo-hm-item--login-signup {
+      .oo-hm-item-heading {
+        position: relative;
+      }
+    }
+  }
+
   .nav-item-logo {
     display: flex;
     ${props => props.locale === "ar" ? "margin-left: 20px;" : "margin-right: 20px;"}
