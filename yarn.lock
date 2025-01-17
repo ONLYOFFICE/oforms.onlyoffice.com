@@ -2167,9 +2167,9 @@ once@^1.3.0, once@^1.4.0:
   dependencies:
     wrappy "1"
 
-onlyoffice-react-ui-kit@ONLYOFFICE/onlyoffice-react-ui-kit#v1.6.0:
+onlyoffice-react-ui-kit@ONLYOFFICE/onlyoffice-react-ui-kit#v1.7.0:
   version "1.0.0"
-  resolved "https://codeload.github.com/ONLYOFFICE/onlyoffice-react-ui-kit/tar.gz/4eceea6dc62ba6405c7f1fa223c30acd4f65aa32"
+  resolved "https://codeload.github.com/ONLYOFFICE/onlyoffice-react-ui-kit/tar.gz/c3ed19f074ab6ca75e39073e4e5a1afcd0b880ea"
 
 open@^7.3.1:
   version "7.4.2"
