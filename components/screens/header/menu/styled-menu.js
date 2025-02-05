@@ -58,7 +58,7 @@ const StyledHeading = styled.div`
       }
 
       .oo-hm-item--login-signup {
-        .oo-hm-item-heading {
+        .oo-hm-login-signup-link {
           color: #444444;
           background-color: #ffffff;
 
@@ -185,25 +185,6 @@ const StyledHeading = styled.div`
       }
 
       @media screen and (max-width: 1384px) {
-        position: ${props => props.locale === "zh" && "initial"};
-      }
-    }
-
-    .oo-hm-item--login-signup {
-      .oo-hm-items-wrapper {
-        @media screen and (max-width: 1272px) {
-          top: ${props => props.locale === "zh" && "100%"};
-          left: ${props => props.locale === "zh" && "initial"};
-          right: ${props => props.locale === "zh" && "0"};
-        }
-
-        @media screen and ${device.laptop} {
-          top: ${props => props.locale === "zh" && "0"};
-          right: ${props => props.locale === "zh" && "initial"};
-        }
-      }
-
-      @media screen and (max-width: 1272px) {
         position: ${props => props.locale === "zh" && "initial"};
       }
     }
