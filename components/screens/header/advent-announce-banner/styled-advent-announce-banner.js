@@ -27,6 +27,10 @@ const StyledAdventAnnounceBanner = styled.div`
     }
   }
 
+  .oo-advent-announce.ar {
+    direction: initial;
+  }
+
   @media screen and ${device.laptop} {
     overflow-x: hidden;
   }
