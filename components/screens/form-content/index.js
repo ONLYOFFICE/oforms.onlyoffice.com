@@ -29,10 +29,10 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
   const [popupActive, setPopupActive] = useState(false);
   const [isInstalled, setIsInstalled] = useState(true);
 
-  const pdfFile = file_oform?.data?.filter((it) => it?.attributes.name.split(".")[1] === "pdf");
-  const docxFile = file_oform?.data?.filter((it) => it?.attributes.name.split(".")[1] === "docx");
-  const pptxFile = file_oform?.data?.filter((it) => it?.attributes.name.split(".")[1] === "pptx");
-  const xlsxFile = file_oform?.data?.filter((it) => it?.attributes.name.split(".")[1] === "xlsx");
+  const pdfFile = file_oform?.data?.filter((it) => it?.attributes.name.split(".").pop() === "pdf");
+  const docxFile = file_oform?.data?.filter((it) => it?.attributes.name.split(".").pop() === "docx");
+  const pptxFile = file_oform?.data?.filter((it) => it?.attributes.name.split(".").pop() === "pptx");
+  const xlsxFile = file_oform?.data?.filter((it) => it?.attributes.name.split(".").pop() === "xlsx");
   const linkPdfEditor = `editor?lang=${locale}&filename=${url}&fillform=${`${pdfFile[0]?.attributes?.hash}.pdf`}`;
   const fileSize = pdfFile[0]?.attributes.size || docxFile[0]?.attributes.size || pptxFile[0]?.attributes.size || xlsxFile[0]?.attributes.size;
   const fileUpdatedAt = pdfFile[0]?.attributes.updatedAt || docxFile[0]?.attributes.updatedAt || pptxFile[0]?.attributes.updatedAt || xlsxFile[0]?.attributes.updatedAt;
