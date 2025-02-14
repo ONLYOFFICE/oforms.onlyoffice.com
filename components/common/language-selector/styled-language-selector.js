@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { device } from "@utils/devices";
 import flags from "@public/icons/flags.svg";
+import globe from "@public/icons/globe.svg";
 
 const menuLineLeft = keyframes`
   0% {
@@ -36,7 +37,7 @@ const StyledLanguageSelector = styled.div`
     }
 
     .arrow-image {
-      transform: translateY(0) rotate(180deg);
+      transform: translateY(0) rotate(-180deg);
     }
 
     .chevron-down {
@@ -44,7 +45,28 @@ const StyledLanguageSelector = styled.div`
     }
 
     &:not(.is-desktop-client) {
+      .arrow-image {
+          transition-duration: 0.3s;
+
+          path {
+            fill: #FF6F3D;
+          }
+      }
+
+      .flag-image {
+        background-position-y: -40px;
+      }
+
       .language-list {
+        width: 153px;
+        padding: 24px 0;
+
+        .language-item {
+          a {
+            padding: 8px 24px;
+          }
+        }
+          
         &:before {
           animation: ${menuLineLeft} 0.3s forwards ease-in-out;
         }
@@ -64,6 +86,7 @@ const StyledLanguageSelector = styled.div`
     .language-list {
       position: absolute;
       top: 25px;
+      width: 32px;
       left: ${props => props.locale === "ar" ? "36px" : "14px"};
       border: 1px solid ${props =>
         props.theme === "theme-light" ? "#E0E0E0" :
@@ -86,6 +109,9 @@ const StyledLanguageSelector = styled.div`
     .language-link {
       width: 32px;
       background-position-x: 4px;
+      width: 32px;
+      height: 24px;
+      background-image: url(${flags.src});
 
       &:hover {
         background-color: ${props =>
@@ -105,11 +131,59 @@ const StyledLanguageSelector = styled.div`
         };
       }
     }
+
+    .flag-image {
+      width: 24px;
+      height: 24px;
+    }
+
+    .flag-image, .language-link {
+      background-image: url(${flags.src});
+
+      &.en {
+        background-position-y: 0;
+      }
+
+      &.fr {
+        background-position-y: -48px;
+      }
+
+      &.de {
+        background-position-y: -72px;
+      }
+
+      &.es {
+        background-position-y: -96px;
+      }
+
+      &.pt {
+        background-position-y: -120px;
+      }
+
+      &.it {
+        background-position-y: -144px;
+      }
+
+      &.ja {
+        background-position-y: -216px;
+      }
+
+      &.zh {
+        background-position-y: -240px;
+      }
+
+      &.ar {
+        background-position-y: -336px;
+      }
+    }
   }
 
   &:not(.is-desktop-client) {
     .flag-image {
       ${props => props.locale === "ar" ? "margin-left: 5px;" : "margin-right: 5px;"}
+      width: 24px;
+      height: 24px;
+      background-image: url(${globe.src});
     }
   }
 
@@ -149,57 +223,32 @@ const StyledLanguageSelector = styled.div`
 
   .flag-image,
   .language-link {
-    display: block;
-    width: 24px;
-    height: 24px;
+    display: flex;
     text-decoration: none;
-    background-image: url(${flags.src});
-    background-repeat: no-repeat;
     cursor: pointer;
+    font-size: 14px;
+    background-repeat: no-repeat;
+    list-style-type: none;
 
-    &.en {
-      background-position-y: 0;
+    span {
+      display: flex;
+      gap: 8px;
     }
 
-    &.fr {
-      background-position-y: -48px;
+    b {
+      text-transform: uppercase;
     }
 
-    &.de {
-      background-position-y: -72px;
-    }
-
-    &.es {
-      background-position-y: -96px;
-    }
-
-    &.pt {
-      background-position-y: -120px;
-    }
-
-    &.it {
-      background-position-y: -144px;
-    }
-
-    &.ja {
-      background-position-y: -216px;
-    }
-
-    &.zh {
-      background-position-y: -240px;
-    }
-
-    &.ar {
-      background-position-y: -336px;
+    &.active {
+      color: #FF6F3D;
     }
   }
 
   .arrow-image {
-    width: 8px;
-    height: 6px;
     transform: translateY(2px);
     outline: none;
     -webkit-tap-highlight-color: transparent;
+    transition-duration: 0.3s;
   }
 
   .chevron-down {
@@ -225,8 +274,6 @@ const StyledLanguageSelector = styled.div`
     display: ${(props) => (props.isOpen ? "block" : "none")};
     border-radius: 0 0 8px 8px;
     margin: 0;
-    padding: 16px;
-    max-width: 56px;
     z-index: 100;
     background-color: #ffffff;
     box-shadow: 0 20px 50px rgba(85,85,85,0.15);
@@ -261,6 +308,10 @@ const StyledLanguageSelector = styled.div`
   .language-item {
     outline: none;
     -webkit-tap-highlight-color: transparent;
+
+    &:hover {
+      background-color: #F5F5F5;
+    }
 
     .language-item-image {
       margin-top: -1px;

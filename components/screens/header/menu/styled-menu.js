@@ -86,6 +86,10 @@ const StyledHeading = styled.div`
       }
     }
 
+    .flag-image {
+      background-position-y: -81px;
+    }
+
     .phone-btn,
     .arrow-image {
       path {
