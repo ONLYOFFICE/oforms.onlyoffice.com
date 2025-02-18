@@ -59,7 +59,11 @@ const StyledLanguageSelector = styled.div`
 
       .language-list {
         width: 153px;
-        padding: 24px 0;
+        padding: 16px 0;
+
+        @media screen and ${device.laptopL} {
+          left: -100%;
+        }
 
         .language-item {
           a {
