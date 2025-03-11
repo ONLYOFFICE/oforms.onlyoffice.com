@@ -64,10 +64,10 @@ const LanguageSelector = ({ locale, theme }) => {
             <li className="language-item" key={language.key}>
               <InternalLink
                 onClick={() => setIsOpen(false)}
-                className={`language-link ${language.shortKey} ${isDesktopClient ? router.locale === language.shortKey ? "active" : "" : ""}`}
+                className={`language-link ${language.shortKey} ${router.locale === language.shortKey ? "active" : ""}`}
                 href={isDesktopClient ? `/?desktop=true${theme ? `&theme=${theme}` : ""}` : asPath}
                 locale={language.shortKey}
-              >
+              >{isDesktopClient ? null : <span><b>{language.shortKey}</b> {language.longKey}</span>}
               </InternalLink>
             </li>
           ))}
