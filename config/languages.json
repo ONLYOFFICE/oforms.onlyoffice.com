@@ -1,38 +1,47 @@
 [
   {
     "key": "en-US",
-    "shortKey": "en"
+    "shortKey": "en",
+    "longKey": "English"
   },
   {
     "key": "fr-FR",
-    "shortKey": "fr"
+    "shortKey": "fr",
+    "longKey": "Français"
   },
   {
     "key": "de-DE",
-    "shortKey": "de"
+    "shortKey": "de",
+    "longKey": "German"
   },
   {
     "key": "es-ES",
-    "shortKey": "es"
+    "shortKey": "es",
+    "longKey": "Español"
   },
   {
     "key": "pt-BR",
-    "shortKey": "pt"
+    "shortKey": "pt",
+    "longKey": "Português"
   },
   {
     "key": "it-IT",
-    "shortKey": "it"
+    "shortKey": "it",
+    "longKey": "Italiano"
   },
   {
     "key": "ja-Jp",
-    "shortKey": "ja"
+    "shortKey": "ja",
+    "longKey": "日本語"
   },
   {
     "key": "zh-CN",
-    "shortKey": "zh"
+    "shortKey": "zh",
+    "longKey": "中文"
   },
   {
     "key": "ar-AR",
-    "shortKey": "ar"
+    "shortKey": "ar",
+    "longKey": "عربي"
   }
 ]
