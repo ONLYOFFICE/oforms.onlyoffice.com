@@ -1,7 +1,5 @@
-import StyledHeader from "./styled-header";
-
-const Header = (props) => {
-  return <StyledHeader>{props.children} </StyledHeader>;
+const Header = ({ children }) => {
+  return <>{children}</>;
 };
 
 Header.displayName = "PageHeader";
