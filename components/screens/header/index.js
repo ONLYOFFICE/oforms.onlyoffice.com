@@ -15,7 +15,9 @@ const Header = ({ t, locale, headerBgColor, isMainPage, isSearch }) => {
           key: language.shortKey,
           shortKey: language.shortKey,
           name: language.longKey,
-          href: router.asPath
+          href: router.pathname === "/form-submit" || router.pathname === "/searchresult" ||
+            router.pathname === "/pdf-form-templates" || router.pathname === "/document-templates" ||
+            router.pathname === "/spreadsheet-templates" || router.pathname === "/presentation-templates" ? router.asPath : "/"
         }))}
         base={{
           url: "https://www.onlyoffice.com",
