@@ -16,7 +16,10 @@ const Footer = ({ locale }) => {
       }))}
       base={{
         url: "https://www.onlyoffice.com",
-        withAspx: true
+        withAspx: true,
+        localePathMap: {
+          ar: "",
+        }
       }}
       mailApiUrl="/api/subscribe"
       mailApiType={0}
