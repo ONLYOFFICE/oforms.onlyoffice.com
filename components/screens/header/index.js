@@ -1,3 +1,4 @@
+import StyledHeader from "./styled-header";
 import { useRouter } from "next/router";
 import { OOHeader } from "onlyoffice-react-ui-kit/header";
 import "onlyoffice-react-ui-kit/header/css";
@@ -8,7 +9,7 @@ const Header = ({ t, locale, headerBgColor, isMainPage, isSearch }) => {
   const router = useRouter();
 
   return (
-    <>
+    <StyledHeader>
       <OOHeader
         locale={locale}
         languages={languages.map((language) => ({
@@ -37,7 +38,7 @@ const Header = ({ t, locale, headerBgColor, isMainPage, isSearch }) => {
       {isSearch &&
         <Search t={t} locale={locale} isMainPage={isMainPage} />
       }
-    </>
+    </StyledHeader>
   );
 };
 
