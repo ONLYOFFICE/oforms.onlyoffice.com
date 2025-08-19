@@ -66,8 +66,16 @@ find "$BUILD_DIR" -type d -exec chmod 755 {} \;
 find "$BUILD_DIR" -type f -exec chmod 644 {} \;
 cd "$BUILD_DIR"
 
-# Build application
-docker run --rm -v "$BUILD_DIR":"$APP_DIR" -w "$APP_DIR" "$DOCKER_CONTAINER_TAG" sh -c "yarn && yarn build"
+# Build application with error handling
+echo "Starting application build..."
+docker run --rm -e NODE_OPTIONS="--max-old-space-size=4096" -v "$BUILD_DIR":"$APP_DIR" -w "$APP_DIR" "$DOCKER_CONTAINER_TAG" sh -c "yarn && yarn build"
+if [ $? -ne 0 ]; then
+    echo "Error: Application build failed. Cleaning up build directory and exiting."
+    send_telegram_notification "FAILED"
+    rm -rf "$BUILD_DIR"
+    exit 1
+fi
+echo "Application build completed successfully."
 
 ### DEPLOY STAGE
 
@@ -76,7 +84,8 @@ tar -czf "$BACKUP_DIR/$BACKUP_NAME" -C "$APP_DIR" .
 
 # Cleanup other www-cms-marketplace backups to leave only 7 latest
 cd "$BACKUP_DIR"
-ls -1t "$APP_NAME-*.tar.gz" | tail -n +8 | xargs -I {} rm -- {}
+shopt -s nullglob
+ls -1t $APP_NAME-*.tar.gz | tail -n +8 | xargs -I {} rm -- {}
 
 # Stop application container if it exists
 if docker ps -a | grep -wq "$APP_NAME"; then
@@ -106,3 +115,8 @@ else
         # Build and run a new container if it doesn't exist
         docker run -d --name "$APP_NAME" --publish "0.0.0.0:$EXPOSE_PORT:$EXPOSE_PORT" -v "$APP_DIR:$APP_DIR" -w "$APP_DIR" --restart always "$DOCKER_CONTAINER_TAG" yarn start
 fi
+
+# Send success notification
+send_telegram_notification "SUCCESS"
+
+echo "Build and deployment process completed successfully."
