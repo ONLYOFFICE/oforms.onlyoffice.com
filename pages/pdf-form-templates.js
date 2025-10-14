@@ -53,7 +53,7 @@ const PdfFormTemplatesPage = ({ locale, sort, page, forms, categories, types, co
 export const getServerSideProps = async ({ locale, query }) => {
   const page = query.page || 1;
   const sort = query._sort || "asc";
-  const pageSize = query.pageSize ? 0 : 9;
+  const pageSize = query.pageSize ? 0 : 45;
 
   const forms = await getExtForms(locale, page, sort, pageSize, "pdf");
   const categories = await getCategories(locale, "categories", "categorie");
