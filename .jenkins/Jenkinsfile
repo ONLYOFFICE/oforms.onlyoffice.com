@@ -60,6 +60,7 @@ pipeline {
         appServer="${appServer}"
         domains="${domains}"
         email_port="${email_port}"
+        site_url="${site_url}"
       }
       steps { 
         withCredentials([usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS',
@@ -96,6 +97,8 @@ pipeline {
               NEXT_PUBLIC_RECAPTCHA_SITE_KEY=$NEXT_PUBLIC_RECAPTCHA_SITE_KEY_TEST
               NEXT_PUBLIC_STRAPI_API_TOKEN=$NEXT_PUBLIC_STRAPI_API_TOKEN_TEST
             fi
+
+            sed -i "s^var_notification_app_name^$site_url^" .jenkins/build.sh
 
             sed -i "s^config_docEditorUrl^$NEXT_PUBLIC_EDITOR_API_URL^" config/config.json
             sed -i "s^config_cms^$cms^" config/config.json

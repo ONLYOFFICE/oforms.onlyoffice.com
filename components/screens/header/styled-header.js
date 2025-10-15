@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 const StyledHeader = styled.div`
-  background: ${(props) => (props.headerBgColor ? props.headerBgColor : "#FFFFFF")};
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 `;
 
 export default StyledHeader;

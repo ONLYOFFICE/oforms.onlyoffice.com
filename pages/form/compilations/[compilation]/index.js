@@ -1,6 +1,5 @@
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useState } from "react";
 import getCategories from "@lib/requests/getCategories";
 import getCategoryForms from "@lib/requests/getCategoryForms";
 import getCategoryInfo from "@lib/requests/getCategoryInfo";
@@ -8,7 +7,7 @@ import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import DesktopClient from "@components/screens/desktop-client";
 import Header from "@components/screens/header";
-import AdventAnnounceBanner from "@components/screens/header/advent-announce-banner";
+import AdventAnnounce from "@components/screens/advent-announce";
 import BannerFormSection from "@components/screens/common/banner-form-section";
 import CategoryContent from "@components/screens/category-content";
 import AccordionSection from "@components/screens/common/accordion-section";
@@ -17,7 +16,6 @@ import Footer from "@components/screens/footer";
 const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, categories, compilations, isDesktopClient, theme }) => {
   const isCategoryPage = true;
   const { t } = useTranslation("common");
-  const [stateMobile, setStateMobile] = useState(false);
   const seoTitle = categoryInfo.data[0]?.attributes.seo_title ? categoryInfo.data[0]?.attributes.seo_title : categoryInfo.data[0]?.attributes.categorie;
   const seoDescription = categoryInfo.data[0]?.attributes.seo_description ? categoryInfo.data[0]?.attributes.seo_description : categoryInfo.data[0]?.attributes.header_description;
 
@@ -51,19 +49,11 @@ const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, cate
     ) : (
       <Layout locale={locale}>
         <Layout.PageHead>
-          <MainHead
-            title={seoTitle}
-            description={seoDescription}
-          />
+          <MainHead title={seoTitle} description={seoDescription} />
         </Layout.PageHead>
-        <AdventAnnounceBanner locale={locale} stateMobile={stateMobile} />
+        <AdventAnnounce locale={locale} />
         <Layout.PageHeader>
-          <Header
-            t={t}
-            locale={locale}
-            stateMobile={stateMobile}
-            setStateMobile={setStateMobile}
-          />
+          <Header t={t}x locale={locale} />
         </Layout.PageHeader>
         <Layout.SectionMain>
           <CategoryContent 
