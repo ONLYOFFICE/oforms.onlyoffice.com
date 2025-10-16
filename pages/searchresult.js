@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import getSearchResult from "@lib/requests/getSearchResult";
@@ -6,7 +7,7 @@ import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import Header from "@components/screens/header";
 import DesktopClient from "@components/screens/desktop-client";
-import AdventAnnounce from "@components/screens/advent-announce";
+import AdventAnnounceBanner from "@components/screens/header/advent-announce-banner";
 import SearchResultContent from "@components/screens/search-result-content";
 import BannerFormSection from "@components/screens/common/banner-form-section";
 import AccordionSection from "@components/screens/common/accordion-section";
@@ -14,6 +15,7 @@ import Footer from "@components/screens/footer";
 
 const SearchResultPage = ({ isDesktopClient, theme, locale, sort, page, types, categories, compilations, searchQuery, searchData }) => {
   const { t } = useTranslation("common");
+  const [stateMobile, setStateMobile] = useState(false);
 
   return (
     isDesktopClient ? (
@@ -48,9 +50,14 @@ const SearchResultPage = ({ isDesktopClient, theme, locale, sort, page, types, c
             description={t("Free templates and fillable PDF forms for any business purpose")}
           />
         </Layout.PageHead>
-        <AdventAnnounce locale={locale} />
+        <AdventAnnounceBanner locale={locale} stateMobile={stateMobile} />
         <Layout.PageHeader>
-          <Header t={t} locale={locale} />
+          <Header
+            t={t}
+            locale={locale}
+            stateMobile={stateMobile}
+            setStateMobile={setStateMobile}
+          />
         </Layout.PageHeader>
         <Layout.SectionMain>
           <SearchResultContent

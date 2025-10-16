@@ -1,5 +1,7 @@
-const Footer = ({ children }) => {
-  return <>{children}</>;
+import StyledFooter from "./styled-footer";
+
+const Footer = (props) => {
+  return <StyledFooter {...props} />;
 };
 
 Footer.displayName = "PageFooter";

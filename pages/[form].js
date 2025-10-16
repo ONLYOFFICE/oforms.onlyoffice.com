@@ -7,7 +7,7 @@ import getCategories from "@lib/requests/getCategories";
 import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import Header from "@components/screens/header";
-import AdventAnnounce from "@components/screens/advent-announce";
+import AdventAnnounceBanner from "@components/screens/header/advent-announce-banner";
 import FormContent from "@components/screens/form-content";
 import BannerFormSection from "@components/screens/common/banner-form-section";
 import AccordionSection from "@components/screens/common/accordion-section";
@@ -15,6 +15,7 @@ import Footer from "@components/screens/footer";
 
 const FormPage = ({ locale, form, randomCarousel, compilations }) => {
   const { t } = useTranslation("common");
+  const [stateMobile, setStateMobile] = useState(false);
   const [recentForms, setRecentForms] = useState([]);
   const seoTitle = form.data[0].attributes.seo_title ? form.data[0].attributes.seo_title : form.data[0].attributes.name_form;
   const seoDescription = form.data[0].attributes.seo_description ? form.data[0].attributes.seo_description : form.data[0].attributes.description_card;
@@ -48,9 +49,15 @@ const FormPage = ({ locale, form, randomCarousel, compilations }) => {
           description={seoDescription}
         />
       </Layout.PageHead>
-      <AdventAnnounce locale={locale} />
+      <AdventAnnounceBanner locale={locale} stateMobile={stateMobile} />
       <Layout.PageHeader>
-        <Header t={t} locale={locale} headerBgColor="#F9F9F9" />
+        <Header
+          t={t}
+          locale={locale}
+          headerBgColor="#F9F9F9"
+          stateMobile={stateMobile}
+          setStateMobile={setStateMobile}
+        />
       </Layout.PageHeader>
       <Layout.SectionMain>
         <FormContent

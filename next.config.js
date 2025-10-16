@@ -344,11 +344,6 @@ const nextConfig = {
         ],
       },
       {
-        source: '/ru',
-        destination: '/',
-        permanent: false,
-      },
-      {
         source: '/si',
         destination: '/en',
         permanent: false,

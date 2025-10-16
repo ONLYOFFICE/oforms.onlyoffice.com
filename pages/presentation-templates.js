@@ -1,11 +1,12 @@
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useState } from "react";
 import getExtForms from "@lib/requests/getExtForms";
 import getCategories from "@lib/requests/getCategories";
 import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import Header from "@components/screens/header";
-import AdventAnnounce from "@components/screens/advent-announce";
+import AdventAnnounceBanner from "@components/screens/header/advent-announce-banner";
 import BannerFormSection from "@components/screens/common/banner-form-section";
 import CategoryContent from "@components/screens/category-content";
 import AccordionSection from "@components/screens/common/accordion-section";
@@ -13,6 +14,7 @@ import Footer from "@components/screens/footer";
 
 const PresentationTemplatesPage = ({ locale, sort, page, forms, categories, types, compilations }) => {
   const { t } = useTranslation("common");
+  const [stateMobile, setStateMobile] = useState(false);
 
   return (
     <Layout locale={locale}>
@@ -22,9 +24,14 @@ const PresentationTemplatesPage = ({ locale, sort, page, forms, categories, type
           description={t("Fill out the presentations online in one click or download and open them in ONLYOFFICE editors")}
         />
       </Layout.PageHead>
-      <AdventAnnounce locale={locale} />
+      <AdventAnnounceBanner locale={locale} stateMobile={stateMobile} />
       <Layout.PageHeader>
-        <Header t={t} locale={locale} />
+        <Header
+          t={t}
+          locale={locale}
+          stateMobile={stateMobile}
+          setStateMobile={setStateMobile}
+        />
       </Layout.PageHeader>
       <Layout.SectionMain>
         <CategoryContent 

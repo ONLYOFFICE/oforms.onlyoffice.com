@@ -1,29 +1,9 @@
-import { useRouter } from "next/router";
-import { OOFooter } from "onlyoffice-react-ui-kit/footer";
-import "onlyoffice-react-ui-kit/footer/css";
-import languages from "@config/languages.json";
+import { FooterMenu } from "onlyoffice-react-ui-kit/footer-menu";
+import "onlyoffice-react-ui-kit/footer-menu/css";
 
 const Footer = ({ locale }) => {
-  const router = useRouter();
-
   return (
-    <OOFooter
-      locale={locale}
-      languages={languages.map((language) => ({
-        shortKey: language.shortKey,
-        name: language.longKey,
-        href: router.asPath
-      }))}
-      base={{
-        url: "https://www.onlyoffice.com",
-        withAspx: true,
-        localePathMap: {
-          ar: "",
-        }
-      }}
-      mailApiUrl="/api/subscribe"
-      mailApiType={0}
-    />
+    <FooterMenu locale={locale} mailApiUrl="/api/subscribe" mailApiType={0} />
   );
 };
 
