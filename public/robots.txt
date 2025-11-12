@@ -1,6 +1,2 @@
 User-agent: *
-Disallow: *editor?filename=*
-Disallow: *?fillform=*
-Disallow: *?_sort=*
-Disallow: *?page=*
-Sitemap: https://templates.onlyoffice.com/sitemap.xml
+Disallow: /
