@@ -41,14 +41,14 @@ export default async function handler(req, res) {
 
       // Data for Amazon S3
       const s3 = new S3({
-        accessKeyId: process.env.NEXT_PUBLIC_ACCESS_KEY_ID,
-        secretAccessKey: process.env.NEXT_PUBLIC_SECRET_ACCESS_KEY,
-        region: process.env.NEXT_PUBLIC_REGION,
+        accessKeyId: process.env.ACCESS_KEY_ID,
+        secretAccessKey: process.env.SECRET_ACCESS_KEY,
+        region: process.env.REGION,
       });
 
       // Amazon S3 params
       const params = {
-        Bucket: process.env.NEXT_PUBLIC_BUCKET,
+        Bucket: process.env.BUCKET,
         Key: uniqueFileName,
         Body: fs.createReadStream(files.file[0].filepath)
       };
@@ -75,18 +75,18 @@ export default async function handler(req, res) {
       };
 
       // Generate tokens for AuthorizationJwt
-      const pdfToken = jwt.sign(pdfPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
-      const fileToken = jwt.sign(filePayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+      const pdfToken = jwt.sign(pdfPayload, process.env.FILES_DOCSERVICE_SECRET);
+      const fileToken = jwt.sign(filePayload, process.env.FILES_DOCSERVICE_SECRET);
 
       // Send request to ConvertService and get result
-      const pdfRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, pdfPayload, {
+      const pdfRequest = await axios.post(`${process.env.EDITOR_API_URL}/ConvertService.ashx`, pdfPayload, {
         headers: {
           "Content-Type": "application/json",
           "AuthorizationJwt": `Bearer ${pdfToken}`
         }
       });
 
-      const fileRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, filePayload, {
+      const fileRequest = await axios.post(`${process.env.EDITOR_API_URL}/ConvertService.ashx`, filePayload, {
         headers: {
           "Content-Type": "application/json",
           "AuthorizationJwt": `Bearer ${fileToken}`
@@ -114,10 +114,10 @@ export default async function handler(req, res) {
       };
 
       // Generate tokens for AuthorizationJwt
-      const templatePreviewToken = jwt.sign(templatePreviewPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+      const templatePreviewToken = jwt.sign(templatePreviewPayload, process.env.FILES_DOCSERVICE_SECRET);
 
       // Send request to ConvertService and get result
-      const templatePreviewRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, templatePreviewPayload, {
+      const templatePreviewRequest = await axios.post(`${process.env.EDITOR_API_URL}/ConvertService.ashx`, templatePreviewPayload, {
         headers: {
           "Content-Type": "application/json",
           "AuthorizationJwt": `Bearer ${templatePreviewToken}`
@@ -129,7 +129,7 @@ export default async function handler(req, res) {
 
       // Delete file in Amazon S3
       await s3.deleteObject({
-        Bucket: process.env.NEXT_PUBLIC_BUCKET,
+        Bucket: process.env.BUCKET,
         Key: uniqueFileName
       }).promise();
 

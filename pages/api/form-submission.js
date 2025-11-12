@@ -43,14 +43,14 @@ export default async function handler(req, res) {
 
       // Data for Amazon S3
       const s3 = new S3({
-        accessKeyId: process.env.NEXT_PUBLIC_ACCESS_KEY_ID,
-        secretAccessKey: process.env.NEXT_PUBLIC_SECRET_ACCESS_KEY,
-        region: process.env.NEXT_PUBLIC_REGION,
+        accessKeyId: process.env.ACCESS_KEY_ID,
+        secretAccessKey: process.env.SECRET_ACCESS_KEY,
+        region: process.env.REGION,
       });
 
       // Amazon S3 params
       const params = {
-        Bucket: process.env.NEXT_PUBLIC_BUCKET,
+        Bucket: process.env.BUCKET,
         Key: uniqueFileName,
         Body: fs.createReadStream(files.file[0].filepath)
       };
@@ -103,26 +103,26 @@ export default async function handler(req, res) {
       };
 
       // Generate tokens for AuthorizationJwt
-      const cardPreviewToken = jwt.sign(cardPreviewPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
-      const cardDesktopPreviewToken = jwt.sign(cardDesktopPreviewPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
-      const desktopPreviewToken = jwt.sign(desktopPreviewPayload, process.env.NEXT_PUBLIC_FILES_DOCSERVICE_SECRET);
+      const cardPreviewToken = jwt.sign(cardPreviewPayload, process.env.FILES_DOCSERVICE_SECRET);
+      const cardDesktopPreviewToken = jwt.sign(cardDesktopPreviewPayload, process.env.FILES_DOCSERVICE_SECRET);
+      const desktopPreviewToken = jwt.sign(desktopPreviewPayload, process.env.FILES_DOCSERVICE_SECRET);
 
       // Send requests to ConvertService and get result
-      const cardPreviewRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, cardPreviewPayload, {
+      const cardPreviewRequest = await axios.post(`${process.env.EDITOR_API_URL}/ConvertService.ashx`, cardPreviewPayload, {
         headers: {
           "Content-Type": "application/json",
           "AuthorizationJwt": `Bearer ${cardPreviewToken}`
         }
       });
 
-      const cardDesktopPreviewRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, cardDesktopPreviewPayload, {
+      const cardDesktopPreviewRequest = await axios.post(`${process.env.EDITOR_API_URL}/ConvertService.ashx`, cardDesktopPreviewPayload, {
         headers: {
           "Content-Type": "application/json",
           "AuthorizationJwt": `Bearer ${cardDesktopPreviewToken}`
         }
       });
 
-      const desktopPreviewRequest = await axios.post(`${process.env.NEXT_PUBLIC_EDITOR_API_URL}/ConvertService.ashx`, desktopPreviewPayload, {
+      const desktopPreviewRequest = await axios.post(`${process.env.EDITOR_API_URL}/ConvertService.ashx`, desktopPreviewPayload, {
         headers: {
           "Content-Type": "application/json",
           "AuthorizationJwt": `Bearer ${desktopPreviewToken}`
@@ -142,7 +142,7 @@ export default async function handler(req, res) {
           }
         }, {
           headers: {
-            "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+            "Authorization": `Bearer ${process.env.STRAPI_API_TOKEN}`
           }
         }).then(async (response) => {
           const templatePreviewResponse = await axios.get(fields.templatePreviewUrl[0], { responseType: "arraybuffer" });
@@ -194,35 +194,35 @@ export default async function handler(req, res) {
           await axios.post(uploadApiUrl, templatePreviewData, {
             headers: {
               ...templatePreviewData.getHeaders(),
-              "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+              "Authorization": `Bearer ${process.env.STRAPI_API_TOKEN}`
             }
           });
 
           await axios.post(uploadApiUrl, cardPreviewData, {
             headers: {
               ...cardPreviewData.getHeaders(),
-              "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+              "Authorization": `Bearer ${process.env.STRAPI_API_TOKEN}`
             }
           });
 
           await axios.post(uploadApiUrl, cardDesktopPreviewData, {
             headers: {
               ...cardDesktopPreviewData.getHeaders(),
-              "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+              "Authorization": `Bearer ${process.env.STRAPI_API_TOKEN}`
             }
           });
 
           await axios.post(uploadApiUrl, desktopPreviewData, {
             headers: {
               ...desktopPreviewData.getHeaders(),
-              "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+              "Authorization": `Bearer ${process.env.STRAPI_API_TOKEN}`
             }
           });
 
           await axios.post(uploadApiUrl, fileData, {
             headers: {
               ...fileData.getHeaders(),
-              "Authorization": `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`
+              "Authorization": `Bearer ${process.env.STRAPI_API_TOKEN}`
             }
           });
 
@@ -231,22 +231,22 @@ export default async function handler(req, res) {
 
           // Delete file in Amazon S3
           await s3.deleteObject({
-            Bucket: process.env.NEXT_PUBLIC_BUCKET,
+            Bucket: process.env.BUCKET,
             Key: uniqueFileName
           }).promise();
 
           const transporter = nodemailer.createTransport({
-            host: process.env.NEXT_PUBLIC_EMAIL_HOST,
-            port: process.env.NEXT_PUBLIC_EMAIL_PORT,
+            host: process.env.EMAIL_HOST,
+            port: process.env.EMAIL_PORT,
             auth: {
-              user: process.env.NEXT_PUBLIC_EMAIL_AUTH_USER,
-              pass: process.env.NEXT_PUBLIC_EMAIL_AUTH_PASSWORD,
+              user: process.env.EMAIL_AUTH_USER,
+              pass: process.env.EMAIL_AUTH_PASSWORD,
             },
           });
 
           const mailOptions = {
-            from: `oforms.onlyoffice.com <${process.env.NEXT_PUBLIC_EMAIL_AUTH_USER}>`,
-            to: [process.env.NEXT_PUBLIC_EMAIL_ACCOUNT_1, process.env.NEXT_PUBLIC_EMAIL_ACCOUNT_2],
+            from: `oforms.onlyoffice.com <${process.env.EMAIL_AUTH_USER}>`,
+            to: [process.env.EMAIL_ACCOUNT_1, process.env.EMAIL_ACCOUNT_2],
             subject: "У вас новая форма из https://oforms.onlyoffice.com/form-submit",
             text: "У вас новая форма из https://oforms.onlyoffice.com/form-submit. Проверьте, пожалуйста.",
           };
