@@ -10,7 +10,7 @@ switch(BRANCH_NAME) {
     appServer="https://oforms.teamlab.info/"
     domains="static-oforms.teamlab.info"
     email_port="587"
-
+    next_public_main_site_base_domain="https://test-new.teamlab.info"
     break
   case "production_deploy":
     aws_region="us-west-2"
@@ -22,7 +22,7 @@ switch(BRANCH_NAME) {
     appServer="https://oforms.onlyoffice.com/"
     domains="static-oforms.onlyoffice.com"
     email_port="587"
-
+    next_public_main_site_base_domain="https://onlyoffice.com"
     break
   default:
     println("Branch: ${BRANCH_NAME} do not for deploy.")
@@ -61,6 +61,7 @@ pipeline {
         domains="${domains}"
         email_port="${email_port}"
         site_url="${site_url}"
+        next_public_main_site_base_domain="${next_public_main_site_base_domain}"
       }
       steps { 
         withCredentials([usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS',
@@ -120,7 +121,9 @@ pipeline {
             sed -i "s^var_email_auth_user^$NEXT_PUBLIC_EMAIL_AUTH_USER^" .env.local
             sed -i "s^var_email_auth_password^$NEXT_PUBLIC_EMAIL_AUTH_PASSWORD^" .env.local
             sed -i "s^var_email_account_1^$NEXT_PUBLIC_EMAIL_ACCOUNT_1^" .env.local
-            sed -i "s^var_email_account_2^$NEXT_PUBLIC_EMAIL_ACCOUNT_2^" .env.local  
+            sed -i "s^var_email_account_2^$NEXT_PUBLIC_EMAIL_ACCOUNT_2^" .env.local 
+
+            sed -i "s^var_next_public_main_site_base_domain^$next_public_main_site_base_domain^" .env.local
             
             tar -czpf .jenkins/oforms.tar.gz \
               --exclude ".git" \
