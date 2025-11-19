@@ -1,5 +1,4 @@
 import { useTranslation } from "next-i18next";
-import { useState } from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import zlib from "zlib";
 import getCategories from "@lib/requests/getCategories";
@@ -7,13 +6,12 @@ import getFormExts from "@lib/requests/getFormExts";
 import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import Header from "@components/screens/header";
-import AdventAnnounceBanner from "@components/screens/header/advent-announce-banner";
+import AdventAnnounce from "@components/screens/advent-announce";
 import FormSubmitContent from "@components/screens/form-submit-content";
 import Footer from "@components/screens/footer";
 
 const FormSubmitPage = ({ locale, categories, formExts, queryIndexData }) => {
   const { t } = useTranslation("common");
-  const [stateMobile, setStateMobile] = useState(false);
 
   return (
     <Layout locale={locale}>
@@ -23,15 +21,9 @@ const FormSubmitPage = ({ locale, categories, formExts, queryIndexData }) => {
           description={t("Free templates and fillable PDF forms for any business purpose")}
         />
       </Layout.PageHead>
-      <AdventAnnounceBanner locale={locale} stateMobile={stateMobile} />
+      <AdventAnnounce locale={locale} />
       <Layout.PageHeader>
-        <Header
-          t={t}
-          locale={locale}
-          headerBgColor="#f5f5f5"
-          stateMobile={stateMobile}
-          setStateMobile={setStateMobile}
-        />
+        <Header t={t} locale={locale} headerBgColor="#f5f5f5" />
       </Layout.PageHeader>
       <Layout.SectionMain>
         <FormSubmitContent

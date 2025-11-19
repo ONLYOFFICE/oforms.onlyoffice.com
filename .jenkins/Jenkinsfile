@@ -60,6 +60,7 @@ pipeline {
         appServer="${appServer}"
         domains="${domains}"
         email_port="${email_port}"
+        site_url="${site_url}"
       }
       steps { 
         withCredentials([usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS',
@@ -97,27 +98,29 @@ pipeline {
               NEXT_PUBLIC_STRAPI_API_TOKEN=$NEXT_PUBLIC_STRAPI_API_TOKEN_TEST
             fi
 
+            sed -i "s^var_notification_app_name^$site_url^" .jenkins/build.sh
+
             sed -i "s^config_docEditorUrl^$NEXT_PUBLIC_EDITOR_API_URL^" config/config.json
             sed -i "s^config_cms^$cms^" config/config.json
             sed -i "s^config_appServer^$appServer^" config/config.json
             sed -i "s^nextconfig_domains^$domains^" next.config.js
 
-            sed -i "s^var_next_public_editor_api_url^$NEXT_PUBLIC_EDITOR_API_URL^" .env.local
-            sed -i "s^var_next_public_files_docservice_secret^$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET^" .env.local
+            sed -i "s^var_editor_api_url^$NEXT_PUBLIC_EDITOR_API_URL^" .env.local
+            sed -i "s^var_files_docservice_secret^$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET^" .env.local
             sed -i "s^var_next_public_recaptcha_site_key^$NEXT_PUBLIC_RECAPTCHA_SITE_KEY^" .env.local
-            sed -i "s^var_next_public_strapi_api_token^$NEXT_PUBLIC_STRAPI_API_TOKEN^" .env.local
+            sed -i "s^var_strapi_api_token^$NEXT_PUBLIC_STRAPI_API_TOKEN^" .env.local
 
-            sed -i "s^var_next_public_region^$aws_region^" .env.local
-            sed -i "s^var_next_public_bucket^$domains^" .env.local
-            sed -i "s^var_next_public_access_key_id^$NEXT_PUBLIC_ACCESS_KEY_ID^" .env.local
-            sed -i "s^var_next_public_secret_access_key^$NEXT_PUBLIC_SECRET_ACCESS_KEY^" .env.local
+            sed -i "s^var_region^$aws_region^" .env.local
+            sed -i "s^var_bucket^$domains^" .env.local
+            sed -i "s^var_access_key_id^$NEXT_PUBLIC_ACCESS_KEY_ID^" .env.local
+            sed -i "s^var_secret_access_key^$NEXT_PUBLIC_SECRET_ACCESS_KEY^" .env.local
 
-            sed -i "s^var_next_public_email_host^$NEXT_PUBLIC_EMAIL_HOST^" .env.local
-            sed -i "s^var_next_public_email_port^$email_port^" .env.local
-            sed -i "s^var_next_public_email_auth_user^$NEXT_PUBLIC_EMAIL_AUTH_USER^" .env.local
-            sed -i "s^var_next_public_email_auth_password^$NEXT_PUBLIC_EMAIL_AUTH_PASSWORD^" .env.local
-            sed -i "s^var_next_public_email_account_1^$NEXT_PUBLIC_EMAIL_ACCOUNT_1^" .env.local
-            sed -i "s^var_next_public_email_account_2^$NEXT_PUBLIC_EMAIL_ACCOUNT_2^" .env.local  
+            sed -i "s^var_email_host^$NEXT_PUBLIC_EMAIL_HOST^" .env.local
+            sed -i "s^var_email_port^$email_port^" .env.local
+            sed -i "s^var_email_auth_user^$NEXT_PUBLIC_EMAIL_AUTH_USER^" .env.local
+            sed -i "s^var_email_auth_password^$NEXT_PUBLIC_EMAIL_AUTH_PASSWORD^" .env.local
+            sed -i "s^var_email_account_1^$NEXT_PUBLIC_EMAIL_ACCOUNT_1^" .env.local
+            sed -i "s^var_email_account_2^$NEXT_PUBLIC_EMAIL_ACCOUNT_2^" .env.local  
             
             tar -czpf .jenkins/oforms.tar.gz \
               --exclude ".git" \

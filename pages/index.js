@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
@@ -10,7 +9,7 @@ import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import Header from "@components/screens/header";
 import DesktopClient from "@components/screens/desktop-client";
-import AdventAnnounceBanner from "@components/screens/header/advent-announce-banner";
+import AdventAnnounce from "@components/screens/advent-announce";
 import Footer from "@components/screens/footer";
 import MainContent from "@components/screens/main-content";
 import AccordionSection from "@components/screens/common/accordion-section";
@@ -18,7 +17,6 @@ import AccordionSection from "@components/screens/common/accordion-section";
 const MainPage = ({ locale, sort, forms, types, categories, compilations, popularTemplates, pptxForms, docxForms, pdfForms, xlsxForms }) => {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const [stateMobile, setStateMobile] = useState(false);
 
   return (
     router.query.desktop === "true" ? (
@@ -51,7 +49,7 @@ const MainPage = ({ locale, sort, forms, types, categories, compilations, popula
             description={t("Free templates and fillable PDF forms for any business purpose")}
           />
         </Layout.PageHead>
-        <AdventAnnounceBanner locale={locale} stateMobile={stateMobile} />
+        <AdventAnnounce locale={locale} />
         <Layout.PageHeader>
           <Header
             t={t}
@@ -59,8 +57,6 @@ const MainPage = ({ locale, sort, forms, types, categories, compilations, popula
             headerBgColor="#444444"
             isMainPage={true}
             isSearch={true}
-            stateMobile={stateMobile}
-            setStateMobile={setStateMobile}
           />
         </Layout.PageHeader>
         <Layout.SectionMain>
