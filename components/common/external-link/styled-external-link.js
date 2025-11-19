@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const StyledExternalLink = styled.a`
-  color: inherit;
-  text-decoration: none;
+  color: ${props => props.color ? props.color : "inherit"};
+  text-decoration: ${props => props.textDecoration ? props.textDecoration : "none"};
 `;
 
 export default StyledExternalLink;
