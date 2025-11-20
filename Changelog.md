@@ -1,10 +1,18 @@
 # Changelog
 
+## 1.5.0
+### New Features
+* Add cookies
+
+### Fixes
+* Change db connection
+
 ## 1.4.0
 ### New Features
-* https://templates.onlyoffice.com/pdf-form-templates: update pageSize from 9 to 45
-* Update onlyoffice-react-ui-kit to v1.17.0
-* Update environment variable names
+* Update onlyoffice-react-ui-kit to v1.18.0
+
+### Fixes
+* Fix .env variables
 
 ## 1.3.0
 ### New Features

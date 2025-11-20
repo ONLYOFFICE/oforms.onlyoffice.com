@@ -14,6 +14,7 @@
   "dependencies": {
     "aws-sdk": "^2.1413.0",
     "axios": "^0.26.1",
+    "cookie": "^1.0.2",
     "email-addresses": "^5.0.0",
     "form-data": "^4.0.0",
     "formidable": "^3.5.0",
@@ -25,7 +26,7 @@
     "next": "13.3.0",
     "next-i18next": "^13.0.3",
     "nodemailer": "^6.9.4",
-    "onlyoffice-react-ui-kit": "ONLYOFFICE/onlyoffice-react-ui-kit#2d1a13b436030fedca4414b6a8a306472f7358c2",
+    "onlyoffice-react-ui-kit": "ONLYOFFICE/onlyoffice-react-ui-kit#8974b84bb271cfa31ebbf4cfe915633f8aaf93fc",
     "pdf-lib": "^1.17.1",
     "prop-types": "^15.8.1",
     "react": "18.2.0",

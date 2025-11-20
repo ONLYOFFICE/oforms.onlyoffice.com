@@ -1,3 +1,2 @@
 User-agent: *
 Disallow: /
-Sitemap: https://templates.onlyoffice.com/sitemap.xml

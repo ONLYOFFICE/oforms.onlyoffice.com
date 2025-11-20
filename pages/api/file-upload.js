@@ -7,8 +7,8 @@ import { PDFDocument } from "pdf-lib";
 
 export const config = {
   api: {
-    bodyParser: false,
-  },
+    bodyParser: false
+  }
 };
 
 export default async function handler(req, res) {
@@ -22,8 +22,7 @@ export default async function handler(req, res) {
       // Generate a unique key for payload
       const generateKey = () => {
         let key = "";
-        const str =
-          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        const str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         for (let i = 0; i < 12; i++) {
           key += str.charAt(Math.floor(Math.random() * str.length));
         }
@@ -41,7 +40,7 @@ export default async function handler(req, res) {
       const params = {
         Bucket: process.env.BUCKET,
         Key: fileName,
-        Body: fs.createReadStream(files.file[0].filepath),
+        Body: fs.createReadStream(files.file[0].filepath)
       };
 
       // Get response from Amazon S3
@@ -50,34 +49,25 @@ export default async function handler(req, res) {
 
       // Payload data
       const pdfPayload = {
-        filetype: fileType,
-        key: generateKey(),
-        outputtype: "pdf",
-        title: fileName,
-        url: s3Url,
+        "filetype": fileType,
+        "key": generateKey(),
+        "outputtype": "pdf",
+        "title": fileName,
+        "url": s3Url
       };
 
       // Generate tokens for AuthorizationJwt
-      const pdfToken = jwt.sign(
-        pdfPayload,
-        process.env.FILES_DOCSERVICE_SECRET
-      );
+      const pdfToken = jwt.sign(pdfPayload, process.env.FILES_DOCSERVICE_SECRET);
 
       // Send request to ConvertService and get result
-      const pdfRequest = await axios.post(
-        `${process.env.EDITOR_API_URL}/ConvertService.ashx`,
-        pdfPayload,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            AuthorizationJwt: `Bearer ${pdfToken}`,
-          },
+      const pdfRequest = await axios.post(`${process.env.EDITOR_API_URL}/ConvertService.ashx`, pdfPayload, {
+        headers: {
+          "Content-Type": "application/json",
+          "AuthorizationJwt": `Bearer ${pdfToken}`
         }
-      );
-
-      const pdfResponse = await axios.get(pdfRequest.data.fileUrl, {
-        responseType: "arraybuffer",
       });
+
+      const pdfResponse = await axios.get(pdfRequest.data.fileUrl, { responseType: "arraybuffer"});
       const pdfDoc = await PDFDocument.load(new Uint8Array(pdfResponse.data));
       // page width and height
       const { width, height } = pdfDoc.getPage(0).getSize();
@@ -86,55 +76,46 @@ export default async function handler(req, res) {
 
       // Payload data
       const templatePreviewPayload = {
-        filetype: fileType,
-        key: generateKey(),
-        outputtype: "png",
-        thumbnail: {
-          aspect: 0,
-          first: true,
-          height: width > height ? 1024 : 1448,
-          width: width > height ? 1448 : 1024,
+        "filetype": fileType,
+        "key": generateKey(),
+        "outputtype": "png",
+        "thumbnail": {
+          "aspect": 0,
+          "first": true,
+          "height": width > height ? 1024 : 1448,
+          "width": width > height ? 1448 : 1024
         },
-        title: fileName,
-        url: s3Url,
+        "title": fileName,
+        "url": s3Url
       };
 
       // Generate tokens for AuthorizationJwt
-      const templatePreviewToken = jwt.sign(
-        templatePreviewPayload,
-        process.env.FILES_DOCSERVICE_SECRET
-      );
+      const templatePreviewToken = jwt.sign(templatePreviewPayload, process.env.FILES_DOCSERVICE_SECRET);
 
       // Send request to ConvertService and get result
-      const templatePreviewRequest = await axios.post(
-        `${process.env.EDITOR_API_URL}/ConvertService.ashx`,
-        templatePreviewPayload,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            AuthorizationJwt: `Bearer ${templatePreviewToken}`,
-          },
+      const templatePreviewRequest = await axios.post(`${process.env.EDITOR_API_URL}/ConvertService.ashx`, templatePreviewPayload, {
+        headers: {
+          "Content-Type": "application/json",
+          "AuthorizationJwt": `Bearer ${templatePreviewToken}`
         }
-      );
+      });
 
       // Delete temporary file
       fs.promises.unlink(files.file[0].filepath);
 
       // Delete file in Amazon S3
-      await s3
-        .deleteObject({
-          Bucket: process.env.BUCKET,
-          Key: fileName,
-        })
-        .promise();
+      await s3.deleteObject({
+        Bucket: process.env.BUCKET,
+        Key: fileName
+      }).promise();
 
       return res.status(200).json({
-        templatePreviewConvertUrl: templatePreviewRequest.data.fileUrl,
-        pageCount: pageCount,
-        fileOrientation: width > height ? "horizontal" : "vertical",
+        "templatePreviewConvertUrl": templatePreviewRequest.data.fileUrl,
+        "pageCount": pageCount,
+        "fileOrientation": width > height ? "horizontal" : "vertical"
       });
     } catch (error) {
       return res.status(500).json({ error: error.message });
-    }
+    };
   });
-}
+};
