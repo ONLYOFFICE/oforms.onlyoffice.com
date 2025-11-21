@@ -6,7 +6,7 @@ switch(BRANCH_NAME) {
     region="info"
     cloud_front_distribution_id="E3OQ4LKWZZXBRX"
     site_url="https://oforms.teamlab.info"   
-    cms="https://oforms.teamlab.info/dashboard"
+    cms="https://templates.teamlab.info/dashboard"
     appServer="https://oforms.teamlab.info/"
     domains="static-oforms.teamlab.info"
     email_port="587"
@@ -18,7 +18,7 @@ switch(BRANCH_NAME) {
     MONITOR_ID = '58439000014815195'
     cloud_front_distribution_id="E18Y5OI4JS5NAJ"
     site_url="https://oforms.onlyoffice.com"    
-    cms="https://oforms.onlyoffice.com/dashboard"
+    cms="https://templates.onlyoffice.com/dashboard"
     appServer="https://oforms.onlyoffice.com/"
     domains="static-oforms.onlyoffice.com"
     email_port="587"
