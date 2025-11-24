@@ -21,8 +21,8 @@ const Footer = ({ locale }) => {
           ar: "",
         }
       }}
-      mailApiUrl="/api/subscribe"
-      mailApiType={0}
+      mailApiUrl={`${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}/api/sendsubscription`}
+      mailApiType="Common"
     />
   );
 };

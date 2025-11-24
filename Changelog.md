@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.5.0
+### New Features
+* Add cookies
+
+### Fixes
+* Change db connection
+
 ## 1.4.0
 ### New Features
 * Update onlyoffice-react-ui-kit to v1.18.0
