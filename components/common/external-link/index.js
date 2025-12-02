@@ -12,7 +12,9 @@ const ExternalLink = ({
     tabIndex,
     title,
     download,
-    onClick
+    onClick,
+    color,
+    textDecoration
   }) => {
 
   return (
@@ -26,6 +28,8 @@ const ExternalLink = ({
       title={title}
       download={download}
       onClick={onClick}
+      color={color}
+      textDecoration={textDecoration}
     >
       {children || label}
     </StyledExternalLink>
@@ -43,13 +47,17 @@ ExternalLink.propTypes = {
   tabIndex: PropTypes.number,
   title: PropTypes.string,
   download: PropTypes.bool,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  color: PropTypes.string,
+  textDecoration: PropTypes.string
 };
 
 ExternalLink.defaultProps = {
   href: "/",
   rel: "noopener noreferrer",
-  target: "_blank"
+  target: "_blank",
+  color: "inherit",
+  textDecoration: "none"
 };
 
 export default ExternalLink;
