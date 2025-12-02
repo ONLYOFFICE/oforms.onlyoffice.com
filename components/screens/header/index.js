@@ -32,7 +32,7 @@ const Header = ({ t, locale, headerBgColor, isMainPage, isSearch }) => {
         backgroundColor={headerBgColor || "#ffffff"}
         highlight={{
           buttonId: "oo-menu-item-btn-products",
-          linkId: "oo-hm-item-link--templates",
+          linkId: "oo-menu-link-templates",
         }}
       />
       {isSearch &&
