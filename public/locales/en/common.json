@@ -10,5 +10,18 @@
   "Other forms": "<span>Other</span> forms",
   "Recently viewed": "<span>Recently</span> viewed",
   "Please download it and install to use this plugin. Go to the Download page to get ONLYOFFICE Desktop Editors for Windows, Linux, or macOS.": "Please download it and install to use this plugin. Go to the <a href=\"https://www.onlyoffice.com/download-desktop.aspx\" target=\"_blank\" rel=\"noreferrer noopener\">Download page</a> to get ONLYOFFICE Desktop Editors for Windows, Linux, or macOS.",
-  "SuggestingChangesLink": "Suggesting%20changes%20for%20Form%20{{name}}"
+  "SuggestingChangesLink": "Suggesting%20changes%20for%20Form%20{{name}}",
+  "HarmonyInYourCookies": "Harmony in your cookies",
+  "CookieText": "Our website uses cookies to provide you with a tailored experience. Cookies help us run the site, improve your browsing, and enable targeted marketing and ads. You can fully consent to our use of cookies or manage your preferences. <0>Learn more</0>",
+  "Deny": "Deny",
+  "Customize": "Customize",
+  "AcceptAll": "Accept All",
+  "CookieSettings": "Cookie settings",
+  "ConfirmMyChoices": "Confirm my choices",
+  "Technical": "Technical (required)",
+  "TechnicalDescription": "These cookies are necessary for displaying our website correctly. They ensure its proper functioning.",
+  "Analytical": "Analytical",
+  "AnalyticalDescription": "The purpose of analytical cookies is to discover how users use our website as well as to track their visits. These functions allow us to improve the quality and content of our website.",
+  "Marketing": "Marketing",
+  "MarketingDescription": "These cookies are used for marketing purposes and the collection of information to better tailor advertising to the interests of the users of our website."
 }
