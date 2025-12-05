@@ -6,9 +6,9 @@
 
 - Update onlyoffice-react-ui-kit to v1.22.0
   - header → Products → ONLYOFFICE Docs: Correct links in the /en menu
-    /office-suite => /docs
-    /document-editor => /word-processor
-    /spreadsheet-editor => /sheets
+    - /office-suite => /docs
+    - /document-editor => /word-processor
+    - /spreadsheet-editor => /sheets
 
 ### Fixes
 
