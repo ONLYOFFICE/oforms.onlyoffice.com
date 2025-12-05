@@ -47,13 +47,13 @@ useEffect(() => {
       return;
     }
 
-    const res = await fetch("/api/cookies");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}/api/ip-geolocation`);
     const data = await res.json();
 
-    if (!res.ok || !data.IPGeolocationInfo) return;
+    if (!res.ok || !data) return;
 
-    setIPGeolocationInfo(data.IPGeolocationInfo);
-    sessionStorage.setItem("IPGeolocationInfo", JSON.stringify(data.IPGeolocationInfo));
+    setIPGeolocationInfo(data);
+    sessionStorage.setItem("IPGeolocationInfo", JSON.stringify(data));
   })();
 }, []);
 
@@ -80,7 +80,6 @@ useEffect(() => {
         "NO", "IS", "LI", "CH", "GB",
         "CN", "SG", "ZA", "NG", "KE"
       ];
-console.log(IPGeolocationCountry);
       if (!ALL_COUNTRIES.includes(IPGeolocationCountry)) {
         gdpr = false;
       }
