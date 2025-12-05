@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.6.0
+
+### New Features
+
+- Update onlyoffice-react-ui-kit to v1.22.0
+
+### Fixes
+
+- Update file open protocol to include filename
+
 ## 1.5.0
 
 ### New Features
