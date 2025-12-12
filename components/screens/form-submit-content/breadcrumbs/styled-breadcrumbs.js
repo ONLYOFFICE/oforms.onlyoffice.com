@@ -8,7 +8,7 @@ const StyledBreadcrumbs = styled.div`
 
   .breadcrumbs-link {
     position: relative;
-    ${props => props.locale === "ar" ? "margin-left: 23px;" : "margin-right: 23px;"}
+    ${props => props.$locale === "ar" ? "margin-left: 23px;" : "margin-right: 23px;"}
     line-height: 24px;
     text-decoration: none;
     cursor: pointer;
@@ -16,14 +16,14 @@ const StyledBreadcrumbs = styled.div`
     &:before {
       content: "";
       position: absolute;
-      ${props => props.locale === "ar" ? "left: -13px;" : "right: -13px;"}
+      ${props => props.$locale === "ar" ? "left: -13px;" : "right: -13px;"}
       top: 50%;
       width: 4px;
       height: 6px;
       background-image: url("https://static-oforms.onlyoffice.com/icons/line.svg");
       background-repeat: no-repeat;
       background-size: contain;
-      transform: ${props => props.locale === "ar" ? "translateY(-50%) rotate(180deg)" : "translateY(-50%)"};
+      transform: ${props => props.$locale === "ar" ? "translateY(-50%) rotate(180deg)" : "translateY(-50%)"};
     }
 
     &.home {

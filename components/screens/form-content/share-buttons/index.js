@@ -9,7 +9,7 @@ const ShareButtons = ({ t, locale }) => {
   const routerUrl = `https://templates.onlyoffice.com${locale === "en" ? "" : `/${locale}`}${router.asPath}`;
 
   return (
-    <StyledShareButtons locale={locale} className="share-buttons">
+    <StyledShareButtons $locale={locale} className="share-buttons">
       <Text className="share-buttons-title" label={`${t("Share")}:`} />
 
       <ul className="share-buttons-list">

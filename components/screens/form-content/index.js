@@ -52,7 +52,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
 
   return (
     <>
-      <StyledMain locale={locale}>
+      <StyledMain $locale={locale}>
         <Breadcrumbs t={t} label={name_form} locale={locale} />
 
         <div className="form-preview">

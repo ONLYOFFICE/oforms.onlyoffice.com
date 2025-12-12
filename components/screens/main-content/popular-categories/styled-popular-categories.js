@@ -40,7 +40,7 @@ const StyledPopularCategories = styled.div`
     }
 
     &:not(:last-child) {
-      ${props => props.locale === "ar" ? "margin-left: 16px;" : "margin-right: 16px;"}
+      ${props => props.$locale === "ar" ? "margin-left: 16px;" : "margin-right: 16px;"}
     }
 
     @media screen and ${device.mobile} {

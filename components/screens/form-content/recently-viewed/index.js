@@ -4,7 +4,7 @@ import ShortCard from "@components/screens/common/short-card";
 
 const RecentlyViewed = ({ t, locale, recentForms }) => {
   return (
-    <StyledRecentlyViewed locale={locale}>
+    <StyledRecentlyViewed $locale={locale}>
       <Heading className="recently-viewed-title" level={3} dangerouslySetInnerHTML={{ __html: t("Recently viewed") }} />
       <div className="recenlty-viewed-items">
         {recentForms.slice(1).map((data, index) => (

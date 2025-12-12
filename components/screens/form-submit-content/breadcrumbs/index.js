@@ -4,7 +4,7 @@ import Text from "@components/common/text";
 
 const Breadcrumbs = ({ t, locale }) => {
   return (
-    <StyledBreadcrumbs locale={locale}>
+    <StyledBreadcrumbs $locale={locale}>
       <Link className="breadcrumbs-link home" href={`/${locale === "en" ? "" : `${locale}/`}`} label={t("Templates")} />
       <Text className="breadcrumbs-item" label={t("Loading your template")} />
     </StyledBreadcrumbs>

@@ -41,19 +41,19 @@ export const StyledFormPopup = styled.div`
   .popup-content {
     box-sizing: content-box;
     border: 1px solid ${props =>
-      props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "#616161" :
+      props.$theme === "theme-dark" || props.$theme === "theme-contrast-dark" ? "#616161" :
       "#CBCBCB"
     };
     border-radius: 5px;
     width: 100%;
     max-width: 886px;
     box-shadow: ${props =>
-      props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "0 4px 10px 0 rgba(0, 0, 0, 0.4)" :
+      props.$theme === "theme-dark" || props.$theme === "theme-contrast-dark" ? "0 4px 10px 0 rgba(0, 0, 0, 0.4)" :
       "0 4px 10px 0 rgba(0, 0, 0, 0.2)"
     };
     background-color: ${props =>
-      props.theme === "theme-dark" ? "#333333" :
-      props.theme === "theme-contrast-dark" ? "#1E1E1E" : 
+      props.$theme === "theme-dark" ? "#333333" :
+      props.$theme === "theme-contrast-dark" ? "#1E1E1E" : 
       "#ffffff"
     };
 
@@ -67,20 +67,20 @@ export const StyledFormPopup = styled.div`
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid ${props =>
-      props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "#616161" :
+      props.$theme === "theme-dark" || props.$theme === "theme-contrast-dark" ? "#616161" :
       "#CBCBCB"
     };
     border-radius: 5px 5px 0 0;
-    padding: ${props => props.locale === "ar" ? "10px 27px 10px 17px" : "10px 17px 10px 27px"};
+    padding: ${props => props.$locale === "ar" ? "10px 27px 10px 17px" : "10px 17px 10px 27px"};
     background-color: ${props =>
-      props.theme === "theme-light" ? "#F7F7F7" :
-      props.theme === "theme-dark" ? "#404040" :
-      props.theme === "theme-contrast-dark" ? "#2A2A2A" : 
+      props.$theme === "theme-light" ? "#F7F7F7" :
+      props.$theme === "theme-dark" ? "#404040" :
+      props.$theme === "theme-contrast-dark" ? "#2A2A2A" : 
       "#F1F1F1"
     };
 
     @media screen and ${device.laptop} {
-      padding: ${props => props.locale === "ar" ? "11px 26px 11px 17px" : "11px 19px 11px 26px"};
+      padding: ${props => props.$locale === "ar" ? "11px 26px 11px 17px" : "11px 19px 11px 26px"};
     }
   }
 
@@ -89,9 +89,9 @@ export const StyledFormPopup = styled.div`
     line-height: 20px;
     letter-spacing: 0.02em;
     color: ${props =>
-      props.theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
-      props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
-      props.theme === "theme-contrast-dark" ? "#E8E8E8" : 
+      props.$theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
+      props.$theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
+      props.$theme === "theme-contrast-dark" ? "#E8E8E8" : 
       "#444444"
     };
   }
@@ -107,9 +107,9 @@ export const StyledFormPopup = styled.div`
     svg {
       path {
         stroke: ${props =>
-          props.theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
-          props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
-          props.theme === "theme-contrast-dark" ? "#E8E8E8" : 
+          props.$theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
+          props.$theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
+          props.$theme === "theme-contrast-dark" ? "#E8E8E8" : 
           "#444444"
         };
         transition: stroke 0.3s;
@@ -120,7 +120,7 @@ export const StyledFormPopup = styled.div`
       svg {
         path {
           stroke: ${props =>
-            props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "#BBBBBB" :
+            props.$theme === "theme-dark" || props.$theme === "theme-contrast-dark" ? "#BBBBBB" :
             "#7A7A7A"
           };
         }
@@ -131,8 +131,8 @@ export const StyledFormPopup = styled.div`
       svg {
         path {
           stroke: ${props =>
-            props.theme === "theme-dark" ? "#F1F1F1" :
-            props.theme === "theme-contrast-dark" ? "#FFFFFF" : 
+            props.$theme === "theme-dark" ? "#F1F1F1" :
+            props.$theme === "theme-contrast-dark" ? "#FFFFFF" : 
             "#444444"
           };
         }
@@ -159,24 +159,24 @@ export const StyledFormPopup = styled.div`
     img {
       box-sizing: border-box;
       border: 1px solid ${props =>
-        props.theme === "theme-light" ? "#E0E0E0" :
-        props.theme === "theme-dark" ? "#5A5A5A" :
-        props.theme === "theme-contrast-dark" ? "#616161" : 
+        props.$theme === "theme-light" ? "#E0E0E0" :
+        props.$theme === "theme-dark" ? "#5A5A5A" :
+        props.$theme === "theme-contrast-dark" ? "#616161" : 
         "#D8DADC"
       };
       border-radius: 5px;
       width: 100%;
       object-fit: contain;
       overflow: hidden;
-      ${props => (props.theme === "theme-dark" || props.theme === "theme-contrast-dark") && "opacity: 0.9;"}
+      ${props => (props.$theme === "theme-dark" || props.$theme === "theme-contrast-dark") && "opacity: 0.9;"}
     }
   }
 
   .form-content {
     border-bottom: 1px solid ${props =>
-      props.theme === "theme-light" ? "#E0E0E0" :
-      props.theme === "theme-dark" ? "#5A5A5A" :
-      props.theme === "theme-contrast-dark" ? "#616161" : 
+      props.$theme === "theme-light" ? "#E0E0E0" :
+      props.$theme === "theme-dark" ? "#5A5A5A" :
+      props.$theme === "theme-contrast-dark" ? "#616161" : 
       "#D8DADC"
     };
     padding-bottom: 23px;
@@ -189,9 +189,9 @@ export const StyledFormPopup = styled.div`
     line-height: 24px;
     letter-spacing: -0.02em;
     color: ${props =>
-      props.theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
-      props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
-      props.theme === "theme-contrast-dark" ? "#E8E8E8" : 
+      props.$theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
+      props.$theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
+      props.$theme === "theme-contrast-dark" ? "#E8E8E8" : 
       "#444444"
     };
 
@@ -204,18 +204,18 @@ export const StyledFormPopup = styled.div`
   .form-label {
     margin-bottom: 12px;
     color: ${props =>
-      props.theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
-      props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
-      props.theme === "theme-contrast-dark" ? "#E8E8E8" : 
+      props.$theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
+      props.$theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
+      props.$theme === "theme-contrast-dark" ? "#E8E8E8" : 
       "#444444"
     };
   }
 
   .form-description {
     color: ${props =>
-      props.theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
-      props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
-      props.theme === "theme-contrast-dark" ? "#E8E8E8" : 
+      props.$theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
+      props.$theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
+      props.$theme === "theme-contrast-dark" ? "#E8E8E8" : 
       "#444444"
     };
 
@@ -237,7 +237,7 @@ export const StyledFormPopup = styled.div`
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    ${props => props.locale === "ar" ? "margin-left: 24px;" : "margin-right: 24px;"}
+    ${props => props.$locale === "ar" ? "margin-left: 24px;" : "margin-right: 24px;"}
   }
 
   .form-info-item {
@@ -247,11 +247,11 @@ export const StyledFormPopup = styled.div`
   }
 
   .form-info-label {
-    ${props => props.locale === "ar" ? "margin-left: 8px;" : "margin-right: 8px;"}
+    ${props => props.$locale === "ar" ? "margin-left: 8px;" : "margin-right: 8px;"}
     color: ${props =>
-      props.theme === "theme-light" ? "rgba(0, 0, 0, 0.6)" :
-      props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.6)" :
-      props.theme === "theme-contrast-dark" ? "#B8B8B8" : 
+      props.$theme === "theme-light" ? "rgba(0, 0, 0, 0.6)" :
+      props.$theme === "theme-dark" ? "rgba(255, 255, 255, 0.6)" :
+      props.$theme === "theme-contrast-dark" ? "#B8B8B8" : 
       "#A5A5A5"
     };
 
@@ -264,9 +264,9 @@ export const StyledFormPopup = styled.div`
   .form-info-value {
     font-weight: 700;
     color: ${props =>
-      props.theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
-      props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
-      props.theme === "theme-contrast-dark" ? "#E8E8E8" : 
+      props.$theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
+      props.$theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
+      props.$theme === "theme-contrast-dark" ? "#E8E8E8" : 
       "#444444"
     };
 
@@ -285,31 +285,31 @@ export const StyledFormPopup = styled.div`
     min-width: 157px;
     height: initial;
     color: ${props =>
-      props.theme === "theme-dark" ? "#333333" :
-      props.theme === "theme-contrast-dark" ? "#121212" : 
+      props.$theme === "theme-dark" ? "#333333" :
+      props.$theme === "theme-contrast-dark" ? "#121212" : 
       "#FFFFFF"
     };
     background-color: ${props =>
-      props.theme === "theme-light" ? "#A5A5A5" :
-      props.theme === "theme-dark" ? "#DDDDDD" :
-      props.theme === "theme-contrast-dark" ? "#E6E6E6" : 
+      props.$theme === "theme-light" ? "#A5A5A5" :
+      props.$theme === "theme-dark" ? "#DDDDDD" :
+      props.$theme === "theme-contrast-dark" ? "#E6E6E6" : 
       "#444444"
     };
 
     &:hover {
       background-color: ${props =>
-        props.theme === "theme-light" ? "#C3C3C3" :
-        props.theme === "theme-dark" ? "#FCFCFC" :
-        props.theme === "theme-contrast-dark" ? "#A6A6A6" : 
+        props.$theme === "theme-light" ? "#C3C3C3" :
+        props.$theme === "theme-dark" ? "#FCFCFC" :
+        props.$theme === "theme-contrast-dark" ? "#A6A6A6" : 
         "#1C1C1C"
       };
     }
 
     &:active {
       background-color: ${props =>
-        props.theme === "theme-light" ? "#7D858C" :
-        props.theme === "theme-dark" ? "#DDDDDD" :
-        props.theme === "theme-contrast-dark" ? "#E6E6E6" : 
+        props.$theme === "theme-light" ? "#7D858C" :
+        props.$theme === "theme-dark" ? "#DDDDDD" :
+        props.$theme === "theme-contrast-dark" ? "#E6E6E6" : 
         "#444444"
       };
     }

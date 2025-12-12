@@ -85,7 +85,7 @@ const CategorySelect = ({ t, locale, label, labelMore, placeholder, selected, se
   };
 
   return (
-    <StyledSelect locale={locale} className={selectedError && error ? "error" : ""}>
+    <StyledSelect $locale={locale} className={selectedError && error ? "error" : ""}>
       <Text className="label">{label} <Text className="label-more">{labelMore}</Text></Text>
 
       <div ref={selectRef} className="select-wrapper">

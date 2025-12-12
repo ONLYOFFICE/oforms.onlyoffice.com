@@ -22,7 +22,7 @@ const StyledSearchTopSection = styled.div`
     gap: 8px;
 
     svg {
-      transform: ${props => props.locale === "ar" && "rotate(180deg)"};
+      transform: ${props => props.$locale === "ar" && "rotate(180deg)"};
 
       path {
         transition: fill 0.3s;

@@ -5,7 +5,7 @@ import Heading from "@components/common/heading";
 
 const ErrorContent = ({ t, heading, text, isDesktopClient, theme }) => {
   return (
-    <StyledError404 className={isDesktopClient ? "is-desktop-client" : ""} theme={theme}>
+    <StyledError404 className={isDesktopClient ? "is-desktop-client" : ""} $theme={theme}>
       {isDesktopClient ? (
         <div className="error-desktop-content">
           <div className="error-desktop-image"></div>

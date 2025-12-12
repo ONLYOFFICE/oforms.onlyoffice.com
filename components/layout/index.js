@@ -81,7 +81,7 @@ class Layout extends React.Component {
       <StyledLayout
         onDragOver={handleDragOver}
         onDrop={handleDrop}
-        locale={locale}
+        $locale={locale}
         id="page-layout"
         className="layout"
       >
@@ -102,12 +102,6 @@ Layout.propTypes = {
   headContent: PropTypes.bool,
   headerContent: PropTypes.bool,
   footerContent: PropTypes.bool,
-};
-
-Layout.defaultProps = {
-  headContent: true,
-  headerContent: true,
-  footerContent: true,
 };
 
 export default Layout;

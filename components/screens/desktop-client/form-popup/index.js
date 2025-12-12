@@ -66,8 +66,8 @@ const FormPopup = ({ t, locale, data, modalActive, setModalActive, theme }) => {
   return (
     <StyledFormPopup
       onClick={() => setModalActive(false)}
-      locale={locale}
-      theme={theme}
+      $locale={locale}
+      $theme={theme}
       className={`modal-with-scroll ${modalActive ? "active" : ""}`}
     >
       {modalActive &&

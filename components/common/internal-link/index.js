@@ -6,7 +6,7 @@ const InternalLink = ({
     label,
     id,
     className,
-    href,
+    href = "/",
     target,
     tabIndex,
     title,
@@ -41,10 +41,6 @@ InternalLink.propTypes = {
   title: PropTypes.string,
   locale: PropTypes.string,
   onClick: PropTypes.func
-};
-
-InternalLink.defaultProps = {
-  href: "/",
 };
 
 export default InternalLink;

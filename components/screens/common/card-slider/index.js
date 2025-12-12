@@ -25,7 +25,7 @@ const CardSlider = ({ t, locale, title, data }) => {
   }, []);
 
   return (
-    <StyledCardSlider className="card-slider" locale={locale}>
+    <StyledCardSlider className="card-slider" $locale={locale}>
       {title &&
         <Heading className="card-slider-title" level={3} dangerouslySetInnerHTML={{__html: title}} />
       }
