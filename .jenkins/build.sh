@@ -7,7 +7,7 @@ source /etc/ci_env.sh
 CURRENT_DATE=$(date "+%Y%m%d-%H%M%S")
 
 # Define variables
-DOCKER_CONTAINER_TAG="node:18.20.6-alpine"
+DOCKER_CONTAINER_TAG="node:20.19.5-alpine"
 EXPOSE_PORT="30000"
 APP_NAME="oforms.onlyoffice.com"
 APP_DIR="/app/$APP_NAME"
