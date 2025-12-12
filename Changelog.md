@@ -9,10 +9,13 @@
     - /office-suite => /docs
     - /document-editor => /word-processor
     - /spreadsheet-editor => /sheets
+- Update dependencies and devDependencies
+- Remove .aspx extension from links
 
 ### Fixes
 
 - Update file open protocol to include filename
+- Fix props for components
 
 ## 1.5.0
 
