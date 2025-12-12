@@ -2,7 +2,7 @@ import fs from "fs";
 import formidable from "formidable";
 import axios from "axios";
 import jwt from "jsonwebtoken";
-import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3"; // UPDATED
+import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { PDFDocument } from "pdf-lib";
 
 export const config = {
