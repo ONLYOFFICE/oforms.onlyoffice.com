@@ -38,8 +38,6 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
   const fileUpdatedAt = pdfFile[0]?.attributes.updatedAt || docxFile[0]?.attributes.updatedAt || pptxFile[0]?.attributes.updatedAt || xlsxFile[0]?.attributes.updatedAt;
   const fileUrl = pdfFile[0]?.attributes.url || docxFile[0]?.attributes.url || pptxFile[0]?.attributes.url || xlsxFile[0]?.attributes.url;
   const fileName = pdfFile[0]?.attributes.name || docxFile[0]?.attributes.name || pptxFile[0]?.attributes.name || xlsxFile[0]?.attributes.name;
-  console.log (fileUrl)
-  console.log(pdfFile[0])
 
   const handleButtonClick = () => {
     scriptProtocolCheck(
