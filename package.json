@@ -41,6 +41,6 @@
   "devDependencies": {
     "eslint": "^9.39.1",
     "eslint-config-next": "16.0.10",
-    "rimraf": "^5.0.0"
+    "rimraf": "^6.1.2"
   }
 }
