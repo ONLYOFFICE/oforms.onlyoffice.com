@@ -261,7 +261,7 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
   };
 
   return (
-    <StyledFormSubmitContent locale={locale}>
+    <StyledFormSubmitContent $locale={locale}>
       <Breadcrumbs t={t} locale={locale} />
 
       <div className="wrapper">

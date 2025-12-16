@@ -35,7 +35,7 @@ const StyledExploreOtherTemplate = styled.div`
     &:before {
       content: "";
       display: inline-flex;
-      ${props => props.locale === "ar" ? "margin-left: 4px;" : "margin-right: 4px;"}
+      ${props => props.$locale === "ar" ? "margin-left: 4px;" : "margin-right: 4px;"}
       width: 24px;
       height: 24px;
       background-repeat: no-repeat;
@@ -43,7 +43,7 @@ const StyledExploreOtherTemplate = styled.div`
     }
 
     &:not(:last-child) {
-      ${props => props.locale === "ar" ? "margin-left: 16px;" : "margin-right: 16px;"}
+      ${props => props.$locale === "ar" ? "margin-left: 16px;" : "margin-right: 16px;"}
     }
 
     &.pdf {
@@ -79,7 +79,7 @@ const StyledExploreOtherTemplate = styled.div`
     box-sizing: border-box;
     border: 1px solid #AAAAAA;
     border-radius: 4px;
-    margin: ${props => props.locale === "ar" ? "0 0 16px 16px" : "0 16px 16px 0"};
+    margin: ${props => props.$locale === "ar" ? "0 0 16px 16px" : "0 16px 16px 0"};
     padding: 11px 18px;
     font-size: 16px;
     line-height: 24px;

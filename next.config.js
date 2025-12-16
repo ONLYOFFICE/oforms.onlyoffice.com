@@ -450,12 +450,12 @@ const nextConfig = {
   i18n,
   images: {
     formats: ["image/webp"],
-    domains: ["nextconfig_domains"],
     minimumCacheTTL: 31536000,
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'nextconfig_domains.**',
+        pathname: '/**',
       }
     ],
   },

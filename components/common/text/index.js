@@ -19,9 +19,9 @@ const Text = ({
       as={as ? as : "span"}
       className={className}
       colorProps={color}
-      fontSizeProps={fontSize}
-      fontWeightProps={fontWeight}
-      lineHeightProps={lineHeight}
+      $fontSizeProps={fontSize}
+      $fontWeightProps={fontWeight}
+      $lineHeightProps={lineHeight}
       dangerouslySetInnerHTML={dangerouslySetInnerHTML}
       onClick={onClick}
     >

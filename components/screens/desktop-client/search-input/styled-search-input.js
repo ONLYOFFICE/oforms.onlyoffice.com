@@ -17,7 +17,7 @@ const StyledSearchInput = styled.div`
     border-color: #D8DADC;
 
     @media screen and (max-width: 592px) {
-      margin: ${props => props.locale === "ar" ? "0 0 0 16px" : "0 16px 0 0"};
+      margin: ${props => props.$locale === "ar" ? "0 0 0 16px" : "0 16px 0 0"};
     }
 
     .search-input {
@@ -40,9 +40,9 @@ const StyledSearchInput = styled.div`
 
       path {
         fill: ${props =>
-          props.theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
-          props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
-          props.theme === "theme-contrast-dark" ? "#E8E8E8" : 
+          props.$theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
+          props.$theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
+          props.$theme === "theme-contrast-dark" ? "#E8E8E8" : 
           "#444444"
         };
         transition: stroke 0.3s;
@@ -53,13 +53,13 @@ const StyledSearchInput = styled.div`
   .cross-btn {
     display: none;
     position: absolute;
-    ${props => props.locale === "ar" ? "left: 0;" : "right: 0;"}
+    ${props => props.$locale === "ar" ? "left: 0;" : "right: 0;"}
 
     svg {
       path {
         stroke: ${props =>
-          props.theme === "theme-dark" ? "#BBBBBB" :
-          props.theme === "theme-contrast-dark" ? "#BBBBBB" : 
+          props.$theme === "theme-dark" ? "#BBBBBB" :
+          props.$theme === "theme-contrast-dark" ? "#BBBBBB" : 
           "#7A7A7A"
         };
       }
@@ -69,8 +69,8 @@ const StyledSearchInput = styled.div`
       svg {
         path {
           stroke: ${props =>
-            props.theme === "theme-dark" ? "#F1F1F1" :
-            props.theme === "theme-contrast-dark" ? "#FFFFFF" :
+            props.$theme === "theme-dark" ? "#F1F1F1" :
+            props.$theme === "theme-contrast-dark" ? "#FFFFFF" :
             "#444444"
           };
         }
@@ -81,8 +81,8 @@ const StyledSearchInput = styled.div`
       svg {
         path {
           stroke: ${props =>
-            props.theme === "theme-dark" ? "#BBBBBB" :
-            props.theme === "theme-contrast-dark" ? "#BBBBBB" : 
+            props.$theme === "theme-dark" ? "#BBBBBB" :
+            props.$theme === "theme-contrast-dark" ? "#BBBBBB" : 
             "#7A7A7A"
           };
         }
@@ -100,9 +100,9 @@ const StyledSearchInput = styled.div`
     font-size: 14px;
     line-height: 21px;
     color: ${props =>
-      props.theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
-      props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
-      props.theme === "theme-contrast-dark" ? "#E8E8E8" : 
+      props.$theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
+      props.$theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
+      props.$theme === "theme-contrast-dark" ? "#E8E8E8" : 
       "#444444"
     };
     width: 0;

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import languages from "@config/languages.json";
 import { useRouter } from "next/router";
 
-const MainHead = ({ title, description, isDesktopClient }) => {
+const MainHead = ({ title = null, description = null, isDesktopClient }) => {
   const router = useRouter();
   let style;
 
@@ -157,11 +157,6 @@ MainHead.propTypes = {
   description: PropTypes.string,
   /** Title for your HTML document */
   title: PropTypes.string,
-};
-
-MainHead.defaultProps = {
-  description: null,
-  title: null,
 };
 
 export default MainHead;

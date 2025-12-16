@@ -3,87 +3,87 @@ import { device } from "@utils/devices";
 
 const StyledSearchInput = styled.div`
   box-sizing: border-box;
-  position: ${props => !props.isMainPage && "relative"};
+  position: ${props => !props.$isMainPage && "relative"};
   width: 100%;
 
   .text-input {
     .search-icon {
-      ${(props) => props.locale === "ar" ? `right: ${props.isMainPage ? "18px" : "12px"};` : `left: ${props.isMainPage ? "18px" : "12px"};`}
+      ${(props) => props.$locale === "ar" ? `right: ${props.$isMainPage ? "18px" : "12px"};` : `left: ${props.$isMainPage ? "18px" : "12px"};`}
       width: 20px;
       height: 20px;
 
       path {
-        fill: ${props => !props.isMainPage && "#808080"};
+        fill: ${props => !props.$isMainPage && "#808080"};
       }
 
       @media screen and ${device.mobile} {
-        right: ${props => props.isMainPage && props.locale === "ar" && "10px"};
-        left: ${props => props.isMainPage && props.locale !== "ar" && "10px"};
+        right: ${props => props.$isMainPage && props.$locale === "ar" && "10px"};
+        left: ${props => props.$isMainPage && props.$locale !== "ar" && "10px"};
       }
     }
 
     .input {
-      border: ${props => props.isMainPage && "none"};
-      padding: ${props => !props.isMainPage && "12px 44px"};
-      color: ${props => props.isMainPage ? "#FFFFFF" : "#333333"};
-      height: ${props => props.isMainPage ? "56px" : "48px"};
-      background-color: ${props => !props.isMainPage && "#F9F9F9"};
-      transition: ${props => !props.isMainPage && "border-color 0.3s, background-color 0.3s"};
+      border: ${props => props.$isMainPage && "none"};
+      padding: ${props => !props.$isMainPage && "12px 44px"};
+      color: ${props => props.$isMainPage ? "#FFFFFF" : "#333333"};
+      height: ${props => props.$isMainPage ? "56px" : "48px"};
+      background-color: ${props => !props.$isMainPage && "#F9F9F9"};
+      transition: ${props => !props.$isMainPage && "border-color 0.3s, background-color 0.3s"};
 
       &.focus,
       &.has-value {
-        border-color: ${props => !props.isMainPage && "#666666"};
-        padding: ${props => !props.isMainPage && "12px 44px"};
-        background-color: ${props => !props.isMainPage && "#FFFFFF"};
+        border-color: ${props => !props.$isMainPage && "#666666"};
+        padding: ${props => !props.$isMainPage && "12px 44px"};
+        background-color: ${props => !props.$isMainPage && "#FFFFFF"};
 
         ~ .search-icon {
           path {
-            fill: ${props => !props.isMainPage && "#444444"};
+            fill: ${props => !props.$isMainPage && "#444444"};
           }
         }
 
         ~ .label {
-          top: ${props => props.isMainPage && "8px"};
-          font-size: ${props => props.isMainPage && "12px"};
-          line-height: ${props => props.isMainPage && "16px"};
-          color: ${props => props.isMainPage && "#AAAAAA"};
+          top: ${props => props.$isMainPage && "8px"};
+          font-size: ${props => props.$isMainPage && "12px"};
+          line-height: ${props => props.$isMainPage && "16px"};
+          color: ${props => props.$isMainPage && "#AAAAAA"};
         }
 
         @media screen and ${device.tablet} {
-          padding: ${props => !props.isMainPage && "8px 40px"};
+          padding: ${props => !props.$isMainPage && "8px 40px"};
         }
 
         @media screen and ${device.mobile} {
-          padding: ${props => props.isMainPage && "24px 40px 8px"};
+          padding: ${props => props.$isMainPage && "24px 40px 8px"};
         }
       }
 
       &:hover {
-        border-color: ${props => !props.isMainPage && "#808080"};
+        border-color: ${props => !props.$isMainPage && "#808080"};
 
         ~ .search-icon {
           path {
-            fill: ${props => !props.isMainPage && "#666666"};
+            fill: ${props => !props.$isMainPage && "#666666"};
           }
         }
       }
 
       @media screen and ${device.tablet} {
-        height: ${props => props.isMainPage ? "56px" : "38px"};
-        padding: ${props => !props.isMainPage && "8px 40px"};
+        height: ${props => props.$isMainPage ? "56px" : "38px"};
+        padding: ${props => !props.$isMainPage && "8px 40px"};
       }
 
       @media screen and ${device.mobile} {
-        padding: ${props => props.isMainPage && "16px 40px"};
+        padding: ${props => props.$isMainPage && "16px 40px"};
       }
     }
 
     .label {
-      top: ${props => props.isMainPage ? "16px" : "13px"};
+      top: ${props => props.$isMainPage ? "16px" : "13px"};
 
       @media screen and ${device.tablet} {
-        left: ${props => !props.isMainPage && "40px"};
-        top: ${props => props.isMainPage ? "16px" : "8px"};
+        left: ${props => !props.$isMainPage && "40px"};
+        top: ${props => props.$isMainPage ? "16px" : "8px"};
       }
 
       @media screen and ${device.mobile} {
@@ -98,11 +98,11 @@ const StyledSearchInput = styled.div`
 
     .input-btn {
       path {
-        fill: ${props => props.isMainPage ? "#CCCCCC" : "#666666"};
+        fill: ${props => props.$isMainPage ? "#CCCCCC" : "#666666"};
       }
 
       @media screen and ${device.mobile} {
-        ${props => props.locale === "ar" ? "left: 8px;" : "right: 8px;"}
+        ${props => props.$locale === "ar" ? "left: 8px;" : "right: 8px;"}
       }
     }
   }
@@ -110,7 +110,7 @@ const StyledSearchInput = styled.div`
   .search-results {
     position: absolute;
     top: calc(100% + 4px);
-    border: ${props => !props.isMainPage && "1px solid #666666"};
+    border: ${props => !props.$isMainPage && "1px solid #666666"};
     border-radius: 3px;
     padding: 8px 0;
     width: 100%;
@@ -138,7 +138,7 @@ const StyledSearchInput = styled.div`
     transition: color 0.3s, background-color 0.3s;
 
     a {
-      padding: ${(props) => (props.locale === "ar" ? "8px 16px 8px 50px" : "8px 50px 8px 16px")};
+      padding: ${(props) => (props.$locale === "ar" ? "8px 16px 8px 50px" : "8px 50px 8px 16px")};
       width: 100%;
     }
 
@@ -151,7 +151,7 @@ const StyledSearchInput = styled.div`
   .search-results-btn {
     position: absolute;
     top: 50%;
-    ${(props) => (props.locale === "ar" ? "left: 16px;" : "right: 16px;")}
+    ${(props) => (props.$locale === "ar" ? "left: 16px;" : "right: 16px;")}
     display: flex;
     border: none;
     padding: 0;

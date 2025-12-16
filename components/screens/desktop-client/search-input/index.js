@@ -126,7 +126,7 @@ const SearchInput = ({ t, locale, setHideCategorySelector, theme }) => {
   };
 
   return (
-    <StyledSearchInput locale={locale} theme={theme} className={`search ${isOpen ? "open" : ""}`}>
+    <StyledSearchInput $locale={locale} $theme={theme} className={`search ${isOpen ? "open" : ""}`}>
       <button onClick={handleShowSearch} className="search-input-btn search-btn">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fillRule="evenodd" clipRule="evenodd" d="M15.5 10C15.5 13.0376 13.0376 15.5 10 15.5C6.96243 15.5 4.5 13.0376 4.5 10C4.5 6.96243 6.96243 4.5 10 4.5C13.0376 4.5 15.5 6.96243 15.5 10ZM14.2315 15.5767C13.0563 16.4699 11.59 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 11.7354 16.3685 13.3234 15.3227 14.5465L20.1172 19.341L19.0565 20.4017L14.2315 15.5767Z" fill="black" fillOpacity="0.8"/>

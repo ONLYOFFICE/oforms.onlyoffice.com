@@ -6,8 +6,8 @@ import emptyFilterDarkImg from "@public/icons/empty-filter-dark.svg";
 const StyledDesktopClientContent = styled(Section)`
   padding: 0;
   background-color: ${props =>
-    props.theme === "theme-dark" ? "#333333" :
-    props.theme === "theme-contrast-dark" ? "#1E1E1E" : 
+    props.$theme === "theme-dark" ? "#333333" :
+    props.$theme === "theme-contrast-dark" ? "#1E1E1E" : 
     "#ffffff"
   };
   -webkit-user-select: none;
@@ -18,8 +18,8 @@ const StyledDesktopClientContent = styled(Section)`
   .header {
     padding: 12px 50px 20px 40px;
     background-color: ${props =>
-      props.theme === "theme-dark" ? "#333333" :
-      props.theme === "theme-contrast-dark" ? "#1E1E1E" : 
+      props.$theme === "theme-dark" ? "#333333" :
+      props.$theme === "theme-contrast-dark" ? "#1E1E1E" : 
       "#ffffff"
     };
 
@@ -34,11 +34,11 @@ const StyledDesktopClientContent = styled(Section)`
     align-items: center;
 
     .category-selector {
-      ${props => props.locale === "ar" ? "margin-left: auto;" : "margin-right: auto;"}
+      ${props => props.$locale === "ar" ? "margin-left: auto;" : "margin-right: auto;"}
     }
 
     .sort-btn {
-      ${props => props.locale === "ar" ? "margin-left: 16px;" : "margin-right: 16px;"}
+      ${props => props.$locale === "ar" ? "margin-left: 16px;" : "margin-right: 16px;"}
     }
   }
 
@@ -59,7 +59,7 @@ const StyledDesktopClientContent = styled(Section)`
     overflow-y: auto;
 
     @media screen and (max-width: 592px) {
-      padding: ${props => props.locale === "ar" ? "0 16px 40px 48px" : "0 48px 40px 16px"};
+      padding: ${props => props.$locale === "ar" ? "0 16px 40px 48px" : "0 48px 40px 16px"};
     }
   }
 
@@ -71,10 +71,10 @@ const StyledDesktopClientContent = styled(Section)`
   }
 
   .error-desktop-image {
-    ${props => props.locale === "ar" ? "margin-left: 24px;" : "margin-right: 24px;"}
+    ${props => props.$locale === "ar" ? "margin-left: 24px;" : "margin-right: 24px;"}
     width: 108px;
     height: 108px;
-    background-image: ${props => `url(${props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? emptyFilterDarkImg.src : emptyFilterImg.src})`};
+    background-image: ${props => `url(${props.$theme === "theme-dark" || props.$theme === "theme-contrast-dark" ? emptyFilterDarkImg.src : emptyFilterImg.src})`};
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -84,9 +84,9 @@ const StyledDesktopClientContent = styled(Section)`
     margin-bottom: 12px;
     letter-spacing: -0.02em;
     color: ${props =>
-      props.theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
-      props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
-      props.theme === "theme-contrast-dark" ? "#E8E8E8" : 
+      props.$theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
+      props.$theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
+      props.$theme === "theme-contrast-dark" ? "#E8E8E8" : 
       "#444444"
     };
   }
@@ -97,8 +97,8 @@ const StyledDesktopClientContent = styled(Section)`
     font-size: 14px;
     line-height: 21px;
     color: ${props =>
-      props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.6)" :
-      props.theme === "theme-contrast-dark" ? "#B8B8B8" : 
+      props.$theme === "theme-dark" ? "rgba(255, 255, 255, 0.6)" :
+      props.$theme === "theme-contrast-dark" ? "#B8B8B8" : 
       "#A5A5A5"
     };
   }
@@ -108,8 +108,8 @@ const StyledDesktopClientContent = styled(Section)`
     font-size: 14px;
     line-height: 21px;
     color: ${props =>
-      props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.6)" :
-      props.theme === "theme-contrast-dark" ? "#B8B8B8" : 
+      props.$theme === "theme-dark" ? "rgba(255, 255, 255, 0.6)" :
+      props.$theme === "theme-contrast-dark" ? "#B8B8B8" : 
       "#A5A5A5"
     };
 
@@ -129,7 +129,7 @@ const StyledDesktopClientContent = styled(Section)`
 
   .scroll-to-top-btn {
     position: fixed;
-    ${props => props.locale === "ar" ? "left: 16px;" : "right: 16px;"}
+    ${props => props.$locale === "ar" ? "left: 16px;" : "right: 16px;"}
     bottom: 44px;
     border: none;
     border-radius: 2px;
@@ -137,9 +137,9 @@ const StyledDesktopClientContent = styled(Section)`
     width: 32px;
     height: 32px;
     background-color: ${props => 
-      props.theme === "theme-light" ? "#A5A5A5" :
-      props.theme === "theme-dark" ? "#DDDDDD" :
-      props.theme === "theme-contrast-dark" ? "#E6E6E6" : 
+      props.$theme === "theme-light" ? "#A5A5A5" :
+      props.$theme === "theme-dark" ? "#DDDDDD" :
+      props.$theme === "theme-contrast-dark" ? "#E6E6E6" : 
       "#444444"
     };
     cursor: pointer;
@@ -148,8 +148,8 @@ const StyledDesktopClientContent = styled(Section)`
     svg {
       path {
         fill: ${props =>
-          props.theme === "theme-dark" ? "#333333" :
-          props.theme === "theme-contrast-dark" ? "#121212" : 
+          props.$theme === "theme-dark" ? "#333333" :
+          props.$theme === "theme-contrast-dark" ? "#121212" : 
           "#FFFFFF"
         };
       }
@@ -157,9 +157,9 @@ const StyledDesktopClientContent = styled(Section)`
 
     &:hover {
       background-color: ${props =>
-        props.theme === "theme-light" ? "#C3C3C3" :
-        props.theme === "theme-dark" ? "#FCFCFC" :
-        props.theme === "theme-contrast-dark" ? "#A6A6A6" : 
+        props.$theme === "theme-light" ? "#C3C3C3" :
+        props.$theme === "theme-dark" ? "#FCFCFC" :
+        props.$theme === "theme-contrast-dark" ? "#A6A6A6" : 
         "#1C1C1C"
       };
     }
