@@ -22,7 +22,7 @@ export default async function handler(req, res) {
       const formName = fields.formName === undefined ? "" : fields.formName[0];
       const language = fields.language === undefined ? "" : fields.language[0];
       const fileName = files.file[0].originalFilename;
-      const uniqueFileName = `${Date.now()}_${fileName}`;
+      const uniqueFileName = `oforms_upload/${Date.now()}_${fileName}`;
       const fileSize = files.file[0].size;
       const fileType = fileName?.match(/\.(\w+)$/)?.[1];
       const CMSConfigAPI = CONFIG.api.cms.replace("dashboard", "");

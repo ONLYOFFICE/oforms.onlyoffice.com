@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
   form.parse(req, async (err, fields, files) => {
     try {
-      const fileName = `${Date.now()}_${files.file[0].originalFilename}`;
+      const fileName = `oforms_upload/${Date.now()}_${files.file[0].originalFilename}`;
       const fileType = files.file[0].originalFilename?.match(/\.(\w+)$/)?.[1];
 
       // Generate a unique key for payload

@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     try {
       const uploadApiUrl = `${CONFIG.api.cms}/api/upload`;
       const fileName = files.file[0].originalFilename;
-      const uniqueFileName = `${Date.now()}_${fileName}`;
+      const uniqueFileName = `oforms_upload/${Date.now()}_${fileName}`;
       const fileType = fileName?.match(/\.(\w+)$/)?.[1];
       const fileNameSubstring = fileName.substring(0, fileName.length - fileName?.match(/\.(\w+)$/)?.[0].length);
       const fileOrientation = fields.fileOrientation[0];
