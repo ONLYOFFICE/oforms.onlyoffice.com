@@ -111,7 +111,7 @@ const StyledCategorySelector = styled.div`
 
     svg {
       display: flex;
-      ${props => props.locale === "ar" ? "margin-right: 10px;" : "margin-left: 10px;"}
+      ${props => props.$locale === "ar" ? "margin-right: 10px;" : "margin-left: 10px;"}
 
       path {
         fill: #aaaaaa;
@@ -122,7 +122,7 @@ const StyledCategorySelector = styled.div`
   .category-selector-dropdown {
     position: absolute;
     top: calc(100% + 17px);
-    ${props => props.locale === "ar" ? "right: 0;" : "left: 0;"}
+    ${props => props.$locale === "ar" ? "right: 0;" : "left: 0;"}
     border-radius: 0 0 6px 6px;
     padding: 16px 0;
     background-color: #ffffff;
@@ -171,7 +171,7 @@ const StyledCategorySelector = styled.div`
 
     svg {
       display: flex;
-      transform: ${props => props.locale === "ar" && "rotate(180deg)"};
+      transform: ${props => props.$locale === "ar" && "rotate(180deg)"};
     }
 
     @media screen and ${device.laptop} {
@@ -190,7 +190,7 @@ const StyledCategorySelector = styled.div`
     cursor: pointer;
 
     svg {
-      transform: ${props => props.locale === "ar" && "rotate(180deg)"};
+      transform: ${props => props.$locale === "ar" && "rotate(180deg)"};
     }
 
     path {
@@ -214,24 +214,24 @@ const StyledCategorySelector = styled.div`
     cursor: pointer;
 
     &:not([href]) {
-      padding: ${props => props.locale === "ar" ? "13px 32px 13px 88px" : "13px 88px 13px 32px"};
+      padding: ${props => props.$locale === "ar" ? "13px 32px 13px 88px" : "13px 88px 13px 32px"};
       font-weight: 700;
       letter-spacing: -0.02em;
 
       @media screen and ${device.laptop} {
-        padding: ${props => props.locale === "ar" ? "12px 24px 12px 56px" : "12px 56px 12px 24px"};
+        padding: ${props => props.$locale === "ar" ? "12px 24px 12px 56px" : "12px 56px 12px 24px"};
       }
     }
 
     svg {
       position: absolute;
       top: 50%;
-      ${props => props.locale === "ar" ? "left: 32px;" : "right: 32px;"}
+      ${props => props.$locale === "ar" ? "left: 32px;" : "right: 32px;"}
       display: flex;
-      transform: ${props => props.locale === "ar" ? "translateY(-50%) rotate(180deg)" : "translateY(-50%)"};
+      transform: ${props => props.$locale === "ar" ? "translateY(-50%) rotate(180deg)" : "translateY(-50%)"};
 
       @media screen and ${device.laptop} {
-        ${props => props.locale === "ar" ? "left: 16px;" : "right: 16px;"}
+        ${props => props.$locale === "ar" ? "left: 16px;" : "right: 16px;"}
       }
     }
 
@@ -257,7 +257,7 @@ const StyledCategorySelector = styled.div`
   .category-selector-submenu {
     position: absolute;
     top: 0;
-    ${props => props.locale === "ar" ? "right: 100%;" : "left: 100%;"}
+    ${props => props.$locale === "ar" ? "right: 100%;" : "left: 100%;"}
     border-radius: 0 0 6px 6px;
     padding: 16px 0;
     background-color: #ffffff;
@@ -285,7 +285,7 @@ const StyledCategorySelector = styled.div`
     @media screen and ${device.laptop} {
       position: fixed;
       top: 0;
-      ${props => props.locale === "ar" ? "right: 0;" : "left: 0;"}
+      ${props => props.$locale === "ar" ? "right: 0;" : "left: 0;"}
       width: 100%;
       height: 100%;
       border-radius: initial;
@@ -322,27 +322,27 @@ const StyledCategorySelector = styled.div`
       }
 
       @media screen and (max-width: 1430px) {
-        max-width: ${props => props.locale === "pt" && "calc(290px + (390 - 290) * ((100vw - 1024px) / (1430 - 1024)))"};
+        max-width: ${props => props.$locale === "pt" && "calc(290px + (390 - 290) * ((100vw - 1024px) / (1430 - 1024)))"};
       }
 
       @media screen and (max-width: 1400px) {
-        max-width: ${props => props.locale === "fr" && "calc(274px + (370 - 274) * ((100vw - 1024px) / (1400 - 1024)))"};
+        max-width: ${props => props.$locale === "fr" && "calc(274px + (370 - 274) * ((100vw - 1024px) / (1400 - 1024)))"};
       }
 
       @media screen and (max-width: 1380px) {
-        max-width: ${props => (props.locale === "de" || props.locale === "es") && "calc(296px + (380 - 296) * ((100vw - 1024px) / (1380 - 1024)))"};
+        max-width: ${props => (props.$locale === "de" || props.$locale === "es") && "calc(296px + (380 - 296) * ((100vw - 1024px) / (1380 - 1024)))"};
       }
 
       @media screen and (max-width: 1260px) {
-        max-width: ${props => props.locale === "it" && "calc(306px + (370 - 306) * ((100vw - 1024px) / (1260 - 1024)))"};
+        max-width: ${props => props.$locale === "it" && "calc(306px + (370 - 306) * ((100vw - 1024px) / (1260 - 1024)))"};
       }
 
       @media screen and (max-width: 1180px) {
-        max-width: ${props => props.locale === "en" && "calc(284px + (340 - 284) * ((100vw - 1024px) / (1180 - 1024)))"};
+        max-width: ${props => props.$locale === "en" && "calc(284px + (340 - 284) * ((100vw - 1024px) / (1180 - 1024)))"};
       }
 
       @media screen and (max-width: 1130px) {
-        max-width: ${props => props.locale === "ja" && "calc(312px + (346 - 312) * ((100vw - 1024px) / (1130 - 1024)))"};
+        max-width: ${props => props.$locale === "ja" && "calc(312px + (346 - 312) * ((100vw - 1024px) / (1130 - 1024)))"};
       }
 
       @media screen and (max-width: 1024px) {

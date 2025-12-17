@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.6.0
+
+### New Features
+
+- Update onlyoffice-react-ui-kit to v1.22.0
+  - header → Products → ONLYOFFICE Docs: Correct links in the /en menu
+    - /office-suite => /docs
+    - /document-editor => /word-processor
+    - /spreadsheet-editor => /sheets
+- Update dependencies and devDependencies
+- Remove .aspx extension from links
+
+### Fixes
+
+- Update file open protocol to include filename
+- Fix props for components
+
 ## 1.5.0
 
 ### New Features

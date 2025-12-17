@@ -99,8 +99,8 @@ const SearchInput = ({ t, locale, isMainPage, handleInputFocusChange = () => {} 
     <StyledSearchInput
       className="search-input"
       ref={searchRef}
-      locale={locale}
-      isMainPage={isMainPage}
+      $locale={locale}
+      $isMainPage={isMainPage}
     >
       <TextInput
         onChange={(e) => {

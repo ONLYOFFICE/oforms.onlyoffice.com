@@ -18,7 +18,7 @@ const StyledAccordion = styled.div`
   }
 
   .accordion-heading {
-    text-align: ${props => props.locale === "ar" ? "right" : "left"};
+    text-align: ${props => props.$locale === "ar" ? "right" : "left"};
     letter-spacing: -0.02em;
     color: #333333;
 
@@ -28,7 +28,7 @@ const StyledAccordion = styled.div`
   }
 
   .accordion-icon {
-    ${props => props.locale === "ar" ? "margin-left: 10px;" : "margin-right: 10px;"}
+    ${props => props.$locale === "ar" ? "margin-left: 10px;" : "margin-right: 10px;"}
     width: 24px;
     min-width: 24px;
     height: 24px;
@@ -49,7 +49,7 @@ const StyledAccordion = styled.div`
   }
 
   .accordion-text {
-    padding: ${props => props.locale === "ar" ? "2px 34px 22px 0" : "2px 0 22px 34px"};
+    padding: ${props => props.$locale === "ar" ? "2px 34px 22px 0" : "2px 0 22px 34px"};
     font-size: 14px;
 
     a {

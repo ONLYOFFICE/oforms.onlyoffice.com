@@ -11,8 +11,8 @@ const StyledErrorContent = styled(Section)`
     align-items: center;
     height: 100vh;
     background-color: ${props =>
-      props.theme === "theme-dark" ? "#333333" :
-      props.theme === "theme-contrast-dark" ? "#1E1E1E" : 
+      props.$theme === "theme-dark" ? "#333333" :
+      props.$theme === "theme-contrast-dark" ? "#1E1E1E" : 
       "#FFFFFF"
     };
 
@@ -49,9 +49,9 @@ const StyledErrorContent = styled(Section)`
     margin-bottom: 12px;
     letter-spacing: -0.02em;
     color: ${props =>
-      props.theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
-      props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
-      props.theme === "theme-contrast-dark" ? "#E8E8E8" : 
+      props.$theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
+      props.$theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
+      props.$theme === "theme-contrast-dark" ? "#E8E8E8" : 
       "#444444"
     };
   }
@@ -61,8 +61,8 @@ const StyledErrorContent = styled(Section)`
     line-height: 21px;
     text-decoration: underline;
     color: ${props =>
-      props.theme === "theme-dark" ? "rgba(255, 255, 255, 0.6)" :
-      props.theme === "theme-contrast-dark" ? "#B8B8B8" : 
+      props.$theme === "theme-dark" ? "rgba(255, 255, 255, 0.6)" :
+      props.$theme === "theme-contrast-dark" ? "#B8B8B8" : 
       "#A5A5A5"
     };
   }

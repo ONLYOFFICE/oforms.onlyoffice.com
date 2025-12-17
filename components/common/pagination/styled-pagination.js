@@ -21,7 +21,7 @@ const StyledPagination = styled.div`
     transition: border-color 0.3s, color 0.3s;
 
     &:not(:last-child) {
-      ${props => props.locale === "ar" ? "margin-left: 4px;" : "margin-right: 4px;"}
+      ${props => props.$locale === "ar" ? "margin-left: 4px;" : "margin-right: 4px;"}
     }
 
     &.active {
@@ -51,7 +51,7 @@ const StyledPagination = styled.div`
     padding: 0;
     background-repeat: no-repeat;
     background-position: center;
-    transform: ${props => props.locale === "ar" && "rotate(180deg)"};
+    transform: ${props => props.$locale === "ar" && "rotate(180deg)"};
   }
 
   .pagination-item-prev {

@@ -54,7 +54,7 @@ const CategoryContent = ({ t, locale, subtitle, sort, page, forms, categories, t
   });
 
   return (
-    <StyledCategoryContent locale={locale}>
+    <StyledCategoryContent $locale={locale}>
       <SearchTopSection t={t} locale={locale} />
       <div className="category-nav">
         <div className="category-nav-container">

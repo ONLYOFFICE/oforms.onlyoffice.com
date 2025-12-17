@@ -11,10 +11,10 @@ const StyledTextInput = styled.div`
     color: #333333;
     pointer-events: none;
 
-    ${(props) => props.label && `
+    ${(props) => props.$label && `
       position: absolute;
       top: 16px;
-      ${props.locale === "ar" ? "right: 48px;" : "left: 48px;"}
+      ${props.$locale === "ar" ? "right: 48px;" : "left: 48px;"}
       color: #AAAAAA;
       transition: top 0.3s, font-size 0.3s, line-height 0.3s, color 0.3s;
     `}
@@ -29,7 +29,7 @@ const StyledTextInput = styled.div`
   .search-icon {
     position: absolute;
     top: 50%;
-    ${props => props.locale === "ar" ? "right: 16px;" : "left: 16px;"}
+    ${props => props.$locale === "ar" ? "right: 16px;" : "left: 16px;"}
     transform: translateY(-50%);
     pointer-events: none;
 
@@ -42,7 +42,7 @@ const StyledTextInput = styled.div`
     box-sizing: border-box;
     border: 1px solid #AAAAAA;
     border-radius: 3px;
-    padding: ${(props) => (props.searchIcon ? "16px 48px" : "16px 48px 16px 16px")};
+    padding: ${(props) => (props.$searchIcon ? "16px 48px" : "16px 48px 16px 16px")};
     font-size: 16px;
     line-height: 22px;
     width: 100%;
@@ -52,7 +52,7 @@ const StyledTextInput = styled.div`
     outline: none;
     
     &::placeholder {
-      color: ${(props) => (props.placeholder ? "transparent" : "#AAAAAA")};
+      color: ${(props) => (props.$placeholder ? "transparent" : "#AAAAAA")};
     }
 
     &:focus,
@@ -77,7 +77,7 @@ const StyledTextInput = styled.div`
   .input-btn {
     position: absolute;
     top: 50%;
-    ${(props) => (props.locale === "ar" ? "left: 16px;" : "right: 16px;")}
+    ${(props) => (props.$locale === "ar" ? "left: 16px;" : "right: 16px;")}
     border: none;
     padding: 0;
     margin: 0;

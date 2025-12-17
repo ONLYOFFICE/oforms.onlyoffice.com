@@ -33,18 +33,18 @@ const StyledBreadcrumbs = styled.ul`
     }
 
     &:not(:last-child) {
-      ${props => props.locale === "ar" ? "margin-left: 23px;" : "margin-right: 23px;"}
+      ${props => props.$locale === "ar" ? "margin-left: 23px;" : "margin-right: 23px;"}
 
       &:after {
         content: "";
         position: absolute;
         top: 50%;
-        ${props => props.locale === "ar" ? "left: -16px;" : "right: -16px;"}
+        ${props => props.$locale === "ar" ? "left: -16px;" : "right: -16px;"}
         width: 6px;
         height: 8px;
         background-image: url(${chevronRight.src});
         background-repeat: no-repeat;
-        transform: ${props => props.locale === "ar" ? "translateY(-50%) rotate(180deg)" : "translateY(-50%)"};
+        transform: ${props => props.$locale === "ar" ? "translateY(-50%) rotate(180deg)" : "translateY(-50%)"};
       }
     }
 

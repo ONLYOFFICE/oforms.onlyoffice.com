@@ -17,7 +17,7 @@ const StyledCardsBlock = styled.div`
   }
 
   .cards-block-title {
-    ${props => props.locale === "ar" ? "margin-left: 10px;" : "margin-right: 10px;"}
+    ${props => props.$locale === "ar" ? "margin-left: 10px;" : "margin-right: 10px;"}
     letter-spacing: -0.02em;
 
     @media screen and ${device.mobile} {
@@ -37,11 +37,11 @@ const StyledCardsBlock = styled.div`
     &:after {
       content: "";
       display: block;
-      ${props => props.locale === "ar" ? "margin-right: 8px;" : "margin-left: 8px;"}
+      ${props => props.$locale === "ar" ? "margin-right: 8px;" : "margin-left: 8px;"}
       width: 24px;
       height: 24px;
       background-image: url(${arrowRightCircleIcon.src});
-      transform: ${props => props.locale === "ar" && "rotate(180deg)"};
+      transform: ${props => props.$locale === "ar" && "rotate(180deg)"};
     }
 
     &:hover {

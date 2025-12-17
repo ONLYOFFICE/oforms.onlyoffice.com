@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const Heading = ({
     label,
     children,
-    level,
+    level = 1,
     className,
     dangerouslySetInnerHTML,
     onClick
@@ -13,7 +13,7 @@ const Heading = ({
   return (
     <StyledHeading
       as={`h${level}`}
-      level={level}
+      $level={level}
       className={className}
       dangerouslySetInnerHTML={dangerouslySetInnerHTML}
       onClick={onClick}
@@ -30,10 +30,6 @@ Heading.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
   dangerouslySetInnerHTML: PropTypes.shape({ __html: PropTypes.string})
-};
-
-Heading.defaultProps = {
-  level: 1
 };
 
 export default Heading;

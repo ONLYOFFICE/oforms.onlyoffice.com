@@ -22,7 +22,6 @@ const Header = ({ t, locale, headerBgColor, isMainPage, isSearch }) => {
         }))}
         base={{
           url: "https://www.onlyoffice.com",
-          withAspx: true,
           localePathMap: {
             ar: "",
           }

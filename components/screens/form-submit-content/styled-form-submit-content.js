@@ -86,19 +86,19 @@ const StyledFormSubmitContent = styled(Section)`
     display: flex;
 
     &:not(:last-child) {
-      ${props => props.locale === "ar" ? "margin-left: 32px;" : "margin-right: 32px;"}
+      ${props => props.$locale === "ar" ? "margin-left: 32px;" : "margin-right: 32px;"}
     }
   }
 
   .file-info-label {
-    ${props => props.locale === "ar" ? "margin-left: 8px;" : "margin-right: 8px;"}
+    ${props => props.$locale === "ar" ? "margin-left: 8px;" : "margin-right: 8px;"}
     color: #AAAAAA;
     font-size: 13px;
     line-height: 24px;
     font-weight: 600;
 
     &.file-type {
-      ${props => props.locale === "ar" ? "padding-left: 32px;" : "padding-right: 32px;"}
+      ${props => props.$locale === "ar" ? "padding-left: 32px;" : "padding-right: 32px;"}
       background-repeat: no-repeat;
       background-size: contain;
       background-position: right center;
