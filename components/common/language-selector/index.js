@@ -42,8 +42,8 @@ const LanguageSelector = ({ locale, theme }) => {
       {...(!isDesktopClient && { onMouseEnter: () => setIsOpen(true), onMouseLeave: () => onCloseSelector() })}
       onClick={() => setIsOpen(!isOpen)}
       className={`language-selector ${isOpen ? "is-open" : ""} ${isDesktopClient ? "is-desktop-client" : ""}`}
-      locale={locale}
-      theme={theme}
+      $locale={locale}
+      $theme={theme}
     >
       <button className="language-button">
         <span className={`flag-image ${router.locale}`}></span>

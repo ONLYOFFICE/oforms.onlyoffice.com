@@ -2,7 +2,7 @@ import fs from "fs";
 import formidable from "formidable";
 import axios from "axios";
 import jwt from "jsonwebtoken";
-import S3 from "aws-sdk/clients/s3";
+import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 import zlib from "zlib";
 import CONFIG from "@config/config";
 import languages from "@config/languages.json";
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
       const formName = fields.formName === undefined ? "" : fields.formName[0];
       const language = fields.language === undefined ? "" : fields.language[0];
       const fileName = files.file[0].originalFilename;
-      const uniqueFileName = `${Date.now()}_${fileName}`;
+      const uniqueFileName = `oforms_upload/${Date.now()}_${fileName}`;
       const fileSize = files.file[0].size;
       const fileType = fileName?.match(/\.(\w+)$/)?.[1];
       const CMSConfigAPI = CONFIG.api.cms.replace("dashboard", "");
@@ -40,10 +40,12 @@ export default async function handler(req, res) {
       };
 
       // Data for Amazon S3
-      const s3 = new S3({
-        accessKeyId: process.env.ACCESS_KEY_ID,
-        secretAccessKey: process.env.SECRET_ACCESS_KEY,
+      const s3 = new S3Client({
         region: process.env.REGION,
+        credentials: {
+          accessKeyId: process.env.ACCESS_KEY_ID,
+          secretAccessKey: process.env.SECRET_ACCESS_KEY,
+        }
       });
 
       // Amazon S3 params
@@ -54,8 +56,8 @@ export default async function handler(req, res) {
       };
 
       // Get response from Amazon S3
-      const s3Response = await s3.upload(params).promise();
-      const s3Url = `https://${s3Response.Bucket}/${s3Response.key}`;
+      await s3.send(new PutObjectCommand(params));
+      const s3Url = `https://${process.env.BUCKET}/${uniqueFileName}`;
 
       // Payload data
       const pdfPayload = {
@@ -93,7 +95,7 @@ export default async function handler(req, res) {
         }
       });
 
-      const pdfResponse = await axios.get(pdfRequest.data.fileUrl, { responseType: "arraybuffer"});
+      const pdfResponse = await axios.get(pdfRequest.data.fileUrl, { responseType: "arraybuffer" });
       const pdfDoc = await PDFDocument.load(new Uint8Array(pdfResponse.data));
       const { width, height } = pdfDoc.getPage(0).getSize();
       // Number of pages in PDF
@@ -128,10 +130,10 @@ export default async function handler(req, res) {
       fs.promises.unlink(files.file[0].filepath);
 
       // Delete file in Amazon S3
-      await s3.deleteObject({
+      await s3.send(new DeleteObjectCommand({
         Bucket: process.env.BUCKET,
         Key: uniqueFileName
-      }).promise();
+      }));
 
       const compressedData = zlib.deflateSync(`${templatePreviewRequest.data.fileUrl};${pageCount};${fileName};${fileSize};${formName};${fileRequest.data.fileUrl}`);
       const compressedString = compressedData.toString("base64");

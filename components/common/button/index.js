@@ -6,8 +6,8 @@ const Button = ({
     children,
     id,
     className,
-    typeButton,
-    type,
+    typeButton = "primary",
+    type = "button",
     isDisabled,
     onClick
   }) => {
@@ -16,7 +16,7 @@ const Button = ({
     <StyledButton
       id={id}
       className={className}
-      typeButton={typeButton}
+      $typeButton={typeButton}
       type={type}
       disabled={isDisabled}
       onClick={onClick}
@@ -35,11 +35,6 @@ Button.propTypes = {
   id: PropTypes.string,
   className: PropTypes.string,
   onClick: PropTypes.func
-};
-
-Button.defaultProps = {
-  typeButton: "primary",
-  type: "button"
 };
 
 export default Button;

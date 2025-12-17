@@ -1,7 +1,7 @@
 import fs from "fs";
 import formidable from "formidable";
 import axios from "axios";
-import S3 from "aws-sdk/clients/s3";
+import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 import jwt from "jsonwebtoken";
 import FormData from "form-data";
 import nodemailer from "nodemailer";
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     try {
       const uploadApiUrl = `${CONFIG.api.cms}/api/upload`;
       const fileName = files.file[0].originalFilename;
-      const uniqueFileName = `${Date.now()}_${fileName}`;
+      const uniqueFileName = `oforms_upload/${Date.now()}_${fileName}`;
       const fileType = fileName?.match(/\.(\w+)$/)?.[1];
       const fileNameSubstring = fileName.substring(0, fileName.length - fileName?.match(/\.(\w+)$/)?.[0].length);
       const fileOrientation = fields.fileOrientation[0];
@@ -42,10 +42,12 @@ export default async function handler(req, res) {
       };
 
       // Data for Amazon S3
-      const s3 = new S3({
-        accessKeyId: process.env.ACCESS_KEY_ID,
-        secretAccessKey: process.env.SECRET_ACCESS_KEY,
+      const s3 = new S3Client({
         region: process.env.REGION,
+        credentials: {
+          accessKeyId: process.env.ACCESS_KEY_ID,
+          secretAccessKey: process.env.SECRET_ACCESS_KEY,
+        }
       });
 
       // Amazon S3 params
@@ -56,8 +58,8 @@ export default async function handler(req, res) {
       };
 
       // Get response from Amazon S3
-      const s3Response = await s3.upload(params).promise();
-      const s3Url = `https://${s3Response.Bucket}/${s3Response.key}`;
+      await s3.send(new PutObjectCommand(params));
+      const s3Url = `https://${process.env.BUCKET}/${uniqueFileName}`;
 
       // Payload data
       const cardPreviewPayload = {
@@ -230,10 +232,10 @@ export default async function handler(req, res) {
           fs.promises.unlink(files.file[0].filepath);
 
           // Delete file in Amazon S3
-          await s3.deleteObject({
+          await s3.send(new DeleteObjectCommand({
             Bucket: process.env.BUCKET,
             Key: uniqueFileName
-          }).promise();
+          }));
 
           const transporter = nodemailer.createTransport({
             host: process.env.EMAIL_HOST,

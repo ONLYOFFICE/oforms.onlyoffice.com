@@ -14,7 +14,7 @@ const StyledSortSelector = styled.div`
   }
 
   .sort-label {
-    ${props => props.locale === "ar" ? "margin-left: 8px;" : "margin-right: 8px;"}
+    ${props => props.$locale === "ar" ? "margin-left: 8px;" : "margin-right: 8px;"}
     font-size: 13px;
     font-weight: 600;
     line-height: 24px;
@@ -40,21 +40,21 @@ const StyledSortSelector = styled.div`
   }
 
   .sort-icon {
-    ${props => props.locale === "ar" ? "margin-right: 8px;" : "margin-left: 8px;"}
+    ${props => props.$locale === "ar" ? "margin-right: 8px;" : "margin-left: 8px;"}
 
     &.open {
       transform: rotate(180deg);
     }
 
     @media screen and ${device.mobile} {
-      ${props => props.locale === "ar" ? "margin-right: 4px;" : "margin-left: 4px;"}
+      ${props => props.$locale === "ar" ? "margin-right: 4px;" : "margin-left: 4px;"}
     }
   }
 
   .sort-dropdown {
     position: absolute;
     top: calc(100% + 16px);
-    ${props => props.locale === "ar" ? "left: 0;" : "right: 0;"}
+    ${props => props.$locale === "ar" ? "left: 0;" : "right: 0;"}
     display: flex;
     flex-direction: column;
     list-style: none;

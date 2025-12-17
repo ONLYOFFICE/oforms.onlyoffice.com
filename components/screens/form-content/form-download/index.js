@@ -5,7 +5,7 @@ import ExternalLink from "@components/common/external-link";
 
 const FormDownload = ({ t, locale, pdfFile, docxFile, pptxFile, xlsxFile }) => {
   return (
-    <StyledFormDownload locale={locale} className="form-download">
+    <StyledFormDownload $locale={locale} className="form-download">
       <Heading
         className="form-download-title"
         level={6}

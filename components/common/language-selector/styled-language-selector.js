@@ -91,21 +91,21 @@ const StyledLanguageSelector = styled.div`
       position: absolute;
       top: 25px;
       width: 32px;
-      left: ${props => props.locale === "ar" ? "36px" : "14px"};
+      left: ${props => props.$locale === "ar" ? "36px" : "14px"};
       border: 1px solid ${props =>
-        props.theme === "theme-light" ? "#E0E0E0" :
-        props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "#616161" :
+        props.$theme === "theme-light" ? "#E0E0E0" :
+        props.$theme === "theme-dark" || props.$theme === "theme-contrast-dark" ? "#616161" :
         "#CBCBCB"
       };
       border-radius: 2px;
       padding: 4px 0;
       box-shadow: ${props =>
-        props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "0 2px 5px 0 #00000066" : 
+        props.$theme === "theme-dark" || props.$theme === "theme-contrast-dark" ? "0 2px 5px 0 #00000066" : 
         "0 4px 10px 0 #00000033"
       };
       background-color: ${props =>
-        props.theme === "theme-dark" ? "#333333" :
-        props.theme === "theme-contrast-dark" ? "#1E1E1E" : 
+        props.$theme === "theme-dark" ? "#333333" :
+        props.$theme === "theme-contrast-dark" ? "#1E1E1E" : 
         "#FFFFFF"
       };
     }
@@ -119,18 +119,18 @@ const StyledLanguageSelector = styled.div`
 
       &:hover {
         background-color: ${props =>
-          props.theme === "theme-light" ? "#E0E0E0" :
-          props.theme === "theme-dark" ? "#555555" :
-          props.theme === "theme-contrast-dark" ? "#424242" : 
+          props.$theme === "theme-light" ? "#E0E0E0" :
+          props.$theme === "theme-dark" ? "#555555" :
+          props.$theme === "theme-contrast-dark" ? "#424242" : 
           "#EBEBEB"
         };
       }
 
       &.active {
         background-color: ${props =>
-          props.theme === "theme-light" ? "#CBCBCB" :
-          props.theme === "theme-dark" ? "#606060" :
-          props.theme === "theme-contrast-dark" ? "#666666" : 
+          props.$theme === "theme-light" ? "#CBCBCB" :
+          props.$theme === "theme-dark" ? "#606060" :
+          props.$theme === "theme-contrast-dark" ? "#666666" : 
           "#F1F1F1"
         };
       }
@@ -184,7 +184,7 @@ const StyledLanguageSelector = styled.div`
 
   &:not(.is-desktop-client) {
     .flag-image {
-      ${props => props.locale === "ar" ? "margin-left: 5px;" : "margin-right: 5px;"}
+      ${props => props.$locale === "ar" ? "margin-left: 5px;" : "margin-right: 5px;"}
       width: 24px;
       height: 24px;
       background-image: url(${globe.src});
@@ -194,8 +194,8 @@ const StyledLanguageSelector = styled.div`
   .chevron-down {
     path {
       fill: ${props =>
-        props.theme === "theme-light" ? "#444444" :
-        props.theme === "theme-dark" || props.theme === "theme-contrast-dark" ? "rgba(255, 255, 255, 0.8)" : 
+        props.$theme === "theme-light" ? "#444444" :
+        props.$theme === "theme-dark" || props.$theme === "theme-contrast-dark" ? "rgba(255, 255, 255, 0.8)" : 
         "rgba(0, 0, 0, 0.8)"
       };
     }

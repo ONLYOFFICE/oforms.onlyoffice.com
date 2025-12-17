@@ -5,11 +5,11 @@ const TextInput = ({
     label,
     placeholder,
     className,
-    type,
+    type = "text",
     value,
     errorText,
     searchIcon,
-    inputClearBtn,
+    inputClearBtn = true,
     onClick,
     onFocus,
     onChange,
@@ -19,7 +19,7 @@ const TextInput = ({
   }) => {
 
   return (
-    <StyleTextInput className="text-input" searchIcon={searchIcon} label={label} locale={locale}>
+    <StyleTextInput className="text-input" $searchIcon={searchIcon} $label={label} $locale={locale}>
       <div className="text-input-container">
         <input
           onClick={onClick}
@@ -68,11 +68,6 @@ TextInput.propTypes = {
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   handlerClearValue: PropTypes.func
-};
-
-TextInput.defaultProps = {
-  type: "text",
-  inputClearBtn: true
 };
 
 export default TextInput;

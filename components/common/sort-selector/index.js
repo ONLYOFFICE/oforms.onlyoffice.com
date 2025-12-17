@@ -50,7 +50,7 @@ const SortSelector = ({ t, locale, sort }) => {
       onMouseEnter={() => setDropdownOpen(true)}
       onMouseLeave={() => setDropdownOpen(false)}
       className="sort-selector"
-      locale={locale}
+      $locale={locale}
     >
       <button onClick={() => setDropdownOpen(!isDropdownOpen)} id="sort-btn" className="sort-btn">
         <span className="sort-label">{t("Sort by")}{locale === "ja" || locale === "zh" ? "：" : locale === "pt" ? ": " : ":"}</span>

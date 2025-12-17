@@ -44,8 +44,8 @@ const StyledSearch = styled.div`
   }
 
   .search-title {
-    ${props => props.locale === "ar" ? "border-right: 1px solid #AAAAAA;" : "border-left: 1px solid #AAAAAA;"}
-    ${props => props.locale === "ar" ? "padding-right: 16px;" : "padding-left: 16px;"}
+    ${props => props.$locale === "ar" ? "border-right: 1px solid #AAAAAA;" : "border-left: 1px solid #AAAAAA;"}
+    ${props => props.$locale === "ar" ? "padding-right: 16px;" : "padding-left: 16px;"}
     font-size: 14px;
     font-weight: 600;
     line-height: 19px;

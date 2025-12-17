@@ -4,7 +4,7 @@ import Heading from "@components/common/heading";
 
 const PopularCategories = ({ t, locale, categories }) => {
   return (
-    <StyledPopularCategories className="popular-categories" locale={locale}>
+    <StyledPopularCategories className="popular-categories" $locale={locale}>
       <Heading className="popular-categories-title" level={3} label={t("Popular categories")} />
       <div className="popular-categories-links">
         {categories?.data?.map((category) => (

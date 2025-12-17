@@ -11,7 +11,7 @@ const Search = ({ t, locale, isMainPage }) => {
   };
 
   return (
-    <StyledSearch className="search" locale={locale}>
+    <StyledSearch className="search" $locale={locale}>
       <div className="search-wrapper">
         <div className={`search-container ${isInputFocused ? "focus" : ""}`}>
           <SearchInput t={t} locale={locale} isMainPage={isMainPage} handleInputFocusChange={handleInputFocusChange} />

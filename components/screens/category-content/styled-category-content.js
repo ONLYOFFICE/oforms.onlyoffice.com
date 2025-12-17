@@ -12,13 +12,13 @@ const StyledCategoryContent = styled(Section)`
     margin-bottom: 64px;
 
     .category-selector {
-      ${props => props.locale === "ar" ? "margin-left: 48px;" : "margin-right: 48px;"}
+      ${props => props.$locale === "ar" ? "margin-left: 48px;" : "margin-right: 48px;"}
 
       &:after {
         content: "";
         position: absolute;
         top: 50%;
-        ${props => props.locale === "ar" ? "left: -24px;" : "right: -24px;"}
+        ${props => props.$locale === "ar" ? "left: -24px;" : "right: -24px;"}
         border-right: 1px solid #CCCCCC;
         height: calc(100% - 16px);
         transform: translateY(-50%);
@@ -29,7 +29,7 @@ const StyledCategoryContent = styled(Section)`
       }
 
       @media screen and ${device.mobile} {
-        ${props => props.locale === "ar" ? "margin-left: 0;" : "margin-right: 0;"}
+        ${props => props.$locale === "ar" ? "margin-left: 0;" : "margin-right: 0;"}
       }
     }
 
@@ -68,7 +68,7 @@ const StyledCategoryContent = styled(Section)`
 
     li {
       &:not(:last-child) {
-        ${props => props.locale === "ar" ? "margin-left: 8px;" : "margin-right: 8px;"}
+        ${props => props.$locale === "ar" ? "margin-left: 8px;" : "margin-right: 8px;"}
       }
     }
 

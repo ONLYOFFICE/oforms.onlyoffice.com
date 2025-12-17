@@ -142,7 +142,7 @@ const DesktopClient = ({ t, locale, data, sort, categories, types, compilations,
   };
 
   return (
-    <StyledDesktopClient locale={locale} theme={theme}>
+    <StyledDesktopClient $locale={locale} $theme={theme}>
       <div className="header">
         <div className="header-wrapper">
           <CategorySelector

@@ -16,7 +16,7 @@ const Accordion = ({ locale, items }) => {
   };
 
   return (
-    <StyledAccordion locale={locale}>
+    <StyledAccordion $locale={locale}>
       {items.map((item, index) => (
         <div className="accordion-item" key={index}>
           <button className="accordion-header" onClick={() => toggleAccordion(index)}>
