@@ -3,27 +3,15 @@ import Text from "@components/common/text";
 import InternalLink from "@components/common/internal-link";
 import Heading from "@components/common/heading";
 
-const ErrorContent = ({ t, heading, text, isDesktopClient, theme }) => {
+const ErrorContent = ({ t, heading, text }) => {
   return (
-    <StyledError404 className={isDesktopClient ? "is-desktop-client" : ""} $theme={theme}>
-      {isDesktopClient ? (
-        <div className="error-desktop-content">
-          <div className="error-desktop-image"></div>
-          <div>
-            <Heading className="error-desktop-title" level={1} size={4} label={t("Nothing found")} />
-            <InternalLink id="error-desktop-link" className="error-desktop-link" href={`/?desktop=true${theme ? `&theme=${theme}` : ""}`} label={t("GoToHomePage")} />
-          </div>
-        </div>
-      ) : (
-        <>
-          <div className="error-image"></div>
-          <div className="error-container">
-            <Heading className="error-heading" level={1} label={heading} />
-            <Text className="error-description" label={text} />
-            <InternalLink id="error-btn" className="error-btn" href="/" label={t("Go to home page")} />
-          </div>
-        </>
-      )}
+    <StyledError404>
+      <div className="error-image"></div>
+      <div className="error-container">
+        <Heading className="error-heading" level={1} label={heading} />
+        <Text className="error-description" label={text} />
+        <InternalLink id="error-btn" className="error-btn" href="/" label={t("Go to home page")} />
+      </div>
     </StyledError404>
   );
 };

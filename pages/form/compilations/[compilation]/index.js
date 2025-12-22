@@ -5,7 +5,6 @@ import getCategoryForms from "@lib/requests/getCategoryForms";
 import getCategoryInfo from "@lib/requests/getCategoryInfo";
 import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
-import DesktopClient from "@components/screens/desktop-client";
 import Header from "@components/screens/header";
 import AdventAnnounce from "@components/screens/advent-announce";
 import BannerFormSection from "@components/screens/common/banner-form-section";
@@ -13,83 +12,52 @@ import CategoryContent from "@components/screens/category-content";
 import AccordionSection from "@components/screens/common/accordion-section";
 import Footer from "@components/screens/footer";
 
-const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, categories, compilations, isDesktopClient, theme }) => {
-  const isCategoryPage = true;
+const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, categories, compilations }) => {
   const { t } = useTranslation("common");
   const seoTitle = categoryInfo.data[0]?.attributes.seo_title ? categoryInfo.data[0]?.attributes.seo_title : categoryInfo.data[0]?.attributes.categorie;
   const seoDescription = categoryInfo.data[0]?.attributes.seo_description ? categoryInfo.data[0]?.attributes.seo_description : categoryInfo.data[0]?.attributes.header_description;
 
   return (
-    isDesktopClient ? (
-      <Layout locale={locale}>
-        <Layout.PageHead>
-          <MainHead
-            title={seoTitle}
-            description={seoDescription}
-            isDesktopClient={isDesktopClient}
-          />
-        </Layout.PageHead>
-        <Layout.SectionMain>
-          <DesktopClient
-            t={t}
-            locale={locale}
-            data={categoryForms}
-            sort={sort}
-            page={+page}
-            isCategoryPage={isCategoryPage}
-            header={categoryInfo.data[0]?.attributes.header_description}
-            types={types}
-            categories={categories}
-            compilations={compilations}
-            categoryName={categoryInfo.data[0]?.attributes.compilation}
-            theme={theme}
-          />
-        </Layout.SectionMain>
-      </Layout>
-    ) : (
-      <Layout locale={locale}>
-        <Layout.PageHead>
-          <MainHead title={seoTitle} description={seoDescription} />
-        </Layout.PageHead>
-        <AdventAnnounce locale={locale} />
-        <Layout.PageHeader>
-          <Header t={t}x locale={locale} />
-        </Layout.PageHeader>
-        <Layout.SectionMain>
-          <CategoryContent 
-            t={t}
-            locale={locale}
-            title={categoryInfo.data[0]?.attributes.compilation}
-            subtitle={categoryInfo.data[0]?.attributes.header_description}
-            forms={categoryForms}
-            sort={sort}
-            page={page}
-            categories={categories}
-            types={types}
-            compilations={compilations}
-            categoryName={categoryInfo.data[0]?.attributes.compilation}
-            categoryUrl={`form/compilations/${categoryInfo.data[0]?.attributes.urlReq}`}
-          />
-          <BannerFormSection t={t} locale={locale} />
-          <AccordionSection t={t} locale={locale} />
-        </Layout.SectionMain>
-        <Layout.PageFooter>
-          <Footer locale={locale} />
-        </Layout.PageFooter>
-      </Layout>
-    )
+    <Layout locale={locale}>
+      <Layout.PageHead>
+        <MainHead title={seoTitle} description={seoDescription} />
+      </Layout.PageHead>
+      <AdventAnnounce locale={locale} />
+      <Layout.PageHeader>
+        <Header t={t}x locale={locale} />
+      </Layout.PageHeader>
+      <Layout.SectionMain>
+        <CategoryContent 
+          t={t}
+          locale={locale}
+          title={categoryInfo.data[0]?.attributes.compilation}
+          subtitle={categoryInfo.data[0]?.attributes.header_description}
+          forms={categoryForms}
+          sort={sort}
+          page={page}
+          categories={categories}
+          types={types}
+          compilations={compilations}
+          categoryName={categoryInfo.data[0]?.attributes.compilation}
+          categoryUrl={`form/compilations/${categoryInfo.data[0]?.attributes.urlReq}`}
+        />
+        <BannerFormSection t={t} locale={locale} />
+        <AccordionSection t={t} locale={locale} />
+      </Layout.SectionMain>
+      <Layout.PageFooter>
+        <Footer locale={locale} />
+      </Layout.PageFooter>
+    </Layout>
   )
 };
 
 export const getServerSideProps = async ({ locale, query }) => {
-  const isDesktopClient = query.desktop === "true";
-  const theme = query.theme;
   const page = query.page || 1;
   const sort = query._sort || "asc";
   const urlReq = query.compilation;
-  const pageSize = query.pageSize || isDesktopClient ? 0 : 9;
+  const pageSize = query.pageSize || 9;
 
-  const categoryForms = await getCategoryForms(locale, sort, page, pageSize, urlReq, "compilations", isDesktopClient);
+  const categoryForms = await getCategoryForms(locale, sort, page, pageSize, urlReq, "compilations");
   const categoryInfo = await getCategoryInfo(locale, urlReq, "compilations", "compilation");
   const types = await getCategories(locale, "types", "type");
   const categories = await getCategories(locale, "categories", "categorie");
@@ -112,8 +80,6 @@ export const getServerSideProps = async ({ locale, query }) => {
       types: types ? types : null,
       categories,
       compilations,
-      isDesktopClient,
-      theme: isDesktopClient ? theme || "" : null
     },
   };
 };
