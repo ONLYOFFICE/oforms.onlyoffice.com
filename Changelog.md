@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.7.0
+
+### New Features
+
+- Update dependencies and components
+- Update request for categories
+- Remove Desktop Editors version (?desktop=true)
+
 ## 1.6.0
 
 ### New Features
