@@ -14,7 +14,7 @@ const SortSelector = ({ sort, theme }) => {
   };
 
   return (
-    <StyledSortSelector onClick={() => handleSortClick()} $theme={theme} className="sort-btn">
+    <StyledSortSelector onClick={() => handleSortClick()} $theme={theme} className="sort-btn" type="button">
       {sort === "asc" ? <SortAscIcon /> : <SortDescIcon />}
     </StyledSortSelector>
   );

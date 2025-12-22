@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { device } from "@utils/devices";
+import Heading from "@components/common/heading";
 
 const StyledCookieSettingsHeader = styled.div`
   display: flex;
@@ -7,12 +8,15 @@ const StyledCookieSettingsHeader = styled.div`
   justify-content: space-between;
 `;
 
-const StyledCross = styled.div`
+const StyledCross = styled.button`
   cursor: pointer;
   content: "";
+  border: none;
+  padding: 0;
   width: 24px;
   height: 24px;
   background-image: url("/icons/close-btn.svg");
+  background-color: transparent;
   background-position: center;
   background-repeat: no-repeat;
 `;
@@ -58,16 +62,17 @@ const StyledCheckboxes = styled.div`
   }
 `;
 
+const StyledCheckHeading = styled(Heading)`
+  font-size: 16px;
+  color: #333333;
+`;
+
 const StyledCheckText = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
   gap: 8px;
   text-align: left;
-  > h4 {
-    font-size: 16px;
-    color: #333333;
-  }
 `;
 
 export {
@@ -75,5 +80,6 @@ export {
   StyledCookieSettings,
   StyledCross,
   StyledCheckboxes,
+  StyledCheckHeading,
   StyledCheckText,
 };

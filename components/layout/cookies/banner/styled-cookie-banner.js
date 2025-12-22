@@ -29,7 +29,7 @@ const StyledCookieBannerHeader = styled.div`
   }
 `;
 
-const StyledCookieFab = styled.div`
+const StyledCookieFab = styled.button`
   background-color: #ffffff;
   background-image: url("/icons/cookie.svg");
   background-position: center;
@@ -43,6 +43,7 @@ const StyledCookieFab = styled.div`
   height: 48px;
   position: fixed;
   right: 16px;
+  padding: 0;
   width: 48px;
   z-index: 1000;
 `;
@@ -110,12 +111,15 @@ const ButtonsArea = styled.div`
   }
 `;
 
-const StyledCross = styled.div`
+const StyledCross = styled.button`
   cursor: pointer;
   content: "";
+  border: none;
+  padding: 0;
   width: 24px;
   height: 24px;
   background-image: url("/icons/close-btn.svg");
+  background-color: transparent;
   background-position: center;
   background-repeat: no-repeat;
 `;

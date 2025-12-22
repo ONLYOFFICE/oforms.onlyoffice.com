@@ -117,7 +117,7 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
           />
           {file === undefined ? (
             <>
-              <Heading className="upload-title" level={4}><span>{t("Upload your file")}</span></Heading>
+              <Heading as="div" className="upload-title" size={4}><span>{t("Upload your file")}</span></Heading>
               <span className="upload-icon"></span>
               <Text className="upload-subtitle">{t("or drag&drop it here")}</Text>
               <Text className="upload-size">({t("Max 10MB")})</Text>
@@ -134,8 +134,8 @@ const UploadFile = ({ t, file, setFile, fileValue, setFileValue, errorText, file
         </label>
         {file !== undefined &&
           <div className="upload-btns">
-            <div onClick={() => inputRef.current.click()} className="upload-change-btn" data-title={t("Change")}></div>
-            <div onClick={() => onhandleFileRemove()} className="upload-delete-btn" data-title={t("Remove")}></div>
+            <button onClick={() => inputRef.current.click()} className="upload-change-btn" data-title={t("Change")} type="button"></button>
+            <button onClick={() => onhandleFileRemove()} className="upload-delete-btn" data-title={t("Remove")} type="button"></button>
           </div>
         }
         {fileError && fileFilled &&

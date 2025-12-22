@@ -16,8 +16,8 @@ const UploadPopup = ({ t, uploadPopup, fileName, setUploadPopup, clearForm }) =>
       <div className="popup-container">
         <div className="popup-wrapper">
           <div className="popup-top">
-            <Heading className="popup-title" level={4}>{t("File upload")}</Heading>
-            <div onClick={e => closePopup(e)} className="popup-btn-close"></div>
+            <Heading as="div" className="popup-title" size={4}>{t("File upload")}</Heading>
+            <button onClick={e => closePopup(e)} className="popup-btn-close" type="button"></button>
           </div>
           <div>
             <div className="upload-name">

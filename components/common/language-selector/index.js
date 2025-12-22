@@ -45,7 +45,7 @@ const LanguageSelector = ({ locale, theme }) => {
       $locale={locale}
       $theme={theme}
     >
-      <button className="language-button">
+      <button className="language-button" type="button">
         <span className={`flag-image ${router.locale}`}></span>
         {isDesktopClient ?
           <svg className="chevron-down" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -167,7 +167,7 @@ const DesktopClient = ({ t, locale, data, sort, categories, types, compilations,
           <div className="error-desktop-content">
             <div className="error-desktop-image"></div>
             <div>
-              <Heading className="error-desktop-title" level={4} label={t("Nothing found")} />
+              <Heading className="error-desktop-title" level={1} size={4} label={t("Nothing found")} />
               <Text className="error-desktop-text" label={t("No results matching your query could be found")} />
               <InternalLink className="error-desktop-link" href={`/?desktop=true${theme ? `&theme=${theme}` : ""}`} label={t("Clear filter")} />
             </div>
@@ -190,7 +190,7 @@ const DesktopClient = ({ t, locale, data, sort, categories, types, compilations,
         }
         <div ref={bottomObserver} />
         {showScrollToTopBtn &&
-          <button onClick={scrollToTop} className="scroll-to-top-btn">
+          <button onClick={scrollToTop} className="scroll-to-top-btn" type="button">
             <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fillRule="evenodd" clipRule="evenodd" d="M5.99994 2.40844L10.2835 6.70812C10.6733 7.09938 11.3112 7.09672 11.703 6.70747C12.0948 6.31822 12.1008 5.68121 11.711 5.28996L6.73171 0.29199C6.53106 0.0905886 6.26467 -0.0064359 5.99994 -8.15869e-05C5.73521 -0.0064369 5.46882 0.0905875 5.26817 0.29199L0.288905 5.28996C-0.100886 5.68121 -0.0949506 6.31822 0.296845 6.70747C0.688639 7.09672 1.32655 7.09938 1.71634 6.70812L5.99994 2.40844Z" fill="white"/>
             </svg>

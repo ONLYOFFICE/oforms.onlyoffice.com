@@ -77,7 +77,7 @@ const FormPopup = ({ t, locale, data, modalActive, setModalActive, theme }) => {
         <div onClick={(e) => e.stopPropagation()} className="popup-content">
           <div className="popup-header">
             <div className="popup-title">{t("Template description")}</div>
-            <button onClick={() => setModalActive(false)} className="popup-close-btn">
+            <button onClick={() => setModalActive(false)} className="popup-close-btn" type="button">
               <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4 4L15 15M15 4L4 15" stroke="#444444" strokeWidth="2" />
               </svg>
@@ -89,7 +89,7 @@ const FormPopup = ({ t, locale, data, modalActive, setModalActive, theme }) => {
             </div>
             <div className="form-wrapper">
               <div className="form-content">
-                <Heading className="form-title" level={4} label={data?.attributes.name_form} />
+                <Heading as="div" className="form-title" size={4} label={data?.attributes.name_form} />
                 <div className="form-label">{t("Free")}</div>
                 {data?.attributes.template_desc?.split("\n").map((text, id) => (
                   <Text className="form-description" label={text} key={id} />

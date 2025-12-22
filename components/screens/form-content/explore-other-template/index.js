@@ -5,9 +5,9 @@ import InternalLink from "@components/common/internal-link";
 const ExploreOtherTemplate = ({ t, locale, compilations }) => {
   return (
     <StyledExploreOtherTemplate className="explore-other-template" $locale={locale}>
-      <Heading className="explore-other-template-title" level={3} label={t("Explore other templates")} />
+      <Heading className="explore-other-template-title" level={2} size={3} label={t("Explore other templates")} />
       <div className="templates-editor">
-        <Heading className="explore-other-template-title" level={6} label={t("Templates by editor")} />
+        <Heading className="explore-other-template-title" level={3} size={6} label={t("Templates by editor")} />
         <div className="explore-other-template-items">
           <InternalLink id="templates-editor-pdf-btn" className="templates-editor-btn pdf" label={t("PDF Form")} href="pdf-form-templates" />
           <InternalLink id="templates-editor-docx-btn" className="templates-editor-btn docx" label={t("Document")} href="document-templates" />
@@ -16,7 +16,7 @@ const ExploreOtherTemplate = ({ t, locale, compilations }) => {
         </div>
       </div>
       <div className="popular-compilations">
-        <Heading className="explore-other-template-title" level={6} label={t("Popular compilations")} />
+        <Heading className="explore-other-template-title" level={3} size={6} label={t("Popular compilations")} />
         <div className="explore-other-template-items">
           {compilations.data?.map((compilation) => (
             <InternalLink

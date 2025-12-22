@@ -4,7 +4,7 @@ import Heading from "@components/common/heading";
 const SearchNoResult = ({ t }) => {
   return (
     <StyledSearchNoResult>
-      <Heading className="search-no-result-title" level={3} label={t("No results matching your query could be found")} />
+      <Heading className="search-no-result-title" level={1} size={3} label={t("No results matching your query could be found")} />
       <div className="search-no-result-img"></div>
     </StyledSearchNoResult>
   );

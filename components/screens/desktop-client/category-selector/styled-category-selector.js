@@ -54,9 +54,17 @@ const StyledCategorySelector = styled.div`
   .category-selector-heading {
     display: flex;
     align-items: center;
+
+    .category-selector-title {
+      border: none;
+      padding: 0;
+      background-color: transparent;
+    }
   }
 
   .category-selector-name {
+    border: none;
+    padding: 0;
     margin-right: 8px;
     font-weight: 700;
     font-size: 14px;
@@ -67,6 +75,7 @@ const StyledCategorySelector = styled.div`
       props.$theme === "theme-contrast-dark" ? "#E8E8E8" : 
       "#444444"
     };
+    background-color: transparent;
     cursor: pointer;
 
     @media screen and ${device.laptop} {
@@ -253,10 +262,12 @@ const StyledCategorySelector = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border: none;
     padding: 8px 32px;
     font-size: 16px;
     font-weight: 600;
     line-height: 24px;
+    width: 100%;
     min-height: 40px;
     color: ${props =>
       props.$theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
@@ -264,6 +275,7 @@ const StyledCategorySelector = styled.div`
       props.$theme === "theme-contrast-dark" ? "#E8E8E8" : 
       "#444444"
     };
+    background-color: transparent;
     white-space: nowrap;
     cursor: pointer;
 

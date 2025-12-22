@@ -180,12 +180,14 @@ const StyledUploadFile = styled.div`
     display: flex;
     border: 1px solid #F9F9F9;
     border-radius: 50%;
+    padding: 0;
     width: 56px;
     height: 56px;
     background-size: 24px;
     background-position: center;
     background-repeat: no-repeat;
     background-color: #F9F9F9;
+    transition: border-color 0.3s;
     cursor: pointer;
 
     &:after {

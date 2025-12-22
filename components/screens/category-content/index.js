@@ -78,7 +78,7 @@ const CategoryContent = ({ t, locale, subtitle, sort, page, forms, categories, t
         </div>
       </div>
       <div className="category-header">
-        <Heading className="category-title" level={2} label={categoryName} />
+        <Heading className="category-title" level={1} size={2} label={categoryName} />
         <Text className="category-text" label={subtitle} />
       </div>
       {forms.data.length > 0 ? (

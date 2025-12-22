@@ -1,5 +1,4 @@
 import StyledCard from "./styled-card";
-import Heading from "@components/common/heading";
 
 const Card = ({ data, handleCardData, theme }) => {
   const ext = data.attributes.form_exts?.data.some(ext => ext.attributes.ext === "pdf") ? "pdf" :
@@ -13,7 +12,7 @@ const Card = ({ data, handleCardData, theme }) => {
         <img src={data.attributes.card_prewiew?.data?.attributes?.url} alt={data.attributes.name_form} />
         <div className={`card-ext ${ext}`}></div>
       </div>
-      <Heading className="card-title" level={4} label={data.attributes.name_form} />
+      <div className="card-title">{data.attributes.name_form}</div>
     </StyledCard>
   );
 };

@@ -177,17 +177,19 @@ useEffect(() => {
           ref={fabRef}
           id="cookieBanner"
           onClick={handleBanner}
+          type="button"
         />
       )}
       {showBanner && (
         <StyledCookieBanner ref={bannerRef}>
           <StyledCookieBannerHeader>
             <StyledCookieBannerHeading
+              forwardedAs="div"
               label={t("HarmonyInYourCookies")}
-              level={4}
+              size={4}
             />
             {!isFullGDPR && (
-              <StyledCross id="cookie-banner-close" onClick={handleCross} />
+              <StyledCross id="cookie-banner-close" onClick={handleCross} type="button" />
             )}
           </StyledCookieBannerHeader>
           <Text fontSize="14px">
