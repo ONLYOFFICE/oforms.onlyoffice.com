@@ -39,23 +39,25 @@ const CookieBanner = () => {
   const IPGeolocationCountry = IPGeolocationInfo?.country;
   useUtmCookies();
 
-useEffect(() => {
-  (async () => {
-    const cachedData = sessionStorage.getItem("IPGeolocationInfo");
-    if (cachedData) {
-      setIPGeolocationInfo(JSON.parse(cachedData));
-      return;
-    }
+  useEffect(() => {
+    (async () => {
+      const cachedData = sessionStorage.getItem("IPGeolocationInfo");
+      if (cachedData) {
+        setIPGeolocationInfo(JSON.parse(cachedData));
+        return;
+      }
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}/api/ip-geolocation`);
-    const data = await res.json();
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}/api/ip-geolocation`
+      );
+      const data = await res.json();
 
-    if (!res.ok || !data) return;
+      if (!res.ok || !data) return;
 
-    setIPGeolocationInfo(data);
-    sessionStorage.setItem("IPGeolocationInfo", JSON.stringify(data));
-  })();
-}, []);
+      setIPGeolocationInfo(data);
+      sessionStorage.setItem("IPGeolocationInfo", JSON.stringify(data));
+    })();
+  }, []);
 
   useEffect(() => {
     let gdpr = true;
@@ -102,6 +104,7 @@ useEffect(() => {
           location.hostname === new URL(document.referrer).hostname;
 
         if (sameOrigin) {
+          setConsent(ALL_GRANTED);
           setConsentCookie(ALL_GRANTED);
           setShowBanner(false);
           setShowFab(true);
@@ -125,13 +128,32 @@ useEffect(() => {
 
         if (scrollPercent >= 0.2) {
           scrolledRef.current = true;
+          setConsent(ALL_GRANTED);
           setConsentCookie(ALL_GRANTED);
         }
       }
     };
 
+    let timeoutId;
+    if (!isFullGDPR && !getConsentCookie()) {
+      timeoutId = setTimeout(() => {
+        if (!getConsentCookie()) {
+          setConsent(ALL_GRANTED);
+          setConsentCookie(ALL_GRANTED);
+        }
+      }, 15000);
+    }
+
+    if (isFullGDPR === false && !getConsentCookie()) {
+      setConsentCookie(ALL_GRANTED);
+      setConsent(ALL_GRANTED);
+    }
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, [isFullGDPR]);
 
   const handleAcceptAll = () => {
@@ -166,6 +188,8 @@ useEffect(() => {
   };
 
   const handleCross = () => {
+    setConsentCookie(ALL_GRANTED);
+    setConsent(ALL_GRANTED);
     setShowBanner(false);
     setShowFab(true);
   };
