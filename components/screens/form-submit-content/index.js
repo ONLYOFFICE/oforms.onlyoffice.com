@@ -291,14 +291,16 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
         </div>
         <div className="content">
           <div className="wrapper-content">
-            <Heading className="title" level={3}>{t("Uploading your template")}</Heading>
+            <Heading className="title" level={1} size={3}>{t("Uploading your template")}</Heading>
             <Text className="subtitle" as="p">{t("Please fill out all the fields before sending the template.")}</Text>
             <Input
               label={`${t("Template name")}*`}
               placeholder={t("Enter name")}
               errorText={nameExistsValid ? t("Duplicate file name. Please rename your template or choose another one.") : nameFilled && nameError && name.length < 1 ? t("Template name is empty") : name.length > 100 ? t("You are limited to 100 characters") : null}
+              id="name"
               className={`${(nameFilled && nameError) && name.length < 1 || name.length > 100 || nameExistsValid ? "error" : ""} ${nameValid ? "valid" : ""}`}
               name="name"
+              autoComplete="off"
               value={name}
               onFocus={(e) => onFocusHandler(e)}
               onChange={(e) => onChangeHandler(e)}
@@ -309,6 +311,7 @@ const FormSubmitContent = ({ t, locale, categories, formExts, queryIndexData }) 
               label={`${t("Template description")}*`}
               placeholder={t("Give more details about your template, such as who will benefit from it, in which industry, etc.")}
               errorText={(descriptionFilled && descriptionError) && description.length < 1 ? t("Template description is empty") : description.length > 300 ? t("You are limited to 300 characters") : null}
+              id="description"
               className={`${(descriptionFilled && descriptionError) && description.length < 1 || description.length > 300 ? "error" : ""} ${descriptionValid ? "valid" : ""}`}
               name="description"
               value={description}

@@ -42,9 +42,12 @@ const StyledErrorPopup = styled.div`
   }
 
   .popup-close-btn {
+    border: none;
+    padding: 0;
     min-width: 24px;
     height: 24px;
     background-image: url("https://static-oforms.onlyoffice.com/icons/cross-red.svg");
+    background-color: transparent;
     background-repeat: no-repeat;
     background-size: contain;
     cursor: pointer;

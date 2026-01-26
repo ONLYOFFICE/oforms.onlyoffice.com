@@ -63,24 +63,8 @@ class Layout extends React.Component {
       }
     });
 
-    const handleDragOver = (e) => {
-      e.dataTransfer.dropEffect = "copy";
-
-      e.preventDefault();
-      return false;
-    };
-
-    const handleDrop = (e) => {
-      window.AscDesktopEditor["DropOfficeFiles"]();
-
-      e.preventDefault();
-      return false;
-    };
-
     return (
       <StyledLayout
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
         $locale={locale}
         id="page-layout"
         className="layout"

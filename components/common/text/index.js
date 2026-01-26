@@ -10,8 +10,6 @@ const Text = ({
     fontSize,
     fontWeight,
     lineHeight,
-    dangerouslySetInnerHTML,
-    onClick
   }) => {
 
   return (
@@ -22,8 +20,6 @@ const Text = ({
       $fontSizeProps={fontSize}
       $fontWeightProps={fontWeight}
       $lineHeightProps={lineHeight}
-      dangerouslySetInnerHTML={dangerouslySetInnerHTML}
-      onClick={onClick}
     >
       {label || children}
     </StyledText>
@@ -36,11 +32,9 @@ Text.propTypes = {
   fontWeight: PropTypes.oneOf([300, 400, 600, 700]),
   lineHeight: PropTypes.string,
   as: PropTypes.string,
-  onClick: PropTypes.func,
   className: PropTypes.string,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   children: PropTypes.node,
-  dangerouslySetInnerHTML: PropTypes.shape({ __html: PropTypes.string})
 };
 
 export default Text;

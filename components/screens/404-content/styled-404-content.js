@@ -1,70 +1,12 @@
 import styled from "styled-components";
 import Section from "@components/common/section";
-import errorDesktopImage from "@public/icons/nothing-found.svg";
 
 const StyledErrorContent = styled(Section)`
   box-sizing: border-box;
   padding: 117px 0 187px;
 
-  &.is-desktop-client {
-    display: flex;
-    align-items: center;
-    height: 100vh;
-    background-color: ${props =>
-      props.$theme === "theme-dark" ? "#333333" :
-      props.$theme === "theme-contrast-dark" ? "#1E1E1E" : 
-      "#FFFFFF"
-    };
-
-    @media screen and (max-width: 540px) {
-      padding: 24px;
-    }
-  }
-
   .section-page {
     padding: 0;
-  }
-
-  .error-desktop-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    @media screen and (max-width: 540px) {
-      margin: 0 -32px;
-    }
-  }
-
-  .error-desktop-image {
-    margin-right: 24px;
-    min-width: 108px;
-    height: 108px;
-    background-image: url(${errorDesktopImage.src});
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-  }
-
-  .error-desktop-title {
-    margin-bottom: 12px;
-    letter-spacing: -0.02em;
-    color: ${props =>
-      props.$theme === "theme-light" ? "rgba(0, 0, 0, 0.8)" :
-      props.$theme === "theme-dark" ? "rgba(255, 255, 255, 0.8)" :
-      props.$theme === "theme-contrast-dark" ? "#E8E8E8" : 
-      "#444444"
-    };
-  }
-
-  .error-desktop-link {
-    font-size: 14px;
-    line-height: 21px;
-    text-decoration: underline;
-    color: ${props =>
-      props.$theme === "theme-dark" ? "rgba(255, 255, 255, 0.6)" :
-      props.$theme === "theme-contrast-dark" ? "#B8B8B8" : 
-      "#A5A5A5"
-    };
   }
 
   .error-image {
