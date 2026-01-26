@@ -47,10 +47,9 @@ const SearchResultPage = ({ locale, sort, page, searchQuery, searchData }) => {
 export const getServerSideProps = async ({ locale, query }) => {
   const page = query.page || 1;
   const sort = query._sort || "asc";
-  const pageSize = query.pageSize || 9;
   const searchQuery = query.query || "";
 
-  const searchData = await getSearchResult(locale, page, sort, pageSize, searchQuery);
+  const searchData = await getSearchResult(locale, page, sort, 9, searchQuery);
 
   return {
     props: {

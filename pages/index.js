@@ -52,23 +52,17 @@ const MainPage = ({ locale, categories, popularTemplates, pptxForms, docxForms, 
   )
 };
 
-export const getServerSideProps = async ({ locale, query }) => {
-  const theme = query.theme || null;
-  const page = query.page || 1;
-  const sort = query._sort || "asc";
-  const pageSize = query.pageSize || 6;
-
+export const getServerSideProps = async ({ locale }) => {
   const categories = await getCategories(locale, "categories", "categorie");
-  const popularTemplates = await getPopularTemplates(locale, sort);
-  const pptxForms = await getExtForms(locale, page, sort, pageSize, "pptx");
-  const docxForms = await getExtForms(locale, page, sort, pageSize, "docx");
-  const pdfForms = await getExtForms(locale, page, sort, pageSize, "pdf");
-  const xlsxForms = await getExtForms(locale, page, sort, pageSize, "xlsx");
+  const popularTemplates = await getPopularTemplates(locale, null, null, null);
+  const pptxForms = await getExtForms(locale, 1, "asc", 6, "pptx");
+  const docxForms = await getExtForms(locale, 1, "asc", 6, "docx");
+  const pdfForms = await getExtForms(locale, 1, "asc", 6, "pdf");
+  const xlsxForms = await getExtForms(locale, 1, "asc", 6, "xlsx");
 
   return {
     props: {
       ...(await serverSideTranslations(locale, "common")),
-      theme,
       locale,
       categories,
       popularTemplates,

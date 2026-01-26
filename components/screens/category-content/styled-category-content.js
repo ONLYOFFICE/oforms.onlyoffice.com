@@ -153,6 +153,18 @@ const StyledCategoryContent = styled(Section)`
     }
   }
 
+  .card-slider {
+    margin-bottom: 56px;
+
+    @media screen and ${device.laptop} {
+      margin-bottom: 40px;
+    }
+
+    @media screen and ${device.mobile} {
+      margin-bottom: 24px;
+    }
+  }
+
   .category-items {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

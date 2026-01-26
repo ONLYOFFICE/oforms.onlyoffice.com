@@ -3,6 +3,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import getCategories from "@lib/requests/getCategories";
 import getCategoryForms from "@lib/requests/getCategoryForms";
 import getCategoryInfo from "@lib/requests/getCategoryInfo";
+import getPopularTemplates from "@lib/requests/getPopularTemplates";
 import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import Header from "@components/screens/header";
@@ -12,7 +13,7 @@ import CategoryContent from "@components/screens/category-content";
 import AccordionSection from "@components/screens/common/accordion-section";
 import Footer from "@components/screens/footer";
 
-const Category = ({ categoryForms, categoryInfo, locale, page, sort, types, categories, compilations }) => {
+const Category = ({ categoryForms, categoryInfo, locale, page, sort, types, categories, compilations, popularTemplates }) => {
   const { t } = useTranslation("common");
   const seoTitle = categoryInfo.data[0]?.attributes.seo_title ? categoryInfo.data[0]?.attributes.seo_title : categoryInfo.data[0]?.attributes.categorie;
   const seoDescription = categoryInfo.data[0]?.attributes.seo_description ? categoryInfo.data[0]?.attributes.seo_description : categoryInfo.data[0]?.attributes.header_description;
@@ -43,6 +44,7 @@ const Category = ({ categoryForms, categoryInfo, locale, page, sort, types, cate
           compilations={compilations}
           categoryName={categoryInfo.data[0]?.attributes.categorie}
           categoryUrl={`form/${categoryInfo.data[0]?.attributes.urlReq}`}
+          popularTemplates={popularTemplates}
         />
         <BannerFormSection t={t} locale={locale} />
         <AccordionSection t={t} locale={locale} />
@@ -58,15 +60,15 @@ export const getServerSideProps = async ({ locale, query }) => {
   const page = query.page || 1;
   const sort = query._sort || "asc";
   const urlReq = query.category;
-  const pageSize = query.pageSize || 9;
 
-  const categoryForms = await getCategoryForms(locale, sort, page, pageSize, urlReq, "categories");
+  const categoryForms = await getCategoryForms(locale, sort, page, 9, urlReq, "categories");
   const categoryInfo = await getCategoryInfo(locale, urlReq, "categories", "categorie");
   const types = await getCategories(locale, "types", "type");
   const categories = await getCategories(locale, "categories", "categorie");
   const compilations = await getCategories(locale, "compilations", "compilation");
+  const popularTemplates = await getPopularTemplates(locale, null, urlReq, "categories");
 
-  if (categoryForms.data === null) {
+  if (categoryForms.data.length === 0) {
     return {
       notFound: true
     }
@@ -83,6 +85,7 @@ export const getServerSideProps = async ({ locale, query }) => {
       types: types ? types : null,
       categories,
       compilations,
+      popularTemplates
     },
   };
 };

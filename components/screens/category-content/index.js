@@ -7,12 +7,13 @@ import CategorySelector from "./category-selector";
 import Text from "@components/common/text";
 import Heading from "@components/common/heading";
 import InternalLink from "@components/common/internal-link";
+import CardSlider from "@components/screens/common/card-slider";
 import Card from "@components/screens/common/card";
 import SortSelector from "@components/common/sort-selector";
 import Pagination from "@components/common/pagination";
 import EditorSelector from "./editor-selector";
 
-const CategoryContent = ({ t, locale, subtitle, sort, page, forms, categories, types, compilations, categoryName, categoryUrl }) => {
+const CategoryContent = ({ t, locale, subtitle, sort, page, forms, categories, types, compilations, categoryName, categoryUrl, popularTemplates }) => {
   const router = useRouter();
   const countPage = forms.meta?.pagination.pageCount;
   const [pageLimit, setPageLimit] = useState(countPage > 7 ? 7 : countPage);
@@ -81,6 +82,9 @@ const CategoryContent = ({ t, locale, subtitle, sort, page, forms, categories, t
         <Heading className="category-title" level={1} size={2} label={categoryName} />
         <Text className="category-text" label={subtitle} />
       </div>
+      {popularTemplates?.data.length > 0 &&
+        <CardSlider t={t} locale={locale} title={t("Popular templates")} data={popularTemplates} />
+      }
       {forms.data.length > 0 ? (
         <>
           <div className="category-info">
