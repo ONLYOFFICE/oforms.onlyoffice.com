@@ -4,8 +4,10 @@
 
 ### New Features
 
-- Update dependencies and components
-- Update request for categories
+- Update dependencies, requests and components
+- Update onlyoffice-react-ui-kit to v1.25.0
+- Change form sorting from name to creation date
+- Add "Popular Templates" block to category pages
 - Remove Desktop Editors version (?desktop=true)
 
 ## 1.6.0
