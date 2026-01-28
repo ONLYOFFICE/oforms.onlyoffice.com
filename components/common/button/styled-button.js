@@ -11,7 +11,6 @@ const StyledButton = styled.button`
   height: 56px;
   color: #FFFFFF;
   background-color: ${(props) => props.$typeButton === "secondary" ? "#444444" : "#FF6F3D"};
-  outline: none;
   text-align: center;
   text-transform: uppercase;
   cursor: pointer;

@@ -1,4 +1,5 @@
 import { StyledHeading, StyledMain } from "./styled-main-content";
+import parse from "html-react-parser";
 import Heading from "@components/common/heading";
 import Text from "@components/common/text";
 import EditorCard from "./editor-card";
@@ -13,7 +14,7 @@ const MainContent = ({ t, locale, popularTemplates, categories, pptxForms, docxF
       <StyledHeading>
         <div className="info-wrapper">
           <div className="info-top">
-            <Heading className="info-title" level={1} dangerouslySetInnerHTML={{ __html: t("Free templates and fillable PDF forms") }} />
+            <Heading className="info-title" level={1}>{parse(t("Free templates and fillable PDF forms"))}</Heading>
             <Text as="p" className="info-text" label={t("Fill out ready PDF forms. Download DOCX, XLSX, PPTX templates, easy editable online in just a few clicks")} />
           </div>
           <div className="info-editors">

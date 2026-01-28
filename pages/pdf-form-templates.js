@@ -2,6 +2,7 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import getExtForms from "@lib/requests/getExtForms";
 import getCategories from "@lib/requests/getCategories";
+import getPopularTemplates from "@lib/requests/getPopularTemplates";
 import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import Header from "@components/screens/header";
@@ -11,7 +12,7 @@ import CategoryContent from "@components/screens/category-content";
 import AccordionSection from "@components/screens/common/accordion-section";
 import Footer from "@components/screens/footer";
 
-const PdfFormTemplatesPage = ({ locale, sort, page, forms, categories, types, compilations }) => {
+const PdfFormTemplatesPage = ({ locale, sort, page, forms, categories, types, compilations, popularTemplates }) => {
   const { t } = useTranslation("common");
 
   return (
@@ -39,6 +40,7 @@ const PdfFormTemplatesPage = ({ locale, sort, page, forms, categories, types, co
           types={types}
           compilations={compilations}
           categoryUrl="pdf-form-templates"
+          popularTemplates={popularTemplates}
         />
         <BannerFormSection t={t} locale={locale} />
         <AccordionSection t={t} locale={locale} />
@@ -53,12 +55,12 @@ const PdfFormTemplatesPage = ({ locale, sort, page, forms, categories, types, co
 export const getServerSideProps = async ({ locale, query }) => {
   const page = query.page || 1;
   const sort = query._sort || "asc";
-  const pageSize = query.pageSize ? 0 : 45;
 
-  const forms = await getExtForms(locale, page, sort, pageSize, "pdf");
+  const forms = await getExtForms(locale, page, sort, 45, "pdf");
   const categories = await getCategories(locale, "categories", "categorie");
   const types = await getCategories(locale, "types", "type");
   const compilations = await getCategories(locale, "compilations", "compilation");
+  const popularTemplates = await getPopularTemplates(locale, "pdf", null, null);
 
   return {
     props: {
@@ -69,7 +71,8 @@ export const getServerSideProps = async ({ locale, query }) => {
       forms,
       categories,
       types: types ? types : null,
-      compilations
+      compilations,
+      popularTemplates
     }
   };
 };

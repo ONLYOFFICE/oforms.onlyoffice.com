@@ -6,8 +6,8 @@ const ErrorPopup = ({ t, onClick, fileName, text }) => {
   return (
     <StyledErrorPopup className="popup">
       <div className="popup-top">
-        <Heading className="popup-title" level={4}>{t("File upload error")}</Heading>
-        <div onClick={onClick} className="popup-close-btn"></div>
+        <Heading as="div" className="popup-title" size={4}>{t("File upload error")}</Heading>
+        <button onClick={onClick} className="popup-close-btn" type="button"></button>
       </div>
       {fileName &&
         <div className="upload-name">
