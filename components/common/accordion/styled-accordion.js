@@ -45,7 +45,12 @@ const StyledAccordion = styled.div`
 
   .accordion-content {
     overflow: hidden;
+    visibility: hidden;
     transition: max-height 0.2s ease;
+
+    &.active {
+      visibility: initial;
+    }
   }
 
   .accordion-text {

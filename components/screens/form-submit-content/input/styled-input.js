@@ -9,6 +9,7 @@ const StyledInput = styled.div`
   .label {
     display: block;
     margin-bottom: 8px;
+    font-size: 14px;
     line-height: 24px;
 
     @media ${device.mobile} {
