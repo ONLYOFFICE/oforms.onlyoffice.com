@@ -86,38 +86,40 @@ const CategorySelect = ({ t, locale, label, labelMore, placeholder, selected, se
 
   return (
     <StyledSelect $locale={locale} className={selectedError && error ? "error" : ""}>
-      <Text className="label">{label} <Text className="label-more">{labelMore}</Text></Text>
+      <label className="label" htmlFor="category-input">{label} <Text className="label-more">{labelMore}</Text></label>
 
       <div ref={selectRef} className="select-wrapper">
-        <div onClick={toggleOpen} className={`select category-select ${isOpen ? "open" : ""} ${valid ? "valid" : ""}`}>
+        <button onClick={toggleOpen} className={`select category-select ${isOpen ? "open" : ""} ${valid ? "valid" : ""}`} type="button">
           {!isOpen && selected.length === 0 &&
             <Text className="placeholder">{placeholder}</Text>
           }
-          <div className="select-value">{selected.join(', ')}</div>
+          <span className="select-value">{selected.join(', ')}</span>
           <input
             ref={inputRef}
             onChange={(e) => setSearchValue(e.target.value)}
+            id="category-input"
             className={`select-input ${isOpen ? "active" : ""}`}
             type="text"
             value={searchValue}
           />
           <Text className="select-length">{selected.length > 0 && `(${selected.length})`}</Text>
-        </div>
+        </button>
         {isOpen && (
           <div className="select-options">
             {filteredOptions.length > 0 ?
               <>
-                <div className="select-option reset" onClick={handleClearSelection}>
+                <button className="select-option reset" onClick={handleClearSelection} type="button">
                   {t("Reset")}
-                </div>
+                </button>
                 {filteredOptions.map((option) => (
-                  <div
+                  <button
                     onClick={() => handleOptionClick(option)}
                     key={option.attributes.categorie}
                     className={`select-option ${selected.includes(option.attributes.categorie) ? "selected" : ""}`}
+                    type="button"
                   >
                     {option.attributes.categorie}
-                  </div>
+                  </button>
                 ))}
               </>
               :

@@ -5,6 +5,7 @@ import {
   StyledCookieSettingsHeader,
   StyledCross,
   StyledCheckboxes,
+  StyledCheckHeading,
   StyledCheckText,
 } from "./styled-cookie-settings";
 import Checkbox from "@components/common/checkbox";
@@ -52,17 +53,18 @@ const CookieSettings = ({
   return (
     <StyledCookieSettings id="cookie-settings">
       <StyledCookieSettingsHeader>
-        <Heading label={t("CookieSettings")} level={4} />
+        <Heading as="div" label={t("CookieSettings")} size={4} />
         <StyledCross
           id="cookie-settings-close"
           onClick={() => setShowSettings(false)}
+          type="button"
         />
       </StyledCookieSettingsHeader>
       <StyledCheckboxes>
         <Checkbox
           label={
             <StyledCheckText>
-              <Heading level={4}>{t("Technical")}</Heading>
+              <StyledCheckHeading forwardedAs="div" size={4}>{t("Technical")}</StyledCheckHeading>
               <Text fontSize="14px">{t("TechnicalDescription")}</Text>
             </StyledCheckText>
           }
@@ -73,7 +75,7 @@ const CookieSettings = ({
         <Checkbox
           label={
             <StyledCheckText>
-              <Heading level={4}>{t("Analytical")}</Heading>
+              <StyledCheckHeading forwardedAs="div" size={4}>{t("Analytical")}</StyledCheckHeading>
               <Text fontSize="14px">{t("AnalyticalDescription")}</Text>
             </StyledCheckText>
           }
@@ -83,7 +85,7 @@ const CookieSettings = ({
         <Checkbox
           label={
             <StyledCheckText>
-              <Heading level={4}>{t("Marketing")}</Heading>
+              <StyledCheckHeading forwardedAs="div" size={4}>{t("Marketing")}</StyledCheckHeading>
               <Text fontSize="14px">{t("MarketingDescription")}</Text>
             </StyledCheckText>
           }

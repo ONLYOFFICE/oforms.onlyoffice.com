@@ -12,7 +12,6 @@ const ExternalLink = ({
     tabIndex,
     title,
     download,
-    onClick,
     color = "inherit",
     textDecoration = "none"
   }) => {
@@ -27,7 +26,6 @@ const ExternalLink = ({
       tabIndex={tabIndex}
       title={title}
       download={download}
-      onClick={onClick}
       $color={color}
       $textDecoration={textDecoration}
     >
@@ -47,7 +45,6 @@ ExternalLink.propTypes = {
   tabIndex: PropTypes.number,
   title: PropTypes.string,
   download: PropTypes.bool,
-  onClick: PropTypes.func,
   color: PropTypes.string,
   textDecoration: PropTypes.string
 };

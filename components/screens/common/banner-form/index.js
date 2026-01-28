@@ -11,7 +11,7 @@ const BannerForm = ({ t }) => {
   return (
     <StyledBannerForm $locale={locale}>
       <div className="banner-form-info">
-        <Heading className="banner-form-title" level={3} label={t("Build your own templates")} />
+        <Heading className="banner-form-title" level={2} size={3} label={t("Build your own templates")} />
         <Text as="p" className="banner-form-text" label={t("Create PDF forms, model documents, spreadsheets and presentations for any purpose with ONLYOFFICE Docs.")} />
       </div>
       <div className="banner-form-btns">

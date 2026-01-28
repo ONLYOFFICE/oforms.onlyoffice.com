@@ -3,9 +3,6 @@ import { device } from "@utils/devices";
 
 const StyledCategorySelector = styled.div`
   position: relative;
-  border: 1px solid #AAAAAA;
-  border-radius: 3px;
-  padding: 7px 8px 7px 16px;
 
   &.active {
     border-color: #FF6F3D;
@@ -32,6 +29,14 @@ const StyledCategorySelector = styled.div`
   .category-selector-heading {
     display: flex;
     align-items: center;
+
+    .category-selector-title {
+      border: 1px solid #AAAAAA;
+      border-radius: 3px;
+      padding: 7px 8px 7px 16px;
+      background-color: transparent;
+      cursor: pointer;
+    }
   }
 
   .category-selector-name {
@@ -95,7 +100,6 @@ const StyledCategorySelector = styled.div`
     justify-content: space-between;
     overflow: initial;
     white-space: nowrap;
-    cursor: pointer;
     font-size: 13px;
     font-weight: 600;
     line-height: 17px;
@@ -204,11 +208,14 @@ const StyledCategorySelector = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border: none;
     padding: 13px 32px;
     font-size: 16px;
     line-height: 22px;
+    width: 100%;
     min-height: 48px;
     color: #444444;
+    background-color: transparent;
     white-space: nowrap;
     transition: color 0.3s, background-color 0.3s;
     cursor: pointer;

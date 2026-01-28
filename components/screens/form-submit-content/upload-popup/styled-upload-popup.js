@@ -64,9 +64,12 @@ const StyledUploadPopup = styled.div`
   }
 
   .popup-btn-close {
+    border: none;
+    padding: 0;
     width: 24px;
     height: 24px;
     background-image: url("https://static-oforms.onlyoffice.com/icons/close-btn.svg");
+    background-color: transparent;
     background-repeat: no-repeat;
     background-size: 15px;
     background-position: center;

@@ -20,6 +20,7 @@ const StyledSelect = styled.div`
   .label {
     display: block;
     margin-bottom: 8px;
+    font-size: 14px;
     line-height: 24px;
 
     @media ${device.mobile} {
@@ -164,9 +165,13 @@ const StyledSelect = styled.div`
   }
 
   .select-option {
+    border: none;
     padding: 8px 16px 8px 48px;
     font-size: 16px;
     line-height: 26px;
+    width: 100%;
+    text-align: initial;
+    background-color: transparent;
 
     &.reset {
       background-image: url("https://static-oforms.onlyoffice.com/icons/close-btn.svg");

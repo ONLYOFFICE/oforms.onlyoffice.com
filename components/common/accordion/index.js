@@ -1,5 +1,6 @@
 import StyledAccordion from "./styled-accordion";
 import PropTypes from "prop-types";
+import parse from "html-react-parser";
 import { useRef, useState } from "react";
 import Heading from "@components/common/heading";
 
@@ -19,22 +20,24 @@ const Accordion = ({ locale, items }) => {
     <StyledAccordion $locale={locale}>
       {items.map((item, index) => (
         <div className="accordion-item" key={index}>
-          <button className="accordion-header" onClick={() => toggleAccordion(index)}>
-            <div className={`accordion-icon ${activeIndexes[index] ? "minus" : "plus"}`}></div>
-            <Heading className="accordion-heading" level={4} label={item.title} />
+          <button
+            onClick={() => toggleAccordion(index)}
+            className="accordion-header"
+            type="button"
+            aria-hidden={activeIndexes[index] ? true : false}
+          >
+            <span className={`accordion-icon ${activeIndexes[index] ? "minus" : "plus"}`}></span>
+            <Heading as="span" className="accordion-heading" size={4} label={item.title} />
           </button>
           <div
             ref={(ref) => (contentRefs.current[index] = ref)}
-            className="accordion-content"
+            className={`accordion-content ${activeIndexes[index] ? "active" : ""}`}
             style={{
               maxHeight: activeIndexes[index] ? `${contentRefs.current[index]?.scrollHeight}px` : "0px"
             }}
+            aria-hidden={activeIndexes[index] ? false : true}
           >
-            <div
-              className="accordion-text"
-              dangerouslySetInnerHTML={{ __html: item.content }}
-              suppressHydrationWarning
-            ></div>
+            <div className="accordion-text">{parse(item.content)}</div>
           </div>
         </div>
       ))}

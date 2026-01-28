@@ -81,23 +81,24 @@ const LanguageSelect = ({ t, locale, label, labelMore, placeholder, selected, se
       <Text className="label">{label} <Text className="label-more">{labelMore}</Text></Text>
 
       <div ref={selectRef} className="select-wrapper">
-        <div onClick={toggleOpen} className={`select ${isOpen ? "open" : ""} ${valid ? "valid" : ""}`}>
+        <button onClick={toggleOpen} className={`select ${isOpen ? "open" : ""} ${valid ? "valid" : ""}`} type="button">
           {!isOpen && selected.length === 0 &&
             <Text className="placeholder">{placeholder}</Text>
           }
-          <div className="select-value">{selected}</div>
-        </div>
+          <span className="select-value">{selected}</span>
+        </button>
         {isOpen && (
           <div className="select-options">
             {languageData.filter((option) => option.title).length > 0 ?
               languageData.filter((option) => option.title).map((option) => (
-                <div
+                <button
                   onClick={() => handleOptionClick(option)}
                   key={option.title}
                   className={`select-option ${selected.includes(option.title) ? "selected" : ""}`}
+                  type="button"
                 >
                   {option.title}
-                </div>
+                </button>
               ))
               :
               <div className="select-option no-options">{t("No options")}</div>

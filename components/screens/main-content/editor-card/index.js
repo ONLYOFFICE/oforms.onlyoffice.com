@@ -5,7 +5,7 @@ const EditorCard = ({ id, title, linkUrl, imageUrl }) => {
   return (
     <StyledEditorCard id={id} className="editor-card" href={linkUrl}>
       <div className="editor-card-img" style={{backgroundImage: `url("/icons/${imageUrl}")`}}></div>
-      <Heading className="editor-card-title" level={4} label={title} />
+      <Heading as="div" className="editor-card-title" size={4} label={title} />
     </StyledEditorCard>
   );
 };
