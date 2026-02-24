@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.9.0
+
+### New Features
+
+- Update dependencies and devDependencies
+- Update onlyoffice-react-ui-kit to v1.29.0
+
 ## 1.8.0
 
 ### New Features
