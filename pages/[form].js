@@ -16,8 +16,8 @@ import Footer from "@components/screens/footer";
 const FormPage = ({ locale, form, randomCarousel, compilations }) => {
   const { t } = useTranslation("common");
   const [recentForms, setRecentForms] = useState([]);
-  const seoTitle = form.data[0].attributes.seo_title ? form.data[0].attributes.seo_title : form.data[0].attributes.name_form;
-  const seoDescription = form.data[0].attributes.seo_description ? form.data[0].attributes.seo_description : form.data[0].attributes.description_card;
+  const seoTitle = form.data[0].seo_title ? form.data[0].seo_title : form.data[0].name_form;
+  const seoDescription = form.data[0].seo_description ? form.data[0].seo_description : form.data[0].description_card;
 
   useEffect(() => {
     const localStorageKey = `recentForms_${locale}`;
@@ -27,9 +27,9 @@ const FormPage = ({ locale, form, randomCarousel, compilations }) => {
 
     const formData = {
       id: form.data[0].id,
-      url: form.data[0].attributes.url ? form.data[0].attributes.url : null,
-      card_prewiew: form.data[0].attributes.card_prewiew.data.attributes.url ? form.data[0].attributes.card_prewiew.data.attributes.url : null,
-      name_form: form.data[0].attributes.name_form ? form.data[0].attributes.name_form : null
+      url: form.data[0].url ? form.data[0].url : null,
+      card_prewiew: form.data[0].card_prewiew.url ? form.data[0].card_prewiew.url : null,
+      name_form: form.data[0].name_form ? form.data[0].name_form : null
     };
 
     recentForms = recentForms.filter((f) => f.id !== formData.id);
@@ -73,7 +73,7 @@ const FormPage = ({ locale, form, randomCarousel, compilations }) => {
 
 export const getServerSideProps = async ({ locale, ...context }) => {
   const form = await getForm(locale, context.query.form);
-  const randomCarousel = await getRandomForms(locale, form.data[0]?.attributes.form_exts.data[0].attributes.ext);
+  const randomCarousel = await getRandomForms(locale, form.data[0]?.form_exts[0]?.ext);
   const compilations = await getCategories(locale, "compilations", "compilation");
 
   if (form.data.length === 0) {

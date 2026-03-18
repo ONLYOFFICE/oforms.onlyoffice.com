@@ -105,9 +105,9 @@ const CategorySelector = ({ t, locale, categories, types, compilations, category
                       {categories?.data?.map((categorie) => (
                         <li key={categorie.id}>
                           <InternalLink
-                            className={categoryName === categorie.attributes.categorie ? "active" : ""}
-                            href={`/form/${categorie.attributes.urlReq}${router.query._sort ? `?_sort=${router.query._sort}` : ""}`}
-                            label={categorie.attributes.categorie}
+                            className={categoryName === categorie.categorie ? "active" : ""}
+                            href={`/form/${categorie.urlReq}${router.query._sort ? `?_sort=${router.query._sort}` : ""}`}
+                            label={categorie.categorie}
                           />
                         </li>
                       ))}
@@ -160,9 +160,9 @@ const CategorySelector = ({ t, locale, categories, types, compilations, category
                       {types.data?.map((type) => (
                         <li key={type.id}>
                           <InternalLink 
-                            className={categoryName === type.attributes.type ? "active" : ""} 
-                            href={`/form/types/${type.attributes.urlReq}${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} 
-                            label={type.attributes.type} 
+                            className={categoryName === type.type ? "active" : ""} 
+                            href={`/form/types/${type.urlReq}${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} 
+                            label={type.type} 
                           />
                         </li>
                       ))}
@@ -215,9 +215,9 @@ const CategorySelector = ({ t, locale, categories, types, compilations, category
                       {compilations.data?.map((compilation) => (
                         <li key={compilation.id}>
                           <InternalLink 
-                            className={categoryName === compilation.attributes.compilation ? "active" : ""} 
-                            href={`/form/compilations/${compilation.attributes.urlReq}${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} 
-                            label={compilation.attributes.compilation} 
+                            className={categoryName === compilation.compilation ? "active" : ""} 
+                            href={`/form/compilations/${compilation.urlReq}${router.query._sort ? `?_sort=${router.query._sort}` : ""}`} 
+                            label={compilation.compilation} 
                           />
                         </li>
                       ))}

@@ -5,28 +5,28 @@ import Text from "@components/common/text";
 const Card = ({ data }) => {
   return (
     <StyledCard className="card">
-      <InternalLink className="card-preview" href={`/${data.attributes?.url}`} tabIndex={-1}>
+      <InternalLink className="card-preview" href={`/${data?.url}`} tabIndex={-1}>
         <div className="card-img">
-          <img src={data.attributes.card_prewiew?.data?.attributes.url} alt={data.attributes.name_form} />
+          <img src={data.card_prewiew?.url} alt={data.name_form} />
         </div>
         <div className="card-template-format">
-          {data.attributes.form_exts?.data.some(ext => ext.attributes.ext === "pdf") &&
+          {data.form_exts?.some(ext => ext.ext === "pdf") &&
             <span className="card-template-format-item pdf"></span>
           }
-          {data.attributes.form_exts?.data.some(ext => ext.attributes.ext === "docx") &&
+          {data.form_exts?.some(ext => ext.ext === "docx") &&
             <span className="card-template-format-item docx"></span>
           }
-          {data.attributes.form_exts?.data.some(ext => ext.attributes.ext === "xlsx") &&
+          {data.form_exts?.some(ext => ext.ext === "xlsx") &&
             <span className="card-template-format-item xlsx"></span>
           }
-          {data.attributes.form_exts?.data.some(ext => ext.attributes.ext === "pptx") &&
+          {data.form_exts?.some(ext => ext.ext === "pptx") &&
             <span className="card-template-format-item pptx"></span>
           }
         </div>
       </InternalLink>
       <div className="card-body">
-        <InternalLink className="card-title" href={`/${data.attributes?.url}`} label={data.attributes.name_form} />
-        <Text className="card-text" label={data.attributes.description_card} />
+        <InternalLink className="card-title" href={`/${data?.url}`} label={data.name_form} />
+        <Text className="card-text" label={data.description_card} />
       </div>
     </StyledCard>
   );

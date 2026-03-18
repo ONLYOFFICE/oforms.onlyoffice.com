@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.10.0
+
+### New Features
+
+- Update API responses to match Strapi v5 structure
+
 ## 1.9.0
 
 ### New Features

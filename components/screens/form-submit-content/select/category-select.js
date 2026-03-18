@@ -7,7 +7,7 @@ const CategorySelect = ({ t, locale, label, labelMore, placeholder, selected, se
   const [selectedError, setSelectedError] = useState(false);
   const selectRef = useRef();
   const inputRef = useRef();
-  const filteredOptions = categoriesData.filter((option) => option.attributes.categorie.toLowerCase().includes(searchValue.toLowerCase()));
+  const filteredOptions = categoriesData.filter((option) => option.categorie.toLowerCase().includes(searchValue.toLowerCase()));
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -50,10 +50,10 @@ const CategorySelect = ({ t, locale, label, labelMore, placeholder, selected, se
   };
 
   const handleOptionClick = (option) => {
-    if (selected.includes(option.attributes.categorie)) {
-      setSelected(selected.filter((item) => item !== option.attributes.categorie));
+    if (selected.includes(option.categorie)) {
+      setSelected(selected.filter((item) => item !== option.categorie));
     } else {
-      setSelected([...selected, option.attributes.categorie]);
+      setSelected([...selected, option.categorie]);
     };
 
     setCategoryId((prev) => {
@@ -114,11 +114,11 @@ const CategorySelect = ({ t, locale, label, labelMore, placeholder, selected, se
                 {filteredOptions.map((option) => (
                   <button
                     onClick={() => handleOptionClick(option)}
-                    key={option.attributes.categorie}
-                    className={`select-option ${selected.includes(option.attributes.categorie) ? "selected" : ""}`}
+                    key={option.categorie}
+                    className={`select-option ${selected.includes(option.categorie) ? "selected" : ""}`}
                     type="button"
                   >
-                    {option.attributes.categorie}
+                    {option.categorie}
                   </button>
                 ))}
               </>

@@ -21,10 +21,10 @@ const ExploreOtherTemplate = ({ t, locale, compilations }) => {
           {compilations.data?.map((compilation) => (
             <InternalLink
               className="btn-transparent"
-              href={`${locale === "en" ? "" : locale}/form/compilations/${compilation.attributes.urlReq}`}
+              href={`${locale === "en" ? "" : locale}/form/compilations/${compilation.urlReq}`}
               key={compilation.id}
             >
-              {compilation.attributes.compilation}
+              {compilation.compilation}
             </InternalLink>
           ))}
         </div>

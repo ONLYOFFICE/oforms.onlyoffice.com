@@ -65,7 +65,7 @@ const LanguageSelect = ({ t, locale, label, labelMore, placeholder, selected, se
     const locale = option.key;
     const res = await axios.post("/api/categories", { locale });
 
-    if (categoriesData[0].attributes.locale !== res.data.categories.data[0].attributes.locale) {
+    if (categoriesData[0].locale !== res.data.categories.data[0].locale) {
       setCategory([]);
       setCategoryId([]);
       setSearchValue("");

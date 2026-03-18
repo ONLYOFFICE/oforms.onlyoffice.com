@@ -155,10 +155,10 @@ const SearchInput = ({ t, locale, isMainPage, handleInputFocusChange = () => {} 
             {searchValue.data.length > 0 ? (
               searchValue.data?.map((item, index) => (
                 <InternalLink
-                  onClick={() => updateSearchHistory(item.attributes.name_form)}
+                  onClick={() => updateSearchHistory(item.name_form)}
                   className="search-results-popular-item"
-                  href={item.attributes.url}
-                  label={HighlightText(item.attributes.name_form)}
+                  href={item.url}
+                  label={HighlightText(item.name_form)}
                   key={index}
                 />
               ))

@@ -14,17 +14,17 @@ const FormDownload = ({ t, locale, pdfFile, docxFile, pptxFile, xlsxFile }) => {
       />
 
       <ul className="form-download-list">
-        {pdfFile[0]?.attributes?.url &&
+        {pdfFile[0]?.url &&
           <li>
             <span className="form-download-item">
-              <ExternalLink id="form-download-pdf-link" className="form-download-link pdf" label="PDF" download href={pdfFile[0]?.attributes?.url} />
+              <ExternalLink id="form-download-pdf-link" className="form-download-link pdf" label="PDF" download href={pdfFile[0]?.url} />
             </span>
           </li>
         }
-        {docxFile[0]?.attributes?.url &&
+        {docxFile[0]?.url &&
           <li>
             <span className="form-download-item">
-              <ExternalLink id="form-download-docx-link" className="form-download-link docx" label="DOCX" download href={docxFile[0]?.attributes?.url} />
+              <ExternalLink id="form-download-docx-link" className="form-download-link docx" label="DOCX" download href={docxFile[0]?.url} />
               <span className="form-download-tooltip">
                 <button id="form-docx-tooltip" data-tooltip-id="docx-tooltip" type="button">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,10 +38,10 @@ const FormDownload = ({ t, locale, pdfFile, docxFile, pptxFile, xlsxFile }) => {
             </span>
           </li>
         }
-        {xlsxFile[0]?.attributes?.url &&
+        {xlsxFile[0]?.url &&
           <li>
             <span className="form-download-item">
-              <ExternalLink id="form-download-xlsx-link" className="form-download-link xlsx" label="XLSX" download href={xlsxFile[0]?.attributes?.url} />
+              <ExternalLink id="form-download-xlsx-link" className="form-download-link xlsx" label="XLSX" download href={xlsxFile[0]?.url} />
               <span className="form-download-tooltip">
                 <button id="form-xlsx-tooltip" data-tooltip-id="xlsx-tooltip" type="button">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,10 +55,10 @@ const FormDownload = ({ t, locale, pdfFile, docxFile, pptxFile, xlsxFile }) => {
             </span>
           </li>
         }
-        {pptxFile[0]?.attributes?.url &&
+        {pptxFile[0]?.url &&
           <li>
             <span className="form-download-item">
-              <ExternalLink id="form-download-pptx-link" className="form-download-link pptx" label="PPTX" download href={pptxFile[0]?.attributes?.url} />
+              <ExternalLink id="form-download-pptx-link" className="form-download-link pptx" label="PPTX" download href={pptxFile[0]?.url} />
               <span className="form-download-tooltip">
                 <button id="form-pptx-tooltip" data-tooltip-id="pptx-tooltip" type="button">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

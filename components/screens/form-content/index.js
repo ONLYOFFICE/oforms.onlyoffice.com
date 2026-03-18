@@ -25,19 +25,19 @@ import "moment/locale/zh-cn";
 import "moment/locale/ar-sa";
 
 const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilations }) => {
-  const { name_form, template_desc, template_image, file_oform, form_exts, url } = form.data[0].attributes;
+  const { name_form, template_desc, template_image, file_oform, form_exts, url } = form.data[0];
   const [popupActive, setPopupActive] = useState(false);
   const [isInstalled, setIsInstalled] = useState(true);
 
-  const pdfFile = file_oform?.data?.filter((it) => it?.attributes.name.split(".").pop() === "pdf");
-  const docxFile = file_oform?.data?.filter((it) => it?.attributes.name.split(".").pop() === "docx");
-  const pptxFile = file_oform?.data?.filter((it) => it?.attributes.name.split(".").pop() === "pptx");
-  const xlsxFile = file_oform?.data?.filter((it) => it?.attributes.name.split(".").pop() === "xlsx");
-  const linkPdfEditor = `editor?lang=${locale}&filename=${url}&fillform=${`${pdfFile[0]?.attributes?.hash}.pdf`}`;
-  const fileSize = pdfFile[0]?.attributes.size || docxFile[0]?.attributes.size || pptxFile[0]?.attributes.size || xlsxFile[0]?.attributes.size;
-  const fileUpdatedAt = pdfFile[0]?.attributes.updatedAt || docxFile[0]?.attributes.updatedAt || pptxFile[0]?.attributes.updatedAt || xlsxFile[0]?.attributes.updatedAt;
-  const fileUrl = pdfFile[0]?.attributes.url || docxFile[0]?.attributes.url || pptxFile[0]?.attributes.url || xlsxFile[0]?.attributes.url;
-  const fileName = pdfFile[0]?.attributes.name || docxFile[0]?.attributes.name || pptxFile[0]?.attributes.name || xlsxFile[0]?.attributes.name;
+  const pdfFile = file_oform?.filter((it) => it?.name.split(".").pop() === "pdf");
+  const docxFile = file_oform?.filter((it) => it?.name.split(".").pop() === "docx");
+  const pptxFile = file_oform?.filter((it) => it?.name.split(".").pop() === "pptx");
+  const xlsxFile = file_oform?.filter((it) => it?.name.split(".").pop() === "xlsx");
+  const linkPdfEditor = `editor?lang=${locale}&filename=${url}&fillform=${`${pdfFile[0]?.hash}.pdf`}`;
+  const fileSize = pdfFile[0]?.size || docxFile[0]?.size || pptxFile[0]?.size || xlsxFile[0]?.size;
+  const fileUpdatedAt = pdfFile[0]?.updatedAt || docxFile[0]?.updatedAt || pptxFile[0]?.updatedAt || xlsxFile[0]?.updatedAt;
+  const fileUrl = pdfFile[0]?.url || docxFile[0]?.url || pptxFile[0]?.url || xlsxFile[0]?.url;
+  const fileName = pdfFile[0]?.name || docxFile[0]?.name || pptxFile[0]?.name || xlsxFile[0]?.name;
 
   const handleButtonClick = () => {
     scriptProtocolCheck(
@@ -59,7 +59,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
           <div className="form-info">
             <Heading className="form-title" level={1} label={name_form} />
             <div className="form-tags">
-              {pdfFile[0]?.attributes?.url &&
+              {pdfFile[0]?.url &&
                 <span className="tag form-tag">{t("Fillable form")}</span>
               }
               <span className="tag template-tag">{t("Editable template")}</span>
@@ -81,7 +81,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
           </div>
 
           <div className="form-img">
-            <img src={template_image.data?.attributes?.url} alt={name_form} />
+            <img src={template_image?.url} alt={name_form} />
           </div>
 
           <div className="form-description">
@@ -112,7 +112,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
             </div>
             <FormDownload t={t} locale={locale} pdfFile={pdfFile} docxFile={docxFile} pptxFile={pptxFile} xlsxFile={xlsxFile} />
             <div className="form-btns">
-              {pdfFile[0]?.attributes?.hash &&
+              {pdfFile[0]?.hash &&
                 <ExternalLink id="fill-out-pdf-form-link" className="btn-primary" label={t("Fill out PDF form")} href={linkPdfEditor} />
               }
               <Button onClick={handleButtonClick} id="edit-template-btn" className="btn-secondary" label={t("Edit template")} />
