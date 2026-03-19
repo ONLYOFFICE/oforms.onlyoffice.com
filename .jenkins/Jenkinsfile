@@ -1,8 +1,33 @@
 println("Branch name: ${BRANCH_NAME}")
 
 switch(BRANCH_NAME) {
+  case "feature/strapi-v5-migration":
+    aws_region="us-east-1"
+    awslogs_region = "us-east-1"
+    awslogs_group = "/site/www"
+    awslogs_stream = "templates-update.teamlab.info"
+    awslogs_stream_errors = "templates-update.teamlab.info-errors"
+    awslogs_enabled = "true"
+    deploy_expose_port = "40000"
+    deploy_app_name = "templates-update.teamlab.info"
+    region="info"
+    cloud_front_distribution_id="EH1YZ1QI3B8CC"
+    site_url="https://templates-update.teamlab.info"   
+    cms="https://templates-update.teamlab.info/dashboard"
+    appServer="https://templates-update.teamlab.info/"
+    domains="static-oforms-update.teamlab.info"
+    email_port="587"
+    next_public_main_site_base_domain="https://test-new.teamlab.info"
+    break
   case "test_deploy":
     aws_region="us-east-1"
+    awslogs_region = "us-east-1"
+    awslogs_group = "/site/www"
+    awslogs_stream = "templates.teamlab.info"
+    awslogs_stream_errors = "templates.teamlab.info-errors"
+    awslogs_enabled = "true"
+    deploy_expose_port = "30000"
+    deploy_app_name = "oforms.onlyoffice.com"
     region="info"
     cloud_front_distribution_id="E3OQ4LKWZZXBRX"
     site_url="https://oforms.teamlab.info"   
@@ -14,6 +39,13 @@ switch(BRANCH_NAME) {
     break
   case "production_deploy":
     aws_region="us-west-2"
+    awslogs_region = "us-west-2"
+    awslogs_group = "/site/www"
+    awslogs_stream = "templates.onlyoffice.com"
+    awslogs_stream_errors = "templates.onlyoffice.com-errors"
+    awslogs_enabled = "true"
+    deploy_expose_port = "30000"
+    deploy_app_name = "oforms.onlyoffice.com"
     region="com"
     MONITOR_ID = '58439000014815195'
     cloud_front_distribution_id="E18Y5OI4JS5NAJ"
@@ -50,10 +82,18 @@ pipeline {
     
     stage('deploy') {
       when { 
-        anyOf { branch 'test_deploy'; 
+        anyOf { branch 'feature/strapi-v5-migration'; 
+                branch 'test_deploy'; 
                 branch 'production_deploy' }
       }
       environment {
+        awslogs_region = "${awslogs_region}"
+        awslogs_group = "${awslogs_group}"
+        awslogs_stream = "${awslogs_stream}"
+        awslogs_stream_errors = "${awslogs_stream_errors}"
+        awslogs_enabled = "${awslogs_enabled}"
+        deploy_expose_port = "${deploy_expose_port}"
+        deploy_app_name = "${deploy_app_name}"
         aws_region = "${aws_region}"
         region = "${region}"        
         cms="${cms}"
@@ -100,6 +140,13 @@ pipeline {
             fi
 
             sed -i "s^var_notification_app_name^$site_url^" .jenkins/build.sh
+            sed -i "s^var_awslogs_region^$awslogs_region^" .jenkins/build.sh
+            sed -i "s^var_awslogs_group^$awslogs_group^" .jenkins/build.sh
+            sed -i "s^var_awslogs_stream^$awslogs_stream^" .jenkins/build.sh
+            sed -i "s^var_expose_port^$deploy_expose_port^" .jenkins/build.sh
+            sed -i "s^var_app_name^$deploy_app_name^" .jenkins/build.sh
+            sed -i "s^var_docker_network^$deploy_docker_network^" .jenkins/build.sh
+            cp .jenkins/build.sh ".jenkins/${deploy_app_name}_build.sh"
 
             sed -i "s^config_docEditorUrl^$NEXT_PUBLIC_EDITOR_API_URL^" config/config.json
             sed -i "s^config_cms^$cms^" config/config.json
@@ -125,7 +172,7 @@ pipeline {
 
             sed -i "s^var_next_public_main_site_base_domain^$next_public_main_site_base_domain^" .env.local
             
-            tar -czpf .jenkins/oforms.tar.gz \
+            tar -czpf ".jenkins/${deploy_app_name}.tar.gz" \
               --exclude ".git" \
               --exclude ".gitignore" \
               --exclude ".jenkins" \
@@ -135,12 +182,13 @@ pipeline {
           '''
         }
         
-        sshPublisher(publishers: [sshPublisherDesc(configName: "strapi_oforms@${region}", 
+        sshPublisher(failOnError: true, publishers: [sshPublisherDesc(configName: "strapi_oforms@${region}", 
           transfers: [sshTransfer(cleanRemote: false, 
             excludes: '', 
-            execCommand: '''
-              sudo bash /home/ubuntu/deploy/.jenkins/build.sh |& tee -a > /home/ubuntu/deploy/oforms_deploy.log
-            ''', 
+            execCommand: """
+              sudo bash "/home/ubuntu/deploy/.jenkins/${env.deploy_app_name}_build.sh" \
+                  2>&1 | tee -a "/home/ubuntu/deploy/${env.deploy_app_name}_deploy.log"
+            """, 
             execTimeout: 600000, 
             flatten: false, 
             makeEmptyDirs: false, 
@@ -149,7 +197,7 @@ pipeline {
             remoteDirectory: '', 
             remoteDirectorySDF: false, 
             removePrefix: '', 
-            sourceFiles: '.jenkins/oforms.tar.gz,.jenkins/build.sh')], 
+            sourceFiles: ".jenkins/${deploy_app_name}.tar.gz,.jenkins/${deploy_app_name}_build.sh")], 
           usePromotionTimestamp: false, 
           useWorkspaceInPromotion: false, 
           verbose: false)])
