@@ -137,12 +137,12 @@ if docker ps -a | grep -wq "$APP_NAME"; then
         # Build and run a new container if the image tag does not match
         log_step "Image tag changed ($CONTAINER_IMAGE_TAG -> $DOCKER_CONTAINER_TAG), recreating container: $APP_NAME"
         docker rm "$APP_NAME"
-        docker run -d --log-driver=awslogs --log-opt awslogs-region=$AWSLOGS_REGION --log-opt awslogs-group=$AWSLOGS_GROUP --log-opt awslogs-stream=$AWSLOGS_STREAM --name "$APP_NAME" --publish "0.0.0.0:$EXPOSE_PORT:30000" -v "$APP_DIR:$APP_DIR" -w "$APP_DIR" --restart always "$DOCKER_CONTAINER_TAG" yarn start
+        docker run -d --log-driver=awslogs --log-opt awslogs-region=$AWSLOGS_REGION --log-opt awslogs-group=$AWSLOGS_GROUP --log-opt awslogs-stream=$AWSLOGS_STREAM --name "$APP_NAME" --publish "0.0.0.0:$EXPOSE_PORT:30000" -v "$APP_DIR:$APP_DIR" -w "$APP_DIR" --restart always "$DOCKER_CONTAINER_TAG" npm run start
     fi
 else
         # Build and run a new container if it doesn't exist
     log_step "Creating new container: $APP_NAME (image: $DOCKER_CONTAINER_TAG)"
-    docker run -d --log-driver=awslogs --log-opt awslogs-region=$AWSLOGS_REGION --log-opt awslogs-group=$AWSLOGS_GROUP --log-opt awslogs-stream=$AWSLOGS_STREAM --name "$APP_NAME" --publish "0.0.0.0:$EXPOSE_PORT:30000" -v "$APP_DIR:$APP_DIR" -w "$APP_DIR" --restart always "$DOCKER_CONTAINER_TAG" yarn start
+    docker run -d --log-driver=awslogs --log-opt awslogs-region=$AWSLOGS_REGION --log-opt awslogs-group=$AWSLOGS_GROUP --log-opt awslogs-stream=$AWSLOGS_STREAM --name "$APP_NAME" --publish "0.0.0.0:$EXPOSE_PORT:30000" -v "$APP_DIR:$APP_DIR" -w "$APP_DIR" --restart always "$DOCKER_CONTAINER_TAG" npm run start
 fi
 
 # Send success notification
