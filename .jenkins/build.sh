@@ -83,7 +83,7 @@ cd "$BUILD_DIR"
 
 # Build application with error handling
 log_step "Starting application build..."
-docker run --rm -e NODE_OPTIONS="--max-old-space-size=4096" -v "$BUILD_DIR":"$APP_DIR" -w "$APP_DIR" "$DOCKER_CONTAINER_TAG" sh -c "npm сi && npm run build"
+docker run --rm -e NODE_OPTIONS="--max-old-space-size=4096" -v "$BUILD_DIR":"$APP_DIR" -w "$APP_DIR" "$DOCKER_CONTAINER_TAG" sh -c "npm ci && npm run build"
 if [ $? -ne 0 ]; then
     log_step "ERROR: Application build failed. Cleaning up build directory and exiting."
     send_telegram_notification "FAILED"
