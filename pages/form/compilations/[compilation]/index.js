@@ -15,8 +15,8 @@ import Footer from "@components/screens/footer";
 
 const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, categories, compilations, popularTemplates }) => {
   const { t } = useTranslation("common");
-  const seoTitle = categoryInfo.data[0]?.seo_title ? categoryInfo.data[0]?.seo_title : categoryInfo.data[0]?.categorie;
-  const seoDescription = categoryInfo.data[0]?.seo_description ? categoryInfo.data[0]?.seo_description : categoryInfo.data[0]?.header_description;
+  const seoTitle = categoryInfo.data[0]?.attributes.seo_title ? categoryInfo.data[0]?.attributes.seo_title : categoryInfo.data[0]?.attributes.categorie;
+  const seoDescription = categoryInfo.data[0]?.attributes.seo_description ? categoryInfo.data[0]?.attributes.seo_description : categoryInfo.data[0]?.attributes.header_description;
 
   return (
     <Layout locale={locale}>
@@ -31,15 +31,16 @@ const Category = ({ categoryForms, categoryInfo, locale, sort, page, types, cate
         <CategoryContent 
           t={t}
           locale={locale}
-          subtitle={categoryInfo.data[0]?.header_description}
+          title={categoryInfo.data[0]?.attributes.compilation}
+          subtitle={categoryInfo.data[0]?.attributes.header_description}
           forms={categoryForms}
           sort={sort}
           page={page}
           categories={categories}
           types={types}
           compilations={compilations}
-          categoryName={categoryInfo.data[0]?.compilation}
-          categoryUrl={`form/compilations/${categoryInfo.data[0]?.urlReq}`}
+          categoryName={categoryInfo.data[0]?.attributes.compilation}
+          categoryUrl={`form/compilations/${categoryInfo.data[0]?.attributes.urlReq}`}
           popularTemplates={popularTemplates}
         />
         <BannerFormSection t={t} locale={locale} />
