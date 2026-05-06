@@ -3,12 +3,13 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import getCategories from "@lib/requests/getCategories";
 import getPopularTemplates from "@lib/requests/getPopularTemplates";
 import getExtForms from "@lib/requests/getExtForms";
-import Layout from "@components/layout-new";
+import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
 import Header from "@components/screens/header";
 import AdventAnnounce from "@components/screens/advent-announce";
 import Footer from "@components/screens/footer";
-import MainContent from "@components/screens/main-content-new";
+import MainContent from "@components/screens/main-content";
+import AccordionSection from "@components/screens/common/accordion-section";
 
 const MainPage = ({ locale, categories, popularTemplates, pptxForms, docxForms, pdfForms, xlsxForms }) => {
   const { t } = useTranslation("common");
@@ -26,6 +27,9 @@ const MainPage = ({ locale, categories, popularTemplates, pptxForms, docxForms, 
         <Header
           t={t}
           locale={locale}
+          headerBgColor="#444444"
+          isMainPage={true}
+          isSearch={true}
         />
       </Layout.PageHeader>
       <Layout.SectionMain>
@@ -39,6 +43,7 @@ const MainPage = ({ locale, categories, popularTemplates, pptxForms, docxForms, 
           pdfForms={pdfForms}
           xlsxForms={xlsxForms}
         />
+        <AccordionSection t={t} locale={locale} />
       </Layout.SectionMain>
       <Layout.PageFooter>
         <Footer locale={locale} />

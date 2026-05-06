@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 252 187" fill="none" preserveAspectRatio="xMidYMid slice">
+  <rect width="252" height="187" fill="#ffffff"/>
+
+  <text x="126" y="22" font-family="Sora, sans-serif" font-size="11" font-weight="700" fill="#1f1f44" text-anchor="middle">ARBITRATION AGREEMENT</text>
+
+  <rect x="14" y="34" width="14" height="4" rx="1" fill="#9395a5"/>
+  <rect x="32" y="34" width="40" height="4" rx="1" fill="#e84e7a"/>
+
+  <rect x="14" y="44" width="32" height="4" rx="1" fill="#9395a5"/>
+  <rect x="50" y="44" width="40" height="4" rx="1" fill="#e84e7a"/>
+
+  <text x="126" y="62" font-family="Sora, sans-serif" font-size="6" font-weight="700" fill="#1f1f44" text-anchor="middle">PARTIES TO THIS AGREEMENT</text>
+
+  <rect x="14" y="72" width="220" height="4" rx="1" fill="#e8eaf0"/>
+  <rect x="14" y="80" width="200" height="4" rx="1" fill="#e8eaf0"/>
+
+  <rect x="14" y="92" width="32" height="4" rx="1" fill="#1f1f44"/>
+  <rect x="14" y="100" width="20" height="3" rx="1" fill="#9395a5"/>
+  <rect x="40" y="100" width="60" height="3" rx="1" fill="#e84e7a"/>
+  <rect x="14" y="108" width="20" height="3" rx="1" fill="#9395a5"/>
+  <rect x="40" y="108" width="80" height="3" rx="1" fill="#e84e7a"/>
+  <rect x="14" y="116" width="20" height="3" rx="1" fill="#9395a5"/>
+  <rect x="40" y="116" width="100" height="3" rx="1" fill="#e84e7a"/>
+  <rect x="14" y="124" width="20" height="3" rx="1" fill="#9395a5"/>
+  <rect x="40" y="124" width="70" height="3" rx="1" fill="#e84e7a"/>
+
+  <rect x="14" y="138" width="32" height="4" rx="1" fill="#1f1f44"/>
+  <rect x="14" y="146" width="20" height="3" rx="1" fill="#9395a5"/>
+  <rect x="40" y="146" width="60" height="3" rx="1" fill="#e84e7a"/>
+  <rect x="14" y="154" width="20" height="3" rx="1" fill="#9395a5"/>
+  <rect x="40" y="154" width="80" height="3" rx="1" fill="#e84e7a"/>
+  <rect x="14" y="162" width="20" height="3" rx="1" fill="#9395a5"/>
+  <rect x="40" y="162" width="100" height="3" rx="1" fill="#e84e7a"/>
+  <rect x="14" y="170" width="220" height="3" rx="1" fill="#e8eaf0"/>
+  <rect x="14" y="178" width="200" height="3" rx="1" fill="#e8eaf0"/>
+</svg>

@@ -14,6 +14,7 @@ import CardSlider from "@components/screens/common/card-slider";
 import RecentlyViewed from "@components/screens/form-content/recently-viewed";
 import ExploreOtherTemplate from "@components/screens/form-content/explore-other-template";
 import DesktopNotInstalledPopup from "./desktop-popup";
+import getCmsImageUrl from "@utils/helpers/cms-url";
 import moment from "moment";
 import "moment/locale/fr";
 import "moment/locale/it";
@@ -81,7 +82,7 @@ const FormContent = ({ t, locale, form, randomCarousel, recentForms, compilation
           </div>
 
           <div className="form-img">
-            <img src={template_image.data?.attributes?.url} alt={name_form} />
+            <img src={getCmsImageUrl(template_image.data?.attributes?.url)} alt={name_form} />
           </div>
 
           <div className="form-description">

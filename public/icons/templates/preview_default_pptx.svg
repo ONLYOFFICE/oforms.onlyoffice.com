@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 252 187" fill="none" preserveAspectRatio="xMidYMid slice">
+  <rect width="252" height="187" fill="#dcd5e8"/>
+
+  <circle cx="40" cy="50" r="22" fill="#c8b8dc" opacity="0.6"/>
+  <circle cx="200" cy="40" r="28" fill="#c8b8dc" opacity="0.6"/>
+  <circle cx="220" cy="140" r="20" fill="#c8b8dc" opacity="0.6"/>
+  <circle cx="50" cy="160" r="18" fill="#c8b8dc" opacity="0.6"/>
+  <circle cx="120" cy="100" r="16" fill="#c8b8dc" opacity="0.5"/>
+
+  <text x="200" y="76" font-family="Sora, sans-serif" font-size="13" font-weight="700" fill="#a13e9c" text-anchor="end">CLASSIC</text>
+  <text x="200" y="92" font-family="Sora, sans-serif" font-size="11" font-weight="700" fill="#a13e9c" text-anchor="end">CORPORATE</text>
+  <text x="200" y="116" font-family="Sora, sans-serif" font-size="20" font-weight="700" fill="#a13e9c" text-anchor="end">STRATEGIC</text>
+  <text x="200" y="138" font-family="Sora, sans-serif" font-size="20" font-weight="700" fill="#a13e9c" text-anchor="end">PLAN</text>
+
+  <rect x="146" y="148" width="58" height="2" fill="#5a4a6e"/>
+  <text x="200" y="160" font-family="Sora, sans-serif" font-size="6" font-weight="600" fill="#5a4a6e" text-anchor="end">STRATEGIC PLAN 2025-2030</text>
+  <text x="200" y="172" font-family="Sora, sans-serif" font-size="5" fill="#5a4a6e" text-anchor="end">Company Name | Date</text>
+</svg>

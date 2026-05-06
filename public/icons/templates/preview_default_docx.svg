@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 252 187" fill="none" preserveAspectRatio="xMidYMid slice">
+  <rect width="252" height="187" fill="#ffffff"/>
+
+  <rect width="252" height="60" fill="#d4ccc1"/>
+  <rect x="0" y="36" width="252" height="24" fill="#332c25" opacity="0.55"/>
+  <text x="126" y="55" font-family="Sora, sans-serif" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">Sales CONTRACT</text>
+
+  <rect x="14" y="74" width="220" height="4" rx="1" fill="#e8eaf0"/>
+  <rect x="14" y="82" width="60" height="4" rx="1" fill="#3a8cd8"/>
+  <rect x="78" y="82" width="40" height="4" rx="1" fill="#e8eaf0"/>
+  <rect x="122" y="82" width="60" height="4" rx="1" fill="#3a8cd8"/>
+  <rect x="186" y="82" width="48" height="4" rx="1" fill="#e8eaf0"/>
+  <rect x="14" y="90" width="200" height="4" rx="1" fill="#e8eaf0"/>
+
+  <rect x="14" y="102" width="48" height="4" rx="1" fill="#3a8cd8"/>
+  <rect x="14" y="110" width="220" height="3" rx="1" fill="#e8eaf0"/>
+  <rect x="14" y="116" width="200" height="3" rx="1" fill="#e8eaf0"/>
+
+  <rect x="14" y="128" width="48" height="4" rx="1" fill="#1f1f44"/>
+  <circle cx="20" cy="142" r="2" fill="#1f1f44"/>
+  <rect x="28" y="140" width="200" height="3" rx="1" fill="#e8eaf0"/>
+  <rect x="28" y="146" width="180" height="3" rx="1" fill="#e8eaf0"/>
+  <circle cx="20" cy="158" r="2" fill="#1f1f44"/>
+  <rect x="28" y="156" width="210" height="3" rx="1" fill="#e8eaf0"/>
+  <rect x="28" y="162" width="160" height="3" rx="1" fill="#e8eaf0"/>
+  <circle cx="20" cy="174" r="2" fill="#1f1f44"/>
+  <rect x="28" y="172" width="190" height="3" rx="1" fill="#e8eaf0"/>
+  <rect x="28" y="178" width="140" height="3" rx="1" fill="#e8eaf0"/>
+</svg>
