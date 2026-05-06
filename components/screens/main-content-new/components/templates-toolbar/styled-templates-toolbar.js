@@ -112,10 +112,22 @@ const StyledToolbar = styled.div`
     min-width: 200px;
   }
 
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
   .search-input {
     box-sizing: border-box;
     width: 100%;
-    padding: 14px 14px 14px 50px;
+    padding: 14px 44px 14px 50px;
     border: 1px solid #666980;
     border-radius: 8px;
     background: #fff;
@@ -132,6 +144,12 @@ const StyledToolbar = styled.div`
       outline: none;
       border-color: #231990;
     }
+
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-decoration {
+      -webkit-appearance: none;
+      appearance: none;
+    }
   }
 
   .search-icon {
@@ -142,6 +160,32 @@ const StyledToolbar = styled.div`
     height: 24px;
     transform: translateY(-50%);
     pointer-events: none;
+  }
+
+  .search-clear {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    color: #9092a6;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+
+    &:hover {
+      background: #f3f4f8;
+      color: #494b5b;
+    }
   }
 
   @media screen and (${device.tablet}) {

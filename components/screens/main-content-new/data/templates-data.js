@@ -1,120 +1,222 @@
+import CONFIG from "@config/config.json";
 import {
   BUSINESS_CATEGORY_GROUPS,
   PERSONAL_CATEGORY_GROUPS,
   TYPE_TO_FORMAT,
-  COUNTRIES_MAIN,
 } from "./filter-data";
+import { ITEM_TO_CMS, matchesItem } from "./cms-mapping";
 
-const FORMATS = ["xlsx", "pdf", "docx", "pptx"];
-const COUNTRY_VALUES = COUNTRIES_MAIN.map((c) => c.value);
+const CMS_BASE = CONFIG.api.cms || "";
 
-const SAMPLE_TEMPLATES = [
+const absolutePreviewUrl = (url) => {
+  if (!url) return null;
+  if (/^https?:\/\//i.test(url)) return url;
+  if (!CMS_BASE) return url;
+  return `${CMS_BASE.replace(/\/$/, "")}${url.startsWith("/") ? "" : "/"}${url}`;
+};
+
+const DEFAULT_SECTION_LIMIT = 4;
+
+const formMatchesSource = (form, source) => {
+  if (source.ext) return form.formats.includes(source.ext);
+  const list = form[source.collection];
+  return Array.isArray(list) && list.includes(source.slug);
+};
+
+const DEFAULT_SECTIONS_CONFIG = [
   {
-    name: "Balance sheet",
-    description: "Get a ready-made balance sheet by editing the 1 template or just download",
+    key: "agreements",
+    title: "Agreements & Contracts",
+    href: "/form/types/agreement-templates",
+    sources: [{ collection: "types", slug: "agreement-templates" }],
   },
   {
-    name: "Arbitration agreement template",
-    description: "Establish a clear mechanism for resolving disputes between parties...",
+    key: "invoices",
+    title: "Invoices & Billing",
+    href: "/form/financial-templates",
+    sources: [{ collection: "categories", slug: "financial-templates" }],
   },
   {
-    name: "Sales Contract",
-    description: "Outline terms, secure agreements, and ensure clear responsibilities between...",
+    key: "hr-employment",
+    title: "HR & Employment",
+    href: "/form/employment-templates",
+    sources: [
+      { collection: "categories", slug: "employment-templates" },
+      { collection: "categories", slug: "hr-templates" },
+    ],
   },
   {
-    name: "Project Budget",
-    description: "Use this Project Budget Template to plan, track, and manage expenses...",
+    key: "documents",
+    title: "Document Templates",
+    href: "/document-templates",
+    sources: [{ ext: "docx" }],
   },
   {
-    name: "Project brief",
-    description: "Get a ready-made balance sheet by editing the 1 template or just download",
+    key: "pdf-forms",
+    title: "PDF Forms Templates",
+    href: "/pdf-form-templates",
+    sources: [{ ext: "pdf" }],
   },
   {
-    name: "SWOT analysis",
-    description: "Access the SWOT Analysis template in Moodle to evaluate Strengths...",
+    key: "spreadsheets",
+    title: "Spreadsheet Templates",
+    href: "/spreadsheet-templates",
+    sources: [{ ext: "xlsx" }],
   },
   {
-    name: "Lesson planner",
-    description: "Easily organize your lessons with our customizable lesson planner available",
-  },
-  {
-    name: "Strategic plan",
-    description: "Use this Project Budget Template to plan, track, and manage expenses...",
+    key: "presentations",
+    title: "Presentation Templates",
+    href: "/presentation-templates",
+    sources: [{ ext: "pptx" }],
   },
 ];
-
-const TEMPLATES_PER_SUBCATEGORY = 4;
-
-const buildSections = (groups, purpose) => {
-  let counter = 0;
-
-  return groups.map((group) => ({
-    key: group.key,
-    title: toTitleCase(group.title),
-    templates: group.items.flatMap((item) =>
-      Array.from({ length: TEMPLATES_PER_SUBCATEGORY }, (_, i) => {
-        const sample = SAMPLE_TEMPLATES[i % SAMPLE_TEMPLATES.length];
-        const country = COUNTRY_VALUES[counter % COUNTRY_VALUES.length];
-        counter += 1;
-        return {
-          id: `${item.value}-${i}`,
-          name: sample.name,
-          description: sample.description,
-          format: FORMATS[i % FORMATS.length],
-          category: item.value,
-          categoryGroup: group.key,
-          country,
-          purpose,
-        };
-      })
-    ),
-  }));
-};
 
 export const toTitleCase = (str) =>
   str.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
 
-export const BUSINESS_TEMPLATE_SECTIONS = buildSections(BUSINESS_CATEGORY_GROUPS, "business");
-export const PERSONAL_TEMPLATE_SECTIONS = buildSections(PERSONAL_CATEGORY_GROUPS, "personal");
+const TEMPLATES_PER_SUBCATEGORY = 4;
+const FORMAT_PRIORITY = ["docx", "xlsx", "pptx", "pdf"];
 
-export const TEMPLATE_SECTIONS_BY_PURPOSE = {
-  business: BUSINESS_TEMPLATE_SECTIONS,
-  personal: PERSONAL_TEMPLATE_SECTIONS,
+const pickPrimaryFormat = (formats) => {
+  if (!formats || formats.length === 0) return null;
+  for (const f of FORMAT_PRIORITY) if (formats.includes(f)) return f;
+  return formats[0];
 };
 
-const allBusinessTemplates = BUSINESS_TEMPLATE_SECTIONS.flatMap((s) => s.templates);
-const allPersonalTemplates = PERSONAL_TEMPLATE_SECTIONS.flatMap((s) => s.templates);
+// Normalizes a Strapi v4 oform entry into a flat template object.
+export const normalizeOforms = (cmsResponse) => {
+  const data = cmsResponse?.data ?? [];
+  return data.map((entry) => {
+    const a = entry.attributes ?? {};
+    const formats =
+      a.form_exts?.data?.map((e) => e.attributes?.ext).filter(Boolean) ?? [];
+    const categories =
+      a.categories?.data?.map((c) => c.attributes?.urlReq).filter(Boolean) ?? [];
+    const types =
+      a.types?.data?.map((t) => t.attributes?.urlReq).filter(Boolean) ?? [];
+    const compilations =
+      a.compilations?.data?.map((c) => c.attributes?.urlReq).filter(Boolean) ?? [];
+    const preview = absolutePreviewUrl(a.card_prewiew?.data?.attributes?.url);
 
-const buildCounts = (templates) => {
+    return {
+      id: entry.id,
+      name: a.name_form ?? "",
+      description: a.description_card ?? "",
+      url: a.url ?? "",
+      popular: !!a.popular_template,
+      formats,
+      format: pickPrimaryFormat(formats),
+      preview,
+      categories,
+      types,
+      compilations,
+    };
+  });
+};
+
+const buildSections = (groups, purpose, forms) =>
+  groups.map((group) => ({
+    key: group.key,
+    title: toTitleCase(group.title),
+    purpose,
+    templates: group.items.flatMap((item) => {
+      if (!ITEM_TO_CMS[item.value]) return [];
+      const matched = forms.filter((f) => matchesItem(f, item.value));
+      return matched.slice(0, TEMPLATES_PER_SUBCATEGORY).map((f) => ({
+        ...f,
+        category: item.value,
+        categoryGroup: group.key,
+        purpose,
+      }));
+    }),
+  }));
+
+const buildCounts = (groups, forms) => {
   const typeCounts = {};
-  Object.entries(TYPE_TO_FORMAT).forEach(([typeValue, format]) => {
-    typeCounts[typeValue] = templates.filter((t) => t.format === format).length;
+  Object.entries(TYPE_TO_FORMAT).forEach(([typeValue, ext]) => {
+    typeCounts[typeValue] = forms.filter((f) => f.formats.includes(ext)).length;
   });
 
   const categoryCounts = {};
-  templates.forEach((t) => {
-    categoryCounts[t.category] = (categoryCounts[t.category] || 0) + 1;
+  groups.forEach((group) => {
+    group.items.forEach((item) => {
+      categoryCounts[item.value] = forms.filter((f) =>
+        matchesItem(f, item.value)
+      ).length;
+    });
   });
 
+  // Country data is not available in the CMS; counts stay at 0 for now.
   const countryCounts = {};
-  templates.forEach((t) => {
-    countryCounts[t.country] = (countryCounts[t.country] || 0) + 1;
-  });
 
   return { typeCounts, categoryCounts, countryCounts };
 };
 
-export const COUNTS_BY_PURPOSE = {
-  business: buildCounts(allBusinessTemplates),
-  personal: buildCounts(allPersonalTemplates),
+const purposeForms = (groups, forms) =>
+  forms.filter((f) =>
+    groups.some((g) => g.items.some((it) => matchesItem(f, it.value)))
+  );
+
+const buildDefaultSections = (forms) =>
+  DEFAULT_SECTIONS_CONFIG.map((cfg) => {
+    const seen = new Set();
+    const matched = [];
+    for (const f of forms) {
+      if (seen.has(f.id)) continue;
+      if (cfg.sources.some((s) => formMatchesSource(f, s))) {
+        seen.add(f.id);
+        matched.push(f);
+        if (matched.length >= DEFAULT_SECTION_LIMIT) break;
+      }
+    }
+    return {
+      key: cfg.key,
+      title: cfg.title,
+      href: cfg.href,
+      templates: matched.map((f) => ({
+        ...f,
+        category: null,
+        categoryGroup: null,
+        purpose: null,
+      })),
+    };
+  });
+
+export const buildTemplatesData = (forms) => {
+  const safeForms = Array.isArray(forms) ? forms : [];
+
+  const businessSections = buildSections(BUSINESS_CATEGORY_GROUPS, "business", safeForms);
+  const personalSections = buildSections(PERSONAL_CATEGORY_GROUPS, "personal", safeForms);
+
+  const businessForms = purposeForms(BUSINESS_CATEGORY_GROUPS, safeForms);
+  const personalForms = purposeForms(PERSONAL_CATEGORY_GROUPS, safeForms);
+
+  const popularBase = safeForms.filter((f) => f.popular);
+  const popular = (popularBase.length > 0 ? popularBase : safeForms)
+    .slice(0, 8)
+    .map((f) => ({ ...f, category: null, categoryGroup: null, purpose: null }));
+
+  return {
+    TEMPLATE_SECTIONS_BY_PURPOSE: {
+      business: businessSections,
+      personal: personalSections,
+    },
+    DEFAULT_SECTIONS: buildDefaultSections(safeForms),
+    COUNTS_BY_PURPOSE: {
+      business: buildCounts(BUSINESS_CATEGORY_GROUPS, businessForms),
+      personal: buildCounts(PERSONAL_CATEGORY_GROUPS, personalForms),
+    },
+    PURPOSE_COUNTS: {
+      business: businessForms.length,
+      personal: personalForms.length,
+    },
+    POPULAR_TEMPLATES: popular,
+  };
 };
 
-export const PURPOSE_COUNTS = {
-  business: allBusinessTemplates.length,
-  personal: allPersonalTemplates.length,
-};
+const EMPTY = buildTemplatesData([]);
 
-export const POPULAR_TEMPLATES = [
-  ...BUSINESS_TEMPLATE_SECTIONS[0].templates.slice(0, 4),
-  ...BUSINESS_TEMPLATE_SECTIONS[1].templates.slice(0, 4),
-].map((t, i) => ({ ...t, id: `popular-${i}` }));
+export const TEMPLATE_SECTIONS_BY_PURPOSE = EMPTY.TEMPLATE_SECTIONS_BY_PURPOSE;
+export const COUNTS_BY_PURPOSE = EMPTY.COUNTS_BY_PURPOSE;
+export const PURPOSE_COUNTS = EMPTY.PURPOSE_COUNTS;
+export const POPULAR_TEMPLATES = EMPTY.POPULAR_TEMPLATES;

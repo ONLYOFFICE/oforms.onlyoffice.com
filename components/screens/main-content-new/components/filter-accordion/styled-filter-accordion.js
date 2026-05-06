@@ -6,11 +6,11 @@ const StyledFilterAccordion = styled.div`
   ${({ $level }) =>
     $level === 1 &&
     `
-    &:not(:last-child) {
+    &:not(:last-of-type) {
       border-bottom: 1px solid #b9cef9;
     }
 
-    &:first-child > .accordion-header {
+    &:first-of-type > .accordion-header {
       padding-top: 0;
     }
   `}
@@ -73,16 +73,17 @@ const StyledFilterAccordion = styled.div`
   }
 
   > .accordion-content {
-    max-height: 0;
+    display: grid;
+    grid-template-rows: 0fr;
     overflow: hidden;
-    transition: max-height 0.3s ease;
+    transition: grid-template-rows 0.3s ease;
 
     &.open {
-      max-height: 2000px;
+      grid-template-rows: 1fr;
     }
 
     > .accordion-body {
-      padding-bottom: ${({ $level }) => ($level === 1 ? "8px" : "0")};
+      min-height: 0;
     }
   }
 `;

@@ -8,10 +8,11 @@ import {
   CATEGORY_GROUPS_BY_PURPOSE,
   DEFAULT_PURPOSE,
 } from "../../data/filter-data";
-import { COUNTS_BY_PURPOSE, PURPOSE_COUNTS } from "../../data/templates-data";
 import StyledFilterSidebar from "./styled-filter-sidebar";
 
 const EMPTY_COUNTS = { typeCounts: {}, categoryCounts: {}, countryCounts: {} };
+const EMPTY_BY_PURPOSE = { business: EMPTY_COUNTS, personal: EMPTY_COUNTS };
+const EMPTY_PURPOSE_COUNTS = { business: 0, personal: 0 };
 
 const FilterSidebar = ({
   activeType,
@@ -22,8 +23,10 @@ const FilterSidebar = ({
   setActivePurpose,
   activeCategory,
   setActiveCategory,
+  countsByPurpose = EMPTY_BY_PURPOSE,
+  purposeCounts = EMPTY_PURPOSE_COUNTS,
 }) => {
-  const { typeCounts, categoryCounts, countryCounts } = COUNTS_BY_PURPOSE[activePurpose] ?? EMPTY_COUNTS;
+  const { typeCounts, categoryCounts, countryCounts } = countsByPurpose[activePurpose] ?? EMPTY_COUNTS;
 
   const enrichedTypeItems = useMemo(
     () => TYPE_ITEMS.map((item) => ({ ...item, count: typeCounts[item.value] ?? 0 })),
@@ -36,8 +39,8 @@ const FilterSidebar = ({
   );
 
   const enrichedPurposeItems = useMemo(
-    () => PURPOSE_ITEMS.map((item) => ({ ...item, count: PURPOSE_COUNTS[item.value] ?? 0 })),
-    []
+    () => PURPOSE_ITEMS.map((item) => ({ ...item, count: purposeCounts[item.value] ?? 0 })),
+    [purposeCounts]
   );
 
   const enrichedCategoryGroups = useMemo(() => {
@@ -76,7 +79,7 @@ const FilterSidebar = ({
   };
 
   return (
-    <StyledFilterSidebar>
+    <StyledFilterSidebar aria-label="Filters">
       <FilterAccordion title="Type" defaultOpen level={1} selectedCount={activeType.length}>
         <FilterItems
           items={enrichedTypeItems}
@@ -118,6 +121,7 @@ const FilterSidebar = ({
         {enrichedCategoryGroups.map((group) => (
           <FilterAccordion key={group.key} title={group.title} level={2} defaultOpen>
             <FilterItems
+              level={2}
               items={group.items}
               activeItems={activeCategory}
               onToggle={(v) => toggle(setActiveCategory, activeCategory, v)}

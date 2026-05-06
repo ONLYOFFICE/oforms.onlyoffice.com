@@ -12,6 +12,13 @@ const StyledTemplateCard = styled.div`
   flex-direction: column;
   cursor: pointer;
 
+  .card-link {
+    display: flex;
+    flex-direction: column;
+    color: inherit;
+    text-decoration: none;
+  }
+
   .card-preview {
     position: relative;
     aspect-ratio: 284 / 219;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledFilterSidebar = styled.div`
+const StyledFilterSidebar = styled.aside`
   .countries-hint {
     font-family: "Sora", sans-serif;
     font-size: 13px;

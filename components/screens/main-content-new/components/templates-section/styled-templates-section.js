@@ -4,20 +4,6 @@ import { device } from "@utils/devices";
 const StyledSection = styled.section`
   padding-bottom: 56px;
 
-  .section-title-link {
-    display: inline-block;
-    text-decoration: none;
-    margin-bottom: 24px;
-
-    .section-title {
-      transition: color 0.2s;
-    }
-
-    &:hover .section-title {
-      color: #32118A;
-    }
-  }
-
   .section-title {
     font-family: "Sora", sans-serif;
     font-size: 24px;
@@ -27,14 +13,29 @@ const StyledSection = styled.section`
     margin: 0 0 24px;
   }
 
-  .section-title-link .section-title {
-    margin: 0;
+  .section-title-link {
+    display: inline-block;
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #32118A;
+    }
   }
 
   .cards-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cards-grid__item {
+    display: block;
+    min-width: 0;
   }
 
   @media screen and (${device.laptopM}) {

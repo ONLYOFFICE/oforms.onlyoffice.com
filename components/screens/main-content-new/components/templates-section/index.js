@@ -7,18 +7,22 @@ const TemplatesSection = ({ title, templates, href }) => {
 
   return (
     <StyledSection>
-      {href ? (
-        <InternalLink className="section-title-link" href={href}>
-          <h2 className="section-title">{title}</h2>
-        </InternalLink>
-      ) : (
-        <h2 className="section-title">{title}</h2>
-      )}
-      <div className="cards-grid">
+      <h2 className="section-title">
+        {href ? (
+          <InternalLink className="section-title-link" href={href}>
+            {title}
+          </InternalLink>
+        ) : (
+          title
+        )}
+      </h2>
+      <ul className="cards-grid">
         {templates.map((template) => (
-          <TemplateCard key={template.id} template={template} />
+          <li key={template.id} className="cards-grid__item">
+            <TemplateCard template={template} />
+          </li>
         ))}
-      </div>
+      </ul>
     </StyledSection>
   );
 };

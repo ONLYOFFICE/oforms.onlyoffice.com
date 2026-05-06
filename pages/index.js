@@ -3,6 +3,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import getCategories from "@lib/requests/getCategories";
 import getPopularTemplates from "@lib/requests/getPopularTemplates";
 import getExtForms from "@lib/requests/getExtForms";
+import getAllOforms from "@lib/requests/getAllOforms";
 import Layout from "@components/layout-new";
 import MainHead from "@components/screens/head";
 import Header from "@components/screens/header";
@@ -10,7 +11,7 @@ import AdventAnnounce from "@components/screens/advent-announce";
 import Footer from "@components/screens/footer";
 import MainContent from "@components/screens/main-content-new";
 
-const MainPage = ({ locale, categories, popularTemplates, pptxForms, docxForms, pdfForms, xlsxForms }) => {
+const MainPage = ({ locale, categories, popularTemplates, pptxForms, docxForms, pdfForms, xlsxForms, oforms }) => {
   const { t } = useTranslation("common");
 
   return (
@@ -38,6 +39,7 @@ const MainPage = ({ locale, categories, popularTemplates, pptxForms, docxForms, 
           docxForms={docxForms}
           pdfForms={pdfForms}
           xlsxForms={xlsxForms}
+          oforms={oforms}
         />
       </Layout.SectionMain>
       <Layout.PageFooter>
@@ -54,6 +56,7 @@ export const getServerSideProps = async ({ locale }) => {
   const docxForms = await getExtForms(locale, 1, "asc", 6, "docx");
   const pdfForms = await getExtForms(locale, 1, "asc", 6, "pdf");
   const xlsxForms = await getExtForms(locale, 1, "asc", 6, "xlsx");
+  const oforms = await getAllOforms(locale);
 
   return {
     props: {
@@ -64,7 +67,8 @@ export const getServerSideProps = async ({ locale }) => {
       pptxForms,
       docxForms,
       pdfForms,
-      xlsxForms
+      xlsxForms,
+      oforms
     }
   };
 }

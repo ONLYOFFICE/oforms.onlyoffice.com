@@ -1,3 +1,4 @@
+import InternalLink from "@components/common/internal-link";
 import xlsxIcon from "@public/icons/templates/xlsx.png";
 import xlsxHoverIcon from "@public/icons/templates/xlsx_hover.png";
 import pdfIcon from "@public/icons/templates/pdf.png";
@@ -20,22 +21,26 @@ const FORMAT_ASSETS = {
 };
 
 const TemplateCard = ({ template }) => {
-  const { format, name, description } = template;
+  const { format, name, description, preview, url } = template;
   const assets = FORMAT_ASSETS[format];
 
   if (!assets) return null;
 
-  return (
-    <StyledTemplateCard $format={format}>
+  const previewSrc = preview || assets.preview.src;
+  const href = url ? `/${url}` : null;
+
+  const inner = (
+    <>
       <div className="card-preview">
         <div
           className="preview-thumb"
-          style={{ backgroundImage: `url(${assets.preview.src})` }}
+          role="presentation"
+          style={{ backgroundImage: `url(${previewSrc})` }}
         />
         <img
           className="format-badge format-badge--default"
           src={assets.icon.src}
-          alt={format}
+          alt={`${format.toUpperCase()} format`}
         />
         <img
           className="format-badge format-badge--hover"
@@ -48,6 +53,18 @@ const TemplateCard = ({ template }) => {
         <h3 className="card-title">{name}</h3>
         <p className="card-description">{description}</p>
       </div>
+    </>
+  );
+
+  return (
+    <StyledTemplateCard $format={format}>
+      {href ? (
+        <InternalLink className="card-link" href={href}>
+          {inner}
+        </InternalLink>
+      ) : (
+        inner
+      )}
     </StyledTemplateCard>
   );
 };

@@ -3,7 +3,7 @@ import StyledFilterItems from "./styled-filter-items";
 
 const DEFAULT_VISIBLE = 4;
 
-const FilterItems = ({ items = [], activeItems = [], onToggle, variant = "badge" }) => {
+const FilterItems = ({ items = [], activeItems = [], onToggle, variant = "badge", level = 1 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const isSwitch = variant === "switch";
@@ -11,30 +11,38 @@ const FilterItems = ({ items = [], activeItems = [], onToggle, variant = "badge"
   const hiddenCount = items.length - DEFAULT_VISIBLE;
 
   return (
-    <StyledFilterItems className={`variant-${variant}`}>
-      <div className="pills-wrap">
-        {visibleItems.map((item) => (
-          <button
-            key={item.value}
-            type="button"
-            className={`pill ${activeItems.includes(item.value) ? "active" : ""}`}
-            onClick={() => onToggle?.(item.value)}
-          >
-            <span className="pill-label">{item.label}</span>
-            {!isSwitch && <span className="pill-count">{item.count}</span>}
-          </button>
-        ))}
+    <StyledFilterItems className={`variant-${variant}`} $level={level}>
+      <ul className="pills-wrap">
+        {visibleItems.map((item) => {
+          const isActive = activeItems.includes(item.value);
+          return (
+            <li key={item.value} className="pills-wrap__item">
+              <button
+                type="button"
+                className={`pill ${isActive ? "active" : ""}`}
+                aria-pressed={isSwitch ? undefined : isActive}
+                onClick={() => onToggle?.(item.value)}
+              >
+                <span className="pill-label">{item.label}</span>
+                {!isSwitch && <span className="pill-count">{item.count}</span>}
+              </button>
+            </li>
+          );
+        })}
 
         {!isSwitch && !isExpanded && hiddenCount > 0 && (
-          <button
-            type="button"
-            className="pill pill-more"
-            onClick={() => setIsExpanded(true)}
-          >
-            +{hiddenCount}
-          </button>
+          <li className="pills-wrap__item">
+            <button
+              type="button"
+              className="pill pill-more"
+              onClick={() => setIsExpanded(true)}
+              aria-label={`Show ${hiddenCount} more filters`}
+            >
+              +{hiddenCount}
+            </button>
+          </li>
         )}
-      </div>
+      </ul>
 
       {!isSwitch && isExpanded && hiddenCount > 0 && (
         <button

@@ -1,12 +1,19 @@
 import styled from "styled-components";
 
 const StyledFilterItems = styled.div`
-  padding: 0 0 12px;
+  padding: ${({ $level }) => ($level === 2 ? "0 0 12px" : "0 0 24px")};
 
   .pills-wrap {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .pills-wrap__item {
+    display: inline-flex;
   }
 
   .pill {

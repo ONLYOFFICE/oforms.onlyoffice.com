@@ -1,10 +1,6 @@
 import { useMemo, useState } from "react";
 import TemplatesToolbar from "../templates-toolbar";
 import TemplatesSection from "../templates-section";
-import {
-  TEMPLATE_SECTIONS_BY_PURPOSE,
-  POPULAR_TEMPLATES,
-} from "../../data/templates-data";
 import { DEFAULT_PURPOSE, TYPE_TO_FORMAT } from "../../data/filter-data";
 import StyledTemplatesList from "./styled-templates-list";
 
@@ -16,30 +12,46 @@ const sortTemplates = (templates, sortValue) => {
     case "oldest":
       return arr.reverse();
     case "popular":
-      return arr.sort((a, b) => a.name.length - b.name.length);
+      return arr.sort((a, b) => Number(b.popular) - Number(a.popular));
     case "newest":
     default:
       return arr;
   }
 };
 
+const EMPTY_SECTIONS = { business: [], personal: [] };
+
 const TemplatesList = ({
   activeType = [],
   activeCountry = [],
   activePurpose = DEFAULT_PURPOSE,
   activeCategory = [],
+  sectionsByPurpose = EMPTY_SECTIONS,
+  defaultSections = [],
+  popularTemplates = [],
 }) => {
   const [searchValue, setSearchValue] = useState("");
   const [sortValue, setSortValue] = useState("newest");
 
-  const purposeSections = TEMPLATE_SECTIONS_BY_PURPOSE[activePurpose] ?? [];
+  const hasActiveFilters =
+    activeType.length > 0 ||
+    activeCountry.length > 0 ||
+    activeCategory.length > 0 ||
+    !!searchValue.trim();
+  const useDefaultLayout = !hasActiveFilters && activePurpose === DEFAULT_PURPOSE;
+
+  const purposeSections = useDefaultLayout
+    ? defaultSections
+    : (sectionsByPurpose[activePurpose] ?? []);
 
   const matchesFilters = (template) => {
     if (activeType.length > 0) {
       const allowedFormats = activeType
         .map((t) => TYPE_TO_FORMAT[t])
         .filter(Boolean);
-      if (!allowedFormats.includes(template.format)) return false;
+      const formats = template.formats ?? (template.format ? [template.format] : []);
+      const intersect = formats.some((f) => allowedFormats.includes(f));
+      if (!intersect) return false;
     }
 
     if (activeCountry.length > 0 && !activeCountry.includes(template.country)) {
@@ -60,8 +72,8 @@ const TemplatesList = ({
   };
 
   const filteredPopular = useMemo(
-    () => sortTemplates(POPULAR_TEMPLATES.filter(matchesFilters), sortValue),
-    [activeType, activeCountry, activeCategory, searchValue, sortValue]
+    () => sortTemplates(popularTemplates.filter(matchesFilters), sortValue),
+    [popularTemplates, activeType, activeCountry, activeCategory, searchValue, sortValue]
   );
 
   const filteredSections = useMemo(
@@ -104,12 +116,12 @@ const TemplatesList = ({
               key={section.key}
               title={section.title}
               templates={section.templates}
-              href={`/category/${section.key}`}
+              href={section.href ?? `/category/${section.key}`}
             />
           ))}
         </>
       ) : (
-        <div className="empty-state">
+        <div className="empty-state" role="status">
           No templates match the selected filters.
         </div>
       )}

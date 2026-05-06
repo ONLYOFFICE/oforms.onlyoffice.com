@@ -18,7 +18,7 @@ const StyledContainer = styled.div`
   padding: 0 112px;
 `;
 
-const StyledHeading = styled.section`
+const StyledHeading = styled.header`
   padding: 84px 0;
 
   .main-title {
@@ -44,7 +44,7 @@ const StyledHeading = styled.section`
   }
 `;
 
-const StyledMain = styled.section`
+const StyledMain = styled.div`
   display: grid;
   grid-template-columns: 352px minmax(0, 1fr);
   gap: 56px;
