@@ -1,6 +1,6 @@
 {
   "name": "oforms.onlyoffice.com",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "private": true,
   "scripts": {
     "dev": "npm run clean-cache && next dev -p 30000",
@@ -25,7 +25,7 @@
     "next": "16.1.6",
     "next-i18next": "15.4.3",
     "nodemailer": "7.0.13",
-    "onlyoffice-react-ui-kit": "ONLYOFFICE/onlyoffice-react-ui-kit#15e0aab2c87488260c0ceaca29360ecdc469944e",
+    "onlyoffice-react-ui-kit": "ONLYOFFICE/onlyoffice-react-ui-kit#8c02d922f9912ba04bc36efaf6f77ef45402a833",
     "pdf-lib": "1.17.1",
     "prop-types": "15.8.1",
     "react": "19.2.4",
