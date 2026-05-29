@@ -135,7 +135,7 @@ pipeline {
           '''
         }
         
-        sshPublisher(publishers: [sshPublisherDesc(configName: "strapi_oforms@${region}", 
+        sshPublisher(publishers: [sshPublisherDesc(configName: "sites@${region}", 
           transfers: [sshTransfer(cleanRemote: false, 
             excludes: '', 
             execCommand: '''
