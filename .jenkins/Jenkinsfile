@@ -182,7 +182,7 @@ pipeline {
           '''
         }
         
-        sshPublisher(failOnError: true, publishers: [sshPublisherDesc(configName: "strapi_oforms@${region}", 
+        sshPublisher(failOnError: true, publishers: [sshPublisherDesc(configName: "sites@${region}", 
           transfers: [sshTransfer(cleanRemote: false, 
             excludes: '', 
             execCommand: """
