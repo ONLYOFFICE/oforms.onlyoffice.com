@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     };
 
     try {
-      const uploadApiUrl = `${CONFIG.api.cms}/api/upload`;
+      const uploadApiUrl = `${CONFIG.api.cmsUpload}/api/upload`;
       const queryUrl = fields.queryUrl[0];
       const fileType = queryUrl?.match(/\.(\w+)$/)?.[1];
       const fileName = fields.fileName[0];
@@ -113,7 +113,7 @@ export default async function handler(req, res) {
 
       // Send Form
       try {
-        await axios.post(`${CONFIG.api.cms}/api/oforms`, {
+        await axios.post(`${CONFIG.api.cmsUpload}/api/oforms`, {
           "data": {
             "name_form": fields.name[0],
             "template_desc": fields.description[0],

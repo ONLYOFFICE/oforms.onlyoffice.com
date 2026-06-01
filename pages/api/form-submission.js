@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     };
 
     try {
-      const uploadApiUrl = `${CONFIG.api.cms}/api/upload`;
+      const uploadApiUrl = `${CONFIG.api.cmsUpload}/api/upload`;
       const fileName = files.file[0].originalFilename;
       const uniqueFileName = `oforms_upload/${Date.now()}_${fileName}`;
       const fileType = fileName?.match(/\.(\w+)$/)?.[1];
@@ -134,7 +134,7 @@ export default async function handler(req, res) {
 
       // Send Form
       try {
-        await axios.post(`${CONFIG.api.cms}/api/oforms`, {
+        await axios.post(`${CONFIG.api.cmsUpload}/api/oforms`, {
           "data": {
             "name_form": fields.name[0],
             "template_desc": fields.description[0],
