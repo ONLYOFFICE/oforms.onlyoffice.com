@@ -25,7 +25,7 @@ export default async function handler(req, res) {
       const uniqueFileName = `oforms_upload/${Date.now()}_${fileName}`;
       const fileSize = files.file[0].size;
       const fileType = fileName?.match(/\.(\w+)$/)?.[1];
-      const CMSConfigAPI = CONFIG.api.cmsUpload.replace("dashboard", "");
+      const CMSConfigAPI = CONFIG.api.cms.replace("dashboard", "");
       const hasLanguage = languages.some(item => item.shortKey === language);
       const currentLanguage = hasLanguage ? language === "en" ? "" : `${language}/` : "";
 
