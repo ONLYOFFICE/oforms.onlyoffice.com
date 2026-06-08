@@ -157,8 +157,8 @@ pipeline {
     }
     stage('invalidation') {
       when { 
-        anyOf { branch 'test_deploy'; 
-                branch 'production_deploy' }
+        anyOf { branch 'disabled_test_deploy'; 
+                branch 'disabled_production_deploy' }
       }
       environment {
         aws_region = "${aws_region}"

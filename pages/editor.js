@@ -7,6 +7,7 @@ import Helmet from "react-helmet"
 import CONFIG from "@config/config";
 import Layout from "@components/layout";
 import MainHead from "@components/screens/head";
+import cmsLocale from "@utils/helpers/cmsLocale";
 
 const CMSConfigAPI = CONFIG.api.cms || "http://localhost:1337";
 
@@ -78,7 +79,7 @@ const EditorPage = ({ data, serfilename }) => {
 
 export const getServerSideProps = async (context) => {
   const serfilename = context.query.filename;
-  const res = await fetch(`${CMSConfigAPI}/api/oforms/?filters[url][$eq]=${context.query.filename}&locale=${context.locale === "pt" ? "pt-br" : context.locale}`);
+  const res = await fetch(`${CMSConfigAPI}/api/oforms/?filters[url][$eq]=${context.query.filename}&locale=${cmsLocale(context.locale)}`);
   const data = await res.json();
 
   if (data.data.length === 0) {
