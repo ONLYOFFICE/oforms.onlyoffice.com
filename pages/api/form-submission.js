@@ -134,7 +134,7 @@ export default async function handler(req, res) {
 
       // Send Form
       try {
-        await axios.post(`${CONFIG.api.cms}/api/oforms`, {
+        await axios.post(`${CONFIG.api.cmsUpload}/api/oforms`, {
           "data": {
             "name_form": fields.name[0],
             "template_desc": fields.description[0],
