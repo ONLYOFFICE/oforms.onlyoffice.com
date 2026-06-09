@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.11.1
+
+### New Features
+
+- Update onlyoffice-react-ui-kit to v1.32.1
+
 ## 1.11.0
 
 ### New Features
