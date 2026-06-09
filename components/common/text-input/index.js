@@ -32,7 +32,7 @@ const TextInput = ({
           placeholder={placeholder}
           type={type}
           value={value}
-          autocomplete="off"
+          autoComplete="off"
         />
         {label &&
           <label htmlFor={id} className="label">{label}</label>
