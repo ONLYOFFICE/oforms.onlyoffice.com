@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 import FormData from "form-data";
 import nodemailer from "nodemailer";
 import CONFIG from "@config/config";
+import cmsLocale from "@utils/helpers/cmsLocale";
 
 export const config = {
   api: {
@@ -133,12 +134,12 @@ export default async function handler(req, res) {
 
       // Send Form
       try {
-        await axios.post(`${CONFIG.api.cms}/api/oforms`, {
+        await axios.post(`${CONFIG.api.cmsUpload}/api/oforms`, {
           "data": {
             "name_form": fields.name[0],
             "template_desc": fields.description[0],
             "categories": fields.categoryId[0],
-            "locale": fields.languageKey[0],
+            "locale": cmsLocale(fields.languageKey[0]),
             "form_exts": fields.formExt[0],
             "publishedAt": null
           }

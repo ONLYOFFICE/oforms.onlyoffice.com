@@ -7,6 +7,7 @@ switch(BRANCH_NAME) {
     cloud_front_distribution_id="E3OQ4LKWZZXBRX"
     site_url="https://oforms.teamlab.info"   
     cms="https://templates.teamlab.info/dashboard"
+    cmsUpload="https://cmsoforms.teamlab.info"
     appServer="https://oforms.teamlab.info/"
     domains="static-oforms.teamlab.info"
     email_port="587"
@@ -19,6 +20,7 @@ switch(BRANCH_NAME) {
     cloud_front_distribution_id="E18Y5OI4JS5NAJ"
     site_url="https://oforms.onlyoffice.com"    
     cms="https://templates.onlyoffice.com/dashboard"
+    cmsUpload="https://cmsoforms.onlyoffice.com"
     appServer="https://oforms.onlyoffice.com/"
     domains="static-oforms.onlyoffice.com"
     email_port="587"
@@ -57,6 +59,7 @@ pipeline {
         aws_region = "${aws_region}"
         region = "${region}"        
         cms="${cms}"
+        cmsUpload="${cmsupload}"
         appServer="${appServer}"
         domains="${domains}"
         email_port="${email_port}"
@@ -103,6 +106,7 @@ pipeline {
 
             sed -i "s^config_docEditorUrl^$NEXT_PUBLIC_EDITOR_API_URL^" config/config.json
             sed -i "s^config_cms^$cms^" config/config.json
+            sed -i "s^config_cms_upload^$cmsupload^" config/config.json
             sed -i "s^config_appServer^$appServer^" config/config.json
             sed -i "s^nextconfig_domains^$domains^" next.config.js
 
@@ -135,7 +139,7 @@ pipeline {
           '''
         }
         
-        sshPublisher(publishers: [sshPublisherDesc(configName: "strapi_oforms@${region}", 
+        sshPublisher(publishers: [sshPublisherDesc(configName: "sites@${region}", 
           transfers: [sshTransfer(cleanRemote: false, 
             excludes: '', 
             execCommand: '''
@@ -157,8 +161,8 @@ pipeline {
     }
     stage('invalidation') {
       when { 
-        anyOf { branch 'test_deploy'; 
-                branch 'production_deploy' }
+        anyOf { branch 'disabled_test_deploy'; 
+                branch 'disabled_production_deploy' }
       }
       environment {
         aws_region = "${aws_region}"

@@ -89,7 +89,6 @@ const StyledUploadPopup = styled.div`
   }
 
   .upload-name-file {
-    padding-left: 40px;
     font-size: 14px;
     line-height: 32px;
     word-break: break-word;
@@ -99,6 +98,13 @@ const StyledUploadPopup = styled.div`
 
     span {
       font-weight: 700;
+    }
+
+    &.pdf,
+    &.docx,
+    &.xlsx,
+    &.pptx {
+      padding-left: 40px;
     }
 
     &.pdf {
