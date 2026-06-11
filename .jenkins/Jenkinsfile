@@ -155,12 +155,6 @@ pipeline {
             sed -i "s^var_docker_network^$deploy_docker_network^" .jenkins/build.sh
             cp .jenkins/build.sh ".jenkins/${deploy_app_name}_build.sh"
 
-            sed -i "s^config_docEditorUrl^$NEXT_PUBLIC_EDITOR_API_URL^" config/config.json
-            sed -i "s^config_cms^$cms^" config/config.json
-            sed -i "s^config_cms_upload^$cmsupload^" config/config.json
-            sed -i "s^config_appServer^$appServer^" config/config.json
-            sed -i "s^nextconfig_domains^$domains^" next.config.js
-
             sed -i "s^var_next_public_site_url^$site_url^" .env.local
             sed -i "s^var_next_public_static_url^$public_static_url^" .env.local
             sed -i "s^var_editor_api_url^$NEXT_PUBLIC_EDITOR_API_URL^" .env.local
