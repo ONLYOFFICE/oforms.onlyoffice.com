@@ -1,0 +1,113 @@
+/*
+ * (c) Copyright Ascensio System SIA 2009-2026
+ *
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms
+ * of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+ * Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+ * to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of
+ * any third-party rights.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY, without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see
+ * the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ *
+ * The  interactive user interfaces in modified source and object code versions of the Program must
+ * display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ *
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when
+ * distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under
+ * trademark law for use of our trademarks.
+ *
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+ * content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+ * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ */
+
+@use "media";
+
+@keyframes loadSpin {
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.main-section {
+  &:not(:last-child) {
+    margin-bottom: 112px;
+
+    @include media.desktop {
+      margin-bottom: 56px;
+    }
+  }
+}
+
+.main-section-heading-link {
+  display: block;
+  margin-bottom: 40px;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #32118a;
+  }
+
+  @include media.desktop {
+    margin-bottom: 24px;
+  }
+}
+
+.main-section-heading {
+  font-size: 26px;
+  line-height: 36px;
+}
+
+.main-section-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 56px 50px;
+
+  & > *:nth-child(n + 7) {
+    @include media.desktop {
+      display: none;
+    }
+  }
+
+  &.main-section-cards-desktop-limit {
+    & > *:nth-child(n + 4) {
+      display: none;
+    }
+  }
+
+  @include media.desktop {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px 50px;
+  }
+}
+
+.main-section-sentinel {
+  margin-top: 24px;
+}
+
+.main-section-loader {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 56px;
+
+  &:after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 18px;
+    height: 18px;
+    margin: 0 auto;
+    border: 2px solid #444444;
+    border-radius: 75%;
+    border-right-color: transparent;
+    transform: translate(-50%, -50%);
+    animation: loadSpin 1025ms infinite linear;
+  }
+}

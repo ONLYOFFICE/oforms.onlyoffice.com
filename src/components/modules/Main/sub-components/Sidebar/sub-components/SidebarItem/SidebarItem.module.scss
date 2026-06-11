@@ -1,0 +1,177 @@
+/*
+ * (c) Copyright Ascensio System SIA 2009-2026
+ *
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms
+ * of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+ * Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+ * to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of
+ * any third-party rights.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY, without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see
+ * the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ *
+ * The  interactive user interfaces in modified source and object code versions of the Program must
+ * display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ *
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when
+ * distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under
+ * trademark law for use of our trademarks.
+ *
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+ * content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+ * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ */
+
+.sidebar-item {
+  &:not(:last-child) {
+    margin-bottom: 24px;
+    border-bottom: 1px solid #b9cef9;
+    padding-bottom: 23px;
+  }
+}
+
+.sidebar-item-sub {
+  padding-inline-start: 16px;
+  padding-inline-end: 32px;
+
+  &:not(:last-child) {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+.sidebar-item-header {
+  position: relative;
+  display: flex;
+  border: none;
+  padding: 0;
+  padding-inline-end: 32px;
+  width: 100%;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:not(:last-child) {
+    margin-bottom: 12px;
+  }
+}
+
+.sidebar-item-header-sub {
+  &:not(:last-child) {
+    margin-bottom: 12px;
+  }
+}
+
+.sidebar-item-header-with-categories {
+  &:not(:last-child) {
+    margin-bottom: 24px;
+  }
+}
+
+.sidebar-item-header-heading {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #3a3c49;
+
+  &:not(:last-child) {
+    margin-inline-end: 12px;
+  }
+}
+
+.sidebar-item-header-heading-sub {
+  font-size: 14px;
+  letter-spacing: 0.03em;
+  color: #585a6d;
+  text-transform: uppercase;
+}
+
+.sidebar-item-header-count {
+  display: inline-flex;
+  justify-content: center;
+  border-radius: 32px;
+  padding: 0 4px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #ffffff;
+  text-align: center;
+  min-width: 24px;
+  height: 24px;
+  background-color: #666980;
+}
+
+.sidebar-item-header-icon {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: 0;
+  width: 24px;
+  height: 24px;
+  margin-inline-start: 8px;
+  transform: translateY(-50%) rotate(0deg);
+  transition: transform 0.2s;
+}
+
+.sidebar-item-header-icon-open {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.sidebar-item-header-icon-sub {
+  path {
+    fill: #9092a6;
+  }
+}
+
+.sidebar-item-text {
+  margin-bottom: 12px;
+  font-size: 13px;
+  line-height: 18px;
+  color: #9092a6;
+}
+
+.sidebar-item-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.sidebar-item-options-btn {
+  border: 1px solid #ccdbfb;
+  border-radius: 24px;
+  padding: 5px 15px;
+  font-size: 13px;
+  line-height: 18px;
+  color: #3a3c49;
+  background-color: transparent;
+  outline: none;
+  transition:
+    color 0.2s,
+    background-color 0.2s,
+    box-shadow 0.2s;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    color: #143481;
+    background-color: #ccdbfb;
+    box-shadow: inset 0 0 4px 0 #709af1;
+  }
+}
+
+.sidebar-item-show-less-btn {
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: #3a3c49;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,123 @@
+/*
+ * (c) Copyright Ascensio System SIA 2009-2026
+ *
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms
+ * of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+ * Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+ * to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of
+ * any third-party rights.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY, without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see
+ * the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ *
+ * The  interactive user interfaces in modified source and object code versions of the Program must
+ * display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ *
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when
+ * distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under
+ * trademark law for use of our trademarks.
+ *
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+ * content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+ * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ */
+
+@use "media";
+
+$display: block, inline-block, inline, flex, inline-flex;
+$font-weight: 100, 200, 300, 400, 500, 600, 700, 800, 900;
+$text-align: left, center, right;
+$text-transform: uppercase, lowercase, capitalize;
+$vertical-align: top, middle, bottom, text-top, text-bottom, sub, super;
+
+.text {
+  font-size: var(--text-font-size);
+  line-height: var(--text-line-height);
+  letter-spacing: var(--text-letter-spacing);
+  color: var(--text-color);
+}
+
+@each $value in $display {
+  .display-#{$value} {
+    display: $value;
+  }
+}
+
+@each $value in $font-weight {
+  .font-weight-#{$value} {
+    font-weight: $value;
+  }
+}
+
+.font-style-italic {
+  font-style: italic;
+}
+
+.text-align-left {
+  text-align: start;
+}
+
+.text-align-right {
+  text-align: end;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+@each $value in $text-transform {
+  .text-transform-#{$value} {
+    text-transform: $value;
+  }
+}
+
+.text-decoration-underline {
+  text-decoration: underline;
+}
+
+@each $value in $vertical-align {
+  .vertical-align-#{$value} {
+    vertical-align: $value;
+  }
+}
+
+.truncate {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.size-1 {
+  font-size: 18px;
+  line-height: 27px;
+
+  @include media.mobile {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+.size-2 {
+  font-size: 16px;
+  line-height: 24px;
+
+  @include media.mobile {
+    font-size: 14px;
+    line-height: 21px;
+  }
+}
+
+.size-3 {
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.size-4 {
+  font-size: 13px;
+  line-height: 21px;
+}
