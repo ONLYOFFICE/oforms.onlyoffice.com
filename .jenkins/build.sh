@@ -7,7 +7,7 @@ source /etc/ci_env.sh
 CURRENT_DATE=$(date "+%Y%m%d-%H%M%S")
 
 # Define variables
-DOCKER_CONTAINER_TAG="node:20.19.5-alpine"
+DOCKER_CONTAINER_TAG="node:lts-alpine"
 EXPOSE_PORT="var_expose_port"
 APP_NAME="var_app_name"
 APP_DIR="/app/$APP_NAME"
