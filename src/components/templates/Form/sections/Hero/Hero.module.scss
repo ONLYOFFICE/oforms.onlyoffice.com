@@ -26,13 +26,10 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-.hero-breadcrumbs {
-  margin-bottom: 64px;
-}
-
 .hero-wrapper {
   display: grid;
   grid-template-columns: 664px auto;
+  align-items: start;
   gap: 56px;
 }
 

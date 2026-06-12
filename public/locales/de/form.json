@@ -1,7 +1,7 @@
 {
   "MainTemplates": "Wichtige Vorlagen",
-  "Forms&Applications": "Forms & Applications",
-  "Applications": "Applications",
+  "FillableForm": "Ausfüllbares Formular",
+  "EditableTemplate": "Bearbeitbare Vorlage",
   "LastUpdated": "Zuletzt geändert:",
   "SuggestChanges": "Änderungen vorschlagen",
   "FileSize": "Dateigröße:",
@@ -25,8 +25,10 @@
   "CreateModelDocumentsAgreementsAndContracts": "Create model documents, agreements, and contracts for any purpose with ONLYOFFICE Docs.  Suggest form",
   "GetItNow": "Get it now",
   "ExploreOtherTemplates": "Andere Vorlagen anzeigen",
-  "FillableForm": "Ausfüllbares Formular",
   "Document": "Dokument",
   "Spreadsheet": "Kalkulationstabelle",
-  "Presentation": "Präsentation"
+  "Presentation": "Präsentation",
+  "OODesktopEditorsNotInstalled": "ONLYOFFICE Desktop-Editoren sind nicht installiert",
+  "PleaseDownloadItAndInstall": "Bitte laden Sie es herunter und installieren Sie es, um dieses Plugin zu verwenden. Gehen Sie zur <0>Download-Seite</0>, um ONLYOFFICE Desktop-Editoren für Windows, Linux oder macOS zu erhalten.",
+  "GetOODesktop": "ONLYOFFICE Desktop-App erhalten"
 }

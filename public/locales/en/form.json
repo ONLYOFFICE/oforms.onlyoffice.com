@@ -1,7 +1,7 @@
 {
   "MainTemplates": "Main templates",
-  "Forms&Applications": "Forms & Applications",
-  "Applications": "Applications",
+  "FillableForm": "Fillable form",
+  "EditableTemplate": "Editable Template",
   "LastUpdated": "Last updated:",
   "SuggestChanges": "Suggest changes",
   "FileSize": "File size:",
@@ -22,11 +22,13 @@
   "RecentlyViewed": "Recently viewed",
   "PopularCategories": "Popular Categories",
   "BuildYourOwnForms": "Build your own forms",
-  "CreateModelDocumentsAgreementsAndContracts": "Create model documents, agreements, and contracts for any purpose with ONLYOFFICE Docs.  Suggest form",
+  "CreateModelDocumentsAgreementsAndContracts": "Create model documents, agreements, and contracts for any purpose with ONLYOFFICE Docs. Suggest form",
   "GetItNow": "Get it now",
   "ExploreOtherTemplates": "Explore other templates",
-  "FillableForm": "Fillable form",
   "Document": "Document",
   "Spreadsheet": "Spreadsheet",
-  "Presentation": "Presentation"
+  "Presentation": "Presentation",
+  "OODesktopEditorsNotInstalled": "ONLYOFFICE Desktop Editors not installed",
+  "PleaseDownloadItAndInstall": "Please download it and install to use this plugin. Go to the <0>Download page</0> to get ONLYOFFICE Desktop Editors for Windows, Linux, or macOS.",
+  "GetOODesktop": "Get ONLYOFFICE desktop"
 }

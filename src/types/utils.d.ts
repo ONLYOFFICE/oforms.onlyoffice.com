@@ -28,6 +28,9 @@
 
 declare module "*.css";
 
+declare module "swiper/css";
+declare module "swiper/css/*";
+
 declare module "onlyoffice-react-ui-kit/advent-announce/css";
 declare module "onlyoffice-react-ui-kit/advent-announce" {
   import React from "react";

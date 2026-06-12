@@ -1,7 +1,7 @@
 {
   "MainTemplates": "القوالب الرئيسية",
-  "Forms&Applications": "Forms & Applications",
-  "Applications": "Applications",
+  "FillableForm": "نموذج قابل للتعبئة",
+  "EditableTemplate": "القوالب القابلة للتحرير",
   "LastUpdated": "آخر تحديث:",
   "SuggestChanges": "قدم اقتراح للتغيير",
   "FileSize": "حجم الملف:",
@@ -25,8 +25,10 @@
   "CreateModelDocumentsAgreementsAndContracts": "Create model documents, agreements, and contracts for any purpose with ONLYOFFICE Docs.  Suggest form",
   "GetItNow": "Get it now",
   "ExploreOtherTemplates": "استعرض قوالب أخرى",
-  "FillableForm": "نموذج قابل للتعبئة",
   "Document": "المستند",
   "Spreadsheet": "الجداول",
-  "Presentation": "العرض التقديمي"
+  "Presentation": "العرض التقديمي",
+  "OODesktopEditorsNotInstalled": "لم يتم تثبيت أدوات تحرير ONLYOFFICE على سطح المكتب ",
+  "PleaseDownloadItAndInstall": "يرجى تحميلها ثم تثبيتها لاستخدام هذه الاضافة. يرجى الذهاب إلى <0>صفحة التحميل</0> للحصول على ONLYOFFICE Desktop Editors لأنظمة Windows، Linux أو macOS.",
+  "GetOODesktop": "احصل على ONLYOFFICE على سطح المكتب "
 }

@@ -37,10 +37,9 @@ import {
 } from "react-share";
 import { Link } from "@src/components/ui/Link";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
-import { IShare } from "./Share.types";
 import styles from "./Share.module.scss";
 
-const Share = ({}: IShare) => {
+const Share = () => {
   const { t } = useTranslation("form");
   const router = useRouter();
   const locale = router.locale;

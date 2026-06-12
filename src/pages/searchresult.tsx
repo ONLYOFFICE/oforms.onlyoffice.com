@@ -30,7 +30,7 @@ import { useTranslation } from "next-i18next";
 import { GetServerSidePropsContext } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { getExtFormsCount } from "@src/lib/requests/getExtFormsCount";
-import { getCategoriesWithFormsCount } from "@/src/lib/requests/getCategoriesWithFormsCount";
+import { getCategoriesWithFormsCount } from "@src/lib/requests/getCategoriesWithFormsCount";
 import { getSearchResult } from "@src/lib/requests/getSearchResult";
 import { TSortKey } from "@src/utils/sortMap";
 import { Layout } from "@src/components/Layout";

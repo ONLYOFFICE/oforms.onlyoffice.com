@@ -26,12 +26,17 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-export interface IBreadcrumbsItem {
-  label: string;
-  href?: string;
-}
+import { IFormData } from "../../Form.types";
+import { TCardFormat } from "@src/components/widgets/Card/Card.types";
 
-export interface IBreadcrumbs {
-  className?: string;
-  items: IBreadcrumbsItem[];
+export interface ISliderSection {
+  heading: string;
+  data: {
+    id: IFormData["data"][0]["id"];
+    name_form: IFormData["data"][0]["attributes"]["name_form"];
+    description_card: IFormData["data"][0]["attributes"]["description_card"];
+    url: IFormData["data"][0]["attributes"]["url"];
+    card_prewiew: IFormData["data"][0]["attributes"]["card_prewiew"]["data"]["attributes"]["url"];
+    form_exts: TCardFormat;
+  }[];
 }

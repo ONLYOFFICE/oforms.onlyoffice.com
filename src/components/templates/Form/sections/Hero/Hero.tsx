@@ -26,8 +26,8 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+import { useState } from "react";
 import { useTranslation } from "next-i18next";
-import { useRouter } from "next/router";
 import clsx from "clsx";
 import dayjs from "dayjs";
 import "dayjs/locale/fr";
@@ -43,9 +43,11 @@ import { Container } from "@src/components/ui/Container";
 import { Heading } from "@src/components/ui/Heading";
 import { Link } from "@src/components/ui/Link";
 import { Button } from "@src/components/ui/Button";
-import { Breadcrumbs } from "./sub-components/Breadcrumbs";
+import { Modal } from "@src/components/ui/Modal";
 import { DownloadAs } from "./sub-components/DownloadAs";
 import { Share } from "./sub-components/Share";
+import { DownloadModal } from "./sub-components/DownloadModal";
+import { scriptProtocolCheck } from "@src/components/templates/Form/Form.utils";
 import { IHero } from "./Hero.types";
 import styles from "./Hero.module.scss";
 
@@ -55,48 +57,32 @@ const Hero = ({
   file_pages,
   file_oform,
   template_image,
+  linkPdfEditor,
 }: IHero) => {
   const { t } = useTranslation("form");
-  const router = useRouter();
-  const { locale } = router;
-  const { size, updatedAt, url } = file_oform.data[0].attributes;
-
+  const [isOpen, setIsOpen] = useState(false);
+  const { name, size, updatedAt, url } = file_oform.data[0].attributes;
   const pdfFile = file_oform?.data?.filter(
     (it) => it?.attributes.name.split(".").pop() === "pdf",
   );
-  const linkPdfEditor = `editor?lang=${locale}&filename=${url}&fillform=${`${pdfFile[0]?.attributes?.hash}.pdf`}`;
 
-  const downloadItems = (["docx", "xlsx", "pptx", "pdf"] as const).flatMap(
-    (format) => {
-      const file = file_oform?.data?.find(
-        (it) => it?.attributes.name.split(".").pop() === format,
-      );
-
-      return file?.attributes.url
-        ? [{ format, href: file.attributes.url }]
-        : [];
-    },
-  );
+  const handleButtonClick = () => {
+    scriptProtocolCheck(
+      `oo-office://open|f|n|${name}|${url}`,
+      () => setIsOpen(true),
+      () => setIsOpen(false),
+      () => setIsOpen(true),
+    );
+  };
 
   return (
-    <Section desktopSpacing={["64px", "64px"]}>
+    <Section
+      desktopSpacing={["0", "0"]}
+      tabletSpacing={["0", "0"]}
+      tabletSmallSpacing={["0", "0"]}
+      mobileSpacing={["0", "0"]}
+    >
       <Container maxWidth="1452px">
-        <Breadcrumbs
-          className={styles["hero-breadcrumbs"]}
-          items={[
-            { label: t("MainTemplates"), href: "/" },
-            // {
-            //   label:
-            //     form.data[0]?.attributes.categories.data[0].attributes
-            //       .categorie,
-            //   href: `/form/${
-            //     form.data[0]?.attributes.categories.data[0].attributes.urlReq
-            //   }`,
-            // },
-            { label: name_form },
-          ]}
-        />
-
         <div className={styles["hero-wrapper"]}>
           <div className={styles["hero-container"]}>
             <Heading className={styles["hero-heading"]} level={1}>
@@ -105,7 +91,7 @@ const Hero = ({
             <div className={styles["hero-labels"]}>
               {pdfFile[0]?.attributes.url && (
                 <span className={styles["hero-label"]}>
-                  {t("Forms&Applications")}
+                  {t("FillableForm")}
                 </span>
               )}
               <span
@@ -114,7 +100,7 @@ const Hero = ({
                   styles["hero-label-applications"],
                 )}
               >
-                {t("Applications")}
+                {t("EditableTemplate")}
               </span>
             </div>
             {template_desc?.split("\n").map((text, id) => (
@@ -174,7 +160,7 @@ const Hero = ({
 
             <DownloadAs
               className={styles["hero-download-as"]}
-              items={downloadItems}
+              file_oform={file_oform}
             />
 
             <div className={styles["hero-buttons"]}>
@@ -188,7 +174,10 @@ const Hero = ({
                   {t("FillOutPDFForm")}
                 </Button>
               )}
-              <Button variant="secondary">{t("EditTemplate")}</Button>
+
+              <Button onClick={handleButtonClick} variant="secondary">
+                {t("EditTemplate")}
+              </Button>
             </div>
 
             <Share />
@@ -203,6 +192,15 @@ const Hero = ({
           </div>
         </div>
       </Container>
+
+      <Modal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        maxWidth="736px"
+        withCloseBtn
+      >
+        <DownloadModal />
+      </Modal>
     </Section>
   );
 };

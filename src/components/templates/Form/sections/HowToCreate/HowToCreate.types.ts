@@ -28,4 +28,5 @@
 
 export interface IHowToCreate {
   name_form: string;
+  linkPdfEditor: string;
 }

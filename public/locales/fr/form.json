@@ -1,7 +1,7 @@
 {
   "MainTemplates": "Formulaires principaux",
-  "Forms&Applications": "Forms & Applications",
-  "Applications": "Applications",
+  "FillableForm": "Formulaire à remplir",
+  "EditableTemplate": "Formulaire modifiable",
   "LastUpdated": "Dernière mise à jour :",
   "SuggestChanges": "Proposer des modifications",
   "FileSize": "Taille de fichier :",
@@ -25,8 +25,10 @@
   "CreateModelDocumentsAgreementsAndContracts": "Create model documents, agreements, and contracts for any purpose with ONLYOFFICE Docs.  Suggest form",
   "GetItNow": "Get it now",
   "ExploreOtherTemplates": "Découvrir d'autres modèles",
-  "FillableForm": "Formulaire à remplir",
   "Document": "Document texte",
   "Spreadsheet": "Feuille de calcul",
-  "Presentation": "Présentation"
+  "Presentation": "Présentation",
+  "OODesktopEditorsNotInstalled": "ONLYOFFICE Desktop Editors n'est pas installé",
+  "PleaseDownloadItAndInstall": "Veuillez le télécharger et l'installer pour utiliser ce module. Allez à la <0>page de téléchargement</0> pour obtenir ONLYOFFICE Desktop Editors pour Windows, Linux, ou macOS.",
+  "GetOODesktop": "Obtenir application desktop ONLYOFFICE"
 }

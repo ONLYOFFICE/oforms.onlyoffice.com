@@ -29,7 +29,7 @@
 import { useTranslation } from "next-i18next";
 import { GetServerSidePropsContext } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getCategoriesWithFormsCount } from "@/src/lib/requests/getCategoriesWithFormsCount";
+import { getCategoriesWithFormsCount } from "@src/lib/requests/getCategoriesWithFormsCount";
 import { getPopularForms } from "@src/lib/requests/getPopularForms";
 import { getExtForms } from "@src/lib/requests/getExtForms";
 import { getExtFormsCount } from "@src/lib/requests/getExtFormsCount";

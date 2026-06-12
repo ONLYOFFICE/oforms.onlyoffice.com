@@ -28,19 +28,38 @@
 
 import { useTranslation } from "next-i18next";
 import clsx from "clsx";
-import { DownloadAsItem } from "./DownloadAsItem";
+import { DownloadAsItem, IDownloadAsItem } from "./DownloadAsItem";
 import { IDownloadAs } from "./DownloadAs.types";
 import styles from "./DownloadAs.module.scss";
 
-const DownloadAs = ({ className, items }: IDownloadAs) => {
+const SUPPORTED_FORMATS: IDownloadAsItem["format"][] = [
+  "docx",
+  "xlsx",
+  "pptx",
+  "pdf",
+];
+
+const isSupportedFormat = (
+  ext: string | undefined,
+): ext is IDownloadAsItem["format"] =>
+  SUPPORTED_FORMATS.includes(ext as IDownloadAsItem["format"]);
+
+const DownloadAs = ({ className, file_oform }: IDownloadAs) => {
   const { t } = useTranslation("form");
+
+  const files = (file_oform?.data ?? []).flatMap((it) => {
+    const format = it?.attributes.name.split(".").pop();
+    return isSupportedFormat(format)
+      ? [{ id: it.id, format, href: it.attributes.url }]
+      : [];
+  });
 
   return (
     <div className={clsx(styles["download-as"], className)}>
       <span className={styles["download-as-heading"]}>{t("DownloadAs")}</span>
 
-      {items.map(({ format, href }) => (
-        <DownloadAsItem key={format} format={format} href={href} />
+      {files.map((file) => (
+        <DownloadAsItem key={file.id} format={file.format} href={file.href} />
       ))}
     </div>
   );

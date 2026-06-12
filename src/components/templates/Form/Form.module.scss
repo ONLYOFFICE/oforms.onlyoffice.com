@@ -26,4 +26,8 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-export interface IShare {}
+.form-template {
+  display: grid;
+  row-gap: 64px;
+  padding-top: 64px;
+}

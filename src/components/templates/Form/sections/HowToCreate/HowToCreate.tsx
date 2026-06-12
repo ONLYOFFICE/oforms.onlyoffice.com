@@ -35,11 +35,16 @@ import { getAssetUrl } from "@src/utils/getAssetUrl";
 import { IHowToCreate } from "./HowToCreate.types";
 import styles from "./HowToCreate.module.scss";
 
-const HowToCreate = ({ name_form }: IHowToCreate) => {
+const HowToCreate = ({ name_form, linkPdfEditor }: IHowToCreate) => {
   const { t } = useTranslation("form");
 
   return (
-    <Section desktopSpacing={["0", "64px"]}>
+    <Section
+      desktopSpacing={["0", "0"]}
+      tabletSpacing={["0", "0"]}
+      tabletSmallSpacing={["0", "0"]}
+      mobileSpacing={["0", "0"]}
+    >
       <Container maxWidth="1452px">
         <div className={styles["how-to-create"]}>
           <Heading
@@ -69,6 +74,8 @@ const HowToCreate = ({ name_form }: IHowToCreate) => {
 
           <Button
             className={styles["how-to-create-button"]}
+            as="a"
+            href={linkPdfEditor}
             variant="secondary"
           >
             {t("FillOut")}

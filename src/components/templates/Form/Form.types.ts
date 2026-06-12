@@ -26,6 +26,8 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+import { TCardFormat } from "@src/components/widgets/Card/Card.types";
+
 export interface IFormData {
   data: {
     id: number;
@@ -69,7 +71,7 @@ export interface IFormData {
         data: {
           id: number;
           attributes: {
-            ext: string;
+            ext: TCardFormat;
           };
         }[];
       };

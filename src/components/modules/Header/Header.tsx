@@ -55,7 +55,7 @@ const Header = ({ locale, headerBgColor }: IHeader) => {
               : "/",
         }))}
         base={{
-          url: "https://www.onlyoffice.com",
+          url: process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN!,
           localePathMap: {
             ar: "",
           },

@@ -1,7 +1,7 @@
 {
   "MainTemplates": "主なテンプレート",
-  "Forms&Applications": "Forms & Applications",
-  "Applications": "Applications",
+  "FillableForm": "入力フォーム",
+  "EditableTemplate": "編集可能テンプレート",
   "LastUpdated": "最終更新日：",
   "SuggestChanges": "変更点のご提案",
   "FileSize": "ファイルサイズ：",
@@ -25,8 +25,10 @@
   "CreateModelDocumentsAgreementsAndContracts": "Create model documents, agreements, and contracts for any purpose with ONLYOFFICE Docs.  Suggest form",
   "GetItNow": "Get it now",
   "ExploreOtherTemplates": "他のテンプレートを見る",
-  "FillableForm": "入力フォーム",
   "Document": "ドキュメント",
   "Spreadsheet": "スプレッドシート",
-  "Presentation": "プレゼンテーション"
+  "Presentation": "プレゼンテーション",
+  "OODesktopEditorsNotInstalled": "ONLYOFFICE デスクトップエディタがインストールされていません。",
+  "PleaseDownloadItAndInstall": "本プラグインをご利用いただくには、ダウンロードとインストールが必要です。ONLYOFFICEデスクトップエディタ（Windows版、Linux版、macOS版）は<0>「ダウンロードページ」</0>から入手できます。",
+  "GetOODesktop": "ONLYOFFICEデスクトップを入手"
 }

@@ -28,7 +28,7 @@
 
 import { GetServerSidePropsContext } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getCategoriesWithFormsCount } from "@/src/lib/requests/getCategoriesWithFormsCount";
+import { getCategoriesWithFormsCount } from "@src/lib/requests/getCategoriesWithFormsCount";
 import { getSubCategoryPopularForms } from "@src/lib/requests/getSubCategoryPopularForms";
 import { getExtFormsCount } from "@src/lib/requests/getExtFormsCount";
 import { getCategoryForms } from "@src/lib/requests/getCategoryForms";

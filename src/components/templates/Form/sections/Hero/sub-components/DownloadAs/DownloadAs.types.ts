@@ -26,9 +26,9 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { IDownloadAsItem } from "./DownloadAsItem";
+import { IHero } from "../../Hero.types";
 
 export interface IDownloadAs {
   className?: string;
-  items: IDownloadAsItem[];
+  file_oform: IHero["file_oform"];
 }

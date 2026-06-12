@@ -26,7 +26,6 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { useState, useEffect } from "react";
 import { GetServerSidePropsContext } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { getForm } from "@src/lib/requests/getForm";
@@ -39,47 +38,12 @@ import { Footer } from "@src/components/modules/Footer";
 import { FormTemplate, IFormTemplate } from "@src/components/templates/Form";
 import { ILocale } from "@src/types/locale";
 
-interface IRecentForm {
-  id: number;
-  url: string | null;
-  card_prewiew: string | null;
-  name_form: string | null;
-}
-
 const FormPage = ({ locale, form, categories }: IFormTemplate & ILocale) => {
-  const [recentForms, setRecentForms] = useState<IRecentForm[]>([]);
   const seoTitle =
     form.data[0].attributes.seo_title || form.data[0].attributes.name_form;
   const seoDescription =
     form.data[0].attributes.seo_description ||
     form.data[0].attributes.description_card;
-
-  useEffect(() => {
-    const localStorageKey = `recentForms_${locale}`;
-    const maxForms = 7;
-
-    let recentForms: IRecentForm[] = JSON.parse(
-      localStorage.getItem(localStorageKey) || "[]",
-    );
-
-    const formData: IRecentForm = {
-      id: form.data[0].id,
-      url: form.data[0].attributes.url ? form.data[0].attributes.url : null,
-      card_prewiew: form.data[0].attributes.card_prewiew.data.attributes.url
-        ? form.data[0].attributes.card_prewiew.data.attributes.url
-        : null,
-      name_form: form.data[0].attributes.name_form
-        ? form.data[0].attributes.name_form
-        : null,
-    };
-
-    recentForms = recentForms.filter((f) => f.id !== formData.id);
-    recentForms.unshift(formData);
-    recentForms = recentForms.slice(0, maxForms);
-    setRecentForms(recentForms);
-
-    localStorage.setItem(localStorageKey, JSON.stringify(recentForms));
-  }, [form, locale]);
 
   return (
     <Layout>

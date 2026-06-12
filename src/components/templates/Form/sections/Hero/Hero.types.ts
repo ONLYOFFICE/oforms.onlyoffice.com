@@ -50,4 +50,5 @@ export interface IHero {
       };
     };
   };
+  linkPdfEditor: string;
 }

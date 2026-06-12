@@ -26,30 +26,49 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import clsx from "clsx";
-import { Link } from "@src/components/ui/Link";
-import { getAssetUrl } from "@src/utils/getAssetUrl";
-import { IBreadcrumbs } from "./Breadcrumbs.types";
-import styles from "./Breadcrumbs.module.scss";
+@use "media";
 
-const Breadcrumbs = ({ className, items }: IBreadcrumbs) => {
-  return (
-    <ul className={clsx(styles.breadcrumbs, className)}>
-      {items.map((item, index) => (
-        <li
-          key={index}
-          className={styles["breadcrumbs-item"]}
-          style={
-            {
-              "--breadcrumbs-item-arrow-right": `url(${getAssetUrl("/images/arrow-right.svg")})`,
-            } as React.CSSProperties
-          }
-        >
-          {item.href ? <Link href={item.href}>{item.label}</Link> : item.label}
-        </li>
-      ))}
-    </ul>
-  );
-};
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--modal-background-color, rgba(0, 0, 0, 0.3));
+  overflow-y: auto;
+  z-index: 999999;
+}
 
-export { Breadcrumbs };
+.modal-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  min-height: 100%;
+
+  @include media.mobile {
+    padding: 16px;
+  }
+}
+
+.modal-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: var(--modal-max-width, 600px);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 16px;
+  inset-inline-end: 16px;
+  border: none;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  z-index: 1;
+  background-image: var(--modal-close-button-image);
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  background-color: transparent;
+  cursor: pointer;
+}

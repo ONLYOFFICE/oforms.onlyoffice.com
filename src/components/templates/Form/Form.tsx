@@ -26,29 +26,71 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
+import { Container } from "@src/components/ui/Container";
+import { Breadcrumbs } from "./sub-components/Breadcrumbs";
 import { Hero } from "./sections/Hero";
 import { HowToCreate } from "./sections/HowToCreate";
+import { RecentlyViewed } from "./sections/RecentlyViewed";
 import { ExploreOtherTemplate } from "./sections/ExploreOtherTemplate";
 import { PopularCategories } from "./sections/PopularCategories";
+import { BuildYourOwnForms } from "./sections/BuildYourOwnForms";
 import { IFormTemplate } from "./Form.types";
+import styles from "./Form.module.scss";
 
 const FormTemplate = ({ form, categories }: IFormTemplate) => {
-  const { name_form, template_desc, file_oform, file_pages, template_image } =
-    form.data[0].attributes;
+  const { t } = useTranslation("form");
+  const router = useRouter();
+  const { locale } = router;
+  const {
+    name_form,
+    description_card,
+    template_desc,
+    file_oform,
+    file_pages,
+    template_image,
+    card_prewiew,
+    url,
+    form_exts,
+  } = form.data[0].attributes;
+  const fileName = file_oform.data[0].attributes.url;
+  const pdfFile = file_oform?.data?.filter(
+    (it) => it?.attributes.name.split(".").pop() === "pdf",
+  );
+  const linkPdfEditor = `editor?lang=${locale}&filename=${fileName}&fillform=${`${pdfFile[0]?.attributes?.hash}.pdf`}`;
 
   return (
-    <>
+    <div className={styles["form-template"]}>
+      <Container maxWidth="1452px">
+        <Breadcrumbs
+          items={[
+            { label: t("MainTemplates"), href: "/" },
+            { label: name_form },
+          ]}
+        />
+      </Container>
       <Hero
         name_form={name_form}
         template_desc={template_desc}
         file_pages={file_pages}
         file_oform={file_oform}
         template_image={template_image}
+        linkPdfEditor={linkPdfEditor}
       />
-      <HowToCreate name_form={name_form} />
+      <HowToCreate name_form={name_form} linkPdfEditor={linkPdfEditor} />
+      <RecentlyViewed
+        id={form.data[0].id}
+        name_form={name_form}
+        description_card={description_card}
+        url={url}
+        card_prewiew={card_prewiew.data.attributes.url}
+        form_exts={form_exts.data[0].attributes.ext}
+      />
       <ExploreOtherTemplate />
       <PopularCategories categories={categories} />
-    </>
+      <BuildYourOwnForms />
+    </div>
   );
 };
 
