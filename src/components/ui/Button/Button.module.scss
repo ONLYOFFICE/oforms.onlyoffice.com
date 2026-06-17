@@ -29,21 +29,21 @@
 @use "media";
 
 .button {
+  box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  font-size: 16px;
+  padding: 15px 22px;
+  font-size: 18px;
   font-weight: 600;
-  line-height: 24px;
+  line-height: 25px;
   color: #ffffff;
   width: auto;
   min-height: 56px;
   text-align: center;
-  cursor: pointer;
-  padding: 16px 22px;
   text-decoration: none;
-  box-sizing: border-box;
+  cursor: pointer;
 
   &:disabled {
     pointer-events: none;
@@ -51,9 +51,12 @@
   }
 
   @include media.mobile {
+    border-radius: 10px;
+    padding: 13px 24px;
+    font-size: 14px;
+    line-height: 22px;
     width: 100%;
     min-height: 48px;
-    padding: 12px 24px;
   }
 }
 
@@ -76,7 +79,10 @@
 .variant-primary-2 {
   border: none;
   border-radius: 9px;
+  font-family: "Open Sans", sans-serif;
   padding: 16px 24px;
+  font-size: 16px;
+  font-weight: 600;
   line-height: 22px;
   background-color: #ff6f3d;
   transition: background-color 0.2s;
@@ -102,16 +108,4 @@
   color: #000122;
   background-color: #ffffff;
   transition: background-color 0.2s;
-}
-
-.variant-quaternary {
-  border: 1px solid #3541f5;
-  border-radius: 8px;
-  padding: 12px;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 16px;
-  color: #000122;
-  min-height: 40px;
-  background-color: transparent;
 }

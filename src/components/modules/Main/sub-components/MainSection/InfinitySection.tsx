@@ -200,11 +200,7 @@ const InfinitySection = ({
     <div className={styles["main-section"]}>
       {headingWithoutLink ? (
         <div className={styles["main-section-heading-link"]}>
-          <Heading
-            level={2}
-            size={3}
-            className={styles["main-section-heading"]}
-          >
+          <Heading level={2} size={3}>
             {label || subCategoryLabel}
           </Heading>
         </div>
@@ -216,11 +212,7 @@ const InfinitySection = ({
           )}
           className={styles["main-section-heading-link"]}
         >
-          <Heading
-            level={2}
-            size={3}
-            className={styles["main-section-heading"]}
-          >
+          <Heading level={2} size={3}>
             {label || subCategoryLabel}
           </Heading>
         </Link>
@@ -230,6 +222,7 @@ const InfinitySection = ({
         {items?.map((item) => (
           <Card
             key={item.id}
+            className={styles["main-section-card"]}
             preview={item.attributes.card_prewiew?.data.attributes.url}
             format={item.attributes.form_exts?.data[0].attributes.ext}
             heading={item.attributes.name_form}

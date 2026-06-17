@@ -41,6 +41,7 @@
   right: 0;
   top: calc(50% - 260px);
   position: fixed;
+  font-family: "Open Sans", sans-serif;
   width: 100%;
   text-align: center;
   z-index: 10002;
@@ -91,6 +92,10 @@
 .check-heading {
   font-size: 16px;
   color: #333333;
+}
+
+.check-description {
+  font-size: 14px;
 }
 
 .check-text {

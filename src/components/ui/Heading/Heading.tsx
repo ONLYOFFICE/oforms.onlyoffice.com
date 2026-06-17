@@ -42,10 +42,7 @@ const Heading = ({
   textTransform,
   style,
 }: IHeading) => {
-  const levelSize =
-    size ??
-    (level === 1 ? 2 : level === 2 ? 4 : level === 3 ? 5 : level === 4 ? 5 : 5);
-
+  const levelSize = size ?? level;
   const Component = (as || `h${level}`) as React.ElementType;
 
   return (

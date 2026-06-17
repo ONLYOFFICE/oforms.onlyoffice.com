@@ -26,6 +26,8 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+@use "media";
+
 .share {
   display: flex;
   align-items: center;
@@ -36,7 +38,16 @@
   font-size: 14px;
   line-height: 20px;
   letter-spacing: 0.05em;
+  color: #9092a6;
   text-transform: uppercase;
+
+  @include media.tablet {
+    margin-inline-end: 16px;
+  }
+
+  @include media.mobile {
+    margin-inline-end: 12px;
+  }
 }
 
 .share-list {
@@ -49,6 +60,14 @@
 .share-item {
   &:not(:last-child) {
     margin-inline-end: 12px;
+
+    @include media.tablet {
+      margin-inline-end: 6px;
+    }
+
+    @include media.mobile {
+      margin-inline-end: 4px;
+    }
   }
 }
 

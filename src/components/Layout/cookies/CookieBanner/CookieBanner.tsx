@@ -27,7 +27,6 @@
  */
 
 import { Trans, useTranslation } from "next-i18next";
-import { Text } from "@src/components/ui/Text";
 import { Button } from "@src/components/ui/Button";
 import { Link } from "@src/components/ui/Link";
 import { Heading } from "@src/components/ui/Heading";
@@ -265,7 +264,7 @@ const CookieBanner = () => {
               />
             )}
           </div>
-          <Text fontSize="14px">
+          <p className={styles["cookie-banner-text"]}>
             <Trans
               t={t}
               i18nKey="CookieText"
@@ -279,7 +278,7 @@ const CookieBanner = () => {
                 />,
               ]}
             />
-          </Text>
+          </p>
           <div className={styles["buttons-area"]}>
             <Button
               id="decline-all"

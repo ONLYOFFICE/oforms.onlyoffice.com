@@ -26,6 +26,8 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+@use "media";
+
 .build-your-own-forms {
   display: flex;
   align-items: center;
@@ -33,11 +35,25 @@
   border-radius: 9px;
   padding: 31px;
   background-color: rgba(156, 153, 231, 0.1);
+
+  @include media.mobile {
+    flex-direction: column;
+    padding: 19px;
+  }
 }
 
 .build-your-own-forms-body {
   flex: 1 1 auto;
   margin-inline-end: 48px;
+
+  @include media.tablet {
+    margin-inline-end: 40px;
+  }
+
+  @include media.mobile {
+    margin-inline-end: 0;
+    margin-bottom: 24px;
+  }
 }
 
 .build-your-own-forms-heading {
@@ -55,11 +71,44 @@
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+
+    @include media.mobile {
+      margin-inline-end: initial;
+      margin-bottom: 8px;
+    }
+  }
+
+  @include media.tablet {
+    margin-bottom: 12px;
+  }
+
+  @include media.mobile {
+    flex-direction: column;
+    align-items: initial;
+    margin-bottom: 8px;
   }
 }
 
 .build-your-own-forms-text {
-  font-weight: 18px;
+  font-size: 18px;
   line-height: 26px;
   color: #ffffff;
+
+  @include media.mobile {
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
+
+.build-your-own-forms-button {
+  min-width: 140px;
+
+  @include media.mobile {
+    border-radius: 8px;
+    padding: 9px 24px;
+    font-size: 13px;
+    line-height: 22px;
+    min-width: initial;
+    min-height: 40px;
+  }
 }

@@ -30,7 +30,6 @@ import { useTranslation } from "next-i18next";
 import { Section } from "@src/components/ui/Section";
 import { Container } from "@src/components/ui/Container";
 import { Heading } from "@src/components/ui/Heading";
-import { Button } from "@src/components/ui/Button";
 import { IPopularCategories } from "./PopularCategories.types";
 import styles from "./PopularCategories.module.scss";
 
@@ -38,7 +37,12 @@ const PopularCategories = ({ categories }: IPopularCategories) => {
   const { t } = useTranslation("form");
 
   return (
-    <Section desktopSpacing={["32px", "32px"]}>
+    <Section
+      desktopSpacing={["32px", "32px"]}
+      tabletSpacing={["32px", "32px"]}
+      tabletSmallSpacing={["32px", "32px"]}
+      mobileSpacing={["0", "20px"]}
+    >
       <Container maxWidth="1452px">
         <Heading
           className={styles["popular-categories-heading"]}
@@ -50,14 +54,13 @@ const PopularCategories = ({ categories }: IPopularCategories) => {
 
         <div className={styles["popular-categories-list"]}>
           {categories.data.map((category) => (
-            <Button
-              as="a"
+            <a
+              className={styles["popular-categories-item"]}
               href={`/form/${category.attributes.urlReq}`}
-              variant="quaternary"
               key={category.id}
             >
               {category.attributes.categorie}
-            </Button>
+            </a>
           ))}
         </div>
       </Container>

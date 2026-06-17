@@ -29,6 +29,8 @@
 import { IMain } from "@src/components/modules/Main/Main.types";
 
 export interface ISidebar {
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
   typeFormsCount: IMain["typeFormsCount"];
   docxForms?: IMain["docxForms"];
   xlsxForms?: IMain["xlsxForms"];

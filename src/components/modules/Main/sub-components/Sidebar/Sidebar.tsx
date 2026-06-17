@@ -28,12 +28,16 @@
 
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+import clsx from "clsx";
 import { SidebarItem } from "./sub-components/SidebarItem";
 import { FILTER_PARAMS } from "@src/components/modules/Main/Main.constants";
+import { getAssetUrl } from "@src/utils/getAssetUrl";
 import { ISidebar } from "./Sidebar.types";
 import styles from "./Sidebar.module.scss";
 
 const Sidebar = ({
+  isOpen,
+  setIsOpen,
   typeFormsCount,
   docxForms,
   xlsxForms,
@@ -79,10 +83,17 @@ const Sidebar = ({
         ? pageExt === ext || parseIds(router.query.type).includes(ext)
         : parseIds(router.query.type).includes(ext);
 
+  const pushAndClose = (...args: Parameters<typeof router.push>) =>
+    router.push(...args).then(() => {
+      if (window.matchMedia("(max-width: 1024px)").matches) {
+        setIsOpen(false);
+      }
+    });
+
   const toggleFilter = (group: string, id: string) => {
     if (group === "type" && pageExt) {
       if (pageExt === id) {
-        router.push({ pathname: "/", query: withOpened({}) }, undefined, {
+        pushAndClose({ pathname: "/", query: withOpened({}) }, undefined, {
           scroll: false,
         });
         return;
@@ -95,7 +106,7 @@ const Sidebar = ({
         ? current.filter((item) => item !== id)
         : [...current, id];
 
-      router.push(
+      pushAndClose(
         {
           pathname: "/",
           query: withOpened({ type: [pageExt, ...ids].join(",") }),
@@ -108,7 +119,7 @@ const Sidebar = ({
 
     if (isFormPage) {
       if (group === "type") {
-        router.push(
+        pushAndClose(
           { pathname: "/", query: withOpened({ type: id }) },
           undefined,
           { scroll: false },
@@ -133,14 +144,14 @@ const Sidebar = ({
         delete query[group];
       }
 
-      router.push({ pathname: "/", query: withOpened(query) }, undefined, {
+      pushAndClose({ pathname: "/", query: withOpened(query) }, undefined, {
         scroll: false,
       });
       return;
     }
 
     if (isSearchPage) {
-      router.push(
+      pushAndClose(
         { pathname: "/", query: withOpened({ [group]: id }) },
         undefined,
         { scroll: false },
@@ -166,7 +177,7 @@ const Sidebar = ({
       delete query[group];
     }
 
-    router.push({ pathname: router.pathname, query }, undefined, {
+    pushAndClose({ pathname: router.pathname, query }, undefined, {
       scroll: false,
     });
   };
@@ -197,7 +208,7 @@ const Sidebar = ({
 
   const clearAllFilters = () => {
     if (pageExt || isFormPage) {
-      router.push({ pathname: "/", query: withOpened({}) }, undefined, {
+      pushAndClose({ pathname: "/", query: withOpened({}) }, undefined, {
         scroll: false,
       });
       return;
@@ -207,150 +218,164 @@ const Sidebar = ({
     FILTER_PARAMS.forEach((key) => {
       delete query[key];
     });
-    router.push({ pathname: router.pathname, query }, undefined, {
+    pushAndClose({ pathname: router.pathname, query }, undefined, {
       scroll: false,
     });
   };
 
   return (
-    <aside>
-      {[
-        {
-          heading: t("Type"),
-          count: countByKey("type"),
-          options: [
-            ...(docxForms?.data?.length || getTypeFormsCountByExt("docx")
-              ? [
-                  {
-                    value: "docx",
-                    label: t("Documents"),
-                    count:
-                      docxForms?.meta.pagination.total ??
-                      getTypeFormsCountByExt("docx"),
-                    checked: isTypeChecked("docx"),
-                    onChange: () => toggleFilter("type", "docx"),
-                  },
-                ]
-              : []),
-            ...(xlsxForms?.data?.length || getTypeFormsCountByExt("xlsx")
-              ? [
-                  {
-                    value: "xlsx",
-                    label: t("Spreadsheets"),
-                    count:
-                      xlsxForms?.meta.pagination.total ??
-                      getTypeFormsCountByExt("xlsx"),
-                    checked: isTypeChecked("xlsx"),
-                    onChange: () => toggleFilter("type", "xlsx"),
-                  },
-                ]
-              : []),
-            ...(pptxForms?.data?.length || getTypeFormsCountByExt("pptx")
-              ? [
-                  {
-                    value: "pptx",
-                    label: t("Presentations"),
-                    count:
-                      pptxForms?.meta.pagination.total ??
-                      getTypeFormsCountByExt("pptx"),
-                    checked: isTypeChecked("pptx"),
-                    onChange: () => toggleFilter("type", "pptx"),
-                  },
-                ]
-              : []),
-            ...(pdfForms?.data?.length || getTypeFormsCountByExt("pdf")
-              ? [
-                  {
-                    value: "pdf",
-                    label: t("PdfForms"),
-                    count:
-                      pdfForms?.meta.pagination.total ??
-                      getTypeFormsCountByExt("pdf"),
-                    checked: isTypeChecked("pdf"),
-                    onChange: () => toggleFilter("type", "pdf"),
-                  },
-                ]
-              : []),
-          ],
-        },
-        {
-          heading: t("Сategories"),
-          count:
-            countByKey("categories") +
-            countByKey("types") +
-            countByKey("compilations"),
-          categories: [
-            ...(categories.data.length > 0
-              ? [
-                  {
-                    heading: t("TemplatesByBranch"),
-                    queryKey: "categories",
-                    options: categories.data.map((item) => ({
-                      value: `categories-${item.id}`,
-                      label: item.attributes.categorie,
-                      count: item.attributes.oforms.data.attributes.count,
-                      checked:
-                        parseIds(router.query.categories).includes(
-                          String(item.id),
-                        ) || isSubCategoryChecked("categories", item.id),
-                      onChange: () =>
-                        toggleFilter("categories", String(item.id)),
-                    })),
-                  },
-                ]
-              : []),
-            ...(types.data.length > 0
-              ? [
-                  {
-                    heading: t("TemplatesByType"),
-                    queryKey: "types",
-                    options: types.data.map((item) => ({
-                      value: `types-${item.id}`,
-                      label: item.attributes.type,
-                      count: item.attributes.oforms.data.attributes.count,
-                      checked:
-                        parseIds(router.query.types).includes(
-                          String(item.id),
-                        ) || isSubCategoryChecked("types", item.id),
-                      onChange: () => toggleFilter("types", String(item.id)),
-                    })),
-                  },
-                ]
-              : []),
-            ...(compilations.data.length > 0
-              ? [
-                  {
-                    heading: t("PopularCompilations"),
-                    queryKey: "compilations",
-                    options: compilations.data.map((item) => ({
-                      value: `compilations-${item.id}`,
-                      label: item.attributes.compilation,
-                      count: item.attributes.oforms.data.attributes.count,
-                      checked:
-                        parseIds(router.query.compilations).includes(
-                          String(item.id),
-                        ) || isSubCategoryChecked("compilations", item.id),
-                      onChange: () =>
-                        toggleFilter("compilations", String(item.id)),
-                    })),
-                  },
-                ]
-              : []),
-          ],
-        },
-      ].map((item, index) => (
-        <SidebarItem key={index} {...item} />
-      ))}
-
-      {!!totalChecked && (
+    <aside className={clsx(styles.sidebar, isOpen && styles["sidebar-open"])}>
+      <div className={styles["sidebar-header"]}>
         <button
-          type="button"
-          className={styles["sidebar-clear-btn"]}
-          onClick={clearAllFilters}
-        >
-          {t("ClearAllFilters")} ({totalChecked})
-        </button>
-      )}
+          onClick={() => setIsOpen(false)}
+          className={styles["sidebar-close-btn"]}
+          style={
+            {
+              "--sidebar-close-btn-icon": `url(${getAssetUrl("/images/cross-x2.svg")})`,
+            } as React.CSSProperties
+          }
+        ></button>
+      </div>
+
+      <div className={styles["sidebar-wrapper"]}>
+        {[
+          {
+            heading: t("Type"),
+            count: countByKey("type"),
+            options: [
+              ...(docxForms?.data?.length || getTypeFormsCountByExt("docx")
+                ? [
+                    {
+                      value: "docx",
+                      label: t("Documents"),
+                      count:
+                        docxForms?.meta.pagination.total ??
+                        getTypeFormsCountByExt("docx"),
+                      checked: isTypeChecked("docx"),
+                      onChange: () => toggleFilter("type", "docx"),
+                    },
+                  ]
+                : []),
+              ...(xlsxForms?.data?.length || getTypeFormsCountByExt("xlsx")
+                ? [
+                    {
+                      value: "xlsx",
+                      label: t("Spreadsheets"),
+                      count:
+                        xlsxForms?.meta.pagination.total ??
+                        getTypeFormsCountByExt("xlsx"),
+                      checked: isTypeChecked("xlsx"),
+                      onChange: () => toggleFilter("type", "xlsx"),
+                    },
+                  ]
+                : []),
+              ...(pptxForms?.data?.length || getTypeFormsCountByExt("pptx")
+                ? [
+                    {
+                      value: "pptx",
+                      label: t("Presentations"),
+                      count:
+                        pptxForms?.meta.pagination.total ??
+                        getTypeFormsCountByExt("pptx"),
+                      checked: isTypeChecked("pptx"),
+                      onChange: () => toggleFilter("type", "pptx"),
+                    },
+                  ]
+                : []),
+              ...(pdfForms?.data?.length || getTypeFormsCountByExt("pdf")
+                ? [
+                    {
+                      value: "pdf",
+                      label: t("PdfForms"),
+                      count:
+                        pdfForms?.meta.pagination.total ??
+                        getTypeFormsCountByExt("pdf"),
+                      checked: isTypeChecked("pdf"),
+                      onChange: () => toggleFilter("type", "pdf"),
+                    },
+                  ]
+                : []),
+            ],
+          },
+          {
+            heading: t("Сategories"),
+            count:
+              countByKey("categories") +
+              countByKey("types") +
+              countByKey("compilations"),
+            categories: [
+              ...(categories.data.length > 0
+                ? [
+                    {
+                      heading: t("TemplatesByBranch"),
+                      queryKey: "categories",
+                      options: categories.data.map((item) => ({
+                        value: `categories-${item.id}`,
+                        label: item.attributes.categorie,
+                        count: item.attributes.oforms.data.attributes.count,
+                        checked:
+                          parseIds(router.query.categories).includes(
+                            String(item.id),
+                          ) || isSubCategoryChecked("categories", item.id),
+                        onChange: () =>
+                          toggleFilter("categories", String(item.id)),
+                      })),
+                    },
+                  ]
+                : []),
+              ...(types.data.length > 0
+                ? [
+                    {
+                      heading: t("TemplatesByType"),
+                      queryKey: "types",
+                      options: types.data.map((item) => ({
+                        value: `types-${item.id}`,
+                        label: item.attributes.type,
+                        count: item.attributes.oforms.data.attributes.count,
+                        checked:
+                          parseIds(router.query.types).includes(
+                            String(item.id),
+                          ) || isSubCategoryChecked("types", item.id),
+                        onChange: () => toggleFilter("types", String(item.id)),
+                      })),
+                    },
+                  ]
+                : []),
+              ...(compilations.data.length > 0
+                ? [
+                    {
+                      heading: t("PopularCompilations"),
+                      queryKey: "compilations",
+                      options: compilations.data.map((item) => ({
+                        value: `compilations-${item.id}`,
+                        label: item.attributes.compilation,
+                        count: item.attributes.oforms.data.attributes.count,
+                        checked:
+                          parseIds(router.query.compilations).includes(
+                            String(item.id),
+                          ) || isSubCategoryChecked("compilations", item.id),
+                        onChange: () =>
+                          toggleFilter("compilations", String(item.id)),
+                      })),
+                    },
+                  ]
+                : []),
+            ],
+          },
+        ].map((item, index) => (
+          <SidebarItem key={index} {...item} />
+        ))}
+
+        {!!totalChecked && (
+          <button
+            type="button"
+            className={styles["sidebar-clear-btn"]}
+            onClick={clearAllFilters}
+          >
+            {t("ClearAllFilters")} ({totalChecked})
+          </button>
+        )}
+      </div>
     </aside>
   );
 };

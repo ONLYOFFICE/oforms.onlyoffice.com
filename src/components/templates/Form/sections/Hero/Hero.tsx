@@ -41,6 +41,7 @@ import "dayjs/locale/ar";
 import { Section } from "@src/components/ui/Section";
 import { Container } from "@src/components/ui/Container";
 import { Heading } from "@src/components/ui/Heading";
+import { Text } from "@src/components/ui/Text";
 import { Link } from "@src/components/ui/Link";
 import { Button } from "@src/components/ui/Button";
 import { Modal } from "@src/components/ui/Modal";
@@ -85,7 +86,7 @@ const Hero = ({
       <Container maxWidth="1452px">
         <div className={styles["hero-wrapper"]}>
           <div className={styles["hero-container"]}>
-            <Heading className={styles["hero-heading"]} level={1}>
+            <Heading className={styles["hero-heading"]} level={1} size={2}>
               {name_form}
             </Heading>
             <div className={styles["hero-labels"]}>
@@ -103,24 +104,35 @@ const Hero = ({
                 {t("EditableTemplate")}
               </span>
             </div>
-            {template_desc?.split("\n").map((text, id) => (
-              <p className={styles["hero-description"]} key={id}>
-                {text}
-              </p>
-            ))}
+            <div className={styles["hero-description"]}>
+              {template_desc?.split("\n").map((text, id) => (
+                <Text size={2} key={id}>
+                  {text}
+                </Text>
+              ))}
+            </div>
 
             <div className={styles["hero-info"]}>
               <div className={styles["hero-info-row"]}>
                 <div className={styles["hero-info-item"]}>
-                  <span className={styles["hero-info-label"]}>
+                  <Text
+                    as="span"
+                    size={5}
+                    className={styles["hero-info-label"]}
+                  >
                     {t("LastUpdated")}
-                  </span>
-                  <span className={styles["hero-info-value"]}>
+                  </Text>
+                  <Text
+                    as="span"
+                    size={5}
+                    className={styles["hero-info-value"]}
+                  >
                     {dayjs(updatedAt).format("D MMMM YYYY")}
-                  </span>
+                  </Text>
                 </div>
 
                 <Link
+                  size={5}
                   href={`mailto:marketing@onlyoffice.com?subject=${t("SuggestingChangesLink", { name: name_form })}&body=${t("SuggestingChangesLink", { name: name_form })}.`}
                   color="#3541F5"
                   hover="underline"
@@ -135,33 +147,51 @@ const Hero = ({
                     styles["hero-info-item-size"],
                   )}
                 >
-                  <span className={styles["hero-info-label"]}>
+                  <Text
+                    as="span"
+                    size={5}
+                    className={styles["hero-info-label"]}
+                  >
                     {t("FileSize")}
-                  </span>
-                  <span className={styles["hero-info-value"]}>
+                  </Text>
+                  <Text
+                    as="span"
+                    size={5}
+                    className={styles["hero-info-value"]}
+                  >
                     {size < 1024
                       ? `${size.toFixed(0)} kb`
                       : `${(size / 1024).toFixed(0)} mb`}
-                  </span>
+                  </Text>
                 </div>
 
                 {file_pages && (
                   <div className={styles["hero-info-item"]}>
-                    <span className={styles["hero-info-label"]}>
+                    <Text
+                      as="span"
+                      size={5}
+                      className={styles["hero-info-label"]}
+                    >
                       {t("Pages")}
-                    </span>
-                    <span className={styles["hero-info-value"]}>
+                    </Text>
+                    <Text
+                      as="span"
+                      size={5}
+                      className={styles["hero-info-value"]}
+                    >
                       {file_pages}
-                    </span>
+                    </Text>
                   </div>
                 )}
               </div>
             </div>
 
-            <DownloadAs
-              className={styles["hero-download-as"]}
-              file_oform={file_oform}
-            />
+            {file_oform?.data?.length > 1 && (
+              <DownloadAs
+                className={styles["hero-download-as"]}
+                file_oform={file_oform}
+              />
+            )}
 
             <div className={styles["hero-buttons"]}>
               {pdfFile[0]?.attributes.hash && (

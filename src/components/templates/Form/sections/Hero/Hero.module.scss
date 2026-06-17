@@ -26,33 +26,64 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+@use "media";
+
 .hero-wrapper {
   display: grid;
-  grid-template-columns: 664px auto;
+  grid-template-columns: minmax(440px, 664px) minmax(360px, 544px);
   align-items: start;
-  gap: 56px;
+  gap: 92px;
+
+  @include media.tablet {
+    grid-template-columns: initial;
+    gap: 32px;
+  }
+
+  @include media.mobile {
+    gap: 20px;
+  }
 }
 
 .hero-heading {
   margin-bottom: 24px;
+
+  @include media.tablet {
+    margin-bottom: 16px;
+  }
+
+  @include media.mobile {
+    margin-bottom: 12px;
+  }
 }
 
 .hero-labels {
   margin-bottom: 32px;
+
+  @include media.mobile {
+    margin-bottom: 20px;
+  }
 }
 
 .hero-label {
+  display: inline-flex;
   border: 1px solid #75c9c4;
   border-radius: 3px;
-  padding: 4px 8px;
+  padding: 3px 8px;
   font-size: 14px;
-  line-height: 21px;
+  line-height: 20px;
+  min-height: 28px;
   text-align: center;
   color: #317773;
   background-color: #e6faf9;
 
   &:not(:last-child) {
     margin-inline-end: 8px;
+  }
+
+  @include media.mobile {
+    padding: 2px 8px;
+    font-size: 13px;
+    line-height: 22px;
   }
 }
 
@@ -64,34 +95,60 @@
 
 .hero-description {
   margin-bottom: 32px;
-  font-size: 18px;
-  line-height: 25px;
   color: #3a3c49;
+
+  p {
+    &:not(:last-child) {
+      margin-bottom: 24px;
+    }
+  }
+
+  @include media.mobile {
+    margin-bottom: 20px;
+  }
 }
 
 .hero-info {
   border-bottom: 1px solid #e1e1f7;
   padding-bottom: 39px;
   margin-bottom: 40px;
-  font-size: 13px;
-  line-height: 18px;
+
+  @include media.tablet {
+    padding-bottom: 35px;
+    margin-bottom: 36px;
+  }
+
+  @include media.mobile {
+    padding-bottom: 21px;
+    margin-bottom: 22px;
+  }
 }
 
 .hero-info-row {
   display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
 
   &:not(:last-child) {
     margin-bottom: 32px;
+
+    @include media.mobile {
+      margin-bottom: 20px;
+    }
+  }
+
+  @include media.tablet {
+    gap: 12px;
+  }
+
+  @include media.mobile {
+    gap: 8px;
   }
 }
 
 .hero-info-item {
   display: flex;
   align-items: center;
-
-  &:not(:last-child) {
-    margin-inline-end: 16px;
-  }
 }
 
 .hero-info-item-size {
@@ -102,7 +159,7 @@
 
 .hero-info-label {
   margin-inline-end: 8px;
-  color: #666980;
+  color: #9092a6;
 }
 
 .hero-info-value {
@@ -111,17 +168,43 @@
 
 .hero-download-as {
   margin-bottom: 40px;
+
+  @include media.tablet {
+    margin-bottom: 36px;
+  }
+
+  @include media.mobile {
+    margin-bottom: 22px;
+  }
 }
 
 .hero-buttons {
   display: flex;
   align-items: center;
   margin-bottom: 40px;
+
+  @include media.tablet {
+    margin-bottom: 36px;
+  }
+
+  @include media.mobile {
+    flex-direction: column;
+    margin-bottom: 22px;
+  }
 }
 
 .hero-button {
   &:not(:last-child) {
     margin-inline-end: 16px;
+
+    @include media.tablet {
+      margin-inline-end: 12px;
+    }
+
+    @include media.mobile {
+      margin-inline-end: initial;
+      margin-bottom: 8px;
+    }
   }
 }
 
@@ -134,6 +217,10 @@
   max-width: 544px;
   background-color: #ffffff;
   box-shadow: 0px 7px 15px 0px rgba(85, 85, 85, 0.1);
+
+  @include media.tablet {
+    margin: 0 auto;
+  }
 }
 
 .hero-image {

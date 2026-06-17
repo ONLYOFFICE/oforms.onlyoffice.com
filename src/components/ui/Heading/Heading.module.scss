@@ -33,7 +33,7 @@ $text-transform: uppercase, lowercase, capitalize;
 
 .heading {
   font-weight: 700;
-  color: var(--heading-color, #3a3c49);
+  color: var(--heading-color, #494b5b);
 }
 
 @each $value in $text-transform {
@@ -56,25 +56,68 @@ $text-transform: uppercase, lowercase, capitalize;
 
 .size-1 {
   font-size: 48px;
-  line-height: 72px;
+  line-height: 56px;
+
+  @include media.tablet {
+    font-size: 44px;
+    line-height: 52px;
+  }
+
+  @include media.mobile {
+    font-size: 30px;
+    line-height: 38px;
+  }
 }
 
 .size-2 {
   font-size: 32px;
-  line-height: 45px;
+  line-height: 42px;
+
+  @include media.tablet {
+    font-size: 28px;
+    line-height: 38px;
+  }
+
+  @include media.mobile {
+    font-size: 20px;
+    line-height: 28px;
+  }
 }
 
 .size-3 {
-  font-size: 26px;
-  line-height: 36px;
+  font-size: 24px;
+  line-height: 32px;
+
+  @include media.tablet {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  @include media.mobile {
+    font-size: 18px;
+    line-height: 26px;
+  }
 }
 
 .size-4 {
-  font-size: 24px;
-  line-height: 34px;
+  font-size: 18px;
+  line-height: 26px;
+
+  @include media.mobile {
+    font-size: 16px;
+    line-height: 24px;
+  }
 }
 
 .size-5 {
   font-size: 16px;
-  line-height: 22px;
+  line-height: 24px;
+
+  @include media.tablet {
+    line-height: 22px;
+  }
+
+  @include media.tablet {
+    font-size: 14px;
+  }
 }

@@ -26,8 +26,19 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+@use "media";
+
 .explore-other-template-heading {
-  margin-bottom: 40px;
+  margin-bottom: 44px;
+
+  @include media.tablet {
+    margin-bottom: 36px;
+  }
+
+  @include media.mobile {
+    margin-bottom: 22px;
+    text-align: center;
+  }
 }
 
 .explore-other-template-list {
@@ -37,4 +48,13 @@
   padding: 0;
   margin: 0;
   list-style-type: none;
+
+  @include media.tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+
+  @include media.mobile {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

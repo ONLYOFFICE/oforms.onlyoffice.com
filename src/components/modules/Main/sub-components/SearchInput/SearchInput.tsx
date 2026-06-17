@@ -184,14 +184,17 @@ const SearchInput = () => {
       className={styles["search-input-wrapper"]}
       style={
         {
-          "--search-input-wrapper-background-image": `url(${getAssetUrl("/images/widgets/search-input/search.svg")})`,
+          "--search-input-wrapper-background-image": `url(${getAssetUrl("/images/templates/main/search-input/search.svg")})`,
         } as React.CSSProperties
       }
     >
       <input
+        id="search-input"
         className={styles["search-input"]}
         placeholder={t("SearchTemplates")}
         value={searchItem}
+        name="search"
+        autoComplete="off"
         onChange={(e) => {
           setSearchItem(e.target.value);
           updateSearchValue(e);
@@ -203,11 +206,7 @@ const SearchInput = () => {
         (!hasQuery ? (
           <div className={styles["search-results"]}>
             {searchHistory?.length > 0 && (
-              <Heading
-                as="div"
-                size={6}
-                className={styles["search-results-label"]}
-              >
+              <Heading as="div" className={styles["search-results-label"]}>
                 {t("History")}
               </Heading>
             )}
@@ -244,11 +243,7 @@ const SearchInput = () => {
             ))}
             {popular.length > 0 && (
               <>
-                <Heading
-                  as="div"
-                  size={6}
-                  className={styles["search-results-label"]}
-                >
+                <Heading as="div" className={styles["search-results-label"]}>
                   {t("PopularSearch")}
                 </Heading>
                 {popular.map((item) => (

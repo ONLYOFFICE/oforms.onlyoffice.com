@@ -26,7 +26,7 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import type { Swiper as SwiperClass } from "swiper";
@@ -42,6 +42,29 @@ import styles from "./SliderSection.module.scss";
 const SliderSection = ({ heading, data }: ISliderSection) => {
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
+  const swiperRef = useRef<SwiperClass | null>(null);
+
+  const bindNavigation = (swiper: SwiperClass) => {
+    if (
+      swiper.destroyed ||
+      typeof swiper.params.navigation === "boolean" ||
+      !swiper.params.navigation
+    ) {
+      return;
+    }
+
+    swiper.params.navigation.prevEl = prevRef.current;
+    swiper.params.navigation.nextEl = nextRef.current;
+    swiper.navigation.destroy();
+    swiper.navigation.init();
+    swiper.navigation.update();
+  };
+
+  useEffect(() => {
+    if (swiperRef.current) {
+      bindNavigation(swiperRef.current);
+    }
+  });
 
   const slides = data.filter(
     (item) =>
@@ -52,22 +75,14 @@ const SliderSection = ({ heading, data }: ISliderSection) => {
       item.form_exts,
   );
 
-  const handleSwiper = (swiper: SwiperClass) => {
-    if (
-      swiper.params.navigation &&
-      typeof swiper.params.navigation !== "boolean"
-    ) {
-      swiper.params.navigation.prevEl = prevRef.current;
-      swiper.params.navigation.nextEl = nextRef.current;
-    }
-
-    swiper.navigation.destroy();
-    swiper.navigation.init();
-    swiper.navigation.update();
-  };
-
   return (
-    <Section desktopSpacing={["32px", "32px"]}>
+    <Section
+      className={styles["slider-section"]}
+      desktopSpacing={["32px", "32px"]}
+      tabletSpacing={["32px", "32px"]}
+      tabletSmallSpacing={["32px", "32px"]}
+      mobileSpacing={["48px", "48px"]}
+    >
       <Container maxWidth="1452px">
         <Heading
           className={styles["slider-section-heading"]}
@@ -79,18 +94,45 @@ const SliderSection = ({ heading, data }: ISliderSection) => {
 
         <div className={styles["slider-section-slider"]}>
           <Swiper
-            spaceBetween={72}
-            slidesPerView={4}
+            breakpoints={{
+              0: {
+                enabled: false,
+                spaceBetween: 16,
+              },
+              592: {
+                enabled: false,
+                spaceBetween: 48,
+              },
+              768: {
+                enabled: true,
+                slidesPerView: 3,
+                spaceBetween: 32,
+              },
+              1024: {
+                enabled: true,
+                slidesPerView: 4,
+                spaceBetween: 72,
+              },
+              1440: {
+                enabled: true,
+                slidesPerView: 4,
+                spaceBetween: 72,
+              },
+            }}
             modules={[Navigation]}
             navigation={{
               prevEl: prevRef.current,
               nextEl: nextRef.current,
             }}
-            onSwiper={handleSwiper}
+            onSwiper={(swiper: SwiperClass) => {
+              swiperRef.current = swiper;
+              bindNavigation(swiper);
+            }}
           >
             {slides.map((item) => (
               <SwiperSlide key={item.id}>
                 <Card
+                  className={styles["slider-section-card"]}
                   preview={item.card_prewiew}
                   format={item.form_exts}
                   heading={item.name_form}

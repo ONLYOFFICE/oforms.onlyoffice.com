@@ -37,11 +37,7 @@ const Text = ({
   as: Component = "p",
   size,
   display,
-  fontSize,
-  fontWeight,
   fontStyle,
-  lineHeight,
-  letterSpacing,
   color,
   textAlign,
   textTransform,
@@ -58,7 +54,6 @@ const Text = ({
         styles.text,
         size && styles[`size-${size}`],
         display && styles[`display-${display}`],
-        fontWeight && styles[`font-weight-${fontWeight}`],
         fontStyle && styles[`font-style-${fontStyle}`],
         textAlign && styles[`text-align-${textAlign}`],
         textTransform && styles[`text-transform-${textTransform}`],
@@ -70,9 +65,6 @@ const Text = ({
       dir={dir}
       style={
         {
-          "--text-font-size": fontSize,
-          "--text-line-height": lineHeight,
-          "--text-letter-spacing": letterSpacing,
           "--text-color": color,
           ...style,
         } as React.CSSProperties

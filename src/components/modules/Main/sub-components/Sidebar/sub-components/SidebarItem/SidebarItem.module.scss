@@ -26,11 +26,23 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+@use "media";
+
 .sidebar-item {
   &:not(:last-child) {
     margin-bottom: 24px;
     border-bottom: 1px solid #b9cef9;
     padding-bottom: 23px;
+
+    @include media.tablet {
+      margin-bottom: 16px;
+      padding-bottom: 15px;
+    }
+
+    @include media.mobile {
+      margin-bottom: 12px;
+      padding-bottom: 11px;
+    }
   }
 }
 
@@ -41,6 +53,10 @@
   &:not(:last-child) {
     border-bottom: none;
     padding-bottom: 0;
+  }
+
+  @include media.tablet {
+    padding-inline-start: 12px;
   }
 }
 
@@ -68,14 +84,18 @@
 .sidebar-item-header-with-categories {
   &:not(:last-child) {
     margin-bottom: 24px;
+
+    @include media.tablet {
+      margin-bottom: 16px;
+    }
   }
 }
 
 .sidebar-item-header-heading {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
-  line-height: 24px;
-  color: #3a3c49;
+  line-height: 26px;
+  color: #494b5b;
 
   &:not(:last-child) {
     margin-inline-end: 12px;
@@ -84,6 +104,7 @@
 
 .sidebar-item-header-heading-sub {
   font-size: 14px;
+  line-height: 21px;
   letter-spacing: 0.03em;
   color: #585a6d;
   text-transform: uppercase;
@@ -92,11 +113,12 @@
 .sidebar-item-header-count {
   display: inline-flex;
   justify-content: center;
+  align-items: center;
   border-radius: 32px;
   padding: 0 4px;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
-  line-height: 24px;
+  line-height: 18px;
   color: #ffffff;
   text-align: center;
   min-width: 24px;

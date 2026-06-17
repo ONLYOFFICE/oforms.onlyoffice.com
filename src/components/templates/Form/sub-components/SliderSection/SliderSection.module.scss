@@ -26,14 +26,84 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+@use "media";
+@use "direction";
+
+.slider-section {
+  overflow-x: hidden;
+}
+
 .slider-section-heading {
-  margin-bottom: 40px;
+  margin-bottom: 44px;
+
+  @include media.tablet {
+    margin-bottom: 36px;
+  }
+
+  @include media.mobile {
+    margin-bottom: 28px;
+  }
 }
 
 .slider-section-slider {
   position: relative;
   margin: 0px -60px;
   padding: 0px 60px;
+
+  :global(.swiper) {
+    @include media.tablet-s {
+      margin: 0 -40px;
+    }
+
+    @include media.mobile {
+      margin: 0 -16px;
+    }
+  }
+
+  :global(.swiper-wrapper) {
+    @include media.tablet-s {
+      overflow-x: auto;
+    }
+  }
+
+  :global(.swiper-slide) {
+    &:first-child {
+      @include media.tablet-s {
+        margin-inline-start: 48px;
+      }
+
+      @include media.mobile {
+        margin-inline-start: 16px;
+      }
+    }
+
+    @include media.tablet-s {
+      min-width: 284px;
+      max-width: 284px;
+    }
+  }
+
+  @include media.desktop {
+    margin: 0px -50px;
+    padding: 0px 50px;
+  }
+
+  @include media.tablet {
+    margin: 0px -40px;
+    padding: 0px 40px;
+  }
+
+  @include media.tablet-s {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.slider-section-card {
+  @include media.tablet-s {
+    min-width: 284px;
+    max-width: 284px;
+  }
 }
 
 .slider-section-navigation {
@@ -47,6 +117,10 @@
   transform: translate(-50%, -50%);
   z-index: 2;
   pointer-events: none;
+
+  @include media.tablet-s {
+    display: none;
+  }
 }
 
 .slider-section-button-prev,
@@ -88,11 +162,19 @@
 .slider-section-button-prev {
   svg {
     transform: rotate(90deg);
+
+    @include direction.rtl {
+      transform: rotate(-90deg);
+    }
   }
 }
 
 .slider-section-button-next {
   svg {
     transform: rotate(-90deg);
+
+    @include direction.rtl {
+      transform: rotate(90deg);
+    }
   }
 }

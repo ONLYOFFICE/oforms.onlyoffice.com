@@ -31,13 +31,10 @@ export interface IText {
   className?: string;
   children?: React.ReactNode;
   as?: React.ElementType;
-  size?: 1 | 2 | 3 | 4;
+  size?: 1 | 2 | 3 | 4 | 5;
   display?: "block" | "inline-block" | "inline" | "flex" | "inline-flex";
-  fontSize?: string;
   fontWeight?: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
   fontStyle?: "italic";
-  lineHeight?: string;
-  letterSpacing?: string;
   color?: string;
   textAlign?: "left" | "center" | "right";
   textTransform?: "uppercase" | "lowercase" | "capitalize";

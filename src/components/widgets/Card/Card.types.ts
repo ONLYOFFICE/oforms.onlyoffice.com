@@ -29,6 +29,7 @@
 export type TCardFormat = "docx" | "xlsx" | "pptx" | "pdf";
 
 export interface ICard {
+  className?: string;
   preview: string;
   format: TCardFormat;
   heading: string;

@@ -41,13 +41,20 @@ const BuildYourOwnForms = () => {
   const { locale } = router;
 
   return (
-    <Section background="#000122" desktopSpacing={["112px", "112px"]}>
+    <Section
+      background="#000122"
+      desktopSpacing={["112px", "112px"]}
+      tabletSpacing={["88px", "88px"]}
+      tabletSmallSpacing={["88px", "88px"]}
+      mobileSpacing={["48px", "48px"]}
+    >
       <Container maxWidth="1452px">
         <div className={styles["build-your-own-forms"]}>
           <div className={styles["build-your-own-forms-body"]}>
             <Heading
               className={styles["build-your-own-forms-heading"]}
               level={2}
+              size={3}
               color="#ffffff"
               style={
                 {
@@ -62,6 +69,7 @@ const BuildYourOwnForms = () => {
             </p>
           </div>
           <Button
+            className={styles["build-your-own-forms-button"]}
             as="a"
             href={`${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}${locale === "en" || locale === "ar" ? "" : `/${locale}`}/docspace-registration?utm_source=oforms&utm_medium=top_banner&utm_campaign=registration_docspace&utm_content=use_in_the_cloud`}
             variant="tertiary"

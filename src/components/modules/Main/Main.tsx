@@ -26,13 +26,15 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+import { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { Heading } from "@src/components/ui/Heading";
 import { Sidebar } from "./sub-components/Sidebar";
 import { Section } from "@src/components/ui/Section";
 import { Container } from "@src/components/ui/Container";
-import { SortSelector } from "@src/components/widgets/SortSelector";
-import { SearchInput } from "@src/components/widgets/SearchInput";
+import { SortSelector } from "@src/components/modules/Main/sub-components/SortSelector";
+import { SearchInput } from "@src/components/modules/Main/sub-components/SearchInput";
+import { getAssetUrl } from "@src/utils/getAssetUrl";
 import { TExt } from "@src/components/modules/Main/Main.types";
 import { IMain } from "./Main.types";
 import styles from "./Main.module.scss";
@@ -53,6 +55,14 @@ const Main = ({
   activeSubCategory,
 }: IMain) => {
   const { t } = useTranslation("MainTemplate");
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   const SIDEBAR_PROP: Record<TExt, string> = {
     docx: "docxForms",
@@ -66,23 +76,29 @@ const Main = ({
       className={styles["main-content"]}
       background="#f9fbfe"
       desktopSpacing={["84px", "112px"]}
+      tabletSpacing={["64px", "112px"]}
+      tabletSmallSpacing={["64px", "112px"]}
+      mobileSpacing={["64px", "112px"]}
     >
       <Container className={styles["main-container"]}>
         <div className={styles["main-header"]}>
-          <Heading
-            className={styles["main-header-heading"]}
-            color="#231990"
-            size={1}
-          >
+          <Heading className={styles["main-header-heading"]} color="#231990">
             {t("FreeDocumentTemplatesAndFillableForms")}
           </Heading>
-          <Heading level={2} color="#494b5b">
+          <Heading
+            className={styles["main-header-subheading"]}
+            level={2}
+            size={3}
+            color="#494b5b"
+          >
             {t("DownloadReadyMadeTemplatesOrFillOutPdfFormsOnline")}
           </Heading>
         </div>
 
         <div className={styles["main-wrapper"]}>
           <Sidebar
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
             typeFormsCount={typeFormsCount}
             docxForms={docxForms}
             xlsxForms={xlsxForms}
@@ -97,12 +113,28 @@ const Main = ({
 
           <div>
             <div className={styles["main-top"]}>
-              <SortSelector />
-              <div className={styles["main-count"]}>
-                <span className={styles["main-count-label"]}>
-                  {t("Documents")}
-                </span>
-                <span className={styles["main-count-value"]}>{totalCount}</span>
+              <div className={styles["main-top-wrapper"]}>
+                <div className={styles["main-top-content"]}>
+                  <SortSelector />
+                  <div className={styles["main-count"]}>
+                    <span className={styles["main-count-label"]}>
+                      {t("Documents")}
+                    </span>
+                    <span className={styles["main-count-value"]}>
+                      {totalCount}
+                    </span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => setIsOpen(true)}
+                  className={styles["main-filters-button"]}
+                  style={
+                    {
+                      "--main-filters-button-icon": `url(${getAssetUrl("/images/templates/main/filters.svg")})`,
+                    } as React.CSSProperties
+                  }
+                ></button>
               </div>
 
               <SearchInput />

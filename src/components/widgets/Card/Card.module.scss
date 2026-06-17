@@ -27,9 +27,6 @@
  */
 
 .card {
-  width: 100%;
-  max-width: 284px;
-
   &:hover {
     .card-preview-wrapper {
       background-color: var(--card-hover-bg, #ffffff);
@@ -137,6 +134,9 @@
 
 .card-heading {
   margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
 }
 
 .card-description {

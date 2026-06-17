@@ -26,12 +26,51 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+@use "media";
+
 .popular-categories-heading {
   margin-bottom: 24px;
+
+  @include media.tablet {
+    margin-bottom: 16px;
+  }
+
+  @include media.mobile {
+    margin-bottom: 12px;
+  }
 }
 
 .popular-categories-list {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+
+  @include media.tablet {
+    gap: 12px;
+  }
+
+  @include media.mobile {
+    gap: 8px;
+  }
+}
+
+.popular-categories-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #3541f5;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #000122;
+  min-height: 40px;
+  background-color: transparent;
+  text-decoration: none;
+
+  @include media.mobile {
+    font-size: 13px;
+    line-height: 22px;
+  }
 }

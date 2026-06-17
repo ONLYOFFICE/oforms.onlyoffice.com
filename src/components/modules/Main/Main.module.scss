@@ -30,10 +30,27 @@
 
 .main-header {
   margin-bottom: 84px;
+
+  @include media.desktop {
+    margin-bottom: 64px;
+  }
 }
 
 .main-header-heading {
-  margin-bottom: 16px;
+  margin-bottom: 32px;
+
+  @include media.tablet {
+    margin-bottom: 16px;
+    font-size: 24px;
+    line-height: 30px;
+  }
+}
+
+.main-header-subheading {
+  @include media.tablet {
+    font-size: 18px;
+    line-height: 24px;
+  }
 }
 
 .main-wrapper {
@@ -44,22 +61,66 @@
   @include media.desktop {
     grid-template-columns: 320px minmax(0, 1fr);
   }
+
+  @include media.tablet {
+    display: initial;
+    grid-template-columns: initial;
+    gap: initial;
+    overflow-x: hidden;
+  }
 }
 
 .main-top {
   display: flex;
   align-items: center;
-  gap: 24px;
   margin-bottom: 56px;
+
+  @include media.desktop {
+    flex-wrap: wrap;
+  }
+}
+
+.main-top-wrapper {
+  display: flex;
+  align-items: center;
+  margin-inline-end: auto;
+  padding-inline-end: 24px;
+  width: 100%;
+
+  @include media.desktop {
+    margin-bottom: 12px;
+    margin-inline-end: initial;
+    padding-inline-end: initial;
+  }
+
+  @include media.mobile {
+    align-items: initial;
+  }
+}
+
+.main-top-content {
+  @include media.mobile {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .main-count {
   display: inline-flex;
-  margin-inline-end: auto;
+  margin-inline-start: 12px;
   font-weight: 600;
   font-size: 14px;
   line-height: 19px;
   color: #9092a6;
+
+  @include media.desktop {
+    margin-inline-start: 24px;
+  }
+
+  @include media.mobile {
+    margin-inline-start: initial;
+    margin-top: 8px;
+  }
 }
 
 .main-count-label {
@@ -68,4 +129,23 @@
 
 .main-count-value {
   letter-spacing: 0.04em;
+}
+
+.main-filters-button {
+  display: none;
+  border: none;
+  padding: 0;
+  margin-inline-start: auto;
+  width: 24px;
+  height: 24px;
+  background-image: var(--main-filters-button-icon);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  cursor: pointer;
+
+  @include media.tablet {
+    display: block;
+  }
 }

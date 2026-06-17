@@ -31,7 +31,6 @@ import { Checkbox } from "@src/components/ui/Checkbox/Checkbox";
 import { useState } from "react";
 import { Heading } from "@src/components/ui/Heading/Heading";
 import { Button } from "@src/components/ui/Button/Button";
-import { Text } from "@src/components/ui/Text";
 import {
   setConsentCookie,
   IConsentData,
@@ -100,7 +99,9 @@ const CookieSettings = ({
               <Heading as="div" size={4} className={styles["check-heading"]}>
                 {t("Technical")}
               </Heading>
-              <Text fontSize="14px">{t("TechnicalDescription")}</Text>
+              <p className={styles["check-description"]}>
+                {t("TechnicalDescription")}
+              </p>
             </div>
           }
           checked={checkedItems.necessary === "granted"}
@@ -113,7 +114,9 @@ const CookieSettings = ({
               <Heading as="div" size={4} className={styles["check-heading"]}>
                 {t("Analytical")}
               </Heading>
-              <Text fontSize="14px">{t("AnalyticalDescription")}</Text>
+              <p className={styles["check-description"]}>
+                {t("AnalyticalDescription")}
+              </p>
             </div>
           }
           checked={checkedItems.analytics_storage === "granted"}
@@ -125,7 +128,9 @@ const CookieSettings = ({
               <Heading as="div" size={4} className={styles["check-heading"]}>
                 {t("Marketing")}
               </Heading>
-              <Text fontSize="14px">{t("MarketingDescription")}</Text>
+              <p className={styles["check-description"]}>
+                {t("MarketingDescription")}
+              </p>
             </div>
           }
           checked={checkedItems.ad_storage === "granted"}

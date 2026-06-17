@@ -28,7 +28,7 @@
 
 import { apiRequest } from "@src/lib/api/apiRequest";
 import CONFIG from "@src/config/config.json";
-import { TSearchResult } from "@src/components/widgets/SearchInput/SearchInput.types";
+import { TSearchResult } from "@src/components/modules/Main/sub-components/SearchInput/SearchInput.types";
 import { ILocale } from "@src/types/locale";
 import { cmsLocale } from "@src/utils/cmsLocale";
 

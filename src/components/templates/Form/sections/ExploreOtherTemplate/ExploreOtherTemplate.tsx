@@ -60,7 +60,12 @@ const ExploreOtherTemplate = () => {
   const { t } = useTranslation("form");
 
   return (
-    <Section desktopSpacing={["32px", "32px"]}>
+    <Section
+      desktopSpacing={["32px", "32px"]}
+      tabletSpacing={["32px", "32px"]}
+      tabletSmallSpacing={["32px", "32px"]}
+      mobileSpacing={["48px", "0"]}
+    >
       <Container maxWidth="1452px">
         <Heading
           className={styles["explore-other-template-heading"]}

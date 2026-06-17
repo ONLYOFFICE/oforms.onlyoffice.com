@@ -26,20 +26,36 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+@use "media";
+
 .how-to-create {
   border: 1px solid #e1e1f7;
   border-radius: 8px;
-  padding-top: 44px;
-  padding-bottom: 44px;
+  padding-top: 43px;
+  padding-bottom: 43px;
   padding-inline-start: 130px;
-  padding-inline-end: 44px;
+  padding-inline-end: 43px;
   background-color: #ffffff;
+
+  @include media.tablet {
+    padding-top: 35px;
+    padding-bottom: 35px;
+    padding-inline-start: 116px;
+    padding-inline-end: 35px;
+  }
+
+  @include media.mobile {
+    padding-top: 89px;
+    padding-bottom: 21px;
+    padding-inline-start: 21px;
+    padding-inline-end: 21px;
+  }
 }
 
 .how-to-create-heading {
   position: relative;
   margin-bottom: 32px;
-  padding-top: 7px;
+  padding: 8px 0;
 
   &::before {
     content: "";
@@ -51,10 +67,27 @@
     background-image: var(--how-to-create-heading-icon);
     background-repeat: no-repeat;
     background-size: contain;
+
+    @include media.tablet {
+      inset-inline-start: -80px;
+    }
+
+    @include media.mobile {
+      top: -68px;
+      inset-inline-start: 0;
+    }
   }
 
   span {
     color: #3541f5;
+  }
+
+  @include media.tablet {
+    padding: 0;
+  }
+
+  @include media.mobile {
+    margin-bottom: 20px;
   }
 }
 
@@ -78,11 +111,32 @@
       margin-inline-end: 8px;
       font-weight: 600;
       min-width: 15px;
+
+      @include media.tablet {
+        margin-inline-end: 6px;
+      }
     }
 
     &:not(:last-child) {
       margin-bottom: 8px;
+
+      @include media.tablet {
+        margin-bottom: 6px;
+      }
     }
+
+    @include media.tablet {
+      padding: 0;
+    }
+  }
+
+  @include media.tablet {
+    line-height: 22px;
+  }
+
+  @include media.mobile {
+    margin: 0 0 20px;
+    font-size: 14px;
   }
 }
 

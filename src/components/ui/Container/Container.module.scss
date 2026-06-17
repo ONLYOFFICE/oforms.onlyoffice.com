@@ -35,10 +35,10 @@
   max-width: var(--container-max-width, 1796px);
 
   @include media.tablet {
-    padding: var(--container-tablet-spacing, 0 24px);
+    padding: var(--container-tablet-spacing, 0 40px);
   }
 
   @include media.mobile {
-    padding: var(--container-mobile-spacing, 0 16px);
+    padding: var(--container-mobile-spacing, 0 24px);
   }
 }

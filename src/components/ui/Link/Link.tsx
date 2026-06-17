@@ -40,12 +40,11 @@ const Link = ({
   rel,
   download,
   type,
+  size,
   target,
   tabIndex,
   display,
-  fontSize,
   fontWeight,
-  lineHeight,
   color,
   textTransform,
   textUnderline,
@@ -68,6 +67,7 @@ const Link = ({
       className={clsx(
         styles.link,
         display && styles[`display-${display}`],
+        size && styles[`size-${size}`],
         fontWeight && styles[`font-weight-${fontWeight}`],
         textTransform && styles[`text-transform-${textTransform}`],
         textUnderline === true && styles["text-underline"],
@@ -86,8 +86,6 @@ const Link = ({
       })}
       style={
         {
-          "--link-font-size": fontSize,
-          "--link-line-height": lineHeight,
           "--link-color": color,
           ...style,
         } as React.CSSProperties

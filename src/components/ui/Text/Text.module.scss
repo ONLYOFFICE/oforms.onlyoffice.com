@@ -35,9 +35,6 @@ $text-transform: uppercase, lowercase, capitalize;
 $vertical-align: top, middle, bottom, text-top, text-bottom, sub, super;
 
 .text {
-  font-size: var(--text-font-size);
-  line-height: var(--text-line-height);
-  letter-spacing: var(--text-letter-spacing);
   color: var(--text-color);
 }
 
@@ -93,8 +90,23 @@ $vertical-align: top, middle, bottom, text-top, text-bottom, sub, super;
 }
 
 .size-1 {
+  font-size: 22px;
+  line-height: 30px;
+
+  @include media.tablet {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  @include media.mobile {
+    font-size: 18px;
+    line-height: 26px;
+  }
+}
+
+.size-2 {
   font-size: 18px;
-  line-height: 27px;
+  line-height: 26px;
 
   @include media.mobile {
     font-size: 16px;
@@ -102,22 +114,36 @@ $vertical-align: top, middle, bottom, text-top, text-bottom, sub, super;
   }
 }
 
-.size-2 {
+.size-3 {
   font-size: 16px;
   line-height: 24px;
 
+  @include media.tablet {
+    line-height: 22px;
+  }
+
   @include media.mobile {
     font-size: 14px;
-    line-height: 21px;
+    line-height: 22px;
   }
 }
 
-.size-3 {
+.size-4 {
   font-size: 14px;
-  line-height: 21px;
+  line-height: 20px;
+
+  @include media.mobile {
+    font-size: 13px;
+    line-height: 20px;
+  }
 }
 
-.size-4 {
+.size-5 {
   font-size: 13px;
-  line-height: 21px;
+  line-height: 18px;
+
+  @include media.mobile {
+    font-size: 12px;
+    line-height: 20px;
+  }
 }

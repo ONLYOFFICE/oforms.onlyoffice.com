@@ -43,13 +43,14 @@ const HowToCreate = ({ name_form, linkPdfEditor }: IHowToCreate) => {
       desktopSpacing={["0", "0"]}
       tabletSpacing={["0", "0"]}
       tabletSmallSpacing={["0", "0"]}
-      mobileSpacing={["0", "0"]}
+      mobileSpacing={["0", "48px"]}
     >
       <Container maxWidth="1452px">
         <div className={styles["how-to-create"]}>
           <Heading
             className={styles["how-to-create-heading"]}
             level={2}
+            size={3}
             style={
               {
                 "--how-to-create-heading-icon": `url(${getAssetUrl(

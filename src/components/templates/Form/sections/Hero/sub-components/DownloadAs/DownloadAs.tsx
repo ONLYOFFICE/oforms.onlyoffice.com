@@ -28,6 +28,7 @@
 
 import { useTranslation } from "next-i18next";
 import clsx from "clsx";
+import { Text } from "@src/components/ui/Text";
 import { DownloadAsItem, IDownloadAsItem } from "./DownloadAsItem";
 import { IDownloadAs } from "./DownloadAs.types";
 import styles from "./DownloadAs.module.scss";
@@ -56,7 +57,14 @@ const DownloadAs = ({ className, file_oform }: IDownloadAs) => {
 
   return (
     <div className={clsx(styles["download-as"], className)}>
-      <span className={styles["download-as-heading"]}>{t("DownloadAs")}</span>
+      <Text
+        size={4}
+        fontWeight={600}
+        color="#444444"
+        className={styles["download-as-heading"]}
+      >
+        {t("DownloadAs")}
+      </Text>
 
       {files.map((file) => (
         <DownloadAsItem key={file.id} format={file.format} href={file.href} />

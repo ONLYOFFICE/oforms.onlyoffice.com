@@ -29,7 +29,6 @@
 import clsx from "clsx";
 import { Link } from "@src/components/ui/Link";
 import { Heading } from "@src/components/ui/Heading";
-import { Text } from "@src/components/ui/Text";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
 import { ICard, TCardFormat } from "./Card.types";
 import styles from "./Card.module.scss";
@@ -48,11 +47,18 @@ const hoverBgByFormat: Record<TCardFormat, string> = {
   pdf: "rgba(249, 221, 229, 0.5)",
 };
 
-const Card = ({ preview, format, heading, description, url }: ICard) => {
+const Card = ({
+  className,
+  preview,
+  format,
+  heading,
+  description,
+  url,
+}: ICard) => {
   return (
     <Link
       href={url.startsWith("/") ? url : `/${url}`}
-      className={styles.card}
+      className={clsx(styles.card, className)}
       textUnderline={false}
       style={
         {
@@ -83,9 +89,7 @@ const Card = ({ preview, format, heading, description, url }: ICard) => {
         <Heading className={styles["card-heading"]} level={3} color="#494B5B">
           {heading}
         </Heading>
-        <Text as="p" className={styles["card-description"]}>
-          {description}
-        </Text>
+        <p className={styles["card-description"]}>{description}</p>
       </div>
     </Link>
   );

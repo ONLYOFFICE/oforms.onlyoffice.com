@@ -58,6 +58,7 @@
   padding: 32px;
   text-align: left;
   position: fixed;
+  font-family: "Open Sans", sans-serif;
   max-width: 1000px;
   width: 100%;
   z-index: 1000;
@@ -109,6 +110,10 @@
     background-position-x: 50%;
     background-repeat: no-repeat;
   }
+}
+
+.cookie-banner-text {
+  font-size: 14px;
 }
 
 .buttons-area {

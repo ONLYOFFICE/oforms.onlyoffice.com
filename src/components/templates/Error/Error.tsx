@@ -29,7 +29,6 @@
 import { useTranslation } from "next-i18next";
 import { Section } from "@src/components/ui/Section";
 import { Heading } from "@src/components/ui/Heading";
-import { Text } from "@src/components/ui/Text";
 import { Button } from "@src/components/ui/Button";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
 import { IError } from "./Error.types";
@@ -52,7 +51,7 @@ const ErrorTemplate = ({ heading, text }: IError) => {
         <Heading level={1} className={styles["error-heading"]}>
           {heading}
         </Heading>
-        <Text className={styles["error-description"]}>{text}</Text>
+        <p className={styles["error-description"]}>{text}</p>
         <Button as="a" href="/" id="error-btn" variant="primary-2">
           {t("GoToHomePage")}
         </Button>
