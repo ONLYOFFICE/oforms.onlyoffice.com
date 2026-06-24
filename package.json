@@ -25,7 +25,7 @@
     "next": "16.1.6",
     "next-i18next": "15.4.3",
     "nodemailer": "7.0.13",
-    "onlyoffice-react-ui-kit": "ONLYOFFICE/onlyoffice-react-ui-kit#d84f0a5d357fcc55a5a133737594bc7513b509b5",
+    "onlyoffice-react-ui-kit": "ONLYOFFICE/onlyoffice-react-ui-kit#7540f0b82489f6fdfcda2a9082f82f055fd0e185",
     "pdf-lib": "1.17.1",
     "prop-types": "15.8.1",
     "react": "19.2.4",
