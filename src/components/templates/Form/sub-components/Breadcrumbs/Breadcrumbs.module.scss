@@ -74,6 +74,12 @@
     }
   }
 
+  a {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   @include media.mobile {
     margin-bottom: 8px;
   }

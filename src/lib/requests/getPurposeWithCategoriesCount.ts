@@ -26,54 +26,44 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { apiRequest } from "@src/lib/api/apiRequest";
 import CONFIG from "@src/config/config.json";
+import { apiRequest } from "@src/lib/api/apiRequest";
 import { ILocale } from "@src/types/locale";
 import { cmsLocale } from "@src/utils/cmsLocale";
-import { SORT_MAP, TSortKey } from "@src/utils/sortMap";
 
-type TRelation = "categories" | "types" | "compilations";
-
-const RELATION_FIELD_MAP: Record<TRelation, string> = {
-  categories: "categorie",
-  types: "type",
-  compilations: "compilation",
-};
-
-const getSubCategoryForms = async (
+const getPurposeWithCategoriesCount = async (
   locale: ILocale["locale"],
-  relation: TRelation,
-  categoryQuery: string | null,
-  sort: TSortKey,
-  pageSize?: number,
-  page?: number,
   ext?: string,
 ) => {
-  const fieldName = RELATION_FIELD_MAP[relation];
-
   const params = [
     `locale=${cmsLocale(locale)}`,
-    `filters[$or][0][${relation}][id][$in]=${categoryQuery}`,
-    ext ? `filters[form_exts][ext][$eq]=${ext}` : null,
-    `populate[${relation}][filters][id][$in][0]=${categoryQuery}`,
-    `populate[${relation}][fields][0]=${fieldName}`,
-    `populate[${relation}][fields][1]=urlReq`,
-    pageSize ? `pagination[pageSize]=${pageSize}` : null,
-    page ? `pagination[page]=${page}` : null,
-    `sort[0]=${SORT_MAP[sort] ?? "createdAt:desc"}`,
-    "populate[card_prewiew][fields][0]=url",
-    "populate[form_exts][fields][0]=ext",
-    "fields[0]=name_form",
-    "fields[1]=description_card",
-    "fields[2]=url",
+    "fields[0]=name",
+    "fields[1]=key",
+    "fields[2]=createdAt",
+    "populate[parent_categories][fields][0]=name",
+    "populate[parent_categories][fields][1]=urlReq",
+    "populate[parent_categories][fields][2]=createdAt",
+    ext
+      ? `populate[parent_categories][filters][subcategories][oforms][form_exts][ext][$eq]=${ext}`
+      : "",
+    "populate[parent_categories][populate][subcategories][fields][0]=name",
+    "populate[parent_categories][populate][subcategories][fields][1]=urlReq",
+    "populate[parent_categories][populate][subcategories][fields][2]=createdAt",
+    ext
+      ? `populate[parent_categories][populate][subcategories][filters][oforms][form_exts][ext][$eq]=${ext}`
+      : "",
+    ext
+      ? `populate[parent_categories][populate][subcategories][populate][oforms][filters][form_exts][ext][$eq]=${ext}`
+      : "",
+    `populate[parent_categories][populate][subcategories][populate][oforms][fields][0]=id`,
+    `populate[parent_categories][populate][subcategories][populate][oforms][populate][countries][fields][0]=code`,
   ]
     .filter(Boolean)
     .join("&");
 
-  return apiRequest(`${CONFIG.api.cms}/api/oforms?${params}`, {
-    label: "getSubCategoryForms",
-    fallback: { data: [], meta: { pagination: { total: 0 } } },
+  return apiRequest(`${CONFIG.api.cms}/api/purposes?${params}`, {
+    label: "getPurposeWithCategoriesCount",
   });
 };
 
-export { getSubCategoryForms };
+export { getPurposeWithCategoriesCount };

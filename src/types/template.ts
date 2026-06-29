@@ -26,44 +26,21 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { TFormat } from "@src/types/data";
+import { IFormsData } from "@src/types/data";
+import { TAllowedTypes } from "@src/utils/allowedTypes";
 
-export interface IFormData {
+interface ICategoryInfoWithForms {
   data: {
     id: number;
     documentId: string;
     seo_title: string;
     seo_description: string;
-    name_form: string;
-    template_desc: string;
-    description_card: string;
-    url: string;
-    file_pages: string;
-    card_prewiew: {
-      id: number;
-      documentId: string;
-      url: string;
-    };
-    page_screens:
-      | {
-          id: number;
-          documentId: string;
-          url: string;
-        }[]
-      | null;
-    file_oform: {
+    subcategories: {
       id: number;
       documentId: string;
       name: string;
-      size: number;
-      updatedAt: string;
-      url: string;
-      hash: string;
-    }[];
-    form_exts: {
-      id: number;
-      documentId: string;
-      ext: TFormat;
+      createdAt: string;
+      oforms: IFormsData["data"];
     }[];
   }[];
   meta: {
@@ -76,12 +53,35 @@ export interface IFormData {
   };
 }
 
-export interface ICategoriesData {
+interface IExtFormsCount {
+  data: {
+    id: number;
+    documentId: string;
+    ext: string;
+    oforms: {
+      count: number;
+    };
+  }[];
+  meta: {
+    pagination: {
+      page: number;
+      pageCount: number;
+      pageSize: number;
+      total: number;
+    };
+  };
+}
+
+interface ICountriesCount {
   data: {
     id: number;
     documentId: string;
     name: string;
-    urlReq: string;
+    code: string;
+    createdAt: string;
+    oforms: {
+      count: number;
+    };
   }[];
   meta: {
     pagination: {
@@ -93,7 +93,66 @@ export interface ICategoriesData {
   };
 }
 
-export interface IFormTemplate {
-  form: IFormData;
-  categories: ICategoriesData;
+interface IPurposeWithCategoriesCount {
+  data: {
+    id: number;
+    documentId: string;
+    name: string;
+    key: string;
+    createdAt: string;
+    parent_categories: {
+      id: number;
+      documentId: string;
+      name: string;
+      urlReq: string;
+      createdAt: string;
+      subcategories: {
+        id: number;
+        documentId: string;
+        name: string;
+        urlReq: string;
+        createdAt: string;
+        oforms: {
+          id: number;
+          documentId: string;
+          countries: {
+            id: number;
+            documentId: string;
+            code: string;
+          }[];
+        }[];
+      }[];
+    }[];
+  }[];
+  meta: {
+    pagination: {
+      page: number;
+      pageCount: number;
+      pageSize: number;
+      total: number;
+    };
+  };
+}
+
+export interface ICategory {
+  categoryInfoWithForms: ICategoryInfoWithForms;
+  allForms: IFormsData;
+  extFormsCount: IExtFormsCount;
+  countriesCount: ICountriesCount;
+  purposeWithCategoriesCount: IPurposeWithCategoriesCount;
+}
+
+export interface IExtCategory {
+  ext: TAllowedTypes;
+  allForms: IFormsData;
+  extFormsCount: IExtFormsCount;
+  countriesCount: ICountriesCount;
+  purposeWithCategoriesCount: IPurposeWithCategoriesCount;
+}
+
+export interface ISearchResult {
+  allForms: IFormsData;
+  extFormsCount: IExtFormsCount;
+  countriesCount: ICountriesCount;
+  purposeWithCategoriesCount: IPurposeWithCategoriesCount;
 }

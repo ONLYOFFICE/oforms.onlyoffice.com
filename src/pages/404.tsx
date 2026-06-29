@@ -37,7 +37,7 @@ const Error404Page = () => {
   const { t } = useTranslation("error");
 
   return (
-    <Layout>
+    <Layout banner={false}>
       <Layout.Head>
         <Head title={t("PageTitle")} description={t("PageDescription")} />
       </Layout.Head>

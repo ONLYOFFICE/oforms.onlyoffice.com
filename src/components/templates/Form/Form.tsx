@@ -49,16 +49,15 @@ const FormTemplate = ({ form, categories }: IFormTemplate) => {
     template_desc,
     file_oform,
     file_pages,
-    template_image,
+    page_screens,
     card_prewiew,
     url,
     form_exts,
-  } = form.data[0].attributes;
-  const fileName = file_oform.data[0].attributes.url;
-  const pdfFile = file_oform?.data?.filter(
-    (it) => it?.attributes.name.split(".").pop() === "pdf",
+  } = form.data[0];
+  const pdfFile = file_oform?.filter(
+    (it) => it?.name.split(".").pop() === "pdf",
   );
-  const linkPdfEditor = `editor?lang=${locale}&filename=${fileName}&fillform=${`${pdfFile[0]?.attributes?.hash}.pdf`}`;
+  const linkPdfEditor = `editor?lang=${locale}&filename=${url}&fillform=${pdfFile?.[0]?.hash}.pdf`;
 
   return (
     <div className={styles["form-template"]}>
@@ -75,7 +74,7 @@ const FormTemplate = ({ form, categories }: IFormTemplate) => {
         template_desc={template_desc}
         file_pages={file_pages}
         file_oform={file_oform}
-        template_image={template_image}
+        page_screens={page_screens}
         linkPdfEditor={linkPdfEditor}
       />
       <HowToCreate name_form={name_form} linkPdfEditor={linkPdfEditor} />
@@ -84,8 +83,8 @@ const FormTemplate = ({ form, categories }: IFormTemplate) => {
         name_form={name_form}
         description_card={description_card}
         url={url}
-        card_prewiew={card_prewiew.data.attributes.url}
-        form_exts={form_exts.data[0].attributes.ext}
+        card_prewiew={card_prewiew.url}
+        form_exts={form_exts[0].ext}
       />
       <ExploreOtherTemplate />
       <PopularCategories categories={categories} />

@@ -41,6 +41,7 @@ const Switch = ({
   return (
     <label>
       <input
+        type="radio"
         className={styles["switch-input"]}
         name={name}
         value={value}

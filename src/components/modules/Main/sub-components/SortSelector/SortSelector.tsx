@@ -48,9 +48,9 @@ const SortSelector = () => {
   const { t } = useTranslation("SortSelector");
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const queryKey = Array.isArray(router.query._sort)
-    ? router.query._sort[0]
-    : router.query._sort;
+  const queryKey = Array.isArray(router.query.sort)
+    ? router.query.sort[0]
+    : router.query.sort;
   const isValidKey = SORT_OPTIONS.some((option) => option.key === queryKey);
   const selectedKey = isValidKey ? (queryKey as string) : DEFAULT_SORT_KEY;
   const ref = useRef<HTMLDivElement>(null);
@@ -76,10 +76,11 @@ const SortSelector = () => {
 
   const handleSelect = (key: string) => {
     router.push(
-      { pathname: router.pathname, query: { ...router.query, _sort: key } },
+      { pathname: router.pathname, query: { ...router.query, sort: key } },
       undefined,
       {
         scroll: false,
+        shallow: true,
       },
     );
     setIsOpen(false);

@@ -26,11 +26,11 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { Trans, useTranslation } from "next-i18next";
+import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { Heading } from "@src/components/ui/Heading";
+import { Text } from "@src/components/ui/Text";
 import { Button } from "@src/components/ui/Button";
-import { Link } from "@src/components/ui/Link";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
 import styles from "./DownloadModal.module.scss";
 
@@ -44,7 +44,7 @@ const DownloadModal = () => {
       <Heading
         className={styles["download-modal-heading"]}
         level={3}
-        size={4}
+        color="#21222b"
         style={
           {
             "--download-modal-heading-icon": `url(${getAssetUrl("/images/templates/form/hero/not-installed.svg")})`,
@@ -53,28 +53,15 @@ const DownloadModal = () => {
       >
         {t("OODesktopEditorsNotInstalled")}
       </Heading>
-      <p className={styles["download-modal-text"]}>
-        <Trans
-          t={t}
-          i18nKey="PleaseDownloadItAndInstall"
-          components={[
-            <Link
-              key={0}
-              href={`${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}${locale === "en" || locale === "ar" ? "" : `/${locale}`}/download-desktop`}
-              target="_blank"
-              color="#3541F5"
-              textUnderline
-              hover="underline-none"
-            />,
-          ]}
-        />
-      </p>
+      <Text className={styles["download-modal-text"]} size={3} color="#494b5b">
+        {t("PleaseDownloadItAndInstall")}
+      </Text>
       <Button
         as="a"
+        variant="secondary"
         href={`${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}${locale === "en" || locale === "ar" ? "" : `/${locale}`}/download-desktop`}
-        className={styles["download-modal-button"]}
       >
-        {t("GetOODesktop")}
+        {t("GetItNow")}
       </Button>
     </div>
   );

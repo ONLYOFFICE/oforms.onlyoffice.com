@@ -88,6 +88,7 @@ const SidebarItem = ({
 
     router.push({ pathname: router.pathname, query }, undefined, {
       scroll: false,
+      shallow: true,
     });
   };
 
@@ -141,6 +142,8 @@ const SidebarItem = ({
               {visibleOptions?.map((option) => (
                 <OptionComponent
                   key={option.value}
+                  name={heading}
+                  value={option.value}
                   count={option.count}
                   checked={option.checked}
                   onChange={option.onChange}

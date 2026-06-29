@@ -27,4 +27,3 @@
  */
 
 export { MainSection } from "./MainSection";
-export { InfinitySection } from "./InfinitySection";

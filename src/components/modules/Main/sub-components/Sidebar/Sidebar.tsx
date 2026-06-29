@@ -30,7 +30,7 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import clsx from "clsx";
 import { SidebarItem } from "./sub-components/SidebarItem";
-import { FILTER_PARAMS } from "@src/components/modules/Main/Main.constants";
+import { ISidebarItem } from "./sub-components/SidebarItem/SidebarItem.types";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
 import { ISidebar } from "./Sidebar.types";
 import styles from "./Sidebar.module.scss";
@@ -38,78 +38,91 @@ import styles from "./Sidebar.module.scss";
 const Sidebar = ({
   isOpen,
   setIsOpen,
-  typeFormsCount,
+  countries,
+  purposes,
+  categoriesByPurpose,
   docxForms,
   xlsxForms,
   pptxForms,
   pdfForms,
-  categories,
-  types,
-  compilations,
-  activeSubCategory,
+  selectedType,
 }: ISidebar) => {
   const { t } = useTranslation("MainTemplate");
   const router = useRouter();
 
-  const PAGE_EXT: Record<string, string> = {
-    "/document-templates": "docx",
-    "/spreadsheet-templates": "xlsx",
-    "/presentation-templates": "pptx",
-    "/pdf-form-templates": "pdf",
-  };
-  const pageExt = PAGE_EXT[router.pathname];
-  const isFormPage = router.pathname.startsWith("/form");
-  const isSearchPage = router.pathname === "/searchresult";
+  const isSearchResult = router.pathname === "/searchresult";
+  const isSlug = router.pathname === "/[slug]";
+  const redirectsToHome = isSearchResult || isSlug;
 
-  const parseIds = (param: string | string[] | undefined) =>
-    param ? String(param).split(",").filter(Boolean) : [];
+  const selectedPurpose = router.query.purpose
+    ? String(router.query.purpose)
+    : purposes[0]?.key;
 
-  const withOpened = (query: Record<string, string | string[]>) => {
-    if (router.query.opened) {
-      return { ...query, opened: router.query.opened };
-    }
+  const getHomeQuery = (
+    extra: Record<string, string>,
+  ): Record<string, string> => {
+    const query: Record<string, string> = { ...extra };
+    const country = getSelected("country");
+    if (country.length) query.country = country.join(",");
+    if (router.query.purpose) query.purpose = String(router.query.purpose);
     return query;
   };
 
-  const isSubCategoryChecked = (group: string, id: number) =>
-    isFormPage &&
-    activeSubCategory?.relation === group &&
-    activeSubCategory?.id === id;
+  const purposeCategories = selectedPurpose
+    ? (categoriesByPurpose[selectedPurpose] ?? [])
+    : [];
 
-  const isTypeChecked = (ext: string) =>
-    isFormPage
-      ? false
-      : pageExt
-        ? pageExt === ext || parseIds(router.query.type).includes(ext)
-        : parseIds(router.query.type).includes(ext);
+  const getSelected = (key: string) => {
+    const value = router.query[key];
+    const raw = Array.isArray(value) ? value.join(",") : value;
+    return raw ? raw.split(",").filter(Boolean) : [];
+  };
 
-  const pushAndClose = (...args: Parameters<typeof router.push>) =>
-    router.push(...args).then(() => {
-      if (window.matchMedia("(max-width: 1024px)").matches) {
-        setIsOpen(false);
-      }
-    });
+  const isTypeChecked = (value: string) =>
+    getSelected("type").includes(value) || selectedType === value;
 
-  const toggleFilter = (group: string, id: string) => {
-    if (group === "type" && pageExt) {
-      if (pageExt === id) {
-        pushAndClose({ pathname: "/", query: withOpened({}) }, undefined, {
-          scroll: false,
-        });
-        return;
-      }
+  const checkedTypeCount = ["docx", "xlsx", "pptx", "pdf"].filter(
+    isTypeChecked,
+  ).length;
 
-      const current = parseIds(router.query.type).filter(
-        (item) => item !== pageExt,
+  const toggleQueryValue = (key: string, value: string) => {
+    const selected = getSelected(key);
+    const next = selected.includes(value)
+      ? selected.filter((item) => item !== value)
+      : [...selected, value];
+
+    const query = { ...router.query };
+    if (next.length) {
+      query[key] = next.join(",");
+    } else {
+      delete query[key];
+    }
+
+    router.push({ query }, undefined, { scroll: false, shallow: true });
+  };
+
+  const toggleTypeValue = (value: string) => {
+    if (selectedType) {
+      const next = selectedType === value ? [] : [value];
+
+      router.push(
+        { pathname: "/", query: next.length ? { type: next.join(",") } : {} },
+        undefined,
+        { scroll: false },
       );
-      const ids = current.includes(id)
-        ? current.filter((item) => item !== id)
-        : [...current, id];
+      return;
+    }
 
-      pushAndClose(
+    if (redirectsToHome) {
+      const selected = getSelected("type");
+      const next = selected.includes(value)
+        ? selected.filter((item) => item !== value)
+        : [...selected, value];
+
+      router.push(
         {
           pathname: "/",
-          query: withOpened({ type: [pageExt, ...ids].join(",") }),
+          query: getHomeQuery(next.length ? { type: next.join(",") } : {}),
         },
         undefined,
         { scroll: false },
@@ -117,110 +130,85 @@ const Sidebar = ({
       return;
     }
 
-    if (isFormPage) {
-      if (group === "type") {
-        pushAndClose(
-          { pathname: "/", query: withOpened({ type: id }) },
-          undefined,
-          { scroll: false },
-        );
-        return;
-      }
+    const selected = getSelected("type");
+    const next = selected.includes(value)
+      ? selected.filter((item) => item !== value)
+      : [...selected, value];
 
-      const query: Record<string, string> = {};
+    const query = { ...router.query };
+    delete query.country;
+    delete query.subcategory;
 
-      if (activeSubCategory) {
-        query[activeSubCategory.relation] = String(activeSubCategory.id);
-      }
-
-      const current = parseIds(query[group]);
-      const ids = current.includes(id)
-        ? current.filter((item) => item !== id)
-        : [...current, id];
-
-      if (ids.length > 0) {
-        query[group] = ids.join(",");
-      } else {
-        delete query[group];
-      }
-
-      pushAndClose({ pathname: "/", query: withOpened(query) }, undefined, {
-        scroll: false,
-      });
-      return;
+    if (next.length) {
+      query.type = next.join(",");
+    } else {
+      delete query.type;
     }
 
-    if (isSearchPage) {
-      pushAndClose(
-        { pathname: "/", query: withOpened({ [group]: id }) },
+    router.push({ query }, undefined, { scroll: false, shallow: true });
+  };
+
+  const toggleCountryValue = (value: string) => {
+    const selected = getSelected("country");
+    const next = selected.includes(value)
+      ? selected.filter((item) => item !== value)
+      : [...selected, value];
+
+    const query = { ...router.query };
+    delete query.subcategory;
+
+    if (next.length) {
+      query.country = next.join(",");
+    } else {
+      delete query.country;
+    }
+
+    router.push({ pathname: router.pathname, query }, undefined, {
+      scroll: false,
+      shallow: true,
+    });
+  };
+
+  const toggleSubcategoryValue = (value: string) => {
+    if (selectedType) {
+      router.push(
+        { pathname: "/", query: { type: selectedType, subcategory: value } },
         undefined,
         { scroll: false },
       );
       return;
     }
 
-    const current = parseIds(router.query[group]);
-
-    const ids = current.includes(id)
-      ? current.filter((item) => item !== id)
-      : [...current, id];
-
-    const query = { ...router.query };
-    if (group === "type") {
-      delete query.categories;
-      delete query.types;
-      delete query.compilations;
-    }
-    if (ids.length > 0) {
-      query[group] = ids.join(",");
-    } else {
-      delete query[group];
-    }
-
-    pushAndClose({ pathname: router.pathname, query }, undefined, {
-      scroll: false,
-    });
-  };
-
-  const countByKey = (key: string) => {
-    if (isFormPage) {
-      return activeSubCategory?.relation === key ? 1 : 0;
-    }
-
-    if (key === "type" && pageExt) {
-      const ids = parseIds(router.query.type).filter(
-        (item) => item !== pageExt,
+    if (redirectsToHome) {
+      router.push(
+        { pathname: "/", query: getHomeQuery({ subcategory: value }) },
+        undefined,
+        { scroll: false },
       );
-      return ids.length + 1;
+      return;
     }
 
-    return parseIds(router.query[key]).length;
+    toggleQueryValue("subcategory", value);
   };
 
-  const getTypeFormsCountByExt = (ext: string) =>
-    typeFormsCount?.data?.find((item) => item.attributes.ext === ext)
-      ?.attributes.oforms.data.attributes.count ?? 0;
+  const filterKeys = ["type", "country", "subcategory"];
 
-  const totalChecked = FILTER_PARAMS.reduce(
-    (sum, key) => sum + countByKey(key),
-    0,
-  );
+  const totalChecked =
+    filterKeys.reduce((sum, key) => sum + getSelected(key).length, 0) +
+    (selectedType ? 1 : 0);
 
   const clearAllFilters = () => {
-    if (pageExt || isFormPage) {
-      pushAndClose({ pathname: "/", query: withOpened({}) }, undefined, {
-        scroll: false,
-      });
+    if (selectedType) {
+      router.push({ pathname: "/", query: {} }, undefined, { scroll: false });
       return;
     }
 
     const query = { ...router.query };
-    FILTER_PARAMS.forEach((key) => {
+    filterKeys.forEach((key) => {
       delete query[key];
     });
-    pushAndClose({ pathname: router.pathname, query }, undefined, {
-      scroll: false,
-    });
+
+    router.push({ query }, undefined, { scroll: false, shallow: true });
   };
 
   return (
@@ -238,135 +226,94 @@ const Sidebar = ({
       </div>
 
       <div className={styles["sidebar-wrapper"]}>
-        {[
-          {
-            heading: t("Type"),
-            count: countByKey("type"),
-            options: [
-              ...(docxForms?.data?.length || getTypeFormsCountByExt("docx")
-                ? [
+        {(
+          [
+            {
+              heading: t("Type"),
+              count: checkedTypeCount,
+              options: [
+                {
+                  value: "docx",
+                  label: "Documents",
+                  count: docxForms,
+                },
+                {
+                  value: "xlsx",
+                  label: "Spreadsheets",
+                  count: xlsxForms,
+                },
+                {
+                  value: "pptx",
+                  label: "Presentations",
+                  count: pptxForms,
+                },
+                {
+                  value: "pdf",
+                  label: "PdfForms",
+                  count: pdfForms,
+                },
+              ].map((type) => ({
+                value: type.value,
+                label: t(type.label),
+                count: type.count,
+                checked: isTypeChecked(type.value),
+                onChange: () => toggleTypeValue(type.value),
+              })),
+            },
+            {
+              heading: t("Countries"),
+              text: t("ShowingEnglishSpeakingCountries"),
+              count: getSelected("country").length,
+              options: countries.map((country) => ({
+                value: country.code.toLowerCase(),
+                label: country.name,
+                count: country.count,
+                checked: getSelected("country").includes(
+                  country.code.toLowerCase(),
+                ),
+                onChange: () => toggleCountryValue(country.code.toLowerCase()),
+              })),
+            },
+            {
+              heading: t("Purpose"),
+              optionsType: "switch",
+              options: purposes.map((item) => ({
+                value: item.key,
+                label: item.name,
+                checked: selectedPurpose === item.key,
+                onChange: () =>
+                  router.push(
                     {
-                      value: "docx",
-                      label: t("Documents"),
-                      count:
-                        docxForms?.meta.pagination.total ??
-                        getTypeFormsCountByExt("docx"),
-                      checked: isTypeChecked("docx"),
-                      onChange: () => toggleFilter("type", "docx"),
+                      query: { ...router.query, purpose: item.key },
                     },
-                  ]
-                : []),
-              ...(xlsxForms?.data?.length || getTypeFormsCountByExt("xlsx")
-                ? [
-                    {
-                      value: "xlsx",
-                      label: t("Spreadsheets"),
-                      count:
-                        xlsxForms?.meta.pagination.total ??
-                        getTypeFormsCountByExt("xlsx"),
-                      checked: isTypeChecked("xlsx"),
-                      onChange: () => toggleFilter("type", "xlsx"),
-                    },
-                  ]
-                : []),
-              ...(pptxForms?.data?.length || getTypeFormsCountByExt("pptx")
-                ? [
-                    {
-                      value: "pptx",
-                      label: t("Presentations"),
-                      count:
-                        pptxForms?.meta.pagination.total ??
-                        getTypeFormsCountByExt("pptx"),
-                      checked: isTypeChecked("pptx"),
-                      onChange: () => toggleFilter("type", "pptx"),
-                    },
-                  ]
-                : []),
-              ...(pdfForms?.data?.length || getTypeFormsCountByExt("pdf")
-                ? [
-                    {
-                      value: "pdf",
-                      label: t("PdfForms"),
-                      count:
-                        pdfForms?.meta.pagination.total ??
-                        getTypeFormsCountByExt("pdf"),
-                      checked: isTypeChecked("pdf"),
-                      onChange: () => toggleFilter("type", "pdf"),
-                    },
-                  ]
-                : []),
-            ],
-          },
-          {
-            heading: t("Сategories"),
-            count:
-              countByKey("categories") +
-              countByKey("types") +
-              countByKey("compilations"),
-            categories: [
-              ...(categories.data.length > 0
-                ? [
-                    {
-                      heading: t("TemplatesByBranch"),
-                      queryKey: "categories",
-                      options: categories.data.map((item) => ({
-                        value: `categories-${item.id}`,
-                        label: item.attributes.categorie,
-                        count: item.attributes.oforms.data.attributes.count,
-                        checked:
-                          parseIds(router.query.categories).includes(
-                            String(item.id),
-                          ) || isSubCategoryChecked("categories", item.id),
-                        onChange: () =>
-                          toggleFilter("categories", String(item.id)),
-                      })),
-                    },
-                  ]
-                : []),
-              ...(types.data.length > 0
-                ? [
-                    {
-                      heading: t("TemplatesByType"),
-                      queryKey: "types",
-                      options: types.data.map((item) => ({
-                        value: `types-${item.id}`,
-                        label: item.attributes.type,
-                        count: item.attributes.oforms.data.attributes.count,
-                        checked:
-                          parseIds(router.query.types).includes(
-                            String(item.id),
-                          ) || isSubCategoryChecked("types", item.id),
-                        onChange: () => toggleFilter("types", String(item.id)),
-                      })),
-                    },
-                  ]
-                : []),
-              ...(compilations.data.length > 0
-                ? [
-                    {
-                      heading: t("PopularCompilations"),
-                      queryKey: "compilations",
-                      options: compilations.data.map((item) => ({
-                        value: `compilations-${item.id}`,
-                        label: item.attributes.compilation,
-                        count: item.attributes.oforms.data.attributes.count,
-                        checked:
-                          parseIds(router.query.compilations).includes(
-                            String(item.id),
-                          ) || isSubCategoryChecked("compilations", item.id),
-                        onChange: () =>
-                          toggleFilter("compilations", String(item.id)),
-                      })),
-                    },
-                  ]
-                : []),
-            ],
-          },
-        ].map((item, index) => (
+                    undefined,
+                    { scroll: false, shallow: true },
+                  ),
+              })),
+            },
+            {
+              heading: t("Сategories"),
+              count: getSelected("subcategory").length,
+              categories: purposeCategories.map(
+                ({ category, subcategories }) => ({
+                  heading: category.name,
+                  queryKey: `category-${category.id}`,
+                  options: subcategories.map((sub) => ({
+                    value: sub.urlReq,
+                    label: sub.name,
+                    count: sub.count,
+                    checked: getSelected("subcategory").includes(sub.urlReq),
+                    onChange: () => toggleSubcategoryValue(sub.urlReq),
+                  })),
+                }),
+              ),
+            },
+          ] as ISidebarItem[]
+        ).map((item, index) => (
           <SidebarItem key={index} {...item} />
         ))}
 
-        {!!totalChecked && (
+        {totalChecked > 0 && (
           <button
             type="button"
             className={styles["sidebar-clear-btn"]}

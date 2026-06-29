@@ -65,6 +65,7 @@
 }
 
 .variant-primary {
+  position: relative;
   border: none;
   background: radial-gradient(
     83.6% 156.25% at 71.63% 0%,
@@ -73,7 +74,36 @@
     #ff4b00 88.46%
   );
   box-shadow: 0px 8px 12px -3px #ff6f3d4d;
-  transition: background-color 0.2s;
+  z-index: 0;
+  transition: box-shadow 0.2s;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(360deg, #f68c57 0%, #ff5938 100%);
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: -1;
+  }
+
+  &:hover {
+    box-shadow: 0px 4px 6px -4px rgba(244, 89, 12, 0.5);
+
+    &:after {
+      opacity: 1;
+    }
+  }
+
+  &:disabled {
+    background: linear-gradient(
+      360deg,
+      rgba(235, 51, 0, 0.5) 0%,
+      rgba(255, 89, 56, 0.5) 40%
+    );
+    box-shadow: 0px 8px 16px -3px rgba(244, 89, 12, 0.5);
+  }
 }
 
 .variant-primary-2 {
@@ -101,11 +131,30 @@
   border: none;
   background-color: #000122;
   transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #3541f5;
+  }
+
+  &:disabled {
+    background-color: rgba(0, 1, 34, 0.5);
+  }
 }
 
 .variant-tertiary {
   border: none;
   color: #000122;
   background-color: #ffffff;
-  transition: background-color 0.2s;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
+
+  &:hover {
+    color: #ffffff;
+    background-color: #3541f5;
+  }
+
+  &:disabled {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
 }

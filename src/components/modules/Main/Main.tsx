@@ -35,24 +35,21 @@ import { Container } from "@src/components/ui/Container";
 import { SortSelector } from "@src/components/modules/Main/sub-components/SortSelector";
 import { SearchInput } from "@src/components/modules/Main/sub-components/SearchInput";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
-import { TExt } from "@src/components/modules/Main/Main.types";
 import { IMain } from "./Main.types";
 import styles from "./Main.module.scss";
 
 const Main = ({
-  typeFormsCount,
-  categories,
-  types,
-  compilations,
+  children,
   docxForms,
-  pdfForms,
   xlsxForms,
   pptxForms,
+  pdfForms,
+  countries,
+  purposes,
+  categoriesByPurpose,
   totalCount,
-  children,
-  data,
-  ext,
-  activeSubCategory,
+  selectedType,
+  formNames,
 }: IMain) => {
   const { t } = useTranslation("MainTemplate");
   const [isOpen, setIsOpen] = useState(false);
@@ -63,13 +60,6 @@ const Main = ({
       document.body.style.overflow = "";
     };
   }, [isOpen]);
-
-  const SIDEBAR_PROP: Record<TExt, string> = {
-    docx: "docxForms",
-    xlsx: "xlsxForms",
-    pptx: "pptxForms",
-    pdf: "pdfForms",
-  };
 
   return (
     <Section
@@ -99,16 +89,14 @@ const Main = ({
           <Sidebar
             isOpen={isOpen}
             setIsOpen={setIsOpen}
-            typeFormsCount={typeFormsCount}
+            countries={countries}
+            purposes={purposes}
+            categoriesByPurpose={categoriesByPurpose}
             docxForms={docxForms}
             xlsxForms={xlsxForms}
             pptxForms={pptxForms}
             pdfForms={pdfForms}
-            categories={categories}
-            types={types}
-            compilations={compilations}
-            activeSubCategory={activeSubCategory}
-            {...(ext ? { [SIDEBAR_PROP[ext]]: data } : {})}
+            selectedType={selectedType}
           />
 
           <div>
@@ -137,7 +125,7 @@ const Main = ({
                 ></button>
               </div>
 
-              <SearchInput />
+              <SearchInput formNames={formNames} />
             </div>
 
             {children}

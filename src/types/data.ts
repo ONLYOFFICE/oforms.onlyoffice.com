@@ -26,32 +26,62 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import CONFIG from "@src/config/config.json";
-import { apiRequest } from "@src/lib/api/apiRequest";
-import { ILocale } from "@src/types/locale";
-import { cmsLocale } from "@src/utils/cmsLocale";
+export type TFormat = "docx" | "xlsx" | "pptx" | "pdf";
 
-const getCategoryInfo = async (
-  locale: ILocale["locale"],
-  collectionTypePlural: string,
-  urlReq: string,
-  categoryFieldName: string,
-) => {
-  const params = [
-    `filters[urlReq][$eq]=${urlReq}`,
-    `locale=${cmsLocale(locale)}`,
-    "fields[0]=seo_title",
-    "fields[1]=seo_description",
-    "fields[2]=header_description",
-    `fields[3]=${categoryFieldName}`,
-  ]
-    .filter(Boolean)
-    .join("&");
-
-  return apiRequest(`${CONFIG.api.cms}/api/${collectionTypePlural}?${params}`, {
-    label: "getCategoryInfo",
-    fallback: { data: [], meta: {} },
-  });
-};
-
-export { getCategoryInfo };
+export interface IFormsData {
+  data: {
+    id: number;
+    documentId: string;
+    name_form: string;
+    description_card: string;
+    url: string;
+    popular_template: boolean | null;
+    createdAt: string;
+    card_prewiew: {
+      id: number;
+      documentId: string;
+      url: string;
+    };
+    form_exts: {
+      id: number;
+      documentId: string;
+      ext: TFormat;
+    }[];
+    countries: {
+      id: number;
+      documentId: string;
+      name: string;
+      code: string;
+      createdAt: string;
+    }[];
+    subcategories: {
+      id: number;
+      documentId: string;
+      name: string;
+      urlReq: string;
+      createdAt: string;
+      parent_categories: {
+        id: number;
+        documentId: string;
+        name: string;
+        urlReq: string;
+        createdAt: string;
+        purpose: {
+          id: number;
+          documentId: string;
+          name: string;
+          key: string;
+          createdAt: string;
+        };
+      }[];
+    }[];
+  }[];
+  meta: {
+    pagination: {
+      page: number;
+      pageCount: number;
+      pageSize: number;
+      total: number;
+    };
+  };
+}

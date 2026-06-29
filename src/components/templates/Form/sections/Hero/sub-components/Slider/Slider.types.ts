@@ -26,28 +26,13 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { TTaxonomyRelation } from "@src/components/modules/Main/Main.types";
-
-const pickFirstTaxonomy = (
-  resolvedUrl: string,
-  values: Record<TTaxonomyRelation, string[] | null>,
-): TTaxonomyRelation | null => {
-  const queryString = resolvedUrl.includes("?")
-    ? resolvedUrl.slice(resolvedUrl.indexOf("?") + 1)
-    : "";
-
-  const present = (
-    ["categories", "types", "compilations"] as TTaxonomyRelation[]
-  ).filter((relation) => Boolean(values[relation]));
-
-  if (present.length === 0) return null;
-
-  return present
-    .map((relation) => {
-      const match = new RegExp(`(?:^|&)${relation}=`).exec(queryString);
-      return { relation, index: match ? match.index : Number.MAX_SAFE_INTEGER };
-    })
-    .sort((a, b) => a.index - b.index)[0].relation;
-};
-
-export { pickFirstTaxonomy };
+export interface ISlider {
+  page_screens:
+    | {
+        id: number;
+        documentId: string;
+        url: string;
+      }[]
+    | null;
+  name_form: string;
+}

@@ -130,7 +130,10 @@ const SliderSection = ({ heading, data }: ISliderSection) => {
             }}
           >
             {slides.map((item) => (
-              <SwiperSlide key={item.id}>
+              <SwiperSlide
+                className={styles["slider-section-item"]}
+                key={item.id}
+              >
                 <Card
                   className={styles["slider-section-card"]}
                   preview={item.card_prewiew}

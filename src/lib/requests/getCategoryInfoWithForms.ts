@@ -26,20 +26,40 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import {
-  IFormsData,
-  ITypeFormsCountData,
-  ICategoryItemData,
-} from "@src/components/modules/Main/Main.types";
-import { TExt } from "@src/components/modules/Main/Main.types";
+import CONFIG from "@src/config/config.json";
+import { apiRequest } from "@src/lib/api/apiRequest";
+import { ICategoriesData } from "@src/components/templates/Form/Form.types";
+import { ILocale } from "@src/types/locale";
+import { cmsLocale } from "@src/utils/cmsLocale";
 
-export interface ICategoryTemplate {
-  popularForms: IFormsData;
-  typeFormsCount: ITypeFormsCountData;
-  ext: TExt;
-  data: IFormsData;
-  categories: ICategoryItemData<"categorie">;
-  types: ICategoryItemData<"type">;
-  compilations: ICategoryItemData<"compilation">;
-  subCategoryForms: IFormsData;
-}
+const getCategoryInfoWithForms = async (
+  locale: ILocale["locale"],
+  url: string,
+) => {
+  const params = [
+    `filters[urlReq][$eq]=${url}`,
+    `locale=${cmsLocale(locale)}`,
+    "fields[0]=seo_title",
+    "fields[1]=seo_description",
+    "populate[subcategories][fields][0]=name",
+    "populate[subcategories][fields][1]=createdAt",
+    "populate[subcategories][populate][oforms][fields][0]=name_form",
+    "populate[subcategories][populate][oforms][fields][1]=description_card",
+    "populate[subcategories][populate][oforms][fields][2]=url",
+    "populate[subcategories][populate][oforms][fields][3]=popular_template",
+    "populate[subcategories][populate][oforms][fields][4]=createdAt",
+    "populate[subcategories][populate][oforms][populate][card_prewiew][fields][0]=url",
+    "populate[subcategories][populate][oforms][populate][form_exts][fields][0]=ext",
+  ]
+    .filter(Boolean)
+    .join("&");
+
+  return apiRequest<ICategoriesData>(
+    `${CONFIG.api.cms}/api/parent-categories?${params}`,
+    {
+      label: "getCategoryInfoWithForms",
+    },
+  );
+};
+
+export { getCategoryInfoWithForms };

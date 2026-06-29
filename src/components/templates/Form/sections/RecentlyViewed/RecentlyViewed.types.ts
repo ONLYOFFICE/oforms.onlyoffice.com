@@ -27,13 +27,12 @@
  */
 
 import { IFormData } from "../../Form.types";
-import { TCardFormat } from "@src/components/widgets/Card/Card.types";
 
 export interface IRecentlyViewed {
   id: IFormData["data"][0]["id"];
-  name_form: IFormData["data"][0]["attributes"]["name_form"];
-  description_card: IFormData["data"][0]["attributes"]["description_card"];
-  url: IFormData["data"][0]["attributes"]["url"];
-  card_prewiew: IFormData["data"][0]["attributes"]["card_prewiew"]["data"]["attributes"]["url"];
-  form_exts: TCardFormat;
+  name_form: IFormData["data"][0]["name_form"];
+  description_card: IFormData["data"][0]["description_card"];
+  url: IFormData["data"][0]["url"];
+  card_prewiew: IFormData["data"][0]["card_prewiew"]["url"];
+  form_exts: IFormData["data"][0]["form_exts"][0]["ext"];
 }

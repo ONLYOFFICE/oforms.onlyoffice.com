@@ -37,7 +37,7 @@ const getForm = async (locale: ILocale["locale"], queryForm: string) => {
     `filters[url][$eq]=${queryForm}`,
     `locale=${cmsLocale(locale)}`,
     "populate[card_prewiew][fields][0]=url",
-    "populate[template_image][fields][0]=url",
+    "populate[page_screens][fields][0]=url",
     "populate[form_exts][fields][0]=ext",
     "populate[file_oform][fields][0]=name",
     "populate[file_oform][fields][1]=size",
@@ -59,7 +59,6 @@ const getForm = async (locale: ILocale["locale"], queryForm: string) => {
 
   return apiRequest<IFormData>(`${CONFIG.api.cms}/api/oforms?${params}`, {
     label: "getForm",
-    fallback: { data: [], meta: {} } satisfies IFormData,
   });
 };
 

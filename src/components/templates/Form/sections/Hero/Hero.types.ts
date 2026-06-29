@@ -31,24 +31,20 @@ export interface IHero {
   template_desc: string;
   file_pages: string;
   file_oform: {
-    data: {
-      id: number;
-      attributes: {
-        name: string;
-        size: number;
-        updatedAt: string;
+    id: number;
+    documentId: string;
+    name: string;
+    size: number;
+    updatedAt: string;
+    url: string;
+    hash: string;
+  }[];
+  page_screens:
+    | {
+        id: number;
+        documentId: string;
         url: string;
-        hash: string;
-      };
-    }[];
-  };
-  template_image: {
-    data: {
-      id: number;
-      attributes: {
-        url: string;
-      };
-    };
-  };
+      }[]
+    | null;
   linkPdfEditor: string;
 }

@@ -26,40 +26,23 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { apiRequest } from "@src/lib/api/apiRequest";
 import CONFIG from "@src/config/config.json";
+import { apiRequest } from "@src/lib/api/apiRequest";
 import { ILocale } from "@src/types/locale";
-import { SORT_MAP, TSortKey } from "@src/utils/sortMap";
 import { cmsLocale } from "@src/utils/cmsLocale";
 
-const getSubCategoryWithForms = async (
-  locale: ILocale["locale"],
-  collectionTypePlural: string,
-  categoryFieldName: string,
-  id: number | string,
-  sort: TSortKey,
-  limit: number,
-) => {
+const getCategories = async (locale: ILocale["locale"]) => {
   const params = [
     `locale=${cmsLocale(locale)}`,
-    `filters[id][$eq]=${id}`,
-    `fields[0]=${categoryFieldName}`,
+    "fields[0]=name",
     "fields[1]=urlReq",
-    `populate[oforms][sort][0]=${SORT_MAP[sort] ?? "createdAt:desc"}`,
-    `populate[oforms][limit]=${limit}`,
-    "populate[oforms][fields][0]=name_form",
-    "populate[oforms][fields][1]=description_card",
-    "populate[oforms][fields][2]=url",
-    "populate[oforms][populate][card_prewiew][fields][0]=url",
-    "populate[oforms][populate][form_exts][fields][0]=ext",
   ]
     .filter(Boolean)
     .join("&");
 
-  return apiRequest(`${CONFIG.api.cms}/api/${collectionTypePlural}?${params}`, {
-    label: "getSubCategoryWithForms",
-    fallback: { data: [], meta: {} },
+  return apiRequest(`${CONFIG.api.cms}/api/parent-categories?${params}`, {
+    label: "getCategories",
   });
 };
 
-export { getSubCategoryWithForms };
+export { getCategories };

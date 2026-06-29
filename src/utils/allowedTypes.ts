@@ -26,40 +26,5 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import CONFIG from "@src/config/config.json";
-import { apiRequest } from "@src/lib/api/apiRequest";
-import { ILocale } from "@src/types/locale";
-import { SORT_MAP, TSortKey } from "@src/utils/sortMap";
-import { cmsLocale } from "@src/utils/cmsLocale";
-
-const getCategoryForms = async (
-  locale: ILocale["locale"],
-  collectionTypePlural: string,
-  urlReq: string,
-  sort: TSortKey,
-  pageSize?: number,
-  page?: number,
-) => {
-  const params = [
-    `filters[${collectionTypePlural}][urlReq][$eq]=${urlReq}`,
-    `locale=${cmsLocale(locale)}`,
-    pageSize ? `pagination[pageSize]=${pageSize}` : null,
-    page ? `pagination[page]=${page}` : null,
-    `sort[0]=${SORT_MAP[sort] ?? "createdAt:desc"}`,
-    sort === "popular" ? "sort[1]=createdAt:desc" : null,
-    "populate[card_prewiew][fields][0]=url",
-    "populate[form_exts][fields][0]=ext",
-    "fields[0]=name_form",
-    "fields[1]=description_card",
-    "fields[2]=url",
-  ]
-    .filter(Boolean)
-    .join("&");
-
-  return apiRequest(`${CONFIG.api.cms}/api/oforms?${params}`, {
-    label: "getCategoryForms",
-    fallback: { data: [], meta: {} },
-  });
-};
-
-export { getCategoryForms };
+export const ALLOWED_TYPES = ["pptx", "docx", "pdf", "xlsx"];
+export type TAllowedTypes = (typeof ALLOWED_TYPES)[number];

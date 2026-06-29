@@ -27,24 +27,48 @@
  */
 
 import {
-  useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
+  type ChangeEvent,
   type KeyboardEvent,
   type MouseEvent,
 } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import debounce from "lodash.debounce";
-import { getSearchResultInput } from "@src/lib/requests/getSearchResultInput";
 import { Heading } from "@src/components/ui/Heading";
 import { Link } from "@src/components/ui/Link";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
 import { POPULAR_SEARCH } from "./data/popular-search";
-import { TSearchResult } from "./SearchInput.types";
+import { ISearchInput } from "./SearchInput.types";
 import styles from "./SearchInput.module.scss";
+
+const SEARCH_HISTORY_KEY = "search_history";
+const SEARCH_HISTORY_LIMIT = 5;
+
+const readSearchHistory = (): string[] => {
+  try {
+    const raw = localStorage.getItem(SEARCH_HISTORY_KEY);
+    const parsed = raw ? JSON.parse(raw) : null;
+    return Array.isArray(parsed)
+      ? parsed
+          .filter((item): item is string => typeof item === "string")
+          .slice(0, SEARCH_HISTORY_LIMIT)
+      : [];
+  } catch {
+    return [];
+  }
+};
+
+const writeSearchHistory = (history: string[]) => {
+  try {
+    localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(history));
+  } catch {}
+};
+
+const escapeRegExp = (value: string) =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 const Highlight = ({
   searchQuery,
@@ -53,13 +77,15 @@ const Highlight = ({
   searchQuery: string;
   text: string;
 }) => {
-  if (!searchQuery) return <>{text}</>;
+  const query = searchQuery.trim();
+  if (!query) return <>{text}</>;
 
-  const regexp = new RegExp(`(${searchQuery})`, "ig");
+  const regexp = new RegExp(`(${escapeRegExp(query)})`, "gi");
+
   return (
     <>
       {text.split(regexp).map((part, index) =>
-        regexp.test(part) ? (
+        part?.toLocaleLowerCase() === query.toLocaleLowerCase() ? (
           <span key={index} className={styles["search-excerpt"]}>
             {part}
           </span>
@@ -71,7 +97,7 @@ const Highlight = ({
   );
 };
 
-const SearchInput = () => {
+const SearchInput = ({ formNames }: ISearchInput) => {
   const { t } = useTranslation("SearchInput");
   const router = useRouter();
   const locale = router.locale ?? "en";
@@ -79,46 +105,41 @@ const SearchInput = () => {
   const [searchItem, setSearchItem] = useState("");
   const [searchResult, setSearchResult] = useState(false);
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
-  const [searchValue, setSearchValue] = useState<TSearchResult | []>([]);
 
-  const updateSearchValue = useMemo(
+  const query = searchItem.trim().toLocaleLowerCase();
+  const hasQuery = query.length > 0;
+  const searchName =
+    locale === "en" || locale === "fr" || locale === "pt"
+      ? query === "curriculum vitae" ||
+        query === "curriculum" ||
+        query === "vitae"
+        ? "cv"
+        : query
+      : query;
+  const searchValue = useMemo(
     () =>
-      debounce(async (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.value) {
-          const searchData = await getSearchResultInput(locale, e.target.value);
-          setSearchValue(searchData);
-        } else {
-          setSearchValue([]);
-        }
-      }, 500),
-    [locale],
+      hasQuery
+        ? (formNames ?? [])
+            .filter((form) =>
+              form.name_form.toLocaleLowerCase().includes(searchName),
+            )
+            .slice(0, 5)
+        : [],
+    [formNames, searchName, hasQuery],
   );
 
-  const HighlightText = useCallback(
-    (text: string) => <Highlight searchQuery={searchItem} text={text} />,
-    [searchItem],
-  );
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchItem(e.target.value);
+    setSearchResult(true);
+  };
 
   useEffect(() => {
-    return () => {
-      updateSearchValue.cancel();
-    };
-  }, [updateSearchValue]);
+    const localStorageSearchHistory = readSearchHistory();
 
-  useEffect(() => {
-    const localStorageSearchHistory = JSON.parse(
-      localStorage.getItem("search_history") ?? "null",
-    );
-
-    if (localStorageSearchHistory?.length > 0) {
+    if (localStorageSearchHistory.length > 0) {
       setSearchHistory(localStorageSearchHistory);
     }
-
-    if (router.pathname === "/searchresult") {
-      const query = router.query.query;
-      setSearchItem(typeof query === "string" ? query : "");
-    }
-  }, [router.pathname, router.query.query]);
+  }, []);
 
   useEffect(() => {
     if (!searchResult) return;
@@ -138,45 +159,53 @@ const SearchInput = () => {
     };
   }, [searchResult]);
 
+  const persistSearchHistory = (history: string[]) => {
+    setSearchHistory(history);
+    writeSearchHistory(history);
+  };
+
   const handleRemoveSearchHistoryItem = (
     e: MouseEvent<HTMLButtonElement>,
-    indexToRemove: number,
+    valueToRemove: string,
   ) => {
     e.stopPropagation();
-    const updatedSearchHistory = searchHistory.filter(
-      (_, index) => index !== indexToRemove,
+    const normalized = valueToRemove.toLocaleLowerCase();
+    const updatedSearchHistory = readSearchHistory().filter(
+      (item) => item.toLocaleLowerCase() !== normalized,
     );
-    setSearchHistory(updatedSearchHistory);
-    localStorage.setItem(
-      "search_history",
-      JSON.stringify(updatedSearchHistory),
-    );
+    persistSearchHistory(updatedSearchHistory);
   };
 
   const updateSearchHistory = (value: string) => {
     const filteredQuery = value.trim();
+    if (!filteredQuery) return;
 
-    if (filteredQuery && !searchHistory?.includes(filteredQuery)) {
-      const newSearchHistory = [filteredQuery, ...searchHistory.slice(0, 4)];
-      newSearchHistory.sort((a, b) => a.localeCompare(b));
-      setSearchHistory(newSearchHistory);
-      localStorage.setItem("search_history", JSON.stringify(newSearchHistory));
-    }
+    const normalized = filteredQuery.toLocaleLowerCase();
+    const current = readSearchHistory().filter(
+      (item) => item.toLocaleLowerCase() !== normalized,
+    );
+
+    const newSearchHistory = [filteredQuery, ...current].slice(
+      0,
+      SEARCH_HISTORY_LIMIT,
+    );
+    persistSearchHistory(newSearchHistory);
   };
+
+  const buildSearchHref = (value: string) =>
+    `/searchresult?query=${encodeURIComponent(value)}`;
 
   const keyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
+      if (!searchItem.trim()) return;
       updateSearchHistory(searchItem);
       setSearchResult(false);
-      router.push(`/searchresult?query=${searchItem}`);
+      router.push(buildSearchHref(searchItem));
     }
   };
 
   const popular =
     POPULAR_SEARCH[locale as keyof typeof POPULAR_SEARCH] ?? POPULAR_SEARCH.en;
-
-  const resultData = Array.isArray(searchValue) ? undefined : searchValue.data;
-  const hasQuery = !Array.isArray(searchValue);
 
   return (
     <div
@@ -195,10 +224,7 @@ const SearchInput = () => {
         value={searchItem}
         name="search"
         autoComplete="off"
-        onChange={(e) => {
-          setSearchItem(e.target.value);
-          updateSearchValue(e);
-        }}
+        onChange={handleChange}
         onClick={() => setSearchResult(true)}
         onKeyDown={keyDownHandler}
       />
@@ -210,35 +236,24 @@ const SearchInput = () => {
                 {t("History")}
               </Heading>
             )}
-            {searchHistory?.map((item, index) => (
-              <div
-                className={styles["search-results-item"]}
-                onClick={() => setSearchResult(false)}
-                key={item}
-              >
-                <Link href={`/searchresult?query=${item}`}>{item}</Link>
+            {searchHistory?.map((item) => (
+              <div className={styles["search-results-item"]} key={item}>
+                <Link
+                  href={buildSearchHref(item)}
+                  onClick={() => setSearchResult(false)}
+                >
+                  {item}
+                </Link>
                 <button
                   className={styles["search-results-btn"]}
-                  onClick={(e) => handleRemoveSearchHistoryItem(e, index)}
+                  onClick={(e) => handleRemoveSearchHistoryItem(e, item)}
                   type="button"
-                >
-                  <svg
-                    width="25"
-                    height="24"
-                    viewBox="0 0 25 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g opacity="0.4">
-                      <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M3.31348 12C3.31348 7.0275 7.34098 3 12.3135 3C17.286 3 21.3135 7.0275 21.3135 12C21.3135 16.9725 17.286 21 12.3135 21C7.34098 21 3.31348 16.9725 3.31348 12ZM8.77772 9.87868C8.3872 9.48816 8.3872 8.85499 8.77772 8.46447C9.16825 8.07394 9.80141 8.07394 10.1919 8.46447L12.3133 10.5858L14.4346 8.46447C14.8251 8.07394 15.4583 8.07394 15.8488 8.46447C16.2393 8.85499 16.2393 9.48816 15.8488 9.87868L13.7275 12L15.8488 14.1213C16.2393 14.5118 16.2393 15.145 15.8488 15.5355C15.4583 15.9261 14.8251 15.9261 14.4346 15.5355L12.3133 13.4142L10.1919 15.5355C9.80141 15.9261 9.16825 15.9261 8.77772 15.5355C8.3872 15.145 8.3872 14.5118 8.77772 14.1213L10.899 12L8.77772 9.87868Z"
-                        fill="#444444"
-                      />
-                    </g>
-                  </svg>
-                </button>
+                  style={
+                    {
+                      "--search-results-btn-icon": `url(${getAssetUrl("/images/templates/main/search-input/cross.svg")})`,
+                    } as React.CSSProperties
+                  }
+                ></button>
               </div>
             ))}
             {popular.length > 0 && (
@@ -246,12 +261,12 @@ const SearchInput = () => {
                 <Heading as="div" className={styles["search-results-label"]}>
                   {t("PopularSearch")}
                 </Heading>
-                {popular.map((item) => (
+                {popular.map((item, index) => (
                   <Link
                     className={styles["search-results-popular-item"]}
                     onClick={() => setSearchResult(false)}
-                    href={`/searchresult?query=${item}`}
-                    key={item}
+                    href={buildSearchHref(item)}
+                    key={index}
                   >
                     {item}
                   </Link>
@@ -261,15 +276,18 @@ const SearchInput = () => {
           </div>
         ) : (
           <div className={styles["search-results"]}>
-            {resultData && resultData.length > 0 ? (
-              resultData.map((item) => (
+            {searchValue.length > 0 ? (
+              searchValue.map((item) => (
                 <Link
                   className={styles["search-results-popular-item"]}
-                  onClick={() => updateSearchHistory(item.attributes.name_form)}
-                  href={item.attributes.url}
+                  onClick={() => {
+                    updateSearchHistory(item.name_form);
+                    setSearchResult(false);
+                  }}
+                  href={item.url}
                   key={item.id}
                 >
-                  {HighlightText(item.attributes.name_form)}
+                  <Highlight searchQuery={searchItem} text={item.name_form} />
                 </Link>
               ))
             ) : (

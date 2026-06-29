@@ -26,9 +26,9 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { useTranslation, Trans } from "next-i18next";
+import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import { ISearchResult } from "@src/types/template";
+import { IExtCategory } from "@src/types/template";
 import { Main } from "@src/components/modules/Main";
 import { MainSection } from "@src/components/modules/Main/sub-components/MainSection";
 import {
@@ -36,33 +36,36 @@ import {
   getPurposes,
   getCategoriesByPurpose,
   getQueryValues,
+  getTemplatesByExt,
+  getPopularTemplates,
   normalizeSortKey,
   sortForms,
 } from "@src/utils/helpers";
-import { SearchNoResult } from "./sub-components/SearchNoResult";
+import { TAllowedTypes } from "@src/utils/allowedTypes";
 
-const SearchResultTemplate = ({
+const EXT_TEMPLATES_LABEL_KEY: Record<TAllowedTypes, string> = {
+  docx: "DocumentTemplates",
+  xlsx: "SpreadsheetTemplates",
+  pptx: "PresentationTemplates",
+  pdf: "PdfFormsTemplates",
+};
+
+const ExtCategoryTemplate = ({
+  ext,
   allForms,
   extFormsCount,
   countriesCount,
   purposeWithCategoriesCount,
-}: ISearchResult) => {
-  const { t } = useTranslation("searchresult");
+}: IExtCategory) => {
+  const { t } = useTranslation("MainTemplate");
   const router = useRouter();
 
   const sortKey = normalizeSortKey(router.query.sort);
-  const filteredForms = sortForms(allForms.data, sortKey);
-  const searchQuery = (
-    Array.isArray(router.query.query)
-      ? router.query.query[0]
-      : (router.query.query ?? "")
-  ).trim();
-  const foundForms = searchQuery
-    ? filteredForms.filter((form) =>
-        form.name_form.toLowerCase().includes(searchQuery.toLowerCase()),
-      )
-    : [];
-
+  const extForms = allForms.data.filter((form) =>
+    form.form_exts?.some((item) => item.ext === ext),
+  );
+  const filteredForms = sortForms(extForms, sortKey);
+  const popularTemplates = getPopularTemplates(filteredForms);
   const docxForms = getExtCount(extFormsCount, "docx");
   const xlsxForms = getExtCount(extFormsCount, "xlsx");
   const pptxForms = getExtCount(extFormsCount, "pptx");
@@ -86,8 +89,8 @@ const SearchResultTemplate = ({
     purposeWithCategoriesCount,
     selectedCountries,
   );
-  const totalCount = foundForms.length;
-  const formNames = filteredForms.map(({ id, name_form, url }) => ({
+  const totalCount = filteredForms.length;
+  const formNames = allForms.data.map(({ id, name_form, url }) => ({
     id,
     name_form,
     url,
@@ -103,22 +106,22 @@ const SearchResultTemplate = ({
       purposes={purposes}
       categoriesByPurpose={categoriesByPurpose}
       totalCount={totalCount}
+      selectedType={ext}
       formNames={formNames}
     >
-      {foundForms.length > 0 ? (
-        <MainSection
-          label={
-            <Trans t={t} i18nKey="SearchResultsFor" values={{ searchQuery }} />
-          }
-          data={foundForms}
-        />
-      ) : searchQuery ? (
-        <SearchNoResult />
-      ) : (
-        ""
+      {popularTemplates.length > 0 && (
+        <MainSection label={t("PopularTemplates")} data={popularTemplates} />
       )}
+
+      {(() => {
+        const data = getTemplatesByExt(filteredForms, ext, Infinity);
+
+        return data.length > 0 ? (
+          <MainSection label={t(EXT_TEMPLATES_LABEL_KEY[ext])} data={data} />
+        ) : null;
+      })()}
     </Main>
   );
 };
 
-export { SearchResultTemplate };
+export { ExtCategoryTemplate };

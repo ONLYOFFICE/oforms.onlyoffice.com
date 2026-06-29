@@ -26,128 +26,103 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import { ICategoryTemplate } from "./Category.types";
+import { useRouter } from "next/router";
+import { ICategory } from "@src/types/template";
 import { Main } from "@src/components/modules/Main";
+import { MainSection } from "@src/components/modules/Main/sub-components/MainSection";
 import {
-  getActiveSubCategoryId,
-  getActiveSubCategoryRelation,
-  getSelectedSubCategories,
-  getSubCategoryAttributes,
-  sumSelectedTaxonomyCount,
-} from "@src/components/modules/Main/Main.utils";
-import {
-  MainSection,
-  InfinitySection,
-} from "@src/components/modules/Main/sub-components/MainSection";
+  getExtCount,
+  getPurposes,
+  getCategoriesByPurpose,
+  getQueryValues,
+  getPopularTemplates,
+  normalizeSortKey,
+  sortForms,
+} from "@src/utils/helpers";
 
 const CategoryTemplate = ({
-  popularForms,
-  typeFormsCount,
-  ext,
-  data,
-  categories,
-  types,
-  compilations,
-  subCategoryForms,
-}: ICategoryTemplate) => {
+  categoryInfoWithForms,
+  allForms,
+  extFormsCount,
+  countriesCount,
+  purposeWithCategoriesCount,
+}: ICategory) => {
   const { t } = useTranslation("MainTemplate");
   const router = useRouter();
 
-  const SECTION_CONFIG = {
-    docx: { label: t("DocumentTemplates"), href: "/document-templates" },
-    xlsx: {
-      label: t("SpreadsheetTemplates"),
-      href: "/spreadsheet-templates",
-    },
-    pptx: {
-      label: t("PresentationTemplates"),
-      href: "/presentation-templates",
-    },
-    pdf: { label: t("PdfFormsTemplates"), href: "/pdf-form-templates" },
-  };
-
-  const { label, href } = SECTION_CONFIG[ext];
-
-  const selectedTaxonomyCount = sumSelectedTaxonomyCount(
-    router.query,
-    categories,
-    types,
-    compilations,
+  const sortKey = normalizeSortKey(router.query.sort);
+  const docxForms = getExtCount(extFormsCount, "docx");
+  const xlsxForms = getExtCount(extFormsCount, "xlsx");
+  const pptxForms = getExtCount(extFormsCount, "pptx");
+  const pdfForms = getExtCount(extFormsCount, "pdf");
+  const countries = countriesCount.data
+    .filter((country) => country.oforms.count > 0)
+    .sort(
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+    )
+    .map((country) => ({
+      id: country.id,
+      documentId: country.documentId,
+      name: country.name,
+      code: country.code,
+      count: country.oforms.count,
+    }));
+  const selectedCountries = getQueryValues(router.query.country);
+  const purposes = getPurposes(purposeWithCategoriesCount);
+  const categoriesByPurpose = getCategoriesByPurpose(
+    purposeWithCategoriesCount,
+    selectedCountries,
   );
-  const totalCount =
-    selectedTaxonomyCount > 0
-      ? selectedTaxonomyCount
-      : (subCategoryForms?.meta.pagination.total ??
-        data?.meta.pagination.total ??
-        0);
-
-  const subCategoryAttributes = getSubCategoryAttributes(subCategoryForms);
-
-  const activeSubCategoryRelation = getActiveSubCategoryRelation(
-    subCategoryAttributes,
+  const formNames = allForms.data.map(({ id, name_form, url }) => ({
+    id,
+    name_form,
+    url,
+  }));
+  const subcategories = (categoryInfoWithForms.data[0]?.subcategories ?? [])
+    .filter((subcategory) => subcategory.oforms.length > 0)
+    .sort(
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+    );
+  const totalCount = subcategories.reduce(
+    (sum, subcategory) => sum + subcategory.oforms.length,
+    0,
   );
-
-  const activeSubCategoryId = getActiveSubCategoryId(
-    router.query,
-    activeSubCategoryRelation,
+  const categoryForms = Array.from(
+    new Map(
+      subcategories
+        .flatMap((subcategory) => subcategory.oforms)
+        .map((form) => [form.id, form]),
+    ).values(),
   );
-
-  const selectedSubCategories = getSelectedSubCategories(router.query);
+  const popularTemplates = getPopularTemplates(
+    sortForms(categoryForms, sortKey),
+  );
 
   return (
     <Main
-      typeFormsCount={typeFormsCount}
-      categories={categories}
-      types={types}
-      compilations={compilations}
+      docxForms={docxForms}
+      xlsxForms={xlsxForms}
+      pptxForms={pptxForms}
+      pdfForms={pdfForms}
+      countries={countries}
+      purposes={purposes}
+      categoriesByPurpose={categoriesByPurpose}
       totalCount={totalCount}
-      data={data}
-      ext={ext}
+      formNames={formNames}
     >
-      {popularForms?.meta.pagination.total > 0 && (
-        <MainSection label={t("PopularTemplates")} data={popularForms?.data} />
+      {popularTemplates.length > 0 && (
+        <MainSection label={t("PopularTemplates")} data={popularTemplates} />
       )}
-      {selectedSubCategories.length > 0 ? (
-        selectedSubCategories.map(({ relation, id }) => {
-          const isActive =
-            relation === activeSubCategoryRelation &&
-            id === activeSubCategoryId;
-
-          return (
-            <InfinitySection
-              key={`${relation}-${id}`}
-              subCategory={{ relation, id }}
-              loadOnClient={!isActive}
-              data={
-                isActive && subCategoryForms
-                  ? subCategoryForms
-                  : {
-                      data: [],
-                      meta: {
-                        pagination: {
-                          page: 1,
-                          pageCount: 0,
-                          pageSize: 8,
-                          total: 0,
-                        },
-                      },
-                    }
-              }
-              ext={ext}
-            />
-          );
-        })
-      ) : (
-        <InfinitySection
-          key={href}
-          label={label}
-          href={href}
-          ext={ext}
-          data={data}
+      {subcategories.map((subcategory) => (
+        <MainSection
+          key={subcategory.id}
+          label={subcategory.name}
+          data={subcategory.oforms}
         />
-      )}
+      ))}
     </Main>
   );
 };

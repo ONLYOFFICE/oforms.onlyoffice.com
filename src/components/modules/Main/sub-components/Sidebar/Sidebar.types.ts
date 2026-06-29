@@ -26,18 +26,37 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { IMain } from "@src/components/modules/Main/Main.types";
+import { ICategoryTree } from "@src/components/modules/Main/Main.types";
+import { TAllowedTypes } from "@src/utils/allowedTypes";
+
+interface IPurpose {
+  id: number;
+  documentId: string;
+  name: string;
+  key: string;
+}
+
+interface ICountry {
+  id: number;
+  documentId: string;
+  name: string;
+  code: string;
+  count: number;
+}
+
+type TPurposeData = IPurpose[];
+
+type TCountryData = ICountry[];
 
 export interface ISidebar {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  typeFormsCount: IMain["typeFormsCount"];
-  docxForms?: IMain["docxForms"];
-  xlsxForms?: IMain["xlsxForms"];
-  pptxForms?: IMain["pptxForms"];
-  pdfForms?: IMain["pdfForms"];
-  categories: IMain["categories"];
-  types: IMain["types"];
-  compilations: IMain["compilations"];
-  activeSubCategory?: IMain["activeSubCategory"];
+  countries: TCountryData;
+  purposes: TPurposeData;
+  categoriesByPurpose: Record<string, ICategoryTree[]>;
+  docxForms: number;
+  xlsxForms: number;
+  pptxForms: number;
+  pdfForms: number;
+  selectedType?: TAllowedTypes;
 }

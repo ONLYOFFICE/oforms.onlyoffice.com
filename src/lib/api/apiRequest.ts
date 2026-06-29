@@ -26,15 +26,14 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-interface IApiRequestOptions<TFallback = unknown> {
-  fallback?: TFallback;
+interface IApiRequestOptions {
   label?: string;
 }
 
-const apiRequest = async <TData = unknown, TFallback = TData>(
+const apiRequest = async <TData = unknown>(
   url: string,
-  { fallback, label }: IApiRequestOptions<TFallback> = {},
-): Promise<TData | TFallback> => {
+  { label }: IApiRequestOptions = {},
+): Promise<TData> => {
   try {
     const res = await fetch(url);
 
@@ -49,7 +48,6 @@ const apiRequest = async <TData = unknown, TFallback = TData>(
     const message = error instanceof Error ? error.message : String(error);
     console.error(`[apiRequest] ${label ?? url}:`, message);
 
-    if (fallback !== undefined) return fallback;
     throw error;
   }
 };

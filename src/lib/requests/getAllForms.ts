@@ -28,47 +28,65 @@
 
 import CONFIG from "@src/config/config.json";
 import { apiRequest } from "@src/lib/api/apiRequest";
-import { TSearchResult } from "@src/components/modules/Main/sub-components/SearchInput/SearchInput.types";
 import { ILocale } from "@src/types/locale";
-import { SORT_MAP, TSortKey } from "@src/utils/sortMap";
+import { IFormsData } from "@src/types/data";
 import { cmsLocale } from "@src/utils/cmsLocale";
 
-const getSearchResult = async (
-  locale: ILocale["locale"],
-  searchQuery: string,
-  sort: TSortKey,
-  pageSize?: number,
-  page?: number,
-): Promise<TSearchResult> => {
-  const searchName =
-    locale === "en" || locale === "fr" || locale === "pt"
-      ? searchQuery?.toLowerCase() === "curriculum vitae" ||
-        searchQuery?.toLowerCase() === "curriculum" ||
-        searchQuery?.toLowerCase() === "vitae"
-        ? "cv"
-        : searchQuery
-      : searchQuery;
-
+const buildUrl = (locale: ILocale["locale"], page: number) => {
   const params = [
     `locale=${cmsLocale(locale)}`,
-    `filters[name_form][$containsi]=${encodeURIComponent(searchName)}`,
-    pageSize ? `pagination[pageSize]=${pageSize}` : null,
-    page ? `pagination[page]=${page}` : null,
-    `sort[0]=${SORT_MAP[sort] ?? "createdAt:desc"}`,
-    sort === "popular" ? "sort[1]=createdAt:desc" : null,
-    "populate[card_prewiew][fields][0]=url",
-    "populate[form_exts][fields][0]=ext",
+    `pagination[page]=${page}`,
+    "pagination[pageSize]=1000",
+    "sort[0]=createdAt:desc",
     "fields[0]=name_form",
     "fields[1]=description_card",
     "fields[2]=url",
+    "fields[3]=popular_template",
+    "fields[4]=createdAt",
+    "populate[card_prewiew][fields][0]=url",
+    "populate[form_exts][fields][0]=ext",
+    "populate[countries][fields][0]=name",
+    "populate[countries][fields][1]=code",
+    "populate[countries][fields][2]=createdAt",
+    "populate[subcategories][fields][0]=name",
+    "populate[subcategories][fields][1]=urlReq",
+    "populate[subcategories][fields][2]=createdAt",
+    "populate[subcategories][populate][parent_categories][fields][0]=name",
+    "populate[subcategories][populate][parent_categories][fields][1]=urlReq",
+    "populate[subcategories][populate][parent_categories][fields][2]=createdAt",
+    "populate[subcategories][populate][parent_categories][populate][purpose][fields][0]=name",
+    "populate[subcategories][populate][parent_categories][populate][purpose][fields][1]=key",
+    "populate[subcategories][populate][parent_categories][populate][purpose][fields][2]=createdAt",
   ]
     .filter(Boolean)
     .join("&");
 
-  return apiRequest(`${CONFIG.api.cms}/api/oforms?${params}`, {
-    label: "getSearchResult",
-    fallback: { data: [], meta: {} },
-  });
+  return `${CONFIG.api.cms}/api/oforms?${params}`;
 };
 
-export { getSearchResult };
+const getAllForms = async (locale: ILocale["locale"]) => {
+  const firstPage = await apiRequest<IFormsData>(buildUrl(locale, 1), {
+    label: "getAllForms",
+  });
+
+  const pageCount = firstPage.meta.pagination?.pageCount ?? 1;
+
+  if (pageCount <= 1) return firstPage;
+
+  const restPages = await Promise.all(
+    Array.from({ length: pageCount - 1 }, (_, i) =>
+      apiRequest<IFormsData>(buildUrl(locale, i + 2), {
+        label: `getAllForms (page ${i + 2})`,
+      }),
+    ),
+  );
+
+  const data = restPages.reduce(
+    (acc, page) => acc.concat(page.data),
+    [...firstPage.data],
+  );
+
+  return { data, meta: firstPage.meta };
+};
+
+export { getAllForms };

@@ -26,6 +26,48 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-const FILTER_PARAMS = ["type", "types", "categories", "compilations"] as const;
+import CONFIG from "@src/config/config.json";
+import { apiRequest } from "@src/lib/api/apiRequest";
+import { ILocale } from "@src/types/locale";
+import { IFormsData } from "@src/types/data";
+import { cmsLocale } from "@src/utils/cmsLocale";
 
-export { FILTER_PARAMS };
+const buildUrl = (locale: ILocale["locale"], page: number) => {
+  const params = [
+    `locale=${cmsLocale(locale)}`,
+    `pagination[page]=${page}`,
+    "pagination[pageSize]=1000",
+    "fields[0]=url",
+  ]
+    .filter(Boolean)
+    .join("&");
+
+  return `${CONFIG.api.cms}/api/oforms?${params}`;
+};
+
+const getAllFormUrls = async (locale: ILocale["locale"]) => {
+  const firstPage = await apiRequest<IFormsData>(buildUrl(locale, 1), {
+    label: "getAllFormUrls",
+  });
+
+  const pageCount = firstPage.meta.pagination?.pageCount ?? 1;
+
+  if (pageCount <= 1) return firstPage;
+
+  const restPages = await Promise.all(
+    Array.from({ length: pageCount - 1 }, (_, i) =>
+      apiRequest<IFormsData>(buildUrl(locale, i + 2), {
+        label: `getAllFormUrls (page ${i + 2})`,
+      }),
+    ),
+  );
+
+  const data = restPages.reduce(
+    (acc, page) => acc.concat(page.data),
+    [...firstPage.data],
+  );
+
+  return { data, meta: firstPage.meta };
+};
+
+export { getAllFormUrls };

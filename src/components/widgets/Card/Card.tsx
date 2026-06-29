@@ -30,17 +30,18 @@ import clsx from "clsx";
 import { Link } from "@src/components/ui/Link";
 import { Heading } from "@src/components/ui/Heading";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
-import { ICard, TCardFormat } from "./Card.types";
+import { TFormat } from "@src/types/data";
+import { ICard } from "./Card.types";
 import styles from "./Card.module.scss";
 
-const hoverIconByFormat: Record<TCardFormat, string> = {
+const hoverIconByFormat: Record<TFormat, string> = {
   docx: getAssetUrl("/images/widgets/card/docx-hover.png"),
   xlsx: getAssetUrl("/images/widgets/card/xlsx-hover.png"),
   pptx: getAssetUrl("/images/widgets/card/pptx-hover.png"),
   pdf: getAssetUrl("/images/widgets/card/pdf-hover.png"),
 };
 
-const hoverBgByFormat: Record<TCardFormat, string> = {
+const hoverBgByFormat: Record<TFormat, string> = {
   docx: "#EAF1FE",
   xlsx: "rgba(196, 249, 232, 0.5)",
   pptx: "rgba(255, 111, 61, 0.05)",
@@ -57,7 +58,7 @@ const Card = ({
 }: ICard) => {
   return (
     <Link
-      href={url.startsWith("/") ? url : `/${url}`}
+      href={url ? (url.startsWith("/") ? url : `/${url}`) : "#"}
       className={clsx(styles.card, className)}
       textUnderline={false}
       style={

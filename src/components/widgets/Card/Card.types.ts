@@ -26,12 +26,12 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-export type TCardFormat = "docx" | "xlsx" | "pptx" | "pdf";
+import { TFormat } from "@src/types/data";
 
 export interface ICard {
   className?: string;
   preview: string;
-  format: TCardFormat;
+  format: TFormat;
   heading: string;
   description: string;
   url: string;

@@ -26,52 +26,58 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { useTranslation } from "next-i18next";
-import { ISubCategoryTemplate } from "./SubCategory.types";
-import { Main } from "@src/components/modules/Main";
-import {
-  MainSection,
-  InfinitySection,
-} from "@src/components/modules/Main/sub-components/MainSection";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, EffectFade } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-fade";
+import { ArrowDownIcon } from "@src/components/icons";
+import { ISlider } from "./Slider.types";
+import styles from "./Slider.module.scss";
 
-const SubCategoryTemplate = ({
-  popularForms,
-  typeFormsCount,
-  categories,
-  types,
-  compilations,
-  categoryForms,
-  categoryId,
-  categoryName,
-  categoryRelation,
-}: ISubCategoryTemplate) => {
-  const { t } = useTranslation("MainTemplate");
+const Slider = ({ page_screens, name_form }: ISlider) => {
+  const slides = page_screens ?? [];
+
+  if (slides.length === 0) return null;
 
   return (
-    <Main
-      typeFormsCount={typeFormsCount}
-      categories={categories}
-      types={types}
-      compilations={compilations}
-      totalCount={categoryForms.meta.pagination.total}
-      activeSubCategory={
-        categoryId ? { id: categoryId, relation: categoryRelation } : undefined
-      }
-    >
-      {popularForms?.meta.pagination.total > 0 && (
-        <MainSection label={t("PopularTemplates")} data={popularForms?.data} />
-      )}
-      <InfinitySection
-        label={categoryName}
-        data={categoryForms}
-        subCategory={{
-          id: String(categoryId),
-          relation: categoryRelation,
+    <div className={styles["slider-wrapper"]}>
+      <Swiper
+        className={styles["slider"]}
+        modules={[Navigation, EffectFade]}
+        effect="fade"
+        fadeEffect={{ crossFade: true }}
+        spaceBetween={32}
+        autoHeight={true}
+        navigation={{
+          prevEl: ".slider-button-prev",
+          nextEl: ".slider-button-next",
         }}
-        headingWithoutLink={true}
-      />
-    </Main>
+      >
+        {slides.map((item, index) => (
+          <SwiperSlide key={item.id}>
+            <div className={styles["slider-item"]}>
+              <img
+                className={styles["slider-item-img"]}
+                src={item.url}
+                alt={`${name_form} ${index + 1}`}
+              />
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      {slides.length > 1 && (
+        <div className={styles["slider-navigation"]}>
+          <button className="slider-button-prev" type="button">
+            <ArrowDownIcon />
+          </button>
+          <button className="slider-button-next" type="button">
+            <ArrowDownIcon />
+          </button>
+        </div>
+      )}
+    </div>
   );
 };
 
-export { SubCategoryTemplate };
+export { Slider };

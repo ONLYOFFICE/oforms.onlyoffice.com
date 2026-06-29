@@ -26,45 +26,23 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { parseListQuery } from "./parseListQuery";
+import CONFIG from "@src/config/config.json";
+import { apiRequest } from "@src/lib/api/apiRequest";
+import { ICategoriesData } from "@src/components/templates/Form/Form.types";
+import { ILocale } from "@src/types/locale";
+import { cmsLocale } from "@src/utils/cmsLocale";
 
-export type TInfinityTaxonomy = "categories" | "types" | "compilations";
+const getCategoryUrls = async (locale: ILocale["locale"]) => {
+  const params = [`locale=${cmsLocale(locale)}`, "fields[0]=urlReq"]
+    .filter(Boolean)
+    .join("&");
 
-export interface IInfinitySectionParam {
-  taxonomy: TInfinityTaxonomy;
-  id: string;
-}
-
-type TQuery = string | string[] | undefined | null;
-
-const TAXONOMY_ORDER: TInfinityTaxonomy[] = [
-  "categories",
-  "types",
-  "compilations",
-];
-
-/**
- * Разворачивает query-параметры таксономий в плоский список секций —
- * по одной записи на каждый ID. Параметр `type` намеренно игнорируется:
- * он уже учтён при SSR.
- *
- * Пример: { categories: "1,2,3", types: "3,4", compilations: "5" }
- *   -> [
- *        { taxonomy: "categories", id: "1" },
- *        { taxonomy: "categories", id: "2" },
- *        { taxonomy: "categories", id: "3" },
- *        { taxonomy: "types",      id: "3" },
- *        { taxonomy: "types",      id: "4" },
- *        { taxonomy: "compilations", id: "5" },
- *      ]
- */
-const parseInfinitySections = (query: {
-  categories?: TQuery;
-  types?: TQuery;
-  compilations?: TQuery;
-}): IInfinitySectionParam[] =>
-  TAXONOMY_ORDER.flatMap((taxonomy) =>
-    (parseListQuery(query[taxonomy]) ?? []).map((id) => ({ taxonomy, id })),
+  return apiRequest<ICategoriesData>(
+    `${CONFIG.api.cms}/api/parent-categories?${params}`,
+    {
+      label: "getCategoryUrls",
+    },
   );
+};
 
-export { parseInfinitySections };
+export { getCategoryUrls };

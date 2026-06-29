@@ -26,8 +26,4 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-export { SubCategoryTemplate } from "./SubCategory";
-export type {
-  ISubCategoryPage,
-  ISubCategoryTemplate,
-} from "./SubCategory.types";
+export { Slider } from "./Slider";

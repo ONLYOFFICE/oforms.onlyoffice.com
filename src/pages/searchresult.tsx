@@ -27,41 +27,33 @@
  */
 
 import { useTranslation } from "next-i18next";
-import { GetServerSidePropsContext } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { getExtForms } from "@src/lib/requests/getExtForms";
 import { getExtFormsCount } from "@src/lib/requests/getExtFormsCount";
-import { getCategoriesWithFormsCount } from "@src/lib/requests/getCategoriesWithFormsCount";
-import { getSearchResult } from "@src/lib/requests/getSearchResult";
-import { TSortKey } from "@src/utils/sortMap";
+import { getCountriesCount } from "@src/lib/requests/getCountriesCount";
+import { getPurposeWithCategoriesCount } from "@src/lib/requests/getPurposeWithCategoriesCount";
 import { Layout } from "@src/components/Layout";
 import { Head } from "@src/components/modules/Head";
 import { Header } from "@src/components/modules/Header";
 import { AdventAnnounce } from "@src/components/modules/AdventAnnounce";
 import { Footer } from "@src/components/modules/Footer";
-import {
-  SearchResultTemplate,
-  ISearchResultTemplate,
-} from "@src/components/templates/SearchResult";
+import { SearchResultTemplate } from "@src/components/templates/SearchResult";
+import { ISearchResult } from "@src/types/template";
 import { ILocale } from "@src/types/locale";
 
 const SearchResultPage = ({
   locale,
-  typeFormsCount,
-  categories,
-  types,
-  compilations,
-  searchQuery,
-  searchResult,
-}: ISearchResultTemplate & ILocale) => {
+  allForms,
+  extFormsCount,
+  countriesCount,
+  purposeWithCategoriesCount,
+}: ISearchResult & ILocale) => {
   const { t } = useTranslation("searchresult");
 
   return (
     <Layout>
       <Layout.Head>
-        <Head
-          title={searchQuery ? `${searchQuery} | ONLYOFFICE` : t("PageTitle")}
-          description={t("PageDescription")}
-        />
+        <Head title={t("PageTitle")} description={t("PageDescription")} />
       </Layout.Head>
       <Layout.AdventAnnounce>
         <AdventAnnounce locale={locale} />
@@ -71,12 +63,10 @@ const SearchResultPage = ({
       </Layout.Header>
       <Layout.Main>
         <SearchResultTemplate
-          typeFormsCount={typeFormsCount}
-          categories={categories}
-          types={types}
-          compilations={compilations}
-          searchQuery={searchQuery}
-          searchResult={searchResult}
+          allForms={allForms}
+          extFormsCount={extFormsCount}
+          countriesCount={countriesCount}
+          purposeWithCategoriesCount={purposeWithCategoriesCount}
         />
       </Layout.Main>
       <Layout.Footer>
@@ -86,20 +76,13 @@ const SearchResultPage = ({
   );
 };
 
-export const getServerSideProps = async ({
-  query,
-  locale,
-}: GetServerSidePropsContext & ILocale) => {
-  const sortQuery = (query._sort as TSortKey) || "asc";
-  const searchQuery = query.query as string;
-
-  const [typeFormsCount, categories, types, compilations, searchResult] =
+export const getStaticProps = async ({ locale }: ILocale) => {
+  const [allForms, extFormsCount, countriesCount, purposeWithCategoriesCount] =
     await Promise.all([
+      getExtForms(locale),
       getExtFormsCount(locale),
-      getCategoriesWithFormsCount(locale, "categories", "categorie", []),
-      getCategoriesWithFormsCount(locale, "types", "type", []),
-      getCategoriesWithFormsCount(locale, "compilations", "compilation", []),
-      getSearchResult(locale, query.query as string, sortQuery, 6, 1),
+      getCountriesCount(locale),
+      getPurposeWithCategoriesCount(locale),
     ]);
 
   return {
@@ -112,12 +95,10 @@ export const getServerSideProps = async ({
         "SearchInput",
       ])),
       locale,
-      typeFormsCount,
-      categories,
-      types,
-      compilations,
-      searchQuery,
-      searchResult,
+      allForms,
+      extFormsCount,
+      countriesCount,
+      purposeWithCategoriesCount,
     },
   };
 };

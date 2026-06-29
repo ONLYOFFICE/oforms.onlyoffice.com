@@ -51,8 +51,15 @@
   padding: 0px 60px;
 
   :global(.swiper) {
+    margin-top: -4px;
+    margin-bottom: -4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+
     @include media.tablet-s {
-      margin: 0 -40px;
+      margin: -4px -40px;
+      padding-top: 0;
+      padding-bottom: 0;
     }
 
     @include media.mobile {
@@ -62,6 +69,7 @@
 
   :global(.swiper-wrapper) {
     @include media.tablet-s {
+      padding: 4px 0;
       overflow-x: auto;
     }
   }
@@ -96,6 +104,14 @@
   @include media.tablet-s {
     margin: 0;
     padding: 0;
+  }
+}
+
+.slider-section-item {
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
   }
 }
 

@@ -47,6 +47,7 @@ import { Button } from "@src/components/ui/Button";
 import { Modal } from "@src/components/ui/Modal";
 import { DownloadAs } from "./sub-components/DownloadAs";
 import { Share } from "./sub-components/Share";
+import { Slider } from "./sub-components/Slider";
 import { DownloadModal } from "./sub-components/DownloadModal";
 import { scriptProtocolCheck } from "@src/components/templates/Form/Form.utils";
 import { IHero } from "./Hero.types";
@@ -57,14 +58,14 @@ const Hero = ({
   template_desc,
   file_pages,
   file_oform,
-  template_image,
+  page_screens,
   linkPdfEditor,
 }: IHero) => {
   const { t } = useTranslation("form");
   const [isOpen, setIsOpen] = useState(false);
-  const { name, size, updatedAt, url } = file_oform.data[0].attributes;
-  const pdfFile = file_oform?.data?.filter(
-    (it) => it?.attributes.name.split(".").pop() === "pdf",
+  const { name, size, updatedAt, url } = file_oform?.[0] ?? {};
+  const pdfFile = file_oform?.filter(
+    (it) => it?.name.split(".").pop() === "pdf",
   );
 
   const handleButtonClick = () => {
@@ -90,7 +91,7 @@ const Hero = ({
               {name_form}
             </Heading>
             <div className={styles["hero-labels"]}>
-              {pdfFile[0]?.attributes.url && (
+              {pdfFile?.[0]?.url && (
                 <span className={styles["hero-label"]}>
                   {t("FillableForm")}
                 </span>
@@ -141,30 +142,31 @@ const Hero = ({
                 </Link>
               </div>
               <div className={clsx(styles["hero-info-row"])}>
-                <div
-                  className={clsx(
-                    styles["hero-info-item"],
-                    styles["hero-info-item-size"],
-                  )}
-                >
-                  <Text
-                    as="span"
-                    size={5}
-                    className={styles["hero-info-label"]}
+                {size != null && (
+                  <div
+                    className={clsx(
+                      styles["hero-info-item"],
+                      styles["hero-info-item-size"],
+                    )}
                   >
-                    {t("FileSize")}
-                  </Text>
-                  <Text
-                    as="span"
-                    size={5}
-                    className={styles["hero-info-value"]}
-                  >
-                    {size < 1024
-                      ? `${size.toFixed(0)} kb`
-                      : `${(size / 1024).toFixed(0)} mb`}
-                  </Text>
-                </div>
-
+                    <Text
+                      as="span"
+                      size={5}
+                      className={styles["hero-info-label"]}
+                    >
+                      {t("FileSize")}
+                    </Text>
+                    <Text
+                      as="span"
+                      size={5}
+                      className={styles["hero-info-value"]}
+                    >
+                      {size < 1024
+                        ? `${size.toFixed(0)} kb`
+                        : `${(size / 1024).toFixed(0)} mb`}
+                    </Text>
+                  </div>
+                )}
                 {file_pages && (
                   <div className={styles["hero-info-item"]}>
                     <Text
@@ -186,7 +188,7 @@ const Hero = ({
               </div>
             </div>
 
-            {file_oform?.data?.length > 1 && (
+            {file_oform?.length > 0 && (
               <DownloadAs
                 className={styles["hero-download-as"]}
                 file_oform={file_oform}
@@ -194,7 +196,7 @@ const Hero = ({
             )}
 
             <div className={styles["hero-buttons"]}>
-              {pdfFile[0]?.attributes.hash && (
+              {pdfFile?.[0]?.hash && (
                 <Button
                   className={styles["hero-button"]}
                   as="a"
@@ -213,22 +215,11 @@ const Hero = ({
             <Share />
           </div>
 
-          <div className={styles["hero-image-wrapper"]}>
-            <img
-              className={styles["hero-image"]}
-              src={template_image.data.attributes.url}
-              alt={name_form}
-            />
-          </div>
+          <Slider page_screens={page_screens} name_form={name_form} />
         </div>
       </Container>
 
-      <Modal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        maxWidth="736px"
-        withCloseBtn
-      >
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} withCloseBtn>
         <DownloadModal />
       </Modal>
     </Section>

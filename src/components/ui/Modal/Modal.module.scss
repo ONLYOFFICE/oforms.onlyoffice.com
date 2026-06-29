@@ -59,8 +59,8 @@
 
 .modal-close-btn {
   position: absolute;
-  top: 16px;
-  inset-inline-end: 16px;
+  top: 32px;
+  inset-inline-end: 32px;
   border: none;
   padding: 0;
   width: 24px;
@@ -71,4 +71,9 @@
   background-size: 24px 24px;
   background-color: transparent;
   cursor: pointer;
+
+  @include media.mobile {
+    top: 24px;
+    inset-inline-end: 24px;
+  }
 }

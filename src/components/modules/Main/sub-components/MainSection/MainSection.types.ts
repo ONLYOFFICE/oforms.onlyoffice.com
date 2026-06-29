@@ -26,47 +26,11 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import {
-  TExt,
-  TTaxonomyRelation,
-  IFormsData,
-} from "@src/components/modules/Main/Main.types";
+import { IFormsData } from "@src/types/data";
 
 export interface IMainSection {
-  label: string;
+  label: React.ReactNode;
   href?: string;
   data: IFormsData["data"];
   desktopLimit?: boolean;
-}
-
-export type TSubCategoryRelations = Partial<
-  Record<
-    TTaxonomyRelation,
-    {
-      data: {
-        attributes: {
-          urlReq: string;
-          categorie?: string;
-          type?: string;
-          compilation?: string;
-        };
-      }[];
-    }
-  >
->;
-
-export interface IInfinitySection extends Omit<
-  IMainSection,
-  "data" | "href" | "label"
-> {
-  label?: string;
-  href?: string;
-  data: IFormsData;
-  ext?: TExt;
-  subCategory?: {
-    relation: TTaxonomyRelation;
-    id: string;
-  };
-  loadOnClient?: boolean;
-  headingWithoutLink?: boolean;
 }

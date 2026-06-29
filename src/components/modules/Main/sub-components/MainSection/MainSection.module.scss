@@ -89,6 +89,10 @@
     }
   }
 
+  @media screen and (max-width: 1540px) {
+    gap: 48px 32px;
+  }
+
   @include media.desktop {
     grid-template-columns: repeat(3, 1fr);
     gap: 16px 50px;
@@ -135,31 +139,5 @@
 
   @include media.tablet {
     min-width: 284px;
-  }
-}
-
-.main-section-sentinel {
-  margin-top: 24px;
-}
-
-.main-section-loader {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 56px;
-
-  &:after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 18px;
-    height: 18px;
-    margin: 0 auto;
-    border: 2px solid #444444;
-    border-radius: 75%;
-    border-right-color: transparent;
-    transform: translate(-50%, -50%);
-    animation: loadSpin 1025ms infinite linear;
   }
 }

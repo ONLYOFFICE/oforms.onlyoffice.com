@@ -30,6 +30,7 @@ import { useTranslation } from "next-i18next";
 import { Section } from "@src/components/ui/Section";
 import { Container } from "@src/components/ui/Container";
 import { Heading } from "@src/components/ui/Heading";
+import { Link } from "@src/components/ui/Link";
 import { IPopularCategories } from "./PopularCategories.types";
 import styles from "./PopularCategories.module.scss";
 
@@ -54,13 +55,13 @@ const PopularCategories = ({ categories }: IPopularCategories) => {
 
         <div className={styles["popular-categories-list"]}>
           {categories.data.map((category) => (
-            <a
+            <Link
               className={styles["popular-categories-item"]}
-              href={`/form/${category.attributes.urlReq}`}
+              href={`/${category.urlReq}`}
               key={category.id}
             >
-              {category.attributes.categorie}
-            </a>
+              {category.name}
+            </Link>
           ))}
         </div>
       </Container>

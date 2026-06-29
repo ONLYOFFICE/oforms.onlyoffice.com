@@ -27,7 +27,11 @@
  */
 
 .card {
+  transition: transform 0.2s;
+
   &:hover {
+    transform: translateY(-2px);
+
     .card-preview-wrapper {
       background-color: var(--card-hover-bg, #ffffff);
     }
@@ -63,6 +67,9 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .card-format {
