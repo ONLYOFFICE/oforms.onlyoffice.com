@@ -139,7 +139,7 @@ pipeline {
           '''
         }
         
-        sshPublisher(publishers: [sshPublisherDesc(configName: "sites@${region}", 
+        sshPublisher(publishers: [sshPublisherDesc(configName: "sites2026@${region}", 
           transfers: [sshTransfer(cleanRemote: false, 
             excludes: '', 
             execCommand: '''
