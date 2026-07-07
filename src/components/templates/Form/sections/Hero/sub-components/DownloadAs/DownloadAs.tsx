@@ -48,16 +48,17 @@ const isSupportedFormat = (
 const DownloadAs = ({ className, file_oform }: IDownloadAs) => {
   const { t } = useTranslation("form");
 
-  const files = (file_oform?.data ?? []).flatMap((it) => {
-    const format = it?.attributes.name.split(".").pop();
+  const files = (file_oform ?? []).flatMap((it) => {
+    const format = it?.name.split(".").pop();
     return isSupportedFormat(format)
-      ? [{ id: it.id, format, href: it.attributes.url }]
+      ? [{ id: it.id, format, href: it.url }]
       : [];
   });
 
   return (
     <div className={clsx(styles["download-as"], className)}>
       <Text
+        as="span"
         size={4}
         fontWeight={600}
         color="#444444"

@@ -31,7 +31,7 @@ import { useRouter } from "next/router";
 import { Heading } from "@src/components/ui/Heading";
 import { Link } from "@src/components/ui/Link";
 import { Card } from "@src/components/widgets/Card";
-import { appendOpenedParam } from "@src/utils/appendOpenedParam";
+import { appendOpenedParam } from "./MainSection.utils";
 import { IMainSection } from "./MainSection.types";
 import styles from "./MainSection.module.scss";
 
@@ -68,11 +68,11 @@ const MainSection = ({ label, href, data, desktopLimit }: IMainSection) => {
           <Card
             key={item.id}
             className={styles["main-section-card"]}
-            preview={item.attributes.card_prewiew?.data.attributes.url}
-            format={item.attributes.form_exts?.data[0].attributes.ext}
-            heading={item.attributes.name_form}
-            description={item.attributes.description_card}
-            url={item.attributes.url}
+            preview={item.card_prewiew?.url}
+            format={item.form_exts?.[0].ext}
+            heading={item.name_form}
+            description={item.description_card}
+            url={item.url}
           />
         ))}
       </div>

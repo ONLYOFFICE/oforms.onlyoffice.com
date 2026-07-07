@@ -26,7 +26,9 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+import { TFormat } from "@src/types/data";
+
 export interface IDownloadAsItem {
-  format: "docx" | "xlsx" | "pptx" | "pdf";
+  format: TFormat;
   href: string;
 }

@@ -30,7 +30,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import clsx from "clsx";
-import { ArrowDownIcon } from "@src/components/icons/ArrowDown";
+import { ChevronDownIcon } from "@src/components/icons";
 import { TSortOption } from "./SortSelector.types";
 import styles from "./SortSelector.module.scss";
 
@@ -48,9 +48,9 @@ const SortSelector = () => {
   const { t } = useTranslation("SortSelector");
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const queryKey = Array.isArray(router.query._sort)
-    ? router.query._sort[0]
-    : router.query._sort;
+  const queryKey = Array.isArray(router.query.sort)
+    ? router.query.sort[0]
+    : router.query.sort;
   const isValidKey = SORT_OPTIONS.some((option) => option.key === queryKey);
   const selectedKey = isValidKey ? (queryKey as string) : DEFAULT_SORT_KEY;
   const ref = useRef<HTMLDivElement>(null);
@@ -58,8 +58,8 @@ const SortSelector = () => {
   useEffect(() => {
     if (!isOpen) return;
 
-    const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
         setIsOpen(false);
       }
     };
@@ -76,10 +76,11 @@ const SortSelector = () => {
 
   const handleSelect = (key: string) => {
     router.push(
-      { pathname: router.pathname, query: { ...router.query, _sort: key } },
+      { pathname: router.pathname, query: { ...router.query, sort: key } },
       undefined,
       {
         scroll: false,
+        shallow: true,
       },
     );
     setIsOpen(false);
@@ -96,7 +97,7 @@ const SortSelector = () => {
           onClick={() => setIsOpen((prev) => !prev)}
         >
           {t(selected.label)}
-          <ArrowDownIcon
+          <ChevronDownIcon
             className={clsx(
               styles["sort-selector-button-icon"],
               isOpen && styles["sort-selector-button-icon-open"],

@@ -26,5 +26,5 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-export { ArrowDownIcon } from "./ArrowDown";
+export { ChevronDownIcon } from "./ChevronDown";
 export { TooltipIcon } from "./Tooltip";

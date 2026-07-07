@@ -27,4 +27,3 @@
  */
 
 export { CategoryTemplate } from "./Category";
-export type { ICategoryTemplate } from "./Category.types";

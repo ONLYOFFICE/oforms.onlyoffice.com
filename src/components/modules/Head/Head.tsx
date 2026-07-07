@@ -43,7 +43,7 @@ const Head = ({ title, description }: IHead) => {
         property="og:description"
         content={description}
       />
-      <meta property="og:url" content="https://templates.onlyoffice.com/" />
+      <meta property="og:url" content={process.env.NEXT_PUBLIC_SITE_URL} />
       <meta
         id="ctl00_MetaImageOG"
         property="og:image"
@@ -58,6 +58,22 @@ const Head = ({ title, description }: IHead) => {
       <meta id="ctl00_MetaKeywords" name="keywords" content={title} />
       <meta name="description" content={description} />
       <meta name="google" content="notranslate" />
+
+      {[
+        "/fonts/Sora-Regular.woff2",
+        "/fonts/Sora-SemiBold.woff2",
+        "/fonts/Sora-Bold.woff2",
+      ].map((font) => (
+        <link
+          key={font}
+          rel="preload"
+          href={getAssetUrl(font)}
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      ))}
+
       <link
         rel="shortcut icon"
         sizes="16x16"
@@ -108,7 +124,7 @@ const Head = ({ title, description }: IHead) => {
           <link
             key={key}
             rel="alternate"
-            href={`https://templates.onlyoffice.com/${shortKey === "en" ? "" : shortKey}`}
+            href={`${process.env.NEXT_PUBLIC_SITE_URL}${shortKey === "en" ? "" : `/${shortKey}`}`}
           />
         );
       })}

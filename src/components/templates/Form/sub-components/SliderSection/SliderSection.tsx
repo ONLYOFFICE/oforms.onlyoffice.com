@@ -35,7 +35,7 @@ import { Section } from "@src/components/ui/Section";
 import { Container } from "@src/components/ui/Container";
 import { Heading } from "@src/components/ui/Heading";
 import { Card } from "@src/components/widgets/Card";
-import { ArrowDownIcon } from "@src/components/icons";
+import { ChevronDownIcon } from "@src/components/icons";
 import { ISliderSection } from "./SliderSection.types";
 import styles from "./SliderSection.module.scss";
 
@@ -92,7 +92,7 @@ const SliderSection = ({ heading, data }: ISliderSection) => {
           {heading}
         </Heading>
 
-        <div className={styles["slider-section-slider"]}>
+        <div className={styles["slider-section-wrapper"]}>
           <Swiper
             breakpoints={{
               0: {
@@ -150,14 +150,14 @@ const SliderSection = ({ heading, data }: ISliderSection) => {
                 type="button"
                 className={styles["slider-section-button-prev"]}
               >
-                <ArrowDownIcon />
+                <ChevronDownIcon />
               </button>
               <button
                 ref={nextRef}
                 type="button"
                 className={styles["slider-section-button-next"]}
               >
-                <ArrowDownIcon />
+                <ChevronDownIcon />
               </button>
             </div>
           )}

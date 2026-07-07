@@ -40,7 +40,15 @@ export interface IButton {
   download?: boolean;
   rel?: string;
   fullWidth?: boolean;
-  variant?: "primary" | "secondary" | "tertiary" | "primary-2";
+  variant?:
+    | "primary"
+    | "primary-2"
+    | "secondary-dark"
+    | "secondary-light"
+    | "tertiary-light"
+    | "tertiary-dark";
+  size?: 1 | 2 | 3;
+  isLoading?: boolean;
   style?: React.CSSProperties;
   onClick?: () => void;
 }

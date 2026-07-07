@@ -27,19 +27,21 @@
  */
 
 import { useTranslation } from "next-i18next";
-import { Checkbox } from "@src/components/ui/Checkbox/Checkbox";
 import { useState } from "react";
-import { Heading } from "@src/components/ui/Heading/Heading";
+import { Modal } from "@src/components/ui/Modal";
+import { Heading } from "@src/components/ui/Heading";
+import { Checkbox } from "@src/components/ui/Checkbox";
+import { Text } from "@src/components/ui/Text";
 import { Button } from "@src/components/ui/Button/Button";
 import {
   setConsentCookie,
   IConsentData,
 } from "@src/components/Layout/cookies/utils/useUtmCookies";
-import { getAssetUrl } from "@src/utils/getAssetUrl";
 import { ICookieSettings } from "./CookieSettings.types";
 import styles from "./CookieSettings.module.scss";
 
 const CookieSettings = ({
+  showSettings,
   setShowSettings,
   consent,
   setShowFab,
@@ -75,72 +77,87 @@ const CookieSettings = ({
   };
 
   return (
-    <div id="cookie-settings" className={styles["cookie-settings"]}>
-      <div className={styles["cookie-settings-header"]}>
-        <Heading as="div" size={4}>
+    <Modal
+      isOpen={showSettings}
+      onClose={() => setShowSettings(false)}
+      maxWidth="600px"
+      bgColor="transparent"
+      lockScroll={false}
+    >
+      <div id="cookie-settings" className={styles["cookie-settings"]}>
+        <Heading as="div" size={5} color="#333333">
           {t("CookieSettings")}
         </Heading>
-        <button
-          id="cookie-settings-close"
-          className={styles.cross}
-          onClick={() => setShowSettings(false)}
-          type="button"
-          style={
-            {
-              "--cross-background-image": `url(${getAssetUrl("/images/cross.svg")})`,
-            } as React.CSSProperties
-          }
-        />
+        <div className={styles["cookie-settings-checkboxes"]}>
+          <Checkbox
+            className={styles["cookie-settings-checkbox"]}
+            label={
+              <>
+                <Heading
+                  className={styles["cookie-settings-checkbox-heading"]}
+                  as="div"
+                  size={5}
+                >
+                  {t("Technical")}
+                </Heading>
+                <Text size={4} color="#494B5B">
+                  {t("TechnicalDescription")}
+                </Text>
+              </>
+            }
+            checked={checkedItems.necessary === "granted"}
+            onChange={() => {}}
+            tabIndex={-1}
+          />
+          <Checkbox
+            label={
+              <>
+                <Heading
+                  className={styles["cookie-settings-checkbox-heading"]}
+                  as="div"
+                  size={5}
+                >
+                  {t("Analytical")}
+                </Heading>
+                <Text size={4} color="#494B5B">
+                  {t("AnalyticalDescription")}
+                </Text>
+              </>
+            }
+            checked={checkedItems.analytics_storage === "granted"}
+            onChange={() => handleChange("analytics_storage")}
+          />
+          <Checkbox
+            label={
+              <>
+                <Heading
+                  className={styles["cookie-settings-checkbox-heading"]}
+                  as="div"
+                  size={5}
+                >
+                  {t("Marketing")}
+                </Heading>
+                <Text size={4} color="#494B5B">
+                  {t("MarketingDescription")}
+                </Text>
+              </>
+            }
+            checked={checkedItems.ad_storage === "granted"}
+            onChange={handleMarketingChange}
+          />
+        </div>
+        <div className={styles["cookie-settings-wrapper-button"]}>
+          <Button
+            id="confirm-cookie"
+            onClick={confirmChanges}
+            variant="tertiary-dark"
+            size={3}
+          >
+            {t("ConfirmMyChoices")}
+          </Button>
+        </div>
       </div>
-      <div className={styles.checkboxes}>
-        <Checkbox
-          label={
-            <div className={styles["check-text"]}>
-              <Heading as="div" size={4} className={styles["check-heading"]}>
-                {t("Technical")}
-              </Heading>
-              <p className={styles["check-description"]}>
-                {t("TechnicalDescription")}
-              </p>
-            </div>
-          }
-          checked={checkedItems.necessary === "granted"}
-          disabled={true}
-          onChange={() => {}}
-        />
-        <Checkbox
-          label={
-            <div className={styles["check-text"]}>
-              <Heading as="div" size={4} className={styles["check-heading"]}>
-                {t("Analytical")}
-              </Heading>
-              <p className={styles["check-description"]}>
-                {t("AnalyticalDescription")}
-              </p>
-            </div>
-          }
-          checked={checkedItems.analytics_storage === "granted"}
-          onChange={() => handleChange("analytics_storage")}
-        />
-        <Checkbox
-          label={
-            <div className={styles["check-text"]}>
-              <Heading as="div" size={4} className={styles["check-heading"]}>
-                {t("Marketing")}
-              </Heading>
-              <p className={styles["check-description"]}>
-                {t("MarketingDescription")}
-              </p>
-            </div>
-          }
-          checked={checkedItems.ad_storage === "granted"}
-          onChange={handleMarketingChange}
-        />
-      </div>
-      <Button id="confirm-cookie" onClick={confirmChanges} variant="primary-2">
-        {t("ConfirmMyChoices")}
-      </Button>
-    </div>
+    </Modal>
   );
 };
 

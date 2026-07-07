@@ -27,18 +27,8 @@
  */
 
 import { useTranslation } from "next-i18next";
-import { GetServerSidePropsContext } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getCategoriesWithFormsCount } from "@src/lib/requests/getCategoriesWithFormsCount";
-import { getPopularForms } from "@src/lib/requests/getPopularForms";
-import { getExtForms } from "@src/lib/requests/getExtForms";
-import { getExtFormsCount } from "@src/lib/requests/getExtFormsCount";
-import { getSubCategoryWithForms } from "@src/lib/requests/getSubCategoryWithForms";
-import { getSubCategoryForms } from "@src/lib/requests/getSubCategoryForms";
-import { getTypeWithSubCategoryForms } from "@src/lib/requests/getTypeWithSubCategoryForms";
-import { TSortKey } from "@src/utils/sortMap";
-import { parseListQuery } from "@src/utils/parseListQuery";
-import { pickFirstTaxonomy } from "@src/utils/pickFirstTaxonomy";
+import { getAllForms } from "@src/lib/requests/getAllForms";
 import { Layout } from "@src/components/Layout";
 import { Head } from "@src/components/modules/Head";
 import { Header } from "@src/components/modules/Header";
@@ -47,21 +37,7 @@ import { Footer } from "@src/components/modules/Footer";
 import { MainTemplate, IMainTemplate } from "@src/components/templates/Main";
 import { ILocale } from "@src/types/locale";
 
-const MainPage = ({
-  locale,
-  popularForms,
-  typeFormsCount,
-  pptxForms,
-  docxForms,
-  pdfForms,
-  xlsxForms,
-  categories,
-  types,
-  compilations,
-  salesTemplates,
-  subCategoryForms,
-  typeWithSubCategoryForms,
-}: IMainTemplate & ILocale) => {
+const MainPage = ({ locale, allForms }: IMainTemplate & ILocale) => {
   const { t } = useTranslation("main");
 
   return (
@@ -76,20 +52,7 @@ const MainPage = ({
         <Header locale={locale} />
       </Layout.Header>
       <Layout.Main>
-        <MainTemplate
-          popularForms={popularForms}
-          typeFormsCount={typeFormsCount}
-          pptxForms={pptxForms}
-          docxForms={docxForms}
-          pdfForms={pdfForms}
-          xlsxForms={xlsxForms}
-          categories={categories}
-          types={types}
-          compilations={compilations}
-          salesTemplates={salesTemplates}
-          subCategoryForms={subCategoryForms}
-          typeWithSubCategoryForms={typeWithSubCategoryForms}
-        />
+        <MainTemplate allForms={allForms} />
       </Layout.Main>
       <Layout.Footer>
         <Footer locale={locale} />
@@ -98,106 +61,8 @@ const MainPage = ({
   );
 };
 
-export const getServerSideProps = async ({
-  query,
-  locale,
-  resolvedUrl,
-}: GetServerSidePropsContext & ILocale) => {
-  const sortQuery = (query._sort as TSortKey) || "asc";
-  const ALLOWED_TYPES = ["pptx", "docx", "pdf", "xlsx"];
-
-  const typeQuery = parseListQuery(query.type, ALLOWED_TYPES);
-  const categoriesQuery = parseListQuery(query.categories);
-  const typesQuery = parseListQuery(query.types);
-  const compilationsQuery = parseListQuery(query.compilations);
-  const activeTaxonomy = pickFirstTaxonomy(resolvedUrl, {
-    categories: categoriesQuery,
-    types: typesQuery,
-    compilations: compilationsQuery,
-  });
-  const activeTaxonomyValue = activeTaxonomy
-    ? {
-        categories: categoriesQuery,
-        types: typesQuery,
-        compilations: compilationsQuery,
-      }[activeTaxonomy]
-    : null;
-
-  const [
-    popularForms,
-    typeFormsCount,
-    pptxForms,
-    docxForms,
-    pdfForms,
-    xlsxForms,
-    categories,
-    types,
-    compilations,
-    salesTemplates,
-    subCategoryForms,
-    typeWithSubCategoryForms,
-  ] = await Promise.all([
-    getPopularForms(
-      locale,
-      typeQuery,
-      categoriesQuery,
-      typesQuery,
-      compilationsQuery,
-      sortQuery,
-      8,
-      1,
-    ),
-    categoriesQuery || typesQuery || compilationsQuery || typeQuery
-      ? getExtFormsCount(locale)
-      : null,
-    ...ALLOWED_TYPES.map((ext) =>
-      !categoriesQuery &&
-      !typesQuery &&
-      !compilationsQuery &&
-      (!typeQuery || typeQuery[0] === ext)
-        ? getExtForms(locale, ext, sortQuery, 8, 1)
-        : null,
-    ),
-    getCategoriesWithFormsCount(locale, "categories", "categorie", typeQuery),
-    getCategoriesWithFormsCount(locale, "types", "type", typeQuery),
-    getCategoriesWithFormsCount(
-      locale,
-      "compilations",
-      "compilation",
-      typeQuery,
-    ),
-    !Boolean(typeQuery || categoriesQuery || typesQuery || compilationsQuery)
-      ? getSubCategoryWithForms(
-          locale,
-          "categories",
-          "categorie",
-          8,
-          sortQuery,
-          4,
-        )
-      : null,
-    !typeQuery && activeTaxonomy
-      ? getSubCategoryForms(
-          locale,
-          activeTaxonomy,
-          activeTaxonomyValue![0],
-          sortQuery,
-          8,
-          1,
-        )
-      : null,
-    typeQuery && activeTaxonomy
-      ? getTypeWithSubCategoryForms(
-          locale,
-          activeTaxonomy,
-          typeQuery,
-          activeTaxonomyValue![0],
-          sortQuery,
-          8,
-          1,
-        )
-      : null,
-  ]);
+export const getStaticProps = async ({ locale }: ILocale) => {
+  const allForms = await getAllForms(locale);
 
   return {
     props: {
@@ -209,18 +74,7 @@ export const getServerSideProps = async ({
         "SearchInput",
       ])),
       locale,
-      popularForms,
-      typeFormsCount,
-      pptxForms,
-      docxForms,
-      pdfForms,
-      xlsxForms,
-      categories,
-      types,
-      compilations,
-      salesTemplates,
-      typeWithSubCategoryForms,
-      subCategoryForms,
+      allForms,
     },
   };
 };

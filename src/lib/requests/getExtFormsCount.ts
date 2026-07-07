@@ -36,14 +36,16 @@ const getExtFormsCount = async (locale: ILocale["locale"]) => {
     `locale=${cmsLocale(locale)}`,
     "fields[0]=ext",
     "populate[oforms][count]=true",
+    `populate[oforms][filters][locale][$eq]=${cmsLocale(locale)}`,
   ]
     .filter(Boolean)
     .join("&");
 
-  return apiRequest(`${CONFIG.api.cms}/api/form-exts?${params}`, {
+  const res = await apiRequest(`${CONFIG.api.cms}/api/form-exts?${params}`, {
     label: "getExtFormsCount",
-    fallback: { data: [], meta: {} },
   });
+
+  return await res.json();
 };
 
 export { getExtFormsCount };

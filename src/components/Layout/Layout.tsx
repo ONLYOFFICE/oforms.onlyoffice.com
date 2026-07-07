@@ -41,6 +41,7 @@ const Layout = ({
   header,
   main,
   footer,
+  banner = true,
 }: ILayout) => {
   return (
     <div>
@@ -50,7 +51,7 @@ const Layout = ({
       {header && <Header>{header}</Header>}
       {main && <Main>{main}</Main>}
       {footer && <Footer>{footer}</Footer>}
-      <CookieBanner />
+      {banner && <CookieBanner />}
     </div>
   );
 };

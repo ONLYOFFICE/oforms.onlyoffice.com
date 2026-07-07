@@ -26,12 +26,12 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import "@src/styles/global.css";
 import { useEffect } from "react";
 import { appWithTranslation } from "next-i18next";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { isRtlLocale } from "@src/utils/rtl";
+import "@src/styles/global.css";
 
 function App({ Component, pageProps }: AppProps) {
   const router = useRouter();

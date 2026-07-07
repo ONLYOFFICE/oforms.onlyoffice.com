@@ -27,4 +27,3 @@
  */
 
 export { SearchResultTemplate } from "./SearchResult";
-export type { ISearchResultTemplate } from "./SearchResult.types";

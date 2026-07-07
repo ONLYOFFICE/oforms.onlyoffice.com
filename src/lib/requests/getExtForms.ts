@@ -29,36 +29,53 @@
 import CONFIG from "@src/config/config.json";
 import { apiRequest } from "@src/lib/api/apiRequest";
 import { ILocale } from "@src/types/locale";
-import { SORT_MAP, TSortKey } from "@src/utils/sortMap";
 import { cmsLocale } from "@src/utils/cmsLocale";
 
-const getExtForms = async (
-  locale: ILocale["locale"],
-  ext: string,
-  sort: TSortKey,
-  pageSize?: number,
-  page?: number,
-) => {
+const buildUrl = (locale: ILocale["locale"], page: number) => {
   const params = [
-    `filters[form_exts][ext][$eq]=${ext}`,
     `locale=${cmsLocale(locale)}`,
-    pageSize ? `pagination[pageSize]=${pageSize}` : null,
-    page ? `pagination[page]=${page}` : null,
-    `sort[0]=${SORT_MAP[sort] ?? "createdAt:desc"}`,
-    sort === "popular" ? "sort[1]=createdAt:desc" : null,
-    "populate[card_prewiew][fields][0]=url",
-    "populate[form_exts][fields][0]=ext",
+    `pagination[page]=${page}`,
+    "pagination[pageSize]=1000",
+    "sort[0]=createdAt:desc",
     "fields[0]=name_form",
     "fields[1]=description_card",
     "fields[2]=url",
+    "fields[3]=popular_template",
+    "fields[4]=createdAt",
+    "populate[card_prewiew][fields][0]=url",
+    "populate[form_exts][fields][0]=ext",
   ]
     .filter(Boolean)
     .join("&");
 
-  return apiRequest(`${CONFIG.api.cms}/api/oforms?${params}`, {
+  return `${CONFIG.api.cms}/api/oforms?${params}`;
+};
+
+const getExtForms = async (locale: ILocale["locale"]) => {
+  const firstPageRes = await apiRequest(buildUrl(locale, 1), {
     label: "getExtForms",
-    fallback: { data: [], meta: {} },
   });
+  const firstPage = await firstPageRes.json();
+
+  const pageCount = firstPage.meta.pagination?.pageCount ?? 1;
+
+  if (pageCount <= 1) return firstPage;
+
+  const restPages = await Promise.all(
+    Array.from({ length: pageCount - 1 }, async (_, i) => {
+      const res = await apiRequest(buildUrl(locale, i + 2), {
+        label: `getExtForms (page ${i + 2})`,
+      });
+      return await res.json();
+    }),
+  );
+
+  const data = restPages.reduce(
+    (acc, page) => acc.concat(page.data),
+    [...firstPage.data],
+  );
+
+  return { data, meta: firstPage.meta };
 };
 
 export { getExtForms };

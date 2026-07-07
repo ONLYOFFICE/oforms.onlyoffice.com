@@ -28,19 +28,18 @@
 
 @use "media";
 
+@keyframes loader-spin {
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
 .button {
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
-  padding: 15px 22px;
-  font-size: 18px;
   font-weight: 600;
-  line-height: 25px;
-  color: #ffffff;
-  width: auto;
-  min-height: 56px;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
@@ -51,21 +50,58 @@
   }
 
   @include media.mobile {
+    width: 100%;
+  }
+}
+
+.size-1 {
+  border-radius: 12px;
+  padding: 15px 22px;
+  font-size: 18px;
+  line-height: 25px;
+  min-height: 56px;
+
+  @include media.mobile {
     border-radius: 10px;
     padding: 13px 24px;
     font-size: 14px;
     line-height: 22px;
-    width: 100%;
     min-height: 48px;
   }
 }
 
-.full-width {
-  width: 100%;
+.size-2 {
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 16px;
+  line-height: 24px;
+  min-height: 48px;
+
+  @include media.mobile {
+    padding: 12px 16px;
+    font-size: 14px;
+    line-height: 22px;
+  }
+}
+
+.size-3 {
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 20px;
+  min-height: 40px;
+
+  @include media.mobile {
+    padding: 12px 16px;
+    font-size: 13px;
+    line-height: 22px;
+  }
 }
 
 .variant-primary {
+  position: relative;
   border: none;
+  color: #ffffff;
   background: radial-gradient(
     83.6% 156.25% at 71.63% 0%,
     #ffac00 0%,
@@ -73,7 +109,36 @@
     #ff4b00 88.46%
   );
   box-shadow: 0px 8px 12px -3px #ff6f3d4d;
-  transition: background-color 0.2s;
+  z-index: 0;
+  transition: box-shadow 0.2s;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(360deg, #f68c57 0%, #ff5938 100%);
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: -1;
+  }
+
+  &:hover {
+    box-shadow: 0px 4px 6px -4px rgba(244, 89, 12, 0.5);
+
+    &:after {
+      opacity: 1;
+    }
+  }
+
+  &:disabled {
+    background: linear-gradient(
+      360deg,
+      rgba(235, 51, 0, 0.5) 0%,
+      rgba(255, 89, 56, 0.5) 40%
+    );
+    box-shadow: 0px 8px 16px -3px rgba(244, 89, 12, 0.5);
+  }
 }
 
 .variant-primary-2 {
@@ -84,6 +149,7 @@
   font-size: 16px;
   font-weight: 600;
   line-height: 22px;
+  color: #ffffff;
   background-color: #ff6f3d;
   transition: background-color 0.2s;
 
@@ -97,15 +163,98 @@
   }
 }
 
-.variant-secondary {
+.variant-secondary-dark {
   border: none;
+  color: #ffffff;
   background-color: #000122;
   transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #3541f5;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
 }
 
-.variant-tertiary {
+.variant-secondary-light {
   border: none;
   color: #000122;
   background-color: #ffffff;
-  transition: background-color 0.2s;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
+
+  &:hover {
+    color: #ffffff;
+    background-color: #3541f5;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+.variant-tertiary-light {
+  border: 1px solid #3541f5;
+  color: #ffffff;
+  background-color: transparent;
+  transition:
+    background-color 0.2s,
+    box-shadow 0.2s;
+
+  &:hover {
+    background-color: rgba(53, 65, 245, 0.2);
+    box-shadow: inset 0 0 0 1px #3541f5;
+  }
+
+  &:disabled {
+    box-shadow: inset 0 0 0 1px #3541f5;
+    opacity: 0.5;
+  }
+}
+
+.variant-tertiary-dark {
+  border: 1px solid #3541f5;
+  color: #000122;
+  background-color: transparent;
+  transition:
+    background-color 0.2s,
+    box-shadow 0.2s;
+
+  &:hover {
+    background-color: rgba(53, 65, 245, 0.07);
+    box-shadow: inset 0 0 0 1px #3541f5;
+  }
+
+  &:disabled {
+    box-shadow: inset 0 0 0 1px #3541f5;
+    opacity: 0.5;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+  cursor: default;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 24px;
+    height: 24px;
+    background-image: var(--loader-button-icon);
+    background-repeat: no-repeat;
+    background-size: contain;
+    transform: translate(-50%, -50%);
+    animation: loader-spin 1s infinite linear;
+  }
 }

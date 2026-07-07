@@ -29,13 +29,14 @@
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { Container } from "@src/components/ui/Container";
-import { Breadcrumbs } from "./sub-components/Breadcrumbs";
+import { Breadcrumbs } from "@src/components/widgets/Breadcrumbs";
 import { Hero } from "./sections/Hero";
 import { HowToCreate } from "./sections/HowToCreate";
 import { RecentlyViewed } from "./sections/RecentlyViewed";
 import { ExploreOtherTemplate } from "./sections/ExploreOtherTemplate";
 import { PopularCategories } from "./sections/PopularCategories";
 import { BuildYourOwnForms } from "./sections/BuildYourOwnForms";
+import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { IFormTemplate } from "./Form.types";
 import styles from "./Form.module.scss";
 
@@ -49,16 +50,20 @@ const FormTemplate = ({ form, categories }: IFormTemplate) => {
     template_desc,
     file_oform,
     file_pages,
-    template_image,
+    page_screens,
     card_prewiew,
     url,
     form_exts,
-  } = form.data[0].attributes;
-  const fileName = file_oform.data[0].attributes.url;
-  const pdfFile = file_oform?.data?.filter(
-    (it) => it?.attributes.name.split(".").pop() === "pdf",
-  );
-  const linkPdfEditor = `editor?lang=${locale}&filename=${fileName}&fillform=${`${pdfFile[0]?.attributes?.hash}.pdf`}`;
+  } = form.data[0];
+  const editableFile = file_oform?.find((it) => {
+    const ext = it.name?.split(".").pop()?.toLowerCase();
+    return ext !== undefined && ALLOWED_TYPES.includes(ext);
+  });
+  const extension = editableFile?.name?.split(".").pop()?.toLowerCase();
+  const linkEditor =
+    editableFile && extension
+      ? `editor?lang=${locale}&filename=${url}&fillform=${editableFile.hash}.${extension}`
+      : "";
 
   return (
     <div className={styles["form-template"]}>
@@ -75,17 +80,17 @@ const FormTemplate = ({ form, categories }: IFormTemplate) => {
         template_desc={template_desc}
         file_pages={file_pages}
         file_oform={file_oform}
-        template_image={template_image}
-        linkPdfEditor={linkPdfEditor}
+        page_screens={page_screens}
+        linkEditor={linkEditor}
       />
-      <HowToCreate name_form={name_form} linkPdfEditor={linkPdfEditor} />
+      <HowToCreate name_form={name_form} linkEditor={linkEditor} />
       <RecentlyViewed
         id={form.data[0].id}
         name_form={name_form}
         description_card={description_card}
         url={url}
-        card_prewiew={card_prewiew.data.attributes.url}
-        form_exts={form_exts.data[0].attributes.ext}
+        card_prewiew={card_prewiew.url}
+        form_exts={form_exts[0].ext}
       />
       <ExploreOtherTemplate />
       <PopularCategories categories={categories} />

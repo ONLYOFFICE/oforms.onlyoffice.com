@@ -67,6 +67,7 @@
   padding: 0;
   padding-inline-end: 32px;
   width: 100%;
+  text-align: initial;
   background-color: transparent;
   cursor: pointer;
 
@@ -95,7 +96,6 @@
   font-size: 18px;
   font-weight: 600;
   line-height: 26px;
-  color: #494b5b;
 
   &:not(:last-child) {
     margin-inline-end: 12px;

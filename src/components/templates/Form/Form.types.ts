@@ -26,59 +26,48 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { TCardFormat } from "@src/components/widgets/Card/Card.types";
+import { TFormat } from "@src/types/data";
 
 export interface IFormData {
   data: {
     id: number;
-    attributes: {
-      seo_title: string;
-      seo_description: string;
-      name_form: string;
-      template_desc: string;
-      description_card: string;
+    documentId: string;
+    seo_title: string;
+    seo_description: string;
+    name_form: string;
+    template_desc: string;
+    description_card: string;
+    url: string;
+    file_pages: string;
+    card_prewiew: {
+      id: number;
+      documentId: string;
       url: string;
-      file_pages: string;
-      card_prewiew: {
-        data: {
-          id: number;
-          attributes: {
-            url: string;
-          };
-        };
-      };
-      template_image: {
-        data: {
-          id: number;
-          attributes: {
-            url: string;
-          };
-        };
-      };
-      file_oform: {
-        data: {
-          id: number;
-          attributes: {
-            name: string;
-            size: number;
-            updatedAt: string;
-            url: string;
-            hash: string;
-          };
-        }[];
-      };
-      form_exts: {
-        data: {
-          id: number;
-          attributes: {
-            ext: TCardFormat;
-          };
-        }[];
-      };
     };
+    page_screens:
+      | {
+          id: number;
+          documentId: string;
+          url: string;
+        }[]
+      | null;
+    file_oform: {
+      id: number;
+      documentId: string;
+      name: string;
+      size: number;
+      updatedAt: string;
+      url: string;
+      hash: string;
+    }[];
+    form_exts: {
+      id: number;
+      documentId: string;
+      ext: TFormat;
+    }[];
   }[];
   meta: {
-    pagination?: {
+    pagination: {
       page: number;
       pageCount: number;
       pageSize: number;
@@ -90,12 +79,12 @@ export interface IFormData {
 export interface ICategoriesData {
   data: {
     id: number;
-    attributes: {
-      [key: string]: string;
-    };
+    documentId: string;
+    name: string;
+    urlReq: string;
   }[];
   meta: {
-    pagination?: {
+    pagination: {
       page: number;
       pageCount: number;
       pageSize: number;

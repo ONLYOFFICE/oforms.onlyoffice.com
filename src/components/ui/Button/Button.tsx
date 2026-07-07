@@ -29,6 +29,7 @@
 import { forwardRef } from "react";
 import clsx from "clsx";
 import Link from "next/link";
+import { getAssetUrl } from "@src/utils/getAssetUrl";
 import { IButton } from "./Button.types";
 import styles from "./Button.module.scss";
 
@@ -49,6 +50,8 @@ const Button = forwardRef<HTMLButtonElement, IButton>(
       rel,
       fullWidth,
       variant = "primary",
+      size = 1,
+      isLoading,
       style,
       onClick,
     },
@@ -67,7 +70,9 @@ const Button = forwardRef<HTMLButtonElement, IButton>(
         className={clsx(
           styles.button,
           styles[`variant-${variant}`],
+          styles[`size-${size}`],
           fullWidth && styles["full-width"],
+          isLoading && styles.loading,
           className,
         )}
         type={as === "button" ? type : undefined}
@@ -85,7 +90,14 @@ const Button = forwardRef<HTMLButtonElement, IButton>(
         disabled={disabled}
         tabIndex={tabIndex}
         title={title}
-        style={style}
+        style={
+          {
+            ...(isLoading && {
+              "--loader-button-icon": `url(${getAssetUrl("/images/ui/button/loader.svg")})`,
+            }),
+            ...style,
+          } as React.CSSProperties
+        }
         onClick={onClick}
       >
         {children}

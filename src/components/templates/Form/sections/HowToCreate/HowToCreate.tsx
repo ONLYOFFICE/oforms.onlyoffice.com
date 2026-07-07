@@ -35,7 +35,7 @@ import { getAssetUrl } from "@src/utils/getAssetUrl";
 import { IHowToCreate } from "./HowToCreate.types";
 import styles from "./HowToCreate.module.scss";
 
-const HowToCreate = ({ name_form, linkPdfEditor }: IHowToCreate) => {
+const HowToCreate = ({ name_form, linkEditor }: IHowToCreate) => {
   const { t } = useTranslation("form");
 
   return (
@@ -76,8 +76,8 @@ const HowToCreate = ({ name_form, linkPdfEditor }: IHowToCreate) => {
           <Button
             className={styles["how-to-create-button"]}
             as="a"
-            href={linkPdfEditor}
-            variant="secondary"
+            href={linkEditor}
+            variant="secondary-dark"
           >
             {t("FillOut")}
           </Button>

@@ -29,8 +29,8 @@
 @font-face {
   font-family: "Open Sans";
   src:
-    url("/fonts/OpenSans-Regular.woff") format("woff"),
-    url("/fonts/OpenSans-Regular.woff2") format("woff2");
+    url("/fonts/OpenSans-Regular.woff2") format("woff2"),
+    url("/fonts/OpenSans-Regular.woff") format("woff");
   font-weight: 400;
   font-display: swap;
 }
@@ -38,8 +38,8 @@
 @font-face {
   font-family: "Open Sans";
   src:
-    url("/fonts/OpenSans-Italic.woff") format("woff"),
-    url("/fonts/OpenSans-Italic.woff2") format("woff2");
+    url("/fonts/OpenSans-Italic.woff2") format("woff2"),
+    url("/fonts/OpenSans-Italic.woff") format("woff");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -48,8 +48,8 @@
 @font-face {
   font-family: "Open Sans";
   src:
-    url("/fonts/OpenSans-Light.woff") format("woff"),
-    url("/fonts/OpenSans-Light.woff2") format("woff2");
+    url("/fonts/OpenSans-Light.woff2") format("woff2"),
+    url("/fonts/OpenSans-Light.woff") format("woff");
   font-weight: 300;
   font-display: swap;
 }
@@ -57,8 +57,8 @@
 @font-face {
   font-family: "Open Sans";
   src:
-    url("/fonts/OpenSans-Light-Italic.woff") format("woff"),
-    url("/fonts/OpenSans-Light-Italic.woff2") format("woff2");
+    url("/fonts/OpenSans-Light-Italic.woff2") format("woff2"),
+    url("/fonts/OpenSans-Light-Italic.woff") format("woff");
   font-weight: 300;
   font-style: italic;
   font-display: swap;
@@ -67,8 +67,8 @@
 @font-face {
   font-family: "Open Sans";
   src:
-    url("/fonts/OpenSans-Medium.woff") format("woff"),
-    url("/fonts/OpenSans-Medium.woff2") format("woff2");
+    url("/fonts/OpenSans-Medium.woff2") format("woff2"),
+    url("/fonts/OpenSans-Medium.woff") format("woff");
   font-weight: 500;
   font-display: swap;
 }
@@ -76,8 +76,8 @@
 @font-face {
   font-family: "Open Sans";
   src:
-    url("/fonts/OpenSans-Medium-Italic.woff") format("woff"),
-    url("/fonts/OpenSans-Medium-Italic.woff2") format("woff2");
+    url("/fonts/OpenSans-Medium-Italic.woff2") format("woff2"),
+    url("/fonts/OpenSans-Medium-Italic.woff") format("woff");
   font-weight: 500;
   font-style: italic;
   font-display: swap;
@@ -86,8 +86,8 @@
 @font-face {
   font-family: "Open Sans";
   src:
-    url("/fonts/OpenSans-SemiBold.woff") format("woff"),
-    url("/fonts/OpenSans-SemiBold.woff2") format("woff2");
+    url("/fonts/OpenSans-SemiBold.woff2") format("woff2"),
+    url("/fonts/OpenSans-SemiBold.woff") format("woff");
   font-weight: 600;
   font-display: swap;
 }
@@ -95,8 +95,8 @@
 @font-face {
   font-family: "Open Sans";
   src:
-    url("/fonts/OpenSans-SemiBold-Italic.woff") format("woff"),
-    url("/fonts/OpenSans-SemiBold-Italic.woff2") format("woff2");
+    url("/fonts/OpenSans-SemiBold-Italic.woff2") format("woff2"),
+    url("/fonts/OpenSans-SemiBold-Italic.woff") format("woff");
   font-weight: 600;
   font-style: italic;
   font-display: swap;
@@ -105,8 +105,8 @@
 @font-face {
   font-family: "Open Sans";
   src:
-    url("/fonts/OpenSans-Bold.woff") format("woff"),
-    url("/fonts/OpenSans-Bold.woff2") format("woff2");
+    url("/fonts/OpenSans-Bold.woff2") format("woff2"),
+    url("/fonts/OpenSans-Bold.woff") format("woff");
   font-weight: 700;
   font-display: swap;
 }
@@ -114,8 +114,8 @@
 @font-face {
   font-family: "Open Sans";
   src:
-    url("/fonts/OpenSans-Bold-Italic.woff") format("woff"),
-    url("/fonts/OpenSans-Bold-Italic.woff2") format("woff2");
+    url("/fonts/OpenSans-Bold-Italic.woff2") format("woff2"),
+    url("/fonts/OpenSans-Bold-Italic.woff") format("woff");
   font-weight: 700;
   font-style: italic;
   font-display: swap;
@@ -124,8 +124,8 @@
 @font-face {
   font-family: "Open Sans";
   src:
-    url("/fonts/OpenSans-ExtraBold.woff") format("woff"),
-    url("/fonts/OpenSans-ExtraBold.woff2") format("woff2");
+    url("/fonts/OpenSans-ExtraBold.woff2") format("woff2"),
+    url("/fonts/OpenSans-ExtraBold.woff") format("woff");
   font-weight: 800;
   font-display: swap;
 }
@@ -133,8 +133,8 @@
 @font-face {
   font-family: "Open Sans";
   src:
-    url("/fonts/OpenSans-ExtraBold-Italic.woff") format("woff"),
-    url("/fonts/OpenSans-ExtraBold-Italic.woff2") format("woff2");
+    url("/fonts/OpenSans-ExtraBold-Italic.woff2") format("woff2"),
+    url("/fonts/OpenSans-ExtraBold-Italic.woff") format("woff");
   font-weight: 800;
   font-style: italic;
   font-display: swap;
@@ -143,8 +143,8 @@
 @font-face {
   font-family: "Sora";
   src:
-    url("/fonts/Sora-Regular.woff") format("woff"),
-    url("/fonts/Sora-Regular.woff2") format("woff2");
+    url("/fonts/Sora-Regular.woff2") format("woff2"),
+    url("/fonts/Sora-Regular.woff") format("woff");
   font-weight: 400;
   font-display: swap;
 }
@@ -152,8 +152,8 @@
 @font-face {
   font-family: "Sora";
   src:
-    url("/fonts/Sora-Medium.woff") format("woff"),
-    url("/fonts/Sora-Medium.woff2") format("woff2");
+    url("/fonts/Sora-Medium.woff2") format("woff2"),
+    url("/fonts/Sora-Medium.woff") format("woff");
   font-weight: 500;
   font-display: swap;
 }
@@ -161,8 +161,8 @@
 @font-face {
   font-family: "Sora";
   src:
-    url("/fonts/Sora-SemiBold.woff") format("woff"),
-    url("/fonts/Sora-SemiBold.woff2") format("woff2");
+    url("/fonts/Sora-SemiBold.woff2") format("woff2"),
+    url("/fonts/Sora-SemiBold.woff") format("woff");
   font-weight: 600;
   font-display: swap;
 }
@@ -170,8 +170,8 @@
 @font-face {
   font-family: "Sora";
   src:
-    url("/fonts/Sora-Bold.woff") format("woff"),
-    url("/fonts/Sora-Bold.woff2") format("woff2");
+    url("/fonts/Sora-Bold.woff2") format("woff2"),
+    url("/fonts/Sora-Bold.woff") format("woff");
   font-weight: 700;
   font-display: swap;
 }
@@ -179,8 +179,8 @@
 @font-face {
   font-family: "Sora";
   src:
-    url("/fonts/Sora-ExtraBold.woff") format("woff"),
-    url("/fonts/Sora-ExtraBold.woff2") format("woff2");
+    url("/fonts/Sora-ExtraBold.woff2") format("woff2"),
+    url("/fonts/Sora-ExtraBold.woff") format("woff");
   font-weight: 800;
   font-display: swap;
 }
@@ -193,7 +193,7 @@ html {
   height: 100%;
   font-family: "Sora", sans-serif;
   font-weight: 400;
-  color: #333333;
+  color: #494b5b;
 }
 
 body {

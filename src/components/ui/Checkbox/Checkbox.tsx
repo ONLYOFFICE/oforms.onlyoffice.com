@@ -28,6 +28,7 @@
 
 import { forwardRef } from "react";
 import clsx from "clsx";
+import { getAssetUrl } from "@src/utils/getAssetUrl";
 import { ICheckbox } from "./Checkbox.types";
 import styles from "./Checkbox.module.scss";
 
@@ -71,7 +72,14 @@ const Checkbox = forwardRef<HTMLInputElement, ICheckbox>(
           disabled={disabled}
           {...rest}
         />
-        <span className={styles["checkbox-icon"]} />
+        <span
+          className={styles["checkbox-icon"]}
+          style={
+            {
+              "--checkbox-icon": `url(${getAssetUrl("/images/ui/checkbox/check.svg")})`,
+            } as React.CSSProperties
+          }
+        />
         <span className={styles["checkbox-label"]}>{label}</span>
       </label>
     );

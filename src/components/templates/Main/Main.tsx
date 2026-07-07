@@ -28,218 +28,161 @@
 
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import { IMainTemplate, EXT_ORDER } from "./Main.types";
+import { IMainTemplate } from "./Main.types";
 import { Main } from "@src/components/modules/Main";
-import { FILTER_PARAMS } from "@src/components/modules/Main/Main.constants";
+import { MainSection } from "@src/components/modules/Main/sub-components/MainSection";
 import {
-  getActiveSubCategoryId,
-  getActiveSubCategoryRelation,
-  getSelectedSubCategories,
-  getSubCategoryAttributes,
-  sumSelectedTaxonomyCount,
-} from "@src/components/modules/Main/Main.utils";
+  getCategoriesByPurpose,
+  getCountries,
+  getFilteredCount,
+  getFilteredForms,
+  getFormsByTypes,
+  getPurposes,
+  getTemplatesByParentCategory,
+  getTemplatesBySubcategories,
+  groupFormsByExt,
+} from "@src/components/templates/Main/Main.utils";
 import {
-  MainSection,
-  InfinitySection,
-} from "@src/components/modules/Main/sub-components/MainSection";
-import { TExt } from "@src/components/modules/Main/Main.types";
+  getQueryValues,
+  getTemplatesByExt,
+  getPopularTemplates,
+  normalizeSortKey,
+  sortForms,
+} from "@src/utils/helpers";
+import { TAllowedTypes } from "@src/utils/allowedTypes";
 
-const MainTemplate = ({
-  popularForms,
-  typeFormsCount,
-  docxForms,
-  pdfForms,
-  xlsxForms,
-  pptxForms,
-  categories,
-  types,
-  compilations,
-  salesTemplates,
-  subCategoryForms,
-  typeWithSubCategoryForms,
-}: IMainTemplate) => {
+const TYPE_SECTIONS: {
+  ext: TAllowedTypes;
+  labelKey: string;
+  href: string;
+}[] = [
+  { ext: "docx", labelKey: "DocumentTemplates", href: "/document-templates" },
+  {
+    ext: "xlsx",
+    labelKey: "SpreadsheetTemplates",
+    href: "/spreadsheet-templates",
+  },
+  {
+    ext: "pptx",
+    labelKey: "PresentationTemplates",
+    href: "/presentation-templates",
+  },
+  { ext: "pdf", labelKey: "PdfFormsTemplates", href: "/pdf-form-templates" },
+];
+
+const CATEGORY_SECTIONS: string[] = [
+  "contracts-legal",
+  "finance",
+  "sales-marketing",
+];
+
+const MainTemplate = ({ allForms }: IMainTemplate) => {
   const { t } = useTranslation("MainTemplate");
   const router = useRouter();
 
-  const hasFilterParams = FILTER_PARAMS.some((key) => {
-    const value = router.query[key];
-    return value !== undefined && String(value).length > 0;
+  const selectedTypes = getQueryValues(router.query.type);
+  const selectedCountries = getQueryValues(router.query.country);
+  const selectedSubcategories = getQueryValues(router.query.subcategory);
+  const sortKey = normalizeSortKey(router.query.sort);
+  const formsByType = getFormsByTypes(allForms.data, selectedTypes);
+  const formsByTypeAndCountry = getFilteredForms(allForms.data, {
+    type: selectedTypes,
+    country: selectedCountries,
   });
-
-  const typeValues = router.query.type
-    ? String(router.query.type)
-        .split(",")
-        .map((v) => v.trim())
-        .filter((v): v is TExt => (EXT_ORDER as string[]).includes(v))
-    : [];
-
-  const SECTION_CONFIG = {
-    docx: {
-      label: t("DocumentTemplates"),
-      href: "/document-templates",
-      data: docxForms,
-    },
-    xlsx: {
-      label: t("SpreadsheetTemplates"),
-      href: "/spreadsheet-templates",
-      data: xlsxForms,
-    },
-    pptx: {
-      label: t("PresentationTemplates"),
-      href: "/presentation-templates",
-      data: pptxForms,
-    },
-    pdf: {
-      label: t("PdfFormsTemplates"),
-      href: "/pdf-form-templates",
-      data: pdfForms,
-    },
-  };
-
-  const orderedExts = typeValues.length > 0 ? typeValues : EXT_ORDER;
-  const subCategoryData = subCategoryForms ?? typeWithSubCategoryForms;
-
-  const getCountByExt = (ext: string) =>
-    typeFormsCount?.data?.find((item) => item.attributes.ext === ext)
-      ?.attributes.oforms.data.attributes.count ?? 0;
-
-  const selectedTaxonomyCount = sumSelectedTaxonomyCount(
-    router.query,
-    categories,
-    types,
-    compilations,
+  const filteredForms = sortForms(
+    getFilteredForms(allForms.data, {
+      type: selectedTypes,
+      country: selectedSubcategories.length ? selectedCountries : [],
+      subcategory: selectedSubcategories,
+    }),
+    sortKey,
   );
-
-  const totalCount =
-    selectedTaxonomyCount > 0
-      ? selectedTaxonomyCount
-      : (subCategoryData?.meta.pagination.total ??
-        (typeValues.length > 0
-          ? typeValues.reduce((sum, ext) => sum + getCountByExt(ext), 0)
-          : EXT_ORDER.reduce(
-              (sum, ext) =>
-                sum +
-                ({
-                  docx: docxForms,
-                  xlsx: xlsxForms,
-                  pptx: pptxForms,
-                  pdf: pdfForms,
-                }[ext]?.meta.pagination.total ?? 0),
-              0,
-            )));
-
-  const subCategoryAttributes = getSubCategoryAttributes(subCategoryData);
-
-  const activeSubCategoryRelation = getActiveSubCategoryRelation(
-    subCategoryAttributes,
+  const popularTemplates = getPopularTemplates(filteredForms);
+  const categorySections = CATEGORY_SECTIONS.map((urlReq) =>
+    getTemplatesByParentCategory(filteredForms, urlReq),
+  ).filter(
+    (section): section is NonNullable<typeof section> =>
+      section !== null && section.data.length > 0,
   );
-
-  const activeSubCategoryId = getActiveSubCategoryId(
-    router.query,
-    activeSubCategoryRelation,
-  );
-
-  const selectedSubCategories = getSelectedSubCategories(router.query);
+  const {
+    docx: docxForms,
+    xlsx: xlsxForms,
+    pptx: pptxForms,
+    pdf: pdfForms,
+  } = groupFormsByExt(allForms.data);
+  const countries = getCountries(formsByType);
+  const purposes = getPurposes(allForms.data);
+  const categoriesByPurpose = getCategoriesByPurpose(formsByTypeAndCountry);
+  const totalCount = getFilteredCount(allForms.data, {
+    type: selectedTypes,
+    country: selectedSubcategories.length ? selectedCountries : [],
+    subcategory: selectedSubcategories,
+  });
+  const formNames = allForms.data.map(({ id, name_form, url }) => ({
+    id,
+    name_form,
+    url,
+  }));
 
   return (
     <Main
-      typeFormsCount={typeFormsCount}
-      docxForms={docxForms}
-      xlsxForms={xlsxForms}
-      pptxForms={pptxForms}
-      pdfForms={pdfForms}
-      categories={categories}
-      types={types}
-      compilations={compilations}
+      docxForms={docxForms.length}
+      xlsxForms={xlsxForms.length}
+      pptxForms={pptxForms.length}
+      pdfForms={pdfForms.length}
+      countries={countries}
+      purposes={purposes}
+      categoriesByPurpose={categoriesByPurpose}
       totalCount={totalCount}
+      formNames={formNames}
     >
-      {popularForms?.meta.pagination.total > 0 && (
-        <MainSection label={t("PopularTemplates")} data={popularForms?.data} />
+      {popularTemplates.length > 0 && (
+        <MainSection label={t("PopularTemplates")} data={popularTemplates} />
       )}
-      {!hasFilterParams && salesTemplates.data.length > 0 && (
-        <MainSection
-          label={salesTemplates?.data[0]?.attributes.categorie}
-          href={`/form/${salesTemplates?.data[0]?.attributes.urlReq}`}
-          data={salesTemplates?.data[0]?.attributes.oforms.data}
-          desktopLimit={true}
-        />
-      )}
-      {selectedSubCategories.length > 0
-        ? selectedSubCategories.map(({ relation, id }) => {
-            const isActive =
-              relation === activeSubCategoryRelation &&
-              id === activeSubCategoryId;
 
-            return (
-              <InfinitySection
-                key={`${relation}-${id}`}
-                subCategory={{ relation, id }}
-                loadOnClient={!isActive}
-                data={
-                  isActive && subCategoryData
-                    ? subCategoryData
-                    : {
-                        data: [],
-                        meta: {
-                          pagination: {
-                            page: 1,
-                            pageCount: 0,
-                            pageSize: 8,
-                            total: 0,
-                          },
-                        },
-                      }
-                }
-              />
-            );
-          })
-        : orderedExts.map((ext) => {
-            const { label, href, data } = SECTION_CONFIG[ext];
+      {!selectedSubcategories.length &&
+        categorySections.map((section) => (
+          <MainSection
+            key={section.category.id}
+            label={section.category.name}
+            href={section.category.urlReq}
+            data={section.data}
+          />
+        ))}
 
-            if (!hasFilterParams) {
-              return (
-                <MainSection
-                  key={href}
-                  label={label}
-                  href={href}
-                  data={data?.data}
-                />
-              );
-            }
-
-            if (!data) {
-              return (
-                <InfinitySection
-                  key={href}
-                  label={label}
-                  href={href}
-                  ext={ext}
-                  loadOnClient
-                  data={{
-                    data: [],
-                    meta: {
-                      pagination: {
-                        page: 1,
-                        pageCount: 0,
-                        pageSize: 8,
-                        total: 0,
-                      },
-                    },
-                  }}
-                />
-              );
-            }
-
-            return (
-              <InfinitySection
-                key={href}
-                label={label}
-                href={href}
-                ext={ext}
+      {selectedSubcategories.length
+        ? getTemplatesBySubcategories(filteredForms, selectedSubcategories).map(
+            ({ subcategory, data }) => (
+              <MainSection
+                key={subcategory.id}
+                label={subcategory.name}
                 data={data}
               />
-            );
-          })}
+            ),
+          )
+        : (selectedTypes.length
+            ? TYPE_SECTIONS.filter((section) =>
+                selectedTypes.includes(section.ext),
+              )
+            : TYPE_SECTIONS
+          )
+            .map((section) => ({
+              section,
+              data: getTemplatesByExt(
+                filteredForms,
+                section.ext,
+                selectedTypes.length ? Infinity : undefined,
+              ),
+            }))
+            .filter(({ data }) => data.length > 0)
+            .map(({ section, data }) => (
+              <MainSection
+                key={section.ext}
+                label={t(section.labelKey)}
+                href={section.href}
+                data={data}
+              />
+            ))}
     </Main>
   );
 };

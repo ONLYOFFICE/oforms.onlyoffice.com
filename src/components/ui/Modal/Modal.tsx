@@ -125,13 +125,13 @@ const Modal = ({
     const currentModal = modalRef.current;
 
     const focusableSelectors = [
-      "a[href]",
-      "area[href]",
-      "input:not([disabled])",
-      "select:not([disabled])",
-      "textarea:not([disabled])",
-      "button:not([disabled])",
-      "iframe",
+      'a[href]:not([tabindex="-1"])',
+      'area[href]:not([tabindex="-1"])',
+      'input:not([disabled]):not([tabindex="-1"])',
+      'select:not([disabled]):not([tabindex="-1"])',
+      'textarea:not([disabled]):not([tabindex="-1"])',
+      'button:not([disabled]):not([tabindex="-1"])',
+      'iframe:not([tabindex="-1"])',
       "object",
       "embed",
       "[contenteditable]",
@@ -240,7 +240,7 @@ const Modal = ({
                   type="button"
                   style={
                     {
-                      "--modal-close-button-image": `url(${getAssetUrl("/images/cross-x2.svg")})`,
+                      "--modal-close-button-image": `url(${getAssetUrl("/images/ui/modal/cross.svg")})`,
                     } as React.CSSProperties
                   }
                 />

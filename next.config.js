@@ -37,15 +37,6 @@ const nextConfig = {
       },
     ];
   },
-  async redirects() {
-    return [
-      {
-        source: "/ru",
-        destination: "/",
-        permanent: false,
-      },
-    ];
-  },
 };
 
 module.exports = nextConfig;

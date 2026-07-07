@@ -26,17 +26,16 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-interface IApiRequestOptions<TFallback = unknown> {
-  fallback?: TFallback;
+interface IApiRequestOptions extends RequestInit {
   label?: string;
 }
 
-const apiRequest = async <TData = unknown, TFallback = TData>(
+const apiRequest = async (
   url: string,
-  { fallback, label }: IApiRequestOptions<TFallback> = {},
-): Promise<TData | TFallback> => {
+  { label, ...init }: IApiRequestOptions = {},
+): Promise<Response> => {
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, init);
 
     if (!res.ok) {
       throw new Error(
@@ -44,12 +43,11 @@ const apiRequest = async <TData = unknown, TFallback = TData>(
       );
     }
 
-    return await res.json();
+    return res;
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     console.error(`[apiRequest] ${label ?? url}:`, message);
 
-    if (fallback !== undefined) return fallback;
     throw error;
   }
 };

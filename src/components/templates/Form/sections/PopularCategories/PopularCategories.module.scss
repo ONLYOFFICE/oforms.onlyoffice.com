@@ -53,24 +53,3 @@
     gap: 8px;
   }
 }
-
-.popular-categories-item {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #3541f5;
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
-  color: #000122;
-  min-height: 40px;
-  background-color: transparent;
-  text-decoration: none;
-
-  @include media.mobile {
-    font-size: 13px;
-    line-height: 22px;
-  }
-}

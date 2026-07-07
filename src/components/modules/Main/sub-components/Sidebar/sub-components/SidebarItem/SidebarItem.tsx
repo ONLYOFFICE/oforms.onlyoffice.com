@@ -30,7 +30,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import clsx from "clsx";
-import { ArrowDownIcon } from "@src/components/icons";
+import { ChevronDownIcon } from "@src/components/icons";
 import { Badge } from "./sub-components/Badge";
 import { Switch } from "./sub-components/Switch";
 import { ISidebarItem } from "./SidebarItem.types";
@@ -88,6 +88,7 @@ const SidebarItem = ({
 
     router.push({ pathname: router.pathname, query }, undefined, {
       scroll: false,
+      shallow: true,
     });
   };
 
@@ -124,7 +125,7 @@ const SidebarItem = ({
         {showCount && (
           <span className={styles["sidebar-item-header-count"]}>{count}</span>
         )}
-        <ArrowDownIcon
+        <ChevronDownIcon
           className={clsx(
             styles["sidebar-item-header-icon"],
             isOpen && styles["sidebar-item-header-icon-open"],
@@ -141,6 +142,8 @@ const SidebarItem = ({
               {visibleOptions?.map((option) => (
                 <OptionComponent
                   key={option.value}
+                  name={heading}
+                  value={option.value}
                   count={option.count}
                   checked={option.checked}
                   onChange={option.onChange}

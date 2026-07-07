@@ -29,129 +29,120 @@
 @use "media";
 
 .cookie-fab {
-  background-color: #ffffff;
-  background-image: var(--cookie-fab-background-image);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 24px auto;
-  border: 1px solid #cccccc;
-  border-radius: 45px;
-  bottom: 13px;
-  box-shadow: 0px 7px 15px 0px #5555551a;
-  cursor: pointer;
-  height: 48px;
   position: fixed;
-  right: 16px;
+  inset-inline-end: 16px;
+  bottom: 13px;
+  border: 1px solid #e1e1f7;
+  border-radius: 50%;
   padding: 0;
   width: 48px;
+  height: 48px;
+  background-image: var(--cookie-fab-icon);
+  background-color: #ffffff;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 24px 25px;
+  box-shadow: 0px 5px 15px 0px rgba(27, 68, 166, 0.1);
   z-index: 1000;
+  cursor: pointer;
 }
 
 .cookie-banner {
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
-  border-radius: 5px;
-  box-shadow: 0px 7px 15px 0px #5555551a;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  padding: 32px;
-  text-align: left;
   position: fixed;
-  font-family: "Open Sans", sans-serif;
-  max-width: 1000px;
-  width: 100%;
+  left: 50%;
+  bottom: 40px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #e1e1f7;
+  border-radius: 12px;
+  padding: 23px;
+  width: calc(100% - 80px);
+  max-width: 1290px;
+  background-color: #ffffff;
+  box-shadow: 0px 5px 15px 0px rgba(27, 68, 166, 0.1);
+  transform: translateX(-50%);
   z-index: 1000;
-  margin: auto;
-  left: 0;
-  right: 0;
-  bottom: 36px;
-  box-sizing: border-box;
 
   @include media.tablet {
-    max-width: calc(100% - 80px);
+    flex-direction: column;
+    align-items: initial;
   }
 
   @include media.mobile {
-    bottom: 0px;
-    max-width: 100%;
-    padding: 16px;
-    gap: 16px;
-
-    > span {
-      font-size: 13px;
-    }
+    bottom: 18px;
+    padding: 15px;
+    width: calc(100% - 32px);
   }
-}
 
-.cookie-banner-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  @include media.mobile {
-    h4 {
-      font-size: 16px;
-    }
-  }
-}
-
-.cookie-banner-heading {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-
-  &:before {
-    content: "";
-    display: block;
-    width: 24px;
-    height: 24px;
-    background-image: var(--cookie-banner-heading-background-image);
-    background-position-x: 50%;
-    background-repeat: no-repeat;
+  @include media.mobile-s {
+    bottom: 0;
+    border: none;
+    border-top: 1px solid #e1e1f7;
+    border-radius: 12px 12px 0 0;
+    width: 100%;
   }
 }
 
 .cookie-banner-text {
-  font-size: 14px;
-}
+  position: relative;
+  padding-inline-start: 32px;
+  margin-inline-end: 16px;
 
-.buttons-area {
-  display: flex;
-  gap: 8px;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    inset-inline-start: 0;
+    width: 24px;
+    min-width: 24px;
+    height: 25px;
+    background-image: var(--cookie-banner-text-icon);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
 
-  > button {
-    min-width: 128px;
+  @include media.tablet {
+    margin-inline-end: initial;
+    margin-bottom: 16px;
   }
 
   @include media.mobile {
-    flex-wrap: wrap;
-
-    > button {
-      height: 48px;
-      padding: 16px 24px;
-    }
-    #accept-all {
-      order: 2;
-      flex: 1 1 100%;
-    }
-    #decline-all,
-    #settings {
-      order: 1;
-      flex: 1 1 10%;
-    }
+    padding-inline-start: 36px;
   }
 }
 
-.cross {
-  cursor: pointer;
-  content: "";
-  border: none;
-  padding: 0;
-  width: 24px;
-  height: 24px;
-  background-image: var(--cross-background-image);
-  background-color: transparent;
-  background-position: center;
-  background-repeat: no-repeat;
+.cookie-baner-list {
+  display: flex;
+
+  @include media.mobile {
+    flex-wrap: wrap;
+  }
+}
+
+.cookie-baner-list-buttons {
+  display: flex;
+  margin-inline-end: 10px;
+
+  @include media.mobile {
+    margin-inline-end: initial;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+}
+
+.cookie-banner-list-button {
+  min-width: 104px;
+
+  &:not(:last-child) {
+    margin-inline-end: 10px;
+
+    @include media.mobile {
+      margin-inline-end: 8px;
+    }
+  }
+
+  @include media.mobile {
+    width: 100%;
+  }
 }

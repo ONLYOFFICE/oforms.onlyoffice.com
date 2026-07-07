@@ -26,14 +26,10 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-type TSearchResultItem = {
-  id: number;
-  attributes: {
+export interface ISearchInput {
+  formNames: {
+    id: number;
     name_form: string;
     url: string;
-  };
-};
-
-export type TSearchResult = {
-  data?: TSearchResultItem[];
-};
+  }[];
+}

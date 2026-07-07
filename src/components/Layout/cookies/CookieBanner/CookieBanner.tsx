@@ -29,7 +29,7 @@
 import { Trans, useTranslation } from "next-i18next";
 import { Button } from "@src/components/ui/Button";
 import { Link } from "@src/components/ui/Link";
-import { Heading } from "@src/components/ui/Heading";
+import { Text } from "@src/components/ui/Text";
 import { useState, useEffect, useRef } from "react";
 import { CookieSettings } from "../CookieSettings";
 import {
@@ -212,13 +212,6 @@ const CookieBanner = () => {
     setShowSettings(false);
   };
 
-  const handleCross = () => {
-    setConsentCookie(ALL_GRANTED);
-    setConsent(ALL_GRANTED);
-    setShowBanner(false);
-    setShowFab(true);
-  };
-
   return (
     <>
       {showFab && (
@@ -230,84 +223,80 @@ const CookieBanner = () => {
           type="button"
           style={
             {
-              "--cookie-fab-background-image": `url(${getAssetUrl("/images/cookie.svg")})`,
+              "--cookie-fab-icon": `url(${getAssetUrl("/images/layout/cookie/cookie.svg")})`,
             } as React.CSSProperties
           }
         />
       )}
       {showBanner && (
         <div ref={bannerRef} className={styles["cookie-banner"]}>
-          <div className={styles["cookie-banner-header"]}>
-            <Heading
-              as="div"
-              size={4}
-              className={styles["cookie-banner-heading"]}
-              style={
-                {
-                  "--cookie-banner-heading-background-image": `url(${getAssetUrl("/images/cookie.svg")})`,
-                } as React.CSSProperties
-              }
-            >
-              {t("HarmonyInYourCookies")}
-            </Heading>
-            {!isFullGDPR && (
-              <button
-                id="cookie-banner-close"
-                className={styles.cross}
-                onClick={handleCross}
-                type="button"
-                style={
-                  {
-                    "--cross-background-image": `url(${getAssetUrl("/images/cross.svg")})`,
-                  } as React.CSSProperties
-                }
-              />
-            )}
-          </div>
-          <p className={styles["cookie-banner-text"]}>
+          <Text
+            className={styles["cookie-banner-text"]}
+            as="p"
+            size={5}
+            color="#494B5B"
+            style={
+              {
+                "--cookie-banner-text-icon": `url(${getAssetUrl("/images/layout/cookie/cookie.svg")})`,
+              } as React.CSSProperties
+            }
+          >
             <Trans
               t={t}
               i18nKey="CookieText"
               components={[
                 <Link
-                  color="#ff6f3d"
+                  display="inline-flex"
+                  color="#3541F5"
                   textUnderline
                   key={0}
                   href="https://help.onlyoffice.co/products/files/doceditor.aspx?fileid=5048502&doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0&_ga=2.239950403.1196593722.1525950411-169631771.1404734630"
                   target="_blank"
+                  hover="underline-none"
                 />,
               ]}
             />
-          </p>
-          <div className={styles["buttons-area"]}>
-            <Button
-              id="decline-all"
-              onClick={handleDeclineAll}
-              variant="primary-2"
-            >
-              {t("Deny")}
-            </Button>
-            <Button id="settings" onClick={handleSettings} variant="primary-2">
-              {t("Customize")}
-            </Button>
+          </Text>
+          <div className={styles["cookie-baner-list"]}>
+            <div className={styles["cookie-baner-list-buttons"]}>
+              <Button
+                id="decline-all"
+                className={styles["cookie-banner-list-button"]}
+                onClick={handleDeclineAll}
+                variant="tertiary-dark"
+                size={3}
+              >
+                {t("Deny")}
+              </Button>
+              <Button
+                id="settings"
+                className={styles["cookie-banner-list-button"]}
+                onClick={handleSettings}
+                variant="tertiary-dark"
+                size={3}
+              >
+                {t("Customize")}
+              </Button>
+            </div>
             <Button
               id="accept-all"
+              className={styles["cookie-banner-list-button"]}
               onClick={handleAcceptAll}
-              variant="primary-2"
+              variant="tertiary-dark"
+              size={3}
             >
               {t("AcceptAll")}
             </Button>
           </div>
         </div>
       )}
-      {showSettings && (
-        <CookieSettings
-          setShowSettings={handleSettings}
-          consent={consent ? consent : DEFAULT_CONSENT}
-          setShowFab={setShowFab}
-          setConsent={setConsent}
-        />
-      )}
+      <CookieSettings
+        showSettings={showSettings}
+        setShowSettings={handleSettings}
+        consent={consent ? consent : DEFAULT_CONSENT}
+        setShowFab={setShowFab}
+        setConsent={setConsent}
+      />
     </>
   );
 };

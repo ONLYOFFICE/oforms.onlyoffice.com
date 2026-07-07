@@ -26,168 +26,46 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { TCardFormat } from "@src/components/widgets/Card/Card.types";
+import { IFormsData } from "@src/types/data";
+import { TAllowedTypes } from "@src/utils/allowedTypes";
+import { ISearchInput } from "./sub-components/SearchInput/SearchInput.types";
 
-export type TExt = "docx" | "xlsx" | "pptx" | "pdf";
-export type TTaxonomyRelation = "categories" | "types" | "compilations";
+type TFormSubcategory = IFormsData["data"][number]["subcategories"][number];
+type TFormCategory = TFormSubcategory["parent_categories"][number];
 
-export interface IFormsData {
-  data: {
-    id: number;
-    attributes: {
-      name_form: string;
-      description_card: string;
-      url: string;
-      createdAt?: string;
-      card_prewiew: {
-        data: {
-          id: number;
-          attributes: {
-            url: string;
-          };
-        };
-      };
-      form_exts: {
-        data: {
-          id: number;
-          attributes: {
-            ext: TCardFormat;
-          };
-        }[];
-      };
-    };
-  }[];
-  meta: {
-    pagination: {
-      page: number;
-      pageCount: number;
-      pageSize: number;
-      total: number;
-    };
-  };
+interface ISubcategoryNode extends Omit<TFormSubcategory, "parent_categories"> {
+  count: number;
 }
 
-export interface ITypeFormsCountData {
-  data: {
-    id: number;
-    attributes: {
-      ext: TCardFormat;
-      oforms: {
-        data: {
-          id: number;
-          attributes: {
-            count: number;
-          };
-        };
-      };
-    };
-  }[];
-  meta: {
-    pagination: {
-      page: number;
-      pageCount: number;
-      pageSize: number;
-      total: number;
-    };
-  };
+export interface ICategoryTree {
+  category: TFormCategory;
+  subcategories: ISubcategoryNode[];
 }
 
-export interface ICategoryItemData<K extends string> {
-  data: {
-    id: number;
-    attributes: {
-      [P in K]: string;
-    } & {
-      oforms: {
-        data: {
-          id: number;
-          attributes: {
-            count: number;
-          };
-        };
-      };
-    };
-  }[];
-  meta: {
-    pagination: {
-      page: number;
-      pageCount: number;
-      pageSize: number;
-      total: number;
-    };
-  };
-}
-
-export interface ITypeWithSubCategoryFormsData {
-  data: {
-    id: number;
-    attributes: {
-      name_form: string;
-      description_card: string;
-      url: string;
-      createdAt?: string;
-      card_prewiew: {
-        data: {
-          id: number;
-          attributes: {
-            url: string;
-          };
-        };
-      };
-      form_exts: {
-        data: {
-          id: number;
-          attributes: {
-            ext: TCardFormat;
-          };
-        }[];
-      };
-    } & {
-      categories?: {
-        data: {
-          id: number;
-          attributes: { categorie: string; urlReq: string };
-        }[];
-      };
-      types?: {
-        data: {
-          id: number;
-          attributes: { type: string; urlReq: string };
-        }[];
-      };
-      compilations?: {
-        data: {
-          id: number;
-          attributes: { compilation: string; urlReq: string };
-        }[];
-      };
-    };
-  }[];
-  meta: {
-    pagination: {
-      page: number;
-      pageCount: number;
-      pageSize: number;
-      total: number;
-    };
-  };
+export interface IPurposeCategories {
+  purpose: TFormCategory["purpose"];
+  categories: Map<
+    number,
+    { category: TFormCategory; subcategories: Map<number, ISubcategoryNode> }
+  >;
 }
 
 export interface IMain {
-  typeFormsCount: ITypeFormsCountData;
-  categories: ICategoryItemData<"categorie">;
-  types: ICategoryItemData<"type">;
-  compilations: ICategoryItemData<"compilation">;
-  docxForms?: IFormsData;
-  pdfForms?: IFormsData;
-  xlsxForms?: IFormsData;
-  pptxForms?: IFormsData;
-  totalCount: number;
   children: React.ReactNode;
-  data?: IFormsData;
-  ext?: TExt;
-  activeSubCategory?: {
+  docxForms: number;
+  xlsxForms: number;
+  pptxForms: number;
+  pdfForms: number;
+  countries: {
     id: number;
-    relation: TTaxonomyRelation;
-  };
+    documentId: string;
+    name: string;
+    code: string;
+    count: number;
+  }[];
+  purposes: IFormsData["data"][number]["subcategories"][number]["parent_categories"][number]["purpose"][];
+  categoriesByPurpose: Record<string, ICategoryTree[]>;
+  totalCount: number;
+  selectedType?: TAllowedTypes;
+  formNames: ISearchInput["formNames"];
 }
