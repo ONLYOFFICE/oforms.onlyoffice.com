@@ -19,6 +19,9 @@ switch(BRANCH_NAME) {
     public_static_url="https://static-oforms.teamlab.info"
     email_port="587"
     next_public_main_site_base_domain="https://test-new.teamlab.info"
+    config_api_url = "https://templates.teamlab.info/dashboard"
+    bucket = "static-oforms.teamlab.info"
+    editor_api_url = "https://asc.docs.teamlab.info"
     break
   case "test_deploy":
     aws_region="us-east-1"
@@ -109,6 +112,9 @@ pipeline {
         site_url="${site_url}"
         next_public_main_site_base_domain="${next_public_main_site_base_domain}"
         public_static_url="${public_static_url}"
+        config_api_url = "${config_api_url}"
+        editor_api_url = "${editor_api_url}"
+        bucket = "${bucket}"
       }
       steps { 
         withCredentials([usernamePassword(credentialsId: 'NEXT_PUBLIC_EDITOR_CREDS',
@@ -133,10 +139,14 @@ pipeline {
                 variable: 'NEXT_PUBLIC_STRAPI_API_TOKEN_TEST'),
                 string(credentialsId: 'oforms_email_server', variable: 'NEXT_PUBLIC_EMAIL_HOST'), 
                 string(credentialsId: 'oforms_email_accoiunt_1', variable: 'NEXT_PUBLIC_EMAIL_ACCOUNT_1'), 
-                string(credentialsId: 'oforms_email_account_2', variable: 'NEXT_PUBLIC_EMAIL_ACCOUNT_2'), 
+                string(credentialsId: 'oforms_email_account_2', variable: 'NEXT_PUBLIC_EMAIL_ACCOUNT_2'),
+                string(credentialsId: 'oforms_email_account_2', variable: 'NEXT_PUBLIC_EMAIL_ACCOUNT_2'),
                 usernamePassword(credentialsId: 'oforms_email_user', 
                 passwordVariable: 'NEXT_PUBLIC_EMAIL_AUTH_PASSWORD', 
-                usernameVariable: 'NEXT_PUBLIC_EMAIL_AUTH_USER')]) {
+                usernameVariable: 'NEXT_PUBLIC_EMAIL_AUTH_USER'),
+                string(credentialsId: 'onlyoffice_site_test_hcaptcha_site_key', variable: 'NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY'),
+                string(credentialsId: 'onlyoffice_site_test_hcaptcha_secret_key', variable: 'NEXT_PUBLIC_HCAPTCHA_TEST_SECRET_KEY'),
+                string(credentialsId: 'templates_redesign_strapi_api_token', variable: 'REDESIGN_PUBLIC_STRAPI_API_TOKEN_TEST')]) {
 
           sh '''
             if [[ ${BRANCH_NAME} == "test_deploy" ]]; then
@@ -144,6 +154,14 @@ pipeline {
               NEXT_PUBLIC_FILES_DOCSERVICE_SECRET=$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET_TEST
               NEXT_PUBLIC_RECAPTCHA_SITE_KEY=$NEXT_PUBLIC_RECAPTCHA_SITE_KEY_TEST
               NEXT_PUBLIC_STRAPI_API_TOKEN=$NEXT_PUBLIC_STRAPI_API_TOKEN_TEST
+            fi
+
+            if [[ ${BRANCH_NAME} == "feature/redesign" ]]; then
+              NEXT_PUBLIC_EDITOR_API_URL=$NEXT_PUBLIC_EDITOR_API_URL_TEST
+              NEXT_PUBLIC_FILES_DOCSERVICE_SECRET=$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET_TEST
+              NEXT_PUBLIC_HCAPTCHA_SITE_KEY=$NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
+              NEXT_PUBLIC_HCAPTCHA_SECRET_KEY=$NEXT_PUBLIC_HCAPTCHA_TEST_SECRET_KEY
+              NEXT_PUBLIC_STRAPI_API_TOKEN=$REDESIGN_PUBLIC_STRAPI_API_TOKEN_TEST
             fi
 
             sed -i "s^var_notification_app_name^$site_url^" .jenkins/build.sh
@@ -162,13 +180,14 @@ pipeline {
 
             sed -i "s^var_next_public_site_url^$site_url^" .env.local
             sed -i "s^var_next_public_static_url^$public_static_url^" .env.local
+            sed -i "s^var_config_api_url^$config_api_url^" .env.local
             sed -i "s^var_editor_api_url^$NEXT_PUBLIC_EDITOR_API_URL^" .env.local
             sed -i "s^var_files_docservice_secret^$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET^" .env.local
             sed -i "s^var_next_public_recaptcha_site_key^$NEXT_PUBLIC_RECAPTCHA_SITE_KEY^" .env.local
             sed -i "s^var_strapi_api_token^$NEXT_PUBLIC_STRAPI_API_TOKEN^" .env.local
 
             sed -i "s^var_region^$aws_region^" .env.local
-            sed -i "s^var_bucket^$domains^" .env.local
+            sed -i "s^var_bucket^$bucket^" .env.local
             sed -i "s^var_access_key_id^$NEXT_PUBLIC_ACCESS_KEY_ID^" .env.local
             sed -i "s^var_secret_access_key^$NEXT_PUBLIC_SECRET_ACCESS_KEY^" .env.local
 
@@ -178,6 +197,9 @@ pipeline {
             sed -i "s^var_email_auth_password^$NEXT_PUBLIC_EMAIL_AUTH_PASSWORD^" .env.local
             sed -i "s^var_email_account_1^$NEXT_PUBLIC_EMAIL_ACCOUNT_1^" .env.local
             sed -i "s^var_email_account_2^$NEXT_PUBLIC_EMAIL_ACCOUNT_2^" .env.local 
+
+            sed -i "s^var_next_public_hcaptcha_site_key^$NEXT_PUBLIC_HCAPTCHA_SITE_KEY^" .env.local
+            sed -i "s^var_hcaptcha_secret_key^$NEXT_PUBLIC_HCAPTCHA_SECRET_KEY^" .env.local 
 
             sed -i "s^var_next_public_main_site_base_domain^$next_public_main_site_base_domain^" .env.local
             
