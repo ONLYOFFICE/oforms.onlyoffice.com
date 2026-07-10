@@ -40,20 +40,17 @@ import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { IFormTemplate } from "./Form.types";
 import styles from "./Form.module.scss";
 
-const FormTemplate = ({ form, categories }: IFormTemplate) => {
+const FormTemplate = ({ form, allForms, categories }: IFormTemplate) => {
   const { t } = useTranslation("form");
   const router = useRouter();
   const { locale } = router;
   const {
     name_form,
-    description_card,
     template_desc,
     file_oform,
     file_pages,
     page_screens,
-    card_prewiew,
     url,
-    form_exts,
   } = form.data[0];
   const editableFile = file_oform?.find((it) => {
     const ext = it.name?.split(".").pop()?.toLowerCase();
@@ -84,14 +81,7 @@ const FormTemplate = ({ form, categories }: IFormTemplate) => {
         linkEditor={linkEditor}
       />
       <HowToCreate name_form={name_form} linkEditor={linkEditor} />
-      <RecentlyViewed
-        id={form.data[0].id}
-        name_form={name_form}
-        description_card={description_card}
-        url={url}
-        card_prewiew={card_prewiew.url}
-        form_exts={form_exts[0].ext}
-      />
+      <RecentlyViewed allForms={allForms} id={form.data[0].id} />
       <ExploreOtherTemplate />
       <PopularCategories categories={categories} />
       <BuildYourOwnForms />
