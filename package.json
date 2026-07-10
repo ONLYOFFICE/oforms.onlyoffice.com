@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "npm run clean-cache && next dev -p 30000 --webpack",
     "build": "npm run clean-cache && next build",
+    "build:static": "node scripts/build-static.mjs",
     "start": "next start -p 30000",
     "lint": "next lint",
     "clean": "rimraf .next",

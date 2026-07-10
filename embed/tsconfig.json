@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["../src/*"],
+      "next/link": ["./shims/next-link.tsx"],
+      "next/router": ["./shims/next-router.tsx"],
+      "next/head": ["./shims/next-head.tsx"],
+      "next/image": ["./shims/next-image.tsx"],
+      "next-i18next": ["./shims/next-i18next.ts"]
+    }
+  },
+  "include": ["src", "shims", "vite.config.ts"]
+}

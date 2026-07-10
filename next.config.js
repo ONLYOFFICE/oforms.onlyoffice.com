@@ -2,8 +2,22 @@
 const { i18n } = require("./next-i18next.config");
 const path = require("path");
 
+// When STATIC_BASE_PATH is set (see `npm run build:static`) the whole app is
+// built to live under a sub-path on a separate static domain, e.g. /templates.
+// It stays empty for the normal build, which is served from the domain root.
+const staticBasePath = process.env.STATIC_BASE_PATH || "";
+
 const nextConfig = {
   reactStrictMode: false,
+  ...(staticBasePath
+    ? {
+        basePath: staticBasePath,
+        assetPrefix: staticBasePath,
+        // getAssetUrl() prefixes public assets (favicons, images, font
+        // preloads) with this; basePath does not touch those manual paths.
+        env: { NEXT_PUBLIC_STATIC_URL: staticBasePath },
+      }
+    : {}),
   sassOptions: {
     api: "modern-compiler",
     loadPaths: [path.join(__dirname, "src/styles")],
