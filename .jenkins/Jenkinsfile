@@ -146,7 +146,7 @@ pipeline {
                 usernameVariable: 'NEXT_PUBLIC_EMAIL_AUTH_USER'),
                 string(credentialsId: 'onlyoffice_site_test_hcaptcha_site_key', variable: 'NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY'),
                 string(credentialsId: 'onlyoffice_site_test_hcaptcha_secret_key', variable: 'NEXT_PUBLIC_HCAPTCHA_TEST_SECRET_KEY'),
-                string(credentialsId: 'templates_redesign_strapi_api_token', variable: 'REDESIGN_PUBLIC_STRAPI_API_TOKEN_TEST')
+                string(credentialsId: 'templates_redesign_strapi_api_token', variable: 'REDESIGN_PUBLIC_STRAPI_API_TOKEN_TEST'),
                 string(credentialsId: 'templates_redesign_revalidate_authorization_token', variable: 'REVALIDATE_AUTHORIZATION_TOKEN_TEST')]) {
 
           sh '''
