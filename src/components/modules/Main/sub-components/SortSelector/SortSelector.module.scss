@@ -38,7 +38,7 @@
   font-weight: 600;
   line-height: 14px;
   letter-spacing: 0.04em;
-  color: #9092a6;
+  color: var(--sort-selector-label-color);
   text-transform: uppercase;
 
   @include media.tablet {
@@ -60,7 +60,7 @@
   font-size: 14px;
   font-weight: 600;
   line-height: 20px;
-  color: #21222b;
+  color: var(--sort-selector-button-color);
   background-color: transparent;
   cursor: pointer;
 
@@ -90,12 +90,12 @@
   position: absolute;
   top: calc(100% + 1px);
   inset-inline-start: 0;
-  border: 1px solid #3541f5;
+  border: 1px solid var(--sort-selector-dropdown-border-color);
   border-radius: 4px;
   padding: 6px 0;
   min-width: 154px;
-  background-color: #f3f4f7;
-  box-shadow: 0 0 12px 0 #cfdbf4;
+  background-color: var(--sort-selector-dropdown-background-color);
+  box-shadow: 0 0 12px 0 var(--sort-selector-dropdown-box-shadow-color);
   z-index: 1;
 
   &::before {
@@ -115,7 +115,7 @@
   padding: 9px 12px;
   font-size: 13px;
   line-height: 18px;
-  color: #9092a6;
+  color: var(--sort-selector-option-color);
   text-align: initial;
   width: 100%;
   background-color: transparent;
@@ -125,13 +125,13 @@
   cursor: pointer;
 
   &:hover {
-    background-color: #ffffff;
+    background-color: var(--sort-selector-option-background-color-hover);
   }
 }
 
 .sort-selector-option-active {
   font-size: 14px;
   font-weight: 600;
-  color: #143481;
-  background-color: #ffffff;
+  color: var(--sort-selector-option-color-active);
+  background-color: var(--sort-selector-option-background-color-active);
 }

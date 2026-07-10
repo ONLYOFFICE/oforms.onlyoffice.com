@@ -29,13 +29,13 @@
 @use "media";
 
 .how-to-create {
-  border: 1px solid #e1e1f7;
+  border: 1px solid var(--form-how-to-create-border-color);
   border-radius: 8px;
   padding-top: 43px;
   padding-bottom: 43px;
   padding-inline-start: 130px;
   padding-inline-end: 43px;
-  background-color: #ffffff;
+  background-color: var(--form-how-to-create-background-color);
 
   @include media.tablet {
     padding-top: 35px;
@@ -79,7 +79,7 @@
   }
 
   span {
-    color: #3541f5;
+    color: var(--form-how-to-create-heading-accent-color);
   }
 
   @include media.tablet {
@@ -96,6 +96,7 @@
   margin: 0 0 32px;
   font-size: 16px;
   line-height: 24px;
+  color: var(--form-how-to-create-list-color);
   list-style: none;
   counter-reset: counter;
 

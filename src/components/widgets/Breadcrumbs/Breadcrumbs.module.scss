@@ -36,7 +36,6 @@
   margin: 0 0 -12px;
   font-size: 16px;
   line-height: 24px;
-  color: #666980;
   list-style-type: none;
 
   @include media.tablet {
@@ -85,6 +84,10 @@
   }
 }
 
+.breadcrumbs-item-link {
+  color: var(--breadcrumbs-item-link-color);
+}
+
 .breadcrumbs-item-label {
-  color: #494b5b;
+  color: var(--breadcrumbs-item-label-color);
 }

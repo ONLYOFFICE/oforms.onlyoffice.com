@@ -50,7 +50,7 @@
   left: 16px;
   font-size: 16px;
   line-height: 24px;
-  color: #a6a8b8;
+  color: var(--textarea-label-color);
   transform: translateY(-50%);
 
   @include media.tablet {
@@ -64,14 +64,14 @@
 }
 
 .textarea-field {
-  border: 1px solid #a6a8b8;
+  border: 1px solid var(--textarea-border-color);
   border-radius: 12px;
   padding: 16px;
   font-size: 16px;
   line-height: 24px;
-  color: #494b5b;
+  color: var(--textarea-color);
   width: 100%;
-  background-color: #f3f4f7;
+  background-color: var(--textarea-background-color);
   outline: none;
   transition:
     color 0.2s,
@@ -80,30 +80,30 @@
   resize: none;
 
   &::placeholder {
-    color: #a6a8b8;
+    color: var(--textarea-placeholder-color);
   }
 
   &.textarea-field-with-label::placeholder {
     color: transparent;
 
     &:focus {
-      color: #dcdde6;
+      color: var(--textarea-placeholder-color-focus);
     }
   }
 
   &:not(.textarea-field-error):not(:disabled):hover {
-    border-color: #3541f5;
-    box-shadow: inset 0 0 0 1px #3541f5;
+    border-color: var(--textarea-border-color-hover);
+    box-shadow: inset 0 0 0 1px var(--textarea-box-shadow-color-hover);
   }
 
   &:focus {
-    border-color: #3541f5;
-    background-color: #ffffff;
-    box-shadow: inset 0 0 0 1px #3541f5;
+    border-color: var(--textarea-border-color-focus);
+    background-color: var(--textarea-background-color-focus);
+    box-shadow: inset 0 0 0 1px var(--textarea-box-shadow-color-focus);
   }
 
   &:disabled {
-    opacity: 0.4;
+    opacity: var(--textarea-opacity-disabled);
     pointer-events: none;
   }
 
@@ -118,15 +118,15 @@
 }
 
 .textarea-field-error {
-  border-color: #e97696;
-  box-shadow: inset 0 0 0 1px #e97696;
+  border-color: var(--textarea-border-color-error);
+  box-shadow: inset 0 0 0 1px var(--textarea-box-shadow-color-error);
 }
 
 .textarea-error {
   margin-top: 8px;
   font-size: 13px;
   line-height: 18px;
-  color: #e97696;
+  color: var(--textarea-color-error);
 
   @include media.mobile {
     font-size: 12px;

@@ -70,7 +70,7 @@
   line-height: 53px;
   text-align: center;
   letter-spacing: -0.02em;
-  color: #333333;
+  color: var(--error-heading-color);
 
   @media screen and (max-width: 540px) {
     font-size: 24px;
@@ -84,7 +84,7 @@
   font-size: 16px;
   line-height: 22px;
   text-align: center;
-  color: #555555;
+  color: var(--error-description-color);
 
   @media screen and (max-width: 540px) {
     font-size: 13px;

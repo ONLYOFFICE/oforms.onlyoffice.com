@@ -134,7 +134,7 @@ const Hero = ({
                 <Link
                   size={5}
                   href={`mailto:marketing@onlyoffice.com?subject=${t("SuggestingChangesLink", { name: name_form })}&body=${t("SuggestingChangesLink", { name: name_form })}.`}
-                  color="#3541F5"
+                  color="var(--form-hero-link-color)"
                   hover="underline"
                 >
                   {t("SuggestChanges")}

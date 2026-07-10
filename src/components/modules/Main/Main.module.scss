@@ -111,7 +111,7 @@
   font-weight: 600;
   font-size: 14px;
   line-height: 19px;
-  color: #9092a6;
+  color: var(--main-count-color);
 
   @include media.desktop {
     margin-inline-start: 24px;
@@ -138,11 +138,7 @@
   margin-inline-start: auto;
   width: 24px;
   height: 24px;
-  background-image: var(--main-filters-button-icon);
   background-color: transparent;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
   cursor: pointer;
 
   @include media.tablet {

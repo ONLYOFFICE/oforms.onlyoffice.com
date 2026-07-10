@@ -131,6 +131,7 @@ const SidebarItem = ({
             isOpen && styles["sidebar-item-header-icon-open"],
             isSub && styles["sidebar-item-header-icon-sub"],
           )}
+          fill="var(--sidebar-item-chevron-down-icon-color)"
         />
       </button>
 

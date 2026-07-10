@@ -34,7 +34,7 @@ import { Section } from "@src/components/ui/Section";
 import { Container } from "@src/components/ui/Container";
 import { SortSelector } from "@src/components/modules/Main/sub-components/SortSelector";
 import { SearchInput } from "@src/components/modules/Main/sub-components/SearchInput";
-import { getAssetUrl } from "@src/utils/getAssetUrl";
+import { FiltersIcon } from "@src/components/icons";
 import { IMain } from "./Main.types";
 import styles from "./Main.module.scss";
 
@@ -64,7 +64,6 @@ const Main = ({
   return (
     <Section
       className={styles["main-content"]}
-      background="#f9fbfe"
       desktopSpacing={["84px", "112px"]}
       tabletSpacing={["64px", "112px"]}
       tabletSmallSpacing={["64px", "112px"]}
@@ -72,14 +71,17 @@ const Main = ({
     >
       <Container className={styles["main-container"]}>
         <div className={styles["main-header"]}>
-          <Heading className={styles["main-header-heading"]} color="#231990">
+          <Heading
+            className={styles["main-header-heading"]}
+            color="var(--main-heading-color)"
+          >
             {t("FreeDocumentTemplatesAndFillableForms")}
           </Heading>
           <Heading
             className={styles["main-header-subheading"]}
             level={2}
             size={3}
-            color="#494b5b"
+            color="var(--main-subheading-color)"
           >
             {t("DownloadReadyMadeTemplatesOrFillOutPdfFormsOnline")}
           </Heading>
@@ -117,12 +119,9 @@ const Main = ({
                 <button
                   onClick={() => setIsOpen(true)}
                   className={styles["main-filters-button"]}
-                  style={
-                    {
-                      "--main-filters-button-icon": `url(${getAssetUrl("/images/templates/main/filters.svg")})`,
-                    } as React.CSSProperties
-                  }
-                ></button>
+                >
+                  <FiltersIcon fill="var(--main-filters-button-icon-color)" />
+                </button>
               </div>
 
               <SearchInput formNames={formNames} />

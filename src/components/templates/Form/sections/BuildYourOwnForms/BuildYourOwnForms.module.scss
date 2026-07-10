@@ -31,10 +31,10 @@
 .build-your-own-forms {
   display: flex;
   align-items: center;
-  border: 1px solid #9c99e7;
+  border: 1px solid var(--form-build-your-own-forms-border-color);
   border-radius: 9px;
   padding: 31px;
-  background-color: rgba(156, 153, 231, 0.1);
+  background-color: var(--form-build-your-own-forms-background-color);
 
   @include media.mobile {
     flex-direction: column;
@@ -92,7 +92,7 @@
 .build-your-own-forms-text {
   font-size: 18px;
   line-height: 26px;
-  color: #ffffff;
+  color: var(--form-build-your-own-forms-text-color);
 
   @include media.mobile {
     font-size: 14px;

@@ -35,10 +35,6 @@
     background: var(--section-background);
   }
 
-  &.border-top {
-    border-top: 1px solid var(--section-border-top-color);
-  }
-
   @include media.tablet {
     padding: var(--section-tablet-padding, 88px 0);
   }

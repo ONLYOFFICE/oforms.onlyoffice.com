@@ -49,11 +49,11 @@ const ErrorModal = ({ isOpen, onClose, children }: IErrorModal) => {
           as="div"
           className={styles["error-modal-heading"]}
           level={4}
-          color="#cb0000"
+          color="var(--form-submit-error-modal-heading-color)"
         >
           {t("FileUploadError")}
         </Heading>
-        <Text as="p" size={3} color="#494b5b">
+        <Text as="p" size={3} color="var(--form-submit-error-modal-text-color)">
           {children}
         </Text>
       </div>

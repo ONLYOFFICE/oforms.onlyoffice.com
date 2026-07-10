@@ -144,17 +144,18 @@
   }
 
   &:hover {
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 40px;
+    box-shadow: var(--form-slider-section-button-box-shadow-color-hover) 0px
+      20px 40px;
 
     svg {
       path {
-        fill: #ff6f3d;
+        fill: var(--form-slider-section-button-icon-color-hover);
       }
     }
   }
 
   &:disabled {
-    opacity: 0.4;
+    opacity: var(--form-slider-section-button-opacity-disabled);
     pointer-events: none;
   }
 }

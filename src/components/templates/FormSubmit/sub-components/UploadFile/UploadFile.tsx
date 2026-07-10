@@ -238,7 +238,11 @@ const UploadFile = forwardRef<IUploadFileRef, IUploadFile>(
                     } as React.CSSProperties
                   }
                 ></div>
-                <Heading as="div" size={4} color="#21222b">
+                <Heading
+                  as="div"
+                  size={4}
+                  color="var(--form-submit-upload-file-heading-color)"
+                >
                   <Trans
                     t={t}
                     i18nKey="UploadOrDragAndDropItHere"
@@ -246,13 +250,16 @@ const UploadFile = forwardRef<IUploadFileRef, IUploadFile>(
                       <Text
                         key={0}
                         as="span"
-                        color="#3541f5"
+                        color="var(--form-submit-upload-file-link-color)"
                         textDecoration="underline"
                       />,
                     ]}
                   />
                 </Heading>
-                <Text size={4} color="#9092a6">
+                <Text
+                  size={4}
+                  color="var(--form-submit-upload-file-label-color)"
+                >
                   {t("Max10MB")}
                 </Text>
               </div>
@@ -296,7 +303,7 @@ const UploadFile = forwardRef<IUploadFileRef, IUploadFile>(
             <Text
               className={styles["upload-file-error"]}
               size={5}
-              color="#cb0000"
+              color="var(--form-submit-upload-file-error-color)"
               textAlign="center"
             >
               {t("FileIsEmpty")}

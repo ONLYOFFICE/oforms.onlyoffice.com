@@ -47,7 +47,7 @@ const FileUploadModal = ({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      bgColor="#00000066"
+      bgColor="var(--form-submit-file-upload-modal-overlay-background-color)"
       withCloseBtn={true}
     >
       <div className={styles["file-upload-modal"]}>
@@ -55,7 +55,7 @@ const FileUploadModal = ({
           as="div"
           className={styles["file-upload-modal-heading"]}
           level={4}
-          color="#21222b"
+          color="var(--form-submit-file-upload-modal-heading-color)"
         >
           {t("FileUpload")}
         </Heading>

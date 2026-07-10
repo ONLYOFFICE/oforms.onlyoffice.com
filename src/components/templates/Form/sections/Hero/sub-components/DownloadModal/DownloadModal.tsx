@@ -48,7 +48,7 @@ const DownloadModal = ({ isOpen, onClose }: IDownloadModal) => {
           className={styles["download-modal-heading"]}
           as="div"
           level={3}
-          color="#21222b"
+          color="var(--form-hero-download-modal-heading-color)"
           style={
             {
               "--download-modal-heading-icon": `url(${getAssetUrl("/images/templates/form/hero/not-installed.svg")})`,
@@ -61,7 +61,7 @@ const DownloadModal = ({ isOpen, onClose }: IDownloadModal) => {
           className={styles["download-modal-text"]}
           as="p"
           size={3}
-          color="#494b5b"
+          color="var(--form-hero-download-modal-text-color)"
         >
           {t("PleaseDownloadItAndInstall")}
         </Text>

@@ -46,7 +46,11 @@ const MainSection = ({ label, href, data, desktopLimit }: IMainSection) => {
           href={hrefWithOpened}
           className={styles["main-section-heading-link"]}
         >
-          <Heading level={2} size={3}>
+          <Heading
+            className={styles["main-section-heading"]}
+            level={2}
+            size={3}
+          >
             {label}
           </Heading>
         </Link>

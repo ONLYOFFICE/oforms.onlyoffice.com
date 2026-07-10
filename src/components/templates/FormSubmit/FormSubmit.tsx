@@ -419,11 +419,11 @@ const FormSubmitTemplate = ({
                 className={styles["form-submit-heading"]}
                 level={1}
                 size={2}
-                color="#21222b"
+                color="var(--form-submit-heading-color)"
               >
                 {t("UploadingYourTemplate")}
               </Heading>
-              <Text as="p" size={2} color="#494b5b">
+              <Text as="p" size={2} color="var(--form-submit-description-color)">
                 {t("PleaseFillOutAllTheFieldsBeforeSendingTheTemplate")}
               </Text>
             </div>
@@ -470,7 +470,7 @@ const FormSubmitTemplate = ({
                   <Trans
                     t={t}
                     i18nKey="TemplateCategory"
-                    components={[<Text key={0} as="span" color="#a6a8b8" />]}
+                    components={[<Text key={0} as="span" color="var(--form-submit-category-label-color)" />]}
                   />
                 }
                 label={t("EnterCategoryOrChoose")}
@@ -503,7 +503,7 @@ const FormSubmitTemplate = ({
                     className={styles["form-submit-info-label"]}
                     as="span"
                     size={5}
-                    color="#9092a6"
+                    color="var(--form-submit-info-label-color)"
                   >
                     {t("FileType")}
                   </Text>
@@ -512,7 +512,7 @@ const FormSubmitTemplate = ({
                       className={styles["form-submit-info-format"]}
                       as="span"
                       size={5}
-                      color="#333333"
+                      color="var(--form-submit-info-value-color)"
                       style={
                         {
                           "--form-submit-info-format": `url(${getAssetUrl(`/images/templates/form-submit/${fileType}.svg`)})`,
@@ -528,12 +528,12 @@ const FormSubmitTemplate = ({
                     className={styles["form-submit-info-label"]}
                     as="span"
                     size={5}
-                    color="#9092a6"
+                    color="var(--form-submit-info-label-color)"
                   >
                     {t("FileSize")}
                   </Text>
                   {fileInfo?.fileSize != null && (
-                    <Text as="span" size={5} color="#333333">
+                    <Text as="span" size={5} color="var(--form-submit-info-value-color)">
                       {formatFileSize(fileInfo.fileSize)}
                     </Text>
                   )}
@@ -543,12 +543,12 @@ const FormSubmitTemplate = ({
                     className={styles["form-submit-info-label"]}
                     as="span"
                     size={5}
-                    color="#9092a6"
+                    color="var(--form-submit-info-label-color)"
                   >
                     {t("Pages")}
                   </Text>
                   {fileInfo?.pageCount != null && (
-                    <Text as="span" size={5} color="#333333">
+                    <Text as="span" size={5} color="var(--form-submit-info-value-color)">
                       {fileInfo.pageCount}
                     </Text>
                   )}

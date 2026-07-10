@@ -31,7 +31,7 @@
 .sidebar-item {
   &:not(:last-child) {
     margin-bottom: 24px;
-    border-bottom: 1px solid #b9cef9;
+    border-bottom: 1px solid var(--sidebar-item-border-color);
     padding-bottom: 23px;
 
     @include media.tablet {
@@ -106,7 +106,7 @@
   font-size: 14px;
   line-height: 21px;
   letter-spacing: 0.03em;
-  color: #585a6d;
+  color: var(--sidebar-item-header-heading-sub-color);
   text-transform: uppercase;
 }
 
@@ -119,11 +119,11 @@
   font-size: 18px;
   font-weight: 600;
   line-height: 18px;
-  color: #ffffff;
+  color: var(--sidebar-item-header-count-color);
   text-align: center;
   min-width: 24px;
   height: 24px;
-  background-color: #666980;
+  background-color: var(--sidebar-item-header-count-background-color);
 }
 
 .sidebar-item-header-icon {
@@ -143,7 +143,7 @@
 
 .sidebar-item-header-icon-sub {
   path {
-    fill: #9092a6;
+    fill: var(--sidebar-item-header-icon-sub-color);
   }
 }
 
@@ -151,7 +151,7 @@
   margin-bottom: 12px;
   font-size: 13px;
   line-height: 18px;
-  color: #9092a6;
+  color: var(--sidebar-item-text-color);
 }
 
 .sidebar-item-options {
@@ -161,12 +161,12 @@
 }
 
 .sidebar-item-options-btn {
-  border: 1px solid #ccdbfb;
+  border: 1px solid var(--sidebar-item-options-btn-border-color);
   border-radius: 24px;
   padding: 5px 15px;
   font-size: 13px;
   line-height: 18px;
-  color: #3a3c49;
+  color: var(--sidebar-item-options-btn-color);
   background-color: transparent;
   outline: none;
   transition:
@@ -177,9 +177,10 @@
 
   &:hover,
   &:focus-visible {
-    color: #143481;
-    background-color: #ccdbfb;
-    box-shadow: inset 0 0 4px 0 #709af1;
+    color: var(--sidebar-item-options-btn-color-hover);
+    background-color: var(--sidebar-item-options-btn-background-color-hover);
+    box-shadow: inset 0 0 4px 0
+      var(--sidebar-item-options-btn-box-shadow-color-hover);
   }
 }
 
@@ -188,7 +189,7 @@
   padding: 0;
   font-size: 13px;
   line-height: 18px;
-  color: #3a3c49;
+  color: var(--sidebar-item-show-less-btn-color);
   background-color: transparent;
   cursor: pointer;
 

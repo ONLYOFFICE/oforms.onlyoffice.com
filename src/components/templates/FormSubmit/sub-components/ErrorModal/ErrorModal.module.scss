@@ -29,15 +29,15 @@
 @use "media";
 
 .error-modal {
-  border: 1px solid #cb0000;
+  border: 1px solid var(--form-submit-error-modal-border-color);
   border-radius: 12px;
   padding-top: 32px;
   padding-bottom: 32px;
   padding-inline-end: 56px;
   padding-inline-start: 32px;
   width: 100%;
-  background-color: #ffffff;
-  box-shadow: 0px 20px 50px 0px rgba(27, 68, 166, 0.15);
+  background-color: var(--form-submit-error-modal-background-color);
+  box-shadow: 0px 20px 50px 0px var(--form-submit-error-modal-box-shadow-color);
 
   @include media.mobile {
     padding: 24px 32px 24px 24px;

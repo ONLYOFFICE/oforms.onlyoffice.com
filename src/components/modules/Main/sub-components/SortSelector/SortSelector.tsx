@@ -102,6 +102,7 @@ const SortSelector = () => {
               styles["sort-selector-button-icon"],
               isOpen && styles["sort-selector-button-icon-open"],
             )}
+            fill="var(--sort-selector-chevron-down-icon-color)"
           />
         </button>
 

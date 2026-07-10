@@ -37,10 +37,11 @@
   font-size: 18px;
   font-weight: 600;
   line-height: 26px;
-  color: #494b5b;
+  color: var(--form-explore-other-template-item-color);
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0px 10px 40px 0px rgba(27, 68, 166, 0.1);
+  background-color: var(--form-explore-other-template-item-background-color);
+  box-shadow: 0px 10px 40px 0px
+    var(--form-explore-other-template-item-box-shadow-color);
 
   &::before {
     content: "";

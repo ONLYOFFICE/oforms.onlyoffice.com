@@ -33,7 +33,7 @@ $text-transform: uppercase, lowercase, capitalize;
 
 .heading {
   font-weight: 700;
-  color: var(--heading-color, #494b5b);
+  color: var(--heading-color);
 }
 
 @each $value in $text-transform {

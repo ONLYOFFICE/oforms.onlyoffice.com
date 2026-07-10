@@ -34,19 +34,19 @@
 
   &:not(.disabled):not(.checked):hover {
     .checkbox-icon {
-      border-color: #3541f5;
-      box-shadow: inset 0 0 0 1px #3541f5;
+      border-color: var(--checkbox-border-color-hover);
+      box-shadow: inset 0 0 0 1px var(--checkbox-box-shadow-color-hover);
     }
   }
 
   &.checked {
     .checkbox-input:focus + .checkbox-icon {
-      border-color: #000122;
+      border-color: var(--checkbox-border-color-checked);
     }
 
     .checkbox-icon {
-      border-color: #000122;
-      background-color: #000122;
+      border-color: var(--checkbox-border-color-checked);
+      background-color: var(--checkbox-background-color-checked);
       background-image: var(--checkbox-icon);
       background-repeat: no-repeat;
       background-position: center;
@@ -58,7 +58,7 @@
     cursor: initial;
 
     .checkbox-icon {
-      opacity: 0.4;
+      opacity: var(--checkbox-opacity-disabled);
     }
   }
 }
@@ -71,21 +71,21 @@
   clip: rect(0 0 0 0);
 
   &:focus + .checkbox-icon {
-    border-color: #000122;
+    border-color: var(--checkbox-border-color-focus);
   }
 
   &:focus-visible + .checkbox-icon {
-    border-color: #000122;
+    border-color: var(--checkbox-border-color-focus);
   }
 }
 
 .checkbox-icon {
-  border: 1px solid #a6a8b8;
+  border: 1px solid var(--checkbox-border-color);
   border-radius: 6px;
   width: 24px;
   min-width: 24px;
   height: 24px;
-  background-color: #f3f4f7;
+  background-color: var(--checkbox-background-color);
   transition:
     border-color 0.2s,
     box-shadow 0.2s;
@@ -98,7 +98,7 @@
 .checkbox-label {
   font-size: 16px;
   line-height: 24px;
-  color: #666666;
+  color: var(--checkbox-label-color);
 
   @include media.mobile {
     font-size: 14px;

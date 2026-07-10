@@ -45,7 +45,9 @@ const Breadcrumbs = ({ items }: IBreadcrumbs) => {
           }
         >
           {item.href ? (
-            <Link href={item.href}>{item.label}</Link>
+            <Link className={styles["breadcrumbs-item-link"]} href={item.href}>
+              {item.label}
+            </Link>
           ) : (
             <span className={styles["breadcrumbs-item-label"]}>
               {item.label}

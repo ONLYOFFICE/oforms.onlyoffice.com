@@ -50,8 +50,8 @@
   transition: color 0.2s;
 
   &[href]:hover {
-    h2 {
-      color: #32118a;
+    .main-section-heading {
+      color: var(--main-section-heading-link-color-hover);
     }
   }
 

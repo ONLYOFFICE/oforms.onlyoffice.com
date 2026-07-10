@@ -35,8 +35,8 @@
 
   &:focus-visible {
     + .switch-text {
-      background-color: #ccdbfb;
-      box-shadow: inset 0 0 4px 0 #709af1;
+      background-color: var(--switch-background-color-hover);
+      box-shadow: inset 0 0 4px 0 var(--switch-box-shadow-color-hover);
     }
   }
 }
@@ -48,7 +48,7 @@
   font-size: 14px;
   font-weight: 600;
   line-height: 21px;
-  color: #7a7d94;
+  color: var(--switch-text-color);
   background-color: transparent;
   transition:
     background-color 0.2s,
@@ -57,13 +57,13 @@
 
   &:not(.switch-checked) {
     &:hover {
-      background-color: #ccdbfb;
-      box-shadow: inset 0 0 4px 0 #709af1;
+      background-color: var(--switch-background-color-hover);
+      box-shadow: inset 0 0 4px 0 var(--switch-box-shadow-color-hover);
     }
   }
 }
 
 .switch-checked {
-  color: #143481;
-  background-color: #ccdbfb;
+  color: var(--switch-color-checked);
+  background-color: var(--switch-background-color-checked);
 }

@@ -74,12 +74,12 @@
 }
 
 .slider-item {
-  border: 1px solid #f3f3f7;
+  border: 1px solid var(--form-hero-slider-item-border-color);
   border-radius: 3px;
   padding: 15px;
   width: 100%;
-  background-color: #ffffff;
-  box-shadow: 0px 7px 15px 0px rgba(85, 85, 85, 0.1);
+  background-color: var(--form-hero-slider-item-background-color);
+  box-shadow: 0px 7px 15px 0px var(--form-hero-slider-item-box-shadow-color);
 
   @include media.mobile {
     border-radius: 2px;
@@ -129,17 +129,18 @@
     }
 
     &:hover {
-      box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 40px;
+      box-shadow: var(--form-hero-slider-button-box-shadow-color-hover) 0px 20px
+        40px;
 
       svg {
         path {
-          fill: #ff6f3d;
+          fill: var(--form-hero-slider-button-icon-color-hover);
         }
       }
     }
 
     &:disabled {
-      opacity: 0.4;
+      opacity: var(--form-hero-slider-button-opacity-disabled);
       pointer-events: none;
     }
   }

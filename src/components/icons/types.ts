@@ -29,4 +29,5 @@
 export interface IIcon {
   id?: string;
   className?: string;
+  fill?: string;
 }

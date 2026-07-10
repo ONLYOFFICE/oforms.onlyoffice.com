@@ -39,7 +39,7 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { Heading } from "@src/components/ui/Heading";
 import { Link } from "@src/components/ui/Link";
-import { getAssetUrl } from "@src/utils/getAssetUrl";
+import { SearchIcon, CrossIcon } from "@src/components/icons";
 import { POPULAR_SEARCH } from "./data/popular-search";
 import { ISearchInput } from "./SearchInput.types";
 import styles from "./SearchInput.module.scss";
@@ -205,15 +205,11 @@ const SearchInput = ({ formNames }: ISearchInput) => {
     POPULAR_SEARCH[locale as keyof typeof POPULAR_SEARCH] ?? POPULAR_SEARCH.en;
 
   return (
-    <div
-      ref={searchRef}
-      className={styles["search-input-wrapper"]}
-      style={
-        {
-          "--search-input-wrapper-background-image": `url(${getAssetUrl("/images/templates/main/search-input/search.svg")})`,
-        } as React.CSSProperties
-      }
-    >
+    <div ref={searchRef} className={styles["search-input-wrapper"]}>
+      <SearchIcon
+        className={styles["search-input-icon"]}
+        fill="var(--search-input-icon-color)"
+      />
       <input
         id="search-input"
         className={styles["search-input"]}
@@ -245,12 +241,9 @@ const SearchInput = ({ formNames }: ISearchInput) => {
                   className={styles["search-results-btn"]}
                   onClick={(e) => handleRemoveSearchHistoryItem(e, item)}
                   type="button"
-                  style={
-                    {
-                      "--search-results-btn-icon": `url(${getAssetUrl("/images/templates/main/search-input/cross.svg")})`,
-                    } as React.CSSProperties
-                  }
-                ></button>
+                >
+                  <CrossIcon fill="var(--search-results-btn-cross-icon-color)" />
+                </button>
               </div>
             ))}
             {popular.length > 0 && (

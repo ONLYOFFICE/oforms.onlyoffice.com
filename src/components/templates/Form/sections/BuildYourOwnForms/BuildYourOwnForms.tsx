@@ -42,7 +42,7 @@ const BuildYourOwnForms = () => {
 
   return (
     <Section
-      background="#000122"
+      background="var(--form-build-your-own-forms-section-background-color)"
       desktopSpacing={["112px", "112px"]}
       tabletSpacing={["88px", "88px"]}
       tabletSmallSpacing={["88px", "88px"]}
@@ -55,7 +55,7 @@ const BuildYourOwnForms = () => {
               className={styles["build-your-own-forms-heading"]}
               level={2}
               size={3}
-              color="#ffffff"
+              color="var(--form-build-your-own-forms-text-color)"
               style={
                 {
                   "--build-your-own-forms-heading-icon": `url(${getAssetUrl("/images/templates/form/build-your-own-forms/pdf.svg")})`,

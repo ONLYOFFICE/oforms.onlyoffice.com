@@ -31,6 +31,7 @@ import { appWithTranslation } from "next-i18next";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { isRtlLocale } from "@src/utils/rtl";
+import "@src/styles/tokens.css";
 import "@src/styles/global.css";
 
 function App({ Component, pageProps }: AppProps) {

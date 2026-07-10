@@ -34,8 +34,9 @@
   border-radius: 12px;
   padding: 32px;
   width: 100%;
-  background-color: #ffffff;
-  box-shadow: 0px 20px 50px 0px rgba(27, 68, 166, 0.15);
+  background-color: var(--form-submit-file-upload-modal-background-color);
+  box-shadow: 0px 20px 50px 0px
+    var(--form-submit-file-upload-modal-box-shadow-color);
 
   @include media.mobile {
     row-gap: 24px;
@@ -52,9 +53,11 @@
   justify-content: center;
   border-radius: 10px;
   padding: 16px;
-  color: #494b5b;
+  color: var(--form-submit-file-upload-modal-file-wrapper-color);
   background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='10' ry='10' stroke='%23a6a8b8' stroke-width='2' stroke-dasharray='10%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
-  background-color: #f9f9f9;
+  background-color: var(
+    --form-submit-file-upload-modal-file-wrapper-background-color
+  );
 }
 
 .file-upload-modal-file {
@@ -81,7 +84,7 @@
 .file-upload-modal-content {
   display: grid;
   row-gap: 24px;
-  color: #494b5b;
+  color: var(--form-submit-file-upload-modal-content-color);
 
   @include media.mobile {
     row-gap: 16px;

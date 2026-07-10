@@ -193,7 +193,7 @@ html {
   height: 100%;
   font-family: "Sora", sans-serif;
   font-weight: 400;
-  color: #494b5b;
+  color: var(--primary-color);
 }
 
 body {
@@ -204,7 +204,7 @@ body {
 }
 
 main {
-  background-color: #f9fbfe;
+  background-color: var(--primary-background-color);
 }
 
 button,

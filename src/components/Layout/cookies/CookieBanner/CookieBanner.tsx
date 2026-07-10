@@ -234,7 +234,7 @@ const CookieBanner = () => {
             className={styles["cookie-banner-text"]}
             as="p"
             size={5}
-            color="#494B5B"
+            color="var(--cookie-banner-text-color)"
             style={
               {
                 "--cookie-banner-text-icon": `url(${getAssetUrl("/images/layout/cookie/cookie.svg")})`,
@@ -247,7 +247,7 @@ const CookieBanner = () => {
               components={[
                 <Link
                   display="inline-flex"
-                  color="#3541F5"
+                  color="var(--cookie-banner-link-color)"
                   textUnderline
                   key={0}
                   href="https://help.onlyoffice.co/products/files/doceditor.aspx?fileid=5048502&doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0&_ga=2.239950403.1196593722.1525950411-169631771.1404734630"

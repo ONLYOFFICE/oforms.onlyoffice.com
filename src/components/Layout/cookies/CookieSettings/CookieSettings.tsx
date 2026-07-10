@@ -85,7 +85,7 @@ const CookieSettings = ({
       lockScroll={false}
     >
       <div id="cookie-settings" className={styles["cookie-settings"]}>
-        <Heading as="div" size={5} color="#333333">
+        <Heading as="div" size={5} color="var(--cookie-settings-heading-color)">
           {t("CookieSettings")}
         </Heading>
         <div className={styles["cookie-settings-checkboxes"]}>
@@ -97,10 +97,14 @@ const CookieSettings = ({
                   className={styles["cookie-settings-checkbox-heading"]}
                   as="div"
                   size={5}
+                  color="var(--cookie-settings-checkbox-heading-color)"
                 >
                   {t("Technical")}
                 </Heading>
-                <Text size={4} color="#494B5B">
+                <Text
+                  size={4}
+                  color="var(--cookie-settings-checkbox-description-color)"
+                >
                   {t("TechnicalDescription")}
                 </Text>
               </>
@@ -116,10 +120,14 @@ const CookieSettings = ({
                   className={styles["cookie-settings-checkbox-heading"]}
                   as="div"
                   size={5}
+                  color="var(--cookie-settings-checkbox-heading-color)"
                 >
                   {t("Analytical")}
                 </Heading>
-                <Text size={4} color="#494B5B">
+                <Text
+                  size={4}
+                  color="var(--cookie-settings-checkbox-description-color)"
+                >
                   {t("AnalyticalDescription")}
                 </Text>
               </>
@@ -134,10 +142,14 @@ const CookieSettings = ({
                   className={styles["cookie-settings-checkbox-heading"]}
                   as="div"
                   size={5}
+                  color="var(--cookie-settings-checkbox-heading-color)"
                 >
                   {t("Marketing")}
                 </Heading>
-                <Text size={4} color="#494B5B">
+                <Text
+                  size={4}
+                  color="var(--cookie-settings-checkbox-description-color)"
+                >
                   {t("MarketingDescription")}
                 </Text>
               </>

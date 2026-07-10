@@ -63,7 +63,7 @@ $text-transform: uppercase, lowercase, capitalize;
   transition: color 0.2s;
 
   &:hover {
-    color: #ff6f3d;
+    color: var(--link-color-hover);
   }
 }
 

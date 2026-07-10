@@ -61,7 +61,7 @@ const DownloadAs = ({ className, file_oform }: IDownloadAs) => {
         as="span"
         size={4}
         fontWeight={600}
-        color="#444444"
+        color="var(--form-hero-download-as-heading-color)"
         className={styles["download-as-heading"]}
       >
         {t("DownloadAs")}
