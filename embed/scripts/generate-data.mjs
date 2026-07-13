@@ -20,7 +20,10 @@ const CONFIG = require("../../src/config/config.json");
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const CMS = (process.env.EMBED_CMS_URL || CONFIG.api.cms).replace(/\/$/, "");
 const CMS_ORIGIN = new URL(CMS).origin;
-const locale = process.argv[2] || "en";
+const ALL_LOCALES = ["ar", "de", "en", "es", "fr", "it", "ja", "pt", "zh"];
+// Pass a locale to generate just one; default generates all 9.
+const arg = process.argv[2];
+const LOCALES = arg && arg !== "all" ? [arg] : ALL_LOCALES;
 
 // Matches src/utils/cmsLocale.ts
 const CMS_LOCALE_MAP = { pt: "pt-br", zh: "zh-CN" };
@@ -41,6 +44,11 @@ const buildUrl = (l, page) =>
     "fields[4]=createdAt",
     "populate[card_prewiew][fields][0]=url",
     "populate[form_exts][fields][0]=ext",
+    // The actual template files (opened in the desktop editor via openTemplate).
+    "populate[file_oform][fields][0]=name",
+    "populate[file_oform][fields][1]=url",
+    "populate[file_oform][fields][2]=size",
+    "populate[file_oform][fields][3]=ext",
     "populate[countries][fields][0]=name",
     "populate[countries][fields][1]=code",
     "populate[countries][fields][2]=createdAt",
@@ -67,15 +75,23 @@ const absolutizePreviews = (items) => {
   return items;
 };
 
-async function fetchPage(l, page) {
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+async function fetchPage(l, page, attempt = 1) {
   const url = buildUrl(l, page);
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Strapi ${res.status} for ${url}`);
-  return res.json();
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Strapi ${res.status} for ${url}`);
+    return await res.json();
+  } catch (err) {
+    if (attempt >= 4) throw err;
+    console.warn(`  retry ${attempt} (${l} p${page}): ${err.message ?? err}`);
+    await sleep(1500 * attempt);
+    return fetchPage(l, page, attempt + 1);
+  }
 }
 
-async function main() {
-  console.log(`Fetching catalog (locale: ${locale}) from ${CMS} …`);
+async function generateLocale(locale) {
   const first = await fetchPage(locale, 1);
   const pageCount = first.meta?.pagination?.pageCount ?? 1;
 
@@ -88,12 +104,22 @@ async function main() {
   }
 
   const output = { data: absolutizePreviews(data), meta: first.meta };
-
-  const outDir = join(__dirname, "..", "data");
+  // Hosted in the oforms project: public/embed-data is served by the site and
+  // fetched at runtime (EMBED_DATA_URL). English is also bundled into the JS.
+  const outDir = join(__dirname, "..", "..", "public", "embed-data");
   await mkdir(outDir, { recursive: true });
-  const outFile = join(outDir, `main.${locale}.json`);
-  await writeFile(outFile, JSON.stringify(output));
-  console.log(`✓ ${data.length} templates → data/main.${locale}.json`);
+  await writeFile(join(outDir, `main.${locale}.json`), JSON.stringify(output));
+  console.log(`✓ ${String(data.length).padStart(4)} templates → public/embed-data/main.${locale}.json`);
+}
+
+async function main() {
+  console.log(`Fetching catalog for [${LOCALES.join(", ")}] from ${CMS} …`);
+  for (const locale of LOCALES) {
+    await generateLocale(locale);
+  }
+  console.log(
+    "\nWritten to public/embed-data/ — all locales are bundled into the JS at build (npm run build).",
+  );
 }
 
 main().catch((err) => {

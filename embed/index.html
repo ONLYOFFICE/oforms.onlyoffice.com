@@ -6,8 +6,10 @@
     <title>ONLYOFFICE Forms</title>
   </head>
   <body>
-    <!-- Mount node. data-locale selects the language (currently "en"). -->
-    <div id="oforms-root" data-locale="en"></div>
+    <!-- Dev/demo: data-oforms-auto makes the script render here automatically.
+         The delivered bundle does NOT auto-render — the host calls
+         OformsEmbed.render(...) itself. -->
+    <div id="oforms-root" data-oforms-auto data-locale="ru-RU"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

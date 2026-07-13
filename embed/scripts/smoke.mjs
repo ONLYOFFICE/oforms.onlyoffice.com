@@ -77,6 +77,67 @@ try {
   after !== before
     ? pass(`filtered card count changed ${before} -> ${after}`)
     : console.log(`~ card count unchanged (${before}); may be expected depending on filter`);
+
+  // Public API: switch language. Use the count label (en "Documents" -> de
+  // "Dokumente") — a genuinely translated string.
+  await page.evaluate(() => window.OformsEmbed.setLocale("de"));
+  await page.waitForTimeout(800);
+  const deLocalized = await page.getByText("Dokumente", { exact: true }).count();
+  deLocalized > 0
+    ? pass('setLocale("de") localized UI (Dokumente)')
+    : fail('setLocale("de") did not localize the UI');
+
+  // Unsupported culture (ru-RU) must fall back to English, not blank.
+  await page.evaluate(() => window.OformsEmbed.setLocale("ru-RU"));
+  await page.waitForTimeout(600);
+  const ruFallback = await page.getByText("Documents", { exact: true }).count();
+  ruFallback > 0
+    ? pass("ru-RU fell back to English (Documents)")
+    : fail("ru-RU did not fall back to English");
+
+  // Language switcher control is present.
+  const switcher = await page.getByRole("button", { name: /English|Deutsch/ }).count();
+  switcher > 0 ? pass("language switcher present") : fail("no language switcher");
+
+  // Switching language must change the CATALOG DATA (not just UI labels):
+  // first card name should differ between English and Spanish.
+  const firstEn = (await page.locator("#oforms-root h3").first().textContent())?.trim();
+  await page.evaluate(() => window.OformsEmbed.setLocale("es"));
+  await page.waitForTimeout(700);
+  const firstEs = (await page.locator("#oforms-root h3").first().textContent())?.trim();
+  firstEn && firstEs && firstEn !== firstEs
+    ? pass(`es catalog data applied ("${firstEn}" -> "${firstEs}")`)
+    : fail(`es data not applied (still "${firstEs}")`);
+
+  // Card click -> info popup with a single "Use this template" button, no navigation.
+  const urlBefore = page.url();
+  await page.locator("#oforms-root a:has(h3)").first().click();
+  await page.waitForTimeout(400);
+  const editBtns = await page.getByRole("button", { name: "Use this template" }).count();
+  editBtns === 1
+    ? pass('card click opened popup with one "Use this template" button')
+    : fail(`expected 1 "Use this template" button, got ${editBtns}`);
+  const dialog = await page.getByRole("dialog").count();
+  dialog === 1 ? pass("popup dialog present") : fail(`expected 1 dialog, got ${dialog}`);
+  page.url() === urlBefore
+    ? pass("no navigation on card click")
+    : fail(`card click navigated away: ${page.url()}`);
+
+  // "Use this template" must call AscDesktopEditor.openTemplate(url, name).
+  await page.evaluate(() => {
+    window.__opened = null;
+    window.AscDesktopEditor = {
+      openTemplate: (url, name) => {
+        window.__opened = { url, name };
+      },
+    };
+  });
+  await page.getByRole("button", { name: "Use this template" }).first().click();
+  await page.waitForTimeout(200);
+  const opened = await page.evaluate(() => window.__opened);
+  opened && opened.url
+    ? pass(`openTemplate called: "${opened.name}" -> ${opened.url}`)
+    : fail("openTemplate was not called on button click");
 } catch (e) {
   fail(`exception: ${e}`);
 }

@@ -13,6 +13,9 @@
 /out/
 /static-build/
 
+# generated per-locale catalog data for the desktop embed (run `cd embed && npm run generate`)
+/public/embed-data/
+
 # jenkins
 /.jenkins/
 

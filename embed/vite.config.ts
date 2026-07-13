@@ -26,11 +26,17 @@ export default defineConfig({
     },
   },
 
-  // Inline the env reads our components make (getAssetUrl, ui/Link).
+  // Inline the env reads our components make (getAssetUrl, ui/Link) + embed config.
   define: {
     "process.env.NEXT_PUBLIC_STATIC_URL": JSON.stringify(STATIC_URL),
     "process.env.NEXT_PUBLIC_SITE_URL": JSON.stringify(SITE_URL),
     "process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN": JSON.stringify(SITE_URL),
+    // Revalidation endpoint on the oforms site (Next API route, 3-day cache).
+    // The embed shows its bundled snapshot instantly, then swaps in fresh data
+    // from here in the background. Empty to disable background refresh.
+    "process.env.EMBED_DATA_URL": JSON.stringify(
+      process.env.EMBED_DATA_URL || `${STATIC_URL}/api/embed-data`,
+    ),
     "process.env.NODE_ENV": JSON.stringify("production"),
   },
 

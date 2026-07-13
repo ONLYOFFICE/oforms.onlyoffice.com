@@ -22,6 +22,7 @@ const count = (css.match(/url\((['"]?)\/(fonts|images)\//g) || []).length;
 console.log(`postbuild: prefixed ${count} css asset url(s) with ${CDN}`);
 
 // Classic (non-module) script tag => works with no server, even from file://.
+// Demonstrates the real integration: load the script, then call render().
 const html = `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -31,8 +32,13 @@ const html = `<!DOCTYPE html>
     <link rel="stylesheet" href="oforms.css" />
   </head>
   <body>
-    <div id="oforms-root" data-locale="en"></div>
+    <div id="oforms-root"></div>
     <script src="oforms.js"></script>
+    <script>
+      // Host calls this when the container exists. Pass the desktop UI language
+      // (a culture code like "ru-RU"); unsupported languages fall back to English.
+      OformsEmbed.render("#oforms-root", { locale: "en" });
+    </script>
   </body>
 </html>
 `;

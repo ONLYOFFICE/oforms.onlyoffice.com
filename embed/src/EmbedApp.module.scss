@@ -1,0 +1,19 @@
+.embed {
+  position: relative;
+}
+
+// Language switcher floats top-right, over the catalog (the site had it in the
+// header). Adjust here if the desktop wants it elsewhere.
+.topbar {
+  position: absolute;
+  top: 20px;
+  inset-inline-end: 24px;
+  z-index: 30;
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    top: 12px;
+    inset-inline-end: 12px;
+  }
+}
