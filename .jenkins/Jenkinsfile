@@ -239,7 +239,8 @@ pipeline {
     }
     stage('invalidation') {
       when { 
-        anyOf { branch 'disabled_test_deploy'; 
+        anyOf { branch 'feature/redesign'; 
+                branch 'disabled_test_deploy'; 
                 branch 'disabled_production_deploy' }
       }
       environment {
