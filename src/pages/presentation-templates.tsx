@@ -61,7 +61,7 @@ const PresentationTemplatesPage = ({
       <Layout.Header>
         <Header locale={locale} />
       </Layout.Header>
-      <Layout.Main>
+      <Layout.Main background="var(--primary-background-color)">
         <ExtCategoryTemplate
           ext="pptx"
           allForms={allForms}

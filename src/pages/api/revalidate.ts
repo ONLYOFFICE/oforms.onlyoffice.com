@@ -104,6 +104,8 @@ export default async function handler(
     return res.status(401).json({ message: "Invalid token" });
   }
 
+  res.status(202).json({ message: "Revalidation started" });
+
   try {
     const locales = languages.map((language) => language.shortKey);
     const pathsByLocale = await Promise.all(locales.map(getLocalePaths));
@@ -113,13 +115,11 @@ export default async function handler(
       res.revalidate(path),
     );
 
-    return res.status(200).json({
-      revalidated: paths.length - failed.length,
-      total: paths.length,
-      failed,
-    });
+    if (failed.length > 0) {
+      console.error("[revalidate] failed to revalidate paths:", failed);
+    }
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    return res.status(500).json({ error: message });
+    console.error("[revalidate]", message);
   }
 }

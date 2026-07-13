@@ -55,11 +55,9 @@
     box-shadow 0.2s;
   cursor: pointer;
 
-  &:not(.switch-checked) {
-    &:hover {
-      background-color: var(--switch-background-color-hover);
-      box-shadow: inset 0 0 4px 0 var(--switch-box-shadow-color-hover);
-    }
+  &:hover {
+    background-color: var(--switch-background-color-hover);
+    box-shadow: inset 0 0 4px 0 var(--switch-box-shadow-color-hover);
   }
 }
 

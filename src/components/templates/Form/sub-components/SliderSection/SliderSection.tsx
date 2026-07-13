@@ -64,7 +64,7 @@ const SliderSection = ({ heading, data }: ISliderSection) => {
     if (swiperRef.current) {
       bindNavigation(swiperRef.current);
     }
-  });
+  }, []);
 
   const slides = data.filter(
     (item) =>

@@ -58,10 +58,8 @@
     box-shadow 0.2s;
   cursor: pointer;
 
-  &:not(.badge-wrapper-checked) {
-    &:hover {
-      box-shadow: inset 0 0 4px 0 var(--badge-wrapper-box-shadow-color-hover);
-    }
+  &:hover {
+    box-shadow: inset 0 0 4px 0 var(--badge-wrapper-box-shadow-color-hover);
   }
 
   &:hover {

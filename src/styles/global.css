@@ -203,10 +203,6 @@ body {
   min-height: 100%;
 }
 
-main {
-  background-color: var(--primary-background-color);
-}
-
 button,
 input,
 textarea {

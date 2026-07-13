@@ -309,8 +309,8 @@ const Sidebar = ({
               ),
             },
           ] as ISidebarItem[]
-        ).map((item, index) => (
-          <SidebarItem key={index} {...item} />
+        ).map((item) => (
+          <SidebarItem key={item.heading} {...item} />
         ))}
 
         {totalChecked > 0 && (

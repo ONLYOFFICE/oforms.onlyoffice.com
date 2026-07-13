@@ -51,7 +51,7 @@ const MainPage = ({ locale, allForms }: IMainTemplate & ILocale) => {
       <Layout.Header>
         <Header locale={locale} />
       </Layout.Header>
-      <Layout.Main>
+      <Layout.Main background="var(--primary-background-color)">
         <MainTemplate allForms={allForms} />
       </Layout.Main>
       <Layout.Footer>

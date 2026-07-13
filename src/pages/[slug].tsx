@@ -77,7 +77,7 @@ const SlugPage = (props: ISlugPage & ILocale) => {
         <Layout.Header>
           <Header locale={locale} />
         </Layout.Header>
-        <Layout.Main>
+        <Layout.Main background="var(--primary-background-color)">
           <CategoryTemplate
             categoryInfoWithForms={categoryInfoWithForms}
             allForms={allForms}
@@ -111,7 +111,7 @@ const SlugPage = (props: ISlugPage & ILocale) => {
       <Layout.Header>
         <Header locale={locale} />
       </Layout.Header>
-      <Layout.Main>
+      <Layout.Main background="var(--primary-background-color)">
         <FormTemplate form={form} categories={categories} />
       </Layout.Main>
       <Layout.Footer>
