@@ -33,8 +33,10 @@ import { getEmbedForms } from "@src/lib/requests/getEmbedForms";
 // once every 3 days (in-memory cache; the embed bundles a snapshot and swaps in
 // this fresher copy in the background). CORS-open so the embed can fetch it.
 const SUPPORTED = ["ar", "de", "en", "es", "fr", "it", "ja", "pt", "zh"];
-const TTL_MS = 3 * 24 * 60 * 60 * 1000; // 3 days
-const TTL_SEC = 3 * 24 * 60 * 60;
+// Cache lifetime. Defaults to 3 days; override with EMBED_DATA_TTL_SEC for
+// local testing (e.g. EMBED_DATA_TTL_SEC=1 to see revalidation on every reload).
+const TTL_SEC = Number(process.env.EMBED_DATA_TTL_SEC) || 3 * 24 * 60 * 60;
+const TTL_MS = TTL_SEC * 1000;
 
 interface CacheEntry {
   ts: number;

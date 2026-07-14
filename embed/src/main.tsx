@@ -123,6 +123,9 @@ async function mount(el: Element, culture?: string): Promise<void> {
   fetchFreshData(locale).then((fresh) => {
     if (fresh && instance && instance.el === el && instance.locale === locale) {
       renderApp(instance.root, locale, fresh);
+      console.info(
+        `[oforms-embed] catalog revalidated (${locale}, ${fresh.data?.length ?? 0} templates)`,
+      );
     }
   });
 }

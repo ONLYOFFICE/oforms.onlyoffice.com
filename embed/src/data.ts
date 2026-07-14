@@ -31,7 +31,7 @@ export async function fetchFreshData(locale: Locale): Promise<CatalogData | null
   if (!DATA_BASE) return null;
   if (freshCache[locale]) return freshCache[locale];
   try {
-    const res = await fetch(`${DATA_BASE}/${locale}`);
+    const res = await fetch(`${DATA_BASE}/main.${locale}.json`, { cache: "no-store" });
     if (!res.ok) return null;
     const data = await res.json();
     if (data && Array.isArray(data.data)) {
