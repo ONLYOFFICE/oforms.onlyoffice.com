@@ -47,9 +47,11 @@ const buildUrl = (locale: ILocale["locale"], page: number) => {
 
 const getAllFormUrls = async (
   locale: ILocale["locale"],
+  signal?: AbortSignal,
 ): Promise<IFormsData> => {
   const firstPageRes = await apiRequest(buildUrl(locale, 1), {
     label: "getAllFormUrls",
+    signal,
   });
   const firstPage: IFormsData = await firstPageRes.json();
 
@@ -61,6 +63,7 @@ const getAllFormUrls = async (
     Array.from({ length: pageCount - 1 }, async (_, i) => {
       const res = await apiRequest(buildUrl(locale, i + 2), {
         label: `getAllFormUrls (page ${i + 2})`,
+        signal,
       });
       return (await res.json()) as IFormsData;
     }),

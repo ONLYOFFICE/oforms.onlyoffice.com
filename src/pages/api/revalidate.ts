@@ -42,16 +42,18 @@ const STATIC_PAGES = [
 
 const REVALIDATE_CONCURRENCY = 20;
 
+let currentRevalidation: AbortController | null = null;
+
 const withLocale = (locale: string, path: string) => {
   if (locale === "en") return path;
 
   return path === "/" ? `/${locale}` : `/${locale}${path}`;
 };
 
-const getLocalePaths = async (locale: string) => {
+const getLocalePaths = async (locale: string, signal: AbortSignal) => {
   const [forms, categories] = await Promise.all([
-    getAllFormUrls(locale),
-    getCategoryUrls(locale),
+    getAllFormUrls(locale, signal),
+    getCategoryUrls(locale, signal),
   ]);
 
   const dynamicPaths = [
@@ -74,10 +76,13 @@ const getLocalePaths = async (locale: string) => {
 const revalidateInBatches = async (
   paths: string[],
   revalidate: (path: string) => Promise<void>,
+  signal: AbortSignal,
 ) => {
   const failed: string[] = [];
 
   for (let i = 0; i < paths.length; i += REVALIDATE_CONCURRENCY) {
+    if (signal.aborted) break;
+
     const batch = paths.slice(i, i + REVALIDATE_CONCURRENCY);
     const results = await Promise.allSettled(batch.map(revalidate));
 
@@ -106,20 +111,39 @@ export default async function handler(
 
   res.status(202).json({ message: "Revalidation started" });
 
+  currentRevalidation?.abort();
+
+  const controller = new AbortController();
+  currentRevalidation = controller;
+  const { signal } = controller;
+
   try {
     const locales = languages.map((language) => language.shortKey);
-    const pathsByLocale = await Promise.all(locales.map(getLocalePaths));
+    const pathsByLocale = await Promise.all(
+      locales.map((locale) => getLocalePaths(locale, signal)),
+    );
     const paths = [...new Set(pathsByLocale.flat())];
 
-    const failed = await revalidateInBatches(paths, (path) =>
-      res.revalidate(path),
+    const failed = await revalidateInBatches(
+      paths,
+      (path) => res.revalidate(path),
+      signal,
     );
 
     if (failed.length > 0) {
-      console.error("[revalidate] failed to revalidate paths:", failed);
+      console.error(
+        `[revalidate] failed to revalidate paths, failed: ${failed.length}, total: ${paths.length}`,
+        failed,
+      );
+    } else {
+      console.log("[revalidate] successfully revalidated");
     }
   } catch (error) {
+    if (signal.aborted) return;
+
     const message = error instanceof Error ? error.message : String(error);
     console.error("[revalidate]", message);
+  } finally {
+    if (currentRevalidation === controller) currentRevalidation = null;
   }
 }

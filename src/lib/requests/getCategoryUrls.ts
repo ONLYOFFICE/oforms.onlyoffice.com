@@ -34,6 +34,7 @@ import { cmsLocale } from "@src/utils/cmsLocale";
 
 const getCategoryUrls = async (
   locale: ILocale["locale"],
+  signal?: AbortSignal,
 ): Promise<ICategoriesData> => {
   const params = [`locale=${cmsLocale(locale)}`, "fields[0]=urlReq"]
     .filter(Boolean)
@@ -43,6 +44,7 @@ const getCategoryUrls = async (
     `${CONFIG.api.cms}/api/parent-categories?${params}`,
     {
       label: "getCategoryUrls",
+      signal,
     },
   );
 
