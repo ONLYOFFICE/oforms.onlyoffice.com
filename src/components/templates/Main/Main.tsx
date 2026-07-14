@@ -76,7 +76,11 @@ const CATEGORY_SECTIONS: string[] = [
   "sales-marketing",
 ];
 
-const MainTemplate = ({ allForms }: IMainTemplate) => {
+const MainTemplate = ({
+  allForms,
+  hideHeader,
+  sectionLinks = true,
+}: IMainTemplate) => {
   const { t } = useTranslation("MainTemplate");
   const router = useRouter();
 
@@ -126,6 +130,7 @@ const MainTemplate = ({ allForms }: IMainTemplate) => {
 
   return (
     <Main
+      hideHeader={hideHeader}
       docxForms={docxForms.length}
       xlsxForms={xlsxForms.length}
       pptxForms={pptxForms.length}
@@ -145,7 +150,7 @@ const MainTemplate = ({ allForms }: IMainTemplate) => {
           <MainSection
             key={section.category.id}
             label={section.category.name}
-            href={section.category.urlReq}
+            href={sectionLinks ? section.category.urlReq : undefined}
             data={section.data}
           />
         ))}
@@ -179,7 +184,7 @@ const MainTemplate = ({ allForms }: IMainTemplate) => {
               <MainSection
                 key={section.ext}
                 label={t(section.labelKey)}
-                href={section.href}
+                href={sectionLinks ? section.href : undefined}
                 data={data}
               />
             ))}

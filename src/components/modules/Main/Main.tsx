@@ -40,6 +40,7 @@ import styles from "./Main.module.scss";
 
 const Main = ({
   children,
+  hideHeader,
   docxForms,
   xlsxForms,
   pptxForms,
@@ -71,19 +72,21 @@ const Main = ({
       mobileSpacing={["64px", "112px"]}
     >
       <Container className={styles["main-container"]}>
-        <div className={styles["main-header"]}>
-          <Heading className={styles["main-header-heading"]} color="#231990">
-            {t("FreeDocumentTemplatesAndFillableForms")}
-          </Heading>
-          <Heading
-            className={styles["main-header-subheading"]}
-            level={2}
-            size={3}
-            color="#494b5b"
-          >
-            {t("DownloadReadyMadeTemplatesOrFillOutPdfFormsOnline")}
-          </Heading>
-        </div>
+        {!hideHeader && (
+          <div className={styles["main-header"]}>
+            <Heading className={styles["main-header-heading"]} color="#231990">
+              {t("FreeDocumentTemplatesAndFillableForms")}
+            </Heading>
+            <Heading
+              className={styles["main-header-subheading"]}
+              level={2}
+              size={3}
+              color="#494b5b"
+            >
+              {t("DownloadReadyMadeTemplatesOrFillOutPdfFormsOnline")}
+            </Heading>
+          </div>
+        )}
 
         <div className={styles["main-wrapper"]}>
           <Sidebar

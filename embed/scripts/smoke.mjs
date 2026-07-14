@@ -58,14 +58,41 @@ try {
   );
   pass("mount populated");
 
-  const heading = (await page.locator("#oforms-root h1").first().textContent())?.trim() || "";
-  heading ? pass(`H1: "${heading}"`) : fail("no H1 heading");
+  // Single-page build: no page heading, section titles are not links.
+  const h1s = await page.locator("#oforms-root h1").count();
+  h1s === 0 ? pass("no page heading (hideHeader)") : fail(`${h1s} h1 element(s) present`);
+  const linkedHeadings = await page.locator("#oforms-root a h2").count();
+  linkedHeadings === 0
+    ? pass("section headings are not links")
+    : fail(`${linkedHeadings} section heading(s) are still links`);
 
   const cards = await page.locator("#oforms-root a").count();
   cards > 0 ? pass(`${cards} card/links rendered`) : fail("no cards rendered");
 
   const checkboxes = await page.locator('#oforms-root input[type="checkbox"]').count();
   checkboxes > 0 ? pass(`${checkboxes} sidebar filter options`) : fail("no filter checkboxes");
+
+  // Bundled assets: UI icons must be data URIs, fonts must load from the CSS.
+  const iconStyle = await page.evaluate(() => {
+    const btn = [...document.querySelectorAll("#oforms-root button")].find((b) =>
+      (b.getAttribute("style") || "").includes("--main-filters-button-icon"),
+    );
+    return btn ? btn.getAttribute("style") || "" : "";
+  });
+  iconStyle.includes("data:image")
+    ? pass("filters icon bundled (data URI)")
+    : fail(`filters icon not inlined: "${iconStyle.slice(0, 80)}"`);
+  const fonts = await page.evaluate(async () => {
+    await document.fonts.ready;
+    const loaded = [...document.fonts].filter((f) => f.status === "loaded");
+    return {
+      sora: loaded.some((f) => /Sora/i.test(f.family)),
+      openSans: loaded.some((f) => /Open Sans/i.test(f.family)),
+    };
+  });
+  fonts.sora && fonts.openSans
+    ? pass("Sora + Open Sans loaded from bundled CSS")
+    : fail(`fonts not loaded: ${JSON.stringify(fonts)}`);
 
   // Click first filter → expect the URL query + rendered set to change.
   const before = cards;
@@ -98,6 +125,51 @@ try {
   // Language switcher control is present.
   const switcher = await page.getByRole("button", { name: /English|Deutsch/ }).count();
   switcher > 0 ? pass("language switcher present") : fail("no language switcher");
+
+  // Un-apply the docx filter so the search test runs on the full catalog.
+  await page.locator('#oforms-root input[type="checkbox"]').first().click({ force: true });
+  await page.waitForTimeout(400);
+
+  // Search: Enter applies an in-place catalog search (no navigation),
+  // clearing the input restores the catalog.
+  const urlPreSearch = page.url();
+  const cardsPreSearch = await page.locator("#oforms-root a:has(h3)").count();
+  await page.locator("#search-input").fill("invoice");
+  await page.locator("#search-input").press("Enter");
+  await page.waitForTimeout(500);
+  page.url() === urlPreSearch
+    ? pass("search Enter does not navigate")
+    : fail(`search Enter navigated to ${page.url()}`);
+  const cardsSearched = await page.locator("#oforms-root a:has(h3)").count();
+  cardsSearched > 0 && cardsSearched < cardsPreSearch
+    ? pass(`Enter filtered catalog in place: ${cardsPreSearch} -> ${cardsSearched} cards`)
+    : fail(`Enter did not filter catalog (${cardsPreSearch} -> ${cardsSearched})`);
+  await page.locator("#search-input").fill("");
+  await page.waitForTimeout(400);
+  const cardsRestored = await page.locator("#oforms-root a:has(h3)").count();
+  cardsRestored === cardsPreSearch
+    ? pass("clearing input restores catalog")
+    : fail(`catalog not restored (${cardsRestored} vs ${cardsPreSearch})`);
+  await page.mouse.click(5, 5); // dismiss the suggestions dropdown
+
+  // Popular-search click performs an in-place search (fills the input).
+  await page.locator("#search-input").click();
+  await page.waitForTimeout(300);
+  await page.evaluate(() => {
+    const drop = document.querySelector("#search-input")?.parentElement;
+    drop?.querySelector("a")?.click();
+  });
+  await page.waitForTimeout(400);
+  const inputVal = await page.locator("#search-input").inputValue();
+  const suggCount = await page.evaluate(() => {
+    const drop = document.querySelector("#search-input")?.parentElement;
+    return drop ? drop.querySelectorAll("a").length : 0;
+  });
+  inputVal && page.url().startsWith("http://localhost")
+    ? pass(`popular search fills input in place: "${inputVal}" (${suggCount} suggestions)`)
+    : fail("popular search click did nothing or navigated");
+  await page.locator("#search-input").fill("");
+  await page.mouse.click(5, 5);
 
   // Switching language must change the CATALOG DATA (not just UI labels):
   // first card name should differ between English and Spanish.

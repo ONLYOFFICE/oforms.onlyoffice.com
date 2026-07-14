@@ -35,6 +35,13 @@ Clicking a template card opens a **popup** with the template info and a single
 opens the template in the desktop editor (`AscDesktopEditor.openTemplate`); pass
 `onEdit` to override, and `editLabel` to change the button text.
 
+**Single-page build:** the site's page heading (H1 + subtitle) is hidden, section
+titles are plain text (no links to category/type pages), and there is no
+search-results page: suggestion clicks open the template popup, while **Enter and
+popular-search / history clicks filter the catalog in place** (clearing the input
+restores it). Driven by `hideHeader` / `sectionLinks={false}` props on the shared
+`MainTemplate` (site behavior unchanged).
+
 ### API (`window.OformsEmbed`)
 
 | Method | Description |

@@ -109,8 +109,11 @@ export function useRouter() {
 
   const navigate = useCallback(
     (url: Url) => {
-      // String url => a real route (search results, a template). Go to the site.
+      // String url => a real route (search results, a template).
       if (typeof url === "string") {
+        // The embed is a single page: there is no search-results page, so the
+        // search input's Enter-navigation is ignored (suggestions still work).
+        if (url.startsWith("/searchresult")) return Promise.resolve(true);
         if (typeof window !== "undefined") window.location.assign(absolutize(url));
         return Promise.resolve(true);
       }

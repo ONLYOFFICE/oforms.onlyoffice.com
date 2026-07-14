@@ -30,4 +30,9 @@ import { IFormsData } from "@src/types/data";
 
 export interface IMainTemplate {
   allForms: IFormsData;
+  /** Hide the page heading block (used by the desktop embed build). */
+  hideHeader?: boolean;
+  /** Render section headings as links to category/type pages (default true).
+   *  The desktop embed passes false — it is a single page, no category pages. */
+  sectionLinks?: boolean;
 }

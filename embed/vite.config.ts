@@ -15,6 +15,9 @@ export default defineConfig({
 
   resolve: {
     alias: {
+      // Must come before the generic "@src" alias: catalog icons are bundled
+      // into the JS as data URIs (see the shim).
+      "@src/utils/getAssetUrl": r("./shims/get-asset-url.ts"),
       // Reuse the real app source.
       "@src": r("../src"),
       // Next.js shims — let the real components run outside Next.
@@ -55,7 +58,9 @@ export default defineConfig({
     outDir: "dist",
     emptyOutDir: true,
     cssCodeSplit: false, // one CSS file
-    assetsInlineLimit: 0,
+    // Icons imported by the getAssetUrl shim (<16 KB each) become data URIs,
+    // keeping the deliverable to exactly two files.
+    assetsInlineLimit: 16384,
     // Classic IIFE bundle (not an ES module) so the two files work with NO
     // server — openable from file://, or embedded straight into the app.
     lib: {
