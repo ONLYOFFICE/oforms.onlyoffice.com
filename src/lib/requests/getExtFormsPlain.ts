@@ -26,19 +26,53 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { IFormData } from "../../Form.types";
-import { IFormsData } from "@src/types/data";
+import CONFIG from "@src/config/config.json";
+import { apiRequest } from "@src/lib/api/apiRequest";
+import { ILocale } from "@src/types/locale";
+import { cmsLocale } from "@src/utils/cmsLocale";
 
-export interface IRecentlyViewedForm {
-  id: IFormData["data"][0]["id"];
-  name_form: IFormData["data"][0]["name_form"];
-  description_card: IFormData["data"][0]["description_card"];
-  url: IFormData["data"][0]["url"];
-  card_prewiew: IFormData["data"][0]["card_prewiew"]["url"];
-  form_exts: IFormData["data"][0]["form_exts"][0]["ext"];
-}
+const buildUrl = (locale: ILocale["locale"], page: number) => {
+  const params = [
+    `locale=${cmsLocale(locale)}`,
+    `pagination[page]=${page}`,
+    "pagination[pageSize]=1000",
+    "fields[0]=name_form",
+    "fields[1]=description_card",
+    "fields[2]=url",
+    "populate[card_prewiew][fields][0]=url",
+    "populate[form_exts][fields][0]=ext",
+  ]
+    .filter(Boolean)
+    .join("&");
 
-export interface IRecentlyViewed {
-  id: IFormData["data"][0]["id"];
-  allForms: IFormsData;
-}
+  return `${CONFIG.api.cms}/api/oforms?${params}`;
+};
+
+const getExtFormsPlain = async (locale: ILocale["locale"]) => {
+  const firstPageRes = await apiRequest(buildUrl(locale, 1), {
+    label: "getExtFormsPlain",
+  });
+  const firstPage = await firstPageRes.json();
+
+  const pageCount = firstPage.meta.pagination?.pageCount ?? 1;
+
+  if (pageCount <= 1) return firstPage;
+
+  const restPages = await Promise.all(
+    Array.from({ length: pageCount - 1 }, async (_, i) => {
+      const res = await apiRequest(buildUrl(locale, i + 2), {
+        label: `getExtFormsPlain (page ${i + 2})`,
+      });
+      return await res.json();
+    }),
+  );
+
+  const data = restPages.reduce(
+    (acc, page) => acc.concat(page.data),
+    [...firstPage.data],
+  );
+
+  return { data, meta: firstPage.meta };
+};
+
+export { getExtFormsPlain };
