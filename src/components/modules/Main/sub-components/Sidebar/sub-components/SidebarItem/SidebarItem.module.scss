@@ -96,6 +96,7 @@
   font-size: 18px;
   font-weight: 600;
   line-height: 26px;
+  unicode-bidi: isolate;
 
   &:not(:last-child) {
     margin-inline-end: 12px;
@@ -124,6 +125,7 @@
   min-width: 24px;
   height: 24px;
   background-color: var(--sidebar-item-header-count-background-color);
+  unicode-bidi: isolate;
 }
 
 .sidebar-item-header-icon {

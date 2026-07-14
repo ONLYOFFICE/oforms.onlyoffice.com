@@ -60,7 +60,10 @@ const Hero = ({
   page_screens,
   linkEditor,
 }: IHero) => {
-  const { t } = useTranslation("form");
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation("form");
   const [isOpen, setIsOpen] = useState(false);
   const { name, size, updatedAt, url } = file_oform?.[0] ?? {};
   const pdfFile = file_oform?.filter(
@@ -127,7 +130,7 @@ const Hero = ({
                     size={5}
                     className={styles["hero-info-value"]}
                   >
-                    {dayjs(updatedAt).format("D MMMM YYYY")}
+                    {dayjs(updatedAt).locale(language).format("D MMMM YYYY")}
                   </Text>
                 </div>
 
@@ -159,6 +162,7 @@ const Hero = ({
                       as="span"
                       size={5}
                       className={styles["hero-info-value"]}
+                      dir="ltr"
                     >
                       {size < 1024
                         ? `${size.toFixed(0)} kb`

@@ -423,7 +423,11 @@ const FormSubmitTemplate = ({
               >
                 {t("UploadingYourTemplate")}
               </Heading>
-              <Text as="p" size={2} color="var(--form-submit-description-color)">
+              <Text
+                as="p"
+                size={2}
+                color="var(--form-submit-description-color)"
+              >
                 {t("PleaseFillOutAllTheFieldsBeforeSendingTheTemplate")}
               </Text>
             </div>
@@ -470,7 +474,13 @@ const FormSubmitTemplate = ({
                   <Trans
                     t={t}
                     i18nKey="TemplateCategory"
-                    components={[<Text key={0} as="span" color="var(--form-submit-category-label-color)" />]}
+                    components={[
+                      <Text
+                        key={0}
+                        as="span"
+                        color="var(--form-submit-category-label-color)"
+                      />,
+                    ]}
                   />
                 }
                 label={t("EnterCategoryOrChoose")}
@@ -533,7 +543,12 @@ const FormSubmitTemplate = ({
                     {t("FileSize")}
                   </Text>
                   {fileInfo?.fileSize != null && (
-                    <Text as="span" size={5} color="var(--form-submit-info-value-color)">
+                    <Text
+                      as="span"
+                      size={5}
+                      color="var(--form-submit-info-value-color)"
+                      dir="ltr"
+                    >
                       {formatFileSize(fileInfo.fileSize)}
                     </Text>
                   )}
@@ -548,7 +563,11 @@ const FormSubmitTemplate = ({
                     {t("Pages")}
                   </Text>
                   {fileInfo?.pageCount != null && (
-                    <Text as="span" size={5} color="var(--form-submit-info-value-color)">
+                    <Text
+                      as="span"
+                      size={5}
+                      color="var(--form-submit-info-value-color)"
+                    >
                       {fileInfo.pageCount}
                     </Text>
                   )}

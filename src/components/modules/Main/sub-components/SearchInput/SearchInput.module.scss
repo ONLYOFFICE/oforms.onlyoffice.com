@@ -107,9 +107,7 @@
 .search-results-item {
   position: relative;
   display: flex;
-  transition:
-    color 0.2s,
-    background-color 0.2s;
+  transition: background-color 0.2s;
 
   a {
     padding-top: 8px;
@@ -121,11 +119,15 @@
     line-height: 20px;
     color: var(--search-input-results-item-color);
     width: 100%;
+    transition: color 0.2s;
   }
 
   &:hover {
-    color: var(--search-input-results-item-color-hover);
     background-color: var(--search-input-results-item-background-color-hover);
+
+    a {
+      color: var(--search-input-results-item-color-hover);
+    }
   }
 }
 

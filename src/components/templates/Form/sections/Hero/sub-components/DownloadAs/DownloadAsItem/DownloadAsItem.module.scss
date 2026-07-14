@@ -87,7 +87,6 @@
   box-sizing: border-box;
   border-radius: 5px;
   margin: 0 10px;
-  padding: 6px 8px;
   font-size: 13px;
   line-height: 16px;
   color: var(--form-hero-download-as-item-tooltip-text-color);
@@ -96,6 +95,10 @@
     --form-hero-download-as-item-tooltip-text-background-color
   );
   z-index: 10;
+
+  :global(.react-tooltip-content-wrapper) {
+    padding: 6px 8px;
+  }
 }
 
 .react-tooltip-arrow {

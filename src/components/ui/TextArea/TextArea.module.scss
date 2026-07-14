@@ -47,7 +47,7 @@
 .textarea-label {
   position: absolute;
   top: 50%;
-  left: 16px;
+  inset-inline-start: 16px;
   font-size: 16px;
   line-height: 24px;
   color: var(--textarea-label-color);
@@ -64,6 +64,7 @@
 }
 
 .textarea-field {
+  display: block;
   border: 1px solid var(--textarea-border-color);
   border-radius: 12px;
   padding: 16px;

@@ -79,6 +79,7 @@
 .badge-label {
   color: var(--badge-label-color);
   transition: color 0.2s;
+  unicode-bidi: isolate;
 
   &:not(:last-child) {
     margin-inline-end: 6px;
@@ -92,6 +93,7 @@
 .badge-count {
   color: var(--badge-count-color);
   transition: color 0.2s;
+  unicode-bidi: isolate;
 }
 
 .badge-count-checked {
