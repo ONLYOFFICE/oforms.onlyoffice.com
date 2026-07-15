@@ -130,7 +130,14 @@ const Hero = ({
                     size={5}
                     className={styles["hero-info-value"]}
                   >
-                    {dayjs(updatedAt).locale(language).format("D MMMM YYYY")}
+                    {dayjs(updatedAt)
+                      .locale(language)
+                      .format(
+                        {
+                          ja: "YYYY年MM月DD日",
+                          zh: "YYYY年MM月DD日",
+                        }[language] ?? "D MMMM YYYY",
+                      )}
                   </Text>
                 </div>
 

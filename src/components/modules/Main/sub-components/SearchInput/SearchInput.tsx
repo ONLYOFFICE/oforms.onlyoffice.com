@@ -28,7 +28,6 @@
 
 import {
   useEffect,
-  useMemo,
   useRef,
   useState,
   type ChangeEvent,
@@ -116,17 +115,11 @@ const SearchInput = ({ formNames }: ISearchInput) => {
         ? "cv"
         : query
       : query;
-  const searchValue = useMemo(
-    () =>
-      hasQuery
-        ? (formNames ?? [])
-            .filter((form) =>
-              form.name_form.toLocaleLowerCase().includes(searchName),
-            )
-            .slice(0, 5)
-        : [],
-    [formNames, searchName, hasQuery],
-  );
+  const searchValue = hasQuery
+    ? (formNames ?? [])
+        .filter((form) => form.name_form.toLocaleLowerCase().includes(searchName))
+        .slice(0, 5)
+    : [];
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchItem(e.target.value);

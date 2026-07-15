@@ -26,7 +26,7 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useTranslation, Trans } from "next-i18next";
 import { useRouter } from "next/router";
 import clsx from "clsx";
@@ -246,23 +246,15 @@ const FormSubmitTemplate = ({
     setErrors((prev) => ({ ...prev, language: "" }));
   };
 
-  const categoryOptions = useMemo(
-    () =>
-      categoriesData.map((category) => ({
-        value: category.categorie,
-        label: category.categorie,
-      })),
-    [categoriesData],
-  );
+  const categoryOptions = categoriesData.map((category) => ({
+    value: category.categorie,
+    label: category.categorie,
+  }));
 
-  const languageOptions = useMemo(
-    () =>
-      LANGUAGE_DATA.map((item) => ({
-        value: item.key,
-        label: t(item.title),
-      })),
-    [t],
-  );
+  const languageOptions = LANGUAGE_DATA.map((item) => ({
+    value: item.key,
+    label: t(item.title),
+  }));
 
   const isFormValid =
     fileInfo !== null &&
