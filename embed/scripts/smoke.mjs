@@ -122,6 +122,22 @@ try {
     ? pass("ru-RU fell back to English (Documents)")
     : fail("ru-RU did not fall back to English");
 
+  // Desktop bridge: global on_native_message with the REAL payload shape
+  // (Desktop Editors 9.3 sends locale as an object with .current).
+  await page.evaluate(() =>
+    window.on_native_message(
+      "settings:init",
+      JSON.stringify({ locale: { current: "de-DE", langs: {} }, version: "9.3.1.8" }),
+    ),
+  );
+  await page.waitForTimeout(800);
+  const nativeDe = await page.getByText("Dokumente", { exact: true }).count();
+  nativeDe > 0
+    ? pass("native settings:init (locale.current) switched locale")
+    : fail("native settings:init did not switch locale");
+  await page.evaluate(() => window.OformsEmbed.setLocale("en"));
+  await page.waitForTimeout(600);
+
   // Language switcher control is present.
   const switcher = await page.getByRole("button", { name: /English|Deutsch/ }).count();
   switcher > 0 ? pass("language switcher present") : fail("no language switcher");

@@ -168,33 +168,66 @@ function applyDesktopLocale(culture: string) {
   else pendingLocale = culture;
 }
 
-/** Extract the current locale from a "settings:init" native message payload. */
+/** Extract the current locale from a native message. The desktop's
+ *  "settings:init" carries `{ locale: { current: "en-US", langs: {...} } }`
+ *  (observed on Desktop Editors 9.3); string shapes are kept as a fallback.
+ *  "settings:lang" is also accepted in case it carries the new locale. */
 function localeFromSettings(command: unknown, param: unknown): string | null {
-  if (command !== "settings:init") return null;
+  if (command !== "settings:init" && command !== "settings:lang") return null;
   try {
+    if (typeof param === "string" && !param.trim().startsWith("{")) {
+      // Non-JSON payload (e.g. settings:lang "restart:false") — take a culture
+      // code if one is present, otherwise ignore.
+      const m = /([a-z]{2,3}(?:-[A-Za-z]{2,4})+)/.exec(param);
+      return m ? m[1] : null;
+    }
     const data =
       typeof param === "string" ? JSON.parse(param) : (param as Record<string, unknown>);
-    const loc =
+    const raw =
       data?.locale ?? data?.lang ?? data?.language ?? data?.culture ?? data?.lng;
-    return loc ? String(loc) : null;
+    if (raw && typeof raw === "object") {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const current = (raw as any).current ?? (raw as any).value;
+      return current ? String(current) : null;
+    }
+    return raw ? String(raw) : null;
   } catch {
     return null;
   }
 }
 
-/** Subscribe to the ONLYOFFICE Desktop native bridge to follow its UI language. */
+/** Subscribe to the ONLYOFFICE Desktop native bridge to follow its UI language.
+ *  Desktop builds deliver native messages in one of two ways: via
+ *  attachEvent("on_native_message") or by calling a global
+ *  window.on_native_message(cmd, param) — hook both. */
 function subscribeDesktopLocale() {
+  const handle = (command: unknown, param: unknown) => {
+    console.debug("[oforms-embed] native message:", command, param);
+    const loc = localeFromSettings(command, param);
+    if (loc) applyDesktopLocale(loc);
+  };
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const editor = (window as any).AscDesktopEditor;
     if (editor && typeof editor.attachEvent === "function") {
-      editor.attachEvent("on_native_message", (command: unknown, param: unknown) => {
-        const loc = localeFromSettings(command, param);
-        if (loc) applyDesktopLocale(loc);
-      });
+      editor.attachEvent("on_native_message", handle);
     }
   } catch (e) {
     console.warn("[oforms-embed] could not subscribe to desktop messages", e);
+  }
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const w = window as any;
+    const prev = w.on_native_message;
+    w.on_native_message = function (command: unknown, param: unknown) {
+      handle(command, param);
+      if (typeof prev === "function") {
+        // eslint-disable-next-line prefer-rest-params
+        return prev.apply(this, arguments);
+      }
+    };
+  } catch (e) {
+    console.warn("[oforms-embed] could not install global on_native_message", e);
   }
 }
 

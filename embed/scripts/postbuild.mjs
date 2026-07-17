@@ -124,12 +124,17 @@ const sim = `<!DOCTYPE html>
         window.desktopSim.nativeListeners.push({ event: event, cb: cb });
       },
     };
-    // Emulate the desktop changing its UI language:
+    // Emulate the desktop changing its UI language (real payload shape from
+    // Desktop Editors 9.3: global window.on_native_message + locale.current):
     //   desktopSim.setLanguage("de-DE")
     window.desktopSim.setLanguage = function (locale) {
+      var payload = JSON.stringify({ locale: { current: locale, langs: {} } });
+      if (typeof window.on_native_message === "function") {
+        window.on_native_message("settings:init", payload);
+      }
       window.desktopSim.nativeListeners
         .filter(function (l) { return l.event === "on_native_message"; })
-        .forEach(function (l) { l.cb("settings:init", JSON.stringify({ locale: locale })); });
+        .forEach(function (l) { l.cb("settings:init", payload); });
     };
     console.info('[desktop-sim] ready. Try: desktopSim.setLanguage("de-DE")');
   </script>
