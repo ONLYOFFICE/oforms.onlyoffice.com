@@ -59,10 +59,11 @@ restores it). Driven by `hideHeader` / `sectionLinks={false}` props on the share
   bundled into the JS, so switching shows that language's templates instantly,
   with no network.
 - **Freshness:** the bundled data is a build-time snapshot, but on load the embed
-  fetches a fresher copy in the background from the oforms site
-  (`GET <site>/api/embed-data/<locale>`, cached 3 days) and swaps it in. So new
-  CMS templates appear within ~3 days without rebuilding/redelivering the files.
-  If the fetch fails (offline), the bundled snapshot stays. See `EMBED_DATA_URL`.
+  fetches a fresher copy in the background from a static JSON file on the oforms
+  site (`GET <EMBED_DATA_URL>/main.<locale>.json`, served from this repo's
+  `public/embed-data/`) and swaps it in. Update the file by running
+  `npm run generate` and redeploying the site — no embed rebuild needed. If the
+  fetch fails (offline), the bundled snapshot stays. See `EMBED_DATA_URL`.
 - There is also a **language switcher** (globe, top-right) inside the embed.
 - **Follows the desktop automatically**: on load it subscribes to the desktop
   bridge `AscDesktopEditor.attachEvent("on_native_message", …)` and, on the
@@ -71,8 +72,23 @@ restores it). Driven by `hideHeader` / `sectionLinks={false}` props on the share
 
 ## Build
 
+`embed/` reuses components straight from `../src`, which in turn need the
+**root** project's dependencies (react, clsx, dayjs, …) — Vite resolves them by
+walking up to the root `node_modules`, the same way Node does. So building embed
+needs BOTH the root's and embed's own `node_modules` installed.
+
+From the repo root, one command installs both:
+
 ```bash
-npm install              # once
+npm run install:all      # = npm install && npm install --prefix embed
+```
+
+(Equivalent to running `npm install` at the repo root, then `npm install` again
+inside `embed/` — two separate `node_modules` / lockfiles, one command.)
+
+Then, from `embed/`:
+
+```bash
 npm run generate         # fetch all 9 locales -> ../public/embed-data/main.<locale>.json
 npm run build            # bundle everything -> dist/oforms.js + dist/oforms.css + dist/index.html
 npm run smoke            # optional: headless render / filter / locale-switch check
@@ -88,7 +104,7 @@ fresh clone). Nothing is fetched at runtime for the catalog.
 | --- | --- | --- |
 | `EMBED_SITE_URL` | `https://oforms.onlyoffice.com` | Where card / search links point |
 | `EMBED_STATIC_URL` | `https://oforms.onlyoffice.com` | Where fonts / icons / previews load from |
-| `EMBED_DATA_URL` | `<EMBED_STATIC_URL>/api/embed-data` | Revalidation endpoint for background refresh (empty to disable) |
+| `EMBED_DATA_URL` | `<EMBED_STATIC_URL>/embed-data` | Base URL for the static per-locale JSON, used for background refresh (empty to disable) |
 | `EMBED_CMS_URL` | value from `src/config/config.json` | CMS the generator reads |
 
 ## How it works (Next → standalone)
