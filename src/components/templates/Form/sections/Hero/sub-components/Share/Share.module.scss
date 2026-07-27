@@ -35,39 +35,25 @@
 
 .share-heading {
   margin-inline-end: 24px;
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: 0.05em;
+  font-size: 13px;
+  line-height: 18px;
   color: var(--form-hero-share-heading-color);
   text-transform: uppercase;
 
-  @include media.tablet {
-    margin-inline-end: 16px;
-  }
-
   @include media.mobile {
-    margin-inline-end: 12px;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 1px;
   }
 }
 
 .share-list {
   display: flex;
-  margin: 0;
-  padding: 0;
-  list-style: none;
 }
 
 .share-item {
   &:not(:last-child) {
     margin-inline-end: 12px;
-
-    @include media.tablet {
-      margin-inline-end: 6px;
-    }
-
-    @include media.mobile {
-      margin-inline-end: 4px;
-    }
   }
 }
 
@@ -75,10 +61,18 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid var(--form-hero-share-button-border-color) !important;
-  border-radius: 12px !important;
+  border-radius: 8px !important;
   width: 40px;
   height: 40px;
+  background-color: var(--form-hero-share-button-background-color) !important;
+  mix-blend-mode: luminosity;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: var(
+      --form-hero-share-button-background-color-hover
+    ) !important;
+  }
 }
 
 .share-button-icon {

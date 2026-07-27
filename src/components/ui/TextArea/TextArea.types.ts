@@ -36,9 +36,11 @@ export interface ITextArea {
   name?: string;
   autoComplete?: string;
   maxLength?: number;
+  showCounter?: boolean;
   cols?: number;
   rows?: number;
   required?: boolean;
+  requiredMark?: boolean;
   disabled?: boolean;
   status?: "default" | "error";
   error?: string;

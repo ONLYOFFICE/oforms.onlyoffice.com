@@ -41,8 +41,8 @@ const Error404Page = () => {
       <Layout.Head>
         <Head title={t("PageTitle")} description={t("PageDescription")} />
       </Layout.Head>
-      <Layout.Main>
-        <ErrorTemplate heading={t("ErrorHeading")} text={t("ErrorText")} />
+      <Layout.Main background="var(--primary-background-color)">
+        <ErrorTemplate />
       </Layout.Main>
     </Layout>
   );

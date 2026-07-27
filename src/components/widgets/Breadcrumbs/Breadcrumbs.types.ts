@@ -32,5 +32,6 @@ export interface IBreadcrumbsItem {
 }
 
 export interface IBreadcrumbs {
+  className?: string;
   items: IBreadcrumbsItem[];
 }

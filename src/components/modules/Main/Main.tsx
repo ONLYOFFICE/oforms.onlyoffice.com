@@ -28,6 +28,7 @@
 
 import { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
+import clsx from "clsx";
 import { Heading } from "@src/components/ui/Heading";
 import { Sidebar } from "./sub-components/Sidebar";
 import { Section } from "@src/components/ui/Section";
@@ -50,6 +51,7 @@ const Main = ({
   totalCount,
   selectedType,
   formNames,
+  searchOnly,
 }: IMain) => {
   const { t } = useTranslation("MainTemplate");
   const [isOpen, setIsOpen] = useState(false);
@@ -66,8 +68,8 @@ const Main = ({
       className={styles["main-content"]}
       desktopSpacing={["84px", "112px"]}
       tabletSpacing={["64px", "112px"]}
-      tabletSmallSpacing={["64px", "112px"]}
-      mobileSpacing={["64px", "112px"]}
+      tabletSmallSpacing={["48px", "112px"]}
+      mobileSpacing={["48px", "112px"]}
     >
       <Container className={styles["main-container"]}>
         <div className={styles["main-header"]}>
@@ -102,29 +104,43 @@ const Main = ({
           />
 
           <div>
-            <div className={styles["main-top"]}>
-              <div className={styles["main-top-wrapper"]}>
-                <div className={styles["main-top-content"]}>
-                  <SortSelector />
-                  <div className={styles["main-count"]}>
-                    <span className={styles["main-count-label"]}>
-                      {t("Documents")}
-                    </span>
-                    <span className={styles["main-count-value"]}>
-                      {totalCount}
-                    </span>
+            <div
+              className={clsx(
+                styles["main-top"],
+                searchOnly && styles["main-top-search-only"],
+              )}
+            >
+              {!searchOnly && (
+                <div className={styles["main-top-wrapper"]}>
+                  <div className={styles["main-top-content"]}>
+                    <SortSelector className={styles["main-sort-selector"]} />
+                    <div className={styles["main-count"]}>
+                      <span className={styles["main-count-label"]}>
+                        {t("Documents")}
+                      </span>
+                      <span className={styles["main-count-value"]}>
+                        {totalCount}
+                      </span>
+                    </div>
                   </div>
+
+                  <button
+                    onClick={() => setIsOpen(true)}
+                    className={styles["main-filters-button"]}
+                    type="button"
+                  >
+                    <FiltersIcon fill="var(--main-filters-button-icon-color)" />
+                  </button>
                 </div>
+              )}
 
-                <button
-                  onClick={() => setIsOpen(true)}
-                  className={styles["main-filters-button"]}
-                >
-                  <FiltersIcon fill="var(--main-filters-button-icon-color)" />
-                </button>
-              </div>
-
-              <SearchInput formNames={formNames} />
+              <SearchInput
+                className={clsx(
+                  styles["main-search-input"],
+                  searchOnly && styles["main-search-input-search-only"],
+                )}
+                formNames={formNames}
+              />
             </div>
 
             {children}

@@ -27,15 +27,15 @@
  */
 
 export const FOLDER_NAME = "oforms_upload";
-export const MAX_UPLOAD_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
+export const MAX_UPLOAD_FILE_SIZE = 50 * 1024 * 1024; // 50 MB
 
 export const DEFAULT_ACCEPT = ".pdf, .docx, .pptx, .xlsx";
-export const ALLOWED_FORMATS = [
-  "application/pdf",
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-  "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-];
+export const EXTENSION_MIME_TYPES: Record<string, string> = {
+  pdf: "application/pdf",
+  docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+  xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+};
 
 export const generateKey = () => {
   let key = "";

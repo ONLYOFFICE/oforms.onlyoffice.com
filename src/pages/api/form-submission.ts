@@ -29,19 +29,21 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import fs from "fs";
 import formidable from "formidable";
-import {
-  S3Client,
-  PutObjectCommand,
-  DeleteObjectCommand,
-} from "@aws-sdk/client-s3";
-import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import CONFIG from "@src/config/config.json";
 import { cmsLocale } from "@src/utils/cmsLocale";
 import { ILocale } from "@src/types/locale";
-import { FOLDER_NAME, generateKey } from "@src/utils/formSubmit";
-import { apiRequest } from "@src/lib/api/apiRequest";
+import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { validateHCaptcha } from "@src/lib/validateHCaptcha";
+import {
+  MAX_UPLOAD_FILE_SIZE,
+  sanitizeFileName,
+  EXTENSION_MIME_TYPES,
+} from "@src/utils/formSubmit";
+import {
+  NAME_MAX_LENGTH,
+  DESCRIPTION_MAX_LENGTH,
+} from "@src/components/templates/FormSubmit/FormSubmit.constants";
 
 export const config = {
   api: {
@@ -49,119 +51,17 @@ export const config = {
   },
 };
 
-const CONTENT_TYPES: Record<string, string> = {
-  xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-  docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-  pdf: "application/pdf",
-};
+const toStringValue = (value: unknown): string =>
+  typeof value === "string" ? value.trim() : "";
 
-const getFieldValue = (value: string | string[] | undefined): string =>
-  Array.isArray(value) ? (value[0] ?? "") : (value ?? "");
-
-const getRelationIds = (value: string | string[] | undefined): string[] =>
-  getFieldValue(value)
-    .split(",")
-    .map((id) => id.trim())
-    .filter((id) => id.length > 0);
-
-const getClientIp = (req: NextApiRequest): string | null => {
-  const forwarded = req.headers["x-forwarded-for"];
-  if (typeof forwarded === "string") return forwarded.split(",")[0].trim();
-  if (Array.isArray(forwarded)) return forwarded[0] ?? null;
-  return req.socket.remoteAddress ?? null;
-};
-
-interface IConvertPreviewArgs {
-  editorApiUrl: string;
-  secret: string;
-  payload: {
-    filetype?: string;
-    outputtype: string;
-    title: string;
-    url: string;
-    key: string;
-    thumbnail?: {
-      aspect: number;
-      first: boolean;
-      height: number;
-      width: number;
-    };
-  };
-  label: string;
-}
-
-const convertPreview = async ({
-  editorApiUrl,
-  secret,
-  payload,
-  label,
-}: IConvertPreviewArgs): Promise<string> => {
-  const response = await apiRequest(`${editorApiUrl}/ConvertService.ashx`, {
-    label,
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      AuthorizationJwt: `Bearer ${jwt.sign(payload, secret)}`,
-    },
-    body: JSON.stringify(payload),
-  });
-  const data = await response.json();
-
-  if (data?.error) {
-    throw new Error(`${label} failed: docservice error ${data.error}`);
-  }
-  if (!data?.fileUrl) {
-    throw new Error(`${label} failed: conversion not ready`);
-  }
-
-  return data.fileUrl as string;
-};
-
-interface IUploadMediaArgs {
-  uploadApiUrl: string;
-  token: string;
-  sourceUrl: string;
-  filename: string;
-  contentType?: string;
-  refId: number;
-  field: string;
-  label: string;
-}
-
-const uploadMedia = async ({
-  uploadApiUrl,
-  token,
-  sourceUrl,
-  filename,
-  contentType,
-  refId,
-  field,
-  label,
-}: IUploadMediaArgs): Promise<void> => {
-  const assetResponse = await apiRequest(sourceUrl, {
-    label: `${label} download`,
-  });
-  const blob = new Blob([await assetResponse.arrayBuffer()], {
-    type: contentType,
-  });
-
-  const formData = new FormData();
-  formData.append("files", blob, filename);
-  formData.append("ref", "api::oform.oform");
-  formData.append("refId", String(refId));
-  formData.append("field", field);
-
-  await apiRequest(uploadApiUrl, {
-    label: `${label} upload`,
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    body: formData,
-  });
-};
+const toIdList = (value: unknown): string[] =>
+  Array.isArray(value)
+    ? value.filter(
+        (item): item is string => typeof item === "string" && item.length > 0,
+      )
+    : typeof value === "string" && value.length > 0
+      ? [value]
+      : [];
 
 export default async function handler(
   req: NextApiRequest,
@@ -173,12 +73,6 @@ export default async function handler(
   }
 
   const {
-    REGION,
-    ACCESS_KEY_ID,
-    SECRET_ACCESS_KEY,
-    BUCKET,
-    FILES_DOCSERVICE_SECRET,
-    EDITOR_API_URL,
     STRAPI_API_TOKEN,
     EMAIL_HOST,
     EMAIL_PORT,
@@ -187,21 +81,13 @@ export default async function handler(
     EMAIL_ACCOUNT_1,
     EMAIL_ACCOUNT_2,
   } = process.env;
-
-  if (
-    !REGION ||
-    !ACCESS_KEY_ID ||
-    !SECRET_ACCESS_KEY ||
-    !BUCKET ||
-    !FILES_DOCSERVICE_SECRET ||
-    !EDITOR_API_URL ||
-    !STRAPI_API_TOKEN
-  ) {
+  if (!STRAPI_API_TOKEN) {
     return res.status(500).json({ error: "Server configuration error" });
   }
 
   const form = formidable({
     maxFiles: 1,
+    maxFileSize: MAX_UPLOAD_FILE_SIZE,
   });
 
   let fields: formidable.Fields;
@@ -213,227 +99,150 @@ export default async function handler(
   }
 
   const file = files.file?.[0];
-  if (!file) {
-    return res.status(400).json({ error: "No file uploaded" });
-  }
-
-  const captcha = await validateHCaptcha(
-    getFieldValue(fields.captchaToken),
-    getClientIp(req),
-  );
-  if (!captcha.success) {
-    await fs.promises.unlink(file.filepath).catch(() => undefined);
-    console.error("[form-submission] captcha:", captcha.error);
-    return res.status(403).json({ error: "captcha" });
-  }
-
-  const nameForm = getFieldValue(fields.name);
-  const locale = cmsLocale(
-    getFieldValue(fields.languageKey) as ILocale["locale"],
-  );
 
   try {
-    const existingResponse = await apiRequest(
-      `${CONFIG.api.cmsUpload}/api/oforms?filters[name_form][$eq]=${encodeURIComponent(nameForm)}&locale=${locale}&status=draft`,
+    const name = toStringValue(fields.name?.[0]);
+    const description = toStringValue(fields.description?.[0]);
+    const countries = toIdList(fields.countries);
+    const subcategories = toIdList(fields.subcategories);
+    const captchaToken = toStringValue(fields.captchaToken?.[0]);
+    const locale = cmsLocale(
+      toStringValue(fields.languageKey?.[0]) as ILocale["locale"],
+    );
+
+    if (!captchaToken) {
+      return res
+        .status(400)
+        .json({ error: "Captcha verification is required" });
+    }
+
+    const ip =
+      (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() ||
+      req.socket.remoteAddress ||
+      null;
+
+    const captcha = await validateHCaptcha(captchaToken, ip);
+
+    if (!captcha.success) {
+      return res.status(400).json({ error: "Captcha verification failed" });
+    }
+
+    if (!name) {
+      return res.status(400).json({ error: "Template name is required" });
+    }
+    if (name.length > NAME_MAX_LENGTH) {
+      return res.status(400).json({
+        error: `Template name must be at most ${NAME_MAX_LENGTH} characters`,
+      });
+    }
+    if (!description) {
+      return res
+        .status(400)
+        .json({ error: "Template description is required" });
+    }
+    if (description.length > DESCRIPTION_MAX_LENGTH) {
+      return res.status(400).json({
+        error: `Template description must be at most ${DESCRIPTION_MAX_LENGTH} characters`,
+      });
+    }
+    if (countries.length === 0) {
+      return res
+        .status(400)
+        .json({ error: "At least one country is required" });
+    }
+    if (subcategories.length === 0) {
+      return res
+        .status(400)
+        .json({ error: "At least one subcategory is required" });
+    }
+
+    if (!file) {
+      return res.status(400).json({ error: "Template file is required" });
+    }
+
+    const fileType = file.originalFilename
+      ?.match(/\.(\w+)$/)?.[1]
+      ?.toLowerCase();
+
+    if (
+      !fileType ||
+      !ALLOWED_TYPES.includes(fileType as (typeof ALLOWED_TYPES)[number]) ||
+      file.mimetype !== EXTENSION_MIME_TYPES[fileType]
+    ) {
+      return res.status(415).json({
+        error: "Invalid file format! The uploaded file is not valid.",
+      });
+    }
+
+    const createResponse = await fetch(
+      `${CONFIG.api.cmsUpload}/api/oforms?status=draft`,
       {
-        label: "Check duplicate name_form",
+        method: "POST",
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${STRAPI_API_TOKEN}`,
         },
+        body: JSON.stringify({
+          data: {
+            name_form: name,
+            template_desc: description,
+            countries: { connect: countries },
+            subcategories: { connect: subcategories },
+            locale,
+          },
+        }),
       },
     );
-    const existing = await existingResponse.json();
 
-    if (existing?.data?.length > 0) {
-      await fs.promises.unlink(file.filepath).catch(() => undefined);
-      return res.status(409).json({ error: "name_form" });
-    }
-  } catch (error) {
-    await fs.promises.unlink(file.filepath).catch(() => undefined);
-    console.error("[form-submission] duplicate check:", error);
-    return res.status(500).json({ error: "Duplicate check failed" });
-  }
+    const created = await createResponse.json();
 
-  const templateImage = getFieldValue(fields.templateImage);
-  const fileOrientation = getFieldValue(fields.fileOrientation);
-
-  const fileName = file.originalFilename ?? "";
-  const fileType = fileName.match(/\.(\w+)$/)?.[1]?.toLowerCase();
-  const fileNameSubstring = fileName.replace(/\.(\w+)$/, "");
-  const uniqueFileName = `${FOLDER_NAME}/${Date.now()}_${fileName}`;
-  const s3Url = `https://${BUCKET}/${uniqueFileName}`;
-
-  try {
-    await apiRequest(templateImage, { label: "Template preview check" });
-  } catch {
-    await fs.promises.unlink(file.filepath).catch(() => undefined);
-    return res.json({ error: "card_prewiew" });
-  }
-
-  const s3 = new S3Client({
-    region: REGION,
-    credentials: {
-      accessKeyId: ACCESS_KEY_ID,
-      secretAccessKey: SECRET_ACCESS_KEY,
-    },
-  });
-
-  let uploadedToS3 = false;
-
-  try {
-    await s3.send(
-      new PutObjectCommand({
-        Bucket: BUCKET,
-        Key: uniqueFileName,
-        Body: fs.createReadStream(file.filepath),
-      }),
-    );
-    uploadedToS3 = true;
-
-    const isVertical = fileOrientation === "vertical";
-    const previewBase = {
-      filetype: fileType,
-      outputtype: "png",
-      title: uniqueFileName,
-      url: s3Url,
-    };
-
-    const [cardPreviewUrl, cardDesktopPreviewUrl, desktopPreviewUrl] =
-      await Promise.all([
-        convertPreview({
-          editorApiUrl: EDITOR_API_URL,
-          secret: FILES_DOCSERVICE_SECRET,
-          label: "Card preview conversion",
-          payload: {
-            ...previewBase,
-            key: generateKey(),
-            thumbnail: {
-              aspect: 0,
-              first: true,
-              height: isVertical ? 916 : 648,
-              width: isVertical ? 648 : 916,
-            },
-          },
-        }),
-        convertPreview({
-          editorApiUrl: EDITOR_API_URL,
-          secret: FILES_DOCSERVICE_SECRET,
-          label: "Card desktop preview conversion",
-          payload: {
-            ...previewBase,
-            key: generateKey(),
-            thumbnail: {
-              aspect: 0,
-              first: true,
-              height: isVertical ? 260 : 184,
-              width: isVertical ? 184 : 260,
-            },
-          },
-        }),
-        convertPreview({
-          editorApiUrl: EDITOR_API_URL,
-          secret: FILES_DOCSERVICE_SECRET,
-          label: "Desktop preview conversion",
-          payload: {
-            ...previewBase,
-            key: generateKey(),
-            thumbnail: {
-              aspect: 0,
-              first: true,
-              height: isVertical ? 566 : 400,
-              width: isVertical ? 400 : 566,
-            },
-          },
-        }),
-      ]);
-
-    let entryId: number | undefined;
-    try {
-      const createResponse = await apiRequest(
-        `${CONFIG.api.cmsUpload}/api/oforms?status=draft`,
-        {
-          label: "Create oform",
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${STRAPI_API_TOKEN}`,
-          },
-          body: JSON.stringify({
-            data: {
-              name_form: nameForm,
-              template_desc: getFieldValue(fields.description),
-              categories: { connect: getRelationIds(fields.categoryId) },
-              locale,
-              form_exts: { connect: getRelationIds(fields.formExt) },
-            },
-          }),
-        },
+    if (!createResponse.ok) {
+      console.error(
+        "[form-submission] strapi error:",
+        createResponse.status,
+        JSON.stringify(created, null, 2),
       );
-      const created = await createResponse.json();
-      entryId = created?.data?.id;
-
-      if (!entryId) {
-        throw new Error("Create oform failed: missing entry id in response");
-      }
-    } catch (error) {
-      console.error("[form-submission] create entry:", error);
-      return res.json({ error: "name_form" });
+      throw new Error(
+        `Create template failed: ${createResponse.status} ${JSON.stringify(created?.error ?? created)}`,
+      );
     }
 
-    const uploadApiUrl = `${CONFIG.api.cmsUpload}/api/upload`;
+    const entryId = created?.data?.id;
 
-    await Promise.all([
-      uploadMedia({
-        uploadApiUrl,
-        token: STRAPI_API_TOKEN,
-        sourceUrl: templateImage,
-        filename: `${fileNameSubstring}.png`,
-        contentType: "image/png",
-        refId: entryId,
-        field: "card_prewiew",
-        label: "Template preview",
+    if (!entryId) {
+      throw new Error("Create template failed: missing entry id in response");
+    }
+
+    const uploadData = new FormData();
+    const fileBuffer = await fs.promises.readFile(file.filepath);
+    uploadData.append(
+      "files",
+      new Blob([fileBuffer], {
+        type: file.mimetype ?? "application/octet-stream",
       }),
-      uploadMedia({
-        uploadApiUrl,
-        token: STRAPI_API_TOKEN,
-        sourceUrl: cardPreviewUrl,
-        filename: `${fileNameSubstring}.png`,
-        contentType: "image/png",
-        refId: entryId,
-        field: "template_image",
-        label: "Card preview",
-      }),
-      uploadMedia({
-        uploadApiUrl,
-        token: STRAPI_API_TOKEN,
-        sourceUrl: cardDesktopPreviewUrl,
-        filename: `${fileNameSubstring}.png`,
-        contentType: "image/png",
-        refId: entryId,
-        field: "card_desktop_preview",
-        label: "Card desktop preview",
-      }),
-      uploadMedia({
-        uploadApiUrl,
-        token: STRAPI_API_TOKEN,
-        sourceUrl: desktopPreviewUrl,
-        filename: `${fileNameSubstring}.png`,
-        contentType: "image/png",
-        refId: entryId,
-        field: "desktop_preview",
-        label: "Desktop preview",
-      }),
-      uploadMedia({
-        uploadApiUrl,
-        token: STRAPI_API_TOKEN,
-        sourceUrl: s3Url,
-        filename: `${fileNameSubstring}.${fileType}`,
-        contentType: fileType ? CONTENT_TYPES[fileType] : undefined,
-        refId: entryId,
-        field: "file_oform",
-        label: "Source file",
-      }),
-    ]);
+      sanitizeFileName(file.originalFilename),
+    );
+    uploadData.append("ref", "api::oform.oform");
+    uploadData.append("refId", String(entryId));
+    uploadData.append("field", "file_oform");
+
+    const uploadResponse = await fetch(`${CONFIG.api.cmsUpload}/api/upload`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${STRAPI_API_TOKEN}`,
+      },
+      body: uploadData,
+    });
+
+    if (!uploadResponse.ok) {
+      const uploadError = await uploadResponse.json().catch(() => null);
+      console.error(
+        "[form-submission] file upload error:",
+        uploadResponse.status,
+        JSON.stringify(uploadError, null, 2),
+      );
+      throw new Error(`Template file upload failed: ${uploadResponse.status}`);
+    }
 
     if (EMAIL_HOST && EMAIL_AUTH_USER) {
       try {
@@ -457,19 +266,14 @@ export default async function handler(
       }
     }
 
-    return res.status(200).end();
+    return res.status(201).json({ success: true });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     console.error("[form-submission]", message);
     return res.status(500).json({ error: message });
   } finally {
-    await Promise.allSettled([
-      fs.promises.unlink(file.filepath),
-      uploadedToS3
-        ? s3.send(
-            new DeleteObjectCommand({ Bucket: BUCKET, Key: uniqueFileName }),
-          )
-        : Promise.resolve(),
-    ]);
+    if (file) {
+      await fs.promises.unlink(file.filepath).catch(() => undefined);
+    }
   }
 }

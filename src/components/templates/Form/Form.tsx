@@ -62,6 +62,7 @@ const FormTemplate = ({ form, allForms, categories }: IFormTemplate) => {
     editableFile && extension
       ? `editor?lang=${locale}&filename=${url}&fillform=${editableFile.hash}.${extension}`
       : "";
+  const suggestChangesLink = `mailto:marketing@onlyoffice.com?subject=${t("SuggestingChangesLink", { name: name_form })}&body=${t("SuggestingChangesLink", { name: name_form })}.`;
 
   return (
     <div className={styles["form-template"]}>
@@ -80,12 +81,13 @@ const FormTemplate = ({ form, allForms, categories }: IFormTemplate) => {
         file_oform={file_oform}
         page_screens={page_screens}
         linkEditor={linkEditor}
+        suggestChangesLink={suggestChangesLink}
       />
       <HowToCreate name_form={name_form} linkEditor={linkEditor} />
       <RecentlyViewed allForms={allForms} id={form.data[0].id} />
       <ExploreOtherTemplate />
       <PopularCategories categories={categories} />
-      <BuildYourOwnForms />
+      <BuildYourOwnForms suggestChangesLink={suggestChangesLink} />
     </div>
   );
 };

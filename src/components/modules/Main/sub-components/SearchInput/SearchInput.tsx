@@ -34,11 +34,12 @@ import {
   type KeyboardEvent,
   type MouseEvent,
 } from "react";
+import clsx from "clsx";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { Heading } from "@src/components/ui/Heading";
 import { Link } from "@src/components/ui/Link";
-import { SearchIcon, CrossIcon } from "@src/components/icons";
+import { SearchIcon, CrossCircleIcon, CrossIcon } from "@src/components/icons";
 import { POPULAR_SEARCH } from "./data/popular-search";
 import { ISearchInput } from "./SearchInput.types";
 import styles from "./SearchInput.module.scss";
@@ -96,14 +97,26 @@ const Highlight = ({
   );
 };
 
-const SearchInput = ({ formNames }: ISearchInput) => {
+const SearchInput = ({ className, formNames }: ISearchInput) => {
   const { t } = useTranslation("SearchInput");
   const router = useRouter();
   const locale = router.locale ?? "en";
   const searchRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [searchItem, setSearchItem] = useState("");
   const [searchResult, setSearchResult] = useState(false);
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (router.pathname !== "/searchresult") return;
+
+    const { query: queryParam } = router.query;
+    const value = Array.isArray(queryParam) ? queryParam[0] : queryParam;
+
+    if (typeof value === "string") {
+      setSearchItem(value);
+    }
+  }, [router.pathname, router.query]);
 
   const query = searchItem.trim().toLocaleLowerCase();
   const hasQuery = query.length > 0;
@@ -117,13 +130,21 @@ const SearchInput = ({ formNames }: ISearchInput) => {
       : query;
   const searchValue = hasQuery
     ? (formNames ?? [])
-        .filter((form) => form.name_form.toLocaleLowerCase().includes(searchName))
+        .filter((form) =>
+          form.name_form.toLocaleLowerCase().includes(searchName),
+        )
         .slice(0, 5)
     : [];
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchItem(e.target.value);
     setSearchResult(true);
+  };
+
+  const handleClear = () => {
+    setSearchItem("");
+    setSearchResult(true);
+    inputRef.current?.focus();
   };
 
   useEffect(() => {
@@ -198,14 +219,21 @@ const SearchInput = ({ formNames }: ISearchInput) => {
     POPULAR_SEARCH[locale as keyof typeof POPULAR_SEARCH] ?? POPULAR_SEARCH.en;
 
   return (
-    <div ref={searchRef} className={styles["search-input-wrapper"]}>
+    <div
+      ref={searchRef}
+      className={clsx(styles["search-input-wrapper"], className)}
+    >
       <SearchIcon
         className={styles["search-input-icon"]}
         fill="var(--search-input-icon-color)"
       />
       <input
+        ref={inputRef}
         id="search-input"
-        className={styles["search-input"]}
+        className={clsx(styles["search-input"], {
+          [styles["search-input-active"]]: searchResult,
+          [styles["search-input-with-value"]]: hasQuery,
+        })}
         placeholder={t("SearchTemplates")}
         value={searchItem}
         name="search"
@@ -214,6 +242,15 @@ const SearchInput = ({ formNames }: ISearchInput) => {
         onClick={() => setSearchResult(true)}
         onKeyDown={keyDownHandler}
       />
+      {hasQuery && (
+        <button
+          className={styles["search-input-clear"]}
+          onClick={handleClear}
+          type="button"
+        >
+          <CrossIcon fill="var(--search-input-cross-icon-color)" />
+        </button>
+      )}
       {searchResult &&
         (!hasQuery ? (
           <div className={styles["search-results"]}>
@@ -222,57 +259,68 @@ const SearchInput = ({ formNames }: ISearchInput) => {
                 {t("History")}
               </Heading>
             )}
-            {searchHistory?.map((item) => (
-              <div className={styles["search-results-item"]} key={item}>
-                <Link
-                  href={buildSearchHref(item)}
-                  onClick={() => setSearchResult(false)}
-                >
-                  {item}
-                </Link>
-                <button
-                  className={styles["search-results-btn"]}
-                  onClick={(e) => handleRemoveSearchHistoryItem(e, item)}
-                  type="button"
-                >
-                  <CrossIcon fill="var(--search-results-btn-cross-icon-color)" />
-                </button>
-              </div>
-            ))}
+            <ul>
+              {searchHistory?.map((item) => (
+                <li className={styles["search-results-item"]} key={item}>
+                  <Link
+                    href={buildSearchHref(item)}
+                    onClick={() => setSearchResult(false)}
+                  >
+                    {item}
+                  </Link>
+                  <button
+                    className={styles["search-results-btn"]}
+                    onClick={(e) => handleRemoveSearchHistoryItem(e, item)}
+                    type="button"
+                  >
+                    <CrossCircleIcon fill="var(--search-results-btn-cross-icon-color)" />
+                  </button>
+                </li>
+              ))}
+            </ul>
             {popular.length > 0 && (
               <>
                 <Heading as="div" className={styles["search-results-label"]}>
                   {t("PopularSearch")}
                 </Heading>
-                {popular.map((item, index) => (
-                  <Link
-                    className={styles["search-results-popular-item"]}
-                    onClick={() => setSearchResult(false)}
-                    href={buildSearchHref(item)}
-                    key={index}
-                  >
-                    {item}
-                  </Link>
-                ))}
+                <ul>
+                  {popular.map((item, index) => (
+                    <li key={index}>
+                      <Link
+                        className={styles["search-results-link"]}
+                        onClick={() => setSearchResult(false)}
+                        href={buildSearchHref(item)}
+                      >
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </>
             )}
           </div>
         ) : (
           <div className={styles["search-results"]}>
             {searchValue.length > 0 ? (
-              searchValue.map((item) => (
-                <Link
-                  className={styles["search-results-popular-item"]}
-                  onClick={() => {
-                    updateSearchHistory(item.name_form);
-                    setSearchResult(false);
-                  }}
-                  href={item.url}
-                  key={item.id}
-                >
-                  <Highlight searchQuery={searchItem} text={item.name_form} />
-                </Link>
-              ))
+              <ul>
+                {searchValue.map((item) => (
+                  <li key={item.id}>
+                    <Link
+                      className={styles["search-results-link"]}
+                      onClick={() => {
+                        updateSearchHistory(item.name_form);
+                        setSearchResult(false);
+                      }}
+                      href={item.url}
+                    >
+                      <Highlight
+                        searchQuery={searchItem}
+                        text={item.name_form}
+                      />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             ) : (
               <div className={styles["search-results-no-results"]}>
                 {t("NoMoreResults")}

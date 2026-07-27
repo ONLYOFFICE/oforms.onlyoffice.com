@@ -2,5 +2,18 @@
   "PageTitle": "Rechercher des formulaires et modèles PDF | ONLYOFFICE",
   "PageDescription": "Modèles gratuits et formulaires PDF à remplir pour tout type d'entreprise",
   "SearchResultsFor": "Résultats de la recherche pour '{{searchQuery}}'",
-  "NoResultsMatchingYourQueryCouldBeFound": "Aucun résultat correspondant à votre requête n'a pu être trouvé"
+  "NoResultsFound": "No results found",
+  "WeCouldntFindAnythingMatchingYourSearch": "We couldn't find anything matching your search.",
+  "TryAdjustingYourKeywords": "Try adjusting your keywords, checking the spelling, or browsing available categories.",
+  "Suggestions": "Suggestions",
+  "CheckTheSpelling": "Check the spelling",
+  "DidYouMeanSuggestion": "Did you mean \"{{suggestion}}\"?",
+  "TryDifferentKeywords": "Try different keywords",
+  "UseSynonymsOrShorterTerms": "Use synonyms or shorter terms.",
+  "BrowseCategories": "Browse categories",
+  "ExploreTemplatesByTopicBelow": "Explore templates by topic below.",
+  "RemoveActiveFilters": "Remove active filters",
+  "ClearFiltersToBroadenTheSearch": "Clear filters to broaden the search.",
+  "PopularTemplates": "Popular Templates",
+  "BrowseAllTemplates": "Browse All Templates"
 }

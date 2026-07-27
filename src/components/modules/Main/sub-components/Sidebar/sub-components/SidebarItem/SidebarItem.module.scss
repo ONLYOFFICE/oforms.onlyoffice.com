@@ -30,18 +30,18 @@
 
 .sidebar-item {
   &:not(:last-child) {
-    margin-bottom: 24px;
     border-bottom: 1px solid var(--sidebar-item-border-color);
-    padding-bottom: 23px;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
 
     @include media.tablet {
       margin-bottom: 16px;
-      padding-bottom: 15px;
+      padding-bottom: 16px;
     }
 
     @include media.mobile {
       margin-bottom: 12px;
-      padding-bottom: 11px;
+      padding-bottom: 12px;
     }
   }
 }
@@ -57,6 +57,11 @@
 
   @include media.tablet {
     padding-inline-start: 12px;
+    padding-inline-end: initial;
+  }
+
+  @include media.mobile {
+    padding-inline-start: 8px;
   }
 }
 
@@ -96,6 +101,7 @@
   font-size: 18px;
   font-weight: 600;
   line-height: 26px;
+  color: var(--sidebar-item-header-heading-color);
   unicode-bidi: isolate;
 
   &:not(:last-child) {
@@ -104,8 +110,8 @@
 }
 
 .sidebar-item-header-heading-sub {
-  font-size: 14px;
-  line-height: 21px;
+  font-size: 13px;
+  line-height: 24px;
   letter-spacing: 0.03em;
   color: var(--sidebar-item-header-heading-sub-color);
   text-transform: uppercase;

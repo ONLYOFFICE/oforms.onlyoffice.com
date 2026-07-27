@@ -2,5 +2,18 @@
   "PageTitle": "Pesquise formulários e modelos PDF | ONLYOFFICE",
   "PageDescription": "Modelos gratuitos e formulários PDF preenchíveis para qualquer finalidade comercial",
   "SearchResultsFor": "Resultados da pesquisa para '{{searchQuery}}'",
-  "NoResultsMatchingYourQueryCouldBeFound": "Nenhum resultado correspondente à sua consulta foi encontrado"
+  "NoResultsFound": "No results found",
+  "WeCouldntFindAnythingMatchingYourSearch": "We couldn't find anything matching your search.",
+  "TryAdjustingYourKeywords": "Try adjusting your keywords, checking the spelling, or browsing available categories.",
+  "Suggestions": "Suggestions",
+  "CheckTheSpelling": "Check the spelling",
+  "DidYouMeanSuggestion": "Did you mean \"{{suggestion}}\"?",
+  "TryDifferentKeywords": "Try different keywords",
+  "UseSynonymsOrShorterTerms": "Use synonyms or shorter terms.",
+  "BrowseCategories": "Browse categories",
+  "ExploreTemplatesByTopicBelow": "Explore templates by topic below.",
+  "RemoveActiveFilters": "Remove active filters",
+  "ClearFiltersToBroadenTheSearch": "Clear filters to broaden the search.",
+  "PopularTemplates": "Popular Templates",
+  "BrowseAllTemplates": "Browse All Templates"
 }

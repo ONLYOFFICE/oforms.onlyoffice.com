@@ -27,6 +27,7 @@
  */
 
 export interface ISearchInput {
+  className?: string;
   formNames: {
     id: number;
     name_form: string;

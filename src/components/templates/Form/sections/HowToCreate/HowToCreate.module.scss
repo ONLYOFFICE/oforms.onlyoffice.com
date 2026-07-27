@@ -101,20 +101,34 @@
   counter-reset: counter;
 
   li {
+    position: relative;
     counter-increment: counter;
-    padding: 8px 0;
+    padding: 8px 0 8px 21px;
 
     &:before {
+      position: absolute;
+      top: 7px;
+      inset-inline-start: 0;
       content: counter(counter) ". ";
       display: inline-flex;
       justify-content: center;
       align-items: center;
       margin-inline-end: 8px;
+      font-size: 18px;
       font-weight: 600;
+      line-height: 24px;
+      color: var(--form-how-to-create-list-count-color);
       min-width: 15px;
 
       @include media.tablet {
+        top: 0;
         margin-inline-end: 6px;
+      }
+
+      @include media.mobile {
+        margin-inline-end: 4px;
+        font-size: 16px;
+        line-height: 20px;
       }
     }
 
@@ -124,10 +138,18 @@
       @include media.tablet {
         margin-bottom: 6px;
       }
+
+      @include media.mobile {
+        margin-bottom: 4px;
+      }
     }
 
     @include media.tablet {
-      padding: 0;
+      padding: 1px 0 1px 23px;
+    }
+
+    @include media.mobile {
+      padding: 0 0 0 19px;
     }
   }
 
@@ -138,6 +160,7 @@
   @include media.mobile {
     margin: 0 0 20px;
     font-size: 14px;
+    line-height: 20px;
   }
 }
 

@@ -26,14 +26,15 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+import clsx from "clsx";
 import { Link } from "@src/components/ui/Link";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
 import { IBreadcrumbs } from "./Breadcrumbs.types";
 import styles from "./Breadcrumbs.module.scss";
 
-const Breadcrumbs = ({ items }: IBreadcrumbs) => {
+const Breadcrumbs = ({ className, items }: IBreadcrumbs) => {
   return (
-    <ul className={styles.breadcrumbs}>
+    <ul className={clsx(styles["breadcrumbs"], className)}>
       {items.map((item, index) => (
         <li
           key={index}

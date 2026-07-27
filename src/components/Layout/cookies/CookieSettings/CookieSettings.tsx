@@ -101,10 +101,7 @@ const CookieSettings = ({
                 >
                   {t("Technical")}
                 </Heading>
-                <Text
-                  size={4}
-                  color="var(--cookie-settings-checkbox-description-color)"
-                >
+                <Text size={4} color="var(--cookie-banner-text-color)">
                   {t("TechnicalDescription")}
                 </Text>
               </>
@@ -124,10 +121,7 @@ const CookieSettings = ({
                 >
                   {t("Analytical")}
                 </Heading>
-                <Text
-                  size={4}
-                  color="var(--cookie-settings-checkbox-description-color)"
-                >
+                <Text size={4} color="var(--cookie-banner-text-color)">
                   {t("AnalyticalDescription")}
                 </Text>
               </>
@@ -146,10 +140,7 @@ const CookieSettings = ({
                 >
                   {t("Marketing")}
                 </Heading>
-                <Text
-                  size={4}
-                  color="var(--cookie-settings-checkbox-description-color)"
-                >
+                <Text size={4} color="var(--cookie-banner-text-color)">
                   {t("MarketingDescription")}
                 </Text>
               </>

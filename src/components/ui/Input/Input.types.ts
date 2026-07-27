@@ -39,10 +39,12 @@ export interface IInput {
   pattern?: string;
   type?: string;
   required?: boolean;
+  requiredMark?: boolean;
   disabled?: boolean;
   status?: "default" | "error";
   error?: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 }

@@ -26,16 +26,19 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { useTranslation } from "next-i18next";
+import { useTranslation, Trans } from "next-i18next";
 import { useRouter } from "next/router";
 import { Section } from "@src/components/ui/Section";
 import { Container } from "@src/components/ui/Container";
 import { Heading } from "@src/components/ui/Heading";
+import { Text } from "@src/components/ui/Text";
+import { Link } from "@src/components/ui/Link";
 import { Button } from "@src/components/ui/Button";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
+import { IBuildYourOwnForms } from "./BuildYourOwnForms.types";
 import styles from "./BuildYourOwnForms.module.scss";
 
-const BuildYourOwnForms = () => {
+const BuildYourOwnForms = ({ suggestChangesLink }: IBuildYourOwnForms) => {
   const { t } = useTranslation("form");
   const router = useRouter();
   const { locale } = router;
@@ -55,7 +58,7 @@ const BuildYourOwnForms = () => {
               className={styles["build-your-own-forms-heading"]}
               level={2}
               size={3}
-              color="var(--form-build-your-own-forms-text-color)"
+              color="var(--form-build-your-own-forms-heading-color)"
               style={
                 {
                   "--build-your-own-forms-heading-icon": `url(${getAssetUrl("/images/templates/form/build-your-own-forms/pdf.svg")})`,
@@ -64,18 +67,40 @@ const BuildYourOwnForms = () => {
             >
               {t("BuildYourOwnForms")}
             </Heading>
-            <p className={styles["build-your-own-forms-text"]}>
-              {t("CreateModelDocumentsAgreementsAndContracts")}
-            </p>
+            <Text size={2} color="var(--form-build-your-own-forms-text-color)">
+              <Trans
+                t={t}
+                i18nKey="CreateModelDocumentsAgreementsAndContracts"
+                components={[
+                  <Link
+                    key={0}
+                    href={suggestChangesLink}
+                    color="var(--form-build-your-own-forms-link-color)"
+                    textUnderline
+                    hover="underline-none"
+                  />,
+                ]}
+              />
+            </Text>
           </div>
-          <Button
-            className={styles["build-your-own-forms-button"]}
-            as="a"
-            href={`${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}${locale === "en" || locale === "ar" ? "" : `/${locale}`}/docspace-registration?utm_source=oforms&utm_medium=top_banner&utm_campaign=registration_docspace&utm_content=use_in_the_cloud`}
-            variant="secondary-light"
-          >
-            {t("GetItNow")}
-          </Button>
+          <div className={styles["build-your-own-forms-buttons"]}>
+            <Button
+              className={styles["build-your-own-forms-button"]}
+              as="a"
+              href={`${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}${locale === "en" || locale === "ar" ? "" : `/${locale}`}/docspace-registration?utm_source=oforms&utm_medium=top_banner&utm_campaign=registration_docspace&utm_content=use_in_the_cloud`}
+              variant="secondary-light"
+            >
+              {t("UseInTheCloud")}
+            </Button>
+            <Button
+              className={styles["build-your-own-forms-button"]}
+              as="a"
+              href={`${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}${locale === "en" || locale === "ar" ? "" : `/${locale}`}/download-desktop#desktop`}
+              variant="tertiary-light"
+            >
+              {t("DownloadDesktopApp")}
+            </Button>
+          </div>
         </div>
       </Container>
     </Section>

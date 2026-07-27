@@ -82,7 +82,7 @@ const Card = ({
         <Heading
           className={styles["card-heading"]}
           level={3}
-          color="var(--card-color)"
+          color="var(--card-heading-color)"
         >
           {heading}
         </Heading>

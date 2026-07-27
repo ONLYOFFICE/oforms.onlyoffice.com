@@ -68,4 +68,5 @@ export interface IMain {
   totalCount: number;
   selectedType?: TAllowedTypes;
   formNames: ISearchInput["formNames"];
+  searchOnly?: boolean;
 }

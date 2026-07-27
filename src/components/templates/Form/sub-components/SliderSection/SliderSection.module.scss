@@ -34,7 +34,7 @@
 }
 
 .slider-section-heading {
-  margin-bottom: 44px;
+  margin-bottom: 40px;
 
   @include media.tablet {
     margin-bottom: 36px;
@@ -63,13 +63,14 @@
   :global(.swiper-wrapper) {
     @include media.tablet-s {
       overflow-x: auto;
+      transform: none !important;
     }
   }
 
   :global(.swiper-slide) {
     &:first-child {
       @include media.tablet-s {
-        margin-inline-start: 48px;
+        margin-inline-start: 40px;
       }
 
       @include media.mobile {
@@ -134,25 +135,7 @@
   height: 48px;
   background-color: transparent;
   pointer-events: initial;
-  transition: box-shadow 0.3s;
   cursor: pointer;
-
-  svg {
-    path {
-      transition: fill 0.3s;
-    }
-  }
-
-  &:hover {
-    box-shadow: var(--form-slider-section-button-box-shadow-color-hover) 0px
-      20px 40px;
-
-    svg {
-      path {
-        fill: var(--form-slider-section-button-icon-color-hover);
-      }
-    }
-  }
 
   &:disabled {
     opacity: var(--form-slider-section-button-opacity-disabled);

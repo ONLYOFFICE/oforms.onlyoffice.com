@@ -28,34 +28,70 @@
 
 import { useTranslation } from "next-i18next";
 import { Section } from "@src/components/ui/Section";
+import { Container } from "@src/components/ui/Container";
 import { Heading } from "@src/components/ui/Heading";
+import { Text } from "@src/components/ui/Text";
 import { Button } from "@src/components/ui/Button";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
-import { IError } from "./Error.types";
+import { ErrorSearchInput } from "./sub-components/ErrorSearchInput";
 import styles from "./Error.module.scss";
 
-const ErrorTemplate = ({ heading, text }: IError) => {
+const ErrorTemplate = () => {
   const { t } = useTranslation("error");
 
   return (
-    <Section className={styles.error}>
-      <div
-        className={styles["error-image"]}
-        style={
-          {
-            "--error-image-background-image": `url(${getAssetUrl("/images/templates/error/not-found.svg")})`,
-          } as React.CSSProperties
-        }
-      />
-      <div className={styles["error-container"]}>
-        <Heading level={1} className={styles["error-heading"]}>
-          {heading}
-        </Heading>
-        <p className={styles["error-description"]}>{text}</p>
-        <Button as="a" href="/" id="error-btn" variant="primary-2">
-          {t("GoToHomePage")}
-        </Button>
-      </div>
+    <Section
+      className={styles["error"]}
+      desktopSpacing={["160px", "160px"]}
+      tabletSpacing={["112px", "112px"]}
+      tabletSmallSpacing={["112px", "112px"]}
+      mobileSpacing={["48px", "48px"]}
+    >
+      <Container maxWidth="1452px">
+        <div className={styles["error-wrapper"]}>
+          <div
+            className={styles["error-img-wrapper"]}
+            style={
+              {
+                "--error-img": `url(${getAssetUrl("/images/templates/error/not-found-404.png")})`,
+              } as React.CSSProperties
+            }
+          >
+            <div className={styles["error-img"]}></div>
+          </div>
+          <div>
+            <div className={styles["error-label"]}>404</div>
+            <Heading
+              className={styles["error-heading"]}
+              color="var(--error-heading-color)"
+            >
+              {t("PageNotFound")}
+            </Heading>
+            <div className={styles["error-text-wrapper"]}>
+              <Text size={2} color="var(--error-text-color)">
+                {t("ThePageYouAreLookingFor")}
+              </Text>
+              <Text
+                className={styles["error-subtext"]}
+                size={3}
+                color="var(--error-subtext-color)"
+              >
+                {t("CheckTheURLOrReturnToASafeLocation")}
+              </Text>
+            </div>
+            <Button
+              className={styles["error-btn"]}
+              as="a"
+              href="/"
+              variant="secondary-dark"
+            >
+              {t("GoToHomepage")}
+            </Button>
+
+            <ErrorSearchInput />
+          </div>
+        </div>
+      </Container>
     </Section>
   );
 };

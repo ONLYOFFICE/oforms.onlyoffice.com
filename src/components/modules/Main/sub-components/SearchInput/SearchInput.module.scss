@@ -31,11 +31,6 @@
 .search-input-wrapper {
   position: relative;
   width: 100%;
-  max-width: 424px;
-
-  @include media.desktop {
-    max-width: 100%;
-  }
 }
 
 .search-input-icon {
@@ -63,7 +58,10 @@
   color: var(--search-input-color);
   background-color: var(--search-input-background-color);
   outline: none;
-  transition: border-color 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    background-color 0.2s;
 
   &::placeholder {
     font-size: 14px;
@@ -71,9 +69,41 @@
     color: var(--search-input-placeholder-color);
   }
 
-  &:hover,
-  &:focus {
+  &:focus,
+  &.search-input-active,
+  .search-input-wrapper:hover & {
     border-color: var(--search-input-border-color-hover);
+    box-shadow: inset 0 0 0 1px var(--search-input-border-color-hover);
+  }
+
+  &.search-input-active::placeholder {
+    color: transparent;
+  }
+}
+
+.search-input-with-value {
+  border-color: var(--search-input-with-value-border-color);
+  padding-inline-end: 50px;
+  background-color: var(--search-input-with-value-background-color);
+}
+
+.search-input-clear {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: 16px;
+  display: flex;
+  border: none;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 1;
+
+  svg {
+    width: 24px;
+    height: 24px;
   }
 }
 
@@ -87,7 +117,7 @@
   width: 100%;
   background-color: var(--search-input-results-background-color);
   box-shadow: 0 0 12px 0 var(--search-input-results-box-shadow-color);
-  z-index: 2;
+  z-index: 1001;
 }
 
 .search-excerpt {
@@ -149,12 +179,12 @@
   }
 }
 
-.search-results-popular-item {
+.search-results-link {
   display: block;
-  padding: 7px 12px;
+  padding: 8px 12px;
   font-size: 14px;
   font-weight: 600;
-  line-height: 22px;
+  line-height: 20px;
   color: var(--search-input-results-item-color);
   transition:
     color 0.2s,

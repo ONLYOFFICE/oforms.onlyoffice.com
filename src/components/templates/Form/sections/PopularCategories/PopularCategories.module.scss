@@ -29,14 +29,10 @@
 @use "media";
 
 .popular-categories-heading {
-  margin-bottom: 24px;
-
-  @include media.tablet {
-    margin-bottom: 16px;
-  }
+  margin-bottom: 40px;
 
   @include media.mobile {
-    margin-bottom: 12px;
+    margin-bottom: 28px;
   }
 }
 
@@ -51,5 +47,11 @@
 
   @include media.mobile {
     gap: 8px;
+  }
+}
+
+.popular-categories-btn {
+  @include media.mobile {
+    width: auto;
   }
 }

@@ -91,8 +91,12 @@
   width: 100%;
   color: var(--sidebar-clear-btn-color);
   background-color: var(--sidebar-clear-btn-background-color);
-  box-shadow: 0px 4px 10px 0px var(--sidebar-clear-btn-box-shadow-color);
+  transition: background-color 0.2s;
   cursor: pointer;
+
+  &:hover {
+    background-color: var(--sidebar-clear-btn-background-color-hover);
+  }
 }
 
 .sidebar-wrapper {

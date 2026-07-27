@@ -32,6 +32,7 @@ import clsx from "clsx";
 import { SidebarItem } from "./sub-components/SidebarItem";
 import { ISidebarItem } from "./sub-components/SidebarItem/SidebarItem.types";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
+import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { ISidebar } from "./Sidebar.types";
 import styles from "./Sidebar.module.scss";
 
@@ -54,8 +55,14 @@ const Sidebar = ({
   const isSlug = router.pathname === "/[slug]";
   const redirectsToHome = isSearchResult || isSlug;
 
-  const selectedPurpose = router.query.purpose
+  const purposeKeys = purposes.map((item) => item.key);
+  const requestedPurpose = router.query.purpose
     ? String(router.query.purpose)
+    : undefined;
+  const isValidPurpose = (value: string | undefined): value is string =>
+    !!value && purposeKeys.includes(value);
+  const selectedPurpose = isValidPurpose(requestedPurpose)
+    ? requestedPurpose
     : purposes[0]?.key;
 
   const getHomeQuery = (
@@ -64,7 +71,7 @@ const Sidebar = ({
     const query: Record<string, string> = { ...extra };
     const country = getSelected("country");
     if (country.length) query.country = country.join(",");
-    if (router.query.purpose) query.purpose = String(router.query.purpose);
+    if (isValidPurpose(requestedPurpose)) query.purpose = requestedPurpose;
     return query;
   };
 
@@ -193,8 +200,24 @@ const Sidebar = ({
 
   const filterKeys = ["type", "country", "subcategory"];
 
+  const allowedValues: Record<string, string[]> = {
+    type: ALLOWED_TYPES,
+    country: countries.map((country) => country.code.toLowerCase()),
+    subcategory: purposeCategories.flatMap(({ subcategories }) =>
+      subcategories.map((sub) => sub.urlReq),
+    ),
+  };
+
+  const getValidSelected = (key: string) => {
+    const selected = getSelected(key);
+    const allowed = allowedValues[key];
+    return allowed
+      ? selected.filter((value) => allowed.includes(value))
+      : selected;
+  };
+
   const totalChecked =
-    filterKeys.reduce((sum, key) => sum + getSelected(key).length, 0) +
+    filterKeys.reduce((sum, key) => sum + getValidSelected(key).length, 0) +
     (selectedType ? 1 : 0);
 
   const clearAllFilters = () => {
@@ -211,12 +234,16 @@ const Sidebar = ({
     router.push({ query }, undefined, { scroll: false, shallow: true });
   };
 
+  const selectedCountries = getSelected("country");
+  const selectedSubcategories = getSelected("subcategory");
+
   return (
     <aside className={clsx(styles.sidebar, isOpen && styles["sidebar-open"])}>
       <div className={styles["sidebar-header"]}>
         <button
           onClick={() => setIsOpen(false)}
           className={styles["sidebar-close-btn"]}
+          type="button"
           style={
             {
               "--sidebar-close-btn-icon": `url(${getAssetUrl("/images/modules/main/cross.svg")})`,
@@ -263,14 +290,12 @@ const Sidebar = ({
             {
               heading: t("Countries"),
               text: t("ShowingEnglishSpeakingCountries"),
-              count: getSelected("country").length,
+              count: selectedCountries.length,
               options: countries.map((country) => ({
                 value: country.code.toLowerCase(),
                 label: country.name,
                 count: country.count,
-                checked: getSelected("country").includes(
-                  country.code.toLowerCase(),
-                ),
+                checked: selectedCountries.includes(country.code.toLowerCase()),
                 onChange: () => toggleCountryValue(country.code.toLowerCase()),
               })),
             },
@@ -293,7 +318,7 @@ const Sidebar = ({
             },
             {
               heading: t("Сategories"),
-              count: getSelected("subcategory").length,
+              count: selectedSubcategories.length,
               categories: purposeCategories.map(
                 ({ category, subcategories }) => ({
                   heading: category.name,
@@ -302,7 +327,7 @@ const Sidebar = ({
                     value: sub.urlReq,
                     label: sub.name,
                     count: sub.count,
-                    checked: getSelected("subcategory").includes(sub.urlReq),
+                    checked: selectedSubcategories.includes(sub.urlReq),
                     onChange: () => toggleSubcategoryValue(sub.urlReq),
                   })),
                 }),

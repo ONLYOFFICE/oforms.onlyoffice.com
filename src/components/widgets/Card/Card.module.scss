@@ -151,15 +151,15 @@
   margin-bottom: 8px;
   font-size: 16px;
   font-weight: 600;
-  line-height: 22px;
+  line-height: 24px;
 }
 
 .card-description {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   font-size: 14px;
-  line-height: 21px;
-  color: var(--card-color);
+  line-height: 20px;
+  color: var(--card-description-color);
   overflow: hidden;
 }

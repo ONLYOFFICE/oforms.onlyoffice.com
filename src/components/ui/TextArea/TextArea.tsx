@@ -43,9 +43,11 @@ const TextArea = forwardRef<HTMLTextAreaElement, ITextArea>(
       name,
       autoComplete,
       maxLength,
+      showCounter,
       cols,
-      rows = 2,
+      rows = 3,
       required,
+      requiredMark,
       disabled,
       status = "default",
       error,
@@ -62,7 +64,14 @@ const TextArea = forwardRef<HTMLTextAreaElement, ITextArea>(
     return (
       <div>
         <label>
-          <div className={styles["textarea-heading"]}>{heading}</div>
+          <div className={styles["textarea-heading"]}>
+            {heading}{" "}
+            {requiredMark && (
+              <span className={styles["textarea-heading-required-mark"]}>
+                *
+              </span>
+            )}
+          </div>
           <div className={styles["textarea-wrapper"]}>
             {label && !hideLabel && (
               <div className={styles["textarea-label"]}>{label}</div>
@@ -95,6 +104,11 @@ const TextArea = forwardRef<HTMLTextAreaElement, ITextArea>(
               required={required}
               disabled={disabled}
             />
+            {showCounter && maxLength !== undefined && !isError && (
+              <div className={styles["textarea-counter"]}>
+                {String(value).length}/{maxLength}
+              </div>
+            )}
           </div>
         </label>
         {isError && error && (

@@ -46,12 +46,14 @@ const Input = forwardRef<HTMLInputElement, IInput>(
       pattern,
       type,
       required,
+      requiredMark,
       disabled,
       status = "default",
       error,
       onChange,
       onFocus,
       onBlur,
+      onKeyDown,
     },
     ref,
   ) => {
@@ -62,7 +64,14 @@ const Input = forwardRef<HTMLInputElement, IInput>(
     return (
       <div>
         <label>
-          <div className={styles["input-heading"]}>{heading}</div>
+          {heading && (
+            <div className={styles["input-heading"]}>
+              {heading}{" "}
+              {requiredMark && (
+                <span className={styles["input-heading-required-mark"]}>*</span>
+              )}
+            </div>
+          )}
           <div className={styles["input-wrapper"]}>
             {label && !hideLabel && (
               <div className={styles["input-label"]}>{label}</div>
@@ -78,6 +87,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
                 setFocused(false);
                 onBlur?.(event);
               }}
+              onKeyDown={onKeyDown}
               id={id}
               className={clsx(
                 styles["input-field"],

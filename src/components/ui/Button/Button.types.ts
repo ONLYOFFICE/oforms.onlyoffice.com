@@ -42,13 +42,12 @@ export interface IButton {
   fullWidth?: boolean;
   variant?:
     | "primary"
-    | "primary-2"
     | "secondary-dark"
     | "secondary-light"
     | "tertiary-light"
     | "tertiary-dark";
   size?: 1 | 2 | 3;
-  isLoading?: boolean;
+  status?: "loading" | "error";
   style?: React.CSSProperties;
   onClick?: () => void;
 }

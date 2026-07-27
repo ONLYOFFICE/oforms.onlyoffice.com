@@ -30,26 +30,28 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import fs from "fs";
 import formidable from "formidable";
 import jwt from "jsonwebtoken";
+import AdmZip from "adm-zip";
 import {
   S3Client,
   PutObjectCommand,
   DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
-import { PDFDocument } from "pdf-lib";
 import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import {
   FOLDER_NAME,
   MAX_UPLOAD_FILE_SIZE,
   generateKey,
   sanitizeFileName,
+  EXTENSION_MIME_TYPES,
 } from "@src/utils/formSubmit";
-import { apiRequest } from "@src/lib/api/apiRequest";
 
 export const config = {
   api: {
     bodyParser: false,
   },
 };
+
+const DOCSERVICE_TIMEOUT = 2 * 60 * 1000;
 
 export default async function handler(
   req: NextApiRequest,
@@ -85,10 +87,9 @@ export default async function handler(
     maxFileSize: MAX_UPLOAD_FILE_SIZE,
   });
 
-  let fields;
   let files;
   try {
-    [fields, files] = await form.parse(req);
+    [, files] = await form.parse(req);
   } catch {
     return res.status(400).json({ error: "Invalid upload" });
   }
@@ -103,7 +104,8 @@ export default async function handler(
 
   if (
     !fileType ||
-    !ALLOWED_TYPES.includes(fileType as (typeof ALLOWED_TYPES)[number])
+    !ALLOWED_TYPES.includes(fileType as (typeof ALLOWED_TYPES)[number]) ||
+    file.mimetype !== EXTENSION_MIME_TYPES[fileType]
   ) {
     await fs.promises.unlink(file.filepath).catch(() => undefined);
     return res
@@ -135,61 +137,22 @@ export default async function handler(
     );
     uploadedToS3 = true;
 
-    const pdfPayload = {
-      filetype: fileType,
-      key: generateKey(),
-      outputtype: "pdf",
-      title: fileName,
-      url: s3Url,
-    };
-    const pdfConvertResponse = await apiRequest(
-      `${EDITOR_API_URL}/ConvertService.ashx`,
-      {
-        label: "PDF conversion",
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          AuthorizationJwt: `Bearer ${jwt.sign(pdfPayload, FILES_DOCSERVICE_SECRET)}`,
-        },
-        body: JSON.stringify(pdfPayload),
-      },
-    );
-    const pdfConvertData = await pdfConvertResponse.json();
-    if (pdfConvertData?.error) {
-      throw new Error(
-        `PDF conversion failed: docservice error ${pdfConvertData.error}`,
-      );
-    }
-    if (!pdfConvertData?.fileUrl) {
-      throw new Error("PDF conversion failed: conversion not ready");
-    }
-
-    const pdfFileUrl = pdfConvertData.fileUrl;
-    const pdfResponse = await apiRequest(pdfFileUrl, { label: "PDF download" });
-    const pdfArrayBuffer = await pdfResponse.arrayBuffer();
-    const pdfDoc = await PDFDocument.load(new Uint8Array(pdfArrayBuffer));
-    const { width, height } = pdfDoc.getPage(0).getSize();
-    const pageCount = pdfDoc.getPageCount();
-    const isLandscape = width > height;
-
     const previewPayload = {
       filetype: fileType,
       key: generateKey(),
       outputtype: "png",
       thumbnail: {
-        aspect: 0,
-        first: true,
-        height: isLandscape ? 1024 : 1448,
-        width: isLandscape ? 1448 : 1024,
+        aspect: 1,
+        first: false,
+        width: 420,
+        height: 420,
       },
       title: fileName,
       url: s3Url,
     };
-    const previewConvertResponse = await apiRequest(
+    const previewConvertResponse = await fetch(
       `${EDITOR_API_URL}/ConvertService.ashx`,
       {
-        label: "Template preview conversion",
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -197,8 +160,14 @@ export default async function handler(
           AuthorizationJwt: `Bearer ${jwt.sign(previewPayload, FILES_DOCSERVICE_SECRET)}`,
         },
         body: JSON.stringify(previewPayload),
+        signal: AbortSignal.timeout(DOCSERVICE_TIMEOUT),
       },
     );
+    if (!previewConvertResponse.ok) {
+      throw new Error(
+        `Template preview conversion failed: ${previewConvertResponse.status} ${previewConvertResponse.statusText}`,
+      );
+    }
     const previewConvertData = await previewConvertResponse.json();
     if (previewConvertData?.error) {
       throw new Error(
@@ -210,12 +179,33 @@ export default async function handler(
         "Template preview conversion failed: conversion not ready",
       );
     }
-    const templateImage = previewConvertData.fileUrl;
+
+    const zipResponse = await fetch(previewConvertData.fileUrl, {
+      signal: AbortSignal.timeout(DOCSERVICE_TIMEOUT),
+    });
+    if (!zipResponse.ok) {
+      throw new Error(
+        `Template preview download failed: ${zipResponse.status} ${zipResponse.statusText}`,
+      );
+    }
+    const zipBuffer = Buffer.from(await zipResponse.arrayBuffer());
+    const zipEntries = new AdmZip(zipBuffer)
+      .getEntries()
+      .filter((entry) => !entry.isDirectory && /\.png$/i.test(entry.entryName))
+      .sort((a, b) =>
+        a.entryName.localeCompare(b.entryName, undefined, { numeric: true }),
+      );
+
+    if (zipEntries.length === 0) {
+      throw new Error("Template preview conversion failed: no pages produced");
+    }
+
+    const templateImages = zipEntries.map(
+      (entry) => `data:image/png;base64,${entry.getData().toString("base64")}`,
+    );
 
     return res.status(200).json({
-      templateImage,
-      pageCount,
-      fileOrientation: isLandscape ? "horizontal" : "vertical",
+      templateImages,
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);

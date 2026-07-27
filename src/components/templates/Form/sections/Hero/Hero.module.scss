@@ -34,6 +34,26 @@
   align-items: start;
   gap: 92px;
 
+  > *:first-child {
+    @include media.tablet {
+      order: 2;
+    }
+
+    @include media.mobile {
+      order: initial;
+    }
+  }
+
+  > *:last-child {
+    @include media.tablet {
+      order: 1;
+    }
+
+    @include media.mobile {
+      order: initial;
+    }
+  }
+
   @include media.tablet {
     grid-template-columns: initial;
     gap: 32px;
@@ -78,12 +98,21 @@
 
   &:not(:last-child) {
     margin-inline-end: 8px;
+
+    @include media.tablet {
+      margin-inline-end: 6px;
+    }
+
+    @include media.mobile {
+      margin-inline-end: 4px;
+    }
   }
 
   @include media.mobile {
-    padding: 2px 8px;
+    padding: 3px 8px;
     font-size: 13px;
-    line-height: 22px;
+    line-height: 18px;
+    min-height: 26px;
   }
 }
 
@@ -99,7 +128,7 @@
 
   p {
     &:not(:last-child) {
-      margin-bottom: 24px;
+      margin-bottom: 8px;
     }
   }
 
@@ -110,16 +139,16 @@
 
 .hero-info {
   border-bottom: 1px solid var(--form-hero-info-border-color);
-  padding-bottom: 39px;
+  padding-bottom: 40px;
   margin-bottom: 40px;
 
   @include media.tablet {
-    padding-bottom: 35px;
+    padding-bottom: 36px;
     margin-bottom: 36px;
   }
 
   @include media.mobile {
-    padding-bottom: 21px;
+    padding-bottom: 22px;
     margin-bottom: 22px;
   }
 }
@@ -153,7 +182,11 @@
 
 .hero-info-item-size {
   &:not(:last-child) {
-    margin-inline-end: 32px;
+    margin-inline-end: 20px;
+
+    @include media.mobile {
+      margin-inline-end: 12px;
+    }
   }
 }
 
@@ -203,7 +236,7 @@
 
     @include media.mobile {
       margin-inline-end: initial;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
   }
 }

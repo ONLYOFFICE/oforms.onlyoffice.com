@@ -35,17 +35,17 @@
   &:not(.disabled):not(.checked):hover {
     .checkbox-icon {
       border-color: var(--checkbox-border-color-hover);
-      box-shadow: inset 0 0 0 1px var(--checkbox-box-shadow-color-hover);
+      box-shadow: inset 0 0 0 1px var(--checkbox-border-color-hover);
     }
   }
 
   &.checked {
     .checkbox-input:focus + .checkbox-icon {
-      border-color: var(--checkbox-border-color-checked);
+      border-color: var(--checkbox-background-color-checked);
     }
 
     .checkbox-icon {
-      border-color: var(--checkbox-border-color-checked);
+      border-color: var(--checkbox-background-color-checked);
       background-color: var(--checkbox-background-color-checked);
       background-image: var(--checkbox-icon);
       background-repeat: no-repeat;

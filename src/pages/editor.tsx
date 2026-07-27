@@ -84,9 +84,19 @@ export const getServerSideProps = async ({
   const { lang, filename, fillform } = query;
   const locale = (Array.isArray(lang) ? lang[0] : lang) ?? "en";
   const cmsLang = cmsLocale(locale);
+  const normalizedFilename =
+    (Array.isArray(filename) ? filename[0] : filename) ?? "";
+  const normalizedFillform =
+    (Array.isArray(fillform) ? fillform[0] : fillform) ?? "";
+
+  if (!normalizedFilename) {
+    return {
+      notFound: true,
+    };
+  }
 
   const oformsRes = await fetch(
-    `${CONFIG.api.cms}/api/oforms?filters[url][$eq]=${filename}&locale=${cmsLang}`,
+    `${CONFIG.api.cms}/api/oforms?filters[url][$eq]=${encodeURIComponent(normalizedFilename)}&locale=${cmsLang}`,
   );
   if (!oformsRes.ok) {
     throw new Error(`Request failed with status ${oformsRes.status}`);
@@ -101,7 +111,7 @@ export const getServerSideProps = async ({
 
   try {
     const configRes = await fetch(
-      `${process.env.CONFIG_API_URL}/api/config?lang=${cmsLang}&title=${filename}&url=${fillform}`,
+      `${process.env.CONFIG_API_URL}/api/config?lang=${cmsLang}&title=${encodeURIComponent(normalizedFilename)}&url=${encodeURIComponent(normalizedFillform)}`,
     );
     if (!configRes.ok) {
       throw new Error(`Request failed with status ${configRes.status}`);
@@ -110,7 +120,7 @@ export const getServerSideProps = async ({
 
     return {
       props: {
-        filename,
+        filename: normalizedFilename,
         config: JSON.stringify(config),
       },
     };

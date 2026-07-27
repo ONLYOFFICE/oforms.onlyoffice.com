@@ -34,6 +34,13 @@ import { ChevronDownIcon } from "@src/components/icons";
 import { ISlider } from "./Slider.types";
 import styles from "./Slider.module.scss";
 
+const SWIPER_MODULES = [Navigation, EffectFade];
+const FADE_EFFECT = { crossFade: true };
+const NAVIGATION = {
+  prevEl: ".slider-button-prev",
+  nextEl: ".slider-button-next",
+};
+
 const Slider = ({ page_screens, name_form }: ISlider) => {
   const slides = page_screens ?? [];
 
@@ -43,15 +50,12 @@ const Slider = ({ page_screens, name_form }: ISlider) => {
     <div className={styles["slider-wrapper"]}>
       <Swiper
         className={styles["slider"]}
-        modules={[Navigation, EffectFade]}
+        modules={SWIPER_MODULES}
         effect="fade"
-        fadeEffect={{ crossFade: true }}
+        fadeEffect={FADE_EFFECT}
         spaceBetween={32}
         autoHeight={true}
-        navigation={{
-          prevEl: ".slider-button-prev",
-          nextEl: ".slider-button-next",
-        }}
+        navigation={NAVIGATION}
       >
         {slides.map((item, index) => (
           <SwiperSlide key={item.id}>

@@ -26,13 +26,23 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-export function appendOpenedParam(
+type QueryValue = string | string[] | undefined;
+
+export function appendQueryParams(
   href: string | undefined,
-  opened: string | string[] | undefined,
+  params: Record<string, QueryValue>,
 ): string | undefined {
-  if (!href || !opened) return href;
-  const value = Array.isArray(opened) ? opened.join(",") : opened;
-  if (!value) return href;
-  const separator = href.includes("?") ? "&" : "?";
-  return `${href}${separator}opened=${encodeURIComponent(value)}`;
+  if (!href) return href;
+
+  let result = href;
+
+  Object.entries(params).forEach(([key, raw]) => {
+    if (!raw) return;
+    const value = Array.isArray(raw) ? raw.join(",") : raw;
+    if (!value) return;
+    const separator = result.includes("?") ? "&" : "?";
+    result = `${result}${separator}${key}=${encodeURIComponent(value)}`;
+  });
+
+  return result;
 }

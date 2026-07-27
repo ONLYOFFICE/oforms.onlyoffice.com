@@ -1,7 +1,9 @@
 {
   "PageTitle": "Page 404",
   "PageDescription": "Page 404",
-  "ErrorHeading": "404 Errore!",
-  "ErrorText": "Sembra che tu abbia cliccato su un link non valido o che tu abbia inserito un indirizzo che non è su questo sito web",
-  "GoToHomePage": "Alla pagina principale"
+  "PageNotFound": "Page not found",
+  "ThePageYouAreLookingFor": "The page you are looking for may have been moved, deleted, or never existed.",
+  "CheckTheURLOrReturnToASafeLocation": "Check the URL or return to a safe location using the options below.",
+  "GoToHomepage": "Alla pagina principale",
+  "SearchTemplates": "Cerca modelli (fattura, contratto, budget...)"
 }
