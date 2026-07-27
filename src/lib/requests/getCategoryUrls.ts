@@ -28,6 +28,7 @@
 
 import CONFIG from "@src/config/config.json";
 import { apiRequest } from "@src/lib/api/apiRequest";
+import { cacheByLocale } from "@src/lib/api/cacheByLocale";
 import { ICategoriesData } from "@src/components/templates/Form/Form.types";
 import { ILocale } from "@src/types/locale";
 import { cmsLocale } from "@src/utils/cmsLocale";
@@ -51,4 +52,8 @@ const getCategoryUrls = async (
   return (await res.json()) as ICategoriesData;
 };
 
-export { getCategoryUrls };
+const getCachedCategoryUrls = cacheByLocale((locale: ILocale["locale"]) =>
+  getCategoryUrls(locale),
+);
+
+export { getCategoryUrls, getCachedCategoryUrls };

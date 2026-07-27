@@ -30,6 +30,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { languages } from "@src/config/languages";
 import { getAllFormUrls } from "@src/lib/requests/getAllFormUrls";
 import { getCategoryUrls } from "@src/lib/requests/getCategoryUrls";
+import { clearLocaleCaches } from "@src/lib/api/cacheByLocale";
 
 const STATIC_PAGES = [
   "/",
@@ -112,6 +113,7 @@ export default async function handler(
   res.status(202).json({ message: "Revalidation started" });
 
   currentRevalidation?.abort();
+  clearLocaleCaches();
 
   const controller = new AbortController();
   currentRevalidation = controller;

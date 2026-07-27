@@ -29,7 +29,10 @@
 import { GetStaticPaths, GetStaticPropsContext } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { getAllFormUrls } from "@src/lib/requests/getAllFormUrls";
-import { getCategoryUrls } from "@src/lib/requests/getCategoryUrls";
+import {
+  getCategoryUrls,
+  getCachedCategoryUrls,
+} from "@src/lib/requests/getCategoryUrls";
 import { getCategoryInfoWithForms } from "@src/lib/requests/getCategoryInfoWithForms";
 import { getExtForms } from "@src/lib/requests/getExtForms";
 import { getExtFormsCount } from "@src/lib/requests/getExtFormsCount";
@@ -163,7 +166,7 @@ export const getStaticProps = async ({
 }: GetStaticPropsContext & ILocale) => {
   const slug = params?.slug as string;
 
-  const categoryUrls = await getCategoryUrls(locale);
+  const categoryUrls = await getCachedCategoryUrls(locale);
   const isCategory = categoryUrls.data.some(
     (category) => category.urlReq === slug,
   );

@@ -26,29 +26,37 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import CONFIG from "@src/config/config.json";
-import { apiRequest } from "@src/lib/api/apiRequest";
-import { cacheByLocale } from "@src/lib/api/cacheByLocale";
 import { ILocale } from "@src/types/locale";
-import { cmsLocale } from "@src/utils/cmsLocale";
 
-const fetchExtFormsCount = async (locale: ILocale["locale"]) => {
-  const params = [
-    `locale=${cmsLocale(locale)}`,
-    "fields[0]=ext",
-    "populate[oforms][count]=true",
-    `populate[oforms][filters][locale][$eq]=${cmsLocale(locale)}`,
-  ]
-    .filter(Boolean)
-    .join("&");
+type Locale = ILocale["locale"];
 
-  const res = await apiRequest(`${CONFIG.api.cms}/api/form-exts?${params}`, {
-    label: "getExtFormsCount",
-  });
+const clearers = new Set<() => void>();
 
-  return await res.json();
+const cacheByLocale = <A extends string[], T>(
+  fetcher: (locale: Locale, ...args: A) => Promise<T>,
+): ((locale: Locale, ...args: A) => Promise<T>) => {
+  const cache = new Map<string, Promise<T>>();
+
+  clearers.add(() => cache.clear());
+
+  return (locale: Locale, ...args: A) => {
+    const key = [locale, ...args].join(" ");
+
+    const cached = cache.get(key);
+    if (cached) return cached;
+
+    const promise = fetcher(locale, ...args).catch((error) => {
+      cache.delete(key);
+      throw error;
+    });
+
+    cache.set(key, promise);
+    return promise;
+  };
 };
 
-const getExtFormsCount = cacheByLocale(fetchExtFormsCount);
+const clearLocaleCaches = () => {
+  clearers.forEach((clear) => clear());
+};
 
-export { getExtFormsCount };
+export { cacheByLocale, clearLocaleCaches };
