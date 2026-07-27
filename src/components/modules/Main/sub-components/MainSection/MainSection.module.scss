@@ -134,7 +134,7 @@
 
   @include media.mobile {
     gap: 16px;
-    margin: 0 -24px;
+    margin: 0 -16px;
   }
 }
 
@@ -145,7 +145,7 @@
     }
 
     @include media.mobile {
-      margin-inline-start: 24px;
+      margin-inline-start: 16px;
     }
   }
 
@@ -155,7 +155,7 @@
     }
 
     @include media.mobile {
-      margin-inline-end: 24px;
+      margin-inline-end: 16px;
     }
   }
 

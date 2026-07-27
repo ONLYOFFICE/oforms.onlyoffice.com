@@ -29,5 +29,5 @@
 export interface ISuggestionsCard {
   iconUrl: string;
   heading: string;
-  text?: string;
+  text: string;
 }

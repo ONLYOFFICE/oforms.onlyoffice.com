@@ -99,7 +99,7 @@
     content: "";
     position: absolute;
     top: 0;
-    inset-inline-start: 50%;
+    left: 50%;
     width: 28px;
     height: 28px;
     background-image: var(--file-upload-loader-icon);
@@ -231,6 +231,7 @@
   font-size: 13px;
   line-height: 18px;
   color: var(--form-submit-file-upload-size-color);
+  unicode-bidi: isolate;
 
   &:not(:last-child) {
     margin-inline-end: 8px;

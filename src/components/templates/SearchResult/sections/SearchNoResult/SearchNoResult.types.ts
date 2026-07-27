@@ -30,5 +30,4 @@ import { IFormsData } from "@src/types/data";
 
 export interface ISearchNoResult {
   filteredForms: IFormsData["data"][number][];
-  searchQuery: string;
 }

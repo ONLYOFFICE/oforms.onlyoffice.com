@@ -32,6 +32,7 @@ export const suggestions: ISuggestionsCard[] = [
   {
     iconUrl: "/images/templates/searchresult/check.svg",
     heading: "CheckTheSpelling",
+    text: "CheckSpellingOrTryOtherKeywords",
   },
   {
     iconUrl: "/images/templates/searchresult/try.svg",

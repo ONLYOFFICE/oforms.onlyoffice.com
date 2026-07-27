@@ -119,10 +119,7 @@ const SearchResultTemplate = ({
           data={foundForms}
         />
       ) : (
-        <SearchNoResult
-          filteredForms={filteredForms}
-          searchQuery={searchQuery}
-        />
+        <SearchNoResult filteredForms={filteredForms} />
       )}
     </Main>
   );

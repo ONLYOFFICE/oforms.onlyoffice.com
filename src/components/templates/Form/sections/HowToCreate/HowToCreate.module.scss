@@ -103,7 +103,9 @@
   li {
     position: relative;
     counter-increment: counter;
-    padding: 8px 0 8px 21px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-inline-start: 21px;
 
     &:before {
       position: absolute;
@@ -145,11 +147,15 @@
     }
 
     @include media.tablet {
-      padding: 1px 0 1px 23px;
+      padding-top: 1px;
+      padding-bottom: 1px;
+      padding-inline-start: 23px;
     }
 
     @include media.mobile {
-      padding: 0 0 0 19px;
+      padding-top: 0;
+      padding-bottom: 0;
+      padding-inline-start: 19px;
     }
   }
 

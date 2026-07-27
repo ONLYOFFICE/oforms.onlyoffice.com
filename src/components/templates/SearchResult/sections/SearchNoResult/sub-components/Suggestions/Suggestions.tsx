@@ -30,10 +30,9 @@ import { useTranslation } from "next-i18next";
 import { Heading } from "@src/components/ui/Heading";
 import { SuggestionsCard } from "./sub-components/SuggestionsCard";
 import { suggestions } from "./Suggestions.data";
-import { ISuggestions } from "./Suggestions.types";
 import styles from "./Suggestions.module.scss";
 
-const Suggestions = ({ searchSuggestion }: ISuggestions) => {
+const Suggestions = () => {
   const { t } = useTranslation("searchresult");
 
   return (
@@ -53,16 +52,7 @@ const Suggestions = ({ searchSuggestion }: ISuggestions) => {
             <SuggestionsCard
               iconUrl={suggestion.iconUrl}
               heading={t(suggestion.heading)}
-              text={
-                suggestion.text
-                  ? t(suggestion.text)
-                  : searchSuggestion
-                    ? t("DidYouMeanSuggestion", {
-                        suggestion: searchSuggestion,
-                        interpolation: { escapeValue: false },
-                      })
-                    : undefined
-              }
+              text={t(suggestion.text)}
             />
           </li>
         ))}

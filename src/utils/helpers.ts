@@ -80,31 +80,6 @@ const getLevenshteinDistance = (a: string, b: string): number => {
   return distances[a.length][b.length];
 };
 
-export const getSearchSuggestion = (
-  query: string,
-  forms: IFormsData["data"][number][] | undefined,
-): string | null => {
-  const normalizedQuery = query.trim().toLowerCase();
-  if (!normalizedQuery || !forms?.length) return null;
-
-  let bestMatch: string | null = null;
-  let bestDistance = Infinity;
-
-  forms.forEach((form) => {
-    const distance = getLevenshteinDistance(
-      normalizedQuery,
-      form.name_form.toLowerCase(),
-    );
-    if (distance < bestDistance) {
-      bestDistance = distance;
-      bestMatch = form.name_form;
-    }
-  });
-
-  const maxDistance = Math.max(2, Math.floor(normalizedQuery.length / 3));
-  return bestDistance <= maxDistance ? bestMatch : null;
-};
-
 type TSortKey = "popular" | "asc" | "desc" | "name_asc" | "name_desc";
 const SORT_MAP: Record<TSortKey, string> = {
   asc: "createdAt:desc",

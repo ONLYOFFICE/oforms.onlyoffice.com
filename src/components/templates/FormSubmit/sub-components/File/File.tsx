@@ -225,7 +225,9 @@ const File = ({
               <div className={styles["file-upload-body"]}>
                 <div className={styles["file-upload-heading"]}>{fileName}</div>
                 <div>
-                  <span className={styles["file-upload-size"]}>{fileSize}</span>
+                  <span className={styles["file-upload-size"]}>
+                    <span dir="ltr">{fileSize}</span>
+                  </span>
                   {!error && (
                     <span className={styles["file-upload-label"]}>
                       {t("Uploaded")}
