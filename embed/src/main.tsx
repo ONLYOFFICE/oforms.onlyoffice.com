@@ -6,6 +6,7 @@ import { initI18n } from "./i18n";
 import { loadData, fetchFreshData } from "./data";
 import { normalizeLocale, type Locale } from "./locale";
 import type { Template } from "./TemplateModal";
+import { applyTheme, type Theme } from "./theme";
 
 type Target = string | Element;
 
@@ -13,8 +14,13 @@ interface RenderOptions {
   locale?: string;
   /** Called when the user clicks "Use this template" in a template's popup. */
   onEdit?: (template: Template) => void;
-  /** Label of the single popup button (default "Use this template"). */
+  /** Label of the popup's confirm button (default "Use this template"). */
   editLabel?: string;
+  /** Label of the popup's cancel button (default "Cancel"). */
+  cancelLabel?: string;
+  /** Color overrides, e.g. `{ "main-heading-color": "#eaeaea" }` — see
+   *  theme.default.json for every available name and its default value. */
+  theme?: Theme;
 }
 
 interface Instance {
@@ -105,6 +111,7 @@ function renderApp(root: Root, locale: Locale, data: any): void {
         onLocaleChange={setLocale}
         onEdit={options.onEdit ?? openInDesktop}
         editLabel={options.editLabel ?? "Use this template"}
+        cancelLabel={options.cancelLabel ?? "Cancel"}
       />
     </StrictMode>,
   );
@@ -140,7 +147,8 @@ export function render(target: Target, opts?: RenderOptions): Promise<boolean> {
     console.error("[oforms-embed] render: target not found:", target);
     return Promise.resolve(false);
   }
-  options = { onEdit: opts?.onEdit, editLabel: opts?.editLabel };
+  options = { onEdit: opts?.onEdit, editLabel: opts?.editLabel, cancelLabel: opts?.cancelLabel };
+  if (opts?.theme && el instanceof HTMLElement) applyTheme(opts.theme, el);
   const locale = opts?.locale ?? pendingLocale ?? undefined;
   return mount(el, locale).then(() => true);
 }
@@ -152,6 +160,17 @@ export function setLocale(culture: string): Promise<boolean> {
     return Promise.resolve(false);
   }
   return mount(instance.el, culture).then(() => true);
+}
+
+/** Apply color overrides at runtime (e.g. when the desktop's theme changes) —
+ *  no re-render needed, just updates CSS custom properties on the mount root. */
+export function setTheme(theme: Theme): boolean {
+  if (!instance || !(instance.el instanceof HTMLElement)) {
+    console.warn("[oforms-embed] setTheme called before render — ignored");
+    return false;
+  }
+  applyTheme(theme, instance.el);
+  return true;
 }
 
 /** Unmount and clean up. */
@@ -240,7 +259,7 @@ declare global {
   }
 }
 if (typeof window !== "undefined") {
-  window.OformsEmbed = { render, setLocale, destroy };
+  window.OformsEmbed = { render, setLocale, setTheme, destroy };
   subscribeDesktopLocale();
   // Convenience for standalone/demo pages: auto-render an opted-in element.
   const auto = () => {

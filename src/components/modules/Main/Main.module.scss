@@ -111,7 +111,7 @@
   font-weight: 600;
   font-size: 14px;
   line-height: 19px;
-  color: #9092a6;
+  color: var(--desktop-embed-main-count-color, #9092a6);
 
   @include media.desktop {
     margin-inline-start: 24px;

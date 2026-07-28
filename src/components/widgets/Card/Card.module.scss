@@ -45,11 +45,11 @@
 .card-preview-wrapper {
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(122, 125, 148, 0.4);
+  border: 1px solid var(--desktop-embed-card-preview-wrapper-border-color, rgba(122, 125, 148, 0.4));
   border-radius: 3px;
   margin-bottom: 24px;
   padding: 13px 12px;
-  background-color: #ffffff;
+  background-color: var(--desktop-embed-card-preview-wrapper-background-color, #ffffff);
   transition: background-color 0.2s;
 }
 
@@ -59,7 +59,7 @@
   width: 100%;
   max-width: 256px;
   background-image: var(--card-preview-image);
-  background-color: #ffffff;
+  background-color: var(--desktop-embed-card-preview-background-color, #ffffff);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -80,7 +80,7 @@
   line-height: 12px;
   width: 40px;
   height: 20px;
-  color: #ffffff;
+  color: var(--desktop-embed-card-format-color, #ffffff);
   transition: background-color 0.2s;
 
   span {
@@ -104,7 +104,7 @@
 }
 
 .card-format-docx {
-  background-color: #305cc4;
+  background-color: var(--desktop-embed-card-format-docx-background-color, #305cc4);
 
   &::after {
     background-image: var(--card-hover-icon-docx);
@@ -112,7 +112,7 @@
 }
 
 .card-format-xlsx {
-  background-color: #41b338;
+  background-color: var(--desktop-embed-card-format-xlsx-background-color, #41b338);
 
   &::after {
     background-image: var(--card-hover-icon-xlsx);
@@ -120,7 +120,7 @@
 }
 
 .card-format-pptx {
-  background-color: #ff6c00;
+  background-color: var(--desktop-embed-card-format-pptx-background-color, #ff6c00);
 
   &::after {
     background-image: var(--card-hover-icon-pptx);
@@ -128,7 +128,7 @@
 }
 
 .card-format-pdf {
-  background-color: #d10f33;
+  background-color: var(--desktop-embed-card-format-pdf-background-color, #d10f33);
 
   &::after {
     background-image: var(--card-hover-icon-pdf);
@@ -148,6 +148,6 @@
   -webkit-box-orient: vertical;
   font-size: 14px;
   line-height: 21px;
-  color: #494b5b;
+  color: var(--desktop-embed-card-description-color, #494b5b);
   overflow: hidden;
 }

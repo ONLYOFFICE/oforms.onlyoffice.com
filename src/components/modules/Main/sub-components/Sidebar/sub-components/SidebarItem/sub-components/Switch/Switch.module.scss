@@ -35,8 +35,8 @@
 
   &:focus-visible {
     + .switch-text {
-      background-color: #ccdbfb;
-      box-shadow: inset 0 0 4px 0 #709af1;
+      background-color: var(--desktop-embed-switch-background-color-hover, #ccdbfb);
+      box-shadow: inset 0 0 4px 0 var(--desktop-embed-switch-shadow-color-hover, #709af1);
     }
   }
 }
@@ -48,7 +48,7 @@
   font-size: 14px;
   font-weight: 600;
   line-height: 21px;
-  color: #7a7d94;
+  color: var(--desktop-embed-switch-text-color, #7a7d94);
   background-color: transparent;
   transition:
     background-color 0.2s,
@@ -57,13 +57,13 @@
 
   &:not(.switch-checked) {
     &:hover {
-      background-color: #ccdbfb;
-      box-shadow: inset 0 0 4px 0 #709af1;
+      background-color: var(--desktop-embed-switch-background-color-hover, #ccdbfb);
+      box-shadow: inset 0 0 4px 0 var(--desktop-embed-switch-shadow-color-hover, #709af1);
     }
   }
 }
 
 .switch-checked {
-  color: #143481;
-  background-color: #ccdbfb;
+  color: var(--desktop-embed-switch-color-checked, #143481);
+  background-color: var(--desktop-embed-switch-background-color-checked, #ccdbfb);
 }

@@ -20,6 +20,7 @@ interface Props {
   onLocaleChange: (shortKey: string) => void;
   onEdit: (template: Template) => void;
   editLabel: string;
+  cancelLabel: string;
 }
 
 const normalizeUrl = (u: string) => (u?.startsWith("/") ? u : `/${u}`);
@@ -27,7 +28,7 @@ const normalizeUrl = (u: string) => (u?.startsWith("/") ? u : `/${u}`);
 const isSearchInput = (t: EventTarget | null): t is HTMLInputElement =>
   t instanceof HTMLInputElement && t.id === "search-input";
 
-export function EmbedApp({ locale, data, onLocaleChange, onEdit, editLabel }: Props) {
+export function EmbedApp({ locale, data, onLocaleChange, onEdit, editLabel, cancelLabel }: Props) {
   const [selected, setSelected] = useState<Template | null>(null);
   // Enter-applied search: filters the catalog itself (there is no results page).
   const [searchQuery, setSearchQuery] = useState("");
@@ -134,6 +135,7 @@ export function EmbedApp({ locale, data, onLocaleChange, onEdit, editLabel }: Pr
           <TemplateModal
             template={selected}
             editLabel={editLabel}
+            cancelLabel={cancelLabel}
             onEdit={onEdit}
             onClose={() => setSelected(null)}
           />

@@ -94,6 +94,33 @@ try {
     ? pass("Sora + Open Sans loaded from bundled CSS")
     : fail(`fonts not loaded: ${JSON.stringify(fonts)}`);
 
+  // Theming: dist/theme.default.json ships with every token, and setTheme()
+  // actually changes the rendered color (not just sets an unused variable) —
+  // .section.has-background consumes --section-background, which Main.tsx
+  // sets to var(--desktop-embed-main-background, <default>).
+  const defaultTheme = await page
+    .evaluate(() => fetch("/theme.default.json").then((r) => r.json()))
+    .catch(() => null);
+  defaultTheme && Object.keys(defaultTheme).length > 50 && defaultTheme["main-background"] === "#f9fbfe"
+    ? pass(`theme.default.json served (${Object.keys(defaultTheme ?? {}).length} tokens)`)
+    : fail(`theme.default.json missing/wrong: ${JSON.stringify(defaultTheme)?.slice(0, 100)}`);
+
+  const bgBefore = await page.evaluate(() => {
+    const el = document.querySelector('[class*="has-background"]');
+    return el ? getComputedStyle(el).backgroundColor : null;
+  });
+  await page.evaluate(() => window.OformsEmbed.setTheme({ "main-background": "rgb(30, 30, 30)" }));
+  await page.waitForTimeout(200);
+  const bgAfter = await page.evaluate(() => {
+    const el = document.querySelector('[class*="has-background"]');
+    return el ? getComputedStyle(el).backgroundColor : null;
+  });
+  bgAfter === "rgb(30, 30, 30)" && bgAfter !== bgBefore
+    ? pass(`setTheme override rendered (${bgBefore} -> ${bgAfter})`)
+    : fail(`setTheme override did not render (${bgBefore} -> ${bgAfter})`);
+  await page.evaluate(() => window.OformsEmbed.setTheme({ "main-background": null }));
+  await page.waitForTimeout(200);
+
   // Click first filter → expect the URL query + rendered set to change.
   const before = cards;
   await page.locator('#oforms-root input[type="checkbox"]').first().click({ force: true });

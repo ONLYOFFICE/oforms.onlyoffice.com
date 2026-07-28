@@ -51,7 +51,7 @@
 
   &[href]:hover {
     h2 {
-      color: #32118a;
+      color: var(--desktop-embed-main-section-heading-link-color-hover, #32118a);
     }
   }
 

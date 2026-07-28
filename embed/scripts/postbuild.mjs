@@ -101,55 +101,9 @@ const html = `<!DOCTYPE html>
 await writeFile(join(dist, "index.html"), html);
 console.log("postbuild: wrote dist/index.html (classic script, no server needed)");
 
-// Desktop simulator page: stubs the AscDesktopEditor native bridge so the
-// desktop integration (openTemplate, settings:init locale) can be tested in a
-// plain browser. Regenerated on every build since dist/ is wiped.
-const sim = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Desktop Simulator — ONLYOFFICE Forms</title>
-  <link rel="stylesheet" href="oforms.css" />
-  <script>
-    // === Native bridge stub (must exist BEFORE oforms.js loads!) ===
-    window.desktopSim = { nativeListeners: [] };
-    window.AscDesktopEditor = {
-      openTemplate: function (url, name) {
-        console.info("[desktop-sim] openTemplate:", name, "\\u2192", url);
-        alert("openTemplate\\n" + name + "\\n" + url);
-      },
-      attachEvent: function (event, cb) {
-        console.info("[desktop-sim] attachEvent:", event);
-        window.desktopSim.nativeListeners.push({ event: event, cb: cb });
-      },
-    };
-    // Emulate the desktop changing its UI language (real payload shape from
-    // Desktop Editors 9.3: global window.on_native_message + locale.current):
-    //   desktopSim.setLanguage("de-DE")
-    window.desktopSim.setLanguage = function (locale) {
-      var payload = JSON.stringify({ locale: { current: locale, langs: {} } });
-      if (typeof window.on_native_message === "function") {
-        window.on_native_message("settings:init", payload);
-      }
-      window.desktopSim.nativeListeners
-        .filter(function (l) { return l.event === "on_native_message"; })
-        .forEach(function (l) { l.cb("settings:init", payload); });
-    };
-    console.info('[desktop-sim] ready. Try: desktopSim.setLanguage("de-DE")');
-  </script>
-</head>
-<body>
-  <div id="oforms-root"></div>
-  <script src="oforms.js"></script>
-  <script>
-    OformsEmbed.render("#oforms-root", {
-      locale: "ru-RU", // what the desktop would pass; unsupported -> English
-      editLabel: "\\u0418\\u0441\\u043f\\u043e\\u043b\\u044c\\u0437\\u043e\\u0432\\u0430\\u0442\\u044c \\u044d\\u0442\\u043e\\u0442 \\u0448\\u0430\\u0431\\u043b\\u043e\\u043d",
-    });
-  </script>
-</body>
-</html>
-`;
-await writeFile(join(dist, "desktop-sim.html"), sim);
-console.log("postbuild: wrote dist/desktop-sim.html (AscDesktopEditor stub)");
+// Ship the default theme JSON alongside the bundle — a starting point for the
+// host to build its own override object from (see README "Theming").
+const themeDefaultSrc = join(__dirname, "..", "theme.default.json");
+const themeDefaultDist = join(dist, "theme.default.json");
+await writeFile(themeDefaultDist, await readFile(themeDefaultSrc, "utf8"));
+console.log("postbuild: wrote dist/theme.default.json");

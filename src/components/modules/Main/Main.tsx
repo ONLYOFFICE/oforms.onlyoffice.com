@@ -65,7 +65,7 @@ const Main = ({
   return (
     <Section
       className={styles["main-content"]}
-      background="#f9fbfe"
+      background="var(--desktop-embed-main-background, #f9fbfe)"
       desktopSpacing={["84px", "112px"]}
       tabletSpacing={["64px", "112px"]}
       tabletSmallSpacing={["64px", "112px"]}
@@ -74,14 +74,17 @@ const Main = ({
       <Container className={styles["main-container"]}>
         {!hideHeader && (
           <div className={styles["main-header"]}>
-            <Heading className={styles["main-header-heading"]} color="#231990">
+            <Heading
+              className={styles["main-header-heading"]}
+              color="var(--desktop-embed-main-heading-color, #231990)"
+            >
               {t("FreeDocumentTemplatesAndFillableForms")}
             </Heading>
             <Heading
               className={styles["main-header-subheading"]}
               level={2}
               size={3}
-              color="#494b5b"
+              color="var(--desktop-embed-main-subheading-color, #494b5b)"
             >
               {t("DownloadReadyMadeTemplatesOrFillOutPdfFormsOnline")}
             </Heading>

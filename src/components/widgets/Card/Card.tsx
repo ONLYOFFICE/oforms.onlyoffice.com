@@ -42,10 +42,10 @@ const hoverIconByFormat: Record<TFormat, string> = {
 };
 
 const hoverBgByFormat: Record<TFormat, string> = {
-  docx: "#EAF1FE",
-  xlsx: "rgba(196, 249, 232, 0.5)",
-  pptx: "rgba(255, 111, 61, 0.05)",
-  pdf: "rgba(249, 221, 229, 0.5)",
+  docx: "var(--desktop-embed-card-docx-background-hover, #EAF1FE)",
+  xlsx: "var(--desktop-embed-card-xlsx-background-hover, rgba(196, 249, 232, 0.5))",
+  pptx: "var(--desktop-embed-card-pptx-background-hover, rgba(255, 111, 61, 0.05))",
+  pdf: "var(--desktop-embed-card-pdf-background-hover, rgba(249, 221, 229, 0.5))",
 };
 
 const Card = ({
@@ -87,7 +87,11 @@ const Card = ({
         </span>
       </div>
       <div>
-        <Heading className={styles["card-heading"]} level={3} color="#494B5B">
+        <Heading
+          className={styles["card-heading"]}
+          level={3}
+          color="var(--desktop-embed-card-heading-color, #494B5B)"
+        >
           {heading}
         </Heading>
         <p className={styles["card-description"]}>{description}</p>

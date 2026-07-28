@@ -35,11 +35,11 @@
 
   &:focus-visible {
     + .badge-wrapper {
-      background-color: #ccdbfb;
+      background-color: var(--desktop-embed-badge-wrapper-background-color-hover, #ccdbfb);
 
       .badge-label,
       .badge-count {
-        color: #143481;
+        color: var(--desktop-embed-badge-label-color-checked, #143481);
       }
     }
   }
@@ -47,7 +47,7 @@
 
 .badge-wrapper {
   display: block;
-  border: 1px solid #ccdbfb;
+  border: 1px solid var(--desktop-embed-badge-wrapper-border-color, #ccdbfb);
   border-radius: 24px;
   padding: 5px 16px;
   font-size: 13px;
@@ -60,26 +60,26 @@
 
   &:not(.badge-wrapper-checked) {
     &:hover {
-      box-shadow: inset 0 0 4px 0 #709af1;
+      box-shadow: inset 0 0 4px 0 var(--desktop-embed-badge-wrapper-shadow-color-hover, #709af1);
     }
   }
 
   &:hover {
-    background-color: #ccdbfb;
+    background-color: var(--desktop-embed-badge-wrapper-background-color-hover, #ccdbfb);
 
     .badge-label,
     .badge-count {
-      color: #143481;
+      color: var(--desktop-embed-badge-label-color-checked, #143481);
     }
   }
 }
 
 .badge-wrapper-checked {
-  background-color: #ccdbfb;
+  background-color: var(--desktop-embed-badge-wrapper-background-color-checked, #ccdbfb);
 }
 
 .badge-label {
-  color: #3a3c49;
+  color: var(--desktop-embed-badge-label-color, #3a3c49);
   transition: color 0.2s;
 
   &:not(:last-child) {
@@ -88,14 +88,14 @@
 }
 
 .badge-label-checked {
-  color: #143481;
+  color: var(--desktop-embed-badge-label-color-checked, #143481);
 }
 
 .badge-count {
-  color: #9092a6;
+  color: var(--desktop-embed-badge-count-color, #9092a6);
   transition: color 0.2s;
 }
 
 .badge-count-checked {
-  color: #143481;
+  color: var(--desktop-embed-badge-count-color-checked, #143481);
 }
