@@ -26,17 +26,5 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-export const LANGUAGE_DATA = [
-  { title: "English", key: "en" },
-  { title: "French", key: "fr" },
-  { title: "German", key: "de" },
-  { title: "Spanish", key: "es" },
-  { title: "Portuguese", key: "pt" },
-  { title: "Italian", key: "it" },
-  { title: "Japanese", key: "ja" },
-  { title: "Chinese(Simplified)", key: "zh" },
-];
-
 export const NAME_MAX_LENGTH = 100;
-export const DESCRIPTION_MAX_LENGTH = 300;
-export const CATEGORY_MAX_LENGTH = 5;
+export const DESCRIPTION_MAX_LENGTH = 500;

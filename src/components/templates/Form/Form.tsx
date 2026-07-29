@@ -40,21 +40,19 @@ import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { IFormTemplate } from "./Form.types";
 import styles from "./Form.module.scss";
 
-const FormTemplate = ({ form, categories }: IFormTemplate) => {
+const FormTemplate = ({ form, allForms, categories }: IFormTemplate) => {
   const { t } = useTranslation("form");
   const router = useRouter();
   const { locale } = router;
   const {
     name_form,
-    description_card,
     template_desc,
     file_oform,
     file_pages,
     page_screens,
-    card_prewiew,
     url,
-    form_exts,
   } = form.data[0];
+
   const editableFile = file_oform?.find((it) => {
     const ext = it.name?.split(".").pop()?.toLowerCase();
     return ext !== undefined && ALLOWED_TYPES.includes(ext);
@@ -64,6 +62,7 @@ const FormTemplate = ({ form, categories }: IFormTemplate) => {
     editableFile && extension
       ? `editor?lang=${locale}&filename=${url}&fillform=${editableFile.hash}.${extension}`
       : "";
+  const suggestChangesLink = `mailto:marketing@onlyoffice.com?subject=${t("SuggestingChangesLink", { name: name_form })}&body=${t("SuggestingChangesLink", { name: name_form })}.`;
 
   return (
     <div className={styles["form-template"]}>
@@ -82,19 +81,13 @@ const FormTemplate = ({ form, categories }: IFormTemplate) => {
         file_oform={file_oform}
         page_screens={page_screens}
         linkEditor={linkEditor}
+        suggestChangesLink={suggestChangesLink}
       />
       <HowToCreate name_form={name_form} linkEditor={linkEditor} />
-      <RecentlyViewed
-        id={form.data[0].id}
-        name_form={name_form}
-        description_card={description_card}
-        url={url}
-        card_prewiew={card_prewiew.url}
-        form_exts={form_exts[0].ext}
-      />
+      <RecentlyViewed allForms={allForms} id={form.data[0].id} />
       <ExploreOtherTemplate />
       <PopularCategories categories={categories} />
-      <BuildYourOwnForms />
+      <BuildYourOwnForms suggestChangesLink={suggestChangesLink} />
     </div>
   );
 };

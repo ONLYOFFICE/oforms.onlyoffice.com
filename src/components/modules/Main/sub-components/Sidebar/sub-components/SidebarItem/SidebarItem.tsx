@@ -31,8 +31,8 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import clsx from "clsx";
 import { ChevronDownIcon } from "@src/components/icons";
-import { Badge } from "./sub-components/Badge";
-import { Switch } from "./sub-components/Switch";
+import { Badge } from "@src/components/ui/Badge";
+import { Switch } from "@src/components/ui/Switch";
 import { ISidebarItem } from "./SidebarItem.types";
 import styles from "./SidebarItem.module.scss";
 
@@ -131,6 +131,7 @@ const SidebarItem = ({
             isOpen && styles["sidebar-item-header-icon-open"],
             isSub && styles["sidebar-item-header-icon-sub"],
           )}
+          fill="var(--sidebar-item-chevron-down-icon-color)"
         />
       </button>
 

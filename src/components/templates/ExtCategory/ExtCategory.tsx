@@ -83,7 +83,12 @@ const ExtCategoryTemplate = ({
       code: country.code,
       count: country.oforms.count,
     }));
-  const selectedCountries = getQueryValues(router.query.country);
+  const availableCountryCodes = new Set(
+    countries.map((country) => country.code.toLowerCase()),
+  );
+  const selectedCountries = getQueryValues(router.query.country).filter(
+    (country) => availableCountryCodes.has(country),
+  );
   const purposes = getPurposes(purposeWithCategoriesCount);
   const categoriesByPurpose = getCategoriesByPurpose(
     purposeWithCategoriesCount,

@@ -64,7 +64,7 @@ const ExploreOtherTemplate = () => {
       desktopSpacing={["32px", "32px"]}
       tabletSpacing={["32px", "32px"]}
       tabletSmallSpacing={["32px", "32px"]}
-      mobileSpacing={["48px", "0"]}
+      mobileSpacing={["34px", "10px"]}
     >
       <Container maxWidth="1452px">
         <Heading

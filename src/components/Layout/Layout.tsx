@@ -44,7 +44,7 @@ const Layout = ({
   banner = true,
 }: ILayout) => {
   return (
-    <div>
+    <>
       {children}
       {head && <Head>{head}</Head>}
       {adventAnnounce && <AdventAnnounce>{adventAnnounce}</AdventAnnounce>}
@@ -52,7 +52,7 @@ const Layout = ({
       {main && <Main>{main}</Main>}
       {footer && <Footer>{footer}</Footer>}
       {banner && <CookieBanner />}
-    </div>
+    </>
   );
 };
 

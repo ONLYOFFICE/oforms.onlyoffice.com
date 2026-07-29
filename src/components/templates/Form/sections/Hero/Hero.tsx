@@ -26,7 +26,6 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { useState } from "react";
 import { useTranslation } from "next-i18next";
 import clsx from "clsx";
 import dayjs from "dayjs";
@@ -43,12 +42,10 @@ import { Container } from "@src/components/ui/Container";
 import { Heading } from "@src/components/ui/Heading";
 import { Text } from "@src/components/ui/Text";
 import { Link } from "@src/components/ui/Link";
-import { Button } from "@src/components/ui/Button";
 import { DownloadAs } from "./sub-components/DownloadAs";
 import { Share } from "./sub-components/Share";
 import { Slider } from "./sub-components/Slider";
-import { DownloadModal } from "./sub-components/DownloadModal";
-import { scriptProtocolCheck } from "@src/components/templates/Form/Form.utils";
+import { TemplateButtons } from "./sub-components/TemplateButtons";
 import { IHero } from "./Hero.types";
 import styles from "./Hero.module.scss";
 
@@ -59,22 +56,16 @@ const Hero = ({
   file_oform,
   page_screens,
   linkEditor,
+  suggestChangesLink,
 }: IHero) => {
-  const { t } = useTranslation("form");
-  const [isOpen, setIsOpen] = useState(false);
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation("form");
   const { name, size, updatedAt, url } = file_oform?.[0] ?? {};
   const pdfFile = file_oform?.filter(
     (it) => it?.name.split(".").pop() === "pdf",
   );
-
-  const handleButtonClick = () => {
-    scriptProtocolCheck(
-      `oo-office://open|f|n|${name}|${url}`,
-      () => setIsOpen(true),
-      () => setIsOpen(false),
-      () => setIsOpen(true),
-    );
-  };
 
   return (
     <Section
@@ -127,14 +118,21 @@ const Hero = ({
                     size={5}
                     className={styles["hero-info-value"]}
                   >
-                    {dayjs(updatedAt).format("D MMMM YYYY")}
+                    {dayjs(updatedAt)
+                      .locale(language)
+                      .format(
+                        {
+                          ja: "YYYY年MM月DD日",
+                          zh: "YYYY年MM月DD日",
+                        }[language] ?? "D MMMM YYYY",
+                      )}
                   </Text>
                 </div>
 
                 <Link
                   size={5}
-                  href={`mailto:marketing@onlyoffice.com?subject=${t("SuggestingChangesLink", { name: name_form })}&body=${t("SuggestingChangesLink", { name: name_form })}.`}
-                  color="#3541F5"
+                  href={suggestChangesLink}
+                  color="var(--form-hero-link-color)"
                   hover="underline"
                 >
                   {t("SuggestChanges")}
@@ -159,6 +157,7 @@ const Hero = ({
                       as="span"
                       size={5}
                       className={styles["hero-info-value"]}
+                      dir="ltr"
                     >
                       {size < 1024
                         ? `${size.toFixed(0)} kb`
@@ -194,22 +193,14 @@ const Hero = ({
               />
             )}
 
-            <div className={styles["hero-buttons"]}>
-              {pdfFile?.[0]?.hash && (
-                <Button
-                  className={styles["hero-button"]}
-                  as="a"
-                  target="_blank"
-                  href={linkEditor}
-                >
-                  {t("FillOutPDFForm")}
-                </Button>
-              )}
-
-              <Button onClick={handleButtonClick} variant="secondary-dark">
-                {t("EditTemplate")}
-              </Button>
-            </div>
+            <TemplateButtons
+              className={styles["hero-buttons"]}
+              buttonClassName={styles["hero-button"]}
+              name={name}
+              url={url}
+              linkEditor={linkEditor}
+              hasPdfForm={!!pdfFile?.[0]?.hash}
+            />
 
             <Share />
           </div>
@@ -217,8 +208,6 @@ const Hero = ({
           <Slider page_screens={page_screens} name_form={name_form} />
         </div>
       </Container>
-
-      <DownloadModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </Section>
   );
 };

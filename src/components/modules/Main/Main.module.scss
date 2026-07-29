@@ -31,25 +31,38 @@
 .main-header {
   margin-bottom: 84px;
 
-  @include media.desktop {
-    margin-bottom: 64px;
+  @include media.mobile {
+    margin-bottom: 48px;
   }
 }
 
 .main-header-heading {
   margin-bottom: 32px;
 
-  @include media.tablet {
+  @include media.desktop {
     margin-bottom: 16px;
-    font-size: 24px;
-    line-height: 30px;
+  }
+
+  @include media.tablet {
+    margin-bottom: 12px;
+  }
+
+  @include media.mobile {
+    margin-bottom: 8px;
+    font-size: 30px;
+    line-height: 38px;
   }
 }
 
 .main-header-subheading {
   @include media.tablet {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  @include media.mobile {
     font-size: 18px;
-    line-height: 24px;
+    line-height: 26px;
   }
 }
 
@@ -72,11 +85,27 @@
 
 .main-top {
   display: flex;
-  align-items: center;
-  margin-bottom: 56px;
+  align-items: start;
+  margin-bottom: 48px;
 
-  @include media.desktop {
+  @include media.desktop-s {
     flex-wrap: wrap;
+  }
+
+  @include media.tablet {
+    margin-bottom: 56px;
+  }
+}
+
+.main-top-search-only {
+  margin-bottom: 64px;
+
+  @include media.tablet {
+    margin-bottom: 48px;
+  }
+
+  @include media.mobile {
+    margin-bottom: 28px;
   }
 }
 
@@ -84,13 +113,21 @@
   display: flex;
   align-items: center;
   margin-inline-end: auto;
+  padding-top: 4px;
+  padding-bottom: 4px;
   padding-inline-end: 24px;
   width: 100%;
 
-  @include media.desktop {
+  @include media.desktop-s {
     margin-bottom: 12px;
     margin-inline-end: initial;
+    padding-top: initial;
+    padding-bottom: initial;
     padding-inline-end: initial;
+  }
+
+  @include media.tablet {
+    padding: 12px 0;
   }
 
   @include media.mobile {
@@ -105,20 +142,22 @@
   }
 }
 
+.main-sort-selector {
+  margin-inline-end: 24px;
+
+  @include media.mobile {
+    margin-inline-end: initial;
+  }
+}
+
 .main-count {
   display: inline-flex;
-  margin-inline-start: 12px;
   font-weight: 600;
   font-size: 14px;
   line-height: 19px;
-  color: var(--desktop-embed-main-count-color, #9092a6);
-
-  @include media.desktop {
-    margin-inline-start: 24px;
-  }
+  color: var(--main-count-color);
 
   @include media.mobile {
-    margin-inline-start: initial;
     margin-top: 8px;
   }
 }
@@ -138,14 +177,22 @@
   margin-inline-start: auto;
   width: 24px;
   height: 24px;
-  background-image: var(--main-filters-button-icon);
   background-color: transparent;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
   cursor: pointer;
 
   @include media.tablet {
     display: block;
   }
+}
+
+.main-search-input {
+  max-width: 424px;
+
+  @include media.desktop {
+    max-width: 100%;
+  }
+}
+
+.main-search-input-search-only {
+  max-width: 544px;
 }

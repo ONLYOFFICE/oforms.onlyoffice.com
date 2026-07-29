@@ -31,7 +31,7 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import clsx from "clsx";
 import { ChevronDownIcon } from "@src/components/icons";
-import { TSortOption } from "./SortSelector.types";
+import { ISortSelector, TSortOption } from "./SortSelector.types";
 import styles from "./SortSelector.module.scss";
 
 const SORT_OPTIONS: TSortOption[] = [
@@ -44,7 +44,7 @@ const SORT_OPTIONS: TSortOption[] = [
 
 const DEFAULT_SORT_KEY = SORT_OPTIONS[1].key;
 
-const SortSelector = () => {
+const SortSelector = ({ className }: ISortSelector) => {
   const { t } = useTranslation("SortSelector");
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -87,7 +87,7 @@ const SortSelector = () => {
   };
 
   return (
-    <div ref={ref} className={styles["sort-selector"]}>
+    <div ref={ref} className={clsx(styles["sort-selector"], className)}>
       <span className={styles["sort-selector-label"]}>{t("SortBy")}</span>
 
       <div className={styles["sort-selector-wrapper"]}>
@@ -102,26 +102,28 @@ const SortSelector = () => {
               styles["sort-selector-button-icon"],
               isOpen && styles["sort-selector-button-icon-open"],
             )}
+            fill="var(--sort-selector-chevron-down-icon-color)"
           />
         </button>
 
         {isOpen && (
-          <div className={styles["sort-selector-dropdown"]}>
+          <ul className={styles["sort-selector-dropdown"]}>
             {SORT_OPTIONS.map((option) => (
-              <button
-                key={option.key}
-                type="button"
-                className={clsx(
-                  styles["sort-selector-option"],
-                  option.key === selectedKey &&
-                    styles["sort-selector-option-active"],
-                )}
-                onClick={() => handleSelect(option.key)}
-              >
-                {t(option.label)}
-              </button>
+              <li key={option.key}>
+                <button
+                  type="button"
+                  className={clsx(
+                    styles["sort-selector-option"],
+                    option.key === selectedKey &&
+                      styles["sort-selector-option-active"],
+                  )}
+                  onClick={() => handleSelect(option.key)}
+                >
+                  {t(option.label)}
+                </button>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
       </div>
     </div>

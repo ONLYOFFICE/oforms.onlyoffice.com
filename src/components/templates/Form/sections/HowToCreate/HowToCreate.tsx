@@ -43,7 +43,7 @@ const HowToCreate = ({ name_form, linkEditor }: IHowToCreate) => {
       desktopSpacing={["0", "0"]}
       tabletSpacing={["0", "0"]}
       tabletSmallSpacing={["0", "0"]}
-      mobileSpacing={["0", "48px"]}
+      mobileSpacing={["0", "34px"]}
     >
       <Container maxWidth="1452px">
         <div className={styles["how-to-create"]}>

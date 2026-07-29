@@ -27,120 +27,6 @@
  */
 
 @font-face {
-  font-family: "Open Sans";
-  src:
-    url("/fonts/OpenSans-Regular.woff2") format("woff2"),
-    url("/fonts/OpenSans-Regular.woff") format("woff");
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Open Sans";
-  src:
-    url("/fonts/OpenSans-Italic.woff2") format("woff2"),
-    url("/fonts/OpenSans-Italic.woff") format("woff");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Open Sans";
-  src:
-    url("/fonts/OpenSans-Light.woff2") format("woff2"),
-    url("/fonts/OpenSans-Light.woff") format("woff");
-  font-weight: 300;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Open Sans";
-  src:
-    url("/fonts/OpenSans-Light-Italic.woff2") format("woff2"),
-    url("/fonts/OpenSans-Light-Italic.woff") format("woff");
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Open Sans";
-  src:
-    url("/fonts/OpenSans-Medium.woff2") format("woff2"),
-    url("/fonts/OpenSans-Medium.woff") format("woff");
-  font-weight: 500;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Open Sans";
-  src:
-    url("/fonts/OpenSans-Medium-Italic.woff2") format("woff2"),
-    url("/fonts/OpenSans-Medium-Italic.woff") format("woff");
-  font-weight: 500;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Open Sans";
-  src:
-    url("/fonts/OpenSans-SemiBold.woff2") format("woff2"),
-    url("/fonts/OpenSans-SemiBold.woff") format("woff");
-  font-weight: 600;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Open Sans";
-  src:
-    url("/fonts/OpenSans-SemiBold-Italic.woff2") format("woff2"),
-    url("/fonts/OpenSans-SemiBold-Italic.woff") format("woff");
-  font-weight: 600;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Open Sans";
-  src:
-    url("/fonts/OpenSans-Bold.woff2") format("woff2"),
-    url("/fonts/OpenSans-Bold.woff") format("woff");
-  font-weight: 700;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Open Sans";
-  src:
-    url("/fonts/OpenSans-Bold-Italic.woff2") format("woff2"),
-    url("/fonts/OpenSans-Bold-Italic.woff") format("woff");
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Open Sans";
-  src:
-    url("/fonts/OpenSans-ExtraBold.woff2") format("woff2"),
-    url("/fonts/OpenSans-ExtraBold.woff") format("woff");
-  font-weight: 800;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Open Sans";
-  src:
-    url("/fonts/OpenSans-ExtraBold-Italic.woff2") format("woff2"),
-    url("/fonts/OpenSans-ExtraBold-Italic.woff") format("woff");
-  font-weight: 800;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
   font-family: "Sora";
   src:
     url("/fonts/Sora-Regular.woff2") format("woff2"),
@@ -193,18 +79,19 @@ html {
   height: 100%;
   font-family: "Sora", sans-serif;
   font-weight: 400;
-  color: #494b5b;
+  color: var(--primary-color);
 }
 
 body {
   position: relative;
   margin: 0;
   padding: 0;
-  min-height: 100%;
+  height: 100%;
 }
 
+#__next,
 main {
-  background-color: #f9fbfe;
+  min-height: 100%;
 }
 
 button,
@@ -224,4 +111,10 @@ h6 {
 
 p {
   margin: 0;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
 }

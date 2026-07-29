@@ -29,7 +29,7 @@
 @use "media";
 
 .explore-other-template-heading {
-  margin-bottom: 44px;
+  margin-bottom: 40px;
 
   @include media.tablet {
     margin-bottom: 36px;
@@ -37,7 +37,6 @@
 
   @include media.mobile {
     margin-bottom: 22px;
-    text-align: center;
   }
 }
 
@@ -45,16 +44,45 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 56px;
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
+
+  > li {
+    &:first-child {
+      @include media.tablet-s {
+        margin-inline-start: 40px;
+      }
+
+      @include media.mobile {
+        margin-inline-start: 16px;
+      }
+    }
+
+    &:last-child {
+      @include media.tablet-s {
+        margin-inline-end: 40px;
+      }
+
+      @include media.mobile {
+        margin-inline-end: 16px;
+      }
+    }
+
+    @include media.tablet-s {
+      min-width: 170px;
+    }
+  }
 
   @include media.tablet {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
+    gap: 16px;
+  }
+
+  @include media.tablet-s {
+    display: flex;
+    margin: 0 -40px;
+    overflow-x: auto;
   }
 
   @include media.mobile {
-    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+    margin: 0 -16px;
   }
 }

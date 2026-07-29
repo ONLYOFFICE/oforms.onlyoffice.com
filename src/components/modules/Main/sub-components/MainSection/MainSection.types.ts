@@ -33,4 +33,5 @@ export interface IMainSection {
   href?: string;
   data: IFormsData["data"];
   desktopLimit?: boolean;
+  cardsGrid?: boolean;
 }

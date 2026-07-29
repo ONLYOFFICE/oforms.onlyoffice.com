@@ -26,12 +26,11 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-export interface ICategoriesData {
+export interface ICountries {
   data: {
-    id: number;
     documentId: string;
-    categorie: string;
-    urlReq: string;
+    id: number;
+    name: string;
   }[];
   meta: {
     pagination: {
@@ -43,11 +42,21 @@ export interface ICategoriesData {
   };
 }
 
-export interface IFormsExtsData {
+export interface IPurposeWithCategories {
   data: {
     id: number;
     documentId: string;
-    ext: string;
+    name: string;
+    parent_categories: {
+      id: number;
+      documentId: string;
+      name: string;
+      subcategories: {
+        id: number;
+        documentId: string;
+        name: string;
+      }[];
+    }[];
   }[];
   meta: {
     pagination: {
@@ -57,10 +66,18 @@ export interface IFormsExtsData {
       total: number;
     };
   };
+}
+
+export interface IQueryIndexData {
+  fileName: string;
+  fileSize: number;
+  formName: string;
+  fileUrl: string;
+  templateImages: string[];
 }
 
 export interface IFormSubmitTemplate {
-  categories: ICategoriesData;
-  formExts: IFormsExtsData;
-  queryIndexData?: string[] | null;
+  countries: ICountries;
+  purposeWithCategories: IPurposeWithCategories;
+  queryIndexData: IQueryIndexData | null;
 }

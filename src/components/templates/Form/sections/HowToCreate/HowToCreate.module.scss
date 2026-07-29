@@ -29,13 +29,13 @@
 @use "media";
 
 .how-to-create {
-  border: 1px solid #e1e1f7;
+  border: 1px solid var(--form-how-to-create-border-color);
   border-radius: 8px;
   padding-top: 43px;
   padding-bottom: 43px;
   padding-inline-start: 130px;
   padding-inline-end: 43px;
-  background-color: #ffffff;
+  background-color: var(--form-how-to-create-background-color);
 
   @include media.tablet {
     padding-top: 35px;
@@ -79,7 +79,7 @@
   }
 
   span {
-    color: #3541f5;
+    color: var(--form-how-to-create-heading-accent-color);
   }
 
   @include media.tablet {
@@ -96,24 +96,41 @@
   margin: 0 0 32px;
   font-size: 16px;
   line-height: 24px;
+  color: var(--form-how-to-create-list-color);
   list-style: none;
   counter-reset: counter;
 
   li {
+    position: relative;
     counter-increment: counter;
-    padding: 8px 0;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-inline-start: 21px;
 
     &:before {
+      position: absolute;
+      top: 7px;
+      inset-inline-start: 0;
       content: counter(counter) ". ";
       display: inline-flex;
       justify-content: center;
       align-items: center;
       margin-inline-end: 8px;
+      font-size: 18px;
       font-weight: 600;
+      line-height: 24px;
+      color: var(--form-how-to-create-list-count-color);
       min-width: 15px;
 
       @include media.tablet {
+        top: 0;
         margin-inline-end: 6px;
+      }
+
+      @include media.mobile {
+        margin-inline-end: 4px;
+        font-size: 16px;
+        line-height: 20px;
       }
     }
 
@@ -123,10 +140,22 @@
       @include media.tablet {
         margin-bottom: 6px;
       }
+
+      @include media.mobile {
+        margin-bottom: 4px;
+      }
     }
 
     @include media.tablet {
-      padding: 0;
+      padding-top: 1px;
+      padding-bottom: 1px;
+      padding-inline-start: 23px;
+    }
+
+    @include media.mobile {
+      padding-top: 0;
+      padding-bottom: 0;
+      padding-inline-start: 19px;
     }
   }
 
@@ -137,6 +166,7 @@
   @include media.mobile {
     margin: 0 0 20px;
     font-size: 14px;
+    line-height: 20px;
   }
 }
 

@@ -60,7 +60,7 @@ const DownloadAsItem = ({ format, href }: IDownloadAsItem) => {
         download
         style={
           {
-            "--dowmload-as-item-icon": `url(${getAssetUrl(
+            "--download-as-item-icon": `url(${getAssetUrl(
               `/images/templates/form/hero/${format}.svg`,
             )})`,
           } as React.CSSProperties
@@ -77,7 +77,7 @@ const DownloadAsItem = ({ format, href }: IDownloadAsItem) => {
             data-tooltip-id={`${format}-tooltip`}
             type="button"
           >
-            <TooltipIcon />
+            <TooltipIcon fill="var(--form-hero-download-as-item-tooltip-icon-color)" />
           </button>
           <Tooltip
             id={`${format}-tooltip`}

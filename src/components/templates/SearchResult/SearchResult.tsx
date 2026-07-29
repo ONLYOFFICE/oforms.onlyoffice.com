@@ -39,7 +39,7 @@ import {
   normalizeSortKey,
   sortForms,
 } from "@src/utils/helpers";
-import { SearchNoResult } from "./sub-components/SearchNoResult";
+import { SearchNoResult } from "./sections/SearchNoResult";
 
 const SearchResultTemplate = ({
   allForms,
@@ -80,7 +80,12 @@ const SearchResultTemplate = ({
       code: country.code,
       count: country.oforms.count,
     }));
-  const selectedCountries = getQueryValues(router.query.country);
+  const availableCountryCodes = new Set(
+    countries.map((country) => country.code.toLowerCase()),
+  );
+  const selectedCountries = getQueryValues(router.query.country).filter(
+    (country) => availableCountryCodes.has(country),
+  );
   const purposes = getPurposes(purposeWithCategoriesCount);
   const categoriesByPurpose = getCategoriesByPurpose(
     purposeWithCategoriesCount,
@@ -104,6 +109,7 @@ const SearchResultTemplate = ({
       categoriesByPurpose={categoriesByPurpose}
       totalCount={totalCount}
       formNames={formNames}
+      searchOnly={foundForms.length === 0}
     >
       {foundForms.length > 0 ? (
         <MainSection
@@ -112,10 +118,8 @@ const SearchResultTemplate = ({
           }
           data={foundForms}
         />
-      ) : searchQuery ? (
-        <SearchNoResult />
       ) : (
-        ""
+        <SearchNoResult filteredForms={filteredForms} />
       )}
     </Main>
   );

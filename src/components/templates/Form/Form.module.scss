@@ -30,13 +30,9 @@
 
 .form-template {
   display: grid;
-  row-gap: 64px;
-  padding-top: 64px;
-
-  @include media.tablet {
-    row-gap: 48px;
-    padding-top: 48px;
-  }
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 48px;
+  padding-top: 48px;
 
   @include media.mobile {
     row-gap: 28px;

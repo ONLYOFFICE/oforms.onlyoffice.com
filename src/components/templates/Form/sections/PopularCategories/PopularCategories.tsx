@@ -42,7 +42,7 @@ const PopularCategories = ({ categories }: IPopularCategories) => {
       desktopSpacing={["32px", "32px"]}
       tabletSpacing={["32px", "32px"]}
       tabletSmallSpacing={["32px", "32px"]}
-      mobileSpacing={["0", "20px"]}
+      mobileSpacing={["10px", "20px"]}
     >
       <Container maxWidth="1452px">
         <Heading
@@ -56,6 +56,7 @@ const PopularCategories = ({ categories }: IPopularCategories) => {
         <div className={styles["popular-categories-list"]}>
           {categories.data.map((category) => (
             <Button
+              className={styles["popular-categories-btn"]}
               as="a"
               variant="tertiary-dark"
               size={3}

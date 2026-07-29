@@ -39,6 +39,6 @@
   }
 
   @include media.mobile {
-    padding: var(--container-mobile-spacing, 0 24px);
+    padding: var(--container-mobile-spacing, 0 16px);
   }
 }

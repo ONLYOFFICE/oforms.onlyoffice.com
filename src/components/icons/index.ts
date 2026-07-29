@@ -28,3 +28,7 @@
 
 export { ChevronDownIcon } from "./ChevronDown";
 export { TooltipIcon } from "./Tooltip";
+export { FiltersIcon } from "./Filters";
+export { SearchIcon } from "./Search";
+export { CrossCircleIcon } from "./CrossCircle";
+export { CrossIcon } from "./Cross";

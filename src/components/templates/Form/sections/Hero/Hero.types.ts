@@ -47,4 +47,5 @@ export interface IHero {
       }[]
     | null;
   linkEditor: string;
+  suggestChangesLink: string;
 }

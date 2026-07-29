@@ -26,6 +26,10 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+export interface ISortSelector {
+  className?: string;
+}
+
 export type TSortOption = {
   key: string;
   label: string;

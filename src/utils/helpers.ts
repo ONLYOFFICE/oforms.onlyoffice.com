@@ -58,6 +58,28 @@ export const getPopularTemplates = (
   limit = 8,
 ) => forms?.filter((form) => form.popular_template).slice(0, limit) ?? [];
 
+const getLevenshteinDistance = (a: string, b: string): number => {
+  const distances = Array.from({ length: a.length + 1 }, (_, i) => {
+    const row = new Array<number>(b.length + 1).fill(0);
+    row[0] = i;
+    return row;
+  });
+  for (let j = 0; j <= b.length; j++) distances[0][j] = j;
+
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      distances[i][j] = Math.min(
+        distances[i - 1][j] + 1,
+        distances[i][j - 1] + 1,
+        distances[i - 1][j - 1] + cost,
+      );
+    }
+  }
+
+  return distances[a.length][b.length];
+};
+
 type TSortKey = "popular" | "asc" | "desc" | "name_asc" | "name_desc";
 const SORT_MAP: Record<TSortKey, string> = {
   asc: "createdAt:desc",

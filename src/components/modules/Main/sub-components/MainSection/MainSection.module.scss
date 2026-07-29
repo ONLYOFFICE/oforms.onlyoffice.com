@@ -50,8 +50,8 @@
   transition: color 0.2s;
 
   &[href]:hover {
-    h2 {
-      color: var(--desktop-embed-main-section-heading-link-color-hover, #32118a);
+    .main-section-heading {
+      color: var(--main-section-heading-link-color-hover);
     }
   }
 
@@ -67,7 +67,7 @@
 .main-section-cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 56px 50px;
+  gap: 56px 48px;
 
   & > *:nth-child(n + 7) {
     @include media.desktop {
@@ -89,16 +89,38 @@
     }
   }
 
+  &.main-section-cards-grid {
+    @include media.tablet {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 56px 32px;
+      margin: 0 44px;
+      overflow-x: initial;
+
+      .main-section-card {
+        min-width: 0;
+        max-width: none;
+        margin-inline: 0;
+      }
+    }
+
+    @include media.mobile {
+      grid-template-columns: repeat(1, 1fr);
+      gap: 28px;
+      margin: 0 22px;
+    }
+  }
+
   @media screen and (max-width: 1540px) {
     gap: 48px 32px;
   }
 
   @include media.desktop {
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px 50px;
+    gap: 16px 56px;
   }
 
-  @include media.desktop {
+  @include media.desktop-s {
     gap: 16px 24px;
   }
 
@@ -112,7 +134,7 @@
 
   @include media.mobile {
     gap: 16px;
-    margin: 0 -24px;
+    margin: 0 -16px;
   }
 }
 
@@ -123,7 +145,7 @@
     }
 
     @include media.mobile {
-      margin-inline-start: 24px;
+      margin-inline-start: 16px;
     }
   }
 
@@ -133,11 +155,12 @@
     }
 
     @include media.mobile {
-      margin-inline-end: 24px;
+      margin-inline-end: 16px;
     }
   }
 
   @include media.tablet {
     min-width: 284px;
+    max-width: 284px;
   }
 }

@@ -29,9 +29,12 @@
 import type { GetServerSidePropsContext } from "next";
 import { useTranslation } from "next-i18next";
 import zlib from "zlib";
+import { createHash } from "crypto";
+import { parse as parseCookie, serialize as serializeCookie } from "cookie";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getCategories } from "@src/lib/requests/getCategories";
-import { getFormExts } from "@src/lib/requests/getFormExts";
+import { getCountries } from "@src/lib/requests/getCountries";
+import { getPurposeWithCategories } from "@src/lib/requests/getPurposeWithCategories";
+import { getTemplatePreviewImages } from "@src/lib/requests/getTemplatePreviewImages";
 import { Layout } from "@src/components/Layout";
 import { Head } from "@src/components/modules/Head";
 import { Header } from "@src/components/modules/Header";
@@ -45,8 +48,8 @@ import { ILocale } from "@src/types/locale";
 
 const FormSubmitPage = ({
   locale,
-  categories,
-  formExts,
+  countries,
+  purposeWithCategories,
   queryIndexData,
 }: IFormSubmitTemplate & ILocale) => {
   const { t } = useTranslation("form-submit");
@@ -62,10 +65,10 @@ const FormSubmitPage = ({
       <Layout.Header>
         <Header locale={locale} />
       </Layout.Header>
-      <Layout.Main>
+      <Layout.Main background="var(--form-submit-background-color)">
         <FormSubmitTemplate
-          categories={categories}
-          formExts={formExts}
+          countries={countries}
+          purposeWithCategories={purposeWithCategories}
           queryIndexData={queryIndexData}
         />
       </Layout.Main>
@@ -76,26 +79,63 @@ const FormSubmitPage = ({
   );
 };
 
+const INDEX_USED_COOKIE = "formSubmitIndexUsed";
+const hashIndex = (index: string) =>
+  createHash("sha256").update(index).digest("hex");
+
 const resolveQueryIndexData = async (
   query: GetServerSidePropsContext["query"],
-): Promise<string[] | null> => {
+  req: GetServerSidePropsContext["req"],
+  res: GetServerSidePropsContext["res"],
+) => {
   const index = query.index;
 
   if (typeof index !== "string" || index.length === 0) {
     return null;
   }
 
+  const indexHash = hashIndex(index);
+  const usedIndexHash = parseCookie(req.headers.cookie ?? "")[
+    INDEX_USED_COOKIE
+  ];
+
+  if (usedIndexHash === indexHash) {
+    return null;
+  }
+
   try {
     const compressedData = Buffer.from(index.replace(/\s/g, "+"), "base64");
-    const queryIndexData = zlib
-      .inflateSync(compressedData)
-      .toString()
-      .split(";");
-    const previewUrl = queryIndexData[0];
+    const queryIndexData = JSON.parse(
+      zlib.inflateSync(compressedData).toString(),
+    );
+    const previewUrl = queryIndexData.previewUrl;
 
-    const previewResponse = await fetch(previewUrl);
+    if (typeof previewUrl !== "string" || previewUrl.length === 0) {
+      return null;
+    }
 
-    return previewResponse.status === 200 ? queryIndexData : null;
+    const templateImages = await getTemplatePreviewImages(previewUrl);
+
+    if (!templateImages) {
+      return null;
+    }
+
+    res.setHeader(
+      "Set-Cookie",
+      serializeCookie(INDEX_USED_COOKIE, indexHash, {
+        path: "/form-submit",
+        httpOnly: true,
+        sameSite: "lax",
+      }),
+    );
+
+    return {
+      fileName: queryIndexData.fileName,
+      fileSize: queryIndexData.fileSize,
+      formName: queryIndexData.formName,
+      fileUrl: queryIndexData.fileUrl,
+      templateImages,
+    };
   } catch {
     return null;
   }
@@ -104,13 +144,15 @@ const resolveQueryIndexData = async (
 export const getServerSideProps = async ({
   locale,
   query,
+  req,
+  res,
 }: GetServerSidePropsContext) => {
   const resolvedLocale = locale ?? "en";
 
-  const [categories, formExts, queryIndexData] = await Promise.all([
-    getCategories(resolvedLocale),
-    getFormExts(resolvedLocale),
-    resolveQueryIndexData(query),
+  const [countries, purposeWithCategories, queryIndexData] = await Promise.all([
+    getCountries(resolvedLocale),
+    getPurposeWithCategories(resolvedLocale),
+    resolveQueryIndexData(query, req, res),
   ]);
 
   return {
@@ -120,9 +162,9 @@ export const getServerSideProps = async ({
         "form-submit",
         "Select",
       ])),
-      locale: resolvedLocale,
-      categories,
-      formExts,
+      locale,
+      countries,
+      purposeWithCategories,
       queryIndexData,
     },
   };

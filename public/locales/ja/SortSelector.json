@@ -1,8 +1,8 @@
 {
   "SortBy": "並べ替え：",
-  "MostPopular": "Most Popular",
+  "MostPopular": "人気順",
   "NewestOldest": "新しい順",
   "OldestNewest": "古い順",
-  "A-Z": "A-Z",
-  "Z-A": "Z-A"
+  "A-Z": "A-Z順",
+  "Z-A": "Z-A順"
 }

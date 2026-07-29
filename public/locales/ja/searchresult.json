@@ -2,5 +2,18 @@
   "PageTitle": "PDFフォームとテンプレートの検索 | ONLYOFFICE",
   "PageDescription": "あらゆるビジネス目的のための無料テンプレートと記入可能なPDFフォーム",
   "SearchResultsFor": "検索結果 '{{searchQuery}}'",
-  "NoResultsMatchingYourQueryCouldBeFound": "検索条件に一致する結果は見つかりませんでした。"
+  "NoResultsFound": "No results found",
+  "WeCouldntFindAnythingMatchingYourSearch": "We couldn't find anything matching your search.",
+  "TryAdjustingYourKeywords": "Try adjusting your keywords, checking the spelling, or browsing available categories.",
+  "Suggestions": "Suggestions",
+  "CheckTheSpelling": "Check the spelling",
+  "CheckSpellingOrTryOtherKeywords": "Check spelling or try other keywords.",
+  "TryDifferentKeywords": "Try different keywords",
+  "UseSynonymsOrShorterTerms": "Use synonyms or shorter terms.",
+  "BrowseCategories": "Browse categories",
+  "ExploreTemplatesByTopicBelow": "Explore templates by topic below.",
+  "RemoveActiveFilters": "Remove active filters",
+  "ClearFiltersToBroadenTheSearch": "Clear filters to broaden the search.",
+  "PopularTemplates": "Popular Templates",
+  "BrowseAllTemplates": "Browse All Templates"
 }

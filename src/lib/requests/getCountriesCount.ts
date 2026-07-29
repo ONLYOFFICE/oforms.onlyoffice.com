@@ -28,10 +28,14 @@
 
 import CONFIG from "@src/config/config.json";
 import { apiRequest } from "@src/lib/api/apiRequest";
+import { cacheByLocale } from "@src/lib/api/cacheByLocale";
 import { ILocale } from "@src/types/locale";
 import { cmsLocale } from "@src/utils/cmsLocale";
 
-const getCountriesCount = async (locale: ILocale["locale"], ext?: string) => {
+const fetchCountriesCount = async (
+  locale: ILocale["locale"],
+  ext: string = "",
+) => {
   const params = [
     `locale=${cmsLocale(locale)}`,
     "fields[0]=name",
@@ -51,5 +55,7 @@ const getCountriesCount = async (locale: ILocale["locale"], ext?: string) => {
 
   return await res.json();
 };
+
+const getCountriesCount = cacheByLocale(fetchCountriesCount);
 
 export { getCountriesCount };

@@ -28,10 +28,11 @@
 
 interface IMain {
   children: React.ReactNode;
+  background?: string;
 }
 
-const Main = ({ children }: IMain) => {
-  return <main>{children}</main>;
+const Main = ({ children, background }: IMain) => {
+  return <main style={background ? { background } : undefined}>{children}</main>;
 };
 
 export { Main };

@@ -28,6 +28,7 @@
 
 import CONFIG from "@src/config/config.json";
 import { apiRequest } from "@src/lib/api/apiRequest";
+import { cacheByLocale } from "@src/lib/api/cacheByLocale";
 import { ILocale } from "@src/types/locale";
 import { cmsLocale } from "@src/utils/cmsLocale";
 
@@ -51,7 +52,7 @@ const buildUrl = (locale: ILocale["locale"], page: number) => {
   return `${CONFIG.api.cms}/api/oforms?${params}`;
 };
 
-const getExtForms = async (locale: ILocale["locale"]) => {
+const fetchExtForms = async (locale: ILocale["locale"]) => {
   const firstPageRes = await apiRequest(buildUrl(locale, 1), {
     label: "getExtForms",
   });
@@ -77,5 +78,7 @@ const getExtForms = async (locale: ILocale["locale"]) => {
 
   return { data, meta: firstPage.meta };
 };
+
+const getExtForms = cacheByLocale(fetchExtForms);
 
 export { getExtForms };

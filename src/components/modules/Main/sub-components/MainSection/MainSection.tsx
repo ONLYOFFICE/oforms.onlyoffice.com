@@ -31,13 +31,23 @@ import { useRouter } from "next/router";
 import { Heading } from "@src/components/ui/Heading";
 import { Link } from "@src/components/ui/Link";
 import { Card } from "@src/components/widgets/Card";
-import { appendOpenedParam } from "./MainSection.utils";
+import { appendQueryParams } from "./MainSection.utils";
 import { IMainSection } from "./MainSection.types";
 import styles from "./MainSection.module.scss";
 
-const MainSection = ({ label, href, data, desktopLimit }: IMainSection) => {
+const MainSection = ({
+  label,
+  href,
+  data,
+  desktopLimit,
+  cardsGrid,
+}: IMainSection) => {
   const router = useRouter();
-  const hrefWithOpened = appendOpenedParam(href, router.query.opened);
+  const hrefWithOpened = appendQueryParams(href, {
+    opened: router.query.opened,
+    purpose: router.query.purpose,
+    country: router.query.country,
+  });
 
   return (
     <div className={styles["main-section"]}>
@@ -46,13 +56,18 @@ const MainSection = ({ label, href, data, desktopLimit }: IMainSection) => {
           href={hrefWithOpened}
           className={styles["main-section-heading-link"]}
         >
-          <Heading level={2} size={3}>
+          <Heading
+            className={styles["main-section-heading"]}
+            level={2}
+            size={3}
+            color="var(--main-section-heading-color)"
+          >
             {label}
           </Heading>
         </Link>
       ) : (
         <div className={styles["main-section-heading-link"]}>
-          <Heading level={2} size={3}>
+          <Heading level={2} size={3} color="var(--main-section-heading-color)">
             {label}
           </Heading>
         </div>
@@ -62,6 +77,7 @@ const MainSection = ({ label, href, data, desktopLimit }: IMainSection) => {
         className={clsx(
           styles["main-section-cards"],
           desktopLimit && styles["main-section-cards-desktop-limit"],
+          cardsGrid && styles["main-section-cards-grid"],
         )}
       >
         {data?.map((item) => (

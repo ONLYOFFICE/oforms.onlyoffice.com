@@ -146,7 +146,8 @@ pipeline {
                 usernameVariable: 'NEXT_PUBLIC_EMAIL_AUTH_USER'),
                 string(credentialsId: 'onlyoffice_site_test_hcaptcha_site_key', variable: 'NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY'),
                 string(credentialsId: 'onlyoffice_site_test_hcaptcha_secret_key', variable: 'NEXT_PUBLIC_HCAPTCHA_TEST_SECRET_KEY'),
-                string(credentialsId: 'templates_redesign_strapi_api_token', variable: 'REDESIGN_PUBLIC_STRAPI_API_TOKEN_TEST')]) {
+                string(credentialsId: 'templates_redesign_strapi_api_token', variable: 'REDESIGN_PUBLIC_STRAPI_API_TOKEN_TEST'),
+                string(credentialsId: 'templates_redesign_revalidate_authorization_token', variable: 'REVALIDATE_AUTHORIZATION_TOKEN_TEST')]) {
 
           sh '''
             if [[ ${BRANCH_NAME} == "test_deploy" ]]; then
@@ -162,6 +163,7 @@ pipeline {
               NEXT_PUBLIC_HCAPTCHA_SITE_KEY=$NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
               NEXT_PUBLIC_HCAPTCHA_SECRET_KEY=$NEXT_PUBLIC_HCAPTCHA_TEST_SECRET_KEY
               NEXT_PUBLIC_STRAPI_API_TOKEN=$REDESIGN_PUBLIC_STRAPI_API_TOKEN_TEST
+              REVALIDATE_AUTHORIZATION_TOKEN=$REVALIDATE_AUTHORIZATION_TOKEN_TEST 
             fi
 
             sed -i "s^var_notification_app_name^$site_url^" .jenkins/build.sh
@@ -185,6 +187,7 @@ pipeline {
             sed -i "s^var_files_docservice_secret^$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET^" .env.local
             sed -i "s^var_next_public_recaptcha_site_key^$NEXT_PUBLIC_RECAPTCHA_SITE_KEY^" .env.local
             sed -i "s^var_strapi_api_token^$NEXT_PUBLIC_STRAPI_API_TOKEN^" .env.local
+            sed -i "s^var_revalidate_authorization_token^$REVALIDATE_AUTHORIZATION_TOKEN^" .env.local
 
             sed -i "s^var_region^$aws_region^" .env.local
             sed -i "s^var_bucket^$bucket^" .env.local
@@ -236,7 +239,8 @@ pipeline {
     }
     stage('invalidation') {
       when { 
-        anyOf { branch 'disabled_test_deploy'; 
+        anyOf { branch 'feature/redesign'; 
+                branch 'disabled_test_deploy'; 
                 branch 'disabled_production_deploy' }
       }
       environment {

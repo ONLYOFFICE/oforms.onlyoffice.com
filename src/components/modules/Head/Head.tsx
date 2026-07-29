@@ -119,15 +119,17 @@ const Head = ({ title, description }: IHead) => {
 
       {languages.map((lng) => {
         const { key, shortKey } = lng;
+        const href = `${process.env.NEXT_PUBLIC_SITE_URL}${shortKey === "en" ? "" : `/${shortKey}`}`;
 
         return (
-          <link
-            key={key}
-            rel="alternate"
-            href={`${process.env.NEXT_PUBLIC_SITE_URL}${shortKey === "en" ? "" : `/${shortKey}`}`}
-          />
+          <link key={key} rel="alternate" hrefLang={shortKey} href={href} />
         );
       })}
+      <link
+        rel="alternate"
+        hrefLang="x-default"
+        href={process.env.NEXT_PUBLIC_SITE_URL}
+      />
     </NextHead>
   );
 };

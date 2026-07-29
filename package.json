@@ -16,6 +16,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "3.1079.0",
     "@hcaptcha/react-hcaptcha": "2.0.2",
+    "adm-zip": "0.6.0",
     "clsx": "2.1.1",
     "cookie": "1.1.1",
     "dayjs": "1.11.21",
@@ -26,7 +27,6 @@
     "next-i18next": "15.4.3",
     "nodemailer": "9.0.3",
     "onlyoffice-react-ui-kit": "ONLYOFFICE/onlyoffice-react-ui-kit#21042d933603e0c7ffa304e7c0022011e8d76714",
-    "pdf-lib": "1.17.1",
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-i18next": "17.0.8",
@@ -37,6 +37,7 @@
     "swiper": "14.0.1"
   },
   "devDependencies": {
+    "@types/adm-zip": "0.5.8",
     "@types/formidable": "3.5.1",
     "@types/jsonwebtoken": "9.0.10",
     "@types/node": "26.1.0",

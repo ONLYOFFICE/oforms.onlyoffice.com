@@ -36,7 +36,6 @@ import {
   PutObjectCommand,
   DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
-import { PDFDocument } from "pdf-lib";
 import CONFIG from "@src/config/config.json";
 import { languages } from "@src/config/languages";
 import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
@@ -45,17 +44,14 @@ import {
   MAX_UPLOAD_FILE_SIZE,
   generateKey,
   sanitizeFileName,
+  EXTENSION_MIME_TYPES,
 } from "@src/utils/formSubmit";
-import { apiRequest } from "@src/lib/api/apiRequest";
 
 export const config = {
   api: {
     bodyParser: false,
   },
 };
-
-const getFieldValue = (value: string | string[] | undefined): string =>
-  Array.isArray(value) ? (value[0] ?? "") : (value ?? "");
 
 const getLanguagePrefix = (language: string): string => {
   const isSupported = languages.some((item) => item.shortKey === language);
@@ -66,6 +62,8 @@ const getLanguagePrefix = (language: string): string => {
 
   return `${language}/`;
 };
+
+const DOCSERVICE_TIMEOUT = 2 * 60 * 1000;
 
 export default async function handler(
   req: NextApiRequest,
@@ -109,19 +107,26 @@ export default async function handler(
     return res.status(400).json({ error: "Invalid upload" });
   }
 
+  const formNameField = fields.formName?.[0];
+  const languageField = fields.language?.[0];
+
   const file = files.file?.[0];
 
   if (!file) {
     return res.status(400).json({ error: "No file uploaded" });
   }
 
-  const formName = getFieldValue(fields.formName);
-  const language = getFieldValue(fields.language);
+  if (!formNameField || !languageField) {
+    await fs.promises.unlink(file.filepath).catch(() => undefined);
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+
   const fileType = file.originalFilename?.match(/\.(\w+)$/)?.[1]?.toLowerCase();
 
   if (
     !fileType ||
-    !ALLOWED_TYPES.includes(fileType as (typeof ALLOWED_TYPES)[number])
+    !ALLOWED_TYPES.includes(fileType as (typeof ALLOWED_TYPES)[number]) ||
+    file.mimetype !== EXTENSION_MIME_TYPES[fileType]
   ) {
     await fs.promises.unlink(file.filepath).catch(() => undefined);
     return res
@@ -131,7 +136,6 @@ export default async function handler(
 
   const safeName = sanitizeFileName(file.originalFilename);
   const fileName = `${FOLDER_NAME}/${Date.now()}_${safeName}`;
-  const fileSize = file.size;
   const s3Url = `https://${BUCKET}/${fileName}`;
 
   const s3 = new S3Client({
@@ -156,43 +160,6 @@ export default async function handler(
 
     const convertServiceUrl = `${EDITOR_API_URL}/ConvertService.ashx`;
 
-    const pdfPayload = {
-      filetype: fileType,
-      key: generateKey(),
-      outputtype: "pdf",
-      title: fileName,
-      url: s3Url,
-    };
-    const pdfConvertResponse = await apiRequest(convertServiceUrl, {
-      label: "PDF conversion",
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        AuthorizationJwt: `Bearer ${jwt.sign(pdfPayload, FILES_DOCSERVICE_SECRET)}`,
-      },
-      body: JSON.stringify(pdfPayload),
-    });
-    const pdfConvertData = await pdfConvertResponse.json();
-    if (pdfConvertData?.error) {
-      throw new Error(
-        `PDF conversion failed: docservice error ${pdfConvertData.error}`,
-      );
-    }
-    if (!pdfConvertData?.fileUrl) {
-      throw new Error("PDF conversion failed: conversion not ready");
-    }
-
-    const pdfResponse = await apiRequest(pdfConvertData.fileUrl, {
-      label: "PDF download",
-    });
-    const pdfArrayBuffer = await pdfResponse.arrayBuffer();
-    const pdfDoc = await PDFDocument.load(new Uint8Array(pdfArrayBuffer));
-    const { width, height } = pdfDoc.getPage(0).getSize();
-    const pageCount = pdfDoc.getPageCount();
-    const isLandscape = width > height;
-    const fileOrientation = isLandscape ? "horizontal" : "vertical";
-
     const filePayload = {
       filetype: fileType,
       key: generateKey(),
@@ -205,18 +172,17 @@ export default async function handler(
       key: generateKey(),
       outputtype: "png",
       thumbnail: {
-        aspect: 0,
-        first: true,
-        height: isLandscape ? 1024 : 1448,
-        width: isLandscape ? 1448 : 1024,
+        aspect: 1,
+        first: false,
+        width: 420,
+        height: 420,
       },
       title: fileName,
       url: s3Url,
     };
 
     const [fileConvertResponse, previewConvertResponse] = await Promise.all([
-      apiRequest(convertServiceUrl, {
-        label: "File conversion",
+      fetch(convertServiceUrl, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -224,9 +190,9 @@ export default async function handler(
           AuthorizationJwt: `Bearer ${jwt.sign(filePayload, FILES_DOCSERVICE_SECRET)}`,
         },
         body: JSON.stringify(filePayload),
+        signal: AbortSignal.timeout(DOCSERVICE_TIMEOUT),
       }),
-      apiRequest(convertServiceUrl, {
-        label: "Template preview conversion",
+      fetch(convertServiceUrl, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -234,9 +200,15 @@ export default async function handler(
           AuthorizationJwt: `Bearer ${jwt.sign(previewPayload, FILES_DOCSERVICE_SECRET)}`,
         },
         body: JSON.stringify(previewPayload),
+        signal: AbortSignal.timeout(DOCSERVICE_TIMEOUT),
       }),
     ]);
 
+    if (!fileConvertResponse.ok) {
+      throw new Error(
+        `File conversion failed: ${fileConvertResponse.status} ${fileConvertResponse.statusText}`,
+      );
+    }
     const fileConvertData = await fileConvertResponse.json();
     if (fileConvertData?.error) {
       throw new Error(
@@ -247,6 +219,11 @@ export default async function handler(
       throw new Error("File conversion failed: conversion not ready");
     }
 
+    if (!previewConvertResponse.ok) {
+      throw new Error(
+        `Template preview conversion failed: ${previewConvertResponse.status} ${previewConvertResponse.statusText}`,
+      );
+    }
     const previewConvertData = await previewConvertResponse.json();
     if (previewConvertData?.error) {
       throw new Error(
@@ -261,12 +238,18 @@ export default async function handler(
 
     const compressedString = zlib
       .deflateSync(
-        `${previewConvertData.fileUrl};${pageCount};${safeName};${fileSize};${formName};${fileConvertData.fileUrl};${fileOrientation}`,
+        JSON.stringify({
+          previewUrl: previewConvertData.fileUrl,
+          fileUrl: fileConvertData.fileUrl,
+          fileName: file.originalFilename,
+          fileSize: file.size,
+          formName: formNameField,
+        }),
       )
       .toString("base64");
 
     const cmsApiUrl = CONFIG.api.cms.replace("dashboard", "");
-    const languagePrefix = getLanguagePrefix(language);
+    const languagePrefix = getLanguagePrefix(languageField);
 
     return res
       .status(200)
@@ -275,7 +258,7 @@ export default async function handler(
       );
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    console.error("[upload]", message);
+    console.error("[file-upload]", message);
     return res.status(502).json({
       status: "error",
       message: "Failed to process the uploaded file",

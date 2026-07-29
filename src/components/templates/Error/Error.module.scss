@@ -26,68 +26,106 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+@use "media";
+
 .error {
-  box-sizing: border-box;
-  padding: 117px 0 187px;
-  font-family: "Open Sans", sans-serif;
-
-  @media screen and (max-width: 540px) {
-    padding: 107px 23px 0;
-  }
-}
-
-.error-image {
-  margin: 0 auto;
-  width: 100%;
-  height: 424px;
-  background-image: var(--error-image-background-image);
-  background-size: contain;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-
-  @media screen and (max-width: 540px) {
-    height: 363px;
-    max-width: 100%;
-  }
-
-  @media screen and (max-width: 320px) {
-    height: 235px;
-  }
-}
-
-.error-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  max-width: 530px;
-  margin: 0 auto;
-  text-align: center;
+  min-height: 100vh;
+}
+
+.error-wrapper {
+  display: grid;
+  grid-template-columns: minmax(350px, 520px) minmax(508px, 768px);
+  align-items: center;
+  gap: 64px;
+  padding: 64px 0;
+
+  @include media.tablet {
+    grid-template-columns: initial;
+    padding: 0;
+    gap: 48px;
+    text-align: center;
+  }
+
+  @include media.mobile {
+    gap: 28px;
+  }
+}
+
+.error-img-wrapper {
+  position: relative;
+  padding-bottom: 94.232%;
+  width: 100%;
+
+  @include media.tablet {
+    padding-bottom: initial;
+    width: initial;
+  }
+}
+
+.error-img {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--error-img);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+
+  @include media.tablet {
+    position: initial;
+    top: initial;
+    left: initial;
+    margin: 0 auto;
+    width: 414px;
+    height: 390px;
+  }
+
+  @include media.mobile {
+    width: 200px;
+    height: 188px;
+  }
+}
+
+.error-label {
+  margin-bottom: 24px;
+  font-size: 140px;
+  font-weight: 700;
+  line-height: 112px;
+  color: var(--error-label-color);
+
+  @include media.tablet {
+    line-height: 1;
+  }
+
+  @include media.mobile {
+    font-size: 104px;
+  }
 }
 
 .error-heading {
-  margin: 0.67em 0;
-  font-size: 40px;
-  line-height: 53px;
-  text-align: center;
-  letter-spacing: -0.02em;
-  color: #333333;
+  margin-bottom: 24px;
+}
 
-  @media screen and (max-width: 540px) {
-    font-size: 24px;
-    line-height: 32px;
-    letter-spacing: -0.01em;
+.error-text-wrapper {
+  display: grid;
+  row-gap: 10px;
+  margin-bottom: 32px;
+}
+
+.error-subtext {
+  @include media.mobile {
+    line-height: 20px;
   }
 }
 
-.error-description {
-  margin-bottom: 24px;
-  font-size: 16px;
-  line-height: 22px;
-  text-align: center;
-  color: #555555;
+.error-btn {
+  margin-bottom: 40px;
+}
 
-  @media screen and (max-width: 540px) {
-    font-size: 13px;
-    line-height: 21px;
-  }
+.error-search-input {
+  max-width: 544px;
 }

@@ -28,101 +28,42 @@
 
 @use "media";
 
-.form-submit-wrapper {
-  display: grid;
-  align-items: start;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  margin-top: 64px;
+.form-submit-breadcrumbs {
+  margin-bottom: 26px;
+
+  &-submitted {
+    justify-content: center;
+  }
 
   @include media.tablet {
-    grid-template-columns: initial;
-    margin: 48px auto 0;
-    max-width: 544px;
+    margin-bottom: 24px;
   }
 
   @include media.mobile {
-    margin: 28px auto 0;
+    margin-bottom: 10px;
   }
 }
 
-.form-submit-content {
+.form-submit-heading {
+  margin-bottom: 8px;
+}
+
+.form-submit-text {
+  margin-bottom: 32px;
+
+  @include media.mobile {
+    margin-bottom: 16px;
+  }
+}
+
+.form-submit-wrapper {
   display: grid;
-  justify-items: start;
-  row-gap: 32px;
-  padding: 8px 0;
-  width: 100%;
+  grid-template-columns: minmax(378px, 578px) minmax(500px, 750px);
+  align-items: start;
+  gap: 24px;
 
   @include media.tablet {
-    padding: 0;
-  }
-}
-
-.form-submit-block {
-  display: grid;
-  row-gap: 24px;
-  width: 100%;
-}
-
-.form-submit-block-wrapper {
-  border-bottom: 1px solid #e1e1f7;
-  padding-bottom: 31px;
-}
-
-.form-submit-info {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-bottom: -12px;
-  min-height: 24px;
-}
-
-.form-submit-info-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-
-  &:not(:last-child) {
-    margin-inline-end: 32px;
-  }
-}
-
-.form-submit-info-label {
-  &:not(:last-child) {
-    margin-inline-end: 8px;
-  }
-}
-
-.form-submit-select {
-  max-width: 616px;
-}
-
-.form-submit-info-format {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-
-  &:before {
-    content: "";
-    display: inline-flex;
-    margin-inline-end: 4px;
-    width: 24px;
-    height: 24px;
-    background-image: var(--form-submit-info-format);
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-  }
-}
-
-.form-submit-nav {
-  @include media.tablet {
-    width: 100%;
-  }
-}
-
-.form-submit-button {
-  @include media.tablet {
-    width: 100%;
+    grid-template-columns: initial;
+    gap: 22px;
   }
 }

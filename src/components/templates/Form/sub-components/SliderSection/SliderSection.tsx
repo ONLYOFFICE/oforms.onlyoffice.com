@@ -39,6 +39,33 @@ import { ChevronDownIcon } from "@src/components/icons";
 import { ISliderSection } from "./SliderSection.types";
 import styles from "./SliderSection.module.scss";
 
+const SWIPER_MODULES = [Navigation];
+const BREAKPOINTS = {
+  0: {
+    enabled: false,
+    spaceBetween: 16,
+  },
+  592: {
+    enabled: false,
+    spaceBetween: 40,
+  },
+  768: {
+    enabled: true,
+    slidesPerView: 3,
+    spaceBetween: 32,
+  },
+  1024: {
+    enabled: true,
+    slidesPerView: 4,
+    spaceBetween: 72,
+  },
+  1440: {
+    enabled: true,
+    slidesPerView: 4,
+    spaceBetween: 72,
+  },
+};
+
 const SliderSection = ({ heading, data }: ISliderSection) => {
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
@@ -60,12 +87,6 @@ const SliderSection = ({ heading, data }: ISliderSection) => {
     swiper.navigation.update();
   };
 
-  useEffect(() => {
-    if (swiperRef.current) {
-      bindNavigation(swiperRef.current);
-    }
-  });
-
   const slides = data.filter(
     (item) =>
       item.card_prewiew &&
@@ -75,51 +96,34 @@ const SliderSection = ({ heading, data }: ISliderSection) => {
       item.form_exts,
   );
 
+  useEffect(() => {
+    if (swiperRef.current) {
+      bindNavigation(swiperRef.current);
+    }
+  }, [slides.length]);
+
   return (
     <Section
       className={styles["slider-section"]}
       desktopSpacing={["32px", "32px"]}
       tabletSpacing={["32px", "32px"]}
       tabletSmallSpacing={["32px", "32px"]}
-      mobileSpacing={["48px", "48px"]}
+      mobileSpacing={["34px", "34px"]}
     >
       <Container maxWidth="1452px">
         <Heading
           className={styles["slider-section-heading"]}
           level={2}
           size={3}
+          color="var(--form-slider-section-heading-color)"
         >
           {heading}
         </Heading>
 
         <div className={styles["slider-section-wrapper"]}>
           <Swiper
-            breakpoints={{
-              0: {
-                enabled: false,
-                spaceBetween: 16,
-              },
-              592: {
-                enabled: false,
-                spaceBetween: 48,
-              },
-              768: {
-                enabled: true,
-                slidesPerView: 3,
-                spaceBetween: 32,
-              },
-              1024: {
-                enabled: true,
-                slidesPerView: 4,
-                spaceBetween: 72,
-              },
-              1440: {
-                enabled: true,
-                slidesPerView: 4,
-                spaceBetween: 72,
-              },
-            }}
-            modules={[Navigation]}
+            breakpoints={BREAKPOINTS}
+            modules={SWIPER_MODULES}
             navigation={{
               prevEl: prevRef.current,
               nextEl: nextRef.current,

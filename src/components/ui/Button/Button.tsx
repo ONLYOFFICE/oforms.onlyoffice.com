@@ -51,7 +51,7 @@ const Button = forwardRef<HTMLButtonElement, IButton>(
       fullWidth,
       variant = "primary",
       size = 1,
-      isLoading,
+      status,
       style,
       onClick,
     },
@@ -63,6 +63,9 @@ const Button = forwardRef<HTMLButtonElement, IButton>(
         ? Link
         : "button";
 
+    const isLightIcon = variant === "primary" || variant === "secondary-dark";
+    const iconTheme = isLightIcon ? "light" : "dark";
+
     return (
       <Component
         ref={ref}
@@ -72,7 +75,8 @@ const Button = forwardRef<HTMLButtonElement, IButton>(
           styles[`variant-${variant}`],
           styles[`size-${size}`],
           fullWidth && styles["full-width"],
-          isLoading && styles.loading,
+          status === "loading" && styles.loading,
+          status === "error" && styles.error,
           className,
         )}
         type={as === "button" ? type : undefined}
@@ -92,8 +96,11 @@ const Button = forwardRef<HTMLButtonElement, IButton>(
         title={title}
         style={
           {
-            ...(isLoading && {
-              "--loader-button-icon": `url(${getAssetUrl("/images/ui/button/loader.svg")})`,
+            ...(status === "loading" && {
+              "--loader-button-icon": `url(${getAssetUrl(`/images/ui/button/loader-${iconTheme}.svg`)})`,
+            }),
+            ...(status === "error" && {
+              "--error-button-icon": `url(${getAssetUrl(`/images/ui/button/cross-${iconTheme}.svg`)})`,
             }),
             ...style,
           } as React.CSSProperties

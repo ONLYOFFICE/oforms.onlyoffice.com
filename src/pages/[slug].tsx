@@ -29,13 +29,17 @@
 import { GetStaticPaths, GetStaticPropsContext } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { getAllFormUrls } from "@src/lib/requests/getAllFormUrls";
-import { getCategoryUrls } from "@src/lib/requests/getCategoryUrls";
+import {
+  getCategoryUrls,
+  getCachedCategoryUrls,
+} from "@src/lib/requests/getCategoryUrls";
 import { getCategoryInfoWithForms } from "@src/lib/requests/getCategoryInfoWithForms";
 import { getExtForms } from "@src/lib/requests/getExtForms";
 import { getExtFormsCount } from "@src/lib/requests/getExtFormsCount";
 import { getCountriesCount } from "@src/lib/requests/getCountriesCount";
 import { getPurposeWithCategoriesCount } from "@src/lib/requests/getPurposeWithCategoriesCount";
 import { getForm } from "@src/lib/requests/getForm";
+import { getExtFormsPlain } from "@src/lib/requests/getExtFormsPlain";
 import { getParentCategories } from "@src/lib/requests/getParentCategories";
 import { languages } from "@src/config/languages";
 import { Layout } from "@src/components/Layout";
@@ -49,8 +53,7 @@ import { FormTemplate, IFormTemplate } from "@src/components/templates/Form";
 import { ILocale } from "@src/types/locale";
 
 type ISlugPage =
-  | ({ isCategory: true } & ICategory)
-  | ({ isCategory?: false } & IFormTemplate);
+  ({ isCategory: true } & ICategory) | ({ isCategory?: false } & IFormTemplate);
 
 const SlugPage = (props: ISlugPage & ILocale) => {
   const { locale } = props;
@@ -78,7 +81,7 @@ const SlugPage = (props: ISlugPage & ILocale) => {
         <Layout.Header>
           <Header locale={locale} />
         </Layout.Header>
-        <Layout.Main>
+        <Layout.Main background="var(--primary-background-color)">
           <CategoryTemplate
             categoryInfoWithForms={categoryInfoWithForms}
             allForms={allForms}
@@ -94,7 +97,7 @@ const SlugPage = (props: ISlugPage & ILocale) => {
     );
   }
 
-  const { form, categories } = props;
+  const { form, allForms, categories } = props;
 
   return (
     <Layout>
@@ -112,8 +115,8 @@ const SlugPage = (props: ISlugPage & ILocale) => {
       <Layout.Header>
         <Header locale={locale} />
       </Layout.Header>
-      <Layout.Main>
-        <FormTemplate form={form} categories={categories} />
+      <Layout.Main background="var(--primary-background-color)">
+        <FormTemplate form={form} allForms={allForms} categories={categories} />
       </Layout.Main>
       <Layout.Footer>
         <Footer locale={locale} />
@@ -163,7 +166,7 @@ export const getStaticProps = async ({
 }: GetStaticPropsContext & ILocale) => {
   const slug = params?.slug as string;
 
-  const categoryUrls = await getCategoryUrls(locale);
+  const categoryUrls = await getCachedCategoryUrls(locale);
   const isCategory = categoryUrls.data.some(
     (category) => category.urlReq === slug,
   );
@@ -203,8 +206,9 @@ export const getStaticProps = async ({
     };
   }
 
-  const [form, categories] = await Promise.all([
+  const [form, allForms, categories] = await Promise.all([
     getForm(locale, slug),
+    getExtFormsPlain(locale),
     getParentCategories(locale),
   ]);
 
@@ -219,6 +223,7 @@ export const getStaticProps = async ({
       ...(await serverSideTranslations(locale, ["common", "form"])),
       locale,
       form,
+      allForms,
       categories,
     },
   };

@@ -28,10 +28,11 @@
 
 import CONFIG from "@src/config/config.json";
 import { apiRequest } from "@src/lib/api/apiRequest";
+import { cacheByLocale } from "@src/lib/api/cacheByLocale";
 import { ILocale } from "@src/types/locale";
 import { cmsLocale } from "@src/utils/cmsLocale";
 
-const getExtFormsCount = async (locale: ILocale["locale"]) => {
+const fetchExtFormsCount = async (locale: ILocale["locale"]) => {
   const params = [
     `locale=${cmsLocale(locale)}`,
     "fields[0]=ext",
@@ -47,5 +48,7 @@ const getExtFormsCount = async (locale: ILocale["locale"]) => {
 
   return await res.json();
 };
+
+const getExtFormsCount = cacheByLocale(fetchExtFormsCount);
 
 export { getExtFormsCount };

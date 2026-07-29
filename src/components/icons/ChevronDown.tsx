@@ -29,7 +29,7 @@
 import { IIcon } from "./types";
 
 // chevron-down.svg
-const ChevronDownIcon = ({ id, className }: IIcon) => (
+const ChevronDownIcon = ({ id, className, fill = "#666980" }: IIcon) => (
   <svg
     id={id}
     className={className}
@@ -43,7 +43,7 @@ const ChevronDownIcon = ({ id, className }: IIcon) => (
       fillRule="evenodd"
       clipRule="evenodd"
       d="M6.32308 9.28982C6.71602 8.90178 7.35104 8.90372 7.74202 9.29372L12.0018 13.5427L16.2567 9.29861C16.6476 8.90853 17.2836 8.90665 17.6766 9.2947L17.7039 9.32204C18.0968 9.71011 18.0988 10.3412 17.7078 10.7312L12.7225 15.7039C12.5483 15.8777 12.3257 15.9735 12.0975 15.9929C11.8067 16.0225 11.5053 15.9276 11.283 15.7058L6.29183 10.7254C5.90118 10.3353 5.90297 9.70514 6.29573 9.31716L6.32308 9.28982Z"
-      fill="#666980"
+      fill={fill}
     />
   </svg>
 );

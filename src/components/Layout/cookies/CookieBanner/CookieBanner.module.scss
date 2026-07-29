@@ -32,17 +32,17 @@
   position: fixed;
   inset-inline-end: 16px;
   bottom: 13px;
-  border: 1px solid #e1e1f7;
+  border: 1px solid var(--cookie-banner-border-color);
   border-radius: 50%;
   padding: 0;
   width: 48px;
   height: 48px;
   background-image: var(--cookie-fab-icon);
-  background-color: #ffffff;
+  background-color: var(--cookie-banner-background-color);
   background-position: center;
   background-repeat: no-repeat;
   background-size: 24px 25px;
-  box-shadow: 0px 5px 15px 0px rgba(27, 68, 166, 0.1);
+  box-shadow: 0px 5px 15px 0px var(--cookie-banner-box-shadow-color);
   z-index: 1000;
   cursor: pointer;
 }
@@ -53,13 +53,13 @@
   bottom: 40px;
   display: flex;
   align-items: center;
-  border: 1px solid #e1e1f7;
+  border: 1px solid var(--cookie-banner-border-color);
   border-radius: 12px;
   padding: 23px;
   width: calc(100% - 80px);
   max-width: 1290px;
-  background-color: #ffffff;
-  box-shadow: 0px 5px 15px 0px rgba(27, 68, 166, 0.1);
+  background-color: var(--cookie-banner-background-color);
+  box-shadow: 0px 5px 15px 0px var(--cookie-banner-box-shadow-color);
   transform: translateX(-50%);
   z-index: 1000;
 
@@ -77,7 +77,7 @@
   @include media.mobile-s {
     bottom: 0;
     border: none;
-    border-top: 1px solid #e1e1f7;
+    border-top: 1px solid var(--cookie-banner-border-color);
     border-radius: 12px 12px 0 0;
     width: 100%;
   }

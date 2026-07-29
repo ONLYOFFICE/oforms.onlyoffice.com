@@ -34,6 +34,26 @@
   align-items: start;
   gap: 92px;
 
+  > *:first-child {
+    @include media.tablet {
+      order: 2;
+    }
+
+    @include media.mobile {
+      order: initial;
+    }
+  }
+
+  > *:last-child {
+    @include media.tablet {
+      order: 1;
+    }
+
+    @include media.mobile {
+      order: initial;
+    }
+  }
+
   @include media.tablet {
     grid-template-columns: initial;
     gap: 32px;
@@ -66,40 +86,49 @@
 
 .hero-label {
   display: inline-flex;
-  border: 1px solid #75c9c4;
+  border: 1px solid var(--form-hero-label-border-color);
   border-radius: 3px;
   padding: 3px 8px;
   font-size: 14px;
   line-height: 20px;
   min-height: 28px;
   text-align: center;
-  color: #317773;
-  background-color: #e6faf9;
+  color: var(--form-hero-label-color);
+  background-color: var(--form-hero-label-background-color);
 
   &:not(:last-child) {
     margin-inline-end: 8px;
+
+    @include media.tablet {
+      margin-inline-end: 6px;
+    }
+
+    @include media.mobile {
+      margin-inline-end: 4px;
+    }
   }
 
   @include media.mobile {
-    padding: 2px 8px;
+    padding: 3px 8px;
     font-size: 13px;
-    line-height: 22px;
+    line-height: 18px;
+    min-height: 26px;
   }
 }
 
 .hero-label-applications {
-  border-color: rgba(68, 105, 149, 0.5);
-  color: #446995;
-  background-color: #edf5ff;
+  border-color: var(--form-hero-label-applications-border-color);
+  color: var(--form-hero-label-applications-color);
+  background-color: var(--form-hero-label-applications-background-color);
 }
 
 .hero-description {
   margin-bottom: 32px;
-  color: #3a3c49;
+  color: var(--form-hero-description-color);
 
   p {
     &:not(:last-child) {
-      margin-bottom: 24px;
+      margin-bottom: 8px;
     }
   }
 
@@ -109,17 +138,17 @@
 }
 
 .hero-info {
-  border-bottom: 1px solid #e1e1f7;
-  padding-bottom: 39px;
+  border-bottom: 1px solid var(--form-hero-info-border-color);
+  padding-bottom: 40px;
   margin-bottom: 40px;
 
   @include media.tablet {
-    padding-bottom: 35px;
+    padding-bottom: 36px;
     margin-bottom: 36px;
   }
 
   @include media.mobile {
-    padding-bottom: 21px;
+    padding-bottom: 22px;
     margin-bottom: 22px;
   }
 }
@@ -153,17 +182,21 @@
 
 .hero-info-item-size {
   &:not(:last-child) {
-    margin-inline-end: 32px;
+    margin-inline-end: 20px;
+
+    @include media.mobile {
+      margin-inline-end: 12px;
+    }
   }
 }
 
 .hero-info-label {
   margin-inline-end: 8px;
-  color: #9092a6;
+  color: var(--form-hero-info-label-color);
 }
 
 .hero-info-value {
-  color: #333333;
+  color: var(--form-hero-info-value-color);
 }
 
 .hero-download-as {
@@ -203,7 +236,7 @@
 
     @include media.mobile {
       margin-inline-end: initial;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
   }
 }

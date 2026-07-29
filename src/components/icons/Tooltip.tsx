@@ -29,7 +29,7 @@
 import { IIcon } from "./types";
 
 // tooltip.svg
-const TooltipIcon = ({ id, className }: IIcon) => (
+const TooltipIcon = ({ id, className, fill = "#3a3c49" }: IIcon) => (
   <svg
     id={id}
     className={className}
@@ -41,7 +41,7 @@ const TooltipIcon = ({ id, className }: IIcon) => (
   >
     <path
       d="M12 2C17.52 2 22 6.48 22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2ZM12 10C11.4477 10 11 10.4477 11 11V17C11 17.5523 11.4477 18 12 18C12.5523 18 13 17.5523 13 17V11C13 10.4477 12.5523 10 12 10ZM12 6C11.4477 6 11 6.44772 11 7C11 7.55228 11.4477 8 12 8C12.5523 8 13 7.55228 13 7C13 6.44772 12.5523 6 12 6Z"
-      fill="#3A3C49"
+      fill={fill}
     />
   </svg>
 );

@@ -28,13 +28,14 @@
 
 import { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
+import clsx from "clsx";
 import { Heading } from "@src/components/ui/Heading";
 import { Sidebar } from "./sub-components/Sidebar";
 import { Section } from "@src/components/ui/Section";
 import { Container } from "@src/components/ui/Container";
 import { SortSelector } from "@src/components/modules/Main/sub-components/SortSelector";
 import { SearchInput } from "@src/components/modules/Main/sub-components/SearchInput";
-import { getAssetUrl } from "@src/utils/getAssetUrl";
+import { FiltersIcon } from "@src/components/icons";
 import { IMain } from "./Main.types";
 import styles from "./Main.module.scss";
 
@@ -51,6 +52,7 @@ const Main = ({
   totalCount,
   selectedType,
   formNames,
+  searchOnly,
 }: IMain) => {
   const { t } = useTranslation("MainTemplate");
   const [isOpen, setIsOpen] = useState(false);
@@ -65,18 +67,17 @@ const Main = ({
   return (
     <Section
       className={styles["main-content"]}
-      background="var(--desktop-embed-main-background, #f9fbfe)"
       desktopSpacing={["84px", "112px"]}
       tabletSpacing={["64px", "112px"]}
-      tabletSmallSpacing={["64px", "112px"]}
-      mobileSpacing={["64px", "112px"]}
+      tabletSmallSpacing={["48px", "112px"]}
+      mobileSpacing={["48px", "112px"]}
     >
       <Container className={styles["main-container"]}>
         {!hideHeader && (
           <div className={styles["main-header"]}>
             <Heading
               className={styles["main-header-heading"]}
-              color="var(--desktop-embed-main-heading-color, #231990)"
+              color="var(--main-heading-color)"
             >
               {t("FreeDocumentTemplatesAndFillableForms")}
             </Heading>
@@ -84,7 +85,7 @@ const Main = ({
               className={styles["main-header-subheading"]}
               level={2}
               size={3}
-              color="var(--desktop-embed-main-subheading-color, #494b5b)"
+              color="var(--main-subheading-color)"
             >
               {t("DownloadReadyMadeTemplatesOrFillOutPdfFormsOnline")}
             </Heading>
@@ -106,32 +107,43 @@ const Main = ({
           />
 
           <div>
-            <div className={styles["main-top"]}>
-              <div className={styles["main-top-wrapper"]}>
-                <div className={styles["main-top-content"]}>
-                  <SortSelector />
-                  <div className={styles["main-count"]}>
-                    <span className={styles["main-count-label"]}>
-                      {t("Documents")}
-                    </span>
-                    <span className={styles["main-count-value"]}>
-                      {totalCount}
-                    </span>
+            <div
+              className={clsx(
+                styles["main-top"],
+                searchOnly && styles["main-top-search-only"],
+              )}
+            >
+              {!searchOnly && (
+                <div className={styles["main-top-wrapper"]}>
+                  <div className={styles["main-top-content"]}>
+                    <SortSelector className={styles["main-sort-selector"]} />
+                    <div className={styles["main-count"]}>
+                      <span className={styles["main-count-label"]}>
+                        {t("Documents")}
+                      </span>
+                      <span className={styles["main-count-value"]}>
+                        {totalCount}
+                      </span>
+                    </div>
                   </div>
+
+                  <button
+                    onClick={() => setIsOpen(true)}
+                    className={styles["main-filters-button"]}
+                    type="button"
+                  >
+                    <FiltersIcon fill="var(--main-filters-button-icon-color)" />
+                  </button>
                 </div>
+              )}
 
-                <button
-                  onClick={() => setIsOpen(true)}
-                  className={styles["main-filters-button"]}
-                  style={
-                    {
-                      "--main-filters-button-icon": `url(${getAssetUrl("/images/templates/main/filters.svg")})`,
-                    } as React.CSSProperties
-                  }
-                ></button>
-              </div>
-
-              <SearchInput formNames={formNames} />
+              <SearchInput
+                className={clsx(
+                  styles["main-search-input"],
+                  searchOnly && styles["main-search-input-search-only"],
+                )}
+                formNames={formNames}
+              />
             </div>
 
             {children}

@@ -49,7 +49,7 @@ import {
   normalizeSortKey,
   sortForms,
 } from "@src/utils/helpers";
-import { TAllowedTypes } from "@src/utils/allowedTypes";
+import { ALLOWED_TYPES, TAllowedTypes } from "@src/utils/allowedTypes";
 
 const TYPE_SECTIONS: {
   ext: TAllowedTypes;
@@ -84,9 +84,26 @@ const MainTemplate = ({
   const { t } = useTranslation("MainTemplate");
   const router = useRouter();
 
-  const selectedTypes = getQueryValues(router.query.type);
-  const selectedCountries = getQueryValues(router.query.country);
-  const selectedSubcategories = getQueryValues(router.query.subcategory);
+  const selectedTypes = getQueryValues(router.query.type).filter(
+    (type): type is TAllowedTypes => ALLOWED_TYPES.includes(type),
+  );
+  const availableCountryCodes = new Set(
+    allForms.data.flatMap(
+      (form) =>
+        form.countries?.map((country) => country.code.toLowerCase()) ?? [],
+    ),
+  );
+  const selectedCountries = getQueryValues(router.query.country).filter(
+    (country) => availableCountryCodes.has(country),
+  );
+  const availableSubcategoryUrlReqs = new Set(
+    allForms.data.flatMap(
+      (form) => form.subcategories?.map((sub) => sub.urlReq) ?? [],
+    ),
+  );
+  const selectedSubcategories = getQueryValues(router.query.subcategory).filter(
+    (subcategory) => availableSubcategoryUrlReqs.has(subcategory),
+  );
   const sortKey = normalizeSortKey(router.query.sort);
   const formsByType = getFormsByTypes(allForms.data, selectedTypes);
   const formsByTypeAndCountry = getFilteredForms(allForms.data, {

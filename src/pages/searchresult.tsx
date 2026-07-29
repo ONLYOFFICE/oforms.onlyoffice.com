@@ -61,7 +61,7 @@ const SearchResultPage = ({
       <Layout.Header>
         <Header locale={locale} />
       </Layout.Header>
-      <Layout.Main>
+      <Layout.Main background="var(--primary-background-color)">
         <SearchResultTemplate
           allForms={allForms}
           extFormsCount={extFormsCount}

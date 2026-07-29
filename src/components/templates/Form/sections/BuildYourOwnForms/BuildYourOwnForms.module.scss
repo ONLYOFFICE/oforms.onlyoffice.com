@@ -31,14 +31,19 @@
 .build-your-own-forms {
   display: flex;
   align-items: center;
-  border: 1px solid #9c99e7;
-  border-radius: 9px;
-  padding: 31px;
-  background-color: rgba(156, 153, 231, 0.1);
+  border: 1px solid var(--form-build-your-own-forms-border-color);
+  border-radius: 12px;
+  padding: 39px;
+  background-color: var(--form-build-your-own-forms-background-color);
+
+  @include media.tablet {
+    align-items: initial;
+    flex-direction: column;
+    padding: 35px;
+  }
 
   @include media.mobile {
-    flex-direction: column;
-    padding: 19px;
+    padding: 21px;
   }
 }
 
@@ -47,12 +52,8 @@
   margin-inline-end: 48px;
 
   @include media.tablet {
-    margin-inline-end: 40px;
-  }
-
-  @include media.mobile {
-    margin-inline-end: 0;
-    margin-bottom: 24px;
+    margin-inline-end: initial;
+    margin-bottom: 48px;
   }
 }
 
@@ -71,44 +72,26 @@
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-
-    @include media.mobile {
-      margin-inline-end: initial;
-      margin-bottom: 8px;
-    }
-  }
-
-  @include media.tablet {
-    margin-bottom: 12px;
-  }
-
-  @include media.mobile {
-    flex-direction: column;
-    align-items: initial;
-    margin-bottom: 8px;
   }
 }
 
-.build-your-own-forms-text {
-  font-size: 18px;
-  line-height: 26px;
-  color: #ffffff;
+.build-your-own-forms-buttons {
+  display: flex;
 
-  @include media.mobile {
-    font-size: 14px;
-    line-height: 24px;
+  @include media.tablet-s {
+    flex-direction: column;
   }
 }
 
 .build-your-own-forms-button {
-  min-width: 140px;
+  white-space: nowrap;
 
-  @include media.mobile {
-    border-radius: 8px;
-    padding: 9px 24px;
-    font-size: 13px;
-    line-height: 22px;
-    min-width: initial;
-    min-height: 40px;
+  &:first-child {
+    margin-inline-end: 16px;
+
+    @include media.tablet-s {
+      margin-inline-end: initial;
+      margin-bottom: 16px;
+    }
   }
 }

@@ -46,8 +46,6 @@ const Section = ({
   tabletSpacing,
   tabletSmallSpacing,
   mobileSpacing,
-  borderTop = false,
-  borderTopColor,
 }: ISection) => {
   const Component = Tag as React.ElementType;
 
@@ -57,7 +55,6 @@ const Section = ({
       className={clsx(
         styles.section,
         background && styles["has-background"],
-        borderTop && styles["border-top"],
         className,
       )}
       style={
@@ -76,7 +73,6 @@ const Section = ({
             "--section-mobile-padding": computePadding(mobileSpacing),
           }),
           "--section-background": background,
-          "--section-border-top-color": borderTopColor,
           ...style,
         } as React.CSSProperties
       }

@@ -28,10 +28,11 @@
 
 import CONFIG from "@src/config/config.json";
 import { apiRequest } from "@src/lib/api/apiRequest";
+import { cacheByLocale } from "@src/lib/api/cacheByLocale";
 import { ILocale } from "@src/types/locale";
 import { cmsLocale } from "@src/utils/cmsLocale";
 
-const getParentCategories = async (locale: ILocale["locale"]) => {
+const fetchParentCategories = async (locale: ILocale["locale"]) => {
   const params = [
     `locale=${cmsLocale(locale)}`,
     "fields[0]=name",
@@ -49,5 +50,7 @@ const getParentCategories = async (locale: ILocale["locale"]) => {
 
   return await res.json();
 };
+
+const getParentCategories = cacheByLocale(fetchParentCategories);
 
 export { getParentCategories };

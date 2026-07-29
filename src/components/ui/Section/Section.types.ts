@@ -37,6 +37,4 @@ export interface ISection {
   tabletSpacing?: [string, string];
   tabletSmallSpacing?: [string, string];
   mobileSpacing?: [string, string];
-  borderTop?: boolean;
-  borderTopColor?: string;
 }

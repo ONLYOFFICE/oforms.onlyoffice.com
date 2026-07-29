@@ -2,5 +2,18 @@
   "PageTitle": "Search PDF forms and templates | ONLYOFFICE",
   "PageDescription": "Free templates and fillable PDF forms for any business purpose",
   "SearchResultsFor": "Search results for '{{searchQuery}}'",
-  "NoResultsMatchingYourQueryCouldBeFound": "No results matching your query could be found"
+  "NoResultsFound": "No results found",
+  "WeCouldntFindAnythingMatchingYourSearch": "We couldn't find anything matching your search.",
+  "TryAdjustingYourKeywords": "Try adjusting your keywords, checking the spelling, or browsing available categories.",
+  "Suggestions": "Suggestions",
+  "CheckTheSpelling": "Check the spelling",
+  "CheckSpellingOrTryOtherKeywords": "Check spelling or try other keywords.",
+  "TryDifferentKeywords": "Try different keywords",
+  "UseSynonymsOrShorterTerms": "Use synonyms or shorter terms.",
+  "BrowseCategories": "Browse categories",
+  "ExploreTemplatesByTopicBelow": "Explore templates by topic below.",
+  "RemoveActiveFilters": "Remove active filters",
+  "ClearFiltersToBroadenTheSearch": "Clear filters to broaden the search.",
+  "PopularTemplates": "Popular Templates",
+  "BrowseAllTemplates": "Browse All Templates"
 }
