@@ -203,8 +203,10 @@ const Sidebar = ({
   const allowedValues: Record<string, string[]> = {
     type: ALLOWED_TYPES,
     country: countries.map((country) => country.code.toLowerCase()),
-    subcategory: purposeCategories.flatMap(({ subcategories }) =>
-      subcategories.map((sub) => sub.urlReq),
+    subcategory: Object.values(categoriesByPurpose).flatMap((categories) =>
+      categories.flatMap(({ subcategories }) =>
+        subcategories.map((sub) => sub.urlReq),
+      ),
     ),
   };
 
