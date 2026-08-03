@@ -71,13 +71,9 @@
   width: 100%;
   max-width: 256px;
   background-image: var(--card-preview-image);
-  background-color: var(--card-preview-background-color);
   background-repeat: no-repeat;
   background-size: cover;
   background-position-x: center;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform: translateZ(0);
 }
 
 .card-format {
