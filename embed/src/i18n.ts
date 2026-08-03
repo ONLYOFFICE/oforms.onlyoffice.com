@@ -1,17 +1,19 @@
-/**
- * Client-side i18next init. Bundles the 5 main-page namespaces for ALL 9
- * locales (they are tiny) so UI labels switch instantly, offline. Catalog
- * DATA (template names) is loaded separately — see data.ts.
- */
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import { FALLBACK, type Locale } from "./locale";
 
-const NAMESPACES = ["common", "main", "MainTemplate", "SortSelector", "SearchInput"];
+const NAMESPACES = [
+  "common",
+  "main",
+  "MainTemplate",
+  "SortSelector",
+  "SearchInput",
+  "TemplateModal",
+  "searchresult",
+];
 
-// Bundle exactly these namespaces for every locale via Vite glob.
 const modules = import.meta.glob(
-  "../../public/locales/*/{common,main,MainTemplate,SortSelector,SearchInput}.json",
+  "../../public/locales/*/{common,main,MainTemplate,SortSelector,SearchInput,TemplateModal,searchresult}.json",
   { eager: true, import: "default" },
 ) as Record<string, Record<string, unknown>>;
 

@@ -8,15 +8,14 @@
     "generate": "node scripts/generate-data.mjs",
     "build": "vite build && node scripts/postbuild.mjs",
     "dev": "vite",
-    "preview": "vite preview",
-    "smoke": "node scripts/smoke.mjs"
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
-    "playwright": "^1.61.1",
     "vite": "^5.4.11"
   },
   "dependencies": {
+    "clsx": "2.1.1",
     "oforms.onlyoffice.com": "file:.."
   }
 }

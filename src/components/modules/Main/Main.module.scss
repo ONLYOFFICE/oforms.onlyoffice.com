@@ -136,9 +136,21 @@
 }
 
 .main-top-content {
+  display: flex;
+  align-items: center;
+
   @include media.mobile {
-    display: flex;
     flex-direction: column;
+  }
+}
+
+.main-top-content-embed {
+  justify-content: space-between;
+  width: 100%;
+  order: 1;
+
+  @include media.mobile {
+    align-items: end;
   }
 }
 
@@ -183,6 +195,12 @@
   @include media.tablet {
     display: block;
   }
+}
+
+.main-filter-button-embed {
+  margin-inline-start: initial;
+  margin-inline-end: 10px;
+  order: 0;
 }
 
 .main-search-input {

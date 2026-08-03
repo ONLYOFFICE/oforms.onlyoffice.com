@@ -2,7 +2,7 @@
  * Generates embed/data/main.<locale>.json — the templates catalog data that the
  * main page needs — by calling the same Strapi endpoint as the site's
  * getAllForms(). The JSON is imported into the bundle at build time, so the
- * desktop bundle needs no network at runtime (except CDN images/fonts).
+ * desktop bundle needs no network at runtime (except CDN images).
  *
  * Usage:
  *   node scripts/generate-data.mjs [locale]     (locale defaults to "en")
@@ -109,7 +109,9 @@ async function generateLocale(locale) {
   const outDir = join(__dirname, "..", "..", "public", "embed-data");
   await mkdir(outDir, { recursive: true });
   await writeFile(join(outDir, `main.${locale}.json`), JSON.stringify(output));
-  console.log(`✓ ${String(data.length).padStart(4)} templates → public/embed-data/main.${locale}.json`);
+  console.log(
+    `✓ ${String(data.length).padStart(4)} templates → public/embed-data/main.${locale}.json`,
+  );
 }
 
 async function main() {

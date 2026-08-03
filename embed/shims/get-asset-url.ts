@@ -10,14 +10,19 @@
 // URIs keep raw single quotes, which are invalid inside an unquoted CSS url()
 // in an inline style (the declaration gets dropped and the icon disappears).
 // Base64 uses only url-token-safe characters. PNGs inline as base64 already.
-import filtersIcon from "../../public/images/templates/main/filters.svg?raw";
+import filtersIcon from "../../public/images/icons/filters.svg?raw";
 import sidebarCross from "../../public/images/modules/main/cross.svg?raw";
-import searchIcon from "../../public/images/templates/main/search-input/search.svg?raw";
-import searchCross from "../../public/images/templates/main/search-input/cross.svg?raw";
+import searchIcon from "../../public/images/icons/search.svg?raw";
+import searchCross from "../../public/images/icons/cross.svg?raw";
+import suggestionCheck from "../../public/images/templates/searchresult/check.svg?raw";
+import suggestionTry from "../../public/images/templates/searchresult/try.svg?raw";
+import suggestionBrowse from "../../public/images/templates/searchresult/browse.svg?raw";
+import suggestionFilters from "../../public/images/templates/searchresult/filters.svg?raw";
 import docxHover from "../../public/images/widgets/card/docx-hover.png";
 import xlsxHover from "../../public/images/widgets/card/xlsx-hover.png";
 import pptxHover from "../../public/images/widgets/card/pptx-hover.png";
 import pdfHover from "../../public/images/widgets/card/pdf-hover.png";
+import noResultsFound from "../../public/images/templates/searchresult/no-results-found.png";
 
 const svgDataUri = (svg: string): string =>
   "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svg)));
@@ -27,10 +32,15 @@ const BUNDLED: Record<string, string> = {
   "/images/modules/main/cross.svg": svgDataUri(sidebarCross),
   "/images/templates/main/search-input/search.svg": svgDataUri(searchIcon),
   "/images/templates/main/search-input/cross.svg": svgDataUri(searchCross),
+  "/images/templates/searchresult/check.svg": svgDataUri(suggestionCheck),
+  "/images/templates/searchresult/try.svg": svgDataUri(suggestionTry),
+  "/images/templates/searchresult/browse.svg": svgDataUri(suggestionBrowse),
+  "/images/templates/searchresult/filters.svg": svgDataUri(suggestionFilters),
   "/images/widgets/card/docx-hover.png": docxHover,
   "/images/widgets/card/xlsx-hover.png": xlsxHover,
   "/images/widgets/card/pptx-hover.png": pptxHover,
   "/images/widgets/card/pdf-hover.png": pdfHover,
+  "/images/templates/searchresult/no-results-found.png": noResultsFound,
 };
 
 export function getAssetUrl(path?: string): string {

@@ -138,7 +138,7 @@ const SearchInput = ({ className, formNames }: ISearchInput) => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchItem(e.target.value);
-    setSearchResult(true);
+    if (e.nativeEvent.isTrusted) setSearchResult(true);
   };
 
   const handleClear = () => {

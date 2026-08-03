@@ -4,10 +4,8 @@ import { fileURLToPath } from "node:url";
 
 const r = (p: string) => fileURLToPath(new URL(p, import.meta.url));
 
-// Where the desktop bundle loads assets (fonts, icons, card previews) and where
-// outbound links (cards, search) point. Both default to the live oforms site;
-// override with EMBED_STATIC_URL / EMBED_SITE_URL at build time.
-const STATIC_URL = process.env.EMBED_STATIC_URL || "https://oforms.onlyoffice.com";
+const STATIC_URL =
+  process.env.EMBED_STATIC_URL || "https://oforms.onlyoffice.com";
 const SITE_URL = process.env.EMBED_SITE_URL || "https://oforms.onlyoffice.com";
 
 export default defineConfig({
@@ -15,12 +13,8 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      // Must come before the generic "@src" alias: catalog icons are bundled
-      // into the JS as data URIs (see the shim).
       "@src/utils/getAssetUrl": r("./shims/get-asset-url.ts"),
-      // Reuse the real app source.
       "@src": r("../src"),
-      // Next.js shims — let the real components run outside Next.
       "next/link": r("./shims/next-link.tsx"),
       "next/router": r("./shims/next-router.tsx"),
       "next/head": r("./shims/next-head.tsx"),
@@ -29,15 +23,10 @@ export default defineConfig({
     },
   },
 
-  // Inline the env reads our components make (getAssetUrl, ui/Link) + embed config.
   define: {
     "process.env.NEXT_PUBLIC_STATIC_URL": JSON.stringify(STATIC_URL),
     "process.env.NEXT_PUBLIC_SITE_URL": JSON.stringify(SITE_URL),
     "process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN": JSON.stringify(SITE_URL),
-    // Base URL for the per-locale JSON (static files: <base>/main.<locale>.json).
-    // Served from the site's public/embed-data (or a CDN / GitHub Pages). The
-    // embed shows its bundled snapshot instantly, then swaps in a fresher copy
-    // from here in the background. Empty to disable background refresh.
     "process.env.EMBED_DATA_URL": JSON.stringify(
       process.env.EMBED_DATA_URL || `${STATIC_URL}/embed-data`,
     ),
@@ -48,7 +37,6 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         api: "modern-compiler",
-        // Matches next.config.js sassOptions.loadPaths so `@use "media"` etc. resolve.
         loadPaths: [r("../src/styles")],
       },
     },
@@ -57,12 +45,7 @@ export default defineConfig({
   build: {
     outDir: "dist",
     emptyOutDir: true,
-    cssCodeSplit: false, // one CSS file
-    // Icons imported by the getAssetUrl shim (<16 KB each) become data URIs,
-    // keeping the deliverable to exactly two files.
-    assetsInlineLimit: 16384,
-    // Classic IIFE bundle (not an ES module) so the two files work with NO
-    // server — openable from file://, or embedded straight into the app.
+    cssCodeSplit: false,
     lib: {
       entry: r("./src/main.tsx"),
       formats: ["iife"],
@@ -72,7 +55,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         assetFileNames: (info) =>
-          info.name && info.name.endsWith(".css") ? "oforms.css" : "assets/[name][extname]",
+          info.name && info.name.endsWith(".css")
+            ? "oforms.css"
+            : "assets/[name][extname]",
       },
     },
   },

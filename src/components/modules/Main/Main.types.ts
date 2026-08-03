@@ -52,8 +52,7 @@ export interface IPurposeCategories {
 
 export interface IMain {
   children: React.ReactNode;
-  /** Hide the page heading block (used by the desktop embed build). */
-  hideHeader?: boolean;
+  isEmbed?: boolean;
   docxForms: number;
   xlsxForms: number;
   pptxForms: number;

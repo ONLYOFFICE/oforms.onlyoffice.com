@@ -10,7 +10,9 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -70,12 +72,19 @@ const RouterContext = createContext<RouterState | null>(null);
 
 export const RouterProvider = ({
   locale = "en",
+  onQueryChange,
   children,
 }: {
   locale?: string;
+  onQueryChange?: () => void;
   children: ReactNode;
 }) => {
   const [query, setQueryState] = useState<Query>(parseInitialQuery);
+  const onQueryChangeRef = useRef(onQueryChange);
+
+  useEffect(() => {
+    onQueryChangeRef.current = onQueryChange;
+  }, [onQueryChange]);
 
   const setQuery = useCallback((q: Query) => {
     const next = cleanQuery(q);
@@ -87,7 +96,16 @@ export const RouterProvider = ({
         window.location.pathname + queryToString(next),
       );
     }
+    onQueryChangeRef.current?.();
   }, []);
+
+  const localeRef = useRef(locale);
+
+  useEffect(() => {
+    if (localeRef.current === locale) return;
+    localeRef.current = locale;
+    setQuery({});
+  }, [locale, setQuery]);
 
   const value = useMemo<RouterState>(
     () => ({ query, setQuery, locale }),
@@ -114,7 +132,8 @@ export function useRouter() {
         // The embed is a single page: there is no search-results page, so the
         // search input's Enter-navigation is ignored (suggestions still work).
         if (url.startsWith("/searchresult")) return Promise.resolve(true);
-        if (typeof window !== "undefined") window.location.assign(absolutize(url));
+        if (typeof window !== "undefined")
+          window.location.assign(absolutize(url));
         return Promise.resolve(true);
       }
       const targetPath = url.pathname ?? EMBED_PATHNAME;
@@ -126,7 +145,9 @@ export function useRouter() {
       }
       // Different page => navigate out to the live site.
       if (typeof window !== "undefined") {
-        window.location.assign(absolutize(targetPath + queryToString(nextQuery)));
+        window.location.assign(
+          absolutize(targetPath + queryToString(nextQuery)),
+        );
       }
       return Promise.resolve(true);
     },

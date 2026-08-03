@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,10 +6,11 @@
     <title>ONLYOFFICE Forms</title>
   </head>
   <body>
-    <!-- Dev/demo: data-oforms-auto makes the script render here automatically.
-         The delivered bundle does NOT auto-render — the host calls
-         OformsEmbed.render(...) itself. -->
-    <div id="oforms-root" data-oforms-auto data-locale="ru-RU"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div id="oforms-root"></div>
+    <script type="module">
+      import theme from "./theme.default.json";
+      import "/src/main.tsx";
+      window.OformsEmbed.render("#oforms-root", { locale: "en", theme });
+    </script>
   </body>
 </html>

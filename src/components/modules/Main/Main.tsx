@@ -41,7 +41,7 @@ import styles from "./Main.module.scss";
 
 const Main = ({
   children,
-  hideHeader,
+  isEmbed,
   docxForms,
   xlsxForms,
   pptxForms,
@@ -73,7 +73,7 @@ const Main = ({
       mobileSpacing={["48px", "112px"]}
     >
       <Container className={styles["main-container"]}>
-        {!hideHeader && (
+        {!isEmbed && (
           <div className={styles["main-header"]}>
             <Heading
               className={styles["main-header-heading"]}
@@ -115,7 +115,12 @@ const Main = ({
             >
               {!searchOnly && (
                 <div className={styles["main-top-wrapper"]}>
-                  <div className={styles["main-top-content"]}>
+                  <div
+                    className={clsx(
+                      styles["main-top-content"],
+                      isEmbed && styles["main-top-content-embed"],
+                    )}
+                  >
                     <SortSelector className={styles["main-sort-selector"]} />
                     <div className={styles["main-count"]}>
                       <span className={styles["main-count-label"]}>
@@ -129,7 +134,10 @@ const Main = ({
 
                   <button
                     onClick={() => setIsOpen(true)}
-                    className={styles["main-filters-button"]}
+                    className={clsx(
+                      styles["main-filters-button"],
+                      isEmbed && styles["main-filter-button-embed"],
+                    )}
                     type="button"
                   >
                     <FiltersIcon fill="var(--main-filters-button-icon-color)" />
