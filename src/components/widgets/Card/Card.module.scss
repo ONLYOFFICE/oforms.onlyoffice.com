@@ -39,19 +39,19 @@
 }
 
 .card-docx:hover .card-preview-wrapper {
-  background-color: var(--card-docx-background-hover);
+  background-color: var(--card-docx-background-color-hover);
 }
 
 .card-xlsx:hover .card-preview-wrapper {
-  background-color: var(--card-xlsx-background-hover);
+  background-color: var(--card-xlsx-background-color-hover);
 }
 
 .card-pptx:hover .card-preview-wrapper {
-  background-color: var(--card-pptx-background-hover);
+  background-color: var(--card-pptx-background-color-hover);
 }
 
 .card-pdf:hover .card-preview-wrapper {
-  background-color: var(--card-pdf-background-hover);
+  background-color: var(--card-pdf-background-color-hover);
 }
 
 .card-preview-wrapper {
@@ -71,13 +71,9 @@
   width: 100%;
   max-width: 256px;
   background-image: var(--card-preview-image);
-  background-color: var(--card-preview-background-color);
   background-repeat: no-repeat;
   background-size: cover;
   background-position-x: center;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transform: translateZ(0);
 }
 
 .card-format {

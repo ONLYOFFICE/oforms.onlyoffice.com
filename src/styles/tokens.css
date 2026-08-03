@@ -68,7 +68,7 @@
 
   --link-color-hover: #32118a;
 
-  --modal-background-color: rgba(0, 0, 0, 0.3);
+  --modal-overlay-background-color: rgba(0, 0, 0, 0.3);
 
   --select-color: var(--primary-color);
   --select-border-color: #a6a8b8;
@@ -109,16 +109,15 @@
 
   --card-preview-wrapper-border-color: rgba(122, 125, 148, 0.4);
   --card-preview-wrapper-background-color: #ffffff;
-  --card-preview-background-color: #ffffff;
   --card-format-color: #ffffff;
   --card-format-docx-background-color: #305cc4;
   --card-format-xlsx-background-color: #41b338;
   --card-format-pptx-background-color: #ff6c00;
   --card-format-pdf-background-color: #d10f33;
-  --card-docx-background-hover: #eaf1fe;
-  --card-xlsx-background-hover: rgba(196, 249, 232, 0.5);
-  --card-pptx-background-hover: rgba(255, 111, 61, 0.05);
-  --card-pdf-background-hover: rgba(249, 221, 229, 0.5);
+  --card-docx-background-color-hover: #eaf1fe;
+  --card-xlsx-background-color-hover: rgba(196, 249, 232, 0.5);
+  --card-pptx-background-color-hover: rgba(255, 111, 61, 0.05);
+  --card-pdf-background-color-hover: rgba(249, 221, 229, 0.5);
   --card-heading-color: #21222B;
   --card-description-color: #9092A6;
 
@@ -169,13 +168,7 @@
   --sidebar-item-header-heading-sub-color: #585a6d;
   --sidebar-item-header-count-color: #ffffff;
   --sidebar-item-header-count-background-color: #000122;
-  --sidebar-item-header-icon-sub-color: #9092a6;
   --sidebar-item-text-color: #9092a6;
-  --sidebar-item-options-btn-border-color: #ccdbfb;
-  --sidebar-item-options-btn-color: #3a3c49;
-  --sidebar-item-options-btn-color-hover: #143481;
-  --sidebar-item-options-btn-background-color-hover: #ccdbfb;
-  --sidebar-item-options-btn-box-shadow-color-hover: #709af1;
   --sidebar-item-show-less-btn-color: #3a3c49;
   --sidebar-item-chevron-down-icon-color: #A6A8B8;
 

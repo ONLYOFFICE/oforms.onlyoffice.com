@@ -218,7 +218,7 @@ const Modal = ({
             {
               ...defaultStyle,
               ...transitionStyles[state],
-              "--modal-background-color": bgColor,
+              "--modal-overlay-background-color": bgColor,
             } as React.CSSProperties
           }
         >

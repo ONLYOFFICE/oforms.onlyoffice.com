@@ -1,5 +1,5 @@
 {
-  "MainTemplates": "Formulaires principaux",
+  "MainTemplates": "Modèles principaux",
   "FillableForm": "Formulaire à remplir",
   "EditableTemplate": "Formulaire modifiable",
   "LastUpdated": "Dernière mise à jour :",
@@ -23,8 +23,8 @@
   "PopularCategories": "Catégories Populaires",
   "BuildYourOwnForms": "Créez vos propres formulaires",
   "CreateModelDocumentsAgreementsAndContracts": "Créez des modèles de documents, des accords et des contrats pour tous types d'utilisations avec ONLYOFFICE Docs. <0>Proposer un formulaire</0>",
-  "UseInTheCloud": "Use in the Cloud",
-  "DownloadDesktopApp": "Download Desktop App",
+  "UseInTheCloud": "Utiliser dans le cloud",
+  "DownloadDesktopApp": "Télécharger l'application de bureau",
   "GetItNow": "Obtenir maintenant",
   "ExploreOtherTemplates": "Découvrir d'autres modèles",
   "Document": "Document texte",

@@ -1,9 +1,9 @@
 {
   "PageTitle": "Page 404",
   "PageDescription": "Page 404",
-  "PageNotFound": "Page not found",
-  "ThePageYouAreLookingFor": "The page you are looking for may have been moved, deleted, or never existed.",
-  "CheckTheURLOrReturnToASafeLocation": "Check the URL or return to a safe location using the options below.",
+  "PageNotFound": "Page introuvable",
+  "ThePageYouAreLookingFor": "La page que vous recherchez a peut-être été déplacée, supprimée ou n'a jamais existé.",
+  "CheckTheURLOrReturnToASafeLocation": "Vérifiez l'URL ou revenez à une page sécurisée à l'aide des options ci-dessous.",
   "GoToHomepage": "Aller à la page d'accueil",
   "SearchTemplates": "Rechercher des modèles (facture, contrat, budget...)"
 }
