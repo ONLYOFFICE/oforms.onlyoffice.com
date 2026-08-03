@@ -1,9 +1,9 @@
 {
   "PageTitle": "Page 404",
   "PageDescription": "Page 404",
-  "PageNotFound": "Page not found",
-  "ThePageYouAreLookingFor": "The page you are looking for may have been moved, deleted, or never existed.",
-  "CheckTheURLOrReturnToASafeLocation": "Check the URL or return to a safe location using the options below.",
-  "GoToHomepage": "الرجوع إلى الصفحة الرئيسية",
+  "PageNotFound": "الصفحة غير موجودة",
+  "ThePageYouAreLookingFor": "ربما تم نقل الصفحة التي تبحثون عنها أو حذفها أو أنها لم تكن موجودة أبدًا.",
+  "CheckTheURLOrReturnToASafeLocation": "تحققوا من الرابط أو عودوا إلى مكان آمن باستخدام الخيارات أدناه.",
+  "GoToHomepage": "الانتقال إلى الصفحة الرئيسية",
   "SearchTemplates": "ابحثوا في القوالب (فاتورة، عقد، ميزانية...)"
 }
