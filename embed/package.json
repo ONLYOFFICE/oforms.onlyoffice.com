@@ -8,7 +8,7 @@
     "install:all": "npm install --prefix .. && npm install",
     "install:all:ci": "npm ci --prefix .. && npm ci",
     "generate": "node scripts/generate-data.mjs",
-    "build": "vite build && node scripts/postbuild.mjs",
+    "build": "node scripts/generate-data.mjs && vite build && node scripts/postbuild.mjs",
     "dev": "vite",
     "preview": "vite preview"
   },
