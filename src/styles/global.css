@@ -26,50 +26,7 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-@font-face {
-  font-family: "Sora";
-  src:
-    url("/fonts/Sora-Regular.woff2") format("woff2"),
-    url("/fonts/Sora-Regular.woff") format("woff");
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Sora";
-  src:
-    url("/fonts/Sora-Medium.woff2") format("woff2"),
-    url("/fonts/Sora-Medium.woff") format("woff");
-  font-weight: 500;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Sora";
-  src:
-    url("/fonts/Sora-SemiBold.woff2") format("woff2"),
-    url("/fonts/Sora-SemiBold.woff") format("woff");
-  font-weight: 600;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Sora";
-  src:
-    url("/fonts/Sora-Bold.woff2") format("woff2"),
-    url("/fonts/Sora-Bold.woff") format("woff");
-  font-weight: 700;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Sora";
-  src:
-    url("/fonts/Sora-ExtraBold.woff2") format("woff2"),
-    url("/fonts/Sora-ExtraBold.woff") format("woff");
-  font-weight: 800;
-  font-display: swap;
-}
+@import "./fonts.css";
 
 * {
   box-sizing: border-box;
@@ -117,4 +74,10 @@ ul {
   padding: 0;
   margin: 0;
   list-style-type: none;
+}
+
+.oo-advent-announce,
+.oo-header,
+.oo-footer {
+  font-family: "Open Sans", sans-serif;
 }

@@ -31,11 +31,11 @@
   "YourTemplateHasBeenReceivedAndSentForReview": "Your template <0>{{name_form}}</0> has been received and sent for review. Our team will check it and contact you if additional information is required.",
   "WhatHappensNext": "What happens next",
   "SubmissionReceived": "Submission received",
-  "WeHaveSuccessfullyReceivedYourTemplate": "We have successfully received your template.",
+  "WeVeReceivedYourTemplate": "We’ve received your template.",
   "UnderReview": "Under review",
-  "OurTeamIsReviewing": "Our team is reviewing the template for quality and completeness.",
-  "PublicationDecision": "Publication decision",
-  "YouWillBeNotifiedByEmail": "You will be notified by email when the review is completed.",
+  "WeReReviewingItToEnsureQualityAndCompleteness": "We’re reviewing it to ensure quality and completeness.",
+  "Publication": "Publication",
+  "YourTemplateWillBePublished": "Your template will be published as soon as the review is complete.",
   "SubmitAnotherTemplate": "Submit another template",
   "BackToTemplateGallery": "Back to template gallery"
 }

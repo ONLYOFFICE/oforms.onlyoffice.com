@@ -31,11 +31,11 @@
   "YourTemplateHasBeenReceivedAndSentForReview": "Il tuo modello <0>{{name_form}}</0> è stato ricevuto e inviato per la revisione. Il nostro team lo esaminerà e ti contatterà se saranno necessarie ulteriori informazioni.",
   "WhatHappensNext": "Cosa succede ora",
   "SubmissionReceived": "Invio ricevuto",
-  "WeHaveSuccessfullyReceivedYourTemplate": "Abbiamo ricevuto correttamente il tuo modello.",
+  "WeVeReceivedYourTemplate": "We’ve received your template.",
   "UnderReview": "In revisione",
-  "OurTeamIsReviewing": "Il nostro team sta verificando il modello per assicurarne la qualità e la completezza.",
-  "PublicationDecision": "Esito della revisione",
-  "YouWillBeNotifiedByEmail": "Riceverai una notifica via e-mail al termine della revisione.",
+  "WeReReviewingItToEnsureQualityAndCompleteness": "We’re reviewing it to ensure quality and completeness.",
+  "Publication": "Publication",
+  "YourTemplateWillBePublished": "Your template will be published as soon as the review is complete.",
   "SubmitAnotherTemplate": "Invia un altro modello",
   "BackToTemplateGallery": "Torna alla galleria dei modelli"
 }

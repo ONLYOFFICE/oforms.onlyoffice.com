@@ -31,11 +31,11 @@
   "YourTemplateHasBeenReceivedAndSentForReview": "لقد تم استلام قالبكم <0>{{name_form}}</0> وإرساله للمراجعة. سيقوم فريقنا بالتحقق منه والاتصال بكم في حال طلب معلومات إضافية.",
   "WhatHappensNext": "ماذا يحدث بعد ذلك",
   "SubmissionReceived": "تم استلام الإرسال",
-  "WeHaveSuccessfullyReceivedYourTemplate": "لقد استلمنا قالبكم بنجاح.",
+  "WeVeReceivedYourTemplate": "We’ve received your template.",
   "UnderReview": "قيد المراجعة",
-  "OurTeamIsReviewing": "يقوم فريقنا بمراجعة القالب للتأكد من الجودة والاكتمال.",
-  "PublicationDecision": "قرار النشر",
-  "YouWillBeNotifiedByEmail": "سيتم إعلامكم عبر البريد الإلكتروني عند اكتمال المراجعة.",
+  "WeReReviewingItToEnsureQualityAndCompleteness": "We’re reviewing it to ensure quality and completeness.",
+  "Publication": "Publication",
+  "YourTemplateWillBePublished": "Your template will be published as soon as the review is complete.",
   "SubmitAnotherTemplate": "إرسال قالب آخر",
   "BackToTemplateGallery": "العودة إلى معرض القوالب"
 }

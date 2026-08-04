@@ -31,11 +31,11 @@
   "YourTemplateHasBeenReceivedAndSentForReview": "Hemos recibido tu plantilla <0>{{name_form}}</0> y la hemos enviado para su revisión. Nuestro equipo la revisará y se pondrá en contacto contigo si se necesita información adicional.",
   "WhatHappensNext": "Qué pasa después",
   "SubmissionReceived": "Se ha recibido la solicitud",
-  "WeHaveSuccessfullyReceivedYourTemplate": "Hemos recibido correctamente tu plantilla.",
+  "WeVeReceivedYourTemplate": "We’ve received your template.",
   "UnderReview": "En proceso de revisión",
-  "OurTeamIsReviewing": "Nuestro equipo está revisando la plantilla para comprobar su calidad y que esté completa.",
-  "PublicationDecision": "Decisión sobre la publicación",
-  "YouWillBeNotifiedByEmail": "Se te notificará por correo electrónico cuando se haya completado la revisión.",
+  "WeReReviewingItToEnsureQualityAndCompleteness": "We’re reviewing it to ensure quality and completeness.",
+  "Publication": "Publication",
+  "YourTemplateWillBePublished": "Your template will be published as soon as the review is complete.",
   "SubmitAnotherTemplate": "Enviar otra plantilla",
   "BackToTemplateGallery": "Volver a la galería de plantillas"
 }
