@@ -43,4 +43,4 @@ jobs:
           aws-region: ${{ vars.AWS_REGION }}
 
       - name: Sync data to S3
-        run: aws s3 sync public/embed-data ${{ vars.AWS_BUCKET_URL }}/embed/
+        run: aws s3 sync public/embed-data ${{ vars.AWS_BUCKET_URL }}/oforms-editor/embed/
