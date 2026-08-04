@@ -6,6 +6,7 @@
   "description": "Standalone client bundle of the oforms main page (templates catalog) for ONLYOFFICE Desktop. Reuses the real components from ../src.",
   "scripts": {
     "install:all": "npm install --prefix .. && npm install",
+    "install:all:ci": "npm ci --prefix .. && npm ci",
     "generate": "node scripts/generate-data.mjs",
     "build": "vite build && node scripts/postbuild.mjs",
     "dev": "vite",
