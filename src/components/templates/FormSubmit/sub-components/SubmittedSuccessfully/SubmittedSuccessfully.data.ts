@@ -35,7 +35,7 @@ export const steps: ISubmittedSuccessfullyItem[] = [
       positionX: "-56px",
     },
     heading: "SubmissionReceived",
-    text: "WeHaveSuccessfullyReceivedYourTemplate",
+    text: "WeVeReceivedYourTemplate",
   },
   {
     icon: {
@@ -43,15 +43,15 @@ export const steps: ISubmittedSuccessfullyItem[] = [
       positionX: "-112px",
     },
     heading: "UnderReview",
-    text: "OurTeamIsReviewing",
+    text: "WeReReviewingItToEnsureQualityAndCompleteness",
   },
   {
     icon: {
       url: "/images/templates/form-submit/icons-submitted.svg",
       positionX: "-168px",
     },
-    heading: "PublicationDecision",
-    text: "YouWillBeNotifiedByEmail",
+    heading: "Publication",
+    text: "YourTemplateWillBePublished",
     variant: "secondary",
   },
 ];
