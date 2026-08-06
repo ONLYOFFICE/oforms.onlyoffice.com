@@ -7,6 +7,7 @@ import { loadData, fetchFreshData } from "./data";
 import { normalizeLocale, type Locale } from "./locale";
 import type { TTemplate } from "./EmbedApp/components/TemplateModal";
 import { applyTheme, type Theme } from "./theme";
+import { getDesktopLocale, watchDesktopLocale } from "./desktop";
 
 type Target = string | Element;
 
@@ -108,10 +109,15 @@ function renderApp(root: Root, locale: Locale, data: any): void {
   );
 }
 
+let pendingLocale: string | null = null;
+let mountSeq = 0;
+
 async function mount(el: Element, culture?: string): Promise<void> {
+  const seq = ++mountSeq;
   const locale = normalizeLocale(culture);
   await initI18n(locale);
   const data = await loadData(locale);
+  if (seq !== mountSeq) return; // superseded by a newer mount
 
   const root = instance && instance.el === el ? instance.root : createRoot(el);
   instance = { el, root, locale };
@@ -125,9 +131,14 @@ async function mount(el: Element, culture?: string): Promise<void> {
       );
     }
   });
-}
 
-let pendingLocale: string | null = null;
+  // a desktop language change may have arrived while this mount was in flight
+  if (pendingLocale) {
+    const next = pendingLocale;
+    pendingLocale = null;
+    if (normalizeLocale(next) !== locale) await mount(el, next);
+  }
+}
 
 export function render(target: Target, opts?: RenderOptions): Promise<boolean> {
   const el = resolve(target);
@@ -139,7 +150,9 @@ export function render(target: Target, opts?: RenderOptions): Promise<boolean> {
     onEdit: opts?.onEdit,
   };
   if (opts?.theme && el instanceof HTMLElement) applyTheme(opts.theme, el);
-  const locale = opts?.locale ?? pendingLocale ?? undefined;
+  const locale =
+    opts?.locale ?? pendingLocale ?? getDesktopLocale() ?? undefined;
+  pendingLocale = null;
   return mount(el, locale).then(() => true);
 }
 
@@ -168,66 +181,9 @@ export function destroy(): void {
 
 function applyDesktopLocale(culture: string) {
   if (!culture) return;
+  if (instance && normalizeLocale(culture) === instance.locale) return;
   if (instance) setLocale(culture);
   else pendingLocale = culture;
-}
-
-function localeFromSettings(command: unknown, param: unknown): string | null {
-  if (command !== "settings:init" && command !== "settings:lang") return null;
-  try {
-    if (typeof param === "string" && !param.trim().startsWith("{")) {
-      const m = /([a-z]{2,3}(?:-[A-Za-z]{2,4})+)/.exec(param);
-      return m ? m[1] : null;
-    }
-    const data =
-      typeof param === "string"
-        ? JSON.parse(param)
-        : (param as Record<string, unknown>);
-    const raw =
-      data?.locale ??
-      data?.lang ??
-      data?.language ??
-      data?.culture ??
-      data?.lng;
-    if (raw && typeof raw === "object") {
-      const current = (raw as any).current ?? (raw as any).value;
-      return current ? String(current) : null;
-    }
-    return raw ? String(raw) : null;
-  } catch {
-    return null;
-  }
-}
-
-function subscribeDesktopLocale() {
-  const handle = (command: unknown, param: unknown) => {
-    console.debug("[oforms-embed] native message:", command, param);
-    const loc = localeFromSettings(command, param);
-    if (loc) applyDesktopLocale(loc);
-  };
-  try {
-    const editor = (window as any).AscDesktopEditor;
-    if (editor && typeof editor.attachEvent === "function") {
-      editor.attachEvent("on_native_message", handle);
-    }
-  } catch (e) {
-    console.warn("[oforms-embed] could not subscribe to desktop messages", e);
-  }
-  try {
-    const w = window as any;
-    const prev = w.on_native_message;
-    w.on_native_message = function (command: unknown, param: unknown) {
-      handle(command, param);
-      if (typeof prev === "function") {
-        return prev.apply(this, arguments);
-      }
-    };
-  } catch (e) {
-    console.warn(
-      "[oforms-embed] could not install global on_native_message",
-      e,
-    );
-  }
 }
 
 declare global {
@@ -238,7 +194,7 @@ declare global {
 
 if (typeof window !== "undefined") {
   window.OformsEmbed = { render, setLocale, setTheme, destroy };
-  subscribeDesktopLocale();
+  watchDesktopLocale(applyDesktopLocale);
   const auto = () => {
     const el = document.querySelector("[data-oforms-auto]");
     if (el) render(el, { locale: el.getAttribute("data-locale") || undefined });
