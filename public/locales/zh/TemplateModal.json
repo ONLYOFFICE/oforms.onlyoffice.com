@@ -1,7 +1,7 @@
 {
-  "Free": "Free",
+  "Free": "免费",
   "FileSize": "文件大小：",
-  "FileType": "File type:",
-  "Cancel": "Cancel",
-  "UseThisTemplate": "Use this template"
+  "FileType": "文件类型：",
+  "Cancel": "取消",
+  "UseThisTemplate": "使用此模板"
 }
