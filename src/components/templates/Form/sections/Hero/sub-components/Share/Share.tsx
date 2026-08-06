@@ -101,6 +101,11 @@ const Share = () => {
               <Link
                 className={styles["share-button"]}
                 href={`https://www.shareaholic.com/share/wechat/?link=${routerUrl}`}
+                style={
+                  {
+                    "--share-button-icon": `url(${getAssetUrl("/images/templates/form/hero/wechat.svg")})`,
+                  } as React.CSSProperties
+                }
               >
                 <span className={styles["share-button-icon"]}></span>
               </Link>
@@ -109,6 +114,11 @@ const Share = () => {
               <WeiboShareButton
                 className={styles["share-button"]}
                 url={routerUrl}
+                style={
+                  {
+                    "--share-button-icon": `url(${getAssetUrl("/images/templates/form/hero/weibo.svg")})`,
+                  } as React.CSSProperties
+                }
               >
                 <span className={styles["share-button-icon"]}></span>
               </WeiboShareButton>
