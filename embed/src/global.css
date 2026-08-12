@@ -1,42 +1,14 @@
 @font-face {
-  font-family: "Sora";
-  src: url("./fonts/Sora-Regular.woff2") format("woff2");
+  font-family: "Segoe-UI";
+  src: url("./fonts/SegoeUI.woff2") format("woff2");
   font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Sora";
-  src: url("./fonts/Sora-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Sora";
-  src: url("./fonts/Sora-SemiBold.woff2") format("woff2");
-  font-weight: 600;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Sora";
-  src: url("./fonts/Sora-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Sora";
-  src: url("./fonts/Sora-ExtraBold.woff2") format("woff2");
-  font-weight: 800;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Segoe-UI";
-  src: url("./fonts/SegoeUI.woff2") format("woff2");
-  font-weight: 400;
+  src: url("./fonts/SegoeUI-SemiBold.woff2") format("woff2");
+  font-weight: 600;
   font-display: swap;
 }
 
@@ -53,7 +25,7 @@
 
 html {
   height: 100%;
-  font-family: "Sora", sans-serif;
+  font-family: "Segoe-UI", sans-serif;
   font-weight: 400;
   color: var(--primary-color);
 }

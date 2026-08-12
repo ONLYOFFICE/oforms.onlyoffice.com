@@ -125,7 +125,6 @@
   border: 1px solid var(--template-modal-tag-border-color);
   border-radius: 27px;
   padding: 2px 8px;
-  font-family: "Segoe-UI";
   font-size: 12px;
   line-height: 16px;
   color: var(--template-modal-tag-color);
@@ -133,14 +132,12 @@
 }
 
 .template-modal-label {
-  font-family: "Segoe-UI";
   font-size: 12px;
   line-height: 16px;
   color: var(--template-modal-label-color);
 }
 
 .template-modal-text {
-  font-family: "Segoe-UI";
   font-size: 12px;
   line-height: 16px;
   color: var(--template-modal-text-color);
@@ -162,12 +159,10 @@
 }
 
 .template-modal-file-label {
-  font-family: "Segoe-UI";
   margin-inline-end: 2px;
 }
 
 .template-modal-file-value {
-  font-family: "Segoe-UI";
   font-weight: 700;
   color: var(--template-modal-file-value-color);
 }
@@ -177,7 +172,6 @@
   align-items: center;
   justify-content: end;
   padding-top: 29px;
-  font-family: "Segoe-UI";
 
   @include media.tablet-s {
     padding: 15px;
