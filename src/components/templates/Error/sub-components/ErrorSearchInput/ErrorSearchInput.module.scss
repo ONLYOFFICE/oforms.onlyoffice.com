@@ -26,35 +26,15 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { useState, type KeyboardEvent } from "react";
-import { useRouter } from "next/router";
-import { useTranslation } from "next-i18next";
-import { Input } from "@src/components/ui/Input";
-import styles from "./ErrorSearchInput.module.scss";
+@use "media";
 
-const ErrorSearchInput = () => {
-  const { t } = useTranslation("error");
-  const router = useRouter();
-  const [searchValue, setSearchValue] = useState("");
+.error-search-input {
+  max-width: 544px;
+  height: 44px;
+  font-size: 14px;
+  line-height: 20px;
 
-  const keyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      const query = searchValue.trim();
-      if (!query) return;
-      router.push(`/searchresult?query=${encodeURIComponent(query)}`);
-    }
-  };
-
-  return (
-    <Input
-      id="search-input"
-      className={styles["error-search-input"]}
-      onChange={(e) => setSearchValue(e.target.value)}
-      onKeyDown={keyDownHandler}
-      value={searchValue}
-      placeholder={t("SearchTemplates")}
-    />
-  );
-};
-
-export { ErrorSearchInput };
+  @include media.mobile {
+    font-size: 12px;
+  }
+}
