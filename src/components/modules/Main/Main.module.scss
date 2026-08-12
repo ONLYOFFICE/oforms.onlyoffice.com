@@ -141,6 +141,7 @@
 
   @include media.mobile {
     flex-direction: column;
+    align-items: initial;
   }
 }
 

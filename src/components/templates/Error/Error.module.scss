@@ -31,7 +31,6 @@
 .error {
   display: flex;
   align-items: center;
-  min-height: 100vh;
 }
 
 .error-wrapper {
@@ -124,8 +123,4 @@
 
 .error-btn {
   margin-bottom: 40px;
-}
-
-.error-search-input {
-  max-width: 544px;
 }

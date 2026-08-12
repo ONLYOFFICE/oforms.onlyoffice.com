@@ -30,10 +30,13 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Layout } from "@src/components/Layout";
 import { Head } from "@src/components/modules/Head";
+import { Header } from "@src/components/modules/Header";
+import { AdventAnnounce } from "@src/components/modules/AdventAnnounce";
+import { Footer } from "@src/components/modules/Footer";
 import { ErrorTemplate } from "@src/components/templates/Error";
 import { ILocale } from "@src/types/locale";
 
-const Error404Page = () => {
+const Error404Page = ({ locale }: ILocale) => {
   const { t } = useTranslation("error");
 
   return (
@@ -41,9 +44,18 @@ const Error404Page = () => {
       <Layout.Head>
         <Head title={t("PageTitle")} description={t("PageDescription")} />
       </Layout.Head>
+      <Layout.AdventAnnounce>
+        <AdventAnnounce locale={locale} />
+      </Layout.AdventAnnounce>
+      <Layout.Header>
+        <Header locale={locale} />
+      </Layout.Header>
       <Layout.Main background="var(--primary-background-color)">
         <ErrorTemplate />
       </Layout.Main>
+      <Layout.Footer>
+        <Footer locale={locale} />
+      </Layout.Footer>
     </Layout>
   );
 };
@@ -52,6 +64,7 @@ export const getStaticProps = async ({ locale }: ILocale) => {
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common", "error"])),
+      locale,
     },
   };
 };
