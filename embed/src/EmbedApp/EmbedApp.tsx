@@ -8,6 +8,7 @@ import {
 } from "react";
 import { RouterProvider } from "../../shims/next-router";
 import { isRtlLocale } from "@src/utils/rtl";
+import { BackToTop } from "./components/BackToTop";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
 import { Template } from "./components/Template";
 import { TemplateModal, type TTemplate } from "./components/TemplateModal";
@@ -129,6 +130,8 @@ const EmbedApp = ({ locale, data, onLocaleChange, onEdit }: IEmbedApp) => {
         </div>
 
         <Template data={data} isEmbed={true} searchQuery={searchQuery} />
+
+        <BackToTop />
 
         <TemplateModal
           selected={selected}

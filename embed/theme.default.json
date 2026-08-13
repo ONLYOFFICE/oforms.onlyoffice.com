@@ -37,6 +37,10 @@
   "language-switcher-menu-shadow-color": "rgba(0, 0, 0, 0.12)",
   "language-switcher-option-background-color-hover": "#f2f4f8",
 
+  "back-to-top-btn-color": "#21222B",
+  "back-to-top-btn-background-color": "#e7e8ee",
+  "back-to-top-btn-background-color-hover": "#dcdde6",
+
   "search-input-icon-color": "#9092a6",
   "search-input-cross-icon-color": "#7A7D94",
   "search-input-border-color": "#A6A8B8",
