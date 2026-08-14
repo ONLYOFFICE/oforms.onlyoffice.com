@@ -121,8 +121,18 @@ const Main = ({
                       isEmbed && styles["main-top-content-embed"],
                     )}
                   >
-                    <SortSelector className={styles["main-sort-selector"]} />
-                    <div className={styles["main-count"]}>
+                    <SortSelector
+                      className={clsx(
+                        styles["main-sort-selector"],
+                        isEmbed && styles["main-sort-selector-embed"],
+                      )}
+                    />
+                    <div
+                      className={clsx(
+                        styles["main-count"],
+                        isEmbed && styles["main-count-embed"],
+                      )}
+                    >
                       <span className={styles["main-count-label"]}>
                         {t("Documents")}
                       </span>

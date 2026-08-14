@@ -149,12 +149,14 @@
 }
 
 .main-top-content-embed {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
   width: 100%;
   order: 1;
 
-  @include media.mobile {
-    align-items: end;
+  @include media.tablet {
+    margin-inline-end: initial;
   }
 }
 
@@ -175,6 +177,13 @@
 
   @include media.mobile {
     margin-top: 8px;
+  }
+}
+
+.main-sort-selector-embed,
+.main-count-embed {
+  @include media.mobile {
+    margin-inline-start: auto;
   }
 }
 
