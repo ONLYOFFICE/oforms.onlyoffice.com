@@ -50,11 +50,18 @@
 
 .sort-selector-wrapper {
   position: relative;
+  min-width: 0;
+
+  @include media.mobile {
+    flex: 1;
+  }
 }
 
 .sort-selector-button {
   display: flex;
   align-items: center;
+  min-width: 0;
+  max-width: 100%;
   border: none;
   padding: 8px 12px;
   font-size: 14px;
@@ -70,8 +77,15 @@
   }
 }
 
+.sort-selector-button-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .sort-selector-button-icon {
   display: inline-block;
+  flex-shrink: 0;
   margin-inline-start: 4px;
   width: 24px;
   height: 24px;
