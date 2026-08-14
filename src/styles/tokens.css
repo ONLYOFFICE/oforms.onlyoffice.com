@@ -110,14 +110,6 @@
   --card-preview-wrapper-border-color: rgba(122, 125, 148, 0.4);
   --card-preview-wrapper-background-color: #ffffff;
   --card-format-color: #ffffff;
-  --card-format-docx-background-color: #305cc4;
-  --card-format-xlsx-background-color: #41b338;
-  --card-format-pptx-background-color: #ff6c00;
-  --card-format-pdf-background-color: #d10f33;
-  --card-docx-background-color-hover: #eaf1fe;
-  --card-xlsx-background-color-hover: rgba(196, 249, 232, 0.5);
-  --card-pptx-background-color-hover: rgba(255, 111, 61, 0.05);
-  --card-pdf-background-color-hover: rgba(249, 221, 229, 0.5);
   --card-heading-color: #21222B;
   --card-description-color: #9092A6;
 

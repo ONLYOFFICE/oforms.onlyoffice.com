@@ -39,19 +39,19 @@
 }
 
 .card-docx:hover .card-preview-wrapper {
-  background-color: var(--card-docx-background-color-hover);
+  background-color: #eaf1fe;
 }
 
 .card-xlsx:hover .card-preview-wrapper {
-  background-color: var(--card-xlsx-background-color-hover);
+  background-color: rgba(196, 249, 232, 0.5);
 }
 
 .card-pptx:hover .card-preview-wrapper {
-  background-color: var(--card-pptx-background-color-hover);
+  background-color: rgba(255, 111, 61, 0.05);
 }
 
 .card-pdf:hover .card-preview-wrapper {
-  background-color: var(--card-pdf-background-color-hover);
+  background-color: rgba(249, 221, 229, 0.5);
 }
 
 .card-preview-wrapper {
@@ -112,7 +112,7 @@
 }
 
 .card-format-docx {
-  background-color: var(--card-format-docx-background-color);
+  background-color: #305cc4;
 
   &::after {
     background-image: var(--card-hover-icon-docx);
@@ -120,7 +120,7 @@
 }
 
 .card-format-xlsx {
-  background-color: var(--card-format-xlsx-background-color);
+  background-color: #41b338;
 
   &::after {
     background-image: var(--card-hover-icon-xlsx);
@@ -128,7 +128,7 @@
 }
 
 .card-format-pptx {
-  background-color: var(--card-format-pptx-background-color);
+  background-color: #ff6c00;
 
   &::after {
     background-image: var(--card-hover-icon-pptx);
@@ -136,7 +136,7 @@
 }
 
 .card-format-pdf {
-  background-color: var(--card-format-pdf-background-color);
+  background-color: #d10f33;
 
   &::after {
     background-image: var(--card-hover-icon-pdf);
