@@ -3,7 +3,7 @@ import { StrictMode } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { EmbedApp } from "./EmbedApp";
 import { initI18n } from "./i18n";
-import { loadData, fetchFreshData } from "./data";
+import { loadData } from "./data";
 import { normalizeLocale, type Locale } from "./locale";
 import type { TTemplate } from "./EmbedApp/components/TemplateModal";
 import { applyTheme, type Theme } from "./theme";
@@ -122,15 +122,6 @@ async function mount(el: Element, culture?: string): Promise<void> {
   const root = instance && instance.el === el ? instance.root : createRoot(el);
   instance = { el, root, locale };
   renderApp(root, locale, data);
-
-  fetchFreshData(locale).then((fresh) => {
-    if (fresh && instance && instance.el === el && instance.locale === locale) {
-      renderApp(instance.root, locale, fresh);
-      console.info(
-        `[oforms-embed] catalog revalidated (${locale}, ${fresh.data?.length ?? 0} templates)`,
-      );
-    }
-  });
 
   // a desktop language change may have arrived while this mount was in flight
   if (pendingLocale) {

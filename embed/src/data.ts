@@ -16,27 +16,3 @@ for (const [path, data] of Object.entries(modules)) {
 export async function loadData(locale: Locale): Promise<CatalogData> {
   return bundled[locale] ?? bundled[FALLBACK];
 }
-
-const DATA_BASE = (process.env.EMBED_DATA_URL || "").replace(/\/$/, "");
-const freshCache: Record<string, CatalogData> = {};
-
-export async function fetchFreshData(
-  locale: Locale,
-): Promise<CatalogData | null> {
-  if (!DATA_BASE) return null;
-  if (freshCache[locale]) return freshCache[locale];
-  try {
-    const res = await fetch(`${DATA_BASE}/main.${locale}.json`, {
-      cache: "no-store",
-    });
-    if (!res.ok) return null;
-    const data = await res.json();
-    if (data && Array.isArray(data.data)) {
-      freshCache[locale] = data;
-      return data;
-    }
-    return null;
-  } catch {
-    return null;
-  }
-}
