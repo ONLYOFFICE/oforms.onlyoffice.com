@@ -96,7 +96,9 @@ const SortSelector = ({ className }: ISortSelector) => {
           className={styles["sort-selector-button"]}
           onClick={() => setIsOpen((prev) => !prev)}
         >
-          {t(selected.label)}
+          <span className={styles["sort-selector-button-text"]}>
+            {t(selected.label)}
+          </span>
           <ChevronDownIcon
             className={clsx(
               styles["sort-selector-button-icon"],

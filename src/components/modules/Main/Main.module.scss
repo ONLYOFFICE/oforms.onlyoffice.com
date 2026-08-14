@@ -136,12 +136,15 @@
 }
 
 .main-top-content {
-  display: flex;
-  align-items: center;
+  @include media.tablet {
+    margin-inline-end: 24px;
+  }
 
   @include media.mobile {
     flex-direction: column;
     align-items: initial;
+    flex: 1;
+    min-width: 0;
   }
 }
 
