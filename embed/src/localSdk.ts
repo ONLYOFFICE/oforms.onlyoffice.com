@@ -130,10 +130,16 @@ function descriptionFor(locale: Locale, ext: Ext, name: string): string {
 
 // icon/path are native filesystem paths (backslashes on Windows, mixed
 // separators even within one path per the sample AscDesktopEditor sent) —
-// turn one into a file:// URL an <img>/background-image can load.
+// turn one into a file:// URL an <img>/background-image can load. Some
+// paths come back with a Windows long-path device prefix (`\\?\` or
+// `\\.\`, e.g. `\\.\C:\Users\...\templates_cache\...\License agreement.jpg`
+// — confirmed live, it's not just the plain `C:/Users/...` shape the one
+// hand-sent sample used) — that prefix isn't meaningful in a file:// URL and
+// has to be stripped, or the whole path resolves to garbage.
 function toFileUrl(rawPath: string): string {
   if (!rawPath) return "";
-  const normalized = rawPath.replace(/\\/g, "/");
+  const stripped = rawPath.replace(/^\\\\[?.]\\/, "");
+  const normalized = stripped.replace(/\\/g, "/");
   const withScheme = /^[a-zA-Z]:\//.test(normalized)
     ? `file:///${normalized}`
     : `file://${normalized}`;
