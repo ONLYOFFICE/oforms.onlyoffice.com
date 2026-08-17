@@ -63,7 +63,6 @@ OformsEmbed.render("#oforms-root", {
   theme: {
     "card-heading-color": "#f0f0f0",
     "sidebar-item-text-color": "#c8c8c8",
-    "card-format-docx-background-color": "#4a7fd9",
   },
 });
 
