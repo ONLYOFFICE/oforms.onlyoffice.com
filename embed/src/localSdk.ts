@@ -220,18 +220,47 @@ function localeFallbackChain(rawCulture: string): string[] {
  * all — Russian, currently — still get its OWN local templates (there's a
  * real desktop-apps/common/templates/RU) instead of only the English ones,
  * even though the surrounding catalog/UI still renders in English.
+ *
+ * Confirmed by inspecting the live implementation in DevTools: calling
+ * LocalFileTemplates() alone doesn't trigger the scan — it just stashes the
+ * locale list and (once) arms a "resize" listener that's what actually calls
+ * the native (underscore-prefixed) method. So a synthetic resize is
+ * dispatched right after, to fire that listener immediately instead of
+ * waiting for a real window resize that may never happen.
+ *
+ * Preview icons are generated lazily on the desktop's side — the first
+ * response can list a template with no `icon` yet (confirmed live: a fresh
+ * scan came back with none of them, a later one had some filled in). So this
+ * re-scans a few more times a couple of seconds apart to pick those up as
+ * they finish, instead of leaving a card blank forever just because it was
+ * asked for too early. Stops early once every known template has an icon.
  */
+const ICON_POLL_INTERVAL_MS = 2000;
+const MAX_ICON_POLLS = 5;
+
+let activePollTimer: ReturnType<typeof setInterval> | null = null;
+
 export function requestLocalTemplates(
   locale: Locale,
   culture: string | undefined,
   onUpdate: (templates: any[]) => void,
 ): void {
   const editor = (window as any).AscDesktopEditor;
+  if (activePollTimer) {
+    clearInterval(activePollTimer);
+    activePollTimer = null;
+  }
   if (!editor || typeof editor.LocalFileTemplates !== "function") return;
 
   const rawBase = culture ? culture.split(/[-_]/)[0].toLowerCase() : locale;
   const categoryCandidates = Array.from(new Set([rawBase, locale, FALLBACK]));
+  const chain = localeFallbackChain(culture || locale);
   const byPath = new Map<string, any>();
+
+  const scan = () => {
+    editor.LocalFileTemplates(chain);
+    if (typeof window !== "undefined") window.dispatchEvent(new Event("resize"));
+  };
 
   (window as any).onaddtemplates = (payload: SdkTemplateItem[] | SdkTemplateItem) => {
     const items = Array.isArray(payload) ? payload : [payload];
@@ -243,5 +272,17 @@ export function requestLocalTemplates(
     onUpdate(Array.from(byPath.values()));
   };
 
-  editor.LocalFileTemplates(localeFallbackChain(culture || locale));
+  scan();
+
+  let pollsLeft = MAX_ICON_POLLS;
+  activePollTimer = setInterval(() => {
+    const templates = Array.from(byPath.values());
+    const allHaveIcons = templates.every((t) => t.card_prewiew?.url);
+    if (--pollsLeft <= 0 || (templates.length > 0 && allHaveIcons)) {
+      if (activePollTimer) clearInterval(activePollTimer);
+      activePollTimer = null;
+      return;
+    }
+    scan();
+  }, ICON_POLL_INTERVAL_MS);
 }
