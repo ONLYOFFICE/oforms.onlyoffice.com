@@ -1,0 +1,1017 @@
+[
+  {
+    "name": "Aviso de dos semanas",
+    "subcategories": [
+      {
+        "id": 899,
+        "documentId": "jtww2rpxle44sdxu1fdzjazn",
+        "name": "Documentos para solicitar empleo",
+        "urlReq": "employment-templates",
+        "createdAt": "2026-06-15T12:20:19.869Z",
+        "parent_categories": [
+          {
+            "id": 68,
+            "documentId": "moe30kdiij1v040233oxiqf9",
+            "name": "RR. HH. y Empleo",
+            "urlReq": "hr-employment",
+            "createdAt": "2026-06-15T13:06:32.157Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 161.4013671875
+  },
+  {
+    "name": "Certificado",
+    "subcategories": [
+      {
+        "id": 1089,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "Plantillas de Certificado de logro",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.900Z",
+        "parent_categories": [
+          {
+            "id": 284,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "Regalos y Logros",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.641Z",
+            "purpose": {
+              "id": 32,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personal",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.399Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1562.8076171875
+  },
+  {
+    "name": "Diploma",
+    "subcategories": [
+      {
+        "id": 1089,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "Plantillas de Certificado de logro",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.900Z",
+        "parent_categories": [
+          {
+            "id": 284,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "Regalos y Logros",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.641Z",
+            "purpose": {
+              "id": 32,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personal",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.399Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 466.6513671875
+  },
+  {
+    "name": "Diploma oficial de estilo",
+    "subcategories": [
+      {
+        "id": 1089,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "Plantillas de Certificado de logro",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.900Z",
+        "parent_categories": [
+          {
+            "id": 284,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "Regalos y Logros",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.641Z",
+            "purpose": {
+              "id": 32,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personal",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.399Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 366.171875
+  },
+  {
+    "name": "Factura estilo infantil",
+    "subcategories": [
+      {
+        "id": 913,
+        "documentId": "wnc98cfz7u8d3xeyy449d652",
+        "name": "Plantillas de documentos financieros",
+        "urlReq": "financial-templates",
+        "createdAt": "2026-06-15T12:20:22.391Z",
+        "parent_categories": [
+          {
+            "id": 32,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finanzas",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.573Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 648.0576171875
+  },
+  {
+    "name": "Orden de compra",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 127.861328125
+  },
+  {
+    "name": "Lista de verificación de estilo oficial",
+    "subcategories": [
+      {
+        "id": 1096,
+        "documentId": "ow4de8o49tsqw5n4ldskl5sv",
+        "name": "Plantillas de Lista de comprobación",
+        "urlReq": "checklist-templates",
+        "createdAt": "2026-06-15T12:20:49.497Z",
+        "parent_categories": [
+          {
+            "id": 176,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organización y Productividad",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.176Z",
+            "purpose": {
+              "id": 32,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personal",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.399Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 85.115234375
+  },
+  {
+    "name": "Notas de Cornell",
+    "subcategories": [
+      {
+        "id": 958,
+        "documentId": "d37pab7ifrlhmwpmw2efk5qj",
+        "name": "Documentos para la productividad",
+        "urlReq": "productivity-templates",
+        "createdAt": "2026-06-15T12:20:28.777Z",
+        "parent_categories": [
+          {
+            "id": 176,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organización y Productividad",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.176Z",
+            "purpose": {
+              "id": 32,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personal",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.399Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 76.662109375
+  },
+  {
+    "name": "Procedimiento operativo estándar",
+    "subcategories": [
+      {
+        "id": 945,
+        "documentId": "okevfx184iej7k7ipzmqp8qo",
+        "name": "Plantillas de documentos de oficina",
+        "urlReq": "office-templates",
+        "createdAt": "2026-06-15T12:20:26.645Z",
+        "parent_categories": [
+          {
+            "id": 86,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operaciones y Gestión",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.384Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 77.3134765625
+  },
+  {
+    "name": "Reanudar color del cielo",
+    "subcategories": [
+      {
+        "id": 1921,
+        "documentId": "citbc1od5ki5h7fts1nll7wn",
+        "name": "Currículum (CV)",
+        "urlReq": "resume-cv",
+        "createdAt": "2026-06-16T13:55:58.180Z",
+        "parent_categories": [
+          {
+            "id": 68,
+            "documentId": "moe30kdiij1v040233oxiqf9",
+            "name": "RR. HH. y Empleo",
+            "urlReq": "hr-employment",
+            "createdAt": "2026-06-15T13:06:32.157Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 365.2001953125
+  },
+  {
+    "name": "Certificado",
+    "subcategories": [
+      {
+        "id": 1089,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "Plantillas de Certificado de logro",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.900Z",
+        "parent_categories": [
+          {
+            "id": 284,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "Regalos y Logros",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.641Z",
+            "purpose": {
+              "id": 32,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personal",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.399Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1562.8076171875
+  },
+  {
+    "name": "Certificado dark blue",
+    "subcategories": [
+      {
+        "id": 1089,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "Plantillas de Certificado de logro",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.900Z",
+        "parent_categories": [
+          {
+            "id": 284,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "Regalos y Logros",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.641Z",
+            "purpose": {
+              "id": 32,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personal",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.399Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1688.5654296875
+  },
+  {
+    "name": "Lista de comprobación",
+    "subcategories": [
+      {
+        "id": 1096,
+        "documentId": "ow4de8o49tsqw5n4ldskl5sv",
+        "name": "Plantillas de Lista de comprobación",
+        "urlReq": "checklist-templates",
+        "createdAt": "2026-06-15T12:20:49.497Z",
+        "parent_categories": [
+          {
+            "id": 176,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organización y Productividad",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.176Z",
+            "purpose": {
+              "id": 32,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personal",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.399Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1962.0771484375
+  },
+  {
+    "name": "Pacto de socios",
+    "subcategories": [
+      {
+        "id": 1309,
+        "documentId": "o2rz3ctwqjdrbww5riyoemn2",
+        "name": "Acuerdos y Contratos",
+        "urlReq": "agreements-contracts",
+        "createdAt": "2026-06-15T17:03:19.999Z",
+        "parent_categories": [
+          {
+            "id": 14,
+            "documentId": "icm6uqv2bzoipkteytar30kn",
+            "name": "Contratos y Legal",
+            "urlReq": "contracts-legal",
+            "createdAt": "2026-06-15T13:06:31.291Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 420.46484375
+  },
+  {
+    "name": "Plan semanal",
+    "subcategories": [
+      {
+        "id": 1207,
+        "documentId": "sxfrzins3a0kh7t6kfa58zdz",
+        "name": "Plantillas de Plan semanal",
+        "urlReq": "weekly-planner-templates",
+        "createdAt": "2026-06-15T12:20:56.574Z",
+        "parent_categories": [
+          {
+            "id": 176,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organización y Productividad",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.176Z",
+            "purpose": {
+              "id": 32,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personal",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.399Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1547.326171875
+  },
+  {
+    "name": "Planificador de viajes",
+    "subcategories": [
+      {
+        "id": 1179,
+        "documentId": "e09q28vu37lcs359tyy2svc9",
+        "name": "Plantillas de Planificador de viajes",
+        "urlReq": "travel-planner-templates",
+        "createdAt": "2026-06-15T12:20:54.828Z",
+        "parent_categories": [
+          {
+            "id": 212,
+            "documentId": "xlauqk5l8kakkc2uqod4f0zd",
+            "name": "Viajes",
+            "urlReq": "travel",
+            "createdAt": "2026-06-15T16:58:58.043Z",
+            "purpose": {
+              "id": 32,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personal",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.399Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1103.9853515625
+  },
+  {
+    "name": "Prestamo entre particulares",
+    "subcategories": [
+      {
+        "id": 1309,
+        "documentId": "o2rz3ctwqjdrbww5riyoemn2",
+        "name": "Acuerdos y Contratos",
+        "urlReq": "agreements-contracts",
+        "createdAt": "2026-06-15T17:03:19.999Z",
+        "parent_categories": [
+          {
+            "id": 14,
+            "documentId": "icm6uqv2bzoipkteytar30kn",
+            "name": "Contratos y Legal",
+            "urlReq": "contracts-legal",
+            "createdAt": "2026-06-15T13:06:31.291Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 428.72265625
+  },
+  {
+    "name": "Prórroga de contrato de alquiler",
+    "subcategories": [
+      {
+        "id": 1723,
+        "documentId": "x7rngyxssvgwc9yxk5fq2h0k",
+        "name": "Contratos de Arrendamiento y Alquiler",
+        "urlReq": "lease-rental-agreements",
+        "createdAt": "2026-06-15T17:03:30.050Z",
+        "parent_categories": [
+          {
+            "id": 104,
+            "documentId": "q4s1b2eoijjuuwxgr2mfi0gu",
+            "name": "Bienes raíces",
+            "urlReq": "real-estate",
+            "createdAt": "2026-06-15T13:06:32.620Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 316.8115234375
+  },
+  {
+    "name": "Agenda",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 42.205078125
+  },
+  {
+    "name": "Análisis FODA simple",
+    "subcategories": [
+      {
+        "id": 1159,
+        "documentId": "c4abk03kadwtikamp2y981mm",
+        "name": "Plantillas de Análisis DAFO",
+        "urlReq": "swot-analysis-templates",
+        "createdAt": "2026-06-15T12:20:53.566Z",
+        "parent_categories": [
+          {
+            "id": 86,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operaciones y Gestión",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.384Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 34.888671875
+  },
+  {
+    "name": "Cronología",
+    "subcategories": [
+      {
+        "id": 880,
+        "documentId": "b3u7vxbgzp1vytgx3o985e1i",
+        "name": "Plantillas de documentos de planificación",
+        "urlReq": "planning-templates",
+        "createdAt": "2026-06-15T12:20:16.731Z",
+        "parent_categories": [
+          {
+            "id": 176,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organización y Productividad",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.176Z",
+            "purpose": {
+              "id": 32,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personal",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.399Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 43.662109375
+  },
+  {
+    "name": "Organigrama",
+    "subcategories": [
+      {
+        "id": 1054,
+        "documentId": "oai0rj5kll1ji90vr5fvvyaz",
+        "name": "Plantillas de diagramas",
+        "urlReq": "diagram-templates",
+        "createdAt": "2026-06-15T12:20:40.575Z",
+        "parent_categories": [
+          {
+            "id": 176,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organización y Productividad",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.176Z",
+            "purpose": {
+              "id": 32,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personal",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.399Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 45.87890625
+  },
+  {
+    "name": "Jeopardy",
+    "subcategories": [
+      {
+        "id": 1867,
+        "documentId": "p5gnpr2ow2rwavh8boz1ya2h",
+        "name": "Otros",
+        "urlReq": "others",
+        "createdAt": "2026-06-15T17:03:33.103Z",
+        "parent_categories": [
+          {
+            "id": 140,
+            "documentId": "x6ylm1c1ht4n7iqro5wz586p",
+            "name": "Hogar y Educación",
+            "urlReq": "home-education",
+            "createdAt": "2026-06-15T13:06:33.051Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 224.5439453125
+  },
+  {
+    "name": "Línea de tiempo del mundo",
+    "subcategories": [
+      {
+        "id": 880,
+        "documentId": "b3u7vxbgzp1vytgx3o985e1i",
+        "name": "Plantillas de documentos de planificación",
+        "urlReq": "planning-templates",
+        "createdAt": "2026-06-15T12:20:16.731Z",
+        "parent_categories": [
+          {
+            "id": 176,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organización y Productividad",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.176Z",
+            "purpose": {
+              "id": 32,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personal",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.399Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 2262.4873046875
+  },
+  {
+    "name": "Póster",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 44.27734375
+  },
+  {
+    "name": "Resumen ejecutivo",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 35.8837890625
+  },
+  {
+    "name": "Resumen ejecutivo Infografía",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 63.2470703125
+  },
+  {
+    "name": "Árbol",
+    "subcategories": [
+      {
+        "id": 1054,
+        "documentId": "oai0rj5kll1ji90vr5fvvyaz",
+        "name": "Plantillas de diagramas",
+        "urlReq": "diagram-templates",
+        "createdAt": "2026-06-15T12:20:40.575Z",
+        "parent_categories": [
+          {
+            "id": 176,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organización y Productividad",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.176Z",
+            "purpose": {
+              "id": 32,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personal",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.399Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 34.49609375
+  },
+  {
+    "name": "Cuadro de amortización",
+    "subcategories": [
+      {
+        "id": 913,
+        "documentId": "wnc98cfz7u8d3xeyy449d652",
+        "name": "Plantillas de documentos financieros",
+        "urlReq": "financial-templates",
+        "createdAt": "2026-06-15T12:20:22.391Z",
+        "parent_categories": [
+          {
+            "id": 32,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finanzas",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.573Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 16.0302734375
+  },
+  {
+    "name": "Canal de ventas",
+    "subcategories": [
+      {
+        "id": 905,
+        "documentId": "k62uj4bcv5yaudp05we7ze89",
+        "name": "Plantillas de documentos de ventas",
+        "urlReq": "sales-templates",
+        "createdAt": "2026-06-15T12:20:20.965Z",
+        "parent_categories": [
+          {
+            "id": 50,
+            "documentId": "h2ywz1bxs885yym5l1zzpo51",
+            "name": "Ventas y Marketing",
+            "urlReq": "sales-marketing",
+            "createdAt": "2026-06-15T13:06:31.823Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 18.3349609375
+  },
+  {
+    "name": "Diagrama de Gantt",
+    "subcategories": [
+      {
+        "id": 880,
+        "documentId": "b3u7vxbgzp1vytgx3o985e1i",
+        "name": "Plantillas de documentos de planificación",
+        "urlReq": "planning-templates",
+        "createdAt": "2026-06-15T12:20:16.731Z",
+        "parent_categories": [
+          {
+            "id": 176,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organización y Productividad",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.176Z",
+            "purpose": {
+              "id": 32,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personal",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.399Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 55.8544921875
+  },
+  {
+    "name": "Estado de pérdidas y ganancias",
+    "subcategories": [
+      {
+        "id": 1047,
+        "documentId": "hiy4he9d0rhzm4otzakr8asl",
+        "name": "Plantillas de declaraciones",
+        "urlReq": "statement-templates",
+        "createdAt": "2026-06-15T12:20:39.802Z",
+        "parent_categories": [
+          {
+            "id": 32,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finanzas",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.573Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 16.4619140625
+  },
+  {
+    "name": "Factura",
+    "subcategories": [
+      {
+        "id": 913,
+        "documentId": "wnc98cfz7u8d3xeyy449d652",
+        "name": "Plantillas de documentos financieros",
+        "urlReq": "financial-templates",
+        "createdAt": "2026-06-15T12:20:22.391Z",
+        "parent_categories": [
+          {
+            "id": 32,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finanzas",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.573Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 11.5966796875
+  },
+  {
+    "name": "Horario del personal",
+    "subcategories": [
+      {
+        "id": 920,
+        "documentId": "bh4lsqrkgk68aqichysi8i70",
+        "name": "Documentos de recursos humanos",
+        "urlReq": "hr-templates",
+        "createdAt": "2026-06-15T12:20:23.504Z",
+        "parent_categories": [
+          {
+            "id": 68,
+            "documentId": "moe30kdiij1v040233oxiqf9",
+            "name": "RR. HH. y Empleo",
+            "urlReq": "hr-employment",
+            "createdAt": "2026-06-15T13:06:32.157Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 13.7587890625
+  },
+  {
+    "name": "Talón de pago",
+    "subcategories": [
+      {
+        "id": 1047,
+        "documentId": "hiy4he9d0rhzm4otzakr8asl",
+        "name": "Plantillas de declaraciones",
+        "urlReq": "statement-templates",
+        "createdAt": "2026-06-15T12:20:39.802Z",
+        "parent_categories": [
+          {
+            "id": 32,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finanzas",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.573Z",
+            "purpose": {
+              "id": 14,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Negocios",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.115Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 15.880859375
+  }
+]

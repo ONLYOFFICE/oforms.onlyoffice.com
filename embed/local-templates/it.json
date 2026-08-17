@@ -1,0 +1,988 @@
+[
+  {
+    "name": "Buono regalo",
+    "subcategories": [
+      {
+        "id": 1101,
+        "documentId": "p1th0dl3htuwh6xc799mii8v",
+        "name": "Modelli certificato regalo",
+        "urlReq": "gift-certificate-templates",
+        "createdAt": "2026-06-15T12:20:49.933Z",
+        "parent_categories": [
+          {
+            "id": 281,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "Regali e Riconoscimenti",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.586Z",
+            "purpose": {
+              "id": 29,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personale",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.352Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1062.8681640625
+  },
+  {
+    "name": "Certificato",
+    "subcategories": [
+      {
+        "id": 1087,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "Modelli certificato di completamento",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.796Z",
+        "parent_categories": [
+          {
+            "id": 281,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "Regali e Riconoscimenti",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.586Z",
+            "purpose": {
+              "id": 29,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personale",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.352Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 979.96875
+  },
+  {
+    "name": "Diploma",
+    "subcategories": [
+      {
+        "id": 1087,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "Modelli certificato di completamento",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.796Z",
+        "parent_categories": [
+          {
+            "id": 281,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "Regali e Riconoscimenti",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.586Z",
+            "purpose": {
+              "id": 29,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personale",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.352Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 466.6259765625
+  },
+  {
+    "name": "Diploma stile bambini",
+    "subcategories": [
+      {
+        "id": 1087,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "Modelli certificato di completamento",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.796Z",
+        "parent_categories": [
+          {
+            "id": 281,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "Regali e Riconoscimenti",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.586Z",
+            "purpose": {
+              "id": 29,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personale",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.352Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 731.9482421875
+  },
+  {
+    "name": "Fattura stile bambini",
+    "subcategories": [
+      {
+        "id": 911,
+        "documentId": "wnc98cfz7u8d3xeyy449d652",
+        "name": "Modulistica Economica e Finanziaria",
+        "urlReq": "financial-templates",
+        "createdAt": "2026-06-15T12:20:22.190Z",
+        "parent_categories": [
+          {
+            "id": 29,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finanza",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.535Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 647.958984375
+  },
+  {
+    "name": "Ordinazione d'acquisto",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 130.9287109375
+  },
+  {
+    "name": "Lista degli invitati al matrimonio",
+    "subcategories": [
+      {
+        "id": 1191,
+        "documentId": "ynjewdlf1won5wcb5k7f0zrg",
+        "name": "Modelli di lista degli invitati al matrimonio",
+        "urlReq": "wedding-guest-list-templates",
+        "createdAt": "2026-06-15T12:20:55.650Z",
+        "parent_categories": [
+          {
+            "id": 263,
+            "documentId": "s29c67rzoo7l3j1b2z21nt6h",
+            "name": "Eventi Personali",
+            "urlReq": "personal-events",
+            "createdAt": "2026-06-15T16:58:59.220Z",
+            "purpose": {
+              "id": 29,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personale",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.352Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1121.1533203125
+  },
+  {
+    "name": "Lista di controllo",
+    "subcategories": [
+      {
+        "id": 1094,
+        "documentId": "ow4de8o49tsqw5n4ldskl5sv",
+        "name": "Modelli lista di controllo",
+        "urlReq": "checklist-templates",
+        "createdAt": "2026-06-15T12:20:49.435Z",
+        "parent_categories": [
+          {
+            "id": 173,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organizzazione e Produttività",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.104Z",
+            "purpose": {
+              "id": 29,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personale",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.352Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1960.2880859375
+  },
+  {
+    "name": "Preavviso di due settimane",
+    "subcategories": [
+      {
+        "id": 898,
+        "documentId": "jtww2rpxle44sdxu1fdzjazn",
+        "name": "Moduli Lavoro e Occupazione",
+        "urlReq": "employment-templates",
+        "createdAt": "2026-06-15T12:20:19.816Z",
+        "parent_categories": [
+          {
+            "id": 65,
+            "documentId": "moe30kdiij1v040233oxiqf9",
+            "name": "Risorse umane e Lavoro",
+            "urlReq": "hr-employment",
+            "createdAt": "2026-06-15T13:06:32.120Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 161.0712890625
+  },
+  {
+    "name": "Riprendere colore del cielo",
+    "subcategories": [
+      {
+        "id": 1918,
+        "documentId": "citbc1od5ki5h7fts1nll7wn",
+        "name": "Curriculum (CV)",
+        "urlReq": "resume-cv",
+        "createdAt": "2026-06-16T13:55:58.105Z",
+        "parent_categories": [
+          {
+            "id": 65,
+            "documentId": "moe30kdiij1v040233oxiqf9",
+            "name": "Risorse umane e Lavoro",
+            "urlReq": "hr-employment",
+            "createdAt": "2026-06-15T13:06:32.120Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 364.865234375
+  },
+  {
+    "name": "Agenda settimanale",
+    "subcategories": [
+      {
+        "id": 1205,
+        "documentId": "sxfrzins3a0kh7t6kfa58zdz",
+        "name": "Modelli agenda settimanale",
+        "urlReq": "weekly-planner-templates",
+        "createdAt": "2026-06-15T12:20:56.511Z",
+        "parent_categories": [
+          {
+            "id": 173,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organizzazione e Produttività",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.104Z",
+            "purpose": {
+              "id": 29,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personale",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.352Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1547.33203125
+  },
+  {
+    "name": "Contratto di prestazione di servizi",
+    "subcategories": [
+      {
+        "id": 1306,
+        "documentId": "o2rz3ctwqjdrbww5riyoemn2",
+        "name": "Accordi e Contratti",
+        "urlReq": "agreements-contracts",
+        "createdAt": "2026-06-15T17:03:19.920Z",
+        "parent_categories": [
+          {
+            "id": 11,
+            "documentId": "icm6uqv2bzoipkteytar30kn",
+            "name": "Contratti e Legale",
+            "urlReq": "contracts-legal",
+            "createdAt": "2026-06-15T13:06:31.223Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 424.14453125
+  },
+  {
+    "name": "Contratto preliminare di locazione",
+    "subcategories": [
+      {
+        "id": 1720,
+        "documentId": "x7rngyxssvgwc9yxk5fq2h0k",
+        "name": "Contratti di Locazione e Affitto",
+        "urlReq": "lease-rental-agreements",
+        "createdAt": "2026-06-15T17:03:30.000Z",
+        "parent_categories": [
+          {
+            "id": 101,
+            "documentId": "q4s1b2eoijjuuwxgr2mfi0gu",
+            "name": "Immobiliare",
+            "urlReq": "real-estate",
+            "createdAt": "2026-06-15T13:06:32.584Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 537.5107421875
+  },
+  {
+    "name": "Lista di controllo",
+    "subcategories": [
+      {
+        "id": 1094,
+        "documentId": "ow4de8o49tsqw5n4ldskl5sv",
+        "name": "Modelli lista di controllo",
+        "urlReq": "checklist-templates",
+        "createdAt": "2026-06-15T12:20:49.435Z",
+        "parent_categories": [
+          {
+            "id": 173,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organizzazione e Produttività",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.104Z",
+            "purpose": {
+              "id": 29,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personale",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.352Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1960.2880859375
+  },
+  {
+    "name": "Modello cai",
+    "subcategories": [
+      {
+        "id": 883,
+        "documentId": "pu10dik0evz7bx4542gd5tci",
+        "name": "Modulistica Immobiliare",
+        "urlReq": "real-estate-templates",
+        "createdAt": "2026-06-15T12:20:18.190Z",
+        "parent_categories": [
+          {
+            "id": 101,
+            "documentId": "q4s1b2eoijjuuwxgr2mfi0gu",
+            "name": "Immobiliare",
+            "urlReq": "real-estate",
+            "createdAt": "2026-06-15T13:06:32.584Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1036.6767578125
+  },
+  {
+    "name": "Modello delega ritiro documenti",
+    "subcategories": [
+      {
+        "id": 1041,
+        "documentId": "mgq9v9laaq1sywpk2jc04bnf",
+        "name": "Modelli di Documenti Ufficiali",
+        "urlReq": "official-form-templates",
+        "createdAt": "2026-06-15T12:20:39.212Z",
+        "parent_categories": [
+          {
+            "id": 119,
+            "documentId": "l9dyu3e5v5dggjwxshbd7cae",
+            "name": "Moduli e Domande",
+            "urlReq": "forms-applications",
+            "createdAt": "2026-06-15T13:06:32.809Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 407.28125
+  },
+  {
+    "name": "Programma di viaggio",
+    "subcategories": [
+      {
+        "id": 1177,
+        "documentId": "e09q28vu37lcs359tyy2svc9",
+        "name": "Modelli pianificatore di viaggio",
+        "urlReq": "travel-planner-templates",
+        "createdAt": "2026-06-15T12:20:54.767Z",
+        "parent_categories": [
+          {
+            "id": 209,
+            "documentId": "xlauqk5l8kakkc2uqod4f0zd",
+            "name": "Viaggi",
+            "urlReq": "travel",
+            "createdAt": "2026-06-15T16:58:57.981Z",
+            "purpose": {
+              "id": 29,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personale",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.352Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1103.4609375
+  },
+  {
+    "name": "Agenda",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 42.021484375
+  },
+  {
+    "name": "Albero",
+    "subcategories": [
+      {
+        "id": 1055,
+        "documentId": "oai0rj5kll1ji90vr5fvvyaz",
+        "name": "Modelli di Diagrammi",
+        "urlReq": "diagram-templates",
+        "createdAt": "2026-06-15T12:20:40.622Z",
+        "parent_categories": [
+          {
+            "id": 173,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organizzazione e Produttività",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.104Z",
+            "purpose": {
+              "id": 29,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personale",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.352Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 34.4990234375
+  },
+  {
+    "name": "Analisi SWOT semplice",
+    "subcategories": [
+      {
+        "id": 1157,
+        "documentId": "c4abk03kadwtikamp2y981mm",
+        "name": "Modelli degli analisi SWOT",
+        "urlReq": "swot-analysis-templates",
+        "createdAt": "2026-06-15T12:20:53.500Z",
+        "parent_categories": [
+          {
+            "id": 83,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operazioni e Gestione",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.352Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 34.9130859375
+  },
+  {
+    "name": "Cronologia",
+    "subcategories": [
+      {
+        "id": 879,
+        "documentId": "b3u7vxbgzp1vytgx3o985e1i",
+        "name": "Modelli di Pianificazione",
+        "urlReq": "planning-templates",
+        "createdAt": "2026-06-15T12:20:16.552Z",
+        "parent_categories": [
+          {
+            "id": 173,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organizzazione e Produttività",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.104Z",
+            "purpose": {
+              "id": 29,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personale",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.352Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 43.607421875
+  },
+  {
+    "name": "Cronologia del mondo",
+    "subcategories": [
+      {
+        "id": 879,
+        "documentId": "b3u7vxbgzp1vytgx3o985e1i",
+        "name": "Modelli di Pianificazione",
+        "urlReq": "planning-templates",
+        "createdAt": "2026-06-15T12:20:16.552Z",
+        "parent_categories": [
+          {
+            "id": 173,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organizzazione e Produttività",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.104Z",
+            "purpose": {
+              "id": 29,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personale",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.352Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 2262.4638671875
+  },
+  {
+    "name": "Organigramma",
+    "subcategories": [
+      {
+        "id": 1055,
+        "documentId": "oai0rj5kll1ji90vr5fvvyaz",
+        "name": "Modelli di Diagrammi",
+        "urlReq": "diagram-templates",
+        "createdAt": "2026-06-15T12:20:40.622Z",
+        "parent_categories": [
+          {
+            "id": 173,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organizzazione e Produttività",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.104Z",
+            "purpose": {
+              "id": 29,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personale",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.352Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 45.6875
+  },
+  {
+    "name": "Jeopardy",
+    "subcategories": [
+      {
+        "id": 1864,
+        "documentId": "p5gnpr2ow2rwavh8boz1ya2h",
+        "name": "Altri",
+        "urlReq": "others",
+        "createdAt": "2026-06-15T17:03:33.052Z",
+        "parent_categories": [
+          {
+            "id": 137,
+            "documentId": "x6ylm1c1ht4n7iqro5wz586p",
+            "name": "Casa e Istruzione",
+            "urlReq": "home-education",
+            "createdAt": "2026-06-15T13:06:33.020Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 220.150390625
+  },
+  {
+    "name": "Poster",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 44.22265625
+  },
+  {
+    "name": "Riepilogo esecutivo",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 35.8876953125
+  },
+  {
+    "name": "Riepilogo esecutivo Infografica",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 63.21484375
+  },
+  {
+    "name": "Busta paga",
+    "subcategories": [
+      {
+        "id": 1048,
+        "documentId": "hiy4he9d0rhzm4otzakr8asl",
+        "name": "Modelli Dichiarazione",
+        "urlReq": "statement-templates",
+        "createdAt": "2026-06-15T12:20:39.850Z",
+        "parent_categories": [
+          {
+            "id": 29,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finanza",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.535Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 15.888671875
+  },
+  {
+    "name": "Conto economico",
+    "subcategories": [
+      {
+        "id": 1048,
+        "documentId": "hiy4he9d0rhzm4otzakr8asl",
+        "name": "Modelli Dichiarazione",
+        "urlReq": "statement-templates",
+        "createdAt": "2026-06-15T12:20:39.850Z",
+        "parent_categories": [
+          {
+            "id": 29,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finanza",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.535Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 16.4189453125
+  },
+  {
+    "name": "Diagramma di Gantt",
+    "subcategories": [
+      {
+        "id": 879,
+        "documentId": "b3u7vxbgzp1vytgx3o985e1i",
+        "name": "Modelli di Pianificazione",
+        "urlReq": "planning-templates",
+        "createdAt": "2026-06-15T12:20:16.552Z",
+        "parent_categories": [
+          {
+            "id": 173,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organizzazione e Produttività",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.104Z",
+            "purpose": {
+              "id": 29,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personale",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.352Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 55.8447265625
+  },
+  {
+    "name": "Fattura",
+    "subcategories": [
+      {
+        "id": 911,
+        "documentId": "wnc98cfz7u8d3xeyy449d652",
+        "name": "Modulistica Economica e Finanziaria",
+        "urlReq": "financial-templates",
+        "createdAt": "2026-06-15T12:20:22.190Z",
+        "parent_categories": [
+          {
+            "id": 29,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finanza",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.535Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 11.58984375
+  },
+  {
+    "name": "Orario del personale",
+    "subcategories": [
+      {
+        "id": 918,
+        "documentId": "bh4lsqrkgk68aqichysi8i70",
+        "name": "Moduli per Risorse Umane",
+        "urlReq": "hr-templates",
+        "createdAt": "2026-06-15T12:20:23.308Z",
+        "parent_categories": [
+          {
+            "id": 65,
+            "documentId": "moe30kdiij1v040233oxiqf9",
+            "name": "Risorse umane e Lavoro",
+            "urlReq": "hr-employment",
+            "createdAt": "2026-06-15T13:06:32.120Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 13.76953125
+  },
+  {
+    "name": "Piano di ammortamento",
+    "subcategories": [
+      {
+        "id": 911,
+        "documentId": "wnc98cfz7u8d3xeyy449d652",
+        "name": "Modulistica Economica e Finanziaria",
+        "urlReq": "financial-templates",
+        "createdAt": "2026-06-15T12:20:22.190Z",
+        "parent_categories": [
+          {
+            "id": 29,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finanza",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.535Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 16.0029296875
+  },
+  {
+    "name": "Pipeline di vendita",
+    "subcategories": [
+      {
+        "id": 909,
+        "documentId": "k62uj4bcv5yaudp05we7ze89",
+        "name": "Moduli di Vendita",
+        "urlReq": "sales-templates",
+        "createdAt": "2026-06-15T12:20:21.322Z",
+        "parent_categories": [
+          {
+            "id": 47,
+            "documentId": "h2ywz1bxs885yym5l1zzpo51",
+            "name": "Vendite e Marketing",
+            "urlReq": "sales-marketing",
+            "createdAt": "2026-06-15T13:06:31.787Z",
+            "purpose": {
+              "id": 11,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Aziendale",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.055Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 18.2939453125
+  }
+]

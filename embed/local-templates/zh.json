@@ -1,0 +1,1017 @@
+[
+  {
+    "name": "清单官方样式",
+    "subcategories": [
+      {
+        "id": 1092,
+        "documentId": "ow4de8o49tsqw5n4ldskl5sv",
+        "name": "核对清单模板",
+        "urlReq": "checklist-templates",
+        "createdAt": "2026-06-15T12:20:49.379Z",
+        "parent_categories": [
+          {
+            "id": 180,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "组织与效率",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.277Z",
+            "purpose": {
+              "id": 36,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "个人",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.441Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 87.9775390625
+  },
+  {
+    "name": "恢复天空颜色",
+    "subcategories": [
+      {
+        "id": 1925,
+        "documentId": "citbc1od5ki5h7fts1nll7wn",
+        "name": "简历",
+        "urlReq": "resume-cv",
+        "createdAt": "2026-06-16T13:55:58.285Z",
+        "parent_categories": [
+          {
+            "id": 72,
+            "documentId": "moe30kdiij1v040233oxiqf9",
+            "name": "人力资源与雇佣",
+            "urlReq": "hr-employment",
+            "createdAt": "2026-06-15T13:06:32.207Z",
+            "purpose": {
+              "id": 18,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "商务",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.173Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 367.6611328125
+  },
+  {
+    "name": "文凭官方样式",
+    "subcategories": [
+      {
+        "id": 1085,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "成绩证书表单模板",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.733Z",
+        "parent_categories": [
+          {
+            "id": 288,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "礼品与成就",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.718Z",
+            "purpose": {
+              "id": 36,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "个人",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.441Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 368.69921875
+  },
+  {
+    "name": "每日安排",
+    "subcategories": [
+      {
+        "id": 876,
+        "documentId": "b3u7vxbgzp1vytgx3o985e1i",
+        "name": "计划模板",
+        "urlReq": "planning-templates",
+        "createdAt": "2026-06-15T12:20:16.025Z",
+        "parent_categories": [
+          {
+            "id": 180,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "组织与效率",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.277Z",
+            "purpose": {
+              "id": 36,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "个人",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.441Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1423.0849609375
+  },
+  {
+    "name": "康奈尔笔记",
+    "subcategories": [
+      {
+        "id": 954,
+        "documentId": "d37pab7ifrlhmwpmw2efk5qj",
+        "name": "工作效率模板",
+        "urlReq": "productivity-templates",
+        "createdAt": "2026-06-15T12:20:28.188Z",
+        "parent_categories": [
+          {
+            "id": 180,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "组织与效率",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.277Z",
+            "purpose": {
+              "id": 36,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "个人",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.441Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 85.3681640625
+  },
+  {
+    "name": "参赛纪念证书",
+    "subcategories": [
+      {
+        "id": 1085,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "成绩证书表单模板",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.733Z",
+        "parent_categories": [
+          {
+            "id": 288,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "礼品与成就",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.718Z",
+            "purpose": {
+              "id": 36,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "个人",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.441Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 595.8828125
+  },
+  {
+    "name": "发票黑白",
+    "subcategories": [
+      {
+        "id": 915,
+        "documentId": "wnc98cfz7u8d3xeyy449d652",
+        "name": "财务模板",
+        "urlReq": "financial-templates",
+        "createdAt": "2026-06-15T12:20:22.552Z",
+        "parent_categories": [
+          {
+            "id": 36,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "财务",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.624Z",
+            "purpose": {
+              "id": 18,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "商务",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.173Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 56.9853515625
+  },
+  {
+    "name": "奖状",
+    "subcategories": [
+      {
+        "id": 1085,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "成绩证书表单模板",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.733Z",
+        "parent_categories": [
+          {
+            "id": 288,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "礼品与成就",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.718Z",
+            "purpose": {
+              "id": 36,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "个人",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.441Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 172.7958984375
+  },
+  {
+    "name": "荣誉证书",
+    "subcategories": [
+      {
+        "id": 1085,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "成绩证书表单模板",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.733Z",
+        "parent_categories": [
+          {
+            "id": 288,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "礼品与成就",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.718Z",
+            "purpose": {
+              "id": 36,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "个人",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.441Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 58.8388671875
+  },
+  {
+    "name": "食谱",
+    "subcategories": [
+      {
+        "id": 1134,
+        "documentId": "h9ufo5iuy42fccgg3p075m69",
+        "name": "食谱表单模板",
+        "urlReq": "recipe-templates",
+        "createdAt": "2026-06-15T12:20:52.156Z",
+        "parent_categories": [
+          {
+            "id": 198,
+            "documentId": "ksqvkq5ld6uxd092h4x5btjf",
+            "name": "日常生活",
+            "urlReq": "everyday-life",
+            "createdAt": "2026-06-15T16:58:57.706Z",
+            "purpose": {
+              "id": 36,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "个人",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.441Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 341.107421875
+  },
+  {
+    "name": "成绩证书花朵",
+    "subcategories": [
+      {
+        "id": 1085,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "成绩证书表单模板",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.733Z",
+        "parent_categories": [
+          {
+            "id": 288,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "礼品与成就",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.718Z",
+            "purpose": {
+              "id": 36,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "个人",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.441Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 3507.18359375
+  },
+  {
+    "name": "成绩证书表单",
+    "subcategories": [
+      {
+        "id": 1085,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "成绩证书表单模板",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.733Z",
+        "parent_categories": [
+          {
+            "id": 288,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "礼品与成就",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.718Z",
+            "purpose": {
+              "id": 36,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "个人",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.441Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 3493.8017578125
+  },
+  {
+    "name": "房产抵押借款合同",
+    "subcategories": [
+      {
+        "id": 1313,
+        "documentId": "o2rz3ctwqjdrbww5riyoemn2",
+        "name": "协议与合同",
+        "urlReq": "agreements-contracts",
+        "createdAt": "2026-06-15T17:03:20.106Z",
+        "parent_categories": [
+          {
+            "id": 18,
+            "documentId": "icm6uqv2bzoipkteytar30kn",
+            "name": "合同与法律",
+            "urlReq": "contracts-legal",
+            "createdAt": "2026-06-15T13:06:31.348Z",
+            "purpose": {
+              "id": 18,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "商务",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.173Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 2936.79296875
+  },
+  {
+    "name": "房屋租赁合同",
+    "subcategories": [
+      {
+        "id": 1727,
+        "documentId": "x7rngyxssvgwc9yxk5fq2h0k",
+        "name": "租赁协议",
+        "urlReq": "lease-rental-agreements",
+        "createdAt": "2026-06-15T17:03:30.121Z",
+        "parent_categories": [
+          {
+            "id": 108,
+            "documentId": "q4s1b2eoijjuuwxgr2mfi0gu",
+            "name": "房地产",
+            "urlReq": "real-estate",
+            "createdAt": "2026-06-15T13:06:32.667Z",
+            "purpose": {
+              "id": 18,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "商务",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.173Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 2939.423828125
+  },
+  {
+    "name": "旅行行程安排表单",
+    "subcategories": [
+      {
+        "id": 1169,
+        "documentId": "xkpsadnixgnegl1k0jstjdus",
+        "name": "旅行行程安排表单模板",
+        "urlReq": "travel-itinerary-templates",
+        "createdAt": "2026-06-15T12:20:54.345Z",
+        "parent_categories": [
+          {
+            "id": 216,
+            "documentId": "xlauqk5l8kakkc2uqod4f0zd",
+            "name": "旅行",
+            "urlReq": "travel",
+            "createdAt": "2026-06-15T16:58:58.127Z",
+            "purpose": {
+              "id": 36,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "个人",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.441Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1126.7666015625
+  },
+  {
+    "name": "事情清单",
+    "subcategories": [
+      {
+        "id": 1162,
+        "documentId": "jvae9i61hpdmk87c8nmfu9jk",
+        "name": "事情清单模板",
+        "urlReq": "to-do-list-templates",
+        "createdAt": "2026-06-15T12:20:53.913Z",
+        "parent_categories": [
+          {
+            "id": 180,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "组织与效率",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.277Z",
+            "purpose": {
+              "id": 36,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "个人",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.441Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 2854.5400390625
+  },
+  {
+    "name": "应届生求职个人简历",
+    "subcategories": [
+      {
+        "id": 1925,
+        "documentId": "citbc1od5ki5h7fts1nll7wn",
+        "name": "简历",
+        "urlReq": "resume-cv",
+        "createdAt": "2026-06-16T13:55:58.285Z",
+        "parent_categories": [
+          {
+            "id": 72,
+            "documentId": "moe30kdiij1v040233oxiqf9",
+            "name": "人力资源与雇佣",
+            "urlReq": "hr-employment",
+            "createdAt": "2026-06-15T13:06:32.207Z",
+            "purpose": {
+              "id": 18,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "商务",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.173Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 6525.2373046875
+  },
+  {
+    "name": "定金合同",
+    "subcategories": [
+      {
+        "id": 1313,
+        "documentId": "o2rz3ctwqjdrbww5riyoemn2",
+        "name": "协议与合同",
+        "urlReq": "agreements-contracts",
+        "createdAt": "2026-06-15T17:03:20.106Z",
+        "parent_categories": [
+          {
+            "id": 18,
+            "documentId": "icm6uqv2bzoipkteytar30kn",
+            "name": "合同与法律",
+            "urlReq": "contracts-legal",
+            "createdAt": "2026-06-15T13:06:31.348Z",
+            "purpose": {
+              "id": 18,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "商务",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.173Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 2721.7578125
+  },
+  {
+    "name": "海报",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 18,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "商务",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.173Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 42.7177734375
+  },
+  {
+    "name": "执行摘要信息图表",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 18,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "商务",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.173Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 61.666015625
+  },
+  {
+    "name": "执行摘要",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 18,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "商务",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.173Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 36.37109375
+  },
+  {
+    "name": "时间线",
+    "subcategories": [
+      {
+        "id": 876,
+        "documentId": "b3u7vxbgzp1vytgx3o985e1i",
+        "name": "计划模板",
+        "urlReq": "planning-templates",
+        "createdAt": "2026-06-15T12:20:16.025Z",
+        "parent_categories": [
+          {
+            "id": 180,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "组织与效率",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.277Z",
+            "purpose": {
+              "id": 36,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "个人",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.441Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 43.7763671875
+  },
+  {
+    "name": "时间轴世界",
+    "subcategories": [
+      {
+        "id": 876,
+        "documentId": "b3u7vxbgzp1vytgx3o985e1i",
+        "name": "计划模板",
+        "urlReq": "planning-templates",
+        "createdAt": "2026-06-15T12:20:16.025Z",
+        "parent_categories": [
+          {
+            "id": 180,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "组织与效率",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.277Z",
+            "purpose": {
+              "id": 36,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "个人",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.441Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 2262.4677734375
+  },
+  {
+    "name": "树",
+    "subcategories": [
+      {
+        "id": 1056,
+        "documentId": "oai0rj5kll1ji90vr5fvvyaz",
+        "name": "图表模板",
+        "urlReq": "diagram-templates",
+        "createdAt": "2026-06-15T12:20:40.698Z",
+        "parent_categories": [
+          {
+            "id": 180,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "组织与效率",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.277Z",
+            "purpose": {
+              "id": 36,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "个人",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.441Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 34.5263671875
+  },
+  {
+    "name": "组织结构图",
+    "subcategories": [
+      {
+        "id": 1056,
+        "documentId": "oai0rj5kll1ji90vr5fvvyaz",
+        "name": "图表模板",
+        "urlReq": "diagram-templates",
+        "createdAt": "2026-06-15T12:20:40.698Z",
+        "parent_categories": [
+          {
+            "id": 180,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "组织与效率",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.277Z",
+            "purpose": {
+              "id": 36,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "个人",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.441Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 46.0283203125
+  },
+  {
+    "name": "幼儿园老师总结汇报",
+    "subcategories": [
+      {
+        "id": 947,
+        "documentId": "okevfx184iej7k7ipzmqp8qo",
+        "name": "办公模板",
+        "urlReq": "office-templates",
+        "createdAt": "2026-06-15T12:20:26.875Z",
+        "parent_categories": [
+          {
+            "id": 90,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "运营与管理",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.429Z",
+            "purpose": {
+              "id": 18,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "商务",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.173Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1761.693359375
+  },
+  {
+    "name": "危险",
+    "subcategories": [
+      {
+        "id": 1871,
+        "documentId": "p5gnpr2ow2rwavh8boz1ya2h",
+        "name": "其他",
+        "urlReq": "others",
+        "createdAt": "2026-06-15T17:03:33.169Z",
+        "parent_categories": [
+          {
+            "id": 144,
+            "documentId": "x6ylm1c1ht4n7iqro5wz586p",
+            "name": "家庭与教育",
+            "urlReq": "home-education",
+            "createdAt": "2026-06-15T13:06:33.093Z",
+            "purpose": {
+              "id": 18,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "商务",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.173Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 226.4677734375
+  },
+  {
+    "name": "议程",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 18,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "商务",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.173Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 42.396484375
+  },
+  {
+    "name": "损益表",
+    "subcategories": [
+      {
+        "id": 1049,
+        "documentId": "hiy4he9d0rhzm4otzakr8asl",
+        "name": "申请书模板",
+        "urlReq": "statement-templates",
+        "createdAt": "2026-06-15T12:20:39.888Z",
+        "parent_categories": [
+          {
+            "id": 36,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "财务",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.624Z",
+            "purpose": {
+              "id": 18,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "商务",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.173Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 15.6328125
+  },
+  {
+    "name": "摊销计划",
+    "subcategories": [
+      {
+        "id": 915,
+        "documentId": "wnc98cfz7u8d3xeyy449d652",
+        "name": "财务模板",
+        "urlReq": "financial-templates",
+        "createdAt": "2026-06-15T12:20:22.552Z",
+        "parent_categories": [
+          {
+            "id": 36,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "财务",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.624Z",
+            "purpose": {
+              "id": 18,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "商务",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.173Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 18.0576171875
+  },
+  {
+    "name": "甘特图",
+    "subcategories": [
+      {
+        "id": 876,
+        "documentId": "b3u7vxbgzp1vytgx3o985e1i",
+        "name": "计划模板",
+        "urlReq": "planning-templates",
+        "createdAt": "2026-06-15T12:20:16.025Z",
+        "parent_categories": [
+          {
+            "id": 180,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "组织与效率",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.277Z",
+            "purpose": {
+              "id": 36,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "个人",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.441Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 52.9189453125
+  },
+  {
+    "name": "工资单",
+    "subcategories": [
+      {
+        "id": 1049,
+        "documentId": "hiy4he9d0rhzm4otzakr8asl",
+        "name": "申请书模板",
+        "urlReq": "statement-templates",
+        "createdAt": "2026-06-15T12:20:39.888Z",
+        "parent_categories": [
+          {
+            "id": 36,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "财务",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.624Z",
+            "purpose": {
+              "id": 18,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "商务",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.173Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 15.951171875
+  },
+  {
+    "name": "发票",
+    "subcategories": [
+      {
+        "id": 915,
+        "documentId": "wnc98cfz7u8d3xeyy449d652",
+        "name": "财务模板",
+        "urlReq": "financial-templates",
+        "createdAt": "2026-06-15T12:20:22.552Z",
+        "parent_categories": [
+          {
+            "id": 36,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "财务",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.624Z",
+            "purpose": {
+              "id": 18,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "商务",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.173Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 12.291015625
+  },
+  {
+    "name": "员工日程",
+    "subcategories": [
+      {
+        "id": 921,
+        "documentId": "bh4lsqrkgk68aqichysi8i70",
+        "name": "人力管理模板",
+        "urlReq": "hr-templates",
+        "createdAt": "2026-06-15T12:20:23.618Z",
+        "parent_categories": [
+          {
+            "id": 72,
+            "documentId": "moe30kdiij1v040233oxiqf9",
+            "name": "人力资源与雇佣",
+            "urlReq": "hr-employment",
+            "createdAt": "2026-06-15T13:06:32.207Z",
+            "purpose": {
+              "id": 18,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "商务",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.173Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 12.37109375
+  },
+  {
+    "name": "销售渠道",
+    "subcategories": [
+      {
+        "id": 907,
+        "documentId": "k62uj4bcv5yaudp05we7ze89",
+        "name": "销售模板",
+        "urlReq": "sales-templates",
+        "createdAt": "2026-06-15T12:20:21.189Z",
+        "parent_categories": [
+          {
+            "id": 54,
+            "documentId": "h2ywz1bxs885yym5l1zzpo51",
+            "name": "销售与营销",
+            "urlReq": "sales-marketing",
+            "createdAt": "2026-06-15T13:06:31.868Z",
+            "purpose": {
+              "id": 18,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "商务",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.173Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 19.3984375
+  }
+]

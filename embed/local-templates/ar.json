@@ -1,0 +1,930 @@
+[
+  {
+    "name": "شهادة هدية",
+    "subcategories": [
+      {
+        "id": 1098,
+        "documentId": "p1th0dl3htuwh6xc799mii8v",
+        "name": "Gift Certificate Templates",
+        "urlReq": "gift-certificate-templates",
+        "createdAt": "2026-06-15T12:20:49.826Z",
+        "parent_categories": [
+          {
+            "id": 280,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "Gifts & Achievements",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.568Z",
+            "purpose": {
+              "id": 35,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "شخصي",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.430Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 172.3828125
+  },
+  {
+    "name": "إجراءات التشغيل القياسية",
+    "subcategories": [
+      {
+        "id": 948,
+        "documentId": "okevfx184iej7k7ipzmqp8qo",
+        "name": "Office Templates",
+        "urlReq": "office-templates",
+        "createdAt": "2026-06-15T12:20:26.509Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 17,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "الأعمال",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.155Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 175.1923828125
+  },
+  {
+    "name": "الدبلوم بأسلوب رسمي",
+    "subcategories": [
+      {
+        "id": 1084,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "Certificate of Achievement Templates",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.683Z",
+        "parent_categories": [
+          {
+            "id": 280,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "Gifts & Achievements",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.568Z",
+            "purpose": {
+              "id": 35,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "شخصي",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.430Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 80.91015625
+  },
+  {
+    "name": "البرنامج اليومي",
+    "subcategories": [
+      {
+        "id": 875,
+        "documentId": "b3u7vxbgzp1vytgx3o985e1i",
+        "name": "Planning Templates",
+        "urlReq": "planning-templates",
+        "createdAt": "2026-06-15T12:20:15.756Z",
+        "parent_categories": [
+          {
+            "id": 172,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organization & Productivity",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.061Z",
+            "purpose": {
+              "id": 35,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "شخصي",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.430Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 367.6357421875
+  },
+  {
+    "name": "الشهادة",
+    "subcategories": [
+      {
+        "id": 1084,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "Certificate of Achievement Templates",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.683Z",
+        "parent_categories": [
+          {
+            "id": 280,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "Gifts & Achievements",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.568Z",
+            "purpose": {
+              "id": 35,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "شخصي",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.430Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1426.9931640625
+  },
+  {
+    "name": "سيرة ذاتية",
+    "subcategories": [
+      {
+        "id": 1924,
+        "documentId": "citbc1od5ki5h7fts1nll7wn",
+        "name": "السيرة الذاتية",
+        "urlReq": "resume-cv",
+        "createdAt": "2026-06-16T13:55:58.260Z",
+        "parent_categories": [
+          {
+            "id": 71,
+            "documentId": "moe30kdiij1v040233oxiqf9",
+            "name": "الموارد البشرية والتوظيف",
+            "urlReq": "hr-employment",
+            "createdAt": "2026-06-15T13:06:32.195Z",
+            "purpose": {
+              "id": 17,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "الأعمال",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.155Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 984.568359375
+  },
+  {
+    "name": "قائمة المراجعة بأسلوب رسمي",
+    "subcategories": [
+      {
+        "id": 1091,
+        "documentId": "ow4de8o49tsqw5n4ldskl5sv",
+        "name": "Checklist Templates",
+        "urlReq": "checklist-templates",
+        "createdAt": "2026-06-15T12:20:49.344Z",
+        "parent_categories": [
+          {
+            "id": 172,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organization & Productivity",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.061Z",
+            "purpose": {
+              "id": 35,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "شخصي",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.430Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1029.44921875
+  },
+  {
+    "name": "نموذج طلب شراء",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 17,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "الأعمال",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.155Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 101.1708984375
+  },
+  {
+    "name": "Invoice children's style",
+    "subcategories": [
+      {
+        "id": 910,
+        "documentId": "wnc98cfz7u8d3xeyy449d652",
+        "name": "Financial Templates",
+        "urlReq": "financial-templates",
+        "createdAt": "2026-06-15T12:20:22.128Z",
+        "parent_categories": [
+          {
+            "id": 28,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finance",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.523Z",
+            "purpose": {
+              "id": 17,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "الأعمال",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.155Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 647.939453125
+  },
+  {
+    "name": "Two weeks notice",
+    "subcategories": [
+      {
+        "id": 896,
+        "documentId": "jtww2rpxle44sdxu1fdzjazn",
+        "name": "Employment Templates",
+        "urlReq": "employment-templates",
+        "createdAt": "2026-06-15T12:20:19.619Z",
+        "parent_categories": [
+          {
+            "id": 64,
+            "documentId": "moe30kdiij1v040233oxiqf9",
+            "name": "HR & Employment",
+            "urlReq": "hr-employment",
+            "createdAt": "2026-06-15T13:06:32.100Z",
+            "purpose": {
+              "id": 17,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "الأعمال",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.155Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 161.078125
+  },
+  {
+    "name": "شهادة شكر و تقدير",
+    "subcategories": [
+      {
+        "id": 1084,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "Certificate of Achievement Templates",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.683Z",
+        "parent_categories": [
+          {
+            "id": 280,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "Gifts & Achievements",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.568Z",
+            "purpose": {
+              "id": 35,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "شخصي",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.430Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1683.2392578125
+  },
+  {
+    "name": "المخطط الأسبوعي",
+    "subcategories": [
+      {
+        "id": 1202,
+        "documentId": "sxfrzins3a0kh7t6kfa58zdz",
+        "name": "Weekly Planner Templates",
+        "urlReq": "weekly-planner-templates",
+        "createdAt": "2026-06-15T12:20:56.419Z",
+        "parent_categories": [
+          {
+            "id": 172,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organization & Productivity",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.061Z",
+            "purpose": {
+              "id": 35,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "شخصي",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.430Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1576.7353515625
+  },
+  {
+    "name": "دليل السفر",
+    "subcategories": [
+      {
+        "id": 1174,
+        "documentId": "e09q28vu37lcs359tyy2svc9",
+        "name": "Travel Planner Templates",
+        "urlReq": "travel-planner-templates",
+        "createdAt": "2026-06-15T12:20:54.684Z",
+        "parent_categories": [
+          {
+            "id": 208,
+            "documentId": "xlauqk5l8kakkc2uqod4f0zd",
+            "name": "Travel",
+            "urlReq": "travel",
+            "createdAt": "2026-06-15T16:58:57.960Z",
+            "purpose": {
+              "id": 35,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "شخصي",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.430Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1098.1171875
+  },
+  {
+    "name": "قائمة التحقق لمقدمي الرعاية",
+    "subcategories": [
+      {
+        "id": 931,
+        "documentId": "yfbphoaemg5rcxxit7fgzniz",
+        "name": "Healthcare Templates",
+        "urlReq": "healthcare-templates",
+        "createdAt": "2026-06-15T12:20:24.391Z",
+        "parent_categories": [
+          {
+            "id": 226,
+            "documentId": "xpjxscr4ex1halqni31i2yss",
+            "name": "Health & Lifestyle",
+            "urlReq": "health-lifestyle",
+            "createdAt": "2026-06-15T16:58:58.372Z",
+            "purpose": {
+              "id": 35,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "شخصي",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.430Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 764.275390625
+  },
+  {
+    "name": "Valentine's Day شهادة هدية",
+    "subcategories": [
+      {
+        "id": 1098,
+        "documentId": "p1th0dl3htuwh6xc799mii8v",
+        "name": "Gift Certificate Templates",
+        "urlReq": "gift-certificate-templates",
+        "createdAt": "2026-06-15T12:20:49.826Z",
+        "parent_categories": [
+          {
+            "id": 280,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "Gifts & Achievements",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.568Z",
+            "purpose": {
+              "id": 35,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "شخصي",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.430Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1312.884765625
+  },
+  {
+    "name": "عرض تقديمي",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 17,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "الأعمال",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.155Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 123.5224609375
+  },
+  {
+    "name": "الخط الزمني",
+    "subcategories": [
+      {
+        "id": 875,
+        "documentId": "b3u7vxbgzp1vytgx3o985e1i",
+        "name": "Planning Templates",
+        "urlReq": "planning-templates",
+        "createdAt": "2026-06-15T12:20:15.756Z",
+        "parent_categories": [
+          {
+            "id": 172,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organization & Productivity",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.061Z",
+            "purpose": {
+              "id": 35,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "شخصي",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.430Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 2262.865234375
+  },
+  {
+    "name": "الجدول الزمني",
+    "subcategories": [
+      {
+        "id": 875,
+        "documentId": "b3u7vxbgzp1vytgx3o985e1i",
+        "name": "Planning Templates",
+        "urlReq": "planning-templates",
+        "createdAt": "2026-06-15T12:20:15.756Z",
+        "parent_categories": [
+          {
+            "id": 172,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organization & Productivity",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.061Z",
+            "purpose": {
+              "id": 35,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "شخصي",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.430Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 44.361328125
+  },
+  {
+    "name": "العرض التقديمي الزمردي",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 17,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "الأعمال",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.155Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 2318.25
+  },
+  {
+    "name": "الهيكل التنفيذي",
+    "subcategories": [
+      {
+        "id": 1051,
+        "documentId": "oai0rj5kll1ji90vr5fvvyaz",
+        "name": "Diagram Templates",
+        "urlReq": "diagram-templates",
+        "createdAt": "2026-06-15T12:20:40.366Z",
+        "parent_categories": [
+          {
+            "id": 172,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organization & Productivity",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.061Z",
+            "purpose": {
+              "id": 35,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "شخصي",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.430Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 46.4248046875
+  },
+  {
+    "name": "الموجز التنفيذي",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 17,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "الأعمال",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.155Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 36.525390625
+  },
+  {
+    "name": "جدول الأعمال",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 17,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "الأعمال",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.155Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 42.7666015625
+  },
+  {
+    "name": "جيوباردي",
+    "subcategories": [
+      {
+        "id": 1870,
+        "documentId": "p5gnpr2ow2rwavh8boz1ya2h",
+        "name": "أخرى",
+        "urlReq": "others",
+        "createdAt": "2026-06-15T17:03:33.151Z",
+        "parent_categories": [
+          {
+            "id": 143,
+            "documentId": "x6ylm1c1ht4n7iqro5wz586p",
+            "name": "المنزل والتعليم",
+            "urlReq": "home-education",
+            "createdAt": "2026-06-15T13:06:33.082Z",
+            "purpose": {
+              "id": 17,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "الأعمال",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.155Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 228.8955078125
+  },
+  {
+    "name": "رسم توضيحي على شكل شجرة",
+    "subcategories": [
+      {
+        "id": 1051,
+        "documentId": "oai0rj5kll1ji90vr5fvvyaz",
+        "name": "Diagram Templates",
+        "urlReq": "diagram-templates",
+        "createdAt": "2026-06-15T12:20:40.366Z",
+        "parent_categories": [
+          {
+            "id": 172,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organization & Productivity",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.061Z",
+            "purpose": {
+              "id": 35,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "شخصي",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.430Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 34.9306640625
+  },
+  {
+    "name": "ملصق",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 17,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "الأعمال",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.155Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 44.66796875
+  },
+  {
+    "name": "Gantt chart",
+    "subcategories": [
+      {
+        "id": 875,
+        "documentId": "b3u7vxbgzp1vytgx3o985e1i",
+        "name": "Planning Templates",
+        "urlReq": "planning-templates",
+        "createdAt": "2026-06-15T12:20:15.756Z",
+        "parent_categories": [
+          {
+            "id": 172,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organization & Productivity",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.061Z",
+            "purpose": {
+              "id": 35,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "شخصي",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.430Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 55.640625
+  },
+  {
+    "name": "Amortization schedule",
+    "subcategories": [
+      {
+        "id": 910,
+        "documentId": "wnc98cfz7u8d3xeyy449d652",
+        "name": "Financial Templates",
+        "urlReq": "financial-templates",
+        "createdAt": "2026-06-15T12:20:22.128Z",
+        "parent_categories": [
+          {
+            "id": 28,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finance",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.523Z",
+            "purpose": {
+              "id": 17,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "الأعمال",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.155Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 15.9560546875
+  },
+  {
+    "name": "Invoice",
+    "subcategories": [
+      {
+        "id": 910,
+        "documentId": "wnc98cfz7u8d3xeyy449d652",
+        "name": "Financial Templates",
+        "urlReq": "financial-templates",
+        "createdAt": "2026-06-15T12:20:22.128Z",
+        "parent_categories": [
+          {
+            "id": 28,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finance",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.523Z",
+            "purpose": {
+              "id": 17,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "الأعمال",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.155Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 11.3720703125
+  },
+  {
+    "name": "Pay stub",
+    "subcategories": [
+      {
+        "id": 1044,
+        "documentId": "hiy4he9d0rhzm4otzakr8asl",
+        "name": "Statement Templates",
+        "urlReq": "statement-templates",
+        "createdAt": "2026-06-15T12:20:39.644Z",
+        "parent_categories": [
+          {
+            "id": 28,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finance",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.523Z",
+            "purpose": {
+              "id": 17,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "الأعمال",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.155Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 15.625
+  },
+  {
+    "name": "Profit and loss statement",
+    "subcategories": [
+      {
+        "id": 1044,
+        "documentId": "hiy4he9d0rhzm4otzakr8asl",
+        "name": "Statement Templates",
+        "urlReq": "statement-templates",
+        "createdAt": "2026-06-15T12:20:39.644Z",
+        "parent_categories": [
+          {
+            "id": 28,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finance",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.523Z",
+            "purpose": {
+              "id": 17,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "الأعمال",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.155Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 16.3193359375
+  },
+  {
+    "name": "Staff schedule",
+    "subcategories": [
+      {
+        "id": 922,
+        "documentId": "bh4lsqrkgk68aqichysi8i70",
+        "name": "HR Templates",
+        "urlReq": "hr-templates",
+        "createdAt": "2026-06-15T12:20:23.244Z",
+        "parent_categories": [
+          {
+            "id": 64,
+            "documentId": "moe30kdiij1v040233oxiqf9",
+            "name": "HR & Employment",
+            "urlReq": "hr-employment",
+            "createdAt": "2026-06-15T13:06:32.100Z",
+            "purpose": {
+              "id": 17,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "الأعمال",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.155Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 13.6728515625
+  },
+  {
+    "name": "Sales pipeline",
+    "subcategories": [
+      {
+        "id": 903,
+        "documentId": "k62uj4bcv5yaudp05we7ze89",
+        "name": "Sales Templates",
+        "urlReq": "sales-templates",
+        "createdAt": "2026-06-15T12:20:20.694Z",
+        "parent_categories": [
+          {
+            "id": 46,
+            "documentId": "h2ywz1bxs885yym5l1zzpo51",
+            "name": "Sales & Marketing",
+            "urlReq": "sales-marketing",
+            "createdAt": "2026-06-15T13:06:31.775Z",
+            "purpose": {
+              "id": 17,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "الأعمال",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.155Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 18.169921875
+  }
+]

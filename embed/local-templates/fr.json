@@ -1,0 +1,930 @@
+[
+  {
+    "name": "Bon de commande",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 12,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Professionnel",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.087Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 100.1240234375
+  },
+  {
+    "name": "CV Couleur du ciel",
+    "subcategories": [
+      {
+        "id": 1919,
+        "documentId": "citbc1od5ki5h7fts1nll7wn",
+        "name": "CV et Curriculum",
+        "urlReq": "resume-cv",
+        "createdAt": "2026-06-16T13:55:58.130Z",
+        "parent_categories": [
+          {
+            "id": 66,
+            "documentId": "moe30kdiij1v040233oxiqf9",
+            "name": "RH et Emploi",
+            "urlReq": "hr-employment",
+            "createdAt": "2026-06-15T13:06:32.136Z",
+            "purpose": {
+              "id": 12,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Professionnel",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.087Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 364.9775390625
+  },
+  {
+    "name": "Certificat",
+    "subcategories": [
+      {
+        "id": 1090,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "Modèles de certificats d'accomplissement",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.954Z",
+        "parent_categories": [
+          {
+            "id": 282,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "Cadeaux et Récompenses",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.604Z",
+            "purpose": {
+              "id": 30,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personnel",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.365Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 980.07421875
+  },
+  {
+    "name": "Diplôme de style officiel",
+    "subcategories": [
+      {
+        "id": 1090,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "Modèles de certificats d'accomplissement",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.954Z",
+        "parent_categories": [
+          {
+            "id": 282,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "Cadeaux et Récompenses",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.604Z",
+            "purpose": {
+              "id": 30,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personnel",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.365Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 366.1767578125
+  },
+  {
+    "name": "Diplôme style enfant",
+    "subcategories": [
+      {
+        "id": 1090,
+        "documentId": "hhoubr4pfia6nl2klzv86ugt",
+        "name": "Modèles de certificats d'accomplissement",
+        "urlReq": "certificate-of-achievement-templates",
+        "createdAt": "2026-06-15T12:20:48.954Z",
+        "parent_categories": [
+          {
+            "id": 282,
+            "documentId": "pynmc2m070sxxmz895do6h7r",
+            "name": "Cadeaux et Récompenses",
+            "urlReq": "gifts-achievements",
+            "createdAt": "2026-06-15T16:58:59.604Z",
+            "purpose": {
+              "id": 30,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personnel",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.365Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 744.4892578125
+  },
+  {
+    "name": "Facture style officiel",
+    "subcategories": [
+      {
+        "id": 912,
+        "documentId": "wnc98cfz7u8d3xeyy449d652",
+        "name": "Modèles de documents financiers",
+        "urlReq": "financial-templates",
+        "createdAt": "2026-06-15T12:20:22.269Z",
+        "parent_categories": [
+          {
+            "id": 30,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finance",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.548Z",
+            "purpose": {
+              "id": 12,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Professionnel",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.087Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 52.7333984375
+  },
+  {
+    "name": "Liste des invités au mariage",
+    "subcategories": [
+      {
+        "id": 1194,
+        "documentId": "ynjewdlf1won5wcb5k7f0zrg",
+        "name": "Modèles de liste d'invités à un mariage",
+        "urlReq": "wedding-guest-list-templates",
+        "createdAt": "2026-06-15T12:20:55.740Z",
+        "parent_categories": [
+          {
+            "id": 264,
+            "documentId": "s29c67rzoo7l3j1b2z21nt6h",
+            "name": "Événements Personnels",
+            "urlReq": "personal-events",
+            "createdAt": "2026-06-15T16:58:59.234Z",
+            "purpose": {
+              "id": 30,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personnel",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.365Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1121.087890625
+  },
+  {
+    "name": "Liste de contrôle de style officiel",
+    "subcategories": [
+      {
+        "id": 1097,
+        "documentId": "ow4de8o49tsqw5n4ldskl5sv",
+        "name": "Modèles de check-list",
+        "urlReq": "checklist-templates",
+        "createdAt": "2026-06-15T12:20:49.534Z",
+        "parent_categories": [
+          {
+            "id": 174,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organisation et Productivité",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.128Z",
+            "purpose": {
+              "id": 30,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personnel",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.365Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 85.1259765625
+  },
+  {
+    "name": "Notes de Cornell",
+    "subcategories": [
+      {
+        "id": 959,
+        "documentId": "d37pab7ifrlhmwpmw2efk5qj",
+        "name": "Modèles de documents pour productivité",
+        "urlReq": "productivity-templates",
+        "createdAt": "2026-06-15T12:20:28.946Z",
+        "parent_categories": [
+          {
+            "id": 174,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organisation et Productivité",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.128Z",
+            "purpose": {
+              "id": 30,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personnel",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.365Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 76.7431640625
+  },
+  {
+    "name": "Préavis de deux semaines",
+    "subcategories": [
+      {
+        "id": 897,
+        "documentId": "jtww2rpxle44sdxu1fdzjazn",
+        "name": "Documents liés à l'emploi",
+        "urlReq": "employment-templates",
+        "createdAt": "2026-06-15T12:20:19.741Z",
+        "parent_categories": [
+          {
+            "id": 66,
+            "documentId": "moe30kdiij1v040233oxiqf9",
+            "name": "RH et Emploi",
+            "urlReq": "hr-employment",
+            "createdAt": "2026-06-15T13:06:32.136Z",
+            "purpose": {
+              "id": 12,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Professionnel",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.087Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 161.232421875
+  },
+  {
+    "name": "Facture",
+    "subcategories": [
+      {
+        "id": 912,
+        "documentId": "wnc98cfz7u8d3xeyy449d652",
+        "name": "Modèles de documents financiers",
+        "urlReq": "financial-templates",
+        "createdAt": "2026-06-15T12:20:22.269Z",
+        "parent_categories": [
+          {
+            "id": 30,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finance",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.548Z",
+            "purpose": {
+              "id": 12,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Professionnel",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.087Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 11.6181640625
+  },
+  {
+    "name": "Lettre de départ retraite",
+    "subcategories": [
+      {
+        "id": 1811,
+        "documentId": "qxbqsip0r8hajzd0o5g6m4v5",
+        "name": "Lettres et Correspondance",
+        "urlReq": "letters-correspondence",
+        "createdAt": "2026-06-15T17:03:31.963Z",
+        "parent_categories": [
+          {
+            "id": 138,
+            "documentId": "x6ylm1c1ht4n7iqro5wz586p",
+            "name": "Maison et Éducation",
+            "urlReq": "home-education",
+            "createdAt": "2026-06-15T13:06:33.030Z",
+            "purpose": {
+              "id": 12,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Professionnel",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.087Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 298.1591796875
+  },
+  {
+    "name": "Liste de controle",
+    "subcategories": [
+      {
+        "id": 1097,
+        "documentId": "ow4de8o49tsqw5n4ldskl5sv",
+        "name": "Modèles de check-list",
+        "urlReq": "checklist-templates",
+        "createdAt": "2026-06-15T12:20:49.534Z",
+        "parent_categories": [
+          {
+            "id": 174,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organisation et Productivité",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.128Z",
+            "purpose": {
+              "id": 30,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personnel",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.365Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1959.8466796875
+  },
+  {
+    "name": "Planificateur de voyage",
+    "subcategories": [
+      {
+        "id": 1180,
+        "documentId": "e09q28vu37lcs359tyy2svc9",
+        "name": "Modèles de planificateur de voyage",
+        "urlReq": "travel-planner-templates",
+        "createdAt": "2026-06-15T12:20:54.857Z",
+        "parent_categories": [
+          {
+            "id": 210,
+            "documentId": "xlauqk5l8kakkc2uqod4f0zd",
+            "name": "Voyage",
+            "urlReq": "travel",
+            "createdAt": "2026-06-15T16:58:58.003Z",
+            "purpose": {
+              "id": 30,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personnel",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.365Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1104.90234375
+  },
+  {
+    "name": "Planning de semaine",
+    "subcategories": [
+      {
+        "id": 1208,
+        "documentId": "sxfrzins3a0kh7t6kfa58zdz",
+        "name": "Modèles de planning de semaine",
+        "urlReq": "weekly-planner-templates",
+        "createdAt": "2026-06-15T12:20:56.605Z",
+        "parent_categories": [
+          {
+            "id": 174,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organisation et Productivité",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.128Z",
+            "purpose": {
+              "id": 30,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personnel",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.365Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 1546.5146484375
+  },
+  {
+    "name": "Affiche",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 12,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Professionnel",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.087Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 43.9755859375
+  },
+  {
+    "name": "Analyse SWOT simple",
+    "subcategories": [
+      {
+        "id": 1160,
+        "documentId": "c4abk03kadwtikamp2y981mm",
+        "name": "Modèles d'analyse SWOT",
+        "urlReq": "swot-analysis-templates",
+        "createdAt": "2026-06-15T12:20:53.599Z",
+        "parent_categories": [
+          {
+            "id": 84,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Opérations et Gestion",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.363Z",
+            "purpose": {
+              "id": 12,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Professionnel",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.087Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 34.8916015625
+  },
+  {
+    "name": "Arbre",
+    "subcategories": [
+      {
+        "id": 1053,
+        "documentId": "oai0rj5kll1ji90vr5fvvyaz",
+        "name": "Modèles de diagrammes",
+        "urlReq": "diagram-templates",
+        "createdAt": "2026-06-15T12:20:40.502Z",
+        "parent_categories": [
+          {
+            "id": 174,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organisation et Productivité",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.128Z",
+            "purpose": {
+              "id": 30,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personnel",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.365Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 34.4599609375
+  },
+  {
+    "name": "Chronologie",
+    "subcategories": [
+      {
+        "id": 881,
+        "documentId": "b3u7vxbgzp1vytgx3o985e1i",
+        "name": "Modèles de formulaires de planification",
+        "urlReq": "planning-templates",
+        "createdAt": "2026-06-15T12:20:16.964Z",
+        "parent_categories": [
+          {
+            "id": 174,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organisation et Productivité",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.128Z",
+            "purpose": {
+              "id": 30,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personnel",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.365Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 43.7451171875
+  },
+  {
+    "name": "Chronologie mondiale",
+    "subcategories": [
+      {
+        "id": 881,
+        "documentId": "b3u7vxbgzp1vytgx3o985e1i",
+        "name": "Modèles de formulaires de planification",
+        "urlReq": "planning-templates",
+        "createdAt": "2026-06-15T12:20:16.964Z",
+        "parent_categories": [
+          {
+            "id": 174,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organisation et Productivité",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.128Z",
+            "purpose": {
+              "id": 30,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personnel",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.365Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 2262.5517578125
+  },
+  {
+    "name": "Organigramme",
+    "subcategories": [
+      {
+        "id": 1053,
+        "documentId": "oai0rj5kll1ji90vr5fvvyaz",
+        "name": "Modèles de diagrammes",
+        "urlReq": "diagram-templates",
+        "createdAt": "2026-06-15T12:20:40.502Z",
+        "parent_categories": [
+          {
+            "id": 174,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organisation et Productivité",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.128Z",
+            "purpose": {
+              "id": 30,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personnel",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.365Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 45.6611328125
+  },
+  {
+    "name": "Jeopardy",
+    "subcategories": [
+      {
+        "id": 1865,
+        "documentId": "p5gnpr2ow2rwavh8boz1ya2h",
+        "name": "Autres",
+        "urlReq": "others",
+        "createdAt": "2026-06-15T17:03:33.070Z",
+        "parent_categories": [
+          {
+            "id": 138,
+            "documentId": "x6ylm1c1ht4n7iqro5wz586p",
+            "name": "Maison et Éducation",
+            "urlReq": "home-education",
+            "createdAt": "2026-06-15T13:06:33.030Z",
+            "purpose": {
+              "id": 12,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Professionnel",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.087Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 221.3818359375
+  },
+  {
+    "name": "Modèle d'agenda",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 12,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Professionnel",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.087Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 42.1357421875
+  },
+  {
+    "name": "Résumé exécutif",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 12,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Professionnel",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.087Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 35.9384765625
+  },
+  {
+    "name": "Résumé exécutif Infographie",
+    "subcategories": [
+      {
+        "id": 975,
+        "documentId": "dwc2e9m7j52uz96gsvov5o5h",
+        "name": "Business Templates",
+        "urlReq": "business-templates",
+        "createdAt": "2026-06-15T12:20:32.520Z",
+        "parent_categories": [
+          {
+            "id": 82,
+            "documentId": "t7001o5m0cn8u9wbyslqkeqv",
+            "name": "Operations & Management",
+            "urlReq": "operations-management",
+            "createdAt": "2026-06-15T13:06:32.341Z",
+            "purpose": {
+              "id": 12,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Professionnel",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.087Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 63.2578125
+  },
+  {
+    "name": "Bulletin de paie",
+    "subcategories": [
+      {
+        "id": 1046,
+        "documentId": "hiy4he9d0rhzm4otzakr8asl",
+        "name": "Modèles de déclarations",
+        "urlReq": "statement-templates",
+        "createdAt": "2026-06-15T12:20:39.751Z",
+        "parent_categories": [
+          {
+            "id": 30,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finance",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.548Z",
+            "purpose": {
+              "id": 12,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Professionnel",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.087Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 15.9052734375
+  },
+  {
+    "name": "Compte de résultat",
+    "subcategories": [
+      {
+        "id": 1046,
+        "documentId": "hiy4he9d0rhzm4otzakr8asl",
+        "name": "Modèles de déclarations",
+        "urlReq": "statement-templates",
+        "createdAt": "2026-06-15T12:20:39.751Z",
+        "parent_categories": [
+          {
+            "id": 30,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finance",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.548Z",
+            "purpose": {
+              "id": 12,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Professionnel",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.087Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 16.630859375
+  },
+  {
+    "name": "Diagramme de Gantt",
+    "subcategories": [
+      {
+        "id": 881,
+        "documentId": "b3u7vxbgzp1vytgx3o985e1i",
+        "name": "Modèles de formulaires de planification",
+        "urlReq": "planning-templates",
+        "createdAt": "2026-06-15T12:20:16.964Z",
+        "parent_categories": [
+          {
+            "id": 174,
+            "documentId": "vh894zozhuh6dp9csi2xolbb",
+            "name": "Organisation et Productivité",
+            "urlReq": "organization-productivity",
+            "createdAt": "2026-06-15T16:58:57.128Z",
+            "purpose": {
+              "id": 30,
+              "documentId": "zy3zo6wgbz5pbgthl4xcnzop",
+              "name": "Personnel",
+              "key": "personal",
+              "createdAt": "2026-06-15T14:12:34.365Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 55.87109375
+  },
+  {
+    "name": "Facture",
+    "subcategories": [
+      {
+        "id": 912,
+        "documentId": "wnc98cfz7u8d3xeyy449d652",
+        "name": "Modèles de documents financiers",
+        "urlReq": "financial-templates",
+        "createdAt": "2026-06-15T12:20:22.269Z",
+        "parent_categories": [
+          {
+            "id": 30,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finance",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.548Z",
+            "purpose": {
+              "id": 12,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Professionnel",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.087Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 11.6181640625
+  },
+  {
+    "name": "Horaire du personnel",
+    "subcategories": [
+      {
+        "id": 919,
+        "documentId": "bh4lsqrkgk68aqichysi8i70",
+        "name": "Documents de ressources humaines",
+        "urlReq": "hr-templates",
+        "createdAt": "2026-06-15T12:20:23.429Z",
+        "parent_categories": [
+          {
+            "id": 66,
+            "documentId": "moe30kdiij1v040233oxiqf9",
+            "name": "RH et Emploi",
+            "urlReq": "hr-employment",
+            "createdAt": "2026-06-15T13:06:32.136Z",
+            "purpose": {
+              "id": 12,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Professionnel",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.087Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 13.7734375
+  },
+  {
+    "name": "Pipeline de vente",
+    "subcategories": [
+      {
+        "id": 904,
+        "documentId": "k62uj4bcv5yaudp05we7ze89",
+        "name": "Documents liés aux ventes",
+        "urlReq": "sales-templates",
+        "createdAt": "2026-06-15T12:20:20.839Z",
+        "parent_categories": [
+          {
+            "id": 48,
+            "documentId": "h2ywz1bxs885yym5l1zzpo51",
+            "name": "Ventes et Marketing",
+            "urlReq": "sales-marketing",
+            "createdAt": "2026-06-15T13:06:31.800Z",
+            "purpose": {
+              "id": 12,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Professionnel",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.087Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 18.41796875
+  },
+  {
+    "name": "Tableau d'amortissement",
+    "subcategories": [
+      {
+        "id": 912,
+        "documentId": "wnc98cfz7u8d3xeyy449d652",
+        "name": "Modèles de documents financiers",
+        "urlReq": "financial-templates",
+        "createdAt": "2026-06-15T12:20:22.269Z",
+        "parent_categories": [
+          {
+            "id": 30,
+            "documentId": "nohwidtny8pnx1q8n77vvqyp",
+            "name": "Finance",
+            "urlReq": "finance",
+            "createdAt": "2026-06-15T13:06:31.548Z",
+            "purpose": {
+              "id": 12,
+              "documentId": "ut014u8wkioti5gr12m8ixfr",
+              "name": "Professionnel",
+              "key": "business",
+              "createdAt": "2026-06-15T14:12:34.087Z"
+            }
+          }
+        ]
+      }
+    ],
+    "size": 16.05078125
+  }
+]
