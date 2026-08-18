@@ -1,3 +1,6 @@
 node_modules/
 dist/
 data/
+
+# Staging area for Figma exports; installed copies live in src/icons.
+figma drop/

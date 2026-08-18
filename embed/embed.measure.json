@@ -1,0 +1,328 @@
+[
+  {
+    "_note": "Figma: filter panel 360px wide, 328px content inside 16px sides, 32px above the title.",
+    "sel": "filter-panel",
+    "props": ["width", "paddingTop", "paddingLeft", "paddingRight"],
+    "expect": {
+      "width": "360px",
+      "paddingTop": "32px",
+      "paddingLeft": "16px",
+      "paddingRight": "16px"
+    }
+  },
+  {
+    "_note": "Figma 'Panel header': 28px box, list starts 16px below it.",
+    "sel": "filter-panel-header",
+    "props": ["minHeight", "marginBottom"],
+    "expect": {
+      "minHeight": "28px",
+      "marginBottom": "16px"
+    }
+  },
+  {
+    "_note": "Figma: 8px between sibling blocks in the panel.",
+    "sel": "filter-panel-list",
+    "props": ["rowGap"],
+    "expect": {
+      "rowGap": "8px"
+    }
+  },
+  {
+    "_note": "Figma 'Claer all' footer: full-bleed 360px, 1px rule, 16px above/below the 16px link row, link inset 24px.",
+    "sel": "filter-panel-footer",
+    "props": [
+      "borderTopWidth",
+      "paddingTop",
+      "paddingBottom",
+      "paddingLeft",
+      "marginLeft",
+      "marginRight"
+    ],
+    "expect": {
+      "borderTopWidth": "1px",
+      "paddingTop": "16px",
+      "paddingBottom": "16px",
+      "paddingLeft": "24px",
+      "marginLeft": "-16px",
+      "marginRight": "-16px"
+    }
+  },
+  {
+    "_note": "Figma 'Menu item': 36px row on a 40px step, 24px icon at 8px, label 8px after it.",
+    "sel": "nav-item",
+    "props": [
+      "height",
+      "paddingLeft",
+      "columnGap",
+      "fontWeight",
+      "fontSize",
+      "lineHeight"
+    ],
+    "expect": {
+      "height": "36px",
+      "paddingLeft": "8px",
+      "columnGap": "8px",
+      "fontWeight": "700",
+      "fontSize": "14px",
+      "lineHeight": "20px"
+    }
+  },
+  {
+    "sel": "nav-list",
+    "props": ["rowGap"],
+    "expect": {
+      "rowGap": "4px"
+    }
+  },
+  {
+    "_note": "Figma 'separator-horizontal': 328x9 = 4px + 1px rule + 4px.",
+    "sel": "separator-inset",
+    "props": ["height", "marginTop", "marginBottom"],
+    "expect": {
+      "height": "1px",
+      "marginTop": "4px",
+      "marginBottom": "4px"
+    }
+  },
+  {
+    "_note": "Figma gives the panel's FIRST filter section a 40px header box.",
+    "sel": "section-header-filter",
+    "props": ["height", "paddingLeft", "fontWeight", "fontSize", "lineHeight"],
+    "expect": {
+      "height": "40px",
+      "paddingLeft": "8px",
+      "fontWeight": "700",
+      "fontSize": "14px",
+      "lineHeight": "20px"
+    }
+  },
+  {
+    "_note": "Every later filter section header is 32px.",
+    "sel": "section-header-filter",
+    "index": 1,
+    "props": ["height", "paddingLeft", "fontWeight", "fontSize", "lineHeight"],
+    "expect": {
+      "height": "32px",
+      "paddingLeft": "8px",
+      "fontWeight": "700",
+      "fontSize": "14px",
+      "lineHeight": "20px"
+    }
+  },
+  {
+    "sel": "filter-section",
+    "props": ["rowGap"],
+    "expect": {
+      "rowGap": "8px"
+    }
+  },
+  {
+    "_note": "Figma nested Category group header: 36px, uppercase, chips 4px below.",
+    "sel": "section-header-group",
+    "props": [
+      "height",
+      "textTransform",
+      "fontWeight",
+      "fontSize",
+      "lineHeight"
+    ],
+    "expect": {
+      "height": "36px",
+      "textTransform": "uppercase",
+      "fontWeight": "400",
+      "fontSize": "12px",
+      "lineHeight": "16px"
+    }
+  },
+  {
+    "sel": "category-group",
+    "props": ["rowGap"],
+    "expect": {
+      "rowGap": "4px"
+    }
+  },
+  {
+    "_note": "Figma 'Tag': 30px pill, 12px sides, count 6px after the label.",
+    "sel": "chip",
+    "props": [
+      "height",
+      "paddingLeft",
+      "paddingRight",
+      "borderRadius",
+      "borderTopWidth",
+      "columnGap",
+      "fontWeight",
+      "fontSize",
+      "lineHeight"
+    ],
+    "expect": {
+      "height": "30px",
+      "paddingLeft": "12px",
+      "paddingRight": "12px",
+      "borderRadius": "15px",
+      "borderTopWidth": "1px",
+      "columnGap": "6px",
+      "fontWeight": "400",
+      "fontSize": "14px",
+      "lineHeight": "20px"
+    }
+  },
+  {
+    "_note": "Figma chip rows: 4px between chips, 6px between rows.",
+    "sel": "chip-group",
+    "props": ["columnGap", "rowGap"],
+    "expect": {
+      "columnGap": "4px",
+      "rowGap": "6px"
+    }
+  },
+  {
+    "_note": "Figma Purpose control: 30px segments, 16px sides, 4px apart, in a 40px row.",
+    "sel": "segment",
+    "props": [
+      "height",
+      "paddingLeft",
+      "paddingRight",
+      "borderRadius",
+      "fontWeight",
+      "fontSize",
+      "lineHeight"
+    ],
+    "expect": {
+      "height": "30px",
+      "paddingLeft": "16px",
+      "paddingRight": "16px",
+      "borderRadius": "15px",
+      "fontWeight": "700",
+      "fontSize": "14px",
+      "lineHeight": "20px"
+    }
+  },
+  {
+    "sel": "segmented-control",
+    "props": ["height", "columnGap", "paddingTop"],
+    "expect": {
+      "height": "40px",
+      "columnGap": "4px",
+      "paddingTop": "4px"
+    }
+  },
+  {
+    "_note": "Figma 'File list': 24px inset on every side, 16px between rows.",
+    "sel": "template-list-inner",
+    "props": ["paddingTop", "paddingLeft", "paddingRight", "rowGap"],
+    "expect": {
+      "paddingTop": "24px",
+      "paddingLeft": "24px",
+      "paddingRight": "24px",
+      "rowGap": "16px"
+    }
+  },
+  {
+    "_note": "Figma search row: 36px tall; the Search button is a fixed 77px sharing the field hairline.",
+    "sel": "search-bar",
+    "props": ["height"],
+    "expect": {
+      "height": "36px"
+    }
+  },
+  {
+    "sel": "search-bar-button",
+    "props": ["width", "marginLeft", "borderTopWidth"],
+    "expect": {
+      "width": "77px",
+      "marginLeft": "-1px",
+      "borderTopWidth": "1px"
+    }
+  },
+  {
+    "sel": "search-bar-field",
+    "props": ["paddingLeft", "paddingRight", "columnGap", "borderTopWidth"],
+    "expect": {
+      "paddingLeft": "8px",
+      "paddingRight": "16px",
+      "columnGap": "8px",
+      "borderTopWidth": "1px"
+    }
+  },
+  {
+    "_note": "Figma list header block: 32px tall, Page title 20/28 beside the result count.",
+    "sel": "list-header",
+    "props": ["height"],
+    "expect": {
+      "height": "32px"
+    }
+  },
+  {
+    "sel": "list-header-title",
+    "props": ["fontSize", "lineHeight", "fontWeight"],
+    "expect": {
+      "fontSize": "20px",
+      "lineHeight": "28px",
+      "fontWeight": "700"
+    }
+  },
+  {
+    "_note": "Figma 'table-templates list': 24px gap both axes. Cards are 226px in Figma but stretch to fill here by design decision.",
+    "sel": "template-list-grid",
+    "props": ["rowGap", "columnGap"],
+    "expect": {
+      "rowGap": "24px",
+      "columnGap": "24px"
+    }
+  },
+  {
+    "_note": "Figma 'template-item': 190px tall including its 1px border, radius 4.",
+    "sel": "template-card",
+    "props": ["height", "borderTopWidth", "borderRadius"],
+    "expect": {
+      "height": "190px",
+      "borderTopWidth": "1px",
+      "borderRadius": "4px"
+    }
+  },
+  {
+    "_note": "Figma card preview well 140px on background/pane; footer 48px with 8px sides.",
+    "sel": "template-card-preview",
+    "props": ["height"],
+    "expect": {
+      "height": "140px"
+    }
+  },
+  {
+    "sel": "template-card-footer",
+    "props": [
+      "height",
+      "paddingLeft",
+      "paddingRight",
+      "columnGap",
+      "borderTopWidth"
+    ],
+    "expect": {
+      "height": "48px",
+      "paddingLeft": "8px",
+      "paddingRight": "8px",
+      "columnGap": "8px",
+      "borderTopWidth": "1px"
+    }
+  },
+  {
+    "_note": "Figma card star overlays the preview at 4,4 in a 24px box.",
+    "sel": "template-card-star",
+    "props": ["width", "height", "top", "left"],
+    "expect": {
+      "width": "24px",
+      "height": "24px",
+      "top": "4px",
+      "left": "4px"
+    }
+  },
+  {
+    "_note": "Figma 'Dimming': 32px fade over the bottom of the scroller.",
+    "sel": "template-list-fade",
+    "props": ["height"],
+    "expect": {
+      "height": "32px"
+    }
+  }
+]

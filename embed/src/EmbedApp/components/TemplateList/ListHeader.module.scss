@@ -1,0 +1,19 @@
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 32px;
+}
+
+.list-header-title {
+  margin: 0;
+  font: var(--oo-font-page-title);
+  color: var(--oo-text-normal);
+}
+
+.list-header-count {
+  flex: none;
+  font: var(--oo-font-normal);
+  color: var(--oo-text-tertiary);
+}

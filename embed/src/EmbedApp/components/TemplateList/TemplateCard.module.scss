@@ -1,0 +1,82 @@
+.template-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  // Figma card is 226x190 including its 1px border: 140px preview + 48px
+  // footer. The grid stretches the width, so only the height is fixed.
+  height: 190px;
+  border: 1px solid var(--oo-border-divider);
+  border-radius: var(--oo-radius);
+  background-color: var(--oo-bg-action-panel);
+  // Keep the preview's square corners inside the rounded frame.
+  overflow: hidden;
+
+  &:hover {
+    // TODO(design): hover treatment is inferred from the one hovered card in
+    // the mockups; confirm the exact border/elevation.
+    border-color: var(--oo-accent);
+  }
+}
+
+.template-card-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  height: 140px;
+  padding: 0;
+  border: none;
+  background-color: var(--oo-bg-pane);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.template-card-image {
+  // Figma renders a 98x140 page inside the 224x140 well: full bleed
+  // vertically, natural width, never wider than the card.
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.template-card-star {
+  position: absolute;
+  inset-block-start: 4px;
+  inset-inline-start: 4px;
+  z-index: 1;
+}
+
+.template-card-footer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  // Format glyph at 8px, name 8px after it, "..." 8px from the trailing edge.
+  gap: 8px;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0 8px;
+  border-top: 1px solid var(--oo-border-divider);
+}
+
+.template-card-format {
+  flex: none;
+}
+
+.template-card-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  font: var(--oo-font-body);
+  color: var(--oo-text-normal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.template-card-more {
+  flex: none;
+}
+
+.template-card-more-open {
+  background-color: var(--oo-highlight-pressed);
+}

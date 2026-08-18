@@ -1,0 +1,25 @@
+.text-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: none;
+  height: 16px;
+  font: var(--oo-font-body);
+  color: var(--oo-text-link);
+  background-color: transparent;
+  cursor: pointer;
+
+  &:disabled {
+    color: var(--oo-text-tertiary);
+    cursor: default;
+  }
+}
+
+.text-button-label {
+  text-decoration: underline;
+}
+
+.text-button-icon {
+  flex: none;
+}

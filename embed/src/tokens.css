@@ -1,0 +1,76 @@
+/*
+ * ONLYOFFICE editor UI-kit tokens, light theme.
+ *
+ * The Figma panel mockups are drawn in the editor's own kit, not the oforms
+ * site palette, so these names mirror the Figma variable names (text/normal ->
+ * --oo-text-normal). Component styles must only reference this layer; never
+ * hardcode a hex.
+ *
+ * The host may still override any of these at runtime via
+ * OformsEmbed.setTheme() (see src/theme.ts), which sets the custom properties
+ * inline on the mount element. Defaults live here so the bundle renders
+ * correctly on its own -- before this file the embed shipped zero :root
+ * defaults and dist/index.html rendered with every colour unresolved.
+ */
+
+:root {
+  /* Text */
+  --oo-text-normal: #000000cc;
+  --oo-text-secondary: #00000099;
+  --oo-text-tertiary: #00000066;
+  --oo-text-inverse: #ffffff;
+  --oo-text-link: #1d4faf;
+
+  /* Surfaces */
+  --oo-bg-action-panel: #ffffff;
+  --oo-bg-pane: #f3f3f3;
+  --oo-bg-tabbar: #f7f7f7;
+  --oo-bg-input: #ffffff;
+
+  /* Borders */
+  --oo-border-divider: #dfdfdf;
+  --oo-border-input: #e1e1e1;
+  --oo-border-tabbar: #cbcbcb;
+
+  /* Interaction */
+  --oo-highlight-hover: #e0e0e0;
+  --oo-highlight-pressed: #cccccc;
+
+  /* Accent */
+  --oo-accent: #306ad9;
+  --oo-accent-hover: #2a5bb9;
+  --oo-btn-primary-bg: #4a87e7;
+
+  /* Icons */
+  --oo-icon-normal: #000000cc;
+  --oo-icon-gray: #383838;
+
+  /* Neutrals */
+  --oo-neutral-100: #efefef;
+  --oo-neutral-550: #686868;
+
+  /* Shape */
+  --oo-radius: 4px;
+
+  /* Elevation */
+  --oo-shadow-2xs: 0 1px 0 0 #0000000d;
+  --oo-shadow-window: 0 4px 10px 0 #00000033;
+
+  /* Type scale -- Figma text styles. Segoe-UI is declared in global.css. */
+  --oo-font-page-title: 700 20px/28px "Segoe-UI", sans-serif;
+  --oo-font-title-1-strong: 700 17px/24px "Segoe-UI", sans-serif;
+  --oo-font-title-2: 700 14px/20px "Segoe-UI", sans-serif;
+  --oo-font-normal: 400 14px/20px "Segoe-UI", sans-serif;
+  --oo-font-body: 400 12px/16px "Segoe-UI", sans-serif;
+  --oo-font-body-strong: 600 12px/16px "Segoe-UI", sans-serif;
+}
+
+/*
+ * Dark theme entry point. Redefining these tokens here is all a dark mode
+ * needs -- no component rule references a literal colour. Left empty until
+ * the dark mockups land; setTheme() covers the host in the meantime.
+ * TODO(dark): fill from the dark Figma frames.
+ */
+:root[data-oo-theme="dark"] {
+  /* intentionally empty for now */
+}

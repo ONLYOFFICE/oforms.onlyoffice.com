@@ -1,4 +1,3 @@
-import { type TTemplate } from "./components/TemplateModal";
 import type { Locale } from "../locale";
 
 export interface ITemplate {
@@ -69,6 +68,9 @@ export interface ITemplate {
   __sdkType?: number;
   __sdkPath?: string;
 }
+
+/** Alias kept for readability at call sites that pass a single catalogue item. */
+export type TTemplate = ITemplate;
 
 export interface ITemplateData {
   data: TTemplate[];

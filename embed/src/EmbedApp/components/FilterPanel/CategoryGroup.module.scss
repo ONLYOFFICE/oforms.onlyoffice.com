@@ -1,0 +1,6 @@
+.category-group {
+  display: flex;
+  flex-direction: column;
+  // Figma: chips start 4px under the 36px group header.
+  gap: 4px;
+}

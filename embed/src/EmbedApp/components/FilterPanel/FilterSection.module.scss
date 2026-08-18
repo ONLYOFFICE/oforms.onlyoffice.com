@@ -1,0 +1,12 @@
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  // Figma: 8px between the section header and its content.
+  gap: 8px;
+}
+
+.filter-section-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

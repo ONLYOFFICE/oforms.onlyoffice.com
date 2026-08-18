@@ -1,0 +1,183 @@
+@use "media";
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.window {
+  display: flex;
+  flex-direction: column;
+  // Figma: 799x393, 48px title bar + 345px workzone.
+  width: 799px;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: var(--oo-radius);
+  background-color: var(--oo-bg-action-panel);
+  box-shadow: var(--oo-shadow-window);
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  height: 48px;
+  padding: 0 12px 0 16px;
+  border-bottom: 1px solid var(--oo-border-divider);
+  background-color: var(--oo-bg-tabbar);
+}
+
+.header-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  font: var(--oo-font-title-2);
+  color: var(--oo-text-normal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header-close {
+  flex: none;
+}
+
+.workzone {
+  display: flex;
+  // Figma: preview inset 24px, 40px between the two columns (456 -> 496).
+  gap: 40px;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 12px 24px 24px;
+  overflow-y: auto;
+}
+
+.preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 456px;
+  min-width: 0;
+  // 456x320 in Figma; keep the ratio when the window narrows.
+  aspect-ratio: 456 / 320;
+  border-radius: var(--oo-radius);
+  background-color: var(--oo-bg-pane);
+  overflow: hidden;
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  // Figma info column is a fixed 279px.
+  flex: none;
+  width: 279px;
+}
+
+.info-title-row {
+  display: flex;
+  align-items: center;
+  // Name 101px wide, star at 109 -> 8px apart.
+  gap: 8px;
+  min-height: 22px;
+}
+
+.info-title {
+  margin: 0;
+  font: var(--oo-font-title-2);
+  color: var(--oo-text-normal);
+}
+
+.info-free {
+  // "Free" sits 30px below the title row top; the row is 22px tall.
+  margin: 8px 0 0;
+  font: var(--oo-font-body);
+  color: var(--oo-text-secondary);
+}
+
+.info-description {
+  // Description starts at y=56, "Free" line ends at 48.
+  margin: 8px 0 0;
+  font: var(--oo-font-body);
+  color: var(--oo-text-normal);
+}
+
+.info-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  // 1px rule above the file rows, 16px clear on each side of it.
+  padding-top: 16px;
+  border-top: 1px solid var(--oo-border-divider);
+  margin-top: 16px;
+}
+
+.info-files {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.info-file {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  font: var(--oo-font-body);
+  color: var(--oo-text-secondary);
+}
+
+.info-file-value {
+  font: var(--oo-font-body-strong);
+  color: var(--oo-text-normal);
+}
+
+.info-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.info-open {
+  // Figma "Button / Regular / Label": 96x32, right-aligned in the 279 column.
+  width: 96px;
+  height: 32px;
+  border: none;
+  border-radius: var(--oo-radius);
+  font: var(--oo-font-normal);
+  color: var(--oo-text-inverse);
+  background-color: var(--oo-btn-primary-bg);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--oo-accent-hover);
+  }
+}
+
+@include media.tablet-s {
+  .workzone {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .preview {
+    flex: none;
+    width: 100%;
+  }
+
+  .info {
+    width: 100%;
+  }
+}

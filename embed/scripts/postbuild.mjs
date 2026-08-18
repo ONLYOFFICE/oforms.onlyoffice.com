@@ -23,10 +23,13 @@ const cssFile = join(dist, "oforms.css");
 const css = await readFile(cssFile, "utf8");
 let prefixed = 0;
 
-const fixed = css.replace(/url\((['"]?)\/images\/([^)'"]+)\1\)/g, (m, q, rest) => {
-  prefixed++;
-  return `url(${q}${CDN}/images/${rest}${q})`;
-});
+const fixed = css.replace(
+  /url\((['"]?)\/images\/([^)'"]+)\1\)/g,
+  (m, q, rest) => {
+    prefixed++;
+    return `url(${q}${CDN}/images/${rest}${q})`;
+  },
+);
 
 await writeFile(cssFile, fixed);
 console.log(`postbuild: prefixed ${prefixed} css url(s) with ${CDN}`);
@@ -68,6 +71,14 @@ const html = `<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ONLYOFFICE Forms</title>
     <link rel="stylesheet" href="oforms.css" />
+    <style>
+      /* The panel fills its mount element, so the host must give that element a
+         definite height -- otherwise height:100% resolves to auto and the list
+         grows to full content height instead of scrolling inside the panel. */
+      html,
+      body { height: 100%; margin: 0; }
+      #oforms-root { height: 100%; }
+    </style>
   </head>
   <body>
     <div id="oforms-root"></div>

@@ -1,19 +1,6 @@
-@use "media";
-
 .embed {
   position: relative;
+  height: 100%;
   font-family: "Segoe-UI", sans-serif;
-  background-color: var(--main-background-color);
-}
-
-.topbar {
-  position: absolute;
-  top: 20px;
-  inset-inline-end: 24px;
-  z-index: 30;
-
-  @include media.tablet-s {
-    top: 12px;
-    inset-inline-end: 12px;
-  }
+  background-color: var(--oo-bg-action-panel);
 }

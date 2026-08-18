@@ -1,0 +1,17 @@
+.separator {
+  flex: none;
+  background-color: var(--oo-border-divider);
+}
+
+.separator-inset {
+  // 9px box = 4px space, 1px rule, 4px space. Drawn with a border so the
+  // hairline stays exactly 1 device-independent pixel.
+  height: 1px;
+  margin: 4px 0;
+}
+
+.separator-bleed {
+  height: 1px;
+  // Cancel the panel's 16px side padding.
+  margin: 0 -16px;
+}

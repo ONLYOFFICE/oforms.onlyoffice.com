@@ -1,0 +1,51 @@
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  border: none;
+  padding: 0 0 0 8px;
+  background-color: transparent;
+  cursor: pointer;
+  text-align: start;
+}
+
+.section-header-filter {
+  height: 32px;
+  // Figma "submenu item" label: bold. Verified against the render -- the
+  // metadata text width (57px for "Purpose", 32px for "Type") only fits at
+  // 14px bold, and the screenshot confirms it.
+  font: var(--oo-font-title-2);
+  color: var(--oo-text-normal);
+}
+
+.section-header-tall {
+  height: 40px;
+}
+
+.section-header-group {
+  height: 36px;
+  font: var(--oo-font-body);
+  color: var(--oo-text-secondary);
+  text-transform: uppercase;
+}
+
+.section-header-label {
+  color: inherit;
+}
+
+.section-header-chevron {
+  flex: none;
+  color: var(--oo-icon-gray);
+  // Push the chevron to the trailing edge; the two variants sit at different
+  // insets in Figma (8px for a filter section, 24px for a category group).
+  margin-inline-start: auto;
+
+  .section-header-filter & {
+    margin-inline-end: 8px;
+  }
+
+  .section-header-group & {
+    margin-inline-end: 24px;
+  }
+}

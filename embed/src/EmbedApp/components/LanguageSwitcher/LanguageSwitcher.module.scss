@@ -1,3 +1,11 @@
+/*
+ * Not part of the Figma panel mockups -- the language switcher is existing
+ * embed functionality kept alive through the redesign. Restyled onto the
+ * editor token layer so it reads as part of the panel instead of the old
+ * marketing-site palette, and sized to the 24px icon-button rhythm of the
+ * panel header row it now lives in.
+ */
+
 .switcher {
   position: relative;
 }
@@ -5,60 +13,60 @@
 .button {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  height: 40px;
-  padding: 0 14px;
-  border: 1px solid var(--language-switcher-border-color);
-  border-radius: 8px;
-  background: var(--language-switcher-background-color);
-  color: var(--language-switcher-color);
-  font-size: 14px;
-  font-weight: 600;
+  gap: 4px;
+  height: 24px;
+  padding: 0 4px;
+  border: none;
+  border-radius: var(--oo-radius);
+  font: var(--oo-font-body);
+  color: var(--oo-text-normal);
+  background-color: transparent;
   cursor: pointer;
-  transition: border-color 0.15s;
 
   &:hover {
-    border-color: var(--language-switcher-border-color-hover);
+    background-color: var(--oo-highlight-hover);
   }
 }
 
 .label {
-  line-height: 1;
+  // Stay on the Body step (12/16); a line-height: 1 override puts this text
+  // off the Figma type scale.
+  text-transform: uppercase;
 }
 
 .menu {
   position: absolute;
-  top: calc(100% + 6px);
+  top: calc(100% + 4px);
   inset-inline-end: 0;
+  z-index: 20;
   min-width: 160px;
   margin: 0;
-  padding: 6px;
+  padding: 4px 0;
   list-style: none;
-  background: var(--language-switcher-menu-background-color);
-  border: 1px solid var(--language-switcher-border-color);
-  border-radius: 10px;
-  box-shadow: 0 8px 24px var(--language-switcher-menu-shadow-color);
-  z-index: 20;
+  border: 1px solid var(--oo-border-divider);
+  border-radius: var(--oo-radius);
+  background-color: var(--oo-bg-action-panel);
+  box-shadow: var(--oo-shadow-window);
 }
 
 .option {
   display: block;
   width: 100%;
-  padding: 8px 10px;
+  height: 36px;
+  padding: 0 12px;
   border: 0;
-  border-radius: 6px;
-  background: transparent;
-  color: var(--language-switcher-color);
-  font-size: 14px;
+  font: var(--oo-font-normal);
+  color: var(--oo-text-normal);
+  background-color: transparent;
   text-align: start;
   cursor: pointer;
 
   &:hover {
-    background: var(--language-switcher-option-background-color-hover);
+    background-color: var(--oo-highlight-hover);
   }
 }
 
 .active {
-  color: var(--language-switcher-active-color);
-  font-weight: 700;
+  font: var(--oo-font-title-2);
+  color: var(--oo-accent);
 }

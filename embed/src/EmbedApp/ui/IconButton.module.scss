@@ -1,0 +1,39 @@
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  padding: 0;
+  border: none;
+  border-radius: var(--oo-radius);
+  color: var(--oo-icon-normal);
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--oo-highlight-hover);
+  }
+
+  &:active {
+    background-color: var(--oo-highlight-pressed);
+  }
+}
+
+.icon-button-16 {
+  width: 16px;
+  height: 16px;
+}
+
+.icon-button-20 {
+  width: 20px;
+  height: 20px;
+}
+
+.icon-button-24 {
+  width: 24px;
+  height: 24px;
+}
+
+.icon-button-active {
+  color: var(--oo-accent);
+}

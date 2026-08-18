@@ -1,0 +1,62 @@
+.filter-panel {
+  display: flex;
+  flex-direction: column;
+  // Figma: 360px panel, 328px content inside a 16px side padding.
+  width: 360px;
+  height: 100%;
+  min-height: 0;
+  padding: 32px 16px 0;
+  background-color: var(--oo-bg-action-panel);
+  // TODO(design): confirm the 1px seam between the panel and the list.
+  border-inline-end: 1px solid var(--oo-border-divider);
+}
+
+.filter-panel-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  // Keep the last chips clear of the footer rule.
+  padding-bottom: 16px;
+}
+
+.filter-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  // Figma "Panel header" is a 28px box; the list starts 16px below it.
+  min-height: 28px;
+  margin-bottom: 16px;
+}
+
+.filter-panel-title {
+  // Labels inside the panel are inset by 8px from the 16px padding.
+  padding-inline-start: 8px;
+  margin: 0;
+  font: var(--oo-font-title-2);
+  color: var(--oo-text-normal);
+}
+
+.filter-panel-list {
+  display: flex;
+  flex-direction: column;
+  // Figma: 8px between sibling blocks; separators add their own 4px either
+  // side, which is what makes the gap around a rule read as 12px.
+  gap: 8px;
+}
+
+.filter-panel-hint {
+  padding-inline-start: 8px;
+  margin: 0;
+  font: var(--oo-font-normal);
+  color: var(--oo-text-secondary);
+}
+
+.filter-panel-footer {
+  flex: none;
+  // Full-bleed: the rule spans all 360px, ignoring the panel's side padding.
+  margin: 0 -16px;
+  padding: 16px 0 16px 24px;
+  border-top: 1px solid var(--oo-border-divider);
+  background-color: var(--oo-bg-action-panel);
+}

@@ -10,7 +10,9 @@
     "generate": "node scripts/generate-data.mjs",
     "build": "node scripts/generate-data.mjs && vite build && node scripts/postbuild.mjs",
     "dev": "vite",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check:measures": "node scripts/check-measures.mjs",
+    "check:typography": "node scripts/check-typography.mjs"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",

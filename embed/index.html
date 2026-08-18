@@ -4,6 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ONLYOFFICE Forms</title>
+    <style>
+      /*
+        The embed is a panel: it fills its mount element and scrolls its own
+        list column. The host must therefore give the mount element a definite
+        height — without one, `height: 100%` resolves to auto and the panel
+        grows to its full content height instead of scrolling internally.
+      */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+
+      #oforms-root {
+        height: 100%;
+      }
+    </style>
   </head>
   <body>
     <div id="oforms-root"></div>

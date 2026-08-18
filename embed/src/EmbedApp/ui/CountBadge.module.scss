@@ -1,0 +1,14 @@
+.count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  font: var(--oo-font-body-strong);
+  font-size: 10px;
+  line-height: 16px;
+  color: var(--oo-text-inverse);
+  background-color: var(--oo-accent);
+}

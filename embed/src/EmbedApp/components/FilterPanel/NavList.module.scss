@@ -1,0 +1,40 @@
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  // 36px rows on a 40px step.
+  gap: 4px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  // 24px icon starts at 8px, label at 40px -> 8px between them.
+  gap: 8px;
+  height: 36px;
+  padding: 0 8px;
+  border: none;
+  border-radius: var(--oo-radius);
+  // Figma sets every nav label bold; only the fill marks the active item.
+  font: var(--oo-font-title-2);
+  color: var(--oo-text-normal);
+  background-color: transparent;
+  cursor: pointer;
+  text-align: start;
+
+  &:hover {
+    background-color: var(--oo-highlight-hover);
+  }
+}
+
+.nav-item-active {
+  background-color: var(--oo-bg-pane);
+}
+
+.nav-item-icon {
+  flex: none;
+  color: var(--oo-icon-gray);
+}
+
+.nav-item-label {
+  color: inherit;
+}

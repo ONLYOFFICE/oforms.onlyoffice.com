@@ -1,3 +1,4 @@
+import "./tokens.css";
 import "./global.css";
 import { StrictMode } from "react";
 import { createRoot, type Root } from "react-dom/client";
@@ -5,7 +6,7 @@ import { EmbedApp } from "./EmbedApp";
 import { initI18n } from "./i18n";
 import { loadData } from "./data";
 import { normalizeLocale, type Locale } from "./locale";
-import type { TTemplate } from "./EmbedApp/components/TemplateModal";
+import type { TTemplate } from "./EmbedApp/EmbedApp.types";
 import { applyTheme, type Theme } from "./theme";
 import { getDesktopLocale, watchDesktopLocale } from "./desktop";
 import { requestLocalTemplates } from "./localSdk";
@@ -72,7 +73,11 @@ function openLocalTemplate(template: TTemplate): void {
   editor.execCommand(
     "create:new",
     JSON.stringify({
-      template: { id: template.__sdkId, type: template.__sdkType, path: template.__sdkPath },
+      template: {
+        id: template.__sdkId,
+        type: template.__sdkType,
+        path: template.__sdkPath,
+      },
     }),
   );
 }
@@ -135,7 +140,8 @@ function openInDesktop(template: TTemplate): void {
 // Chromium webviews just never flip it. So a real fetch probe backs it up:
 // navigator.onLine === false is trusted immediately (never a false
 // positive), otherwise an actual request decides it.
-const CONNECTIVITY_PROBE_URL = "https://static-oforms.onlyoffice.com/favicon.ico";
+const CONNECTIVITY_PROBE_URL =
+  "https://static-oforms.onlyoffice.com/favicon.ico";
 
 function fetchWithTimeout(url: string, ms: number): Promise<Response> {
   const controller = new AbortController();
@@ -149,7 +155,8 @@ function fetchWithTimeout(url: string, ms: number): Promise<Response> {
 }
 
 async function checkOnline(): Promise<boolean> {
-  if (typeof navigator !== "undefined" && navigator.onLine === false) return false;
+  if (typeof navigator !== "undefined" && navigator.onLine === false)
+    return false;
   if (typeof fetch === "undefined") return true;
   try {
     await fetchWithTimeout(CONNECTIVITY_PROBE_URL, 4000);
@@ -205,7 +212,9 @@ async function mount(el: Element, culture?: string): Promise<void> {
   requestLocalTemplates(locale, culture, (templates) => {
     // ignore late results from a superseded mount (locale/target switched)
     if (!instance || instance.el !== el || instance.locale !== locale) return;
-    const nonLocal = (instance.data?.data ?? []).filter((t: any) => !t?.__local);
+    const nonLocal = (instance.data?.data ?? []).filter(
+      (t: any) => !t?.__local,
+    );
     instance.data = { ...instance.data, data: [...nonLocal, ...templates] };
     renderApp(instance.root, instance.locale, instance.data);
   });

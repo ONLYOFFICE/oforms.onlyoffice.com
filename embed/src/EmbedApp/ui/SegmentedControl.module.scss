@@ -1,0 +1,44 @@
+.segmented-control {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  // Figma wraps the 36px Tabs row in a 40px box; the 4px sits above.
+  height: 40px;
+  padding-top: 4px;
+}
+
+.segmented-control-full .segment {
+  flex: 1 1 0;
+}
+
+.segment {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  padding: 0 16px;
+  border: 1px solid var(--oo-border-tabbar);
+  border-radius: 15px;
+  // Figma label metadata reports a 16px-tall box, but that is a tight glyph
+  // bound -- the label widths (63px "Business", 60px "Personal") and the
+  // rendered frame both only fit 14px bold.
+  font: var(--oo-font-title-2);
+  color: var(--oo-text-normal);
+  background-color: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: var(--oo-highlight-hover);
+  }
+}
+
+.segment-selected {
+  // Transparent, not removed, so the box measures the same in both states.
+  border-color: transparent;
+  background-color: var(--oo-highlight-hover);
+
+  &:hover {
+    background-color: var(--oo-highlight-pressed);
+  }
+}

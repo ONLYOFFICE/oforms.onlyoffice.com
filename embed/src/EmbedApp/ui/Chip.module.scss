@@ -1,0 +1,42 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 12px;
+  border: 1px solid var(--oo-border-tabbar);
+  border-radius: 15px;
+  font: var(--oo-font-normal);
+  color: var(--oo-text-normal);
+  background-color: transparent;
+  cursor: pointer;
+  // Chips wrap; keep each one on a single line so the 30px height holds.
+  white-space: nowrap;
+
+  &:hover {
+    background-color: var(--oo-highlight-hover);
+  }
+
+  &:active {
+    background-color: var(--oo-highlight-pressed);
+  }
+}
+
+.chip-selected {
+  // Transparent border rather than `border: none` so the 30px box and the
+  // 12px padding measure identically in both states.
+  border-color: transparent;
+  background-color: var(--oo-highlight-hover);
+
+  &:hover {
+    background-color: var(--oo-highlight-pressed);
+  }
+}
+
+.chip-label {
+  color: inherit;
+}
+
+.chip-count {
+  color: var(--oo-text-secondary);
+}

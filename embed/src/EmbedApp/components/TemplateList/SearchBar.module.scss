@@ -1,0 +1,86 @@
+.search-bar {
+  display: flex;
+  height: 36px;
+}
+
+.search-bar-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding-inline: 8px 16px;
+  border: 1px solid var(--oo-border-input);
+  border-start-start-radius: var(--oo-radius);
+  border-end-start-radius: var(--oo-radius);
+  background-color: var(--oo-bg-input);
+}
+
+.search-bar-icon {
+  flex: none;
+  color: var(--oo-icon-normal);
+}
+
+.search-bar-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: none;
+  padding: 0;
+  font: var(--oo-font-normal);
+  color: var(--oo-text-normal);
+  background-color: transparent;
+  outline: none;
+
+  &::placeholder {
+    color: var(--oo-text-tertiary);
+  }
+
+  // Chrome renders its own clear affordance for type=search; the mockup has
+  // no such control.
+  &::-webkit-search-cancel-button {
+    appearance: none;
+  }
+}
+
+.search-bar-button {
+  flex: none;
+  width: 77px;
+  border: 1px solid var(--oo-border-divider);
+  // Overlap the field so the two share a single hairline, as in Figma.
+  margin-inline-start: -1px;
+  border-start-end-radius: var(--oo-radius);
+  border-end-end-radius: var(--oo-radius);
+  font: var(--oo-font-normal);
+  color: var(--oo-text-normal);
+  background-color: var(--oo-bg-action-panel);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--oo-highlight-hover);
+  }
+
+  &:active {
+    background-color: var(--oo-highlight-pressed);
+  }
+}
+
+// Narrow-width only: opens the filter panel as a drawer. Not part of the
+// mockups -- see the TODO in Template.module.scss.
+.search-bar-filters {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: none;
+  height: 36px;
+  padding: 0 8px;
+  margin-inline-start: 8px;
+  border: 1px solid var(--oo-border-divider);
+  border-radius: var(--oo-radius);
+  color: var(--oo-icon-normal);
+  background-color: var(--oo-bg-action-panel);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--oo-highlight-hover);
+  }
+}

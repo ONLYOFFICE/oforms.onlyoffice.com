@@ -10,15 +10,28 @@ const NAMESPACES = [
   "SearchInput",
   "TemplateModal",
   "searchresult",
+  // Embed-only strings live in embed/locales, not the site's public/locales,
+  // so panel copy stays out of the website translation set.
+  "EmbedPanel",
 ];
 
-const modules = import.meta.glob(
+const siteModules = import.meta.glob(
   "../../public/locales/*/{common,main,MainTemplate,SortSelector,SearchInput,TemplateModal,searchresult}.json",
   { eager: true, import: "default" },
 ) as Record<string, Record<string, unknown>>;
 
+// Only `en` exists today; i18next's fallbackLng covers the other locales until
+// the panel copy is translated.
+const embedModules = import.meta.glob("../locales/*/EmbedPanel.json", {
+  eager: true,
+  import: "default",
+}) as Record<string, Record<string, unknown>>;
+
 const resources: Record<string, Record<string, unknown>> = {};
-for (const [path, data] of Object.entries(modules)) {
+for (const [path, data] of Object.entries({
+  ...siteModules,
+  ...embedModules,
+})) {
   const m = path.match(/locales\/([^/]+)\/([^/]+)\.json$/);
   if (!m) continue;
   const [, loc, ns] = m;

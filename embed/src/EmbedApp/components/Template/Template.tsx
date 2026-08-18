@@ -1,220 +1,65 @@
-import { useRouter } from "next/router";
-import { Trans, useTranslation } from "react-i18next";
-import {
-  getCategoriesByPurpose,
-  getCountries,
-  getFilteredCount,
-  getFilteredForms,
-  getFormsByTypes,
-  getPurposes,
-  getTemplatesByParentCategory,
-  getTemplatesBySubcategories,
-  groupFormsByExt,
-} from "@src/components/templates/Main/Main.utils";
-import {
-  getQueryValues,
-  getTemplatesByExt,
-  getPopularTemplates,
-  normalizeSortKey,
-  sortForms,
-} from "@src/utils/helpers";
-import { ALLOWED_TYPES, TAllowedTypes } from "@src/utils/allowedTypes";
-import { MainSection } from "@src/components/modules/Main/sub-components/MainSection";
-import { Main } from "@src/components/modules/Main";
-import { SearchNoResult } from "@src/components/templates/SearchResult/sections/SearchNoResult";
-import { ITemplate } from "./Template.types";
+import { useEffect, useState } from "react";
+import clsx from "clsx";
+import { FilterPanel } from "../FilterPanel";
+import { TemplateList } from "../TemplateList";
+import type { ITemplate } from "./Template.types";
+import styles from "./Template.module.scss";
 
-const TYPE_SECTIONS: {
-  ext: TAllowedTypes;
-  labelKey: string;
-  href: string;
-}[] = [
-  { ext: "docx", labelKey: "DocumentTemplates", href: "/document-templates" },
-  {
-    ext: "xlsx",
-    labelKey: "SpreadsheetTemplates",
-    href: "/spreadsheet-templates",
-  },
-  {
-    ext: "pptx",
-    labelKey: "PresentationTemplates",
-    href: "/presentation-templates",
-  },
-  { ext: "pdf", labelKey: "PdfFormsTemplates", href: "/pdf-form-templates" },
-];
+/** Below this width the fixed 360px panel starves the list, so it becomes a drawer. */
+const DRAWER_QUERY = "(max-width: 720px)";
 
-const CATEGORY_SECTIONS: string[] = [
-  "contracts-legal",
-  "finance",
-  "sales-marketing",
-];
+/**
+ * The panel body: Figma's "Second panel" (360px filters) beside the
+ * "File list" column. The editor chrome around it -- the tab strip and the
+ * 62px left navigation -- belongs to the host, not to us.
+ */
+const Template = ({ state, onOpen, headerAction }: ITemplate) => {
+  const [isNarrow, setIsNarrow] = useState(
+    () => window.matchMedia?.(DRAWER_QUERY).matches ?? false,
+  );
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-const Template = ({ data, isEmbed, searchQuery = "" }: ITemplate) => {
-  const { t: tMain } = useTranslation("MainTemplate");
-  const { t: tSearch } = useTranslation("searchresult");
-  const router = useRouter();
+  useEffect(() => {
+    const mql = window.matchMedia?.(DRAWER_QUERY);
+    if (!mql) return;
+    const onChange = () => setIsNarrow(mql.matches);
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
 
-  const selectedTypes = getQueryValues(router.query.type).filter(
-    (type): type is TAllowedTypes => ALLOWED_TYPES.includes(type),
-  );
-  const availableCountryCodes = new Set(
-    data.data.flatMap(
-      (form) =>
-        form.countries?.map((country) => country.code.toLowerCase()) ?? [],
-    ),
-  );
-  const selectedCountries = getQueryValues(router.query.country).filter(
-    (country) => availableCountryCodes.has(country),
-  );
-  const availableSubcategoryUrlReqs = new Set(
-    data.data.flatMap(
-      (form) => form.subcategories?.map((sub) => sub.urlReq) ?? [],
-    ),
-  );
-  const selectedSubcategories = getQueryValues(router.query.subcategory).filter(
-    (subcategory) => availableSubcategoryUrlReqs.has(subcategory),
-  );
-  const sortKey = normalizeSortKey(router.query.sort);
-  const formsByType = getFormsByTypes(data.data, selectedTypes);
-  const formsByTypeAndCountry = getFilteredForms(data.data, {
-    type: selectedTypes,
-    country: selectedCountries,
-  });
-  const filteredForms = sortForms(
-    getFilteredForms(data.data, {
-      type: selectedTypes,
-      country: selectedSubcategories.length ? selectedCountries : [],
-      subcategory: selectedSubcategories,
-    }),
-    sortKey,
-  );
-
-  const query = searchQuery.trim();
-  const isSearch = query.length > 0;
-  const foundForms = isSearch
-    ? filteredForms.filter((form) =>
-        form.name_form.toLowerCase().includes(query.toLowerCase()),
-      )
-    : [];
-  const popularTemplates = getPopularTemplates(filteredForms);
-  const categorySections = CATEGORY_SECTIONS.map((urlReq) =>
-    getTemplatesByParentCategory(filteredForms, urlReq),
-  ).filter(
-    (section): section is NonNullable<typeof section> =>
-      section !== null && section.data.length > 0,
-  );
-  const {
-    docx: docxForms,
-    xlsx: xlsxForms,
-    pptx: pptxForms,
-    pdf: pdfForms,
-  } = groupFormsByExt(data.data);
-  const countries = getCountries(formsByType);
-  const purposes = getPurposes(data.data);
-  const categoriesByPurpose = getCategoriesByPurpose(formsByTypeAndCountry);
-  const totalCount = isSearch
-    ? foundForms.length
-    : getFilteredCount(data.data, {
-        type: selectedTypes,
-        country: selectedSubcategories.length ? selectedCountries : [],
-        subcategory: selectedSubcategories,
-      });
-  const formNames = data.data.map(({ id, name_form, url }) => ({
-    id,
-    name_form,
-    url,
-  }));
+  // Widening past the breakpoint must not leave a stale open drawer behind.
+  useEffect(() => {
+    if (!isNarrow) setDrawerOpen(false);
+  }, [isNarrow]);
 
   return (
-    <Main
-      isEmbed={isEmbed}
-      docxForms={docxForms.length}
-      xlsxForms={xlsxForms.length}
-      pptxForms={pptxForms.length}
-      pdfForms={pdfForms.length}
-      countries={countries}
-      purposes={purposes}
-      categoriesByPurpose={categoriesByPurpose}
-      totalCount={totalCount}
-      formNames={formNames}
-      searchOnly={isSearch && foundForms.length === 0}
+    <div
+      className={clsx(styles.template, isNarrow && styles["template-narrow"])}
     >
-      {isSearch ? (
-        foundForms.length > 0 ? (
-          <MainSection
-            label={
-              <Trans
-                t={tSearch}
-                i18nKey="SearchResultsFor"
-                values={{ searchQuery: query }}
-              />
-            }
-            data={foundForms}
-            isEmbed={isEmbed}
-          />
-        ) : (
-          <SearchNoResult filteredForms={filteredForms} />
-        )
-      ) : (
-        <>
-          {popularTemplates.length > 0 && (
-            <MainSection
-              label={tMain("PopularTemplates")}
-              data={popularTemplates}
-              isEmbed={isEmbed}
-            />
-          )}
-
-          {!selectedSubcategories.length &&
-            categorySections.map((section) => (
-              <MainSection
-                key={section.category.id}
-                label={section.category.name}
-                href={undefined}
-                data={section.data}
-                isEmbed={isEmbed}
-              />
-            ))}
-
-          {selectedSubcategories.length
-            ? getTemplatesBySubcategories(
-                filteredForms,
-                selectedSubcategories,
-              ).map(({ subcategory, data }) => (
-                <MainSection
-                  key={subcategory.id}
-                  label={subcategory.name}
-                  data={data}
-                  isEmbed={isEmbed}
-                />
-              ))
-            : (selectedTypes.length
-                ? TYPE_SECTIONS.filter((section) =>
-                    selectedTypes.includes(section.ext),
-                  )
-                : TYPE_SECTIONS
-              )
-                .map((section) => ({
-                  section,
-                  data: getTemplatesByExt(
-                    filteredForms,
-                    section.ext,
-                    selectedTypes.length ? Infinity : undefined,
-                  ),
-                }))
-                .filter(({ data }) => data.length > 0)
-                .map(({ section, data }) => (
-                  <MainSection
-                    key={section.ext}
-                    label={tMain(section.labelKey)}
-                    href={undefined}
-                    data={data}
-                    isEmbed={isEmbed}
-                  />
-                ))}
-        </>
+      {isNarrow && drawerOpen && (
+        <div
+          className={styles["template-backdrop"]}
+          onMouseDown={() => setDrawerOpen(false)}
+        />
       )}
-    </Main>
+
+      <div
+        className={clsx(
+          styles["template-panel"],
+          isNarrow && drawerOpen && styles["template-panel-open"],
+        )}
+        // Keep the collapsed drawer out of the tab order and the a11y tree.
+        aria-hidden={isNarrow && !drawerOpen}
+      >
+        <FilterPanel state={state} headerAction={headerAction} />
+      </div>
+
+      <TemplateList
+        state={state}
+        onOpen={onOpen}
+        onOpenFilters={isNarrow ? () => setDrawerOpen(true) : undefined}
+      />
+    </div>
   );
 };
 

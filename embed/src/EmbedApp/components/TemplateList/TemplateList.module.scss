@@ -1,0 +1,46 @@
+.template-list {
+  position: relative;
+  min-width: 0;
+  height: 100%;
+  background-color: var(--oo-bg-action-panel);
+}
+
+.template-list-scroll {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.template-list-inner {
+  display: flex;
+  flex-direction: column;
+  // Figma: 24px inset on every side, 16px between the search row, the list
+  // header and the grid. The extra bottom padding clears the 32px fade.
+  gap: 16px;
+  padding: 24px 24px 56px;
+}
+
+.template-list-grid {
+  display: grid;
+  // Figma cards are a fixed 226px, but the panel must fill its width, so the
+  // column count matches the mockup while the cards absorb the remainder.
+  grid-template-columns: repeat(auto-fill, minmax(226px, 1fr));
+  gap: 24px;
+}
+
+// Grows the list when it scrolls into view; see useIncrementalList.
+.template-list-sentinel {
+  height: 1px;
+}
+
+.template-list-fade {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  height: 32px;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--oo-bg-action-panel)
+  );
+}
