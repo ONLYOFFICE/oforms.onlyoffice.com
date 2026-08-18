@@ -18,6 +18,8 @@ import suggestionCheck from "../../public/images/templates/searchresult/check.sv
 import suggestionTry from "../../public/images/templates/searchresult/try.svg?raw";
 import suggestionBrowse from "../../public/images/templates/searchresult/browse.svg?raw";
 import suggestionFilters from "../../public/images/templates/searchresult/filters.svg?raw";
+import cardLocal from "../../public/images/widgets/card/local.svg?raw";
+import cardCloud from "../../public/images/widgets/card/cloud.svg?raw";
 import docxHover from "../../public/images/widgets/card/docx-hover.png";
 import xlsxHover from "../../public/images/widgets/card/xlsx-hover.png";
 import pptxHover from "../../public/images/widgets/card/pptx-hover.png";
@@ -36,6 +38,8 @@ const BUNDLED: Record<string, string> = {
   "/images/templates/searchresult/try.svg": svgDataUri(suggestionTry),
   "/images/templates/searchresult/browse.svg": svgDataUri(suggestionBrowse),
   "/images/templates/searchresult/filters.svg": svgDataUri(suggestionFilters),
+  "/images/widgets/card/local.svg": svgDataUri(cardLocal),
+  "/images/widgets/card/cloud.svg": svgDataUri(cardCloud),
   "/images/widgets/card/docx-hover.png": docxHover,
   "/images/widgets/card/xlsx-hover.png": xlsxHover,
   "/images/widgets/card/pptx-hover.png": pptxHover,

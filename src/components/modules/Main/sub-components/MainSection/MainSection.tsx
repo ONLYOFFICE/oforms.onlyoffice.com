@@ -91,6 +91,16 @@ const MainSection = ({
             heading={item.name_form}
             description={item.description_card}
             url={item.url}
+            // Only the desktop embed distinguishes the two: it mixes templates
+            // that ship with the app (__local, see embed/src/localSdk.ts) into
+            // the online catalog. The site has cloud templates only.
+            storage={
+              isEmbed
+                ? (item as { __local?: boolean }).__local
+                  ? "local"
+                  : "cloud"
+                : undefined
+            }
           />
         ))}
       </div>

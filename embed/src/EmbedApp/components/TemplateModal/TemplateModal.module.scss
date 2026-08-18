@@ -10,6 +10,17 @@
   }
 }
 
+// Gutters .modal-container keeps around the dialog (see
+// src/components/ui/Modal/Modal.module.scss) — 24px, 16px on mobile.
+$modal-gutter: 48px;
+$modal-gutter-mobile: 32px;
+// Dialog padding (23px × 2) plus the format badge and its margin under the
+// preview: what the preview image has to leave for the rest of the column.
+$preview-reserved: 122px;
+// Stacked layout keeps the badge, name, tags, description, file info and the
+// buttons below the preview — measured at ~320px, so the preview gets the rest.
+$preview-reserved-mobile: 320px;
+
 .template-modal-wrapper {
   display: grid;
   grid-template-columns: minmax(120px, 456px) minmax(100px, 280px);
@@ -18,23 +29,32 @@
   border-radius: 8px;
   padding: 23px;
   background-color: var(--template-modal-wrapper-background-color);
+  // Fit the app window: a full-page preview at 456px wide is ~645px tall on
+  // its own, which made the dialog ~730px and pushed the buttons past the
+  // bottom edge of a desktop tab that isn't that tall.
+  max-height: calc(100vh - #{$modal-gutter});
+  overflow-y: auto;
 
   @include media.tablet-s {
     grid-template-columns: initial;
     row-gap: 8px;
     padding: 0;
+    max-height: calc(100vh - #{$modal-gutter-mobile});
   }
 }
 
 .template-modal-content {
   display: flex;
   flex-direction: column;
+  min-height: 0;
 }
 
 .template-modal-body {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
   margin-bottom: 16px;
 
   @include media.tablet-s {
@@ -46,6 +66,11 @@
 }
 
 .template-modal-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 0;
+
   @include media.tablet-s {
     padding: 15px 15px 0;
   }
@@ -56,9 +81,17 @@
   border-radius: 4px;
   margin-bottom: 10px;
   max-width: 100%;
+  // Capped against the window rather than the column, so the whole dialog
+  // shrinks with the app window instead of scrolling. Width stays auto, so the
+  // aspect ratio is kept.
+  max-height: calc(100vh - #{$modal-gutter} - #{$preview-reserved});
+  object-fit: contain;
 
   @include media.tablet-s {
     margin-bottom: 8px;
+    // Stacked layout: the name, tags and buttons sit below the preview, so it
+    // only gets what they leave over and the buttons stay in view.
+    max-height: calc(100vh - #{$modal-gutter-mobile} - #{$preview-reserved-mobile});
   }
 }
 

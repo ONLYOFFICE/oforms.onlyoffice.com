@@ -131,19 +131,38 @@ function descriptionFor(locale: Locale, ext: Ext, name: string): string {
 // icon/path are native filesystem paths (backslashes on Windows, mixed
 // separators even within one path per the sample AscDesktopEditor sent) —
 // turn one into a file:// URL an <img>/background-image can load. Some
-// paths come back with a Windows long-path device prefix (`\\?\` or
-// `\\.\`, e.g. `\\.\C:\Users\...\templates_cache\...\License agreement.jpg`
+// paths come back with a Windows long-path device prefix (`\?\` or
+// `\.\`, e.g. `\.\C:\Users\...\templates_cache\...\License agreement.jpg`
 // — confirmed live, it's not just the plain `C:/Users/...` shape the one
 // hand-sent sample used) — that prefix isn't meaningful in a file:// URL and
 // has to be stripped, or the whole path resolves to garbage.
+//
+// Every segment is percent-encoded rather than run through encodeURI: the
+// card preview ends up inside an unquoted CSS url() (see
+// src/components/widgets/Card/Card.tsx), where `(`, `)` and `'` make it a
+// bad-url-token and drop the whole background-image, while `#`/`?` would be
+// parsed as fragment/query and cut the name short. encodeURI leaves all of
+// those as-is, so cards for real template names — "Resume (sky blue).dotx",
+// "Organizational chart (horizontal).dotx", "Valentine's Day gift
+// certificate.pdf" — silently rendered blank.
+function encodeSegment(segment: string): string {
+  return encodeURIComponent(segment).replace(
+    /[()'!*]/g,
+    (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`,
+  );
+}
+
 function toFileUrl(rawPath: string): string {
   if (!rawPath) return "";
   const stripped = rawPath.replace(/^\\\\[?.]\\/, "");
   const normalized = stripped.replace(/\\/g, "/");
-  const withScheme = /^[a-zA-Z]:\//.test(normalized)
-    ? `file:///${normalized}`
-    : `file://${normalized}`;
-  return encodeURI(withScheme);
+  const encoded = normalized
+    .split("/")
+    .map((segment) =>
+      /^[a-zA-Z]:$/.test(segment) ? segment : encodeSegment(segment),
+    )
+    .join("/");
+  return /^[a-zA-Z]:\//.test(encoded) ? `file:///${encoded}` : `file://${encoded}`;
 }
 
 interface SdkTemplateItem {
@@ -160,11 +179,15 @@ function toTemplate(
   item: SdkTemplateItem,
   locale: Locale,
   categoryCandidates: string[],
+  existing?: any,
 ): any | null {
   const ext = extFromPath(item.path);
   if (!ext) return null;
   const assetExt = /\.([a-z0-9]+)$/i.exec(item.path)?.[1] ?? ext;
-  const id = nextId--;
+  // A rescan re-reports templates already known (that's how late-generated
+  // icons arrive) — reuse the id so React keeps the same card mounted instead
+  // of remounting it and re-loading a preview it was already showing.
+  const id = existing?.id ?? nextId--;
   const { subcategories, size } = lookupFor(categoryCandidates, item.name);
 
   return {
@@ -237,14 +260,21 @@ function localeFallbackChain(rawCulture: string): string[] {
  * Preview icons are generated lazily on the desktop's side — the first
  * response can list a template with no `icon` yet (confirmed live: a fresh
  * scan came back with none of them, a later one had some filled in). So this
- * re-scans a few more times a couple of seconds apart to pick those up as
- * they finish, instead of leaving a card blank forever just because it was
- * asked for too early. Stops early once every known template has an icon.
+ * re-scans to pick those up as they finish, instead of leaving a card blank
+ * forever just because it was asked for too early. Stops early once every
+ * known template has an icon.
+ *
+ * The rescans back off (2s, then 2s, 4s, 6s… capped at 10s, ~1.5 min in
+ * total): a warm templates_cache settles after one or two scans, while a
+ * fresh install has to render every preview from scratch — a few dozen of
+ * them, well past the ~10s the previous fixed 5×2s window allowed, which left
+ * the last ones blank until the app was restarted.
  */
-const ICON_POLL_INTERVAL_MS = 2000;
-const MAX_ICON_POLLS = 5;
+const ICON_POLL_BASE_MS = 2000;
+const ICON_POLL_MAX_MS = 10000;
+const MAX_ICON_POLLS = 12;
 
-let activePollTimer: ReturnType<typeof setInterval> | null = null;
+let activePollTimer: ReturnType<typeof setTimeout> | null = null;
 
 export function requestLocalTemplates(
   locale: Locale,
@@ -253,7 +283,7 @@ export function requestLocalTemplates(
 ): void {
   const editor = (window as any).AscDesktopEditor;
   if (activePollTimer) {
-    clearInterval(activePollTimer);
+    clearTimeout(activePollTimer);
     activePollTimer = null;
   }
   if (!editor || typeof editor.LocalFileTemplates !== "function") return;
@@ -272,23 +302,35 @@ export function requestLocalTemplates(
     const items = Array.isArray(payload) ? payload : [payload];
     for (const item of items) {
       if (!item?.path) continue;
-      const template = toTemplate(item, locale, categoryCandidates);
-      if (template) byPath.set(item.path, template);
+      const existing = byPath.get(item.path);
+      const template = toTemplate(item, locale, categoryCandidates, existing);
+      if (!template) continue;
+      // A rescan can come back without an icon it had already reported — keep
+      // the known one rather than blanking a card that was already fine.
+      if (!template.card_prewiew.url && existing?.card_prewiew?.url) {
+        template.card_prewiew.url = existing.card_prewiew.url;
+      }
+      byPath.set(item.path, template);
     }
     onUpdate(Array.from(byPath.values()));
   };
 
   scan();
 
-  let pollsLeft = MAX_ICON_POLLS;
-  activePollTimer = setInterval(() => {
+  let polls = 0;
+  const pollForIcons = () => {
     const templates = Array.from(byPath.values());
-    const allHaveIcons = templates.every((t) => t.card_prewiew?.url);
-    if (--pollsLeft <= 0 || (templates.length > 0 && allHaveIcons)) {
-      if (activePollTimer) clearInterval(activePollTimer);
+    const allHaveIcons =
+      templates.length > 0 && templates.every((t) => t.card_prewiew?.url);
+    if (allHaveIcons || ++polls > MAX_ICON_POLLS) {
       activePollTimer = null;
       return;
     }
     scan();
-  }, ICON_POLL_INTERVAL_MS);
+    activePollTimer = setTimeout(
+      pollForIcons,
+      Math.min(ICON_POLL_BASE_MS * polls, ICON_POLL_MAX_MS),
+    );
+  };
+  activePollTimer = setTimeout(pollForIcons, ICON_POLL_BASE_MS);
 }

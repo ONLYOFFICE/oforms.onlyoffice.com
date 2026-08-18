@@ -43,6 +43,19 @@ const TYPE_SECTIONS: {
   { ext: "pdf", labelKey: "PdfFormsTemplates", href: "/pdf-form-templates" },
 ];
 
+// Templates that ship with the desktop (__local, see embed/src/localSdk.ts)
+// always come first, whatever the sort — they're the ones that open without
+// internet, and the catalog sort would otherwise bury them: they carry an
+// epoch createdAt, so the default "newest first" pushed them to the very
+// bottom of every section. Two filter passes keep each group in the order
+// sortForms produced.
+const isLocal = (form: unknown) => !!(form as { __local?: boolean })?.__local;
+
+const localFirst = <T,>(forms: T[]): T[] => [
+  ...forms.filter(isLocal),
+  ...forms.filter((form) => !isLocal(form)),
+];
+
 const CATEGORY_SECTIONS: string[] = [
   "contracts-legal",
   "finance",
@@ -80,13 +93,15 @@ const Template = ({ data, isEmbed, searchQuery = "" }: ITemplate) => {
     type: selectedTypes,
     country: selectedCountries,
   });
-  const filteredForms = sortForms(
-    getFilteredForms(data.data, {
-      type: selectedTypes,
-      country: selectedSubcategories.length ? selectedCountries : [],
-      subcategory: selectedSubcategories,
-    }),
-    sortKey,
+  const filteredForms = localFirst(
+    sortForms(
+      getFilteredForms(data.data, {
+        type: selectedTypes,
+        country: selectedSubcategories.length ? selectedCountries : [],
+        subcategory: selectedSubcategories,
+      }),
+      sortKey,
+    ),
   );
 
   const query = searchQuery.trim();

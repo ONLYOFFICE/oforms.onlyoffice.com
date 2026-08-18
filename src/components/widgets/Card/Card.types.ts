@@ -28,6 +28,8 @@
 
 import { TFormat } from "@src/types/data";
 
+export type TCardStorage = "local" | "cloud";
+
 export interface ICard {
   className?: string;
   preview: string;
@@ -35,4 +37,12 @@ export interface ICard {
   heading: string;
   description: string;
   url: string;
+  /**
+   * Where the template's file comes from — shown as an icon next to the format
+   * badge. Only the desktop embed passes it: it lists templates that ship with
+   * the app ("local") alongside the online catalog ("cloud"), and the two open
+   * in different ways. The site has nothing but cloud templates, so it leaves
+   * this out and no icon is rendered.
+   */
+  storage?: TCardStorage;
 }

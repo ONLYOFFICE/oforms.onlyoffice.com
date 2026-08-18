@@ -206,7 +206,9 @@ async function mount(el: Element, culture?: string): Promise<void> {
     // ignore late results from a superseded mount (locale/target switched)
     if (!instance || instance.el !== el || instance.locale !== locale) return;
     const nonLocal = (instance.data?.data ?? []).filter((t: any) => !t?.__local);
-    instance.data = { ...instance.data, data: [...nonLocal, ...templates] };
+    // local first — matches how they're rendered (see localFirst() in
+    // EmbedApp/components/Template), so search suggestions agree with the grid
+    instance.data = { ...instance.data, data: [...templates, ...nonLocal] };
     renderApp(instance.root, instance.locale, instance.data);
   });
 

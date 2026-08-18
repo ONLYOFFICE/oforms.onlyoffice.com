@@ -76,13 +76,31 @@
   background-position-x: center;
 }
 
+.card-preview-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+// Local/cloud origin of the template (see ICard.storage) — the desktop embed is
+// the only caller that renders one.
+.card-storage {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  background-image: var(--card-storage-icon);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
 .card-format {
   position: relative;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   border-radius: 4px;
-  margin-top: 10px;
   font-weight: 600;
   font-size: 12px;
   line-height: 12px;

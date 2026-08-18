@@ -31,7 +31,7 @@ import { Link } from "@src/components/ui/Link";
 import { Heading } from "@src/components/ui/Heading";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
 import { TFormat } from "@src/types/data";
-import { ICard } from "./Card.types";
+import { ICard, TCardStorage } from "./Card.types";
 import styles from "./Card.module.scss";
 
 const hoverIconByFormat: Record<TFormat, string> = {
@@ -41,6 +41,11 @@ const hoverIconByFormat: Record<TFormat, string> = {
   pdf: getAssetUrl("/images/widgets/card/pdf-hover.png"),
 };
 
+const storageIcon: Record<TCardStorage, string> = {
+  local: getAssetUrl("/images/widgets/card/local.svg"),
+  cloud: getAssetUrl("/images/widgets/card/cloud.svg"),
+};
+
 const Card = ({
   className,
   preview,
@@ -48,6 +53,7 @@ const Card = ({
   heading,
   description,
   url,
+  storage,
 }: ICard) => {
   return (
     <Link
@@ -69,14 +75,26 @@ const Card = ({
             } as React.CSSProperties
           }
         />
-        <span
-          className={clsx(
-            styles["card-format"],
-            styles[`card-format-${format}`],
+        <div className={styles["card-preview-footer"]}>
+          <span
+            className={clsx(
+              styles["card-format"],
+              styles[`card-format-${format}`],
+            )}
+          >
+            <span>{format}</span>
+          </span>
+          {storage && (
+            <span
+              className={styles["card-storage"]}
+              style={
+                {
+                  "--card-storage-icon": `url(${storageIcon[storage]})`,
+                } as React.CSSProperties
+              }
+            />
           )}
-        >
-          <span>{format}</span>
-        </span>
+        </div>
       </div>
       <div>
         <Heading
