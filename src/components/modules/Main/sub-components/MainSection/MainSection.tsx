@@ -41,6 +41,7 @@ const MainSection = ({
   data,
   desktopLimit,
   cardsGrid,
+  isEmbed,
 }: IMainSection) => {
   const router = useRouter();
   const hrefWithOpened = appendQueryParams(href, {
@@ -78,6 +79,7 @@ const MainSection = ({
           styles["main-section-cards"],
           desktopLimit && styles["main-section-cards-desktop-limit"],
           cardsGrid && styles["main-section-cards-grid"],
+          isEmbed && styles["main-section-cards-embed"],
         )}
       >
         {data?.map((item) => (

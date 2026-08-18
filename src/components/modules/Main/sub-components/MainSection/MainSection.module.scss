@@ -69,6 +69,15 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 56px 48px;
 
+  // Embed's container has no max-width (see Main.tsx), so its window can get
+  // much wider than the site's usual ~1796px cap. With a fixed 4-column
+  // repeat(4, 1fr), that extra width would just stretch each card wider;
+  // auto-fill keeps every card the same size (286px ≈ what a card renders
+  // at today, 4-up in a 1796px container) and adds more columns instead.
+  &.main-section-cards-embed {
+    grid-template-columns: repeat(auto-fill, minmax(286px, 1fr));
+  }
+
   & > *:nth-child(n + 7) {
     @include media.desktop {
       display: none;

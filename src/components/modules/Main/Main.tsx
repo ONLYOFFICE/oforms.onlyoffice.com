@@ -72,7 +72,10 @@ const Main = ({
       tabletSmallSpacing={["48px", "112px"]}
       mobileSpacing={["48px", "112px"]}
     >
-      <Container className={styles["main-container"]}>
+      <Container
+        className={styles["main-container"]}
+        maxWidth={isEmbed ? "none" : undefined}
+      >
         {!isEmbed && (
           <div className={styles["main-header"]}>
             <Heading

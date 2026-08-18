@@ -150,6 +150,7 @@ const Template = ({ data, isEmbed, searchQuery = "" }: ITemplate) => {
               />
             }
             data={foundForms}
+            isEmbed={isEmbed}
           />
         ) : (
           <SearchNoResult filteredForms={filteredForms} />
@@ -160,6 +161,7 @@ const Template = ({ data, isEmbed, searchQuery = "" }: ITemplate) => {
             <MainSection
               label={tMain("PopularTemplates")}
               data={popularTemplates}
+              isEmbed={isEmbed}
             />
           )}
 
@@ -170,6 +172,7 @@ const Template = ({ data, isEmbed, searchQuery = "" }: ITemplate) => {
                 label={section.category.name}
                 href={undefined}
                 data={section.data}
+                isEmbed={isEmbed}
               />
             ))}
 
@@ -182,6 +185,7 @@ const Template = ({ data, isEmbed, searchQuery = "" }: ITemplate) => {
                   key={subcategory.id}
                   label={subcategory.name}
                   data={data}
+                  isEmbed={isEmbed}
                 />
               ))
             : (selectedTypes.length
@@ -205,6 +209,7 @@ const Template = ({ data, isEmbed, searchQuery = "" }: ITemplate) => {
                     label={tMain(section.labelKey)}
                     href={undefined}
                     data={data}
+                    isEmbed={isEmbed}
                   />
                 ))}
         </>
