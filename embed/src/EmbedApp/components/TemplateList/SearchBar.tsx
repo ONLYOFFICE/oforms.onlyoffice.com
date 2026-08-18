@@ -1,6 +1,12 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
-import { CountBadge, FiltersIcon, SearchIcon } from "../../ui";
+import {
+  CountBadge,
+  CrossIcon,
+  FiltersIcon,
+  IconButton,
+  SearchIcon,
+} from "../../ui";
 import styles from "./SearchBar.module.scss";
 
 interface ISearchBar {
@@ -26,6 +32,7 @@ const SearchBar = ({
   activeFilterCount,
 }: ISearchBar) => {
   const { t } = useTranslation("EmbedPanel");
+  const { t: tMain } = useTranslation("MainTemplate");
   const [draft, setDraft] = useState(value);
 
   // Keep the box in sync when the query is reset from outside (view switch,
@@ -35,6 +42,13 @@ const SearchBar = ({
   const submit = (e: FormEvent) => {
     e.preventDefault();
     onSearch(draft.trim());
+  };
+
+  // Every other filter in the panel switches off by clicking it again; without
+  // this the only way out of a search was select-all, delete, Enter.
+  const clear = () => {
+    setDraft("");
+    onSearch("");
   };
 
   return (
@@ -49,6 +63,15 @@ const SearchBar = ({
           aria-label={t("SearchPlaceholder")}
           onChange={(e) => setDraft(e.target.value)}
         />
+        {(draft || value) && (
+          <IconButton
+            className={styles["search-bar-clear"]}
+            aria-label={tMain("ClearAllFilters")}
+            onClick={clear}
+          >
+            <CrossIcon size={16} aria-hidden="true" />
+          </IconButton>
+        )}
       </div>
       <button type="submit" className={styles["search-bar-button"]}>
         {t("Search")}

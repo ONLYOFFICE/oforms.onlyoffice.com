@@ -18,21 +18,11 @@
   "Open": "Open",
   "AddToFavorites": "Add to favorites",
   "RemoveFromFavorites": "Remove from favorites",
-  "MoreActions": "More actions",
   "NoRecentTitle": "No recently opened templates",
   "NoRecentText": "Templates you open will show up here.",
   "NoFavoritesTitle": "No favorites yet",
   "NoFavoritesText": "Mark a template with the star to find it here.",
-  "NoResultsTitle": "No results found",
   "NoResultsText": "Try different keywords or clear the active filters.",
-  "Type": "Type",
-  "Country": "Country",
-  "Purpose": "Purpose",
-  "Category": "Category",
-  "Documents": "Documents",
-  "Spreadsheets": "Spreadsheets",
-  "Presentations": "Presentations",
-  "PdfForms": "PDF Forms",
-  "CountryHint": "Showing English-speaking countries first based on your language settings",
-  "ClearAllFilters": "Clear all filters"
+  "LocalTemplate": "Stored on this device",
+  "CloudTemplate": "From the ONLYOFFICE library"
 }

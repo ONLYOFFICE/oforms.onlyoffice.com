@@ -7,8 +7,9 @@
   min-height: 0;
   padding: 32px 16px 0;
   background-color: var(--oo-bg-action-panel);
-  // TODO(design): confirm the 1px seam between the panel and the list.
-  border-inline-end: 1px solid var(--oo-border-divider);
+  // Seam against the list. Painted as an inset shadow, not a border, so the
+  // content box stays the full 328px Figma specifies.
+  box-shadow: inset -1px 0 0 0 var(--oo-border-divider);
 }
 
 .filter-panel-scroll {
@@ -31,6 +32,7 @@
 
 .filter-panel-title {
   // Labels inside the panel are inset by 8px from the 16px padding.
+  align-self: flex-start;
   padding-inline-start: 8px;
   margin: 0;
   font: var(--oo-font-title-2);
@@ -47,6 +49,7 @@
 
 .filter-panel-hint {
   padding-inline-start: 8px;
+  padding-bottom: 8px;
   margin: 0;
   font: var(--oo-font-normal);
   color: var(--oo-text-secondary);
@@ -54,6 +57,7 @@
 
 .filter-panel-footer {
   flex: none;
+  display: flex;
   // Full-bleed: the rule spans all 360px, ignoring the panel's side padding.
   margin: 0 -16px;
   padding: 16px 0 16px 24px;

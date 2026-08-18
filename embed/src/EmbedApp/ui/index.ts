@@ -9,9 +9,10 @@ export { TextButton } from "./TextButton";
 export {
   AllTemplatesIcon,
   ChevronIcon,
+  CloudIcon,
   CrossIcon,
+  LocalIcon,
   FiltersIcon,
-  MoreIcon,
   RecentIcon,
   SearchIcon,
   StarIcon,

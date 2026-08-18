@@ -34,10 +34,48 @@ const TemplateWindow = ({
   const { t: tPanel } = useTranslation("EmbedPanel");
   const dialog = useRef<HTMLDivElement>(null);
 
+  const focusables = () =>
+    Array.from(
+      dialog.current?.querySelectorAll<HTMLElement>(
+        "button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex='-1'])",
+      ) ?? [],
+    );
+
+  // Focus lifecycle. Keyed on `isOpen` only: anything else in the dep list
+  // re-runs the effect mid-session and the captured opener ends up pointing at
+  // a node inside the dialog, so focus is never handed back.
+  useEffect(() => {
+    if (!isOpen) return;
+    const opener = document.activeElement as HTMLElement | null;
+    focusables()[0]?.focus();
+    return () => opener?.focus?.();
+  }, [isOpen]);
+
   useEffect(() => {
     if (!isOpen) return;
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      // Trap Tab: a modal that lets focus walk out into the panel behind it
+      // leaves keyboard users typing into a list they cannot see.
+      const items = focusables();
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement;
+      if (
+        e.shiftKey &&
+        (active === first || !dialog.current?.contains(active))
+      ) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);

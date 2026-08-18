@@ -20,6 +20,8 @@ const EMPTY_KEYS = {
 
 const TemplateList = ({ state, onOpen, onOpenFilters }: ITemplateList) => {
   const { t } = useTranslation("EmbedPanel");
+  // "No results found" already exists translated on the site's search namespace.
+  const { t: tSearch } = useTranslation("searchresult");
   const { results, view } = state;
 
   // Reset paging whenever the list identity changes, not just its length --
@@ -29,16 +31,16 @@ const TemplateList = ({ state, onOpen, onOpenFilters }: ITemplateList) => {
     `${view}|${state.query}|${state.types.join()}|${state.countries.join()}|${state.purpose}|${state.subcategories.join()}|${state.lastOpened}`,
   );
 
-  // Figma prints the count on All Templates only; the Recents mockup has none.
+  // Figma prints a count on All Templates and Favorites; only Recents omits it.
   const count =
-    view === "all" || state.isSearching
-      ? t("Results", { count: results.length })
-      : undefined;
+    view === "recent" && !state.isSearching
+      ? undefined
+      : t("Results", { count: results.length });
 
-  const [emptyTitleKey, emptyTextKey] =
-    state.isSearching || view === "all"
-      ? (["NoResultsTitle", "NoResultsText"] as const)
-      : EMPTY_KEYS[view];
+  const searching = state.isSearching || view === "all";
+  const [emptyTitleKey, emptyTextKey] = searching
+    ? (["NoResultsTitle", "NoResultsText"] as const)
+    : EMPTY_KEYS[view];
 
   return (
     <div className={styles["template-list"]}>
@@ -74,7 +76,10 @@ const TemplateList = ({ state, onOpen, onOpenFilters }: ITemplateList) => {
               )}
             </>
           ) : (
-            <EmptyState title={t(emptyTitleKey)} text={t(emptyTextKey)} />
+            <EmptyState
+              title={searching ? tSearch("NoResultsFound") : t(emptyTitleKey)}
+              text={t(emptyTextKey)}
+            />
           )}
         </div>
       </div>

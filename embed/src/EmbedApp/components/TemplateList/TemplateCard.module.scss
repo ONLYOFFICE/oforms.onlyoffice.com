@@ -12,9 +12,9 @@
   overflow: hidden;
 
   &:hover {
-    // TODO(design): hover treatment is inferred from the one hovered card in
-    // the mockups; confirm the exact border/elevation.
-    border-color: var(--oo-accent);
+    // The mockup darkens the hairline rather than tinting it: the hovered card
+    // in frame 6985:542808 samples as neutral grey, with no blue channel bias.
+    border-color: var(--oo-neutral-550);
   }
 }
 
@@ -26,7 +26,7 @@
   height: 140px;
   padding: 0;
   border: none;
-  background-color: var(--oo-bg-pane);
+  background-color: var(--oo-bg-tabbar);
   cursor: pointer;
   overflow: hidden;
 }
@@ -42,16 +42,17 @@
 
 .template-card-star {
   position: absolute;
-  inset-block-start: 4px;
-  inset-inline-start: 4px;
+  // 3px, not 4: absolute offsets start inside the 1px border, while Figma
+  // measures its 4px from the card's outer edge.
+  inset-block-start: 3px;
+  inset-inline-start: 3px;
   z-index: 1;
 }
 
 .template-card-footer {
-  position: relative;
   display: flex;
   align-items: center;
-  // Format glyph at 8px, name 8px after it, "..." 8px from the trailing edge.
+  // Format glyph at 8px, name 8px after it, running to the trailing padding.
   gap: 8px;
   flex: 1 1 auto;
   min-width: 0;
@@ -63,6 +64,18 @@
   flex: none;
 }
 
+// Occupies the 24px slot the "..." button used to hold, 8px from the trailing
+// edge. Read-only: it reports where the template lives, it is not a control.
+.template-card-source {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  color: var(--oo-text-tertiary);
+}
+
 .template-card-name {
   flex: 1 1 auto;
   min-width: 0;
@@ -71,12 +84,4 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.template-card-more {
-  flex: none;
-}
-
-.template-card-more-open {
-  background-color: var(--oo-highlight-pressed);
 }

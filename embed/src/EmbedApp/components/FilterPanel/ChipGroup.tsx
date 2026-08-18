@@ -23,6 +23,7 @@ interface IChipGroup {
 /** Figma chip row: wrap, 4px column gap, 6px row gap, leading-aligned. */
 const ChipGroup = ({ options, selected, onToggle, limit }: IChipGroup) => {
   const { t } = useTranslation("EmbedPanel");
+  const { t: tMain } = useTranslation("MainTemplate");
   const [expanded, setExpanded] = useState(false);
 
   // A selected chip must stay visible even if it sits past the limit,
@@ -51,6 +52,9 @@ const ChipGroup = ({ options, selected, onToggle, limit }: IChipGroup) => {
           label={t("ShowMore", { count: hiddenCount })}
           onClick={() => setExpanded(true)}
         />
+      )}
+      {expanded && limit !== undefined && options.length > limit && (
+        <Chip label={tMain("ShowLess")} onClick={() => setExpanded(false)} />
       )}
     </div>
   );

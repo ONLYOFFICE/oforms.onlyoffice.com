@@ -16,7 +16,8 @@
   align-items: center;
   justify-content: center;
   height: 30px;
-  padding: 0 16px;
+  // 15px + the 1px border = Figma's 16px from the segment's outer edge.
+  padding: 0 15px;
   border: 1px solid var(--oo-border-tabbar);
   border-radius: 15px;
   // Figma label metadata reports a 16px-tall box, but that is a tight glyph

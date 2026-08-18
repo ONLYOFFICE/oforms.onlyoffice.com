@@ -1,13 +1,20 @@
 [
   {
-    "_note": "Figma: filter panel 360px wide, 328px content inside 16px sides, 32px above the title.",
+    "_note": "Figma: 360px panel, 328px content inside 16px sides. The list seam is an inset shadow, not a border, so it costs no content width.",
     "sel": "filter-panel",
-    "props": ["width", "paddingTop", "paddingLeft", "paddingRight"],
+    "props": [
+      "width",
+      "paddingTop",
+      "paddingLeft",
+      "paddingRight",
+      "borderRightWidth"
+    ],
     "expect": {
       "width": "360px",
       "paddingTop": "32px",
       "paddingLeft": "16px",
-      "paddingRight": "16px"
+      "paddingRight": "16px",
+      "borderRightWidth": "0px"
     }
   },
   {
@@ -36,7 +43,9 @@
       "paddingBottom",
       "paddingLeft",
       "marginLeft",
-      "marginRight"
+      "marginRight",
+      "display",
+      "height"
     ],
     "expect": {
       "borderTopWidth": "1px",
@@ -44,7 +53,9 @@
       "paddingBottom": "16px",
       "paddingLeft": "24px",
       "marginLeft": "-16px",
-      "marginRight": "-16px"
+      "marginRight": "-16px",
+      "display": "flex",
+      "height": "49px"
     }
   },
   {
@@ -75,14 +86,15 @@
     }
   },
   {
-    "_note": "Figma 'separator-horizontal': 328x9 = 4px + 1px rule + 4px.",
+    "_note": "Figma separator-horizontal: 328x9 = 4px + 1px rule + 4px. Index 1 because the panel's FIRST rule is the tight-above variant (see F-10).",
     "sel": "separator-inset",
     "props": ["height", "marginTop", "marginBottom"],
     "expect": {
       "height": "1px",
       "marginTop": "4px",
       "marginBottom": "4px"
-    }
+    },
+    "index": 1
   },
   {
     "_note": "Figma gives the panel's FIRST filter section a 40px header box.",
@@ -157,8 +169,8 @@
     ],
     "expect": {
       "height": "30px",
-      "paddingLeft": "12px",
-      "paddingRight": "12px",
+      "paddingLeft": "11px",
+      "paddingRight": "11px",
       "borderRadius": "15px",
       "borderTopWidth": "1px",
       "columnGap": "6px",
@@ -190,8 +202,8 @@
     ],
     "expect": {
       "height": "30px",
-      "paddingLeft": "16px",
-      "paddingRight": "16px",
+      "paddingLeft": "15px",
+      "paddingRight": "15px",
       "borderRadius": "15px",
       "fontWeight": "700",
       "fontSize": "14px",
@@ -239,8 +251,8 @@
     "sel": "search-bar-field",
     "props": ["paddingLeft", "paddingRight", "columnGap", "borderTopWidth"],
     "expect": {
-      "paddingLeft": "8px",
-      "paddingRight": "16px",
+      "paddingLeft": "7px",
+      "paddingRight": "15px",
       "columnGap": "8px",
       "borderTopWidth": "1px"
     }
@@ -313,8 +325,8 @@
     "expect": {
       "width": "24px",
       "height": "24px",
-      "top": "4px",
-      "left": "4px"
+      "top": "3px",
+      "left": "3px"
     }
   },
   {
@@ -323,6 +335,50 @@
     "props": ["height"],
     "expect": {
       "height": "32px"
+    }
+  },
+  {
+    "_note": "F-08: Figma's Country hint container adds 8px under the text, on top of the section's 8px gap.",
+    "sel": "filter-panel-hint",
+    "props": ["paddingBottom", "paddingLeft"],
+    "expect": {
+      "paddingBottom": "8px",
+      "paddingLeft": "8px"
+    }
+  },
+  {
+    "_note": "F-09: Purpose is the one top-level section Figma sets to a 4px header gap.",
+    "sel": "filter-section-tight",
+    "props": ["rowGap"],
+    "expect": {
+      "rowGap": "4px"
+    }
+  },
+  {
+    "_note": "F-10: Figma's first separator lives inside the nav group's 4px auto-layout.",
+    "sel": "separator-tight-above",
+    "props": ["marginTop", "marginBottom", "height"],
+    "expect": {
+      "marginTop": "0px",
+      "marginBottom": "4px",
+      "height": "1px"
+    }
+  },
+  {
+    "_note": "F-02: the preview well samples #f7f7f7 (background/tabbar) in both reference frames, not #f3f3f3.",
+    "sel": "template-card-preview",
+    "props": ["backgroundColor"],
+    "expect": {
+      "backgroundColor": "rgb(247, 247, 247)"
+    }
+  },
+  {
+    "_note": "Source indicator reoccupies the 24px slot Figma's '...' button held.",
+    "sel": "template-card-source",
+    "props": ["width", "height"],
+    "expect": {
+      "width": "24px",
+      "height": "24px"
     }
   }
 ]

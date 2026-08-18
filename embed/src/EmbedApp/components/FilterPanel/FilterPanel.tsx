@@ -31,6 +31,11 @@ const COUNTRY_LIMIT = 6;
 
 const FilterPanel = ({ state, headerAction }: IFilterPanel) => {
   const { t } = useTranslation("EmbedPanel");
+  // MainTemplate carries these labels translated in all nine locales. Figma
+  // words some of them in the singular ("Country", "Category") but no
+  // translations exist for those forms, and an English panel in eight locales
+  // is the worse trade -- revisit if the singular strings get translated.
+  const { t: tMain } = useTranslation("MainTemplate");
 
   const isRecent = state.view === "recent";
 
@@ -44,7 +49,7 @@ const FilterPanel = ({ state, headerAction }: IFilterPanel) => {
 
         <div className={styles["filter-panel-list"]}>
           <NavList view={state.view} onChange={state.setView} />
-          <Separator />
+          <Separator tightAbove />
 
           {isRecent ? (
             <FilterSection
@@ -55,7 +60,7 @@ const FilterPanel = ({ state, headerAction }: IFilterPanel) => {
               <ChipGroup
                 options={LAST_OPENED_OPTIONS.map(({ value, labelKey }) => ({
                   value,
-                  label: t(labelKey),
+                  label: tMain(labelKey),
                 }))}
                 selected={state.lastOpened ? [state.lastOpened] : []}
                 // Single-select: picking the active one clears it.
@@ -68,11 +73,15 @@ const FilterPanel = ({ state, headerAction }: IFilterPanel) => {
             </FilterSection>
           ) : (
             <>
-              <FilterSection label={t("Type")} count={state.types.length} tall>
+              <FilterSection
+                label={tMain("Type")}
+                count={state.types.length}
+                tall
+              >
                 <ChipGroup
                   options={TYPE_OPTIONS.map(({ value, labelKey }) => ({
                     value,
-                    label: t(labelKey),
+                    label: tMain(labelKey),
                     count: state.typeCounts[value] ?? 0,
                   }))}
                   selected={state.types}
@@ -83,11 +92,11 @@ const FilterPanel = ({ state, headerAction }: IFilterPanel) => {
               <Separator />
 
               <FilterSection
-                label={t("Country")}
+                label={tMain("Countries")}
                 count={state.countries.length}
               >
                 <p className={styles["filter-panel-hint"]}>
-                  {t("CountryHint")}
+                  {tMain("ShowingEnglishSpeakingCountries")}
                 </p>
                 <ChipGroup
                   options={state.countryOptions.map((country) => ({
@@ -104,7 +113,7 @@ const FilterPanel = ({ state, headerAction }: IFilterPanel) => {
               {state.purposes.length > 1 && (
                 <>
                   <Separator />
-                  <FilterSection label={t("Purpose")}>
+                  <FilterSection label={tMain("Purpose")} tight>
                     <SegmentedControl
                       options={state.purposes.map((purpose) => ({
                         value: purpose.key,
@@ -121,7 +130,7 @@ const FilterPanel = ({ state, headerAction }: IFilterPanel) => {
                 <>
                   <Separator />
                   <FilterSection
-                    label={t("Category")}
+                    label={tMain("Сategories")}
                     count={state.subcategories.length}
                   >
                     {state.categoryGroups.map((group, index) => (
@@ -148,7 +157,7 @@ const FilterPanel = ({ state, headerAction }: IFilterPanel) => {
 
       <div className={styles["filter-panel-footer"]}>
         <TextButton
-          label={t("ClearAllFilters")}
+          label={tMain("ClearAllFilters")}
           onClick={state.clearFilters}
           disabled={state.activeFilterCount === 0 && !state.lastOpened}
         />

@@ -12,7 +12,10 @@
     "dev": "vite",
     "preview": "vite preview",
     "check:measures": "node scripts/check-measures.mjs",
-    "check:typography": "node scripts/check-typography.mjs"
+    "check:typography": "node scripts/check-typography.mjs",
+    "check:behaviour": "node scripts/check-behaviour.mjs",
+    "check:local": "node scripts/check-local-templates.mjs",
+    "check:i18n": "node scripts/check-i18n.mjs"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",

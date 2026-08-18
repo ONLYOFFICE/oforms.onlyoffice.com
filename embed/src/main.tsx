@@ -215,7 +215,9 @@ async function mount(el: Element, culture?: string): Promise<void> {
     const nonLocal = (instance.data?.data ?? []).filter(
       (t: any) => !t?.__local,
     );
-    instance.data = { ...instance.data, data: [...nonLocal, ...templates] };
+    // Locals lead: the panel sorts them to the top anyway, and keeping the
+    // source array in that order means the two never disagree.
+    instance.data = { ...instance.data, data: [...templates, ...nonLocal] };
     renderApp(instance.root, instance.locale, instance.data);
   });
 

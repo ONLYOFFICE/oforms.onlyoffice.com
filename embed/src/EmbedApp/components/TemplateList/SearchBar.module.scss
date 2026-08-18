@@ -9,7 +9,8 @@
   gap: 8px;
   flex: 1 1 auto;
   min-width: 0;
-  padding-inline: 8px 16px;
+  // 7/15 + the 1px border = Figma's 8/16 from the field's outer edge.
+  padding-inline: 7px 15px;
   border: 1px solid var(--oo-border-input);
   border-start-start-radius: var(--oo-radius);
   border-end-start-radius: var(--oo-radius);
@@ -40,6 +41,10 @@
   &::-webkit-search-cancel-button {
     appearance: none;
   }
+}
+
+.search-bar-clear {
+  flex: none;
 }
 
 .search-bar-button {

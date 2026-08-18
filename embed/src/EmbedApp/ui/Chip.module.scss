@@ -3,7 +3,8 @@
   align-items: center;
   gap: 6px;
   height: 30px;
-  padding: 0 12px;
+  // 11px + the 1px border = Figma's 12px from the tag's outer edge.
+  padding: 0 11px;
   border: 1px solid var(--oo-border-tabbar);
   border-radius: 15px;
   font: var(--oo-font-normal);

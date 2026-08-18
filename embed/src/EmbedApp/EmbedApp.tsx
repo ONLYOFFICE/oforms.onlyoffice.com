@@ -23,6 +23,7 @@ const EmbedApp = ({ locale, data, onLocaleChange, onEdit }: IEmbedApp) => {
   const [selected, setSelected] = useState<TTemplate | null>(null);
 
   const open = useCallback((template: TTemplate) => setSelected(template), []);
+  const close = useCallback(() => setSelected(null), []);
 
   const edit = useCallback(
     (template: TTemplate) => {
@@ -51,7 +52,7 @@ const EmbedApp = ({ locale, data, onLocaleChange, onEdit }: IEmbedApp) => {
       <TemplateWindow
         selected={selected}
         isOpen={!!selected}
-        onClose={() => setSelected(null)}
+        onClose={close}
         onEdit={edit}
         isFavorite={!!selected && state.favorites.has(selected.url)}
         onToggleFavorite={state.toggleFavorite}

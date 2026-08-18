@@ -1,6 +1,8 @@
 .list-header {
   display: flex;
-  align-items: center;
+  // Figma sits the 28px heading on the row's bottom edge (4px clear above it)
+  // and lifts the 20px count 4px off that same edge.
+  align-items: flex-end;
   justify-content: space-between;
   gap: 16px;
   height: 32px;
@@ -14,6 +16,7 @@
 
 .list-header-count {
   flex: none;
+  margin-bottom: 4px;
   font: var(--oo-font-normal);
   color: var(--oo-text-tertiary);
 }

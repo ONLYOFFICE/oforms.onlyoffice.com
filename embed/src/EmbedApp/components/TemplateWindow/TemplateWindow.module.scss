@@ -50,11 +50,11 @@
 
 .workzone {
   display: flex;
-  // Figma: preview inset 24px, 40px between the two columns (456 -> 496).
-  gap: 40px;
+  // Figma: 24 + 456 (preview) + 16 (gap) + 279 (info) + 24 = 799 exactly.
+  gap: 16px;
   flex: 1 1 auto;
   min-height: 0;
-  padding: 12px 24px 24px;
+  padding: 0 24px 24px;
   overflow-y: auto;
 }
 
@@ -113,8 +113,8 @@
 }
 
 .info-description {
-  // Description starts at y=56, "Free" line ends at 48.
-  margin: 8px 0 0;
+  // Figma: description at y=56 under a "Free" box that ends at 48.
+  margin: 10px 0 0;
   font: var(--oo-font-body);
   color: var(--oo-text-normal);
 }

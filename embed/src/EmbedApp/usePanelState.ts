@@ -37,6 +37,20 @@ const toggle = <T>(list: T[], value: T): T[] =>
   list.includes(value) ? list.filter((v) => v !== value) : [...list, value];
 
 /**
+ * Templates stored on the machine come first in every list.
+ *
+ * A stable partition rather than a comparator, so whatever order each group
+ * already had survives -- source order in All Templates and Favorites, recency
+ * in Recent.
+ */
+const localFirst = (forms: TTemplate[]): TTemplate[] => {
+  const local: TTemplate[] = [];
+  const cloud: TTemplate[] = [];
+  for (const form of forms) (form.__local ? local : cloud).push(form);
+  return local.length ? [...local, ...cloud] : forms;
+};
+
+/**
  * The Main.utils helpers are typed against the site's IFormsData item, which is
  * a subset of the embed's ITemplate (it has no file_oform, no __local fields).
  * They only ever filter and sort, never construct, so the items coming out are
@@ -84,12 +98,23 @@ const usePanelState = (data: ITemplateData) => {
     setLastOpened(null);
   }, []);
 
-  useEffect(() => {
-    // Switching nav destinations swaps which filter sections are on screen, so
-    // the ones going away must not keep narrowing the new list.
-    clearFilters();
-    setQuery("");
-  }, [view, clearFilters]);
+  /**
+   * Switching nav destinations swaps which filter sections are on screen, so
+   * the ones going away must not keep narrowing the new list.
+   *
+   * This runs on selection rather than in an effect keyed on `view`: React
+   * bails out when the value is unchanged, so an effect never fired for a
+   * re-click of the current item -- leaving a user who had searched into an
+   * empty result set stuck on "No results found" with the query still applied.
+   */
+  const selectView = useCallback(
+    (next: TView) => {
+      setView(next);
+      clearFilters();
+      setQuery("");
+    },
+    [clearFilters],
+  );
 
   // --- source list for the active view -------------------------------------
 
@@ -135,27 +160,49 @@ const usePanelState = (data: ITemplateData) => {
     [viewForms, types, countries],
   );
 
-  const filteredForms = useMemo(
-    () =>
-      asTemplates(
-        getFilteredForms(viewForms, {
+  const filteredForms = useMemo(() => {
+    // Purpose sits in the panel as a filter section with the same weight as
+    // Type and Country, so it narrows the list too -- not only the category
+    // tree underneath it.
+    //
+    // Local templates are exempt from it. Purpose is the one filter that is
+    // always active without the user ever choosing it, and a template's purpose
+    // comes from CMS taxonomy that on-device files often lack: matched by name
+    // (embed/local-templates/*.json) they land under whichever purpose that
+    // entry carries, and unmatched ones carry none at all. Applying Purpose to
+    // them would hide a personal template behind the Business default and hide
+    // an unmatched one under every purpose -- i.e. permanently. Every filter
+    // the user picks deliberately still applies.
+    const cloud = asTemplates(
+      getFilteredForms(
+        viewForms.filter((form) => !form.__local),
+        {
           type: types,
           country: countries,
-          purpose: subcategories.length && activePurpose ? [activePurpose] : [],
+          purpose: activePurpose ? [activePurpose] : [],
           subcategory: subcategories,
-        }),
+        },
       ),
-    [viewForms, types, countries, activePurpose, subcategories],
-  );
+    );
+    const local = asTemplates(
+      getFilteredForms(
+        viewForms.filter((form) => form.__local),
+        { type: types, country: countries, subcategory: subcategories },
+      ),
+    );
+    return local.length ? [...local, ...cloud] : cloud;
+  }, [viewForms, types, countries, activePurpose, subcategories]);
 
   const trimmed = query.trim().toLowerCase();
   const results = useMemo(
     () =>
-      trimmed
-        ? filteredForms.filter((form) =>
-            form.name_form.toLowerCase().includes(trimmed),
-          )
-        : filteredForms,
+      localFirst(
+        trimmed
+          ? filteredForms.filter((form) =>
+              form.name_form.toLowerCase().includes(trimmed),
+            )
+          : filteredForms,
+      ),
     [filteredForms, trimmed],
   );
 
@@ -202,7 +249,7 @@ const usePanelState = (data: ITemplateData) => {
     activeFilterCount,
     isSearching: trimmed.length > 0,
     // actions
-    setView,
+    setView: selectView,
     setQuery,
     setPurpose,
     setLastOpened,
