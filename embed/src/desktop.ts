@@ -34,8 +34,7 @@ export function getDesktopLocale(): string | null {
 }
 
 export function watchDesktopLocale(onChange: Listener): void {
-  const initial = readRendererLang();
-  let last = initial ? cultureKey(initial) : null;
+  let last: string | null = null;
 
   const emit = (culture: string | null | undefined) => {
     if (!culture) return;
