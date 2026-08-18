@@ -75,6 +75,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  // Catalogue previews are portrait document thumbnails, so filling this
+  // landscape well always crops vertically. Anchor the crop to the top of the
+  // page -- the default `center` cut the document's head off and opened the
+  // preview halfway down the page.
+  object-position: center top;
 }
 
 .info {
