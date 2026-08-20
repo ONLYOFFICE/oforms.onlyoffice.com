@@ -87,6 +87,10 @@
 // the only caller that renders one.
 .card-storage {
   flex: 0 0 auto;
+  // Pushed to the trailing edge of the preview, 10px from it: the wrapper pads
+  // 12px, so 2px are given back.
+  margin-inline-start: auto;
+  margin-inline-end: -2px;
   width: 16px;
   height: 16px;
   background-image: var(--card-storage-icon);

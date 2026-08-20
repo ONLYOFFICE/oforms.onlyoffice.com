@@ -165,6 +165,77 @@ function toFileUrl(rawPath: string): string {
   return /^[a-zA-Z]:\//.test(encoded) ? `file:///${encoded}` : `file://${encoded}`;
 }
 
+/**
+ * A file:// url is not loadable as an image inside the desktop's own pages —
+ * the editors hit exactly the same wall and work around it the same way (see
+ * "correct local images" in editors/sdkjs/word/sdk-all.js, which swaps every
+ * `file:/`-prefixed image url for AscDesktopEditor.GetImageBase64(url) before
+ * handing it to the image loader). That's why local template cards came up
+ * blank in the app while the very same url renders fine in a browser.
+ *
+ * So the preview is inlined as a data: uri whenever that API is available, and
+ * the file:// url stays as the fallback for a plain browser (and for any
+ * desktop build without the method). Cached per icon path: the templates are
+ * re-scanned every couple of seconds while previews are still being generated,
+ * and each call reads the file on the native side.
+ */
+const previewCache = new Map<string, string>();
+
+function getImageBase64(editor: any, arg: string): string {
+  try {
+    const result = editor.GetImageBase64(arg);
+    // Guard against a build that returns "", a path, or nothing at all.
+    return typeof result === "string" && result.length > 64 ? result : "";
+  } catch {
+    return "";
+  }
+}
+
+// The cached previews carry a .jpg name but are not necessarily jpeg (the ones
+// the desktop writes are png), so the type comes from the base64 magic bytes
+// rather than the extension. Only used when the native side hands back bare
+// base64 instead of a ready data: uri.
+const MAGIC: [string, string][] = [
+  ["iVBORw0KGgo", "image/png"],
+  ["/9j/", "image/jpeg"],
+  ["R0lGOD", "image/gif"],
+  ["UklGR", "image/webp"],
+  ["Qk0", "image/bmp"],
+];
+
+function toDataUri(base64: string): string {
+  if (base64.startsWith("data:")) return base64;
+  const type = MAGIC.find(([magic]) => base64.startsWith(magic))?.[1] ?? "image/png";
+  return `data:${type};base64,${base64}`;
+}
+
+function toPreviewUrl(iconPath: string): string {
+  if (!iconPath) return "";
+  const cached = previewCache.get(iconPath);
+  if (cached) return cached;
+
+  const editor = (window as any).AscDesktopEditor;
+  if (!editor || typeof editor.GetImageBase64 !== "function") {
+    // Plain browser (the embed's own dev harness) — a file:// url loads there.
+    return toFileUrl(iconPath);
+  }
+
+  // The editors pass the file:// url; the raw native path is tried too, in case
+  // a build expects that shape instead.
+  const data =
+    getImageBase64(editor, toFileUrl(iconPath)) || getImageBase64(editor, iconPath);
+  if (!data) {
+    // Left empty rather than falling back to the file:// url the desktop can't
+    // load anyway: an empty preview keeps the icon poll going, so a template
+    // whose preview is still being written gets picked up by a later rescan.
+    return "";
+  }
+
+  const uri = toDataUri(data);
+  previewCache.set(iconPath, uri);
+  return uri;
+}
+
 interface SdkTemplateItem {
   id: number;
   name: string;
@@ -201,7 +272,7 @@ function toTemplate(
     card_prewiew: {
       id,
       documentId: `local-${locale}-${item.id}-preview`,
-      url: item.icon ? toFileUrl(item.icon) : "",
+      url: toPreviewUrl(item.icon ?? ""),
       width: 260,
       height: 184,
     },
