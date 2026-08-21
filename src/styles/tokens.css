@@ -144,19 +144,19 @@
   --search-input-results-label-color: #808080;
   --search-input-results-item-color: #21222b;
   --search-input-results-item-color-hover: #001BD2;
-  --search-input-results-item-background-color-hover: rgba(53, 65, 245, 0.07);
+  --search-input-results-item-background-color-hover: rgba(174, 197, 247, 0.25);
   --search-results-btn-cross-icon-color: #444444;
 
   --sort-selector-label-color: #9092a6;
   --sort-selector-button-color: #21222b;
   --sort-selector-chevron-down-icon-color: #666980;
-  --sort-selector-dropdown-border-color: #3541f5;
+  --sort-selector-dropdown-border-color: #CCDBFB;
   --sort-selector-dropdown-background-color: #ffffff;
-  --sort-selector-dropdown-box-shadow-color: #cfdbf4;
+  --sort-selector-dropdown-box-shadow-color: rgba(27, 68, 166, 0.1);
   --sort-selector-option-color: #9092a6;
-  --sort-selector-option-background-color-hover: rgba(53, 65, 245, 0.07);
-  --sort-selector-option-color-active: #001BD2;
-  --sort-selector-option-background-color-active: rgba(53, 65, 245, 0.07);
+  --sort-selector-option-background-color-hover: rgba(174, 197, 247, 0.25);
+  --sort-selector-option-color-active: #3541F5;
+  --sort-selector-option-background-color-active: rgba(174, 197, 247, 0.25);
 
   --sidebar-mobile-background-color: #ffffff;
   --sidebar-clear-btn-border-color: #e1e1f7;

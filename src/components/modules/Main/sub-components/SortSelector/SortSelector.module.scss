@@ -105,11 +105,11 @@
   top: calc(100% + 4px);
   inset-inline-start: 0;
   border: 1px solid var(--sort-selector-dropdown-border-color);
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 6px 0;
   min-width: 154px;
   background-color: var(--sort-selector-dropdown-background-color);
-  box-shadow: 0 0 12px 0 var(--sort-selector-dropdown-box-shadow-color);
+  box-shadow: 0 5px 15px 0 var(--sort-selector-dropdown-box-shadow-color);
   z-index: 1;
 }
 
