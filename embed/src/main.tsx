@@ -72,7 +72,11 @@ function openLocalTemplate(template: TTemplate): void {
   editor.execCommand(
     "create:new",
     JSON.stringify({
-      template: { id: template.__sdkId, type: template.__sdkType, path: template.__sdkPath },
+      template: {
+        id: template.__sdkId,
+        type: template.__sdkType,
+        path: template.__sdkPath,
+      },
     }),
   );
 }
@@ -135,7 +139,8 @@ function openInDesktop(template: TTemplate): void {
 // Chromium webviews just never flip it. So a real fetch probe backs it up:
 // navigator.onLine === false is trusted immediately (never a false
 // positive), otherwise an actual request decides it.
-const CONNECTIVITY_PROBE_URL = "https://static-oforms.onlyoffice.com/favicon.ico";
+const CONNECTIVITY_PROBE_URL =
+  "https://static-oforms.onlyoffice.com/favicon.ico";
 
 function fetchWithTimeout(url: string, ms: number): Promise<Response> {
   const controller = new AbortController();
@@ -149,7 +154,8 @@ function fetchWithTimeout(url: string, ms: number): Promise<Response> {
 }
 
 async function checkOnline(): Promise<boolean> {
-  if (typeof navigator !== "undefined" && navigator.onLine === false) return false;
+  if (typeof navigator !== "undefined" && navigator.onLine === false)
+    return false;
   if (typeof fetch === "undefined") return true;
   try {
     await fetchWithTimeout(CONNECTIVITY_PROBE_URL, 4000);
@@ -205,7 +211,9 @@ async function mount(el: Element, culture?: string): Promise<void> {
   requestLocalTemplates(locale, culture, (templates) => {
     // ignore late results from a superseded mount (locale/target switched)
     if (!instance || instance.el !== el || instance.locale !== locale) return;
-    const nonLocal = (instance.data?.data ?? []).filter((t: any) => !t?.__local);
+    const nonLocal = (instance.data?.data ?? []).filter(
+      (t: any) => !t?.__local,
+    );
     // local first — matches how they're rendered (see localFirst() in
     // EmbedApp/components/Template), so search suggestions agree with the grid
     instance.data = { ...instance.data, data: [...templates, ...nonLocal] };
@@ -233,14 +241,24 @@ export function render(target: Target, opts?: RenderOptions): Promise<boolean> {
   const locale =
     opts?.locale ?? pendingLocale ?? getDesktopLocale() ?? undefined;
   pendingLocale = null;
+
+  if (locale) desktopCulture = cultureKey(locale);
+  localeChosenExplicitly = false;
   return mount(el, locale).then(() => true);
 }
 
-export function setLocale(culture: string): Promise<boolean> {
+const cultureKey = (culture: string): string =>
+  culture.trim().toLowerCase().replace(/_/g, "-");
+
+let desktopCulture: string | null = null;
+let localeChosenExplicitly = false;
+
+export function setLocale(culture: string, explicit = true): Promise<boolean> {
   if (!instance) {
     console.warn("[oforms-embed] setLocale called before render — ignored");
     return Promise.resolve(false);
   }
+  if (explicit) localeChosenExplicitly = true;
   return mount(instance.el, culture).then(() => true);
 }
 
@@ -261,9 +279,15 @@ export function destroy(): void {
 
 function applyDesktopLocale(culture: string) {
   if (!culture) return;
-  if (instance && normalizeLocale(culture) === instance.locale) return;
-  if (instance) setLocale(culture);
-  else pendingLocale = culture;
+  if (!instance) {
+    pendingLocale = culture;
+    return;
+  }
+  if (normalizeLocale(culture) === instance.locale) return;
+  if (localeChosenExplicitly && cultureKey(culture) === desktopCulture) return;
+  desktopCulture = cultureKey(culture);
+  localeChosenExplicitly = false;
+  setLocale(culture, false);
 }
 
 declare global {
