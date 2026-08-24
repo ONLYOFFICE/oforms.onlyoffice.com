@@ -3,11 +3,11 @@ name: Sync embed data to S3
 on:
   push:
     branches: 
-     - release/v9.5.0
+     - release/v10.0.0
 
 jobs:
   sync:
-    if: github.ref == 'refs/heads/release/v9.5.0'
+    if: github.ref == 'refs/heads/release/v10.0.0'
     runs-on: ubuntu-latest
     permissions:
       contents: read
