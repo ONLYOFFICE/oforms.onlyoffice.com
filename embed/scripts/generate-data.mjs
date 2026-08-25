@@ -1,13 +1,10 @@
 /**
- * Generates embed/data/main.<locale>.json — the templates catalog data that the
- * main page needs — by calling the same Strapi endpoint as the site's
- * getAllForms(). The JSON is imported into the bundle at build time, so the
- * desktop bundle needs no network at runtime (except CDN images).
+ * Generates public/embed-data/main.<locale>.json from the same Strapi endpoint
+ * as the site's getAllForms(). Not part of `npm run build` — run by the
+ * embed-data-sync workflow, which uploads the result to the bucket.
  *
  * Usage:
- *   node scripts/generate-data.mjs [locale]     (locale defaults to "en")
- *
- * Run once per locale you ship, then `npm run build`.
+ *   node scripts/generate-data.mjs [locale]     (default: all 9 locales)
  */
 import { writeFile, mkdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
@@ -104,8 +101,6 @@ async function generateLocale(locale) {
   }
 
   const output = { data: absolutizePreviews(data), meta: first.meta };
-  // Hosted in the oforms project: public/embed-data is served by the site and
-  // fetched at runtime (EMBED_DATA_URL). English is also bundled into the JS.
   const outDir = join(__dirname, "..", "..", "public", "embed-data");
   await mkdir(outDir, { recursive: true });
   await writeFile(join(outDir, `main.${locale}.json`), JSON.stringify(output));
@@ -120,7 +115,8 @@ async function main() {
     await generateLocale(locale);
   }
   console.log(
-    "\nWritten to public/embed-data/ — all locales are bundled into the JS at build (npm run build).",
+    "\nWritten to public/embed-data/ — uploaded to the bucket by the embed-data-sync workflow,\n" +
+      "then fetched by the bundle at runtime.",
   );
 }
 

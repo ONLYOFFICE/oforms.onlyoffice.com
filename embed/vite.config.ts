@@ -28,7 +28,7 @@ export default defineConfig({
     "process.env.NEXT_PUBLIC_SITE_URL": JSON.stringify(SITE_URL),
     "process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN": JSON.stringify(SITE_URL),
     "process.env.EMBED_DATA_URL": JSON.stringify(
-      process.env.EMBED_DATA_URL || `${STATIC_URL}/embed-data`,
+      process.env.EMBED_DATA_URL || `${SITE_URL}/oforms-editor/embed`,
     ),
     "process.env.NODE_ENV": JSON.stringify("production"),
   },
