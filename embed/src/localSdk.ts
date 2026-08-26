@@ -1,21 +1,8 @@
 import { FALLBACK, type Locale } from "./locale";
 
-/**
- * Templates that ship inside the desktop install itself
- * (desktop-apps/common/templates), reported live by the desktop at runtime —
- * see AscDesktopEditor.LocalFileTemplates()/window.onaddtemplates below.
- * There's no CMS/S3 file for these; "Use this template" opens them via
- * AscDesktopEditor.execCommand("create:new", ...) instead — see
- * openLocalTemplate() in main.tsx.
- */
-
-// name (as AscDesktopEditor reports it) -> our taxonomy, curated once per
-// locale from desktop-apps/common/templates (a private repo). The desktop is
-// the live source of truth for *which* templates exist and where their files
-// are; this only supplies the category/purpose it doesn't know about.
 interface LookupEntry {
   subcategories: unknown[];
-  size?: number; // KB, statted once from a desktop-apps/common/templates checkout
+  size?: number;
 }
 
 const modules = import.meta.glob("../local-templates/*.json", {
@@ -33,10 +20,6 @@ for (const [path, entries] of Object.entries(modules)) {
   }
 }
 
-// Tries each candidate locale's lookup in order — used so a desktop culture
-// that the rest of the embed doesn't support (e.g. "ru", which has no CMS
-// catalog or UI translations at all) can still get its own local templates
-// categorized by their real name, ahead of falling back to English.
 function lookupFor(candidates: string[], name: string): LookupEntry {
   for (const locale of candidates) {
     const hit = lookups[locale]?.get(name);
@@ -62,10 +45,6 @@ function extFromPath(path: string): Ext | null {
   return m ? (EXT_BY_SUFFIX[m[1].toLowerCase()] ?? null) : null;
 }
 
-// Same per-format phrasing already used for CMS template descriptions
-// (sampled once from the site's own copy), single-format variant since each
-// local template only has the one file. Lives here rather than in the
-// lookup JSON because the desktop decides which names exist at runtime.
 const DESCRIPTIONS: Record<string, Record<Ext, (n: string) => string>> = {
   ar: {
     pdf: (n) => `احصل على قالب ${n} جاهز عبر الإنترنت أو قم بتنزيله بصيغة PDF.`,
@@ -128,23 +107,6 @@ function descriptionFor(locale: Locale, ext: Ext, name: string): string {
   return formula ? formula(name) : "";
 }
 
-// icon/path are native filesystem paths (backslashes on Windows, mixed
-// separators even within one path per the sample AscDesktopEditor sent) —
-// normalize one into the url path an <img>/background-image can load. Some
-// paths come back with a Windows long-path device prefix (`\?\` or
-// `\.\`, e.g. `\.\C:\Users\...\templates_cache\...\License agreement.jpg`
-// — confirmed live, it's not just the plain `C:/Users/...` shape the one
-// hand-sent sample used) — that prefix isn't meaningful in a url and has to be
-// stripped, or the whole path resolves to garbage.
-//
-// Every segment is percent-encoded rather than run through encodeURI: the
-// card preview ends up inside an unquoted CSS url() (see
-// src/components/widgets/Card/Card.tsx), where `(`, `)` and `'` make it a
-// bad-url-token and drop the whole background-image, while `#`/`?` would be
-// parsed as fragment/query and cut the name short. encodeURI leaves all of
-// those as-is, so cards for real template names — "Resume (sky blue).dotx",
-// "Organizational chart (horizontal).dotx", "Valentine's Day gift
-// certificate.pdf" — silently rendered blank.
 function encodeSegment(segment: string): string {
   return encodeURIComponent(segment).replace(
     /[()'!*]/g,
@@ -170,41 +132,11 @@ function toFileUrl(rawPath: string): string {
   return /^[a-zA-Z]:\//.test(encoded) ? `file:///${encoded}` : `file://${encoded}`;
 }
 
-/**
- * The desktop's own pages are served over the onlyoffice:// scheme (the app is
- * at onlyoffice://plugin/C:/Program Files/.../index.html), so a file:// url is
- * not loadable from there — the browser refuses it outright ("Not allowed to
- * load local resource"), for <img>, background-image and fetch alike. That's
- * why local template cards came up blank in the app while the very same url
- * renders fine in a browser.
- *
- * Two dead ends, both measured live on 10.0.0 — don't try them again:
- *  - AscDesktopEditor.GetImageBase64(path), what sdkjs uses for local images
- *    inside the editors ("correct local images" in sdkjs/word/sdk-all.js),
- *    returns "" for every path shape (native, file:// url, backslashes) even
- *    though IsLocalFileExist, IsImageFile, GetImageFormat and getLocalFileSize
- *    all answer correctly for that same file.
- *  - a url of the page's own scheme (onlyoffice://plugin/<path>, which is what
- *    the desktop team suggested) fails with ERR_UNKNOWN_URL_SCHEME: the scheme
- *    is only wired up for navigations in this build, not for subresources —
- *    even the app's own index.html, sitting in the install dir it was loaded
- *    from, fails as an <img> src.
- *
- * What does work is reading the bytes and wrapping them in a blob: url.
- * loadLocalFile(path, cb) hands the callback a Uint8Array — the same API sdkjs
- * uses to read a picked csv/txt (see sdk-all-min.js) — and takes ~3ms per
- * preview. Being async, the preview isn't known while the card is first built:
- * the url starts out empty and the templates are re-emitted once the bytes
- * land, the same way a lazily generated icon is picked up by a rescan.
- */
 const previewCache = new Map<string, string>();
 const previewPending = new Set<string>();
 
 function imageMime(editor: any, iconPath: string): string {
   try {
-    // The cached previews carry a .jpg name but are not necessarily jpeg (the
-    // ones the desktop writes are png), so ask the native side for the format
-    // rather than trusting the extension.
     const format = editor.GetImageFormat(iconPath);
     return /^[a-z0-9]+$/i.test(format) ? `image/${String(format).toLowerCase()}` : "image/png";
   } catch {
@@ -212,9 +144,6 @@ function imageMime(editor: any, iconPath: string): string {
   }
 }
 
-// The blob urls are deliberately never revoked: they're keyed by icon path and
-// reused across rescans and locale switches (a template's preview doesn't
-// change while the app runs), and it's a few dozen of them at ~13 KB each.
 function readPreview(iconPath: string, onReady: () => void): void {
   if (previewPending.has(iconPath)) return;
   previewPending.add(iconPath);
@@ -239,12 +168,10 @@ function toPreviewUrl(iconPath: string, onReady: () => void): string {
 
   const editor = (window as any).AscDesktopEditor;
   if (!editor || typeof editor.loadLocalFile !== "function") {
-    // Plain browser (the embed's own dev harness) — a file:// url loads there.
     return toFileUrl(iconPath);
   }
 
   readPreview(iconPath, onReady);
-  // Empty for now; onReady re-emits the templates once the bytes are in.
   return "";
 }
 
@@ -268,9 +195,6 @@ function toTemplate(
   const ext = extFromPath(item.path);
   if (!ext) return null;
   const assetExt = /\.([a-z0-9]+)$/i.exec(item.path)?.[1] ?? ext;
-  // A rescan re-reports templates already known (that's how late-generated
-  // icons arrive) — reuse the id so React keeps the same card mounted instead
-  // of remounting it and re-loading a preview it was already showing.
   const id = existing?.id ?? nextId--;
   const { subcategories, size } = lookupFor(categoryCandidates, item.name);
 
@@ -306,13 +230,10 @@ function toTemplate(
     __sdkId: item.id,
     __sdkType: item.type,
     __sdkPath: item.path,
-    // Kept so a preview that finishes loading after the card was built can be
-    // matched back to it — see emit() in requestLocalTemplates.
     __sdkIcon: item.icon,
   };
 }
 
-// Mirrors _reload_templates in desktop-apps/common/loginpage/src/paneltemplates.js.
 function localeFallbackChain(rawCulture: string): string[] {
   const chain = [rawCulture];
   const base = rawCulture.split(/[-_]/)[0].toLowerCase();
@@ -321,42 +242,6 @@ function localeFallbackChain(rawCulture: string): string[] {
   return Array.from(new Set(chain));
 }
 
-/**
- * Asks the desktop for its local templates and reports the merged, ready-to-
- * render list every time it hears back. `window.onaddtemplates` is a plain
- * global function the native side calls directly by name (see
- * desktop-apps/common/loginpage/src/sdk.js) — not an addEventListener-style
- * subscription — so it has to be assigned before LocalFileTemplates() is
- * called. No-ops (no console noise, no guessed paths) if AscDesktopEditor or
- * this method isn't present — e.g. a plain browser, or an older desktop.
- *
- * `culture` is the desktop's *raw* UI culture (e.g. "ru-RU"), separate from
- * `locale` (normalized to one of the 9 the rest of the embed supports — see
- * locale.ts). This lets a culture the embed has no CMS/UI translations for at
- * all — Russian, currently — still get its OWN local templates (there's a
- * real desktop-apps/common/templates/RU) instead of only the English ones,
- * even though the surrounding catalog/UI still renders in English.
- *
- * Confirmed by inspecting the live implementation in DevTools: calling
- * LocalFileTemplates() alone doesn't trigger the scan — it just stashes the
- * locale list and (once) arms a "resize" listener that's what actually calls
- * the native (underscore-prefixed) method. So a synthetic resize is
- * dispatched right after, to fire that listener immediately instead of
- * waiting for a real window resize that may never happen.
- *
- * Preview icons are generated lazily on the desktop's side — the first
- * response can list a template with no `icon` yet (confirmed live: a fresh
- * scan came back with none of them, a later one had some filled in). So this
- * re-scans to pick those up as they finish, instead of leaving a card blank
- * forever just because it was asked for too early. Stops early once every
- * known template has an icon.
- *
- * The rescans back off (2s, then 2s, 4s, 6s… capped at 10s, ~1.5 min in
- * total): a warm templates_cache settles after one or two scans, while a
- * fresh install has to render every preview from scratch — a few dozen of
- * them, well past the ~10s the previous fixed 5×2s window allowed, which left
- * the last ones blank until the app was restarted.
- */
 const ICON_POLL_BASE_MS = 2000;
 const ICON_POLL_MAX_MS = 10000;
 const MAX_ICON_POLLS = 12;
@@ -386,8 +271,6 @@ export function requestLocalTemplates(
     if (typeof window !== "undefined") window.dispatchEvent(new Event("resize"));
   };
 
-  // Previews are read asynchronously (see toPreviewUrl), so a card can be built
-  // before its own is in: fill in whatever has landed since, then report.
   const emit = () => {
     for (const template of byPath.values()) {
       if (template.card_prewiew.url || !template.__sdkIcon) continue;
@@ -397,8 +280,6 @@ export function requestLocalTemplates(
     onUpdate(Array.from(byPath.values()));
   };
 
-  // The reads come back one native callback at a time, a few ms apart — coalesce
-  // them into a single re-render instead of one per template.
   let emitScheduled = false;
   const scheduleEmit = () => {
     if (emitScheduled) return;
@@ -422,8 +303,6 @@ export function requestLocalTemplates(
         existing,
       );
       if (!template) continue;
-      // A rescan can come back without an icon it had already reported — keep
-      // the known one rather than blanking a card that was already fine.
       if (!template.card_prewiew.url && existing?.card_prewiew?.url) {
         template.card_prewiew.url = existing.card_prewiew.url;
         template.__sdkIcon = template.__sdkIcon ?? existing.__sdkIcon;
@@ -438,9 +317,6 @@ export function requestLocalTemplates(
   let polls = 0;
   const pollForIcons = () => {
     const templates = Array.from(byPath.values());
-    // Waits on the icon *paths*, not the previews: once the desktop has reported
-    // an icon for every template there's nothing left for a rescan to find, and
-    // reading its bytes is on its own (async) track.
     const allHaveIcons =
       templates.length > 0 && templates.every((t) => t.__sdkIcon || t.card_prewiew?.url);
     if (allHaveIcons || ++polls > MAX_ICON_POLLS) {

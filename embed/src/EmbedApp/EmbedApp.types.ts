@@ -57,18 +57,10 @@ export interface ITemplate {
       };
     }[];
   }[];
-  /**
-   * True for templates reported live by AscDesktopEditor.LocalFileTemplates()
-   * rather than the CMS — see embed/src/localSdk.ts. file_oform[].url carries
-   * the raw filesystem path AscDesktopEditor reported (for display only);
-   * opening one uses __sdkId/__sdkType/__sdkPath instead — see
-   * openLocalTemplate() in embed/src/main.tsx.
-   */
   __local?: boolean;
   __sdkId?: number;
   __sdkType?: number;
   __sdkPath?: string;
-  /** Path to the preview file, read into a blob: url asynchronously. */
   __sdkIcon?: string;
 }
 
