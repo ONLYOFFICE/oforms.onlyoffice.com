@@ -1,31 +1,9 @@
-@font-face {
-  font-family: "Segoe-UI";
-  src: url("./fonts/SegoeUI.woff2") format("woff2");
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Segoe-UI";
-  src: url("./fonts/SegoeUI-SemiBold.woff2") format("woff2");
-  font-weight: 600;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Segoe-UI";
-  src: url("./fonts/SegoeUI-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-display: swap;
-}
-
 * {
   box-sizing: border-box;
 }
 
 html {
   height: 100%;
-  font-family: "Segoe-UI", sans-serif;
   font-weight: 400;
   color: var(--primary-color);
 }
