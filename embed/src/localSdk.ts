@@ -171,39 +171,81 @@ function toFileUrl(rawPath: string): string {
 }
 
 /**
- * The desktop's own pages are served over the onlyoffice:// scheme, and a
- * file:// url is not loadable from there — the browser refuses it outright
- * ("Not allowed to load local resource"), for <img>, background-image and
- * fetch alike. That's why local template cards came up blank in the app while
- * the very same url renders fine in a browser.
+ * The desktop's own pages are served over the onlyoffice:// scheme (the app is
+ * at onlyoffice://plugin/C:/Program Files/.../index.html), so a file:// url is
+ * not loadable from there — the browser refuses it outright ("Not allowed to
+ * load local resource"), for <img>, background-image and fetch alike. That's
+ * why local template cards came up blank in the app while the very same url
+ * renders fine in a browser.
  *
- * Per the desktop team, the way in is a url of that same scheme: prefix the
- * native path with onlyoffice://plugin, which the desktop resolves straight off
- * disk (the same mechanism plugin resources are served through).
+ * Two dead ends, both measured live on 10.0.0 — don't try them again:
+ *  - AscDesktopEditor.GetImageBase64(path), what sdkjs uses for local images
+ *    inside the editors ("correct local images" in sdkjs/word/sdk-all.js),
+ *    returns "" for every path shape (native, file:// url, backslashes) even
+ *    though IsLocalFileExist, IsImageFile, GetImageFormat and getLocalFileSize
+ *    all answer correctly for that same file.
+ *  - a url of the page's own scheme (onlyoffice://plugin/<path>, which is what
+ *    the desktop team suggested) fails with ERR_UNKNOWN_URL_SCHEME: the scheme
+ *    is only wired up for navigations in this build, not for subresources —
+ *    even the app's own index.html, sitting in the install dir it was loaded
+ *    from, fails as an <img> src.
  *
- * Do NOT go back to AscDesktopEditor.GetImageBase64() — that's what sdkjs uses
- * for local images inside the editors (see "correct local images" in
- * editors/sdkjs/word/sdk-all.js), but for these templates_cache paths it always
- * returns an empty string, even though IsLocalFileExist and IsImageFile both
- * report true for the very same path, so every card stayed blank.
+ * What does work is reading the bytes and wrapping them in a blob: url.
+ * loadLocalFile(path, cb) hands the callback a Uint8Array — the same API sdkjs
+ * uses to read a picked csv/txt (see sdk-all-min.js) — and takes ~3ms per
+ * preview. Being async, the preview isn't known while the card is first built:
+ * the url starts out empty and the templates are re-emitted once the bytes
+ * land, the same way a lazily generated icon is picked up by a rescan.
  */
-function toPluginUrl(rawPath: string): string {
-  const encoded = encodeNativePath(rawPath);
-  if (!encoded) return "";
-  // Exactly one slash between the host and the path: a Windows path yields
-  // `onlyoffice://plugin/C:/Users/...`, the shape the desktop team confirmed,
-  // while a posix one (mac, unverified) keeps its own leading slash instead of
-  // doubling it up.
-  return `onlyoffice://plugin/${encoded.replace(/^\/+/, "")}`;
+const previewCache = new Map<string, string>();
+const previewPending = new Set<string>();
+
+function imageMime(editor: any, iconPath: string): string {
+  try {
+    // The cached previews carry a .jpg name but are not necessarily jpeg (the
+    // ones the desktop writes are png), so ask the native side for the format
+    // rather than trusting the extension.
+    const format = editor.GetImageFormat(iconPath);
+    return /^[a-z0-9]+$/i.test(format) ? `image/${String(format).toLowerCase()}` : "image/png";
+  } catch {
+    return "image/png";
+  }
 }
 
-function toPreviewUrl(iconPath: string): string {
+// The blob urls are deliberately never revoked: they're keyed by icon path and
+// reused across rescans and locale switches (a template's preview doesn't
+// change while the app runs), and it's a few dozen of them at ~13 KB each.
+function readPreview(iconPath: string, onReady: () => void): void {
+  if (previewPending.has(iconPath)) return;
+  previewPending.add(iconPath);
+  const editor = (window as any).AscDesktopEditor;
+  try {
+    editor.loadLocalFile(iconPath, (bytes: Uint8Array | null) => {
+      previewPending.delete(iconPath);
+      if (!bytes || !bytes.length) return;
+      const blob = new Blob([bytes], { type: imageMime(editor, iconPath) });
+      previewCache.set(iconPath, URL.createObjectURL(blob));
+      onReady();
+    });
+  } catch {
+    previewPending.delete(iconPath);
+  }
+}
+
+function toPreviewUrl(iconPath: string, onReady: () => void): string {
   if (!iconPath) return "";
-  // No AscDesktopEditor means a plain browser (the embed's own dev harness):
-  // nothing there resolves onlyoffice://, while a file:// url can load.
-  return (window as any).AscDesktopEditor
-    ? toPluginUrl(iconPath)
-    : toFileUrl(iconPath);
+  const cached = previewCache.get(iconPath);
+  if (cached) return cached;
+
+  const editor = (window as any).AscDesktopEditor;
+  if (!editor || typeof editor.loadLocalFile !== "function") {
+    // Plain browser (the embed's own dev harness) — a file:// url loads there.
+    return toFileUrl(iconPath);
+  }
+
+  readPreview(iconPath, onReady);
+  // Empty for now; onReady re-emits the templates once the bytes are in.
+  return "";
 }
 
 interface SdkTemplateItem {
@@ -220,6 +262,7 @@ function toTemplate(
   item: SdkTemplateItem,
   locale: Locale,
   categoryCandidates: string[],
+  onPreviewReady: () => void,
   existing?: any,
 ): any | null {
   const ext = extFromPath(item.path);
@@ -242,7 +285,7 @@ function toTemplate(
     card_prewiew: {
       id,
       documentId: `local-${locale}-${item.id}-preview`,
-      url: toPreviewUrl(item.icon ?? ""),
+      url: toPreviewUrl(item.icon ?? "", onPreviewReady),
       width: 260,
       height: 184,
     },
@@ -263,6 +306,9 @@ function toTemplate(
     __sdkId: item.id,
     __sdkType: item.type,
     __sdkPath: item.path,
+    // Kept so a preview that finishes loading after the card was built can be
+    // matched back to it — see emit() in requestLocalTemplates.
+    __sdkIcon: item.icon,
   };
 }
 
@@ -314,6 +360,7 @@ function localeFallbackChain(rawCulture: string): string[] {
 const ICON_POLL_BASE_MS = 2000;
 const ICON_POLL_MAX_MS = 10000;
 const MAX_ICON_POLLS = 12;
+const PREVIEW_EMIT_DEBOUNCE_MS = 100;
 
 let activePollTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -339,21 +386,51 @@ export function requestLocalTemplates(
     if (typeof window !== "undefined") window.dispatchEvent(new Event("resize"));
   };
 
+  // Previews are read asynchronously (see toPreviewUrl), so a card can be built
+  // before its own is in: fill in whatever has landed since, then report.
+  const emit = () => {
+    for (const template of byPath.values()) {
+      if (template.card_prewiew.url || !template.__sdkIcon) continue;
+      const preview = previewCache.get(template.__sdkIcon);
+      if (preview) template.card_prewiew.url = preview;
+    }
+    onUpdate(Array.from(byPath.values()));
+  };
+
+  // The reads come back one native callback at a time, a few ms apart — coalesce
+  // them into a single re-render instead of one per template.
+  let emitScheduled = false;
+  const scheduleEmit = () => {
+    if (emitScheduled) return;
+    emitScheduled = true;
+    setTimeout(() => {
+      emitScheduled = false;
+      emit();
+    }, PREVIEW_EMIT_DEBOUNCE_MS);
+  };
+
   (window as any).onaddtemplates = (payload: SdkTemplateItem[] | SdkTemplateItem) => {
     const items = Array.isArray(payload) ? payload : [payload];
     for (const item of items) {
       if (!item?.path) continue;
       const existing = byPath.get(item.path);
-      const template = toTemplate(item, locale, categoryCandidates, existing);
+      const template = toTemplate(
+        item,
+        locale,
+        categoryCandidates,
+        scheduleEmit,
+        existing,
+      );
       if (!template) continue;
       // A rescan can come back without an icon it had already reported — keep
       // the known one rather than blanking a card that was already fine.
       if (!template.card_prewiew.url && existing?.card_prewiew?.url) {
         template.card_prewiew.url = existing.card_prewiew.url;
+        template.__sdkIcon = template.__sdkIcon ?? existing.__sdkIcon;
       }
       byPath.set(item.path, template);
     }
-    onUpdate(Array.from(byPath.values()));
+    emit();
   };
 
   scan();
@@ -361,8 +438,11 @@ export function requestLocalTemplates(
   let polls = 0;
   const pollForIcons = () => {
     const templates = Array.from(byPath.values());
+    // Waits on the icon *paths*, not the previews: once the desktop has reported
+    // an icon for every template there's nothing left for a rescan to find, and
+    // reading its bytes is on its own (async) track.
     const allHaveIcons =
-      templates.length > 0 && templates.every((t) => t.card_prewiew?.url);
+      templates.length > 0 && templates.every((t) => t.__sdkIcon || t.card_prewiew?.url);
     if (allHaveIcons || ++polls > MAX_ICON_POLLS) {
       activePollTimer = null;
       return;

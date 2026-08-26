@@ -68,6 +68,8 @@ export interface ITemplate {
   __sdkId?: number;
   __sdkType?: number;
   __sdkPath?: string;
+  /** Path to the preview file, read into a blob: url asynchronously. */
+  __sdkIcon?: string;
 }
 
 export interface ITemplateData {
