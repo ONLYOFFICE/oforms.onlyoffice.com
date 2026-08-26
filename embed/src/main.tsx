@@ -228,6 +228,19 @@ async function mount(el: Element, culture?: string): Promise<void> {
   }
 }
 
+function preferDesktopLocale(requested?: string): string | undefined {
+  if (!requested) return undefined;
+  const desktop = getDesktopLocale();
+  if (!desktop) return requested;
+  const bare = !/[-_]/.test(requested.trim());
+  if (!bare) return requested;
+  if (normalizeLocale(requested) === normalizeLocale(desktop)) return requested;
+  console.warn(
+    `[oforms-embed] ignoring bare locale "${requested}" — the desktop reports "${desktop}"`,
+  );
+  return undefined;
+}
+
 export function render(target: Target, opts?: RenderOptions): Promise<boolean> {
   const el = resolve(target);
   if (!el) {
@@ -239,7 +252,10 @@ export function render(target: Target, opts?: RenderOptions): Promise<boolean> {
   };
   if (opts?.theme && el instanceof HTMLElement) applyTheme(opts.theme, el);
   const locale =
-    opts?.locale ?? pendingLocale ?? getDesktopLocale() ?? undefined;
+    preferDesktopLocale(opts?.locale) ??
+    pendingLocale ??
+    getDesktopLocale() ??
+    undefined;
   pendingLocale = null;
 
   if (locale) desktopCulture = cultureKey(locale);
