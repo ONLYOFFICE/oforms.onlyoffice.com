@@ -130,12 +130,12 @@ function descriptionFor(locale: Locale, ext: Ext, name: string): string {
 
 // icon/path are native filesystem paths (backslashes on Windows, mixed
 // separators even within one path per the sample AscDesktopEditor sent) —
-// turn one into a file:// URL an <img>/background-image can load. Some
+// normalize one into the url path an <img>/background-image can load. Some
 // paths come back with a Windows long-path device prefix (`\?\` or
 // `\.\`, e.g. `\.\C:\Users\...\templates_cache\...\License agreement.jpg`
 // — confirmed live, it's not just the plain `C:/Users/...` shape the one
-// hand-sent sample used) — that prefix isn't meaningful in a file:// URL and
-// has to be stripped, or the whole path resolves to garbage.
+// hand-sent sample used) — that prefix isn't meaningful in a url and has to be
+// stripped, or the whole path resolves to garbage.
 //
 // Every segment is percent-encoded rather than run through encodeURI: the
 // card preview ends up inside an unquoted CSS url() (see
@@ -152,88 +152,58 @@ function encodeSegment(segment: string): string {
   );
 }
 
-function toFileUrl(rawPath: string): string {
+function encodeNativePath(rawPath: string): string {
   if (!rawPath) return "";
   const stripped = rawPath.replace(/^\\\\[?.]\\/, "");
   const normalized = stripped.replace(/\\/g, "/");
-  const encoded = normalized
+  return normalized
     .split("/")
     .map((segment) =>
       /^[a-zA-Z]:$/.test(segment) ? segment : encodeSegment(segment),
     )
     .join("/");
+}
+
+function toFileUrl(rawPath: string): string {
+  const encoded = encodeNativePath(rawPath);
+  if (!encoded) return "";
   return /^[a-zA-Z]:\//.test(encoded) ? `file:///${encoded}` : `file://${encoded}`;
 }
 
 /**
- * A file:// url is not loadable as an image inside the desktop's own pages —
- * the editors hit exactly the same wall and work around it the same way (see
- * "correct local images" in editors/sdkjs/word/sdk-all.js, which swaps every
- * `file:/`-prefixed image url for AscDesktopEditor.GetImageBase64(url) before
- * handing it to the image loader). That's why local template cards came up
- * blank in the app while the very same url renders fine in a browser.
+ * The desktop's own pages are served over the onlyoffice:// scheme, and a
+ * file:// url is not loadable from there — the browser refuses it outright
+ * ("Not allowed to load local resource"), for <img>, background-image and
+ * fetch alike. That's why local template cards came up blank in the app while
+ * the very same url renders fine in a browser.
  *
- * So the preview is inlined as a data: uri whenever that API is available, and
- * the file:// url stays as the fallback for a plain browser (and for any
- * desktop build without the method). Cached per icon path: the templates are
- * re-scanned every couple of seconds while previews are still being generated,
- * and each call reads the file on the native side.
+ * Per the desktop team, the way in is a url of that same scheme: prefix the
+ * native path with onlyoffice://plugin, which the desktop resolves straight off
+ * disk (the same mechanism plugin resources are served through).
+ *
+ * Do NOT go back to AscDesktopEditor.GetImageBase64() — that's what sdkjs uses
+ * for local images inside the editors (see "correct local images" in
+ * editors/sdkjs/word/sdk-all.js), but for these templates_cache paths it always
+ * returns an empty string, even though IsLocalFileExist and IsImageFile both
+ * report true for the very same path, so every card stayed blank.
  */
-const previewCache = new Map<string, string>();
-
-function getImageBase64(editor: any, arg: string): string {
-  try {
-    const result = editor.GetImageBase64(arg);
-    // Guard against a build that returns "", a path, or nothing at all.
-    return typeof result === "string" && result.length > 64 ? result : "";
-  } catch {
-    return "";
-  }
-}
-
-// The cached previews carry a .jpg name but are not necessarily jpeg (the ones
-// the desktop writes are png), so the type comes from the base64 magic bytes
-// rather than the extension. Only used when the native side hands back bare
-// base64 instead of a ready data: uri.
-const MAGIC: [string, string][] = [
-  ["iVBORw0KGgo", "image/png"],
-  ["/9j/", "image/jpeg"],
-  ["R0lGOD", "image/gif"],
-  ["UklGR", "image/webp"],
-  ["Qk0", "image/bmp"],
-];
-
-function toDataUri(base64: string): string {
-  if (base64.startsWith("data:")) return base64;
-  const type = MAGIC.find(([magic]) => base64.startsWith(magic))?.[1] ?? "image/png";
-  return `data:${type};base64,${base64}`;
+function toPluginUrl(rawPath: string): string {
+  const encoded = encodeNativePath(rawPath);
+  if (!encoded) return "";
+  // Exactly one slash between the host and the path: a Windows path yields
+  // `onlyoffice://plugin/C:/Users/...`, the shape the desktop team confirmed,
+  // while a posix one (mac, unverified) keeps its own leading slash instead of
+  // doubling it up.
+  return `onlyoffice://plugin/${encoded.replace(/^\/+/, "")}`;
 }
 
 function toPreviewUrl(iconPath: string): string {
   if (!iconPath) return "";
-  const cached = previewCache.get(iconPath);
-  if (cached) return cached;
-
-  const editor = (window as any).AscDesktopEditor;
-  if (!editor || typeof editor.GetImageBase64 !== "function") {
-    // Plain browser (the embed's own dev harness) — a file:// url loads there.
-    return toFileUrl(iconPath);
-  }
-
-  // The editors pass the file:// url; the raw native path is tried too, in case
-  // a build expects that shape instead.
-  const data =
-    getImageBase64(editor, toFileUrl(iconPath)) || getImageBase64(editor, iconPath);
-  if (!data) {
-    // Left empty rather than falling back to the file:// url the desktop can't
-    // load anyway: an empty preview keeps the icon poll going, so a template
-    // whose preview is still being written gets picked up by a later rescan.
-    return "";
-  }
-
-  const uri = toDataUri(data);
-  previewCache.set(iconPath, uri);
-  return uri;
+  // No AscDesktopEditor means a plain browser (the embed's own dev harness):
+  // nothing there resolves onlyoffice://, while a file:// url can load.
+  return (window as any).AscDesktopEditor
+    ? toPluginUrl(iconPath)
+    : toFileUrl(iconPath);
 }
 
 interface SdkTemplateItem {
