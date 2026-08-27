@@ -1,3 +1,4 @@
+import "virtual:oforms-theme-defaults.css";
 import "./global.css";
 import { StrictMode } from "react";
 import { createRoot, type Root } from "react-dom/client";
@@ -22,7 +23,10 @@ interface Instance {
   el: Element;
   root: Root;
   locale: Locale;
-  data: any; // last merged (CMS + local) catalog, unfiltered by connectivity
+  data: any;
+  local: any[];
+  cloud: any;
+  loadCloud: () => void;
 }
 
 let instance: Instance | null = null;
@@ -127,65 +131,12 @@ function openInDesktop(template: TTemplate): void {
   if (docxf) return open(docxf, "docxf");
 }
 
-// A CMS template's file lives on S3 — with no internet, "Use this template"
-// on one is a dead end. Local templates (__local, see data.ts) still open
-// fine either way. So while offline, only local templates are shown; the
-// moment connectivity comes back, the full catalog reappears.
-//
-// navigator.onLine alone isn't trustworthy here: it reliably reports `false`
-// when there's no network adapter at all, but reports `true` for "connected
-// to a network with no actual internet route" — a very normal desktop
-// situation (wifi/ethernet up, router or VPN down) — and some embedded
-// Chromium webviews just never flip it. So a real fetch probe backs it up:
-// navigator.onLine === false is trusted immediately (never a false
-// positive), otherwise an actual request decides it.
-const CONNECTIVITY_PROBE_URL =
-  "https://static-oforms.onlyoffice.com/favicon.ico";
-
-function fetchWithTimeout(url: string, ms: number): Promise<Response> {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), ms);
-  return fetch(url, {
-    method: "HEAD",
-    mode: "no-cors",
-    cache: "no-store",
-    signal: controller.signal,
-  }).finally(() => clearTimeout(timer));
-}
-
-async function checkOnline(): Promise<boolean> {
-  if (typeof navigator !== "undefined" && navigator.onLine === false)
-    return false;
-  if (typeof fetch === "undefined") return true;
-  try {
-    await fetchWithTimeout(CONNECTIVITY_PROBE_URL, 4000);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-let online = true;
-let connectivityChecked = false;
-
-async function ensureConnectivityChecked(): Promise<void> {
-  if (connectivityChecked) return;
-  connectivityChecked = true;
-  online = await checkOnline();
-}
-
-function filterByConnectivity(data: any): any {
-  if (online) return data;
-  if (!Array.isArray(data?.data)) return data;
-  return { ...data, data: data.data.filter((t: any) => t?.__local) };
-}
-
 function renderApp(root: Root, locale: Locale, data: any): void {
   root.render(
     <StrictMode>
       <EmbedApp
         locale={locale}
-        data={filterByConnectivity(data)}
+        data={data}
         onLocaleChange={setLocale}
         onEdit={options.onEdit ?? openInDesktop}
       />
@@ -200,27 +151,53 @@ async function mount(el: Element, culture?: string): Promise<void> {
   const seq = ++mountSeq;
   const locale = normalizeLocale(culture);
   await initI18n(locale);
-  const data = await loadData(locale);
-  await ensureConnectivityChecked(); // real probe, only runs once per session
-  if (seq !== mountSeq) return; // superseded by a newer mount
+  if (seq !== mountSeq) return;
 
-  const root = instance && instance.el === el ? instance.root : createRoot(el);
-  instance = { el, root, locale, data };
-  renderApp(root, locale, data);
+  const previous = instance && instance.el === el ? instance : null;
+  const root = previous ? previous.root : createRoot(el);
+  let localTemplates: any[] = previous?.local ?? [];
+  let cloud: any = previous?.cloud ?? null;
+
+  const isCurrent = () =>
+    !!instance && instance.el === el && instance.locale === locale;
+
+  const apply = () => {
+    if (!isCurrent()) return;
+    instance!.local = localTemplates;
+    instance!.cloud = cloud;
+    instance!.data = {
+      ...(cloud ?? { meta: {} }),
+      data: [...localTemplates, ...(cloud?.data ?? [])],
+    };
+    renderApp(instance!.root, locale, instance!.data);
+  };
+
+  const loadCloud = (): void => {
+    void loadData(locale).then((fetched) => {
+      if (!fetched || !isCurrent()) return;
+      cloud = fetched;
+      apply();
+    });
+  };
+
+  instance = {
+    el,
+    root,
+    locale,
+    data: { data: [], meta: {} },
+    local: localTemplates,
+    cloud,
+    loadCloud,
+  };
+  apply();
 
   requestLocalTemplates(locale, culture, (templates) => {
-    // ignore late results from a superseded mount (locale/target switched)
-    if (!instance || instance.el !== el || instance.locale !== locale) return;
-    const nonLocal = (instance.data?.data ?? []).filter(
-      (t: any) => !t?.__local,
-    );
-    // local first — matches how they're rendered (see localFirst() in
-    // EmbedApp/components/Template), so search suggestions agree with the grid
-    instance.data = { ...instance.data, data: [...templates, ...nonLocal] };
-    renderApp(instance.root, instance.locale, instance.data);
+    localTemplates = templates;
+    apply();
   });
 
-  // a desktop language change may have arrived while this mount was in flight
+  loadCloud();
+
   if (pendingLocale) {
     const next = pendingLocale;
     pendingLocale = null;
@@ -312,17 +289,10 @@ declare global {
   }
 }
 
-async function applyConnectivityChange() {
-  online = await checkOnline(); // re-verify for real, don't just trust the event
-  if (!instance) return;
-  renderApp(instance.root, instance.locale, instance.data);
-}
-
 if (typeof window !== "undefined") {
   window.OformsEmbed = { render, setLocale, setTheme, destroy };
   watchDesktopLocale(applyDesktopLocale);
-  window.addEventListener("online", applyConnectivityChange);
-  window.addEventListener("offline", applyConnectivityChange);
+  window.addEventListener("online", () => instance?.loadCloud());
   const auto = () => {
     const el = document.querySelector("[data-oforms-auto]");
     if (el) render(el, { locale: el.getAttribute("data-locale") || undefined });

@@ -1,15 +1,37 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { fileURLToPath } from "node:url";
+import { readFileSync } from "node:fs";
 
 const r = (p: string) => fileURLToPath(new URL(p, import.meta.url));
+
+const THEME_DEFAULTS_ID = "virtual:oforms-theme-defaults.css";
+
+function themeDefaults() {
+  return {
+    name: "oforms-theme-defaults",
+    resolveId(id: string) {
+      return id === THEME_DEFAULTS_ID ? "\0" + THEME_DEFAULTS_ID : null;
+    },
+    load(id: string) {
+      if (id !== "\0" + THEME_DEFAULTS_ID) return null;
+      const tokens = JSON.parse(
+        readFileSync(r("./theme.default.json"), "utf8"),
+      ) as Record<string, string>;
+      const body = Object.entries(tokens)
+        .map(([name, value]) => `--${name}: ${value};`)
+        .join("\n  ");
+      return `:root {\n  ${body}\n}\n`;
+    },
+  };
+}
 
 const STATIC_URL =
   process.env.EMBED_STATIC_URL || "https://oforms.onlyoffice.com";
 const SITE_URL = process.env.EMBED_SITE_URL || "https://oforms.onlyoffice.com";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), themeDefaults()],
 
   resolve: {
     alias: {
