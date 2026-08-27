@@ -6,7 +6,8 @@ components from `../src` — no visual re-implementation — and produces three
 files:
 
 - `dist/oforms.js` — React app + all 9 locales' catalog data + UI translations (~7.7 MB)
-- `dist/oforms.css` — all styles (CSS modules + base reset + the web fonts, inlined)
+- `dist/oforms.css` — all styles (CSS modules + base reset). No fonts: the embed
+  inherits the host's font (see Theming)
 - `dist/theme.default.json` — every overridable design token + its default (see Theming)
 
 `dist/index.html` is written too — a minimal demo host, not part of the bundle.
@@ -69,3 +70,8 @@ OformsEmbed.render("#oforms-root", {
 // Later — e.g. the desktop's own theme changed to dark — just re-apply:
 OformsEmbed.setTheme({ "card-heading-color": "#f0f0f0" });
 ```
+
+The font is not a token here: the embed ships no `@font-face` and reads the
+desktop's `--font-family-base-custom` / `--font-family-base` by inheritance, so
+it follows the host's theme and language on its own. Don't pass it in `theme` —
+those become inline properties on the container and would shadow the host's.
