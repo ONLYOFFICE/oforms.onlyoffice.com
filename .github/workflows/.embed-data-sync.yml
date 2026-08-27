@@ -4,6 +4,9 @@ on:
   push:
     branches: 
      - release/v10.0.0
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
 
 jobs:
   sync:
