@@ -26,7 +26,7 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { getQueryValues, normalizeSortKey, type TSortKey } from "./lib/filters";
+import { getQueryValues } from "./lib/filters";
 import { normalizeLocale, type Locale } from "./locale";
 
 export interface ICatalogQuery {
@@ -35,7 +35,6 @@ export interface ICatalogQuery {
   countries: string[];
   subcategories: string[];
   purposes: string[];
-  sort: TSortKey;
   page: number;
   locale: Locale;
 }
@@ -52,7 +51,6 @@ export function readQuery(): ICatalogQuery {
     countries: getQueryValues(p.get("country")),
     subcategories: getQueryValues(p.get("subcategory")),
     purposes: getQueryValues(p.get("purpose")),
-    sort: normalizeSortKey(p.get("sort")),
     page: Number.isFinite(page) && page > 0 ? page : 1,
     locale: normalizeLocale(p.get("locale")),
   };
@@ -75,7 +73,6 @@ export function writeQuery(query: ICatalogQuery): void {
   set("country", query.countries.join(","));
   set("subcategory", query.subcategories.join(","));
   set("purpose", query.purposes.join(","));
-  set("sort", query.sort === "asc" ? "" : query.sort);
   set("page", query.page > 1 ? String(query.page) : "");
   set("locale", query.locale);
 

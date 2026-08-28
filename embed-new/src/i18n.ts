@@ -34,7 +34,6 @@ export const NAMESPACES = [
   "common",
   "main",
   "MainTemplate",
-  "SortSelector",
   "SearchInput",
   "TemplateModal",
   "searchresult",
@@ -44,7 +43,7 @@ export const NAMESPACES = [
 // All 9 locales are bundled rather than fetched: it is only ~37 KB in total,
 // and it means switching language needs no network at all.
 const modules = import.meta.glob(
-  "../../public/locales/*/{common,main,MainTemplate,SortSelector,SearchInput,TemplateModal,searchresult}.json",
+  "../../public/locales/*/{common,main,MainTemplate,SearchInput,TemplateModal,searchresult}.json",
   { eager: true, import: "default" },
 ) as Record<string, Record<string, string>>;
 

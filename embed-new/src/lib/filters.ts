@@ -45,53 +45,14 @@ import {
   type TAllowedTypes,
 } from "../types";
 
-export type TSortKey = "popular" | "asc" | "desc" | "name_asc" | "name_desc";
-
-const SORT_MAP: Record<TSortKey, string> = {
-  asc: "createdAt:desc",
-  desc: "createdAt:asc",
-  name_asc: "name_form:asc",
-  name_desc: "name_form:desc",
-  popular: "popular_template:desc",
-};
-
-export const SORT_KEYS = Object.keys(SORT_MAP) as TSortKey[];
-
-// Built once — localeCompare constructs one per call.
-const collator = new Intl.Collator(undefined, { sensitivity: "base" });
-
-export const normalizeSortKey = (value: string | null | undefined): TSortKey =>
-  value && value in SORT_MAP ? (value as TSortKey) : "asc";
-
 export const getQueryValues = (value: string | null | undefined): string[] =>
   value ? value.split(",").filter(Boolean) : [];
 
-export const sortForms = (
-  forms: ITemplate[] | undefined,
-  sort: TSortKey,
-): ITemplate[] => {
-  const [field, direction] = SORT_MAP[sort].split(":");
-  const dir = direction === "desc" ? -1 : 1;
-
-  return [...(forms ?? [])].sort((a, b) => {
-    switch (field) {
-      case "name_form":
-        return dir * collator.compare(a.name_form, b.name_form);
-      case "popular_template":
-        return (
-          dir *
-          (Number(Boolean(a.popular_template)) -
-            Number(Boolean(b.popular_template)))
-        );
-      case "createdAt":
-      default:
-        return (
-          dir *
-          (new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
-        );
-    }
-  });
-};
+/** The grid's only order. Call once on load — the filters below preserve it. */
+export const sortByNewest = (forms: ITemplate[] | undefined): ITemplate[] =>
+  [...(forms ?? [])].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+  );
 
 interface IFormsFilters {
   type?: string[];

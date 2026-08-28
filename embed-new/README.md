@@ -4,8 +4,8 @@ Static templates catalog, loaded by ONLYOFFICE Desktop in an **iframe** so it
 ships without a desktop release. Replaces `../embed` and its Next.js shims — no
 dependency on `../src`.
 
-v0 is a flat card grid with sort, pagination, language select and filters in a
-drawer. No category tabs, no expand-to-full-page, no redesign yet.
+v0 is a flat card grid, newest first, with pagination, language select and
+filters in a drawer. No category tabs, no expand-to-full-page, no redesign yet.
 
 ## Develop
 
@@ -23,7 +23,6 @@ npm run build
 | `type` | comma list of `docx,xlsx,pptx,pdf` |
 | `country` | comma list of lowercase country codes |
 | `subcategory` | comma list of subcategory slugs |
-| `sort` | `popular`, `asc`, `desc`, `name_asc`, `name_desc` |
 | `page` | 1-based page index |
 | `locale` | `ar de en es fr it ja pt zh` |
 | `theme` | token overrides — JSON, or `name:value;name:value` |
@@ -32,6 +31,8 @@ npm run build
 
 `?hide=lang` removes the language selector but not locale switching — the host
 still drives that with `?locale=` or a `locale` message.
+
+There is no sort control and no `?sort=` — the grid is always newest first.
 
 `theme` and `font` are params (not messages) so the first paint is already
 correct. Colours are CSS custom properties — see `src/styles/tokens.css`, names

@@ -34,7 +34,6 @@ import { FilterDrawer } from "./components/FilterDrawer/FilterDrawer";
 import { LanguageSelect } from "./components/LanguageSelect/LanguageSelect";
 import { Pagination } from "./components/Pagination/Pagination";
 import { SearchBox } from "./components/SearchBox/SearchBox";
-import { SortSelect } from "./components/SortSelect/SortSelect";
 import { TemplateModal } from "./components/TemplateModal/TemplateModal";
 import { FiltersIcon } from "./components/icons";
 import { loadCatalog } from "./data";
@@ -45,7 +44,7 @@ import {
   getFormsByTypes,
   getPurposes,
   groupFormsByExt,
-  sortForms,
+  sortByNewest,
 } from "./lib/filters";
 import { initI18n } from "./i18n";
 import { isRtlLocale, type Locale } from "./locale";
@@ -102,7 +101,7 @@ const App = () => {
         await initI18n(query.locale);
         const catalog = await loadCatalog(query.locale, controller.signal);
         if (controller.signal.aborted) return;
-        setTemplates(catalog.data);
+        setTemplates(sortByNewest(catalog.data));
         setStatus("ready");
       } catch (error) {
         if (controller.signal.aborted) return;
@@ -191,14 +190,19 @@ const App = () => {
     });
 
     const term = query.q.trim().toLowerCase();
-    const searched = term
+    return term
       ? filtered.filter((form) =>
           form.name_form.toLowerCase().includes(term),
         )
       : filtered;
-
-    return sortForms(searched, query.sort);
-  }, [templates, query]);
+  }, [
+    templates,
+    query.types,
+    query.countries,
+    query.subcategories,
+    query.purposes,
+    query.q,
+  ]);
 
   const pages = Math.max(1, Math.ceil(visible.length / PAGE_SIZE));
   const page = Math.min(query.page, pages);
@@ -232,19 +236,12 @@ const App = () => {
           <SearchBox value={query.q} onChange={(q) => filter({ q })} />
         )}
 
-        <div className={styles["toolbar-controls"]}>
-          <SortSelect
-            value={query.sort}
-            onChange={(sort) => filter({ sort })}
+        {!hidden.has("lang") && (
+          <LanguageSelect
+            value={query.locale}
+            onChange={(locale) => filter({ locale })}
           />
-
-          {!hidden.has("lang") && (
-            <LanguageSelect
-              value={query.locale}
-              onChange={(locale) => filter({ locale })}
-            />
-          )}
-        </div>
+        )}
       </div>
 
       {status === "loading" && (
