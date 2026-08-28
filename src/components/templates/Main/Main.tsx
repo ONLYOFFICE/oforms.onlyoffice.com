@@ -109,7 +109,7 @@ const MainTemplate = ({ allForms }: IMainTemplate) => {
   const filteredForms = sortForms(
     getFilteredForms(allForms.data, {
       type: selectedTypes,
-      country: selectedSubcategories.length ? selectedCountries : [],
+      country: selectedCountries,
       subcategory: selectedSubcategories,
     }),
     sortKey,
@@ -132,7 +132,7 @@ const MainTemplate = ({ allForms }: IMainTemplate) => {
   const categoriesByPurpose = getCategoriesByPurpose(formsByTypeAndCountry);
   const totalCount = getFilteredCount(allForms.data, {
     type: selectedTypes,
-    country: selectedSubcategories.length ? selectedCountries : [],
+    country: selectedCountries,
     subcategory: selectedSubcategories,
   });
   const formNames = allForms.data.map(({ id, name_form, url }) => ({

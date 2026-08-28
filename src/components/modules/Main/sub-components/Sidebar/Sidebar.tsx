@@ -162,7 +162,6 @@ const Sidebar = ({
       : [...selected, value];
 
     const query = { ...router.query };
-    delete query.subcategory;
 
     if (next.length) {
       query.country = next.join(",");

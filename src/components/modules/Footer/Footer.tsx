@@ -45,9 +45,6 @@ const Footer = ({ locale }: ILocale) => {
       }))}
       base={{
         url: process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN!,
-        localePathMap: {
-          ar: "",
-        },
       }}
       mailApiUrl={`${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}/api/sendsubscription`}
       mailApiType="Common"

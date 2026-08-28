@@ -60,9 +60,9 @@ const Head = ({ title, description }: IHead) => {
       <meta name="google" content="notranslate" />
 
       {[
-        "/fonts/Sora-Regular.woff2",
-        "/fonts/Sora-SemiBold.woff2",
-        "/fonts/Sora-Bold.woff2",
+        "/fonts/Sora/Sora-Regular.woff2",
+        "/fonts/Sora/Sora-SemiBold.woff2",
+        "/fonts/Sora/Sora-Bold.woff2",
       ].map((font) => (
         <link
           key={font}

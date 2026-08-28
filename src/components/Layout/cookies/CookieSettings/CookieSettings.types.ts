@@ -29,7 +29,6 @@
 import { IConsentData } from "@src/components/Layout/cookies/utils/useUtmCookies";
 
 export interface ICookieSettings {
-  showSettings: boolean;
   setShowSettings: (show: boolean) => void;
   consent: IConsentData;
   setShowFab: (show: boolean) => void;
