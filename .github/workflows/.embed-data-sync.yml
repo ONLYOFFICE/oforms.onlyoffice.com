@@ -1,0 +1,49 @@
+name: Sync embed data to S3
+
+on:
+  push:
+    branches: 
+     - release/v10.0.0
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    if: github.ref == 'refs/heads/release/v10.0.0'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            embed/package-lock.json
+
+      - name: Install dependencies
+        working-directory: embed
+        run: npm run install:all:ci
+
+      - name: Generate embed data
+        working-directory: embed
+        env:
+          EMBED_CMS_URL: ${{ vars.EMBED_CMS_URL }}
+        run: npm run generate
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ vars.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Sync data to S3
+        run: aws s3 sync public/embed-data ${{ vars.AWS_BUCKET_URL }}/oforms-editor/embed/
