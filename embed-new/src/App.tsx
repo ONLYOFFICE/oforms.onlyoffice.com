@@ -222,7 +222,10 @@ const App = () => {
             )}
           </button>
 
-          <span className={styles["toolbar-count"]}>
+          <span
+            className={styles["toolbar-count"]}
+            style={status === "ready" ? undefined : { visibility: "hidden" }}
+          >
             <span className={styles["toolbar-count-value"]}>
               {visible.length}
             </span>{" "}
