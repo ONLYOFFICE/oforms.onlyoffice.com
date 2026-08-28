@@ -77,16 +77,28 @@
     gap: 20px;
     padding: 24px;
   }
+
+  // One column, so the preview would otherwise be dialog-wide and 1.4x as tall.
+  .modal-preview {
+    justify-self: center;
+    max-width: 280px;
+  }
 }
 
+// Sized before the bitmap arrives, so the dialog opens at its final size
+// instead of growing. Portrait A4 is 511 of the 747 `en` previews; the other
+// 236 are matted into the same box.
 .modal-preview {
+  align-self: start;
+  aspect-ratio: 648 / 916;
   border: 1px solid var(--template-modal-wrap-border-bottom-color);
   border-radius: 4px;
   overflow: hidden;
 
   img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: contain;
   }
 }
 
