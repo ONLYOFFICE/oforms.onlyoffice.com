@@ -43,7 +43,7 @@ const Button = forwardRef<HTMLButtonElement, IButton>(
       tabIndex,
       type = "button",
       title,
-      as,
+      as = "button",
       href,
       target,
       download,
