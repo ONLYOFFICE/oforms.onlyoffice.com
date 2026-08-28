@@ -59,7 +59,6 @@ const PAGE_SIZE = 24;
 
 const App = () => {
   const { t } = useTranslation("embed");
-  const { t: tSearch } = useTranslation("searchresult");
 
   const [query, setQuery] = useState<ICatalogQuery>(readQuery);
   const [templates, setTemplates] = useState<ITemplate[]>([]);
@@ -224,9 +223,7 @@ const App = () => {
           </button>
 
           <span className={styles["toolbar-count"]}>
-            {query.q
-              ? tSearch("SearchResultsFor", { searchQuery: query.q })
-              : `${visible.length} ${t("Templates")}`}
+            {visible.length} {t("Templates")}
           </span>
         </div>
 
