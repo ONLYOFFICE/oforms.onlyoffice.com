@@ -78,6 +78,16 @@
   --language-switcher-menu-shadow-color: rgba(0, 0, 0, 0.12);
   --language-switcher-option-background-color-hover: #f2f4f8;
 
+  --search-input-icon-color: #9092a6;
+  --search-input-cross-icon-color: #7a7d94;
+  --search-input-border-color: #a6a8b8;
+  --search-input-border-color-hover: #3541f5;
+  --search-input-color: #494b5b;
+  --search-input-background-color: #ffffff;
+  --search-input-placeholder-color: #9092a6;
+  --search-input-with-value-border-color: #3541f5;
+  --search-input-with-value-background-color: #ffffff;
+
   --sidebar-mobile-background-color: #ffffff;
   --sidebar-clear-btn-border-color: #e1e1f7;
   --sidebar-clear-btn-color: #585a6d;

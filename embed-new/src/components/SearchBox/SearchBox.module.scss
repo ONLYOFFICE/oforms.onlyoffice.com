@@ -30,7 +30,8 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-block-end: 24px;
+  flex: 1 1 240px;
+  max-width: 420px;
   padding: 9px 14px;
   border: 1px solid var(--search-input-border-color);
   border-radius: 4px;

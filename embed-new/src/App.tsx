@@ -209,8 +209,6 @@ const App = () => {
 
   return (
     <div className={styles.app}>
-      <SearchBox value={query.q} onChange={(q) => filter({ q })} />
-
       <div className={styles.toolbar}>
         <div className={styles["toolbar-left"]}>
           <button
@@ -231,6 +229,8 @@ const App = () => {
               : `${visible.length} ${t("Templates")}`}
           </span>
         </div>
+
+        <SearchBox value={query.q} onChange={(q) => filter({ q })} />
 
         <div className={styles["toolbar-controls"]}>
           <SortSelect
