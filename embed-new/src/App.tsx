@@ -216,29 +216,17 @@ const App = () => {
   return (
     <div className={styles.app}>
       <div className={styles.toolbar}>
-        <div className={styles["toolbar-left"]}>
-          <button
-            type="button"
-            className={styles["toolbar-filters"]}
-            onClick={() => setIsDrawerOpen(true)}
-          >
-            <FiltersIcon />
-            {t("Filters")}
-            {hasFilters && (
-              <span className={styles["toolbar-filters-dot"]} aria-hidden />
-            )}
-          </button>
-
-          <span
-            className={styles["toolbar-count"]}
-            style={status === "ready" ? undefined : { visibility: "hidden" }}
-          >
-            <span className={styles["toolbar-count-value"]}>
-              {visible.length}
-            </span>{" "}
-            {t("Templates")}
-          </span>
-        </div>
+        <button
+          type="button"
+          className={styles["toolbar-filters"]}
+          onClick={() => setIsDrawerOpen(true)}
+        >
+          <FiltersIcon />
+          {t("Filters")}
+          {hasFilters && (
+            <span className={styles["toolbar-filters-dot"]} aria-hidden />
+          )}
+        </button>
 
         {!hidden.has("search") && (
           <SearchBox value={query.q} onChange={(q) => filter({ q })} />
