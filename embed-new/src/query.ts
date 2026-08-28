@@ -34,6 +34,7 @@ export interface ICatalogQuery {
   types: string[];
   countries: string[];
   subcategories: string[];
+  purposes: string[];
   sort: TSortKey;
   page: number;
   locale: Locale;
@@ -50,6 +51,7 @@ export function readQuery(): ICatalogQuery {
     types: getQueryValues(p.get("type")),
     countries: getQueryValues(p.get("country")),
     subcategories: getQueryValues(p.get("subcategory")),
+    purposes: getQueryValues(p.get("purpose")),
     sort: normalizeSortKey(p.get("sort")),
     page: Number.isFinite(page) && page > 0 ? page : 1,
     locale: normalizeLocale(p.get("locale")),
@@ -72,6 +74,7 @@ export function writeQuery(query: ICatalogQuery): void {
   set("type", query.types.join(","));
   set("country", query.countries.join(","));
   set("subcategory", query.subcategories.join(","));
+  set("purpose", query.purposes.join(","));
   set("sort", query.sort === "asc" ? "" : query.sort);
   set("page", query.page > 1 ? String(query.page) : "");
   set("locale", query.locale);

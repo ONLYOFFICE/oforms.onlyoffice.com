@@ -46,6 +46,13 @@
   margin-block-end: 24px;
 }
 
+.toolbar-left {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+}
+
 .toolbar-count {
   font-size: 14px;
   color: var(--main-count-color);

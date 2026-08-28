@@ -42,6 +42,7 @@ import {
   getCountries,
   getFilteredForms,
   getFormsByTypes,
+  getPurposes,
   groupFormsByExt,
   sortForms,
 } from "./lib/filters";
@@ -143,15 +144,33 @@ const App = () => {
     [templates, query.types],
   );
 
+  const purposes = useMemo(() => {
+    const counts = new Map<string, number>();
+    templates.forEach((form) => {
+      const keys = new Set<string>();
+      form.subcategories?.forEach((sub) =>
+        sub.parent_categories?.forEach((cat) => {
+          if (cat.purpose) keys.add(cat.purpose.key);
+        }),
+      );
+      keys.forEach((key) => counts.set(key, (counts.get(key) ?? 0) + 1));
+    });
+    return getPurposes(templates).map((purpose) => ({
+      ...purpose,
+      count: counts.get(purpose.key) ?? 0,
+    }));
+  }, [templates]);
+
   const categories = useMemo(
     () =>
       getCategories(
         getFilteredForms(templates, {
           type: query.types,
           country: query.countries,
+          purpose: query.purposes,
         }),
       ),
-    [templates, query.types, query.countries],
+    [templates, query.types, query.countries, query.purposes],
   );
 
   const visible = useMemo(() => {
@@ -161,6 +180,7 @@ const App = () => {
       type: query.types,
       country: query.subcategories.length ? query.countries : [],
       subcategory: query.subcategories,
+      purpose: query.purposes,
     });
 
     const term = query.q.trim().toLowerCase();
@@ -180,18 +200,16 @@ const App = () => {
   const hasFilters =
     query.types.length > 0 ||
     query.countries.length > 0 ||
-    query.subcategories.length > 0;
+    query.subcategories.length > 0 ||
+    query.purposes.length > 0;
+
+  const clearFilters = () =>
+    filter({ types: [], countries: [], subcategories: [], purposes: [] });
 
   return (
     <div className={styles.app}>
       <div className={styles.toolbar}>
-        <span className={styles["toolbar-count"]}>
-          {query.q
-            ? tSearch("SearchResultsFor", { searchQuery: query.q })
-            : `${visible.length} ${t("Templates")}`}
-        </span>
-
-        <div className={styles["toolbar-controls"]}>
+        <div className={styles["toolbar-left"]}>
           <button
             type="button"
             className={styles["toolbar-filters"]}
@@ -204,6 +222,14 @@ const App = () => {
             )}
           </button>
 
+          <span className={styles["toolbar-count"]}>
+            {query.q
+              ? tSearch("SearchResultsFor", { searchQuery: query.q })
+              : `${visible.length} ${t("Templates")}`}
+          </span>
+        </div>
+
+        <div className={styles["toolbar-controls"]}>
           <SortSelect
             value={query.sort}
             onChange={(sort) => filter({ sort })}
@@ -247,12 +273,7 @@ const App = () => {
             />
           </>
         ) : (
-          <EmptyState
-            hasFilters={hasFilters}
-            onClearFilters={() =>
-              filter({ types: [], countries: [], subcategories: [] })
-            }
-          />
+          <EmptyState hasFilters={hasFilters} onClearFilters={clearFilters} />
         ))}
 
       <FilterDrawer
@@ -261,9 +282,11 @@ const App = () => {
         typeCounts={typeCounts}
         countries={countries}
         categories={categories}
+        purposes={purposes}
         selectedTypes={query.types}
         selectedCountries={query.countries}
         selectedSubcategories={query.subcategories}
+        selectedPurposes={query.purposes}
         onToggleType={(value) =>
           filter({ types: toggleValue(query.types, value) })
         }
@@ -273,9 +296,10 @@ const App = () => {
         onToggleSubcategory={(value) =>
           filter({ subcategories: toggleValue(query.subcategories, value) })
         }
-        onClearAll={() =>
-          filter({ types: [], countries: [], subcategories: [] })
+        onTogglePurpose={(value) =>
+          filter({ purposes: toggleValue(query.purposes, value) })
         }
+        onClearAll={clearFilters}
       />
 
       <TemplateModal

@@ -30,7 +30,12 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 import { ChevronIcon, CrossIcon } from "../icons";
-import { TYPE_ORDER, type ICategoryTree, type ICountry } from "../../types";
+import {
+  TYPE_ORDER,
+  type ICategoryTree,
+  type ICountry,
+  type IPurpose,
+} from "../../types";
 import type { TAllowedTypes } from "../../types";
 import styles from "./FilterDrawer.module.scss";
 
@@ -47,12 +52,15 @@ interface IFilterDrawerProps {
   typeCounts: Record<TAllowedTypes, number>;
   countries: (ICountry & { count: number })[];
   categories: ICategoryTree[];
+  purposes: (IPurpose & { count: number })[];
   selectedTypes: string[];
   selectedCountries: string[];
   selectedSubcategories: string[];
+  selectedPurposes: string[];
   onToggleType: (value: string) => void;
   onToggleCountry: (value: string) => void;
   onToggleSubcategory: (value: string) => void;
+  onTogglePurpose: (value: string) => void;
   onClearAll: () => void;
 }
 
@@ -111,12 +119,15 @@ const FilterDrawer = ({
   typeCounts,
   countries,
   categories,
+  purposes,
   selectedTypes,
   selectedCountries,
   selectedSubcategories,
+  selectedPurposes,
   onToggleType,
   onToggleCountry,
   onToggleSubcategory,
+  onTogglePurpose,
   onClearAll,
 }: IFilterDrawerProps) => {
   const { t } = useTranslation("MainTemplate");
@@ -136,7 +147,8 @@ const FilterDrawer = ({
   const hasFilters =
     selectedTypes.length > 0 ||
     selectedCountries.length > 0 ||
-    selectedSubcategories.length > 0;
+    selectedSubcategories.length > 0 ||
+    selectedPurposes.length > 0;
 
   return (
     <div className={styles.overlay}>
@@ -176,6 +188,20 @@ const FilterDrawer = ({
               />
             ))}
           </Group>
+
+          {purposes.length > 0 && (
+            <Group title={t("Purpose")}>
+              {purposes.map((purpose) => (
+                <Check
+                  key={purpose.id}
+                  label={purpose.name}
+                  count={purpose.count}
+                  checked={selectedPurposes.includes(purpose.key)}
+                  onChange={() => onTogglePurpose(purpose.key)}
+                />
+              ))}
+            </Group>
+          )}
 
           {categories.length > 0 && (
             <Group title={t("Сategories")} defaultOpen={false}>
