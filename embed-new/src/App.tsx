@@ -223,7 +223,10 @@ const App = () => {
           </button>
 
           <span className={styles["toolbar-count"]}>
-            {visible.length} {t("Templates")}
+            <span className={styles["toolbar-count-value"]}>
+              {visible.length}
+            </span>{" "}
+            {t("Templates")}
           </span>
         </div>
 

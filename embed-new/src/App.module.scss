@@ -58,6 +58,15 @@
   color: var(--main-count-color);
 }
 
+// Reserved so the count keeps its width from 0 to 9999 and nothing beside it
+// shifts while typing. Largest catalog today is 747 (en).
+.toolbar-count-value {
+  display: inline-block;
+  min-width: 4ch;
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+
 .toolbar-controls {
   display: flex;
   flex-wrap: wrap;
