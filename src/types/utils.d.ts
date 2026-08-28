@@ -55,7 +55,6 @@ declare module "onlyoffice-react-ui-kit/footer" {
     }[];
     base: {
       url: string;
-      localePathMap: Record<string, string>;
     };
     mailApiUrl: string;
     mailApiType: "Common" | "AppServer" | "Opensource";
@@ -78,7 +77,6 @@ declare module "onlyoffice-react-ui-kit/header" {
     }[];
     base: {
       url: string;
-      localePathMap: Record<string, string>;
     };
     phone?: {
       show: boolean;

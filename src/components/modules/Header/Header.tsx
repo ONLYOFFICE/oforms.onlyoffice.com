@@ -56,9 +56,6 @@ const Header = ({ locale, headerBgColor }: IHeader) => {
         }))}
         base={{
           url: process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN!,
-          localePathMap: {
-            ar: "",
-          },
         }}
         phone={{
           show: true,
