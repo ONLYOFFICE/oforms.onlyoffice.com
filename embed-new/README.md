@@ -56,18 +56,23 @@ move this JSON to a Pages host; it is ~17 MB across all locales.
 
 ## Deploy — Cloudflare Pages
 
-Cloudflare runs the build, so there is no CI workflow and no build output in the
-repo. Connect the GitHub repo and set:
+Direct upload with wrangler, same as `onlyoffice.github.io`. The Pages project
+does **not** need to be connected to a git repo.
 
-| Setting | Value |
-|---|---|
-| Root directory | `embed-new` |
-| Build command | `npm run build` |
-| Build output directory | `dist` |
+Ad hoc, from a local build:
 
-Every branch gets a preview URL. `static/_headers` caches hashed assets forever
-and keeps `index.html` uncached.
+```bash
+npm run build
+npx wrangler pages deploy dist --project-name=<project>
+```
 
-The build reads `../public/locales` and `../public/images`, so the whole repo
-must be checked out — set the root directory, don't point Cloudflare at a
-detached copy of `embed-new`.
+In CI: `.github/workflows/deploy-embed-cloudflare.yml` (manual, or on push to
+the embed paths). Needs `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` and
+`CLOUDFLARE_EMBED_PROJECT_NAME`. Non-production branches land as preview
+deployments with their own URLs.
+
+`static/_headers` is copied into the output — hashed assets cached forever,
+`index.html` uncached so a deploy takes effect immediately.
+
+Note the build reads `../public/locales` and `../public/images`, so it needs the
+whole repo checked out, not a detached copy of `embed-new`.
