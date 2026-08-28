@@ -127,20 +127,6 @@
   padding-block-end: 8px;
 }
 
-.subgroup {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding-block: 6px;
-}
-
-.subgroup-title {
-  padding-block: 4px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--sidebar-item-header-heading-sub-color);
-}
-
 .check {
   display: flex;
   align-items: center;

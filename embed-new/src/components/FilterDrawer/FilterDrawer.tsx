@@ -32,7 +32,7 @@ import clsx from "clsx";
 import { ChevronIcon, CrossIcon } from "../icons";
 import {
   TYPE_ORDER,
-  type ICategoryTree,
+  type ICategoryCount,
   type ICountry,
   type IPurpose,
 } from "../../types";
@@ -51,15 +51,15 @@ interface IFilterDrawerProps {
   onClose: () => void;
   typeCounts: Record<TAllowedTypes, number>;
   countries: (ICountry & { count: number })[];
-  categories: ICategoryTree[];
+  categories: ICategoryCount[];
   purposes: (IPurpose & { count: number })[];
   selectedTypes: string[];
   selectedCountries: string[];
-  selectedSubcategories: string[];
+  selectedCategories: string[];
   selectedPurposes: string[];
   onToggleType: (value: string) => void;
   onToggleCountry: (value: string) => void;
-  onToggleSubcategory: (value: string) => void;
+  onToggleCategory: (value: string) => void;
   onTogglePurpose: (value: string) => void;
   onClearAll: () => void;
 }
@@ -122,11 +122,11 @@ const FilterDrawer = ({
   purposes,
   selectedTypes,
   selectedCountries,
-  selectedSubcategories,
+  selectedCategories,
   selectedPurposes,
   onToggleType,
   onToggleCountry,
-  onToggleSubcategory,
+  onToggleCategory,
   onTogglePurpose,
   onClearAll,
 }: IFilterDrawerProps) => {
@@ -147,7 +147,7 @@ const FilterDrawer = ({
   const hasFilters =
     selectedTypes.length > 0 ||
     selectedCountries.length > 0 ||
-    selectedSubcategories.length > 0 ||
+    selectedCategories.length > 0 ||
     selectedPurposes.length > 0;
 
   return (
@@ -204,22 +204,15 @@ const FilterDrawer = ({
           )}
 
           {categories.length > 0 && (
-            <Group title={t("Сategories")} defaultOpen={false}>
-              {categories.map(({ category, subcategories }) => (
-                <div key={category.id} className={styles.subgroup}>
-                  <span className={styles["subgroup-title"]}>
-                    {category.name}
-                  </span>
-                  {subcategories.map((sub) => (
-                    <Check
-                      key={sub.id}
-                      label={sub.name}
-                      count={sub.count}
-                      checked={selectedSubcategories.includes(sub.urlReq)}
-                      onChange={() => onToggleSubcategory(sub.urlReq)}
-                    />
-                  ))}
-                </div>
+            <Group title={t("Сategories")}>
+              {categories.map((category) => (
+                <Check
+                  key={category.id}
+                  label={category.name}
+                  count={category.count}
+                  checked={selectedCategories.includes(category.urlReq)}
+                  onChange={() => onToggleCategory(category.urlReq)}
+                />
               ))}
             </Group>
           )}

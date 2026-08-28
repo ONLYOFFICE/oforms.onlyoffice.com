@@ -22,7 +22,7 @@ npm run build
 | `q` | search term (substring on the template name), set by the host |
 | `type` | comma list of `docx,xlsx,pptx,pdf` |
 | `country` | comma list of lowercase country codes |
-| `subcategory` | comma list of subcategory slugs |
+| `category` | comma list of category slugs, e.g. `contracts-legal` |
 | `page` | 1-based page index |
 | `locale` | `ar de en es fr it ja pt zh` |
 | `theme` | token overrides — JSON, or `name:value;name:value` |

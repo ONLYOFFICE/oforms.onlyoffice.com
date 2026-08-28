@@ -180,12 +180,12 @@ const App = () => {
   );
 
   const visible = useMemo(() => {
-    // Country only narrows the result once a subcategory is chosen — this
-    // matches the site and is deliberate, not an oversight.
+    // Country only narrows the result once a category is chosen — this matches
+    // the site and is deliberate, not an oversight.
     const filtered = getFilteredForms(templates, {
       type: query.types,
-      country: query.subcategories.length ? query.countries : [],
-      subcategory: query.subcategories,
+      country: query.categories.length ? query.countries : [],
+      category: query.categories,
       purpose: query.purposes,
     });
 
@@ -199,7 +199,7 @@ const App = () => {
     templates,
     query.types,
     query.countries,
-    query.subcategories,
+    query.categories,
     query.purposes,
     query.q,
   ]);
@@ -211,11 +211,11 @@ const App = () => {
   const hasFilters =
     query.types.length > 0 ||
     query.countries.length > 0 ||
-    query.subcategories.length > 0 ||
+    query.categories.length > 0 ||
     query.purposes.length > 0;
 
   const clearFilters = () =>
-    filter({ types: [], countries: [], subcategories: [], purposes: [] });
+    filter({ types: [], countries: [], categories: [], purposes: [] });
 
   return (
     <div className={styles.app}>
@@ -287,7 +287,7 @@ const App = () => {
         purposes={purposes}
         selectedTypes={query.types}
         selectedCountries={query.countries}
-        selectedSubcategories={query.subcategories}
+        selectedCategories={query.categories}
         selectedPurposes={query.purposes}
         onToggleType={(value) =>
           filter({ types: toggleValue(query.types, value) })
@@ -295,8 +295,8 @@ const App = () => {
         onToggleCountry={(value) =>
           filter({ countries: toggleValue(query.countries, value) })
         }
-        onToggleSubcategory={(value) =>
-          filter({ subcategories: toggleValue(query.subcategories, value) })
+        onToggleCategory={(value) =>
+          filter({ categories: toggleValue(query.categories, value) })
         }
         onTogglePurpose={(value) =>
           filter({ purposes: toggleValue(query.purposes, value) })

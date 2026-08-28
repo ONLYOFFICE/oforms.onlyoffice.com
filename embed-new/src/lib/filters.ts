@@ -36,11 +36,9 @@
  */
 import {
   ALLOWED_TYPES,
-  type ICategoryTree,
+  type ICategoryCount,
   type ICountry,
-  type IParentCategory,
   type IPurpose,
-  type ISubcategoryCount,
   type ITemplate,
   type TAllowedTypes,
 } from "../types";
@@ -58,14 +56,14 @@ interface IFormsFilters {
   type?: string[];
   country?: string[];
   purpose?: string[];
-  subcategory?: string[];
+  category?: string[];
 }
 
 export const getFilteredForms = (
   forms: ITemplate[] | undefined,
   filters: IFormsFilters,
 ): ITemplate[] => {
-  const { type, country, purpose, subcategory } = filters;
+  const { type, country, purpose, category } = filters;
 
   return (
     forms?.filter((form) => {
@@ -97,8 +95,10 @@ export const getFilteredForms = (
       }
 
       if (
-        subcategory?.length &&
-        !form.subcategories?.some((sub) => subcategory.includes(sub.urlReq))
+        category?.length &&
+        !form.subcategories?.some((sub) =>
+          sub.parent_categories?.some((cat) => category.includes(cat.urlReq)),
+        )
       ) {
         return false;
       }
@@ -175,97 +175,33 @@ export const getPurposes = (forms: ITemplate[] | undefined): IPurpose[] =>
   );
 
 /**
- * Flat category list for the filter drawer.
+ * Flat parent-category list for the filter drawer.
  *
- * The site groups categories under a purpose; this version filters by
- * subcategory only, so purposes are collapsed away and duplicates (a category
- * reachable from more than one purpose) are removed.
+ * The site nests purpose > category > subcategory; the drawer offers only the
+ * 17 parent categories, so both the purpose grouping and the 53 subcategories
+ * are collapsed away. A template counts once per category however many of its
+ * subcategories lead there.
  */
 export const getCategories = (
   forms: ITemplate[] | undefined,
-): ICategoryTree[] => {
-  const seen = new Map<number, ICategoryTree>();
+): ICategoryCount[] => {
+  const categoryMap = new Map<number, ICategoryCount>();
 
-  Object.values(getCategoriesByPurpose(forms))
-    .flat()
-    .forEach((entry) => {
-      if (!seen.has(entry.category.id)) seen.set(entry.category.id, entry);
-    });
-
-  return Array.from(seen.values()).sort(
-    (a, b) =>
-      new Date(a.category.createdAt).getTime() -
-      new Date(b.category.createdAt).getTime(),
-  );
-};
-
-export const getCategoriesByPurpose = (
-  forms: ITemplate[] | undefined,
-): Record<string, ICategoryTree[]> => {
-  const subcategoryCounts: Record<number, number> = {};
   forms?.forEach((form) => {
     const seen = new Set<number>();
     form.subcategories?.filter(Boolean).forEach((sub) => {
-      if (seen.has(sub.id)) return;
-      seen.add(sub.id);
-      subcategoryCounts[sub.id] = (subcategoryCounts[sub.id] ?? 0) + 1;
-    });
-  });
-
-  const purposeMap = new Map<
-    string,
-    {
-      purpose: IPurpose;
-      categories: Map<
-        number,
-        { category: IParentCategory; subcategories: Map<number, ISubcategoryCount> }
-      >;
-    }
-  >();
-
-  forms?.forEach((form) => {
-    form.subcategories?.filter(Boolean).forEach((sub) => {
       sub.parent_categories?.filter(Boolean).forEach((category) => {
-        const purpose = category.purpose;
-        if (!purpose) return;
+        if (seen.has(category.id)) return;
+        seen.add(category.id);
 
-        if (!purposeMap.has(purpose.key)) {
-          purposeMap.set(purpose.key, { purpose, categories: new Map() });
-        }
-        const purposeEntry = purposeMap.get(purpose.key)!;
-
-        if (!purposeEntry.categories.has(category.id)) {
-          purposeEntry.categories.set(category.id, {
-            category,
-            subcategories: new Map(),
-          });
-        }
-        const categoryEntry = purposeEntry.categories.get(category.id)!;
-
-        categoryEntry.subcategories.set(sub.id, {
-          ...sub,
-          count: subcategoryCounts[sub.id] ?? 0,
-        });
+        const existing = categoryMap.get(category.id);
+        if (existing) existing.count += 1;
+        else categoryMap.set(category.id, { ...category, count: 1 });
       });
     });
   });
 
-  const result: Record<string, ICategoryTree[]> = {};
-  purposeMap.forEach(({ purpose, categories }) => {
-    result[purpose.key] = Array.from(categories.values())
-      .map(({ category, subcategories }) => ({
-        category,
-        subcategories: Array.from(subcategories.values()).sort(
-          (a, b) =>
-            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-        ),
-      }))
-      .sort(
-        (a, b) =>
-          new Date(a.category.createdAt).getTime() -
-          new Date(b.category.createdAt).getTime(),
-      );
-  });
-
-  return result;
+  return Array.from(categoryMap.values()).sort(
+    (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+  );
 };

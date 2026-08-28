@@ -116,12 +116,7 @@ export interface ICatalog {
   meta?: unknown;
 }
 
-/** A subcategory plus how many templates currently fall under it. */
-export interface ISubcategoryCount extends ISubcategory {
+/** A parent category plus how many templates currently fall under it. */
+export interface ICategoryCount extends IParentCategory {
   count: number;
-}
-
-export interface ICategoryTree {
-  category: IParentCategory;
-  subcategories: ISubcategoryCount[];
 }

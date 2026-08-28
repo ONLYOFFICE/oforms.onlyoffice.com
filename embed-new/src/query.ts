@@ -33,7 +33,7 @@ export interface ICatalogQuery {
   q: string;
   types: string[];
   countries: string[];
-  subcategories: string[];
+  categories: string[];
   purposes: string[];
   page: number;
   locale: Locale;
@@ -49,7 +49,7 @@ export function readQuery(): ICatalogQuery {
     q: (p.get("q") ?? "").trim(),
     types: getQueryValues(p.get("type")),
     countries: getQueryValues(p.get("country")),
-    subcategories: getQueryValues(p.get("subcategory")),
+    categories: getQueryValues(p.get("category")),
     purposes: getQueryValues(p.get("purpose")),
     page: Number.isFinite(page) && page > 0 ? page : 1,
     locale: normalizeLocale(p.get("locale")),
@@ -71,7 +71,7 @@ export function writeQuery(query: ICatalogQuery): void {
   set("q", query.q);
   set("type", query.types.join(","));
   set("country", query.countries.join(","));
-  set("subcategory", query.subcategories.join(","));
+  set("category", query.categories.join(","));
   set("purpose", query.purposes.join(","));
   set("page", query.page > 1 ? String(query.page) : "");
   set("locale", query.locale);
