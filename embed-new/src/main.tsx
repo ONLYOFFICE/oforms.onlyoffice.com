@@ -1,0 +1,73 @@
+/*
+ * (c) Copyright Ascensio System SIA 2009-2026
+ *
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms
+ * of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+ * Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+ * to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of
+ * any third-party rights.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY, without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see
+ * the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ *
+ * The  interactive user interfaces in modified source and object code versions of the Program must
+ * display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ *
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when
+ * distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under
+ * trademark law for use of our trademarks.
+ *
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+ * content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+ * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ */
+
+import "./styles/tokens.css";
+import "./styles/base.css";
+
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { App } from "./App";
+import { initI18n } from "./i18n";
+import { normalizeLocale } from "./locale";
+import { readBootParams, readQuery } from "./query";
+import { applyTheme, parseThemeParam } from "./theme";
+
+/**
+ * Theme and font arrive as query params so the very first paint is already
+ * correct — waiting for a postMessage would show a flash of the default theme.
+ * Live changes after boot come through the bridge (see App).
+ */
+function applyBootParams(): void {
+  const { theme, font } = readBootParams();
+  const root = document.documentElement;
+
+  const tokens = parseThemeParam(theme);
+  if (tokens) applyTheme(tokens, root);
+  if (font) root.style.setProperty("--font-family-base", font);
+}
+
+async function start(): Promise<void> {
+  applyBootParams();
+
+  const locale = normalizeLocale(readQuery().locale);
+  await initI18n(locale);
+
+  const container = document.getElementById("root");
+  if (!container) {
+    console.error("[oforms-embed] #root not found");
+    return;
+  }
+
+  createRoot(container).render(
+    <StrictMode>
+      <App />
+    </StrictMode>,
+  );
+}
+
+void start();

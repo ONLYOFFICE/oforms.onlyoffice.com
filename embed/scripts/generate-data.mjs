@@ -15,6 +15,7 @@ const require = createRequire(import.meta.url);
 const CONFIG = require("../../src/config/config.json");
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const OUT_DIR = join(__dirname, "..", "..", "public", "embed-data");
 const CMS = (process.env.EMBED_CMS_URL || CONFIG.api.cms).replace(/\/$/, "");
 const CMS_ORIGIN = new URL(CMS).origin;
 const ALL_LOCALES = ["ar", "de", "en", "es", "fr", "it", "ja", "pt", "zh"];
@@ -101,9 +102,8 @@ async function generateLocale(locale) {
   }
 
   const output = { data: absolutizePreviews(data), meta: first.meta };
-  const outDir = join(__dirname, "..", "..", "public", "embed-data");
-  await mkdir(outDir, { recursive: true });
-  await writeFile(join(outDir, `main.${locale}.json`), JSON.stringify(output));
+  await mkdir(OUT_DIR, { recursive: true });
+  await writeFile(join(OUT_DIR, `main.${locale}.json`), JSON.stringify(output));
   console.log(
     `✓ ${String(data.length).padStart(4)} templates → public/embed-data/main.${locale}.json`,
   );
@@ -114,6 +114,12 @@ async function main() {
   for (const locale of LOCALES) {
     await generateLocale(locale);
   }
+
+  // 202608281603 — the embed appends it as ?v= so a sync replaces cached copies.
+  const version = new Date().toISOString().replace(/\D/g, "").slice(0, 12);
+  await writeFile(join(OUT_DIR, "version.txt"), version);
+  console.log(`✓ version ${version} → public/embed-data/version.txt`);
+
   console.log(
     "\nWritten to public/embed-data/ — uploaded to the bucket by the embed-data-sync workflow,\n" +
       "then fetched by the bundle at runtime.",

@@ -1,0 +1,143 @@
+/*
+ * (c) Copyright Ascensio System SIA 2009-2026
+ *
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms
+ * of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+ * Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+ * to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of
+ * any third-party rights.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY, without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see
+ * the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ *
+ * The  interactive user interfaces in modified source and object code versions of the Program must
+ * display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ *
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when
+ * distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under
+ * trademark law for use of our trademarks.
+ *
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+ * content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+ * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ */
+
+/**
+ * Design tokens.
+ *
+ * These are the defaults. The desktop host overrides any subset by setting the
+ * same custom properties as INLINE styles on <html> (see theme.ts) — inline
+ * declarations beat this stylesheet, so no !important or per-var fallback is
+ * needed.
+ *
+ * Names match embed/theme.default.json so an existing host integration keeps
+ * working unchanged.
+ */
+:root {
+  /* The page is framed, so the host font cannot be inherited — it is passed in
+     via the `font` query param or a postMessage and lands here. */
+  --font-family-base:
+    "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial,
+    sans-serif;
+
+  --main-background-color: #ffffff;
+  --main-count-color: #9092a6;
+  --main-filters-button-icon-color: #666980;
+  --main-section-heading-color: #21222b;
+
+  --card-preview-wrapper-border-color: rgba(122, 125, 148, 0.4);
+  --card-preview-wrapper-background-color: #ffffff;
+  --card-heading-color: #21222b;
+
+  --badge-wrapper-border-color: #d4d4ff;
+  --badge-wrapper-background-color-hover: rgba(53, 65, 245, 0.07);
+  --badge-wrapper-box-shadow-color-hover: #8183f7;
+  --badge-wrapper-background-color-checked: rgba(53, 65, 245, 0.07);
+  --badge-label-color: #494b5b;
+  --badge-label-color-checked: #001bd2;
+  --badge-count-color: #9092a6;
+  --badge-count-color-checked: #5c61f6;
+
+  --switch-text-color: #7a7d94;
+  --switch-background-color-hover: rgba(53, 65, 245, 0.07);
+  --switch-box-shadow-color-hover: #8183f7;
+  --switch-color-checked: #001bd2;
+  --switch-background-color-checked: rgba(53, 65, 245, 0.07);
+
+  --language-switcher-border-color: #e5e6ed;
+  --language-switcher-border-color-hover: #c7c9d6;
+  --language-switcher-background-color: #ffffff;
+  --language-switcher-color: #333333;
+  --language-switcher-active-color: #ff6f3d;
+  --language-switcher-menu-background-color: #ffffff;
+  --language-switcher-menu-shadow-color: rgba(0, 0, 0, 0.12);
+  --language-switcher-option-background-color-hover: #f2f4f8;
+
+  --search-input-icon-color: #9092a6;
+  --search-input-cross-icon-color: #7a7d94;
+  --search-input-border-color: #a6a8b8;
+  --search-input-border-color-hover: #3541f5;
+  --search-input-color: #494b5b;
+  --search-input-background-color: #ffffff;
+  --search-input-placeholder-color: #9092a6;
+  --search-input-with-value-border-color: #3541f5;
+  --search-input-with-value-background-color: #ffffff;
+
+  --sidebar-mobile-background-color: #ffffff;
+  --sidebar-clear-btn-border-color: #e1e1f7;
+  --sidebar-clear-btn-color: #585a6d;
+  --sidebar-clear-btn-background-color: #e7e8ee;
+  --sidebar-clear-btn-background-color-hover: #dcdde6;
+  --sidebar-item-border-color: rgba(53, 65, 245, 0.07);
+  --sidebar-item-header-heading-color: #494b5b;
+  --sidebar-item-header-count-color: #ffffff;
+  --sidebar-item-header-count-background-color: #000122;
+  --sidebar-item-text-color: #9092a6;
+  --sidebar-item-show-less-btn-color: #3a3c49;
+  --sidebar-item-chevron-down-icon-color: #a6a8b8;
+
+  --sort-selector-label-color: #9092a6;
+  --sort-selector-button-color: #21222b;
+  --sort-selector-chevron-down-icon-color: #666980;
+  --sort-selector-dropdown-border-color: #3541f5;
+  --sort-selector-dropdown-background-color: #ffffff;
+  --sort-selector-dropdown-box-shadow-color: #cfdbf4;
+  --sort-selector-option-color: #9092a6;
+  --sort-selector-option-background-color-hover: rgba(53, 65, 245, 0.07);
+  --sort-selector-option-color-active: #001bd2;
+  --sort-selector-option-background-color-active: rgba(53, 65, 245, 0.07);
+
+  --template-modal-overlay-background-color: rgba(0, 0, 0, 0.35);
+  --template-modal-wrapper-background-color: #ffffff;
+  --template-modal-wrapper-border-color: #cbcbcb;
+  --template-modal-wrap-border-bottom-color: #e1e1e1;
+  --template-modal-heading-color: #383838;
+  --template-modal-tag-border-color: #ccdbfb;
+  --template-modal-tag-color: #383838;
+  --template-modal-label-color: #383838;
+  --template-modal-text-color: #494b5b;
+  --template-modal-file-item-color: #686868;
+  --template-modal-file-value-color: #383838;
+  --template-modal-btn-box-shadow-color: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+  --template-modal-btn-primary-color: #ffffff;
+  --template-modal-btn-primary-background-color: #4a87e7;
+  --template-modal-btn-secondary-border-color: #e7e8ee;
+  --template-modal-btn-secondary-color: #21222b;
+  --template-modal-btn-secondary-background-color: transparent;
+
+  --search-result-no-results-found-text-color: #494b5b;
+  --search-result-no-results-found-subtext-color: #666980;
+
+  /* New in this version — pagination did not exist before. */
+  --pagination-color: #494b5b;
+  --pagination-border-color: #e5e6ed;
+  --pagination-background-color: #ffffff;
+  --pagination-background-color-hover: rgba(53, 65, 245, 0.07);
+  --pagination-color-active: #ffffff;
+  --pagination-background-color-active: #000122;
+  --pagination-color-disabled: #c7c9d6;
+}

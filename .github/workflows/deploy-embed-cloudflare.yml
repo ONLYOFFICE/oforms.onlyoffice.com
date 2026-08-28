@@ -1,0 +1,49 @@
+name: Deploy embed to Cloudflare Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/embed-new
+    paths:
+      - "embed-new/**"
+      # The build bundles UI strings and card icons from the site's public/.
+      - "public/locales/**"
+      - "public/images/**"
+      - ".github/workflows/deploy-embed-cloudflare.yml"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+          cache-dependency-path: embed-new/package-lock.json
+
+      - name: Install
+        working-directory: embed-new
+        run: npm ci
+
+      # Also typechecks — the build script is `tsc --noEmit && vite build`.
+      - name: Build
+        working-directory: embed-new
+        run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: >-
+            pages deploy embed-new/dist
+            --project-name=${{ secrets.CLOUDFLARE_EMBED_PROJECT_NAME }}
+            --branch=${{ github.ref_name }}
