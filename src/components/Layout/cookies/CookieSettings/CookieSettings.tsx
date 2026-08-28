@@ -41,7 +41,6 @@ import { ICookieSettings } from "./CookieSettings.types";
 import styles from "./CookieSettings.module.scss";
 
 const CookieSettings = ({
-  showSettings,
   setShowSettings,
   consent,
   setShowFab,
@@ -78,7 +77,7 @@ const CookieSettings = ({
 
   return (
     <Modal
-      isOpen={showSettings}
+      isOpen={true}
       onClose={() => setShowSettings(false)}
       maxWidth="600px"
       bgColor="transparent"

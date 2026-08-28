@@ -290,13 +290,14 @@ const CookieBanner = () => {
           </div>
         </div>
       )}
-      <CookieSettings
-        showSettings={showSettings}
-        setShowSettings={handleSettings}
-        consent={consent ? consent : DEFAULT_CONSENT}
-        setShowFab={setShowFab}
-        setConsent={setConsent}
-      />
+      {showSettings && (
+        <CookieSettings
+          setShowSettings={handleSettings}
+          consent={consent ? consent : DEFAULT_CONSENT}
+          setShowFab={setShowFab}
+          setConsent={setConsent}
+        />
+      )}
     </>
   );
 };
