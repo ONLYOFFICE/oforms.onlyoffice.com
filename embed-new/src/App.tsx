@@ -49,7 +49,13 @@ import {
 } from "./lib/filters";
 import { initI18n } from "./i18n";
 import { isRtlLocale, type Locale } from "./locale";
-import { readQuery, toggleValue, writeQuery, type ICatalogQuery } from "./query";
+import {
+  readHidden,
+  readQuery,
+  toggleValue,
+  writeQuery,
+  type ICatalogQuery,
+} from "./query";
 import { notifyReady, onHostMessage, requestOpenTemplate } from "./bridge";
 import { applyTheme } from "./theme";
 import { TYPE_ORDER, type ITemplate, type TAllowedTypes } from "./types";
@@ -69,6 +75,7 @@ const App = () => {
   const [selected, setSelected] = useState<ITemplate | null>(null);
   // Bumped to re-run the fetch when the locale has not changed (retry).
   const [reloadToken, setReloadToken] = useState(0);
+  const [hidden] = useState(readHidden);
 
   const update = useCallback((patch: Partial<ICatalogQuery>) => {
     setQuery((prev) => {
@@ -233,7 +240,9 @@ const App = () => {
           </span>
         </div>
 
-        <SearchBox value={query.q} onChange={(q) => filter({ q })} />
+        {!hidden.has("search") && (
+          <SearchBox value={query.q} onChange={(q) => filter({ q })} />
+        )}
 
         <div className={styles["toolbar-controls"]}>
           <SortSelect
@@ -241,10 +250,12 @@ const App = () => {
             onChange={(sort) => filter({ sort })}
           />
 
-          <LanguageSelect
-            value={query.locale}
-            onChange={(locale) => filter({ locale })}
-          />
+          {!hidden.has("lang") && (
+            <LanguageSelect
+              value={query.locale}
+              onChange={(locale) => filter({ locale })}
+            />
+          )}
         </div>
       </div>
 

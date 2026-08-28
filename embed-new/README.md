@@ -28,6 +28,10 @@ npm run build
 | `locale` | `ar de en es fr it ja pt zh` |
 | `theme` | token overrides — JSON, or `name:value;name:value` |
 | `font` | host font family |
+| `hide` | chrome the host supplies itself: `lang`, `search` (comma list) |
+
+`?hide=lang` removes the language selector but not locale switching — the host
+still drives that with `?locale=` or a `locale` message.
 
 `theme` and `font` are params (not messages) so the first paint is already
 correct. Colours are CSS custom properties — see `src/styles/tokens.css`, names

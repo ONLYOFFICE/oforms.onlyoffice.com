@@ -93,6 +93,10 @@ export function readBootParams(): { theme: string | null; font: string | null } 
   return { theme: p.get("theme"), font: p.get("font") };
 }
 
+/** Chrome the host supplies itself, e.g. `?hide=lang,search`. */
+export const readHidden = (): Set<string> =>
+  new Set(getQueryValues(params().get("hide")));
+
 /** Toggles a value in a list, returning a new list. */
 export const toggleValue = (list: string[], value: string): string[] =>
   list.includes(value)
