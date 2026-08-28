@@ -141,26 +141,10 @@
   background-color: #d10f33;
 }
 
-.card-body {
-  display: block;
-}
-
 .card-heading {
   display: block;
-  margin-block-end: 8px;
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
   color: var(--card-heading-color);
-}
-
-.card-description {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--card-description-color);
-  overflow: hidden;
 }

@@ -87,12 +87,7 @@ const Card = ({ template, onSelect }: ICardProps) => {
         </span>
       </span>
 
-      <span className={styles["card-body"]}>
-        <span className={styles["card-heading"]}>{template.name_form}</span>
-        <span className={styles["card-description"]}>
-          {template.description_card}
-        </span>
-      </span>
+      <span className={styles["card-heading"]}>{template.name_form}</span>
     </button>
   );
 };
