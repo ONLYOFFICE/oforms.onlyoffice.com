@@ -35,16 +35,31 @@ const DATA_URL = (process.env.EMBED_DATA_URL || "").replace(/\/$/, "");
 // the 8s the old bundle used.
 const FETCH_TIMEOUT_MS = 15000;
 
+const RETRIES = 2;
+
 export const catalogUrl = (locale: Locale) => `${DATA_URL}/main.${locale}.json`;
 
+const wait = (ms: number, signal?: AbortSignal) =>
+  new Promise<void>((resolve, reject) => {
+    const timer = setTimeout(resolve, ms);
+    signal?.addEventListener(
+      "abort",
+      () => {
+        clearTimeout(timer);
+        reject(signal.reason);
+      },
+      { once: true },
+    );
+  });
+
 /**
- * Fetches the catalog for one locale.
+ * Fetches the catalog for one locale, retrying twice on failure.
  *
  * No caching layer by design: only the active locale is ever requested, and
  * ordinary HTTP caching covers repeat loads.
  *
- * Throws on failure so the UI can show an explicit error state rather than an
- * empty grid that looks like "no templates".
+ * Throws once the retries are spent, so the UI can show an explicit error
+ * rather than an empty grid that looks like "no templates".
  */
 export async function loadCatalog(
   locale: Locale,
@@ -52,6 +67,22 @@ export async function loadCatalog(
 ): Promise<ICatalog> {
   if (!DATA_URL) throw new Error("EMBED_DATA_URL is not configured");
 
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await fetchCatalog(locale, signal);
+    } catch (error) {
+      // An abort means the caller moved on (locale switched, unmounted) —
+      // that is not a failure worth retrying.
+      if (signal?.aborted || attempt >= RETRIES) throw error;
+      await wait(500 * (attempt + 1), signal);
+    }
+  }
+}
+
+async function fetchCatalog(
+  locale: Locale,
+  signal?: AbortSignal,
+): Promise<ICatalog> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
   const onAbort = () => controller.abort();

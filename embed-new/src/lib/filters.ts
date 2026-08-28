@@ -57,6 +57,9 @@ const SORT_MAP: Record<TSortKey, string> = {
 
 export const SORT_KEYS = Object.keys(SORT_MAP) as TSortKey[];
 
+// Built once — localeCompare constructs one per call.
+const collator = new Intl.Collator(undefined, { sensitivity: "base" });
+
 export const normalizeSortKey = (value: string | null | undefined): TSortKey =>
   value && value in SORT_MAP ? (value as TSortKey) : "asc";
 
@@ -73,12 +76,7 @@ export const sortForms = (
   return [...(forms ?? [])].sort((a, b) => {
     switch (field) {
       case "name_form":
-        return (
-          dir *
-          a.name_form.localeCompare(b.name_form, undefined, {
-            sensitivity: "base",
-          })
-        );
+        return dir * collator.compare(a.name_form, b.name_form);
       case "popular_template":
         return (
           dir *
