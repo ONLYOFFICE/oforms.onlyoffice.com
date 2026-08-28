@@ -37,7 +37,28 @@ const FETCH_TIMEOUT_MS = 15000;
 
 const RETRIES = 2;
 
-export const catalogUrl = (locale: Locale) => `${DATA_URL}/main.${locale}.json`;
+export const catalogUrl = (locale: Locale, version: string) =>
+  `${DATA_URL}/main.${locale}.json?v=${version}`;
+
+let cachedVersion = "";
+
+// Once per page load. Throws so loadCatalog's retry re-reads it; ?t= is what
+// gets past the CDN, which never caches a query string.
+async function fetchVersion(signal: AbortSignal): Promise<string> {
+  if (cachedVersion) return cachedVersion;
+
+  const response = await fetch(`${DATA_URL}/version.txt?t=${Date.now()}`, {
+    cache: "no-store",
+    signal,
+  });
+  if (!response.ok) throw new Error(`version HTTP ${response.status}`);
+
+  const text = (await response.text()).trim();
+  if (!/^\d{12}$/.test(text)) throw new Error("unexpected version payload");
+
+  cachedVersion = text;
+  return cachedVersion;
+}
 
 const wait = (ms: number, signal?: AbortSignal) =>
   new Promise<void>((resolve, reject) => {
@@ -55,8 +76,8 @@ const wait = (ms: number, signal?: AbortSignal) =>
 /**
  * Fetches the catalog for one locale, retrying twice on failure.
  *
- * No caching layer by design: only the active locale is ever requested, and
- * ordinary HTTP caching covers repeat loads.
+ * Only the active locale is ever requested, and the ?v= stamp lets the browser
+ * cache it until the next sync changes the stamp.
  *
  * Throws once the retries are spent, so the UI can show an explicit error
  * rather than an empty grid that looks like "no templates".
@@ -89,7 +110,8 @@ async function fetchCatalog(
   signal?.addEventListener("abort", onAbort);
 
   try {
-    const response = await fetch(catalogUrl(locale), {
+    const version = await fetchVersion(controller.signal);
+    const response = await fetch(catalogUrl(locale, version), {
       signal: controller.signal,
     });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);

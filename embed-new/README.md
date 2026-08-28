@@ -56,8 +56,14 @@ Inbound origins are checked against `EMBED_HOST_ORIGINS` (default
 
 Fetched at runtime, one locale at a time, from
 `EMBED_DATA_URL` (default `https://oforms.onlyoffice.com/oforms-editor/embed`):
-`main.<locale>.json`. No caching layer — HTTP caching covers repeat loads. Don't
-move this JSON to a Pages host; it is ~17 MB across all locales.
+`main.<locale>.json?v=<stamp>`, where the stamp is read at startup from
+`version.txt` — uploaded uncached, rewritten by every data sync, so the browser
+holds a cached catalog until the data actually changes. Don't move this JSON to
+a Pages host; it is ~17 MB across all locales (139 KB gzipped for the largest
+single locale).
+
+`version.txt` must exist in the bucket before this app is deployed — the first
+run of the data-sync workflow creates it.
 
 ## Deploy — Cloudflare Pages
 
