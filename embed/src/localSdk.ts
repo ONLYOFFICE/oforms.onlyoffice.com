@@ -20,12 +20,20 @@ for (const [path, entries] of Object.entries(modules)) {
   }
 }
 
+function sizeFor(name: string): number | undefined {
+  for (const map of Object.values(lookups)) {
+    const size = map.get(name)?.size;
+    if (size !== undefined) return size;
+  }
+  return undefined;
+}
+
 function lookupFor(candidates: string[], name: string): LookupEntry {
   for (const locale of candidates) {
     const hit = lookups[locale]?.get(name);
     if (hit) return hit;
   }
-  return { subcategories: [] };
+  return { subcategories: [], size: sizeFor(name) };
 }
 
 type Ext = "docx" | "xlsx" | "pptx" | "pdf";
@@ -185,6 +193,36 @@ interface SdkTemplateItem {
 
 let nextId = -1;
 
+const ENTITIES: Record<string, string> = {
+  amp: "&",
+  apos: "'",
+  quot: '"',
+  lt: "<",
+  gt: ">",
+  nbsp: " ",
+};
+
+function decodeEntities(value: string): string {
+  if (!value || value.indexOf("&") === -1) return value;
+  return value.replace(/&(#x?[0-9a-f]+|[a-z]+);/gi, (match, body: string) => {
+    if (body[0] !== "#") return ENTITIES[body.toLowerCase()] ?? match;
+    const code =
+      body[1] === "x" || body[1] === "X"
+        ? parseInt(body.slice(2), 16)
+        : parseInt(body.slice(1), 10);
+    return code > 0 && code <= 0x10ffff ? String.fromCodePoint(code) : match;
+  });
+}
+
+function decodeItem(item: SdkTemplateItem): SdkTemplateItem {
+  return {
+    ...item,
+    name: decodeEntities(item.name),
+    path: decodeEntities(item.path),
+    icon: item.icon ? decodeEntities(item.icon) : item.icon,
+  };
+}
+
 function toTemplate(
   item: SdkTemplateItem,
   locale: Locale,
@@ -249,6 +287,15 @@ const PREVIEW_EMIT_DEBOUNCE_MS = 100;
 
 let activePollTimer: ReturnType<typeof setTimeout> | null = null;
 
+const MIN_PREVIEW_SCALE = 200;
+const MAX_PREVIEW_SCALE = 400;
+
+function previewScale(): number {
+  const dpr = typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1;
+  const doubled = Math.round(dpr * 2 * 100);
+  return Math.min(MAX_PREVIEW_SCALE, Math.max(MIN_PREVIEW_SCALE, doubled));
+}
+
 export function requestLocalTemplates(
   locale: Locale,
   culture: string | undefined,
@@ -259,14 +306,24 @@ export function requestLocalTemplates(
     clearTimeout(activePollTimer);
     activePollTimer = null;
   }
-  if (!editor || typeof editor.LocalFileTemplates !== "function") return;
+  if (
+    !editor ||
+    (typeof editor._LocalFileTemplates !== "function" &&
+      typeof editor.LocalFileTemplates !== "function")
+  ) {
+    return;
+  }
 
   const rawBase = culture ? culture.split(/[-_]/)[0].toLowerCase() : locale;
-  const categoryCandidates = Array.from(new Set([rawBase, locale, FALLBACK]));
+  const categoryCandidates = Array.from(new Set([rawBase, locale]));
   const chain = localeFallbackChain(culture || locale);
   const byPath = new Map<string, any>();
 
   const scan = () => {
+    if (typeof editor._LocalFileTemplates === "function") {
+      editor._LocalFileTemplates(chain, previewScale());
+      return;
+    }
     editor.LocalFileTemplates(chain);
     if (typeof window !== "undefined") window.dispatchEvent(new Event("resize"));
   };
@@ -292,8 +349,9 @@ export function requestLocalTemplates(
 
   (window as any).onaddtemplates = (payload: SdkTemplateItem[] | SdkTemplateItem) => {
     const items = Array.isArray(payload) ? payload : [payload];
-    for (const item of items) {
-      if (!item?.path) continue;
+    for (const raw of items) {
+      if (!raw?.path) continue;
+      const item = decodeItem(raw);
       const existing = byPath.get(item.path);
       const template = toTemplate(
         item,
