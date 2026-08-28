@@ -26,70 +26,47 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-/** Inline SVG so the icons take their colour from `currentColor` / tokens. */
+import { useTranslation } from "react-i18next";
+import clsx from "clsx";
+import { CrossIcon, SearchIcon } from "../icons";
+import styles from "./SearchBox.module.scss";
 
-export const FiltersIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-    <path
-      d="M2 4h12M4 8h8M6 12h4"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      fill="none"
-    />
-  </svg>
-);
+interface ISearchBoxProps {
+  value: string;
+  onChange: (value: string) => void;
+}
 
-export const SearchIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-    <circle
-      cx="7"
-      cy="7"
-      r="4.5"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      fill="none"
-    />
-    <path
-      d="M10.5 10.5L14 14"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      fill="none"
-    />
-  </svg>
-);
+const SearchBox = ({ value, onChange }: ISearchBoxProps) => {
+  const { t } = useTranslation("SearchInput");
+  const { t: tEmbed } = useTranslation("embed");
 
-export const CrossIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-    <path
-      d="M4 4l8 8M12 4l-8 8"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      fill="none"
-    />
-  </svg>
-);
+  return (
+    <div className={clsx(styles.search, value && styles["search-filled"])}>
+      <span className={styles["search-icon"]}>
+        <SearchIcon />
+      </span>
 
-export const ChevronIcon = ({ open }: { open: boolean }) => (
-  <svg
-    width="12"
-    height="12"
-    viewBox="0 0 12 12"
-    aria-hidden="true"
-    style={{
-      transform: open ? "rotate(180deg)" : undefined,
-      transition: "transform 0.2s",
-    }}
-  >
-    <path
-      d="M3 4.5L6 7.5L9 4.5"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      fill="none"
-    />
-  </svg>
-);
+      {/* Filtering costs ~2ms, so it runs per keystroke — no debounce. */}
+      <input
+        type="search"
+        className={styles["search-input"]}
+        value={value}
+        placeholder={t("SearchTemplates")}
+        onChange={(event) => onChange(event.target.value)}
+      />
+
+      {value && (
+        <button
+          type="button"
+          className={styles["search-clear"]}
+          onClick={() => onChange("")}
+          aria-label={tEmbed("Clear")}
+        >
+          <CrossIcon />
+        </button>
+      )}
+    </div>
+  );
+};
+
+export { SearchBox };

@@ -58,6 +58,7 @@ const EMBED_STRINGS: Record<string, string> = {
   Previous: "Previous",
   Next: "Next",
   Close: "Close",
+  Clear: "Clear",
   Loading: "Loading templates…",
   LoadFailed: "Templates could not be loaded.",
   Retry: "Retry",

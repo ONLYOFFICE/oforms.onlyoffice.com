@@ -33,6 +33,7 @@ import { EmptyState } from "./components/EmptyState/EmptyState";
 import { FilterDrawer } from "./components/FilterDrawer/FilterDrawer";
 import { LanguageSelect } from "./components/LanguageSelect/LanguageSelect";
 import { Pagination } from "./components/Pagination/Pagination";
+import { SearchBox } from "./components/SearchBox/SearchBox";
 import { SortSelect } from "./components/SortSelect/SortSelect";
 import { TemplateModal } from "./components/TemplateModal/TemplateModal";
 import { FiltersIcon } from "./components/icons";
@@ -208,6 +209,8 @@ const App = () => {
 
   return (
     <div className={styles.app}>
+      <SearchBox value={query.q} onChange={(q) => filter({ q })} />
+
       <div className={styles.toolbar}>
         <div className={styles["toolbar-left"]}>
           <button

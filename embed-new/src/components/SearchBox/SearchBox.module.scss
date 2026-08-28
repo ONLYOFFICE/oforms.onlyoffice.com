@@ -26,70 +26,65 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-/** Inline SVG so the icons take their colour from `currentColor` / tokens. */
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-block-end: 24px;
+  padding: 9px 14px;
+  border: 1px solid var(--search-input-border-color);
+  border-radius: 4px;
+  background-color: var(--search-input-background-color);
 
-export const FiltersIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-    <path
-      d="M2 4h12M4 8h8M6 12h4"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      fill="none"
-    />
-  </svg>
-);
+  &:hover {
+    border-color: var(--search-input-border-color-hover);
+  }
 
-export const SearchIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-    <circle
-      cx="7"
-      cy="7"
-      r="4.5"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      fill="none"
-    />
-    <path
-      d="M10.5 10.5L14 14"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      fill="none"
-    />
-  </svg>
-);
+  &:focus-within {
+    border-color: var(--search-input-with-value-border-color);
+  }
+}
 
-export const CrossIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-    <path
-      d="M4 4l8 8M12 4l-8 8"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      fill="none"
-    />
-  </svg>
-);
+.search-filled {
+  border-color: var(--search-input-with-value-border-color);
+  background-color: var(--search-input-with-value-background-color);
+}
 
-export const ChevronIcon = ({ open }: { open: boolean }) => (
-  <svg
-    width="12"
-    height="12"
-    viewBox="0 0 12 12"
-    aria-hidden="true"
-    style={{
-      transform: open ? "rotate(180deg)" : undefined,
-      transition: "transform 0.2s",
-    }}
-  >
-    <path
-      d="M3 4.5L6 7.5L9 4.5"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      fill="none"
-    />
-  </svg>
-);
+.search-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  color: var(--search-input-icon-color);
+}
+
+.search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  color: var(--search-input-color);
+
+  &::placeholder {
+    color: var(--search-input-placeholder-color);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  // The native clear affordance duplicates our own button.
+  &::-webkit-search-cancel-button {
+    appearance: none;
+  }
+}
+
+.search-clear {
+  display: inline-flex;
+  flex: 0 0 auto;
+  padding: 2px;
+  border: 0;
+  background: none;
+  color: var(--search-input-cross-icon-color);
+}
