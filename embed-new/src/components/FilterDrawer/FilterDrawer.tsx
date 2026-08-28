@@ -217,7 +217,12 @@ const FilterDrawer = ({
             </Group>
           )}
 
-          {countries.length > 0 && (
+          {/*
+           * Every locale currently ships exactly one country, carried by every
+           * template in it — a lone checkbox that can only match everything.
+           * Shown from two upwards, so it returns by itself if the CMS adds one.
+           */}
+          {countries.length > 1 && (
             <Group title={t("Countries")} defaultOpen={false}>
               {countries.map((country) => (
                 <Check
