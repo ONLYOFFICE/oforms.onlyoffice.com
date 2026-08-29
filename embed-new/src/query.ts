@@ -58,7 +58,7 @@ export function readQuery(): ICatalogQuery {
 
 /**
  * Mirrors state back into the address bar with replaceState — no navigation.
- * Keeps params the host set (theme, font) untouched.
+ * Keeps params the host set (theme) untouched.
  */
 export function writeQuery(query: ICatalogQuery): void {
   const next = params();
@@ -85,9 +85,9 @@ export function writeQuery(query: ICatalogQuery): void {
 }
 
 /** One-shot boot params the host passes for correct first paint. */
-export function readBootParams(): { theme: string | null; font: string | null } {
+export function readBootParams(): { theme: string | null } {
   const p = params();
-  return { theme: p.get("theme"), font: p.get("font") };
+  return { theme: p.get("theme") };
 }
 
 /** Chrome the host supplies itself, e.g. `?hide=lang,search`. */

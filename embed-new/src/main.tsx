@@ -38,17 +38,15 @@ import { readBootParams, readQuery } from "./query";
 import { applyTheme, parseThemeParam } from "./theme";
 
 /**
- * Theme and font arrive as query params so the very first paint is already
- * correct — waiting for a postMessage would show a flash of the default theme.
+ * Theme arrives as a query param so the very first paint is already correct —
+ * waiting for a postMessage would show a flash of the default theme.
  * Live changes after boot come through the bridge (see App).
  */
 function applyBootParams(): void {
-  const { theme, font } = readBootParams();
-  const root = document.documentElement;
+  const { theme } = readBootParams();
 
   const tokens = parseThemeParam(theme);
-  if (tokens) applyTheme(tokens, root);
-  if (font) root.style.setProperty("--font-family-base", font);
+  if (tokens) applyTheme(tokens, document.documentElement);
 }
 
 async function start(): Promise<void> {

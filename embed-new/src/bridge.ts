@@ -44,9 +44,8 @@ const ALLOWED_ORIGINS = (process.env.EMBED_HOST_ORIGINS || "")
   .filter(Boolean);
 
 export interface IHostMessage {
-  type: "theme" | "font" | "locale";
+  type: "theme" | "locale";
   tokens?: Record<string, string>;
-  family?: string;
   value?: string;
 }
 
@@ -84,7 +83,7 @@ export function onHostMessage(
     if (!data || typeof data !== "object" || typeof data.type !== "string") {
       return;
     }
-    if (data.type === "theme" || data.type === "font" || data.type === "locale") {
+    if (data.type === "theme" || data.type === "locale") {
       handler(data);
     }
   };

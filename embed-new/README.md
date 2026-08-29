@@ -26,7 +26,6 @@ npm run build
 | `page` | 1-based page index |
 | `locale` | `ar de en es fr it ja pt zh` |
 | `theme` | token overrides — JSON, or `name:value;name:value` |
-| `font` | host font family |
 | `hide` | chrome the host supplies itself: `lang`, `search` (comma list) |
 
 `?hide=lang` removes the language selector but not locale switching — the host
@@ -34,9 +33,10 @@ still drives that with `?locale=` or a `locale` message.
 
 There is no sort control and no `?sort=` — the grid is always newest first.
 
-`theme` and `font` are params (not messages) so the first paint is already
-correct. Colours are CSS custom properties — see `src/styles/tokens.css`, names
-match `../embed/theme.default.json`.
+`theme` is a param (not a message) so the first paint is already correct.
+Colours are CSS custom properties — see `src/styles/tokens.css`, names match
+`../embed/theme.default.json`. The font is one of those tokens:
+`?theme=font-family-base:Georgia,serif`.
 
 ## Host bridge
 
@@ -44,7 +44,7 @@ Cross-origin (host `file://`, page `https://`), so the page cannot reach
 `window.AscDesktopEditor` — opening a template is delegated to the host.
 
 - **page → host:** `{type:"ready"}`, `{type:"openTemplate", file, template}`
-- **host → page:** `{type:"theme", tokens}`, `{type:"font", family}`, `{type:"locale", value}`
+- **host → page:** `{type:"theme", tokens}`, `{type:"locale", value}`
 
 Inbound origins are checked against `EMBED_HOST_ORIGINS` (default
 `null,file://` — a `file://` host reports origin `"null"`).

@@ -119,16 +119,11 @@ const App = () => {
     document.documentElement.dir = isRtlLocale(query.locale) ? "rtl" : "ltr";
   }, [query.locale]);
 
-  // Live theme / font / locale updates from the desktop host.
+  // Live theme / locale updates from the desktop host.
   useEffect(() => {
     const stop = onHostMessage((message) => {
       if (message.type === "theme" && message.tokens) {
         applyTheme(message.tokens, document.documentElement);
-      } else if (message.type === "font" && message.family) {
-        document.documentElement.style.setProperty(
-          "--font-family-base",
-          message.family,
-        );
       } else if (message.type === "locale" && message.value) {
         filter({ locale: message.value as Locale });
       }

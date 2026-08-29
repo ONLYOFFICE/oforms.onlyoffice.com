@@ -39,7 +39,7 @@
  */
 :root {
   /* The page is framed, so the host font cannot be inherited — it is passed in
-     via the `font` query param or a postMessage and lands here. */
+     as a theme token like any other override. */
   --font-family-base:
     "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial,
     sans-serif;
