@@ -34,13 +34,11 @@
  * These encode product rules that are not obvious from the UI — keep them in
  * sync with the site rather than re-deriving them.
  */
-import {
-  ALLOWED_TYPES,
-  type ICategoryCount,
-  type ICountry,
-  type IPurpose,
-  type ITemplate,
-  type TAllowedTypes,
+import type {
+  ICategoryCount,
+  ICountry,
+  IPurpose,
+  ITemplate,
 } from "../types";
 
 export const getQueryValues = (value: string | null | undefined): string[] =>
@@ -118,26 +116,6 @@ export const getFormsByTypes = (
       form.form_exts?.some((item) => types.includes(item.ext)),
     ) ?? []
   );
-};
-
-export const groupFormsByExt = (
-  forms: ITemplate[] | undefined,
-): Record<TAllowedTypes, ITemplate[]> => {
-  const groups = Object.fromEntries(
-    ALLOWED_TYPES.map((ext) => [ext, [] as ITemplate[]]),
-  ) as Record<TAllowedTypes, ITemplate[]>;
-
-  forms?.forEach((form) => {
-    const seen = new Set<TAllowedTypes>();
-    form.form_exts?.forEach(({ ext }) => {
-      if (groups[ext] && !seen.has(ext)) {
-        seen.add(ext);
-        groups[ext].push(form);
-      }
-    });
-  });
-
-  return groups;
 };
 
 export const getCountries = (

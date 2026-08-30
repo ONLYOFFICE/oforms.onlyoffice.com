@@ -140,4 +140,21 @@
   --pagination-color-active: #ffffff;
   --pagination-background-color-active: #000122;
   --pagination-color-disabled: #c7c9d6;
+
+  /* New in this version — the type tabs and the purpose chips beside them.
+     The four format colours were literals in Card.module.scss, the one place a
+     host override could not reach; they are now the tabs' active underline. */
+  --format-docx-color: #305cc4;
+  --format-xlsx-color: #41b338;
+  --format-pptx-color: #ff6c00;
+  --format-pdf-color: #d10f33;
+
+  --type-tab-color: #666980;
+  --type-tab-color-active: #21222b;
+  --type-tab-border-color: #e5e6ed;
+
+  --purpose-background-color-hover: rgba(53, 65, 245, 0.07);
+  --purpose-background-color-selected: rgba(53, 65, 245, 0.07);
+  --purpose-border-color-selected: #d4d4ff;
+  --purpose-color-selected: #001bd2;
 }

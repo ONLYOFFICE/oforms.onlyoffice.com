@@ -28,6 +28,17 @@
 
 import { getQueryValues } from "./lib/filters";
 import { normalizeLocale, type Locale } from "./locale";
+import { PURPOSE_ORDER, TYPE_ORDER } from "./types";
+
+// Type and purpose each hold exactly one value, so an unknown or multi-valued
+// param falls back to the first of its order.
+const readOneOf = (
+  value: string | null,
+  allowed: readonly string[],
+): string[] => {
+  const first = getQueryValues(value)[0];
+  return [first && allowed.includes(first) ? first : allowed[0]];
+};
 
 export interface ICatalogQuery {
   q: string;
@@ -47,10 +58,10 @@ export function readQuery(): ICatalogQuery {
 
   return {
     q: (p.get("q") ?? "").trim(),
-    types: getQueryValues(p.get("type")),
+    types: readOneOf(p.get("type"), TYPE_ORDER),
     countries: getQueryValues(p.get("country")),
     categories: getQueryValues(p.get("category")),
-    purposes: getQueryValues(p.get("purpose")),
+    purposes: readOneOf(p.get("purpose"), PURPOSE_ORDER),
     page: Number.isFinite(page) && page > 0 ? page : 1,
     locale: normalizeLocale(p.get("locale")),
   };

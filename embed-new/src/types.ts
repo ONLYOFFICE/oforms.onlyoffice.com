@@ -42,8 +42,21 @@ export const TYPE_ORDER: readonly TAllowedTypes[] = [
   "pdf",
 ];
 
+// Words, not extensions: these sit beside a "Create spreadsheet" button in the
+// desktop shell, where "xlsx" would be a second name for the same thing.
+export const TYPE_LABEL_KEYS: Record<TAllowedTypes, string> = {
+  docx: "Documents",
+  xlsx: "Spreadsheets",
+  pptx: "Presentations",
+  pdf: "PdfForms",
+};
+
 export const isAllowedType = (value: string): value is TAllowedTypes =>
   (ALLOWED_TYPES as readonly string[]).includes(value);
+
+// Keys are the same in all 9 catalogs; only the names are localised. Fixed
+// order because the CMS createdAt order differs per locale.
+export const PURPOSE_ORDER = ["business", "personal"] as const;
 
 export interface IPurpose {
   id: number;

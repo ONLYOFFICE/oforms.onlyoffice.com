@@ -30,48 +30,29 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 import { ChevronIcon, CrossIcon } from "../icons";
-import {
-  TYPE_ORDER,
-  type ICategoryCount,
-  type ICountry,
-  type IPurpose,
-} from "../../types";
-import type { TAllowedTypes } from "../../types";
+import type { ICategoryCount, ICountry } from "../../types";
 import styles from "./FilterDrawer.module.scss";
-
-const TYPE_LABEL_KEYS: Record<TAllowedTypes, string> = {
-  docx: "Documents",
-  xlsx: "Spreadsheets",
-  pptx: "Presentations",
-  pdf: "PdfForms",
-};
 
 interface IFilterDrawerProps {
   isOpen: boolean;
   onClose: () => void;
-  typeCounts: Record<TAllowedTypes, number>;
   countries: (ICountry & { count: number })[];
   categories: ICategoryCount[];
-  purposes: (IPurpose & { count: number })[];
-  selectedTypes: string[];
   selectedCountries: string[];
   selectedCategories: string[];
-  selectedPurposes: string[];
-  onToggleType: (value: string) => void;
+  hasFilters: boolean;
   onToggleCountry: (value: string) => void;
   onToggleCategory: (value: string) => void;
-  onTogglePurpose: (value: string) => void;
   onClearAll: () => void;
 }
 
 interface ICheckProps {
   label: string;
-  count?: number;
   checked: boolean;
   onChange: () => void;
 }
 
-const Check = ({ label, count, checked, onChange }: ICheckProps) => (
+const Check = ({ label, checked, onChange }: ICheckProps) => (
   <label className={clsx(styles.check, checked && styles["check-checked"])}>
     <input
       type="checkbox"
@@ -80,9 +61,6 @@ const Check = ({ label, count, checked, onChange }: ICheckProps) => (
       onChange={onChange}
     />
     <span className={styles["check-label"]}>{label}</span>
-    {count !== undefined && (
-      <span className={styles["check-count"]}>{count}</span>
-    )}
   </label>
 );
 
@@ -116,18 +94,13 @@ const Group = ({
 const FilterDrawer = ({
   isOpen,
   onClose,
-  typeCounts,
   countries,
   categories,
-  purposes,
-  selectedTypes,
   selectedCountries,
   selectedCategories,
-  selectedPurposes,
-  onToggleType,
+  hasFilters,
   onToggleCountry,
   onToggleCategory,
-  onTogglePurpose,
   onClearAll,
 }: IFilterDrawerProps) => {
   const { t } = useTranslation("MainTemplate");
@@ -144,11 +117,13 @@ const FilterDrawer = ({
 
   if (!isOpen) return null;
 
-  const hasFilters =
-    selectedTypes.length > 0 ||
-    selectedCountries.length > 0 ||
-    selectedCategories.length > 0 ||
-    selectedPurposes.length > 0;
+  // A row that would return nothing is not offered — 11 of the 17 categories
+  // are empty inside Presentations. A checked one stays, or switching type
+  // would drop an active filter out of sight and leave the grid unexplained.
+  const visibleCategories = categories.filter(
+    (category) =>
+      category.count > 0 || selectedCategories.includes(category.urlReq),
+  );
 
   return (
     <div className={styles.overlay}>
@@ -177,39 +152,12 @@ const FilterDrawer = ({
         </header>
 
         <div className={styles["drawer-body"]}>
-          <Group title={t("Type")}>
-            {TYPE_ORDER.map((ext) => (
-              <Check
-                key={ext}
-                label={t(TYPE_LABEL_KEYS[ext])}
-                count={typeCounts[ext]}
-                checked={selectedTypes.includes(ext)}
-                onChange={() => onToggleType(ext)}
-              />
-            ))}
-          </Group>
-
-          {purposes.length > 0 && (
-            <Group title={t("Purpose")}>
-              {purposes.map((purpose) => (
-                <Check
-                  key={purpose.id}
-                  label={purpose.name}
-                  count={purpose.count}
-                  checked={selectedPurposes.includes(purpose.key)}
-                  onChange={() => onTogglePurpose(purpose.key)}
-                />
-              ))}
-            </Group>
-          )}
-
-          {categories.length > 0 && (
+          {visibleCategories.length > 0 && (
             <Group title={t("Сategories")}>
-              {categories.map((category) => (
+              {visibleCategories.map((category) => (
                 <Check
                   key={category.id}
                   label={category.name}
-                  count={category.count}
                   checked={selectedCategories.includes(category.urlReq)}
                   onChange={() => onToggleCategory(category.urlReq)}
                 />
@@ -228,7 +176,6 @@ const FilterDrawer = ({
                 <Check
                   key={country.id}
                   label={country.name}
-                  count={country.count}
                   checked={selectedCountries.includes(
                     country.code.toLowerCase(),
                   )}

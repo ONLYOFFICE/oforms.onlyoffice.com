@@ -26,81 +26,47 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-.app {
-  // Uncapped on purpose — the host controls how wide the iframe is.
-  padding: 24px;
+import { useTranslation } from "react-i18next";
+import clsx from "clsx";
+import { TYPE_LABEL_KEYS, TYPE_ORDER } from "../../types";
+import styles from "./TypeFilter.module.scss";
+
+interface ITypeFilterProps {
+  selected: string;
+  onSelect: (ext: string) => void;
 }
 
-@media (max-width: 600px) {
-  .app {
-    padding: 16px;
-  }
-}
+/**
+ * One file type at a time. No template exists in two formats, so this is a
+ * partition of the catalog rather than a choice — tabs, single-select, no All.
+ */
+const TypeFilter = ({ selected, onSelect }: ITypeFilterProps) => {
+  const { t } = useTranslation("MainTemplate");
 
-.toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px 16px;
-  margin-block-end: 24px;
-}
+  return (
+    <div className={styles.tabs} role="tablist">
+      {TYPE_ORDER.map((ext) => {
+        const isSelected = ext === selected;
 
-.toolbar-query {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px;
-  flex: 1 1 auto;
-}
+        return (
+          <button
+            key={ext}
+            type="button"
+            role="tab"
+            aria-selected={isSelected}
+            className={clsx(
+              styles.tab,
+              styles[`tab-${ext}`],
+              isSelected && styles["tab-selected"],
+            )}
+            onClick={() => onSelect(ext)}
+          >
+            {t(TYPE_LABEL_KEYS[ext])}
+          </button>
+        );
+      })}
+    </div>
+  );
+};
 
-.toolbar-types {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px 16px;
-  margin-block-end: 24px;
-}
-
-.toolbar-filters {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 40px;
-  padding: 7px 12px;
-  border: 1px solid var(--language-switcher-border-color);
-  border-radius: 4px;
-  background-color: var(--language-switcher-background-color);
-  color: var(--main-filters-button-icon-color);
-  font-size: 14px;
-  white-space: nowrap;
-
-  &:hover {
-    border-color: var(--language-switcher-border-color-hover);
-  }
-}
-
-.toolbar-filters-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: var(--language-switcher-active-color);
-}
-
-.notice {
-  padding-block: 48px;
-  text-align: center;
-  font-size: 14px;
-  color: var(--main-count-color);
-}
-
-.notice-retry {
-  border: 0;
-  background: none;
-  padding: 0;
-  text-decoration: underline;
-  color: inherit;
-  font-size: inherit;
-}
+export { TypeFilter };

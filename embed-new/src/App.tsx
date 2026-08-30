@@ -33,8 +33,10 @@ import { EmptyState } from "./components/EmptyState/EmptyState";
 import { FilterDrawer } from "./components/FilterDrawer/FilterDrawer";
 import { LanguageSelect } from "./components/LanguageSelect/LanguageSelect";
 import { Pagination } from "./components/Pagination/Pagination";
+import { PurposeFilter } from "./components/PurposeFilter/PurposeFilter";
 import { SearchBox } from "./components/SearchBox/SearchBox";
 import { TemplateModal } from "./components/TemplateModal/TemplateModal";
+import { TypeFilter } from "./components/TypeFilter/TypeFilter";
 import { FiltersIcon } from "./components/icons";
 import { loadCatalog } from "./data";
 import {
@@ -43,7 +45,6 @@ import {
   getFilteredForms,
   getFormsByTypes,
   getPurposes,
-  groupFormsByExt,
   sortByNewest,
 } from "./lib/filters";
 import { initI18n } from "./i18n";
@@ -57,7 +58,7 @@ import {
 } from "./query";
 import { notifyReady, onHostMessage, requestOpenTemplate } from "./bridge";
 import { applyTheme } from "./theme";
-import { TYPE_ORDER, type ITemplate, type TAllowedTypes } from "./types";
+import type { ITemplate } from "./types";
 import styles from "./App.module.scss";
 
 const PAGE_SIZE = 24;
@@ -133,46 +134,31 @@ const App = () => {
     return stop;
   }, [filter]);
 
-  const typeCounts = useMemo(() => {
-    const groups = groupFormsByExt(templates);
-    return Object.fromEntries(
-      TYPE_ORDER.map((ext) => [ext, groups[ext]?.length ?? 0]),
-    ) as Record<TAllowedTypes, number>;
-  }, [templates]);
-
   const countries = useMemo(
     () => getCountries(getFormsByTypes(templates, query.types)),
     [templates, query.types],
   );
 
-  const purposes = useMemo(() => {
-    const counts = new Map<string, number>();
-    templates.forEach((form) => {
-      const keys = new Set<string>();
-      form.subcategories?.forEach((sub) =>
-        sub.parent_categories?.forEach((cat) => {
-          if (cat.purpose) keys.add(cat.purpose.key);
-        }),
-      );
-      keys.forEach((key) => counts.set(key, (counts.get(key) ?? 0) + 1));
-    });
-    return getPurposes(templates).map((purpose) => ({
-      ...purpose,
-      count: counts.get(purpose.key) ?? 0,
-    }));
-  }, [templates]);
+  const purposes = useMemo(() => getPurposes(templates), [templates]);
 
-  const categories = useMemo(
-    () =>
+  // Names from the whole catalog, counts from what the filters leave: a row the
+  // active type has none of can then stay visible while it is checked.
+  const categories = useMemo(() => {
+    const counts = new Map(
       getCategories(
         getFilteredForms(templates, {
           type: query.types,
           country: query.countries,
           purpose: query.purposes,
         }),
-      ),
-    [templates, query.types, query.countries, query.purposes],
-  );
+      ).map((category) => [category.id, category.count]),
+    );
+
+    return getCategories(templates).map((category) => ({
+      ...category,
+      count: counts.get(category.id) ?? 0,
+    }));
+  }, [templates, query.types, query.countries, query.purposes]);
 
   const visible = useMemo(() => {
     // Country only narrows the result once a category is chosen — this matches
@@ -203,33 +189,36 @@ const App = () => {
   const page = Math.min(query.page, pages);
   const shown = visible.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
-  const hasFilters =
-    query.types.length > 0 ||
-    query.countries.length > 0 ||
-    query.categories.length > 0 ||
-    query.purposes.length > 0;
+  // Type and purpose are excluded: both always have a value, so counting them
+  // would light the Filters dot permanently and Clear would silently move the
+  // user to Documents / Business.
+  const hasDrawerFilters =
+    query.countries.length > 0 || query.categories.length > 0;
 
-  const clearFilters = () =>
-    filter({ types: [], countries: [], categories: [], purposes: [] });
+  const clearFilters = () => filter({ countries: [], categories: [] });
+
+  const showPurpose = !hidden.has("purpose") && purposes.length > 0;
 
   return (
     <div className={styles.app}>
       <div className={styles.toolbar}>
-        <button
-          type="button"
-          className={styles["toolbar-filters"]}
-          onClick={() => setIsDrawerOpen(true)}
-        >
-          <FiltersIcon />
-          {t("Filters")}
-          {hasFilters && (
-            <span className={styles["toolbar-filters-dot"]} aria-hidden />
+        <div className={styles["toolbar-query"]}>
+          {!hidden.has("search") && (
+            <SearchBox value={query.q} onChange={(q) => filter({ q })} />
           )}
-        </button>
 
-        {!hidden.has("search") && (
-          <SearchBox value={query.q} onChange={(q) => filter({ q })} />
-        )}
+          <button
+            type="button"
+            className={styles["toolbar-filters"]}
+            onClick={() => setIsDrawerOpen(true)}
+          >
+            <FiltersIcon />
+            {t("Filters")}
+            {hasDrawerFilters && (
+              <span className={styles["toolbar-filters-dot"]} aria-hidden />
+            )}
+          </button>
+        </div>
 
         {!hidden.has("lang") && (
           <LanguageSelect
@@ -238,6 +227,25 @@ const App = () => {
           />
         )}
       </div>
+
+      {(!hidden.has("type") || showPurpose) && (
+        <div className={styles["toolbar-types"]}>
+          {!hidden.has("type") && (
+            <TypeFilter
+              selected={query.types[0]}
+              onSelect={(ext) => filter({ types: [ext] })}
+            />
+          )}
+
+          {showPurpose && (
+            <PurposeFilter
+              purposes={purposes}
+              selected={query.purposes}
+              onSelect={(key) => filter({ purposes: [key] })}
+            />
+          )}
+        </div>
+      )}
 
       {status === "loading" && (
         <p className={styles.notice}>{t("Loading")}</p>
@@ -270,31 +278,25 @@ const App = () => {
             />
           </>
         ) : (
-          <EmptyState hasFilters={hasFilters} onClearFilters={clearFilters} />
+          <EmptyState
+            hasFilters={hasDrawerFilters}
+            onClearFilters={clearFilters}
+          />
         ))}
 
       <FilterDrawer
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
-        typeCounts={typeCounts}
         countries={countries}
         categories={categories}
-        purposes={purposes}
-        selectedTypes={query.types}
         selectedCountries={query.countries}
         selectedCategories={query.categories}
-        selectedPurposes={query.purposes}
-        onToggleType={(value) =>
-          filter({ types: toggleValue(query.types, value) })
-        }
+        hasFilters={hasDrawerFilters}
         onToggleCountry={(value) =>
           filter({ countries: toggleValue(query.countries, value) })
         }
         onToggleCategory={(value) =>
           filter({ categories: toggleValue(query.categories, value) })
-        }
-        onTogglePurpose={(value) =>
-          filter({ purposes: toggleValue(query.purposes, value) })
         }
         onClearAll={clearFilters}
       />

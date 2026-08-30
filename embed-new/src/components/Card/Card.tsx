@@ -27,20 +27,9 @@
  */
 
 import clsx from "clsx";
-import docxHover from "@public/images/widgets/card/docx-hover.png";
-import xlsxHover from "@public/images/widgets/card/xlsx-hover.png";
-import pptxHover from "@public/images/widgets/card/pptx-hover.png";
-import pdfHover from "@public/images/widgets/card/pdf-hover.png";
-import type { ITemplate, TAllowedTypes } from "../../types";
+import type { ITemplate } from "../../types";
 import { previewUrl } from "../../data";
 import styles from "./Card.module.scss";
-
-const hoverIconByFormat: Record<TAllowedTypes, string> = {
-  docx: docxHover,
-  xlsx: xlsxHover,
-  pptx: pptxHover,
-  pdf: pdfHover,
-};
 
 interface ICardProps {
   template: ITemplate;
@@ -60,11 +49,6 @@ const Card = ({ template, onSelect }: ICardProps) => {
       type="button"
       className={clsx(styles.card, styles[`card-${format}`])}
       onClick={() => onSelect(template)}
-      style={
-        {
-          "--card-hover-icon": `url(${hoverIconByFormat[format]})`,
-        } as React.CSSProperties
-      }
     >
       <span className={styles["card-preview-wrapper"]}>
         <span
@@ -75,16 +59,6 @@ const Card = ({ template, onSelect }: ICardProps) => {
             } as React.CSSProperties
           }
         />
-        <span className={styles["card-preview-footer"]}>
-          <span
-            className={clsx(
-              styles["card-format"],
-              styles[`card-format-${format}`],
-            )}
-          >
-            <span>{format}</span>
-          </span>
-        </span>
       </span>
 
       <span className={styles["card-heading"]}>{template.name_form}</span>

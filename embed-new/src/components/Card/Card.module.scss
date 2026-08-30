@@ -37,14 +37,6 @@
   background: none;
   text-align: start;
   cursor: pointer;
-
-  &:hover .card-format {
-    background-color: transparent;
-
-    &::after {
-      opacity: 1;
-    }
-  }
 }
 
 .card-docx:hover .card-preview-wrapper {
@@ -84,64 +76,6 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position-x: center;
-}
-
-.card-preview-footer {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-block-start: 10px;
-}
-
-.card-format {
-  position: relative;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 4px;
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 12px;
-  width: 40px;
-  height: 20px;
-  color: #ffffff;
-  transition: background-color 0.2s;
-
-  span {
-    z-index: 1;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 46px;
-    height: 26px;
-    background-image: var(--card-hover-icon);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-}
-
-.card-format-docx {
-  background-color: #305cc4;
-}
-
-.card-format-xlsx {
-  background-color: #41b338;
-}
-
-.card-format-pptx {
-  background-color: #ff6c00;
-}
-
-.card-format-pdf {
-  background-color: #d10f33;
 }
 
 .card-heading {

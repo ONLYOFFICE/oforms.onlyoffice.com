@@ -146,10 +146,6 @@
   .check-label {
     color: var(--badge-label-color-checked);
   }
-
-  .check-count {
-    color: var(--badge-count-color-checked);
-  }
 }
 
 .check-input {
@@ -162,10 +158,4 @@
   font-size: 14px;
   line-height: 20px;
   color: var(--badge-label-color);
-}
-
-.check-count {
-  flex: 0 0 auto;
-  font-size: 13px;
-  color: var(--badge-count-color);
 }
