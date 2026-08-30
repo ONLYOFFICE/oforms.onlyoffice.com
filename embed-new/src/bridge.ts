@@ -27,15 +27,13 @@
  */
 
 /**
- * postMessage bridge to the desktop host shell.
+ * postMessage bridge to whatever is embedding this page.
  *
- * This page is loaded cross-origin (host runs from file://, page from https://),
- * so it cannot reach `window.AscDesktopEditor` itself. Opening a template is
- * delegated to the host, which holds the native bridge.
- *
- * That separation is deliberate and should stay: the remote page must never be
- * granted native access.
+ * Opening a template means something different in every host — an editor tab in
+ * Desktop, a file in a room in DocSpace — so the page states the intent and the
+ * host decides, rather than this file becoming a registry of hosts.
  */
+import { openTemplateNatively } from "./desktopVars";
 import type { ITemplate } from "./types";
 
 const ALLOWED_ORIGINS = (process.env.EMBED_HOST_ORIGINS || "")
@@ -63,12 +61,19 @@ function send(message: unknown): void {
 
 export const notifyReady = (): void => send({ type: "ready" });
 
+// Templates carry a single file, so there is no format to choose between.
+// The name becomes the editor's tab title; without it the header shows the
+// url's filename, which is a hash.
 export function requestOpenTemplate(template: ITemplate): void {
-  send({
-    type: "openTemplate",
-    file: template.file_oform?.[0] ?? null,
-    template,
-  });
+  const file = template.file_oform?.[0];
+  if (!file?.url || !file.ext) return;
+
+  const name = template.name_form.trim() + file.ext;
+
+  // Desktop opens natively; every other host does it its own way.
+  if (!openTemplateNatively(file.url, name)) {
+    send({ type: "openTemplate", url: file.url, name });
+  }
 }
 
 /** Inbound messages are origin-checked; unknown senders are ignored. */
