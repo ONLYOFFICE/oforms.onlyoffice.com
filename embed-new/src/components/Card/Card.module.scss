@@ -29,6 +29,9 @@
 .card {
   display: flex;
   flex-direction: column;
+  /* Not the default: Chromium <= ~118 (Desktop is on 109) puts
+     `align-items: flex-start` on button in its UA sheet. */
+  align-items: stretch;
   padding: 0;
   border: 0;
   background: none;
