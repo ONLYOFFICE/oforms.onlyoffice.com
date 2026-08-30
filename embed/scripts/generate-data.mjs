@@ -61,15 +61,30 @@ const buildUrl = (l, page) =>
     "populate[subcategories][populate][parent_categories][populate][purpose][fields][2]=createdAt",
   ].join("&");
 
-// Card preview urls from the CMS may be root-relative; make them absolute so
-// they load from the CMS host inside the desktop tab.
-const absolutizePreviews = (items) => {
+// file_oform stores the extension dotted, form_exts bare. Anything else is not
+// a value form_exts may hold, so it is left alone.
+const EXT_BY_FILE = {
+  ".docx": "docx",
+  ".xlsx": "xlsx",
+  ".pptx": "pptx",
+  ".pdf": "pdf",
+};
+
+// Preview urls may be root-relative, and form_exts disagrees with the file that
+// actually opens on 10 of 3340. Fixed here rather than in each consumer,
+// because they all read form_exts and file_oform agrees with the url every time.
+const normalize = (items) => {
   for (const item of items) {
-    const url = item?.card_prewiew?.url;
-    if (typeof url === "string" && url.startsWith("/")) {
-      item.card_prewiew.url = CMS_ORIGIN + url;
+    const preview = item?.card_prewiew?.url;
+    if (typeof preview === "string" && preview.startsWith("/")) {
+      item.card_prewiew.url = CMS_ORIGIN + preview;
     }
+
+    const tagged = item?.form_exts?.[0];
+    const actual = EXT_BY_FILE[item?.file_oform?.[0]?.ext];
+    if (tagged && actual) tagged.ext = actual;
   }
+
   return items;
 };
 
@@ -101,7 +116,7 @@ async function generateLocale(locale) {
     data = rest.reduce((acc, p) => acc.concat(p.data), data);
   }
 
-  const output = { data: absolutizePreviews(data), meta: first.meta };
+  const output = { data: normalize(data), meta: first.meta };
   await mkdir(OUT_DIR, { recursive: true });
   await writeFile(join(OUT_DIR, `main.${locale}.json`), JSON.stringify(output));
   console.log(
