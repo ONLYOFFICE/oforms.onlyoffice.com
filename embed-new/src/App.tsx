@@ -26,8 +26,9 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import clsx from "clsx";
 import { CardGrid } from "./components/CardGrid/CardGrid";
 import { EmptyState } from "./components/EmptyState/EmptyState";
 import { FilterPopover } from "./components/FilterPopover/FilterPopover";
@@ -74,6 +75,8 @@ const App = () => {
   // Bumped to re-run the fetch when the locale has not changed (retry).
   const [reloadToken, setReloadToken] = useState(0);
   const [hidden] = useState(readHidden);
+  const [scrolled, setScrolled] = useState(false);
+  const listRef = useRef<HTMLDivElement>(null);
 
   const update = useCallback((patch: Partial<ICatalogQuery>) => {
     setQuery((prev) => {
@@ -83,9 +86,14 @@ const App = () => {
     });
   }, []);
 
-  // Any change to what is being shown returns to the first page.
+  // Any change to what is being shown returns to the first page, and to the top
+  // of the list — instantly, since the cards a smooth scroll would travel over
+  // belong to the result being replaced.
   const filter = useCallback(
-    (patch: Partial<ICatalogQuery>) => update({ ...patch, page: 1 }),
+    (patch: Partial<ICatalogQuery>) => {
+      update({ ...patch, page: 1 });
+      listRef.current?.scrollTo({ top: 0 });
+    },
     [update],
   );
 
@@ -199,91 +207,109 @@ const App = () => {
 
   return (
     <div className={styles.app}>
-      <div className={styles.toolbar}>
-        <div className={styles["toolbar-query"]}>
-          {!hidden.has("search") && (
-            <SearchBox value={query.q} onChange={(q) => filter({ q })} />
-          )}
+      <header
+        className={clsx(styles.header, scrolled && styles["header-scrolled"])}
+      >
+        <div className={styles.toolbar}>
+          <div className={styles["toolbar-query"]}>
+            {!hidden.has("search") && (
+              <SearchBox value={query.q} onChange={(q) => filter({ q })} />
+            )}
 
-          <FilterPopover
-            countries={countries}
-            categories={categories}
-            selectedCountries={query.countries}
-            selectedCategories={query.categories}
-            hasFilters={hasFacetFilters}
-            onToggleCountry={(value) =>
-              filter({ countries: toggleValue(query.countries, value) })
-            }
-            onToggleCategory={(value) =>
-              filter({ categories: toggleValue(query.categories, value) })
-            }
-            onClearAll={clearFilters}
-          />
+            <FilterPopover
+              countries={countries}
+              categories={categories}
+              selectedCountries={query.countries}
+              selectedCategories={query.categories}
+              hasFilters={hasFacetFilters}
+              onToggleCountry={(value) =>
+                filter({ countries: toggleValue(query.countries, value) })
+              }
+              onToggleCategory={(value) =>
+                filter({ categories: toggleValue(query.categories, value) })
+              }
+              onClearAll={clearFilters}
+            />
+          </div>
+
+          {!hidden.has("lang") && (
+            <LanguageSelect
+              value={query.locale}
+              onChange={(locale) => filter({ locale })}
+            />
+          )}
         </div>
 
-        {!hidden.has("lang") && (
-          <LanguageSelect
-            value={query.locale}
-            onChange={(locale) => filter({ locale })}
-          />
+        {(!hidden.has("type") || showPurpose) && (
+          <div className={styles["toolbar-types"]}>
+            {!hidden.has("type") && (
+              <TypeFilter
+                selected={query.types[0]}
+                onSelect={(ext) => filter({ types: [ext] })}
+              />
+            )}
+
+            {showPurpose && (
+              <PurposeFilter
+                purposes={purposes}
+                selected={query.purposes}
+                onSelect={(key) => filter({ purposes: [key] })}
+              />
+            )}
+          </div>
         )}
+      </header>
+
+      {/* Focusable because Chromium only made scrollers keyboard-focusable in
+          127, and Desktop is on 109 — without it PageDown does nothing. */}
+      <div
+        ref={listRef}
+        tabIndex={0}
+        className={styles.scroll}
+        onScroll={(event) => setScrolled(event.currentTarget.scrollTop > 0)}
+      >
+        {status === "loading" && (
+          <p className={styles.notice}>{t("Loading")}</p>
+        )}
+
+        {status === "error" && (
+          <p className={styles.notice}>
+            {t("LoadFailed")}{" "}
+            <button
+              type="button"
+              className={styles["notice-retry"]}
+              onClick={() => setReloadToken((token) => token + 1)}
+            >
+              {t("Retry")}
+            </button>
+          </p>
+        )}
+
+        {status === "ready" &&
+          (shown.length > 0 ? (
+            <CardGrid templates={shown} onSelect={setSelected} />
+          ) : (
+            <EmptyState
+              hasFilters={hasFacetFilters}
+              onClearFilters={clearFilters}
+            />
+          ))}
       </div>
 
-      {(!hidden.has("type") || showPurpose) && (
-        <div className={styles["toolbar-types"]}>
-          {!hidden.has("type") && (
-            <TypeFilter
-              selected={query.types[0]}
-              onSelect={(ext) => filter({ types: [ext] })}
-            />
-          )}
-
-          {showPurpose && (
-            <PurposeFilter
-              purposes={purposes}
-              selected={query.purposes}
-              onSelect={(key) => filter({ purposes: [key] })}
-            />
-          )}
-        </div>
-      )}
-
-      {status === "loading" && (
-        <p className={styles.notice}>{t("Loading")}</p>
-      )}
-
-      {status === "error" && (
-        <p className={styles.notice}>
-          {t("LoadFailed")}{" "}
-          <button
-            type="button"
-            className={styles["notice-retry"]}
-            onClick={() => setReloadToken((token) => token + 1)}
-          >
-            {t("Retry")}
-          </button>
-        </p>
-      )}
-
-      {status === "ready" &&
-        (shown.length > 0 ? (
-          <>
-            <CardGrid templates={shown} onSelect={setSelected} />
-            <Pagination
-              page={page}
-              pages={pages}
-              onChange={(next) => {
-                update({ page: next });
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-            />
-          </>
-        ) : (
-          <EmptyState
-            hasFilters={hasFacetFilters}
-            onClearFilters={clearFilters}
+      {/* `Pagination` renders nothing for a single page, and an empty footer
+          would still hold its padding. */}
+      {status === "ready" && pages > 1 && (
+        <footer className={styles.footer}>
+          <Pagination
+            page={page}
+            pages={pages}
+            onChange={(next) => {
+              update({ page: next });
+              listRef.current?.scrollTo({ top: 0 });
+            }}
           />
-        ))}
+        </footer>
+      )}
 
       <TemplateModal
         template={selected}

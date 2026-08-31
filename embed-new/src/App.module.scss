@@ -26,14 +26,51 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+// Uncapped width on purpose — the host controls how wide the iframe is; the
+// height is the frame's, so only the card list scrolls.
 .app {
-  // Uncapped on purpose — the host controls how wide the iframe is.
-  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  --layout-padding: 24px;
+}
+
+.header {
+  flex: 0 0 auto;
+  // Above `.scroll`, or the cards repaint over the shadow below.
+  position: relative;
+  z-index: 1;
+  // The 24px below the last row is that row's own margin.
+  padding: var(--layout-padding) var(--layout-padding) 0;
+  transition: box-shadow 0.2s;
+}
+
+.header-scrolled {
+  box-shadow: 0 4px 12px var(--main-header-shadow-color);
+}
+
+.scroll {
+  flex: 1 1 auto;
+  // A flex item defaults to `min-height: auto`, which grows to the content
+  // instead of scrolling.
+  min-height: 0;
+  overflow-y: auto;
+  // Embedded: reaching the end must not scroll the host page.
+  overscroll-behavior: contain;
+  // A 3-card result keeps the same columns as a 24-card one.
+  scrollbar-gutter: stable;
+  padding-inline: var(--layout-padding);
+  padding-block-end: var(--layout-padding);
+}
+
+.footer {
+  flex: 0 0 auto;
+  padding: 16px var(--layout-padding) var(--layout-padding);
 }
 
 @media (max-width: 600px) {
   .app {
-    padding: 16px;
+    --layout-padding: 16px;
   }
 }
 

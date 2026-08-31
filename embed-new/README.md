@@ -7,6 +7,10 @@ dependency on `../src`.
 v0 is a card grid, newest first, with type tabs, pagination, language select and
 filters in a popover. No expand-to-full-page, no redesign yet.
 
+The page is a fixed shell — the controls and the pagination hold still and only
+the card list scrolls — so **the host must give the iframe a definite height**.
+A `height: auto` iframe is 150px.
+
 ## Develop
 
 ```bash

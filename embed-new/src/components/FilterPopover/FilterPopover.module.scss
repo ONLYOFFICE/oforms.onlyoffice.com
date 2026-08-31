@@ -72,8 +72,10 @@
   box-shadow: 0 4px 16px var(--language-switcher-menu-shadow-color);
 }
 
+// The page no longer scrolls, so a panel taller than the frame is unreachable
+// rather than merely long.
 .menu-body {
-  max-height: 360px;
+  max-height: min(360px, 50dvh);
   overflow-y: auto;
   padding: 4px;
 }
