@@ -30,14 +30,13 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CardGrid } from "./components/CardGrid/CardGrid";
 import { EmptyState } from "./components/EmptyState/EmptyState";
-import { FilterDrawer } from "./components/FilterDrawer/FilterDrawer";
+import { FilterPopover } from "./components/FilterPopover/FilterPopover";
 import { LanguageSelect } from "./components/LanguageSelect/LanguageSelect";
 import { Pagination } from "./components/Pagination/Pagination";
 import { PurposeFilter } from "./components/PurposeFilter/PurposeFilter";
 import { SearchBox } from "./components/SearchBox/SearchBox";
 import { TemplateModal } from "./components/TemplateModal/TemplateModal";
 import { TypeFilter } from "./components/TypeFilter/TypeFilter";
-import { FiltersIcon } from "./components/icons";
 import { loadCatalog } from "./data";
 import {
   getCategories,
@@ -71,7 +70,6 @@ const App = () => {
   const [status, setStatus] = useState<"loading" | "ready" | "error">(
     "loading",
   );
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selected, setSelected] = useState<ITemplate | null>(null);
   // Bumped to re-run the fetch when the locale has not changed (retry).
   const [reloadToken, setReloadToken] = useState(0);
@@ -190,9 +188,9 @@ const App = () => {
   const shown = visible.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   // Type and purpose are excluded: both always have a value, so counting them
-  // would light the Filters dot permanently and Clear would silently move the
-  // user to Documents / Business.
-  const hasDrawerFilters =
+  // would leave the Filters button lit permanently and Clear would silently
+  // move the user to Documents / Business.
+  const hasFacetFilters =
     query.countries.length > 0 || query.categories.length > 0;
 
   const clearFilters = () => filter({ countries: [], categories: [] });
@@ -207,17 +205,20 @@ const App = () => {
             <SearchBox value={query.q} onChange={(q) => filter({ q })} />
           )}
 
-          <button
-            type="button"
-            className={styles["toolbar-filters"]}
-            onClick={() => setIsDrawerOpen(true)}
-          >
-            <FiltersIcon />
-            {t("Filters")}
-            {hasDrawerFilters && (
-              <span className={styles["toolbar-filters-dot"]} aria-hidden />
-            )}
-          </button>
+          <FilterPopover
+            countries={countries}
+            categories={categories}
+            selectedCountries={query.countries}
+            selectedCategories={query.categories}
+            hasFilters={hasFacetFilters}
+            onToggleCountry={(value) =>
+              filter({ countries: toggleValue(query.countries, value) })
+            }
+            onToggleCategory={(value) =>
+              filter({ categories: toggleValue(query.categories, value) })
+            }
+            onClearAll={clearFilters}
+          />
         </div>
 
         {!hidden.has("lang") && (
@@ -279,27 +280,10 @@ const App = () => {
           </>
         ) : (
           <EmptyState
-            hasFilters={hasDrawerFilters}
+            hasFilters={hasFacetFilters}
             onClearFilters={clearFilters}
           />
         ))}
-
-      <FilterDrawer
-        isOpen={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
-        countries={countries}
-        categories={categories}
-        selectedCountries={query.countries}
-        selectedCategories={query.categories}
-        hasFilters={hasDrawerFilters}
-        onToggleCountry={(value) =>
-          filter({ countries: toggleValue(query.countries, value) })
-        }
-        onToggleCategory={(value) =>
-          filter({ categories: toggleValue(query.categories, value) })
-        }
-        onClearAll={clearFilters}
-      />
 
       <TemplateModal
         template={selected}

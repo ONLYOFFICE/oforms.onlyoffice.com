@@ -5,7 +5,7 @@ ships without a desktop release. Replaces `../embed` and its Next.js shims — n
 dependency on `../src`.
 
 v0 is a card grid, newest first, with type tabs, pagination, language select and
-filters in a drawer. No expand-to-full-page, no redesign yet.
+filters in a popover. No expand-to-full-page, no redesign yet.
 
 ## Develop
 

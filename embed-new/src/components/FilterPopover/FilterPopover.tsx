@@ -26,16 +26,15 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { useEffect, useState } from "react";
+import { useId, useState } from "react";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
-import { ChevronIcon, CrossIcon } from "../icons";
+import { useDropdown } from "../../hooks/useDropdown";
+import { ChevronIcon, FiltersIcon } from "../icons";
 import type { ICategoryCount, ICountry } from "../../types";
-import styles from "./FilterDrawer.module.scss";
+import styles from "./FilterPopover.module.scss";
 
-interface IFilterDrawerProps {
-  isOpen: boolean;
-  onClose: () => void;
+interface IFilterPopoverProps {
   countries: (ICountry & { count: number })[];
   categories: ICategoryCount[];
   selectedCountries: string[];
@@ -67,13 +66,17 @@ const Check = ({ label, checked, onChange }: ICheckProps) => (
 const Group = ({
   title,
   children,
+  showHeader,
   defaultOpen = true,
 }: {
   title: string;
   children: React.ReactNode;
+  showHeader: boolean;
   defaultOpen?: boolean;
 }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
+
+  if (!showHeader) return <div className={styles["group-body"]}>{children}</div>;
 
   return (
     <section className={styles.group}>
@@ -91,9 +94,11 @@ const Group = ({
   );
 };
 
-const FilterDrawer = ({
-  isOpen,
-  onClose,
+/**
+ * Anchored to its own button and deliberately not modal: every tick changes the
+ * result set, and the grid has to stay visible for that to be worth anything.
+ */
+const FilterPopover = ({
   countries,
   categories,
   selectedCountries,
@@ -102,20 +107,11 @@ const FilterDrawer = ({
   onToggleCountry,
   onToggleCategory,
   onClearAll,
-}: IFilterDrawerProps) => {
+}: IFilterPopoverProps) => {
   const { t } = useTranslation("MainTemplate");
   const { t: tEmbed } = useTranslation("embed");
-
-  useEffect(() => {
-    if (!isOpen) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, [isOpen, onClose]);
-
-  if (!isOpen) return null;
+  const { isOpen, setIsOpen, ref } = useDropdown();
+  const panelId = useId();
 
   // A row that would return nothing is not offered — 11 of the 17 categories
   // are empty inside Presentations. A checked one stays, or switching type
@@ -125,81 +121,85 @@ const FilterDrawer = ({
       category.count > 0 || selectedCategories.includes(category.urlReq),
   );
 
+  // Countries is the only group that could ever join Categories, so one fact
+  // decides both: the button already says Filters, and a lone group heading
+  // below it is a redundant row.
+  const showCountries = countries.length > 1;
+
   return (
-    <div className={styles.overlay}>
-      <div
-        className={styles.backdrop}
-        onClick={onClose}
-        role="presentation"
-      />
-
-      <aside
-        className={styles.drawer}
-        role="dialog"
-        aria-modal="true"
-        aria-label={tEmbed("Filters")}
+    <div className={styles.filters} ref={ref}>
+      <button
+        type="button"
+        className={clsx(styles.trigger, hasFilters && styles["trigger-active"])}
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-controls={panelId}
       >
-        <header className={styles["drawer-header"]}>
-          <span className={styles["drawer-title"]}>{tEmbed("Filters")}</span>
-          <button
-            type="button"
-            className={styles["drawer-close"]}
-            onClick={onClose}
-            aria-label={tEmbed("Close")}
-          >
-            <CrossIcon />
-          </button>
-        </header>
+        <FiltersIcon />
+        {tEmbed("Filters")}
+      </button>
 
-        <div className={styles["drawer-body"]}>
-          {visibleCategories.length > 0 && (
-            <Group title={t("Сategories")}>
-              {visibleCategories.map((category) => (
-                <Check
-                  key={category.id}
-                  label={category.name}
-                  checked={selectedCategories.includes(category.urlReq)}
-                  onChange={() => onToggleCategory(category.urlReq)}
-                />
-              ))}
-            </Group>
-          )}
+      {isOpen && (
+        <div
+          id={panelId}
+          className={styles.menu}
+          role="group"
+          aria-label={tEmbed("Filters")}
+        >
+          <div className={styles["menu-body"]}>
+            {visibleCategories.length > 0 && (
+              <Group title={t("Сategories")} showHeader={showCountries}>
+                {visibleCategories.map((category) => (
+                  <Check
+                    key={category.id}
+                    label={category.name}
+                    checked={selectedCategories.includes(category.urlReq)}
+                    onChange={() => onToggleCategory(category.urlReq)}
+                  />
+                ))}
+              </Group>
+            )}
 
-          {/*
-           * Every locale currently ships exactly one country, carried by every
-           * template in it — a lone checkbox that can only match everything.
-           * Shown from two upwards, so it returns by itself if the CMS adds one.
-           */}
-          {countries.length > 1 && (
-            <Group title={t("Countries")} defaultOpen={false}>
-              {countries.map((country) => (
-                <Check
-                  key={country.id}
-                  label={country.name}
-                  checked={selectedCountries.includes(
-                    country.code.toLowerCase(),
-                  )}
-                  onChange={() => onToggleCountry(country.code.toLowerCase())}
-                />
-              ))}
-            </Group>
+            {/*
+             * Every locale currently ships exactly one country, carried by every
+             * template in it — a lone checkbox that can only match everything.
+             * Shown from two upwards, so it returns by itself if the CMS adds one.
+             */}
+            {showCountries && (
+              <Group
+                title={t("Countries")}
+                showHeader={showCountries}
+                defaultOpen={false}
+              >
+                {countries.map((country) => (
+                  <Check
+                    key={country.id}
+                    label={country.name}
+                    checked={selectedCountries.includes(
+                      country.code.toLowerCase(),
+                    )}
+                    onChange={() => onToggleCountry(country.code.toLowerCase())}
+                  />
+                ))}
+              </Group>
+            )}
+          </div>
+
+          {hasFilters && (
+            <div className={styles["menu-footer"]}>
+              <button
+                type="button"
+                className={styles.clear}
+                onClick={onClearAll}
+              >
+                {t("ClearAllFilters")}
+              </button>
+            </div>
           )}
         </div>
-
-        {hasFilters && (
-          <footer className={styles["drawer-footer"]}>
-            <button
-              type="button"
-              className={styles["drawer-clear"]}
-              onClick={onClearAll}
-            >
-              {t("ClearAllFilters")}
-            </button>
-          </footer>
-        )}
-      </aside>
+      )}
     </div>
   );
 };
 
-export { FilterDrawer };
+export { FilterPopover };

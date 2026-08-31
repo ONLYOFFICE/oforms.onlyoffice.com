@@ -153,9 +153,9 @@ export const getPurposes = (forms: ITemplate[] | undefined): IPurpose[] =>
   );
 
 /**
- * Flat parent-category list for the filter drawer.
+ * Flat parent-category list for the filter popover.
  *
- * The site nests purpose > category > subcategory; the drawer offers only the
+ * The site nests purpose > category > subcategory; the popover offers only the
  * 17 parent categories, so both the purpose grouping and the 53 subcategories
  * are collapsed away. A template counts once per category however many of its
  * subcategories lead there.
