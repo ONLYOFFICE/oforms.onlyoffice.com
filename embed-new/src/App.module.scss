@@ -92,16 +92,12 @@
   flex: 1 1 auto;
 }
 
-// The tab underline lives here rather than on the tab strip, so one rule runs
-// under both groups instead of stopping short of the purpose chips. `.tab`'s
-// -1px bottom margin overlaps it, so this row must keep no bottom padding.
 .toolbar-types {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 8px 16px;
-  border-block-end: 1px solid var(--type-tab-border-color);
   margin-block-end: 24px;
 }
 

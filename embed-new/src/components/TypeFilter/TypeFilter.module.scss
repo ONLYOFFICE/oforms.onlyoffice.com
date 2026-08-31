@@ -28,8 +28,6 @@
 
 /* Wraps rather than scrolls: Chromium 109 paints a classic scrollbar for
    overflow-x, which is drawn under the tabs even when they fit. */
-/* `flex-shrink: 1` is what lets this get narrower than its content and wrap.
-   The underline is on the row, not here, so it runs past the purpose chips. */
 .tabs {
   display: flex;
   flex-wrap: wrap;
@@ -45,7 +43,6 @@
   padding-inline: 12px;
   border: 0;
   border-block-end: 2px solid transparent;
-  margin-block-end: -1px;
   background: none;
   white-space: nowrap;
   font-size: 14px;
