@@ -56,13 +56,15 @@
   border-block-start: 5px solid currentColor;
 }
 
+// 9 rows never scroll; the cap is the space below the header, so a short frame
+// clips nothing it cannot scroll into.
 .language-menu {
   position: absolute;
   inset-block-start: calc(100% + 4px);
   inset-inline-end: 0;
   z-index: 20;
   min-width: 160px;
-  max-height: min(320px, 50dvh);
+  max-height: calc(100dvh - 128px);
   overflow-y: auto;
   padding: 4px;
   border-radius: 4px;
@@ -70,10 +72,12 @@
   box-shadow: 0 4px 16px var(--language-switcher-menu-shadow-color);
 }
 
+// A fixed line-height, or the CJK fallback font sizes its own rows 4px taller.
 .language-option {
   display: block;
   width: 100%;
-  padding: 8px 12px;
+  padding: 6px 12px;
+  line-height: 20px;
   border: 0;
   border-radius: 3px;
   background: none;
