@@ -26,12 +26,16 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-// Uncapped width on purpose — the host controls how wide the iframe is; the
-// height is the frame's, so only the card list scrolls.
+// Six columns at most: 24 per page is then four whole rows, where an uncapped
+// 2560px frame gives 9 columns and 2.7 ragged ones. 6 × 282 + 5 × 32 (the grid
+// gutter, which a 24px one would fit seven of) + 2 × 24, where 282 is the column
+// at which the preview reaches its 256px cap. Only the card list scrolls.
 .app {
   display: flex;
   flex-direction: column;
   height: 100%;
+  max-width: 1900px;
+  margin-inline: auto;
   --layout-padding: 24px;
 }
 

@@ -28,17 +28,19 @@
 
 /**
  * auto-fill + minmax means the grid adapts continuously from a phone to a 4K
- * display with no breakpoints of its own.
+ * display, with one breakpoint: two 240px columns need a 544px frame, so below
+ * 600px — where the padding steps down anyway — the wide rule would leave a lone
+ * 500px column around a 256px preview. The narrow one holds until then.
  */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 32px 24px;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 24px 16px;
 }
 
-@media (max-width: 480px) {
+@media (min-width: 600px) {
   .grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 24px 16px;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 40px 32px;
   }
 }
