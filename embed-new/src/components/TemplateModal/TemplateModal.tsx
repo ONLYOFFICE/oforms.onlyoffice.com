@@ -91,8 +91,6 @@ const TemplateModal = ({ template, onClose, onUse }: ITemplateModalProps) => {
           <div className={styles["modal-content"]}>
             <h2 className={styles["modal-heading"]}>{template.name_form}</h2>
 
-            <span className={styles["modal-tag"]}>{t("Free")}</span>
-
             <p className={styles["modal-text"]}>{template.description_card}</p>
 
             <dl className={styles["modal-meta"]}>
