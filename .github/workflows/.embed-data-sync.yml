@@ -23,20 +23,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-          cache-dependency-path: |
-            package-lock.json
-            embed/package-lock.json
-
-      - name: Install dependencies
-        working-directory: embed
-        run: npm run install:all:ci
 
       - name: Generate embed data
-        working-directory: embed
         env:
           EMBED_CMS_URL: ${{ vars.EMBED_CMS_URL }}
-        run: npm run generate
+        run: node embed-new/scripts/generate-data.mjs
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4

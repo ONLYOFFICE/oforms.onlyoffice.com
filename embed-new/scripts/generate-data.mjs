@@ -4,7 +4,7 @@
  * embed-data-sync workflow, which uploads the result to the bucket.
  *
  * Usage:
- *   node scripts/generate-data.mjs [locale]     (default: all 9 locales)
+ *   node embed-new/scripts/generate-data.mjs [locale]   (default: all 9 locales)
  */
 import { writeFile, mkdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
