@@ -16,5 +16,6 @@
   "PresentationTemplates": "プレゼンテーションテンプレート",
   "PdfFormsTemplates": "PDFフォームテンプレート",
   "ClearAllFilters": "すべてのフィルターをクリア",
-  "ShowLess": "表示を減らす"
+  "ShowLess": "表示を減らす",
+  "BrowseAllTemplates": "Browse All Templates"
 }

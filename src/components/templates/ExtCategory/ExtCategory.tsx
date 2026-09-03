@@ -31,6 +31,8 @@ import { useRouter } from "next/router";
 import { IExtCategory } from "@src/types/template";
 import { Main } from "@src/components/modules/Main";
 import { MainSection } from "@src/components/modules/Main/sub-components/MainSection";
+import { NoResultsFound } from "@src/components/modules/NoResultsFound";
+import { Button } from "@src/components/ui/Button";
 import {
   getExtCount,
   getPurposes,
@@ -42,6 +44,7 @@ import {
   sortForms,
 } from "@src/utils/helpers";
 import { TAllowedTypes } from "@src/utils/allowedTypes";
+import styles from "@src/components/templates/Main/Main.module.scss";
 
 const EXT_TEMPLATES_LABEL_KEY: Record<TAllowedTypes, string> = {
   docx: "DocumentTemplates",
@@ -113,7 +116,22 @@ const ExtCategoryTemplate = ({
       totalCount={totalCount}
       selectedType={ext}
       formNames={formNames}
+      searchOnly={filteredForms.length === 0}
     >
+      {!filteredForms.length && (
+        <>
+          <NoResultsFound />
+          <Button
+            className={styles["main-browse-all-btn"]}
+            as="a"
+            href="/"
+            variant="secondary-dark"
+          >
+            {t("BrowseAllTemplates")}
+          </Button>
+        </>
+      )}
+
       {popularTemplates.length > 0 && (
         <MainSection label={t("PopularTemplates")} data={popularTemplates} />
       )}

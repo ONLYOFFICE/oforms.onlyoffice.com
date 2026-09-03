@@ -16,5 +16,6 @@
   "PresentationTemplates": "演示文稿模板",
   "PdfFormsTemplates": "PDF表单模板",
   "ClearAllFilters": "清除所有筛选条件",
-  "ShowLess": "收起"
+  "ShowLess": "收起",
+  "BrowseAllTemplates": "浏览所有模板"
 }

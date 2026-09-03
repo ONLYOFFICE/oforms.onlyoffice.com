@@ -31,6 +31,8 @@ import { useRouter } from "next/router";
 import { ICategory } from "@src/types/template";
 import { Main } from "@src/components/modules/Main";
 import { MainSection } from "@src/components/modules/Main/sub-components/MainSection";
+import { NoResultsFound } from "@src/components/modules/NoResultsFound";
+import { Button } from "@src/components/ui/Button";
 import {
   getExtCount,
   getPurposes,
@@ -40,6 +42,7 @@ import {
   normalizeSortKey,
   sortForms,
 } from "@src/utils/helpers";
+import styles from "@src/components/templates/Main/Main.module.scss";
 
 const CategoryTemplate = ({
   categoryInfoWithForms,
@@ -117,7 +120,22 @@ const CategoryTemplate = ({
       categoriesByPurpose={categoriesByPurpose}
       totalCount={totalCount}
       formNames={formNames}
+      searchOnly={subcategories.length === 0}
     >
+      {!subcategories.length && (
+        <>
+          <NoResultsFound />
+          <Button
+            className={styles["main-browse-all-btn"]}
+            as="a"
+            href="/"
+            variant="secondary-dark"
+          >
+            {t("BrowseAllTemplates")}
+          </Button>
+        </>
+      )}
+
       {popularTemplates.length > 0 && (
         <MainSection label={t("PopularTemplates")} data={popularTemplates} />
       )}

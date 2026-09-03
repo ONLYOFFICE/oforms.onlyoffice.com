@@ -88,9 +88,7 @@ const Sidebar = ({
   const isTypeChecked = (value: string) =>
     getSelected("type").includes(value) || selectedType === value;
 
-  const checkedTypeCount = ["docx", "xlsx", "pptx", "pdf"].filter(
-    isTypeChecked,
-  ).length;
+  const checkedTypeCount = ALLOWED_TYPES.filter(isTypeChecked).length;
 
   const toggleQueryValue = (key: string, value: string) => {
     const selected = getSelected(key);
@@ -199,12 +197,14 @@ const Sidebar = ({
 
   const filterKeys = ["type", "country", "subcategory"];
 
-  const allowedValues: Record<string, string[]> = {
-    type: ALLOWED_TYPES,
-    country: countries.map((country) => country.code.toLowerCase()),
-    subcategory: Object.values(categoriesByPurpose).flatMap((categories) =>
-      categories.flatMap(({ subcategories }) =>
-        subcategories.map((sub) => sub.urlReq),
+  const allowedValues: Record<string, Set<string>> = {
+    type: new Set(ALLOWED_TYPES),
+    country: new Set(countries.map((country) => country.code.toLowerCase())),
+    subcategory: new Set(
+      Object.values(categoriesByPurpose).flatMap((categories) =>
+        categories.flatMap(({ subcategories }) =>
+          subcategories.map((sub) => sub.urlReq),
+        ),
       ),
     ),
   };
@@ -212,9 +212,7 @@ const Sidebar = ({
   const getValidSelected = (key: string) => {
     const selected = getSelected(key);
     const allowed = allowedValues[key];
-    return allowed
-      ? selected.filter((value) => allowed.includes(value))
-      : selected;
+    return allowed ? selected.filter((value) => allowed.has(value)) : selected;
   };
 
   const totalChecked =
@@ -235,8 +233,8 @@ const Sidebar = ({
     router.push({ query }, undefined, { scroll: false, shallow: true });
   };
 
-  const selectedCountries = getSelected("country");
-  const selectedSubcategories = getSelected("subcategory");
+  const selectedCountries = getValidSelected("country");
+  const selectedSubcategories = getValidSelected("subcategory");
 
   return (
     <aside className={clsx(styles.sidebar, isOpen && styles["sidebar-open"])}>

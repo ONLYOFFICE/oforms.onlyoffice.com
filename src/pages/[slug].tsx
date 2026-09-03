@@ -194,6 +194,7 @@ export const getStaticProps = async ({
           "MainTemplate",
           "SortSelector",
           "SearchInput",
+          "NoResultsFound",
         ])),
         locale,
         isCategory: true,

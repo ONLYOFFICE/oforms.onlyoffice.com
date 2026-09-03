@@ -72,6 +72,7 @@ export const getStaticProps = async ({ locale }: ILocale) => {
         "MainTemplate",
         "SortSelector",
         "SearchInput",
+        "NoResultsFound",
       ])),
       locale,
       allForms,

@@ -26,54 +26,52 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { useRouter } from "next/router";
-import { OOHeader } from "onlyoffice-react-ui-kit/header";
-import "onlyoffice-react-ui-kit/header/css";
-import { languages } from "@src/config/languages";
-import { IHeader } from "./Header.types";
-import styles from "./Header.module.scss";
+import { useTranslation } from "next-i18next";
+import { Heading } from "@src/components/ui/Heading";
+import { Text } from "@src/components/ui/Text";
+import { getAssetUrl } from "@src/utils/getAssetUrl";
+import styles from "./NoResultsFound.module.scss";
 
-const KEEP_PATHNAME_ROUTES = [
-  "/form-submit",
-  "/searchresult",
-  "/pdf-form-templates",
-  "/document-templates",
-  "/spreadsheet-templates",
-  "/presentation-templates",
-];
-
-const Header = ({ locale, headerBgColor }: IHeader) => {
-  const router = useRouter();
-
-  const queryString = router.asPath.split("?")[1] ?? "";
-  const languageHref = KEEP_PATHNAME_ROUTES.includes(router.pathname)
-    ? router.asPath
-    : `/${queryString ? `?${queryString}` : ""}`;
+const NoResultsFound = () => {
+  const { t } = useTranslation("NoResultsFound");
 
   return (
-    <div className={styles.header}>
-      <OOHeader
-        locale={locale}
-        languages={languages.map((language) => ({
-          key: language.shortKey,
-          shortKey: language.shortKey,
-          name: language.longKey,
-          href: languageHref,
-        }))}
-        base={{
-          url: process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN!,
-        }}
-        phone={{
-          show: true,
-        }}
-        backgroundColor={headerBgColor || "#ffffff"}
-        highlight={{
-          buttonId: "oo-menu-item-btn-products",
-          linkId: "oo-menu-link-templates",
-        }}
-      />
+    <div className={styles["no-results-found"]}>
+      <div className={styles["no-results-found-img-wrapper"]}>
+        <div
+          className={styles["no-results-found-img"]}
+          style={
+            {
+              "--no-results-found-img": `url(${getAssetUrl("/images/templates/searchresult/no-results-found.png")})`,
+            } as React.CSSProperties
+          }
+        ></div>
+      </div>
+      <div>
+        <Heading
+          className={styles["no-results-found-heading"]}
+          level={2}
+          color="var(--search-result-heading-color)"
+        >
+          {t("NoResultsFound")}
+        </Heading>
+        <Text
+          className={styles["no-results-found-text"]}
+          size={2}
+          color="var(--search-result-no-results-found-text-color)"
+        >
+          {t("WeCouldntFindAnythingMatchingYourSearch")}
+        </Text>
+        <Text
+          className={styles["no-results-found-subtext"]}
+          size={3}
+          color="var(--search-result-no-results-found-subtext-color)"
+        >
+          {t("TryAdjustingYourKeywords")}
+        </Text>
+      </div>
     </div>
   );
 };
 
-export { Header };
+export { NoResultsFound };
