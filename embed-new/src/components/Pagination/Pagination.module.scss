@@ -52,7 +52,7 @@
     background-color 0.2s,
     color 0.2s;
 
-  &:hover:not(:disabled) {
+  &:hover:not(:disabled, .pagination-page-active) {
     background-color: var(--pagination-background-color-hover);
   }
 
@@ -70,10 +70,7 @@
   background-color: var(--pagination-background-color-active);
   border-color: var(--pagination-background-color-active);
   color: var(--pagination-color-active);
-
-  &:hover {
-    background-color: var(--pagination-background-color-active);
-  }
+  cursor: default;
 }
 
 .pagination-gap {
