@@ -123,9 +123,13 @@
   --template-modal-btn-box-shadow-color: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
   --template-modal-btn-primary-color: #ffffff;
   --template-modal-btn-primary-background-color: #4a87e7;
+  --template-modal-btn-primary-background-color-hover: #437ad0;
+  --template-modal-btn-primary-background-color-active: #3b6cb9;
   --template-modal-btn-secondary-border-color: #e7e8ee;
   --template-modal-btn-secondary-color: #21222b;
   --template-modal-btn-secondary-background-color: transparent;
+  --template-modal-btn-secondary-background-color-hover: #f2f4f8;
+  --template-modal-btn-secondary-background-color-active: #e7e8ee;
 
   --search-result-no-results-found-text-color: #494b5b;
   --search-result-no-results-found-subtext-color: #666980;
