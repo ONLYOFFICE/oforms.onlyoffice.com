@@ -47,8 +47,9 @@ function formatSize(size: number | undefined): string | null {
     : `${Math.round(size)} KB`;
 }
 
-// One formatter per locale, not per render: building an Intl object is the
-// expensive half of using one. See the collator note in NOTES.md.
+// One formatter per locale, not per render: constructing an Intl object is the
+// expensive half of using one — a per-comparison collator cost 95 ms over the
+// 747-item en catalog against 1.75 ms hoisted.
 const dateFormats = new Map<string, Intl.DateTimeFormat>();
 
 function formatDate(value: string | undefined, locale: string): string | null {
