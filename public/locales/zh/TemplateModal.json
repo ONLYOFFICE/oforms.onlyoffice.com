@@ -2,6 +2,8 @@
   "Free": "免费",
   "FileSize": "文件大小：",
   "FileType": "文件类型：",
+  "Pages": "页数：",
   "Cancel": "取消",
-  "UseThisTemplate": "使用此模板"
+  "UseThisTemplate": "使用此模板",
+  "LastUpdated": "最后更新："
 }

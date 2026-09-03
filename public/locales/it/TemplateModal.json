@@ -2,6 +2,8 @@
   "Free": "Free",
   "FileSize": "Dimensione del file:",
   "FileType": "File type:",
+  "Pages": "Pagine:",
   "Cancel": "Annulla",
-  "UseThisTemplate": "Use this template"
+  "UseThisTemplate": "Use this template",
+  "LastUpdated": "Ultimo aggiornamento:"
 }

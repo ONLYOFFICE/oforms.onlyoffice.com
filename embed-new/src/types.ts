@@ -102,6 +102,7 @@ export interface IOformFile {
   url?: string;
   size?: number;
   ext?: string;
+  updatedAt?: string;
 }
 
 export interface ICardPreview {
@@ -113,8 +114,9 @@ export interface ITemplate {
   id: number;
   documentId?: string;
   name_form: string;
-  description_card: string;
+  template_desc: string;
   url: string;
+  file_pages?: number;
   popular_template: boolean | null;
   createdAt: string;
   card_prewiew?: ICardPreview | null;

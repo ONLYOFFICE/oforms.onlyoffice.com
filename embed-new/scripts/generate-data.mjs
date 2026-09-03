@@ -36,10 +36,12 @@ const buildUrl = (l, page) =>
     "pagination[pageSize]=1000",
     "sort[0]=createdAt:desc",
     "fields[0]=name_form",
-    "fields[1]=description_card",
+    // Not description_card: the CMS keeps the SEO call to action there.
+    "fields[1]=template_desc",
     "fields[2]=url",
     "fields[3]=popular_template",
     "fields[4]=createdAt",
+    "fields[5]=file_pages",
     "populate[card_prewiew][fields][0]=url",
     "populate[form_exts][fields][0]=ext",
     // The actual template files (opened in the desktop editor via openTemplate).
@@ -47,6 +49,7 @@ const buildUrl = (l, page) =>
     "populate[file_oform][fields][1]=url",
     "populate[file_oform][fields][2]=size",
     "populate[file_oform][fields][3]=ext",
+    "populate[file_oform][fields][4]=updatedAt",
     "populate[countries][fields][0]=name",
     "populate[countries][fields][1]=code",
     "populate[countries][fields][2]=createdAt",
@@ -70,9 +73,26 @@ const EXT_BY_FILE = {
   ".pdf": "pdf",
 };
 
+// A part naming a file format is the call to action, not the description.
+const CTA_FORMAT = /\b(docx|xlsx|pptx|pdf)\b/i;
+
+// template_desc is the call to action then the description, separated by a newline
+// on 3251 of 3340 and by a space on the other 89 — one split, then drop everything
+// through the last part naming a format. The 19 naming nothing else keep it.
+// Revisit after the CMS is cleaned up: once every record has a description and the
+// call to action is always its own paragraph, this is the last part of a newline
+// split, and the format name stops being the marker.
+const describe = (text) => {
+  const parts = (text ?? "").trim().split(/\s*\n+\s*|(?<=[.!?。！？])\s+/);
+  const cta = parts.findLastIndex((part) => CTA_FORMAT.test(part));
+  return (cta < parts.length - 1 ? parts.slice(cta + 1) : parts).join(" ");
+};
+
 // Preview urls may be root-relative, and form_exts disagrees with the file that
 // actually opens on 10 of 3340. Fixed here rather than in each consumer,
 // because they all read form_exts and file_oform agrees with the url every time.
+// template_desc is trimmed to its description in the same pass and for the same
+// reason: one correction here beats the same rule in every consumer.
 const normalize = (items) => {
   for (const item of items) {
     const preview = item?.card_prewiew?.url;
@@ -83,6 +103,12 @@ const normalize = (items) => {
     const tagged = item?.form_exts?.[0];
     const actual = EXT_BY_FILE[item?.file_oform?.[0]?.ext];
     if (tagged && actual) tagged.ext = actual;
+
+    item.template_desc = describe(item?.template_desc);
+
+    const pages = Number(item?.file_pages);
+    if (Number.isInteger(pages) && pages > 0) item.file_pages = pages;
+    else delete item.file_pages;
   }
 
   return items;

@@ -47,8 +47,25 @@ function formatSize(size: number | undefined): string | null {
     : `${Math.round(size)} KB`;
 }
 
+// One formatter per locale, not per render: building an Intl object is the
+// expensive half of using one. See the collator note in NOTES.md.
+const dateFormats = new Map<string, Intl.DateTimeFormat>();
+
+function formatDate(value: string | undefined, locale: string): string | null {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+
+  let format = dateFormats.get(locale);
+  if (!format) {
+    format = new Intl.DateTimeFormat(locale, { dateStyle: "long" });
+    dateFormats.set(locale, format);
+  }
+  return format.format(date);
+}
+
 const TemplateModal = ({ template, onClose, onUse }: ITemplateModalProps) => {
-  const { t } = useTranslation("TemplateModal");
+  const { t, i18n } = useTranslation("TemplateModal");
 
   useEffect(() => {
     if (!template) return;
@@ -64,6 +81,10 @@ const TemplateModal = ({ template, onClose, onUse }: ITemplateModalProps) => {
   // Optional-chain the element, not just the array: a template with an empty
   // file_oform / form_exts must not throw here.
   const size = formatSize(template.file_oform?.[0]?.size);
+  const updated = formatDate(
+    template.file_oform?.[0]?.updatedAt,
+    i18n.language,
+  );
   const ext = template.form_exts?.[0]?.ext;
   const preview = previewUrl(template);
 
@@ -91,7 +112,7 @@ const TemplateModal = ({ template, onClose, onUse }: ITemplateModalProps) => {
           <div className={styles["modal-content"]}>
             <h2 className={styles["modal-heading"]}>{template.name_form}</h2>
 
-            <p className={styles["modal-text"]}>{template.description_card}</p>
+            <p className={styles["modal-text"]}>{template.template_desc}</p>
 
             <dl className={styles["modal-meta"]}>
               {ext && (
@@ -100,10 +121,22 @@ const TemplateModal = ({ template, onClose, onUse }: ITemplateModalProps) => {
                   <dd>{ext.toUpperCase()}</dd>
                 </div>
               )}
+              {!!template.file_pages && (
+                <div className={styles["modal-meta-row"]}>
+                  <dt>{t("Pages")}</dt>
+                  <dd>{template.file_pages}</dd>
+                </div>
+              )}
               {size && (
                 <div className={styles["modal-meta-row"]}>
                   <dt>{t("FileSize")}</dt>
                   <dd>{size}</dd>
+                </div>
+              )}
+              {updated && (
+                <div className={styles["modal-meta-row"]}>
+                  <dt>{t("LastUpdated")}</dt>
+                  <dd>{updated}</dd>
                 </div>
               )}
             </dl>
