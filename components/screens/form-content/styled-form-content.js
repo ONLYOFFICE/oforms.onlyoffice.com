@@ -391,14 +391,16 @@ const StyledForms = styled(Section)`
   }
 
   .explore-other-template {
-    margin-top: 56px;
+    &:not(:first-child) {
+      margin-top: 56px;
 
-    @media screen and ${device.laptop} {
-      margin-top: 40px;
-    }
+      @media screen and ${device.laptop} {
+        margin-top: 40px;
+      }
 
-    @media screen and ${device.mobile} {
-      margin-top: 24px;
+      @media screen and ${device.mobile} {
+        margin-top: 24px;
+      }
     }
   }
 

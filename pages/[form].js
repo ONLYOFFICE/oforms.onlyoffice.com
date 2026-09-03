@@ -73,14 +73,15 @@ const FormPage = ({ locale, form, randomCarousel, compilations }) => {
 
 export const getServerSideProps = async ({ locale, ...context }) => {
   const form = await getForm(locale, context.query.form);
-  const randomCarousel = await getRandomForms(locale, form.data[0]?.attributes.form_exts.data[0].attributes.ext);
-  const compilations = await getCategories(locale, "compilations", "compilation");
 
-  if (form.data.length === 0) {
+  if (!form?.data?.length) {
     return {
       notFound: true
     };
   };
+
+  const randomCarousel = await getRandomForms(locale, form.data[0]?.attributes?.form_exts?.data?.[0]?.attributes?.ext);
+  const compilations = await getCategories(locale, "compilations", "compilation");
 
   return {
     props: {
