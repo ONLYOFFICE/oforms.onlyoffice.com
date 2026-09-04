@@ -26,7 +26,14 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 import { CardGrid } from "./components/CardGrid/CardGrid";
@@ -120,8 +127,9 @@ const App = () => {
     return () => controller.abort();
   }, [query.locale, reloadToken]);
 
-  // Direction follows the locale.
-  useEffect(() => {
+  // Direction follows the locale. Layout effect, or `ar` paints one LTR frame
+  // before the mirror — measured at every CPU throttle level.
+  useLayoutEffect(() => {
     document.documentElement.lang = query.locale;
     document.documentElement.dir = isRtlLocale(query.locale) ? "rtl" : "ltr";
   }, [query.locale]);
