@@ -28,11 +28,11 @@
 
 import i18n, { type Resource, type ResourceLanguage } from "i18next";
 import { initReactI18next } from "react-i18next";
-import { FALLBACK, SUPPORTED, type Locale } from "./locale";
+import { FALLBACK, type Locale } from "./locale";
 
+// Only what this app renders. `common` and `main` were globbed and never read
+// — 11.8 KB across the 9 locales for nothing.
 export const NAMESPACES = [
-  "common",
-  "main",
   "MainTemplate",
   "SearchInput",
   "TemplateModal",
@@ -40,28 +40,12 @@ export const NAMESPACES = [
   "embed",
 ] as const;
 
-// All 9 locales are bundled rather than fetched: it is only ~37 KB in total,
+// All 9 locales are bundled rather than fetched: it is only ~27 KB in total,
 // and it means switching language needs no network at all.
 const modules = import.meta.glob(
-  "../../public/locales/*/{common,main,MainTemplate,SearchInput,TemplateModal,searchresult}.json",
+  "../../public/locales/*/{MainTemplate,SearchInput,TemplateModal,searchresult,embed}.json",
   { eager: true, import: "default" },
 ) as Record<string, Record<string, string>>;
-
-// Labels this page needs that the shared catalogs do not carry yet. English
-// only — other locales fall back to these until the keys are translated and
-// moved into public/locales/<locale>/.
-const EMBED_STRINGS: Record<string, string> = {
-  Filters: "Filters",
-  Templates: "Templates",
-  Language: "Language",
-  Previous: "Previous",
-  Next: "Next",
-  Close: "Close",
-  Clear: "Clear",
-  Loading: "Loading templates…",
-  LoadFailed: "Templates could not be loaded.",
-  Retry: "Retry",
-};
 
 const resources: Resource = {};
 
@@ -70,10 +54,6 @@ for (const [path, data] of Object.entries(modules)) {
   if (!match) continue;
   const [, locale, namespace] = match;
   (resources[locale] ??= {} as ResourceLanguage)[namespace] = data;
-}
-
-for (const locale of SUPPORTED) {
-  (resources[locale] ??= {} as ResourceLanguage).embed = EMBED_STRINGS;
 }
 
 let started = false;

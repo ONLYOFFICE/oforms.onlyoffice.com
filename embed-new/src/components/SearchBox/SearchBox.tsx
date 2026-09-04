@@ -60,7 +60,7 @@ const SearchBox = ({ value, onChange }: ISearchBoxProps) => {
           type="button"
           className={styles["search-clear"]}
           onClick={() => onChange("")}
-          aria-label={tEmbed("Clear")}
+          aria-label={tEmbed("ClearSearch")}
         >
           <CrossIcon />
         </button>
