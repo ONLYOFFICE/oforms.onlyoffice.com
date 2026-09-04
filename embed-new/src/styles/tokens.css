@@ -29,13 +29,14 @@
 /**
  * Design tokens.
  *
- * These are the defaults. The desktop host overrides any subset by setting the
- * same custom properties as INLINE styles on <html> (see theme.ts) — inline
- * declarations beat this stylesheet, so no !important or per-var fallback is
- * needed.
+ * Most tokens derive from an ONLYOFFICE Desktop palette name, so 20 properties
+ * restyle the whole app. Nothing sets those 20 today — theme.ts only switches
+ * the dark block below — so the fallback is what renders, and **every var()
+ * here must keep one**: an undefined custom property with no fallback drops its
+ * declaration silently.
  *
- * Names match embed/theme.default.json so an existing host integration keeps
- * working unchanged.
+ * The mapping is many-to-one, so a name may only carry values that are one
+ * decision. A token can also be overridden by its own name.
  */
 :root {
   /* The page is framed, so the host font cannot be inherited — it is passed in
@@ -44,118 +45,250 @@
     "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial,
     sans-serif;
 
-  --main-background-color: #ffffff;
-  --main-count-color: #9092a6;
-  --main-filters-button-icon-color: #666980;
+  --main-background-color: var(--background-action-panel, #ffffff);
+  --main-count-color: var(--text-tertiary, #9092a6);
+  --main-filters-button-icon-color: var(--icon-normal, #666980);
+  /* Shadows and the modal scrim read the same on any palette, so they carry no
+     desktop name and stay out of the payload. */
   --main-header-shadow-color: rgba(0, 0, 0, 0.12);
-  --main-section-heading-color: #21222b;
+  --main-section-heading-color: var(--text-normal, #21222b);
 
-  --card-preview-wrapper-border-color: rgba(122, 125, 148, 0.4);
-  --card-preview-wrapper-background-color: #ffffff;
-  --card-heading-color: #21222b;
+  --card-preview-wrapper-border-color: var(
+    --border-regular-control,
+    rgba(122, 125, 148, 0.4)
+  );
+  --card-preview-wrapper-background-color: var(
+    --background-normal-element-light,
+    #ffffff
+  );
+  --card-heading-color: var(--text-normal, #21222b);
 
-  --badge-wrapper-border-color: #d4d4ff;
-  --badge-wrapper-background-color-hover: rgba(53, 65, 245, 0.07);
-  --badge-wrapper-box-shadow-color-hover: #8183f7;
-  --badge-wrapper-background-color-checked: rgba(53, 65, 245, 0.07);
-  --badge-label-color: #494b5b;
-  --badge-label-color-checked: #001bd2;
-  --badge-count-color: #9092a6;
-  --badge-count-color-checked: #5c61f6;
+  --badge-wrapper-border-color: var(--border-regular-control, #d4d4ff);
+  --badge-wrapper-background-color-hover: var(
+    --highlight-button-hover,
+    rgba(53, 65, 245, 0.07)
+  );
+  --badge-wrapper-box-shadow-color-hover: var(--border-control-focus, #8183f7);
+  --badge-wrapper-background-color-checked: var(
+    --highlight-button-pressed,
+    rgba(53, 65, 245, 0.07)
+  );
+  --badge-label-color: var(--text-normal, #494b5b);
+  --badge-label-color-checked: var(--text-link, #001bd2);
+  --badge-count-color: var(--text-tertiary, #9092a6);
+  --badge-count-color-checked: var(--text-link, #5c61f6);
 
-  --switch-text-color: #7a7d94;
-  --switch-background-color-hover: rgba(53, 65, 245, 0.07);
-  --switch-box-shadow-color-hover: #8183f7;
-  --switch-color-checked: #001bd2;
-  --switch-background-color-checked: rgba(53, 65, 245, 0.07);
+  --switch-text-color: var(--text-tertiary, #7a7d94);
+  --switch-background-color-hover: var(
+    --highlight-button-hover,
+    rgba(53, 65, 245, 0.07)
+  );
+  --switch-box-shadow-color-hover: var(--border-control-focus, #8183f7);
+  --switch-color-checked: var(--text-link, #001bd2);
+  --switch-background-color-checked: var(
+    --highlight-button-pressed,
+    rgba(53, 65, 245, 0.07)
+  );
 
-  --language-switcher-border-color: #e5e6ed;
-  --language-switcher-border-color-hover: #c7c9d6;
-  --language-switcher-background-color: #ffffff;
-  --language-switcher-color: #333333;
+  --language-switcher-border-color: var(--border-regular-control, #e5e6ed);
+  --language-switcher-border-color-hover: var(--border-control-focus, #c7c9d6);
+  --language-switcher-background-color: var(
+    --background-normal-element,
+    #ffffff
+  );
+  --language-switcher-color: var(--text-normal, #333333);
+  /* Brand orange, not a link — literal like the four --format-* below. */
   --language-switcher-active-color: #ff6f3d;
-  --language-switcher-menu-background-color: #ffffff;
+  --language-switcher-menu-background-color: var(
+    --background-action-panel,
+    #ffffff
+  );
   --language-switcher-menu-shadow-color: rgba(0, 0, 0, 0.12);
-  --language-switcher-option-background-color-hover: #f2f4f8;
+  --language-switcher-option-background-color-hover: var(
+    --highlight-button-hover,
+    #f2f4f8
+  );
 
-  --search-input-icon-color: #9092a6;
-  --search-input-cross-icon-color: #7a7d94;
-  --search-input-border-color: #a6a8b8;
-  --search-input-border-color-hover: #3541f5;
-  --search-input-color: #494b5b;
-  --search-input-background-color: #ffffff;
-  --search-input-placeholder-color: #9092a6;
-  --search-input-with-value-border-color: #3541f5;
-  --search-input-with-value-background-color: #ffffff;
+  --search-input-icon-color: var(--text-tertiary, #9092a6);
+  --search-input-cross-icon-color: var(--text-secondary, #7a7d94);
+  --search-input-border-color: var(--border-regular-control, #a6a8b8);
+  --search-input-border-color-hover: var(--border-control-focus, #3541f5);
+  --search-input-color: var(--text-normal, #494b5b);
+  --search-input-background-color: var(--background-normal-element, #ffffff);
+  --search-input-placeholder-color: var(--text-tertiary, #9092a6);
+  --search-input-with-value-border-color: var(--border-control-focus, #3541f5);
+  --search-input-with-value-background-color: var(
+    --background-normal-element,
+    #ffffff
+  );
 
-  --sidebar-mobile-background-color: #ffffff;
-  --sidebar-clear-btn-border-color: #e1e1f7;
-  --sidebar-clear-btn-color: #585a6d;
-  --sidebar-clear-btn-background-color: #e7e8ee;
-  --sidebar-clear-btn-background-color-hover: #dcdde6;
-  --sidebar-item-border-color: rgba(53, 65, 245, 0.07);
-  --sidebar-item-header-heading-color: #494b5b;
-  --sidebar-item-header-count-color: #ffffff;
-  --sidebar-item-header-count-background-color: #000122;
-  --sidebar-item-text-color: #9092a6;
-  --sidebar-item-show-less-btn-color: #3a3c49;
-  --sidebar-item-chevron-down-icon-color: #a6a8b8;
+  --sidebar-mobile-background-color: var(--background-action-panel, #ffffff);
+  --sidebar-clear-btn-border-color: var(--border-regular-control, #e1e1f7);
+  --sidebar-clear-btn-color: var(--text-secondary, #585a6d);
+  --sidebar-clear-btn-background-color: var(--background-normal, #e7e8ee);
+  --sidebar-clear-btn-background-color-hover: var(
+    --highlight-button-hover,
+    #dcdde6
+  );
+  --sidebar-item-border-color: var(--border-divider, rgba(53, 65, 245, 0.07));
+  --sidebar-item-header-heading-color: var(--text-normal, #494b5b);
+  --sidebar-item-header-count-color: var(--text-inverse, #ffffff);
+  --sidebar-item-header-count-background-color: var(
+    --background-primary-button,
+    #000122
+  );
+  --sidebar-item-text-color: var(--text-tertiary, #9092a6);
+  --sidebar-item-show-less-btn-color: var(--text-normal, #3a3c49);
+  --sidebar-item-chevron-down-icon-color: var(--text-tertiary, #a6a8b8);
 
-  --sort-selector-label-color: #9092a6;
-  --sort-selector-button-color: #21222b;
-  --sort-selector-chevron-down-icon-color: #666980;
-  --sort-selector-dropdown-border-color: #3541f5;
-  --sort-selector-dropdown-background-color: #ffffff;
+  --sort-selector-label-color: var(--text-tertiary, #9092a6);
+  --sort-selector-button-color: var(--text-normal, #21222b);
+  --sort-selector-chevron-down-icon-color: var(--text-secondary, #666980);
+  --sort-selector-dropdown-border-color: var(--border-control-focus, #3541f5);
+  --sort-selector-dropdown-background-color: var(
+    --background-action-panel,
+    #ffffff
+  );
   --sort-selector-dropdown-box-shadow-color: #cfdbf4;
-  --sort-selector-option-color: #9092a6;
-  --sort-selector-option-background-color-hover: rgba(53, 65, 245, 0.07);
-  --sort-selector-option-color-active: #001bd2;
-  --sort-selector-option-background-color-active: rgba(53, 65, 245, 0.07);
+  --sort-selector-option-color: var(--text-tertiary, #9092a6);
+  --sort-selector-option-background-color-hover: var(
+    --highlight-button-hover,
+    rgba(53, 65, 245, 0.07)
+  );
+  --sort-selector-option-color-active: var(--text-link, #001bd2);
+  --sort-selector-option-background-color-active: var(
+    --highlight-button-pressed,
+    rgba(53, 65, 245, 0.07)
+  );
 
   --template-modal-overlay-background-color: rgba(0, 0, 0, 0.35);
-  --template-modal-wrapper-background-color: #ffffff;
-  --template-modal-wrapper-border-color: #cbcbcb;
-  --template-modal-wrap-border-bottom-color: #e1e1e1;
-  --template-modal-heading-color: #383838;
-  --template-modal-text-color: #494b5b;
-  --template-modal-file-item-color: #686868;
-  --template-modal-file-value-color: #383838;
-  --template-modal-btn-box-shadow-color: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
-  --template-modal-btn-primary-color: #ffffff;
-  --template-modal-btn-primary-background-color: #4a87e7;
-  --template-modal-btn-primary-background-color-hover: #437ad0;
-  --template-modal-btn-primary-background-color-active: #3b6cb9;
-  --template-modal-btn-secondary-border-color: #e7e8ee;
-  --template-modal-btn-secondary-color: #21222b;
+  --template-modal-wrapper-background-color: var(
+    --background-action-panel,
+    #ffffff
+  );
+  --template-modal-wrapper-border-color: var(--border-tabbar, #cbcbcb);
+  --template-modal-wrap-border-bottom-color: var(--border-divider, #e1e1e1);
+  --template-modal-heading-color: var(--text-normal, #383838);
+  --template-modal-text-color: var(--text-normal, #494b5b);
+  --template-modal-file-item-color: var(--text-secondary, #686868);
+  --template-modal-file-value-color: var(--text-normal, #383838);
+  /* The one token that is a whole shadow rather than a colour, on both sides. */
+  --template-modal-btn-box-shadow-color: var(
+    --shadow-sidebar-item-pressed,
+    0px 1px 3px 0px rgba(0, 0, 0, 0.1)
+  );
+  --template-modal-btn-primary-color: var(--text-inverse, #ffffff);
+  --template-modal-btn-primary-background-color: var(
+    --background-primary-button,
+    #4a87e7
+  );
+  --template-modal-btn-primary-background-color-hover: var(
+    --highlight-primary-button-hover,
+    #437ad0
+  );
+  --template-modal-btn-primary-background-color-active: var(
+    --highlight-primary-button-pressed,
+    #3b6cb9
+  );
+  --template-modal-btn-secondary-border-color: var(
+    --border-regular-control,
+    #e7e8ee
+  );
+  --template-modal-btn-secondary-color: var(--text-normal, #21222b);
   --template-modal-btn-secondary-background-color: transparent;
-  --template-modal-btn-secondary-background-color-hover: #f2f4f8;
-  --template-modal-btn-secondary-background-color-active: #e7e8ee;
+  --template-modal-btn-secondary-background-color-hover: var(
+    --highlight-button-hover,
+    #f2f4f8
+  );
+  --template-modal-btn-secondary-background-color-active: var(
+    --highlight-button-pressed,
+    #e7e8ee
+  );
 
-  --search-result-no-results-found-text-color: #494b5b;
-  --search-result-no-results-found-subtext-color: #666980;
+  --search-result-no-results-found-text-color: var(--text-normal, #494b5b);
+  --search-result-no-results-found-subtext-color: var(--text-secondary, #666980);
 
   /* New in this version — pagination did not exist before. */
-  --pagination-color: #494b5b;
-  --pagination-border-color: #e5e6ed;
-  --pagination-background-color: #ffffff;
-  --pagination-background-color-hover: rgba(53, 65, 245, 0.07);
+  --pagination-color: var(--text-normal, #494b5b);
+  --pagination-border-color: var(--border-regular-control, #e5e6ed);
+  --pagination-background-color: var(--background-normal-element, #ffffff);
+  --pagination-background-color-hover: var(
+    --highlight-button-hover,
+    rgba(53, 65, 245, 0.07)
+  );
+  /* Not --background-primary-button: that name is the modal's blue Use button,
+     and the active page is a neutral inversion of the strip. */
   --pagination-color-active: #ffffff;
   --pagination-background-color-active: #000122;
-  --pagination-color-disabled: #c7c9d6;
+  --pagination-color-disabled: var(--text-tertiary, #c7c9d6);
 
   /* New in this version — the type tabs and the purpose chips beside them.
      The four format colours were literals in Card.module.scss, the one place a
-     host override could not reach; they are now the tabs' active underline. */
+     host override could not reach; they are now the tabs' active underline.
+     They identify a file format rather than the UI, so they take no desktop
+     name — and neither does `--tab-accent`, which TypeFilter sets per format on
+     the selected tab, where an inline value on <html> could not reach it. */
   --format-docx-color: #305cc4;
   --format-xlsx-color: #41b338;
   --format-pptx-color: #ff6c00;
   --format-pdf-color: #d10f33;
 
-  --type-tab-color: #666980;
-  --type-tab-color-active: #21222b;
+  --type-tab-color: var(--text-secondary, #666980);
+  --type-tab-color-active: var(--text-normal, #21222b);
 
-  --purpose-background-color-hover: rgba(53, 65, 245, 0.07);
-  --purpose-background-color-selected: rgba(53, 65, 245, 0.07);
-  --purpose-border-color-selected: #d4d4ff;
-  --purpose-color-selected: #001bd2;
+  --purpose-background-color-hover: var(
+    --highlight-button-hover,
+    rgba(53, 65, 245, 0.07)
+  );
+  --purpose-background-color-selected: var(
+    --highlight-button-pressed,
+    rgba(53, 65, 245, 0.07)
+  );
+  --purpose-border-color-selected: var(--border-control-focus, #d4d4ff);
+  --purpose-color-selected: var(--text-link, #001bd2);
+}
+
+/**
+ * Our dark palette, seeded from Desktop's `theme-dark` and deliberately not
+ * kept in sync with it — the frame is a content pane, not shell chrome. 19
+ * palette names carry the 85 tokens above that read one; the rest are
+ * overridden by their own name because no palette name says them. 12% black is
+ * invisible on a dark ground, hence the four shadows.
+ */
+:root[data-theme="dark"] {
+  --text-normal: #ffffffcc;
+  --text-secondary: #ffffff99;
+  --text-tertiary: #ffffff66;
+  --text-link: #b5e4ff;
+  --text-inverse: #ffffff;
+  --icon-normal: #ffffff;
+
+  --background-normal: #404040;
+  --background-normal-element: #505050;
+  --background-normal-element-light: #404040;
+  --background-action-panel: #333333;
+  --background-primary-button: #4a87e7;
+
+  --border-regular-control: #666666;
+  --border-control-focus: #7d7d7d;
+  --border-divider: #505050;
+  --border-tabbar: #2a2a2a;
+
+  --highlight-button-hover: #555555;
+  --highlight-button-pressed: #707070;
+  --highlight-primary-button-hover: #437ad0;
+  --highlight-primary-button-pressed: #3b6cb9;
+
+  --main-header-shadow-color: rgba(0, 0, 0, 0.5);
+  --language-switcher-menu-shadow-color: rgba(0, 0, 0, 0.5);
+  --template-modal-overlay-background-color: rgba(0, 0, 0, 0.6);
+  --template-modal-btn-box-shadow-color: 0px 1px 3px 0px rgba(0, 0, 0, 0.4);
+
+  /* The tab underline is the only mark on the selected tab. On white these two
+     are 6.1:1 and 5.5:1; unchanged on #333 they would be 2.1 and 2.3. */
+  --format-docx-color: #5b86e5;
+  --format-pdf-color: #f0546f;
+
+  --pagination-background-color-active: #dddddd;
+  --pagination-color-active: #333333;
 }
