@@ -1,0 +1,11 @@
+{
+  "Filters": "Filters",
+  "Templates": "Templates",
+  "Language": "Language",
+  "Previous": "Previous",
+  "Next": "Next",
+  "ClearSearch": "Clear search",
+  "Loading": "Loading templates…",
+  "LoadFailed": "Templates could not be loaded.",
+  "Retry": "Retry"
+}

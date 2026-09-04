@@ -1,0 +1,11 @@
+{
+  "Filters": "筛选",
+  "Templates": "模板",
+  "Language": "语言",
+  "Previous": "上一页",
+  "Next": "下一页",
+  "ClearSearch": "清除搜索",
+  "Loading": "正在加载模板…",
+  "LoadFailed": "无法加载模板。",
+  "Retry": "重试"
+}

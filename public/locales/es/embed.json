@@ -1,0 +1,11 @@
+{
+  "Filters": "Filtros",
+  "Templates": "Plantillas",
+  "Language": "Idioma",
+  "Previous": "Anterior",
+  "Next": "Siguiente",
+  "ClearSearch": "Borrar la búsqueda",
+  "Loading": "Cargando plantillas…",
+  "LoadFailed": "No se han podido cargar las plantillas.",
+  "Retry": "Reintentar"
+}

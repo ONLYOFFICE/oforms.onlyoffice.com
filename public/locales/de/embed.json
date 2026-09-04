@@ -1,0 +1,11 @@
+{
+  "Filters": "Filter",
+  "Templates": "Vorlagen",
+  "Language": "Sprache",
+  "Previous": "Zurück",
+  "Next": "Weiter",
+  "ClearSearch": "Suche löschen",
+  "Loading": "Vorlagen werden geladen …",
+  "LoadFailed": "Die Vorlagen konnten nicht geladen werden.",
+  "Retry": "Erneut versuchen"
+}

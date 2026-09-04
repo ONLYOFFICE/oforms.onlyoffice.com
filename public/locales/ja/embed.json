@@ -1,0 +1,11 @@
+{
+  "Filters": "フィルター",
+  "Templates": "テンプレート",
+  "Language": "言語",
+  "Previous": "前へ",
+  "Next": "次へ",
+  "ClearSearch": "検索をクリア",
+  "Loading": "テンプレートを読み込んでいます…",
+  "LoadFailed": "テンプレートを読み込めませんでした。",
+  "Retry": "再試行"
+}
