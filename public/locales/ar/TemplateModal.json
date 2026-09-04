@@ -1,9 +1,8 @@
 {
-  "Free": "Free",
   "FileSize": "حجم الملف:",
-  "FileType": "File type:",
+  "FileType": "نوع الملف:",
   "Pages": "الصفحات:",
   "Cancel": "إلغاء",
-  "UseThisTemplate": "Use this template",
+  "UseThisTemplate": "استخدام هذا القالب",
   "LastUpdated": "آخر تحديث:"
 }

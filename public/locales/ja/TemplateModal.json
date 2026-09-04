@@ -1,9 +1,8 @@
 {
-  "Free": "Free",
   "FileSize": "ファイルサイズ：",
-  "FileType": "File type:",
+  "FileType": "ファイルの種類：",
   "Pages": "ページ：",
-  "Cancel": "Cancel",
-  "UseThisTemplate": "Use this template",
+  "Cancel": "キャンセル",
+  "UseThisTemplate": "このテンプレートを使用",
   "LastUpdated": "最終更新日："
 }
