@@ -37,8 +37,13 @@
 declare global {
   interface Window {
     AscDesktopEditor?: { openTemplate?: (url: string, name: string) => void };
+    RendererProcessVariable?: { lang?: string };
   }
 }
+
+/** The translation file's name, so `de` or `pt_BR`. Null outside Desktop. */
+export const readDesktopLang = (): string | null =>
+  window.RendererProcessVariable?.lang ?? null;
 
 /** False when the bridge is absent — every host but Desktop. */
 export function openTemplateNatively(url: string, name: string): boolean {

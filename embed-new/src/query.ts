@@ -26,6 +26,7 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+import { readDesktopLang } from "./desktopVars";
 import { getQueryValues } from "./lib/filters";
 import { normalizeLocale, type Locale } from "./locale";
 import { PURPOSE_ORDER, TYPE_ORDER } from "./types";
@@ -63,7 +64,8 @@ export function readQuery(): ICatalogQuery {
     categories: getQueryValues(p.get("category")),
     purposes: readOneOf(p.get("purpose"), PURPOSE_ORDER),
     page: Number.isFinite(page) && page > 0 ? page : 1,
-    locale: normalizeLocale(p.get("locale")),
+    // `?locale=` pins it; otherwise Desktop's own UI language.
+    locale: normalizeLocale(p.get("locale") || readDesktopLang()),
   };
 }
 

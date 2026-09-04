@@ -33,12 +33,10 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
 import { initI18n } from "./i18n";
-import { normalizeLocale } from "./locale";
 import { readQuery } from "./query";
 
 async function start(): Promise<void> {
-  const locale = normalizeLocale(readQuery().locale);
-  await initI18n(locale);
+  await initI18n(readQuery().locale);
 
   const container = document.getElementById("root");
   if (!container) {
