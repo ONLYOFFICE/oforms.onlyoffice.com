@@ -27,7 +27,8 @@
  */
 
 /**
- * The only file that knows ONLYOFFICE Desktop exists.
+ * The only file that knows ONLYOFFICE Desktop exists, except index.html, which
+ * reads `RendererProcessVariable.theme` before this bundle is parsed.
  *
  * CEF injects `AscDesktopEditor` into every V8 context, so this is the frame's
  * own global — reading the parent's would be a cross-origin access and throw.

@@ -64,7 +64,7 @@ import {
   type ICatalogQuery,
 } from "./query";
 import { notifyReady, onHostMessage, requestOpenTemplate } from "./bridge";
-import { applyTheme } from "./theme";
+import { applyTheme, isTheme } from "./theme";
 import type { ITemplate } from "./types";
 import styles from "./App.module.scss";
 
@@ -134,11 +134,10 @@ const App = () => {
     document.documentElement.dir = isRtlLocale(query.locale) ? "rtl" : "ltr";
   }, [query.locale]);
 
-  // Live theme / locale updates from the desktop host.
   useEffect(() => {
     const stop = onHostMessage((message) => {
-      if (message.type === "theme" && message.tokens) {
-        applyTheme(message.tokens, document.documentElement);
+      if (message.type === "theme" && isTheme(message.value)) {
+        applyTheme(message.value, document.documentElement);
       } else if (message.type === "locale" && message.value) {
         filter({ locale: message.value as Locale });
       }

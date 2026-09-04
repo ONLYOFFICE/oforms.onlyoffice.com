@@ -51,24 +51,27 @@ still drives that with `?locale=` or a `locale` message.
 
 There is no sort control and no `?sort=` — the grid is always newest first.
 
-`theme` is a param (not a message) so the first paint is already correct.
-Colours are CSS custom properties — see `src/styles/tokens.css`, names match
-`../embed/theme.default.json`. The font is one of those tokens:
-`?theme=font-family-base:Georgia,serif`.
+Desktop's light/dark comes from `RendererProcessVariable.theme.type`, read in
+`index.html` before the first paint; a live switch arrives as a `theme` message.
+Colours are CSS custom properties — see `src/styles/tokens.css`.
 
 ## Host bridge
 
 Cross-origin (host `file://`, page `https://`), so the page cannot reach
-`window.AscDesktopEditor` — opening a template is delegated to the host.
+anything of the host's — `window.parent.…`, its DOM, its custom properties.
+Its own globals are another matter: Desktop injects `AscDesktopEditor` into this
+frame, so `openTemplate` is called natively and the message is only the
+fallback. `desktopVars.ts` is the one file that touches it.
 
 - **page → host:** `{type:"ready"}`, `{type:"openTemplate", file, template}`
-- **host → page:** `{type:"theme", tokens}`, `{type:"locale", value}`
+- **host → page:** `{type:"theme", value:"light"|"dark"}`, `{type:"locale", value}`
 
 Inbound origins are checked against `EMBED_HOST_ORIGINS` (default
 `null,file://` — a `file://` host reports origin `"null"`).
 
-> The host holds native `AscDesktopEditor` access; this page must never be
-> granted it.
+> Desktop grants this frame all 197 native methods, which it arguably should
+> not. `openTemplate` is the only one used, and it stays behind the boolean in
+> `desktopVars.ts` so nothing else can come to depend on it.
 
 ## Data
 

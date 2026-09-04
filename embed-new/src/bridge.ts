@@ -43,7 +43,6 @@ const ALLOWED_ORIGINS = (process.env.EMBED_HOST_ORIGINS || "")
 
 export interface IHostMessage {
   type: "theme" | "locale";
-  tokens?: Record<string, string>;
   value?: string;
 }
 

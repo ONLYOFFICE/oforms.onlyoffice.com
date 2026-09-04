@@ -31,6 +31,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ONLYOFFICE Templates</title>
+
+    <!-- Load the theme for smooth rendering: module scripts are deferred, so
+         from main.tsx the light palette would paint first. -->
+    <script>
+      (function () {
+        var theme =
+          window.RendererProcessVariable && window.RendererProcessVariable.theme;
+        if (theme && theme.type === "dark") {
+          document.documentElement.dataset.theme = "dark";
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

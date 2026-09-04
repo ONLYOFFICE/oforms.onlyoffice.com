@@ -26,48 +26,17 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-export type Theme = Record<string, string | null>;
+export type Theme = "light" | "dark";
+
+export const isTheme = (value: unknown): value is Theme =>
+  value === "light" || value === "dark";
 
 /**
- * Applies design tokens as inline custom properties on `root`.
- *
- * Every colour in this app resolves through `var(--token, fallback)`, which is
- * what lets the desktop host restyle the page at runtime — a literal value
- * could never be reached from outside.
+ * Switches `:root[data-theme="dark"]` in tokens.css. Only live changes come
+ * through here — the boot value is read in index.html, which has to run before
+ * the first paint.
  */
 export function applyTheme(theme: Theme, root: HTMLElement): void {
-  for (const [name, value] of Object.entries(theme)) {
-    const prop = name.startsWith("--") ? name : `--${name}`;
-    if (value == null) root.style.removeProperty(prop);
-    else root.style.setProperty(prop, value);
-  }
-}
-
-/**
- * Parses the `theme` query param. Accepts either JSON or a compact
- * `name:value;name:value` list, so a desktop can pass tokens without needing
- * to URL-encode a whole JSON document.
- */
-export function parseThemeParam(raw: string | null): Theme | null {
-  if (!raw) return null;
-
-  const trimmed = raw.trim();
-  if (trimmed.startsWith("{")) {
-    try {
-      const parsed = JSON.parse(trimmed);
-      return parsed && typeof parsed === "object" ? (parsed as Theme) : null;
-    } catch {
-      return null;
-    }
-  }
-
-  const theme: Theme = {};
-  for (const pair of trimmed.split(";")) {
-    const index = pair.indexOf(":");
-    if (index < 1) continue;
-    const name = pair.slice(0, index).trim();
-    const value = pair.slice(index + 1).trim();
-    if (name && value) theme[name] = value;
-  }
-  return Object.keys(theme).length ? theme : null;
+  if (theme === "dark") root.dataset.theme = "dark";
+  else delete root.dataset.theme;
 }

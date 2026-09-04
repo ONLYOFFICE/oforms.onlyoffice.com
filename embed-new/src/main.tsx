@@ -34,24 +34,9 @@ import { createRoot } from "react-dom/client";
 import { App } from "./App";
 import { initI18n } from "./i18n";
 import { normalizeLocale } from "./locale";
-import { readBootParams, readQuery } from "./query";
-import { applyTheme, parseThemeParam } from "./theme";
-
-/**
- * Theme arrives as a query param so the very first paint is already correct —
- * waiting for a postMessage would show a flash of the default theme.
- * Live changes after boot come through the bridge (see App).
- */
-function applyBootParams(): void {
-  const { theme } = readBootParams();
-
-  const tokens = parseThemeParam(theme);
-  if (tokens) applyTheme(tokens, document.documentElement);
-}
+import { readQuery } from "./query";
 
 async function start(): Promise<void> {
-  applyBootParams();
-
   const locale = normalizeLocale(readQuery().locale);
   await initI18n(locale);
 
