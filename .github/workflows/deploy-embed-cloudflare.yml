@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - feature/embed-new
+      - release/v10.0.0
     paths:
       - "embed-new/**"
       # The build bundles UI strings and card icons from the site's public/.
@@ -32,6 +32,13 @@ jobs:
       - name: Install
         working-directory: embed-new
         run: npm ci
+
+      # Before the build: it reads data-version.txt for the ?v= stamp and copies
+      # static/embed-data into dist. EMBED_CMS_URL must be the Strapi v5 instance.
+      - name: Generate catalog data
+        env:
+          EMBED_CMS_URL: ${{ vars.EMBED_CMS_URL }}
+        run: node embed-new/scripts/generate-data.mjs
 
       # Also typechecks — the build script is `tsc --noEmit && vite build`.
       - name: Build

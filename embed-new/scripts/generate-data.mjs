@@ -1,7 +1,7 @@
 /**
- * Generates public/embed-data/main.<locale>.json from the same Strapi endpoint
- * as the site's getAllForms(). Not part of `npm run build` — run by the
- * embed-data-sync workflow, which uploads the result to the bucket.
+ * Generates static/embed-data/main.<locale>.json from the same Strapi endpoint
+ * as the site's getAllForms(). Not part of `npm run build` — run by the deploy
+ * workflow just before it, since static/ is Vite's publicDir and ships in dist.
  *
  * Usage:
  *   node embed-new/scripts/generate-data.mjs [locale]   (default: all 9 locales)
@@ -15,7 +15,8 @@ const require = createRequire(import.meta.url);
 const CONFIG = require("../../src/config/config.json");
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const OUT_DIR = join(__dirname, "..", "..", "public", "embed-data");
+const OUT_DIR = join(__dirname, "..", "static", "embed-data");
+const VERSION_FILE = join(__dirname, "..", "data-version.txt");
 const CMS = (process.env.EMBED_CMS_URL || CONFIG.api.cms).replace(/\/$/, "");
 const CMS_ORIGIN = new URL(CMS).origin;
 const ALL_LOCALES = ["ar", "de", "en", "es", "fr", "it", "ja", "pt", "zh"];
@@ -143,27 +144,46 @@ async function generateLocale(locale) {
   }
 
   const output = { data: normalize(data), meta: first.meta };
+
+  // Every path here is read flat, which is Strapi v5; v4 wraps each record in
+  // data/attributes and drops unknown populate keys silently with a 200, so the
+  // wrong CMS yields a full catalog of blank cards rather than an error.
+  // card_prewiew.url is filled on 3340 of 3340, so one miss is that mistake.
+  if (data.some((item) => !item?.card_prewiew?.url)) {
+    throw new Error(
+      `${locale}: previews missing — is EMBED_CMS_URL the Strapi v5 instance?`,
+    );
+  }
+
   await mkdir(OUT_DIR, { recursive: true });
   await writeFile(join(OUT_DIR, `main.${locale}.json`), JSON.stringify(output));
   console.log(
-    `✓ ${String(data.length).padStart(4)} templates → public/embed-data/main.${locale}.json`,
+    `✓ ${String(data.length).padStart(4)} templates → static/embed-data/main.${locale}.json`,
   );
 }
 
 async function main() {
   console.log(`Fetching catalog for [${LOCALES.join(", ")}] from ${CMS} …`);
+
+  // 202608281603 — the handoff to vite.config.ts, which bakes it into the bundle
+  // as the ?v= stamp and into index.html as a meta tag. Outside static/ on
+  // purpose: it is a build input, not something to serve.
+  //
+  // Written before the catalogs, not after: a run that throws part-way leaves new
+  // files on disk, and under `immutable` an old stamp would pin them in every
+  // browser that already holds the previous copy. Bumping first costs a
+  // re-download of the locales that did not change.
+  const version = new Date().toISOString().replace(/\D/g, "").slice(0, 12);
+  await writeFile(VERSION_FILE, version);
+  console.log(`✓ version ${version} → data-version.txt`);
+
   for (const locale of LOCALES) {
     await generateLocale(locale);
   }
 
-  // 202608281603 — the embed appends it as ?v= so a sync replaces cached copies.
-  const version = new Date().toISOString().replace(/\D/g, "").slice(0, 12);
-  await writeFile(join(OUT_DIR, "version.txt"), version);
-  console.log(`✓ version ${version} → public/embed-data/version.txt`);
-
   console.log(
-    "\nWritten to public/embed-data/ — uploaded to the bucket by the embed-data-sync workflow,\n" +
-      "then fetched by the bundle at runtime.",
+    "\nWritten to static/embed-data/ — Vite copies it into dist, so run this before\n" +
+      "`npm run build`, not after.",
   );
 }
 
