@@ -26,15 +26,6 @@ const nextConfig = {
   async headers() {
     return [
       {
-        // Per-locale catalog JSON for the embed (public/embed-data). Fetched
-        // cross-origin by the desktop/DocSpace embed, so allow any origin.
-        source: "/embed-data/:path*",
-        headers: [
-          { key: "Access-Control-Allow-Origin", value: "*" },
-          { key: "Access-Control-Allow-Methods", value: "GET, OPTIONS" },
-        ],
-      },
-      {
         source: "/:all*(svg|jpg|png)",
         locale: false,
         headers: [

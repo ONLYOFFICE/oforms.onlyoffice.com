@@ -33,9 +33,9 @@ import { fileURLToPath } from "node:url";
 const r = (p: string) => fileURLToPath(new URL(p, import.meta.url));
 
 // Where the catalog JSON lives. Kept on S3/CloudFront rather than GitHub Pages:
-// ~17 MB across all locales would burn the Pages bandwidth allowance, and CORS
-// is already open there (next.config.js sets Access-Control-Allow-Origin: * on
-// /embed-data/:path*).
+// ~17 MB across all locales would burn the Pages bandwidth allowance. The
+// `access-control-allow-origin: *` these objects answer with is S3's — Next
+// never serves this path.
 const DATA_URL =
   process.env.EMBED_DATA_URL ||
   "https://oforms.onlyoffice.com/oforms-editor/embed";
