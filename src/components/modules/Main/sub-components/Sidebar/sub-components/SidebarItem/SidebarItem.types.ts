@@ -26,7 +26,7 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-export interface ISidebarOption {
+interface ISidebarOption {
   value: string;
   label: string;
   count?: number;
@@ -45,6 +45,7 @@ export interface ISidebarItem {
     queryKey?: string;
   }[];
   optionsType?: "badge" | "switch";
+  type?: "checkbox" | "radio";
   isSub?: boolean;
   queryKey?: string;
 }

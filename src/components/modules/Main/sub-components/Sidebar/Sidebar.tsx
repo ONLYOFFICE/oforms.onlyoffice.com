@@ -33,6 +33,7 @@ import { SidebarItem } from "./sub-components/SidebarItem";
 import { ISidebarItem } from "./sub-components/SidebarItem/SidebarItem.types";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
 import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
+import { getSelectedCountries, localeCountry } from "@src/utils/localeCountry";
 import { ISidebar } from "./Sidebar.types";
 import styles from "./Sidebar.module.scss";
 
@@ -47,6 +48,7 @@ const Sidebar = ({
   pptxForms,
   pdfForms,
   selectedType,
+  selectedCategory,
 }: ISidebar) => {
   const { t } = useTranslation("MainTemplate");
   const router = useRouter();
@@ -61,23 +63,58 @@ const Sidebar = ({
     : undefined;
   const isValidPurpose = (value: string | undefined): value is string =>
     !!value && purposeKeys.includes(value);
+
+  const categoryPurpose = selectedCategory
+    ? Object.entries(categoriesByPurpose).find(([, categories]) =>
+        categories.some(({ category }) => category.urlReq === selectedCategory),
+      )?.[0]
+    : undefined;
+
   const selectedPurpose = isValidPurpose(requestedPurpose)
     ? requestedPurpose
-    : purposes[0]?.key;
+    : (categoryPurpose ?? purposes[0]?.key);
+
+  const CARRIED_QUERY_KEYS = [
+    "type",
+    "country",
+    "subcategory",
+    "sort",
+    "opened",
+  ];
 
   const getHomeQuery = (
     extra: Record<string, string>,
   ): Record<string, string> => {
-    const query: Record<string, string> = { ...extra };
-    const country = getSelected("country");
-    if (country.length) query.country = country.join(",");
+    const query: Record<string, string> = {};
+
+    const selections: Record<string, () => string[]> = {
+      type: getTypeSelection,
+      subcategory: getSubcategorySelection,
+    };
+
+    CARRIED_QUERY_KEYS.forEach((key) => {
+      const value = selections[key]?.() ?? getSelected(key);
+      if (value.length) query[key] = value.join(",");
+    });
+
     if (isValidPurpose(requestedPurpose)) query.purpose = requestedPurpose;
-    return query;
+
+    return { ...query, ...extra };
   };
 
   const purposeCategories = selectedPurpose
     ? (categoriesByPurpose[selectedPurpose] ?? [])
     : [];
+
+  const getSubcategorySelection = () => {
+    const selected = getSelected("subcategory");
+    return selected.length ? selected : categorySubcategories;
+  };
+
+  const getTypeSelection = () =>
+    selectedType
+      ? Array.from(new Set([selectedType, ...getSelected("type")]))
+      : getSelected("type");
 
   const getSelected = (key: string) => {
     const value = router.query[key];
@@ -88,7 +125,20 @@ const Sidebar = ({
   const isTypeChecked = (value: string) =>
     getSelected("type").includes(value) || selectedType === value;
 
-  const checkedTypeCount = ALLOWED_TYPES.filter(isTypeChecked).length;
+  const typeOptions = [
+    { value: "docx", label: "Documents", count: docxForms },
+    { value: "xlsx", label: "Spreadsheets", count: xlsxForms },
+    { value: "pptx", label: "Presentations", count: pptxForms },
+    { value: "pdf", label: "PdfForms", count: pdfForms },
+  ]
+    .filter((type) => type.count > 0)
+    .map((type) => ({
+      value: type.value,
+      label: t(type.label),
+      count: type.count,
+      checked: isTypeChecked(type.value),
+      onChange: () => toggleTypeValue(type.value),
+    }));
 
   const toggleQueryValue = (key: string, value: string) => {
     const selected = getSelected(key);
@@ -107,42 +157,22 @@ const Sidebar = ({
   };
 
   const toggleTypeValue = (value: string) => {
-    if (selectedType) {
-      const next = selectedType === value ? [] : [value];
-
-      router.push(
-        { pathname: "/", query: next.length ? { type: next.join(",") } : {} },
-        undefined,
-        { scroll: false },
-      );
-      return;
-    }
-
-    if (redirectsToHome) {
-      const selected = getSelected("type");
-      const next = selected.includes(value)
-        ? selected.filter((item) => item !== value)
-        : [...selected, value];
-
-      router.push(
-        {
-          pathname: "/",
-          query: getHomeQuery(next.length ? { type: next.join(",") } : {}),
-        },
-        undefined,
-        { scroll: false },
-      );
-      return;
-    }
-
-    const selected = getSelected("type");
+    const selected = getTypeSelection();
     const next = selected.includes(value)
       ? selected.filter((item) => item !== value)
       : [...selected, value];
 
+    if (selectedType || redirectsToHome) {
+      const query = getHomeQuery({});
+      delete query.type;
+
+      if (next.length) query.type = next.join(",");
+
+      router.push({ pathname: "/", query }, undefined, { scroll: false });
+      return;
+    }
+
     const query = { ...router.query };
-    delete query.country;
-    delete query.subcategory;
 
     if (next.length) {
       query.type = next.join(",");
@@ -153,19 +183,16 @@ const Sidebar = ({
     router.push({ query }, undefined, { scroll: false, shallow: true });
   };
 
-  const toggleCountryValue = (value: string) => {
-    const selected = getSelected("country");
-    const next = selected.includes(value)
-      ? selected.filter((item) => item !== value)
-      : [...selected, value];
+  const selectCountryValue = (value: string) => {
+    if (selectedType || redirectsToHome) {
+      const query = getHomeQuery({ country: value });
+
+      router.push({ pathname: "/", query }, undefined, { scroll: false });
+      return;
+    }
 
     const query = { ...router.query };
-
-    if (next.length) {
-      query.country = next.join(",");
-    } else {
-      delete query.country;
-    }
+    query.country = value;
 
     router.push({ pathname: router.pathname, query }, undefined, {
       scroll: false,
@@ -173,22 +200,32 @@ const Sidebar = ({
     });
   };
 
-  const toggleSubcategoryValue = (value: string) => {
-    if (selectedType) {
-      router.push(
-        { pathname: "/", query: { type: selectedType, subcategory: value } },
-        undefined,
-        { scroll: false },
-      );
-      return;
-    }
+  const categorySubcategories = selectedCategory
+    ? Array.from(
+        new Set(
+          Object.values(categoriesByPurpose)
+            .flat()
+            .filter(({ category }) => category.urlReq === selectedCategory)
+            .flatMap(({ subcategories }) =>
+              subcategories.map((sub) => sub.urlReq),
+            ),
+        ),
+      )
+    : [];
 
-    if (redirectsToHome) {
-      router.push(
-        { pathname: "/", query: getHomeQuery({ subcategory: value }) },
-        undefined,
-        { scroll: false },
-      );
+  const toggleSubcategoryValue = (value: string) => {
+    if (selectedType || redirectsToHome) {
+      const selected = getSubcategorySelection();
+      const next = selected.includes(value)
+        ? selected.filter((item) => item !== value)
+        : [...selected, value];
+
+      const query = getHomeQuery({});
+      delete query.subcategory;
+
+      if (next.length) query.subcategory = next.join(",");
+
+      router.push({ pathname: "/", query }, undefined, { scroll: false });
       return;
     }
 
@@ -215,13 +252,45 @@ const Sidebar = ({
     return allowed ? selected.filter((value) => allowed.has(value)) : selected;
   };
 
+  const selectedCountries = getSelectedCountries(
+    getValidSelected("country"),
+    router.locale,
+    countries.map((country) => country.code.toLowerCase()),
+  );
+  const selectedSubcategories = getValidSelected("subcategory");
+
+  const isSubcategoryChecked = (subcategoryUrlReq: string) =>
+    selectedSubcategories.length
+      ? selectedSubcategories.includes(subcategoryUrlReq)
+      : categorySubcategories.includes(subcategoryUrlReq);
+
+  const defaultCountry = localeCountry(router.locale);
+  const isDefaultCountrySelected =
+    selectedCountries.length === 1 && selectedCountries[0] === defaultCountry;
+
+  const checkedCountryCount = isDefaultCountrySelected
+    ? 0
+    : selectedCountries.length;
+
+  const checkedCategoryCount =
+    selectedSubcategories.length || categorySubcategories.length;
+
   const totalChecked =
-    filterKeys.reduce((sum, key) => sum + getValidSelected(key).length, 0) +
+    filterKeys
+      .filter((key) => key !== "country" && key !== "subcategory")
+      .reduce((sum, key) => sum + getValidSelected(key).length, 0) +
+    checkedCountryCount +
+    checkedCategoryCount +
     (selectedType ? 1 : 0);
 
   const clearAllFilters = () => {
-    if (selectedType) {
-      router.push({ pathname: "/", query: {} }, undefined, { scroll: false });
+    if (selectedType || selectedCategory) {
+      const query = getHomeQuery({});
+      filterKeys.forEach((key) => {
+        delete query[key];
+      });
+
+      router.push({ pathname: "/", query }, undefined, { scroll: false });
       return;
     }
 
@@ -232,9 +301,6 @@ const Sidebar = ({
 
     router.push({ query }, undefined, { scroll: false, shallow: true });
   };
-
-  const selectedCountries = getValidSelected("country");
-  const selectedSubcategories = getValidSelected("subcategory");
 
   return (
     <aside className={clsx(styles.sidebar, isOpen && styles["sidebar-open"])}>
@@ -256,46 +322,20 @@ const Sidebar = ({
           [
             {
               heading: t("Type"),
-              count: checkedTypeCount,
-              options: [
-                {
-                  value: "docx",
-                  label: "Documents",
-                  count: docxForms,
-                },
-                {
-                  value: "xlsx",
-                  label: "Spreadsheets",
-                  count: xlsxForms,
-                },
-                {
-                  value: "pptx",
-                  label: "Presentations",
-                  count: pptxForms,
-                },
-                {
-                  value: "pdf",
-                  label: "PdfForms",
-                  count: pdfForms,
-                },
-              ].map((type) => ({
-                value: type.value,
-                label: t(type.label),
-                count: type.count,
-                checked: isTypeChecked(type.value),
-                onChange: () => toggleTypeValue(type.value),
-              })),
+              count: typeOptions.filter((type) => type.checked).length,
+              options: typeOptions,
             },
             {
               heading: t("Countries"),
-              text: t("ShowingEnglishSpeakingCountries"),
-              count: selectedCountries.length,
+              text: t("ShowingSpeakingCountries"),
+              type: "radio",
+              count: checkedCountryCount,
               options: countries.map((country) => ({
                 value: country.code.toLowerCase(),
                 label: country.name,
                 count: country.count,
                 checked: selectedCountries.includes(country.code.toLowerCase()),
-                onChange: () => toggleCountryValue(country.code.toLowerCase()),
+                onChange: () => selectCountryValue(country.code.toLowerCase()),
               })),
             },
             {
@@ -317,16 +357,16 @@ const Sidebar = ({
             },
             {
               heading: t("Сategories"),
-              count: selectedSubcategories.length,
+              count: checkedCategoryCount,
               categories: purposeCategories.map(
                 ({ category, subcategories }) => ({
                   heading: category.name,
-                  queryKey: `category-${category.id}`,
+                  queryKey: `category-${category.urlReq}`,
                   options: subcategories.map((sub) => ({
                     value: sub.urlReq,
                     label: sub.name,
                     count: sub.count,
-                    checked: selectedSubcategories.includes(sub.urlReq),
+                    checked: isSubcategoryChecked(sub.urlReq),
                     onChange: () => toggleSubcategoryValue(sub.urlReq),
                   })),
                 }),

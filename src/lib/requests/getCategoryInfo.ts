@@ -28,49 +28,27 @@
 
 import CONFIG from "@src/config/config.json";
 import { apiRequest } from "@src/lib/api/apiRequest";
-import { cacheByLocale } from "@src/lib/api/cacheByLocale";
 import { ILocale } from "@src/types/locale";
 import { cmsLocale } from "@src/utils/cmsLocale";
 
-const fetchPurposeWithCategoriesCount = async (
-  locale: ILocale["locale"],
-  ext: string = "",
-) => {
+const getCategoryInfo = async (locale: ILocale["locale"], url: string) => {
   const params = [
+    `filters[urlReq][$eq]=${url}`,
     `locale=${cmsLocale(locale)}`,
-    "fields[0]=name",
-    "fields[1]=key",
-    "fields[2]=createdAt",
-    "populate[parent_categories][fields][0]=name",
-    "populate[parent_categories][fields][1]=urlReq",
-    "populate[parent_categories][fields][2]=createdAt",
-    ext
-      ? `populate[parent_categories][filters][subcategories][oforms][form_exts][ext][$eq]=${ext}`
-      : "",
-    "populate[parent_categories][populate][subcategories][fields][0]=name",
-    "populate[parent_categories][populate][subcategories][fields][1]=urlReq",
-    "populate[parent_categories][populate][subcategories][fields][2]=createdAt",
-    ext
-      ? `populate[parent_categories][populate][subcategories][filters][oforms][form_exts][ext][$eq]=${ext}`
-      : "",
-    ext
-      ? `populate[parent_categories][populate][subcategories][populate][oforms][filters][form_exts][ext][$eq]=${ext}`
-      : "",
-    `populate[parent_categories][populate][subcategories][populate][oforms][fields][0]=id`,
-    `populate[parent_categories][populate][subcategories][populate][oforms][populate][countries][fields][0]=code`,
+    "fields[0]=seo_title",
+    "fields[1]=seo_description",
   ]
     .filter(Boolean)
     .join("&");
 
-  const res = await apiRequest(`${CONFIG.api.cms}/api/purposes?${params}`, {
-    label: "getPurposeWithCategoriesCount",
-  });
+  const res = await apiRequest(
+    `${CONFIG.api.cms}/api/parent-categories?${params}`,
+    {
+      label: "getCategoryInfo",
+    },
+  );
 
   return await res.json();
 };
 
-const getPurposeWithCategoriesCount = cacheByLocale(
-  fetchPurposeWithCategoriesCount,
-);
-
-export { getPurposeWithCategoriesCount };
+export { getCategoryInfo };

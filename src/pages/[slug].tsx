@@ -33,12 +33,10 @@ import {
   getCategoryUrls,
   getCachedCategoryUrls,
 } from "@src/lib/requests/getCategoryUrls";
-import { getCategoryInfoWithForms } from "@src/lib/requests/getCategoryInfoWithForms";
-import { getExtForms } from "@src/lib/requests/getExtForms";
-import { getExtFormsCount } from "@src/lib/requests/getExtFormsCount";
+import { getCategoryInfo } from "@src/lib/requests/getCategoryInfo";
+import { getFormsByLocale } from "@src/lib/requests/getAllFormsAllLocales";
 import { getCountriesCount } from "@src/lib/requests/getCountriesCount";
-import { getPurposeWithCategoriesCount } from "@src/lib/requests/getPurposeWithCategoriesCount";
-import { getForm } from "@src/lib/requests/getForm";
+import { getFormAnyLocale } from "@src/lib/requests/getFormAnyLocale";
 import { getExtFormsPlain } from "@src/lib/requests/getExtFormsPlain";
 import { getParentCategories } from "@src/lib/requests/getParentCategories";
 import { languages } from "@src/config/languages";
@@ -52,27 +50,26 @@ import { ICategory } from "@src/types/template";
 import { FormTemplate, IFormTemplate } from "@src/components/templates/Form";
 import { ILocale } from "@src/types/locale";
 
+interface ICategoryInfo {
+  data: { seo_title: string; seo_description: string }[];
+}
+
 type ISlugPage =
-  ({ isCategory: true } & ICategory) | ({ isCategory?: false } & IFormTemplate);
+  | ({ isCategory: true; categoryInfo: ICategoryInfo } & ICategory)
+  | ({ isCategory?: false } & IFormTemplate);
 
 const SlugPage = (props: ISlugPage & ILocale) => {
   const { locale } = props;
 
   if (props.isCategory) {
-    const {
-      categoryInfoWithForms,
-      allForms,
-      extFormsCount,
-      countriesCount,
-      purposeWithCategoriesCount,
-    } = props;
+    const { categoryInfo, allForms, countriesCount, categoryUrlReq } = props;
 
     return (
       <Layout>
         <Layout.Head>
           <Head
-            title={categoryInfoWithForms.data[0].seo_title}
-            description={categoryInfoWithForms.data[0].seo_description}
+            title={categoryInfo.data[0].seo_title}
+            description={categoryInfo.data[0].seo_description}
           />
         </Layout.Head>
         <Layout.AdventAnnounce>
@@ -83,11 +80,9 @@ const SlugPage = (props: ISlugPage & ILocale) => {
         </Layout.Header>
         <Layout.Main background="var(--primary-background-color)">
           <CategoryTemplate
-            categoryInfoWithForms={categoryInfoWithForms}
             allForms={allForms}
-            extFormsCount={extFormsCount}
             countriesCount={countriesCount}
-            purposeWithCategoriesCount={purposeWithCategoriesCount}
+            categoryUrlReq={categoryUrlReq}
           />
         </Layout.Main>
         <Layout.Footer>
@@ -172,18 +167,10 @@ export const getStaticProps = async ({
   );
 
   if (isCategory) {
-    const [
-      categoryInfoWithForms,
-      allForms,
-      extFormsCount,
-      countriesCount,
-      purposeWithCategoriesCount,
-    ] = await Promise.all([
-      getCategoryInfoWithForms(locale, slug),
-      getExtForms(locale),
-      getExtFormsCount(locale),
-      getCountriesCount(locale),
-      getPurposeWithCategoriesCount(locale),
+    const [categoryInfo, allForms, countriesCount] = await Promise.all([
+      getCategoryInfo(locale, slug),
+      getFormsByLocale(locale),
+      getCountriesCount(locale, undefined, slug),
     ]);
 
     return {
@@ -198,17 +185,16 @@ export const getStaticProps = async ({
         ])),
         locale,
         isCategory: true,
-        categoryInfoWithForms,
+        categoryInfo,
         allForms,
-        extFormsCount,
         countriesCount,
-        purposeWithCategoriesCount,
+        categoryUrlReq: slug,
       },
     };
   }
 
-  const [form, allForms, categories] = await Promise.all([
-    getForm(locale, slug),
+  const [{ form }, allForms, categories] = await Promise.all([
+    getFormAnyLocale(locale, slug),
     getExtFormsPlain(locale),
     getParentCategories(locale),
   ]);

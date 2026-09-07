@@ -34,16 +34,21 @@ import { MainSection } from "@src/components/modules/Main/sub-components/MainSec
 import { NoResultsFound } from "@src/components/modules/NoResultsFound";
 import { Button } from "@src/components/ui/Button";
 import {
-  getExtCount,
-  getPurposes,
-  getCategoriesByPurpose,
   getQueryValues,
   getTemplatesByExt,
   getPopularTemplates,
   normalizeSortKey,
   sortForms,
 } from "@src/utils/helpers";
+import {
+  getCategoriesByPurpose,
+  getFilteredForms,
+  getFormsInScope,
+  getPurposes,
+  groupFormsByExt,
+} from "@src/components/templates/Main/Main.utils";
 import { TAllowedTypes } from "@src/utils/allowedTypes";
+import { getSelectedCountries } from "@src/utils/localeCountry";
 import styles from "@src/components/templates/Main/Main.module.scss";
 
 const EXT_TEMPLATES_LABEL_KEY: Record<TAllowedTypes, string> = {
@@ -56,61 +61,71 @@ const EXT_TEMPLATES_LABEL_KEY: Record<TAllowedTypes, string> = {
 const ExtCategoryTemplate = ({
   ext,
   allForms,
-  extFormsCount,
   countriesCount,
-  purposeWithCategoriesCount,
 }: IExtCategory) => {
   const { t } = useTranslation("MainTemplate");
   const router = useRouter();
+  const currentLocale = router.locale ?? "en";
 
   const sortKey = normalizeSortKey(router.query.sort);
-  const extForms = allForms.data.filter((form) =>
-    form.form_exts?.some((item) => item.ext === ext),
+  const selectedCountries = getSelectedCountries(
+    getQueryValues(router.query.country),
+    currentLocale,
+    countriesCount.map((country) => country.code),
   );
-  const filteredForms = sortForms(extForms, sortKey);
-  const popularTemplates = getPopularTemplates(filteredForms);
-  const docxForms = getExtCount(extFormsCount, "docx");
-  const xlsxForms = getExtCount(extFormsCount, "xlsx");
-  const pptxForms = getExtCount(extFormsCount, "pptx");
-  const pdfForms = getExtCount(extFormsCount, "pdf");
-  const countries = countriesCount.data
-    .filter((country) => country.oforms.count > 0)
-    .sort(
-      (a, b) =>
-        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-    )
-    .map((country) => ({
-      id: country.id,
-      documentId: country.documentId,
-      name: country.name,
-      code: country.code,
-      count: country.oforms.count,
-    }));
-  const availableCountryCodes = new Set(
-    countries.map((country) => country.code.toLowerCase()),
-  );
-  const selectedCountries = getQueryValues(router.query.country).filter(
-    (country) => availableCountryCodes.has(country),
-  );
-  const purposes = getPurposes(purposeWithCategoriesCount);
-  const categoriesByPurpose = getCategoriesByPurpose(
-    purposeWithCategoriesCount,
+  const selectedSubcategories = getQueryValues(router.query.subcategory);
+
+  const localeForms = getFormsInScope(
+    allForms.data,
+    currentLocale,
     selectedCountries,
   );
+  const scopedForms = getFilteredForms(localeForms, { type: [ext] });
+
+  const formsForTypeFilter = getFilteredForms(localeForms, {
+    country: selectedCountries,
+    subcategory: selectedSubcategories,
+  });
+  const formsForCategoryFilter = getFilteredForms(scopedForms, {
+    country: selectedCountries,
+  });
+
+  const filteredForms = sortForms(
+    getFilteredForms(scopedForms, {
+      country: selectedCountries,
+      subcategory: selectedSubcategories,
+    }),
+    sortKey,
+  );
+  const popularTemplates = getPopularTemplates(filteredForms);
+
+  const {
+    docx: docxForms,
+    xlsx: xlsxForms,
+    pptx: pptxForms,
+    pdf: pdfForms,
+  } = groupFormsByExt(formsForTypeFilter);
+  const categoriesByPurpose = getCategoriesByPurpose(formsForCategoryFilter);
+  const purposes = getPurposes(allForms.data).filter(
+    (purpose) => categoriesByPurpose[purpose.key]?.length,
+  );
   const totalCount = filteredForms.length;
-  const formNames = allForms.data.map(({ id, name_form, url }) => ({
+  const formNames = getFilteredForms(scopedForms, {
+    country: selectedCountries,
+  }).map(({ id, name_form, url, locale }) => ({
     id,
     name_form,
     url,
+    locale,
   }));
 
   return (
     <Main
-      docxForms={docxForms}
-      xlsxForms={xlsxForms}
-      pptxForms={pptxForms}
-      pdfForms={pdfForms}
-      countries={countries}
+      docxForms={docxForms.length}
+      xlsxForms={xlsxForms.length}
+      pptxForms={pptxForms.length}
+      pdfForms={pdfForms.length}
+      countries={countriesCount}
       purposes={purposes}
       categoriesByPurpose={categoriesByPurpose}
       totalCount={totalCount}

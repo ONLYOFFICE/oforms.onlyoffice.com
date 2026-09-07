@@ -26,29 +26,32 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import CONFIG from "@src/config/config.json";
-import { apiRequest } from "@src/lib/api/apiRequest";
-import { cacheByLocale } from "@src/lib/api/cacheByLocale";
-import { ILocale } from "@src/types/locale";
-import { cmsLocale } from "@src/utils/cmsLocale";
-
-const fetchExtFormsCount = async (locale: ILocale["locale"]) => {
-  const params = [
-    `locale=${cmsLocale(locale)}`,
-    "fields[0]=ext",
-    "populate[oforms][count]=true",
-    `populate[oforms][filters][locale][$eq]=${cmsLocale(locale)}`,
-  ]
-    .filter(Boolean)
-    .join("&");
-
-  const res = await apiRequest(`${CONFIG.api.cms}/api/form-exts?${params}`, {
-    label: "getExtFormsCount",
-  });
-
-  return await res.json();
+const LOCALE_COUNTRY_MAP: Record<string, string> = {
+  en: "us",
+  fr: "fr",
+  de: "de",
+  es: "es",
+  pt: "br",
+  it: "it",
+  ja: "jp",
+  zh: "cn",
+  ar: "int",
 };
 
-const getExtFormsCount = cacheByLocale(fetchExtFormsCount);
+export const localeCountry = (
+  locale: string | undefined,
+): string | undefined => (locale ? LOCALE_COUNTRY_MAP[locale] : undefined);
 
-export { getExtFormsCount };
+export const getSelectedCountries = (
+  queryCountries: string[],
+  locale: string | undefined,
+  availableCodes?: string[],
+): string[] => {
+  if (queryCountries.length) return queryCountries.slice(0, 1);
+
+  const fallback = localeCountry(locale);
+  if (!fallback) return [];
+  if (availableCodes && !availableCodes.includes(fallback)) return [];
+
+  return [fallback];
+};

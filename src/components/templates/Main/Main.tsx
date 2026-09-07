@@ -38,7 +38,7 @@ import {
   getCountries,
   getFilteredCount,
   getFilteredForms,
-  getFormsByTypes,
+  getFormsInScope,
   getPurposes,
   getTemplatesByParentCategory,
   getTemplatesBySubcategories,
@@ -52,6 +52,7 @@ import {
   sortForms,
 } from "@src/utils/helpers";
 import { ALLOWED_TYPES, TAllowedTypes } from "@src/utils/allowedTypes";
+import { getSelectedCountries } from "@src/utils/localeCountry";
 import styles from "./Main.module.scss";
 
 const TYPE_SECTIONS: {
@@ -79,23 +80,44 @@ const CATEGORY_SECTIONS: string[] = [
   "sales-marketing",
 ];
 
-const MainTemplate = ({ allForms }: IMainTemplate) => {
+const MainTemplate = ({ allForms, countryNames }: IMainTemplate) => {
   const { t } = useTranslation("MainTemplate");
   const router = useRouter();
+  const currentLocale = router.locale ?? "en";
 
   const selectedTypes = getQueryValues(router.query.type).filter(
     (type): type is TAllowedTypes => ALLOWED_TYPES.includes(type),
   );
-  const selectedCountries = getQueryValues(router.query.country);
-  const selectedSubcategories = getQueryValues(router.query.subcategory);
+  const queryCountries = getQueryValues(router.query.country);
+  const selectedCountries = getSelectedCountries(
+    queryCountries,
+    currentLocale,
+    getCountries(allForms.data).map((country) => country.code.toLowerCase()),
+  );
   const sortKey = normalizeSortKey(router.query.sort);
-  const formsByType = getFormsByTypes(allForms.data, selectedTypes);
-  const formsByTypeAndCountry = getFilteredForms(allForms.data, {
+
+  const scopedForms = getFormsInScope(
+    allForms.data,
+    currentLocale,
+    selectedCountries,
+  );
+
+  const selectedSubcategories = getQueryValues(router.query.subcategory);
+
+  const formsForTypeFilter = getFilteredForms(scopedForms, {
+    country: selectedCountries,
+    subcategory: selectedSubcategories,
+  });
+  const formsForCountryFilter = getFilteredForms(allForms.data, {
+    type: selectedTypes,
+    subcategory: selectedSubcategories,
+  });
+  const formsForCategoryFilter = getFilteredForms(scopedForms, {
     type: selectedTypes,
     country: selectedCountries,
   });
   const filteredForms = sortForms(
-    getFilteredForms(allForms.data, {
+    getFilteredForms(scopedForms, {
       type: selectedTypes,
       country: selectedCountries,
       subcategory: selectedSubcategories,
@@ -114,19 +136,24 @@ const MainTemplate = ({ allForms }: IMainTemplate) => {
     xlsx: xlsxForms,
     pptx: pptxForms,
     pdf: pdfForms,
-  } = groupFormsByExt(allForms.data);
-  const countries = getCountries(formsByType);
-  const purposes = getPurposes(allForms.data);
-  const categoriesByPurpose = getCategoriesByPurpose(formsByTypeAndCountry);
-  const totalCount = getFilteredCount(allForms.data, {
+  } = groupFormsByExt(formsForTypeFilter);
+  const countries = getCountries(formsForCountryFilter, countryNames);
+  const categoriesByPurpose = getCategoriesByPurpose(formsForCategoryFilter);
+  const purposes = getPurposes(allForms.data).filter(
+    (purpose) => categoriesByPurpose[purpose.key]?.length,
+  );
+  const totalCount = getFilteredCount(scopedForms, {
     type: selectedTypes,
     country: selectedCountries,
     subcategory: selectedSubcategories,
   });
-  const formNames = allForms.data.map(({ id, name_form, url }) => ({
+  const formNames = getFilteredForms(scopedForms, {
+    country: selectedCountries,
+  }).map(({ id, name_form, url, locale }) => ({
     id,
     name_form,
     url,
+    locale,
   }));
 
   return (

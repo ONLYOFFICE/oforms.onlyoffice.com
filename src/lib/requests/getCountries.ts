@@ -28,17 +28,18 @@
 
 import CONFIG from "@src/config/config.json";
 import { apiRequest } from "@src/lib/api/apiRequest";
+import { cacheByLocale } from "@src/lib/api/cacheByLocale";
 import { ILocale } from "@src/types/locale";
 import { cmsLocale } from "@src/utils/cmsLocale";
 
-const getCountries = async (locale: ILocale["locale"]) => {
+const fetchCountries = async (locale: ILocale["locale"]) => {
   const params = [
     `locale=${cmsLocale(locale)}`,
     "sort[0]=createdAt:desc",
     "fields[0]=name",
-  ]
-    .filter(Boolean)
-    .join("&");
+    "fields[1]=code",
+    "fields[2]=createdAt",
+  ].join("&");
 
   const res = await apiRequest(`${CONFIG.api.cms}/api/countries?${params}`, {
     label: "getCountries",
@@ -47,4 +48,26 @@ const getCountries = async (locale: ILocale["locale"]) => {
   return await res.json();
 };
 
-export { getCountries };
+const getCountries = cacheByLocale(fetchCountries);
+
+const buildCountryNames = async (
+  locale: ILocale["locale"],
+): Promise<Record<string, string>> => {
+  const countries = await getCountries(locale);
+
+  return Object.fromEntries(
+    (countries.data ?? [])
+      .filter(
+        (country: { name?: string; code?: string }) =>
+          country?.code && country?.name,
+      )
+      .map((country: { name: string; code: string }) => [
+        country.code.toLowerCase(),
+        country.name,
+      ]),
+  );
+};
+
+const getCountryNames = cacheByLocale(buildCountryNames);
+
+export { getCountries, getCountryNames };

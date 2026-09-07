@@ -130,41 +130,61 @@ export const getTemplatesByParentCategory = (
   return { category, data };
 };
 
-export const getPurposes = (forms: TFormItem[] | undefined): TPurpose[] =>
-  Array.from(
-    new Map(
-      (forms ?? [])
-        .flatMap((form) =>
-          form.subcategories.flatMap((sub) =>
-            sub.parent_categories.map((cat) => cat.purpose),
-          ),
-        )
-        .filter(Boolean)
-        .map((purpose) => [purpose.id, purpose] as const),
-    ).values(),
-  ).sort(
+export const getFormsInScope = (
+  forms: TFormItem[] | undefined,
+  locale: string,
+  selectedCountries: string[],
+): TFormItem[] => {
+  if (selectedCountries.length) return forms ?? [];
+  return forms?.filter((form) => !form.locale || form.locale === locale) ?? [];
+};
+
+export const getPurposes = (forms: TFormItem[] | undefined): TPurpose[] => {
+  const purposeMap = new Map<string, TPurpose>();
+
+  forms?.forEach((form) => {
+    form.subcategories?.filter(Boolean).forEach((sub) => {
+      sub.parent_categories?.filter(Boolean).forEach((cat) => {
+        const purpose = cat.purpose;
+        if (!purpose?.key || purposeMap.has(purpose.key)) return;
+        purposeMap.set(purpose.key, purpose);
+      });
+    });
+  });
+
+  return Array.from(purposeMap.values()).sort(
     (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
   );
+};
 
 export const getCountries = (
   forms: TFormItem[] | undefined,
+  countryNames?: Record<string, string>,
 ): (TCountry & { count: number })[] => {
-  const countryMap = new Map<number, TCountry & { count: number }>();
+  const countryMap = new Map<string, TCountry & { count: number }>();
 
   forms?.forEach((form) => {
     form.countries?.filter(Boolean).forEach((country) => {
-      const existing = countryMap.get(country.id);
+      const code = country.code.toLowerCase();
+      const existing = countryMap.get(code);
+
       if (existing) {
         existing.count += 1;
       } else {
-        countryMap.set(country.id, { ...country, count: 1 });
+        countryMap.set(code, { ...country, count: 1 });
       }
     });
   });
 
-  return Array.from(countryMap.values()).sort(
-    (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-  );
+  return Array.from(countryMap.values())
+    .map((country) => ({
+      ...country,
+      name: countryNames?.[country.code.toLowerCase()] ?? country.name,
+    }))
+    .sort(
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+    );
 };
 
 export const groupFormsByExt = (
@@ -185,18 +205,6 @@ export const groupFormsByExt = (
   });
 
   return groups;
-};
-
-export const getFormsByTypes = (
-  forms: TFormItem[] | undefined,
-  types: string[],
-): TFormItem[] => {
-  if (!types.length) return forms ?? [];
-  return (
-    forms?.filter((form) =>
-      form.form_exts?.some((item) => types.includes(item.ext)),
-    ) ?? []
-  );
 };
 
 interface IFormsFilters {
@@ -261,13 +269,13 @@ export const getFilteredCount = (
 export const getCategoriesByPurpose = (
   forms: TFormItem[] | undefined,
 ): Record<string, ICategoryTree[]> => {
-  const subcategoryCounts: Record<number, number> = {};
+  const subcategoryCounts: Record<string, number> = {};
   forms?.forEach((form) => {
-    const seen = new Set<number>();
+    const seen = new Set<string>();
     form.subcategories?.filter(Boolean).forEach((sub) => {
-      if (seen.has(sub.id)) return;
-      seen.add(sub.id);
-      subcategoryCounts[sub.id] = (subcategoryCounts[sub.id] ?? 0) + 1;
+      if (seen.has(sub.urlReq)) return;
+      seen.add(sub.urlReq);
+      subcategoryCounts[sub.urlReq] = (subcategoryCounts[sub.urlReq] ?? 0) + 1;
     });
   });
 
@@ -283,17 +291,17 @@ export const getCategoriesByPurpose = (
         }
         const purposeEntry = purposeMap.get(purpose.key)!;
 
-        if (!purposeEntry.categories.has(category.id)) {
-          purposeEntry.categories.set(category.id, {
+        if (!purposeEntry.categories.has(category.urlReq)) {
+          purposeEntry.categories.set(category.urlReq, {
             category,
             subcategories: new Map(),
           });
         }
-        const categoryEntry = purposeEntry.categories.get(category.id)!;
+        const categoryEntry = purposeEntry.categories.get(category.urlReq)!;
 
-        categoryEntry.subcategories.set(sub.id, {
+        categoryEntry.subcategories.set(sub.urlReq, {
           ...sub,
-          count: subcategoryCounts[sub.id] ?? 0,
+          count: subcategoryCounts[sub.urlReq] ?? 0,
         });
       });
     });

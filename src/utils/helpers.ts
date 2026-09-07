@@ -26,8 +26,6 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { IExtCategory } from "@src/types/template";
-import { ICategoryTree } from "@src/components/modules/Main/Main.types";
 import { IFormsData } from "@src/types/data";
 import { ALLOWED_TYPES, TAllowedTypes } from "@src/utils/allowedTypes";
 
@@ -57,28 +55,6 @@ export const getPopularTemplates = (
   forms: IFormsData["data"][number][] | undefined,
   limit = 8,
 ) => forms?.filter((form) => form.popular_template).slice(0, limit) ?? [];
-
-const getLevenshteinDistance = (a: string, b: string): number => {
-  const distances = Array.from({ length: a.length + 1 }, (_, i) => {
-    const row = new Array<number>(b.length + 1).fill(0);
-    row[0] = i;
-    return row;
-  });
-  for (let j = 0; j <= b.length; j++) distances[0][j] = j;
-
-  for (let i = 1; i <= a.length; i++) {
-    for (let j = 1; j <= b.length; j++) {
-      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-      distances[i][j] = Math.min(
-        distances[i - 1][j] + 1,
-        distances[i][j - 1] + 1,
-        distances[i - 1][j - 1] + cost,
-      );
-    }
-  }
-
-  return distances[a.length][b.length];
-};
 
 type TSortKey = "popular" | "asc" | "desc" | "name_asc" | "name_desc";
 const SORT_MAP: Record<TSortKey, string> = {
@@ -127,86 +103,4 @@ export const sortForms = (
         );
     }
   });
-};
-
-export const getExtCount = (
-  extFormsCount: IExtCategory["extFormsCount"],
-  ext: TAllowedTypes,
-): number =>
-  extFormsCount.data.find((item) => item.ext === ext)?.oforms.count ?? 0;
-
-export const getPurposes = (
-  purposeWithCategoriesCount: IExtCategory["purposeWithCategoriesCount"],
-) =>
-  purposeWithCategoriesCount.data
-    .map(({ id, documentId, name, key, createdAt }) => ({
-      id,
-      documentId,
-      name,
-      key,
-      createdAt,
-    }))
-    .sort(
-      (a, b) =>
-        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-    );
-
-export const getCategoriesByPurpose = (
-  purposeWithCategoriesCount: IExtCategory["purposeWithCategoriesCount"],
-  selectedCountries: string[] = [],
-): Record<string, ICategoryTree[]> => {
-  const result: Record<string, ICategoryTree[]> = {};
-
-  const getSubcategoryCount = (
-    oforms: IExtCategory["purposeWithCategoriesCount"]["data"][number]["parent_categories"][number]["subcategories"][number]["oforms"],
-  ): number => {
-    if (!selectedCountries.length) return oforms.length;
-    return oforms.filter((oform) =>
-      oform.countries?.some((country) =>
-        selectedCountries.includes(country.code.toLowerCase()),
-      ),
-    ).length;
-  };
-
-  purposeWithCategoriesCount.data.forEach((purpose) => {
-    result[purpose.key] = [...purpose.parent_categories]
-      .map((category) => ({
-        category: {
-          id: category.id,
-          documentId: category.documentId,
-          name: category.name,
-          urlReq: category.urlReq,
-          createdAt: category.createdAt,
-          purpose: {
-            id: purpose.id,
-            documentId: purpose.documentId,
-            name: purpose.name,
-            key: purpose.key,
-            createdAt: purpose.createdAt,
-          },
-        },
-        subcategories: [...category.subcategories]
-          .map((sub) => ({
-            id: sub.id,
-            documentId: sub.documentId,
-            name: sub.name,
-            urlReq: sub.urlReq,
-            createdAt: sub.createdAt,
-            count: getSubcategoryCount(sub.oforms),
-          }))
-          .filter((sub) => sub.count > 0)
-          .sort(
-            (a, b) =>
-              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-          ),
-      }))
-      .filter((category) => category.subcategories.length > 0)
-      .sort(
-        (a, b) =>
-          new Date(a.category.createdAt).getTime() -
-          new Date(b.category.createdAt).getTime(),
-      );
-  });
-
-  return result;
 };

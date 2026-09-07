@@ -45,8 +45,8 @@ export interface ICategoryTree {
 export interface IPurposeCategories {
   purpose: TFormCategory["purpose"];
   categories: Map<
-    number,
-    { category: TFormCategory; subcategories: Map<number, ISubcategoryNode> }
+    string,
+    { category: TFormCategory; subcategories: Map<string, ISubcategoryNode> }
   >;
 }
 
@@ -57,8 +57,6 @@ export interface IMain {
   pptxForms: number;
   pdfForms: number;
   countries: {
-    id: number;
-    documentId: string;
     name: string;
     code: string;
     count: number;
@@ -67,6 +65,7 @@ export interface IMain {
   categoriesByPurpose: Record<string, ICategoryTree[]>;
   totalCount: number;
   selectedType?: TAllowedTypes;
+  selectedCategory?: string;
   formNames: ISearchInput["formNames"];
   searchOnly?: boolean;
 }

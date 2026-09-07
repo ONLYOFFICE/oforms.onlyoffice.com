@@ -32,7 +32,7 @@ type Locale = ILocale["locale"];
 
 const clearers = new Set<() => void>();
 
-const cacheByLocale = <A extends string[], T>(
+const cacheByLocale = <A extends (string | undefined)[], T>(
   fetcher: (locale: Locale, ...args: A) => Promise<T>,
 ): ((locale: Locale, ...args: A) => Promise<T>) => {
   const cache = new Map<string, Promise<T>>();

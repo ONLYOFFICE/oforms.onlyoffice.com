@@ -28,7 +28,8 @@
 
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getAllForms } from "@src/lib/requests/getAllForms";
+import { getAllFormsAllLocales } from "@src/lib/requests/getAllFormsAllLocales";
+import { getCountryNames } from "@src/lib/requests/getCountries";
 import { Layout } from "@src/components/Layout";
 import { Head } from "@src/components/modules/Head";
 import { Header } from "@src/components/modules/Header";
@@ -37,7 +38,11 @@ import { Footer } from "@src/components/modules/Footer";
 import { MainTemplate, IMainTemplate } from "@src/components/templates/Main";
 import { ILocale } from "@src/types/locale";
 
-const MainPage = ({ locale, allForms }: IMainTemplate & ILocale) => {
+const MainPage = ({
+  locale,
+  allForms,
+  countryNames,
+}: IMainTemplate & ILocale) => {
   const { t } = useTranslation("main");
 
   return (
@@ -52,7 +57,7 @@ const MainPage = ({ locale, allForms }: IMainTemplate & ILocale) => {
         <Header locale={locale} />
       </Layout.Header>
       <Layout.Main background="var(--primary-background-color)">
-        <MainTemplate allForms={allForms} />
+        <MainTemplate allForms={allForms} countryNames={countryNames} />
       </Layout.Main>
       <Layout.Footer>
         <Footer locale={locale} />
@@ -62,7 +67,10 @@ const MainPage = ({ locale, allForms }: IMainTemplate & ILocale) => {
 };
 
 export const getStaticProps = async ({ locale }: ILocale) => {
-  const allForms = await getAllForms(locale);
+  const [allForms, countryNames] = await Promise.all([
+    getAllFormsAllLocales(locale),
+    getCountryNames(locale),
+  ]);
 
   return {
     props: {
@@ -76,6 +84,7 @@ export const getStaticProps = async ({ locale }: ILocale) => {
       ])),
       locale,
       allForms,
+      countryNames,
     },
   };
 };

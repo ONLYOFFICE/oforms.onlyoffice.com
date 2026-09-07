@@ -29,100 +29,117 @@
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { ICategory } from "@src/types/template";
+import { IFormsData } from "@src/types/data";
 import { Main } from "@src/components/modules/Main";
 import { MainSection } from "@src/components/modules/Main/sub-components/MainSection";
 import { NoResultsFound } from "@src/components/modules/NoResultsFound";
 import { Button } from "@src/components/ui/Button";
 import {
-  getExtCount,
-  getPurposes,
-  getCategoriesByPurpose,
   getQueryValues,
   getPopularTemplates,
   normalizeSortKey,
   sortForms,
 } from "@src/utils/helpers";
+import {
+  getCategoriesByPurpose,
+  getFilteredForms,
+  getFormsInScope,
+  getPurposes,
+  getTemplatesBySubcategories,
+  groupFormsByExt,
+} from "@src/components/templates/Main/Main.utils";
+import { getSelectedCountries } from "@src/utils/localeCountry";
 import styles from "@src/components/templates/Main/Main.module.scss";
 
 const CategoryTemplate = ({
-  categoryInfoWithForms,
   allForms,
-  extFormsCount,
   countriesCount,
-  purposeWithCategoriesCount,
+  categoryUrlReq,
 }: ICategory) => {
   const { t } = useTranslation("MainTemplate");
   const router = useRouter();
+  const currentLocale = router.locale ?? "en";
 
   const sortKey = normalizeSortKey(router.query.sort);
-  const docxForms = getExtCount(extFormsCount, "docx");
-  const xlsxForms = getExtCount(extFormsCount, "xlsx");
-  const pptxForms = getExtCount(extFormsCount, "pptx");
-  const pdfForms = getExtCount(extFormsCount, "pdf");
-  const countries = countriesCount.data
-    .filter((country) => country.oforms.count > 0)
-    .sort(
-      (a, b) =>
-        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-    )
-    .map((country) => ({
-      id: country.id,
-      documentId: country.documentId,
-      name: country.name,
-      code: country.code,
-      count: country.oforms.count,
-    }));
-  const availableCountryCodes = new Set(
-    countries.map((country) => country.code.toLowerCase()),
+  const selectedTypes = getQueryValues(router.query.type);
+  const selectedCountries = getSelectedCountries(
+    getQueryValues(router.query.country),
+    currentLocale,
+    countriesCount.map((country) => country.code),
   );
-  const selectedCountries = getQueryValues(router.query.country).filter(
-    (country) => availableCountryCodes.has(country),
-  );
-  const purposes = getPurposes(purposeWithCategoriesCount);
-  const categoriesByPurpose = getCategoriesByPurpose(
-    purposeWithCategoriesCount,
+
+  const isInCategory = (form: IFormsData["data"][number]) =>
+    form.subcategories?.some((sub) =>
+      sub?.parent_categories?.some((cat) => cat?.urlReq === categoryUrlReq),
+    );
+
+  const localeForms = getFormsInScope(
+    allForms.data,
+    currentLocale,
     selectedCountries,
+  ).filter(isInCategory);
+  const scopedForms = getFilteredForms(localeForms, {
+    country: selectedCountries,
+  });
+
+  const filteredForms = sortForms(
+    getFilteredForms(scopedForms, { type: selectedTypes }),
+    sortKey,
   );
-  const formNames = allForms.data.map(({ id, name_form, url }) => ({
+
+  const {
+    docx: docxForms,
+    xlsx: xlsxForms,
+    pptx: pptxForms,
+    pdf: pdfForms,
+  } = groupFormsByExt(scopedForms);
+  const categoriesByPurpose = getCategoriesByPurpose(filteredForms);
+  const purposes = getPurposes(allForms.data).filter(
+    (purpose) => categoriesByPurpose[purpose.key]?.length,
+  );
+  const formNames = scopedForms.map(({ id, name_form, url, locale }) => ({
     id,
     name_form,
     url,
+    locale,
   }));
-  const subcategories = (categoryInfoWithForms.data[0]?.subcategories ?? [])
-    .filter((subcategory) => subcategory.oforms.length > 0)
-    .sort(
-      (a, b) =>
-        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-    );
-  const totalCount = subcategories.reduce(
-    (sum, subcategory) => sum + subcategory.oforms.length,
-    0,
+
+  const subcategoryUrlReqs = Array.from(
+    new Set(
+      filteredForms.flatMap(
+        (form) =>
+          form.subcategories
+            ?.filter((sub) =>
+              sub?.parent_categories?.some(
+                (cat) => cat?.urlReq === categoryUrlReq,
+              ),
+            )
+            .map((sub) => sub.urlReq) ?? [],
+      ),
+    ),
   );
-  const categoryForms = Array.from(
-    new Map(
-      subcategories
-        .flatMap((subcategory) => subcategory.oforms)
-        .map((form) => [form.id, form]),
-    ).values(),
+  const subcategorySections = getTemplatesBySubcategories(
+    filteredForms,
+    subcategoryUrlReqs,
   );
-  const popularTemplates = getPopularTemplates(
-    sortForms(categoryForms, sortKey),
-  );
+  const totalCount = filteredForms.length;
+  const popularTemplates = getPopularTemplates(filteredForms);
 
   return (
     <Main
-      docxForms={docxForms}
-      xlsxForms={xlsxForms}
-      pptxForms={pptxForms}
-      pdfForms={pdfForms}
-      countries={countries}
+      docxForms={docxForms.length}
+      xlsxForms={xlsxForms.length}
+      pptxForms={pptxForms.length}
+      pdfForms={pdfForms.length}
+      countries={countriesCount}
       purposes={purposes}
       categoriesByPurpose={categoriesByPurpose}
       totalCount={totalCount}
+      selectedCategory={categoryUrlReq}
       formNames={formNames}
-      searchOnly={subcategories.length === 0}
+      searchOnly={subcategorySections.length === 0}
     >
-      {!subcategories.length && (
+      {!subcategorySections.length && (
         <>
           <NoResultsFound />
           <Button
@@ -139,11 +156,11 @@ const CategoryTemplate = ({
       {popularTemplates.length > 0 && (
         <MainSection label={t("PopularTemplates")} data={popularTemplates} />
       )}
-      {subcategories.map((subcategory) => (
+      {subcategorySections.map(({ subcategory, data }) => (
         <MainSection
           key={subcategory.id}
           label={subcategory.name}
-          data={subcategory.oforms}
+          data={data}
         />
       ))}
     </Main>

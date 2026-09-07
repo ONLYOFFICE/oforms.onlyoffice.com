@@ -30,4 +30,5 @@ import { IFormsData } from "@src/types/data";
 
 export interface IMainTemplate {
   allForms: IFormsData;
+  countryNames?: Record<string, string>;
 }

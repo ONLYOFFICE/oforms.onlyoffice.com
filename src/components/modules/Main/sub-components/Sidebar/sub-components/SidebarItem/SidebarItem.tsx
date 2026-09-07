@@ -45,6 +45,7 @@ const SidebarItem = ({
   options,
   categories,
   optionsType = "badge",
+  type = "checkbox",
   isSub = false,
   queryKey,
 }: ISidebarItem) => {
@@ -147,6 +148,7 @@ const SidebarItem = ({
                   count={option.count}
                   checked={option.checked}
                   onChange={option.onChange}
+                  {...(isSwitch ? {} : { type })}
                 >
                   {option.label}
                 </OptionComponent>

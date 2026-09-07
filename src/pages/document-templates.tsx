@@ -28,10 +28,8 @@
 
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getExtForms } from "@src/lib/requests/getExtForms";
-import { getExtFormsCount } from "@src/lib/requests/getExtFormsCount";
+import { getFormsByLocale } from "@src/lib/requests/getAllFormsAllLocales";
 import { getCountriesCount } from "@src/lib/requests/getCountriesCount";
-import { getPurposeWithCategoriesCount } from "@src/lib/requests/getPurposeWithCategoriesCount";
 import { Layout } from "@src/components/Layout";
 import { Head } from "@src/components/modules/Head";
 import { Header } from "@src/components/modules/Header";
@@ -44,9 +42,7 @@ import { ILocale } from "@src/types/locale";
 const DocumentTemplatesPage = ({
   locale,
   allForms,
-  extFormsCount,
   countriesCount,
-  purposeWithCategoriesCount,
 }: IExtCategory & ILocale) => {
   const { t } = useTranslation("document-templates");
 
@@ -65,9 +61,7 @@ const DocumentTemplatesPage = ({
         <ExtCategoryTemplate
           ext="docx"
           allForms={allForms}
-          extFormsCount={extFormsCount}
           countriesCount={countriesCount}
-          purposeWithCategoriesCount={purposeWithCategoriesCount}
         />
       </Layout.Main>
       <Layout.Footer>
@@ -78,13 +72,10 @@ const DocumentTemplatesPage = ({
 };
 
 export const getStaticProps = async ({ locale }: ILocale) => {
-  const [allForms, extFormsCount, countriesCount, purposeWithCategoriesCount] =
-    await Promise.all([
-      getExtForms(locale),
-      getExtFormsCount(locale),
-      getCountriesCount(locale, "docx"),
-      getPurposeWithCategoriesCount(locale, "docx"),
-    ]);
+  const [allForms, countriesCount] = await Promise.all([
+    getFormsByLocale(locale),
+    getCountriesCount(locale, "docx"),
+  ]);
 
   return {
     props: {
@@ -98,9 +89,7 @@ export const getStaticProps = async ({ locale }: ILocale) => {
       ])),
       locale,
       allForms,
-      extFormsCount,
       countriesCount,
-      purposeWithCategoriesCount,
     },
   };
 };

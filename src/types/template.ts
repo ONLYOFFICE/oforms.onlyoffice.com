@@ -27,132 +27,22 @@
  */
 
 import { IFormsData } from "@src/types/data";
+import { ICountryCount } from "@src/lib/requests/getCountriesCount";
 import { TAllowedTypes } from "@src/utils/allowedTypes";
 
-interface ICategoryInfoWithForms {
-  data: {
-    id: number;
-    documentId: string;
-    seo_title: string;
-    seo_description: string;
-    subcategories: {
-      id: number;
-      documentId: string;
-      name: string;
-      createdAt: string;
-      oforms: IFormsData["data"];
-    }[];
-  }[];
-  meta: {
-    pagination: {
-      page: number;
-      pageCount: number;
-      pageSize: number;
-      total: number;
-    };
-  };
-}
-
-interface IExtFormsCount {
-  data: {
-    id: number;
-    documentId: string;
-    ext: string;
-    oforms: {
-      count: number;
-    };
-  }[];
-  meta: {
-    pagination: {
-      page: number;
-      pageCount: number;
-      pageSize: number;
-      total: number;
-    };
-  };
-}
-
-interface ICountriesCount {
-  data: {
-    id: number;
-    documentId: string;
-    name: string;
-    code: string;
-    createdAt: string;
-    oforms: {
-      count: number;
-    };
-  }[];
-  meta: {
-    pagination: {
-      page: number;
-      pageCount: number;
-      pageSize: number;
-      total: number;
-    };
-  };
-}
-
-interface IPurposeWithCategoriesCount {
-  data: {
-    id: number;
-    documentId: string;
-    name: string;
-    key: string;
-    createdAt: string;
-    parent_categories: {
-      id: number;
-      documentId: string;
-      name: string;
-      urlReq: string;
-      createdAt: string;
-      subcategories: {
-        id: number;
-        documentId: string;
-        name: string;
-        urlReq: string;
-        createdAt: string;
-        oforms: {
-          id: number;
-          documentId: string;
-          countries: {
-            id: number;
-            documentId: string;
-            code: string;
-          }[];
-        }[];
-      }[];
-    }[];
-  }[];
-  meta: {
-    pagination: {
-      page: number;
-      pageCount: number;
-      pageSize: number;
-      total: number;
-    };
-  };
-}
-
 export interface ICategory {
-  categoryInfoWithForms: ICategoryInfoWithForms;
   allForms: IFormsData;
-  extFormsCount: IExtFormsCount;
-  countriesCount: ICountriesCount;
-  purposeWithCategoriesCount: IPurposeWithCategoriesCount;
+  countriesCount: ICountryCount[];
+  categoryUrlReq?: string;
 }
 
 export interface IExtCategory {
   ext: TAllowedTypes;
   allForms: IFormsData;
-  extFormsCount: IExtFormsCount;
-  countriesCount: ICountriesCount;
-  purposeWithCategoriesCount: IPurposeWithCategoriesCount;
+  countriesCount: ICountryCount[];
 }
 
 export interface ISearchResult {
   allForms: IFormsData;
-  extFormsCount: IExtFormsCount;
-  countriesCount: ICountriesCount;
-  purposeWithCategoriesCount: IPurposeWithCategoriesCount;
+  countriesCount: ICountryCount[];
 }

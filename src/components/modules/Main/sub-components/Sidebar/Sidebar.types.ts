@@ -37,8 +37,6 @@ interface IPurpose {
 }
 
 interface ICountry {
-  id: number;
-  documentId: string;
   name: string;
   code: string;
   count: number;
@@ -59,4 +57,5 @@ export interface ISidebar {
   pptxForms: number;
   pdfForms: number;
   selectedType?: TAllowedTypes;
+  selectedCategory?: string;
 }

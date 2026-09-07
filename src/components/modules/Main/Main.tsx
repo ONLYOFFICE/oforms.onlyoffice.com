@@ -50,6 +50,7 @@ const Main = ({
   categoriesByPurpose,
   totalCount,
   selectedType,
+  selectedCategory,
   formNames,
   searchOnly,
 }: IMain) => {
@@ -101,6 +102,7 @@ const Main = ({
             pptxForms={pptxForms}
             pdfForms={pdfForms}
             selectedType={selectedType}
+            selectedCategory={selectedCategory}
           />
 
           <div>

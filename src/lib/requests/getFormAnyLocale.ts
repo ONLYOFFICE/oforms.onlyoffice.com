@@ -26,41 +26,37 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import CONFIG from "@src/config/config.json";
-import { apiRequest } from "@src/lib/api/apiRequest";
+import { languages } from "@src/config/languages";
+import { getForm } from "@src/lib/requests/getForm";
+import { IFormData } from "@src/components/templates/Form/Form.types";
 import { ILocale } from "@src/types/locale";
-import { cmsLocale } from "@src/utils/cmsLocale";
 
-const getCategoryInfoWithForms = async (
+const getFormAnyLocale = async (
   locale: ILocale["locale"],
-  url: string,
-) => {
-  const params = [
-    `filters[urlReq][$eq]=${url}`,
-    `locale=${cmsLocale(locale)}`,
-    "fields[0]=seo_title",
-    "fields[1]=seo_description",
-    "populate[subcategories][fields][0]=name",
-    "populate[subcategories][fields][1]=createdAt",
-    "populate[subcategories][populate][oforms][fields][0]=name_form",
-    "populate[subcategories][populate][oforms][fields][1]=description_card",
-    "populate[subcategories][populate][oforms][fields][2]=url",
-    "populate[subcategories][populate][oforms][fields][3]=popular_template",
-    "populate[subcategories][populate][oforms][fields][4]=createdAt",
-    "populate[subcategories][populate][oforms][populate][card_prewiew][fields][0]=url",
-    "populate[subcategories][populate][oforms][populate][form_exts][fields][0]=ext",
-  ]
-    .filter(Boolean)
-    .join("&");
+  slug: string,
+): Promise<{ form: IFormData; formLocale: ILocale["locale"] }> => {
+  const locales = languages.map(({ shortKey }) => shortKey);
+  const ordered = [
+    locale,
+    ...locales.filter((item) => item !== locale),
+  ] as ILocale["locale"][];
 
-  const res = await apiRequest(
-    `${CONFIG.api.cms}/api/parent-categories?${params}`,
-    {
-      label: "getCategoryInfoWithForms",
-    },
-  );
+  for (const item of ordered) {
+    try {
+      const form: IFormData = await getForm(item, slug);
+      if (form?.data?.length) return { form, formLocale: item };
+    } catch {
+      continue;
+    }
+  }
 
-  return await res.json();
+  return {
+    form: {
+      data: [],
+      meta: { pagination: { page: 1, pageCount: 0, pageSize: 0, total: 0 } },
+    } as IFormData,
+    formLocale: locale,
+  };
 };
 
-export { getCategoryInfoWithForms };
+export { getFormAnyLocale };

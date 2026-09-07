@@ -29,33 +29,141 @@
 import CONFIG from "@src/config/config.json";
 import { apiRequest } from "@src/lib/api/apiRequest";
 import { cacheByLocale } from "@src/lib/api/cacheByLocale";
+import { getCountries, getCountryNames } from "@src/lib/requests/getCountries";
+import { languages } from "@src/config/languages";
 import { ILocale } from "@src/types/locale";
+import { TAllowedTypes } from "@src/utils/allowedTypes";
 import { cmsLocale } from "@src/utils/cmsLocale";
 
-const fetchCountriesCount = async (
+export interface ICountryCount {
+  code: string;
+  name: string;
+  count: number;
+  createdAt: string;
+}
+
+type TFormCountries = { countries?: { code?: string }[] };
+
+const PAGE_SIZE = 1000;
+
+const buildUrl = (
   locale: ILocale["locale"],
-  ext: string = "",
-) => {
-  const params = [
+  page: number,
+  ext?: TAllowedTypes,
+  category?: string,
+) =>
+  `${CONFIG.api.cms}/api/oforms?${[
     `locale=${cmsLocale(locale)}`,
-    "fields[0]=name",
-    "fields[1]=code",
-    "fields[2]=createdAt",
-    ext ? `filters[oforms][form_exts][ext][$eq]=${ext}` : "",
-    `populate[oforms][filters][locale][$eq]=${cmsLocale(locale)}`,
-    ext ? `populate[oforms][filters][form_exts][ext][$eq]=${ext}` : "",
-    "populate[oforms][count]=true",
+    ext ? `filters[form_exts][ext][$eq]=${ext}` : "",
+    category
+      ? `filters[subcategories][parent_categories][urlReq][$eq]=${category}`
+      : "",
+    `pagination[page]=${page}`,
+    `pagination[pageSize]=${PAGE_SIZE}`,
+    "fields[0]=id",
+    "populate[countries][fields][0]=code",
   ]
     .filter(Boolean)
-    .join("&");
+    .join("&")}`;
 
-  const res = await apiRequest(`${CONFIG.api.cms}/api/countries?${params}`, {
-    label: "getCountriesCount",
+const buildLocaleCounts = async (
+  locale: ILocale["locale"],
+  ext?: TAllowedTypes,
+  category?: string,
+): Promise<Record<string, number>> => {
+  const label = `getCountriesCount (${locale}${ext ? ` ${ext}` : ""}${
+    category ? ` ${category}` : ""
+  })`;
+
+  const fetchPage = async (page: number) => {
+    const res = await apiRequest(buildUrl(locale, page, ext, category), {
+      label: `${label} page ${page}`,
+    });
+
+    return await res.json();
+  };
+
+  let forms: TFormCountries[] = [];
+
+  try {
+    const firstPage = await fetchPage(1);
+    const pageCount = firstPage.meta?.pagination?.pageCount ?? 1;
+
+    const restPages = await Promise.all(
+      Array.from({ length: Math.max(pageCount - 1, 0) }, (_, index) =>
+        fetchPage(index + 2),
+      ),
+    );
+
+    forms = [firstPage, ...restPages].flatMap(
+      (page) => (page.data ?? []) as TFormCountries[],
+    );
+  } catch {
+    return {};
+  }
+
+  const counts: Record<string, number> = {};
+
+  forms.forEach((form) => {
+    const seen = new Set<string>();
+
+    form.countries?.filter(Boolean).forEach((country) => {
+      if (!country.code) return;
+
+      const code = country.code.toLowerCase();
+      if (seen.has(code)) return;
+
+      seen.add(code);
+      counts[code] = (counts[code] ?? 0) + 1;
+    });
   });
 
-  return await res.json();
+  return counts;
 };
 
-const getCountriesCount = cacheByLocale(fetchCountriesCount);
+const getLocaleCounts = cacheByLocale(buildLocaleCounts);
+
+const getCountriesCount = async (
+  locale: ILocale["locale"],
+  ext?: TAllowedTypes,
+  category?: string,
+): Promise<ICountryCount[]> => {
+  const locales = languages.map(({ shortKey }) => shortKey);
+
+  const [countsByLocale, countries, countryNames] = await Promise.all([
+    Promise.all(locales.map((item) => getLocaleCounts(item, ext, category))),
+    getCountries(locale),
+    getCountryNames(locale),
+  ]);
+
+  const createdAtByCode = new Map<string, string>(
+    (countries.data ?? [])
+      .filter((country: { code?: string }) => country?.code)
+      .map((country: { code: string; createdAt?: string }) => [
+        country.code.toLowerCase(),
+        country.createdAt ?? "",
+      ]),
+  );
+
+  const totals = new Map<string, number>();
+
+  countsByLocale.forEach((counts) => {
+    Object.entries(counts).forEach(([code, count]) => {
+      totals.set(code, (totals.get(code) ?? 0) + count);
+    });
+  });
+
+  return Array.from(totals.entries())
+    .map(([code, count]) => ({
+      code,
+      name: countryNames[code] ?? code.toUpperCase(),
+      count,
+      createdAt: createdAtByCode.get(code) ?? "",
+    }))
+    .sort(
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+    );
+};
 
 export { getCountriesCount };

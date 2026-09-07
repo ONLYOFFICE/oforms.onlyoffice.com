@@ -32,5 +32,6 @@ export interface ISearchInput {
     id: number;
     name_form: string;
     url: string;
+    locale?: string;
   }[];
 }

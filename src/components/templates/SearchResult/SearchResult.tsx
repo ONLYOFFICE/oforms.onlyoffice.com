@@ -32,26 +32,44 @@ import { ISearchResult } from "@src/types/template";
 import { Main } from "@src/components/modules/Main";
 import { MainSection } from "@src/components/modules/Main/sub-components/MainSection";
 import {
-  getExtCount,
-  getPurposes,
-  getCategoriesByPurpose,
   getQueryValues,
   normalizeSortKey,
   sortForms,
 } from "@src/utils/helpers";
+import {
+  getCategoriesByPurpose,
+  getFilteredForms,
+  getFormsInScope,
+  getPurposes,
+  groupFormsByExt,
+} from "@src/components/templates/Main/Main.utils";
+import { getSelectedCountries } from "@src/utils/localeCountry";
 import { SearchNoResult } from "./sections/SearchNoResult";
 
-const SearchResultTemplate = ({
-  allForms,
-  extFormsCount,
-  countriesCount,
-  purposeWithCategoriesCount,
-}: ISearchResult) => {
+const SearchResultTemplate = ({ allForms, countriesCount }: ISearchResult) => {
   const { t } = useTranslation("searchresult");
   const router = useRouter();
+  const currentLocale = router.locale ?? "en";
 
   const sortKey = normalizeSortKey(router.query.sort);
-  const filteredForms = sortForms(allForms.data, sortKey);
+  const selectedTypes = getQueryValues(router.query.type);
+  const selectedCountries = getSelectedCountries(
+    getQueryValues(router.query.country),
+    currentLocale,
+    countriesCount.map((country) => country.code),
+  );
+  const selectedSubcategories = getQueryValues(router.query.subcategory);
+
+  const localeForms = getFormsInScope(
+    allForms.data,
+    currentLocale,
+    selectedCountries,
+  );
+  const scopedForms = getFilteredForms(localeForms, {
+    country: selectedCountries,
+  });
+
+  const filteredForms = sortForms(scopedForms, sortKey);
   const searchQuery = (
     Array.isArray(router.query.query)
       ? router.query.query[0]
@@ -63,48 +81,38 @@ const SearchResultTemplate = ({
       )
     : [];
 
-  const docxForms = getExtCount(extFormsCount, "docx");
-  const xlsxForms = getExtCount(extFormsCount, "xlsx");
-  const pptxForms = getExtCount(extFormsCount, "pptx");
-  const pdfForms = getExtCount(extFormsCount, "pdf");
-  const countries = countriesCount.data
-    .filter((country) => country.oforms.count > 0)
-    .sort(
-      (a, b) =>
-        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-    )
-    .map((country) => ({
-      id: country.id,
-      documentId: country.documentId,
-      name: country.name,
-      code: country.code,
-      count: country.oforms.count,
-    }));
-  const availableCountryCodes = new Set(
-    countries.map((country) => country.code.toLowerCase()),
+  const {
+    docx: docxForms,
+    xlsx: xlsxForms,
+    pptx: pptxForms,
+    pdf: pdfForms,
+  } = groupFormsByExt(
+    getFilteredForms(localeForms, {
+      country: selectedCountries,
+      subcategory: selectedSubcategories,
+    }),
   );
-  const selectedCountries = getQueryValues(router.query.country).filter(
-    (country) => availableCountryCodes.has(country),
-  );
-  const purposes = getPurposes(purposeWithCategoriesCount);
   const categoriesByPurpose = getCategoriesByPurpose(
-    purposeWithCategoriesCount,
-    selectedCountries,
+    getFilteredForms(scopedForms, { type: selectedTypes }),
+  );
+  const purposes = getPurposes(allForms.data).filter(
+    (purpose) => categoriesByPurpose[purpose.key]?.length,
   );
   const totalCount = foundForms.length;
-  const formNames = filteredForms.map(({ id, name_form, url }) => ({
+  const formNames = filteredForms.map(({ id, name_form, url, locale }) => ({
     id,
     name_form,
     url,
+    locale,
   }));
 
   return (
     <Main
-      docxForms={docxForms}
-      xlsxForms={xlsxForms}
-      pptxForms={pptxForms}
-      pdfForms={pdfForms}
-      countries={countries}
+      docxForms={docxForms.length}
+      xlsxForms={xlsxForms.length}
+      pptxForms={pptxForms.length}
+      pdfForms={pdfForms.length}
+      countries={countriesCount}
       purposes={purposes}
       categoriesByPurpose={categoriesByPurpose}
       totalCount={totalCount}
