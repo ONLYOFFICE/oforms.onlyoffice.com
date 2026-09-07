@@ -49,8 +49,8 @@ export interface IHostMessage {
 export const isEmbedded = (): boolean => window.parent !== window;
 
 /**
- * Messages go out with targetOrigin "*" because a file:// host has origin
- * "null", which cannot be named as a target. Nothing sent here is sensitive —
+ * Messages go out with targetOrigin "*" because the host's origin varies, and
+ * "null" cannot be named as a target at all. Nothing sent here is sensitive —
  * it is catalog data the page already fetched from a public URL.
  */
 function send(message: unknown): void {
@@ -75,7 +75,7 @@ export function requestOpenTemplate(template: ITemplate): void {
   }
 }
 
-/** Inbound messages are origin-checked; unknown senders are ignored. */
+/** Inbound messages are origin-checked. "null" is on the list, so it is not a boundary. */
 export function onHostMessage(
   handler: (message: IHostMessage) => void,
 ): () => void {

@@ -52,9 +52,9 @@ const DATA_VERSION = (() => {
   }
 })();
 
-// Origins allowed to talk to this page over postMessage. The desktop host runs
-// from file:// (origin "null"), so that is included deliberately.
-const HOST_ORIGINS = process.env.EMBED_HOST_ORIGINS || "null,file://";
+// Origins allowed to talk to this page over postMessage. Desktop's start page runs
+// from onlyoffice://plugin/…; a file:// host reports origin "null".
+const HOST_ORIGINS = process.env.EMBED_HOST_ORIGINS || "null,file://,onlyoffice://plugin";
 
 // Which catalog a deploy carries, answerable with `curl <url> | grep`. index.html
 // already revalidates every load, so it costs no request and no second uncached
