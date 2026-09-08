@@ -52,5 +52,5 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: >-
             pages deploy embed-new/dist
-            --project-name=${{ secrets.CLOUDFLARE_EMBED_PROJECT_NAME }}
+            --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME }}
             --branch=${{ github.ref_name }}
