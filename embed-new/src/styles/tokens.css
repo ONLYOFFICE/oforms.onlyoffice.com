@@ -41,9 +41,7 @@
 :root {
   /* The page is framed, so the host font cannot be inherited — it is passed in
      as a theme token like any other override. */
-  --font-family-base:
-    "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial,
-    sans-serif;
+  --font-family-base: "Segoe UI", Arial, Helvetica, "Helvetica Neue", sans-serif;
 
   --main-background-color: var(--background-action-panel, #ffffff);
   --main-count-color: var(--text-tertiary, #9092a6);
