@@ -26,6 +26,7 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+import { useState } from "react";
 import clsx from "clsx";
 import type { ITemplate } from "../../types";
 import { previewUrl } from "../../data";
@@ -36,6 +37,8 @@ interface ICardProps {
   onSelect: (template: ITemplate) => void;
 }
 
+const RETRIES = 1;
+
 /**
  * A button rather than a link: the embed opens a modal instead of navigating,
  * and there is no template page to point at from inside the iframe.
@@ -43,6 +46,7 @@ interface ICardProps {
 const Card = ({ template, onSelect }: ICardProps) => {
   const format = template.form_exts?.[0]?.ext ?? "docx";
   const preview = previewUrl(template);
+  const [attempt, setAttempt] = useState(0);
 
   return (
     <button
@@ -51,14 +55,20 @@ const Card = ({ template, onSelect }: ICardProps) => {
       onClick={() => onSelect(template)}
     >
       <span className={styles["card-preview-wrapper"]}>
-        <span
-          className={styles["card-preview"]}
-          style={
-            {
-              "--card-preview-image": preview ? `url(${preview})` : "none",
-            } as React.CSSProperties
-          }
-        />
+        {preview && attempt <= RETRIES ? (
+          <img
+            key={attempt}
+            className={styles["card-preview"]}
+            src={preview}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            onError={() => setAttempt(attempt + 1)}
+          />
+        ) : (
+          // Holds the box, so a missing preview does not shorten the card.
+          <span className={styles["card-preview"]} />
+        )}
       </span>
 
       <span className={styles["card-heading"]} title={template.name_form}>

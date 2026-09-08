@@ -68,14 +68,12 @@
 
 .card-preview {
   display: block;
-  padding-block-end: 62.44%;
   margin-inline: auto;
   width: 100%;
   max-width: 256px;
-  background-image: var(--card-preview-image);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position-x: center;
+  aspect-ratio: 1 / 0.6244;
+  object-fit: cover;
+  object-position: center top;
 }
 
 .card-heading {
