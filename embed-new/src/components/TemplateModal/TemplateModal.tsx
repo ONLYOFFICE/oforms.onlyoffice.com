@@ -65,6 +65,14 @@ function formatDate(value: string | undefined, locale: string): string | null {
   return format.format(date);
 }
 
+function focusOnOpen(node: HTMLButtonElement) {
+  const opener = document.activeElement as HTMLElement | null;
+  node.focus();
+  return () => {
+    if (opener?.isConnected) opener.focus();
+  };
+}
+
 const TemplateModal = ({ template, onClose, onUse }: ITemplateModalProps) => {
   const { t, i18n } = useTranslation("TemplateModal");
 
@@ -144,6 +152,7 @@ const TemplateModal = ({ template, onClose, onUse }: ITemplateModalProps) => {
 
             <div className={styles["modal-actions"]}>
               <button
+                ref={focusOnOpen}
                 type="button"
                 className={styles["modal-btn-primary"]}
                 onClick={() => onUse(template)}
