@@ -152,19 +152,19 @@ const TemplateModal = ({ template, onClose, onUse }: ITemplateModalProps) => {
 
             <div className={styles["modal-actions"]}>
               <button
+                type="button"
+                className={styles["modal-btn-secondary"]}
+                onClick={onClose}
+              >
+                {t("Cancel")}
+              </button>
+              <button
                 ref={focusOnOpen}
                 type="button"
                 className={styles["modal-btn-primary"]}
                 onClick={() => onUse(template)}
               >
                 {t("UseThisTemplate")}
-              </button>
-              <button
-                type="button"
-                className={styles["modal-btn-secondary"]}
-                onClick={onClose}
-              >
-                {t("Cancel")}
               </button>
             </div>
           </div>

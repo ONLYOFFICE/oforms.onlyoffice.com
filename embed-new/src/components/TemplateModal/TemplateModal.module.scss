@@ -39,7 +39,6 @@
 .backdrop {
   position: absolute;
   inset: 0;
-  background-color: var(--template-modal-overlay-background-color);
 }
 
 .modal {
@@ -153,7 +152,9 @@
 .modal-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-end;
   gap: 12px;
+  width: 100%;
   margin-block-start: 8px;
 }
 
