@@ -169,11 +169,6 @@
   --template-modal-text-color: var(--text-normal, #494b5b);
   --template-modal-file-item-color: var(--text-secondary, #686868);
   --template-modal-file-value-color: var(--text-normal, #383838);
-  /* The one token that is a whole shadow rather than a colour, on both sides. */
-  --template-modal-btn-box-shadow-color: var(
-    --shadow-sidebar-item-pressed,
-    0px 1px 3px 0px rgba(0, 0, 0, 0.1)
-  );
   --template-modal-btn-primary-color: var(--text-inverse, #ffffff);
   --template-modal-btn-primary-background-color: var(
     --background-primary-button,
@@ -279,7 +274,6 @@
   --main-header-shadow-color: rgba(0, 0, 0, 0.5);
   --language-switcher-menu-shadow-color: rgba(0, 0, 0, 0.5);
   --template-modal-wrapper-border-color: #505050;
-  --template-modal-btn-box-shadow-color: 0px 1px 3px 0px rgba(0, 0, 0, 0.4);
 
   /* The tab underline is the only mark on the selected tab. On white these two
      are 6.1:1 and 5.5:1; unchanged on #333 they would be 2.1 and 2.3. */
