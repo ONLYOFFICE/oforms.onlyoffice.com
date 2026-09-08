@@ -55,7 +55,7 @@ import {
   sortByNewest,
 } from "./lib/filters";
 import { initI18n } from "./i18n";
-import { isRtlLocale, type Locale } from "./locale";
+import { isRtlLocale, storeLocale, type Locale } from "./locale";
 import {
   readHidden,
   readQuery,
@@ -242,7 +242,10 @@ const App = () => {
           {!hidden.has("lang") && (
             <LanguageSelect
               value={query.locale}
-              onChange={(locale) => filter({ locale })}
+              onChange={(locale) => {
+                storeLocale(locale);
+                filter({ locale });
+              }}
             />
           )}
         </div>

@@ -28,7 +28,7 @@
 
 import { readDesktopLang } from "./desktopVars";
 import { getQueryValues } from "./lib/filters";
-import { normalizeLocale, type Locale } from "./locale";
+import { normalizeLocale, readStoredLocale, type Locale } from "./locale";
 import { PURPOSE_ORDER, TYPE_ORDER } from "./types";
 
 // Type and purpose each hold exactly one value, so an unknown or multi-valued
@@ -64,8 +64,11 @@ export function readQuery(): ICatalogQuery {
     categories: getQueryValues(p.get("category")),
     purposes: readOneOf(p.get("purpose"), PURPOSE_ORDER),
     page: Number.isFinite(page) && page > 0 ? page : 1,
-    // `?locale=` pins it; otherwise Desktop's own UI language.
-    locale: normalizeLocale(p.get("locale") || readDesktopLang()),
+    // `?locale=` pins it, then the language picked here, then Desktop's own UI
+    // language.
+    locale: normalizeLocale(
+      p.get("locale") || readStoredLocale() || readDesktopLang(),
+    ),
   };
 }
 

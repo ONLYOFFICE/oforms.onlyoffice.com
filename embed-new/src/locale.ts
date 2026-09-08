@@ -72,3 +72,31 @@ export function normalizeLocale(culture: string | null | undefined): Locale {
     ? (base as Locale)
     : FALLBACK;
 }
+
+const LOCALE_KEY = "locale";
+
+const isLocale = (value: string | null): value is Locale =>
+  (SUPPORTED as readonly string[]).includes(value ?? "");
+
+/**
+ * The language picked in this frame, which outranks the host's UI language on
+ * the next load. Null for unset or stale, so the chain falls through instead of
+ * pinning `en`. Both sides are guarded because reading the `localStorage`
+ * property itself throws in a third-party frame with site data blocked.
+ */
+export function readStoredLocale(): Locale | null {
+  try {
+    const stored = localStorage.getItem(LOCALE_KEY);
+    return isLocale(stored) ? stored : null;
+  } catch {
+    return null;
+  }
+}
+
+export function storeLocale(locale: Locale): void {
+  try {
+    localStorage.setItem(LOCALE_KEY, locale);
+  } catch {
+    /* storage blocked — the choice lives for this session only */
+  }
+}

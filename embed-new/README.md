@@ -46,8 +46,15 @@ since Business covers all but the exclusively-personal ones.
 
 Search is scoped to the active tab, and switching tab keeps the term.
 
+A pick in the language menu is remembered in `localStorage.locale`, so the
+locale resolves as `?locale=` → stored pick → `RendererProcessVariable.lang` →
+`en`. The host can still pin a language per load; Desktop's UI language is only
+the default. Storage being blocked (a third-party frame with site data off) costs
+the memory, nothing else.
+
 `?hide=lang` removes the language selector but not locale switching — the host
-still drives that with `?locale=` or a `locale` message.
+still drives that with `?locale=` or a `locale` message. Neither is stored: the
+host re-states them on the next load.
 
 There is no sort control and no `?sort=` — the grid is always newest first.
 
