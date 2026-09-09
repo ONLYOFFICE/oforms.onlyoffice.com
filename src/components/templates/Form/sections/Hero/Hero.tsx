@@ -52,6 +52,7 @@ import styles from "./Hero.module.scss";
 const Hero = ({
   name_form,
   template_desc,
+  template_desc_2,
   file_pages,
   file_oform,
   page_screens,
@@ -95,13 +96,24 @@ const Hero = ({
                 {t("EditableTemplate")}
               </span>
             </div>
-            <div className={styles["hero-description"]}>
-              {template_desc?.split("\n").map((text, id) => (
-                <Text as="p" size={2} key={id}>
-                  {text}
-                </Text>
-              ))}
-            </div>
+            {template_desc && (
+              <div className={styles["hero-description"]}>
+                {template_desc.split("\n").map((text, id) => (
+                  <Text as="p" size={2} key={id}>
+                    {text}
+                  </Text>
+                ))}
+              </div>
+            )}
+            {template_desc_2 && (
+              <div className={styles["hero-description"]}>
+                {template_desc_2.split("\n").map((text, id) => (
+                  <Text as="p" size={2} key={id}>
+                    {text}
+                  </Text>
+                ))}
+              </div>
+            )}
 
             <div className={styles["hero-info"]}>
               <div className={styles["hero-info-row"]}>

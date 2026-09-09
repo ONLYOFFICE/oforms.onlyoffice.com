@@ -47,6 +47,7 @@ const FormTemplate = ({ form, allForms, categories }: IFormTemplate) => {
   const {
     name_form,
     template_desc,
+    template_desc_2,
     file_oform,
     file_pages,
     page_screens,
@@ -77,6 +78,7 @@ const FormTemplate = ({ form, allForms, categories }: IFormTemplate) => {
       <Hero
         name_form={name_form}
         template_desc={template_desc}
+        template_desc_2={template_desc_2}
         file_pages={file_pages}
         file_oform={file_oform}
         page_screens={page_screens}

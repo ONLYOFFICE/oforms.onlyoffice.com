@@ -51,7 +51,8 @@ const getForm = async (locale: ILocale["locale"], queryForm: string) => {
     "fields[3]=description_card",
     "fields[4]=url",
     "fields[5]=template_desc",
-    "fields[6]=file_pages",
+    "fields[6]=template_desc_2",
+    "fields[7]=file_pages",
   ]
     .filter(Boolean)
     .join("&");

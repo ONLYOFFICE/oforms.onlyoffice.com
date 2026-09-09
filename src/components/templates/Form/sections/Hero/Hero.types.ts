@@ -29,6 +29,7 @@
 export interface IHero {
   name_form: string;
   template_desc: string;
+  template_desc_2?: string;
   file_pages: string;
   file_oform: {
     id: number;

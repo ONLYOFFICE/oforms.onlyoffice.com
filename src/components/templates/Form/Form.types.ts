@@ -36,6 +36,7 @@ export interface IFormData {
     seo_description: string;
     name_form: string;
     template_desc: string;
+    template_desc_2?: string;
     description_card: string;
     url: string;
     file_pages: string;
