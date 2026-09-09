@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "oforms-embed-deploy-hook",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-08",
+  "observability": { "enabled": true },
+
+  "vars": {
+    // GIT_API_BASE and GIT_REPO are secrets, not vars — this file is committed
+    // and they name internal git infrastructure. See README.
+    "GIT_REF": "release/v10.0.0",
+    "WORKFLOW_FILE": "deploy-embed-cloudflare.yml",
+    // Coalescing window. A bulk publish of N forms fires N webhooks; this turns
+    // them into one run. 120s > the gap Strapi leaves between entries.
+    "DEBOUNCE_MS": "120000"
+  },
+
+  // Secrets (never in this file), each via `npx wrangler secret put <NAME>`:
+  //   STRAPI_WEBHOOK_SECRET  shared with the Strapi webhook header
+  //   GIT_TOKEN              repo token with Actions write
+  //   GIT_API_BASE           api root, no trailing slash
+  //   GIT_REPO               owner/repo
+
+  "durable_objects": {
+    "bindings": [{ "name": "DEPLOY", "class_name": "DeployQueue" }]
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["DeployQueue"] }
+  ]
+}

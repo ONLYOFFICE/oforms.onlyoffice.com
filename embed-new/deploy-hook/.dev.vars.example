@@ -1,0 +1,8 @@
+# Copy to .dev.vars for `wrangler dev`. Never commit .dev.vars — it is gitignored.
+# In production these are set with `wrangler secret put`, not from this file.
+STRAPI_WEBHOOK_SECRET="a-long-random-string"
+GIT_TOKEN="..."
+# API root, no trailing slash. GitHub is https://api.github.com; a self-hosted
+# Gitea is https://<your-git-host>/api/v1.
+GIT_API_BASE="https://api.github.com"
+GIT_REPO="owner/repo"

@@ -7,10 +7,18 @@ on:
       - release/v10.0.0
     paths:
       - "embed-new/**"
+      # Deploys to Workers, not here — and a run restamps ?v=, refetching 732 KB.
+      - "!embed-new/deploy-hook/**"
       # The build bundles UI strings and card icons from the site's public/.
       - "public/locales/**"
       - "public/images/**"
       - ".github/workflows/deploy-embed-cloudflare.yml"
+
+# Pages serves the deploy that finishes last, not the newest data — and the
+# webhook debounce is 120s against a multi-minute run. Needs Gitea >= 1.26.
+concurrency:
+  group: deploy-embed
+  cancel-in-progress: true
 
 jobs:
   deploy:
