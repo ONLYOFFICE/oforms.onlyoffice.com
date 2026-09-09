@@ -6,9 +6,9 @@ on:
     branches:
       - release/v10.0.0
     paths:
-      - "embed-new/**"
+      - "embed/**"
       # Deploys to Workers, not here — and a run restamps ?v=, refetching 732 KB.
-      - "!embed-new/deploy-hook/**"
+      - "!embed/deploy-hook/**"
       # The build bundles UI strings and card icons from the site's public/.
       - "public/locales/**"
       - "public/images/**"
@@ -35,10 +35,10 @@ jobs:
         with:
           node-version: lts/*
           cache: npm
-          cache-dependency-path: embed-new/package-lock.json
+          cache-dependency-path: embed/package-lock.json
 
       - name: Install
-        working-directory: embed-new
+        working-directory: embed
         run: npm ci
 
       # Before the build: it reads data-version.txt for the ?v= stamp and copies
@@ -46,11 +46,11 @@ jobs:
       - name: Generate catalog data
         env:
           EMBED_CMS_URL: ${{ vars.EMBED_CMS_URL }}
-        run: node embed-new/scripts/generate-data.mjs
+        run: node embed/scripts/generate-data.mjs
 
       # Also typechecks — the build script is `tsc --noEmit && vite build`.
       - name: Build
-        working-directory: embed-new
+        working-directory: embed
         run: npm run build
 
       - name: Deploy to Cloudflare Pages
@@ -59,6 +59,6 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: >-
-            pages deploy embed-new/dist
+            pages deploy embed/dist
             --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME }}
             --branch=${{ github.ref_name }}

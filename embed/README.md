@@ -1,8 +1,8 @@
 # oforms embed (v0)
 
 Static templates catalog, loaded by ONLYOFFICE Desktop in an **iframe** so it
-ships without a desktop release. Replaces `../embed` and its Next.js shims — no
-dependency on `../src`.
+ships without a desktop release. Replaces the app that used to live here and its
+Next.js shims — no dependency on `../src`.
 
 v0 is a card grid, newest first, with type tabs, pagination, language select and
 filters in a popover. No expand-to-full-page, no redesign yet.
@@ -127,4 +127,4 @@ URLs.
 cached forever, `index.html` uncached so a deploy takes effect immediately.
 
 Note the build reads `../public/locales` and `../public/images`, so it needs the
-whole repo checked out, not a detached copy of `embed-new`.
+whole repo checked out, not a detached copy of `embed`.

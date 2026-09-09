@@ -2,7 +2,7 @@
 
 Cloudflare Worker. Strapi publishes a form → this dispatches
 `.github/workflows/deploy-embed-cloudflare.yml`, which regenerates the catalogs
-and redeploys `embed-new/dist` to Pages.
+and redeploys `embed/dist` to Pages.
 
 ## Why a Worker and not a deploy hook
 

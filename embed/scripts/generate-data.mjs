@@ -32,7 +32,7 @@
  * workflow just before it, since static/ is Vite's publicDir and ships in dist.
  *
  * Usage:
- *   node embed-new/scripts/generate-data.mjs [locale]   (default: all 9 locales)
+ *   node embed/scripts/generate-data.mjs [locale]   (default: all 9 locales)
  */
 import { writeFile, mkdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
