@@ -96,6 +96,7 @@ export interface ICategoriesData {
 
 export interface IFormTemplate {
   form: IFormData;
+  formLocale?: string;
   allForms: IFormsData;
   categories: ICategoriesData;
 }

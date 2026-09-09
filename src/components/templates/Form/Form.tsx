@@ -40,10 +40,16 @@ import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { IFormTemplate } from "./Form.types";
 import styles from "./Form.module.scss";
 
-const FormTemplate = ({ form, allForms, categories }: IFormTemplate) => {
+const FormTemplate = ({
+  form,
+  formLocale,
+  allForms,
+  categories,
+}: IFormTemplate) => {
   const { t } = useTranslation("form");
   const router = useRouter();
   const { locale } = router;
+  const editorLocale = formLocale ?? locale;
   const {
     name_form,
     template_desc,
@@ -59,9 +65,10 @@ const FormTemplate = ({ form, allForms, categories }: IFormTemplate) => {
     return ext !== undefined && ALLOWED_TYPES.includes(ext);
   });
   const extension = editableFile?.name?.split(".").pop()?.toLowerCase();
+  const editorPrefix = editorLocale === "en" ? "" : `/${editorLocale}`;
   const linkEditor =
     editableFile && extension
-      ? `editor?lang=${locale}&filename=${url}&fillform=${editableFile.hash}.${extension}`
+      ? `${editorPrefix}/editor?lang=${editorLocale}&filename=${url}&fillform=${editableFile.hash}.${extension}`
       : "";
   const suggestChangesLink = `mailto:marketing@onlyoffice.com?subject=${t("SuggestingChangesLink", { name: name_form })}&body=${t("SuggestingChangesLink", { name: name_form })}.`;
 

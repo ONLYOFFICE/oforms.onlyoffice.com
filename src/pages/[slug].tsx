@@ -92,7 +92,7 @@ const SlugPage = (props: ISlugPage & ILocale) => {
     );
   }
 
-  const { form, allForms, categories } = props;
+  const { form, formLocale, allForms, categories } = props;
 
   return (
     <Layout>
@@ -111,7 +111,12 @@ const SlugPage = (props: ISlugPage & ILocale) => {
         <Header locale={locale} />
       </Layout.Header>
       <Layout.Main background="var(--primary-background-color)">
-        <FormTemplate form={form} allForms={allForms} categories={categories} />
+        <FormTemplate
+          form={form}
+          formLocale={formLocale}
+          allForms={allForms}
+          categories={categories}
+        />
       </Layout.Main>
       <Layout.Footer>
         <Footer locale={locale} />
@@ -193,7 +198,7 @@ export const getStaticProps = async ({
     };
   }
 
-  const [{ form }, allForms, categories] = await Promise.all([
+  const [{ form, formLocale }, allForms, categories] = await Promise.all([
     getFormAnyLocale(locale, slug),
     getExtFormsPlain(locale),
     getParentCategories(locale),
@@ -210,6 +215,7 @@ export const getStaticProps = async ({
       ...(await serverSideTranslations(locale, ["common", "form"])),
       locale,
       form,
+      formLocale,
       allForms,
       categories,
     },
