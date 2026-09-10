@@ -27,15 +27,14 @@
  */
 
 import { IFormsData } from "@src/types/data";
-import { ICountryCount } from "@src/lib/requests/getCountriesCount";
 
 export interface ICategory {
   allForms: IFormsData;
-  countriesCount: ICountryCount[];
+  countryNames?: Record<string, string>;
   categoryUrlReq?: string;
 }
 
 export interface ISearchResult {
   allForms: IFormsData;
-  countriesCount: ICountryCount[];
+  countryNames?: Record<string, string>;
 }

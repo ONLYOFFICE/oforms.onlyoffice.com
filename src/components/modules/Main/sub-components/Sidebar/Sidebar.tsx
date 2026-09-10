@@ -184,7 +184,7 @@ const Sidebar = ({
   };
 
   const selectCountryValue = (value: string) => {
-    if (selectedType || redirectsToHome) {
+    if (selectedType || isSearchResult) {
       const query = getHomeQuery({ country: value });
 
       router.push({ pathname: "/", query }, undefined, { scroll: false });
@@ -194,10 +194,7 @@ const Sidebar = ({
     const query = { ...router.query };
     query.country = value;
 
-    router.push({ pathname: router.pathname, query }, undefined, {
-      scroll: false,
-      shallow: true,
-    });
+    router.push({ query }, undefined, { scroll: false, shallow: true });
   };
 
   const categorySubcategories = selectedCategory

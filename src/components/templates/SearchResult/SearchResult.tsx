@@ -38,6 +38,7 @@ import {
 } from "@src/utils/helpers";
 import {
   getCategoriesByPurpose,
+  getCountries,
   getFilteredForms,
   getFormsInScope,
   getPurposes,
@@ -46,17 +47,19 @@ import {
 import { getSelectedCountries } from "@src/utils/localeCountry";
 import { SearchNoResult } from "./sections/SearchNoResult";
 
-const SearchResultTemplate = ({ allForms, countriesCount }: ISearchResult) => {
+const SearchResultTemplate = ({ allForms, countryNames }: ISearchResult) => {
   const { t } = useTranslation("searchresult");
   const router = useRouter();
   const currentLocale = router.locale ?? "en";
+
+  const countries = getCountries(allForms.data, countryNames);
 
   const sortKey = normalizeSortKey(router.query.sort);
   const selectedTypes = getQueryValues(router.query.type);
   const selectedCountries = getSelectedCountries(
     getQueryValues(router.query.country),
     currentLocale,
-    countriesCount.map((country) => country.code),
+    countries.map((country) => country.code.toLowerCase()),
   );
   const selectedSubcategories = getQueryValues(router.query.subcategory);
 
@@ -112,7 +115,7 @@ const SearchResultTemplate = ({ allForms, countriesCount }: ISearchResult) => {
       xlsxForms={xlsxForms.length}
       pptxForms={pptxForms.length}
       pdfForms={pdfForms.length}
-      countries={countriesCount}
+      countries={countries}
       purposes={purposes}
       categoriesByPurpose={categoriesByPurpose}
       totalCount={totalCount}

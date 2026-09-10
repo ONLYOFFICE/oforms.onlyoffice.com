@@ -34,8 +34,8 @@ import {
   getCachedCategoryUrls,
 } from "@src/lib/requests/getCategoryUrls";
 import { getCategoryInfo } from "@src/lib/requests/getCategoryInfo";
-import { getFormsByLocale } from "@src/lib/requests/getAllFormsAllLocales";
-import { getCountriesCount } from "@src/lib/requests/getCountriesCount";
+import { getAllFormsAllLocales } from "@src/lib/requests/getAllFormsAllLocales";
+import { getCountryNames } from "@src/lib/requests/getCountries";
 import { getFormAnyLocale } from "@src/lib/requests/getFormAnyLocale";
 import { getExtFormsPlain } from "@src/lib/requests/getExtFormsPlain";
 import { getParentCategories } from "@src/lib/requests/getParentCategories";
@@ -62,7 +62,7 @@ const SlugPage = (props: ISlugPage & ILocale) => {
   const { locale } = props;
 
   if (props.isCategory) {
-    const { categoryInfo, allForms, countriesCount, categoryUrlReq } = props;
+    const { categoryInfo, allForms, countryNames, categoryUrlReq } = props;
 
     return (
       <Layout>
@@ -81,7 +81,7 @@ const SlugPage = (props: ISlugPage & ILocale) => {
         <Layout.Main background="var(--primary-background-color)">
           <CategoryTemplate
             allForms={allForms}
-            countriesCount={countriesCount}
+            countryNames={countryNames}
             categoryUrlReq={categoryUrlReq}
           />
         </Layout.Main>
@@ -172,10 +172,10 @@ export const getStaticProps = async ({
   );
 
   if (isCategory) {
-    const [categoryInfo, allForms, countriesCount] = await Promise.all([
+    const [categoryInfo, allForms, countryNames] = await Promise.all([
       getCategoryInfo(locale, slug),
-      getFormsByLocale(locale),
-      getCountriesCount(locale, undefined, slug),
+      getAllFormsAllLocales(locale),
+      getCountryNames(locale),
     ]);
 
     return {
@@ -192,7 +192,7 @@ export const getStaticProps = async ({
         isCategory: true,
         categoryInfo,
         allForms,
-        countriesCount,
+        countryNames,
         categoryUrlReq: slug,
       },
     };

@@ -28,8 +28,8 @@
 
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getFormsByLocale } from "@src/lib/requests/getAllFormsAllLocales";
-import { getCountriesCount } from "@src/lib/requests/getCountriesCount";
+import { getAllFormsAllLocales } from "@src/lib/requests/getAllFormsAllLocales";
+import { getCountryNames } from "@src/lib/requests/getCountries";
 import { Layout } from "@src/components/Layout";
 import { Head } from "@src/components/modules/Head";
 import { Header } from "@src/components/modules/Header";
@@ -42,7 +42,7 @@ import { ILocale } from "@src/types/locale";
 const SearchResultPage = ({
   locale,
   allForms,
-  countriesCount,
+  countryNames,
 }: ISearchResult & ILocale) => {
   const { t } = useTranslation("searchresult");
 
@@ -60,7 +60,7 @@ const SearchResultPage = ({
       <Layout.Main background="var(--primary-background-color)">
         <SearchResultTemplate
           allForms={allForms}
-          countriesCount={countriesCount}
+          countryNames={countryNames}
         />
       </Layout.Main>
       <Layout.Footer>
@@ -71,9 +71,9 @@ const SearchResultPage = ({
 };
 
 export const getStaticProps = async ({ locale }: ILocale) => {
-  const [allForms, countriesCount] = await Promise.all([
-    getFormsByLocale(locale),
-    getCountriesCount(locale),
+  const [allForms, countryNames] = await Promise.all([
+    getAllFormsAllLocales(locale),
+    getCountryNames(locale),
   ]);
 
   return {
@@ -88,7 +88,7 @@ export const getStaticProps = async ({ locale }: ILocale) => {
       ])),
       locale,
       allForms,
-      countriesCount,
+      countryNames,
     },
   };
 };

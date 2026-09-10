@@ -42,6 +42,7 @@ import {
 } from "@src/utils/helpers";
 import {
   getCategoriesByPurpose,
+  getCountries,
   getFilteredForms,
   getFormsInScope,
   getPurposes,
@@ -53,25 +54,28 @@ import styles from "@src/components/templates/Main/Main.module.scss";
 
 const CategoryTemplate = ({
   allForms,
-  countriesCount,
+  countryNames,
   categoryUrlReq,
 }: ICategory) => {
   const { t } = useTranslation("MainTemplate");
   const router = useRouter();
   const currentLocale = router.locale ?? "en";
 
+  const isInCategory = (form: IFormsData["data"][number]) =>
+    form.subcategories?.some((sub) =>
+      sub?.parent_categories?.some((cat) => cat?.urlReq === categoryUrlReq),
+    );
+
+  const categoryForms = allForms.data?.filter(isInCategory);
+  const countries = getCountries(categoryForms, countryNames);
+
   const sortKey = normalizeSortKey(router.query.sort);
   const selectedTypes = getQueryValues(router.query.type);
   const selectedCountries = getSelectedCountries(
     getQueryValues(router.query.country),
     currentLocale,
-    countriesCount.map((country) => country.code),
+    countries.map((country) => country.code.toLowerCase()),
   );
-
-  const isInCategory = (form: IFormsData["data"][number]) =>
-    form.subcategories?.some((sub) =>
-      sub?.parent_categories?.some((cat) => cat?.urlReq === categoryUrlReq),
-    );
 
   const localeForms = getFormsInScope(
     allForms.data,
@@ -131,7 +135,7 @@ const CategoryTemplate = ({
       xlsxForms={xlsxForms.length}
       pptxForms={pptxForms.length}
       pdfForms={pdfForms.length}
-      countries={countriesCount}
+      countries={countries}
       purposes={purposes}
       categoriesByPurpose={categoriesByPurpose}
       totalCount={totalCount}
