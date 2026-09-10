@@ -60,6 +60,7 @@ const Header = ({ locale, headerBgColor }: IHeader) => {
           show: true,
         }}
         backgroundColor={headerBgColor || "#ffffff"}
+        borderColor="transparent"
         highlight={{
           buttonId: "oo-menu-item-btn-products",
           linkId: "oo-menu-link-templates",
