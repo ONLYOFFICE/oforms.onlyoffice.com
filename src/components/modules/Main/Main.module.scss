@@ -68,11 +68,11 @@
 
 .main-wrapper {
   display: grid;
-  grid-template-columns: 352px minmax(0, 1fr);
-  gap: 56px;
+  grid-template-columns: 364px minmax(0, 1fr);
+  gap: 44px;
 
   @include media.desktop {
-    grid-template-columns: 320px minmax(0, 1fr);
+    grid-template-columns: 332px minmax(0, 1fr);
   }
 
   @include media.tablet {

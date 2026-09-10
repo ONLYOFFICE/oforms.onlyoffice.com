@@ -29,11 +29,13 @@
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import clsx from "clsx";
+import Scrollbar from "react-scrollbars-custom";
 import { SidebarItem } from "./sub-components/SidebarItem";
 import { ISidebarItem } from "./sub-components/SidebarItem/SidebarItem.types";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
 import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { getSelectedCountries, localeCountry } from "@src/utils/localeCountry";
+import { isRtlLocale } from "@src/utils/rtl";
 import { ISidebar } from "./Sidebar.types";
 import styles from "./Sidebar.module.scss";
 
@@ -308,89 +310,102 @@ const Sidebar = ({
 
   return (
     <aside className={clsx(styles.sidebar, isOpen && styles["sidebar-open"])}>
-      <div className={styles["sidebar-header"]}>
-        <button
-          onClick={() => setIsOpen(false)}
-          className={styles["sidebar-close-btn"]}
-          type="button"
-          style={
-            {
-              "--sidebar-close-btn-icon": `url(${getAssetUrl("/images/modules/main/cross.svg")})`,
-            } as React.CSSProperties
-          }
-        ></button>
-      </div>
-
-      <div className={styles["sidebar-wrapper"]}>
-        {(
-          [
-            {
-              heading: t("Countries"),
-              text: t("ShowingSpeakingCountries"),
-              type: "radio",
-              count: checkedCountryCount,
-              options: countries.map((country) => ({
-                value: country.code.toLowerCase(),
-                label: country.name,
-                count: country.count,
-                checked: selectedCountries.includes(country.code.toLowerCase()),
-                onChange: () => selectCountryValue(country.code.toLowerCase()),
-              })),
-            },
-            {
-              heading: t("Type"),
-              count: typeOptions.filter((type) => type.checked).length,
-              options: typeOptions,
-            },
-            {
-              heading: t("Purpose"),
-              optionsType: "switch",
-              options: purposes.map((item) => ({
-                value: item.key,
-                label: item.name,
-                checked: selectedPurpose === item.key,
-                onChange: () =>
-                  router.push(
-                    {
-                      query: { ...router.query, purpose: item.key },
-                    },
-                    undefined,
-                    { scroll: false, shallow: true },
-                  ),
-              })),
-            },
-            {
-              heading: t("Сategories"),
-              count: checkedCategoryCount,
-              categories: purposeCategories.map(
-                ({ category, subcategories }) => ({
-                  heading: category.name,
-                  queryKey: `category-${category.urlReq}`,
-                  options: subcategories.map((sub) => ({
-                    value: sub.urlReq,
-                    label: sub.name,
-                    count: sub.count,
-                    checked: isSubcategoryChecked(sub.urlReq),
-                    onChange: () => toggleSubcategoryValue(sub.urlReq),
-                  })),
-                }),
-              ),
-            },
-          ] as ISidebarItem[]
-        ).map((item) => (
-          <SidebarItem key={item.heading} {...item} />
-        ))}
-
-        {totalChecked > 0 && (
+      <Scrollbar
+        className={styles["sidebar-scrollbar"]}
+        contentProps={{ className: styles["sidebar-scrollbar-content"] }}
+        trackYProps={{ className: styles["sidebar-scrollbar-track"] }}
+        thumbYProps={{ className: styles["sidebar-scrollbar-thumb"] }}
+        rtl={router.locale ? isRtlLocale(router.locale) : false}
+        noScrollX
+        removeTrackXWhenNotUsed
+        removeTrackYWhenNotUsed
+      >
+        <div className={styles["sidebar-header"]}>
           <button
+            onClick={() => setIsOpen(false)}
+            className={styles["sidebar-close-btn"]}
             type="button"
-            className={styles["sidebar-clear-btn"]}
-            onClick={clearAllFilters}
-          >
-            {t("ClearAllFilters")} ({totalChecked})
-          </button>
-        )}
-      </div>
+            style={
+              {
+                "--sidebar-close-btn-icon": `url(${getAssetUrl("/images/modules/main/cross.svg")})`,
+              } as React.CSSProperties
+            }
+          ></button>
+        </div>
+
+        <div className={styles["sidebar-wrapper"]}>
+          {(
+            [
+              {
+                heading: t("Countries"),
+                text: t("ShowingSpeakingCountries"),
+                type: "radio",
+                count: checkedCountryCount,
+                options: countries.map((country) => ({
+                  value: country.code.toLowerCase(),
+                  label: country.name,
+                  count: country.count,
+                  checked: selectedCountries.includes(
+                    country.code.toLowerCase(),
+                  ),
+                  onChange: () => selectCountryValue(country.code.toLowerCase()),
+                })),
+              },
+              {
+                heading: t("Type"),
+                count: typeOptions.filter((type) => type.checked).length,
+                options: typeOptions,
+              },
+              {
+                heading: t("Purpose"),
+                optionsType: "switch",
+                options: purposes.map((item) => ({
+                  value: item.key,
+                  label: item.name,
+                  checked: selectedPurpose === item.key,
+                  onChange: () =>
+                    router.push(
+                      {
+                        query: { ...router.query, purpose: item.key },
+                      },
+                      undefined,
+                      { scroll: false, shallow: true },
+                    ),
+                })),
+              },
+              {
+                heading: t("Сategories"),
+                count: checkedCategoryCount,
+                categories: purposeCategories.map(
+                  ({ category, subcategories }) => ({
+                    heading: category.name,
+                    queryKey: `category-${category.urlReq}`,
+                    options: subcategories.map((sub) => ({
+                      value: sub.urlReq,
+                      label: sub.name,
+                      count: sub.count,
+                      checked: isSubcategoryChecked(sub.urlReq),
+                      onChange: () => toggleSubcategoryValue(sub.urlReq),
+                    })),
+                  }),
+                ),
+              },
+            ] as ISidebarItem[]
+          ).map((item) => (
+            <SidebarItem key={item.heading} {...item} />
+          ))}
+
+          {totalChecked > 0 && (
+            <button
+              type="button"
+              className={styles["sidebar-clear-btn"]}
+              onClick={clearAllFilters}
+            >
+              {t("ClearAllFilters")} ({totalChecked})
+            </button>
+          )}
+        </div>
+      </Scrollbar>
     </aside>
   );
 };

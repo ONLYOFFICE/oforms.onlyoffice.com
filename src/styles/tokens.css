@@ -159,6 +159,8 @@
   --sort-selector-option-background-color-active: rgba(174, 197, 247, 0.25);
 
   --sidebar-mobile-background-color: #ffffff;
+  --sidebar-scrollbar-track-background-color: #E2E2E2;
+  --sidebar-scrollbar-thumb-background-color: #aaaaaa;
   --sidebar-clear-btn-border-color: #e1e1f7;
   --sidebar-clear-btn-color: #585A6D;
   --sidebar-clear-btn-background-color: #E7E8EE;
