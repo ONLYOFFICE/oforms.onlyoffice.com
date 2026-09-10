@@ -33,14 +33,7 @@ import { languages } from "@src/config/languages";
 import { IHeader } from "./Header.types";
 import styles from "./Header.module.scss";
 
-const KEEP_PATHNAME_ROUTES = [
-  "/form-submit",
-  "/searchresult",
-  "/pdf-form-templates",
-  "/document-templates",
-  "/spreadsheet-templates",
-  "/presentation-templates",
-];
+const KEEP_PATHNAME_ROUTES = ["/form-submit", "/searchresult"];
 
 const Header = ({ locale, headerBgColor }: IHeader) => {
   const router = useRouter();

@@ -28,18 +28,11 @@
 
 import { IFormsData } from "@src/types/data";
 import { ICountryCount } from "@src/lib/requests/getCountriesCount";
-import { TAllowedTypes } from "@src/utils/allowedTypes";
 
 export interface ICategory {
   allForms: IFormsData;
   countriesCount: ICountryCount[];
   categoryUrlReq?: string;
-}
-
-export interface IExtCategory {
-  ext: TAllowedTypes;
-  allForms: IFormsData;
-  countriesCount: ICountryCount[];
 }
 
 export interface ISearchResult {

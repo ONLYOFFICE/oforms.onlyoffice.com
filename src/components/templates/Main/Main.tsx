@@ -60,18 +60,18 @@ const TYPE_SECTIONS: {
   labelKey: string;
   href: string;
 }[] = [
-  { ext: "docx", labelKey: "DocumentTemplates", href: "/document-templates" },
+  { ext: "docx", labelKey: "DocumentTemplates", href: "/?type=docx" },
   {
     ext: "xlsx",
     labelKey: "SpreadsheetTemplates",
-    href: "/spreadsheet-templates",
+    href: "/?type=xlsx",
   },
   {
     ext: "pptx",
     labelKey: "PresentationTemplates",
-    href: "/presentation-templates",
+    href: "/?type=pptx",
   },
-  { ext: "pdf", labelKey: "PdfFormsTemplates", href: "/pdf-form-templates" },
+  { ext: "pdf", labelKey: "PdfFormsTemplates", href: "/?type=pdf" },
 ];
 
 const CATEGORY_SECTIONS: string[] = [
@@ -125,12 +125,15 @@ const MainTemplate = ({ allForms, countryNames }: IMainTemplate) => {
     sortKey,
   );
   const popularTemplates = getPopularTemplates(filteredForms);
-  const categorySections = CATEGORY_SECTIONS.map((urlReq) =>
-    getTemplatesByParentCategory(filteredForms, urlReq),
-  ).filter(
-    (section): section is NonNullable<typeof section> =>
-      section !== null && section.data.length > 0,
-  );
+  const categorySections =
+    selectedTypes.length || selectedSubcategories.length
+      ? []
+      : CATEGORY_SECTIONS.map((urlReq) =>
+          getTemplatesByParentCategory(filteredForms, urlReq),
+        ).filter(
+          (section): section is NonNullable<typeof section> =>
+            section !== null && section.data.length > 0,
+        );
   const {
     docx: docxForms,
     xlsx: xlsxForms,
@@ -188,6 +191,7 @@ const MainTemplate = ({ allForms, countryNames }: IMainTemplate) => {
       )}
 
       {!selectedSubcategories.length &&
+        !selectedTypes.length &&
         categorySections.map((section) => (
           <MainSection
             key={section.category.id}

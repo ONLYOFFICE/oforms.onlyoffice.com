@@ -32,14 +32,7 @@ import { getAllFormUrls } from "@src/lib/requests/getAllFormUrls";
 import { getCategoryUrls } from "@src/lib/requests/getCategoryUrls";
 import { clearLocaleCaches } from "@src/lib/api/cacheByLocale";
 
-const STATIC_PAGES = [
-  "/",
-  "/document-templates",
-  "/presentation-templates",
-  "/pdf-form-templates",
-  "/spreadsheet-templates",
-  "/searchresult",
-];
+const STATIC_PAGES = ["/", "/searchresult"];
 
 const REVALIDATE_CONCURRENCY = 20;
 
