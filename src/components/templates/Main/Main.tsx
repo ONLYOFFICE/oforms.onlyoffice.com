@@ -58,20 +58,11 @@ import styles from "./Main.module.scss";
 const TYPE_SECTIONS: {
   ext: TAllowedTypes;
   labelKey: string;
-  href: string;
 }[] = [
-  { ext: "docx", labelKey: "DocumentTemplates", href: "/?type=docx" },
-  {
-    ext: "xlsx",
-    labelKey: "SpreadsheetTemplates",
-    href: "/?type=xlsx",
-  },
-  {
-    ext: "pptx",
-    labelKey: "PresentationTemplates",
-    href: "/?type=pptx",
-  },
-  { ext: "pdf", labelKey: "PdfFormsTemplates", href: "/?type=pdf" },
+  { ext: "docx", labelKey: "DocumentTemplates" },
+  { ext: "xlsx", labelKey: "SpreadsheetTemplates" },
+  { ext: "pptx", labelKey: "PresentationTemplates" },
+  { ext: "pdf", labelKey: "PdfFormsTemplates" },
 ];
 
 const CATEGORY_SECTIONS: string[] = [
@@ -211,26 +202,18 @@ const MainTemplate = ({ allForms, countryNames }: IMainTemplate) => {
               />
             ),
           )
-        : (selectedTypes.length
-            ? TYPE_SECTIONS.filter((section) =>
-                selectedTypes.includes(section.ext),
-              )
-            : TYPE_SECTIONS
+        : TYPE_SECTIONS.filter((section) =>
+            selectedTypes.includes(section.ext),
           )
             .map((section) => ({
               section,
-              data: getTemplatesByExt(
-                filteredForms,
-                section.ext,
-                selectedTypes.length ? Infinity : undefined,
-              ),
+              data: getTemplatesByExt(filteredForms, section.ext, Infinity),
             }))
             .filter(({ data }) => data.length > 0)
             .map(({ section, data }) => (
               <MainSection
                 key={section.ext}
                 label={t(section.labelKey)}
-                href={section.href}
                 data={data}
               />
             ))}
