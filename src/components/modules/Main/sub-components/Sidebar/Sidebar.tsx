@@ -163,7 +163,7 @@ const Sidebar = ({
       ? selected.filter((item) => item !== value)
       : [...selected, value];
 
-    if (selectedType || redirectsToHome) {
+    if (selectedType || isSearchResult) {
       const query = getHomeQuery({});
       delete query.type;
 
