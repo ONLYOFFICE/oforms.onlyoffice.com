@@ -37,6 +37,8 @@ import { ISidebarItem } from "./SidebarItem.types";
 import styles from "./SidebarItem.module.scss";
 
 const VISIBLE_OPTIONS_LIMIT = 3;
+const COLLAPSE_QUERY_PARAM = "categories-opened";
+const EXPAND_QUERY_PARAM = "categories-expanded";
 
 const SidebarItem = ({
   heading,
@@ -48,19 +50,30 @@ const SidebarItem = ({
   type = "checkbox",
   isSub = false,
   queryKey,
+  collapseQueryKey,
+  defaultOpen = true,
 }: ISidebarItem) => {
   const { t } = useTranslation("MainTemplate");
   const router = useRouter();
 
-  const parseOpened = () => {
-    const param = router.query.opened;
-    return param ? String(param).split(",").filter(Boolean) : [];
+  const parseQueryList = (param: string | string[] | undefined) =>
+    param ? String(param).split(",").filter(Boolean) : [];
+
+  const [isOpenState, setIsOpen] = useState(defaultOpen);
+
+  const showAllOptions =
+    !!queryKey &&
+    parseQueryList(router.query[EXPAND_QUERY_PARAM]).includes(queryKey);
+
+  const collapseParam = router.query[COLLAPSE_QUERY_PARAM];
+
+  const getIsOpen = () => {
+    if (!collapseQueryKey) return isOpenState;
+    if (collapseParam === undefined) return defaultOpen;
+    return parseQueryList(collapseParam).includes(collapseQueryKey);
   };
 
-  const isOpenedInQuery = !!queryKey && parseOpened().includes(queryKey);
-
-  const [isOpen, setIsOpen] = useState(true);
-  const [showAllOptions, setShowAllOptions] = useState(isOpenedInQuery);
+  const isOpen = getIsOpen();
   const isSwitch = !isSub && optionsType === "switch";
   const showCount = !isSub && !isSwitch && !!count;
   const OptionComponent = isSwitch ? Switch : Badge;
@@ -74,28 +87,35 @@ const SidebarItem = ({
     ? (options?.length ?? 0) - VISIBLE_OPTIONS_LIMIT
     : 0;
 
-  const setOpenedInQuery = (opened: boolean) => {
-    if (!queryKey) return;
-
-    const current = parseOpened().filter((key) => key !== queryKey);
-    const ids = opened ? [...current, queryKey] : current;
+  const writeQueryList = (param: string, key: string, opened: boolean) => {
+    const current = parseQueryList(router.query[param]).filter(
+      (item) => item !== key,
+    );
+    const ids = opened ? [...current, key] : current;
 
     const query = { ...router.query };
     if (ids.length > 0) {
-      query.opened = ids.join(",");
+      query[param] = ids.join(",");
     } else {
-      delete query.opened;
+      delete query[param];
     }
 
-    router.push({ pathname: router.pathname, query }, undefined, {
-      scroll: false,
-      shallow: true,
-    });
+    router.push({ query }, undefined, { scroll: false, shallow: true });
   };
 
   const toggleShowAllOptions = (showAll: boolean) => {
-    setShowAllOptions(showAll);
-    setOpenedInQuery(showAll);
+    if (queryKey) writeQueryList(EXPAND_QUERY_PARAM, queryKey, showAll);
+  };
+
+  const toggleIsOpen = () => {
+    const next = !isOpen;
+
+    if (collapseQueryKey) {
+      writeQueryList(COLLAPSE_QUERY_PARAM, collapseQueryKey, next);
+      return;
+    }
+
+    setIsOpen(next);
   };
 
   return (
@@ -113,7 +133,7 @@ const SidebarItem = ({
           isSub && styles["sidebar-item-header-sub"],
           !isSub && categories && styles["sidebar-item-header-with-categories"],
         )}
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={toggleIsOpen}
       >
         <span
           className={clsx(
@@ -179,9 +199,11 @@ const SidebarItem = ({
             <SidebarItem
               key={category.heading}
               isSub
+              defaultOpen={category.options.some((option) => option.checked)}
               heading={category.heading}
               options={category.options}
               queryKey={category.queryKey}
+              collapseQueryKey={category.queryKey}
             />
           ))}
         </>

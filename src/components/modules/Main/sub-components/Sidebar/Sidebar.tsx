@@ -79,7 +79,8 @@ const Sidebar = ({
     "country",
     "subcategory",
     "sort",
-    "opened",
+    "categories-expanded",
+    "categories-opened",
   ];
 
   const getHomeQuery = (
@@ -280,10 +281,16 @@ const Sidebar = ({
     checkedCategoryCount +
     (selectedType ? 1 : 0);
 
+  const clearedKeys = [
+    ...filterKeys,
+    "categories-opened",
+    "categories-expanded",
+  ];
+
   const clearAllFilters = () => {
     if (selectedType || selectedCategory) {
       const query = getHomeQuery({});
-      filterKeys.forEach((key) => {
+      clearedKeys.forEach((key) => {
         delete query[key];
       });
 
@@ -292,7 +299,7 @@ const Sidebar = ({
     }
 
     const query = { ...router.query };
-    filterKeys.forEach((key) => {
+    clearedKeys.forEach((key) => {
       delete query[key];
     });
 

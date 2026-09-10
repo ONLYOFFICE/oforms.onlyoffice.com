@@ -48,4 +48,6 @@ export interface ISidebarItem {
   type?: "checkbox" | "radio";
   isSub?: boolean;
   queryKey?: string;
+  collapseQueryKey?: string;
+  defaultOpen?: boolean;
 }

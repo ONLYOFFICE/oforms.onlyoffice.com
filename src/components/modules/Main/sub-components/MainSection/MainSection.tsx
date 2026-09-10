@@ -43,8 +43,20 @@ const MainSection = ({
   cardsGrid,
 }: IMainSection) => {
   const router = useRouter();
+  const openedCategories = href
+    ? Array.from(
+        new Set([
+          ...String(router.query["categories-opened"] ?? "")
+            .split(",")
+            .filter(Boolean),
+          `category-${href}`,
+        ]),
+      ).join(",")
+    : router.query["categories-opened"];
+
   const hrefWithOpened = appendQueryParams(href, {
-    opened: router.query.opened,
+    "categories-expanded": router.query["categories-expanded"],
+    "categories-opened": openedCategories,
     purpose: router.query.purpose,
     country: router.query.country,
   });
