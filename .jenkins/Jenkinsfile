@@ -223,7 +223,7 @@ pipeline {
               sudo bash "/home/ubuntu/deploy/.jenkins/${env.deploy_app_name}_build.sh" \
                   2>&1 | tee -a "/home/ubuntu/deploy/${env.deploy_app_name}_deploy.log"
             """, 
-            execTimeout: 600000, 
+            execTimeout: 1200000, 
             flatten: false, 
             makeEmptyDirs: false, 
             noDefaultExcludes: false, 
