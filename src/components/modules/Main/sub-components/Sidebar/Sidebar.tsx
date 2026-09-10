@@ -318,11 +318,6 @@ const Sidebar = ({
         {(
           [
             {
-              heading: t("Type"),
-              count: typeOptions.filter((type) => type.checked).length,
-              options: typeOptions,
-            },
-            {
               heading: t("Countries"),
               text: t("ShowingSpeakingCountries"),
               type: "radio",
@@ -334,6 +329,11 @@ const Sidebar = ({
                 checked: selectedCountries.includes(country.code.toLowerCase()),
                 onChange: () => selectCountryValue(country.code.toLowerCase()),
               })),
+            },
+            {
+              heading: t("Type"),
+              count: typeOptions.filter((type) => type.checked).length,
+              options: typeOptions,
             },
             {
               heading: t("Purpose"),
