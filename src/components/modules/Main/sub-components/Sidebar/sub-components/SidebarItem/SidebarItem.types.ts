@@ -43,6 +43,7 @@ export interface ISidebarItem {
     heading: string;
     options: ISidebarOption[];
     queryKey?: string;
+    defaultOpen?: boolean;
   }[];
   optionsType?: "badge" | "switch";
   type?: "checkbox" | "radio";

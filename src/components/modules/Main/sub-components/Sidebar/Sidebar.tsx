@@ -380,6 +380,9 @@ const Sidebar = ({
                   ({ category, subcategories }) => ({
                     heading: category.name,
                     queryKey: `category-${category.urlReq}`,
+                    defaultOpen: subcategories.some((sub) =>
+                      selectedSubcategories.includes(sub.urlReq),
+                    ),
                     options: subcategories.map((sub) => ({
                       value: sub.urlReq,
                       label: sub.name,

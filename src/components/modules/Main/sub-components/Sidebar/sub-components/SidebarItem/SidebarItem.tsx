@@ -199,7 +199,7 @@ const SidebarItem = ({
             <SidebarItem
               key={category.heading}
               isSub
-              defaultOpen={category.options.some((option) => option.checked)}
+              defaultOpen={category.defaultOpen ?? false}
               heading={category.heading}
               options={category.options}
               queryKey={category.queryKey}
