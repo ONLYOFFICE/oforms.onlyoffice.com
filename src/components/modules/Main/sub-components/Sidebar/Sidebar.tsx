@@ -265,6 +265,14 @@ const Sidebar = ({
       : categorySubcategories.includes(subcategoryUrlReq);
 
   const defaultCountry = localeCountry(router.locale);
+
+  const isDefaultCountry = (code: string) =>
+    code.toLowerCase() === defaultCountry;
+
+  const sortedCountries = [...countries].sort(
+    (a, b) => Number(isDefaultCountry(b.code)) - Number(isDefaultCountry(a.code)),
+  );
+
   const isDefaultCountrySelected =
     selectedCountries.length === 1 && selectedCountries[0] === defaultCountry;
 
@@ -341,7 +349,7 @@ const Sidebar = ({
                 text: t("ShowingSpeakingCountries"),
                 type: "radio",
                 count: checkedCountryCount,
-                options: countries.map((country) => ({
+                options: sortedCountries.map((country) => ({
                   value: country.code.toLowerCase(),
                   label: country.name,
                   count: country.count,
