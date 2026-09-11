@@ -28,16 +28,14 @@
   --button-secondary-light-background-color-hover: #CCDBFB;
   --button-secondary-light-opacity-disabled: 0.5;
   --button-tertiary-light-border-color: #3541f5;
+  --button-tertiary-light-border-color-hover: #4951F6;
   --button-tertiary-light-color: #ffffff;
   --button-tertiary-light-background-color-hover: rgba(53, 65, 245, 0.2);
-  --button-tertiary-light-border-color-hover: #3541f5;
-  --button-tertiary-light-border-color-disabled: #3541f5;
   --button-tertiary-light-opacity-disabled: 0.5;
   --button-tertiary-dark-border-color: #3541f5;
   --button-tertiary-dark-color: #000122;
+  --button-tertiary-dark-border-color-hover: #001bd2;
   --button-tertiary-dark-background-color-hover: rgba(53, 65, 245, 0.07);
-  --button-tertiary-dark-border-color-hover: #3541f5;
-  --button-tertiary-dark-border-color-disabled: #3541f5;
   --button-tertiary-dark-opacity-disabled: 0.5;
 
   --checkbox-border-color: #a6a8b8;
