@@ -58,9 +58,21 @@ const Main = ({
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
+    if (!isOpen) return;
+
+    const mediaQuery = window.matchMedia(`(max-width: 1024px)`);
+
+    const handleChange = () => {
+      if (!mediaQuery.matches) setIsOpen(false);
+    };
+
+    document.body.style.overflow = "hidden";
+    handleChange();
+    mediaQuery.addEventListener("change", handleChange);
+
     return () => {
       document.body.style.overflow = "";
+      mediaQuery.removeEventListener("change", handleChange);
     };
   }, [isOpen]);
 

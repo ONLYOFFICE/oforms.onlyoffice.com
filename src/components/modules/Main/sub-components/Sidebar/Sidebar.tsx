@@ -270,7 +270,8 @@ const Sidebar = ({
     code.toLowerCase() === defaultCountry;
 
   const sortedCountries = [...countries].sort(
-    (a, b) => Number(isDefaultCountry(b.code)) - Number(isDefaultCountry(a.code)),
+    (a, b) =>
+      Number(isDefaultCountry(b.code)) - Number(isDefaultCountry(a.code)),
   );
 
   const isDefaultCountrySelected =
@@ -341,79 +342,89 @@ const Sidebar = ({
           ></button>
         </div>
 
-        <div className={styles["sidebar-wrapper"]}>
-          {(
-            [
-              {
-                heading: t("Countries"),
-                text: t("ShowingSpeakingCountries"),
-                type: "radio",
-                count: checkedCountryCount,
-                options: sortedCountries.map((country) => ({
-                  value: country.code.toLowerCase(),
-                  label: country.name,
-                  count: country.count,
-                  checked: selectedCountries.includes(
-                    country.code.toLowerCase(),
+        <div
+          className={clsx(
+            styles["sidebar-wrapper"],
+            totalChecked > 0 && styles["sidebar-wrapper-with-clear-btn"],
+          )}
+        >
+          <div>
+            {(
+              [
+                {
+                  heading: t("Countries"),
+                  text: t("ShowingSpeakingCountries"),
+                  type: "radio",
+                  count: checkedCountryCount,
+                  options: sortedCountries.map((country) => ({
+                    value: country.code.toLowerCase(),
+                    label: country.name,
+                    count: country.count,
+                    checked: selectedCountries.includes(
+                      country.code.toLowerCase(),
+                    ),
+                    onChange: () =>
+                      selectCountryValue(country.code.toLowerCase()),
+                  })),
+                },
+                {
+                  heading: t("Type"),
+                  count: typeOptions.filter((type) => type.checked).length,
+                  options: typeOptions,
+                },
+                {
+                  heading: t("Purpose"),
+                  optionsType: "switch",
+                  options: purposes.map((item) => ({
+                    value: item.key,
+                    label: item.name,
+                    checked: selectedPurpose === item.key,
+                    onChange: () =>
+                      router.push(
+                        {
+                          query: { ...router.query, purpose: item.key },
+                        },
+                        undefined,
+                        { scroll: false, shallow: true },
+                      ),
+                  })),
+                },
+                {
+                  heading: t("Сategories"),
+                  count: checkedCategoryCount,
+                  categories: purposeCategories.map(
+                    ({ category, subcategories }) => ({
+                      heading: category.name,
+                      queryKey: `category-${category.urlReq}`,
+                      defaultOpen: subcategories.some((sub) =>
+                        selectedSubcategories.includes(sub.urlReq),
+                      ),
+                      options: subcategories.map((sub) => ({
+                        value: sub.urlReq,
+                        label: sub.name,
+                        count: sub.count,
+                        checked: isSubcategoryChecked(sub.urlReq),
+                        onChange: () => toggleSubcategoryValue(sub.urlReq),
+                      })),
+                    }),
                   ),
-                  onChange: () => selectCountryValue(country.code.toLowerCase()),
-                })),
-              },
-              {
-                heading: t("Type"),
-                count: typeOptions.filter((type) => type.checked).length,
-                options: typeOptions,
-              },
-              {
-                heading: t("Purpose"),
-                optionsType: "switch",
-                options: purposes.map((item) => ({
-                  value: item.key,
-                  label: item.name,
-                  checked: selectedPurpose === item.key,
-                  onChange: () =>
-                    router.push(
-                      {
-                        query: { ...router.query, purpose: item.key },
-                      },
-                      undefined,
-                      { scroll: false, shallow: true },
-                    ),
-                })),
-              },
-              {
-                heading: t("Сategories"),
-                count: checkedCategoryCount,
-                categories: purposeCategories.map(
-                  ({ category, subcategories }) => ({
-                    heading: category.name,
-                    queryKey: `category-${category.urlReq}`,
-                    defaultOpen: subcategories.some((sub) =>
-                      selectedSubcategories.includes(sub.urlReq),
-                    ),
-                    options: subcategories.map((sub) => ({
-                      value: sub.urlReq,
-                      label: sub.name,
-                      count: sub.count,
-                      checked: isSubcategoryChecked(sub.urlReq),
-                      onChange: () => toggleSubcategoryValue(sub.urlReq),
-                    })),
-                  }),
-                ),
-              },
-            ] as ISidebarItem[]
-          ).map((item) => (
-            <SidebarItem key={item.heading} {...item} />
-          ))}
+                },
+              ] as ISidebarItem[]
+            ).map((item) => (
+              <SidebarItem key={item.heading} {...item} />
+            ))}
+          </div>
 
           {totalChecked > 0 && (
-            <button
-              type="button"
-              className={styles["sidebar-clear-btn"]}
-              onClick={clearAllFilters}
-            >
-              {t("ClearAllFilters")} ({totalChecked})
-            </button>
+            <div className={styles["sidebar-clear-btn-wrapper"]}>
+              <button
+                type="button"
+                className={styles["sidebar-clear-btn"]}
+                onClick={clearAllFilters}
+              >
+                {t("ClearAllFilters")} ({totalChecked})
+              </button>
+            </div>
           )}
         </div>
       </Scrollbar>
