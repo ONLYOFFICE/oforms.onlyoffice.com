@@ -35,7 +35,7 @@ const LOCALE_COUNTRY_MAP: Record<string, string> = {
   it: "it",
   ja: "jp",
   zh: "cn",
-  ar: "int",
+  ar: "sa",
 };
 
 export const localeCountry = (
