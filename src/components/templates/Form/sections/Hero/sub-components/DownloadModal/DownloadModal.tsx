@@ -68,7 +68,7 @@ const DownloadModal = ({ isOpen, onClose }: IDownloadModal) => {
         <Button
           as="a"
           variant="secondary-dark"
-          href={`${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}${locale === "en" || locale === "ar" ? "" : `/${locale}`}/download-desktop`}
+          href={`${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}${locale === "en" ? "" : `/${locale}`}/download-desktop`}
         >
           {t("GetItNow")}
         </Button>

@@ -87,7 +87,7 @@ const BuildYourOwnForms = ({ suggestChangesLink }: IBuildYourOwnForms) => {
             <Button
               className={styles["build-your-own-forms-button"]}
               as="a"
-              href={`${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}${locale === "en" || locale === "ar" ? "" : `/${locale}`}/docspace-registration?utm_source=oforms&utm_medium=top_banner&utm_campaign=registration_docspace&utm_content=use_in_the_cloud`}
+              href={`${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}${locale === "en" ? "" : `/${locale}`}/docspace-registration?utm_source=oforms&utm_medium=top_banner&utm_campaign=registration_docspace&utm_content=use_in_the_cloud`}
               variant="secondary-light"
             >
               {t("UseInTheCloud")}
@@ -95,7 +95,7 @@ const BuildYourOwnForms = ({ suggestChangesLink }: IBuildYourOwnForms) => {
             <Button
               className={styles["build-your-own-forms-button"]}
               as="a"
-              href={`${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}${locale === "en" || locale === "ar" ? "" : `/${locale}`}/download-desktop#desktop`}
+              href={`${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}${locale === "en" ? "" : `/${locale}`}/download-desktop#desktop`}
               variant="tertiary-light"
             >
               {t("DownloadDesktopApp")}
