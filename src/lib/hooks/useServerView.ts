@@ -26,12 +26,48 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { ICardView } from "@src/lib/server/mainView.types";
+import { useRouter } from "next/router";
+import { getQueryValues } from "@src/utils/helpers";
+import { useFetchedState } from "./useFetchedState";
 
-export interface IMainSection {
-  label: React.ReactNode;
-  href?: string;
-  data: ICardView[];
-  desktopLimit?: boolean;
-  cardsGrid?: boolean;
-}
+const buildViewQuery = (
+  locale: string,
+  query: ReturnType<typeof useRouter>["query"],
+  extra?: Record<string, string | undefined>,
+) => {
+  const params = new URLSearchParams();
+  params.set("locale", locale);
+
+  Object.entries(extra ?? {}).forEach(([name, value]) => {
+    if (value) params.set(name, value);
+  });
+
+  (["type", "country", "subcategory"] as const).forEach((name) => {
+    const values = getQueryValues(query[name]);
+    if (values.length) params.set(name, [...values].sort().join(","));
+  });
+
+  const sort = Array.isArray(query.sort) ? query.sort[0] : query.sort;
+  if (sort) params.set("sort", sort);
+
+  return params.toString();
+};
+
+export const useServerView = <T>(
+  initialView: T,
+  extra?: Record<string, string | undefined>,
+): T => {
+  const router = useRouter();
+  const locale = router.locale ?? "en";
+
+  const initialQuery = buildViewQuery(locale, {}, { ...extra, query: "" });
+  const query = router.isReady
+    ? buildViewQuery(locale, router.query, extra)
+    : initialQuery;
+
+  return useFetchedState(
+    query === initialQuery ? null : `/api/forms?${query}`,
+    initialView,
+    "[useServerView]",
+  );
+};

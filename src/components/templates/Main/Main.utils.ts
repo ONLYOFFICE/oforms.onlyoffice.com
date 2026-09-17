@@ -28,10 +28,7 @@
 
 import { IFormsData } from "@src/types/data";
 import { ALLOWED_TYPES, TAllowedTypes } from "@src/utils/allowedTypes";
-import {
-  ICategoryTree,
-  IPurposeCategories,
-} from "@src/components/modules/Main/Main.types";
+import { ICategoryTree } from "@src/components/modules/Main/Main.types";
 
 type TFormItem = IFormsData["data"][number];
 type TSubcategory = TFormItem["subcategories"][number];
@@ -261,11 +258,6 @@ export const getFilteredForms = (
   );
 };
 
-export const getFilteredCount = (
-  forms: TFormItem[] | undefined,
-  filters: IFormsFilters,
-): number => getFilteredForms(forms, filters).length;
-
 export const getCategoriesByPurpose = (
   forms: TFormItem[] | undefined,
 ): Record<string, ICategoryTree[]> => {
@@ -279,7 +271,24 @@ export const getCategoriesByPurpose = (
     });
   });
 
-  const purposeMap = new Map<string, IPurposeCategories>();
+  type TSortableNode<T> = { node: T; createdAt: string };
+
+  const purposeMap = new Map<
+    string,
+    {
+      purpose: TPurpose;
+      categories: Map<
+        string,
+        TSortableNode<ICategoryTree["category"]> & {
+          subcategories: Map<
+            string,
+            TSortableNode<ICategoryTree["subcategories"][number]>
+          >;
+        }
+      >;
+    }
+  >();
+
   forms?.forEach((form) => {
     form.subcategories?.filter(Boolean).forEach((sub) => {
       sub.parent_categories?.filter(Boolean).forEach((category) => {
@@ -293,35 +302,43 @@ export const getCategoriesByPurpose = (
 
         if (!purposeEntry.categories.has(category.urlReq)) {
           purposeEntry.categories.set(category.urlReq, {
-            category,
+            node: {
+              id: category.id,
+              name: category.name,
+              urlReq: category.urlReq,
+            },
+            createdAt: category.createdAt,
             subcategories: new Map(),
           });
         }
         const categoryEntry = purposeEntry.categories.get(category.urlReq)!;
 
         categoryEntry.subcategories.set(sub.urlReq, {
-          ...sub,
-          count: subcategoryCounts[sub.urlReq] ?? 0,
+          node: {
+            id: sub.id,
+            name: sub.name,
+            urlReq: sub.urlReq,
+            count: subcategoryCounts[sub.urlReq] ?? 0,
+          },
+          createdAt: sub.createdAt,
         });
       });
     });
   });
 
+  const byCreatedAt = (a: { createdAt: string }, b: { createdAt: string }) =>
+    new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+
   const result: Record<string, ICategoryTree[]> = {};
   purposeMap.forEach(({ purpose, categories }) => {
     result[purpose.key] = Array.from(categories.values())
-      .map(({ category, subcategories }) => ({
-        category,
-        subcategories: Array.from(subcategories.values()).sort(
-          (a, b) =>
-            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-        ),
-      }))
-      .sort(
-        (a, b) =>
-          new Date(a.category.createdAt).getTime() -
-          new Date(b.category.createdAt).getTime(),
-      );
+      .sort(byCreatedAt)
+      .map(({ node, subcategories }) => ({
+        category: node,
+        subcategories: Array.from(subcategories.values())
+          .sort(byCreatedAt)
+          .map((entry) => entry.node),
+      }));
   });
 
   return result;

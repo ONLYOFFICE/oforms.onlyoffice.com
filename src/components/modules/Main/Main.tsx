@@ -36,6 +36,7 @@ import { Container } from "@src/components/ui/Container";
 import { SortSelector } from "@src/components/modules/Main/sub-components/SortSelector";
 import { SearchInput } from "@src/components/modules/Main/sub-components/SearchInput";
 import { FiltersIcon } from "@src/components/icons";
+import { useFormNames } from "@src/lib/hooks/useFormNames";
 import { IMain } from "./Main.types";
 import styles from "./Main.module.scss";
 
@@ -49,13 +50,14 @@ const Main = ({
   purposes,
   categoriesByPurpose,
   totalCount,
+  initialFormNames,
   selectedType,
   selectedCategory,
-  formNames,
   searchOnly,
 }: IMain) => {
   const { t } = useTranslation("MainTemplate");
   const [isOpen, setIsOpen] = useState(false);
+  const formNames = useFormNames(initialFormNames);
 
   useEffect(() => {
     if (!isOpen) return;

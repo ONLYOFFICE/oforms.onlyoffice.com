@@ -26,12 +26,29 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { ICardView } from "@src/lib/server/mainView.types";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { languages } from "@src/config/languages";
 
-export interface IMainSection {
-  label: React.ReactNode;
-  href?: string;
-  data: ICardView[];
-  desktopLimit?: boolean;
-  cardsGrid?: boolean;
-}
+const LOCALES = languages.map(({ shortKey }) => shortKey);
+
+export const VIEW_CACHE_CONTROL =
+  "public, s-maxage=600, stale-while-revalidate=3600";
+
+export const getSingle = (value: NextApiRequest["query"][string]) =>
+  (Array.isArray(value) ? value[0] : value) ?? "";
+
+export const resolveLocale = (value: NextApiRequest["query"][string]) => {
+  const raw = getSingle(value);
+  return LOCALES.includes(raw) ? raw : "en";
+};
+
+export const isGetRequest = (
+  req: NextApiRequest,
+  res: NextApiResponse<{ error: string }>,
+) => {
+  if (req.method === "GET") return true;
+
+  res.setHeader("Allow", "GET");
+  res.status(405).json({ error: "Method not allowed" });
+  return false;
+};

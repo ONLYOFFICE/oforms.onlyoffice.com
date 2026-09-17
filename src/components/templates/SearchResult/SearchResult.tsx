@@ -31,106 +31,54 @@ import { useRouter } from "next/router";
 import { ISearchResult } from "@src/types/template";
 import { Main } from "@src/components/modules/Main";
 import { MainSection } from "@src/components/modules/Main/sub-components/MainSection";
-import {
-  getQueryValues,
-  normalizeSortKey,
-  sortForms,
-} from "@src/utils/helpers";
-import {
-  getCategoriesByPurpose,
-  getCountries,
-  getFilteredForms,
-  getFormsInScope,
-  getPurposes,
-  groupFormsByExt,
-} from "@src/components/templates/Main/Main.utils";
-import { getSelectedCountries } from "@src/utils/localeCountry";
+import { useServerView } from "@src/lib/hooks/useServerView";
+import { ISearchView } from "@src/lib/server/mainView.types";
 import { SearchNoResult } from "./sections/SearchNoResult";
 
-const SearchResultTemplate = ({ allForms, countryNames }: ISearchResult) => {
+const SearchResultTemplate = ({
+  initialView,
+  initialFormNames,
+}: ISearchResult) => {
   const { t } = useTranslation("searchresult");
   const router = useRouter();
-  const currentLocale = router.locale ?? "en";
 
-  const countries = getCountries(allForms.data, countryNames);
-
-  const sortKey = normalizeSortKey(router.query.sort);
-  const selectedTypes = getQueryValues(router.query.type);
-  const selectedCountries = getSelectedCountries(
-    getQueryValues(router.query.country),
-    currentLocale,
-    countries.map((country) => country.code.toLowerCase()),
-  );
-  const selectedSubcategories = getQueryValues(router.query.subcategory);
-
-  const localeForms = getFormsInScope(
-    allForms.data,
-    currentLocale,
-    selectedCountries,
-  );
-  const scopedForms = getFilteredForms(localeForms, {
-    country: selectedCountries,
-  });
-
-  const filteredForms = sortForms(scopedForms, sortKey);
   const searchQuery = (
     Array.isArray(router.query.query)
       ? router.query.query[0]
       : (router.query.query ?? "")
   ).trim();
-  const foundForms = searchQuery
-    ? filteredForms.filter((form) =>
-        form.name_form.toLowerCase().includes(searchQuery.toLowerCase()),
-      )
-    : [];
 
-  const {
-    docx: docxForms,
-    xlsx: xlsxForms,
-    pptx: pptxForms,
-    pdf: pdfForms,
-  } = groupFormsByExt(
-    getFilteredForms(localeForms, {
-      country: selectedCountries,
-      subcategory: selectedSubcategories,
-    }),
-  );
-  const categoriesByPurpose = getCategoriesByPurpose(
-    getFilteredForms(scopedForms, { type: selectedTypes }),
-  );
-  const purposes = getPurposes(allForms.data).filter(
-    (purpose) => categoriesByPurpose[purpose.key]?.length,
-  );
-  const totalCount = foundForms.length;
-  const formNames = filteredForms.map(({ id, name_form, url, locale }) => ({
-    id,
-    name_form,
-    url,
-    locale,
-  }));
+  const view = useServerView<ISearchView>(initialView, {
+    view: "search",
+    query: searchQuery,
+  });
 
   return (
     <Main
-      docxForms={docxForms.length}
-      xlsxForms={xlsxForms.length}
-      pptxForms={pptxForms.length}
-      pdfForms={pdfForms.length}
-      countries={countries}
-      purposes={purposes}
-      categoriesByPurpose={categoriesByPurpose}
-      totalCount={totalCount}
-      formNames={formNames}
-      searchOnly={foundForms.length === 0}
+      docxForms={view.docxForms}
+      xlsxForms={view.xlsxForms}
+      pptxForms={view.pptxForms}
+      pdfForms={view.pdfForms}
+      countries={view.countries}
+      purposes={view.purposes}
+      categoriesByPurpose={view.categoriesByPurpose}
+      totalCount={view.totalCount}
+      initialFormNames={initialFormNames}
+      searchOnly={view.isEmpty}
     >
-      {foundForms.length > 0 ? (
+      {!view.isEmpty ? (
         <MainSection
           label={
-            <Trans t={t} i18nKey="SearchResultsFor" values={{ searchQuery }} />
+            <Trans
+              t={t}
+              i18nKey="SearchResultsFor"
+              values={{ searchQuery: view.searchQuery }}
+            />
           }
-          data={foundForms}
+          data={view.foundForms}
         />
       ) : (
-        <SearchNoResult filteredForms={filteredForms} />
+        <SearchNoResult popularTemplates={view.popularTemplates} />
       )}
     </Main>
   );

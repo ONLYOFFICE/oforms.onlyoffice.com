@@ -26,144 +26,34 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { IMainTemplate } from "./Main.types";
+import { IMainView } from "@src/lib/server/mainView.types";
+import { useServerView } from "@src/lib/hooks/useServerView";
 import { Main } from "@src/components/modules/Main";
 import { MainSection } from "@src/components/modules/Main/sub-components/MainSection";
 import { NoResultsFound } from "@src/components/modules/NoResultsFound";
 import { Button } from "@src/components/ui/Button";
-import {
-  getCategoriesByPurpose,
-  getCountries,
-  getFilteredCount,
-  getFilteredForms,
-  getFormsInScope,
-  getPurposes,
-  getTemplatesByParentCategory,
-  getTemplatesBySubcategories,
-  groupFormsByExt,
-} from "@src/components/templates/Main/Main.utils";
-import {
-  getQueryValues,
-  getTemplatesByExt,
-  getPopularTemplates,
-  normalizeSortKey,
-  sortForms,
-} from "@src/utils/helpers";
-import { ALLOWED_TYPES, TAllowedTypes } from "@src/utils/allowedTypes";
-import { getSelectedCountries } from "@src/utils/localeCountry";
 import styles from "./Main.module.scss";
 
-const TYPE_SECTIONS: {
-  ext: TAllowedTypes;
-  labelKey: string;
-}[] = [
-  { ext: "docx", labelKey: "DocumentTemplates" },
-  { ext: "xlsx", labelKey: "SpreadsheetTemplates" },
-  { ext: "pptx", labelKey: "PresentationTemplates" },
-  { ext: "pdf", labelKey: "PdfFormsTemplates" },
-];
-
-const CATEGORY_SECTIONS: string[] = [
-  "contracts-legal",
-  "finance",
-  "sales-marketing",
-];
-
-const MainTemplate = ({ allForms, countryNames }: IMainTemplate) => {
+const MainTemplate = ({ initialView, initialFormNames }: IMainTemplate) => {
   const { t } = useTranslation("MainTemplate");
-  const router = useRouter();
-  const currentLocale = router.locale ?? "en";
-
-  const selectedTypes = getQueryValues(router.query.type).filter(
-    (type): type is TAllowedTypes => ALLOWED_TYPES.includes(type),
-  );
-  const queryCountries = getQueryValues(router.query.country);
-  const selectedCountries = getSelectedCountries(
-    queryCountries,
-    currentLocale,
-    getCountries(allForms.data).map((country) => country.code.toLowerCase()),
-  );
-  const sortKey = normalizeSortKey(router.query.sort);
-
-  const scopedForms = getFormsInScope(
-    allForms.data,
-    currentLocale,
-    selectedCountries,
-  );
-
-  const selectedSubcategories = getQueryValues(router.query.subcategory);
-
-  const formsForTypeFilter = getFilteredForms(scopedForms, {
-    country: selectedCountries,
-    subcategory: selectedSubcategories,
-  });
-  const formsForCountryFilter = getFilteredForms(allForms.data, {
-    type: selectedTypes,
-    subcategory: selectedSubcategories,
-  });
-  const formsForCategoryFilter = getFilteredForms(scopedForms, {
-    type: selectedTypes,
-    country: selectedCountries,
-  });
-  const filteredForms = sortForms(
-    getFilteredForms(scopedForms, {
-      type: selectedTypes,
-      country: selectedCountries,
-      subcategory: selectedSubcategories,
-    }),
-    sortKey,
-  );
-  const popularTemplates = getPopularTemplates(filteredForms);
-  const categorySections =
-    selectedTypes.length || selectedSubcategories.length
-      ? []
-      : CATEGORY_SECTIONS.map((urlReq) =>
-          getTemplatesByParentCategory(filteredForms, urlReq),
-        ).filter(
-          (section): section is NonNullable<typeof section> =>
-            section !== null && section.data.length > 0,
-        );
-  const {
-    docx: docxForms,
-    xlsx: xlsxForms,
-    pptx: pptxForms,
-    pdf: pdfForms,
-  } = groupFormsByExt(formsForTypeFilter);
-  const countries = getCountries(formsForCountryFilter, countryNames);
-  const categoriesByPurpose = getCategoriesByPurpose(formsForCategoryFilter);
-  const purposes = getPurposes(allForms.data).filter(
-    (purpose) => categoriesByPurpose[purpose.key]?.length,
-  );
-  const totalCount = getFilteredCount(scopedForms, {
-    type: selectedTypes,
-    country: selectedCountries,
-    subcategory: selectedSubcategories,
-  });
-  const formNames = getFilteredForms(scopedForms, {
-    country: selectedCountries,
-  }).map(({ id, name_form, url, locale }) => ({
-    id,
-    name_form,
-    url,
-    locale,
-  }));
+  const view = useServerView<IMainView>(initialView);
 
   return (
     <Main
-      docxForms={docxForms.length}
-      xlsxForms={xlsxForms.length}
-      pptxForms={pptxForms.length}
-      pdfForms={pdfForms.length}
-      countries={countries}
-      purposes={purposes}
-      categoriesByPurpose={categoriesByPurpose}
-      totalCount={totalCount}
-      formNames={formNames}
-      searchOnly={filteredForms.length === 0}
+      docxForms={view.docxForms}
+      xlsxForms={view.xlsxForms}
+      pptxForms={view.pptxForms}
+      pdfForms={view.pdfForms}
+      countries={view.countries}
+      purposes={view.purposes}
+      categoriesByPurpose={view.categoriesByPurpose}
+      totalCount={view.totalCount}
+      initialFormNames={initialFormNames}
+      searchOnly={view.isEmpty}
     >
-      {!filteredForms.length && (
+      {view.isEmpty && (
         <>
           <NoResultsFound />
           <Button
@@ -177,46 +67,21 @@ const MainTemplate = ({ allForms, countryNames }: IMainTemplate) => {
         </>
       )}
 
-      {popularTemplates.length > 0 && (
-        <MainSection label={t("PopularTemplates")} data={popularTemplates} />
+      {view.popularTemplates.length > 0 && (
+        <MainSection
+          label={t("PopularTemplates")}
+          data={view.popularTemplates}
+        />
       )}
 
-      {!selectedSubcategories.length &&
-        !selectedTypes.length &&
-        categorySections.map((section) => (
-          <MainSection
-            key={section.category.id}
-            label={section.category.name}
-            href={section.category.urlReq}
-            data={section.data}
-          />
-        ))}
-
-      {selectedSubcategories.length
-        ? getTemplatesBySubcategories(filteredForms, selectedSubcategories).map(
-            ({ subcategory, data }) => (
-              <MainSection
-                key={subcategory.id}
-                label={subcategory.name}
-                data={data}
-              />
-            ),
-          )
-        : TYPE_SECTIONS.filter((section) =>
-            selectedTypes.includes(section.ext),
-          )
-            .map((section) => ({
-              section,
-              data: getTemplatesByExt(filteredForms, section.ext, Infinity),
-            }))
-            .filter(({ data }) => data.length > 0)
-            .map(({ section, data }) => (
-              <MainSection
-                key={section.ext}
-                label={t(section.labelKey)}
-                data={data}
-              />
-            ))}
+      {view.sections.map((section) => (
+        <MainSection
+          key={section.key}
+          label={section.labelKey ? t(section.labelKey) : section.label}
+          href={section.href}
+          data={section.data}
+        />
+      ))}
     </Main>
   );
 };

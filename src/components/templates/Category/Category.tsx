@@ -27,123 +27,40 @@
  */
 
 import { useTranslation } from "next-i18next";
-import { useRouter } from "next/router";
 import { ICategory } from "@src/types/template";
-import { IFormsData } from "@src/types/data";
 import { Main } from "@src/components/modules/Main";
 import { MainSection } from "@src/components/modules/Main/sub-components/MainSection";
 import { NoResultsFound } from "@src/components/modules/NoResultsFound";
 import { Button } from "@src/components/ui/Button";
-import {
-  getQueryValues,
-  getPopularTemplates,
-  normalizeSortKey,
-  sortForms,
-} from "@src/utils/helpers";
-import {
-  getCategoriesByPurpose,
-  getCountries,
-  getFilteredForms,
-  getFormsInScope,
-  getPurposes,
-  getTemplatesBySubcategories,
-  groupFormsByExt,
-} from "@src/components/templates/Main/Main.utils";
-import { getSelectedCountries } from "@src/utils/localeCountry";
+import { useServerView } from "@src/lib/hooks/useServerView";
+import { ICategoryView } from "@src/lib/server/mainView.types";
 import styles from "@src/components/templates/Main/Main.module.scss";
 
 const CategoryTemplate = ({
-  allForms,
-  countryNames,
+  initialView,
+  initialFormNames,
   categoryUrlReq,
 }: ICategory) => {
   const { t } = useTranslation("MainTemplate");
-  const router = useRouter();
-  const currentLocale = router.locale ?? "en";
-
-  const isInCategory = (form: IFormsData["data"][number]) =>
-    form.subcategories?.some((sub) =>
-      sub?.parent_categories?.some((cat) => cat?.urlReq === categoryUrlReq),
-    );
-
-  const categoryForms = allForms.data?.filter(isInCategory);
-  const countries = getCountries(categoryForms, countryNames);
-
-  const sortKey = normalizeSortKey(router.query.sort);
-  const selectedTypes = getQueryValues(router.query.type);
-  const selectedCountries = getSelectedCountries(
-    getQueryValues(router.query.country),
-    currentLocale,
-    countries.map((country) => country.code.toLowerCase()),
-  );
-
-  const localeForms = getFormsInScope(
-    allForms.data,
-    currentLocale,
-    selectedCountries,
-  ).filter(isInCategory);
-  const scopedForms = getFilteredForms(localeForms, {
-    country: selectedCountries,
+  const view = useServerView<ICategoryView>(initialView, {
+    category: categoryUrlReq,
   });
-
-  const filteredForms = sortForms(
-    getFilteredForms(scopedForms, { type: selectedTypes }),
-    sortKey,
-  );
-
-  const {
-    docx: docxForms,
-    xlsx: xlsxForms,
-    pptx: pptxForms,
-    pdf: pdfForms,
-  } = groupFormsByExt(scopedForms);
-  const categoriesByPurpose = getCategoriesByPurpose(filteredForms);
-  const purposes = getPurposes(allForms.data).filter(
-    (purpose) => categoriesByPurpose[purpose.key]?.length,
-  );
-  const formNames = scopedForms.map(({ id, name_form, url, locale }) => ({
-    id,
-    name_form,
-    url,
-    locale,
-  }));
-
-  const subcategoryUrlReqs = Array.from(
-    new Set(
-      filteredForms.flatMap(
-        (form) =>
-          form.subcategories
-            ?.filter((sub) =>
-              sub?.parent_categories?.some(
-                (cat) => cat?.urlReq === categoryUrlReq,
-              ),
-            )
-            .map((sub) => sub.urlReq) ?? [],
-      ),
-    ),
-  );
-  const subcategorySections = getTemplatesBySubcategories(
-    filteredForms,
-    subcategoryUrlReqs,
-  );
-  const totalCount = filteredForms.length;
-  const popularTemplates = getPopularTemplates(filteredForms);
 
   return (
     <Main
-      docxForms={docxForms.length}
-      xlsxForms={xlsxForms.length}
-      pptxForms={pptxForms.length}
-      pdfForms={pdfForms.length}
-      countries={countries}
-      purposes={purposes}
-      categoriesByPurpose={categoriesByPurpose}
-      totalCount={totalCount}
+      docxForms={view.docxForms}
+      xlsxForms={view.xlsxForms}
+      pptxForms={view.pptxForms}
+      pdfForms={view.pdfForms}
+      countries={view.countries}
+      purposes={view.purposes}
+      categoriesByPurpose={view.categoriesByPurpose}
+      totalCount={view.totalCount}
+      initialFormNames={initialFormNames}
       selectedCategory={categoryUrlReq}
-      formNames={formNames}
-      searchOnly={subcategorySections.length === 0}
+      searchOnly={view.isEmpty}
     >
-      {!subcategorySections.length && (
+      {view.isEmpty && (
         <>
           <NoResultsFound />
           <Button
@@ -157,15 +74,15 @@ const CategoryTemplate = ({
         </>
       )}
 
-      {popularTemplates.length > 0 && (
-        <MainSection label={t("PopularTemplates")} data={popularTemplates} />
-      )}
-      {subcategorySections.map(({ subcategory, data }) => (
+      {view.popularTemplates.length > 0 && (
         <MainSection
-          key={subcategory.id}
-          label={subcategory.name}
-          data={data}
+          label={t("PopularTemplates")}
+          data={view.popularTemplates}
         />
+      )}
+
+      {view.sections.map((section) => (
+        <MainSection key={section.key} label={section.label} data={section.data} />
       ))}
     </Main>
   );

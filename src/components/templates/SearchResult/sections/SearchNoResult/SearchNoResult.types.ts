@@ -26,8 +26,8 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { IFormsData } from "@src/types/data";
+import { ICardView } from "@src/lib/server/mainView.types";
 
 export interface ISearchNoResult {
-  filteredForms: IFormsData["data"][number][];
+  popularTemplates: ICardView[];
 }

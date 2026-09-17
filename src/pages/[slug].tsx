@@ -36,6 +36,11 @@ import {
 import { getCategoryInfo } from "@src/lib/requests/getCategoryInfo";
 import { getAllFormsAllLocales } from "@src/lib/requests/getAllFormsAllLocales";
 import { getCountryNames } from "@src/lib/requests/getCountries";
+import {
+  buildCategoryView,
+  buildFormNames,
+  resolveCategoryFilters,
+} from "@src/lib/server/buildMainView";
 import { getFormAnyLocale } from "@src/lib/requests/getFormAnyLocale";
 import { getParentCategories } from "@src/lib/requests/getParentCategories";
 import { languages } from "@src/config/languages";
@@ -61,7 +66,8 @@ const SlugPage = (props: ISlugPage & ILocale) => {
   const { locale } = props;
 
   if (props.isCategory) {
-    const { categoryInfo, allForms, countryNames, categoryUrlReq } = props;
+    const { categoryInfo, initialView, initialFormNames, categoryUrlReq } =
+      props;
 
     return (
       <Layout>
@@ -79,8 +85,8 @@ const SlugPage = (props: ISlugPage & ILocale) => {
         </Layout.Header>
         <Layout.Main background="var(--primary-background-color)">
           <CategoryTemplate
-            allForms={allForms}
-            countryNames={countryNames}
+            initialView={initialView}
+            initialFormNames={initialFormNames}
             categoryUrlReq={categoryUrlReq}
           />
         </Layout.Main>
@@ -176,6 +182,13 @@ export const getStaticProps = async ({
       getCountryNames(locale),
     ]);
 
+    const filters = resolveCategoryFilters(allForms.data, slug, {
+      locale,
+      type: [],
+      country: [],
+      sort: undefined,
+    });
+
     return {
       props: {
         ...(await serverSideTranslations(locale, [
@@ -189,8 +202,13 @@ export const getStaticProps = async ({
         locale,
         isCategory: true,
         categoryInfo,
-        allForms,
-        countryNames,
+        initialView: buildCategoryView(
+          allForms.data,
+          slug,
+          filters,
+          countryNames,
+        ),
+        initialFormNames: buildFormNames(allForms.data, locale, []),
         categoryUrlReq: slug,
       },
     };

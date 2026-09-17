@@ -26,9 +26,9 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { IFormsData } from "@src/types/data";
+import { IMainView, TFormNames } from "@src/lib/server/mainView.types";
 
 export interface IMainTemplate {
-  allForms: IFormsData;
-  countryNames?: Record<string, string>;
+  initialView: IMainView;
+  initialFormNames: TFormNames;
 }

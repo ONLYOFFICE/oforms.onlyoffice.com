@@ -26,12 +26,67 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { ICardView } from "@src/lib/server/mainView.types";
+import { TFormat } from "@src/types/data";
+import { TSortKey } from "@src/utils/helpers";
+import {
+  ICategoryTree,
+  IPurposeNode,
+} from "@src/components/modules/Main/Main.types";
+import { ISearchInput } from "@src/components/modules/Main/sub-components/SearchInput/SearchInput.types";
 
-export interface IMainSection {
-  label: React.ReactNode;
+export interface ICardView {
+  id: number;
+  name_form: string;
+  description_card: string;
+  url: string;
+  preview: string;
+  format: TFormat;
+}
+
+export interface IMainSectionView {
+  key: string;
+  label?: string;
+  labelKey?: string;
   href?: string;
   data: ICardView[];
-  desktopLimit?: boolean;
-  cardsGrid?: boolean;
+}
+
+export type TFormNames = ISearchInput["formNames"];
+
+export interface IMainFacets {
+  docxForms: number;
+  xlsxForms: number;
+  pptxForms: number;
+  pdfForms: number;
+  countries: {
+    name: string;
+    code: string;
+    count: number;
+  }[];
+  purposes: IPurposeNode[];
+  categoriesByPurpose: Record<string, ICategoryTree[]>;
+  totalCount: number;
+  popularTemplates: ICardView[];
+  isEmpty: boolean;
+}
+
+export interface IMainView extends IMainFacets {
+  sections: IMainSectionView[];
+}
+
+export interface IMainViewFilters {
+  locale: string;
+  type: string[];
+  country: string[];
+  subcategory: string[];
+  sort: TSortKey;
+}
+
+export interface ICategoryView extends IMainView {
+  categoryUrlReq: string;
+}
+
+export interface ISearchView extends IMainFacets {
+  searchQuery: string;
+  foundForms: ICardView[];
 }

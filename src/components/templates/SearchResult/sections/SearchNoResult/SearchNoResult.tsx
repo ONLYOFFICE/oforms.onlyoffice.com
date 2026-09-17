@@ -31,13 +31,11 @@ import { Suggestions } from "./sub-components/Suggestions";
 import { NoResultsFound } from "@src/components/modules/NoResultsFound";
 import { MainSection } from "@src/components/modules/Main/sub-components/MainSection";
 import { Button } from "@src/components/ui/Button";
-import { getPopularTemplates } from "@src/utils/helpers";
 import { ISearchNoResult } from "./SearchNoResult.types";
 import styles from "./SearchNoResult.module.scss";
 
-const SearchNoResult = ({ filteredForms }: ISearchNoResult) => {
+const SearchNoResult = ({ popularTemplates }: ISearchNoResult) => {
   const { t } = useTranslation("searchresult");
-  const popularTemplates = getPopularTemplates(filteredForms);
 
   return (
     <div className={styles["search-no-result"]}>

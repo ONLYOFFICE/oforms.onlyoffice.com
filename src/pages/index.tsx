@@ -30,6 +30,11 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { getAllFormsAllLocales } from "@src/lib/requests/getAllFormsAllLocales";
 import { getCountryNames } from "@src/lib/requests/getCountries";
+import {
+  buildFormNames,
+  buildMainView,
+  resolveMainFilters,
+} from "@src/lib/server/buildMainView";
 import { Layout } from "@src/components/Layout";
 import { Head } from "@src/components/modules/Head";
 import { Header } from "@src/components/modules/Header";
@@ -40,8 +45,8 @@ import { ILocale } from "@src/types/locale";
 
 const MainPage = ({
   locale,
-  allForms,
-  countryNames,
+  initialView,
+  initialFormNames,
 }: IMainTemplate & ILocale) => {
   const { t } = useTranslation("main");
 
@@ -57,7 +62,10 @@ const MainPage = ({
         <Header locale={locale} />
       </Layout.Header>
       <Layout.Main background="var(--primary-background-color)">
-        <MainTemplate allForms={allForms} countryNames={countryNames} />
+        <MainTemplate
+          initialView={initialView}
+          initialFormNames={initialFormNames}
+        />
       </Layout.Main>
       <Layout.Footer>
         <Footer locale={locale} />
@@ -72,6 +80,14 @@ export const getStaticProps = async ({ locale }: ILocale) => {
     getCountryNames(locale),
   ]);
 
+  const filters = resolveMainFilters(allForms.data, {
+    locale,
+    type: [],
+    country: [],
+    subcategory: [],
+    sort: undefined,
+  });
+
   return {
     props: {
       ...(await serverSideTranslations(locale, [
@@ -83,8 +99,8 @@ export const getStaticProps = async ({ locale }: ILocale) => {
         "NoResultsFound",
       ])),
       locale,
-      allForms,
-      countryNames,
+      initialView: buildMainView(allForms.data, filters, countryNames),
+      initialFormNames: buildFormNames(allForms.data, locale, []),
     },
   };
 };

@@ -96,8 +96,8 @@ const MainSection = ({
           <Card
             key={item.id}
             className={styles["main-section-card"]}
-            preview={item.card_prewiew?.url}
-            format={item.form_exts?.[0].ext}
+            preview={item.preview}
+            format={item.format}
             heading={item.name_form}
             description={item.description_card}
             url={item.url}

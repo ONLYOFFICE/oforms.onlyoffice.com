@@ -26,12 +26,41 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { ICardView } from "@src/lib/server/mainView.types";
+import { useEffect, useRef, useState } from "react";
 
-export interface IMainSection {
-  label: React.ReactNode;
-  href?: string;
-  data: ICardView[];
-  desktopLimit?: boolean;
-  cardsGrid?: boolean;
-}
+export const useFetchedState = <T>(
+  url: string | null,
+  initialValue: T,
+  label: string,
+): T => {
+  const [fetched, setFetched] = useState<{ value: T } | null>(null);
+  const requestId = useRef(0);
+
+  useEffect(() => {
+    if (url === null) {
+      requestId.current += 1;
+      setFetched(null);
+      return;
+    }
+
+    const id = ++requestId.current;
+    const controller = new AbortController();
+
+    fetch(url, { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error(`Request failed: ${response.status}`);
+        return response.json();
+      })
+      .then((next: T) => {
+        if (id === requestId.current) setFetched({ value: next });
+      })
+      .catch((error) => {
+        if (error instanceof Error && error.name === "AbortError") return;
+        console.error(label, error);
+      });
+
+    return () => controller.abort();
+  }, [url, label]);
+
+  return fetched ? fetched.value : initialValue;
+};

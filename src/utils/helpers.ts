@@ -56,7 +56,7 @@ export const getPopularTemplates = (
   limit = 8,
 ) => forms?.filter((form) => form.popular_template).slice(0, limit) ?? [];
 
-type TSortKey = "popular" | "asc" | "desc" | "name_asc" | "name_desc";
+export type TSortKey = "popular" | "asc" | "desc" | "name_asc" | "name_desc";
 const SORT_MAP: Record<TSortKey, string> = {
   asc: "createdAt:desc",
   desc: "createdAt:asc",
@@ -69,7 +69,7 @@ export const normalizeSortKey = (
   value: string | string[] | undefined,
 ): TSortKey => {
   const raw = Array.isArray(value) ? value[0] : value;
-  return raw && raw in SORT_MAP ? (raw as TSortKey) : "asc";
+  return raw && Object.hasOwn(SORT_MAP, raw) ? (raw as TSortKey) : "asc";
 };
 
 export const sortForms = (

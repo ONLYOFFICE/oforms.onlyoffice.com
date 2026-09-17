@@ -26,15 +26,19 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { IFormsData } from "@src/types/data";
+import {
+  ICategoryView,
+  ISearchView,
+  TFormNames,
+} from "@src/lib/server/mainView.types";
 
 export interface ICategory {
-  allForms: IFormsData;
-  countryNames?: Record<string, string>;
-  categoryUrlReq?: string;
+  initialView: ICategoryView;
+  initialFormNames: TFormNames;
+  categoryUrlReq: string;
 }
 
 export interface ISearchResult {
-  allForms: IFormsData;
-  countryNames?: Record<string, string>;
+  initialView: ISearchView;
+  initialFormNames: TFormNames;
 }

@@ -26,12 +26,23 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { ICardView } from "@src/lib/server/mainView.types";
+import { useRouter } from "next/router";
+import { getQueryValues } from "@src/utils/helpers";
+import { TFormNames } from "@src/lib/server/mainView.types";
+import { useFetchedState } from "./useFetchedState";
 
-export interface IMainSection {
-  label: React.ReactNode;
-  href?: string;
-  data: ICardView[];
-  desktopLimit?: boolean;
-  cardsGrid?: boolean;
-}
+export const useFormNames = (initialFormNames: TFormNames): TFormNames => {
+  const router = useRouter();
+  const locale = router.locale ?? "en";
+
+  const country = router.isReady ? getQueryValues(router.query.country) : [];
+
+  const params = new URLSearchParams({ locale });
+  if (country.length) params.set("country", [...country].sort().join(","));
+
+  return useFetchedState(
+    country.length ? `/api/form-names?${params.toString()}` : null,
+    initialFormNames,
+    "[useFormNames]",
+  );
+};

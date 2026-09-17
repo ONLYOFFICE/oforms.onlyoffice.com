@@ -30,6 +30,11 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { getAllFormsAllLocales } from "@src/lib/requests/getAllFormsAllLocales";
 import { getCountryNames } from "@src/lib/requests/getCountries";
+import {
+  buildFormNames,
+  buildSearchView,
+  resolveSearchFilters,
+} from "@src/lib/server/buildMainView";
 import { Layout } from "@src/components/Layout";
 import { Head } from "@src/components/modules/Head";
 import { Header } from "@src/components/modules/Header";
@@ -41,8 +46,8 @@ import { ILocale } from "@src/types/locale";
 
 const SearchResultPage = ({
   locale,
-  allForms,
-  countryNames,
+  initialView,
+  initialFormNames,
 }: ISearchResult & ILocale) => {
   const { t } = useTranslation("searchresult");
 
@@ -59,8 +64,8 @@ const SearchResultPage = ({
       </Layout.Header>
       <Layout.Main background="var(--primary-background-color)">
         <SearchResultTemplate
-          allForms={allForms}
-          countryNames={countryNames}
+          initialView={initialView}
+          initialFormNames={initialFormNames}
         />
       </Layout.Main>
       <Layout.Footer>
@@ -76,6 +81,14 @@ export const getStaticProps = async ({ locale }: ILocale) => {
     getCountryNames(locale),
   ]);
 
+  const filters = resolveSearchFilters(allForms.data, {
+    locale,
+    type: [],
+    country: [],
+    subcategory: [],
+    sort: undefined,
+  });
+
   return {
     props: {
       ...(await serverSideTranslations(locale, [
@@ -87,8 +100,8 @@ export const getStaticProps = async ({ locale }: ILocale) => {
         "NoResultsFound",
       ])),
       locale,
-      allForms,
-      countryNames,
+      initialView: buildSearchView(allForms.data, "", filters, countryNames),
+      initialFormNames: buildFormNames(allForms.data, locale, []),
     },
   };
 };

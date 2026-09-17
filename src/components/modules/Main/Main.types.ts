@@ -26,28 +26,32 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { IFormsData } from "@src/types/data";
 import { TAllowedTypes } from "@src/utils/allowedTypes";
-import { ISearchInput } from "./sub-components/SearchInput/SearchInput.types";
+import { TFormNames } from "@src/lib/server/mainView.types";
 
-type TFormSubcategory = IFormsData["data"][number]["subcategories"][number];
-type TFormCategory = TFormSubcategory["parent_categories"][number];
-
-interface ISubcategoryNode extends Omit<TFormSubcategory, "parent_categories"> {
+interface ISubcategoryNode {
+  id: number;
+  name: string;
+  urlReq: string;
   count: number;
 }
 
+interface ICategoryNode {
+  id: number;
+  name: string;
+  urlReq: string;
+}
+
 export interface ICategoryTree {
-  category: TFormCategory;
+  category: ICategoryNode;
   subcategories: ISubcategoryNode[];
 }
 
-export interface IPurposeCategories {
-  purpose: TFormCategory["purpose"];
-  categories: Map<
-    string,
-    { category: TFormCategory; subcategories: Map<string, ISubcategoryNode> }
-  >;
+export interface IPurposeNode {
+  id: number;
+  documentId: string;
+  name: string;
+  key: string;
 }
 
 export interface IMain {
@@ -61,11 +65,11 @@ export interface IMain {
     code: string;
     count: number;
   }[];
-  purposes: IFormsData["data"][number]["subcategories"][number]["parent_categories"][number]["purpose"][];
+  purposes: IPurposeNode[];
   categoriesByPurpose: Record<string, ICategoryTree[]>;
   totalCount: number;
+  initialFormNames: TFormNames;
   selectedType?: TAllowedTypes;
   selectedCategory?: string;
-  formNames: ISearchInput["formNames"];
   searchOnly?: boolean;
 }

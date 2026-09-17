@@ -26,12 +26,41 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { ICardView } from "@src/lib/server/mainView.types";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { getAllFormsAllLocales } from "@src/lib/requests/getAllFormsAllLocales";
+import { buildFormNames } from "@src/lib/server/buildMainView";
+import {
+  isGetRequest,
+  resolveLocale,
+  VIEW_CACHE_CONTROL,
+} from "@src/lib/server/apiHelpers";
+import { getQueryValues } from "@src/utils/helpers";
+import { TFormNames } from "@src/lib/server/mainView.types";
 
-export interface IMainSection {
-  label: React.ReactNode;
-  href?: string;
-  data: ICardView[];
-  desktopLimit?: boolean;
-  cardsGrid?: boolean;
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<TFormNames | { error: string }>,
+) {
+  if (!isGetRequest(req, res)) return;
+
+  const locale = resolveLocale(req.query.locale);
+
+  try {
+    const allForms = await getAllFormsAllLocales(locale);
+
+    const formNames = buildFormNames(
+      allForms.data,
+      locale,
+      getQueryValues(req.query.country),
+    );
+
+    res.setHeader("Cache-Control", VIEW_CACHE_CONTROL);
+
+    return res.status(200).json(formNames);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("[api/form-names]", message);
+
+    return res.status(500).json({ error: "Failed to load template names" });
+  }
 }
