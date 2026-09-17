@@ -81,12 +81,10 @@ jobs:
           --exclude "embed-data/*"
           --cache-control "public, max-age=0, must-revalidate"
 
-      # index.html is must-revalidate, but CloudFront caches per its own TTL,
-      # so a deploy must invalidate it (and robots.txt etc.) explicitly.
-      # Hashed assets and ?v=-stamped catalogs don't need it — their names
-      # change with each build.
+      # Every deploy restamps ?v= and reuploads the whole site, so invalidate
+      # everything — one /* path counts as a single invalidation path anyway.
       - name: Invalidate CloudFront
         run: >-
           aws cloudfront create-invalidation
           --distribution-id "${{ vars.CF_DISTRIBUTION_ID }}"
-          --paths "/index.html" "/"
+          --paths "/*"
