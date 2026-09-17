@@ -37,7 +37,6 @@ import { getCategoryInfo } from "@src/lib/requests/getCategoryInfo";
 import { getAllFormsAllLocales } from "@src/lib/requests/getAllFormsAllLocales";
 import { getCountryNames } from "@src/lib/requests/getCountries";
 import { getFormAnyLocale } from "@src/lib/requests/getFormAnyLocale";
-import { getExtFormsPlain } from "@src/lib/requests/getExtFormsPlain";
 import { getParentCategories } from "@src/lib/requests/getParentCategories";
 import { languages } from "@src/config/languages";
 import { Layout } from "@src/components/Layout";
@@ -92,7 +91,7 @@ const SlugPage = (props: ISlugPage & ILocale) => {
     );
   }
 
-  const { form, formLocale, allForms, categories } = props;
+  const { form, formLocale, categories } = props;
 
   return (
     <Layout>
@@ -114,7 +113,6 @@ const SlugPage = (props: ISlugPage & ILocale) => {
         <FormTemplate
           form={form}
           formLocale={formLocale}
-          allForms={allForms}
           categories={categories}
         />
       </Layout.Main>
@@ -198,9 +196,8 @@ export const getStaticProps = async ({
     };
   }
 
-  const [{ form, formLocale }, allForms, categories] = await Promise.all([
+  const [{ form, formLocale }, categories] = await Promise.all([
     getFormAnyLocale(locale, slug),
-    getExtFormsPlain(locale),
     getParentCategories(locale),
   ]);
 
@@ -216,7 +213,6 @@ export const getStaticProps = async ({
       locale,
       form,
       formLocale,
-      allForms,
       categories,
     },
   };

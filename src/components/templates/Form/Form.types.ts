@@ -26,7 +26,7 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { TFormat, IFormsData } from "@src/types/data";
+import { TFormat } from "@src/types/data";
 
 export interface IFormData {
   data: {
@@ -97,6 +97,5 @@ export interface ICategoriesData {
 export interface IFormTemplate {
   form: IFormData;
   formLocale?: string;
-  allForms: IFormsData;
   categories: ICategoriesData;
 }

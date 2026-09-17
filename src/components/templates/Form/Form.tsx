@@ -40,23 +40,22 @@ import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { IFormTemplate } from "./Form.types";
 import styles from "./Form.module.scss";
 
-const FormTemplate = ({
-  form,
-  formLocale,
-  allForms,
-  categories,
-}: IFormTemplate) => {
+const FormTemplate = ({ form, formLocale, categories }: IFormTemplate) => {
   const { t } = useTranslation("form");
   const router = useRouter();
   const { locale } = router;
   const editorLocale = formLocale ?? locale;
   const {
+    id,
     name_form,
     template_desc,
     template_desc_2,
+    description_card,
+    card_prewiew,
     file_oform,
     file_pages,
     page_screens,
+    form_exts,
     url,
   } = form.data[0];
 
@@ -93,7 +92,14 @@ const FormTemplate = ({
         suggestChangesLink={suggestChangesLink}
       />
       <HowToCreate name_form={name_form} linkEditor={linkEditor} />
-      <RecentlyViewed allForms={allForms} id={form.data[0].id} />
+      <RecentlyViewed
+        id={id}
+        name_form={name_form}
+        description_card={description_card}
+        url={url}
+        card_prewiew={card_prewiew?.url}
+        form_exts={form_exts?.[0]?.ext}
+      />
       <ExploreOtherTemplate />
       <PopularCategories categories={categories} />
       <BuildYourOwnForms suggestChangesLink={suggestChangesLink} />

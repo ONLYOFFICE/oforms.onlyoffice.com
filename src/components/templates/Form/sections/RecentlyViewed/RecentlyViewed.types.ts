@@ -27,7 +27,6 @@
  */
 
 import { IFormData } from "../../Form.types";
-import { IFormsData } from "@src/types/data";
 
 export interface IRecentlyViewedForm {
   id: IFormData["data"][0]["id"];
@@ -38,7 +37,4 @@ export interface IRecentlyViewedForm {
   form_exts: IFormData["data"][0]["form_exts"][0]["ext"];
 }
 
-export interface IRecentlyViewed {
-  id: IFormData["data"][0]["id"];
-  allForms: IFormsData;
-}
+export type IRecentlyViewed = IRecentlyViewedForm;
