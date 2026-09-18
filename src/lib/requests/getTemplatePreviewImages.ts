@@ -27,33 +27,52 @@
  */
 
 import AdmZip from "adm-zip";
+import {
+  fetchAllowedUrl,
+  RemoteHostsNotConfiguredError,
+} from "@src/lib/server/safeFetch";
+
+const MAX_PREVIEW_PAGES = 30;
+const MAX_PREVIEW_TOTAL_BYTES = 30 * 1024 * 1024;
 
 const getTemplatePreviewImages = async (
   previewUrl: string,
 ): Promise<string[] | null> => {
   try {
-    const zipResponse = await fetch(previewUrl);
-
-    if (!zipResponse.ok) {
-      return null;
-    }
-
-    const zipBuffer = Buffer.from(await zipResponse.arrayBuffer());
+    const zipBuffer = await fetchAllowedUrl(previewUrl);
     const zipEntries = new AdmZip(zipBuffer)
       .getEntries()
       .filter((entry) => !entry.isDirectory && /\.png$/i.test(entry.entryName))
       .sort((a, b) =>
         a.entryName.localeCompare(b.entryName, undefined, { numeric: true }),
-      );
+      )
+      .slice(0, MAX_PREVIEW_PAGES);
 
     if (zipEntries.length === 0) {
       return null;
     }
 
-    return zipEntries.map(
-      (entry) => `data:image/png;base64,${entry.getData().toString("base64")}`,
-    );
-  } catch {
+    const images: string[] = [];
+    let totalBytes = 0;
+
+    for (const entry of zipEntries) {
+      totalBytes += entry.header.size;
+
+      if (totalBytes > MAX_PREVIEW_TOTAL_BYTES) {
+        break;
+      }
+
+      images.push(
+        `data:image/png;base64,${entry.getData().toString("base64")}`,
+      );
+    }
+
+    return images.length > 0 ? images : null;
+  } catch (error) {
+    if (error instanceof RemoteHostsNotConfiguredError) {
+      console.error("[getTemplatePreviewImages]", error.message);
+    }
+
     return null;
   }
 };

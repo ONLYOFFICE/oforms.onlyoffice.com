@@ -35,6 +35,12 @@ import { ILocale } from "@src/types/locale";
 import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { validateHCaptcha } from "@src/lib/validateHCaptcha";
 import {
+  fetchAllowedUrl,
+  isAllowedRemoteUrl,
+  remoteUrlFileName,
+  RemoteHostsNotConfiguredError,
+} from "@src/lib/server/safeFetch";
+import {
   MAX_UPLOAD_FILE_SIZE,
   sanitizeFileName,
   EXTENSION_MIME_TYPES,
@@ -155,7 +161,22 @@ export default async function handler(
       return res.status(400).json({ error: "Template file is required" });
     }
 
-    const fileType = fileUrl.match(/\.(\w+)$/)?.[1]?.toLowerCase();
+    if (!isAllowedRemoteUrl(fileUrl)) {
+      console.error(
+        "[form-upload-submission] rejected file url host:",
+        (() => {
+          try {
+            return new URL(fileUrl).host;
+          } catch {
+            return "<unparsable>";
+          }
+        })(),
+      );
+      return res.status(400).json({ error: "Template file is not available" });
+    }
+
+    const remoteFileName = remoteUrlFileName(fileUrl);
+    const fileType = remoteFileName?.match(/\.(\w+)$/)?.[1]?.toLowerCase();
 
     if (
       !fileType ||
@@ -168,13 +189,7 @@ export default async function handler(
 
     const mimeType = EXTENSION_MIME_TYPES[fileType];
 
-    const fileResponse = await fetch(fileUrl);
-
-    if (!fileResponse.ok) {
-      throw new Error(`Template file download failed: ${fileResponse.status}`);
-    }
-
-    const fileBuffer = Buffer.from(await fileResponse.arrayBuffer());
+    const fileBuffer = await fetchAllowedUrl(fileUrl);
 
     const createResponse = await fetch(
       `${CONFIG.api.cmsUpload}/api/oforms?status=draft`,
@@ -221,7 +236,7 @@ export default async function handler(
       new Blob([fileBuffer], {
         type: mimeType ?? "application/octet-stream",
       }),
-      sanitizeFileName(fileUrl),
+      sanitizeFileName(remoteFileName),
     );
     uploadData.append("ref", "api::oform.oform");
     uploadData.append("refId", String(entryId));
@@ -271,6 +286,11 @@ export default async function handler(
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     console.error("[form-upload-submission]", message);
+
+    if (error instanceof RemoteHostsNotConfiguredError) {
+      return res.status(500).json({ error: "Template upload is unavailable" });
+    }
+
     return res.status(500).json({ error: message });
   }
 }
