@@ -69,7 +69,10 @@ const FormSubmitTemplate = ({
         />
 
         {submitted ? (
-          <SubmittedSuccessfully setSubmitted={setSubmitted} file={file} />
+          <SubmittedSuccessfully
+            setSubmitted={setSubmitted}
+            name={file?.name ?? queryIndexData?.fileName ?? ""}
+          />
         ) : (
           <>
             <Heading
