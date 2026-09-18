@@ -226,7 +226,7 @@ export const getStaticProps = async ({
     getParentCategories(locale),
   ]);
 
-  if (form.data.length === 0 || formLocale !== locale) {
+  if (form.data.length === 0) {
     return {
       notFound: true,
     };
