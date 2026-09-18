@@ -31,7 +31,17 @@ import Script from "next/script";
 import CONFIG from "@src/config/config.json";
 import { Layout } from "@src/components/Layout";
 import { Head } from "@src/components/modules/Head";
+import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { cmsLocale } from "@src/utils/cmsLocale";
+
+const FILENAME_MAX_LENGTH = 300;
+const FILENAME_PATTERN = /^[a-zA-Z0-9._-]+$/;
+const FILLFORM_PATTERN = new RegExp(
+  `^[a-zA-Z0-9_-]+\\.(${ALLOWED_TYPES.map((type) =>
+    type.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+  ).join("|")})$`,
+  "i",
+);
 
 declare global {
   interface Window {
@@ -89,7 +99,17 @@ export const getServerSideProps = async ({
   const normalizedFillform =
     (Array.isArray(fillform) ? fillform[0] : fillform) ?? "";
 
-  if (!normalizedFilename) {
+  if (
+    !normalizedFilename ||
+    normalizedFilename.length > FILENAME_MAX_LENGTH ||
+    !FILENAME_PATTERN.test(normalizedFilename)
+  ) {
+    return {
+      notFound: true,
+    };
+  }
+
+  if (normalizedFillform && !FILLFORM_PATTERN.test(normalizedFillform)) {
     return {
       notFound: true,
     };
