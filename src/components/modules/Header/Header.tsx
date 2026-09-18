@@ -33,15 +33,14 @@ import { languages } from "@src/config/languages";
 import { IHeader } from "./Header.types";
 import styles from "./Header.module.scss";
 
-const KEEP_PATHNAME_ROUTES = ["/form-submit", "/searchresult"];
-
-const Header = ({ locale, headerBgColor }: IHeader) => {
+const Header = ({
+  locale,
+  headerBgColor,
+  resetPathOnLocaleChange = false,
+}: IHeader) => {
   const router = useRouter();
 
-  const queryString = router.asPath.split("?")[1] ?? "";
-  const languageHref = KEEP_PATHNAME_ROUTES.includes(router.pathname)
-    ? router.asPath
-    : `/${queryString ? `?${queryString}` : ""}`;
+  const languageHref = resetPathOnLocaleChange ? "/" : router.asPath;
 
   return (
     <div className={styles.header}>

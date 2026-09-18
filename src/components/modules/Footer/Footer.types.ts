@@ -28,8 +28,7 @@
 
 import { ILocale } from "@src/types/locale";
 
-export interface IHeader {
+export interface IFooter {
   locale: ILocale["locale"];
-  headerBgColor?: string;
   resetPathOnLocaleChange?: boolean;
 }

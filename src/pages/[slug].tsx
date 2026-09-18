@@ -120,7 +120,7 @@ const SlugPage = (props: ISlugPage & ILocale) => {
         <AdventAnnounce locale={locale} />
       </Layout.AdventAnnounce>
       <Layout.Header>
-        <Header locale={locale} />
+        <Header locale={locale} resetPathOnLocaleChange />
       </Layout.Header>
       <Layout.Main background="var(--primary-background-color)">
         <FormTemplate
@@ -130,7 +130,7 @@ const SlugPage = (props: ISlugPage & ILocale) => {
         />
       </Layout.Main>
       <Layout.Footer>
-        <Footer locale={locale} />
+        <Footer locale={locale} resetPathOnLocaleChange />
       </Layout.Footer>
     </Layout>
   );

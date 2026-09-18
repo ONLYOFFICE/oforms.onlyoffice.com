@@ -29,11 +29,13 @@
 import { useRouter } from "next/router";
 import { OOFooter } from "onlyoffice-react-ui-kit/footer";
 import "onlyoffice-react-ui-kit/footer/css";
-import { ILocale } from "@src/types/locale";
 import { languages } from "@src/config/languages";
+import { IFooter } from "./Footer.types";
 
-const Footer = ({ locale }: ILocale) => {
+const Footer = ({ locale, resetPathOnLocaleChange = false }: IFooter) => {
   const router = useRouter();
+
+  const languageHref = resetPathOnLocaleChange ? "/" : router.asPath;
 
   return (
     <OOFooter
@@ -41,7 +43,7 @@ const Footer = ({ locale }: ILocale) => {
       languages={languages.map((language) => ({
         shortKey: language.shortKey,
         name: language.longKey,
-        href: router.asPath,
+        href: languageHref,
       }))}
       base={{
         url: process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN!,
