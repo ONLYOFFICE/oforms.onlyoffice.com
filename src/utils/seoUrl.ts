@@ -26,23 +26,51 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-export interface IFavicon {
-  rel: "icon" | "apple-touch-icon";
-  sizes: string;
-  href: string;
-  type: string;
-}
+import CONFIG from "@src/config/config.json";
+import { languages } from "@src/config/languages";
+import { IHreflang } from "@src/components/modules/Head/Head.types";
 
-export interface IHreflang {
-  hrefLang: string;
-  href: string;
-}
+const DEFAULT_LOCALE = CONFIG.defaultLanguage;
 
-export interface IHead {
-  title: string;
-  description?: string;
-  path?: string;
-  locale?: string;
-  noindex?: boolean;
-  localized?: boolean;
-}
+const getSiteUrl = (): string =>
+  (process.env.NEXT_PUBLIC_SITE_URL || "").replace(/\/+$/, "");
+
+const normalizePath = (path?: string): string => {
+  if (!path || path === "/") return "";
+
+  const [withoutHash] = path.split("#");
+  const [withoutQuery] = withoutHash.split("?");
+  const trimmed = withoutQuery.replace(/\/+$/, "");
+
+  if (!trimmed) return "";
+
+  return trimmed.startsWith("/") ? trimmed : `/${trimmed}`;
+};
+
+const getCanonicalUrl = (path?: string, locale?: string): string => {
+  const siteUrl = getSiteUrl();
+
+  if (!siteUrl) return "";
+
+  const prefix = !locale || locale === DEFAULT_LOCALE ? "" : `/${locale}`;
+  const normalized = normalizePath(path);
+
+  return `${siteUrl}${prefix}${normalized}`;
+};
+
+const buildHreflangs = (path?: string, localized = false): IHreflang[] => {
+  if (!localized) return [];
+
+  const links = languages.map(({ shortKey }) => ({
+    hrefLang: shortKey,
+    href: getCanonicalUrl(path, shortKey),
+  }));
+
+  const defaultLink = links.find((link) => link.hrefLang === DEFAULT_LOCALE);
+
+  if (!defaultLink) return links;
+
+  return [...links, { hrefLang: "x-default", href: defaultLink.href }];
+};
+
+export { getCanonicalUrl, buildHreflangs, DEFAULT_LOCALE };

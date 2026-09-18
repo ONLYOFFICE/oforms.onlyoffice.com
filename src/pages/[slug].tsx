@@ -75,6 +75,9 @@ const SlugPage = (props: ISlugPage & ILocale) => {
           <Head
             title={categoryInfo.data[0].seo_title}
             description={categoryInfo.data[0].seo_description}
+            path={`/${categoryUrlReq}`}
+            locale={locale}
+            localized
           />
         </Layout.Head>
         <Layout.AdventAnnounce>
@@ -98,15 +101,19 @@ const SlugPage = (props: ISlugPage & ILocale) => {
   }
 
   const { form, formLocale, categories } = props;
+  const formData = form.data[0];
+  const formPath = `/${formData.url}`;
+  const title = formData.seo_title || formData.name_form;
+  const description = formData.seo_description || formData.description_card;
 
   return (
     <Layout>
       <Layout.Head>
         <Head
-          title={form.data[0].seo_title || form.data[0].name_form}
-          description={
-            form.data[0].seo_description || form.data[0].description_card
-          }
+          title={title}
+          description={description}
+          path={formPath}
+          locale={locale}
         />
       </Layout.Head>
       <Layout.AdventAnnounce>
@@ -219,7 +226,7 @@ export const getStaticProps = async ({
     getParentCategories(locale),
   ]);
 
-  if (form.data.length === 0) {
+  if (form.data.length === 0 || formLocale !== locale) {
     return {
       notFound: true,
     };

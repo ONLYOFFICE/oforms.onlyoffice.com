@@ -26,23 +26,55 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-export interface IFavicon {
-  rel: "icon" | "apple-touch-icon";
-  sizes: string;
-  href: string;
-  type: string;
-}
+import { IFavicon } from "./Head.types";
 
-export interface IHreflang {
-  hrefLang: string;
-  href: string;
-}
+export const PRELOADED_FONTS = [
+  "/fonts/Sora/Sora-Regular.woff2",
+  "/fonts/Sora/Sora-SemiBold.woff2",
+  "/fonts/Sora/Sora-Bold.woff2",
+];
 
-export interface IHead {
-  title: string;
-  description?: string;
-  path?: string;
-  locale?: string;
-  noindex?: boolean;
-  localized?: boolean;
-}
+export const FAVICONS: IFavicon[] = [
+  {
+    rel: "icon",
+    sizes: "16x16",
+    href: "/images/logo/favicons/favicon.png",
+    type: "image/png",
+  },
+  {
+    rel: "icon",
+    sizes: "32x32",
+    href: "/images/logo/favicons/favicon32.png",
+    type: "image/png",
+  },
+  {
+    rel: "icon",
+    sizes: "64x64",
+    href: "/images/logo/favicons/favicon64.png",
+    type: "image/png",
+  },
+  {
+    rel: "icon",
+    sizes: "96x96",
+    href: "/images/logo/favicons/favicon.ico",
+    type: "image/x-icon",
+  },
+  {
+    rel: "apple-touch-icon",
+    sizes: "150x150",
+    href: "/images/logo/favicons/apple150.png",
+    type: "image/png",
+  },
+  {
+    rel: "apple-touch-icon",
+    sizes: "310x310",
+    href: "/images/logo/favicons/apple310.png",
+    type: "image/png",
+  },
+  {
+    rel: "apple-touch-icon",
+    sizes: "325x325",
+    href: "/images/logo/favicons/apple325.png",
+    type: "image/png",
+  },
+];

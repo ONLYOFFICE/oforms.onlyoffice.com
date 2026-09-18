@@ -29,6 +29,7 @@
 import { useEffect } from "react";
 import { appWithTranslation } from "next-i18next";
 import type { AppProps } from "next/app";
+import NextHead from "next/head";
 import { useRouter } from "next/router";
 import { isRtlLocale } from "@src/utils/rtl";
 import "@src/styles/tokens.css";
@@ -45,7 +46,17 @@ function App({ Component, pageProps }: AppProps) {
     document.documentElement.dir = dir;
   }, [router.locale]);
 
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <NextHead>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=3, shrink-to-fit=no, viewport-fit=cover"
+        />
+      </NextHead>
+      <Component {...pageProps} />
+    </>
+  );
 }
 
 export default appWithTranslation(App);

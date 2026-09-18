@@ -53,7 +53,13 @@ const MainPage = ({
   return (
     <Layout>
       <Layout.Head>
-        <Head title={t("PageTitle")} description={t("PageDescription")} />
+        <Head
+          title={t("PageTitle")}
+          description={t("PageDescription")}
+          path="/"
+          locale={locale}
+          localized
+        />
       </Layout.Head>
       <Layout.AdventAnnounce>
         <AdventAnnounce locale={locale} />

@@ -51,7 +51,7 @@ const EditorPage = ({ filename, config }: IEditorPage) => {
   return (
     <Layout banner={false}>
       <Layout.Head>
-        <Head title={filename} />
+        <Head title={filename} noindex />
         <Script
           id="doc-editor"
           src={`${CONFIG.docEditorUrl}/web-apps/apps/api/documents/api.js`}

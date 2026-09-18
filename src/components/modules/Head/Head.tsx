@@ -28,108 +28,84 @@
 
 import NextHead from "next/head";
 import { IHead } from "./Head.types";
-import { languages } from "@src/config/languages";
+import { FAVICONS, PRELOADED_FONTS } from "./Head.data";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
+import {
+  getCanonicalUrl,
+  buildHreflangs,
+  DEFAULT_LOCALE,
+} from "@src/utils/seoUrl";
 
-const Head = ({ title, description }: IHead) => {
+const Head = ({
+  title,
+  description,
+  path,
+  locale = DEFAULT_LOCALE,
+  noindex = false,
+  localized = false,
+}: IHead) => {
+  const canonical = getCanonicalUrl(path, locale);
+  const hreflangs = buildHreflangs(path, localized && !noindex);
+
   return (
     <NextHead>
-      <title>{title}</title>
       <meta charSet="utf-8" />
-      <meta property="og:type" content="website" />
-      <meta id="ctl00_MetaTitleOG" property="og:title" content={title} />
-      <meta
-        id="ctl00_MetaDescriptionOG"
-        property="og:description"
-        content={description}
-      />
-      <meta property="og:url" content={process.env.NEXT_PUBLIC_SITE_URL} />
-      <meta
-        id="ctl00_MetaImageOG"
-        property="og:image"
-        content="https://static.onlyoffice.com/studio/tag/personal.11.5.3/skins/default/images/logo/fb_icon_325x325.jpg"
-      />
-      <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=3, shrink-to-fit=no, viewport-fit=cover"
-      />
-      <meta id="ctl00_MetaKeywords" name="keywords" content={title} />
-      <meta name="description" content={description} />
+      {title && <title>{title}</title>}
+      {description && <meta name="description" content={description} />}
       <meta name="google" content="notranslate" />
 
-      {[
-        "/fonts/Sora/Sora-Regular.woff2",
-        "/fonts/Sora/Sora-SemiBold.woff2",
-        "/fonts/Sora/Sora-Bold.woff2",
-      ].map((font) => (
+      {PRELOADED_FONTS.map((font) => (
         <link
           key={font}
           rel="preload"
-          href={getAssetUrl(font)}
+          href={font}
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
       ))}
 
-      <link
-        rel="shortcut icon"
-        sizes="16x16"
-        href={getAssetUrl("/images/logo/favicons/favicon.png")}
-        type="image/png"
-      />
-      <link
-        rel="shortcut icon"
-        sizes="32x32"
-        href={getAssetUrl("/images/logo/favicons/favicon32.png")}
-        type="image/png"
-      />
-      <link
-        rel="shortcut icon"
-        sizes="64x64"
-        href={getAssetUrl("/images/logo/favicons/favicon64.png")}
-        type="image/png"
-      />
-      <link
-        rel="icon"
-        sizes="96x96"
-        href={getAssetUrl("/images/logo/favicons/favicon.ico")}
-        type="image/x-icon"
-      />
-      <link
-        rel="apple-touch-icon"
-        sizes="150x150"
-        href={getAssetUrl("/images/logo/favicons/apple150.png")}
-        type="image/png"
-      />
-      <link
-        rel="apple-touch-icon"
-        sizes="310x310"
-        href={getAssetUrl("/images/logo/favicons/apple310.png")}
-        type="image/png"
-      />
-      <link
-        rel="apple-touch-icon"
-        sizes="325x325"
-        href={getAssetUrl("/images/logo/favicons/apple325.png")}
-        type="image/png"
-      />
+      {noindex ? (
+        <meta name="robots" content="noindex, follow" />
+      ) : (
+        <meta name="robots" content="max-snippet:-1, max-image-preview:large" />
+      )}
 
-      {languages.map((lng) => {
-        const { key, shortKey } = lng;
-        const href = `${process.env.NEXT_PUBLIC_SITE_URL}${shortKey === "en" ? "" : `/${shortKey}`}`;
+      {!noindex && (
+        <>
+          {canonical && <link rel="canonical" href={canonical} />}
 
-        return (
-          <link key={key} rel="alternate" hrefLang={shortKey} href={href} />
-        );
-      })}
-      <link
-        rel="alternate"
-        hrefLang="x-default"
-        href={process.env.NEXT_PUBLIC_SITE_URL}
-      />
+          <meta property="og:type" content="website" />
+          {title && <meta property="og:title" content={title} />}
+          {description && (
+            <meta property="og:description" content={description} />
+          )}
+          {canonical && <meta property="og:url" content={canonical} />}
+          <meta
+            property="og:image"
+            content={getAssetUrl("/images/logo/logo-325x325.jpg")}
+          />
+        </>
+      )}
+
+      {hreflangs.map(({ hrefLang, href }) => (
+        <link
+          key={`alternate-${hrefLang}`}
+          rel="alternate"
+          hrefLang={hrefLang}
+          href={href}
+        />
+      ))}
+
+      {FAVICONS.map(({ rel, sizes, href, type }) => (
+        <link
+          key={`${rel}-${sizes}`}
+          rel={rel}
+          sizes={sizes}
+          href={getAssetUrl(href)}
+          type={type}
+        />
+      ))}
     </NextHead>
   );
 };

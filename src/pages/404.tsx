@@ -42,7 +42,11 @@ const Error404Page = ({ locale }: ILocale) => {
   return (
     <Layout banner={false}>
       <Layout.Head>
-        <Head title={t("PageTitle")} description={t("PageDescription")} />
+        <Head
+          title={t("PageTitle")}
+          description={t("PageDescription")}
+          noindex
+        />
       </Layout.Head>
       <Layout.AdventAnnounce>
         <AdventAnnounce locale={locale} />
