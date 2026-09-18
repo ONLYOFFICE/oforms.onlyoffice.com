@@ -36,6 +36,8 @@ import { getAssetUrl } from "@src/utils/getAssetUrl";
 import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { getSelectedCountries, localeCountry } from "@src/utils/localeCountry";
 import { isRtlLocale } from "@src/utils/rtl";
+import { useTemplateFilters } from "@src/lib/hooks/useTemplateFilters";
+import { FILTER_KEYS, toggleFilterValue } from "@src/utils/queryFilters";
 import { ISidebar } from "./Sidebar.types";
 import styles from "./Sidebar.module.scss";
 
@@ -49,22 +51,25 @@ const Sidebar = ({
   xlsxForms,
   pptxForms,
   pdfForms,
-  selectedType,
   selectedCategory,
 }: ISidebar) => {
   const { t } = useTranslation("MainTemplate");
   const router = useRouter();
 
-  const isSearchResult = router.pathname === "/searchresult";
-  const isSlug = router.pathname === "/[slug]";
-  const redirectsToHome = isSearchResult || isSlug;
+  const countryCodes = countries.map((country) => country.code.toLowerCase());
+
+  const { filters, toggle, select, setPurpose, clearAll, apply } =
+    useTemplateFilters({
+      type: ALLOWED_TYPES,
+      country: countryCodes,
+      subcategory: Object.values(categoriesByPurpose).flatMap((categories) =>
+        categories.flatMap(({ subcategories }) =>
+          subcategories.map((sub) => sub.urlReq),
+        ),
+      ),
+    });
 
   const purposeKeys = purposes.map((item) => item.key);
-  const requestedPurpose = router.query.purpose
-    ? String(router.query.purpose)
-    : undefined;
-  const isValidPurpose = (value: string | undefined): value is string =>
-    !!value && purposeKeys.includes(value);
 
   const categoryPurpose = selectedCategory
     ? Object.entries(categoriesByPurpose).find(([, categories]) =>
@@ -72,61 +77,14 @@ const Sidebar = ({
       )?.[0]
     : undefined;
 
-  const selectedPurpose = isValidPurpose(requestedPurpose)
-    ? requestedPurpose
-    : (categoryPurpose ?? purposes[0]?.key);
-
-  const CARRIED_QUERY_KEYS = [
-    "type",
-    "country",
-    "subcategory",
-    "sort",
-    "categories-expanded",
-    "categories-opened",
-  ];
-
-  const getHomeQuery = (
-    extra: Record<string, string>,
-  ): Record<string, string> => {
-    const query: Record<string, string> = {};
-
-    const selections: Record<string, () => string[]> = {
-      type: getTypeSelection,
-      subcategory: getSubcategorySelection,
-    };
-
-    CARRIED_QUERY_KEYS.forEach((key) => {
-      const value = selections[key]?.() ?? getSelected(key);
-      if (value.length) query[key] = value.join(",");
-    });
-
-    if (isValidPurpose(requestedPurpose)) query.purpose = requestedPurpose;
-
-    return { ...query, ...extra };
-  };
+  const selectedPurpose =
+    filters.purpose && purposeKeys.includes(filters.purpose)
+      ? filters.purpose
+      : (categoryPurpose ?? purposes[0]?.key);
 
   const purposeCategories = selectedPurpose
     ? (categoriesByPurpose[selectedPurpose] ?? [])
     : [];
-
-  const getSubcategorySelection = () => {
-    const selected = getSelected("subcategory");
-    return selected.length ? selected : categorySubcategories;
-  };
-
-  const getTypeSelection = () =>
-    selectedType
-      ? Array.from(new Set([selectedType, ...getSelected("type")]))
-      : getSelected("type");
-
-  const getSelected = (key: string) => {
-    const value = router.query[key];
-    const raw = Array.isArray(value) ? value.join(",") : value;
-    return raw ? raw.split(",").filter(Boolean) : [];
-  };
-
-  const isTypeChecked = (value: string) =>
-    getSelected("type").includes(value) || selectedType === value;
 
   const typeOptions = [
     { value: "docx", label: "Documents", count: docxForms },
@@ -139,66 +97,9 @@ const Sidebar = ({
       value: type.value,
       label: t(type.label),
       count: type.count,
-      checked: isTypeChecked(type.value),
-      onChange: () => toggleTypeValue(type.value),
+      checked: filters.type.includes(type.value),
+      onChange: () => toggle("type", type.value),
     }));
-
-  const toggleQueryValue = (key: string, value: string) => {
-    const selected = getSelected(key);
-    const next = selected.includes(value)
-      ? selected.filter((item) => item !== value)
-      : [...selected, value];
-
-    const query = { ...router.query };
-    if (next.length) {
-      query[key] = next.join(",");
-    } else {
-      delete query[key];
-    }
-
-    router.push({ query }, undefined, { scroll: false, shallow: true });
-  };
-
-  const toggleTypeValue = (value: string) => {
-    const selected = getTypeSelection();
-    const next = selected.includes(value)
-      ? selected.filter((item) => item !== value)
-      : [...selected, value];
-
-    if (selectedType || isSearchResult) {
-      const query = getHomeQuery({});
-      delete query.type;
-
-      if (next.length) query.type = next.join(",");
-
-      router.push({ pathname: "/", query }, undefined, { scroll: false });
-      return;
-    }
-
-    const query = { ...router.query };
-
-    if (next.length) {
-      query.type = next.join(",");
-    } else {
-      delete query.type;
-    }
-
-    router.push({ query }, undefined, { scroll: false, shallow: true });
-  };
-
-  const selectCountryValue = (value: string) => {
-    if (selectedType || isSearchResult) {
-      const query = getHomeQuery({ country: value });
-
-      router.push({ pathname: "/", query }, undefined, { scroll: false });
-      return;
-    }
-
-    const query = { ...router.query };
-    query.country = value;
-
-    router.push({ query }, undefined, { scroll: false, shallow: true });
-  };
 
   const categorySubcategories = selectedCategory
     ? Array.from(
@@ -214,50 +115,26 @@ const Sidebar = ({
     : [];
 
   const toggleSubcategoryValue = (value: string) => {
-    if (selectedType || redirectsToHome) {
-      const selected = getSubcategorySelection();
-      const next = selected.includes(value)
-        ? selected.filter((item) => item !== value)
-        : [...selected, value];
-
-      const query = getHomeQuery({});
-      delete query.subcategory;
-
-      if (next.length) query.subcategory = next.join(",");
-
-      router.push({ pathname: "/", query }, undefined, { scroll: false });
+    if (!filters.subcategory.length && categorySubcategories.length) {
+      apply(
+        toggleFilterValue(
+          { ...filters, subcategory: categorySubcategories },
+          "subcategory",
+          value,
+        ),
+      );
       return;
     }
 
-    toggleQueryValue("subcategory", value);
-  };
-
-  const filterKeys = ["type", "country", "subcategory"];
-
-  const allowedValues: Record<string, Set<string>> = {
-    type: new Set(ALLOWED_TYPES),
-    country: new Set(countries.map((country) => country.code.toLowerCase())),
-    subcategory: new Set(
-      Object.values(categoriesByPurpose).flatMap((categories) =>
-        categories.flatMap(({ subcategories }) =>
-          subcategories.map((sub) => sub.urlReq),
-        ),
-      ),
-    ),
-  };
-
-  const getValidSelected = (key: string) => {
-    const selected = getSelected(key);
-    const allowed = allowedValues[key];
-    return allowed ? selected.filter((value) => allowed.has(value)) : selected;
+    toggle("subcategory", value);
   };
 
   const selectedCountries = getSelectedCountries(
-    getValidSelected("country"),
+    filters.country,
     router.locale,
-    countries.map((country) => country.code.toLowerCase()),
+    countryCodes,
   );
-  const selectedSubcategories = getValidSelected("subcategory");
+  const selectedSubcategories = filters.subcategory;
 
   const isSubcategoryChecked = (subcategoryUrlReq: string) =>
     selectedSubcategories.length
@@ -285,37 +162,10 @@ const Sidebar = ({
     selectedSubcategories.length || categorySubcategories.length;
 
   const totalChecked =
-    filterKeys
-      .filter((key) => key !== "country" && key !== "subcategory")
-      .reduce((sum, key) => sum + getValidSelected(key).length, 0) +
+    FILTER_KEYS.filter((key) => key !== "country" && key !== "subcategory")
+      .reduce((sum, key) => sum + filters[key].length, 0) +
     checkedCountryCount +
-    checkedCategoryCount +
-    (selectedType ? 1 : 0);
-
-  const clearedKeys = [
-    ...filterKeys,
-    "categories-opened",
-    "categories-expanded",
-  ];
-
-  const clearAllFilters = () => {
-    if (selectedType || selectedCategory) {
-      const query = getHomeQuery({});
-      clearedKeys.forEach((key) => {
-        delete query[key];
-      });
-
-      router.push({ pathname: "/", query }, undefined, { scroll: false });
-      return;
-    }
-
-    const query = { ...router.query };
-    clearedKeys.forEach((key) => {
-      delete query[key];
-    });
-
-    router.push({ query }, undefined, { scroll: false, shallow: true });
-  };
+    checkedCategoryCount;
 
   return (
     <aside className={clsx(styles.sidebar, isOpen && styles["sidebar-open"])}>
@@ -364,7 +214,7 @@ const Sidebar = ({
                       country.code.toLowerCase(),
                     ),
                     onChange: () =>
-                      selectCountryValue(country.code.toLowerCase()),
+                      select("country", country.code.toLowerCase()),
                   })),
                 },
                 {
@@ -379,14 +229,7 @@ const Sidebar = ({
                     value: item.key,
                     label: item.name,
                     checked: selectedPurpose === item.key,
-                    onChange: () =>
-                      router.push(
-                        {
-                          query: { ...router.query, purpose: item.key },
-                        },
-                        undefined,
-                        { scroll: false, shallow: true },
-                      ),
+                    onChange: () => setPurpose(item.key),
                   })),
                 },
                 {
@@ -420,7 +263,7 @@ const Sidebar = ({
               <button
                 type="button"
                 className={styles["sidebar-clear-btn"]}
-                onClick={clearAllFilters}
+                onClick={clearAll}
               >
                 {t("ClearAllFilters")} ({totalChecked})
               </button>

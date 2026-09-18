@@ -51,7 +51,6 @@ const Main = ({
   categoriesByPurpose,
   totalCount,
   initialFormNames,
-  selectedType,
   selectedCategory,
   searchOnly,
 }: IMain) => {
@@ -115,7 +114,6 @@ const Main = ({
             xlsxForms={xlsxForms}
             pptxForms={pptxForms}
             pdfForms={pdfForms}
-            selectedType={selectedType}
             selectedCategory={selectedCategory}
           />
 

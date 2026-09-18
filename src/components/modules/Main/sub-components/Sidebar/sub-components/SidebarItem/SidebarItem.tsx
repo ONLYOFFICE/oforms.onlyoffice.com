@@ -33,12 +33,15 @@ import clsx from "clsx";
 import { ChevronDownIcon } from "@src/components/icons";
 import { Badge } from "@src/components/ui/Badge";
 import { Switch } from "@src/components/ui/Switch";
+import {
+  COLLAPSE_QUERY_PARAM,
+  EXPAND_QUERY_PARAM,
+  parseQueryList,
+} from "@src/utils/queryFilters";
 import { ISidebarItem } from "./SidebarItem.types";
 import styles from "./SidebarItem.module.scss";
 
 const VISIBLE_OPTIONS_LIMIT = 3;
-const COLLAPSE_QUERY_PARAM = "categories-opened";
-const EXPAND_QUERY_PARAM = "categories-expanded";
 
 const SidebarItem = ({
   heading,
@@ -55,9 +58,6 @@ const SidebarItem = ({
 }: ISidebarItem) => {
   const { t } = useTranslation("MainTemplate");
   const router = useRouter();
-
-  const parseQueryList = (param: string | string[] | undefined) =>
-    param ? String(param).split(",").filter(Boolean) : [];
 
   const [isOpenState, setIsOpen] = useState(defaultOpen);
 

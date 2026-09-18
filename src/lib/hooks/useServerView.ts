@@ -27,12 +27,20 @@
  */
 
 import { useRouter } from "next/router";
-import { getQueryValues } from "@src/utils/helpers";
+import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
+import {
+  FILTER_KEYS,
+  parseFilters,
+  TAllowedValues,
+  TRawQuery,
+} from "@src/utils/queryFilters";
 import { useFetchedState } from "./useFetchedState";
+
+const ALLOWED_VALUES: TAllowedValues = { type: ALLOWED_TYPES };
 
 const buildViewQuery = (
   locale: string,
-  query: ReturnType<typeof useRouter>["query"],
+  query: TRawQuery,
   extra?: Record<string, string | undefined>,
 ) => {
   const params = new URLSearchParams();
@@ -42,13 +50,14 @@ const buildViewQuery = (
     if (value) params.set(name, value);
   });
 
-  (["type", "country", "subcategory"] as const).forEach((name) => {
-    const values = getQueryValues(query[name]);
-    if (values.length) params.set(name, [...values].sort().join(","));
+  const filters = parseFilters(query, ALLOWED_VALUES);
+
+  FILTER_KEYS.forEach((name) => {
+    const values = filters[name];
+    if (values.length) params.set(name, values.join(","));
   });
 
-  const sort = Array.isArray(query.sort) ? query.sort[0] : query.sort;
-  if (sort) params.set("sort", sort);
+  if (query.sort) params.set("sort", filters.sort);
 
   return params.toString();
 };

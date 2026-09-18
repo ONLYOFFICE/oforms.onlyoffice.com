@@ -26,7 +26,6 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { TAllowedTypes } from "@src/utils/allowedTypes";
 import { TFormNames } from "@src/lib/server/mainView.types";
 
 interface ISubcategoryNode {
@@ -69,7 +68,6 @@ export interface IMain {
   categoriesByPurpose: Record<string, ICategoryTree[]>;
   totalCount: number;
   initialFormNames: TFormNames;
-  selectedType?: TAllowedTypes;
   selectedCategory?: string;
   searchOnly?: boolean;
 }

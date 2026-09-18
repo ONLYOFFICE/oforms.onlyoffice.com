@@ -26,34 +26,48 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { ICategoryTree } from "@src/components/modules/Main/Main.types";
+import { useRouter } from "next/router";
+import { resolveFilterTarget } from "@src/utils/filterNavigation";
+import {
+  clearFilters,
+  ITemplateFilters,
+  parseFilters,
+  setFilterValue,
+  TAllowedValues,
+  TFilterKey,
+  toggleFilterValue,
+} from "@src/utils/queryFilters";
 
-interface IPurpose {
-  id: number;
-  documentId: string;
-  name: string;
-  key: string;
+interface IUseTemplateFilters {
+  filters: ITemplateFilters;
+  toggle: (key: TFilterKey, value: string) => void;
+  select: (key: TFilterKey, value: string) => void;
+  setPurpose: (purpose: string) => void;
+  clearAll: () => void;
+  apply: (next: ITemplateFilters) => void;
 }
 
-interface ICountry {
-  name: string;
-  code: string;
-  count: number;
-}
+export const useTemplateFilters = (
+  allowed: TAllowedValues = {},
+): IUseTemplateFilters => {
+  const router = useRouter();
+  const filters = parseFilters(router.query, allowed);
 
-type TPurposeData = IPurpose[];
+  const apply = (next: ITemplateFilters) => {
+    const { pathname, query, shallow } = resolveFilterTarget(
+      router.pathname,
+      next,
+    );
 
-type TCountryData = ICountry[];
+    router.push({ pathname, query }, undefined, { scroll: false, shallow });
+  };
 
-export interface ISidebar {
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-  countries: TCountryData;
-  purposes: TPurposeData;
-  categoriesByPurpose: Record<string, ICategoryTree[]>;
-  docxForms: number;
-  xlsxForms: number;
-  pptxForms: number;
-  pdfForms: number;
-  selectedCategory?: string;
-}
+  return {
+    filters,
+    apply,
+    toggle: (key, value) => apply(toggleFilterValue(filters, key, value)),
+    select: (key, value) => apply(setFilterValue(filters, key, value)),
+    setPurpose: (purpose) => apply({ ...filters, purpose }),
+    clearAll: () => apply(clearFilters(filters)),
+  };
+};

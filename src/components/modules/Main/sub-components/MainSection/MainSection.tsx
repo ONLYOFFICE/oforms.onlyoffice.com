@@ -31,6 +31,11 @@ import { useRouter } from "next/router";
 import { Heading } from "@src/components/ui/Heading";
 import { Link } from "@src/components/ui/Link";
 import { Card } from "@src/components/widgets/Card";
+import {
+  COLLAPSE_QUERY_PARAM,
+  EXPAND_QUERY_PARAM,
+  parseQueryList,
+} from "@src/utils/queryFilters";
 import { appendQueryParams } from "./MainSection.utils";
 import { IMainSection } from "./MainSection.types";
 import styles from "./MainSection.module.scss";
@@ -46,17 +51,15 @@ const MainSection = ({
   const openedCategories = href
     ? Array.from(
         new Set([
-          ...String(router.query["categories-opened"] ?? "")
-            .split(",")
-            .filter(Boolean),
+          ...parseQueryList(router.query[COLLAPSE_QUERY_PARAM]),
           `category-${href}`,
         ]),
       ).join(",")
-    : router.query["categories-opened"];
+    : router.query[COLLAPSE_QUERY_PARAM];
 
   const hrefWithOpened = appendQueryParams(href, {
-    "categories-expanded": router.query["categories-expanded"],
-    "categories-opened": openedCategories,
+    [EXPAND_QUERY_PARAM]: router.query[EXPAND_QUERY_PARAM],
+    [COLLAPSE_QUERY_PARAM]: openedCategories,
     purpose: router.query.purpose,
     country: router.query.country,
   });

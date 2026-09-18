@@ -26,34 +26,28 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { ICategoryTree } from "@src/components/modules/Main/Main.types";
+import { ITemplateFilters, serializeFilters } from "@src/utils/queryFilters";
 
-interface IPurpose {
-  id: number;
-  documentId: string;
-  name: string;
-  key: string;
+export const HOME_PATHNAME = "/";
+export const SEARCH_PATHNAME = "/searchresult";
+export const CATEGORY_PATHNAME = "/[slug]";
+
+export interface IFilterTarget {
+  pathname: string;
+  query: Record<string, string>;
+  shallow: boolean;
 }
 
-interface ICountry {
-  name: string;
-  code: string;
-  count: number;
-}
+export const redirectsToHome = (pathname: string): boolean =>
+  pathname === SEARCH_PATHNAME || pathname === CATEGORY_PATHNAME;
 
-type TPurposeData = IPurpose[];
+export const resolveFilterTarget = (
+  pathname: string,
+  filters: ITemplateFilters,
+): IFilterTarget => {
+  const query = serializeFilters(filters);
 
-type TCountryData = ICountry[];
-
-export interface ISidebar {
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-  countries: TCountryData;
-  purposes: TPurposeData;
-  categoriesByPurpose: Record<string, ICategoryTree[]>;
-  docxForms: number;
-  xlsxForms: number;
-  pptxForms: number;
-  pdfForms: number;
-  selectedCategory?: string;
-}
+  return redirectsToHome(pathname)
+    ? { pathname: HOME_PATHNAME, query, shallow: false }
+    : { pathname, query, shallow: true };
+};
