@@ -61,14 +61,17 @@ const Card = ({
       }
     >
       <div className={styles["card-preview-wrapper"]}>
-        <div
-          className={styles["card-preview"]}
-          style={
-            {
-              "--card-preview-image": preview ? `url(${preview})` : "none",
-            } as React.CSSProperties
-          }
-        />
+        <div className={styles["card-preview"]}>
+          {preview && (
+            <img
+              className={styles["card-preview-image"]}
+              src={preview}
+              alt={heading}
+              loading="lazy"
+              decoding="async"
+            />
+          )}
+        </div>
         <span
           className={clsx(
             styles["card-format"],

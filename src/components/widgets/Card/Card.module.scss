@@ -66,14 +66,20 @@
 }
 
 .card-preview {
+  position: relative;
   padding-bottom: 62.44%;
   margin: 0 auto;
   width: 100%;
   max-width: 256px;
-  background-image: var(--card-preview-image);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position-x: center;
+}
+
+.card-preview-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
 }
 
 .card-format {
