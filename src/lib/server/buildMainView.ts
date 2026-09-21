@@ -70,6 +70,11 @@ const CATEGORY_SECTIONS: string[] = [
   "sales-marketing",
 ];
 
+const getAllowedTypes = (types: string[]): TAllowedTypes[] =>
+  types.filter((item): item is TAllowedTypes =>
+    ALLOWED_TYPES.includes(item as TAllowedTypes),
+  );
+
 const toCardView = (form: TFormItem): ICardView => ({
   id: form.id,
   name_form: form.name_form,
@@ -105,9 +110,7 @@ export const resolveMainFilters = (
     sort?: string | string[];
   },
 ): IMainViewFilters => {
-  const type = raw.type.filter((item): item is TAllowedTypes =>
-    ALLOWED_TYPES.includes(item),
-  );
+  const type = getAllowedTypes(raw.type);
   const country = getSelectedCountries(
     raw.country,
     raw.locale,
@@ -243,7 +246,7 @@ export const resolveCategoryFilters = (
 
   return {
     locale: raw.locale,
-    type: raw.type,
+    type: getAllowedTypes(raw.type),
     country: getSelectedCountries(
       raw.country,
       raw.locale,
@@ -348,7 +351,7 @@ export const resolveSearchFilters = (
   },
 ): IMainViewFilters => ({
   locale: raw.locale,
-  type: raw.type,
+  type: getAllowedTypes(raw.type),
   country: getSelectedCountries(
     raw.country,
     raw.locale,
