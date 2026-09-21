@@ -32,26 +32,38 @@ type Locale = ILocale["locale"];
 
 const clearers = new Set<() => void>();
 
+const DEFAULT_TTL_MS = 15 * 60 * 1000;
+
+type CacheEntry<T> = {
+  promise: Promise<T>;
+  expiresAt: number;
+};
+
 const cacheByLocale = <A extends (string | undefined)[], T>(
   fetcher: (locale: Locale, ...args: A) => Promise<T>,
+  ttlMs: number = DEFAULT_TTL_MS,
 ): ((locale: Locale, ...args: A) => Promise<T>) => {
-  const cache = new Map<string, Promise<T>>();
+  const cache = new Map<string, CacheEntry<T>>();
 
   clearers.add(() => cache.clear());
 
   return (locale: Locale, ...args: A) => {
-    const key = [locale, ...args].join(" ");
+    const key = JSON.stringify([locale, ...args]);
+    const now = Date.now();
 
     const cached = cache.get(key);
-    if (cached) return cached;
+    if (cached && cached.expiresAt > now) return cached.promise;
 
-    const promise = fetcher(locale, ...args).catch((error) => {
-      cache.delete(key);
+    const entry = { expiresAt: now + ttlMs } as CacheEntry<T>;
+
+    entry.promise = fetcher(locale, ...args).catch((error) => {
+      if (cache.get(key) === entry) cache.delete(key);
       throw error;
     });
 
-    cache.set(key, promise);
-    return promise;
+    cache.set(key, entry);
+
+    return entry.promise;
   };
 };
 
