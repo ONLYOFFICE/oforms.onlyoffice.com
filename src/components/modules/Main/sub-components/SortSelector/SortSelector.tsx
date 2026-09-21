@@ -31,6 +31,7 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import clsx from "clsx";
 import { ChevronDownIcon } from "@src/components/icons";
+import { normalizeSortKey } from "@src/utils/helpers";
 import { ISortSelector, TSortOption } from "./SortSelector.types";
 import styles from "./SortSelector.module.scss";
 
@@ -42,17 +43,15 @@ const SORT_OPTIONS: TSortOption[] = [
   { key: "name_desc", label: "Z-A" },
 ];
 
-const DEFAULT_SORT_KEY = SORT_OPTIONS[1].key;
+const DEFAULT_OPTION = SORT_OPTIONS.find(
+  (option) => option.key === normalizeSortKey(undefined),
+) as TSortOption;
 
 const SortSelector = ({ className }: ISortSelector) => {
   const { t } = useTranslation("SortSelector");
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const queryKey = Array.isArray(router.query.sort)
-    ? router.query.sort[0]
-    : router.query.sort;
-  const isValidKey = SORT_OPTIONS.some((option) => option.key === queryKey);
-  const selectedKey = isValidKey ? (queryKey as string) : DEFAULT_SORT_KEY;
+  const selectedKey = normalizeSortKey(router.query.sort);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -71,8 +70,7 @@ const SortSelector = ({ className }: ISortSelector) => {
   }, [isOpen]);
 
   const selected =
-    SORT_OPTIONS.find((option) => option.key === selectedKey) ??
-    SORT_OPTIONS[1];
+    SORT_OPTIONS.find((option) => option.key === selectedKey) ?? DEFAULT_OPTION;
 
   const handleSelect = (key: string) => {
     router.push(

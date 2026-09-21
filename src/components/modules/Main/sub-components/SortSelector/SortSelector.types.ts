@@ -26,11 +26,13 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+import { TSortKey } from "@src/utils/helpers";
+
 export interface ISortSelector {
   className?: string;
 }
 
 export type TSortOption = {
-  key: string;
+  key: TSortKey;
   label: string;
 };
