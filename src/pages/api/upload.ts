@@ -46,12 +46,17 @@ import {
   sanitizeFileName,
   EXTENSION_MIME_TYPES,
 } from "@src/utils/formSubmit";
+import { RateLimiterMemory } from "rate-limiter-flexible";
+import { enforceRateLimit } from "@src/lib/server/rateLimit";
 
 export const config = {
   api: {
     bodyParser: false,
   },
 };
+
+const LABEL = "upload";
+const RATE_LIMIT = new RateLimiterMemory({ points: 5, duration: 10 * 60 });
 
 const getLanguagePrefix = (language: string): string => {
   const isSupported = languages.some((item) => item.shortKey === language);
@@ -72,6 +77,10 @@ export default async function handler(
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  if (!(await enforceRateLimit(req, res, LABEL, RATE_LIMIT))) {
+    return;
   }
 
   const {

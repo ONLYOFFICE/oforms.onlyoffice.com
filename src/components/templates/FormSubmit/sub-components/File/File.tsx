@@ -65,6 +65,7 @@ const File = ({
   isUploading,
   setIsUploading,
   queryIndexData,
+  requestCaptchaToken,
 }: IFile) => {
   const { t } = useTranslation("form-submit");
   const [templateImages, setTemplateImages] = useState<string[] | null>(
@@ -88,16 +89,28 @@ const File = ({
 
     setError(null);
 
-    const formData = new FormData();
-    formData.append("file", selectedFile);
-
     abortControllerRef.current?.abort();
+
     const abortController = new AbortController();
     abortControllerRef.current = abortController;
 
     setIsUploading(true);
 
     try {
+      const captchaToken = await requestCaptchaToken();
+
+      if (abortController.signal.aborted) return;
+
+      if (!captchaToken) {
+        setTemplateImages(null);
+        setError(t("CaptchaVerificationFailed"));
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+      formData.append("captchaToken", captchaToken);
+
       const response = await fetch("/api/file-upload", {
         method: "POST",
         body: formData,
@@ -106,7 +119,11 @@ const File = ({
 
       if (!response.ok) {
         setTemplateImages(null);
-        setError(t("FileUploadError"));
+        setError(
+          response.status === 429
+            ? t("TooManyRequestsPleaseTryAgainLater")
+            : t("FileUploadError"),
+        );
         return;
       }
 

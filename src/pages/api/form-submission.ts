@@ -44,12 +44,17 @@ import {
   NAME_MAX_LENGTH,
   DESCRIPTION_MAX_LENGTH,
 } from "@src/components/templates/FormSubmit/FormSubmit.constants";
+import { RateLimiterMemory } from "rate-limiter-flexible";
+import { enforceRateLimit } from "@src/lib/server/rateLimit";
 
 export const config = {
   api: {
     bodyParser: false,
   },
 };
+
+const LABEL = "form-submission";
+const RATE_LIMIT = new RateLimiterMemory({ points: 5, duration: 10 * 60 });
 
 const toStringValue = (value: unknown): string =>
   typeof value === "string" ? value.trim() : "";
@@ -70,6 +75,10 @@ export default async function handler(
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  if (!(await enforceRateLimit(req, res, LABEL, RATE_LIMIT))) {
+    return;
   }
 
   const {

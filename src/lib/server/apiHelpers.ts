@@ -42,6 +42,15 @@ export const resolveLocale = (value: NextApiRequest["query"][string]) => {
   return LOCALES.includes(raw) ? raw : "en";
 };
 
+export const clientIpOf = (req: NextApiRequest): string => {
+  const forwarded = req.headers["x-forwarded-for"];
+  const firstHop = (Array.isArray(forwarded) ? forwarded[0] : forwarded)
+    ?.split(",")[0]
+    ?.trim();
+
+  return firstHop || req.socket.remoteAddress || "unknown";
+};
+
 export const isGetRequest = (
   req: NextApiRequest,
   res: NextApiResponse<{ error: string }>,

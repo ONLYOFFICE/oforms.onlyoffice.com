@@ -44,6 +44,9 @@ import {
   sanitizeFileName,
   EXTENSION_MIME_TYPES,
 } from "@src/utils/formSubmit";
+import { RateLimiterMemory } from "rate-limiter-flexible";
+import { enforceRateLimit } from "@src/lib/server/rateLimit";
+import { enforceCaptcha } from "@src/lib/server/uploadGuards";
 
 export const config = {
   api: {
@@ -52,6 +55,8 @@ export const config = {
 };
 
 const DOCSERVICE_TIMEOUT = 2 * 60 * 1000;
+const LABEL = "file-upload";
+const RATE_LIMIT = new RateLimiterMemory({ points: 10, duration: 10 * 60 });
 
 export default async function handler(
   req: NextApiRequest,
@@ -60,6 +65,10 @@ export default async function handler(
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  if (!(await enforceRateLimit(req, res, LABEL, RATE_LIMIT))) {
+    return;
   }
 
   const {
@@ -87,14 +96,20 @@ export default async function handler(
     maxFileSize: MAX_UPLOAD_FILE_SIZE,
   });
 
+  let fields;
   let files;
   try {
-    [, files] = await form.parse(req);
+    [fields, files] = await form.parse(req);
   } catch {
     return res.status(400).json({ error: "Invalid upload" });
   }
 
   const file = files.file?.[0];
+
+  if (!(await enforceCaptcha(req, res, fields, LABEL))) {
+    if (file) await fs.promises.unlink(file.filepath).catch(() => undefined);
+    return;
+  }
 
   if (!file) {
     return res.status(400).json({ error: "No file uploaded" });

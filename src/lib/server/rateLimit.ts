@@ -26,76 +26,34 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-@use "media";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { RateLimiterMemory, RateLimiterRes } from "rate-limiter-flexible";
+import { clientIpOf } from "@src/lib/server/apiHelpers";
 
-.info {
-  display: grid;
-  row-gap: 32px;
-  border: 1px solid var(--form-submit-block-border-color);
-  border-radius: 12px;
-  padding: 32px;
-  background-color: var(--form-submit-block-background-color);
+export const enforceRateLimit = async (
+  req: NextApiRequest,
+  res: NextApiResponse,
+  scope: string,
+  limiter: RateLimiterMemory,
+): Promise<boolean> => {
+  const ip = clientIpOf(req);
 
-  @include media.mobile {
-    row-gap: 22px;
-    padding: 16px;
+  try {
+    await limiter.consume(ip);
+
+    return true;
+  } catch (rejection) {
+    if (!(rejection instanceof RateLimiterRes)) {
+      console.error(`[rate-limit] ${scope} limiter error:`, rejection);
+      return true;
+    }
+
+    console.warn(`[rate-limit] ${scope} exceeded for ${ip}`);
+
+    res
+      .status(429)
+      .json({ error: "Too many requests. Please try again later." });
+
+    return false;
   }
-}
-
-.info-heading {
-  font-weight: 600;
-
-  @include media.tablet {
-    line-height: 24px;
-  }
-}
-
-.info-item-heading {
-  margin-bottom: 8px;
-
-  @include media.tablet {
-    margin-bottom: 6px;
-  }
-
-  @include media.mobile {
-    margin-bottom: 4px;
-  }
-}
-
-.info-item-required-mark {
-  color: var(--input-heading-required-mark-color);
-}
-
-.info-items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.info-nav {
-  margin-top: 32px;
-
-  @include media.mobile {
-    margin-top: 16px;
-  }
-}
-
-.info-buttons {
-  display: flex;
-  justify-content: end;
-  gap: 12px;
-
-  @include media.mobile {
-    flex-direction: column-reverse;
-    justify-content: initial;
-  }
-}
-
-.info-error {
-  margin-top: 12px;
-  text-align: right;
-
-  @include media.mobile {
-    text-align: initial;
-  }
-}
+};

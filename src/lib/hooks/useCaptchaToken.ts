@@ -26,76 +26,58 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-@use "media";
+import { useRef } from "react";
+import type ReactHCaptcha from "@hcaptcha/react-hcaptcha";
 
-.info {
-  display: grid;
-  row-gap: 32px;
-  border: 1px solid var(--form-submit-block-border-color);
-  border-radius: 12px;
-  padding: 32px;
-  background-color: var(--form-submit-block-background-color);
-
-  @include media.mobile {
-    row-gap: 22px;
-    padding: 16px;
-  }
+export interface ICaptchaProps {
+  ref: React.RefObject<ReactHCaptcha | null>;
+  onVerify: (token: string | null) => void;
+  onExpire: () => void;
+  onClose: () => void;
 }
 
-.info-heading {
-  font-weight: 600;
-
-  @include media.tablet {
-    line-height: 24px;
-  }
+export interface IUseCaptchaToken {
+  requestToken: () => Promise<string | null>;
+  resetToken: () => void;
+  captchaProps: ICaptchaProps;
 }
 
-.info-item-heading {
-  margin-bottom: 8px;
+export const useCaptchaToken = (): IUseCaptchaToken => {
+  const captchaRef = useRef<ReactHCaptcha | null>(null);
+  const resolverRef = useRef<((token: string | null) => void) | null>(null);
 
-  @include media.tablet {
-    margin-bottom: 6px;
-  }
+  const settle = (token: string | null) => {
+    const resolve = resolverRef.current;
+    resolverRef.current = null;
+    resolve?.(token);
+  };
 
-  @include media.mobile {
-    margin-bottom: 4px;
-  }
-}
+  const requestToken = async (): Promise<string | null> => {
+    const captcha = captchaRef.current;
+    if (!captcha?.isReady()) return null;
 
-.info-item-required-mark {
-  color: var(--input-heading-required-mark-color);
-}
+    settle(null);
+    captcha.resetCaptcha();
 
-.info-items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
+    return new Promise<string | null>((resolve) => {
+      resolverRef.current = resolve;
+      captcha.execute();
+    });
+  };
 
-.info-nav {
-  margin-top: 32px;
+  const resetToken = () => {
+    settle(null);
+    captchaRef.current?.resetCaptcha();
+  };
 
-  @include media.mobile {
-    margin-top: 16px;
-  }
-}
-
-.info-buttons {
-  display: flex;
-  justify-content: end;
-  gap: 12px;
-
-  @include media.mobile {
-    flex-direction: column-reverse;
-    justify-content: initial;
-  }
-}
-
-.info-error {
-  margin-top: 12px;
-  text-align: right;
-
-  @include media.mobile {
-    text-align: initial;
-  }
-}
+  return {
+    requestToken,
+    resetToken,
+    captchaProps: {
+      ref: captchaRef,
+      onVerify: settle,
+      onExpire: () => settle(null),
+      onClose: () => settle(null),
+    },
+  };
+};

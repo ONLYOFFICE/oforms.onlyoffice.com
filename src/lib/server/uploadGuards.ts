@@ -26,76 +26,32 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-@use "media";
+import type { NextApiRequest, NextApiResponse } from "next";
+import type formidable from "formidable";
+import { validateHCaptcha } from "@src/lib/validateHCaptcha";
+import { clientIpOf } from "@src/lib/server/apiHelpers";
 
-.info {
-  display: grid;
-  row-gap: 32px;
-  border: 1px solid var(--form-submit-block-border-color);
-  border-radius: 12px;
-  padding: 32px;
-  background-color: var(--form-submit-block-background-color);
+export const enforceCaptcha = async (
+  req: NextApiRequest,
+  res: NextApiResponse,
+  fields: formidable.Fields,
+  label: string,
+): Promise<boolean> => {
+  const raw = fields.captchaToken?.[0];
+  const captchaToken = typeof raw === "string" ? raw.trim() : "";
 
-  @include media.mobile {
-    row-gap: 22px;
-    padding: 16px;
-  }
-}
-
-.info-heading {
-  font-weight: 600;
-
-  @include media.tablet {
-    line-height: 24px;
-  }
-}
-
-.info-item-heading {
-  margin-bottom: 8px;
-
-  @include media.tablet {
-    margin-bottom: 6px;
+  if (!captchaToken) {
+    res.status(400).json({ error: "Captcha verification is required" });
+    return false;
   }
 
-  @include media.mobile {
-    margin-bottom: 4px;
+  const captcha = await validateHCaptcha(captchaToken, clientIpOf(req));
+
+  if (!captcha.success) {
+    console.warn(`[${label}] captcha verification failed:`, captcha.error);
+    res.status(400).json({ error: "Captcha verification failed" });
+    return false;
   }
-}
 
-.info-item-required-mark {
-  color: var(--input-heading-required-mark-color);
-}
-
-.info-items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.info-nav {
-  margin-top: 32px;
-
-  @include media.mobile {
-    margin-top: 16px;
-  }
-}
-
-.info-buttons {
-  display: flex;
-  justify-content: end;
-  gap: 12px;
-
-  @include media.mobile {
-    flex-direction: column-reverse;
-    justify-content: initial;
-  }
-}
-
-.info-error {
-  margin-top: 12px;
-  text-align: right;
-
-  @include media.mobile {
-    text-align: initial;
-  }
-}
+  return true;
+};

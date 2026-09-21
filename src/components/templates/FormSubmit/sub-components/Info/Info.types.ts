@@ -39,4 +39,6 @@ export interface IInfo {
   file: File | null;
   isUploading: boolean;
   queryIndexData: IQueryIndexData | null;
+  requestCaptchaToken: () => Promise<string | null>;
+  resetCaptcha: () => void;
 }

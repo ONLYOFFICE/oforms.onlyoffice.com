@@ -34,4 +34,5 @@ export interface IFile {
   isUploading: boolean;
   setIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
   queryIndexData: IQueryIndexData | null;
+  requestCaptchaToken: () => Promise<string | null>;
 }

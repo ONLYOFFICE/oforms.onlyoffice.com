@@ -34,6 +34,8 @@ import { Container } from "@src/components/ui/Container";
 import { Heading } from "@src/components/ui/Heading";
 import { Text } from "@src/components/ui/Text";
 import { Breadcrumbs } from "@src/components/widgets/Breadcrumbs";
+import { HCaptcha } from "@src/components/ui/HCaptcha";
+import { useCaptchaToken } from "@src/lib/hooks/useCaptchaToken";
 import { File } from "./sub-components/File";
 import { Info } from "./sub-components/Info";
 import { SubmittedSuccessfully } from "./sub-components/SubmittedSuccessfully";
@@ -49,6 +51,7 @@ const FormSubmitTemplate = ({
   const [submitted, setSubmitted] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const { requestToken, resetToken, captchaProps } = useCaptchaToken();
 
   return (
     <Section
@@ -97,6 +100,7 @@ const FormSubmitTemplate = ({
                 isUploading={isUploading}
                 setIsUploading={setIsUploading}
                 queryIndexData={queryIndexData}
+                requestCaptchaToken={requestToken}
               />
               <Info
                 countries={countries}
@@ -105,10 +109,14 @@ const FormSubmitTemplate = ({
                 file={file}
                 isUploading={isUploading}
                 queryIndexData={queryIndexData}
+                requestCaptchaToken={requestToken}
+                resetCaptcha={resetToken}
               />
             </div>
           </>
         )}
+
+        <HCaptcha {...captchaProps} />
       </Container>
     </Section>
   );
