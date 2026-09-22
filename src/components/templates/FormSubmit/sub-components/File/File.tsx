@@ -72,6 +72,7 @@ const File = ({
     queryIndexData?.templateImages ?? null,
   );
   const [error, setError] = useState<string | null>(null);
+  const [captchaError, setCaptchaError] = useState<string | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
 
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,6 +80,7 @@ const File = ({
     if (!selectedFile) return;
 
     setFile(selectedFile);
+    setCaptchaError(null);
 
     if (selectedFile.size > MAX_UPLOAD_FILE_SIZE) {
       setTemplateImages(null);
@@ -102,8 +104,10 @@ const File = ({
       if (abortController.signal.aborted) return;
 
       if (!captchaToken) {
+        setFile(null);
         setTemplateImages(null);
-        setError(t("CaptchaVerificationFailed"));
+        setError(null);
+        setCaptchaError(t("CaptchaVerificationFailed"));
         return;
       }
 
@@ -216,6 +220,16 @@ const File = ({
             </Text>
           </div>
         </label>
+      )}
+
+      {!isUploading && !templateImages && !error && captchaError && (
+        <Text
+          className={styles["file-captcha-error"]}
+          size={4}
+          color="var(--form-submit-file-upload-error-color)"
+        >
+          {captchaError}
+        </Text>
       )}
 
       {(isUploading || templateImages || error) && (
