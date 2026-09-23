@@ -1,21 +1,39 @@
+/*
+ * (c) Copyright Ascensio System SIA 2009-2026
+ *
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms
+ * of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+ * Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+ * to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of
+ * any third-party rights.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY, without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see
+ * the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ *
+ * The  interactive user interfaces in modified source and object code versions of the Program must
+ * display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ *
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when
+ * distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under
+ * trademark law for use of our trademarks.
+ *
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+ * content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+ * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ */
+
 export const POPULAR_SEARCH = {
-  en: ["Business card", "Invoice", "Report", "Resume"],
-  fr: ["Certificat", "Commercial", "Liste de contrôle", "Recette"],
-  de: ["Krankmeldung", "Datenschutzerklärung", "Arbeitsvertrags", "Essensplan"],
-  es: [
-    "Carta de baja voluntaria",
-    "Pacto de socios",
-    "Bingo",
-    "Objetivos SMART",
-  ],
-  pt: [
-    "Lista de compras",
-    "Rota de viagem",
-    "Modello obiettivo SMART",
-    "Pianificatore di allenamento",
-  ],
-  it: ["Autocertificazione", "Accordo", "Lista di controllo", "Di ricetta"],
-  ja: ["旅行費用予算", "買い物リスト ", "遺産分割協議書", "ビンゴ"],
-  zh: ["SMART目标表单", "旅行行程安排表单", "购物清单", "食材采购清单"],
-  ar: ["Business card", "Invoice", "Report", "Resume"],
+  us: ["Resume", "Invoice", "Certificate", "Planner"],
+  fr: ["CV", "Facture", "Certificat", "Planificateur"],
+  de: ["Lebenslauf", "Rechnung", "Zertifikat", "Wochenplan"],
+  es: ["Currículum", "Factura", "Certificado", "Planificador"],
+  br: ["Currículo", "Fatura", "Certificado", "Planejador"],
+  it: ["Curriculum vitae", "Contratto", "Certificato", "Pianificatore"],
+  jp: ["SWOT分析", "業績証明書", "ギフトカード", "旅行プランナー"],
+  cn: ["简历", "发票", "证书", "合同"],
+  sa: ["السيرة الذاتية", "رمضان", "رسالة تقديم", "بطاقة تهنئة"],
 };

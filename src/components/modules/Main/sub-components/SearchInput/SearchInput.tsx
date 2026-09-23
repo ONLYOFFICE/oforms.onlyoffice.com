@@ -41,6 +41,7 @@ import { Heading } from "@src/components/ui/Heading";
 import { Link } from "@src/components/ui/Link";
 import { SearchIcon, CrossCircleIcon, CrossIcon } from "@src/components/icons";
 import { parseQueryValue } from "@src/utils/queryFilters";
+import { localeCountry } from "@src/utils/localeCountry";
 import { POPULAR_SEARCH } from "./data/popular-search";
 import { ISearchInput } from "./SearchInput.types";
 import styles from "./SearchInput.module.scss";
@@ -221,8 +222,10 @@ const SearchInput = ({ className, formNames }: ISearchInput) => {
     }
   };
 
+  const popularCountry = country?.toLowerCase() ?? localeCountry(locale);
   const popular =
-    POPULAR_SEARCH[locale as keyof typeof POPULAR_SEARCH] ?? POPULAR_SEARCH.en;
+    POPULAR_SEARCH[popularCountry as keyof typeof POPULAR_SEARCH] ??
+    POPULAR_SEARCH.us;
 
   return (
     <div
