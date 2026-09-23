@@ -72,15 +72,18 @@ const CookieBanner = () => {
         return;
       }
 
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}/api/ip-geolocation`,
-      );
-      const data = await res.json();
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}/api/ip-geolocation`,
+        );
+        if (!res.ok) return;
 
-      if (!res.ok || !data) return;
+        const data = await res.json();
+        if (!data) return;
 
-      setIPGeolocationInfo(data);
-      sessionStorage.setItem("IPGeolocationInfo", JSON.stringify(data));
+        setIPGeolocationInfo(data);
+        sessionStorage.setItem("IPGeolocationInfo", JSON.stringify(data));
+      } catch {}
     })();
   }, []);
 
