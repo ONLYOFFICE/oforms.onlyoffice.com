@@ -152,7 +152,7 @@ export const createStrapiEntry = async (
   { token, label }: { token: string; label: string },
 ): Promise<number> => {
   const response = await fetch(
-    `${CONFIG.api.cmsUpload}/api/oforms?status=draft`,
+    `${CONFIG.api.cmsUpload}/api/oforms?status=draft&locale=${encodeURIComponent(fields.locale)}`,
     {
       method: "POST",
       headers: {
@@ -165,7 +165,6 @@ export const createStrapiEntry = async (
           template_desc: fields.description,
           countries: { connect: fields.countries },
           subcategories: { connect: fields.subcategories },
-          locale: fields.locale,
         },
       }),
     },
