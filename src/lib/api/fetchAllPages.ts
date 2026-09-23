@@ -26,32 +26,43 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import CONFIG from "@src/config/config.json";
-import { CMS_PAGE_SIZE, fetchAllPages } from "@src/lib/api/fetchAllPages";
-import { ILocale } from "@src/types/locale";
-import { IFormsData } from "@src/types/data";
-import { cmsLocale } from "@src/utils/cmsLocale";
+import { apiRequest } from "@src/lib/api/apiRequest";
 
-const buildUrl = (locale: ILocale["locale"], page: number) => {
-  const params = [
-    `locale=${cmsLocale(locale)}`,
-    `pagination[page]=${page}`,
-    `pagination[pageSize]=${CMS_PAGE_SIZE}`,
-    "fields[0]=url",
-  ]
-    .filter(Boolean)
-    .join("&");
+export const CMS_PAGE_SIZE = 1000;
 
-  return `${CONFIG.api.cms}/api/oforms?${params}`;
+type TPaginated = {
+  data: unknown[];
+  meta: { pagination?: { pageCount: number } };
 };
 
-const getAllFormUrls = (
-  locale: ILocale["locale"],
-  signal?: AbortSignal,
-): Promise<IFormsData> =>
-  fetchAllPages<IFormsData>((page) => buildUrl(locale, page), {
-    label: "getAllFormUrls",
-    signal,
-  });
+export const fetchAllPages = async <T extends TPaginated>(
+  buildUrl: (page: number) => string,
+  { label, signal }: { label: string; signal?: AbortSignal },
+): Promise<T> => {
+  const firstPageRes = await apiRequest(buildUrl(1), { label, signal });
+  const firstPage: T = await firstPageRes.json();
 
-export { getAllFormUrls };
+  const pageCount = firstPage.meta.pagination?.pageCount ?? 1;
+
+  if (pageCount <= 1) return firstPage;
+
+  const restPages = await Promise.all(
+    Array.from({ length: pageCount - 1 }, async (_, index) => {
+      const page = index + 2;
+      const res = await apiRequest(buildUrl(page), {
+        label: `${label} (page ${page})`,
+        signal,
+      });
+
+      return (await res.json()) as T;
+    }),
+  );
+
+  return {
+    ...firstPage,
+    data: restPages.reduce(
+      (all, page) => all.concat(page.data),
+      [...firstPage.data],
+    ),
+  };
+};

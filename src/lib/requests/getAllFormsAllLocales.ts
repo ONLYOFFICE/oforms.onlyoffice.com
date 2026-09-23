@@ -27,30 +27,18 @@
  */
 
 import CONFIG from "@src/config/config.json";
-import { apiRequest } from "@src/lib/api/apiRequest";
+import { CMS_PAGE_SIZE, fetchAllPages } from "@src/lib/api/fetchAllPages";
 import { cacheByLocale } from "@src/lib/api/cacheByLocale";
+import { IFormsData } from "@src/types/data";
 import { ILocale } from "@src/types/locale";
 import { cmsLocale } from "@src/utils/cmsLocale";
 import { languages } from "@src/config/languages";
-
-type TFormWithSubcategories = {
-  id: number;
-  subcategories?: {
-    name?: string;
-    urlReq?: string;
-    parent_categories?: {
-      name?: string;
-      urlReq?: string;
-      purpose?: { key: string; name?: string };
-    }[];
-  }[];
-};
 
 const buildUrl = (locale: ILocale["locale"], page: number) => {
   const params = [
     `locale=${cmsLocale(locale)}`,
     `pagination[page]=${page}`,
-    "pagination[pageSize]=1000",
+    `pagination[pageSize]=${CMS_PAGE_SIZE}`,
     "sort[0]=createdAt:desc",
     "fields[0]=name_form",
     "fields[1]=description_card",
@@ -78,32 +66,10 @@ const buildUrl = (locale: ILocale["locale"], page: number) => {
   return `${CONFIG.api.cms}/api/oforms?${params}`;
 };
 
-const fetchAllForms = async (locale: ILocale["locale"]) => {
-  const firstPageRes = await apiRequest(buildUrl(locale, 1), {
+const fetchAllForms = (locale: ILocale["locale"]) =>
+  fetchAllPages<IFormsData>((page) => buildUrl(locale, page), {
     label: "getAllForms",
   });
-  const firstPage = await firstPageRes.json();
-
-  const pageCount = firstPage.meta.pagination?.pageCount ?? 1;
-
-  if (pageCount <= 1) return firstPage;
-
-  const restPages = await Promise.all(
-    Array.from({ length: pageCount - 1 }, async (_, i) => {
-      const res = await apiRequest(buildUrl(locale, i + 2), {
-        label: `getAllForms (page ${i + 2})`,
-      });
-      return await res.json();
-    }),
-  );
-
-  const data = restPages.reduce(
-    (acc, page) => acc.concat(page.data),
-    [...firstPage.data],
-  );
-
-  return { data, meta: firstPage.meta };
-};
 
 const getFormsByLocale = cacheByLocale(fetchAllForms);
 
@@ -126,7 +92,7 @@ const buildAllLocales = async (locale: ILocale["locale"]) => {
   const currentForms =
     results.find((result) => result.locale === locale)?.data ?? [];
 
-  currentForms.forEach((form: TFormWithSubcategories) => {
+  currentForms.forEach((form) => {
     form.subcategories?.filter(Boolean).forEach((sub) => {
       if (sub.urlReq && sub.name) localeNames.set(sub.urlReq, sub.name);
       sub.parent_categories?.filter(Boolean).forEach((category) => {
@@ -151,12 +117,12 @@ const buildAllLocales = async (locale: ILocale["locale"]) => {
   const seen = new Set<number>();
   const data = results.flatMap(({ locale: formLocale, data: forms }) =>
     forms
-      .filter((form: { id: number }) => {
+      .filter((form) => {
         if (seen.has(form.id)) return false;
         seen.add(form.id);
         return true;
       })
-      .map((form: TFormWithSubcategories) => {
+      .map((form) => {
         if (formLocale === locale) return { ...form, locale: formLocale };
 
         return {

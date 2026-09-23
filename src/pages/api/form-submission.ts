@@ -29,23 +29,17 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import fs from "fs";
 import formidable from "formidable";
-import nodemailer from "nodemailer";
-import CONFIG from "@src/config/config.json";
-import { cmsLocale } from "@src/utils/cmsLocale";
-import { ILocale } from "@src/types/locale";
-import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
-import { validateHCaptcha } from "@src/lib/validateHCaptcha";
-import {
-  MAX_UPLOAD_FILE_SIZE,
-  sanitizeFileName,
-  EXTENSION_MIME_TYPES,
-} from "@src/utils/formSubmit";
-import {
-  NAME_MAX_LENGTH,
-  DESCRIPTION_MAX_LENGTH,
-} from "@src/components/templates/FormSubmit/FormSubmit.constants";
+import { MAX_UPLOAD_FILE_SIZE } from "@src/utils/formSubmit";
 import { RateLimiterMemory } from "rate-limiter-flexible";
 import { enforceRateLimit } from "@src/lib/server/rateLimit";
+import { enforceCaptcha } from "@src/lib/server/uploadGuards";
+import {
+  createStrapiEntry,
+  notifyByEmail,
+  uploadToStrapi,
+  validateSubmission,
+  validateTemplateFileType,
+} from "@src/lib/server/templateSubmission";
 
 export const config = {
   api: {
@@ -55,18 +49,6 @@ export const config = {
 
 const LABEL = "form-submission";
 const RATE_LIMIT = new RateLimiterMemory({ points: 5, duration: 10 * 60 });
-
-const toStringValue = (value: unknown): string =>
-  typeof value === "string" ? value.trim() : "";
-
-const toIdList = (value: unknown): string[] =>
-  Array.isArray(value)
-    ? value.filter(
-        (item): item is string => typeof item === "string" && item.length > 0,
-      )
-    : typeof value === "string" && value.length > 0
-      ? [value]
-      : [];
 
 export default async function handler(
   req: NextApiRequest,
@@ -81,15 +63,8 @@ export default async function handler(
     return;
   }
 
-  const {
-    STRAPI_API_TOKEN,
-    EMAIL_HOST,
-    EMAIL_PORT,
-    EMAIL_AUTH_USER,
-    EMAIL_AUTH_PASSWORD,
-    EMAIL_ACCOUNT_1,
-    EMAIL_ACCOUNT_2,
-  } = process.env;
+  const { STRAPI_API_TOKEN } = process.env;
+
   if (!STRAPI_API_TOKEN) {
     return res.status(500).json({ error: "Server configuration error" });
   }
@@ -110,170 +85,47 @@ export default async function handler(
   const file = files.file?.[0];
 
   try {
-    const name = toStringValue(fields.name?.[0]);
-    const description = toStringValue(fields.description?.[0]);
-    const countries = toIdList(fields.countries);
-    const subcategories = toIdList(fields.subcategories);
-    const captchaToken = toStringValue(fields.captchaToken?.[0]);
-    const locale = cmsLocale(
-      toStringValue(fields.languageKey?.[0]) as ILocale["locale"],
-    );
-
-    if (!captchaToken) {
-      return res
-        .status(400)
-        .json({ error: "Captcha verification is required" });
+    if (!(await enforceCaptcha(req, res, fields, LABEL))) {
+      return;
     }
 
-    const ip =
-      (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() ||
-      req.socket.remoteAddress ||
-      null;
+    const validated = validateSubmission(fields);
 
-    const captcha = await validateHCaptcha(captchaToken, ip);
-
-    if (!captcha.success) {
-      return res.status(400).json({ error: "Captcha verification failed" });
-    }
-
-    if (!name) {
-      return res.status(400).json({ error: "Template name is required" });
-    }
-    if (name.length > NAME_MAX_LENGTH) {
-      return res.status(400).json({
-        error: `Template name must be at most ${NAME_MAX_LENGTH} characters`,
+    if ("error" in validated) {
+      return res.status(validated.error.status).json({
+        error: validated.error.error,
       });
-    }
-    if (!description) {
-      return res
-        .status(400)
-        .json({ error: "Template description is required" });
-    }
-    if (description.length > DESCRIPTION_MAX_LENGTH) {
-      return res.status(400).json({
-        error: `Template description must be at most ${DESCRIPTION_MAX_LENGTH} characters`,
-      });
-    }
-    if (countries.length === 0) {
-      return res
-        .status(400)
-        .json({ error: "At least one country is required" });
-    }
-    if (subcategories.length === 0) {
-      return res
-        .status(400)
-        .json({ error: "At least one subcategory is required" });
     }
 
     if (!file) {
       return res.status(400).json({ error: "Template file is required" });
     }
 
-    const fileType = file.originalFilename
-      ?.match(/\.(\w+)$/)?.[1]
-      ?.toLowerCase();
+    const fileType = validateTemplateFileType(
+      file.originalFilename,
+      file.mimetype,
+    );
 
-    if (
-      !fileType ||
-      !ALLOWED_TYPES.includes(fileType as (typeof ALLOWED_TYPES)[number]) ||
-      file.mimetype !== EXTENSION_MIME_TYPES[fileType]
-    ) {
-      return res.status(415).json({
-        error: "Invalid file format! The uploaded file is not valid.",
+    if ("error" in fileType) {
+      return res.status(fileType.error.status).json({
+        error: fileType.error.error,
       });
     }
 
-    const createResponse = await fetch(
-      `${CONFIG.api.cmsUpload}/api/oforms?status=draft`,
+    const strapi = { token: STRAPI_API_TOKEN, label: LABEL };
+    const entryId = await createStrapiEntry(validated.fields, strapi);
+
+    await uploadToStrapi(
       {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${STRAPI_API_TOKEN}`,
-        },
-        body: JSON.stringify({
-          data: {
-            name_form: name,
-            template_desc: description,
-            countries: { connect: countries },
-            subcategories: { connect: subcategories },
-            locale,
-          },
-        }),
+        buffer: await fs.promises.readFile(file.filepath),
+        name: file.originalFilename,
+        mimeType: fileType.mimeType,
       },
+      entryId,
+      strapi,
     );
 
-    const created = await createResponse.json();
-
-    if (!createResponse.ok) {
-      console.error(
-        "[form-submission] strapi error:",
-        createResponse.status,
-        JSON.stringify(created, null, 2),
-      );
-      throw new Error(
-        `Create template failed: ${createResponse.status} ${JSON.stringify(created?.error ?? created)}`,
-      );
-    }
-
-    const entryId = created?.data?.id;
-
-    if (!entryId) {
-      throw new Error("Create template failed: missing entry id in response");
-    }
-
-    const uploadData = new FormData();
-    const fileBuffer = await fs.promises.readFile(file.filepath);
-    uploadData.append(
-      "files",
-      new Blob([fileBuffer], {
-        type: file.mimetype ?? "application/octet-stream",
-      }),
-      sanitizeFileName(file.originalFilename),
-    );
-    uploadData.append("ref", "api::oform.oform");
-    uploadData.append("refId", String(entryId));
-    uploadData.append("field", "file_oform");
-
-    const uploadResponse = await fetch(`${CONFIG.api.cmsUpload}/api/upload`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${STRAPI_API_TOKEN}`,
-      },
-      body: uploadData,
-    });
-
-    if (!uploadResponse.ok) {
-      const uploadError = await uploadResponse.json().catch(() => null);
-      console.error(
-        "[form-submission] file upload error:",
-        uploadResponse.status,
-        JSON.stringify(uploadError, null, 2),
-      );
-      throw new Error(`Template file upload failed: ${uploadResponse.status}`);
-    }
-
-    if (EMAIL_HOST && EMAIL_AUTH_USER) {
-      try {
-        const transporter = nodemailer.createTransport({
-          host: EMAIL_HOST,
-          port: Number(EMAIL_PORT),
-          auth: {
-            user: EMAIL_AUTH_USER,
-            pass: EMAIL_AUTH_PASSWORD,
-          },
-        });
-
-        await transporter.sendMail({
-          from: `${process.env.NEXT_PUBLIC_SITE_URL} <${EMAIL_AUTH_USER}>`,
-          to: [EMAIL_ACCOUNT_1, EMAIL_ACCOUNT_2].filter(Boolean) as string[],
-          subject: `You have a new form from ${process.env.NEXT_PUBLIC_SITE_URL}/form-submit`,
-          text: `You have a new form from ${process.env.NEXT_PUBLIC_SITE_URL}/form-submit. Please review it.`,
-        });
-      } catch (error) {
-        console.error("[form-submission] notification email:", error);
-      }
-    }
+    await notifyByEmail(LABEL);
 
     return res.status(201).json({ success: true });
   } catch (error) {
