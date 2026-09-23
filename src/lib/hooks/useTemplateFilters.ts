@@ -27,7 +27,10 @@
  */
 
 import { useRouter } from "next/router";
-import { resolveFilterTarget } from "@src/utils/filterNavigation";
+import {
+  CATEGORY_PATHNAME,
+  resolveFilterTarget,
+} from "@src/utils/filterNavigation";
 import {
   clearFilters,
   ITemplateFilters,
@@ -52,15 +55,21 @@ export const useTemplateFilters = (
 ): IUseTemplateFilters => {
   const router = useRouter();
   const filters = parseFilters(router.query, allowed);
+  const isCategoryPage = router.pathname === CATEGORY_PATHNAME;
 
-  const apply = (next: ITemplateFilters) => {
+  const navigate = (next: ITemplateFilters, toHome = false) => {
     const { pathname, query, shallow } = resolveFilterTarget(
       router.pathname,
       next,
+      router.query,
+      { toHome },
     );
 
     router.push({ pathname, query }, undefined, { scroll: false, shallow });
   };
+
+  const apply = (next: ITemplateFilters) =>
+    navigate(next, isCategoryPage && next.subcategory.length > 0);
 
   return {
     filters,
@@ -68,6 +77,6 @@ export const useTemplateFilters = (
     toggle: (key, value) => apply(toggleFilterValue(filters, key, value)),
     select: (key, value) => apply(setFilterValue(filters, key, value)),
     setPurpose: (purpose) => apply({ ...filters, purpose }),
-    clearAll: () => apply(clearFilters(filters)),
+    clearAll: () => navigate(clearFilters(filters), isCategoryPage),
   };
 };

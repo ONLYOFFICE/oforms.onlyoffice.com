@@ -31,7 +31,7 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import clsx from "clsx";
 import { ChevronDownIcon } from "@src/components/icons";
-import { normalizeSortKey } from "@src/utils/helpers";
+import { DEFAULT_SORT_KEY, normalizeSortKey } from "@src/utils/helpers";
 import { ISortSelector, TSortOption } from "./SortSelector.types";
 import styles from "./SortSelector.module.scss";
 
@@ -44,7 +44,7 @@ const SORT_OPTIONS: TSortOption[] = [
 ];
 
 const DEFAULT_OPTION = SORT_OPTIONS.find(
-  (option) => option.key === normalizeSortKey(undefined),
+  (option) => option.key === DEFAULT_SORT_KEY,
 ) as TSortOption;
 
 const SortSelector = ({ className }: ISortSelector) => {

@@ -115,18 +115,22 @@ const Sidebar = ({
     : [];
 
   const toggleSubcategoryValue = (value: string) => {
-    if (!filters.subcategory.length && categorySubcategories.length) {
-      apply(
-        toggleFilterValue(
-          { ...filters, subcategory: categorySubcategories },
-          "subcategory",
-          value,
-        ),
-      );
+    if (!selectedCategory) {
+      toggle("subcategory", value);
       return;
     }
 
-    toggle("subcategory", value);
+    const current = filters.subcategory.length
+      ? filters
+      : { ...filters, subcategory: categorySubcategories };
+    const next = toggleFilterValue(current, "subcategory", value);
+
+    if (!next.subcategory.length) {
+      clearAll();
+      return;
+    }
+
+    apply(next);
   };
 
   const selectedCountries = getSelectedCountries(

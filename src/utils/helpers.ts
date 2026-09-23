@@ -65,11 +65,15 @@ const SORT_MAP: Record<TSortKey, string> = {
   popular: "popular_template:desc",
 };
 
+export const DEFAULT_SORT_KEY: TSortKey = "asc";
+
 export const normalizeSortKey = (
   value: string | string[] | undefined,
 ): TSortKey => {
   const raw = Array.isArray(value) ? value[0] : value;
-  return raw && Object.hasOwn(SORT_MAP, raw) ? (raw as TSortKey) : "asc";
+  return raw && Object.hasOwn(SORT_MAP, raw)
+    ? (raw as TSortKey)
+    : DEFAULT_SORT_KEY;
 };
 
 export const sortForms = (

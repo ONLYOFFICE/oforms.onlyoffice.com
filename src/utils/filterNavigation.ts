@@ -26,7 +26,12 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { ITemplateFilters, serializeFilters } from "@src/utils/queryFilters";
+import {
+  ITemplateFilters,
+  parseQueryValue,
+  serializeFilters,
+  TRawQuery,
+} from "@src/utils/queryFilters";
 
 export const HOME_PATHNAME = "/";
 export const SEARCH_PATHNAME = "/searchresult";
@@ -39,15 +44,24 @@ export interface IFilterTarget {
 }
 
 export const redirectsToHome = (pathname: string): boolean =>
-  pathname === SEARCH_PATHNAME || pathname === CATEGORY_PATHNAME;
+  pathname === SEARCH_PATHNAME;
 
 export const resolveFilterTarget = (
   pathname: string,
   filters: ITemplateFilters,
+  currentQuery: TRawQuery = {},
+  { toHome = false }: { toHome?: boolean } = {},
 ): IFilterTarget => {
   const query = serializeFilters(filters);
 
-  return redirectsToHome(pathname)
-    ? { pathname: HOME_PATHNAME, query, shallow: false }
-    : { pathname, query, shallow: true };
+  if (toHome || redirectsToHome(pathname)) {
+    return { pathname: HOME_PATHNAME, query, shallow: false };
+  }
+
+  if (pathname === CATEGORY_PATHNAME) {
+    const slug = parseQueryValue(currentQuery.slug);
+    if (slug) query.slug = slug;
+  }
+
+  return { pathname, query, shallow: true };
 };

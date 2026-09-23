@@ -26,7 +26,12 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { getQueryValues, normalizeSortKey, TSortKey } from "@src/utils/helpers";
+import {
+  DEFAULT_SORT_KEY,
+  getQueryValues,
+  normalizeSortKey,
+  TSortKey,
+} from "@src/utils/helpers";
 
 export type TQueryValue = string | string[] | undefined;
 export type TRawQuery = Record<string, TQueryValue>;
@@ -95,6 +100,7 @@ export const serializeFilters = (
   });
 
   if (filters.purpose) query.purpose = filters.purpose;
+  if (filters.sort !== DEFAULT_SORT_KEY) query.sort = filters.sort;
 
   return query;
 };
