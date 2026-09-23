@@ -68,7 +68,7 @@ const languages = [
     longKey: "中文",
   },
   {
-    key: "ar-AR",
+    key: "ar-SA",
     shortKey: "ar",
     longKey: "عربي",
   },
