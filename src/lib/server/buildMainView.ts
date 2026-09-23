@@ -48,6 +48,7 @@ import {
 import {
   ICardView,
   ICategoryView,
+  IMainFacets,
   IMainSectionView,
   IMainView,
   IMainViewFilters,
@@ -74,6 +75,44 @@ const getAllowedTypes = (types: string[]): TAllowedTypes[] =>
   types.filter((item): item is TAllowedTypes =>
     ALLOWED_TYPES.includes(item as TAllowedTypes),
   );
+
+const getCountriesWithSelected = (
+  forms: TFormItem[],
+  sourceForms: TFormItem[] | undefined,
+  selectedCountries: string[],
+  countryNames?: Record<string, string>,
+) => {
+  const countries = getCountries(forms, countryNames);
+  const missing = getCountries(sourceForms, countryNames)
+    .filter(
+      (country) =>
+        selectedCountries.includes(country.code.toLowerCase()) &&
+        !countries.some((item) => item.code === country.code),
+    )
+    .map((country) => ({ ...country, count: 0 }));
+
+  return [...countries, ...missing].sort(
+    (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+  );
+};
+
+const pickSidebarFacets = ({
+  docxForms,
+  xlsxForms,
+  pptxForms,
+  pdfForms,
+  countries,
+  purposes,
+  categoriesByPurpose,
+}: IMainFacets) => ({
+  docxForms,
+  xlsxForms,
+  pptxForms,
+  pdfForms,
+  countries,
+  purposes,
+  categoriesByPurpose,
+});
 
 const toCardView = (form: TFormItem): ICardView => ({
   id: form.id,
@@ -206,14 +245,22 @@ export const buildMainView = (
     pdf: pdfForms,
   } = groupFormsByExt(formsForTypeFilter);
 
-  const categoriesByPurpose = getCategoriesByPurpose(formsForCategoryFilter);
+  const categoriesByPurpose = getCategoriesByPurpose(formsForCategoryFilter, {
+    forms: scopedForms,
+    subcategories: selectedSubcategories,
+  });
 
   return {
     docxForms: docxForms.length,
     xlsxForms: xlsxForms.length,
     pptxForms: pptxForms.length,
     pdfForms: pdfForms.length,
-    countries: getCountries(formsForCountryFilter, countryNames),
+    countries: getCountriesWithSelected(
+      formsForCountryFilter,
+      allForms,
+      selectedCountries,
+      countryNames,
+    ),
     purposes: getPurposes(allForms).filter(
       (purpose) => categoriesByPurpose[purpose.key]?.length,
     ),
@@ -270,11 +317,6 @@ export const buildCategoryView = (
     sort,
   } = filters;
 
-  const categoryForms = allForms?.filter((form) =>
-    isInCategory(form, categoryUrlReq),
-  );
-  const countries = getCountries(categoryForms, countryNames);
-
   const localeForms = getFormsInScope(
     allForms,
     locale,
@@ -288,15 +330,6 @@ export const buildCategoryView = (
     getFilteredForms(scopedForms, { type: selectedTypes }),
     sort,
   );
-
-  const {
-    docx: docxForms,
-    xlsx: xlsxForms,
-    pptx: pptxForms,
-    pdf: pdfForms,
-  } = groupFormsByExt(scopedForms);
-
-  const categoriesByPurpose = getCategoriesByPurpose(filteredForms);
 
   const subcategoryUrlReqs = Array.from(
     new Set(
@@ -322,21 +355,56 @@ export const buildCategoryView = (
     data: data.map(toCardView),
   }));
 
-  return {
+  const result = {
     categoryUrlReq,
-    docxForms: docxForms.length,
-    xlsxForms: xlsxForms.length,
-    pptxForms: pptxForms.length,
-    pdfForms: pdfForms.length,
-    countries,
-    purposes: getPurposes(allForms).filter(
-      (purpose) => categoriesByPurpose[purpose.key]?.length,
-    ),
-    categoriesByPurpose,
     totalCount: filteredForms.length,
     popularTemplates: getPopularTemplates(filteredForms).map(toCardView),
     sections,
     isEmpty: sections.length === 0,
+  };
+
+  if (result.isEmpty) {
+    return {
+      ...result,
+      ...pickSidebarFacets(
+        buildMainView(
+          allForms,
+          { ...filters, type: [], subcategory: [] },
+          countryNames,
+        ),
+      ),
+    };
+  }
+
+  const categoryForms = allForms?.filter((form) =>
+    isInCategory(form, categoryUrlReq),
+  );
+
+  const {
+    docx: docxForms,
+    xlsx: xlsxForms,
+    pptx: pptxForms,
+    pdf: pdfForms,
+  } = groupFormsByExt(scopedForms);
+
+  const categoriesByPurpose = getCategoriesByPurpose(filteredForms);
+
+  return {
+    ...result,
+    docxForms: docxForms.length,
+    xlsxForms: xlsxForms.length,
+    pptxForms: pptxForms.length,
+    pdfForms: pdfForms.length,
+    countries: getCountriesWithSelected(
+      getFilteredForms(categoryForms, { type: selectedTypes }),
+      categoryForms,
+      selectedCountries,
+      countryNames,
+    ),
+    purposes: getPurposes(allForms).filter(
+      (purpose) => categoriesByPurpose[purpose.key]?.length,
+    ),
+    categoriesByPurpose,
   };
 };
 
@@ -361,6 +429,60 @@ export const resolveSearchFilters = (
   sort: normalizeSortKey(raw.sort),
 });
 
+const buildSearchFacets = (
+  allForms: TFormItem[] | undefined,
+  matchedForms: TFormItem[],
+  scopedMatchedForms: TFormItem[],
+  filters: IMainViewFilters,
+  countryNames?: Record<string, string>,
+) => {
+  const {
+    type: selectedTypes,
+    country: selectedCountries,
+    subcategory: selectedSubcategories,
+  } = filters;
+
+  const {
+    docx: docxForms,
+    xlsx: xlsxForms,
+    pptx: pptxForms,
+    pdf: pdfForms,
+  } = groupFormsByExt(
+    getFilteredForms(scopedMatchedForms, {
+      country: selectedCountries,
+      subcategory: selectedSubcategories,
+    }),
+  );
+
+  const categoriesByPurpose = getCategoriesByPurpose(
+    getFilteredForms(scopedMatchedForms, {
+      type: selectedTypes,
+      country: selectedCountries,
+    }),
+    { forms: scopedMatchedForms, subcategories: selectedSubcategories },
+  );
+
+  return {
+    docxForms: docxForms.length,
+    xlsxForms: xlsxForms.length,
+    pptxForms: pptxForms.length,
+    pdfForms: pdfForms.length,
+    countries: getCountriesWithSelected(
+      getFilteredForms(matchedForms, {
+        type: selectedTypes,
+        subcategory: selectedSubcategories,
+      }),
+      matchedForms,
+      selectedCountries,
+      countryNames,
+    ),
+    purposes: getPurposes(allForms).filter(
+      (purpose) => categoriesByPurpose[purpose.key]?.length,
+    ),
+    categoriesByPurpose,
+  };
+};
+
 export const buildSearchView = (
   allForms: TFormItem[] | undefined,
   searchQuery: string,
@@ -375,51 +497,73 @@ export const buildSearchView = (
     sort,
   } = filters;
 
-  const countries = getCountries(allForms, countryNames);
-
-  const localeForms = getFormsInScope(allForms, locale, selectedCountries);
-  const scopedForms = getFilteredForms(localeForms, {
-    country: selectedCountries,
-  });
-
-  const filteredForms = sortForms(scopedForms, sort);
-  const query = searchQuery.trim();
-  const foundForms = query
-    ? filteredForms.filter((form) =>
-        form.name_form.toLowerCase().includes(query.toLowerCase()),
+  const trimmedQuery = searchQuery.trim();
+  const query = trimmedQuery.toLowerCase();
+  const matchedForms = query
+    ? (allForms ?? []).filter((form) =>
+        form.name_form.toLowerCase().includes(query),
       )
     : [];
 
-  const {
-    docx: docxForms,
-    xlsx: xlsxForms,
-    pptx: pptxForms,
-    pdf: pdfForms,
-  } = groupFormsByExt(
-    getFilteredForms(localeForms, {
+  const scopedMatchedForms = getFormsInScope(
+    matchedForms,
+    locale,
+    selectedCountries,
+  );
+
+  const foundForms = sortForms(
+    getFilteredForms(scopedMatchedForms, {
+      type: selectedTypes,
       country: selectedCountries,
       subcategory: selectedSubcategories,
     }),
+    sort,
   );
+  const isEmpty = foundForms.length === 0;
+  const hasMatches =
+    !isEmpty ||
+    getFilteredForms(scopedMatchedForms, { country: selectedCountries })
+      .length > 0;
 
-  const categoriesByPurpose = getCategoriesByPurpose(
-    getFilteredForms(scopedForms, { type: selectedTypes }),
-  );
-
-  return {
-    searchQuery: query,
-    docxForms: docxForms.length,
-    xlsxForms: xlsxForms.length,
-    pptxForms: pptxForms.length,
-    pdfForms: pdfForms.length,
-    countries,
-    purposes: getPurposes(allForms).filter(
-      (purpose) => categoriesByPurpose[purpose.key]?.length,
-    ),
-    categoriesByPurpose,
+  const result = {
+    searchQuery: trimmedQuery,
     totalCount: foundForms.length,
     foundForms: foundForms.map(toCardView),
-    popularTemplates: getPopularTemplates(filteredForms).map(toCardView),
-    isEmpty: foundForms.length === 0,
+    popularTemplates: isEmpty
+      ? getPopularTemplates(
+          sortForms(
+            getFilteredForms(
+              getFormsInScope(allForms, locale, selectedCountries),
+              { country: selectedCountries },
+            ),
+            sort,
+          ),
+        ).map(toCardView)
+      : [],
+    isEmpty,
+    hasMatches,
+  };
+
+  if (!hasMatches) {
+    return {
+      ...result,
+      ...pickSidebarFacets(buildMainView(allForms, filters, countryNames)),
+    };
+  }
+
+  const facetFilters =
+    isEmpty && (selectedTypes.length || selectedSubcategories.length)
+      ? { ...filters, type: [], subcategory: [] }
+      : filters;
+
+  return {
+    ...result,
+    ...buildSearchFacets(
+      allForms,
+      matchedForms,
+      scopedMatchedForms,
+      facetFilters,
+      countryNames,
+    ),
   };
 };

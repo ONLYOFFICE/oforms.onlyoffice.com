@@ -56,4 +56,6 @@ export interface ISidebar {
   pptxForms: number;
   pdfForms: number;
   selectedCategory?: string;
+  clearFiltersVisible?: boolean;
+  redirectToHome?: boolean;
 }

@@ -53,6 +53,8 @@ const Main = ({
   initialFormNames,
   selectedCategory,
   searchOnly,
+  clearFiltersVisible,
+  redirectToHome,
 }: IMain) => {
   const { t } = useTranslation("MainTemplate");
   const [isOpen, setIsOpen] = useState(false);
@@ -115,6 +117,8 @@ const Main = ({
             pptxForms={pptxForms}
             pdfForms={pdfForms}
             selectedCategory={selectedCategory}
+            clearFiltersVisible={clearFiltersVisible}
+            redirectToHome={redirectToHome}
           />
 
           <div>

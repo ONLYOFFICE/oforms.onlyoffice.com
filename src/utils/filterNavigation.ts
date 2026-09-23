@@ -43,9 +43,6 @@ export interface IFilterTarget {
   shallow: boolean;
 }
 
-export const redirectsToHome = (pathname: string): boolean =>
-  pathname === SEARCH_PATHNAME;
-
 export const resolveFilterTarget = (
   pathname: string,
   filters: ITemplateFilters,
@@ -54,13 +51,18 @@ export const resolveFilterTarget = (
 ): IFilterTarget => {
   const query = serializeFilters(filters);
 
-  if (toHome || redirectsToHome(pathname)) {
+  if (toHome) {
     return { pathname: HOME_PATHNAME, query, shallow: false };
   }
 
   if (pathname === CATEGORY_PATHNAME) {
     const slug = parseQueryValue(currentQuery.slug);
     if (slug) query.slug = slug;
+  }
+
+  if (pathname === SEARCH_PATHNAME) {
+    const searchQuery = parseQueryValue(currentQuery.query);
+    if (searchQuery) query.query = searchQuery;
   }
 
   return { pathname, query, shallow: true };

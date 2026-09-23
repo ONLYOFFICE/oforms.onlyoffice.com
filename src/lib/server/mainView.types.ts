@@ -89,4 +89,5 @@ export interface ICategoryView extends IMainView {
 export interface ISearchView extends IMainFacets {
   searchQuery: string;
   foundForms: ICardView[];
+  hasMatches: boolean;
 }

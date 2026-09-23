@@ -65,6 +65,8 @@ const SearchResultTemplate = ({
       totalCount={view.totalCount}
       initialFormNames={initialFormNames}
       searchOnly={view.isEmpty}
+      clearFiltersVisible={view.isEmpty ? undefined : true}
+      redirectToHome={!view.hasMatches}
     >
       {!view.isEmpty ? (
         <MainSection

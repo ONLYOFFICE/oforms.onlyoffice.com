@@ -37,7 +37,7 @@ import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { getSelectedCountries, localeCountry } from "@src/utils/localeCountry";
 import { isRtlLocale } from "@src/utils/rtl";
 import { useTemplateFilters } from "@src/lib/hooks/useTemplateFilters";
-import { FILTER_KEYS, toggleFilterValue } from "@src/utils/queryFilters";
+import { toggleFilterValue } from "@src/utils/queryFilters";
 import { ISidebar } from "./Sidebar.types";
 import styles from "./Sidebar.module.scss";
 
@@ -52,6 +52,8 @@ const Sidebar = ({
   pptxForms,
   pdfForms,
   selectedCategory,
+  clearFiltersVisible,
+  redirectToHome,
 }: ISidebar) => {
   const { t } = useTranslation("MainTemplate");
   const router = useRouter();
@@ -59,15 +61,18 @@ const Sidebar = ({
   const countryCodes = countries.map((country) => country.code.toLowerCase());
 
   const { filters, toggle, select, setPurpose, clearAll, apply } =
-    useTemplateFilters({
-      type: ALLOWED_TYPES,
-      country: countryCodes,
-      subcategory: Object.values(categoriesByPurpose).flatMap((categories) =>
-        categories.flatMap(({ subcategories }) =>
-          subcategories.map((sub) => sub.urlReq),
+    useTemplateFilters(
+      {
+        type: ALLOWED_TYPES,
+        country: countryCodes,
+        subcategory: Object.values(categoriesByPurpose).flatMap((categories) =>
+          categories.flatMap(({ subcategories }) =>
+            subcategories.map((sub) => sub.urlReq),
+          ),
         ),
-      ),
-    });
+      },
+      { redirectToHome },
+    );
 
   const purposeKeys = purposes.map((item) => item.key);
 
@@ -155,21 +160,49 @@ const Sidebar = ({
       Number(isDefaultCountry(b.code)) - Number(isDefaultCountry(a.code)),
   );
 
+  const visibleCountries = sortedCountries.filter(
+    (country) => country.count > 0,
+  );
+  const visiblePurposeCategories = purposeCategories
+    .map(({ category, subcategories }) => ({
+      category,
+      subcategories: subcategories.filter((sub) => sub.count > 0),
+    }))
+    .filter(({ subcategories }) => subcategories.length > 0);
+  const visibleSubcategories = new Set(
+    Object.values(categoriesByPurpose)
+      .flat()
+      .flatMap(({ subcategories }) =>
+        subcategories.filter((sub) => sub.count > 0).map((sub) => sub.urlReq),
+      ),
+  );
+
   const isDefaultCountrySelected =
     selectedCountries.length === 1 && selectedCountries[0] === defaultCountry;
 
   const checkedCountryCount = isDefaultCountrySelected
     ? 0
-    : selectedCountries.length;
+    : selectedCountries.filter((code) =>
+        visibleCountries.some((country) => country.code.toLowerCase() === code),
+      ).length;
 
-  const checkedCategoryCount =
-    selectedSubcategories.length || categorySubcategories.length;
+  const checkedCategoryCount = selectedSubcategories.length
+    ? selectedSubcategories.filter((sub) => visibleSubcategories.has(sub))
+        .length
+    : categorySubcategories.length;
+
+  const checkedTypeCount = typeOptions.filter((type) => type.checked).length;
+
+  const hasSelectedFilters =
+    filters.type.length > 0 ||
+    filters.subcategory.length > 0 ||
+    (filters.country.length > 0 && !isDefaultCountrySelected);
 
   const totalChecked =
-    FILTER_KEYS.filter((key) => key !== "country" && key !== "subcategory")
-      .reduce((sum, key) => sum + filters[key].length, 0) +
-    checkedCountryCount +
-    checkedCategoryCount;
+    checkedTypeCount + checkedCountryCount + checkedCategoryCount;
+
+  const isClearBtnVisible =
+    clearFiltersVisible ?? (hasSelectedFilters || totalChecked > 0);
 
   return (
     <aside className={clsx(styles.sidebar, isOpen && styles["sidebar-open"])}>
@@ -199,7 +232,7 @@ const Sidebar = ({
         <div
           className={clsx(
             styles["sidebar-wrapper"],
-            totalChecked > 0 && styles["sidebar-wrapper-with-clear-btn"],
+            isClearBtnVisible && styles["sidebar-wrapper-with-clear-btn"],
           )}
         >
           <div>
@@ -210,7 +243,7 @@ const Sidebar = ({
                   text: t("ShowingSpeakingCountries"),
                   type: "radio",
                   count: checkedCountryCount,
-                  options: sortedCountries.map((country) => ({
+                  options: visibleCountries.map((country) => ({
                     value: country.code.toLowerCase(),
                     label: country.name,
                     count: country.count,
@@ -223,7 +256,7 @@ const Sidebar = ({
                 },
                 {
                   heading: t("Type"),
-                  count: typeOptions.filter((type) => type.checked).length,
+                  count: checkedTypeCount,
                   options: typeOptions,
                 },
                 {
@@ -239,7 +272,7 @@ const Sidebar = ({
                 {
                   heading: t("Сategories"),
                   count: checkedCategoryCount,
-                  categories: purposeCategories.map(
+                  categories: visiblePurposeCategories.map(
                     ({ category, subcategories }) => ({
                       heading: category.name,
                       queryKey: `category-${category.urlReq}`,
@@ -262,14 +295,15 @@ const Sidebar = ({
             ))}
           </div>
 
-          {totalChecked > 0 && (
+          {isClearBtnVisible && (
             <div className={styles["sidebar-clear-btn-wrapper"]}>
               <button
                 type="button"
                 className={styles["sidebar-clear-btn"]}
                 onClick={clearAll}
               >
-                {t("ClearAllFilters")} ({totalChecked})
+                {t("ClearAllFilters")}
+                {totalChecked > 0 && ` (${totalChecked})`}
               </button>
             </div>
           )}

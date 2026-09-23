@@ -57,8 +57,10 @@ const CategoryTemplate = ({
       categoriesByPurpose={view.categoriesByPurpose}
       totalCount={view.totalCount}
       initialFormNames={initialFormNames}
-      selectedCategory={categoryUrlReq}
+      selectedCategory={view.isEmpty ? undefined : categoryUrlReq}
       searchOnly={view.isEmpty}
+      clearFiltersVisible={view.isEmpty ? false : undefined}
+      redirectToHome={view.isEmpty}
     >
       {view.isEmpty && (
         <>

@@ -260,6 +260,7 @@ export const getFilteredForms = (
 
 export const getCategoriesByPurpose = (
   forms: TFormItem[] | undefined,
+  keep?: { forms: TFormItem[] | undefined; subcategories: string[] },
 ): Record<string, ICategoryTree[]> => {
   const subcategoryCounts: Record<string, number> = {};
   forms?.forEach((form) => {
@@ -289,39 +290,47 @@ export const getCategoriesByPurpose = (
     }
   >();
 
-  forms?.forEach((form) => {
-    form.subcategories?.filter(Boolean).forEach((sub) => {
-      sub.parent_categories?.filter(Boolean).forEach((category) => {
-        const purpose = category.purpose;
-        if (!purpose) return;
+  const keptSubcategories = new Set(keep?.subcategories);
+  const subcategories = [
+    ...(forms ?? []).flatMap((form) => form.subcategories ?? []),
+    ...(keptSubcategories.size ? (keep?.forms ?? []) : []).flatMap((form) =>
+      (form.subcategories ?? []).filter((sub) =>
+        keptSubcategories.has(sub?.urlReq),
+      ),
+    ),
+  ];
 
-        if (!purposeMap.has(purpose.key)) {
-          purposeMap.set(purpose.key, { purpose, categories: new Map() });
-        }
-        const purposeEntry = purposeMap.get(purpose.key)!;
+  subcategories.filter(Boolean).forEach((sub) => {
+    sub.parent_categories?.filter(Boolean).forEach((category) => {
+      const purpose = category.purpose;
+      if (!purpose) return;
 
-        if (!purposeEntry.categories.has(category.urlReq)) {
-          purposeEntry.categories.set(category.urlReq, {
-            node: {
-              id: category.id,
-              name: category.name,
-              urlReq: category.urlReq,
-            },
-            createdAt: category.createdAt,
-            subcategories: new Map(),
-          });
-        }
-        const categoryEntry = purposeEntry.categories.get(category.urlReq)!;
+      if (!purposeMap.has(purpose.key)) {
+        purposeMap.set(purpose.key, { purpose, categories: new Map() });
+      }
+      const purposeEntry = purposeMap.get(purpose.key)!;
 
-        categoryEntry.subcategories.set(sub.urlReq, {
+      if (!purposeEntry.categories.has(category.urlReq)) {
+        purposeEntry.categories.set(category.urlReq, {
           node: {
-            id: sub.id,
-            name: sub.name,
-            urlReq: sub.urlReq,
-            count: subcategoryCounts[sub.urlReq] ?? 0,
+            id: category.id,
+            name: category.name,
+            urlReq: category.urlReq,
           },
-          createdAt: sub.createdAt,
+          createdAt: category.createdAt,
+          subcategories: new Map(),
         });
+      }
+      const categoryEntry = purposeEntry.categories.get(category.urlReq)!;
+
+      categoryEntry.subcategories.set(sub.urlReq, {
+        node: {
+          id: sub.id,
+          name: sub.name,
+          urlReq: sub.urlReq,
+          count: subcategoryCounts[sub.urlReq] ?? 0,
+        },
+        createdAt: sub.createdAt,
       });
     });
   });

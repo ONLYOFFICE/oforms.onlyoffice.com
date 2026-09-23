@@ -70,4 +70,6 @@ export interface IMain {
   initialFormNames: TFormNames;
   selectedCategory?: string;
   searchOnly?: boolean;
+  clearFiltersVisible?: boolean;
+  redirectToHome?: boolean;
 }

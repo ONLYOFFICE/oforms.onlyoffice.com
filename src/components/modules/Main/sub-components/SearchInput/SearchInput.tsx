@@ -40,6 +40,7 @@ import { useTranslation } from "next-i18next";
 import { Heading } from "@src/components/ui/Heading";
 import { Link } from "@src/components/ui/Link";
 import { SearchIcon, CrossCircleIcon, CrossIcon } from "@src/components/icons";
+import { parseQueryValue } from "@src/utils/queryFilters";
 import { POPULAR_SEARCH } from "./data/popular-search";
 import { ISearchInput } from "./SearchInput.types";
 import styles from "./SearchInput.module.scss";
@@ -203,8 +204,13 @@ const SearchInput = ({ className, formNames }: ISearchInput) => {
     persistSearchHistory(newSearchHistory);
   };
 
-  const buildSearchHref = (value: string) =>
-    `/searchresult?query=${encodeURIComponent(value)}`;
+  const country = parseQueryValue(router.query.country);
+
+  const buildSearchHref = (value: string) => {
+    const params = new URLSearchParams({ query: value });
+    if (country) params.set("country", country);
+    return `/searchresult?${params.toString()}`;
+  };
 
   const keyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
