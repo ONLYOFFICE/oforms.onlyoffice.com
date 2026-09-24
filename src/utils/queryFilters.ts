@@ -51,7 +51,7 @@ export interface ITemplateFilters {
   sort: TSortKey;
   purpose?: string;
   expanded: string[];
-  opened: string[];
+  opened?: string[];
 }
 
 export const parseQueryList = (value: TQueryValue): string[] =>
@@ -82,7 +82,10 @@ export const parseFilters = (
   sort: normalizeSortKey(query.sort),
   purpose: parseQueryValue(query.purpose),
   expanded: parseQueryList(query[EXPAND_QUERY_PARAM]),
-  opened: parseQueryList(query[COLLAPSE_QUERY_PARAM]),
+  opened:
+    query[COLLAPSE_QUERY_PARAM] === undefined
+      ? undefined
+      : parseQueryList(query[COLLAPSE_QUERY_PARAM]),
 });
 
 export const serializeFilters = (
@@ -95,12 +98,13 @@ export const serializeFilters = (
     country: filters.country,
     subcategory: filters.subcategory,
     [EXPAND_QUERY_PARAM]: filters.expanded,
-    [COLLAPSE_QUERY_PARAM]: filters.opened,
   };
 
   Object.entries(lists).forEach(([key, values]) => {
     if (values.length) query[key] = values.join(",");
   });
+
+  if (filters.opened) query[COLLAPSE_QUERY_PARAM] = filters.opened.join(",");
 
   if (filters.purpose) query.purpose = filters.purpose;
   if (filters.sort !== DEFAULT_SORT_KEY) query.sort = filters.sort;
@@ -133,5 +137,5 @@ export const clearFilters = (filters: ITemplateFilters): ITemplateFilters => ({
   country: [],
   subcategory: [],
   expanded: [],
-  opened: [],
+  opened: undefined,
 });

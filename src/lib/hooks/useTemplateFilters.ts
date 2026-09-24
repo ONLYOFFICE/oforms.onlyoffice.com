@@ -56,31 +56,38 @@ export const useTemplateFilters = (
   { redirectToHome = false }: { redirectToHome?: boolean } = {},
 ): IUseTemplateFilters => {
   const router = useRouter();
-  const filters = parseFilters(router.query, allowed);
   const isCategoryPage = router.pathname === CATEGORY_PATHNAME;
   const isSearchPage = router.pathname === SEARCH_PATHNAME;
+  const parsed = parseFilters(router.query, allowed);
+  const filters = isCategoryPage ? { ...parsed, subcategory: [] } : parsed;
 
-  const navigate = (next: ITemplateFilters, toHome = false) => {
+  const navigate = (next: ITemplateFilters, toHome: boolean) => {
     const { pathname, query, shallow } = resolveFilterTarget(
       router.pathname,
       next,
       router.query,
-      { toHome: toHome || redirectToHome },
+      { toHome },
     );
 
     router.push({ pathname, query }, undefined, { scroll: false, shallow });
   };
 
   const apply = (next: ITemplateFilters) =>
-    navigate(next, isCategoryPage && next.subcategory.length > 0);
+    navigate(
+      next,
+      redirectToHome || (isCategoryPage && next.subcategory.length > 0),
+    );
 
   return {
     filters,
     apply,
     toggle: (key, value) => apply(toggleFilterValue(filters, key, value)),
     select: (key, value) => apply(setFilterValue(filters, key, value)),
-    setPurpose: (purpose) => apply({ ...filters, purpose }),
+    setPurpose: (purpose) => navigate({ ...filters, purpose }, false),
     clearAll: () =>
-      navigate(clearFilters(filters), isCategoryPage || isSearchPage),
+      navigate(
+        clearFilters(filters),
+        redirectToHome || isCategoryPage || isSearchPage,
+      ),
   };
 };

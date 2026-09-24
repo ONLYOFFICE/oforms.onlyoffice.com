@@ -293,6 +293,11 @@ export const getCategoriesByPurpose = (
     }
   >();
 
+  const earliest = (current: string | undefined, next: string) =>
+    current && new Date(current).getTime() <= new Date(next).getTime()
+      ? current
+      : next;
+
   const keptSubcategories = new Set(keep?.subcategories);
   const subcategories = [
     ...(forms ?? []).flatMap((form) => form.subcategories ?? []),
@@ -325,6 +330,10 @@ export const getCategoriesByPurpose = (
         });
       }
       const categoryEntry = purposeEntry.categories.get(category.urlReq)!;
+      categoryEntry.createdAt = earliest(
+        categoryEntry.createdAt,
+        category.createdAt,
+      );
 
       categoryEntry.subcategories.set(sub.urlReq, {
         node: {
@@ -333,7 +342,10 @@ export const getCategoriesByPurpose = (
           urlReq: sub.urlReq,
           count: subcategoryCounts[sub.urlReq] ?? 0,
         },
-        createdAt: sub.createdAt,
+        createdAt: earliest(
+          categoryEntry.subcategories.get(sub.urlReq)?.createdAt,
+          sub.createdAt,
+        ),
       });
     });
   });

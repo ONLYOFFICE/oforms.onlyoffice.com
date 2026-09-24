@@ -38,7 +38,6 @@ import { getSelectedCountries, localeCountry } from "@src/utils/localeCountry";
 import { isRtlLocale } from "@src/utils/rtl";
 import { useTemplateFilters } from "@src/lib/hooks/useTemplateFilters";
 import { toggleFilterValue } from "@src/utils/queryFilters";
-import { CATEGORY_PATHNAME } from "@src/utils/filterNavigation";
 import { ISidebar } from "./Sidebar.types";
 import styles from "./Sidebar.module.scss";
 
@@ -151,8 +150,7 @@ const Sidebar = ({
     router.locale,
     countryCodes,
   );
-  const selectedSubcategories =
-    router.pathname === CATEGORY_PATHNAME ? [] : filters.subcategory;
+  const selectedSubcategories = filters.subcategory;
 
   const isSubcategoryChecked = (subcategoryUrlReq: string) =>
     selectedSubcategories.length

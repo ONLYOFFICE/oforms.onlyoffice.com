@@ -60,7 +60,6 @@ const MainSection = ({
   const hrefWithOpened = appendQueryParams(href, {
     [EXPAND_QUERY_PARAM]: router.query[EXPAND_QUERY_PARAM],
     [COLLAPSE_QUERY_PARAM]: openedCategories,
-    purpose: router.query.purpose,
     country: router.query.country,
     sort: router.query.sort,
   });
