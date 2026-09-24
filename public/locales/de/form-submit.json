@@ -34,11 +34,11 @@
   "YourTemplateHasBeenReceivedAndSentForReview": "Ihre Vorlage <0>{{name_form}}</0> ist eingegangen und wurde zur Prüfung weitergeleitet. Unser Team wird sie überprüfen und sich mit Ihnen in Verbindung setzen, falls weitere Informationen erforderlich sind.",
   "WhatHappensNext": "Wie es weitergeht",
   "SubmissionReceived": "Einreichung erhalten",
-  "WeVeReceivedYourTemplate": "We’ve received your template.",
+  "WeVeReceivedYourTemplate": "Wir haben Ihre Vorlage erhalten.",
   "UnderReview": "Wird überprüft",
-  "WeReReviewingItToEnsureQualityAndCompleteness": "We’re reviewing it to ensure quality and completeness.",
-  "Publication": "Publication",
-  "YourTemplateWillBePublished": "Your template will be published as soon as the review is complete.",
+  "WeReReviewingItToEnsureQualityAndCompleteness": "Wir prüfen sie derzeit, um Qualität und Vollständigkeit sicherzustellen.",
+  "Publication": "Veröffentlichung",
+  "YourTemplateWillBePublished": "Ihre Vorlage wird veröffentlicht, sobald die Überprüfung abgeschlossen ist.",
   "SubmitAnotherTemplate": "Eine weitere Vorlage einreichen",
   "BackToTemplateGallery": "Zurück zur Vorlagengalerie"
 }
