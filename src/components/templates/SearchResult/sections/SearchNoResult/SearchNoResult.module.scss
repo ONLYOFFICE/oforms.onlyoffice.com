@@ -27,6 +27,7 @@
  */
 
 @use "media";
+@use "skeleton";
 
 .search-no-result {
   display: grid;
@@ -44,6 +45,7 @@
 
 .search-no-result-btn {
   justify-self: start;
+  @include skeleton.fill;
 
   @include media.tablet {
     justify-self: center;

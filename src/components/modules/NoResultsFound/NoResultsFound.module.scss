@@ -27,6 +27,7 @@
  */
 
 @use "media";
+@use "skeleton";
 
 .no-results-found {
   display: grid;
@@ -90,5 +91,14 @@
 .no-results-found-subtext {
   @include media.mobile {
     line-height: 20px;
+  }
+}
+
+.no-results-found-skeleton {
+  .no-results-found-img,
+  .no-results-found-heading,
+  .no-results-found-text,
+  .no-results-found-subtext {
+    @include skeleton.fill;
   }
 }

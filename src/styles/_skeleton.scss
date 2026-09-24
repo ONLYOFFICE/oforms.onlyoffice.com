@@ -26,27 +26,50 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { useRouter } from "next/router";
-import { parseQueryList } from "@src/utils/queryFilters";
-import { TFormNames } from "@src/lib/server/mainView.types";
-import { useFetchedState } from "./useFetchedState";
+@keyframes skeletonShimmer {
+  from {
+    background-position: 100% 0;
+  }
 
-export const useFormNames = (
-  initialFormNames: TFormNames,
-): { formNames: TFormNames; isLoading: boolean } => {
-  const router = useRouter();
-  const locale = router.locale ?? "en";
+  to {
+    background-position: 0 0;
+  }
+}
 
-  const country = router.isReady ? parseQueryList(router.query.country) : [];
+@mixin active {
+  :global(html[data-view-pending] .skeleton) &,
+  :global(.skeleton-active) & {
+    @content;
+  }
+}
 
-  const params = new URLSearchParams({ locale });
-  if (country.length) params.set("country", [...country].sort().join(","));
+@mixin fill {
+  @include active {
+    border-color: transparent;
+    color: transparent;
+    background: linear-gradient(
+        90deg,
+        transparent 40%,
+        var(--skeleton-shimmer-color) 50%,
+        transparent 60%
+      )
+      var(--skeleton-background-color);
+    background-size: 300% 100%;
+    box-shadow: none;
+    animation: skeletonShimmer 1.4s ease-in-out infinite;
 
-  const { value, isLoading } = useFetchedState(
-    country.length ? `/api/form-names?${params.toString()}` : null,
-    initialFormNames,
-    "[useFormNames]",
-  );
+    &:dir(rtl) {
+      animation-direction: reverse;
+    }
 
-  return { formNames: value, isLoading };
-};
+    &::before,
+    &::after,
+    * {
+      visibility: hidden;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+}

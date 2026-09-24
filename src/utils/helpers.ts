@@ -65,6 +65,7 @@ const SORT_MAP: Record<TSortKey, string> = {
   popular: "popular_template:desc",
 };
 
+export const SORT_KEYS = Object.keys(SORT_MAP) as TSortKey[];
 export const DEFAULT_SORT_KEY: TSortKey = "asc";
 
 export const normalizeSortKey = (

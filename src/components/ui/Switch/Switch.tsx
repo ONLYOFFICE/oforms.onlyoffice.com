@@ -36,6 +36,7 @@ const Switch = ({
   value,
   checked,
   disabled,
+  skeleton,
   onChange,
 }: ISwitch) => {
   return (
@@ -53,6 +54,7 @@ const Switch = ({
         className={clsx(
           styles["switch-text"],
           checked && styles["switch-checked"],
+          skeleton && styles["switch-text-skeleton"],
         )}
       >
         {children}

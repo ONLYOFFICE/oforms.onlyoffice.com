@@ -48,11 +48,17 @@ const Card = ({
   heading,
   description,
   url,
+  skeleton,
 }: ICard) => {
   return (
     <Link
       href={url ? (url.startsWith("/") ? url : `/${url}`) : "#"}
-      className={clsx(styles.card, styles[`card-${format}`], className)}
+      className={clsx(
+        styles.card,
+        styles[`card-${format}`],
+        skeleton && styles["card-skeleton"],
+        className,
+      )}
       textUnderline={false}
       style={
         {

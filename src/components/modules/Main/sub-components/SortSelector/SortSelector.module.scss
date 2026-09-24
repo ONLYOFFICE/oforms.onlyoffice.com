@@ -27,6 +27,7 @@
  */
 
 @use "media";
+@use "skeleton";
 
 .sort-selector {
   display: inline-flex;
@@ -40,6 +41,7 @@
   letter-spacing: 0.04em;
   color: var(--sort-selector-label-color);
   text-transform: uppercase;
+  @include skeleton.fill;
 
   @include media.tablet {
     margin-inline-end: 8px;
@@ -70,6 +72,7 @@
   color: var(--sort-selector-button-color);
   background-color: transparent;
   cursor: pointer;
+  @include skeleton.fill;
 
   @include media.tablet {
     padding: 0;

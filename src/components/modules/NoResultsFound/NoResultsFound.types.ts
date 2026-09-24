@@ -26,27 +26,6 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { useRouter } from "next/router";
-import { parseQueryList } from "@src/utils/queryFilters";
-import { TFormNames } from "@src/lib/server/mainView.types";
-import { useFetchedState } from "./useFetchedState";
-
-export const useFormNames = (
-  initialFormNames: TFormNames,
-): { formNames: TFormNames; isLoading: boolean } => {
-  const router = useRouter();
-  const locale = router.locale ?? "en";
-
-  const country = router.isReady ? parseQueryList(router.query.country) : [];
-
-  const params = new URLSearchParams({ locale });
-  if (country.length) params.set("country", [...country].sort().join(","));
-
-  const { value, isLoading } = useFetchedState(
-    country.length ? `/api/form-names?${params.toString()}` : null,
-    initialFormNames,
-    "[useFormNames]",
-  );
-
-  return { formNames: value, isLoading };
-};
+export interface INoResultsFound {
+  skeleton?: boolean;
+}

@@ -168,6 +168,7 @@ const SidebarItem = ({
                   count={option.count}
                   checked={option.checked}
                   onChange={option.onChange}
+                  skeleton
                   {...(isSwitch ? {} : { type })}
                 >
                   {option.label}

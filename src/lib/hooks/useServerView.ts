@@ -26,8 +26,11 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
+import { DEFAULT_SORT_KEY } from "@src/utils/helpers";
+import { clearViewPending } from "@src/utils/viewPending";
 import {
   FILTER_KEYS,
   parseFilters,
@@ -57,7 +60,7 @@ const buildViewQuery = (
     if (values.length) params.set(name, values.join(","));
   });
 
-  if (query.sort) params.set("sort", filters.sort);
+  if (filters.sort !== DEFAULT_SORT_KEY) params.set("sort", filters.sort);
 
   return params.toString();
 };
@@ -65,18 +68,32 @@ const buildViewQuery = (
 export const useServerView = <T>(
   initialView: T,
   extra?: Record<string, string | undefined>,
-): T => {
+): { view: T; isInitialLoading: boolean } => {
   const router = useRouter();
   const locale = router.locale ?? "en";
+  const [isInitial, setIsInitial] = useState(true);
 
   const initialQuery = buildViewQuery(locale, {}, { ...extra, query: "" });
   const query = router.isReady
     ? buildViewQuery(locale, router.query, extra)
     : initialQuery;
 
-  return useFetchedState(
+  const { value, isLoading } = useFetchedState(
     query === initialQuery ? null : `/api/forms?${query}`,
     initialView,
     "[useServerView]",
   );
+
+  useLayoutEffect(() => {
+    if (router.isReady) clearViewPending();
+  }, [router.isReady]);
+
+  useEffect(() => {
+    if (router.isReady && !isLoading) setIsInitial(false);
+  }, [router.isReady, isLoading]);
+
+  return {
+    view: value,
+    isInitialLoading: isInitial && isLoading,
+  };
 };

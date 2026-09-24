@@ -27,9 +27,11 @@
  */
 
 @use "media";
+@use "skeleton";
 
 .suggestions-heading {
   margin-bottom: 32px;
+  @include skeleton.fill;
 
   @include media.tablet {
     line-height: 24px;

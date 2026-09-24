@@ -27,10 +27,13 @@
  */
 
 @use "media";
+@use "skeleton";
 
 .search-input-wrapper {
   position: relative;
   width: 100%;
+  border-radius: 8px;
+  @include skeleton.fill;
 }
 
 .search-input-icon {

@@ -35,5 +35,6 @@ export interface IBadge {
   checked: boolean;
   disabled?: boolean;
   size?: "medium" | "large";
+  skeleton?: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }

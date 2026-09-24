@@ -156,6 +156,9 @@
   --sort-selector-option-color-active: #3541F5;
   --sort-selector-option-background-color-active: rgba(174, 197, 247, 0.25);
 
+  --skeleton-background-color: #e7e8ee;
+  --skeleton-shimmer-color: rgba(255, 255, 255, 0.6);
+
   --sidebar-mobile-background-color: #ffffff;
   --sidebar-scrollbar-track-background-color: #E2E2E2;
   --sidebar-scrollbar-thumb-background-color: #aaaaaa;

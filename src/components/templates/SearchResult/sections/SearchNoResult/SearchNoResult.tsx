@@ -39,7 +39,7 @@ const SearchNoResult = ({ popularTemplates }: ISearchNoResult) => {
 
   return (
     <div className={styles["search-no-result"]}>
-      <NoResultsFound />
+      <NoResultsFound skeleton />
       <Suggestions />
 
       {popularTemplates.length > 0 && (

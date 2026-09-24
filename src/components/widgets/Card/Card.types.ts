@@ -35,4 +35,5 @@ export interface ICard {
   heading: string;
   description: string;
   url: string;
+  skeleton?: boolean;
 }

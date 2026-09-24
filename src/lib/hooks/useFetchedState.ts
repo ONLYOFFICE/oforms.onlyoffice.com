@@ -26,24 +26,23 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useFetchedState = <T>(
   url: string | null,
   initialValue: T,
   label: string,
-): T => {
+): { value: T; isLoading: boolean } => {
   const [fetched, setFetched] = useState<{ value: T } | null>(null);
-  const requestId = useRef(0);
+  const [settledUrl, setSettledUrl] = useState<string | null>(null);
 
   useEffect(() => {
     if (url === null) {
-      requestId.current += 1;
       setFetched(null);
+      setSettledUrl(null);
       return;
     }
 
-    const id = ++requestId.current;
     const controller = new AbortController();
 
     fetch(url, { signal: controller.signal })
@@ -52,15 +51,21 @@ export const useFetchedState = <T>(
         return response.json();
       })
       .then((next: T) => {
-        if (id === requestId.current) setFetched({ value: next });
+        if (controller.signal.aborted) return;
+        setFetched({ value: next });
+        setSettledUrl(url);
       })
       .catch((error) => {
-        if (error instanceof Error && error.name === "AbortError") return;
+        if (controller.signal.aborted) return;
         console.error(label, error);
+        setSettledUrl(url);
       });
 
     return () => controller.abort();
   }, [url, label]);
 
-  return fetched ? fetched.value : initialValue;
+  return {
+    value: url !== null && fetched ? fetched.value : initialValue,
+    isLoading: url !== null && settledUrl !== url,
+  };
 };

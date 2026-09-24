@@ -30,6 +30,7 @@ import { useTranslation } from "next-i18next";
 import { IMainTemplate } from "./Main.types";
 import { IMainView } from "@src/lib/server/mainView.types";
 import { useServerView } from "@src/lib/hooks/useServerView";
+import { useFormNames } from "@src/lib/hooks/useFormNames";
 import { Main } from "@src/components/modules/Main";
 import { MainSection } from "@src/components/modules/Main/sub-components/MainSection";
 import { NoResultsFound } from "@src/components/modules/NoResultsFound";
@@ -38,7 +39,8 @@ import styles from "./Main.module.scss";
 
 const MainTemplate = ({ initialView, initialFormNames }: IMainTemplate) => {
   const { t } = useTranslation("MainTemplate");
-  const view = useServerView<IMainView>(initialView);
+  const { view, isInitialLoading } = useServerView<IMainView>(initialView);
+  const { formNames } = useFormNames(initialFormNames);
 
   return (
     <Main
@@ -50,7 +52,8 @@ const MainTemplate = ({ initialView, initialFormNames }: IMainTemplate) => {
       purposes={view.purposes}
       categoriesByPurpose={view.categoriesByPurpose}
       totalCount={view.totalCount}
-      initialFormNames={initialFormNames}
+      formNames={formNames}
+      isInitialLoading={isInitialLoading}
       searchOnly={view.isEmpty}
     >
       {view.isEmpty && (

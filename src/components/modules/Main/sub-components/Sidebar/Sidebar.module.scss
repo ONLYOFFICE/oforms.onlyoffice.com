@@ -28,6 +28,7 @@
 
 @use "media";
 @use "direction";
+@use "skeleton";
 
 .sidebar {
   position: sticky;
@@ -168,6 +169,7 @@
   background-color: var(--sidebar-clear-btn-background-color);
   transition: background-color 0.2s;
   cursor: pointer;
+  @include skeleton.fill;
 
   &:hover {
     background-color: var(--sidebar-clear-btn-background-color-hover);

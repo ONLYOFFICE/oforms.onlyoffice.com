@@ -82,7 +82,12 @@ const MainSection = ({
         </Link>
       ) : (
         <div className={styles["main-section-heading-link"]}>
-          <Heading level={2} size={3} color="var(--main-section-heading-color)">
+          <Heading
+            className={styles["main-section-heading"]}
+            level={2}
+            size={3}
+            color="var(--main-section-heading-color)"
+          >
             {label}
           </Heading>
         </div>
@@ -104,6 +109,7 @@ const MainSection = ({
             heading={item.name_form}
             description={item.description_card}
             url={item.url}
+            skeleton
           />
         ))}
       </div>

@@ -32,6 +32,7 @@ import { ISearchResult } from "@src/types/template";
 import { Main } from "@src/components/modules/Main";
 import { MainSection } from "@src/components/modules/Main/sub-components/MainSection";
 import { useServerView } from "@src/lib/hooks/useServerView";
+import { useFormNames } from "@src/lib/hooks/useFormNames";
 import { ISearchView } from "@src/lib/server/mainView.types";
 import { SearchNoResult } from "./sections/SearchNoResult";
 
@@ -48,10 +49,11 @@ const SearchResultTemplate = ({
       : (router.query.query ?? "")
   ).trim();
 
-  const view = useServerView<ISearchView>(initialView, {
+  const { view, isInitialLoading } = useServerView<ISearchView>(initialView, {
     view: "search",
     query: searchQuery,
   });
+  const { formNames } = useFormNames(initialFormNames);
 
   return (
     <Main
@@ -63,7 +65,9 @@ const SearchResultTemplate = ({
       purposes={view.purposes}
       categoriesByPurpose={view.categoriesByPurpose}
       totalCount={view.totalCount}
-      initialFormNames={initialFormNames}
+      formNames={formNames}
+      isInitialLoading={isInitialLoading}
+      skeleton={null}
       searchOnly={view.isEmpty}
       clearFiltersVisible={view.isEmpty ? undefined : true}
       redirectToHome={!view.hasMatches}

@@ -27,6 +27,7 @@
  */
 
 @use "media";
+@use "skeleton";
 
 .sidebar-item {
   &:not(:last-child) {
@@ -103,6 +104,7 @@
   line-height: 26px;
   color: var(--sidebar-item-header-heading-color);
   unicode-bidi: isolate;
+  @include skeleton.fill;
 
   &:not(:last-child) {
     margin-inline-end: 12px;
@@ -132,6 +134,7 @@
   height: 24px;
   background-color: var(--sidebar-item-header-count-background-color);
   unicode-bidi: isolate;
+  @include skeleton.fill;
 }
 
 .sidebar-item-header-icon {
@@ -143,10 +146,15 @@
   margin-inline-start: 8px;
   transform: translateY(-50%) rotate(0deg);
   transition: transform 0.2s;
+  @include skeleton.fill;
 }
 
 .sidebar-item-header-icon-open {
   transform: translateY(-50%) rotate(180deg);
+
+  @include skeleton.active {
+    transform: translateY(-50%);
+  }
 }
 
 .sidebar-item-text {
@@ -154,6 +162,7 @@
   font-size: 13px;
   line-height: 18px;
   color: var(--sidebar-item-text-color);
+  @include skeleton.fill;
 }
 
 .sidebar-item-options {
@@ -176,6 +185,7 @@
     background-color 0.2s,
     box-shadow 0.2s;
   cursor: pointer;
+  @include skeleton.fill;
 
   &:hover,
   &:focus-visible {
@@ -193,6 +203,7 @@
   color: var(--sidebar-item-show-less-btn-color);
   background-color: transparent;
   cursor: pointer;
+  @include skeleton.fill;
 
   &:hover,
   &:focus-visible {

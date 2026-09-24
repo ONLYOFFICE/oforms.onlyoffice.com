@@ -26,27 +26,22 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import { useRouter } from "next/router";
-import { parseQueryList } from "@src/utils/queryFilters";
-import { TFormNames } from "@src/lib/server/mainView.types";
-import { useFetchedState } from "./useFetchedState";
+import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
+import { DEFAULT_SORT_KEY, SORT_KEYS } from "@src/utils/helpers";
 
-export const useFormNames = (
-  initialFormNames: TFormNames,
-): { formNames: TFormNames; isLoading: boolean } => {
-  const router = useRouter();
-  const locale = router.locale ?? "en";
+const VIEW_PENDING_ATTRIBUTE = "data-view-pending";
 
-  const country = router.isReady ? parseQueryList(router.query.country) : [];
+const VIEW_PENDING_TIMEOUT = 10000;
 
-  const params = new URLSearchParams({ locale });
-  if (country.length) params.set("country", [...country].sort().join(","));
-
-  const { value, isLoading } = useFetchedState(
-    country.length ? `/api/form-names?${params.toString()}` : null,
-    initialFormNames,
-    "[useFormNames]",
-  );
-
-  return { formNames: value, isLoading };
+const VIEW_PENDING_CONFIG = {
+  types: ALLOWED_TYPES,
+  sorts: SORT_KEYS.filter((key) => key !== DEFAULT_SORT_KEY),
+  searchPath: "/searchresult",
 };
+
+export const VIEW_PENDING_SCRIPT = `(function(){try{var c=${JSON.stringify(
+  VIEW_PENDING_CONFIG,
+)},p=new URLSearchParams(location.search);function l(k){return p.getAll(k).join(",").split(",").filter(Boolean)}var s=location.pathname.replace(/\\/+$/,"");if(l("type").some(function(t){return c.types.indexOf(t)>-1})||l("country").length||l("subcategory").length||c.sorts.indexOf(p.get("sort"))>-1||(s.slice(-c.searchPath.length)===c.searchPath&&(p.get("query")||"").trim())){var d=document.documentElement;d.setAttribute("${VIEW_PENDING_ATTRIBUTE}","");setTimeout(function(){d.removeAttribute("${VIEW_PENDING_ATTRIBUTE}")},${VIEW_PENDING_TIMEOUT})}}catch(e){}})();`;
+
+export const clearViewPending = () =>
+  document.documentElement.removeAttribute(VIEW_PENDING_ATTRIBUTE);

@@ -27,6 +27,7 @@
  */
 
 @use "media";
+@use "skeleton";
 
 @keyframes loadSpin {
   100% {
@@ -62,6 +63,10 @@
   @include media.tablet {
     margin-bottom: 32px;
   }
+}
+
+.main-section-heading {
+  @include skeleton.fill;
 }
 
 .main-section-cards {

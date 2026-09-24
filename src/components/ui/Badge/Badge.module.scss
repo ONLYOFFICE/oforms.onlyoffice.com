@@ -26,6 +26,8 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+@use "skeleton";
+
 .badge-input {
   position: absolute;
   overflow: hidden;
@@ -71,6 +73,10 @@
       color: var(--badge-label-color-checked);
     }
   }
+}
+
+.badge-wrapper-skeleton {
+  @include skeleton.fill;
 }
 
 .badge-wrapper-large {

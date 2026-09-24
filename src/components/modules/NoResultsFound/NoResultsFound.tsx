@@ -27,16 +27,23 @@
  */
 
 import { useTranslation } from "next-i18next";
+import clsx from "clsx";
 import { Heading } from "@src/components/ui/Heading";
 import { Text } from "@src/components/ui/Text";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
+import { INoResultsFound } from "./NoResultsFound.types";
 import styles from "./NoResultsFound.module.scss";
 
-const NoResultsFound = () => {
+const NoResultsFound = ({ skeleton }: INoResultsFound) => {
   const { t } = useTranslation("NoResultsFound");
 
   return (
-    <div className={styles["no-results-found"]}>
+    <div
+      className={clsx(
+        styles["no-results-found"],
+        skeleton && styles["no-results-found-skeleton"],
+      )}
+    >
       <div className={styles["no-results-found-img-wrapper"]}>
         <div
           className={styles["no-results-found-img"]}

@@ -27,6 +27,7 @@
  */
 
 @use "media";
+@use "skeleton";
 
 .main-header {
   margin-bottom: 84px;
@@ -109,6 +110,10 @@
   }
 }
 
+.main-top-pending-hidden {
+  display: none;
+}
+
 .main-top-wrapper {
   display: flex;
   align-items: center;
@@ -171,10 +176,12 @@
 
 .main-count-label {
   margin-inline-end: 12px;
+  @include skeleton.fill;
 }
 
 .main-count-value {
   letter-spacing: 0.04em;
+  @include skeleton.fill;
 }
 
 .main-filters-button {
@@ -186,6 +193,7 @@
   height: 24px;
   background-color: transparent;
   cursor: pointer;
+  @include skeleton.fill;
 
   @include media.tablet {
     display: block;
@@ -202,4 +210,39 @@
 
 .main-search-input-search-only {
   max-width: 544px;
+}
+
+.main-pending-skeleton {
+  display: none;
+
+  &.main-pending-skeleton-active {
+    display: contents;
+  }
+}
+
+.main-pending-content {
+  display: contents;
+
+  &.main-pending-content-hidden {
+    display: none;
+  }
+}
+
+:global(html[data-view-pending]) {
+  .main-wrapper {
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .main-pending-skeleton {
+    display: contents;
+  }
+
+  .main-top-pending {
+    display: none;
+  }
+
+  .main-pending-content {
+    display: none;
+  }
 }

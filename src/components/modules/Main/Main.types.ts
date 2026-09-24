@@ -67,7 +67,9 @@ export interface IMain {
   purposes: IPurposeNode[];
   categoriesByPurpose: Record<string, ICategoryTree[]>;
   totalCount: number;
-  initialFormNames: TFormNames;
+  formNames: TFormNames;
+  skeleton?: React.ReactNode;
+  isInitialLoading?: boolean;
   selectedCategory?: string;
   searchOnly?: boolean;
   clearFiltersVisible?: boolean;

@@ -26,6 +26,8 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+@use "skeleton";
+
 .card {
   &:hover {
     .card-format {
@@ -164,4 +166,12 @@
   line-height: 20px;
   color: var(--card-description-color);
   overflow: hidden;
+}
+
+.card-skeleton {
+  .card-preview-wrapper,
+  .card-heading,
+  .card-description {
+    @include skeleton.fill;
+  }
 }

@@ -27,6 +27,7 @@
  */
 
 @use "media";
+@use "skeleton";
 
 .suggestions-card {
   position: relative;
@@ -35,6 +36,7 @@
   border-radius: 8px;
   padding: 16px;
   height: 100%;
+  @include skeleton.fill;
 
   &::before {
     content: "";

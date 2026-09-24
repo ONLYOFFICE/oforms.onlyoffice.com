@@ -31,12 +31,13 @@ import { useTranslation } from "next-i18next";
 import clsx from "clsx";
 import { Heading } from "@src/components/ui/Heading";
 import { Sidebar } from "./sub-components/Sidebar";
+import { MainSection } from "./sub-components/MainSection";
+import { createPlaceholderCards } from "./sub-components/MainSection/MainSection.utils";
 import { Section } from "@src/components/ui/Section";
 import { Container } from "@src/components/ui/Container";
 import { SortSelector } from "@src/components/modules/Main/sub-components/SortSelector";
 import { SearchInput } from "@src/components/modules/Main/sub-components/SearchInput";
 import { FiltersIcon } from "@src/components/icons";
-import { useFormNames } from "@src/lib/hooks/useFormNames";
 import { IMain } from "./Main.types";
 import styles from "./Main.module.scss";
 
@@ -50,7 +51,9 @@ const Main = ({
   purposes,
   categoriesByPurpose,
   totalCount,
-  initialFormNames,
+  formNames,
+  skeleton = <MainSection label={" "} data={createPlaceholderCards(8)} />,
+  isInitialLoading,
   selectedCategory,
   searchOnly,
   clearFiltersVisible,
@@ -58,7 +61,7 @@ const Main = ({
 }: IMain) => {
   const { t } = useTranslation("MainTemplate");
   const [isOpen, setIsOpen] = useState(false);
-  const formNames = useFormNames(initialFormNames);
+  const hideTopWhileLoading = skeleton === null;
 
   useEffect(() => {
     if (!isOpen) return;
@@ -105,7 +108,14 @@ const Main = ({
           </Heading>
         </div>
 
-        <div className={styles["main-wrapper"]}>
+        <div
+          className={clsx(
+            styles["main-wrapper"],
+            "skeleton",
+            isInitialLoading && "skeleton-active",
+          )}
+          inert={isInitialLoading}
+        >
           <Sidebar
             isOpen={isOpen}
             setIsOpen={setIsOpen}
@@ -126,6 +136,10 @@ const Main = ({
               className={clsx(
                 styles["main-top"],
                 searchOnly && styles["main-top-search-only"],
+                hideTopWhileLoading && styles["main-top-pending"],
+                hideTopWhileLoading &&
+                  isInitialLoading &&
+                  styles["main-top-pending-hidden"],
               )}
             >
               {!searchOnly && (
@@ -161,7 +175,22 @@ const Main = ({
               />
             </div>
 
-            {children}
+            <div
+              className={clsx(
+                styles["main-pending-skeleton"],
+                isInitialLoading && styles["main-pending-skeleton-active"],
+              )}
+            >
+              {skeleton}
+            </div>
+            <div
+              className={clsx(
+                styles["main-pending-content"],
+                isInitialLoading && styles["main-pending-content-hidden"],
+              )}
+            >
+              {children}
+            </div>
           </div>
         </div>
       </Container>

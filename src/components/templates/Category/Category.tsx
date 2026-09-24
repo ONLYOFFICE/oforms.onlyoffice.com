@@ -33,6 +33,7 @@ import { MainSection } from "@src/components/modules/Main/sub-components/MainSec
 import { NoResultsFound } from "@src/components/modules/NoResultsFound";
 import { Button } from "@src/components/ui/Button";
 import { useServerView } from "@src/lib/hooks/useServerView";
+import { useFormNames } from "@src/lib/hooks/useFormNames";
 import { ICategoryView } from "@src/lib/server/mainView.types";
 import styles from "@src/components/templates/Main/Main.module.scss";
 
@@ -42,9 +43,13 @@ const CategoryTemplate = ({
   categoryUrlReq,
 }: ICategory) => {
   const { t } = useTranslation("MainTemplate");
-  const view = useServerView<ICategoryView>(initialView, {
-    category: categoryUrlReq,
-  });
+  const { view, isInitialLoading } = useServerView<ICategoryView>(
+    initialView,
+    {
+      category: categoryUrlReq,
+    },
+  );
+  const { formNames } = useFormNames(initialFormNames);
 
   return (
     <Main
@@ -56,7 +61,8 @@ const CategoryTemplate = ({
       purposes={view.purposes}
       categoriesByPurpose={view.categoriesByPurpose}
       totalCount={view.totalCount}
-      initialFormNames={initialFormNames}
+      formNames={formNames}
+      isInitialLoading={isInitialLoading}
       selectedCategory={view.isEmpty ? undefined : categoryUrlReq}
       searchOnly={view.isEmpty}
       clearFiltersVisible={view.isEmpty ? false : undefined}

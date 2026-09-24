@@ -32,5 +32,6 @@ export interface ISwitch {
   value?: string;
   checked: boolean;
   disabled?: boolean;
+  skeleton?: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
