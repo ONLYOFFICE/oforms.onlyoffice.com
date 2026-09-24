@@ -126,7 +126,8 @@
   }
 
   @include media.desktop-s {
-    gap: 16px 24px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 48px;
   }
 
   @include media.tablet {
