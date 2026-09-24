@@ -26,36 +26,18 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-const LOCALE_COUNTRY_MAP: Record<string, string> = {
-  en: "us",
-  fr: "fr",
-  de: "de",
-  es: "es",
-  pt: "br",
-  it: "it",
-  ja: "jp",
-  zh: "cn",
-  ar: "sa",
-};
+const CV_LOCALES = ["en", "fr", "pt"];
+const CV_SYNONYMS = ["curriculum vitae", "curriculum", "vitae"];
 
-export const localeCountry = (
+export const normalizeSearchQuery = (
+  value: string,
   locale: string | undefined,
-): string | undefined => (locale ? LOCALE_COUNTRY_MAP[locale] : undefined);
+): string => {
+  const query = value.trim().toLocaleLowerCase();
 
-export const getSelectedCountries = (
-  queryCountries: string[],
-  locale: string | undefined,
-  availableCodes?: string[],
-): string[] => {
-  const normalizedCountries = queryCountries.map((code) => code.toLowerCase());
-  const validCountries = availableCodes
-    ? normalizedCountries.filter((code) => availableCodes.includes(code))
-    : normalizedCountries;
-  if (validCountries.length) return validCountries.slice(0, 1);
+  if (locale && CV_LOCALES.includes(locale) && CV_SYNONYMS.includes(query)) {
+    return "cv";
+  }
 
-  const fallback = localeCountry(locale);
-  if (!fallback) return [];
-  if (availableCodes && !availableCodes.includes(fallback)) return [];
-
-  return [fallback];
+  return query;
 };

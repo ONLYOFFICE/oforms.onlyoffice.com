@@ -51,4 +51,5 @@ export interface ISidebarItem {
   queryKey?: string;
   collapseQueryKey?: string;
   defaultOpen?: boolean;
+  defaultOpenKeys?: string[];
 }

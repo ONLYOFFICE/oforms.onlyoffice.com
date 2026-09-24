@@ -65,7 +65,6 @@ const CategoryTemplate = ({
       isInitialLoading={isInitialLoading}
       selectedCategory={view.isEmpty ? undefined : categoryUrlReq}
       searchOnly={view.isEmpty}
-      clearFiltersVisible={view.isEmpty ? false : undefined}
       redirectToHome={view.isEmpty}
     >
       {view.isEmpty && (

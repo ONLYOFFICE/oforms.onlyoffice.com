@@ -33,7 +33,7 @@ export const getQueryValues = (
   value: string | string[] | undefined,
 ): string[] => {
   const raw = Array.isArray(value) ? value.join(",") : value;
-  return raw ? raw.split(",").filter(Boolean) : [];
+  return raw ? Array.from(new Set(raw.split(",").filter(Boolean))) : [];
 };
 
 export const getTemplatesByExt = (
@@ -71,7 +71,7 @@ export const DEFAULT_SORT_KEY: TSortKey = "asc";
 export const normalizeSortKey = (
   value: string | string[] | undefined,
 ): TSortKey => {
-  const raw = Array.isArray(value) ? value[0] : value;
+  const raw = (Array.isArray(value) ? value[0] : value)?.toLowerCase();
   return raw && Object.hasOwn(SORT_MAP, raw)
     ? (raw as TSortKey)
     : DEFAULT_SORT_KEY;

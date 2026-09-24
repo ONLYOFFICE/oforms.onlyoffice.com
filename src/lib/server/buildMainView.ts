@@ -29,6 +29,7 @@
 import { IFormsData } from "@src/types/data";
 import { ALLOWED_TYPES, TAllowedTypes } from "@src/utils/allowedTypes";
 import { getSelectedCountries } from "@src/utils/localeCountry";
+import { normalizeSearchQuery } from "@src/utils/searchQuery";
 import {
   getTemplatesByExt,
   getPopularTemplates,
@@ -72,9 +73,24 @@ const CATEGORY_SECTIONS: string[] = [
 ];
 
 const getAllowedTypes = (types: string[]): TAllowedTypes[] =>
-  types.filter((item): item is TAllowedTypes =>
-    ALLOWED_TYPES.includes(item as TAllowedTypes),
+  Array.from(new Set(types.map((item) => item.toLowerCase()))).filter(
+    (item): item is TAllowedTypes =>
+      ALLOWED_TYPES.includes(item as TAllowedTypes),
   );
+
+const getAllowedSubcategories = (
+  forms: TFormItem[] | undefined,
+  subcategories: string[],
+): string[] => {
+  const available = new Set(
+    forms?.flatMap(
+      (form) =>
+        form.subcategories?.filter(Boolean).map((sub) => sub.urlReq) ?? [],
+    ),
+  );
+
+  return subcategories.filter((item) => available.has(item));
+};
 
 const getCountriesWithSelected = (
   forms: TFormItem[],
@@ -160,7 +176,7 @@ export const resolveMainFilters = (
     locale: raw.locale,
     type,
     country,
-    subcategory: raw.subcategory,
+    subcategory: getAllowedSubcategories(forms, raw.subcategory),
     sort: normalizeSortKey(raw.sort),
   };
 };
@@ -367,11 +383,7 @@ export const buildCategoryView = (
     return {
       ...result,
       ...pickSidebarFacets(
-        buildMainView(
-          allForms,
-          { ...filters, type: [], subcategory: [] },
-          countryNames,
-        ),
+        buildMainView(allForms, { ...filters, subcategory: [] }, countryNames),
       ),
     };
   }
@@ -425,7 +437,7 @@ export const resolveSearchFilters = (
     raw.locale,
     getCountries(allForms).map((item) => item.code.toLowerCase()),
   ),
-  subcategory: raw.subcategory,
+  subcategory: getAllowedSubcategories(allForms, raw.subcategory),
   sort: normalizeSortKey(raw.sort),
 });
 
@@ -498,7 +510,7 @@ export const buildSearchView = (
   } = filters;
 
   const trimmedQuery = searchQuery.trim();
-  const query = trimmedQuery.toLowerCase();
+  const query = normalizeSearchQuery(trimmedQuery, locale);
   const matchedForms = query
     ? (allForms ?? []).filter((form) =>
         form.name_form.toLowerCase().includes(query),
@@ -551,18 +563,13 @@ export const buildSearchView = (
     };
   }
 
-  const facetFilters =
-    isEmpty && (selectedTypes.length || selectedSubcategories.length)
-      ? { ...filters, type: [], subcategory: [] }
-      : filters;
-
   return {
     ...result,
     ...buildSearchFacets(
       allForms,
       matchedForms,
       scopedMatchedForms,
-      facetFilters,
+      filters,
       countryNames,
     ),
   };

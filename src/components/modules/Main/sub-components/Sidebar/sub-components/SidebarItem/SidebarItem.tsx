@@ -55,6 +55,7 @@ const SidebarItem = ({
   queryKey,
   collapseQueryKey,
   defaultOpen = true,
+  defaultOpenKeys = [],
 }: ISidebarItem) => {
   const { t } = useTranslation("MainTemplate");
   const router = useRouter();
@@ -87,14 +88,14 @@ const SidebarItem = ({
     ? (options?.length ?? 0) - VISIBLE_OPTIONS_LIMIT
     : 0;
 
-  const writeQueryList = (param: string, key: string, opened: boolean) => {
-    const current = parseQueryList(router.query[param]).filter(
-      (item) => item !== key,
-    );
-    const ids = opened ? [...current, key] : current;
+  const toggleId = (ids: string[], key: string, include: boolean) => {
+    const rest = ids.filter((item) => item !== key);
+    return include ? [...rest, key] : rest;
+  };
 
+  const writeQueryList = (param: string, ids: string[], keepEmpty = false) => {
     const query = { ...router.query };
-    if (ids.length > 0) {
+    if (ids.length > 0 || keepEmpty) {
       query[param] = ids.join(",");
     } else {
       delete query[param];
@@ -104,14 +105,30 @@ const SidebarItem = ({
   };
 
   const toggleShowAllOptions = (showAll: boolean) => {
-    if (queryKey) writeQueryList(EXPAND_QUERY_PARAM, queryKey, showAll);
+    if (!queryKey) return;
+    writeQueryList(
+      EXPAND_QUERY_PARAM,
+      toggleId(
+        parseQueryList(router.query[EXPAND_QUERY_PARAM]),
+        queryKey,
+        showAll,
+      ),
+    );
   };
 
   const toggleIsOpen = () => {
     const next = !isOpen;
 
     if (collapseQueryKey) {
-      writeQueryList(COLLAPSE_QUERY_PARAM, collapseQueryKey, next);
+      const current =
+        collapseParam === undefined
+          ? defaultOpenKeys
+          : parseQueryList(collapseParam);
+      writeQueryList(
+        COLLAPSE_QUERY_PARAM,
+        toggleId(current, collapseQueryKey, next),
+        true,
+      );
       return;
     }
 
@@ -205,6 +222,9 @@ const SidebarItem = ({
               options={category.options}
               queryKey={category.queryKey}
               collapseQueryKey={category.queryKey}
+              defaultOpenKeys={categories.flatMap((item) =>
+                item.defaultOpen && item.queryKey ? [item.queryKey] : [],
+              )}
             />
           ))}
         </>

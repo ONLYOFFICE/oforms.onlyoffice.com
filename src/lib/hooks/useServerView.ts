@@ -31,6 +31,7 @@ import { useRouter } from "next/router";
 import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { DEFAULT_SORT_KEY } from "@src/utils/helpers";
 import { clearViewPending } from "@src/utils/viewPending";
+import { localeCountry } from "@src/utils/localeCountry";
 import {
   FILTER_KEYS,
   parseFilters,
@@ -54,8 +55,12 @@ const buildViewQuery = (
   });
 
   const filters = parseFilters(query, ALLOWED_VALUES);
+  const isDefaultCountry =
+    filters.country.length === 1 &&
+    filters.country[0] === localeCountry(locale);
 
   FILTER_KEYS.forEach((name) => {
+    if (name === "country" && isDefaultCountry) return;
     const values = filters[name];
     if (values.length) params.set(name, values.join(","));
   });

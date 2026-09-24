@@ -28,6 +28,7 @@
 
 import { useRouter } from "next/router";
 import { parseQueryList } from "@src/utils/queryFilters";
+import { localeCountry } from "@src/utils/localeCountry";
 import { TFormNames } from "@src/lib/server/mainView.types";
 import { useFetchedState } from "./useFetchedState";
 
@@ -37,13 +38,17 @@ export const useFormNames = (
   const router = useRouter();
   const locale = router.locale ?? "en";
 
-  const country = router.isReady ? parseQueryList(router.query.country) : [];
+  const queryCountry = router.isReady
+    ? parseQueryList(router.query.country)[0]?.toLowerCase()
+    : undefined;
+  const country =
+    queryCountry === localeCountry(locale) ? undefined : queryCountry;
 
   const params = new URLSearchParams({ locale });
-  if (country.length) params.set("country", [...country].sort().join(","));
+  if (country) params.set("country", country);
 
   const { value, isLoading } = useFetchedState(
-    country.length ? `/api/form-names?${params.toString()}` : null,
+    country ? `/api/form-names?${params.toString()}` : null,
     initialFormNames,
     "[useFormNames]",
   );

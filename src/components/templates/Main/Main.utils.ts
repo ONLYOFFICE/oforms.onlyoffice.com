@@ -124,6 +124,9 @@ export const getTemplatesByParentCategory = (
     if (!progressed) break;
   }
 
+  const order = new Map(forms?.map((form, index) => [form.id, index]));
+  data.sort((a, b) => (order.get(a.id) ?? 0) - (order.get(b.id) ?? 0));
+
   return { category, data };
 };
 

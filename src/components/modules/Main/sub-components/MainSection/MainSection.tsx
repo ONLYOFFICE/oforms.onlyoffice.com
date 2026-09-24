@@ -62,6 +62,7 @@ const MainSection = ({
     [COLLAPSE_QUERY_PARAM]: openedCategories,
     purpose: router.query.purpose,
     country: router.query.country,
+    sort: router.query.sort,
   });
 
   return (

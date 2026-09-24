@@ -66,12 +66,15 @@ const keepAllowed = (values: string[], allowed?: Iterable<string>) => {
   return values.filter((value) => set.has(value));
 };
 
+const parseLowerQueryList = (value: TQueryValue): string[] =>
+  Array.from(new Set(parseQueryList(value).map((item) => item.toLowerCase())));
+
 export const parseFilters = (
   query: TRawQuery,
   allowed: TAllowedValues = {},
 ): ITemplateFilters => ({
-  type: keepAllowed(parseQueryList(query.type), allowed.type),
-  country: keepAllowed(parseQueryList(query.country), allowed.country),
+  type: keepAllowed(parseLowerQueryList(query.type), allowed.type),
+  country: keepAllowed(parseLowerQueryList(query.country), allowed.country),
   subcategory: keepAllowed(
     parseQueryList(query.subcategory),
     allowed.subcategory,

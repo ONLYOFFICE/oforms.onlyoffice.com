@@ -40,8 +40,10 @@ import { useTranslation } from "next-i18next";
 import { Heading } from "@src/components/ui/Heading";
 import { Link } from "@src/components/ui/Link";
 import { SearchIcon, CrossCircleIcon, CrossIcon } from "@src/components/icons";
-import { parseQueryValue } from "@src/utils/queryFilters";
+import { parseQueryList } from "@src/utils/queryFilters";
 import { localeCountry } from "@src/utils/localeCountry";
+import { normalizeSearchQuery } from "@src/utils/searchQuery";
+import { normalizeSortKey } from "@src/utils/helpers";
 import { POPULAR_SEARCH } from "./data/popular-search";
 import { ISearchInput } from "./SearchInput.types";
 import styles from "./SearchInput.module.scss";
@@ -120,16 +122,8 @@ const SearchInput = ({ className, formNames }: ISearchInput) => {
     }
   }, [router.pathname, router.query]);
 
-  const query = searchItem.trim().toLocaleLowerCase();
-  const hasQuery = query.length > 0;
-  const searchName =
-    locale === "en" || locale === "fr" || locale === "pt"
-      ? query === "curriculum vitae" ||
-        query === "curriculum" ||
-        query === "vitae"
-        ? "cv"
-        : query
-      : query;
+  const hasQuery = searchItem.trim().length > 0;
+  const searchName = normalizeSearchQuery(searchItem, locale);
   const searchValue = hasQuery
     ? (formNames ?? [])
         .filter((form) =>
@@ -205,11 +199,16 @@ const SearchInput = ({ className, formNames }: ISearchInput) => {
     persistSearchHistory(newSearchHistory);
   };
 
-  const country = parseQueryValue(router.query.country);
+  const country = parseQueryList(router.query.country)[0]?.toLowerCase();
+
+  const sort = router.query.sort
+    ? normalizeSortKey(router.query.sort)
+    : undefined;
 
   const buildSearchHref = (value: string) => {
     const params = new URLSearchParams({ query: value });
     if (country) params.set("country", country);
+    if (sort) params.set("sort", sort);
     return `/searchresult?${params.toString()}`;
   };
 
@@ -222,9 +221,9 @@ const SearchInput = ({ className, formNames }: ISearchInput) => {
     }
   };
 
-  const popularCountry = country?.toLowerCase() ?? localeCountry(locale);
   const popular =
-    POPULAR_SEARCH[popularCountry as keyof typeof POPULAR_SEARCH] ??
+    POPULAR_SEARCH[country as keyof typeof POPULAR_SEARCH] ??
+    POPULAR_SEARCH[localeCountry(locale) as keyof typeof POPULAR_SEARCH] ??
     POPULAR_SEARCH.us;
 
   return (

@@ -38,6 +38,7 @@ import { getSelectedCountries, localeCountry } from "@src/utils/localeCountry";
 import { isRtlLocale } from "@src/utils/rtl";
 import { useTemplateFilters } from "@src/lib/hooks/useTemplateFilters";
 import { toggleFilterValue } from "@src/utils/queryFilters";
+import { CATEGORY_PATHNAME } from "@src/utils/filterNavigation";
 import { ISidebar } from "./Sidebar.types";
 import styles from "./Sidebar.module.scss";
 
@@ -82,10 +83,16 @@ const Sidebar = ({
       )?.[0]
     : undefined;
 
+  const subcategoryPurpose = purposes.find(({ key }) =>
+    categoriesByPurpose[key]?.some(({ subcategories }) =>
+      subcategories.some((sub) => filters.subcategory.includes(sub.urlReq)),
+    ),
+  )?.key;
+
   const selectedPurpose =
     filters.purpose && purposeKeys.includes(filters.purpose)
       ? filters.purpose
-      : (categoryPurpose ?? purposes[0]?.key);
+      : (categoryPurpose ?? subcategoryPurpose ?? purposes[0]?.key);
 
   const purposeCategories = selectedPurpose
     ? (categoriesByPurpose[selectedPurpose] ?? [])
@@ -97,7 +104,7 @@ const Sidebar = ({
     { value: "pptx", label: "Presentations", count: pptxForms },
     { value: "pdf", label: "PdfForms", count: pdfForms },
   ]
-    .filter((type) => type.count > 0)
+    .filter((type) => type.count > 0 || filters.type.includes(type.value))
     .map((type) => ({
       value: type.value,
       label: t(type.label),
@@ -125,10 +132,11 @@ const Sidebar = ({
       return;
     }
 
-    const current = filters.subcategory.length
-      ? filters
-      : { ...filters, subcategory: categorySubcategories };
-    const next = toggleFilterValue(current, "subcategory", value);
+    const next = toggleFilterValue(
+      { ...filters, subcategory: categorySubcategories },
+      "subcategory",
+      value,
+    );
 
     if (!next.subcategory.length) {
       clearAll();
@@ -143,7 +151,8 @@ const Sidebar = ({
     router.locale,
     countryCodes,
   );
-  const selectedSubcategories = filters.subcategory;
+  const selectedSubcategories =
+    router.pathname === CATEGORY_PATHNAME ? [] : filters.subcategory;
 
   const isSubcategoryChecked = (subcategoryUrlReq: string) =>
     selectedSubcategories.length
@@ -161,19 +170,23 @@ const Sidebar = ({
   );
 
   const visibleCountries = sortedCountries.filter(
-    (country) => country.count > 0,
+    (country) =>
+      country.count > 0 ||
+      selectedCountries.includes(country.code.toLowerCase()),
   );
+  const isSubcategoryVisible = (sub: { urlReq: string; count: number }) =>
+    sub.count > 0 || selectedSubcategories.includes(sub.urlReq);
   const visiblePurposeCategories = purposeCategories
     .map(({ category, subcategories }) => ({
       category,
-      subcategories: subcategories.filter((sub) => sub.count > 0),
+      subcategories: subcategories.filter(isSubcategoryVisible),
     }))
     .filter(({ subcategories }) => subcategories.length > 0);
   const visibleSubcategories = new Set(
     Object.values(categoriesByPurpose)
       .flat()
       .flatMap(({ subcategories }) =>
-        subcategories.filter((sub) => sub.count > 0).map((sub) => sub.urlReq),
+        subcategories.filter(isSubcategoryVisible).map((sub) => sub.urlReq),
       ),
   );
 
@@ -195,7 +208,7 @@ const Sidebar = ({
 
   const hasSelectedFilters =
     filters.type.length > 0 ||
-    filters.subcategory.length > 0 ||
+    selectedSubcategories.length > 0 ||
     (filters.country.length > 0 && !isDefaultCountrySelected);
 
   const totalChecked =
@@ -240,7 +253,9 @@ const Sidebar = ({
               [
                 {
                   heading: t("Countries"),
-                  text: t("ShowingSpeakingCountries"),
+                  text: visibleCountries.length
+                    ? t("ShowingSpeakingCountries")
+                    : undefined,
                   type: "radio",
                   count: checkedCountryCount,
                   options: visibleCountries.map((country) => ({
