@@ -73,8 +73,8 @@ const SlugPage = (props: ISlugPage & ILocale) => {
       <Layout>
         <Layout.Head>
           <Head
-            title={categoryInfo.data[0].seo_title}
-            description={categoryInfo.data[0].seo_description}
+            title={categoryInfo?.data?.[0]?.seo_title}
+            description={categoryInfo?.data?.[0]?.seo_description}
             path={`/${categoryUrlReq}`}
             locale={locale}
             localized
