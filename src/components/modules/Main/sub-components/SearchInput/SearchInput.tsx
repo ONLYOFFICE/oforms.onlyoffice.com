@@ -101,7 +101,7 @@ const Highlight = ({
   );
 };
 
-const SearchInput = ({ className, formNames }: ISearchInput) => {
+const SearchInput = ({ className, countryCodes, formNames }: ISearchInput) => {
   const { t } = useTranslation("SearchInput");
   const router = useRouter();
   const locale = router.locale ?? "en";
@@ -199,7 +199,9 @@ const SearchInput = ({ className, formNames }: ISearchInput) => {
     persistSearchHistory(newSearchHistory);
   };
 
-  const country = parseQueryList(router.query.country)[0]?.toLowerCase();
+  const country = parseQueryList(router.query.country)
+    .map((code) => code.toLowerCase())
+    .find((code) => countryCodes.includes(code));
 
   const sort = router.query.sort
     ? normalizeSortKey(router.query.sort)

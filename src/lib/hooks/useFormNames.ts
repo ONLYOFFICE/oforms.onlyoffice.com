@@ -38,11 +38,18 @@ export const useFormNames = (
   const router = useRouter();
   const locale = router.locale ?? "en";
 
-  const queryCountry = router.isReady
-    ? parseQueryList(router.query.country)[0]?.toLowerCase()
-    : undefined;
-  const country =
-    queryCountry === localeCountry(locale) ? undefined : queryCountry;
+  const queryCountries = router.isReady
+    ? Array.from(
+        new Set(
+          parseQueryList(router.query.country).map((code) =>
+            code.toLowerCase(),
+          ),
+        ),
+      )
+    : [];
+  const isDefaultCountry =
+    queryCountries.length === 1 && queryCountries[0] === localeCountry(locale);
+  const country = isDefaultCountry ? undefined : queryCountries.join(",");
 
   const params = new URLSearchParams({ locale });
   if (country) params.set("country", country);

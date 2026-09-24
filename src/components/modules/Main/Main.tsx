@@ -171,6 +171,9 @@ const Main = ({
                   styles["main-search-input"],
                   searchOnly && styles["main-search-input-search-only"],
                 )}
+                countryCodes={countries.map((country) =>
+                  country.code.toLowerCase(),
+                )}
                 formNames={formNames}
               />
             </div>
