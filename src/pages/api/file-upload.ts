@@ -94,6 +94,7 @@ export default async function handler(
   const form = formidable({
     maxFiles: 1,
     maxFileSize: MAX_UPLOAD_FILE_SIZE,
+    filter: ({ name }) => name === "file",
   });
 
   let fields;
