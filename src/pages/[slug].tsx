@@ -113,7 +113,7 @@ const SlugPage = (props: ISlugPage & ILocale) => {
           title={title}
           description={description}
           path={formPath}
-          locale={locale}
+          locale={formLocale}
         />
       </Layout.Head>
       <Layout.AdventAnnounce>
