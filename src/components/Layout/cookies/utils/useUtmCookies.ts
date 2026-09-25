@@ -113,6 +113,22 @@ function getCookie(name: string) {
   return cookies[name];
 }
 
+export function getConsentCookie(): IConsentData | null {
+  if (typeof document === "undefined") return null;
+
+  const raw = getCookie(CONSENT_COOKIE);
+  if (!raw) return null;
+
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed)
+      ? (parsed as IConsentData)
+      : null;
+  } catch {
+    return null;
+  }
+}
+
 export const useUtmCookies = () => {
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -132,14 +148,7 @@ export const useUtmCookies = () => {
       }
     });
 
-    const consentFromCookie = getCookie(CONSENT_COOKIE);
-    if (consentFromCookie) {
-      try {
-        const parsedConsent = JSON.parse(decodeURIComponent(consentFromCookie));
-        applyConsent(parsedConsent);
-      } catch (e) {
-        console.error("Invalid consent cookie", e);
-      }
-    }
+    const consentFromCookie = getConsentCookie();
+    if (consentFromCookie) applyConsent(consentFromCookie);
   }, []);
 };

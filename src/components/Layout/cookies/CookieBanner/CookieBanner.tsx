@@ -33,6 +33,7 @@ import { Text } from "@src/components/ui/Text";
 import { useState, useEffect, useRef } from "react";
 import { CookieSettings } from "../CookieSettings";
 import {
+  getConsentCookie,
   setConsentCookie,
   DEFAULT_CONSENT,
   ALL_GRANTED,
@@ -41,12 +42,6 @@ import {
 } from "@src/components/Layout/cookies/utils/useUtmCookies";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
 import styles from "./CookieBanner.module.scss";
-
-function getConsentCookie() {
-  if (typeof document === "undefined") return null;
-  const match = document.cookie.match(/cookie_preferences=([^;]*)/);
-  return match ? JSON.parse(decodeURIComponent(match[1])) : null;
-}
 
 const CookieBanner = () => {
   const { t } = useTranslation("common");
