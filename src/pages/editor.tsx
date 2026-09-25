@@ -33,6 +33,19 @@ import { Layout } from "@src/components/Layout";
 import { Head } from "@src/components/modules/Head";
 import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { cmsLocale } from "@src/utils/cmsLocale";
+import { languages } from "@src/config/languages";
+import { ILocale } from "@src/types/locale";
+
+const LOCALES = languages.map(({ shortKey }) => shortKey);
+
+const resolveEditorLocale = (
+  value: string | string[] | undefined,
+  fallback: ILocale["locale"],
+): ILocale["locale"] => {
+  const raw = Array.isArray(value) ? value[0] : value;
+
+  return raw && LOCALES.includes(raw) ? (raw as ILocale["locale"]) : fallback;
+};
 
 const FILENAME_MAX_LENGTH = 300;
 const FILENAME_PATTERN = /^[a-zA-Z0-9._-]+$/;
@@ -92,9 +105,8 @@ export const getServerSideProps = async ({
   query,
 }: GetServerSidePropsContext) => {
   const { lang, formlang, filename, fillform } = query;
-  const locale = (Array.isArray(lang) ? lang[0] : lang) ?? "en";
-  const formLocale =
-    (Array.isArray(formlang) ? formlang[0] : formlang) ?? locale;
+  const locale = resolveEditorLocale(lang, "en");
+  const formLocale = resolveEditorLocale(formlang, locale);
   const cmsLang = cmsLocale(locale);
   const cmsFormLang = cmsLocale(formLocale);
   const normalizedFilename =
@@ -134,7 +146,7 @@ export const getServerSideProps = async ({
 
   try {
     const configRes = await fetch(
-      `${process.env.CONFIG_API_URL}/api/config?lang=${cmsLang}&title=${encodeURIComponent(normalizedFilename)}&url=${encodeURIComponent(normalizedFillform)}`,
+      `${process.env.CONFIG_API_URL}/api/config?lang=${encodeURIComponent(cmsLang)}&title=${encodeURIComponent(normalizedFilename)}&url=${encodeURIComponent(normalizedFillform)}`,
     );
     if (!configRes.ok) {
       throw new Error(`Request failed with status ${configRes.status}`);

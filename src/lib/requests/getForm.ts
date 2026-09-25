@@ -33,8 +33,8 @@ import { cmsLocale } from "@src/utils/cmsLocale";
 
 const getForm = async (locale: ILocale["locale"], queryForm: string) => {
   const params = [
-    `filters[url][$eq]=${queryForm}`,
-    `locale=${cmsLocale(locale)}`,
+    `filters[url][$eq]=${encodeURIComponent(queryForm)}`,
+    `locale=${encodeURIComponent(cmsLocale(locale))}`,
     "populate[card_prewiew][fields][0]=url",
     "populate[page_screens][fields][0]=url",
     "populate[form_exts][fields][0]=ext",

@@ -33,8 +33,8 @@ import { cmsLocale } from "@src/utils/cmsLocale";
 
 const getCategoryInfo = async (locale: ILocale["locale"], url: string) => {
   const params = [
-    `filters[urlReq][$eq]=${url}`,
-    `locale=${cmsLocale(locale)}`,
+    `filters[urlReq][$eq]=${encodeURIComponent(url)}`,
+    `locale=${encodeURIComponent(cmsLocale(locale))}`,
     "fields[0]=seo_title",
     "fields[1]=seo_description",
   ]
