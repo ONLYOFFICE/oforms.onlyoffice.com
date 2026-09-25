@@ -70,6 +70,10 @@
     cursor: default;
   }
 
+  &-dragover {
+    border-color: var(--form-submit-file-accent-text-color);
+  }
+
   @include media.mobile {
     min-height: 292px;
   }

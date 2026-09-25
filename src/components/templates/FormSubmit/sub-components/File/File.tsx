@@ -37,6 +37,7 @@ import { Text } from "@src/components/ui/Text";
 import { ChevronDownIcon } from "@src/components/icons";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
 import { DEFAULT_ACCEPT, MAX_UPLOAD_FILE_SIZE } from "@src/utils/formSubmit";
+import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { IFile } from "./File.types";
 import styles from "./File.module.scss";
 
@@ -73,25 +74,35 @@ const File = ({
   );
   const [error, setError] = useState<string | null>(null);
   const [captchaError, setCaptchaError] = useState<string | null>(null);
+  const [pickedFile, setPickedFile] = useState<globalThis.File | null>(null);
+  const [isDragOver, setIsDragOver] = useState(false);
   const abortControllerRef = useRef<AbortController | null>(null);
 
-  const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (!selectedFile) return;
+  const processFile = async (selectedFile: globalThis.File) => {
+    abortControllerRef.current?.abort();
+    abortControllerRef.current = null;
 
-    setFile(selectedFile);
+    setPickedFile(selectedFile);
+    setFile(null);
     setCaptchaError(null);
 
+    const fileType = selectedFile.name.split(".").pop()?.toLowerCase() ?? "";
+
+    if (!ALLOWED_TYPES.includes(fileType)) {
+      setIsUploading(false);
+      setTemplateImages(null);
+      setError(t("FileUploadError"));
+      return;
+    }
+
     if (selectedFile.size > MAX_UPLOAD_FILE_SIZE) {
+      setIsUploading(false);
       setTemplateImages(null);
       setError(t("FileIsTooBig"));
-      event.target.value = "";
       return;
     }
 
     setError(null);
-
-    abortControllerRef.current?.abort();
 
     const abortController = new AbortController();
     abortControllerRef.current = abortController;
@@ -104,7 +115,6 @@ const File = ({
       if (abortController.signal.aborted) return;
 
       if (!captchaToken) {
-        setFile(null);
         setTemplateImages(null);
         setError(null);
         setCaptchaError(t("CaptchaVerificationFailed"));
@@ -133,7 +143,10 @@ const File = ({
 
       const data = await response.json();
 
+      if (abortController.signal.aborted) return;
+
       setTemplateImages(data.templateImages);
+      setFile(selectedFile);
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") {
         return;
@@ -145,18 +158,55 @@ const File = ({
         setIsUploading(false);
         abortControllerRef.current = null;
       }
-      event.target.value = "";
     }
   };
 
-  const fileName = file?.name ?? queryIndexData?.fileName ?? "";
-  const rawFileSize = file?.size ?? queryIndexData?.fileSize ?? null;
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0];
+    event.target.value = "";
+    if (!selectedFile) return;
+
+    processFile(selectedFile);
+  };
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    if (!event.dataTransfer.types.includes("Files")) return;
+    event.dataTransfer.dropEffect = "copy";
+    setIsDragOver(true);
+  };
+
+  const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
+    if (event.currentTarget.contains(event.relatedTarget as Node | null)) {
+      return;
+    }
+    setIsDragOver(false);
+  };
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragOver(false);
+
+    const droppedFile = event.dataTransfer.files?.[0];
+    if (!droppedFile) return;
+
+    processFile(droppedFile);
+  };
+
+  const shownFile = pickedFile ?? file;
+  const fileName = shownFile?.name ?? queryIndexData?.fileName ?? "";
+  const rawFileSize = shownFile?.size ?? queryIndexData?.fileSize ?? null;
   const fileSize = rawFileSize !== null ? formatFileSize(rawFileSize) : "";
   const fileFormat = fileName.split(".").pop()?.toLowerCase() ?? "";
   const fileNameWithoutFormat = fileName.replace(/\.[^./]+$/, "");
 
   return (
-    <div className={styles["file"]}>
+    <div
+      className={styles["file"]}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+    >
       <Heading
         className={styles["file-main-heading"]}
         level={2}
@@ -167,7 +217,11 @@ const File = ({
       </Heading>
 
       {!isUploading && !templateImages && !error && (
-        <label className={styles["file-wrapper"]}>
+        <label
+          className={clsx(styles["file-wrapper"], {
+            [styles["file-wrapper-dragover"]]: isDragOver,
+          })}
+        >
           <div className={styles["file-content"]}>
             <input
               className={styles["file-input"]}
@@ -269,6 +323,7 @@ const File = ({
               {!error && (
                 <button
                   onClick={() => {
+                    setPickedFile(null);
                     setFile(null);
                     setTemplateImages(null);
                   }}
