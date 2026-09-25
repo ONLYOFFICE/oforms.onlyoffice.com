@@ -114,7 +114,12 @@ const Info = ({
       (purpose) => purpose.documentId === values.purpose,
     ) ?? purposeWithCategories.data[0];
 
-  const selectedCategory = selectedPurpose?.parent_categories.find(
+  const availableCategories =
+    selectedPurpose?.parent_categories.filter(
+      (category) => category.subcategories.length > 0,
+    ) ?? [];
+
+  const selectedCategory = availableCategories.find(
     (category) => category.documentId === values.category,
   );
 
@@ -169,9 +174,6 @@ const Info = ({
     }));
   };
 
-  const subcategoriesRequired =
-    !!selectedCategory && selectedCategory.subcategories.length > 0;
-
   const isValid =
     (queryIndexData ? !!queryIndexData.fileUrl : !!file) &&
     !isUploading &&
@@ -179,8 +181,8 @@ const Info = ({
     values.description.trim().length > 0 &&
     values.countries.length > 0 &&
     values.purpose.length > 0 &&
-    values.category.length > 0 &&
-    (!subcategoriesRequired || values.subcategories.length > 0);
+    !!selectedCategory &&
+    values.subcategories.length > 0;
 
   const clearCaptchaData = () => {
     resetCaptcha();
@@ -355,7 +357,7 @@ const Info = ({
           </div>
         </div>
 
-        {selectedPurpose && selectedPurpose.parent_categories.length > 0 && (
+        {availableCategories.length > 0 && (
           <div>
             <Text
               className={styles["info-item-heading"]}
@@ -367,7 +369,7 @@ const Info = ({
               <span className={styles["info-item-required-mark"]}>*</span>
             </Text>
             <div className={styles["info-items"]}>
-              {selectedPurpose.parent_categories.map((category) => (
+              {availableCategories.map((category) => (
                 <Badge
                   key={category.documentId}
                   size="large"
@@ -383,7 +385,7 @@ const Info = ({
           </div>
         )}
 
-        {selectedCategory && selectedCategory.subcategories.length > 0 && (
+        {selectedCategory && (
           <div>
             <Text
               className={styles["info-item-heading"]}
