@@ -56,16 +56,20 @@ const CookieBanner = () => {
   const [IPGeolocationInfo, setIPGeolocationInfo] = useState<{
     country?: string;
   } | null>(null);
+  const [isGeolocationResolved, setIsGeolocationResolved] = useState(false);
   const IPGeolocationCountry = IPGeolocationInfo?.country;
   useUtmCookies();
 
   useEffect(() => {
     (async () => {
-      const cachedData = sessionStorage.getItem("IPGeolocationInfo");
-      if (cachedData) {
-        setIPGeolocationInfo(JSON.parse(cachedData));
-        return;
-      }
+      try {
+        const cachedData = sessionStorage.getItem("IPGeolocationInfo");
+        if (cachedData) {
+          setIPGeolocationInfo(JSON.parse(cachedData));
+          setIsGeolocationResolved(true);
+          return;
+        }
+      } catch {}
 
       try {
         const res = await fetch(
@@ -78,11 +82,16 @@ const CookieBanner = () => {
 
         setIPGeolocationInfo(data);
         sessionStorage.setItem("IPGeolocationInfo", JSON.stringify(data));
-      } catch {}
+      } catch {
+      } finally {
+        setIsGeolocationResolved(true);
+      }
     })();
   }, []);
 
   useEffect(() => {
+    if (!isGeolocationResolved) return;
+
     let gdpr = true;
 
     if (!IPGeolocationCountry) {
@@ -111,7 +120,7 @@ const CookieBanner = () => {
     }
 
     setIsFullGDPR(gdpr);
-  }, [IPGeolocationCountry]);
+  }, [IPGeolocationCountry, isGeolocationResolved]);
 
   useEffect(() => {
     const consentFromCookie = getConsentCookie();
