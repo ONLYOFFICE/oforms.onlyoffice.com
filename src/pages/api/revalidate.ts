@@ -36,7 +36,10 @@ const STATIC_PAGES = ["/", "/searchresult"];
 
 const REVALIDATE_CONCURRENCY = 20;
 
-let currentRevalidation: AbortController | null = null;
+let currentRevalidation: {
+  controller: AbortController;
+  done: Promise<void>;
+} | null = null;
 
 const withLocale = (locale: string, path: string) => {
   if (locale === "en") return path;
@@ -88,30 +91,7 @@ const revalidateInBatches = async (
   return failed;
 };
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
-
-  if (
-    req.headers["authorization"] !==
-    `Bearer ${process.env.REVALIDATE_AUTHORIZATION_TOKEN}`
-  ) {
-    return res.status(401).json({ message: "Invalid token" });
-  }
-
-  res.status(202).json({ message: "Revalidation started" });
-
-  currentRevalidation?.abort();
-  clearLocaleCaches();
-
-  const controller = new AbortController();
-  currentRevalidation = controller;
-  const { signal } = controller;
-
+const runRevalidation = async (res: NextApiResponse, signal: AbortSignal) => {
   try {
     const locales = languages.map((language) => language.shortKey);
     const pathsByLocale = await Promise.all(
@@ -125,7 +105,9 @@ export default async function handler(
       signal,
     );
 
-    if (failed.length > 0) {
+    if (signal.aborted) {
+      console.log("[revalidate] aborted by a new revalidation request");
+    } else if (failed.length > 0) {
       console.error(
         `[revalidate] failed to revalidate paths, failed: ${failed.length}, total: ${paths.length}`,
         failed,
@@ -134,11 +116,53 @@ export default async function handler(
       console.log("[revalidate] successfully revalidated");
     }
   } catch (error) {
-    if (signal.aborted) return;
+    if (signal.aborted) {
+      console.log("[revalidate] aborted by a new revalidation request");
+      return;
+    }
 
     const message = error instanceof Error ? error.message : String(error);
     console.error("[revalidate]", message);
-  } finally {
-    if (currentRevalidation === controller) currentRevalidation = null;
   }
+};
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  const token = process.env.REVALIDATE_AUTHORIZATION_TOKEN;
+
+  if (!token) {
+    console.error("[revalidate] REVALIDATE_AUTHORIZATION_TOKEN is not set");
+    return res.status(500).json({ message: "Server misconfigured" });
+  }
+
+  if (req.headers["authorization"] !== `Bearer ${token}`) {
+    return res.status(401).json({ message: "Invalid token" });
+  }
+
+  res.status(202).json({ message: "Revalidation started" });
+
+  const previous = currentRevalidation;
+  previous?.controller.abort();
+
+  const controller = new AbortController();
+  const done = (async () => {
+    await previous?.done;
+    if (controller.signal.aborted) return;
+
+    clearLocaleCaches();
+    await runRevalidation(res, controller.signal);
+  })();
+
+  const run = { controller, done };
+  currentRevalidation = run;
+
+  await done;
+
+  if (currentRevalidation === run) currentRevalidation = null;
 }
