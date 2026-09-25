@@ -137,12 +137,7 @@ const Sidebar = ({
       value,
     );
 
-    if (!next.subcategory.length) {
-      clearAll();
-      return;
-    }
-
-    apply(next);
+    apply(next, { toHome: true });
   };
 
   const selectedCountries = getSelectedCountries(

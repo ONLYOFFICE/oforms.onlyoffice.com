@@ -61,11 +61,13 @@ const buildViewQuery = (
 
   FILTER_KEYS.forEach((name) => {
     if (name === "country" && isDefaultCountry) return;
+    if (name === "subcategory" && extra?.category) return;
     const values = filters[name];
     if (values.length) params.set(name, values.join(","));
   });
 
-  if (filters.sort !== DEFAULT_SORT_KEY) params.set("sort", filters.sort);
+  if (filters.sort && filters.sort !== DEFAULT_SORT_KEY)
+    params.set("sort", filters.sort);
 
   return params.toString();
 };

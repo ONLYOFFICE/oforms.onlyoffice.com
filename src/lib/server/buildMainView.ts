@@ -89,7 +89,9 @@ const getAllowedSubcategories = (
     ),
   );
 
-  return subcategories.filter((item) => available.has(item));
+  return Array.from(
+    new Set(subcategories.map((item) => item.toLowerCase())),
+  ).filter((item) => available.has(item));
 };
 
 const getCountriesWithSelected = (
@@ -532,10 +534,7 @@ export const buildSearchView = (
     sort,
   );
   const isEmpty = foundForms.length === 0;
-  const hasMatches =
-    !isEmpty ||
-    getFilteredForms(scopedMatchedForms, { country: selectedCountries })
-      .length > 0;
+  const hasMatches = !isEmpty || scopedMatchedForms.length > 0;
 
   const result = {
     searchQuery: trimmedQuery,

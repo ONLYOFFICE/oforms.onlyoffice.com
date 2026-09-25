@@ -48,7 +48,7 @@ interface IUseTemplateFilters {
   select: (key: TFilterKey, value: string) => void;
   setPurpose: (purpose: string) => void;
   clearAll: () => void;
-  apply: (next: ITemplateFilters) => void;
+  apply: (next: ITemplateFilters, options?: { toHome?: boolean }) => void;
 }
 
 export const useTemplateFilters = (
@@ -72,10 +72,15 @@ export const useTemplateFilters = (
     router.push({ pathname, query }, undefined, { scroll: false, shallow });
   };
 
-  const apply = (next: ITemplateFilters) =>
+  const apply = (
+    next: ITemplateFilters,
+    { toHome = false }: { toHome?: boolean } = {},
+  ) =>
     navigate(
       next,
-      redirectToHome || (isCategoryPage && next.subcategory.length > 0),
+      toHome ||
+        redirectToHome ||
+        (isCategoryPage && next.subcategory.length > 0),
     );
 
   return {

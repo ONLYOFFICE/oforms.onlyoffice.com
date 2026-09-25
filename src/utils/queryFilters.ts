@@ -26,12 +26,7 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-import {
-  DEFAULT_SORT_KEY,
-  getQueryValues,
-  normalizeSortKey,
-  TSortKey,
-} from "@src/utils/helpers";
+import { getQueryValues, normalizeSortKey, TSortKey } from "@src/utils/helpers";
 
 export type TQueryValue = string | string[] | undefined;
 export type TRawQuery = Record<string, TQueryValue>;
@@ -48,7 +43,7 @@ export interface ITemplateFilters {
   type: string[];
   country: string[];
   subcategory: string[];
-  sort: TSortKey;
+  sort?: TSortKey;
   purpose?: string;
   expanded: string[];
   opened?: string[];
@@ -76,10 +71,10 @@ export const parseFilters = (
   type: keepAllowed(parseLowerQueryList(query.type), allowed.type),
   country: keepAllowed(parseLowerQueryList(query.country), allowed.country),
   subcategory: keepAllowed(
-    parseQueryList(query.subcategory),
+    parseLowerQueryList(query.subcategory),
     allowed.subcategory,
   ),
-  sort: normalizeSortKey(query.sort),
+  sort: parseQueryValue(query.sort) ? normalizeSortKey(query.sort) : undefined,
   purpose: parseQueryValue(query.purpose),
   expanded: parseQueryList(query[EXPAND_QUERY_PARAM]),
   opened:
@@ -107,7 +102,7 @@ export const serializeFilters = (
   if (filters.opened) query[COLLAPSE_QUERY_PARAM] = filters.opened.join(",");
 
   if (filters.purpose) query.purpose = filters.purpose;
-  if (filters.sort !== DEFAULT_SORT_KEY) query.sort = filters.sort;
+  if (filters.sort) query.sort = filters.sort;
 
   return query;
 };
