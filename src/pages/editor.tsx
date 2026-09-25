@@ -91,9 +91,12 @@ const EditorPage = ({ filename, config }: IEditorPage) => {
 export const getServerSideProps = async ({
   query,
 }: GetServerSidePropsContext) => {
-  const { lang, filename, fillform } = query;
+  const { lang, formlang, filename, fillform } = query;
   const locale = (Array.isArray(lang) ? lang[0] : lang) ?? "en";
+  const formLocale =
+    (Array.isArray(formlang) ? formlang[0] : formlang) ?? locale;
   const cmsLang = cmsLocale(locale);
+  const cmsFormLang = cmsLocale(formLocale);
   const normalizedFilename =
     (Array.isArray(filename) ? filename[0] : filename) ?? "";
   const normalizedFillform =
@@ -116,7 +119,7 @@ export const getServerSideProps = async ({
   }
 
   const oformsRes = await fetch(
-    `${CONFIG.api.cms}/api/oforms?filters[url][$eq]=${encodeURIComponent(normalizedFilename)}&locale=${cmsLang}`,
+    `${CONFIG.api.cms}/api/oforms?filters[url][$eq]=${encodeURIComponent(normalizedFilename)}&locale=${encodeURIComponent(cmsFormLang)}`,
   );
   if (!oformsRes.ok) {
     throw new Error(`Request failed with status ${oformsRes.status}`);

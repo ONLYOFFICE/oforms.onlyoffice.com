@@ -44,7 +44,8 @@ const FormTemplate = ({ form, formLocale, categories }: IFormTemplate) => {
   const { t } = useTranslation("form");
   const router = useRouter();
   const { locale } = router;
-  const editorLocale = formLocale ?? locale;
+  const editorLocale = locale ?? "en";
+  const editorFormLocale = formLocale ?? editorLocale;
   const {
     id,
     name_form,
@@ -64,10 +65,11 @@ const FormTemplate = ({ form, formLocale, categories }: IFormTemplate) => {
     return ext !== undefined && ALLOWED_TYPES.includes(ext);
   });
   const extension = editableFile?.name?.split(".").pop()?.toLowerCase();
-  const editorPrefix = editorLocale === "en" ? "" : `/${editorLocale}`;
+  const formLangParam =
+    editorFormLocale === editorLocale ? "" : `&formlang=${editorFormLocale}`;
   const linkEditor =
     editableFile && extension
-      ? `${editorPrefix}/editor?lang=${editorLocale}&filename=${url}&fillform=${editableFile.hash}.${extension}`
+      ? `/editor?lang=${editorLocale}${formLangParam}&filename=${url}&fillform=${editableFile.hash}.${extension}`
       : "";
   const suggestChangesLink = `mailto:marketing@onlyoffice.com?subject=${t("SuggestingChangesLink", { name: name_form })}&body=${t("SuggestingChangesLink", { name: name_form })}.`;
 
