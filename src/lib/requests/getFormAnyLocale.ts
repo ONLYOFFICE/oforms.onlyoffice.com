@@ -41,18 +41,10 @@ const getFormAnyLocale = async (
     ...locales.filter((item) => item !== locale),
   ] as ILocale["locale"][];
 
-  let lastError: unknown;
-
   for (const item of ordered) {
-    try {
-      const form: IFormData = await getForm(item, slug);
-      if (form?.data?.length) return { form, formLocale: item };
-    } catch (error) {
-      lastError = error;
-    }
+    const form: IFormData = await getForm(item, slug);
+    if (form?.data?.length) return { form, formLocale: item };
   }
-
-  if (lastError) throw lastError;
 
   return {
     form: {

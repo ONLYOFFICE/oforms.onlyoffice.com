@@ -34,6 +34,7 @@ const clearers = new Set<() => void>();
 
 const cacheByLocale = <A extends (string | undefined)[], T>(
   fetcher: (locale: Locale, ...args: A) => Promise<T>,
+  { shouldCache }: { shouldCache?: (value: T) => boolean } = {},
 ): ((locale: Locale, ...args: A) => Promise<T>) => {
   const cache = new Map<string, Promise<T>>();
 
@@ -45,10 +46,18 @@ const cacheByLocale = <A extends (string | undefined)[], T>(
     const cached = cache.get(key);
     if (cached) return cached;
 
-    const promise: Promise<T> = fetcher(locale, ...args).catch((error) => {
-      if (cache.get(key) === promise) cache.delete(key);
-      throw error;
-    });
+    const promise: Promise<T> = fetcher(locale, ...args).then(
+      (value) => {
+        if (shouldCache && !shouldCache(value) && cache.get(key) === promise) {
+          cache.delete(key);
+        }
+        return value;
+      },
+      (error) => {
+        if (cache.get(key) === promise) cache.delete(key);
+        throw error;
+      },
+    );
 
     cache.set(key, promise);
 

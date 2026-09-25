@@ -73,20 +73,29 @@ const fetchAllForms = (locale: ILocale["locale"]) =>
 
 const getFormsByLocale = cacheByLocale(fetchAllForms);
 
+const incompleteResults = new WeakSet<object>();
+
 const buildAllLocales = async (locale: ILocale["locale"]) => {
   const locales = languages.map(({ shortKey }) => shortKey);
   const ordered = [locale, ...locales.filter((item) => item !== locale)];
 
-  const results = await Promise.all(
-    ordered.map(async (item) => {
-      try {
-        const forms = await getFormsByLocale(item);
-        return { locale: item, data: forms.data ?? [], meta: forms.meta };
-      } catch {
-        return { locale: item, data: [], meta: undefined };
-      }
-    }),
+  const settled = await Promise.allSettled(
+    ordered.map((item) => getFormsByLocale(item)),
   );
+
+  const current = settled[0];
+  if (current.status === "rejected") throw current.reason;
+
+  const results = settled.map((result, index) =>
+    result.status === "fulfilled"
+      ? {
+          locale: ordered[index],
+          data: result.value.data ?? [],
+          meta: result.value.meta,
+        }
+      : { locale: ordered[index], data: [], meta: undefined },
+  );
+  const isIncomplete = settled.some((result) => result.status === "rejected");
 
   const localeNames = new Map<string, string>();
   const currentForms =
@@ -150,9 +159,15 @@ const buildAllLocales = async (locale: ILocale["locale"]) => {
       }),
   );
 
-  return { data, meta: results[0]?.meta };
+  const result = { data, meta: results[0]?.meta };
+
+  if (isIncomplete) incompleteResults.add(result);
+
+  return result;
 };
 
-const getAllFormsAllLocales = cacheByLocale(buildAllLocales);
+const getAllFormsAllLocales = cacheByLocale(buildAllLocales, {
+  shouldCache: (result) => !incompleteResults.has(result),
+});
 
 export { getAllFormsAllLocales, getFormsByLocale };
