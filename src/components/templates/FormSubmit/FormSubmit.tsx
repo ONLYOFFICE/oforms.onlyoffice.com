@@ -51,7 +51,17 @@ const FormSubmitTemplate = ({
   const [submitted, setSubmitted] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [isQueryFileSelected, setIsQueryFileSelected] = useState(
+    !!queryIndexData?.fileUrl,
+  );
   const { requestToken, resetToken, captchaProps } = useCaptchaToken();
+
+  const selectedQueryData = isQueryFileSelected ? queryIndexData : null;
+
+  const selectFile = (nextFile: File | null) => {
+    setFile(nextFile);
+    setIsQueryFileSelected(false);
+  };
 
   return (
     <Section
@@ -74,7 +84,7 @@ const FormSubmitTemplate = ({
         {submitted ? (
           <SubmittedSuccessfully
             setSubmitted={setSubmitted}
-            name={file?.name ?? queryIndexData?.fileName ?? ""}
+            name={file?.name ?? selectedQueryData?.fileName ?? ""}
           />
         ) : (
           <>
@@ -96,7 +106,7 @@ const FormSubmitTemplate = ({
             <div className={styles["form-submit-wrapper"]}>
               <File
                 file={file}
-                setFile={setFile}
+                setFile={selectFile}
                 isUploading={isUploading}
                 setIsUploading={setIsUploading}
                 queryIndexData={queryIndexData}
@@ -108,7 +118,7 @@ const FormSubmitTemplate = ({
                 onSuccess={() => setSubmitted(true)}
                 file={file}
                 isUploading={isUploading}
-                queryIndexData={queryIndexData}
+                queryIndexData={selectedQueryData}
                 requestCaptchaToken={requestToken}
                 resetCaptcha={resetToken}
               />
