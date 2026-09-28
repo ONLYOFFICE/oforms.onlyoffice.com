@@ -36,6 +36,7 @@ export type TFilterKey = (typeof FILTER_KEYS)[number];
 
 export const EXPAND_QUERY_PARAM = "categories-expanded";
 export const COLLAPSE_QUERY_PARAM = "categories-opened";
+export const COUNTRIES_COLLAPSE_QUERY_PARAM = "countries-opened";
 
 export type TAllowedValues = Partial<Record<TFilterKey, Iterable<string>>>;
 
@@ -47,6 +48,7 @@ export interface ITemplateFilters {
   purpose?: string;
   expanded: string[];
   opened?: string[];
+  countriesOpened?: string[];
 }
 
 export const parseQueryList = (value: TQueryValue): string[] =>
@@ -81,6 +83,10 @@ export const parseFilters = (
     query[COLLAPSE_QUERY_PARAM] === undefined
       ? undefined
       : parseQueryList(query[COLLAPSE_QUERY_PARAM]),
+  countriesOpened:
+    query[COUNTRIES_COLLAPSE_QUERY_PARAM] === undefined
+      ? undefined
+      : parseQueryList(query[COUNTRIES_COLLAPSE_QUERY_PARAM]),
 });
 
 export const serializeFilters = (
@@ -100,6 +106,8 @@ export const serializeFilters = (
   });
 
   if (filters.opened) query[COLLAPSE_QUERY_PARAM] = filters.opened.join(",");
+  if (filters.countriesOpened)
+    query[COUNTRIES_COLLAPSE_QUERY_PARAM] = filters.countriesOpened.join(",");
 
   if (filters.purpose) query.purpose = filters.purpose;
   if (filters.sort) query.sort = filters.sort;
@@ -133,4 +141,5 @@ export const clearFilters = (filters: ITemplateFilters): ITemplateFilters => ({
   subcategory: [],
   expanded: [],
   opened: undefined,
+  countriesOpened: undefined,
 });

@@ -54,6 +54,7 @@ const SidebarItem = ({
   isSub = false,
   queryKey,
   collapseQueryKey,
+  collapseQueryParam = COLLAPSE_QUERY_PARAM,
   defaultOpen = true,
   defaultOpenKeys = [],
 }: ISidebarItem) => {
@@ -66,7 +67,7 @@ const SidebarItem = ({
     !!queryKey &&
     parseQueryList(router.query[EXPAND_QUERY_PARAM]).includes(queryKey);
 
-  const collapseParam = router.query[COLLAPSE_QUERY_PARAM];
+  const collapseParam = router.query[collapseQueryParam];
 
   const getIsOpen = () => {
     if (!collapseQueryKey) return isOpenState;
@@ -79,7 +80,8 @@ const SidebarItem = ({
   const showCount = !isSub && !isSwitch && !!count;
   const OptionComponent = isSwitch ? Switch : Badge;
 
-  const isCollapsible = isSub && (options?.length ?? 0) > VISIBLE_OPTIONS_LIMIT;
+  const isCollapsible =
+    isSub && !!queryKey && (options?.length ?? 0) > VISIBLE_OPTIONS_LIMIT;
   const visibleOptions =
     isCollapsible && !showAllOptions
       ? options?.slice(0, VISIBLE_OPTIONS_LIMIT)
@@ -125,7 +127,7 @@ const SidebarItem = ({
           ? defaultOpenKeys
           : parseQueryList(collapseParam);
       writeQueryList(
-        COLLAPSE_QUERY_PARAM,
+        collapseQueryParam,
         toggleId(current, collapseQueryKey, next),
         true,
       );
@@ -148,7 +150,10 @@ const SidebarItem = ({
         className={clsx(
           styles["sidebar-item-header"],
           isSub && styles["sidebar-item-header-sub"],
-          !isSub && categories && styles["sidebar-item-header-with-categories"],
+          !isSub &&
+            categories &&
+            !options &&
+            styles["sidebar-item-header-with-categories"],
         )}
         onClick={toggleIsOpen}
       >
@@ -220,8 +225,10 @@ const SidebarItem = ({
               defaultOpen={category.defaultOpen ?? false}
               heading={category.heading}
               options={category.options}
+              type={type}
               queryKey={category.queryKey}
-              collapseQueryKey={category.queryKey}
+              collapseQueryKey={category.collapseQueryKey ?? category.queryKey}
+              collapseQueryParam={category.collapseQueryParam}
               defaultOpenKeys={categories.flatMap((item) =>
                 item.defaultOpen && item.queryKey ? [item.queryKey] : [],
               )}

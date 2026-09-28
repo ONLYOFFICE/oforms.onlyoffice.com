@@ -37,9 +37,14 @@ import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { getSelectedCountries, localeCountry } from "@src/utils/localeCountry";
 import { isRtlLocale } from "@src/utils/rtl";
 import { useTemplateFilters } from "@src/lib/hooks/useTemplateFilters";
-import { toggleFilterValue } from "@src/utils/queryFilters";
+import {
+  COUNTRIES_COLLAPSE_QUERY_PARAM,
+  toggleFilterValue,
+} from "@src/utils/queryFilters";
 import { ISidebar } from "./Sidebar.types";
 import styles from "./Sidebar.module.scss";
+
+const VISIBLE_COUNTRIES_LIMIT = 8;
 
 const Sidebar = ({
   isOpen,
@@ -167,6 +172,19 @@ const Sidebar = ({
       country.count > 0 ||
       selectedCountries.includes(country.code.toLowerCase()),
   );
+  const toCountryOption = (country: (typeof countries)[number]) => ({
+    value: country.code.toLowerCase(),
+    label: country.name,
+    count: country.count,
+    checked: selectedCountries.includes(country.code.toLowerCase()),
+    onChange: () => select("country", country.code.toLowerCase()),
+  });
+  const topCountryOptions = visibleCountries
+    .slice(0, VISIBLE_COUNTRIES_LIMIT)
+    .map(toCountryOption);
+  const otherCountryOptions = visibleCountries
+    .slice(VISIBLE_COUNTRIES_LIMIT)
+    .map(toCountryOption);
   const isSubcategoryVisible = (sub: { urlReq: string; count: number }) =>
     sub.count > 0 || selectedSubcategories.includes(sub.urlReq);
   const visiblePurposeCategories = purposeCategories
@@ -251,16 +269,20 @@ const Sidebar = ({
                     : undefined,
                   type: "radio",
                   count: checkedCountryCount,
-                  options: visibleCountries.map((country) => ({
-                    value: country.code.toLowerCase(),
-                    label: country.name,
-                    count: country.count,
-                    checked: selectedCountries.includes(
-                      country.code.toLowerCase(),
-                    ),
-                    onChange: () =>
-                      select("country", country.code.toLowerCase()),
-                  })),
+                  options: topCountryOptions,
+                  categories: otherCountryOptions.length
+                    ? [
+                        {
+                          heading: t("OtherCountries"),
+                          collapseQueryKey: "other-countries",
+                          collapseQueryParam: COUNTRIES_COLLAPSE_QUERY_PARAM,
+                          defaultOpen: otherCountryOptions.some(
+                            (option) => option.checked,
+                          ),
+                          options: otherCountryOptions,
+                        },
+                      ]
+                    : undefined,
                 },
                 {
                   heading: t("Type"),

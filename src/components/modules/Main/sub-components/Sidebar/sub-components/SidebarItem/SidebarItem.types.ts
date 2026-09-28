@@ -43,6 +43,8 @@ export interface ISidebarItem {
     heading: string;
     options: ISidebarOption[];
     queryKey?: string;
+    collapseQueryKey?: string;
+    collapseQueryParam?: string;
     defaultOpen?: boolean;
   }[];
   optionsType?: "badge" | "switch";
@@ -50,6 +52,7 @@ export interface ISidebarItem {
   isSub?: boolean;
   queryKey?: string;
   collapseQueryKey?: string;
+  collapseQueryParam?: string;
   defaultOpen?: boolean;
   defaultOpenKeys?: string[];
 }

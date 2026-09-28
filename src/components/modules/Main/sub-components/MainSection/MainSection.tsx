@@ -33,6 +33,7 @@ import { Link } from "@src/components/ui/Link";
 import { Card } from "@src/components/widgets/Card";
 import {
   COLLAPSE_QUERY_PARAM,
+  COUNTRIES_COLLAPSE_QUERY_PARAM,
   EXPAND_QUERY_PARAM,
   parseQueryList,
 } from "@src/utils/queryFilters";
@@ -60,6 +61,8 @@ const MainSection = ({
   const hrefWithOpened = appendQueryParams(href, {
     [EXPAND_QUERY_PARAM]: router.query[EXPAND_QUERY_PARAM],
     [COLLAPSE_QUERY_PARAM]: openedCategories,
+    [COUNTRIES_COLLAPSE_QUERY_PARAM]:
+      router.query[COUNTRIES_COLLAPSE_QUERY_PARAM],
     country: router.query.country,
     sort: router.query.sort,
   });

@@ -169,6 +169,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+
+  &:not(:last-child) {
+    margin-bottom: 24px;
+  }
 }
 
 .sidebar-item-options-btn {
