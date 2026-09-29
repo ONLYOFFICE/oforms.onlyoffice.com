@@ -139,6 +139,7 @@ const toCardView = (form: TFormItem): ICardView => ({
   url: form.url,
   preview: form.card_prewiew?.url ?? "",
   format: form.form_exts?.[0]?.ext ?? ALLOWED_TYPES[0],
+  ...(form.locale && { locale: form.locale }),
 });
 
 export const buildFormNames = (
@@ -154,7 +155,12 @@ export const buildFormNames = (
 
   return getFilteredForms(getFormsInScope(allForms, locale, country), {
     country,
-  }).map(({ id, name_form, url }) => ({ id, name_form, url }));
+  }).map(({ id, name_form, url, locale: formLocale }) => ({
+    id,
+    name_form,
+    url,
+    ...(formLocale && { locale: formLocale }),
+  }));
 };
 
 export const resolveMainFilters = (

@@ -40,9 +40,10 @@ import { getAssetUrl } from "@src/utils/getAssetUrl";
 import styles from "./Share.module.scss";
 
 const Share = () => {
-  const { t } = useTranslation("form");
+  const { t, i18n } = useTranslation("form");
   const router = useRouter();
   const locale = router.locale;
+  const lang = i18n.language;
   const routerUrl = `${process.env.NEXT_PUBLIC_SITE_URL}${locale === "en" ? "" : `/${locale}`}${router.asPath}`;
 
   return (
@@ -95,7 +96,7 @@ const Share = () => {
             ></span>
           </FacebookShareButton>
         </li>
-        {locale === "zh" && (
+        {lang === "zh" && (
           <>
             <li className={styles["share-item"]}>
               <Link

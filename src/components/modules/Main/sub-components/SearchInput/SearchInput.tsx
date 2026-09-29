@@ -44,12 +44,23 @@ import { parseQueryList } from "@src/utils/queryFilters";
 import { localeCountry } from "@src/utils/localeCountry";
 import { normalizeSearchQuery } from "@src/utils/searchQuery";
 import { normalizeSortKey } from "@src/utils/helpers";
+import { LANG_QUERY_PARAM } from "@src/utils/queryLang";
 import { POPULAR_SEARCH } from "./data/popular-search";
 import { ISearchInput } from "./SearchInput.types";
 import styles from "./SearchInput.module.scss";
 
 const SEARCH_HISTORY_KEY = "search_history";
 const SEARCH_HISTORY_LIMIT = 5;
+
+const buildFormLink = (url: string, lang: string, formLocale?: string) => {
+  const path = url.startsWith("/") ? url : `/${url}`;
+  const locale = formLocale ?? lang;
+
+  return {
+    href: locale === lang ? path : `${path}?${LANG_QUERY_PARAM}=${lang}`,
+    locale,
+  };
+};
 
 const readSearchHistory = (): string[] => {
   try {
@@ -102,9 +113,10 @@ const Highlight = ({
 };
 
 const SearchInput = ({ className, countryCodes, formNames }: ISearchInput) => {
-  const { t } = useTranslation("SearchInput");
+  const { t, i18n } = useTranslation("SearchInput");
   const router = useRouter();
   const locale = router.locale ?? "en";
+  const lang = i18n.language;
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchItem, setSearchItem] = useState("");
@@ -321,7 +333,7 @@ const SearchInput = ({ className, countryCodes, formNames }: ISearchInput) => {
                         updateSearchHistory(item.name_form);
                         setSearchResult(false);
                       }}
-                      href={item.url}
+                      {...buildFormLink(item.url, lang, item.locale)}
                     >
                       <Highlight
                         searchQuery={searchItem}

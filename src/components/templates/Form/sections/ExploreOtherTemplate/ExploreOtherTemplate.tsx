@@ -57,7 +57,8 @@ const TEMPLATE_ITEMS = [
 ] as const;
 
 const ExploreOtherTemplate = () => {
-  const { t } = useTranslation("form");
+  const { t, i18n } = useTranslation("form");
+  const lang = i18n.language;
 
   return (
     <Section
@@ -82,6 +83,7 @@ const ExploreOtherTemplate = () => {
                 imageUrl={imageUrl}
                 href={href}
                 heading={t(headingKey)}
+                locale={lang}
               />
             </li>
           ))}

@@ -29,9 +29,14 @@
 import { OOAdventAnnounce } from "onlyoffice-react-ui-kit/advent-announce";
 import "onlyoffice-react-ui-kit/advent-announce/css";
 import { ILocale } from "@src/types/locale";
+import styles from "./AdventAnnounce.module.scss";
 
 const AdventAnnounce = ({ locale }: ILocale) => {
-  return <OOAdventAnnounce locale={locale} />;
+  return (
+    <div className={styles["advent-announce"]}>
+      <OOAdventAnnounce locale={locale} />
+    </div>
+  );
 };
 
 export { AdventAnnounce };

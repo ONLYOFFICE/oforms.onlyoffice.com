@@ -29,6 +29,7 @@
 interface IBreadcrumbsItem {
   label: string;
   href?: string;
+  locale?: string;
 }
 
 export interface IBreadcrumbs {

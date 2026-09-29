@@ -36,16 +36,16 @@ import { RecentlyViewed } from "./sections/RecentlyViewed";
 import { ExploreOtherTemplate } from "./sections/ExploreOtherTemplate";
 import { PopularCategories } from "./sections/PopularCategories";
 import { BuildYourOwnForms } from "./sections/BuildYourOwnForms";
+import { FormSkeleton } from "./sub-components/FormSkeleton";
 import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { IFormTemplate } from "./Form.types";
 import styles from "./Form.module.scss";
 
-const FormTemplate = ({ form, formLocale, categories }: IFormTemplate) => {
-  const { t } = useTranslation("form");
-  const router = useRouter();
-  const { locale } = router;
-  const editorLocale = locale ?? "en";
-  const editorFormLocale = formLocale ?? editorLocale;
+const FormTemplate = ({ form, categories }: IFormTemplate) => {
+  const { t, i18n } = useTranslation("form");
+  const { locale } = useRouter();
+  const editorLocale = i18n.language;
+  const editorFormLocale = locale ?? editorLocale;
   const {
     id,
     name_form,
@@ -75,36 +75,40 @@ const FormTemplate = ({ form, formLocale, categories }: IFormTemplate) => {
 
   return (
     <div className={styles["form-template"]}>
-      <Container maxWidth="1452px">
-        <Breadcrumbs
-          items={[
-            { label: t("MainTemplates"), href: "/" },
-            { label: name_form },
-          ]}
+      <FormSkeleton className={styles["form-template-skeleton"]} />
+      <div className={styles["form-template-content"]}>
+        <Container maxWidth="1452px">
+          <Breadcrumbs
+            items={[
+              { label: t("MainTemplates"), href: "/", locale: editorLocale },
+              { label: name_form },
+            ]}
+          />
+        </Container>
+        <Hero
+          name_form={name_form}
+          template_desc={template_desc}
+          template_desc_2={template_desc_2}
+          file_pages={file_pages}
+          file_oform={file_oform}
+          page_screens={page_screens}
+          linkEditor={linkEditor}
+          suggestChangesLink={suggestChangesLink}
         />
-      </Container>
-      <Hero
-        name_form={name_form}
-        template_desc={template_desc}
-        template_desc_2={template_desc_2}
-        file_pages={file_pages}
-        file_oform={file_oform}
-        page_screens={page_screens}
-        linkEditor={linkEditor}
-        suggestChangesLink={suggestChangesLink}
-      />
-      <HowToCreate name_form={name_form} linkEditor={linkEditor} />
-      <RecentlyViewed
-        id={id}
-        name_form={name_form}
-        description_card={description_card}
-        url={url}
-        card_prewiew={card_prewiew?.url}
-        form_exts={form_exts?.[0]?.ext}
-      />
-      <ExploreOtherTemplate />
-      <PopularCategories categories={categories} />
-      <BuildYourOwnForms suggestChangesLink={suggestChangesLink} />
+        <HowToCreate name_form={name_form} linkEditor={linkEditor} />
+        <RecentlyViewed
+          id={id}
+          name_form={name_form}
+          description_card={description_card}
+          url={url}
+          card_prewiew={card_prewiew?.url}
+          form_exts={form_exts?.[0]?.ext}
+          locale={editorFormLocale}
+        />
+        <ExploreOtherTemplate />
+        <PopularCategories categories={categories} />
+        <BuildYourOwnForms suggestChangesLink={suggestChangesLink} />
+      </div>
     </div>
   );
 };

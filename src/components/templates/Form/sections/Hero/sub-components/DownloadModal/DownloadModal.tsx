@@ -27,7 +27,6 @@
  */
 
 import { useTranslation } from "next-i18next";
-import { useRouter } from "next/router";
 import { Modal } from "@src/components/ui/Modal";
 import { Heading } from "@src/components/ui/Heading";
 import { Text } from "@src/components/ui/Text";
@@ -37,9 +36,8 @@ import { IDownloadModal } from "./DownloadModal.types";
 import styles from "./DownloadModal.module.scss";
 
 const DownloadModal = ({ isOpen, onClose }: IDownloadModal) => {
-  const { t } = useTranslation("form");
-  const router = useRouter();
-  const locale = router.locale;
+  const { t, i18n } = useTranslation("form");
+  const locale = i18n.language;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} withCloseBtn={true}>

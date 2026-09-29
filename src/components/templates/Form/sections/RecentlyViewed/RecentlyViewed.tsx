@@ -28,7 +28,6 @@
 
 import { useState, useEffect } from "react";
 import { useTranslation } from "next-i18next";
-import { useRouter } from "next/router";
 import { SliderSection } from "../../sub-components/SliderSection";
 import { IRecentlyViewed, IRecentlyViewedForm } from "./RecentlyViewed.types";
 
@@ -44,7 +43,8 @@ const isStoredForm = (value: unknown): value is IRecentlyViewedForm => {
     typeof form.description_card === "string" &&
     typeof form.url === "string" &&
     typeof form.card_prewiew === "string" &&
-    typeof form.form_exts === "string"
+    typeof form.form_exts === "string" &&
+    (form.locale === undefined || typeof form.locale === "string")
   );
 };
 
@@ -65,10 +65,10 @@ const RecentlyViewed = ({
   url,
   card_prewiew,
   form_exts,
+  locale: formLocale,
 }: IRecentlyViewed) => {
-  const { t } = useTranslation("form");
-  const router = useRouter();
-  const locale = router.locale;
+  const { t, i18n } = useTranslation("form");
+  const locale = i18n.language;
   const [recentForms, setRecentForms] = useState<IRecentlyViewedForm[]>([]);
 
   useEffect(() => {
@@ -80,6 +80,7 @@ const RecentlyViewed = ({
       url,
       card_prewiew,
       form_exts,
+      ...(formLocale && { locale: formLocale }),
     };
     const storedForms = readStoredForms(localStorageKey).filter(
       (storedForm) => storedForm.id !== id,
@@ -95,7 +96,7 @@ const RecentlyViewed = ({
     }
 
     setRecentForms(storedForms.slice(0, MAX_FORMS - 1));
-  }, [id, name_form, description_card, url, card_prewiew, form_exts, locale]);
+  }, [id, name_form, description_card, url, card_prewiew, form_exts, formLocale, locale]);
 
   if (recentForms.length === 0) return null;
 

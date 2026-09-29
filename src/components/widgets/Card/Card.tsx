@@ -27,9 +27,11 @@
  */
 
 import clsx from "clsx";
+import { useTranslation } from "next-i18next";
 import { Link } from "@src/components/ui/Link";
 import { Heading } from "@src/components/ui/Heading";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
+import { LANG_QUERY_PARAM } from "@src/utils/queryLang";
 import { TFormat } from "@src/types/data";
 import { ICard } from "./Card.types";
 import styles from "./Card.module.scss";
@@ -48,11 +50,20 @@ const Card = ({
   heading,
   description,
   url,
+  locale,
   skeleton,
 }: ICard) => {
+  const { i18n } = useTranslation();
+  const lang = i18n.language;
+  const path = url?.startsWith("/") ? url : `/${url}`;
+  const formLocale = locale ?? lang;
+  const href =
+    formLocale === lang ? path : `${path}?${LANG_QUERY_PARAM}=${lang}`;
+
   return (
     <Link
-      href={url ? (url.startsWith("/") ? url : `/${url}`) : "#"}
+      href={url ? href : undefined}
+      locale={url ? formLocale : undefined}
       className={clsx(
         styles.card,
         styles[`card-${format}`],

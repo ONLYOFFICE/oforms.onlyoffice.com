@@ -35,6 +35,7 @@ export interface IRecentlyViewedForm {
   url: IFormData["data"][0]["url"];
   card_prewiew: IFormData["data"][0]["card_prewiew"]["url"];
   form_exts: IFormData["data"][0]["form_exts"][0]["ext"];
+  locale?: string;
 }
 
 export type IRecentlyViewed = IRecentlyViewedForm;

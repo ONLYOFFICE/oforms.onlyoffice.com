@@ -26,7 +26,10 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+import { useEffect, useLayoutEffect } from "react";
 import { GetStaticPaths, GetStaticPropsContext } from "next";
+import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { getAllFormUrls } from "@src/lib/requests/getAllFormUrls";
 import {
@@ -41,7 +44,7 @@ import {
   buildFormNames,
   resolveCategoryFilters,
 } from "@src/lib/server/buildMainView";
-import { getFormAnyLocale } from "@src/lib/requests/getFormAnyLocale";
+import { getForm } from "@src/lib/requests/getForm";
 import { getParentCategories } from "@src/lib/requests/getParentCategories";
 import { languages } from "@src/config/languages";
 import { Layout } from "@src/components/Layout";
@@ -53,10 +56,50 @@ import { CategoryTemplate } from "@src/components/templates/Category";
 import { ICategory } from "@src/types/template";
 import { FormTemplate, IFormTemplate } from "@src/components/templates/Form";
 import { ILocale } from "@src/types/locale";
+import { LANG_QUERY_PARAM } from "@src/utils/queryLang";
+import { clearLangPending } from "@src/utils/langPending";
 
 interface ICategoryInfo {
   data: { seo_title: string; seo_description: string }[];
 }
+
+const LOCALES: string[] = languages.map(({ shortKey }) => shortKey);
+
+const resolveLang = (
+  value: string | string[] | null | undefined,
+  fallback: string,
+): string => {
+  const raw = (Array.isArray(value) ? value[0] : value)?.toLowerCase();
+  return raw && LOCALES.includes(raw) ? raw : fallback;
+};
+
+const useQueryLang = (enabled = true) => {
+  const { i18n } = useTranslation();
+  const { locale, query, isReady } = useRouter();
+  const lang = resolveLang(query[LANG_QUERY_PARAM], locale ?? "en");
+  const currentLanguage = i18n?.language;
+  const shouldSwitch =
+    enabled &&
+    !!locale &&
+    lang !== locale &&
+    !!i18n?.hasResourceBundle(lang, "form");
+
+  useLayoutEffect(() => {
+    if (!shouldSwitch || !locale) return;
+
+    i18n.changeLanguage(lang);
+
+    return () => {
+      i18n.changeLanguage(locale);
+    };
+  }, [shouldSwitch, i18n, lang, locale]);
+
+  useEffect(() => {
+    if (isReady && (!shouldSwitch || currentLanguage === lang)) {
+      clearLangPending();
+    }
+  }, [isReady, shouldSwitch, currentLanguage, lang]);
+};
 
 type ISlugPage =
   | ({ isCategory: true; categoryInfo: ICategoryInfo } & ICategory)
@@ -64,6 +107,10 @@ type ISlugPage =
 
 const SlugPage = (props: ISlugPage & ILocale) => {
   const { locale } = props;
+  const { i18n } = useTranslation();
+  const lang = i18n.language;
+
+  useQueryLang(!props.isCategory);
 
   if (props.isCategory) {
     const { categoryInfo, initialView, initialFormNames, categoryUrlReq } =
@@ -100,7 +147,7 @@ const SlugPage = (props: ISlugPage & ILocale) => {
     );
   }
 
-  const { form, formLocale, categories } = props;
+  const { form, categories } = props;
   const formData = form.data[0];
   const formPath = `/${formData.url}`;
   const title = formData.seo_title || formData.name_form;
@@ -113,24 +160,20 @@ const SlugPage = (props: ISlugPage & ILocale) => {
           title={title}
           description={description}
           path={formPath}
-          locale={formLocale}
+          locale={locale}
         />
       </Layout.Head>
       <Layout.AdventAnnounce>
-        <AdventAnnounce locale={locale} />
+        <AdventAnnounce locale={lang} />
       </Layout.AdventAnnounce>
       <Layout.Header>
-        <Header locale={locale} resetPathOnLocaleChange />
+        <Header locale={lang} resetPathOnLocaleChange />
       </Layout.Header>
       <Layout.Main background="var(--primary-background-color)">
-        <FormTemplate
-          form={form}
-          formLocale={formLocale}
-          categories={categories}
-        />
+        <FormTemplate form={form} categories={categories} />
       </Layout.Main>
       <Layout.Footer>
-        <Footer locale={locale} resetPathOnLocaleChange />
+        <Footer locale={lang} resetPathOnLocaleChange />
       </Layout.Footer>
     </Layout>
   );
@@ -221,12 +264,12 @@ export const getStaticProps = async ({
     };
   }
 
-  const [{ form, formLocale }, categories] = await Promise.all([
-    getFormAnyLocale(locale, slug),
+  const [form, categories] = await Promise.all([
+    getForm(locale, slug),
     getParentCategories(locale),
   ]);
 
-  if (form.data.length === 0) {
+  if (!form?.data?.length) {
     return {
       notFound: true,
     };
@@ -234,10 +277,14 @@ export const getStaticProps = async ({
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common", "form"])),
+      ...(await serverSideTranslations(
+        locale,
+        ["common", "form"],
+        null,
+        languages.map((language) => language.shortKey),
+      )),
       locale,
       form,
-      formLocale,
       categories,
     },
   };

@@ -41,6 +41,7 @@ export interface ICardView {
   url: string;
   preview: string;
   format: TFormat;
+  locale?: string;
 }
 
 export interface IMainSectionView {

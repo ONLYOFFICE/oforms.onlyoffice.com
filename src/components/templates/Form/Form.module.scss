@@ -39,3 +39,21 @@
     padding-top: 28px;
   }
 }
+
+.form-template-content {
+  display: contents;
+}
+
+.form-template-skeleton {
+  display: none;
+}
+
+:global(html[data-lang-pending]) {
+  .form-template-content {
+    display: none;
+  }
+
+  .form-template-skeleton {
+    display: contents;
+  }
+}

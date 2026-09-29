@@ -27,32 +27,27 @@
  */
 
 import { languages } from "@src/config/languages";
-import { getForm } from "@src/lib/requests/getForm";
-import { IFormData } from "@src/components/templates/Form/Form.types";
-import { ILocale } from "@src/types/locale";
+import { isRtlLocale } from "@src/utils/rtl";
 
-const getFormAnyLocale = async (
-  locale: ILocale["locale"],
-  slug: string,
-): Promise<{ form: IFormData; formLocale: ILocale["locale"] }> => {
-  const locales = languages.map(({ shortKey }) => shortKey);
-  const ordered = [
-    locale,
-    ...locales.filter((item) => item !== locale),
-  ] as ILocale["locale"][];
+const LANG_PENDING_ATTRIBUTE = "data-lang-pending";
 
-  for (const item of ordered) {
-    const form: IFormData = await getForm(item, slug);
-    if (form?.data?.length) return { form, formLocale: item };
-  }
+const LANG_PENDING_TIMEOUT = 10000;
 
-  return {
-    form: {
-      data: [],
-      meta: { pagination: { page: 1, pageCount: 0, pageSize: 0, total: 0 } },
-    } as IFormData,
-    formLocale: locale,
-  };
+const LANG_PENDING_CONFIG = {
+  locales: languages.map(({ shortKey }) => shortKey),
+  defaultLocale: "en",
+  excluded: ["searchresult", "editor", "form-submit", "404", "500"],
+  rtl: languages
+    .map(({ shortKey }) => shortKey)
+    .filter((shortKey) => isRtlLocale(shortKey)),
 };
 
-export { getFormAnyLocale };
+export const LANG_PENDING_SCRIPT = `(function(){try{var c=${JSON.stringify(
+  LANG_PENDING_CONFIG,
+)},g=(new URLSearchParams(location.search).get("lang")||"").toLowerCase(),s=location.pathname.split("/").filter(Boolean),l=c.locales.indexOf(s[0])>-1?s.shift():c.defaultLocale;if(s.length===1&&c.excluded.indexOf(s[0])<0&&c.locales.indexOf(g)>-1&&g!==l){var d=document.documentElement;d.lang=g;d.dir=c.rtl.indexOf(g)>-1?"rtl":"ltr";d.setAttribute("${LANG_PENDING_ATTRIBUTE}","");setTimeout(function(){d.removeAttribute("${LANG_PENDING_ATTRIBUTE}")},${LANG_PENDING_TIMEOUT})}}catch(e){}})();`;
+
+export const isLangPending = () =>
+  document.documentElement.hasAttribute(LANG_PENDING_ATTRIBUTE);
+
+export const clearLangPending = () =>
+  document.documentElement.removeAttribute(LANG_PENDING_ATTRIBUTE);

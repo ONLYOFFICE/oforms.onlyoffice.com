@@ -26,63 +26,6 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-@keyframes skeletonShimmer {
-  from {
-    background-position: 100% 0;
-  }
-
-  to {
-    background-position: 0 0;
-  }
-}
-
-@mixin active {
-  :global(html[data-view-pending] .skeleton) &,
-  :global(.skeleton-active) & {
-    @content;
-  }
-}
-
-@mixin fill-styles {
-  border-color: transparent;
-  color: transparent;
-  background: linear-gradient(
-      90deg,
-      transparent 40%,
-      var(--skeleton-shimmer-color) 50%,
-      transparent 60%
-    )
-    var(--skeleton-background-color);
-  background-size: 300% 100%;
-  box-shadow: none;
-  animation: skeletonShimmer 1.4s ease-in-out infinite;
-
-  &:dir(rtl) {
-    animation-direction: reverse;
-  }
-
-  &::before,
-  &::after,
-  * {
-    visibility: hidden;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-}
-
-@mixin fill {
-  @include active {
-    @include fill-styles;
-  }
-}
-
-@mixin lang-pending {
-  :global(html[data-lang-pending]) & {
-    pointer-events: none;
-    user-select: none;
-
-    @include fill-styles;
-  }
+export interface IFormSkeleton {
+  className?: string;
 }

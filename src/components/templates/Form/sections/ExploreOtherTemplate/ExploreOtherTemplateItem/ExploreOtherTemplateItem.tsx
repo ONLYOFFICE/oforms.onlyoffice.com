@@ -35,11 +35,13 @@ const ExploreOtherTemplateItem = ({
   imageUrl,
   href,
   heading,
+  locale,
 }: IExploreOtherTemplateItem) => {
   return (
     <Link
       className={styles["explore-other-template-item"]}
       href={href}
+      locale={locale}
       style={
         {
           "--explore-other-template-item-icon": `url(${getAssetUrl(imageUrl)})`,

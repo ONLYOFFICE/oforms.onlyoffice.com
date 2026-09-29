@@ -26,8 +26,12 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+@use "skeleton";
+
 .header {
   position: sticky;
   top: 0;
   z-index: 1000;
+
+  @include skeleton.lang-pending;
 }

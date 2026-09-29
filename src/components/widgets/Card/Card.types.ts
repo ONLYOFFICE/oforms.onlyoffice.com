@@ -35,5 +35,6 @@ export interface ICard {
   heading: string;
   description: string;
   url: string;
+  locale?: string;
   skeleton?: boolean;
 }

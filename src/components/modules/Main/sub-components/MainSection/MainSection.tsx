@@ -112,6 +112,7 @@ const MainSection = ({
             heading={item.name_form}
             description={item.description_card}
             url={item.url}
+            locale={item.locale}
             skeleton
           />
         ))}

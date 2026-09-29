@@ -38,5 +38,6 @@ export interface ISliderSection {
     url: IFormData["data"][0]["url"];
     card_prewiew: IFormData["data"][0]["card_prewiew"]["url"];
     form_exts: TFormat;
+    locale?: string;
   }[];
 }

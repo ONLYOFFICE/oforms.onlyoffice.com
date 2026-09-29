@@ -27,7 +27,6 @@
  */
 
 import { useTranslation, Trans } from "next-i18next";
-import { useRouter } from "next/router";
 import { Section } from "@src/components/ui/Section";
 import { Container } from "@src/components/ui/Container";
 import { Heading } from "@src/components/ui/Heading";
@@ -39,9 +38,8 @@ import { IBuildYourOwnForms } from "./BuildYourOwnForms.types";
 import styles from "./BuildYourOwnForms.module.scss";
 
 const BuildYourOwnForms = ({ suggestChangesLink }: IBuildYourOwnForms) => {
-  const { t } = useTranslation("form");
-  const router = useRouter();
-  const { locale } = router;
+  const { t, i18n } = useTranslation("form");
+  const locale = i18n.language;
 
   return (
     <Section
