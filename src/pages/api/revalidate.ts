@@ -27,61 +27,115 @@
  */
 
 import type { NextApiRequest, NextApiResponse } from "next";
+import { readdir, rm } from "fs/promises";
+import path from "path";
 import { languages } from "@src/config/languages";
 import { getAllFormUrls } from "@src/lib/requests/getAllFormUrls";
 import { getCategoryUrls } from "@src/lib/requests/getCategoryUrls";
 import { clearLocaleCaches } from "@src/lib/api/cacheByLocale";
+import { i18n } from "@/next-i18next.config";
 
 const STATIC_PAGES = ["/", "/searchresult"];
+const DEFAULT_LOCALE = i18n.defaultLocale;
+const CONCURRENCY = 20;
+const PAGES_CACHE_DIR = path.join(process.cwd(), ".next", "server", "pages");
+const RESERVED_SLUGS = new Set(["404", "500", "searchresult"]);
 
-const REVALIDATE_CONCURRENCY = 20;
+let activeRun: { controller: AbortController; done: Promise<void> } | null =
+  null;
 
-let currentRevalidation: {
-  controller: AbortController;
-  done: Promise<void>;
-} | null = null;
+const withLocale = (locale: string, page: string) => {
+  if (locale === DEFAULT_LOCALE) return page;
 
-const withLocale = (locale: string, path: string) => {
-  if (locale === "en") return path;
-
-  return path === "/" ? `/${locale}` : `/${locale}${path}`;
+  return page === "/" ? `/${locale}` : `/${locale}${page}`;
 };
 
-const getLocalePaths = async (locale: string, signal: AbortSignal) => {
+const isNonEmpty = (value: unknown): value is string =>
+  typeof value === "string" && value.length > 0;
+
+const getCmsSlugs = async (locale: string, signal: AbortSignal) => {
   const [forms, categories] = await Promise.all([
     getAllFormUrls(locale, signal),
     getCategoryUrls(locale, signal),
   ]);
 
-  const dynamicPaths = [
-    ...forms.data
-      .filter((form) => typeof form.url === "string" && form.url.length > 0)
-      .map((form) => `/${form.url}`),
-    ...categories.data
-      .filter(
-        (category) =>
-          typeof category.urlReq === "string" && category.urlReq.length > 0,
-      )
-      .map((category) => `/${category.urlReq}`),
-  ];
-
-  return [...STATIC_PAGES, ...dynamicPaths].map((path) =>
-    withLocale(locale, path),
+  return new Set(
+    [
+      ...forms.data.map((form) => form.url),
+      ...categories.data.map((category) => category.urlReq),
+    ].filter(isNonEmpty),
   );
 };
 
-const revalidateInBatches = async (
+const getCachedSlugs = async (locale: string) => {
+  try {
+    const files = await readdir(path.join(PAGES_CACHE_DIR, locale));
+
+    return files
+      .filter((file) => file.endsWith(".html"))
+      .map((file) => file.slice(0, -".html".length))
+      .filter((slug) => !RESERVED_SLUGS.has(slug));
+  } catch {
+    return [];
+  }
+};
+
+const removeCachedPage = (locale: string, slug: string) =>
+  Promise.all(
+    [".html", ".json"].map((ext) =>
+      rm(path.join(PAGES_CACHE_DIR, locale, `${slug}${ext}`), {
+        force: true,
+      }),
+    ),
+  );
+
+const getLocalePaths = async (locale: string, signal: AbortSignal) => {
+  const [cmsSlugs, cachedSlugs] = await Promise.all([
+    getCmsSlugs(locale, signal),
+    getCachedSlugs(locale),
+  ]);
+
+  const staleSlugs = cachedSlugs.filter((slug) => !cmsSlugs.has(slug));
+
+  const toPaths = (slugs: Iterable<string>) =>
+    [...slugs].map((slug) => withLocale(locale, `/${slug}`));
+
+  return {
+    active: [
+      ...STATIC_PAGES.map((page) => withLocale(locale, page)),
+      ...toPaths(cmsSlugs),
+    ],
+    stale: toPaths(staleSlugs),
+    removeStale: () =>
+      Promise.all(staleSlugs.map((slug) => removeCachedPage(locale, slug))),
+  };
+};
+
+const getAllPaths = async (signal: AbortSignal) => {
+  const byLocale = await Promise.all(
+    languages.map((language) => getLocalePaths(language.shortKey, signal)),
+  );
+
+  return {
+    active: [...new Set(byLocale.flatMap((locale) => locale.active))],
+    stale: [...new Set(byLocale.flatMap((locale) => locale.stale))],
+    removeStale: () =>
+      Promise.all(byLocale.map((locale) => locale.removeStale())),
+  };
+};
+
+const revalidatePaths = async (
+  res: NextApiResponse,
   paths: string[],
-  revalidate: (path: string) => Promise<void>,
-  signal: AbortSignal,
+  signal?: AbortSignal,
 ) => {
   const failed: string[] = [];
 
-  for (let i = 0; i < paths.length; i += REVALIDATE_CONCURRENCY) {
-    if (signal.aborted) break;
-
-    const batch = paths.slice(i, i + REVALIDATE_CONCURRENCY);
-    const results = await Promise.allSettled(batch.map(revalidate));
+  for (let i = 0; i < paths.length && !signal?.aborted; i += CONCURRENCY) {
+    const batch = paths.slice(i, i + CONCURRENCY);
+    const results = await Promise.allSettled(
+      batch.map((path) => res.revalidate(path)),
+    );
 
     results.forEach((result, index) => {
       if (result.status === "rejected") failed.push(batch[index]);
@@ -91,38 +145,47 @@ const revalidateInBatches = async (
   return failed;
 };
 
-const runRevalidation = async (res: NextApiResponse, signal: AbortSignal) => {
+const run = async (res: NextApiResponse, signal: AbortSignal) => {
   try {
-    const locales = languages.map((language) => language.shortKey);
-    const pathsByLocale = await Promise.all(
-      locales.map((locale) => getLocalePaths(locale, signal)),
-    );
-    const paths = [...new Set(pathsByLocale.flat())];
+    clearLocaleCaches();
 
-    const failed = await revalidateInBatches(
-      paths,
-      (path) => res.revalidate(path),
-      signal,
-    );
+    const { active, stale, removeStale } = await getAllPaths(signal);
 
     if (signal.aborted) {
-      console.log("[revalidate] aborted by a new revalidation request");
-    } else if (failed.length > 0) {
-      console.error(
-        `[revalidate] failed to revalidate paths, failed: ${failed.length}, total: ${paths.length}`,
-        failed,
-      );
-    } else {
-      console.log("[revalidate] successfully revalidated");
-    }
-  } catch (error) {
-    if (signal.aborted) {
-      console.log("[revalidate] aborted by a new revalidation request");
+      console.log("[revalidate] aborted by a newer request");
       return;
     }
 
-    const message = error instanceof Error ? error.message : String(error);
-    console.error("[revalidate]", message);
+    await removeStale();
+
+    const paths = [...stale, ...active];
+    const failed = [
+      ...(await revalidatePaths(res, stale)),
+      ...(await revalidatePaths(res, active, signal)),
+    ];
+
+    if (signal.aborted) {
+      console.log("[revalidate] aborted by a newer request");
+    } else if (failed.length > 0) {
+      console.error(
+        `[revalidate] failed: ${failed.length} of ${paths.length}`,
+        failed,
+      );
+    } else {
+      console.log(
+        `[revalidate] revalidated ${active.length} paths, removed ${stale.length} stale paths`,
+      );
+    }
+  } catch (error) {
+    if (signal.aborted) {
+      console.log("[revalidate] aborted by a newer request");
+      return;
+    }
+
+    console.error(
+      "[revalidate]",
+      error instanceof Error ? error.message : String(error),
+    );
   }
 };
 
@@ -131,6 +194,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   if (req.method !== "POST") {
+    res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
   }
 
@@ -147,22 +211,19 @@ export default async function handler(
 
   res.status(202).json({ message: "Revalidation started" });
 
-  const previous = currentRevalidation;
+  const previous = activeRun;
   previous?.controller.abort();
 
   const controller = new AbortController();
   const done = (async () => {
     await previous?.done;
-    if (controller.signal.aborted) return;
-
-    clearLocaleCaches();
-    await runRevalidation(res, controller.signal);
+    if (!controller.signal.aborted) await run(res, controller.signal);
   })();
 
-  const run = { controller, done };
-  currentRevalidation = run;
+  const current = { controller, done };
+  activeRun = current;
 
   await done;
 
-  if (currentRevalidation === run) currentRevalidation = null;
+  if (activeRun === current) activeRun = null;
 }

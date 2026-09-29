@@ -31,8 +31,7 @@ import { languages } from "@src/config/languages";
 
 const LOCALES = languages.map(({ shortKey }) => shortKey);
 
-export const VIEW_CACHE_CONTROL =
-  "public, s-maxage=600, stale-while-revalidate=3600";
+export const VIEW_CACHE_CONTROL = "no-cache";
 
 export const getSingle = (value: NextApiRequest["query"][string]) =>
   (Array.isArray(value) ? value[0] : value) ?? "";

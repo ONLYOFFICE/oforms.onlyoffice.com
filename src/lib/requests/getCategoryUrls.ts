@@ -27,30 +27,33 @@
  */
 
 import CONFIG from "@src/config/config.json";
-import { apiRequest } from "@src/lib/api/apiRequest";
+import { CMS_PAGE_SIZE, fetchAllPages } from "@src/lib/api/fetchAllPages";
 import { cacheByLocale } from "@src/lib/api/cacheByLocale";
 import { ICategoriesData } from "@src/components/templates/Form/Form.types";
 import { ILocale } from "@src/types/locale";
 import { cmsLocale } from "@src/utils/cmsLocale";
 
-const getCategoryUrls = async (
-  locale: ILocale["locale"],
-  signal?: AbortSignal,
-): Promise<ICategoriesData> => {
-  const params = [`locale=${cmsLocale(locale)}`, "fields[0]=urlReq"]
+const buildUrl = (locale: ILocale["locale"], page: number) => {
+  const params = [
+    `locale=${cmsLocale(locale)}`,
+    `pagination[page]=${page}`,
+    `pagination[pageSize]=${CMS_PAGE_SIZE}`,
+    "fields[0]=urlReq",
+  ]
     .filter(Boolean)
     .join("&");
 
-  const res = await apiRequest(
-    `${CONFIG.api.cms}/api/parent-categories?${params}`,
-    {
-      label: "getCategoryUrls",
-      signal,
-    },
-  );
-
-  return (await res.json()) as ICategoriesData;
+  return `${CONFIG.api.cms}/api/parent-categories?${params}`;
 };
+
+const getCategoryUrls = (
+  locale: ILocale["locale"],
+  signal?: AbortSignal,
+): Promise<ICategoriesData> =>
+  fetchAllPages<ICategoriesData>((page) => buildUrl(locale, page), {
+    label: "getCategoryUrls",
+    signal,
+  });
 
 const getCachedCategoryUrls = cacheByLocale((locale: ILocale["locale"]) =>
   getCategoryUrls(locale),

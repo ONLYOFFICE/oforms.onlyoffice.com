@@ -30,7 +30,13 @@ import { ILocale } from "@src/types/locale";
 
 type Locale = ILocale["locale"];
 
-const clearers = new Set<() => void>();
+const CLEARERS_KEY = Symbol.for("oforms.localeCacheClearers");
+
+const globalStore = globalThis as typeof globalThis & {
+  [CLEARERS_KEY]?: Set<() => void>;
+};
+
+const clearers = (globalStore[CLEARERS_KEY] ??= new Set<() => void>());
 
 const cacheByLocale = <A extends (string | undefined)[], T>(
   fetcher: (locale: Locale, ...args: A) => Promise<T>,

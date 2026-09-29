@@ -27,29 +27,30 @@
  */
 
 import CONFIG from "@src/config/config.json";
-import { apiRequest } from "@src/lib/api/apiRequest";
+import { CMS_PAGE_SIZE, fetchAllPages } from "@src/lib/api/fetchAllPages";
 import { cacheByLocale } from "@src/lib/api/cacheByLocale";
+import { ICategoriesData } from "@src/components/templates/Form/Form.types";
 import { ILocale } from "@src/types/locale";
 import { cmsLocale } from "@src/utils/cmsLocale";
 
-const fetchParentCategories = async (locale: ILocale["locale"]) => {
+const buildUrl = (locale: ILocale["locale"], page: number) => {
   const params = [
     `locale=${cmsLocale(locale)}`,
+    `pagination[page]=${page}`,
+    `pagination[pageSize]=${CMS_PAGE_SIZE}`,
     "fields[0]=name",
     "fields[1]=urlReq",
   ]
     .filter(Boolean)
     .join("&");
 
-  const res = await apiRequest(
-    `${CONFIG.api.cms}/api/parent-categories?${params}`,
-    {
-      label: "getParentCategories",
-    },
-  );
-
-  return await res.json();
+  return `${CONFIG.api.cms}/api/parent-categories?${params}`;
 };
+
+const fetchParentCategories = (locale: ILocale["locale"]) =>
+  fetchAllPages<ICategoriesData>((page) => buildUrl(locale, page), {
+    label: "getParentCategories",
+  });
 
 const getParentCategories = cacheByLocale(fetchParentCategories);
 
