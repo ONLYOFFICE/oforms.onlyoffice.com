@@ -38,6 +38,7 @@ import { PopularCategories } from "./sections/PopularCategories";
 import { BuildYourOwnForms } from "./sections/BuildYourOwnForms";
 import { FormSkeleton } from "./sub-components/FormSkeleton";
 import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
+import { useBackHref } from "@src/lib/hooks/useBackQuery";
 import { IFormTemplate } from "./Form.types";
 import styles from "./Form.module.scss";
 
@@ -71,6 +72,7 @@ const FormTemplate = ({ form, categories }: IFormTemplate) => {
     editableFile && extension
       ? `/editor?lang=${editorLocale}${formLangParam}&filename=${url}&fillform=${editableFile.hash}.${extension}`
       : "";
+  const backHref = useBackHref();
   const suggestChangesLink = `mailto:marketing@onlyoffice.com?subject=${t("SuggestingChangesLink", { name: name_form })}&body=${t("SuggestingChangesLink", { name: name_form })}.`;
 
   return (
@@ -80,7 +82,11 @@ const FormTemplate = ({ form, categories }: IFormTemplate) => {
         <Container maxWidth="1452px">
           <Breadcrumbs
             items={[
-              { label: t("MainTemplates"), href: "/", locale: editorLocale },
+              {
+                label: t("MainTemplates"),
+                href: backHref,
+                locale: editorLocale,
+              },
               { label: name_form },
             ]}
           />

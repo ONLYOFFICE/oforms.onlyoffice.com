@@ -34,6 +34,7 @@ import { NoResultsFound } from "@src/components/modules/NoResultsFound";
 import { Button } from "@src/components/ui/Button";
 import { useServerView } from "@src/lib/hooks/useServerView";
 import { useFormNames } from "@src/lib/hooks/useFormNames";
+import { useSaveBackQuery } from "@src/lib/hooks/useBackQuery";
 import { ICategoryView } from "@src/lib/server/mainView.types";
 import styles from "@src/components/templates/Main/Main.module.scss";
 
@@ -50,6 +51,7 @@ const CategoryTemplate = ({
     },
   );
   const { formNames } = useFormNames(initialFormNames);
+  useSaveBackQuery();
 
   return (
     <Main

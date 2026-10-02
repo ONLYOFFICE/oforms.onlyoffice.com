@@ -31,6 +31,7 @@ import { IMainTemplate } from "./Main.types";
 import { IMainView } from "@src/lib/server/mainView.types";
 import { useServerView } from "@src/lib/hooks/useServerView";
 import { useFormNames } from "@src/lib/hooks/useFormNames";
+import { useSaveBackQuery } from "@src/lib/hooks/useBackQuery";
 import { Main } from "@src/components/modules/Main";
 import { MainSection } from "@src/components/modules/Main/sub-components/MainSection";
 import { NoResultsFound } from "@src/components/modules/NoResultsFound";
@@ -41,6 +42,7 @@ const MainTemplate = ({ initialView, initialFormNames }: IMainTemplate) => {
   const { t } = useTranslation("MainTemplate");
   const { view, isInitialLoading } = useServerView<IMainView>(initialView);
   const { formNames } = useFormNames(initialFormNames);
+  useSaveBackQuery();
 
   return (
     <Main
