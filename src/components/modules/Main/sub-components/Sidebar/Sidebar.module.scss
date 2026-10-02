@@ -82,7 +82,8 @@
     left: -12px !important;
   }
 
-  .sidebar:hover &,
+  &.sidebar-scrollbar-track-visible,
+  &:hover,
   &:has(:global(.dragging)) {
     opacity: 1;
   }

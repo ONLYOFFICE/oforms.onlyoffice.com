@@ -26,6 +26,7 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import clsx from "clsx";
@@ -45,6 +46,7 @@ import { ISidebar } from "./Sidebar.types";
 import styles from "./Sidebar.module.scss";
 
 const VISIBLE_COUNTRIES_LIMIT = 8;
+const SCROLLBAR_HIDE_DELAY = 2000;
 
 const Sidebar = ({
   isOpen,
@@ -62,6 +64,24 @@ const Sidebar = ({
 }: ISidebar) => {
   const { t } = useTranslation("MainTemplate");
   const router = useRouter();
+  const [isScrollbarVisible, setIsScrollbarVisible] = useState(false);
+  const scrollbarTimeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  const showScrollbar = () => {
+    setIsScrollbarVisible(true);
+    clearTimeout(scrollbarTimeoutRef.current);
+    scrollbarTimeoutRef.current = setTimeout(
+      () => setIsScrollbarVisible(false),
+      SCROLLBAR_HIDE_DELAY,
+    );
+  };
+
+  const hideScrollbar = () => {
+    clearTimeout(scrollbarTimeoutRef.current);
+    setIsScrollbarVisible(false);
+  };
+
+  useEffect(() => () => clearTimeout(scrollbarTimeoutRef.current), []);
 
   const countryCodes = countries.map((country) => country.code.toLowerCase());
 
@@ -229,16 +249,26 @@ const Sidebar = ({
     clearFiltersVisible ?? (hasSelectedFilters || totalChecked > 0);
 
   return (
-    <aside className={clsx(styles.sidebar, isOpen && styles["sidebar-open"])}>
+    <aside
+      className={clsx(styles.sidebar, isOpen && styles["sidebar-open"])}
+      onMouseEnter={showScrollbar}
+      onMouseLeave={hideScrollbar}
+    >
       <Scrollbar
         className={styles["sidebar-scrollbar"]}
         contentProps={{ className: styles["sidebar-scrollbar-content"] }}
-        trackYProps={{ className: styles["sidebar-scrollbar-track"] }}
+        trackYProps={{
+          className: clsx(
+            styles["sidebar-scrollbar-track"],
+            isScrollbarVisible && styles["sidebar-scrollbar-track-visible"],
+          ),
+        }}
         thumbYProps={{ className: styles["sidebar-scrollbar-thumb"] }}
         rtl={router.locale ? isRtlLocale(router.locale) : false}
         noScrollX
         removeTrackXWhenNotUsed
         removeTrackYWhenNotUsed
+        onScroll={showScrollbar}
       >
         <div className={styles["sidebar-header"]}>
           <button
