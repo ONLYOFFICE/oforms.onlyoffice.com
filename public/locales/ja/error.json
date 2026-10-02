@@ -1,9 +1,9 @@
 {
   "PageTitle": "Page 404",
   "PageDescription": "Page 404",
-  "PageNotFound": "Page not found",
-  "ThePageYouAreLookingFor": "The page you are looking for may have been moved, deleted, or never existed.",
-  "CheckTheURLOrReturnToASafeLocation": "Check the URL or return to a safe location using the options below.",
-  "GoToHomepage": "ホームへ戻る",
+  "PageNotFound": "ページが見つかりません",
+  "ThePageYouAreLookingFor": "お探しのページは移動または削除されたか、存在しない可能性があります。",
+  "CheckTheURLOrReturnToASafeLocation": "URLをご確認いただくか、以下のリンクから移動してください。",
+  "GoToHomepage": "ホームページへ",
   "SearchTemplates": "テンプレートを検索(請求書、契約書、予算書など)"
 }

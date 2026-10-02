@@ -8,7 +8,7 @@
   "PdfForms": "PDFフォーム",
   "Countries": "国・地域",
   "ShowingSpeakingCountries": "言語設定に基づき、日本語圏の国を優先的に表示しています。",
-  "OtherCountries": "Other countries",
+  "OtherCountries": "その他の国",
   "Purpose": "用途",
   "Сategories": "カテゴリー",
   "PopularTemplates": "人気のテンプレート",
@@ -18,5 +18,5 @@
   "PdfFormsTemplates": "PDFフォームテンプレート",
   "ClearAllFilters": "すべてのフィルターをクリア",
   "ShowLess": "表示を減らす",
-  "BrowseAllTemplates": "Browse All Templates"
+  "BrowseAllTemplates": "すべてのテンプレートを見る"
 }
