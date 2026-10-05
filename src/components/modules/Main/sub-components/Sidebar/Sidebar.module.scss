@@ -58,6 +58,14 @@
   :global(.ScrollbarsCustom-Wrapper) {
     inset: 0 !important;
   }
+
+  @include media.tablet {
+    :global(.ScrollbarsCustom-Scroller) {
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow-y: auto !important;
+    }
+  }
 }
 
 .sidebar-scrollbar-content {
@@ -80,6 +88,10 @@
   @include direction.rtl {
     right: auto !important;
     left: -12px !important;
+  }
+
+  @include media.tablet {
+    display: none !important;
   }
 
   &.sidebar-scrollbar-track-visible,
