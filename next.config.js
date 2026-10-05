@@ -9,6 +9,30 @@ const nextConfig = {
     loadPaths: [path.join(__dirname, "src/styles")],
   },
   i18n,
+  async redirects() {
+    return [
+      {
+        source: "/pdf-form-templates",
+        destination: "/?type=pdf",
+        permanent: true,
+      },
+      {
+        source: "/document-templates",
+        destination: "/?type=docx",
+        permanent: true,
+      },
+      {
+        source: "/spreadsheet-templates",
+        destination: "/?type=xlsx",
+        permanent: true,
+      },
+      {
+        source: "/presentation-templates",
+        destination: "/?type=pptx",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
