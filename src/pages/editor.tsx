@@ -67,14 +67,15 @@ declare global {
 
 interface IEditorPage {
   filename: string;
+  title: string;
   config: string;
 }
 
-const EditorPage = ({ filename, config }: IEditorPage) => {
+const EditorPage = ({ filename, title, config }: IEditorPage) => {
   return (
     <Layout banner={false}>
       <Layout.Head>
-        <Head title={filename} noindex />
+        <Head title={title} noindex />
         <Script
           id="doc-editor"
           src={`${CONFIG.docEditorUrl}/web-apps/apps/api/documents/api.js`}
@@ -156,6 +157,7 @@ export const getServerSideProps = async ({
     return {
       props: {
         filename: normalizedFilename,
+        title: oforms.data[0].name_form || normalizedFilename,
         config: JSON.stringify(config),
       },
     };
