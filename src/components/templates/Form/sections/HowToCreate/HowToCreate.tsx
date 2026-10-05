@@ -77,6 +77,7 @@ const HowToCreate = ({ name_form, linkEditor }: IHowToCreate) => {
             className={styles["how-to-create-button"]}
             as="a"
             href={linkEditor}
+            target="_blank"
             variant="secondary-dark"
           >
             {t("FillOut")}
