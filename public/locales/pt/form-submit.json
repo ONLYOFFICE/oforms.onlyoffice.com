@@ -34,11 +34,11 @@
   "YourTemplateHasBeenReceivedAndSentForReview": "Seu modelo <0>{{name_form}}</0> foi recebido e enviado para análise. Nossa equipe o examinará e entrará em contato caso sejam necessárias informações adicionais.",
   "WhatHappensNext": "Próximos passos",
   "SubmissionReceived": "Envio recebido",
-  "WeVeReceivedYourTemplate": "We’ve received your template.",
+  "WeVeReceivedYourTemplate": "Recebemos seu modelo.",
   "UnderReview": "Em análise",
-  "WeReReviewingItToEnsureQualityAndCompleteness": "We’re reviewing it to ensure quality and completeness.",
-  "Publication": "Publication",
-  "YourTemplateWillBePublished": "Your template will be published as soon as the review is complete.",
+  "WeReReviewingItToEnsureQualityAndCompleteness": "Estamos analisando o modelo para garantir sua qualidade e integridade.",
+  "Publication": "Publicação",
+  "YourTemplateWillBePublished": "Seu modelo será publicado assim que a análise for concluída.",
   "SubmitAnotherTemplate": "Enviar outro modelo",
   "BackToTemplateGallery": "Voltar para a galeria de modelos"
 }
