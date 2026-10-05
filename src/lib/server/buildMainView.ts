@@ -540,9 +540,9 @@ export const buildSearchView = (
     sort,
   );
   const isEmpty = foundForms.length === 0;
-  const hasMatches = !isEmpty || scopedMatchedForms.length > 0;
+  const hasMatches = matchedForms.length > 0;
 
-  const result = {
+  return {
     searchQuery: trimmedQuery,
     totalCount: foundForms.length,
     foundForms: foundForms.map(toCardView),
@@ -559,17 +559,6 @@ export const buildSearchView = (
       : [],
     isEmpty,
     hasMatches,
-  };
-
-  if (!hasMatches) {
-    return {
-      ...result,
-      ...pickSidebarFacets(buildMainView(allForms, filters, countryNames)),
-    };
-  }
-
-  return {
-    ...result,
     ...buildSearchFacets(
       allForms,
       matchedForms,

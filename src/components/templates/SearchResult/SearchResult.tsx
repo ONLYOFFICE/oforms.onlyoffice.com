@@ -69,7 +69,6 @@ const SearchResultTemplate = ({
       isInitialLoading={isInitialLoading}
       skeleton={null}
       searchOnly={!view.hasMatches}
-      clearFiltersVisible={view.isEmpty ? undefined : true}
       redirectToHome={!view.hasMatches}
     >
       {!view.isEmpty ? (

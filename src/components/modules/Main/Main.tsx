@@ -56,12 +56,24 @@ const Main = ({
   isInitialLoading,
   selectedCategory,
   searchOnly,
-  clearFiltersVisible,
   redirectToHome,
 }: IMain) => {
   const { t } = useTranslation("MainTemplate");
   const [isOpen, setIsOpen] = useState(false);
   const hideTopWhileLoading = skeleton === null;
+
+  const categorySubcategories = selectedCategory
+    ? Array.from(
+        new Set(
+          Object.values(categoriesByPurpose)
+            .flat()
+            .filter(({ category }) => category.urlReq === selectedCategory)
+            .flatMap(({ subcategories }) =>
+              subcategories.map((sub) => sub.urlReq),
+            ),
+        ),
+      )
+    : [];
 
   useEffect(() => {
     if (!isOpen) return;
@@ -127,7 +139,7 @@ const Main = ({
             pptxForms={pptxForms}
             pdfForms={pdfForms}
             selectedCategory={selectedCategory}
-            clearFiltersVisible={clearFiltersVisible}
+            categorySubcategories={categorySubcategories}
             redirectToHome={redirectToHome}
           />
 
@@ -175,6 +187,7 @@ const Main = ({
                   country.code.toLowerCase(),
                 )}
                 formNames={formNames}
+                subcategories={categorySubcategories}
               />
             </div>
 

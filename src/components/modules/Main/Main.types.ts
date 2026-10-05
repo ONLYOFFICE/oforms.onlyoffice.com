@@ -72,6 +72,5 @@ export interface IMain {
   isInitialLoading?: boolean;
   selectedCategory?: string;
   searchOnly?: boolean;
-  clearFiltersVisible?: boolean;
   redirectToHome?: boolean;
 }

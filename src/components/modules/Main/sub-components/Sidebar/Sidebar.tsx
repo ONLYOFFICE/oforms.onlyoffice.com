@@ -59,7 +59,7 @@ const Sidebar = ({
   pptxForms,
   pdfForms,
   selectedCategory,
-  clearFiltersVisible,
+  categorySubcategories,
   redirectToHome,
 }: ISidebar) => {
   const { t } = useTranslation("MainTemplate");
@@ -136,19 +136,6 @@ const Sidebar = ({
       checked: filters.type.includes(type.value),
       onChange: () => toggle("type", type.value),
     }));
-
-  const categorySubcategories = selectedCategory
-    ? Array.from(
-        new Set(
-          Object.values(categoriesByPurpose)
-            .flat()
-            .filter(({ category }) => category.urlReq === selectedCategory)
-            .flatMap(({ subcategories }) =>
-              subcategories.map((sub) => sub.urlReq),
-            ),
-        ),
-      )
-    : [];
 
   const toggleSubcategoryValue = (value: string) => {
     if (!selectedCategory) {
@@ -245,8 +232,7 @@ const Sidebar = ({
   const totalChecked =
     checkedTypeCount + checkedCountryCount + checkedCategoryCount;
 
-  const isClearBtnVisible =
-    clearFiltersVisible ?? (hasSelectedFilters || totalChecked > 0);
+  const isClearBtnVisible = hasSelectedFilters || totalChecked > 0;
 
   return (
     <aside

@@ -43,7 +43,6 @@ import { SearchIcon, CrossCircleIcon, CrossIcon } from "@src/components/icons";
 import { parseQueryList } from "@src/utils/queryFilters";
 import { localeCountry } from "@src/utils/localeCountry";
 import { normalizeSearchQuery } from "@src/utils/searchQuery";
-import { normalizeSortKey } from "@src/utils/helpers";
 import { LANG_QUERY_PARAM } from "@src/utils/queryLang";
 import { POPULAR_SEARCH } from "./data/popular-search";
 import { ISearchInput } from "./SearchInput.types";
@@ -112,7 +111,12 @@ const Highlight = ({
   );
 };
 
-const SearchInput = ({ className, countryCodes, formNames }: ISearchInput) => {
+const SearchInput = ({
+  className,
+  countryCodes,
+  formNames,
+  subcategories,
+}: ISearchInput) => {
   const { t, i18n } = useTranslation("SearchInput");
   const router = useRouter();
   const locale = router.locale ?? "en";
@@ -151,6 +155,13 @@ const SearchInput = ({ className, countryCodes, formNames }: ISearchInput) => {
 
   const handleClear = () => {
     setSearchItem("");
+
+    if (router.pathname === "/searchresult") {
+      setSearchResult(false);
+      router.push(buildHref("/"));
+      return;
+    }
+
     setSearchResult(true);
     inputRef.current?.focus();
   };
@@ -215,16 +226,20 @@ const SearchInput = ({ className, countryCodes, formNames }: ISearchInput) => {
     .map((code) => code.toLowerCase())
     .find((code) => countryCodes.includes(code));
 
-  const sort = router.query.sort
-    ? normalizeSortKey(router.query.sort)
-    : undefined;
-
-  const buildSearchHref = (value: string) => {
-    const params = new URLSearchParams({ query: value });
-    if (country) params.set("country", country);
-    if (sort) params.set("sort", sort);
-    return `/searchresult?${params.toString()}`;
+  const buildHref = (pathname: string, value?: string) => {
+    const params = new URLSearchParams(value ? { query: value } : {});
+    Object.entries(router.query).forEach(([key, raw]) => {
+      if (key === "query" || key === "slug") return;
+      [raw ?? []].flat().forEach((item) => params.append(key, item));
+    });
+    if (subcategories?.length) {
+      params.set("subcategory", subcategories.join(","));
+    }
+    const search = params.toString();
+    return search ? `${pathname}?${search}` : pathname;
   };
+
+  const buildSearchHref = (value: string) => buildHref("/searchresult", value);
 
   const keyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {

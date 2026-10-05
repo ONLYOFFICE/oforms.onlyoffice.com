@@ -35,4 +35,5 @@ export interface ISearchInput {
     url: string;
     locale?: string;
   }[];
+  subcategories?: string[];
 }
