@@ -77,6 +77,7 @@
 
 .build-your-own-forms-buttons {
   display: flex;
+  flex-shrink: 0;
 
   @include media.tablet-s {
     flex-direction: column;
@@ -84,8 +85,6 @@
 }
 
 .build-your-own-forms-button {
-  white-space: nowrap;
-
   &:first-child {
     margin-inline-end: 16px;
 
