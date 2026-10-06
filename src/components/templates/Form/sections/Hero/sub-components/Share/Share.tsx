@@ -51,7 +51,7 @@ const Share = () => {
       <span className={styles["share-heading"]}>{t("Share")}</span>
 
       <ul className={styles["share-list"]}>
-        <li className={styles["share-item"]}>
+        <li>
           <EmailShareButton className={styles["share-button"]} url={routerUrl}>
             <span
               className={clsx(
@@ -66,7 +66,7 @@ const Share = () => {
             ></span>
           </EmailShareButton>
         </li>
-        <li className={styles["share-item"]}>
+        <li>
           <LinkedinShareButton
             className={styles["share-button"]}
             url={routerUrl}
@@ -81,7 +81,7 @@ const Share = () => {
             ></span>
           </LinkedinShareButton>
         </li>
-        <li className={styles["share-item"]}>
+        <li>
           <FacebookShareButton
             className={styles["share-button"]}
             url={routerUrl}
@@ -98,7 +98,7 @@ const Share = () => {
         </li>
         {lang === "zh" && (
           <>
-            <li className={styles["share-item"]}>
+            <li>
               <Link
                 className={styles["share-button"]}
                 href={`https://www.shareaholic.com/share/wechat/?link=${routerUrl}`}
@@ -111,7 +111,7 @@ const Share = () => {
                 <span className={styles["share-button-icon"]}></span>
               </Link>
             </li>
-            <li className={styles["share-item"]}>
+            <li>
               <WeiboShareButton
                 className={styles["share-button"]}
                 url={routerUrl}

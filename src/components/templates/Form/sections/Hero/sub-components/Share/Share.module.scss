@@ -29,16 +29,18 @@
 @use "media";
 
 .share {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr;
   align-items: center;
+  column-gap: 24px;
 }
 
 .share-heading {
-  margin-inline-end: 24px;
   font-size: 13px;
   line-height: 18px;
   color: var(--form-hero-share-heading-color);
   text-transform: uppercase;
+  word-break: keep-all;
 
   @include media.mobile {
     font-size: 12px;
@@ -49,12 +51,8 @@
 
 .share-list {
   display: flex;
-}
-
-.share-item {
-  &:not(:last-child) {
-    margin-inline-end: 12px;
-  }
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .share-button {
