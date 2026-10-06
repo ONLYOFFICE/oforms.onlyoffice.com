@@ -75,7 +75,7 @@ const EditorPage = ({ filename, title, config }: IEditorPage) => {
   return (
     <Layout banner={false}>
       <Layout.Head>
-        <Head title={title} noindex />
+        <Head title={`${title} | ONLYOFFICE`} noindex />
         <Script
           id="doc-editor"
           src={`${CONFIG.docEditorUrl}/web-apps/apps/api/documents/api.js`}
