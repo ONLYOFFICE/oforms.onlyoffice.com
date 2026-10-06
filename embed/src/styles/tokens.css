@@ -200,7 +200,6 @@
   --search-result-no-results-found-text-color: var(--text-normal, #494b5b);
   --search-result-no-results-found-subtext-color: var(--text-secondary, #666980);
 
-  /* New in this version — pagination did not exist before. */
   --pagination-color: var(--text-normal, #494b5b);
   --pagination-border-color: var(--border-regular-control, #e5e6ed);
   --pagination-background-color: var(--background-normal-element, #ffffff);
@@ -213,13 +212,8 @@
   --pagination-color-active: #ffffff;
   --pagination-background-color-active: #000122;
   --pagination-color-disabled: var(--text-tertiary, #c7c9d6);
+  --filter-button-color-disabled: var(--text-tertiary, #c7c9d6);
 
-  /* New in this version — the type tabs and the purpose chips beside them.
-     The four format colours were literals in Card.module.scss, the one place a
-     host override could not reach; they are now the tabs' active underline.
-     They identify a file format rather than the UI, so they take no desktop
-     name — and neither does `--tab-accent`, which TypeFilter sets per format on
-     the selected tab, where an inline value on <html> could not reach it. */
   --format-docx-color: #305cc4;
   --format-xlsx-color: #41b338;
   --format-pptx-color: #ff6c00;

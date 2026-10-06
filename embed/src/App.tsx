@@ -38,7 +38,7 @@ import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 import { CardGrid } from "./components/CardGrid/CardGrid";
 import { EmptyState } from "./components/EmptyState/EmptyState";
-import { FilterPopover } from "./components/FilterPopover/FilterPopover";
+import { FilterButton } from "./components/FilterButton/FilterButton";
 import { LanguageSelect } from "./components/LanguageSelect/LanguageSelect";
 import { Pagination } from "./components/Pagination/Pagination";
 import { PurposeFilter } from "./components/PurposeFilter/PurposeFilter";
@@ -48,9 +48,7 @@ import { TypeFilter } from "./components/TypeFilter/TypeFilter";
 import { loadCatalog } from "./data";
 import {
   getCategories,
-  getCountries,
   getFilteredForms,
-  getFormsByTypes,
   getPurposes,
   sortByNewest,
 } from "./lib/filters";
@@ -59,7 +57,6 @@ import { isRtlLocale, storeLocale, type Locale } from "./locale";
 import {
   readHidden,
   readQuery,
-  toggleValue,
   writeQuery,
   type ICatalogQuery,
 } from "./query";
@@ -147,15 +144,10 @@ const App = () => {
     return stop;
   }, [filter]);
 
-  const countries = useMemo(
-    () => getCountries(getFormsByTypes(templates, query.types)),
-    [templates, query.types],
-  );
-
   const purposes = useMemo(() => getPurposes(templates), [templates]);
 
   // Names from the whole catalog, counts from what the filters leave: a row the
-  // active type has none of can then stay visible while it is checked.
+  // active type has none of can then stay visible while it is selected.
   const categories = useMemo(() => {
     const counts = new Map(
       getCategories(
@@ -167,19 +159,31 @@ const App = () => {
       ).map((category) => [category.id, category.count]),
     );
 
-    return getCategories(templates).map((category) => ({
-      ...category,
-      count: counts.get(category.id) ?? 0,
-    }));
+    return getCategories(templates)
+      .filter((category) => category.purpose?.key === query.purposes[0])
+      .map((category) => ({
+        ...category,
+        count: counts.get(category.id) ?? 0,
+      }));
   }, [templates, query.types, query.countries, query.purposes]);
+
+  // A slug from another locale or purpose would empty the grid with nothing
+  // shown as selected.
+  const category = categories.some((item) => item.urlReq === query.category)
+    ? query.category
+    : "";
+
+  const categoryOptions = categories
+    .filter((item) => item.count > 0 || item.urlReq === category)
+    .map((item) => ({ value: item.urlReq, label: item.name }));
 
   const visible = useMemo(() => {
     // Country only narrows the result once a category is chosen — this matches
     // the site and is deliberate, not an oversight.
     const filtered = getFilteredForms(templates, {
       type: query.types,
-      country: query.categories.length ? query.countries : [],
-      category: query.categories,
+      country: category ? query.countries : [],
+      category,
       purpose: query.purposes,
     });
 
@@ -193,7 +197,7 @@ const App = () => {
     templates,
     query.types,
     query.countries,
-    query.categories,
+    category,
     query.purposes,
     query.q,
   ]);
@@ -202,13 +206,11 @@ const App = () => {
   const page = Math.min(query.page, pages);
   const shown = visible.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
-  // Type and purpose are excluded: both always have a value, so counting them
-  // would leave the Filters button lit permanently and Clear would silently
-  // move the user to Documents / Business.
-  const hasFacetFilters =
-    query.countries.length > 0 || query.categories.length > 0;
+  // Not type or purpose: both always have a value, so Clear would silently move
+  // the user to Documents / Business.
+  const hasFacetFilters = query.countries.length > 0 || category !== "";
 
-  const clearFilters = () => filter({ countries: [], categories: [] });
+  const clearFilters = () => filter({ countries: [], category: "" });
 
   const showPurpose = !hidden.has("purpose") && purposes.length > 0;
 
@@ -223,20 +225,15 @@ const App = () => {
               <SearchBox value={query.q} onChange={(q) => filter({ q })} />
             )}
 
-            <FilterPopover
-              countries={countries}
-              categories={categories}
-              selectedCountries={query.countries}
-              selectedCategories={query.categories}
-              hasFilters={hasFacetFilters}
-              onToggleCountry={(value) =>
-                filter({ countries: toggleValue(query.countries, value) })
-              }
-              onToggleCategory={(value) =>
-                filter({ categories: toggleValue(query.categories, value) })
-              }
-              onClearAll={clearFilters}
-            />
+            {(query.category === "" || templates.length > 0) && (
+              <FilterButton
+                label={t("Category")}
+                clearLabel={t("ClearCategory")}
+                options={categoryOptions}
+                value={category}
+                onChange={(value) => filter({ category: value })}
+              />
+            )}
           </div>
 
           {!hidden.has("lang") && (
@@ -263,7 +260,11 @@ const App = () => {
               <PurposeFilter
                 purposes={purposes}
                 selected={query.purposes}
-                onSelect={(key) => filter({ purposes: [key] })}
+                onSelect={(key) =>
+                  // No category spans both purposes, so a switch orphans it.
+                  key !== query.purposes[0] &&
+                  filter({ purposes: [key], category: "" })
+                }
               />
             )}
           </div>

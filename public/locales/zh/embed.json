@@ -1,5 +1,6 @@
 {
-  "Filters": "筛选",
+  "Category": "类别",
+  "ClearCategory": "清除类别",
   "Templates": "模板",
   "Language": "语言",
   "Previous": "上一页",

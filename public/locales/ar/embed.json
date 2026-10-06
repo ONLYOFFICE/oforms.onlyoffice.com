@@ -1,5 +1,6 @@
 {
-  "Filters": "عوامل التصفية",
+  "Category": "الفئة",
+  "ClearCategory": "مسح الفئة",
   "Templates": "القوالب",
   "Language": "اللغة",
   "Previous": "السابق",

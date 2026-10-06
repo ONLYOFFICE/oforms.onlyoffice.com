@@ -54,7 +54,7 @@ interface IFormsFilters {
   type?: string[];
   country?: string[];
   purpose?: string[];
-  category?: string[];
+  category?: string;
 }
 
 export const getFilteredForms = (
@@ -93,9 +93,9 @@ export const getFilteredForms = (
       }
 
       if (
-        category?.length &&
+        category &&
         !form.subcategories?.some((sub) =>
-          sub.parent_categories?.some((cat) => category.includes(cat.urlReq)),
+          sub.parent_categories?.some((cat) => cat.urlReq === category),
         )
       ) {
         return false;
@@ -153,11 +153,10 @@ export const getPurposes = (forms: ITemplate[] | undefined): IPurpose[] =>
   );
 
 /**
- * Flat parent-category list for the filter popover.
+ * Flat parent-category list for the Category filter.
  *
- * The site nests purpose > category > subcategory; the popover offers only the
- * 17 parent categories, so both the purpose grouping and the 53 subcategories
- * are collapsed away. A template counts once per category however many of its
+ * The site nests purpose > category > subcategory; the filter offers only the
+ * parent categories. A template counts once per category however many of its
  * subcategories lead there.
  */
 export const getCategories = (

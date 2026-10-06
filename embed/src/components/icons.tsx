@@ -28,13 +28,14 @@
 
 /** Inline SVG so the icons take their colour from `currentColor` / tokens. */
 
-export const FiltersIcon = () => (
+export const CheckIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
     <path
-      d="M2 4h12M4 8h8M6 12h4"
+      d="M3 8.5l3 3 7-7"
       stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="round"
+      strokeLinejoin="round"
       fill="none"
     />
   </svg>

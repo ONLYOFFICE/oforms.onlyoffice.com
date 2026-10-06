@@ -45,7 +45,7 @@ export interface ICatalogQuery {
   q: string;
   types: string[];
   countries: string[];
-  categories: string[];
+  category: string;
   purposes: string[];
   page: number;
   locale: Locale;
@@ -61,7 +61,7 @@ export function readQuery(): ICatalogQuery {
     q: (p.get("q") ?? "").trim(),
     types: readOneOf(p.get("type"), TYPE_ORDER),
     countries: getQueryValues(p.get("country")),
-    categories: getQueryValues(p.get("category")),
+    category: getQueryValues(p.get("category"))[0] ?? "",
     purposes: readOneOf(p.get("purpose"), PURPOSE_ORDER),
     page: Number.isFinite(page) && page > 0 ? page : 1,
     // `?locale=` pins it, then the language picked here, then Desktop's own UI
@@ -87,7 +87,7 @@ export function writeQuery(query: ICatalogQuery): void {
   set("q", query.q);
   set("type", query.types.join(","));
   set("country", query.countries.join(","));
-  set("category", query.categories.join(","));
+  set("category", query.category);
   set("purpose", query.purposes.join(","));
   set("page", query.page > 1 ? String(query.page) : "");
   set("locale", query.locale);
@@ -103,9 +103,3 @@ export function writeQuery(query: ICatalogQuery): void {
 /** Chrome the host supplies itself, e.g. `?hide=lang,search`. */
 export const readHidden = (): Set<string> =>
   new Set(getQueryValues(params().get("hide")));
-
-/** Toggles a value in a list, returning a new list. */
-export const toggleValue = (list: string[], value: string): string[] =>
-  list.includes(value)
-    ? list.filter((item) => item !== value)
-    : [...list, value];
