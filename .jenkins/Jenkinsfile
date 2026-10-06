@@ -64,6 +64,30 @@ switch(BRANCH_NAME) {
     email_port="587"
     next_public_main_site_base_domain="https://onlyoffice.com"
     break
+  case "production_deploy_update":
+    aws_region="us-west-2"
+    awslogs_region = "us-west-2"
+    awslogs_group = "/site/www"
+    awslogs_stream = "templates-update.onlyoffice.com"
+    awslogs_stream_errors = "templates-update.onlyoffice.com-errors"
+    awslogs_enabled = "true"
+    deploy_expose_port = "40002"
+    deploy_app_name = "templates-update.onlyoffice.com"
+    region="com"
+    MONITOR_ID = '58439000014815195'
+    cloud_front_distribution_id="E18Y5OI4JS5NAJ"
+    site_url="https://templates-update.onlyoffice.com"    
+    cms="https://templates-update.onlyoffice.com/dashboard"
+    cmsUpload="https://cmsoforms.onlyoffice.com"
+    appServer="https://templates-update.onlyoffice.com/"
+    domains="static-oforms.onlyoffice.com"
+    public_static_url="https://static-oforms.onlyoffice.com"
+    email_port="587"
+    next_public_main_site_base_domain="https://onlyoffice.com"
+    config_api_url = "https://templates-update.onlyoffice.com/dashboard"
+    bucket = "static-oforms.teamlab.info"
+    editor_api_url = "https://asc.docs.teamlab.info"
+    break
   default:
     println("Branch: ${BRANCH_NAME} do not for deploy.")
     break
@@ -92,7 +116,8 @@ pipeline {
       when { 
         anyOf { branch 'feature/redesign'; 
                 branch 'test_deploy'; 
-                branch 'production_deploy' }
+                branch 'production_deploy';
+                branch 'production_deploy_update' }
       }
       environment {
         awslogs_region = "${awslogs_region}"
@@ -216,7 +241,7 @@ pipeline {
           '''
         }
         
-        sshPublisher(failOnError: true, publishers: [sshPublisherDesc(configName: "sites@${region}", 
+        sshPublisher(failOnError: true, publishers: [sshPublisherDesc(configName: "sites2026@${region}", 
           transfers: [sshTransfer(cleanRemote: false, 
             excludes: '', 
             execCommand: """
