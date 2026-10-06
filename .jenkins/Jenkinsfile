@@ -85,8 +85,8 @@ switch(BRANCH_NAME) {
     email_port="587"
     next_public_main_site_base_domain="https://onlyoffice.com"
     config_api_url = "https://templates-update.onlyoffice.com/dashboard"
-    bucket = "static-oforms.teamlab.info"
-    editor_api_url = "https://asc.docs.teamlab.info"
+    bucket = "static-oforms.onlyoffice.com"
+    editor_api_url = "https://oforms.docs.onlyoffice.com"
     break
   default:
     println("Branch: ${BRANCH_NAME} do not for deploy.")
@@ -171,6 +171,8 @@ pipeline {
                 usernameVariable: 'NEXT_PUBLIC_EMAIL_AUTH_USER'),
                 string(credentialsId: 'onlyoffice_site_test_hcaptcha_site_key', variable: 'NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY'),
                 string(credentialsId: 'onlyoffice_site_test_hcaptcha_secret_key', variable: 'NEXT_PUBLIC_HCAPTCHA_TEST_SECRET_KEY'),
+                string(credentialsId: 'onlyoffice_site_prod_hcaptcha_site_key', variable: 'NEXT_PUBLIC_HCAPTCHA_PROD_SITE_KEY'),
+                string(credentialsId: 'onlyoffice_site_prod_hcaptcha_secret_key', variable: 'NEXT_PUBLIC_HCAPTCHA_PROD_SECRET_KEY'),
                 string(credentialsId: 'templates_redesign_strapi_api_token', variable: 'REDESIGN_PUBLIC_STRAPI_API_TOKEN_TEST'),
                 string(credentialsId: 'templates_redesign_revalidate_authorization_token', variable: 'REVALIDATE_AUTHORIZATION_TOKEN_TEST')]) {
 
@@ -187,6 +189,13 @@ pipeline {
               NEXT_PUBLIC_FILES_DOCSERVICE_SECRET=$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET_TEST
               NEXT_PUBLIC_HCAPTCHA_SITE_KEY=$NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
               NEXT_PUBLIC_HCAPTCHA_SECRET_KEY=$NEXT_PUBLIC_HCAPTCHA_TEST_SECRET_KEY
+              NEXT_PUBLIC_STRAPI_API_TOKEN=$REDESIGN_PUBLIC_STRAPI_API_TOKEN_TEST
+              REVALIDATE_AUTHORIZATION_TOKEN=$REVALIDATE_AUTHORIZATION_TOKEN_TEST 
+            fi
+
+            if [[ ${BRANCH_NAME} == "production_deploy_update" ]]; then
+              NEXT_PUBLIC_HCAPTCHA_SITE_KEY=$NEXT_PUBLIC_HCAPTCHA_PROD_SITE_KEY
+              NEXT_PUBLIC_HCAPTCHA_SECRET_KEY=$NEXT_PUBLIC_HCAPTCHA_PROD_SECRET_KEY
               NEXT_PUBLIC_STRAPI_API_TOKEN=$REDESIGN_PUBLIC_STRAPI_API_TOKEN_TEST
               REVALIDATE_AUTHORIZATION_TOKEN=$REVALIDATE_AUTHORIZATION_TOKEN_TEST 
             fi
