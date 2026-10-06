@@ -171,9 +171,9 @@ const Hero = ({
                       className={styles["hero-info-value"]}
                       dir="ltr"
                     >
-                      {size < 1024
-                        ? `${size.toFixed(0)} kb`
-                        : `${(size / 1024).toFixed(0)} mb`}
+                      {Math.round((size * 1000) / 1024) < 1024
+                        ? `${Math.round((size * 1000) / 1024)} kb`
+                        : `${parseFloat(((size * 1000) / 1024 / 1024).toFixed(1))} mb`}
                     </Text>
                   </div>
                 )}
