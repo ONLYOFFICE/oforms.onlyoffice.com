@@ -27,7 +27,12 @@
  */
 
 import { readDesktopLang } from "./desktopVars";
-import { normalizeLocale, readStoredLocale, type Locale } from "./locale";
+import {
+  isLocale,
+  normalizeLocale,
+  readStoredLang,
+  type Locale,
+} from "./locale";
 import { PURPOSE_ORDER, TYPE_ORDER } from "./types";
 
 const allowedOr = (
@@ -42,7 +47,10 @@ export interface ICatalogQuery {
   category: string;
   purpose: string;
   page: number;
+  /** The page's language: UI strings, `lang`, `dir`. */
   locale: Locale;
+  /** The catalog's language, `""` when it follows `locale`. */
+  lang: Locale | "";
 }
 
 const params = () => new URLSearchParams(window.location.search);
@@ -50,6 +58,7 @@ const params = () => new URLSearchParams(window.location.search);
 export function readQuery(): ICatalogQuery {
   const p = params();
   const page = Number.parseInt(p.get("page") ?? "1", 10);
+  const lang = p.get("lang");
 
   return {
     q: (p.get("q") ?? "").trim(),
@@ -57,11 +66,8 @@ export function readQuery(): ICatalogQuery {
     category: p.get("category") ?? "",
     purpose: allowedOr(p.get("purpose"), PURPOSE_ORDER, ""),
     page: Number.isFinite(page) && page > 0 ? page : 1,
-    // `?locale=` pins it, then the language picked here, then Desktop's own UI
-    // language.
-    locale: normalizeLocale(
-      p.get("locale") || readStoredLocale() || readDesktopLang(),
-    ),
+    locale: normalizeLocale(p.get("locale") || readDesktopLang()),
+    lang: isLocale(lang) ? lang : (readStoredLang() ?? ""),
   };
 }
 
@@ -83,6 +89,7 @@ export function writeQuery(query: ICatalogQuery): void {
   set("purpose", query.purpose);
   set("page", query.page > 1 ? String(query.page) : "");
   set("locale", query.locale);
+  set("lang", query.lang);
 
   const search = next.toString();
   window.history.replaceState(

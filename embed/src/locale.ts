@@ -73,29 +73,30 @@ export function normalizeLocale(culture: string | null | undefined): Locale {
     : FALLBACK;
 }
 
-const LOCALE_KEY = "locale";
+const LANG_KEY = "lang";
 
-const isLocale = (value: string | null): value is Locale =>
+export const isLocale = (value: string | null): value is Locale =>
   (SUPPORTED as readonly string[]).includes(value ?? "");
 
 /**
- * The language picked in this frame, which outranks the host's UI language on
- * the next load. Null for unset or stale, so the chain falls through instead of
- * pinning `en`. Both sides are guarded because reading the `localStorage`
- * property itself throws in a third-party frame with site data blocked.
+ * The catalog language picked in this frame. Both sides are guarded because
+ * reading the `localStorage` property itself throws in a third-party frame with
+ * site data blocked.
  */
-export function readStoredLocale(): Locale | null {
+export function readStoredLang(): Locale | null {
   try {
-    const stored = localStorage.getItem(LOCALE_KEY);
+    const stored = localStorage.getItem(LANG_KEY);
     return isLocale(stored) ? stored : null;
   } catch {
     return null;
   }
 }
 
-export function storeLocale(locale: Locale): void {
+/** `""` forgets the pick, so the catalog follows the page language again. */
+export function storeLang(lang: Locale | ""): void {
   try {
-    localStorage.setItem(LOCALE_KEY, locale);
+    if (lang) localStorage.setItem(LANG_KEY, lang);
+    else localStorage.removeItem(LANG_KEY);
   } catch {
     /* storage blocked — the choice lives for this session only */
   }

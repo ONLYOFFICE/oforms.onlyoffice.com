@@ -2,6 +2,7 @@
   "Category": "カテゴリー",
   "ClearCategory": "カテゴリーをクリア",
   "ClearPurpose": "用途をクリア",
+  "ClearLanguage": "言語をクリア",
   "Templates": "テンプレート",
   "Language": "言語",
   "Previous": "前へ",
@@ -9,5 +10,27 @@
   "ClearSearch": "検索をクリア",
   "Loading": "テンプレートを読み込んでいます…",
   "LoadFailed": "テンプレートを読み込めませんでした。",
-  "Retry": "再試行"
+  "Retry": "再試行",
+  "CategoryNames": {
+    "contracts-legal": "契約・法務",
+    "events-holidays": "イベント・祝日",
+    "everyday-life": "日常生活",
+    "finance": "財務",
+    "forms-applications": "フォーム・申請書",
+    "gifts-achievements": "ギフト・表彰",
+    "health-lifestyle": "健康・ライフスタイル",
+    "home-education": "教育",
+    "hr-employment": "人事・雇用",
+    "leisure": "レジャー",
+    "operations-management": "業務・管理",
+    "organization-productivity": "整理・生産性",
+    "personal-events": "個人的なイベント",
+    "real-estate": "不動産",
+    "sales-marketing": "営業・マーケティング",
+    "travel": "旅行"
+  },
+  "PurposeNames": {
+    "business": "ビジネス",
+    "personal": "個人"
+  }
 }

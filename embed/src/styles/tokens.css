@@ -59,24 +59,18 @@
   );
   --card-heading-color: var(--text-normal, #21222b);
 
-  --language-switcher-border-color: var(--border-regular-control, #e5e6ed);
-  --language-switcher-border-color-hover: var(--border-control-focus, #c7c9d6);
-  --language-switcher-background-color: var(
+  --filter-button-border-color: var(--border-regular-control, #e5e6ed);
+  --filter-button-border-color-hover: var(--border-control-focus, #c7c9d6);
+  --filter-button-background-color: var(
     --background-normal-element,
     #ffffff
   );
-  --language-switcher-color: var(--text-normal, #333333);
-  /* Brand orange, not a link — literal like the four --format-* below. */
-  --language-switcher-active-color: #ff6f3d;
-  --language-switcher-menu-background-color: var(
+  --filter-button-color: var(--text-normal, #333333);
+  --filter-button-menu-background-color: var(
     --background-action-panel,
     #ffffff
   );
-  --language-switcher-menu-shadow-color: rgba(0, 0, 0, 0.12);
-  --language-switcher-option-background-color-hover: var(
-    --highlight-button-hover,
-    #f2f4f8
-  );
+  --filter-button-menu-shadow-color: rgba(0, 0, 0, 0.12);
 
   --search-input-icon-color: var(--text-tertiary, #9092a6);
   --search-input-cross-icon-color: var(--text-secondary, #7a7d94);
@@ -200,7 +194,7 @@
   --highlight-primary-button-pressed: #3b6cb9;
 
   --main-header-shadow-color: rgba(0, 0, 0, 0.5);
-  --language-switcher-menu-shadow-color: rgba(0, 0, 0, 0.5);
+  --filter-button-menu-shadow-color: rgba(0, 0, 0, 0.5);
   --template-modal-wrapper-border-color: #505050;
 
   /* The tab underline is the only mark on the selected tab. On white these two

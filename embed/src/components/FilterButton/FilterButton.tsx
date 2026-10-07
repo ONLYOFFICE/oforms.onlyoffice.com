@@ -36,6 +36,7 @@ import styles from "./FilterButton.module.scss";
 export interface IFilterOption {
   value: string;
   label: string;
+  lang?: string;
 }
 
 interface IFilterButtonProps {
@@ -139,7 +140,9 @@ const FilterButton = ({
           aria-expanded={isOpen}
           aria-controls={isOpen ? `${id}-list` : undefined}
         >
-          <span className={styles.label}>{selected?.label ?? label}</span>
+          <span className={styles.label} lang={selected?.lang}>
+            {selected?.label ?? label}
+          </span>
           <ChevronIcon open={isOpen} />
         </button>
 
@@ -174,6 +177,7 @@ const FilterButton = ({
               key={option.value}
               id={`${id}-${index}`}
               role="option"
+              lang={option.lang}
               aria-selected={option.value === value}
               className={clsx(
                 styles.option,

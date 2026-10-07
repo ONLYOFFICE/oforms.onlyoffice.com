@@ -27,18 +27,25 @@
  */
 
 import { Card } from "../Card/Card";
+import type { Locale } from "../../locale";
 import type { ITemplate } from "../../types";
 import styles from "./CardGrid.module.scss";
 
 interface ICardGridProps {
   templates: ITemplate[];
+  lang: Locale;
   onSelect: (template: ITemplate) => void;
 }
 
-const CardGrid = ({ templates, onSelect }: ICardGridProps) => (
+const CardGrid = ({ templates, lang, onSelect }: ICardGridProps) => (
   <div className={styles.grid}>
     {templates.map((template) => (
-      <Card key={template.id} template={template} onSelect={onSelect} />
+      <Card
+        key={template.id}
+        template={template}
+        lang={lang}
+        onSelect={onSelect}
+      />
     ))}
   </div>
 );

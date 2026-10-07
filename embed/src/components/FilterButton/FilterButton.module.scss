@@ -36,13 +36,13 @@
   display: inline-flex;
   min-width: 0;
   min-height: 40px;
-  border: 1px solid var(--language-switcher-border-color);
+  border: 1px solid var(--filter-button-border-color);
   border-radius: 4px;
-  background-color: var(--language-switcher-background-color);
-  color: var(--language-switcher-color);
+  background-color: var(--filter-button-background-color);
+  color: var(--filter-button-color);
 
   &:hover {
-    border-color: var(--language-switcher-border-color-hover);
+    border-color: var(--filter-button-border-color-hover);
   }
 }
 
@@ -50,7 +50,7 @@
   color: var(--filter-button-color-disabled);
 
   &:hover {
-    border-color: var(--language-switcher-border-color);
+    border-color: var(--filter-button-border-color);
   }
 }
 
@@ -112,12 +112,12 @@
   padding: 4px;
   border-radius: 4px;
   list-style: none;
-  background-color: var(--language-switcher-menu-background-color);
-  box-shadow: 0 4px 16px var(--language-switcher-menu-shadow-color);
+  background-color: var(--filter-button-menu-background-color);
+  box-shadow: 0 4px 16px var(--filter-button-menu-shadow-color);
 }
 
 // Below 480px the button wraps to its own line; `static` hands the containing
-// block to `.toolbar-query`, which spans the row.
+// block to `.toolbar`, which spans the row.
 @media (max-width: 480px) {
   .filter {
     position: static;

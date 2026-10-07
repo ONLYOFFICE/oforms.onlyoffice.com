@@ -2,6 +2,7 @@
   "Category": "Kategorie",
   "ClearCategory": "Kategorie entfernen",
   "ClearPurpose": "Zweck entfernen",
+  "ClearLanguage": "Sprache entfernen",
   "Templates": "Vorlagen",
   "Language": "Sprache",
   "Previous": "Zurück",
@@ -9,5 +10,28 @@
   "ClearSearch": "Suche löschen",
   "Loading": "Vorlagen werden geladen …",
   "LoadFailed": "Die Vorlagen konnten nicht geladen werden.",
-  "Retry": "Erneut versuchen"
+  "Retry": "Erneut versuchen",
+  "CategoryNames": {
+    "contracts-legal": "Verträge & Recht",
+    "events-holidays": "Veranstaltungen & Feiertage",
+    "everyday-life": "Alltag",
+    "finance": "Finanzen",
+    "forms-applications": "Formulare & Anträge",
+    "gifts-achievements": "Geschenke & Auszeichnungen",
+    "health-lifestyle": "Gesundheit & Lebensstil",
+    "home-education": "Bildung",
+    "hr-employment": "Personal & Beschäftigung",
+    "integrations": "Integrationen",
+    "leisure": "Freizeit",
+    "operations-management": "Betrieb & Management",
+    "organization-productivity": "Organisation & Produktivität",
+    "personal-events": "Persönliche Anlässe",
+    "real-estate": "Immobilien",
+    "sales-marketing": "Vertrieb & Marketing",
+    "travel": "Reisen"
+  },
+  "PurposeNames": {
+    "business": "Geschäftlich",
+    "personal": "Privat"
+  }
 }

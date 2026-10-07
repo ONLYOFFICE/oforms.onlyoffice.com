@@ -2,6 +2,7 @@
   "Category": "Categoría",
   "ClearCategory": "Borrar categoría",
   "ClearPurpose": "Borrar finalidad",
+  "ClearLanguage": "Borrar idioma",
   "Templates": "Plantillas",
   "Language": "Idioma",
   "Previous": "Anterior",
@@ -9,5 +10,27 @@
   "ClearSearch": "Borrar la búsqueda",
   "Loading": "Cargando plantillas…",
   "LoadFailed": "No se han podido cargar las plantillas.",
-  "Retry": "Reintentar"
+  "Retry": "Reintentar",
+  "CategoryNames": {
+    "contracts-legal": "Contratos y Legal",
+    "events-holidays": "Eventos y Festividades",
+    "everyday-life": "Vida Cotidiana",
+    "finance": "Finanzas",
+    "forms-applications": "Formularios y Solicitudes",
+    "gifts-achievements": "Regalos y Logros",
+    "health-lifestyle": "Salud y Estilo de Vida",
+    "home-education": "Educación",
+    "hr-employment": "RR. HH. y Empleo",
+    "leisure": "Ocio",
+    "operations-management": "Operaciones y Gestión",
+    "organization-productivity": "Organización y Productividad",
+    "personal-events": "Eventos Personales",
+    "real-estate": "Bienes raíces",
+    "sales-marketing": "Ventas y Marketing",
+    "travel": "Viajes"
+  },
+  "PurposeNames": {
+    "business": "Negocios",
+    "personal": "Personal"
+  }
 }

@@ -2,6 +2,7 @@
   "Category": "الفئة",
   "ClearCategory": "مسح الفئة",
   "ClearPurpose": "مسح الغرض",
+  "ClearLanguage": "مسح اللغة",
   "Templates": "القوالب",
   "Language": "اللغة",
   "Previous": "السابق",
@@ -9,5 +10,21 @@
   "ClearSearch": "مسح البحث",
   "Loading": "جارٍ تحميل القوالب…",
   "LoadFailed": "لم نتمكن من تحميل القوالب.",
-  "Retry": "إعادة المحاولة"
+  "Retry": "إعادة المحاولة",
+  "CategoryNames": {
+    "events-holidays": "المناسبات والأعياد",
+    "everyday-life": "الحياة اليومية",
+    "finance": "المالية",
+    "gifts-achievements": "الهدايا والإنجازات",
+    "home-education": "التعليم",
+    "hr-employment": "الموارد البشرية والتوظيف",
+    "operations-management": "العمليات والإدارة",
+    "organization-productivity": "التنظيم والإنتاجية",
+    "personal-events": "المناسبات الشخصية",
+    "sales-marketing": "المبيعات والتسويق"
+  },
+  "PurposeNames": {
+    "business": "الأعمال",
+    "personal": "شخصي"
+  }
 }

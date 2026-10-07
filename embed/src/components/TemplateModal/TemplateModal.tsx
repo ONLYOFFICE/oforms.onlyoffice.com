@@ -30,11 +30,13 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { CrossIcon } from "../icons";
 import { previewUrl } from "../../data";
+import { isRtlLocale, type Locale } from "../../locale";
 import type { ITemplate } from "../../types";
 import styles from "./TemplateModal.module.scss";
 
 interface ITemplateModalProps {
   template: ITemplate | null;
+  lang: Locale;
   onClose: () => void;
   onUse: (template: ITemplate) => void;
 }
@@ -73,7 +75,12 @@ function focusOnOpen(node: HTMLButtonElement) {
   };
 }
 
-const TemplateModal = ({ template, onClose, onUse }: ITemplateModalProps) => {
+const TemplateModal = ({
+  template,
+  lang,
+  onClose,
+  onUse,
+}: ITemplateModalProps) => {
   const { t, i18n } = useTranslation("TemplateModal");
 
   useEffect(() => {
@@ -96,6 +103,7 @@ const TemplateModal = ({ template, onClose, onUse }: ITemplateModalProps) => {
   );
   const ext = template.form_exts?.[0]?.ext;
   const preview = previewUrl(template);
+  const dir = isRtlLocale(lang) ? "rtl" : "ltr";
 
   return (
     <div className={styles.overlay}>
@@ -119,9 +127,15 @@ const TemplateModal = ({ template, onClose, onUse }: ITemplateModalProps) => {
           )}
 
           <div className={styles["modal-content"]}>
-            <h2 className={styles["modal-heading"]}>{template.name_form}</h2>
+            <h2 className={styles["modal-heading"]}>
+              <span lang={lang} dir={dir}>
+                {template.name_form}
+              </span>
+            </h2>
 
-            <p className={styles["modal-text"]}>{template.template_desc}</p>
+            <p className={styles["modal-text"]} lang={lang} dir={dir}>
+              {template.template_desc}
+            </p>
 
             <dl className={styles["modal-meta"]}>
               {ext && (

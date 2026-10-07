@@ -28,12 +28,14 @@
 
 import { useState } from "react";
 import clsx from "clsx";
+import { isRtlLocale, type Locale } from "../../locale";
 import type { ITemplate } from "../../types";
 import { previewUrl } from "../../data";
 import styles from "./Card.module.scss";
 
 interface ICardProps {
   template: ITemplate;
+  lang: Locale;
   onSelect: (template: ITemplate) => void;
 }
 
@@ -43,7 +45,7 @@ const RETRIES = 1;
  * A button rather than a link: the embed opens a modal instead of navigating,
  * and there is no template page to point at from inside the iframe.
  */
-const Card = ({ template, onSelect }: ICardProps) => {
+const Card = ({ template, lang, onSelect }: ICardProps) => {
   const format = template.form_exts?.[0]?.ext ?? "docx";
   const preview = previewUrl(template);
   const [attempt, setAttempt] = useState(0);
@@ -71,7 +73,12 @@ const Card = ({ template, onSelect }: ICardProps) => {
         )}
       </span>
 
-      <span className={styles["card-heading"]} title={template.name_form}>
+      <span
+        className={styles["card-heading"]}
+        title={template.name_form}
+        lang={lang}
+        dir={isRtlLocale(lang) ? "rtl" : "ltr"}
+      >
         {template.name_form}
       </span>
     </button>

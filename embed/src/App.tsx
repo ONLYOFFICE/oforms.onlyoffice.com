@@ -39,7 +39,6 @@ import clsx from "clsx";
 import { CardGrid } from "./components/CardGrid/CardGrid";
 import { EmptyState } from "./components/EmptyState/EmptyState";
 import { FilterButton } from "./components/FilterButton/FilterButton";
-import { LanguageSelect } from "./components/LanguageSelect/LanguageSelect";
 import { Pagination } from "./components/Pagination/Pagination";
 import { SearchBox } from "./components/SearchBox/SearchBox";
 import { TemplateModal } from "./components/TemplateModal/TemplateModal";
@@ -52,7 +51,7 @@ import {
   sortByNewest,
 } from "./lib/filters";
 import { initI18n } from "./i18n";
-import { isRtlLocale, storeLocale, type Locale } from "./locale";
+import { LANGUAGES, isRtlLocale, storeLang, type Locale } from "./locale";
 import { readQuery, writeQuery, type ICatalogQuery } from "./query";
 import { notifyReady, onHostMessage, requestOpenTemplate } from "./bridge";
 import { applyTheme, isTheme } from "./theme";
@@ -60,6 +59,12 @@ import { PURPOSE_ORDER, type ITemplate } from "./types";
 import styles from "./App.module.scss";
 
 const PAGE_SIZE = 24;
+
+const LANGUAGE_OPTIONS = LANGUAGES.map((item) => ({
+  value: item.shortKey,
+  label: item.longKey,
+  lang: item.shortKey,
+}));
 
 const App = () => {
   const { t } = useTranslation("embed");
@@ -74,6 +79,9 @@ const App = () => {
   const [reloadToken, setReloadToken] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
+
+  // Templates come in this language; everything else on the page is `locale`.
+  const lang = query.lang || query.locale;
 
   const update = useCallback((patch: Partial<ICatalogQuery>) => {
     setQuery((prev) => {
@@ -94,16 +102,14 @@ const App = () => {
     [update],
   );
 
-  // Catalog data — refetched whenever the locale changes. Only ever one locale
-  // at a time, so no caching layer is needed.
+  // Only ever one catalog at a time, so no caching layer is needed.
   useEffect(() => {
     const controller = new AbortController();
     setStatus("loading");
 
     (async () => {
       try {
-        await initI18n(query.locale);
-        const catalog = await loadCatalog(query.locale, controller.signal);
+        const catalog = await loadCatalog(lang, controller.signal);
         if (controller.signal.aborted) return;
         setTemplates(sortByNewest(catalog.data));
         setStatus("ready");
@@ -115,11 +121,13 @@ const App = () => {
     })();
 
     return () => controller.abort();
-  }, [query.locale, reloadToken]);
+  }, [lang, reloadToken]);
 
-  // Direction follows the locale. Layout effect, or `ar` paints one LTR frame
-  // before the mirror — measured at every CPU throttle level.
+  // Layout effect, or `ar` paints one LTR frame before the mirror — measured at
+  // every CPU throttle level. Resources are bundled, so the language switch
+  // re-renders inside the same commit.
   useLayoutEffect(() => {
+    void initI18n(query.locale);
     document.documentElement.lang = query.locale;
     document.documentElement.dir = isRtlLocale(query.locale) ? "rtl" : "ltr";
   }, [query.locale]);
@@ -137,14 +145,26 @@ const App = () => {
     return stop;
   }, [filter]);
 
-  // Names from the catalog, order fixed: `createdAt` order differs by locale.
+  // The catalog names its categories and purposes in its own language, so in
+  // another one they come from `embed.json`.
+  const localName = useCallback(
+    (group: string, key: string, name: string) =>
+      lang === query.locale
+        ? name
+        : t(`${group}.${key}`, { defaultValue: name }),
+    [lang, query.locale, t],
+  );
+
+  // Order fixed: `createdAt` order differs by locale.
   const purposeOptions = useMemo(() => {
     const purposes = getPurposes(templates);
     return PURPOSE_ORDER.flatMap((key) => {
       const purpose = purposes.find((item) => item.key === key);
-      return purpose ? [{ value: key, label: purpose.name }] : [];
+      return purpose
+        ? [{ value: key, label: localName("PurposeNames", key, purpose.name) }]
+        : [];
     });
-  }, [templates]);
+  }, [templates, localName]);
 
   // Names from the whole catalog, counts from what the filters leave: a row the
   // active type or purpose has none of can then stay visible while it is
@@ -180,7 +200,10 @@ const App = () => {
 
   const categoryOptions = categories
     .filter((item) => item.count > 0 || item.urlReq === category)
-    .map((item) => ({ value: item.urlReq, label: item.name }));
+    .map((item) => ({
+      value: item.urlReq,
+      label: localName("CategoryNames", item.urlReq, item.name),
+    }));
 
   const visible = useMemo(() => {
     const filtered = getFilteredForms(templates, {
@@ -211,35 +234,36 @@ const App = () => {
         className={clsx(styles.header, scrolled && styles["header-scrolled"])}
       >
         <div className={styles.toolbar}>
-          <div className={styles["toolbar-query"]}>
-            <SearchBox value={query.q} onChange={(q) => filter({ q })} />
+          <SearchBox value={query.q} onChange={(q) => filter({ q })} />
 
-            {(query.category === "" || templates.length > 0) && (
-              <FilterButton
-                label={t("Category")}
-                clearLabel={t("ClearCategory")}
-                options={categoryOptions}
-                value={category}
-                onChange={(value) => filter({ category: value })}
-              />
-            )}
+          {(query.category === "" || templates.length > 0) && (
+            <FilterButton
+              label={t("Category")}
+              clearLabel={t("ClearCategory")}
+              options={categoryOptions}
+              value={category}
+              onChange={(value) => filter({ category: value })}
+            />
+          )}
 
-            {(query.purpose === "" || templates.length > 0) && (
-              <FilterButton
-                label={t("Purpose", { ns: "MainTemplate" })}
-                clearLabel={t("ClearPurpose")}
-                options={purposeOptions}
-                value={query.purpose}
-                onChange={(value) => filter({ purpose: value })}
-              />
-            )}
-          </div>
+          {(query.purpose === "" || templates.length > 0) && (
+            <FilterButton
+              label={t("Purpose", { ns: "MainTemplate" })}
+              clearLabel={t("ClearPurpose")}
+              options={purposeOptions}
+              value={query.purpose}
+              onChange={(value) => filter({ purpose: value })}
+            />
+          )}
 
-          <LanguageSelect
-            value={query.locale}
-            onChange={(locale) => {
-              storeLocale(locale);
-              filter({ locale });
+          <FilterButton
+            label={t("Language")}
+            clearLabel={t("ClearLanguage")}
+            options={LANGUAGE_OPTIONS}
+            value={query.lang}
+            onChange={(value) => {
+              storeLang(value as Locale | "");
+              filter({ lang: value as Locale | "" });
             }}
           />
         </div>
@@ -279,12 +303,9 @@ const App = () => {
 
         {status === "ready" &&
           (shown.length > 0 ? (
-            <CardGrid templates={shown} onSelect={setSelected} />
+            <CardGrid templates={shown} lang={lang} onSelect={setSelected} />
           ) : (
-            <EmptyState
-              hasFilters={hasFilters}
-              onClearFilters={clearFilters}
-            />
+            <EmptyState hasFilters={hasFilters} onClearFilters={clearFilters} />
           ))}
       </div>
 
@@ -305,6 +326,7 @@ const App = () => {
 
       <TemplateModal
         template={selected}
+        lang={lang}
         onClose={() => setSelected(null)}
         onUse={(template) => {
           requestOpenTemplate(template);
