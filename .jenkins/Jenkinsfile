@@ -84,7 +84,7 @@ switch(BRANCH_NAME) {
     public_static_url="https://static-oforms.onlyoffice.com"
     email_port="587"
     next_public_main_site_base_domain="https://onlyoffice.com"
-    config_api_url = "https://templates-update.onlyoffice.com/dashboard"
+    config_api_url = "https://templates.onlyoffice.com/dashboard"
     bucket = "static-oforms.onlyoffice.com"
     editor_api_url = "https://oforms.docs.onlyoffice.com"
     break
