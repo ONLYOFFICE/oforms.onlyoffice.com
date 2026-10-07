@@ -34,12 +34,7 @@
  * These encode product rules that are not obvious from the UI — keep them in
  * sync with the site rather than re-deriving them.
  */
-import type {
-  ICategoryCount,
-  ICountry,
-  IPurpose,
-  ITemplate,
-} from "../types";
+import type { ICategoryCount, IPurpose, ITemplate } from "../types";
 
 export const getQueryValues = (value: string | null | undefined): string[] =>
   value ? value.split(",").filter(Boolean) : [];
@@ -52,7 +47,6 @@ export const sortByNewest = (forms: ITemplate[] | undefined): ITemplate[] =>
 
 interface IFormsFilters {
   type?: string[];
-  country?: string[];
   purpose?: string[];
   category?: string;
 }
@@ -61,22 +55,13 @@ export const getFilteredForms = (
   forms: ITemplate[] | undefined,
   filters: IFormsFilters,
 ): ITemplate[] => {
-  const { type, country, purpose, category } = filters;
+  const { type, purpose, category } = filters;
 
   return (
     forms?.filter((form) => {
       if (
         type?.length &&
         !form.form_exts?.some((item) => type.includes(item.ext))
-      ) {
-        return false;
-      }
-
-      if (
-        country?.length &&
-        !form.countries?.some((item) =>
-          country.includes(item.code.toLowerCase()),
-        )
       ) {
         return false;
       }
@@ -103,36 +88,6 @@ export const getFilteredForms = (
 
       return true;
     }) ?? []
-  );
-};
-
-export const getFormsByTypes = (
-  forms: ITemplate[] | undefined,
-  types: string[],
-): ITemplate[] => {
-  if (!types.length) return forms ?? [];
-  return (
-    forms?.filter((form) =>
-      form.form_exts?.some((item) => types.includes(item.ext)),
-    ) ?? []
-  );
-};
-
-export const getCountries = (
-  forms: ITemplate[] | undefined,
-): (ICountry & { count: number })[] => {
-  const countryMap = new Map<number, ICountry & { count: number }>();
-
-  forms?.forEach((form) => {
-    form.countries?.filter(Boolean).forEach((country) => {
-      const existing = countryMap.get(country.id);
-      if (existing) existing.count += 1;
-      else countryMap.set(country.id, { ...country, count: 1 });
-    });
-  });
-
-  return Array.from(countryMap.values()).sort(
-    (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
   );
 };
 

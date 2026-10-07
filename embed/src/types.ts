@@ -84,13 +84,6 @@ export interface ISubcategory {
   parent_categories: IParentCategory[];
 }
 
-export interface ICountry {
-  id: number;
-  name: string;
-  code: string;
-  createdAt: string;
-}
-
 export interface IFormExt {
   id: number;
   ext: TAllowedTypes;
@@ -122,7 +115,6 @@ export interface ITemplate {
   card_prewiew?: ICardPreview | null;
   form_exts: IFormExt[];
   file_oform?: IOformFile[];
-  countries?: ICountry[];
   subcategories: ISubcategory[];
 }
 

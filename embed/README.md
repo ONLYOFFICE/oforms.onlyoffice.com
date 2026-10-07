@@ -26,8 +26,7 @@ npm run build
 | `q` | search term (substring on the template name), set by the host |
 | `type` | one of `docx,xlsx,pptx,pdf` — defaults to `docx` |
 | `purpose` | one of `business`, `personal` — defaults to `business` |
-| `country` | comma list of lowercase country codes |
-| `category` | comma list of category slugs, e.g. `contracts-legal` |
+| `category` | one category slug, e.g. `contracts-legal` |
 | `page` | 1-based page index |
 | `locale` | `ar de en es fr it ja pt zh` |
 | `theme` | token overrides — JSON, or `name:value;name:value` |

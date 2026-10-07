@@ -54,12 +54,7 @@ import {
 } from "./lib/filters";
 import { initI18n } from "./i18n";
 import { isRtlLocale, storeLocale, type Locale } from "./locale";
-import {
-  readHidden,
-  readQuery,
-  writeQuery,
-  type ICatalogQuery,
-} from "./query";
+import { readHidden, readQuery, writeQuery, type ICatalogQuery } from "./query";
 import { notifyReady, onHostMessage, requestOpenTemplate } from "./bridge";
 import { applyTheme, isTheme } from "./theme";
 import type { ITemplate } from "./types";
@@ -153,7 +148,6 @@ const App = () => {
       getCategories(
         getFilteredForms(templates, {
           type: query.types,
-          country: query.countries,
           purpose: query.purposes,
         }),
       ).map((category) => [category.id, category.count]),
@@ -165,7 +159,7 @@ const App = () => {
         ...category,
         count: counts.get(category.id) ?? 0,
       }));
-  }, [templates, query.types, query.countries, query.purposes]);
+  }, [templates, query.types, query.purposes]);
 
   // A slug from another locale or purpose would empty the grid with nothing
   // shown as selected.
@@ -178,29 +172,17 @@ const App = () => {
     .map((item) => ({ value: item.urlReq, label: item.name }));
 
   const visible = useMemo(() => {
-    // Country only narrows the result once a category is chosen — this matches
-    // the site and is deliberate, not an oversight.
     const filtered = getFilteredForms(templates, {
       type: query.types,
-      country: category ? query.countries : [],
       category,
       purpose: query.purposes,
     });
 
     const term = query.q.trim().toLowerCase();
     return term
-      ? filtered.filter((form) =>
-          form.name_form.toLowerCase().includes(term),
-        )
+      ? filtered.filter((form) => form.name_form.toLowerCase().includes(term))
       : filtered;
-  }, [
-    templates,
-    query.types,
-    query.countries,
-    category,
-    query.purposes,
-    query.q,
-  ]);
+  }, [templates, query.types, category, query.purposes, query.q]);
 
   const pages = Math.max(1, Math.ceil(visible.length / PAGE_SIZE));
   const page = Math.min(query.page, pages);
@@ -208,9 +190,9 @@ const App = () => {
 
   // Not type or purpose: both always have a value, so Clear would silently move
   // the user to Documents / Business.
-  const hasFacetFilters = query.countries.length > 0 || category !== "";
+  const hasFacetFilters = category !== "";
 
-  const clearFilters = () => filter({ countries: [], category: "" });
+  const clearFilters = () => filter({ category: "" });
 
   const showPurpose = !hidden.has("purpose") && purposes.length > 0;
 

@@ -44,7 +44,6 @@ const readOneOf = (
 export interface ICatalogQuery {
   q: string;
   types: string[];
-  countries: string[];
   category: string;
   purposes: string[];
   page: number;
@@ -60,7 +59,6 @@ export function readQuery(): ICatalogQuery {
   return {
     q: (p.get("q") ?? "").trim(),
     types: readOneOf(p.get("type"), TYPE_ORDER),
-    countries: getQueryValues(p.get("country")),
     category: getQueryValues(p.get("category"))[0] ?? "",
     purposes: readOneOf(p.get("purpose"), PURPOSE_ORDER),
     page: Number.isFinite(page) && page > 0 ? page : 1,
@@ -86,7 +84,6 @@ export function writeQuery(query: ICatalogQuery): void {
 
   set("q", query.q);
   set("type", query.types.join(","));
-  set("country", query.countries.join(","));
   set("category", query.category);
   set("purpose", query.purposes.join(","));
   set("page", query.page > 1 ? String(query.page) : "");
