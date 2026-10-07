@@ -53,7 +53,7 @@ import {
 } from "./lib/filters";
 import { initI18n } from "./i18n";
 import { isRtlLocale, storeLocale, type Locale } from "./locale";
-import { readHidden, readQuery, writeQuery, type ICatalogQuery } from "./query";
+import { readQuery, writeQuery, type ICatalogQuery } from "./query";
 import { notifyReady, onHostMessage, requestOpenTemplate } from "./bridge";
 import { applyTheme, isTheme } from "./theme";
 import { PURPOSE_ORDER, type ITemplate } from "./types";
@@ -72,7 +72,6 @@ const App = () => {
   const [selected, setSelected] = useState<ITemplate | null>(null);
   // Bumped to re-run the fetch when the locale has not changed (retry).
   const [reloadToken, setReloadToken] = useState(0);
-  const [hidden] = useState(readHidden);
   const [scrolled, setScrolled] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -209,9 +208,7 @@ const App = () => {
       >
         <div className={styles.toolbar}>
           <div className={styles["toolbar-query"]}>
-            {!hidden.has("search") && (
-              <SearchBox value={query.q} onChange={(q) => filter({ q })} />
-            )}
+            <SearchBox value={query.q} onChange={(q) => filter({ q })} />
 
             {(query.category === "" || templates.length > 0) && (
               <FilterButton
@@ -223,39 +220,36 @@ const App = () => {
               />
             )}
 
-            {!hidden.has("purpose") &&
-              (query.purpose === "" || templates.length > 0) && (
-                <FilterButton
-                  label={t("Purpose", { ns: "MainTemplate" })}
-                  clearLabel={t("ClearPurpose")}
-                  options={purposeOptions}
-                  value={query.purpose}
-                  onChange={(value) =>
-                    // Each category has one purpose, so a switch to the other
-                    // orphans it.
-                    filter({
-                      purpose: value,
-                      category:
-                        value &&
-                        categories.find((item) => item.urlReq === category)
-                          ?.purpose?.key !== value
-                          ? ""
-                          : category,
-                    })
-                  }
-                />
-              )}
+            {(query.purpose === "" || templates.length > 0) && (
+              <FilterButton
+                label={t("Purpose", { ns: "MainTemplate" })}
+                clearLabel={t("ClearPurpose")}
+                options={purposeOptions}
+                value={query.purpose}
+                onChange={(value) =>
+                  // Each category has one purpose, so a switch to the other
+                  // orphans it.
+                  filter({
+                    purpose: value,
+                    category:
+                      value &&
+                      categories.find((item) => item.urlReq === category)
+                        ?.purpose?.key !== value
+                        ? ""
+                        : category,
+                  })
+                }
+              />
+            )}
           </div>
 
-          {!hidden.has("lang") && (
-            <LanguageSelect
-              value={query.locale}
-              onChange={(locale) => {
-                storeLocale(locale);
-                filter({ locale });
-              }}
-            />
-          )}
+          <LanguageSelect
+            value={query.locale}
+            onChange={(locale) => {
+              storeLocale(locale);
+              filter({ locale });
+            }}
+          />
         </div>
 
         <div className={styles["toolbar-types"]}>

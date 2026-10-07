@@ -68,7 +68,7 @@ export function readQuery(): ICatalogQuery {
 
 /**
  * Mirrors state back into the address bar with replaceState — no navigation.
- * Keeps params the host set (hide) untouched.
+ * Keeps params it does not own untouched.
  */
 export function writeQuery(query: ICatalogQuery): void {
   const next = params();
@@ -92,7 +92,3 @@ export function writeQuery(query: ICatalogQuery): void {
     window.location.pathname + (search ? `?${search}` : ""),
   );
 }
-
-/** Chrome the host supplies itself, e.g. `?hide=lang,search`. */
-export const readHidden = (): Set<string> =>
-  new Set(getQueryValues(params().get("hide")));

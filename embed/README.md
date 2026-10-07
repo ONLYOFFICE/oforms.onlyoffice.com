@@ -29,7 +29,6 @@ npm run build
 | `category` | one category slug, e.g. `contracts-legal` |
 | `page` | 1-based page index |
 | `locale` | `ar de en es fr it ja pt zh` |
-| `hide` | chrome the host supplies itself: `lang`, `search`, `purpose` (comma list) |
 
 The grid shows **one file type at a time** — no template exists in two formats,
 so the tabs partition the catalog rather than filter it. `?type=` pins the
@@ -45,9 +44,8 @@ locale resolves as `?locale=` → stored pick → `RendererProcessVariable.lang`
 the default. Storage being blocked (a third-party frame with site data off) costs
 the memory, nothing else.
 
-`?hide=lang` removes the language selector but not locale switching — the host
-still drives that with `?locale=` or a `locale` message. Neither is stored: the
-host re-states them on the next load.
+The host drives locale with `?locale=` or a `locale` message. Neither is stored:
+the host re-states them on the next load.
 
 There is no sort control and no `?sort=` — the grid is always newest first.
 
