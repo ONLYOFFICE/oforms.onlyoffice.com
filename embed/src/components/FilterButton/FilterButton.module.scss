@@ -91,10 +91,11 @@
 
 .clear {
   padding-inline: 4px 8px;
+}
 
-  &:hover {
-    background-color: var(--purpose-background-color-hover);
-  }
+.control-active .trigger:hover,
+.clear:hover {
+  background-color: var(--purpose-background-color-hover);
 }
 
 .menu {
