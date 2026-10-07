@@ -103,7 +103,9 @@
   inset-block-start: calc(100% + 4px);
   inset-inline-end: 0;
   z-index: 20;
-  width: 280px;
+  width: max-content;
+  min-width: 100%;
+  max-width: 280px;
   max-height: calc(100dvh - 128px);
   overflow-y: auto;
   margin: 0;
@@ -124,6 +126,7 @@
   .menu {
     inset-inline: 0;
     width: auto;
+    max-width: none;
   }
 }
 
@@ -131,7 +134,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 8px;
+  padding-block: 6px;
+  // The end matches the check's 16 + 8 at the start.
+  padding-inline: 8px 32px;
   border-radius: 3px;
   font-size: 14px;
   line-height: 20px;
