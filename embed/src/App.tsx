@@ -197,9 +197,9 @@ const App = () => {
 
   // Not type: it always has a value, so Clear would silently move the user to
   // Documents.
-  const hasFacetFilters = category !== "" || query.purpose !== "";
+  const hasFilters = query.q !== "" || category !== "" || query.purpose !== "";
 
-  const clearFilters = () => filter({ category: "", purpose: "" });
+  const clearFilters = () => filter({ q: "", category: "", purpose: "" });
 
   return (
     <div className={styles.app}>
@@ -290,7 +290,7 @@ const App = () => {
             <CardGrid templates={shown} onSelect={setSelected} />
           ) : (
             <EmptyState
-              hasFilters={hasFacetFilters}
+              hasFilters={hasFilters}
               onClearFilters={clearFilters}
             />
           ))}
