@@ -41,7 +41,6 @@ import { EmptyState } from "./components/EmptyState/EmptyState";
 import { FilterButton } from "./components/FilterButton/FilterButton";
 import { LanguageSelect } from "./components/LanguageSelect/LanguageSelect";
 import { Pagination } from "./components/Pagination/Pagination";
-import { PurposeFilter } from "./components/PurposeFilter/PurposeFilter";
 import { SearchBox } from "./components/SearchBox/SearchBox";
 import { TemplateModal } from "./components/TemplateModal/TemplateModal";
 import { TypeFilter } from "./components/TypeFilter/TypeFilter";
@@ -57,7 +56,7 @@ import { isRtlLocale, storeLocale, type Locale } from "./locale";
 import { readHidden, readQuery, writeQuery, type ICatalogQuery } from "./query";
 import { notifyReady, onHostMessage, requestOpenTemplate } from "./bridge";
 import { applyTheme, isTheme } from "./theme";
-import type { ITemplate } from "./types";
+import { PURPOSE_ORDER, type ITemplate } from "./types";
 import styles from "./App.module.scss";
 
 const PAGE_SIZE = 24;
@@ -139,7 +138,14 @@ const App = () => {
     return stop;
   }, [filter]);
 
-  const purposes = useMemo(() => getPurposes(templates), [templates]);
+  // Names from the catalog, order fixed: `createdAt` order differs by locale.
+  const purposeOptions = useMemo(() => {
+    const purposes = getPurposes(templates);
+    return PURPOSE_ORDER.flatMap((key) => {
+      const purpose = purposes.find((item) => item.key === key);
+      return purpose ? [{ value: key, label: purpose.name }] : [];
+    });
+  }, [templates]);
 
   // Names from the whole catalog, counts from what the filters leave: a row the
   // active type has none of can then stay visible while it is selected.
@@ -148,18 +154,20 @@ const App = () => {
       getCategories(
         getFilteredForms(templates, {
           type: query.types,
-          purpose: query.purposes,
+          purpose: query.purpose,
         }),
       ).map((category) => [category.id, category.count]),
     );
 
     return getCategories(templates)
-      .filter((category) => category.purpose?.key === query.purposes[0])
+      .filter(
+        (category) => !query.purpose || category.purpose?.key === query.purpose,
+      )
       .map((category) => ({
         ...category,
         count: counts.get(category.id) ?? 0,
       }));
-  }, [templates, query.types, query.purposes]);
+  }, [templates, query.types, query.purpose]);
 
   // A slug from another locale or purpose would empty the grid with nothing
   // shown as selected.
@@ -175,26 +183,24 @@ const App = () => {
     const filtered = getFilteredForms(templates, {
       type: query.types,
       category,
-      purpose: query.purposes,
+      purpose: query.purpose,
     });
 
     const term = query.q.trim().toLowerCase();
     return term
       ? filtered.filter((form) => form.name_form.toLowerCase().includes(term))
       : filtered;
-  }, [templates, query.types, category, query.purposes, query.q]);
+  }, [templates, query.types, category, query.purpose, query.q]);
 
   const pages = Math.max(1, Math.ceil(visible.length / PAGE_SIZE));
   const page = Math.min(query.page, pages);
   const shown = visible.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
-  // Not type or purpose: both always have a value, so Clear would silently move
-  // the user to Documents / Business.
-  const hasFacetFilters = category !== "";
+  // Not type: it always has a value, so Clear would silently move the user to
+  // Documents.
+  const hasFacetFilters = category !== "" || query.purpose !== "";
 
-  const clearFilters = () => filter({ category: "" });
-
-  const showPurpose = !hidden.has("purpose") && purposes.length > 0;
+  const clearFilters = () => filter({ category: "", purpose: "" });
 
   return (
     <div className={styles.app}>
@@ -216,6 +222,29 @@ const App = () => {
                 onChange={(value) => filter({ category: value })}
               />
             )}
+
+            {!hidden.has("purpose") &&
+              (query.purpose === "" || templates.length > 0) && (
+                <FilterButton
+                  label={t("Purpose", { ns: "MainTemplate" })}
+                  clearLabel={t("ClearPurpose")}
+                  options={purposeOptions}
+                  value={query.purpose}
+                  onChange={(value) =>
+                    // Each category has one purpose, so a switch to the other
+                    // orphans it.
+                    filter({
+                      purpose: value,
+                      category:
+                        value &&
+                        categories.find((item) => item.urlReq === category)
+                          ?.purpose?.key !== value
+                          ? ""
+                          : category,
+                    })
+                  }
+                />
+              )}
           </div>
 
           {!hidden.has("lang") && (
@@ -229,28 +258,12 @@ const App = () => {
           )}
         </div>
 
-        {(!hidden.has("type") || showPurpose) && (
-          <div className={styles["toolbar-types"]}>
-            {!hidden.has("type") && (
-              <TypeFilter
-                selected={query.types[0]}
-                onSelect={(ext) => filter({ types: [ext] })}
-              />
-            )}
-
-            {showPurpose && (
-              <PurposeFilter
-                purposes={purposes}
-                selected={query.purposes}
-                onSelect={(key) =>
-                  // No category spans both purposes, so a switch orphans it.
-                  key !== query.purposes[0] &&
-                  filter({ purposes: [key], category: "" })
-                }
-              />
-            )}
-          </div>
-        )}
+        <div className={styles["toolbar-types"]}>
+          <TypeFilter
+            selected={query.types[0]}
+            onSelect={(ext) => filter({ types: [ext] })}
+          />
+        </div>
       </header>
 
       {/* Focusable because Chromium only made scrollers keyboard-focusable in

@@ -31,21 +31,17 @@ import { getQueryValues } from "./lib/filters";
 import { normalizeLocale, readStoredLocale, type Locale } from "./locale";
 import { PURPOSE_ORDER, TYPE_ORDER } from "./types";
 
-// Type and purpose each hold exactly one value, so an unknown or multi-valued
-// param falls back to the first of its order.
-const readOneOf = (
+const allowedOr = (
   value: string | null,
   allowed: readonly string[],
-): string[] => {
-  const first = getQueryValues(value)[0];
-  return [first && allowed.includes(first) ? first : allowed[0]];
-};
+  fallback: string,
+): string => (value && allowed.includes(value) ? value : fallback);
 
 export interface ICatalogQuery {
   q: string;
   types: string[];
   category: string;
-  purposes: string[];
+  purpose: string;
   page: number;
   locale: Locale;
 }
@@ -58,9 +54,9 @@ export function readQuery(): ICatalogQuery {
 
   return {
     q: (p.get("q") ?? "").trim(),
-    types: readOneOf(p.get("type"), TYPE_ORDER),
+    types: [allowedOr(p.get("type"), TYPE_ORDER, TYPE_ORDER[0])],
     category: getQueryValues(p.get("category"))[0] ?? "",
-    purposes: readOneOf(p.get("purpose"), PURPOSE_ORDER),
+    purpose: allowedOr(p.get("purpose"), PURPOSE_ORDER, ""),
     page: Number.isFinite(page) && page > 0 ? page : 1,
     // `?locale=` pins it, then the language picked here, then Desktop's own UI
     // language.
@@ -85,7 +81,7 @@ export function writeQuery(query: ICatalogQuery): void {
   set("q", query.q);
   set("type", query.types.join(","));
   set("category", query.category);
-  set("purpose", query.purposes.join(","));
+  set("purpose", query.purpose);
   set("page", query.page > 1 ? String(query.page) : "");
   set("locale", query.locale);
 

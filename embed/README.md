@@ -25,23 +25,17 @@ npm run build
 |---|---|
 | `q` | search term (substring on the template name), set by the host |
 | `type` | one of `docx,xlsx,pptx,pdf` — defaults to `docx` |
-| `purpose` | one of `business`, `personal` — defaults to `business` |
+| `purpose` | one of `business`, `personal` — omitted is both |
 | `category` | one category slug, e.g. `contracts-legal` |
 | `page` | 1-based page index |
 | `locale` | `ar de en es fr it ja pt zh` |
-| `theme` | token overrides — JSON, or `name:value;name:value` |
-| `hide` | chrome the host supplies itself: `lang`, `search`, `type`, `purpose` (comma list) |
+| `hide` | chrome the host supplies itself: `lang`, `search`, `purpose` (comma list) |
 
 The grid shows **one file type at a time** — no template exists in two formats,
 so the tabs partition the catalog rather than filter it. `?type=` pins the
-opening tab and `?hide=type` drops the row, which is the desktop shape: the
-host's create row already picked the editor.
+opening tab.
 
-`type` and `purpose` both always hold exactly one value, so an unknown or
-multi-valued param falls back to the first of its order (`docx`, `business`) —
-that is also how a stale `?type=docx,pdf` resolves. Neither has an "all" state:
-a union of both purposes is the whole catalog, and every template is reachable
-since Business covers all but the exclusively-personal ones.
+An unknown `type` falls back to `docx`, an unknown `purpose` to both.
 
 Search is scoped to the active tab, and switching tab keeps the term.
 

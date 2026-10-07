@@ -55,12 +55,12 @@
 }
 
 .control-active {
-  border-color: var(--purpose-border-color-selected);
-  background-color: var(--purpose-background-color-selected);
-  color: var(--purpose-color-selected);
+  border-color: var(--filter-button-border-color-selected);
+  background-color: var(--filter-button-background-color-selected);
+  color: var(--filter-button-color-selected);
 
   &:hover {
-    border-color: var(--purpose-border-color-selected);
+    border-color: var(--filter-button-border-color-selected);
   }
 }
 
@@ -95,7 +95,7 @@
 
 .control-active .trigger:hover,
 .clear:hover {
-  background-color: var(--purpose-background-color-hover);
+  background-color: var(--filter-button-background-color-hover);
 }
 
 .menu {
@@ -140,7 +140,7 @@
   border-radius: 3px;
   font-size: 14px;
   line-height: 20px;
-  color: var(--badge-label-color);
+  color: var(--filter-button-option-color);
   cursor: pointer;
 
   svg {
@@ -150,12 +150,12 @@
 }
 
 .option-active {
-  background-color: var(--badge-wrapper-background-color-hover);
+  background-color: var(--filter-button-background-color-hover);
 }
 
 .option-selected {
-  background-color: var(--badge-wrapper-background-color-checked);
-  color: var(--badge-label-color-checked);
+  background-color: var(--filter-button-background-color-selected);
+  color: var(--filter-button-color-selected);
 
   svg {
     visibility: visible;

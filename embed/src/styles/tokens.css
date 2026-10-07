@@ -59,17 +59,6 @@
   );
   --card-heading-color: var(--text-normal, #21222b);
 
-  --badge-wrapper-background-color-hover: var(
-    --highlight-button-hover,
-    rgba(53, 65, 245, 0.07)
-  );
-  --badge-wrapper-background-color-checked: var(
-    --highlight-button-pressed,
-    rgba(53, 65, 245, 0.07)
-  );
-  --badge-label-color: var(--text-normal, #494b5b);
-  --badge-label-color-checked: var(--text-link, #001bd2);
-
   --language-switcher-border-color: var(--border-regular-control, #e5e6ed);
   --language-switcher-border-color-hover: var(--border-control-focus, #c7c9d6);
   --language-switcher-background-color: var(
@@ -163,7 +152,6 @@
   --pagination-color-active: #ffffff;
   --pagination-background-color-active: #000122;
   --pagination-color-disabled: var(--text-tertiary, #c7c9d6);
-  --filter-button-color-disabled: var(--text-tertiary, #c7c9d6);
 
   --format-docx-color: #305cc4;
   --format-xlsx-color: #41b338;
@@ -173,16 +161,18 @@
   --type-tab-color: var(--text-secondary, #666980);
   --type-tab-color-active: var(--text-normal, #21222b);
 
-  --purpose-background-color-hover: var(
+  --filter-button-color-disabled: var(--text-tertiary, #c7c9d6);
+  --filter-button-option-color: var(--text-normal, #494b5b);
+  --filter-button-background-color-hover: var(
     --highlight-button-hover,
     rgba(53, 65, 245, 0.07)
   );
-  --purpose-background-color-selected: var(
+  --filter-button-background-color-selected: var(
     --highlight-button-pressed,
     rgba(53, 65, 245, 0.07)
   );
-  --purpose-border-color-selected: var(--border-control-focus, #d4d4ff);
-  --purpose-color-selected: var(--text-link, #001bd2);
+  --filter-button-border-color-selected: var(--border-control-focus, #d4d4ff);
+  --filter-button-color-selected: var(--text-link, #001bd2);
 }
 
 :root[data-theme="dark"] {

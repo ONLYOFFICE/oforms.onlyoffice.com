@@ -47,7 +47,7 @@ export const sortByNewest = (forms: ITemplate[] | undefined): ITemplate[] =>
 
 interface IFormsFilters {
   type?: string[];
-  purpose?: string[];
+  purpose?: string;
   category?: string;
 }
 
@@ -67,11 +67,9 @@ export const getFilteredForms = (
       }
 
       if (
-        purpose?.length &&
+        purpose &&
         !form.subcategories?.some((sub) =>
-          sub.parent_categories?.some(
-            (cat) => cat.purpose && purpose.includes(cat.purpose.key),
-          ),
+          sub.parent_categories?.some((cat) => cat.purpose?.key === purpose),
         )
       ) {
         return false;
