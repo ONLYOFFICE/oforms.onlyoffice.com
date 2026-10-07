@@ -36,9 +36,6 @@
  */
 import type { ICategoryCount, IPurpose, ITemplate } from "../types";
 
-export const getQueryValues = (value: string | null | undefined): string[] =>
-  value ? value.split(",").filter(Boolean) : [];
-
 /** The grid's only order. Call once on load — the filters below preserve it. */
 export const sortByNewest = (forms: ITemplate[] | undefined): ITemplate[] =>
   [...(forms ?? [])].sort(
@@ -46,7 +43,7 @@ export const sortByNewest = (forms: ITemplate[] | undefined): ITemplate[] =>
   );
 
 interface IFormsFilters {
-  type?: string[];
+  type?: string;
   purpose?: string;
   category?: string;
 }
@@ -59,10 +56,7 @@ export const getFilteredForms = (
 
   return (
     forms?.filter((form) => {
-      if (
-        type?.length &&
-        !form.form_exts?.some((item) => type.includes(item.ext))
-      ) {
+      if (type && !form.form_exts?.some((item) => item.ext === type)) {
         return false;
       }
 

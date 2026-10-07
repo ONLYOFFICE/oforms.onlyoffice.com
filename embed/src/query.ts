@@ -27,7 +27,6 @@
  */
 
 import { readDesktopLang } from "./desktopVars";
-import { getQueryValues } from "./lib/filters";
 import { normalizeLocale, readStoredLocale, type Locale } from "./locale";
 import { PURPOSE_ORDER, TYPE_ORDER } from "./types";
 
@@ -39,7 +38,7 @@ const allowedOr = (
 
 export interface ICatalogQuery {
   q: string;
-  types: string[];
+  type: string;
   category: string;
   purpose: string;
   page: number;
@@ -54,8 +53,8 @@ export function readQuery(): ICatalogQuery {
 
   return {
     q: (p.get("q") ?? "").trim(),
-    types: [allowedOr(p.get("type"), TYPE_ORDER, TYPE_ORDER[0])],
-    category: getQueryValues(p.get("category"))[0] ?? "",
+    type: allowedOr(p.get("type"), TYPE_ORDER, TYPE_ORDER[0]),
+    category: p.get("category") ?? "",
     purpose: allowedOr(p.get("purpose"), PURPOSE_ORDER, ""),
     page: Number.isFinite(page) && page > 0 ? page : 1,
     // `?locale=` pins it, then the language picked here, then Desktop's own UI
@@ -79,7 +78,7 @@ export function writeQuery(query: ICatalogQuery): void {
   };
 
   set("q", query.q);
-  set("type", query.types.join(","));
+  set("type", query.type);
   set("category", query.category);
   set("purpose", query.purpose);
   set("page", query.page > 1 ? String(query.page) : "");

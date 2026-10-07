@@ -147,28 +147,32 @@ const App = () => {
   }, [templates]);
 
   // Names from the whole catalog, counts from what the filters leave: a row the
-  // active type has none of can then stay visible while it is selected.
-  const categories = useMemo(() => {
+  // active type or purpose has none of can then stay visible while it is
+  // selected.
+  const counted = useMemo(() => {
     const counts = new Map(
       getCategories(
         getFilteredForms(templates, {
-          type: query.types,
+          type: query.type,
           purpose: query.purpose,
         }),
       ).map((category) => [category.id, category.count]),
     );
 
-    return getCategories(templates)
-      .filter(
-        (category) => !query.purpose || category.purpose?.key === query.purpose,
-      )
-      .map((category) => ({
-        ...category,
-        count: counts.get(category.id) ?? 0,
-      }));
-  }, [templates, query.types, query.purpose]);
+    return getCategories(templates).map((category) => ({
+      ...category,
+      count: counts.get(category.id) ?? 0,
+    }));
+  }, [templates, query.type, query.purpose]);
 
-  // A slug from another locale or purpose would empty the grid with nothing
+  const categories = counted.filter(
+    (category) =>
+      !query.purpose ||
+      category.purpose?.key === query.purpose ||
+      category.urlReq === query.category,
+  );
+
+  // A slug from another locale would empty the grid with nothing
   // shown as selected.
   const category = categories.some((item) => item.urlReq === query.category)
     ? query.category
@@ -180,7 +184,7 @@ const App = () => {
 
   const visible = useMemo(() => {
     const filtered = getFilteredForms(templates, {
-      type: query.types,
+      type: query.type,
       category,
       purpose: query.purpose,
     });
@@ -189,7 +193,7 @@ const App = () => {
     return term
       ? filtered.filter((form) => form.name_form.toLowerCase().includes(term))
       : filtered;
-  }, [templates, query.types, category, query.purpose, query.q]);
+  }, [templates, query.type, category, query.purpose, query.q]);
 
   const pages = Math.max(1, Math.ceil(visible.length / PAGE_SIZE));
   const page = Math.min(query.page, pages);
@@ -226,19 +230,7 @@ const App = () => {
                 clearLabel={t("ClearPurpose")}
                 options={purposeOptions}
                 value={query.purpose}
-                onChange={(value) =>
-                  // Each category has one purpose, so a switch to the other
-                  // orphans it.
-                  filter({
-                    purpose: value,
-                    category:
-                      value &&
-                      categories.find((item) => item.urlReq === category)
-                        ?.purpose?.key !== value
-                        ? ""
-                        : category,
-                  })
-                }
+                onChange={(value) => filter({ purpose: value })}
               />
             )}
           </div>
@@ -254,8 +246,8 @@ const App = () => {
 
         <div className={styles["toolbar-types"]}>
           <TypeFilter
-            selected={query.types[0]}
-            onSelect={(ext) => filter({ types: [ext] })}
+            selected={query.type}
+            onSelect={(ext) => filter({ type: ext })}
           />
         </div>
       </header>
