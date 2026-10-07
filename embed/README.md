@@ -4,8 +4,8 @@ Static templates catalog, loaded by ONLYOFFICE Desktop in an **iframe** so it
 ships without a desktop release. Replaces the app that used to live here and its
 Next.js shims — no dependency on `../src`.
 
-v0 is a card grid, newest first, with type tabs, pagination, language select and
-filters in a popover. No expand-to-full-page, no redesign yet.
+v0 is a card grid, newest first, with type tabs, pagination, and
+Category, Purpose and Language buttons. No expand-to-full-page, no redesign yet.
 
 The page is a fixed shell — the controls and the pagination hold still and only
 the card list scrolls — so **the host must give the iframe a definite height**.
@@ -25,36 +25,29 @@ npm run build
 |---|---|
 | `q` | search term (substring on the template name), set by the host |
 | `type` | one of `docx,xlsx,pptx,pdf` — defaults to `docx` |
-| `purpose` | one of `business`, `personal` — defaults to `business` |
-| `country` | comma list of lowercase country codes |
-| `category` | comma list of category slugs, e.g. `contracts-legal` |
+| `purpose` | one of `business`, `personal` — omitted is both |
+| `category` | one category slug, e.g. `contracts-legal` |
 | `page` | 1-based page index |
-| `locale` | `ar de en es fr it ja pt zh` |
-| `theme` | token overrides — JSON, or `name:value;name:value` |
-| `hide` | chrome the host supplies itself: `lang`, `search`, `type`, `purpose` (comma list) |
+| `locale` | page language: `ar de en es fr it ja pt zh` |
+| `lang` | catalog language, same values — omitted follows `locale` |
 
 The grid shows **one file type at a time** — no template exists in two formats,
 so the tabs partition the catalog rather than filter it. `?type=` pins the
-opening tab and `?hide=type` drops the row, which is the desktop shape: the
-host's create row already picked the editor.
+opening tab.
 
-`type` and `purpose` both always hold exactly one value, so an unknown or
-multi-valued param falls back to the first of its order (`docx`, `business`) —
-that is also how a stale `?type=docx,pdf` resolves. Neither has an "all" state:
-a union of both purposes is the whole catalog, and every template is reachable
-since Business covers all but the exclusively-personal ones.
+An unknown `type` falls back to `docx`, an unknown `purpose` to both.
 
 Search is scoped to the active tab, and switching tab keeps the term.
 
-A pick in the language menu is remembered in `localStorage.locale`, so the
-locale resolves as `?locale=` → stored pick → `RendererProcessVariable.lang` →
-`en`. The host can still pin a language per load; Desktop's UI language is only
-the default. Storage being blocked (a third-party frame with site data off) costs
-the memory, nothing else.
+The page's language and the catalog's are separate. `locale` (UI strings,
+direction, dates) resolves `?locale=` → `RendererProcessVariable.lang` → `en`
+and is never stored. The Language button picks `lang` — which catalog loads, so
+only template names and descriptions — and resolves `?lang=` →
+`localStorage.lang` → `locale`. Storage being blocked costs the memory, nothing
+else.
 
-`?hide=lang` removes the language selector but not locale switching — the host
-still drives that with `?locale=` or a `locale` message. Neither is stored: the
-host re-states them on the next load.
+The host drives the page language with `?locale=` or a `locale` message, and can
+pin the catalog with `?lang=`. None of these is stored.
 
 There is no sort control and no `?sort=` — the grid is always newest first.
 

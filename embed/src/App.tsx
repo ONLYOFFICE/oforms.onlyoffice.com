@@ -1,29 +1,36 @@
 /*
- * (c) Copyright Ascensio System SIA 2009-2026
+ * Copyright (C) Ascensio System SIA, 2009-2026
  *
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms
- * of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
- * Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
- * to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of
- * any third-party rights.
+ * This program is a free software product. You can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License (AGPL)
+ * version 3 as published by the Free Software Foundation, together with the
+ * additional terms provided in the LICENSE file.
  *
- * This program is distributed WITHOUT ANY WARRANTY, without even the implied warranty
- * of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see
- * the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * This program is distributed WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For
+ * details, see the GNU AGPL at: https://www.gnu.org/licenses/agpl-3.0.html
  *
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * You can contact Ascensio System SIA by email at info@onlyoffice.com
+ * or by postal mail at 20A-6 Ernesta Birznieka-Upisha Street, Riga,
+ * LV-1050, Latvia, European Union.
  *
- * The  interactive user interfaces in modified source and object code versions of the Program must
- * display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * The interactive user interfaces in modified versions of the Program
+ * are required to display Appropriate Legal Notices in accordance with
+ * Section 5 of the GNU AGPL version 3.
  *
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when
- * distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under
- * trademark law for use of our trademarks.
+ * No trademark rights are granted under this License.
  *
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
- * content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
- * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * All non-code elements of the Product, including illustrations,
+ * icon sets, and technical writing content, are licensed under the
+ * Creative Commons Attribution-ShareAlike 4.0 International License:
+ * https://creativecommons.org/licenses/by-sa/4.0/legalcode
+ *
+ * This license applies only to such non-code elements and does not
+ * modify or replace the licensing terms applicable to the Program's
+ * source code, which remains licensed under the GNU Affero General
+ * Public License v3.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
  */
 
 import {
@@ -38,37 +45,33 @@ import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 import { CardGrid } from "./components/CardGrid/CardGrid";
 import { EmptyState } from "./components/EmptyState/EmptyState";
-import { FilterPopover } from "./components/FilterPopover/FilterPopover";
-import { LanguageSelect } from "./components/LanguageSelect/LanguageSelect";
+import { FilterButton } from "./components/FilterButton/FilterButton";
 import { Pagination } from "./components/Pagination/Pagination";
-import { PurposeFilter } from "./components/PurposeFilter/PurposeFilter";
 import { SearchBox } from "./components/SearchBox/SearchBox";
 import { TemplateModal } from "./components/TemplateModal/TemplateModal";
 import { TypeFilter } from "./components/TypeFilter/TypeFilter";
 import { loadCatalog } from "./data";
 import {
   getCategories,
-  getCountries,
   getFilteredForms,
-  getFormsByTypes,
   getPurposes,
   sortByNewest,
 } from "./lib/filters";
 import { initI18n } from "./i18n";
-import { isRtlLocale, storeLocale, type Locale } from "./locale";
-import {
-  readHidden,
-  readQuery,
-  toggleValue,
-  writeQuery,
-  type ICatalogQuery,
-} from "./query";
+import { LANGUAGES, isRtlLocale, storeLang, type Locale } from "./locale";
+import { readQuery, writeQuery, type ICatalogQuery } from "./query";
 import { notifyReady, onHostMessage, requestOpenTemplate } from "./bridge";
 import { applyTheme, isTheme } from "./theme";
-import type { ITemplate } from "./types";
+import { PURPOSE_ORDER, type ITemplate } from "./types";
 import styles from "./App.module.scss";
 
 const PAGE_SIZE = 24;
+
+const LANGUAGE_OPTIONS = LANGUAGES.map((item) => ({
+  value: item.shortKey,
+  label: item.longKey,
+  lang: item.shortKey,
+}));
 
 const App = () => {
   const { t } = useTranslation("embed");
@@ -81,9 +84,11 @@ const App = () => {
   const [selected, setSelected] = useState<ITemplate | null>(null);
   // Bumped to re-run the fetch when the locale has not changed (retry).
   const [reloadToken, setReloadToken] = useState(0);
-  const [hidden] = useState(readHidden);
   const [scrolled, setScrolled] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
+
+  // Templates come in this language; everything else on the page is `locale`.
+  const lang = query.lang || query.locale;
 
   const update = useCallback((patch: Partial<ICatalogQuery>) => {
     setQuery((prev) => {
@@ -104,16 +109,14 @@ const App = () => {
     [update],
   );
 
-  // Catalog data — refetched whenever the locale changes. Only ever one locale
-  // at a time, so no caching layer is needed.
+  // Only ever one catalog at a time, so no caching layer is needed.
   useEffect(() => {
     const controller = new AbortController();
     setStatus("loading");
 
     (async () => {
       try {
-        await initI18n(query.locale);
-        const catalog = await loadCatalog(query.locale, controller.signal);
+        const catalog = await loadCatalog(lang, controller.signal);
         if (controller.signal.aborted) return;
         setTemplates(sortByNewest(catalog.data));
         setStatus("ready");
@@ -125,11 +128,13 @@ const App = () => {
     })();
 
     return () => controller.abort();
-  }, [query.locale, reloadToken]);
+  }, [lang, reloadToken]);
 
-  // Direction follows the locale. Layout effect, or `ar` paints one LTR frame
-  // before the mirror — measured at every CPU throttle level.
+  // Layout effect, or `ar` paints one LTR frame before the mirror — measured at
+  // every CPU throttle level. Resources are bundled, so the language switch
+  // re-renders inside the same commit.
   useLayoutEffect(() => {
+    void initI18n(query.locale);
     document.documentElement.lang = query.locale;
     document.documentElement.dir = isRtlLocale(query.locale) ? "rtl" : "ltr";
   }, [query.locale]);
@@ -147,22 +152,36 @@ const App = () => {
     return stop;
   }, [filter]);
 
-  const countries = useMemo(
-    () => getCountries(getFormsByTypes(templates, query.types)),
-    [templates, query.types],
+  // The catalog names its categories and purposes in its own language, so in
+  // another one they come from `embed.json`.
+  const localName = useCallback(
+    (group: string, key: string, name: string) =>
+      lang === query.locale
+        ? name
+        : t(`${group}.${key}`, { defaultValue: name }),
+    [lang, query.locale, t],
   );
 
-  const purposes = useMemo(() => getPurposes(templates), [templates]);
+  // Order fixed: `createdAt` order differs by locale.
+  const purposeOptions = useMemo(() => {
+    const purposes = getPurposes(templates);
+    return PURPOSE_ORDER.flatMap((key) => {
+      const purpose = purposes.find((item) => item.key === key);
+      return purpose
+        ? [{ value: key, label: localName("PurposeNames", key, purpose.name) }]
+        : [];
+    });
+  }, [templates, localName]);
 
   // Names from the whole catalog, counts from what the filters leave: a row the
-  // active type has none of can then stay visible while it is checked.
-  const categories = useMemo(() => {
+  // active type or purpose has none of can then stay visible while it is
+  // selected.
+  const counted = useMemo(() => {
     const counts = new Map(
       getCategories(
         getFilteredForms(templates, {
-          type: query.types,
-          country: query.countries,
-          purpose: query.purposes,
+          type: query.type,
+          purpose: query.purpose,
         }),
       ).map((category) => [category.id, category.count]),
     );
@@ -171,46 +190,50 @@ const App = () => {
       ...category,
       count: counts.get(category.id) ?? 0,
     }));
-  }, [templates, query.types, query.countries, query.purposes]);
+  }, [templates, query.type, query.purpose]);
+
+  const categories = counted.filter(
+    (category) =>
+      !query.purpose ||
+      category.purpose?.key === query.purpose ||
+      category.urlReq === query.category,
+  );
+
+  // A slug from another locale would empty the grid with nothing
+  // shown as selected.
+  const category = categories.some((item) => item.urlReq === query.category)
+    ? query.category
+    : "";
+
+  const categoryOptions = categories
+    .filter((item) => item.count > 0 || item.urlReq === category)
+    .map((item) => ({
+      value: item.urlReq,
+      label: localName("CategoryNames", item.urlReq, item.name),
+    }));
 
   const visible = useMemo(() => {
-    // Country only narrows the result once a category is chosen — this matches
-    // the site and is deliberate, not an oversight.
     const filtered = getFilteredForms(templates, {
-      type: query.types,
-      country: query.categories.length ? query.countries : [],
-      category: query.categories,
-      purpose: query.purposes,
+      type: query.type,
+      category,
+      purpose: query.purpose,
     });
 
     const term = query.q.trim().toLowerCase();
     return term
-      ? filtered.filter((form) =>
-          form.name_form.toLowerCase().includes(term),
-        )
+      ? filtered.filter((form) => form.name_form.toLowerCase().includes(term))
       : filtered;
-  }, [
-    templates,
-    query.types,
-    query.countries,
-    query.categories,
-    query.purposes,
-    query.q,
-  ]);
+  }, [templates, query.type, category, query.purpose, query.q]);
 
   const pages = Math.max(1, Math.ceil(visible.length / PAGE_SIZE));
   const page = Math.min(query.page, pages);
   const shown = visible.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
-  // Type and purpose are excluded: both always have a value, so counting them
-  // would leave the Filters button lit permanently and Clear would silently
-  // move the user to Documents / Business.
-  const hasFacetFilters =
-    query.countries.length > 0 || query.categories.length > 0;
+  // Not type: it always has a value, so Clear would silently move the user to
+  // Documents.
+  const hasFilters = query.q !== "" || category !== "" || query.purpose !== "";
 
-  const clearFilters = () => filter({ countries: [], categories: [] });
-
-  const showPurpose = !hidden.has("purpose") && purposes.length > 0;
+  const clearFilters = () => filter({ q: "", category: "", purpose: "" });
 
   return (
     <div className={styles.app}>
@@ -218,56 +241,46 @@ const App = () => {
         className={clsx(styles.header, scrolled && styles["header-scrolled"])}
       >
         <div className={styles.toolbar}>
-          <div className={styles["toolbar-query"]}>
-            {!hidden.has("search") && (
-              <SearchBox value={query.q} onChange={(q) => filter({ q })} />
-            )}
+          <SearchBox value={query.q} onChange={(q) => filter({ q })} />
 
-            <FilterPopover
-              countries={countries}
-              categories={categories}
-              selectedCountries={query.countries}
-              selectedCategories={query.categories}
-              hasFilters={hasFacetFilters}
-              onToggleCountry={(value) =>
-                filter({ countries: toggleValue(query.countries, value) })
-              }
-              onToggleCategory={(value) =>
-                filter({ categories: toggleValue(query.categories, value) })
-              }
-              onClearAll={clearFilters}
-            />
-          </div>
-
-          {!hidden.has("lang") && (
-            <LanguageSelect
-              value={query.locale}
-              onChange={(locale) => {
-                storeLocale(locale);
-                filter({ locale });
-              }}
+          {(query.category === "" || templates.length > 0) && (
+            <FilterButton
+              label={t("Category")}
+              clearLabel={t("ClearCategory")}
+              options={categoryOptions}
+              value={category}
+              onChange={(value) => filter({ category: value })}
             />
           )}
+
+          {(query.purpose === "" || templates.length > 0) && (
+            <FilterButton
+              label={t("Purpose", { ns: "MainTemplate" })}
+              clearLabel={t("ClearPurpose")}
+              options={purposeOptions}
+              value={query.purpose}
+              onChange={(value) => filter({ purpose: value })}
+            />
+          )}
+
+          <FilterButton
+            label={t("Language")}
+            clearLabel={t("ClearLanguage")}
+            options={LANGUAGE_OPTIONS}
+            value={query.lang}
+            onChange={(value) => {
+              storeLang(value as Locale | "");
+              filter({ lang: value as Locale | "" });
+            }}
+          />
         </div>
 
-        {(!hidden.has("type") || showPurpose) && (
-          <div className={styles["toolbar-types"]}>
-            {!hidden.has("type") && (
-              <TypeFilter
-                selected={query.types[0]}
-                onSelect={(ext) => filter({ types: [ext] })}
-              />
-            )}
-
-            {showPurpose && (
-              <PurposeFilter
-                purposes={purposes}
-                selected={query.purposes}
-                onSelect={(key) => filter({ purposes: [key] })}
-              />
-            )}
-          </div>
-        )}
+        <div className={styles["toolbar-types"]}>
+          <TypeFilter
+            selected={query.type}
+            onSelect={(ext) => filter({ type: ext })}
+          />
+        </div>
       </header>
 
       {/* Focusable because Chromium only made scrollers keyboard-focusable in
@@ -297,12 +310,9 @@ const App = () => {
 
         {status === "ready" &&
           (shown.length > 0 ? (
-            <CardGrid templates={shown} onSelect={setSelected} />
+            <CardGrid templates={shown} lang={lang} onSelect={setSelected} />
           ) : (
-            <EmptyState
-              hasFilters={hasFacetFilters}
-              onClearFilters={clearFilters}
-            />
+            <EmptyState hasFilters={hasFilters} onClearFilters={clearFilters} />
           ))}
       </div>
 
@@ -323,6 +333,7 @@ const App = () => {
 
       <TemplateModal
         template={selected}
+        lang={lang}
         onClose={() => setSelected(null)}
         onUse={(template) => {
           requestOpenTemplate(template);

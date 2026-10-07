@@ -1,5 +1,8 @@
 {
-  "Filters": "Filtres",
+  "Category": "Catégorie",
+  "ClearCategory": "Effacer la catégorie",
+  "ClearPurpose": "Effacer l’objectif",
+  "ClearLanguage": "Effacer la langue",
   "Templates": "Modèles",
   "Language": "Langue",
   "Previous": "Précédent",
@@ -7,5 +10,28 @@
   "ClearSearch": "Effacer la recherche",
   "Loading": "Chargement des modèles…",
   "LoadFailed": "Impossible de charger les modèles.",
-  "Retry": "Réessayer"
+  "Retry": "Réessayer",
+  "CategoryNames": {
+    "contracts-legal": "Contrats et Juridique",
+    "events-holidays": "Événements et Fêtes",
+    "everyday-life": "Vie Quotidienne",
+    "finance": "Finance",
+    "forms-applications": "Formulaires et Demandes",
+    "gifts-achievements": "Cadeaux et Récompenses",
+    "health-lifestyle": "Santé et Bien-être",
+    "home-education": "Éducation",
+    "hr-employment": "RH et Emploi",
+    "integrations": "Intégrations",
+    "leisure": "Loisirs",
+    "operations-management": "Opérations et Gestion",
+    "organization-productivity": "Organisation et Productivité",
+    "personal-events": "Événements Personnels",
+    "real-estate": "Immobilier",
+    "sales-marketing": "Ventes et Marketing",
+    "travel": "Voyage"
+  },
+  "PurposeNames": {
+    "business": "Professionnel",
+    "personal": "Personnel"
+  }
 }

@@ -1,5 +1,8 @@
 {
-  "Filters": "筛选",
+  "Category": "类别",
+  "ClearCategory": "清除类别",
+  "ClearPurpose": "清除用途",
+  "ClearLanguage": "清除语言",
   "Templates": "模板",
   "Language": "语言",
   "Previous": "上一页",
@@ -7,5 +10,28 @@
   "ClearSearch": "清除搜索",
   "Loading": "正在加载模板…",
   "LoadFailed": "无法加载模板。",
-  "Retry": "重试"
+  "Retry": "重试",
+  "CategoryNames": {
+    "contracts-legal": "合同与法律",
+    "events-holidays": "活动与节日",
+    "everyday-life": "日常生活",
+    "finance": "财务",
+    "forms-applications": "表单与申请",
+    "gifts-achievements": "礼品与成就",
+    "health-lifestyle": "健康与生活方式",
+    "home-education": "教育",
+    "hr-employment": "人力资源与雇佣",
+    "integrations": "集成",
+    "leisure": "休闲",
+    "operations-management": "运营与管理",
+    "organization-productivity": "组织与效率",
+    "personal-events": "个人活动",
+    "real-estate": "房地产",
+    "sales-marketing": "销售与营销",
+    "travel": "旅行"
+  },
+  "PurposeNames": {
+    "business": "商务",
+    "personal": "个人"
+  }
 }

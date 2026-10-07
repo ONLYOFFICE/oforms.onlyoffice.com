@@ -1,5 +1,8 @@
 {
-  "Filters": "Filters",
+  "Category": "Category",
+  "ClearCategory": "Clear category",
+  "ClearPurpose": "Clear purpose",
+  "ClearLanguage": "Clear language",
   "Templates": "Templates",
   "Language": "Language",
   "Previous": "Previous",
@@ -7,5 +10,28 @@
   "ClearSearch": "Clear search",
   "Loading": "Loading templates…",
   "LoadFailed": "Templates could not be loaded.",
-  "Retry": "Retry"
+  "Retry": "Retry",
+  "CategoryNames": {
+    "contracts-legal": "Contracts & Legal",
+    "events-holidays": "Events & Holidays",
+    "everyday-life": "Everyday Life",
+    "finance": "Finance",
+    "forms-applications": "Forms & Applications",
+    "gifts-achievements": "Gifts & Achievements",
+    "health-lifestyle": "Health & Lifestyle",
+    "home-education": "Education",
+    "hr-employment": "HR & Employment",
+    "integrations": "Integrations",
+    "leisure": "Leisure",
+    "operations-management": "Operations & Management",
+    "organization-productivity": "Organization & Productivity",
+    "personal-events": "Personal Events",
+    "real-estate": "Real Estate",
+    "sales-marketing": "Sales & Marketing",
+    "travel": "Travel"
+  },
+  "PurposeNames": {
+    "business": "Business",
+    "personal": "Personal"
+  }
 }
