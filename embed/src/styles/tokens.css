@@ -29,8 +29,8 @@
 /**
  * Design tokens.
  *
- * Most tokens derive from an ONLYOFFICE Desktop palette name, so 20 properties
- * restyle the whole app. Nothing sets those 20 today — theme.ts only switches
+ * Most tokens derive from an ONLYOFFICE Desktop palette name, so 18 properties
+ * restyle the whole app. Nothing sets those 18 today — theme.ts only switches
  * the dark block below — so the fallback is what renders, and **every var()
  * here must keep one**: an undefined custom property with no fallback drops its
  * declaration silently.
@@ -45,11 +45,9 @@
 
   --main-background-color: var(--background-action-panel, #ffffff);
   --main-count-color: var(--text-tertiary, #9092a6);
-  --main-filters-button-icon-color: var(--icon-normal, #666980);
   /* Shadows and the modal scrim read the same on any palette, so they carry no
      desktop name and stay out of the payload. */
   --main-header-shadow-color: rgba(0, 0, 0, 0.12);
-  --main-section-heading-color: var(--text-normal, #21222b);
 
   --card-preview-wrapper-border-color: var(
     --border-regular-control,
@@ -61,32 +59,16 @@
   );
   --card-heading-color: var(--text-normal, #21222b);
 
-  --badge-wrapper-border-color: var(--border-regular-control, #d4d4ff);
   --badge-wrapper-background-color-hover: var(
     --highlight-button-hover,
     rgba(53, 65, 245, 0.07)
   );
-  --badge-wrapper-box-shadow-color-hover: var(--border-control-focus, #8183f7);
   --badge-wrapper-background-color-checked: var(
     --highlight-button-pressed,
     rgba(53, 65, 245, 0.07)
   );
   --badge-label-color: var(--text-normal, #494b5b);
   --badge-label-color-checked: var(--text-link, #001bd2);
-  --badge-count-color: var(--text-tertiary, #9092a6);
-  --badge-count-color-checked: var(--text-link, #5c61f6);
-
-  --switch-text-color: var(--text-tertiary, #7a7d94);
-  --switch-background-color-hover: var(
-    --highlight-button-hover,
-    rgba(53, 65, 245, 0.07)
-  );
-  --switch-box-shadow-color-hover: var(--border-control-focus, #8183f7);
-  --switch-color-checked: var(--text-link, #001bd2);
-  --switch-background-color-checked: var(
-    --highlight-button-pressed,
-    rgba(53, 65, 245, 0.07)
-  );
 
   --language-switcher-border-color: var(--border-regular-control, #e5e6ed);
   --language-switcher-border-color-hover: var(--border-control-focus, #c7c9d6);
@@ -120,43 +102,12 @@
     #ffffff
   );
 
-  --sidebar-mobile-background-color: var(--background-action-panel, #ffffff);
   --sidebar-clear-btn-border-color: var(--border-regular-control, #e1e1f7);
   --sidebar-clear-btn-color: var(--text-secondary, #585a6d);
   --sidebar-clear-btn-background-color: var(--background-normal, #e7e8ee);
   --sidebar-clear-btn-background-color-hover: var(
     --highlight-button-hover,
     #dcdde6
-  );
-  --sidebar-item-border-color: var(--border-divider, rgba(53, 65, 245, 0.07));
-  --sidebar-item-header-heading-color: var(--text-normal, #494b5b);
-  --sidebar-item-header-count-color: var(--text-inverse, #ffffff);
-  --sidebar-item-header-count-background-color: var(
-    --background-primary-button,
-    #000122
-  );
-  --sidebar-item-text-color: var(--text-tertiary, #9092a6);
-  --sidebar-item-show-less-btn-color: var(--text-normal, #3a3c49);
-  --sidebar-item-chevron-down-icon-color: var(--text-tertiary, #a6a8b8);
-
-  --sort-selector-label-color: var(--text-tertiary, #9092a6);
-  --sort-selector-button-color: var(--text-normal, #21222b);
-  --sort-selector-chevron-down-icon-color: var(--text-secondary, #666980);
-  --sort-selector-dropdown-border-color: var(--border-control-focus, #3541f5);
-  --sort-selector-dropdown-background-color: var(
-    --background-action-panel,
-    #ffffff
-  );
-  --sort-selector-dropdown-box-shadow-color: #cfdbf4;
-  --sort-selector-option-color: var(--text-tertiary, #9092a6);
-  --sort-selector-option-background-color-hover: var(
-    --highlight-button-hover,
-    rgba(53, 65, 245, 0.07)
-  );
-  --sort-selector-option-color-active: var(--text-link, #001bd2);
-  --sort-selector-option-background-color-active: var(
-    --highlight-button-pressed,
-    rgba(53, 65, 245, 0.07)
   );
 
   --template-modal-wrapper-background-color: var(
@@ -234,13 +185,6 @@
   --purpose-color-selected: var(--text-link, #001bd2);
 }
 
-/**
- * Our dark palette, seeded from Desktop's `theme-dark` and deliberately not
- * kept in sync with it — the frame is a content pane, not shell chrome. 19
- * palette names carry the 85 tokens above that read one; the rest are
- * overridden by their own name because no palette name says them. 12% black is
- * invisible on a dark ground, hence the four shadows.
- */
 :root[data-theme="dark"] {
   --text-normal: #ffffffcc;
   --text-secondary: #ffffff99;
