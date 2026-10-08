@@ -208,15 +208,6 @@ const Sidebar = ({
       ),
   );
 
-  const isDefaultCountrySelected =
-    selectedCountries.length === 1 && selectedCountries[0] === defaultCountry;
-
-  const checkedCountryCount = isDefaultCountrySelected
-    ? 0
-    : selectedCountries.filter((code) =>
-        visibleCountries.some((country) => country.code.toLowerCase() === code),
-      ).length;
-
   const checkedCategoryCount = selectedSubcategories.length
     ? selectedSubcategories.filter((sub) => visibleSubcategories.has(sub))
         .length
@@ -225,12 +216,9 @@ const Sidebar = ({
   const checkedTypeCount = typeOptions.filter((type) => type.checked).length;
 
   const hasSelectedFilters =
-    filters.type.length > 0 ||
-    selectedSubcategories.length > 0 ||
-    (filters.country.length > 0 && !isDefaultCountrySelected);
+    filters.type.length > 0 || selectedSubcategories.length > 0;
 
-  const totalChecked =
-    checkedTypeCount + checkedCountryCount + checkedCategoryCount;
+  const totalChecked = checkedTypeCount + checkedCategoryCount;
 
   const isClearBtnVisible = hasSelectedFilters || totalChecked > 0;
 
@@ -284,7 +272,6 @@ const Sidebar = ({
                     ? t("ShowingSpeakingCountries")
                     : undefined,
                   type: "radio",
-                  count: checkedCountryCount,
                   options: topCountryOptions,
                   categories: otherCountryOptions.length
                     ? [
