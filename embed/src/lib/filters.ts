@@ -34,7 +34,7 @@
  */
 
 /**
- * Catalog filtering and sorting.
+ * Catalog filtering.
  *
  * Ported verbatim in behaviour from the site's
  * `src/components/templates/Main/Main.utils.ts` and `src/utils/helpers.ts`.
@@ -42,12 +42,6 @@
  * sync with the site rather than re-deriving them.
  */
 import type { ICategoryCount, IPurpose, ITemplate } from "../types";
-
-/** The grid's only order. Call once on load — the filters below preserve it. */
-export const sortByNewest = (forms: ITemplate[] | undefined): ITemplate[] =>
-  [...(forms ?? [])].sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-  );
 
 interface IFormsFilters {
   type?: string;

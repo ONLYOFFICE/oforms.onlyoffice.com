@@ -147,6 +147,16 @@ const normalize = (items) => {
   return items;
 };
 
+const isBusiness = (item) =>
+  item?.subcategories?.some((sub) =>
+    sub?.parent_categories?.some((cat) => cat?.purpose?.key === "business"),
+  ) ?? false;
+
+// The app shows the catalog in file order and every filter keeps it. Stable on
+// the CMS's createdAt:desc, so both halves stay newest first.
+const businessFirst = (items) =>
+  items.sort((a, b) => isBusiness(b) - isBusiness(a));
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 async function fetchPage(l, page, attempt = 1) {
@@ -175,7 +185,7 @@ async function generateLocale(locale) {
     data = rest.reduce((acc, p) => acc.concat(p.data), data);
   }
 
-  const output = { data: normalize(data), meta: first.meta };
+  const output = { data: businessFirst(normalize(data)), meta: first.meta };
 
   // Every path here is read flat, which is Strapi v5; v4 wraps each record in
   // data/attributes and drops unknown populate keys silently with a 200, so the

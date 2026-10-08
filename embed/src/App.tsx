@@ -51,12 +51,7 @@ import { SearchBox } from "./components/SearchBox/SearchBox";
 import { TemplateModal } from "./components/TemplateModal/TemplateModal";
 import { TypeFilter } from "./components/TypeFilter/TypeFilter";
 import { loadCatalog } from "./data";
-import {
-  getCategories,
-  getFilteredForms,
-  getPurposes,
-  sortByNewest,
-} from "./lib/filters";
+import { getCategories, getFilteredForms, getPurposes } from "./lib/filters";
 import { initI18n } from "./i18n";
 import { LANGUAGES, isRtlLocale, storeLang, type Locale } from "./locale";
 import { readQuery, writeQuery, type ICatalogQuery } from "./query";
@@ -118,7 +113,7 @@ const App = () => {
       try {
         const catalog = await loadCatalog(lang, controller.signal);
         if (controller.signal.aborted) return;
-        setTemplates(sortByNewest(catalog.data));
+        setTemplates(catalog.data);
         setStatus("ready");
       } catch (error) {
         if (controller.signal.aborted) return;
