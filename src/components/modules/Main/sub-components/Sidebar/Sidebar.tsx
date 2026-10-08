@@ -235,6 +235,8 @@ const Sidebar = ({
           className: clsx(
             styles["sidebar-scrollbar-track"],
             isScrollbarVisible && styles["sidebar-scrollbar-track-visible"],
+            isClearBtnVisible &&
+              styles["sidebar-scrollbar-track-with-clear-btn"],
           ),
         }}
         thumbYProps={{ className: styles["sidebar-scrollbar-thumb"] }}
