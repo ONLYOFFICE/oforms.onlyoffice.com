@@ -39,10 +39,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ONLYOFFICE Templates</title>
 
-    <!-- Load the theme for smooth rendering: module scripts are deferred, so
-         from main.tsx the light palette would paint first. -->
+    <!-- Load the theme and the Desktop flag for smooth rendering: module
+         scripts are deferred, so from main.tsx the light palette would paint
+         first. -->
     <script>
       (function () {
+        if (window.AscDesktopEditor) {
+          document.documentElement.dataset.desktop = "";
+        }
         var theme =
           window.RendererProcessVariable && window.RendererProcessVariable.theme;
         if (theme && theme.type === "dark") {
