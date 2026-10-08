@@ -83,6 +83,12 @@
   object-position: center top;
 }
 
+/* The pptx preview is a 16:9 slide centred on a 648x916 canvas. */
+.card-pptx .card-preview {
+  aspect-ratio: 16 / 9;
+  object-position: center;
+}
+
 .card-heading {
   display: block;
   white-space: nowrap;
