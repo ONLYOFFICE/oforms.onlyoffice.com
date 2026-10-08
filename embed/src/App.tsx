@@ -53,7 +53,13 @@ import { TypeFilter } from "./components/TypeFilter/TypeFilter";
 import { loadCatalog } from "./data";
 import { getCategories, getFilteredForms, getPurposes } from "./lib/filters";
 import { initI18n } from "./i18n";
-import { LANGUAGES, isRtlLocale, storeLang, type Locale } from "./locale";
+import {
+  LANGUAGES,
+  isRtlLocale,
+  normalizeLocale,
+  storeLang,
+  type Locale,
+} from "./locale";
 import { readQuery, writeQuery, type ICatalogQuery } from "./query";
 import { notifyReady, onHostMessage, requestOpenTemplate } from "./bridge";
 import { applyTheme, isTheme } from "./theme";
@@ -139,7 +145,7 @@ const App = () => {
       if (message.type === "theme" && isTheme(message.value)) {
         applyTheme(message.value, document.documentElement);
       } else if (message.type === "locale" && message.value) {
-        filter({ locale: message.value as Locale });
+        filter({ locale: normalizeLocale(message.value) });
       }
     });
 
