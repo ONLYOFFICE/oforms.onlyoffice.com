@@ -39,6 +39,18 @@ html {
   color: var(--primary-color);
 }
 
+[lang="ja"] {
+  font-family: "Sora", "IBM Plex Sans JP", sans-serif;
+}
+
+[lang="zh"] {
+  font-family: "Sora", "IBM Plex Sans SC", sans-serif;
+}
+
+[lang="ar"] {
+  font-family: "Sora", "IBM Plex Sans Arabic", sans-serif;
+}
+
 body {
   position: relative;
   margin: 0;
@@ -76,8 +88,10 @@ ul {
   list-style-type: none;
 }
 
-.oo-advent-announce,
-.oo-header,
-.oo-footer {
-  font-family: "Open Sans", sans-serif;
+html .oo-header,
+html .oo-book-demo-btn,
+html .oo-menu-link-tooltip,
+html .oo-advent-announce-text,
+html .oo-footer {
+  font-family: inherit;
 }

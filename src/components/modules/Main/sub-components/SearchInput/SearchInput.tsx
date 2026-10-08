@@ -58,6 +58,7 @@ const buildFormLink = (url: string, lang: string, formLocale?: string) => {
   return {
     href: locale === lang ? path : `${path}?${LANG_QUERY_PARAM}=${lang}`,
     locale,
+    lang: locale,
   };
 };
 

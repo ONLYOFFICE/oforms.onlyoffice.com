@@ -64,6 +64,7 @@ const Card = ({
     <Link
       href={url ? href : undefined}
       locale={url ? formLocale : undefined}
+      lang={formLocale}
       className={clsx(
         styles.card,
         styles[`card-${format}`],
