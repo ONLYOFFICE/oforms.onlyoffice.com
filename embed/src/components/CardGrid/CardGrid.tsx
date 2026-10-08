@@ -33,6 +33,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
+import clsx from "clsx";
 import { Card } from "../Card/Card";
 import type { Locale } from "../../locale";
 import type { ITemplate } from "../../types";
@@ -40,12 +41,13 @@ import styles from "./CardGrid.module.scss";
 
 interface ICardGridProps {
   templates: ITemplate[];
+  type: string;
   lang: Locale;
   onSelect: (template: ITemplate) => void;
 }
 
-const CardGrid = ({ templates, lang, onSelect }: ICardGridProps) => (
-  <div className={styles.grid}>
+const CardGrid = ({ templates, type, lang, onSelect }: ICardGridProps) => (
+  <div className={clsx(styles.grid, styles[`grid-${type}`])}>
     {templates.map((template) => (
       <Card
         key={template.id}

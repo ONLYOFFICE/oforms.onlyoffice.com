@@ -46,23 +46,24 @@
   cursor: pointer;
 }
 
-.card-docx:hover .card-preview-wrapper {
-  background-color: #eaf1fe;
+.card-docx {
+  --card-hover-tint: #eaf1fe;
 }
 
-.card-xlsx:hover .card-preview-wrapper {
-  background-color: rgba(196, 249, 232, 0.5);
+.card-xlsx {
+  --card-hover-tint: rgba(196, 249, 232, 0.5);
 }
 
-.card-pptx:hover .card-preview-wrapper {
-  background-color: rgba(255, 111, 61, 0.05);
+.card-pptx {
+  --card-hover-tint: rgba(255, 111, 61, 0.05);
 }
 
-.card-pdf:hover .card-preview-wrapper {
-  background-color: rgba(249, 221, 229, 0.5);
+.card-pdf {
+  --card-hover-tint: rgba(249, 221, 229, 0.5);
 }
 
 .card-preview-wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--card-preview-wrapper-border-color);
@@ -70,7 +71,20 @@
   margin-block-end: 12px;
   padding: 13px 12px;
   background-color: var(--card-preview-wrapper-background-color);
-  transition: background-color 0.2s;
+
+  /* Over the preview, not behind it: an A4 page covers the whole wrapper. */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    transition: background-color 0.2s;
+  }
+}
+
+.card:hover .card-preview-wrapper::after {
+  background-color: var(--card-hover-tint);
 }
 
 .card-preview {
@@ -98,4 +112,16 @@
   font-weight: 400;
   line-height: 24px;
   color: var(--card-heading-color);
+}
+
+/* Documents and PDF forms show the whole A4 page, without the grey mat. */
+.card-docx .card-preview-wrapper,
+.card-pdf .card-preview-wrapper {
+  padding: 0;
+}
+
+.card-docx .card-preview,
+.card-pdf .card-preview {
+  max-width: none;
+  aspect-ratio: 648 / 916;
 }

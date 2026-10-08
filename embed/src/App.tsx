@@ -310,7 +310,12 @@ const App = () => {
 
         {status === "ready" &&
           (shown.length > 0 ? (
-            <CardGrid templates={shown} lang={lang} onSelect={setSelected} />
+            <CardGrid
+              templates={shown}
+              type={query.type}
+              lang={lang}
+              onSelect={setSelected}
+            />
           ) : (
             <EmptyState hasFilters={hasFilters} onClearFilters={clearFilters} />
           ))}
