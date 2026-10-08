@@ -157,7 +157,7 @@ const App = () => {
     [lang, query.locale, t],
   );
 
-  // Order fixed: `createdAt` order differs by locale.
+  // Order fixed: the catalog's differs by locale.
   const purposeOptions = useMemo(() => {
     const purposes = getPurposes(templates);
     return PURPOSE_ORDER.flatMap((key) => {
@@ -200,12 +200,18 @@ const App = () => {
     ? query.category
     : "";
 
+  const collator = useMemo(
+    () => new Intl.Collator(query.locale),
+    [query.locale],
+  );
+
   const categoryOptions = categories
     .filter((item) => item.count > 0 || item.urlReq === category)
     .map((item) => ({
       value: item.urlReq,
       label: localName("CategoryNames", item.urlReq, item.name),
-    }));
+    }))
+    .sort((a, b) => collator.compare(a.label, b.label));
 
   const visible = useMemo(() => {
     const filtered = getFilteredForms(templates, {

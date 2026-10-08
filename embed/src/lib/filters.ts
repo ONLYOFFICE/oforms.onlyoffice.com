@@ -96,8 +96,6 @@ export const getPurposes = (forms: ITemplate[] | undefined): IPurpose[] =>
         .filter((purpose): purpose is IPurpose => Boolean(purpose))
         .map((purpose) => [purpose.id, purpose] as const),
     ).values(),
-  ).sort(
-    (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
   );
 
 /**
@@ -126,7 +124,5 @@ export const getCategories = (
     });
   });
 
-  return Array.from(categoryMap.values()).sort(
-    (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-  );
+  return Array.from(categoryMap.values());
 };

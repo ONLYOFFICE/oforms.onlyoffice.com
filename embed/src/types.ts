@@ -62,7 +62,7 @@ export const isAllowedType = (value: string): value is TAllowedTypes =>
   (ALLOWED_TYPES as readonly string[]).includes(value);
 
 // Keys are the same in all 9 catalogs; only the names are localised. Fixed
-// order because the CMS createdAt order differs per locale.
+// order because the catalog's differs per locale.
 export const PURPOSE_ORDER = ["business", "personal"] as const;
 
 export interface IPurpose {
