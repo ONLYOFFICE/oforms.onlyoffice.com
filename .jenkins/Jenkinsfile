@@ -19,7 +19,7 @@ switch(BRANCH_NAME) {
     public_static_url="https://static-oforms.teamlab.info"
     email_port="587"
     next_public_main_site_base_domain="https://test-new.teamlab.info"
-    config_api_url = "https://templates.teamlab.info/dashboard"
+    config_api_url = "https://templates-update.teamlab.info/dashboard"
     bucket = "static-oforms.teamlab.info"
     editor_api_url = "https://asc.docs.teamlab.info"
     break
