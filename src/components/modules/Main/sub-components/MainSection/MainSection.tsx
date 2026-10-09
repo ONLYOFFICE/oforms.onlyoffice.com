@@ -44,6 +44,7 @@ import styles from "./MainSection.module.scss";
 const MainSection = ({
   label,
   href,
+  expanded,
   data,
   desktopLimit,
   cardsGrid,
@@ -58,8 +59,16 @@ const MainSection = ({
       ).join(",")
     : router.query[COLLAPSE_QUERY_PARAM];
 
+  const expandKey = `category-${href}`;
+  const expandedCategories = [
+    ...parseQueryList(router.query[EXPAND_QUERY_PARAM]).filter(
+      (key) => key !== expandKey,
+    ),
+    ...(expanded ? [expandKey] : []),
+  ].join(",");
+
   const hrefWithOpened = appendQueryParams(href, {
-    [EXPAND_QUERY_PARAM]: router.query[EXPAND_QUERY_PARAM],
+    [EXPAND_QUERY_PARAM]: expandedCategories,
     [COLLAPSE_QUERY_PARAM]: openedCategories,
     [COUNTRIES_COLLAPSE_QUERY_PARAM]:
       router.query[COUNTRIES_COLLAPSE_QUERY_PARAM],

@@ -187,7 +187,6 @@ const Main = ({
                   country.code.toLowerCase(),
                 )}
                 formNames={formNames}
-                subcategories={categorySubcategories}
               />
             </div>
 

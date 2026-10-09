@@ -31,6 +31,7 @@ import { ICardView } from "@src/lib/server/mainView.types";
 export interface IMainSection {
   label: React.ReactNode;
   href?: string;
+  expanded?: boolean;
   data: ICardView[];
   desktopLimit?: boolean;
   cardsGrid?: boolean;

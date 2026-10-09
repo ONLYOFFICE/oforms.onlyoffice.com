@@ -35,6 +35,7 @@ export const FILTER_KEYS = ["type", "country", "subcategory"] as const;
 export type TFilterKey = (typeof FILTER_KEYS)[number];
 
 export const EXPAND_QUERY_PARAM = "categories-expanded";
+export const VISIBLE_SUBCATEGORIES_LIMIT = 3;
 export const COLLAPSE_QUERY_PARAM = "categories-opened";
 export const COUNTRIES_COLLAPSE_QUERY_PARAM = "countries-opened";
 

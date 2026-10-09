@@ -40,7 +40,11 @@ import { useTranslation } from "next-i18next";
 import { Heading } from "@src/components/ui/Heading";
 import { Link } from "@src/components/ui/Link";
 import { SearchIcon, CrossCircleIcon, CrossIcon } from "@src/components/icons";
-import { parseQueryList } from "@src/utils/queryFilters";
+import {
+  COLLAPSE_QUERY_PARAM,
+  EXPAND_QUERY_PARAM,
+  parseQueryList,
+} from "@src/utils/queryFilters";
 import { localeCountry } from "@src/utils/localeCountry";
 import { normalizeSearchQuery } from "@src/utils/searchQuery";
 import { LANG_QUERY_PARAM } from "@src/utils/queryLang";
@@ -50,6 +54,13 @@ import styles from "./SearchInput.module.scss";
 
 const SEARCH_HISTORY_KEY = "search_history";
 const SEARCH_HISTORY_LIMIT = 5;
+const SEARCH_RESET_PARAMS = [
+  "type",
+  "subcategory",
+  "purpose",
+  EXPAND_QUERY_PARAM,
+  COLLAPSE_QUERY_PARAM,
+];
 
 const buildFormLink = (url: string, lang: string, formLocale?: string) => {
   const path = url.startsWith("/") ? url : `/${url}`;
@@ -116,7 +127,6 @@ const SearchInput = ({
   className,
   countryCodes,
   formNames,
-  subcategories,
 }: ISearchInput) => {
   const { t, i18n } = useTranslation("SearchInput");
   const router = useRouter();
@@ -231,11 +241,9 @@ const SearchInput = ({
     const params = new URLSearchParams(value ? { query: value } : {});
     Object.entries(router.query).forEach(([key, raw]) => {
       if (key === "query" || key === "slug") return;
+      if (value && SEARCH_RESET_PARAMS.includes(key)) return;
       [raw ?? []].flat().forEach((item) => params.append(key, item));
     });
-    if (subcategories?.length) {
-      params.set("subcategory", subcategories.join(","));
-    }
     const search = params.toString();
     return search ? `${pathname}?${search}` : pathname;
   };
