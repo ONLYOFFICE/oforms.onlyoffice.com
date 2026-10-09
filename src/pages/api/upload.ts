@@ -258,7 +258,7 @@ export default async function handler(
       )
       .toString("base64");
 
-    const cmsApiUrl = CONFIG.api.cms.replace("dashboard", "");
+    const cmsApiUrl = `${new URL(CONFIG.api.cms).origin}/`;
     const languagePrefix = getLanguagePrefix(languageField);
 
     return res
