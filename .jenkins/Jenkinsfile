@@ -77,14 +77,14 @@ switch(BRANCH_NAME) {
     MONITOR_ID = '58439000014815195'
     cloud_front_distribution_id="E18Y5OI4JS5NAJ"
     site_url="https://templates.onlyoffice.com"    
-    cms="https://templates-cms.onlyoffice.com/dashboard"
+    cms="https://templates.onlyoffice.com/dashboard/v2"
     cmsUpload="https://cmsoforms.onlyoffice.com"
-    appServer="https://templates-cms.onlyoffice.com/"
+    appServer="https://templates.onlyoffice.com/"
     domains="static-oforms.onlyoffice.com"
     public_static_url="https://static-oforms.onlyoffice.com"
     email_port="587"
     next_public_main_site_base_domain="https://onlyoffice.com"
-    config_api_url = "https://templates-cms.onlyoffice.com/dashboard"
+    config_api_url = "https://templates.onlyoffice.com/dashboard/v2"
     bucket = "static-oforms.onlyoffice.com"
     editor_api_url = "https://oforms.docs.onlyoffice.com"
     break
