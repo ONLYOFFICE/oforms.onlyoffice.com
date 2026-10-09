@@ -62,7 +62,7 @@ switch(BRANCH_NAME) {
     domains="static-oforms.onlyoffice.com"
     public_static_url="https://static-oforms.onlyoffice.com"
     email_port="587"
-    next_public_main_site_base_domain="https://onlyoffice.com"
+    next_public_main_site_base_domain="https://www.onlyoffice.com"
     break
   default:
     println("Branch: ${BRANCH_NAME} do not for deploy.")
