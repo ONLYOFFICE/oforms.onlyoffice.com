@@ -59,7 +59,7 @@ pipeline {
         aws_region = "${aws_region}"
         region = "${region}"        
         cms="${cms}"
-        cmsUpload="${cmsupload}"
+        cmsUpload="${cmsUpload}"
         appServer="${appServer}"
         domains="${domains}"
         email_port="${email_port}"
