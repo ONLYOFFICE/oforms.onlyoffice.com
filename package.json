@@ -24,7 +24,7 @@
     "next": "16.3.8",
     "next-i18next": "15.4.3",
     "nodemailer": "10.0.13",
-    "onlyoffice-react-ui-kit": "ONLYOFFICE/onlyoffice-react-ui-kit#6367ac5e5c056ef876e5e5958c89bb2b97146ba1",
+    "onlyoffice-react-ui-kit": "ONLYOFFICE/onlyoffice-react-ui-kit#e6c1890547877d4fa3ac8c17ba32adac0c69efff",
     "rate-limiter-flexible": "11.2.1",
     "react": "19.2.7",
     "react-dom": "19.2.7",
@@ -50,5 +50,5 @@
     "prettier": "3.9.4",
     "rimraf": "6.1.3",
     "typescript": "6.0.3"
-  } 
-}
+  }
+} 
