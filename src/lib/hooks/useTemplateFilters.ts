@@ -59,7 +59,9 @@ export const useTemplateFilters = (
   const isCategoryPage = router.pathname === CATEGORY_PATHNAME;
   const isSearchPage = router.pathname === SEARCH_PATHNAME;
   const parsed = parseFilters(router.query, allowed);
-  const filters = isCategoryPage ? { ...parsed, subcategory: [] } : parsed;
+  const filters = isCategoryPage
+    ? { ...parsed, subcategory: [], purpose: undefined }
+    : parsed;
 
   const navigate = (next: ITemplateFilters, toHome: boolean) => {
     const { pathname, query, shallow } = resolveFilterTarget(
@@ -88,7 +90,7 @@ export const useTemplateFilters = (
     apply,
     toggle: (key, value) => apply(toggleFilterValue(filters, key, value)),
     select: (key, value) => apply(setFilterValue(filters, key, value)),
-    setPurpose: (purpose) => navigate({ ...filters, purpose }, false),
+    setPurpose: (purpose) => navigate({ ...filters, purpose }, redirectToHome),
     clearAll: () =>
       navigate(
         clearFilters(filters),

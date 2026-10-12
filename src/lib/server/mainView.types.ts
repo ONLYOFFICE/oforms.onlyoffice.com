@@ -49,6 +49,7 @@ export interface IMainSectionView {
   label?: string;
   labelKey?: string;
   href?: string;
+  expanded?: boolean;
   data: ICardView[];
 }
 
@@ -80,6 +81,7 @@ export interface IMainViewFilters {
   type: string[];
   country: string[];
   subcategory: string[];
+  purpose?: string;
   sort: TSortKey;
 }
 

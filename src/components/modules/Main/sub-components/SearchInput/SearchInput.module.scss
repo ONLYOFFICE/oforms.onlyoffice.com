@@ -120,7 +120,7 @@
   width: 100%;
   background-color: var(--search-input-results-background-color);
   box-shadow: 0 0 12px 0 var(--search-input-results-box-shadow-color);
-  z-index: 1001;
+  z-index: 999;
 }
 
 .search-excerpt {

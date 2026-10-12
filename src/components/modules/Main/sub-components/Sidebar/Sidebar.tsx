@@ -38,6 +38,7 @@ import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { getSelectedCountries, localeCountry } from "@src/utils/localeCountry";
 import { isRtlLocale } from "@src/utils/rtl";
 import { useTemplateFilters } from "@src/lib/hooks/useTemplateFilters";
+import { resolvePurpose } from "@src/components/templates/Main/Main.utils";
 import {
   COUNTRIES_COLLAPSE_QUERY_PARAM,
   toggleFilterValue,
@@ -99,28 +100,25 @@ const Sidebar = ({
       { redirectToHome },
     );
 
-  const purposeKeys = purposes.map((item) => item.key);
-
-  const categoryPurpose = selectedCategory
-    ? Object.entries(categoriesByPurpose).find(([, categories]) =>
-        categories.some(({ category }) => category.urlReq === selectedCategory),
-      )?.[0]
-    : undefined;
-
-  const subcategoryPurpose = purposes.find(({ key }) =>
-    categoriesByPurpose[key]?.some(({ subcategories }) =>
-      subcategories.some((sub) => filters.subcategory.includes(sub.urlReq)),
-    ),
-  )?.key;
-
-  const selectedPurpose =
-    filters.purpose && purposeKeys.includes(filters.purpose)
-      ? filters.purpose
-      : (categoryPurpose ?? subcategoryPurpose ?? purposes[0]?.key);
+  const selectedPurpose = resolvePurpose(
+    purposes.map((item) => item.key),
+    categoriesByPurpose,
+    {
+      purpose: filters.purpose,
+      category: selectedCategory,
+      subcategory: filters.subcategory,
+    },
+  );
 
   const purposeCategories = selectedPurpose
     ? (categoriesByPurpose[selectedPurpose] ?? [])
     : [];
+
+  const purposeSubcategories = new Set(
+    purposeCategories.flatMap(({ subcategories }) =>
+      subcategories.map((sub) => sub.urlReq),
+    ),
+  );
 
   const typeOptions = [
     { value: "docx", label: "Documents", count: docxForms },
@@ -152,17 +150,29 @@ const Sidebar = ({
     apply(next, { toHome: true });
   };
 
+  const selectPurpose = (purpose: string) => {
+    if (!selectedCategory) {
+      setPurpose(purpose);
+      return;
+    }
+
+    apply(
+      { ...filters, subcategory: categorySubcategories, purpose },
+      { toHome: true },
+    );
+  };
+
   const selectedCountries = getSelectedCountries(
     filters.country,
     router.locale,
     countryCodes,
   );
-  const selectedSubcategories = filters.subcategory;
+  const selectedSubcategories = (
+    selectedCategory ? categorySubcategories : filters.subcategory
+  ).filter((sub) => purposeSubcategories.has(sub));
 
   const isSubcategoryChecked = (subcategoryUrlReq: string) =>
-    selectedSubcategories.length
-      ? selectedSubcategories.includes(subcategoryUrlReq)
-      : categorySubcategories.includes(subcategoryUrlReq);
+    selectedSubcategories.includes(subcategoryUrlReq);
 
   const defaultCountry = localeCountry(router.locale);
 
@@ -192,45 +202,23 @@ const Sidebar = ({
   const otherCountryOptions = visibleCountries
     .slice(VISIBLE_COUNTRIES_LIMIT)
     .map(toCountryOption);
-  const isSubcategoryVisible = (sub: { urlReq: string; count: number }) =>
-    sub.count > 0 || selectedSubcategories.includes(sub.urlReq);
   const visiblePurposeCategories = purposeCategories
     .map(({ category, subcategories }) => ({
       category,
-      subcategories: subcategories.filter(isSubcategoryVisible),
+      subcategories: subcategories.filter((sub) => sub.count > 0),
     }))
     .filter(({ subcategories }) => subcategories.length > 0);
-  const visibleSubcategories = new Set(
-    Object.values(categoriesByPurpose)
-      .flat()
-      .flatMap(({ subcategories }) =>
-        subcategories.filter(isSubcategoryVisible).map((sub) => sub.urlReq),
-      ),
-  );
 
-  const isDefaultCountrySelected =
-    selectedCountries.length === 1 && selectedCountries[0] === defaultCountry;
-
-  const checkedCountryCount = isDefaultCountrySelected
-    ? 0
-    : selectedCountries.filter((code) =>
-        visibleCountries.some((country) => country.code.toLowerCase() === code),
-      ).length;
-
-  const checkedCategoryCount = selectedSubcategories.length
-    ? selectedSubcategories.filter((sub) => visibleSubcategories.has(sub))
-        .length
-    : categorySubcategories.length;
+  const checkedCategoryCount = visiblePurposeCategories
+    .flatMap(({ subcategories }) => subcategories)
+    .filter((sub) => isSubcategoryChecked(sub.urlReq)).length;
 
   const checkedTypeCount = typeOptions.filter((type) => type.checked).length;
 
   const hasSelectedFilters =
-    filters.type.length > 0 ||
-    selectedSubcategories.length > 0 ||
-    (filters.country.length > 0 && !isDefaultCountrySelected);
+    filters.type.length > 0 || selectedSubcategories.length > 0;
 
-  const totalChecked =
-    checkedTypeCount + checkedCountryCount + checkedCategoryCount;
+  const totalChecked = checkedTypeCount + checkedCategoryCount;
 
   const isClearBtnVisible = hasSelectedFilters || totalChecked > 0;
 
@@ -247,6 +235,8 @@ const Sidebar = ({
           className: clsx(
             styles["sidebar-scrollbar-track"],
             isScrollbarVisible && styles["sidebar-scrollbar-track-visible"],
+            isClearBtnVisible &&
+              styles["sidebar-scrollbar-track-with-clear-btn"],
           ),
         }}
         thumbYProps={{ className: styles["sidebar-scrollbar-thumb"] }}
@@ -284,7 +274,6 @@ const Sidebar = ({
                     ? t("ShowingSpeakingCountries")
                     : undefined,
                   type: "radio",
-                  count: checkedCountryCount,
                   options: topCountryOptions,
                   categories: otherCountryOptions.length
                     ? [
@@ -312,7 +301,7 @@ const Sidebar = ({
                     value: item.key,
                     label: item.name,
                     checked: selectedPurpose === item.key,
-                    onChange: () => setPurpose(item.key),
+                    onChange: () => selectPurpose(item.key),
                   })),
                 },
                 {

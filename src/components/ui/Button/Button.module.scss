@@ -91,13 +91,13 @@
 
 .size-3 {
   border-radius: 8px;
-  padding: 9px 12px;
+  padding: 8px 12px;
   font-size: 14px;
   line-height: 20px;
   min-height: 40px;
 
   @include media.mobile {
-    padding: 10px 12px;
+    padding: 9px 12px;
     font-size: 13px;
     line-height: 18px;
   }

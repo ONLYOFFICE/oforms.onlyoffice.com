@@ -56,10 +56,14 @@
   height: 100% !important;
 
   :global(.ScrollbarsCustom-Wrapper) {
-    inset: 0 !important;
+    inset: 0 -8px !important;
   }
 
   @include media.tablet {
+    :global(.ScrollbarsCustom-Wrapper) {
+      inset: 0 !important;
+    }
+
     :global(.ScrollbarsCustom-Scroller) {
       margin: 0 !important;
       padding: 0 !important;
@@ -70,8 +74,12 @@
 
 .sidebar-scrollbar-content {
   display: block !important;
-  padding: 0 !important;
+  padding: 0 8px !important;
   min-height: 100%;
+
+  @include media.tablet {
+    padding: 0 !important;
+  }
 }
 
 .sidebar-scrollbar-track {
@@ -92,6 +100,10 @@
 
   @include media.tablet {
     display: none !important;
+  }
+
+  &.sidebar-scrollbar-track-with-clear-btn {
+    height: calc(100% - 16px) !important;
   }
 
   &.sidebar-scrollbar-track-visible,
@@ -152,6 +164,7 @@
   bottom: -1px;
   border-top: 1px solid var(--sidebar-item-border-color);
   padding-top: 24px;
+  padding-bottom: 16px;
   margin-top: 24px;
   background-color: var(--primary-background-color);
 
@@ -180,12 +193,21 @@
   min-height: 44px;
   color: var(--sidebar-clear-btn-color);
   background-color: var(--sidebar-clear-btn-background-color);
-  transition: background-color 0.2s;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s,
+    box-shadow 0.2s;
   cursor: pointer;
   @include skeleton.fill;
 
   &:hover {
-    background-color: var(--sidebar-clear-btn-background-color-hover);
+    border-color: var(--sidebar-clear-btn-border-color-hover);
+    box-shadow: var(--sidebar-clear-btn-box-shadow-color-hover);
+  }
+
+  &:active,
+  &:focus-visible {
+    border-color: var(--sidebar-clear-btn-border-color-focus);
   }
 }
 

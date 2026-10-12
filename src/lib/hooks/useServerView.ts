@@ -66,6 +66,9 @@ const buildViewQuery = (
     if (values.length) params.set(name, values.join(","));
   });
 
+  if (filters.purpose && !extra?.category)
+    params.set("purpose", filters.purpose);
+
   if (filters.sort && filters.sort !== DEFAULT_SORT_KEY)
     params.set("sort", filters.sort);
 

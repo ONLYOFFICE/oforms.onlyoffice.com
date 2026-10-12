@@ -63,11 +63,3 @@
 .cookie-settings-checkbox-heading {
   margin-bottom: 8px;
 }
-
-.cookie-settings-wrapper-button {
-  margin: 0 auto;
-
-  @include media.mobile {
-    width: 100%;
-  }
-}

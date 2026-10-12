@@ -69,6 +69,7 @@ export default async function handler(
     const type = getQueryValues(req.query.type);
     const country = getQueryValues(req.query.country);
     const subcategory = getQueryValues(req.query.subcategory);
+    const purpose = getSingle(req.query.purpose);
     const categoryUrlReq = getSingle(req.query.category);
 
     let view: IMainView | ICategoryView | ISearchView;
@@ -94,6 +95,7 @@ export default async function handler(
           type,
           country,
           subcategory,
+          purpose,
           sort: req.query.sort,
         }),
         countryNames,
@@ -106,6 +108,7 @@ export default async function handler(
           type,
           country,
           subcategory,
+          purpose,
           sort: req.query.sort,
         }),
         countryNames,

@@ -157,6 +157,39 @@ export const getPurposes = (forms: TFormItem[] | undefined): TPurpose[] => {
   );
 };
 
+export const DEFAULT_PURPOSE_KEY = "business";
+
+export const resolvePurpose = (
+  purposeKeys: string[],
+  categoriesByPurpose: Record<string, ICategoryTree[]>,
+  {
+    purpose,
+    category,
+    subcategory = [],
+  }: { purpose?: string; category?: string; subcategory?: string[] },
+): string | undefined => {
+  if (purpose && purposeKeys.includes(purpose)) return purpose;
+
+  const findPurpose = (match: (tree: ICategoryTree) => boolean) =>
+    purposeKeys.find((key) => categoriesByPurpose[key]?.some(match));
+
+  const categoryPurpose = category
+    ? findPurpose((tree) => tree.category.urlReq === category)
+    : undefined;
+
+  const subcategoryPurpose = subcategory.length
+    ? findPurpose((tree) =>
+        tree.subcategories.some((sub) => subcategory.includes(sub.urlReq)),
+      )
+    : undefined;
+
+  const defaultPurpose = purposeKeys.includes(DEFAULT_PURPOSE_KEY)
+    ? DEFAULT_PURPOSE_KEY
+    : purposeKeys[0];
+
+  return categoryPurpose ?? subcategoryPurpose ?? defaultPurpose;
+};
+
 export const getCountries = (
   forms: TFormItem[] | undefined,
   countryNames?: Record<string, string>,

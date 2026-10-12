@@ -148,16 +148,14 @@ const CookieSettings = ({
             onChange={handleMarketingChange}
           />
         </div>
-        <div className={styles["cookie-settings-wrapper-button"]}>
-          <Button
-            id="confirm-cookie"
-            onClick={confirmChanges}
-            variant="tertiary-dark"
-            size={3}
-          >
-            {t("ConfirmMyChoices")}
-          </Button>
-        </div>
+        <Button
+          id="confirm-cookie"
+          onClick={confirmChanges}
+          variant="tertiary-dark"
+          size={3}
+        >
+          {t("ConfirmMyChoices")}
+        </Button>
       </div>
     </Modal>
   );

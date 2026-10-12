@@ -37,11 +37,10 @@ import {
   COLLAPSE_QUERY_PARAM,
   EXPAND_QUERY_PARAM,
   parseQueryList,
+  VISIBLE_SUBCATEGORIES_LIMIT,
 } from "@src/utils/queryFilters";
 import { ISidebarItem } from "./SidebarItem.types";
 import styles from "./SidebarItem.module.scss";
-
-const VISIBLE_OPTIONS_LIMIT = 3;
 
 const SidebarItem = ({
   heading,
@@ -81,13 +80,13 @@ const SidebarItem = ({
   const OptionComponent = isSwitch ? Switch : Badge;
 
   const isCollapsible =
-    isSub && !!queryKey && (options?.length ?? 0) > VISIBLE_OPTIONS_LIMIT;
+    isSub && !!queryKey && (options?.length ?? 0) > VISIBLE_SUBCATEGORIES_LIMIT;
   const visibleOptions =
     isCollapsible && !showAllOptions
-      ? options?.slice(0, VISIBLE_OPTIONS_LIMIT)
+      ? options?.slice(0, VISIBLE_SUBCATEGORIES_LIMIT)
       : options;
   const hiddenCount = isCollapsible
-    ? (options?.length ?? 0) - VISIBLE_OPTIONS_LIMIT
+    ? (options?.length ?? 0) - VISIBLE_SUBCATEGORIES_LIMIT
     : 0;
 
   const toggleId = (ids: string[], key: string, include: boolean) => {

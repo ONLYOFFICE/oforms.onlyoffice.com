@@ -84,6 +84,7 @@ const MainTemplate = ({ initialView, initialFormNames }: IMainTemplate) => {
           key={section.key}
           label={section.labelKey ? t(section.labelKey) : section.label}
           href={section.href}
+          expanded={section.expanded}
           data={section.data}
         />
       ))}

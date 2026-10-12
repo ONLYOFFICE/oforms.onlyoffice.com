@@ -162,10 +162,13 @@
   --sidebar-mobile-background-color: #ffffff;
   --sidebar-scrollbar-track-background-color: #E2E2E2;
   --sidebar-scrollbar-thumb-background-color: #aaaaaa;
-  --sidebar-clear-btn-border-color: #e1e1f7;
+  --sidebar-clear-btn-border-color: #B9CEF9;
   --sidebar-clear-btn-color: #585A6D;
-  --sidebar-clear-btn-background-color: #E7E8EE;
+  --sidebar-clear-btn-background-color: rgba(255, 255, 255, 0.9);
+  --sidebar-clear-btn-border-color-hover: #CCDBFB;
   --sidebar-clear-btn-background-color-hover: #DCDDE6;
+  --sidebar-clear-btn-box-shadow-color-hover: 0 4px 10px 0 rgba(196, 194, 240, 0.3);
+  --sidebar-clear-btn-border-color-focus: #5C86E9;
   --sidebar-item-border-color: rgba(53, 65, 245, 0.07);
   --sidebar-item-header-heading-color: var(--primary-color);
   --sidebar-item-header-heading-sub-color: #585a6d;
