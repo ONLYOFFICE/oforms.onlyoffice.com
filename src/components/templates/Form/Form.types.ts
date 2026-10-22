@@ -83,6 +83,7 @@ export interface ICategoriesData {
     documentId: string;
     name: string;
     urlReq: string;
+    updatedAt?: string;
   }[];
   meta: {
     pagination: {

@@ -32,6 +32,8 @@ import { IHreflang } from "@src/components/modules/Head/Head.types";
 
 const DEFAULT_LOCALE = CONFIG.defaultLanguage;
 
+const ALL_LOCALES = languages.map(({ shortKey }) => shortKey);
+
 const getSiteUrl = (): string =>
   (process.env.NEXT_PUBLIC_SITE_URL || "").replace(/\/+$/, "");
 
@@ -47,24 +49,35 @@ const normalizePath = (path?: string): string => {
   return trimmed.startsWith("/") ? trimmed : `/${trimmed}`;
 };
 
+const getLocalePath = (path?: string, locale?: string): string => {
+  const prefix = !locale || locale === DEFAULT_LOCALE ? "" : `/${locale}`;
+
+  return `${prefix}${normalizePath(path)}`;
+};
+
 const getCanonicalUrl = (path?: string, locale?: string): string => {
   const siteUrl = getSiteUrl();
 
   if (!siteUrl) return "";
 
-  const prefix = !locale || locale === DEFAULT_LOCALE ? "" : `/${locale}`;
-  const normalized = normalizePath(path);
-
-  return `${siteUrl}${prefix}${normalized}`;
+  return `${siteUrl}${getLocalePath(path, locale)}`;
 };
 
-const buildHreflangs = (path?: string, localized = false): IHreflang[] => {
+const buildHreflangs = (
+  path?: string,
+  localized = false,
+  locales: readonly string[] = ALL_LOCALES,
+): IHreflang[] => {
   if (!localized) return [];
 
-  const links = languages.map(({ shortKey }) => ({
-    hrefLang: shortKey,
-    href: getCanonicalUrl(path, shortKey),
-  }));
+  const links = ALL_LOCALES.filter((locale) => locales.includes(locale)).map(
+    (locale) => ({
+      hrefLang: locale,
+      href: getCanonicalUrl(path, locale),
+    }),
+  );
+
+  if (links.length < 2) return [];
 
   const defaultLink = links.find((link) => link.hrefLang === DEFAULT_LOCALE);
 
@@ -73,4 +86,10 @@ const buildHreflangs = (path?: string, localized = false): IHreflang[] => {
   return [...links, { hrefLang: "x-default", href: defaultLink.href }];
 };
 
-export { getCanonicalUrl, buildHreflangs, DEFAULT_LOCALE };
+export {
+  getSiteUrl,
+  getLocalePath,
+  getCanonicalUrl,
+  buildHreflangs,
+  DEFAULT_LOCALE,
+};

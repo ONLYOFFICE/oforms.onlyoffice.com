@@ -39,6 +39,7 @@ const buildUrl = (locale: ILocale["locale"], page: number) => {
     `pagination[page]=${page}`,
     `pagination[pageSize]=${CMS_PAGE_SIZE}`,
     "fields[0]=urlReq",
+    "fields[1]=updatedAt",
   ]
     .filter(Boolean)
     .join("&");
