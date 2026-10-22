@@ -43,9 +43,10 @@ const Head = ({
   locale = DEFAULT_LOCALE,
   noindex = false,
   localized = false,
+  locales,
 }: IHead) => {
   const canonical = getCanonicalUrl(path, locale);
-  const hreflangs = buildHreflangs(path, localized && !noindex);
+  const hreflangs = buildHreflangs(path, localized && !noindex, locales);
 
   return (
     <NextHead>

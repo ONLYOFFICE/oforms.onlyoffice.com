@@ -45,4 +45,5 @@ export interface IHead {
   locale?: string;
   noindex?: boolean;
   localized?: boolean;
+  locales?: string[];
 }

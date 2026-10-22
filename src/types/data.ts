@@ -37,6 +37,7 @@ export interface IFormsData {
     url: string;
     popular_template: boolean | null;
     createdAt: string;
+    updatedAt?: string;
     locale?: string;
     card_prewiew: {
       id: number;

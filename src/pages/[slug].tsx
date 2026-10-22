@@ -37,6 +37,7 @@ import {
   getCachedCategoryUrls,
 } from "@src/lib/requests/getCategoryUrls";
 import { getCategoryInfo } from "@src/lib/requests/getCategoryInfo";
+import { getCategoryLocales } from "@src/lib/server/categoryLocales";
 import { getAllFormsAllLocales } from "@src/lib/requests/getAllFormsAllLocales";
 import { getCountryNames } from "@src/lib/requests/getCountries";
 import {
@@ -102,7 +103,11 @@ const useQueryLang = (enabled = true) => {
 };
 
 type ISlugPage =
-  | ({ isCategory: true; categoryInfo: ICategoryInfo } & ICategory)
+  | ({
+      isCategory: true;
+      categoryInfo: ICategoryInfo;
+      categoryLocales: string[];
+    } & ICategory)
   | ({ isCategory?: false } & IFormTemplate);
 
 const SlugPage = (props: ISlugPage & ILocale) => {
@@ -113,8 +118,13 @@ const SlugPage = (props: ISlugPage & ILocale) => {
   useQueryLang(!props.isCategory);
 
   if (props.isCategory) {
-    const { categoryInfo, initialView, initialFormNames, categoryUrlReq } =
-      props;
+    const {
+      categoryInfo,
+      initialView,
+      initialFormNames,
+      categoryUrlReq,
+      categoryLocales,
+    } = props;
 
     return (
       <Layout>
@@ -125,6 +135,7 @@ const SlugPage = (props: ISlugPage & ILocale) => {
             path={`/${categoryUrlReq}`}
             locale={locale}
             localized
+            locales={categoryLocales}
           />
         </Layout.Head>
         <Layout.AdventAnnounce>
@@ -226,11 +237,13 @@ export const getStaticProps = async ({
   );
 
   if (isCategory) {
-    const [categoryInfo, allForms, countryNames] = await Promise.all([
-      getCategoryInfo(locale, slug),
-      getAllFormsAllLocales(locale),
-      getCountryNames(locale),
-    ]);
+    const [categoryInfo, allForms, countryNames, categoryLocales] =
+      await Promise.all([
+        getCategoryInfo(locale, slug),
+        getAllFormsAllLocales(locale),
+        getCountryNames(locale),
+        getCategoryLocales(locale, slug),
+      ]);
 
     const filters = resolveCategoryFilters(allForms.data, slug, {
       locale,
@@ -260,6 +273,7 @@ export const getStaticProps = async ({
         ),
         initialFormNames: buildFormNames(allForms.data, locale, []),
         categoryUrlReq: slug,
+        categoryLocales,
       },
     };
   }

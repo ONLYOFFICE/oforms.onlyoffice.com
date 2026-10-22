@@ -45,6 +45,7 @@ const buildUrl = (locale: ILocale["locale"], page: number) => {
     "fields[2]=url",
     "fields[3]=popular_template",
     "fields[4]=createdAt",
+    "fields[5]=updatedAt",
     "populate[card_prewiew][fields][0]=url",
     "populate[form_exts][fields][0]=ext",
     "populate[countries][fields][0]=name",
