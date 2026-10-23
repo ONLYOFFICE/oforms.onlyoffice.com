@@ -1,5 +1,4 @@
 import { languages } from "@src/config/languages";
-import { cacheByLocale } from "@src/lib/api/cacheByLocale";
 import { getFormsByLocale } from "@src/lib/requests/getAllFormsAllLocales";
 import { getCachedCategoryUrls } from "@src/lib/requests/getCategoryUrls";
 import {
@@ -67,62 +66,62 @@ const uniqueByPath = <T extends ISitemapPage>(pages: T[]): T[] => {
 const byPath = (a: ISitemapPage, b: ISitemapPage) =>
   a.path.localeCompare(b.path);
 
-const getLocaleSitemapData = cacheByLocale(
-  async (locale: TLocale): Promise<ILocaleSitemapData> => {
-    const [forms, categories] = await Promise.all([
-      getFormsByLocale(locale),
-      getCachedCategoryUrls(locale),
-    ]);
+const getLocaleSitemapData = async (
+  locale: TLocale,
+): Promise<ILocaleSitemapData> => {
+  const [forms, categories] = await Promise.all([
+    getFormsByLocale(locale),
+    getCachedCategoryUrls(locale),
+  ]);
 
-    const latestFormByCategory = new Map<string, string>();
+  const latestFormByCategory = new Map<string, string>();
 
-    forms.data.forEach((form) => {
-      const lastmod = toLastmod(form.updatedAt);
+  forms.data.forEach((form) => {
+    const lastmod = toLastmod(form.updatedAt);
 
-      if (!lastmod) return;
+    if (!lastmod) return;
 
-      (form.subcategories ?? []).filter(Boolean).forEach((subcategory) => {
-        (subcategory.parent_categories ?? [])
-          .filter(Boolean)
-          .forEach(({ documentId }) => {
-            const current = latestFormByCategory.get(documentId);
+    (form.subcategories ?? []).filter(Boolean).forEach((subcategory) => {
+      (subcategory.parent_categories ?? [])
+        .filter(Boolean)
+        .forEach(({ documentId }) => {
+          const current = latestFormByCategory.get(documentId);
 
-            if (!current || lastmod > current) {
-              latestFormByCategory.set(documentId, lastmod);
-            }
-          });
-      });
+          if (!current || lastmod > current) {
+            latestFormByCategory.set(documentId, lastmod);
+          }
+        });
     });
+  });
 
-    const categoryPages = uniqueByPath(
-      categories.data
-        .filter((category) => isNonEmpty(category.urlReq))
-        .map((category) => ({
-          path: `/${category.urlReq}`,
-          urlReq: category.urlReq,
-          documentId: category.documentId,
-          lastmod: latest([
-            toLastmod(category.updatedAt),
-            latestFormByCategory.get(category.documentId),
-          ]),
-        })),
-    ).sort(byPath);
+  const categoryPages = uniqueByPath(
+    categories.data
+      .filter((category) => isNonEmpty(category.urlReq))
+      .map((category) => ({
+        path: `/${category.urlReq}`,
+        urlReq: category.urlReq,
+        documentId: category.documentId,
+        lastmod: latest([
+          toLastmod(category.updatedAt),
+          latestFormByCategory.get(category.documentId),
+        ]),
+      })),
+  ).sort(byPath);
 
-    const categoryPaths = new Set(categoryPages.map((page) => page.path));
+  const categoryPaths = new Set(categoryPages.map((page) => page.path));
 
-    const formPages = uniqueByPath(
-      forms.data
-        .filter((form) => isNonEmpty(form.url))
-        .map((form) => ({
-          path: `/${form.url}`,
-          lastmod: toLastmod(form.updatedAt),
-        }))
-        .filter((page) => !categoryPaths.has(page.path)),
-    ).sort(byPath);
+  const formPages = uniqueByPath(
+    forms.data
+      .filter((form) => isNonEmpty(form.url))
+      .map((form) => ({
+        path: `/${form.url}`,
+        lastmod: toLastmod(form.updatedAt),
+      }))
+      .filter((page) => !categoryPaths.has(page.path)),
+  ).sort(byPath);
 
-    return { forms: formPages, categories: categoryPages };
-  },
-);
+  return { forms: formPages, categories: categoryPages };
+};
 
 const buildSitemapEntries = async (): Promise<ISitemapEntry[]> => {
   const [dataByLocale, categoryPaths] = await Promise.all([
@@ -193,31 +192,4 @@ const buildSitemapXml = async (): Promise<string> => {
   ].join("\n");
 };
 
-const LAST_XML_KEY = Symbol.for("oforms.sitemapLastXml");
-
-const globalStore = globalThis as typeof globalThis & {
-  [LAST_XML_KEY]?: string;
-};
-
-const getSitemapXml = async (): Promise<{ xml: string; stale: boolean }> => {
-  try {
-    const xml = await buildSitemapXml();
-
-    globalStore[LAST_XML_KEY] = xml;
-
-    return { xml, stale: false };
-  } catch (error) {
-    const lastSuccessfulXml = globalStore[LAST_XML_KEY];
-
-    if (!lastSuccessfulXml) throw error;
-
-    console.error(
-      "[sitemap] serving the previous build:",
-      error instanceof Error ? error.message : String(error),
-    );
-
-    return { xml: lastSuccessfulXml, stale: true };
-  }
-};
-
-export { getSitemapXml };
+export { buildSitemapXml };
