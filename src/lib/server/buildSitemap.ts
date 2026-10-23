@@ -1,13 +1,8 @@
 import { languages } from "@src/config/languages";
 import { getFormsByLocale } from "@src/lib/requests/getAllFormsAllLocales";
 import { getCachedCategoryUrls } from "@src/lib/requests/getCategoryUrls";
-import {
-  getCategoryPaths,
-  localesSharingPath,
-} from "@src/lib/server/categoryLocales";
-import { IHreflang } from "@src/components/modules/Head/Head.types";
 import { ILocale } from "@src/types/locale";
-import { buildHreflangs, getCanonicalUrl } from "@src/utils/seoUrl";
+import { getCanonicalUrl } from "@src/utils/seoUrl";
 
 type TLocale = ILocale["locale"];
 
@@ -17,7 +12,6 @@ interface ISitemapPage {
 }
 
 interface ISitemapCategory extends ISitemapPage {
-  urlReq: string;
   documentId: string;
 }
 
@@ -29,7 +23,6 @@ interface ILocaleSitemapData {
 interface ISitemapEntry {
   loc: string;
   lastmod?: string;
-  alternates: IHreflang[];
 }
 
 const LOCALES = languages.map((language) => language.shortKey);
@@ -99,7 +92,6 @@ const getLocaleSitemapData = async (
       .filter((category) => isNonEmpty(category.urlReq))
       .map((category) => ({
         path: `/${category.urlReq}`,
-        urlReq: category.urlReq,
         documentId: category.documentId,
         lastmod: latest([
           toLastmod(category.updatedAt),
@@ -124,39 +116,28 @@ const getLocaleSitemapData = async (
 };
 
 const buildSitemapEntries = async (): Promise<ISitemapEntry[]> => {
-  const [dataByLocale, categoryPaths] = await Promise.all([
-    Promise.all(LOCALES.map((locale) => getLocaleSitemapData(locale))),
-    getCategoryPaths(),
-  ]);
-
-  const rootAlternates = buildHreflangs("/", true);
+  const dataByLocale = await Promise.all(
+    LOCALES.map((locale) => getLocaleSitemapData(locale)),
+  );
 
   return LOCALES.flatMap((locale, index) => {
-    const { categories, forms } = dataByLocale[index];
+    const pages = [
+      ...dataByLocale[index].categories,
+      ...dataByLocale[index].forms,
+    ];
 
     const root: ISitemapEntry = {
       loc: getCanonicalUrl("/", locale),
-      lastmod: latest([...categories, ...forms].map((page) => page.lastmod)),
-      alternates: rootAlternates,
+      lastmod: latest(pages.map((page) => page.lastmod)),
     };
 
-    const categoryEntries = categories.map((category) => ({
-      loc: getCanonicalUrl(category.path, locale),
-      lastmod: category.lastmod,
-      alternates: buildHreflangs(
-        category.path,
-        true,
-        localesSharingPath(categoryPaths, category.documentId, category.urlReq),
-      ),
-    }));
-
-    const formEntries = forms.map((form) => ({
-      loc: getCanonicalUrl(form.path, locale),
-      lastmod: form.lastmod,
-      alternates: [],
-    }));
-
-    return [root, ...categoryEntries, ...formEntries];
+    return [
+      root,
+      ...pages.map((page) => ({
+        loc: getCanonicalUrl(page.path, locale),
+        lastmod: page.lastmod,
+      })),
+    ];
   });
 };
 
@@ -168,15 +149,11 @@ const escapeXml = (value: string): string =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
 
-const renderEntry = ({ loc, lastmod, alternates }: ISitemapEntry): string =>
+const renderEntry = ({ loc, lastmod }: ISitemapEntry): string =>
   [
     "  <url>",
     `    <loc>${escapeXml(loc)}</loc>`,
     ...(lastmod ? [`    <lastmod>${lastmod}</lastmod>`] : []),
-    ...alternates.map(
-      ({ hrefLang, href }) =>
-        `    <xhtml:link rel="alternate" hreflang="${hrefLang}" href="${escapeXml(href)}"/>`,
-    ),
     "  </url>",
   ].join("\n");
 
@@ -185,7 +162,7 @@ const buildSitemapXml = async (): Promise<string> => {
 
   return [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ...entries.map(renderEntry),
     "</urlset>",
     "",

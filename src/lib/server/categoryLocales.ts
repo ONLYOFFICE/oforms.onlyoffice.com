@@ -54,4 +54,4 @@ const getCategoryLocales = async (
   return match ? localesSharingPath(paths, match[0], urlReq) : [locale];
 };
 
-export { getCategoryPaths, localesSharingPath, getCategoryLocales };
+export { getCategoryLocales };
