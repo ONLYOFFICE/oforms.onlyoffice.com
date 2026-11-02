@@ -59,15 +59,28 @@
     inset: 0 -8px !important;
   }
 
+  :global(.ScrollbarsCustom-Scroller) {
+    margin: 0 !important;
+    padding: 0 !important;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
   @include media.tablet {
     :global(.ScrollbarsCustom-Wrapper) {
       inset: 0 !important;
     }
 
     :global(.ScrollbarsCustom-Scroller) {
-      margin: 0 !important;
-      padding: 0 !important;
       overflow-y: auto !important;
+      scrollbar-width: auto;
+
+      &::-webkit-scrollbar {
+        display: block;
+      }
     }
   }
 }
