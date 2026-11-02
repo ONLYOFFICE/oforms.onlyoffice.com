@@ -12,7 +12,7 @@ switch(BRANCH_NAME) {
     deploy_app_name = "templates-update.teamlab.info"
     region="info"
     cloud_front_distribution_id="EH1YZ1QI3B8CC"
-    site_url="https://templates-update.teamlab.info"   
+    site_url="https://templates.teamlab.info"   
     cms="https://templates.teamlab.info/dashboard/v2"
     appServer="https://templates.teamlab.info/"
     domains="static-oforms-update.teamlab.info"
