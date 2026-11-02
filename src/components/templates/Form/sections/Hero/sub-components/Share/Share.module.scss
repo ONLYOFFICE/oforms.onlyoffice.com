@@ -59,18 +59,52 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  border: none;
   border-radius: 8px !important;
+  padding: 0;
   width: 40px;
   height: 40px;
   background-color: var(--form-hero-share-button-background-color) !important;
   mix-blend-mode: luminosity;
   transition: background-color 0.2s;
+  cursor: pointer;
 
   &:hover {
     background-color: var(
       --form-hero-share-button-background-color-hover
     ) !important;
   }
+}
+
+.share-copy {
+  position: relative;
+}
+
+.share-button-copied {
+  background-color: rgba(137, 243, 210, 0.5) !important;
+  mix-blend-mode: initial;
+  cursor: default;
+
+  &:hover {
+    background-color: rgba(137, 243, 210, 0.5) !important;
+  }
+}
+
+.share-copied {
+  position: absolute;
+  top: 0;
+  inset-inline-start: calc(100% + 12px);
+  display: inline-flex;
+  align-items: center;
+  border-radius: 8px;
+  padding: 10px 8px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #0b6e4f;
+  background-color: #c4f9e8;
+  white-space: nowrap;
+  z-index: 1;
 }
 
 .share-button-icon {
@@ -80,6 +114,16 @@
   background-image: var(--share-button-icon);
   background-repeat: no-repeat;
   background-size: contain;
+}
+
+.share-button-icon-copy {
+  width: 27px;
+  height: 15px;
+}
+
+.share-button-icon-check {
+  width: 21px;
+  height: 19px;
 }
 
 .share-button-icon-mail {
