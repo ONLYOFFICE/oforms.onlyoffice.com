@@ -22,10 +22,10 @@
     "formidable": "3.5.4",
     "i18next": "26.3.4",
     "jsonwebtoken": "9.0.3",
-    "next": "16.3.8",
+    "next": "16.4.3",
     "next-i18next": "15.4.3",
     "nodemailer": "10.0.13",
-    "onlyoffice-react-ui-kit": "ONLYOFFICE/onlyoffice-react-ui-kit#649b1e018f22d2cc6e35b47c75d80de8936dfcbe",
+    "onlyoffice-react-ui-kit": "ONLYOFFICE/onlyoffice-react-ui-kit#ec7cf93ac48a14512635f8e40d656b93b12041f5",
     "rate-limiter-flexible": "11.2.1",
     "react": "19.2.7",
     "react-dom": "19.2.7",
@@ -47,10 +47,10 @@
     "@types/react-dom": "19.2.3",
     "@types/react-transition-group": "4.4.12",
     "eslint": "9.39.2",
-    "eslint-config-next": "16.3.8",
+    "eslint-config-next": "16.4.3",
     "prettier": "3.9.4",
     "rimraf": "6.1.3",
     "tsx": "4.23.15",
     "typescript": "6.0.3"
   }
-} 
+}
