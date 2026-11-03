@@ -50,6 +50,7 @@ const FormTemplate = ({ form, categories }: IFormTemplate) => {
   const {
     id,
     name_form,
+    subcategories,
     template_desc,
     template_desc_2,
     description_card,
@@ -60,6 +61,28 @@ const FormTemplate = ({ form, categories }: IFormTemplate) => {
     form_exts,
     url,
   } = form.data[0];
+
+  const validSubcategories = [
+    ...new Map(
+      subcategories
+        ?.filter(
+          (item) =>
+            item.urlReq &&
+            item.parent_categories?.some((category) => category.urlReq),
+        )
+        .map((item) => [item.urlReq, item]),
+    ).values(),
+  ];
+  const parentCategories = [
+    ...new Map(
+      validSubcategories
+        .flatMap((item) => item.parent_categories ?? [])
+        .filter((category) => category.urlReq)
+        .map((category) => [category.urlReq, category]),
+    ).values(),
+  ];
+  const parentCategory = parentCategories[0];
+  const subcategory = validSubcategories[0];
 
   const editableFile = file_oform?.find((it) => {
     const ext = it.name?.split(".").pop()?.toLowerCase();
@@ -73,6 +96,20 @@ const FormTemplate = ({ form, categories }: IFormTemplate) => {
       ? `/editor?lang=${editorLocale}${formLangParam}&filename=${url}&fillform=${editableFile.hash}.${extension}`
       : "";
   const backHref = useBackHref();
+  const backQuery = backHref.split("?")[1];
+  const buildBackParams = (base: Record<string, string> = {}) => {
+    const params = new URLSearchParams(base);
+    new URLSearchParams(backQuery).forEach((value, key) => {
+      if (key !== "subcategory" && key !== "purpose") params.append(key, value);
+    });
+    return params.toString();
+  };
+  const getCategoryHref = (urlReq: string) => {
+    const query = buildBackParams();
+    return `/${urlReq}${query ? `?${query}` : ""}`;
+  };
+  const getSubcategoryHref = (urlReq: string) =>
+    `/?${buildBackParams({ subcategory: urlReq.toLowerCase() })}`;
   const suggestChangesLink = `mailto:marketing@onlyoffice.com?subject=${t("SuggestingChangesLink", { name: name_form })}&body=${t("SuggestingChangesLink", { name: name_form })}.`;
 
   return (
@@ -87,6 +124,34 @@ const FormTemplate = ({ form, categories }: IFormTemplate) => {
                 href: backHref,
                 locale: editorLocale,
               },
+              ...(parentCategory
+                ? [
+                    {
+                      label: parentCategory.name,
+                      href: getCategoryHref(parentCategory.urlReq),
+                      locale: editorLocale,
+                      options: parentCategories.map((category) => ({
+                        label: category.name,
+                        href: getCategoryHref(category.urlReq),
+                        locale: editorLocale,
+                      })),
+                    },
+                  ]
+                : []),
+              ...(subcategory
+                ? [
+                    {
+                      label: subcategory.name,
+                      href: getSubcategoryHref(subcategory.urlReq),
+                      locale: editorLocale,
+                      options: validSubcategories.map((item) => ({
+                        label: item.name,
+                        href: getSubcategoryHref(item.urlReq),
+                        locale: editorLocale,
+                      })),
+                    },
+                  ]
+                : []),
               { label: name_form },
             ]}
           />

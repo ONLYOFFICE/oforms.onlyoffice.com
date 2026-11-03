@@ -66,6 +66,18 @@ export interface IFormData {
       documentId: string;
       ext: TFormat;
     }[];
+    subcategories?: {
+      id: number;
+      documentId: string;
+      name: string;
+      urlReq: string;
+      parent_categories?: {
+        id: number;
+        documentId: string;
+        name: string;
+        urlReq: string;
+      }[];
+    }[];
   }[];
   meta: {
     pagination: {

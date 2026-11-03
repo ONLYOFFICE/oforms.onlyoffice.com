@@ -26,10 +26,17 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+export interface IBreadcrumbsOption {
+  label: string;
+  href: string;
+  locale?: string;
+}
+
 interface IBreadcrumbsItem {
   label: string;
   href?: string;
   locale?: string;
+  options?: IBreadcrumbsOption[];
 }
 
 export interface IBreadcrumbs {
