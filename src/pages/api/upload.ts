@@ -44,7 +44,6 @@ import {
   MAX_UPLOAD_FILE_SIZE,
   generateKey,
   sanitizeFileName,
-  EXTENSION_MIME_TYPES,
 } from "@src/utils/formSubmit";
 import { RateLimiterMemory } from "rate-limiter-flexible";
 import { enforceRateLimit } from "@src/lib/server/rateLimit";
@@ -135,8 +134,7 @@ export default async function handler(
 
   if (
     !fileType ||
-    !ALLOWED_TYPES.includes(fileType as (typeof ALLOWED_TYPES)[number]) ||
-    file.mimetype !== EXTENSION_MIME_TYPES[fileType]
+    !ALLOWED_TYPES.includes(fileType as (typeof ALLOWED_TYPES)[number])
   ) {
     await fs.promises.unlink(file.filepath).catch(() => undefined);
     return res
