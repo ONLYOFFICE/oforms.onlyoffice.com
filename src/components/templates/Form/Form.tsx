@@ -81,8 +81,10 @@ const FormTemplate = ({ form, categories }: IFormTemplate) => {
         .map((category) => [category.urlReq, category]),
     ).values(),
   ];
-  const parentCategory = parentCategories[0];
   const subcategory = validSubcategories[0];
+  const parentCategory = subcategory?.parent_categories?.find(
+    (category) => category.urlReq,
+  );
 
   const editableFile = file_oform?.find((it) => {
     const ext = it.name?.split(".").pop()?.toLowerCase();
