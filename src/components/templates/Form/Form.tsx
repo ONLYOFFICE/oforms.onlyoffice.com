@@ -39,7 +39,8 @@ import { BuildYourOwnForms } from "./sections/BuildYourOwnForms";
 import { FormSkeleton } from "./sub-components/FormSkeleton";
 import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { useBackHref } from "@src/lib/hooks/useBackQuery";
-import { IFormTemplate } from "./Form.types";
+import { cmsLocale } from "@src/utils/cmsLocale";
+import { ICategoryLocalization, IFormTemplate } from "./Form.types";
 import styles from "./Form.module.scss";
 
 const FormTemplate = ({ form, categories }: IFormTemplate) => {
@@ -47,6 +48,25 @@ const FormTemplate = ({ form, categories }: IFormTemplate) => {
   const { locale } = useRouter();
   const editorLocale = i18n.language;
   const editorFormLocale = locale ?? editorLocale;
+  const editorCmsLocale = cmsLocale(editorLocale).toLowerCase();
+  const localize = <
+    T extends {
+      name: string;
+      urlReq: string;
+      localizations?: ICategoryLocalization[];
+    },
+  >(
+    item: T,
+  ): T | undefined => {
+    if (editorLocale === editorFormLocale) return item;
+    const localized = item.localizations?.find(
+      (localization) => localization.locale?.toLowerCase() === editorCmsLocale,
+    );
+    return localized
+      ? { ...item, name: localized.name, urlReq: localized.urlReq }
+      : undefined;
+  };
+  const isDefined = <T,>(item: T | undefined): item is T => !!item;
   const {
     id,
     name_form,
@@ -65,10 +85,22 @@ const FormTemplate = ({ form, categories }: IFormTemplate) => {
   const validSubcategories = [
     ...new Map(
       subcategories
-        ?.filter(
+        ?.map((item) => {
+          const localized = localize(item);
+          return (
+            localized && {
+              ...localized,
+              parent_categories: (item.parent_categories ?? [])
+                .map(localize)
+                .filter(isDefined),
+            }
+          );
+        })
+        .filter(isDefined)
+        .filter(
           (item) =>
             item.urlReq &&
-            item.parent_categories?.some((category) => category.urlReq),
+            item.parent_categories.some((category) => category.urlReq),
         )
         .map((item) => [item.urlReq, item]),
     ).values(),
@@ -82,7 +114,7 @@ const FormTemplate = ({ form, categories }: IFormTemplate) => {
     ).values(),
   ];
   const subcategory = validSubcategories[0];
-  const parentCategory = subcategory?.parent_categories?.find(
+  const parentCategory = subcategory?.parent_categories.find(
     (category) => category.urlReq,
   );
 

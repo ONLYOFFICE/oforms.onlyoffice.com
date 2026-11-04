@@ -71,11 +71,13 @@ export interface IFormData {
       documentId: string;
       name: string;
       urlReq: string;
+      localizations?: ICategoryLocalization[];
       parent_categories?: {
         id: number;
         documentId: string;
         name: string;
         urlReq: string;
+        localizations?: ICategoryLocalization[];
       }[];
     }[];
   }[];
@@ -105,6 +107,14 @@ export interface ICategoriesData {
       total: number;
     };
   };
+}
+
+export interface ICategoryLocalization {
+  id: number;
+  documentId: string;
+  name: string;
+  urlReq: string;
+  locale: string;
 }
 
 export interface IFormTemplate {
