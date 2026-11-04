@@ -39,10 +39,20 @@ const useHandOffBackQuery = (getQuery: () => string) => {
     const handleRouteChangeStart = (url: string) =>
       saveBackQuery(getQueryRef.current(), url);
 
+    const handleLinkOpen = ({ target }: PointerEvent) => {
+      if (!(target instanceof Element)) return;
+      const anchor = target.closest("a[href]");
+      if (anchor instanceof HTMLAnchorElement && anchor.origin === origin) {
+        saveBackQuery(getQueryRef.current(), anchor.pathname);
+      }
+    };
+
     events.on("routeChangeStart", handleRouteChangeStart);
+    document.addEventListener("pointerdown", handleLinkOpen, true);
 
     return () => {
       events.off("routeChangeStart", handleRouteChangeStart);
+      document.removeEventListener("pointerdown", handleLinkOpen, true);
     };
   }, [events]);
 };
