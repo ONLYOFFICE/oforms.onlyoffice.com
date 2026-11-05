@@ -71,12 +71,6 @@
     }
   }
 
-  a {
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
   @include media.mobile {
     margin-bottom: 8px;
   }
@@ -84,6 +78,15 @@
 
 .breadcrumbs-item-link {
   color: var(--breadcrumbs-item-link-color);
+  transition: color 0.2s;
+
+  &:hover {
+    color: #3541f5;
+  }
+
+  &:active {
+    color: #0017c0;
+  }
 }
 
 .breadcrumbs-item-label {

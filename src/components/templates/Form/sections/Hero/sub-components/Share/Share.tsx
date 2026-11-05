@@ -26,6 +26,7 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import clsx from "clsx";
@@ -45,12 +46,59 @@ const Share = () => {
   const locale = router.locale;
   const lang = i18n.language;
   const routerUrl = `${process.env.NEXT_PUBLIC_SITE_URL}${locale === "en" ? "" : `/${locale}`}${router.asPath}`;
+  const [isCopied, setIsCopied] = useState(false);
+  const copiedTimeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  useEffect(() => {
+    return () => clearTimeout(copiedTimeoutRef.current);
+  }, []);
+
+  const handleCopy = async () => {
+    if (isCopied) return;
+
+    try {
+      await navigator.clipboard.writeText(routerUrl);
+      setIsCopied(true);
+      clearTimeout(copiedTimeoutRef.current);
+      copiedTimeoutRef.current = setTimeout(() => setIsCopied(false), 3000);
+    } catch {
+      setIsCopied(false);
+    }
+  };
 
   return (
     <div className={styles["share"]}>
       <span className={styles["share-heading"]}>{t("Share")}</span>
 
       <ul className={styles["share-list"]}>
+        <li className={styles["share-copy"]}>
+          <button
+            className={clsx(
+              styles["share-button"],
+              isCopied && styles["share-button-copied"],
+            )}
+            type="button"
+            onClick={handleCopy}
+            disabled={isCopied}
+          >
+            <span
+              className={clsx(
+                styles["share-button-icon"],
+                isCopied
+                  ? styles["share-button-icon-check"]
+                  : styles["share-button-icon-copy"],
+              )}
+              style={
+                {
+                  "--share-button-icon": `url(${getAssetUrl(`/images/templates/form/hero/${isCopied ? "check" : "copy"}.svg`)})`,
+                } as React.CSSProperties
+              }
+            ></span>
+          </button>
+          {isCopied && (
+            <span className={styles["share-copied"]}>{t("LinkCopied")}</span>
+          )}
+        </li>
         <li>
           <EmailShareButton className={styles["share-button"]} url={routerUrl}>
             <span

@@ -29,6 +29,7 @@
 import clsx from "clsx";
 import { Link } from "@src/components/ui/Link";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
+import { BreadcrumbsDropdown } from "./sub-components/BreadcrumbsDropdown";
 import { IBreadcrumbs } from "./Breadcrumbs.types";
 import styles from "./Breadcrumbs.module.scss";
 
@@ -45,7 +46,13 @@ const Breadcrumbs = ({ className, items }: IBreadcrumbs) => {
             } as React.CSSProperties
           }
         >
-          {item.href ? (
+          {item.options && item.options.length > 1 ? (
+            <BreadcrumbsDropdown
+              label={item.label}
+              activeHref={item.href}
+              options={item.options}
+            />
+          ) : item.href ? (
             <Link
               className={styles["breadcrumbs-item-link"]}
               href={item.href}

@@ -122,11 +122,11 @@ export default async function handler(
     }
 
     const remoteFileName = remoteUrlFileName(fileUrl);
-    const fileType = validateTemplateFileType(remoteFileName);
+    const fileTypeError = validateTemplateFileType(remoteFileName);
 
-    if ("error" in fileType) {
-      return res.status(fileType.error.status).json({
-        error: fileType.error.error,
+    if (fileTypeError) {
+      return res.status(fileTypeError.status).json({
+        error: fileTypeError.error,
       });
     }
 
@@ -139,7 +139,6 @@ export default async function handler(
       {
         buffer: fileBuffer,
         name: remoteFileName,
-        mimeType: fileType.mimeType,
       },
       entryId,
       strapi,

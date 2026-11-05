@@ -66,6 +66,21 @@ export interface IFormData {
       documentId: string;
       ext: TFormat;
     }[];
+    subcategories?: {
+      id: number;
+      documentId: string;
+      name: string;
+      urlReq: string;
+      localizations?: ICategoryLocalization[];
+      parent_categories?: {
+        id: number;
+        documentId: string;
+        name: string;
+        urlReq: string;
+        localizations?: ICategoryLocalization[];
+        subcategories?: ICategorySubcategory[];
+      }[];
+    }[];
   }[];
   meta: {
     pagination: {
@@ -93,6 +108,23 @@ export interface ICategoriesData {
       total: number;
     };
   };
+}
+
+export interface ICategoryLocalization {
+  id: number;
+  documentId: string;
+  name: string;
+  urlReq: string;
+  locale: string;
+  subcategories?: ICategorySubcategory[];
+}
+
+export interface ICategorySubcategory {
+  id: number;
+  documentId: string;
+  urlReq: string;
+  createdAt: string;
+  oforms?: { count: number };
 }
 
 export interface IFormTemplate {

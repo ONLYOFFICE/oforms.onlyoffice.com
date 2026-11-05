@@ -123,28 +123,20 @@ export const validateSubmission = (
 
 export const validateTemplateFileType = (
   fileName: string | null | undefined,
-  mimetype?: string | null,
-): { mimeType: string } | { error: TSubmissionError } => {
+): TSubmissionError | null => {
   const fileType = fileName?.match(/\.(\w+)$/)?.[1]?.toLowerCase();
-  const invalid: TSubmissionError = {
-    status: 415,
-    error: "Invalid file format! The uploaded file is not valid.",
-  };
 
   if (
     !fileType ||
     !ALLOWED_TYPES.includes(fileType as (typeof ALLOWED_TYPES)[number])
   ) {
-    return { error: invalid };
+    return {
+      status: 415,
+      error: "Invalid file format! The uploaded file is not valid.",
+    };
   }
 
-  const mimeType = EXTENSION_MIME_TYPES[fileType];
-
-  if (mimetype !== undefined && mimetype !== mimeType) {
-    return { error: invalid };
-  }
-
-  return { mimeType };
+  return null;
 };
 
 export const createStrapiEntry = async (
@@ -193,16 +185,19 @@ export const createStrapiEntry = async (
 };
 
 export const uploadToStrapi = async (
-  file: { buffer: Buffer; name: string | null | undefined; mimeType?: string },
+  file: { buffer: Buffer; name: string | null | undefined },
   entryId: number,
   { token, label }: { token: string; label: string },
 ): Promise<void> => {
   const uploadData = new FormData();
+  const fileType = file.name?.match(/\.(\w+)$/)?.[1]?.toLowerCase();
 
   uploadData.append(
     "files",
     new Blob([new Uint8Array(file.buffer)], {
-      type: file.mimeType ?? "application/octet-stream",
+      type:
+        (fileType && EXTENSION_MIME_TYPES[fileType]) ||
+        "application/octet-stream",
     }),
     sanitizeFileName(file.name),
   );

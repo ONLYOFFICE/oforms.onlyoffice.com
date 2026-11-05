@@ -102,14 +102,11 @@ export default async function handler(
       return res.status(400).json({ error: "Template file is required" });
     }
 
-    const fileType = validateTemplateFileType(
-      file.originalFilename,
-      file.mimetype,
-    );
+    const fileTypeError = validateTemplateFileType(file.originalFilename);
 
-    if ("error" in fileType) {
-      return res.status(fileType.error.status).json({
-        error: fileType.error.error,
+    if (fileTypeError) {
+      return res.status(fileTypeError.status).json({
+        error: fileTypeError.error,
       });
     }
 
@@ -120,7 +117,6 @@ export default async function handler(
       {
         buffer: await fs.promises.readFile(file.filepath),
         name: file.originalFilename,
-        mimeType: fileType.mimeType,
       },
       entryId,
       strapi,

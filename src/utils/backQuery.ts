@@ -26,7 +26,13 @@
  * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
  */
 
-let saved: { query: string; target: string } | null = null;
+type TEntry = { query: string; time: number };
+type TEntries = Record<string, TEntry>;
+
+const STORAGE_KEY = "backQuery";
+const TTL = 60 * 60 * 1000;
+
+let fallback: TEntries = {};
 
 const toPathname = (url: string) => {
   const pathname = url.split(/[?#]/)[0].replace(/\/+$/, "");
@@ -38,9 +44,33 @@ const toPathname = (url: string) => {
   }
 };
 
-export const saveBackQuery = (query: string, target: string) => {
-  saved = { query: query.replace(/^\?/, ""), target: toPathname(target) };
+const isFresh = (entry?: TEntry): entry is TEntry =>
+  !!entry && Date.now() - entry.time < TTL;
+
+const load = (): TEntries => {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null") ?? fallback;
+  } catch {
+    return fallback;
+  }
 };
 
-export const readBackQuery = (pathname: string) =>
-  saved && saved.target === toPathname(pathname) ? saved.query : "";
+export const saveBackQuery = (query: string, target: string) => {
+  const entries = Object.fromEntries(
+    Object.entries(load()).filter(([, entry]) => isFresh(entry)),
+  );
+  const key = toPathname(target);
+
+  if (query) entries[key] = { query, time: Date.now() };
+  else delete entries[key];
+
+  fallback = entries;
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+  } catch {}
+};
+
+export const readBackQuery = (pathname: string) => {
+  const entry = load()[toPathname(pathname)];
+  return isFresh(entry) ? entry.query : "";
+};
