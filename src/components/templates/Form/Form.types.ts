@@ -78,6 +78,7 @@ export interface IFormData {
         name: string;
         urlReq: string;
         localizations?: ICategoryLocalization[];
+        subcategories?: ICategorySubcategory[];
       }[];
     }[];
   }[];
@@ -115,6 +116,15 @@ export interface ICategoryLocalization {
   name: string;
   urlReq: string;
   locale: string;
+  subcategories?: ICategorySubcategory[];
+}
+
+export interface ICategorySubcategory {
+  id: number;
+  documentId: string;
+  urlReq: string;
+  createdAt: string;
+  oforms?: { count: number };
 }
 
 export interface IFormTemplate {
