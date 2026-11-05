@@ -34,6 +34,7 @@ import { VISIBLE_SUBCATEGORIES_LIMIT } from "@src/utils/queryFilters";
 import {
   getTemplatesByExt,
   getPopularTemplates,
+  getSectionPopularTemplates,
   normalizeSortKey,
   sortForms,
 } from "@src/utils/helpers";
@@ -369,7 +370,7 @@ export const buildMainView = (
     purposes,
     categoriesByPurpose,
     totalCount: filteredForms.length,
-    popularTemplates: getPopularTemplates(filteredForms).map(toCardView),
+    popularTemplates: getSectionPopularTemplates(filteredForms).map(toCardView),
     sections: [...categorySections, ...filterSections],
     isEmpty: filteredForms.length === 0,
   };
@@ -485,7 +486,7 @@ export const buildCategoryView = (
   const result = {
     categoryUrlReq,
     totalCount: filteredForms.length,
-    popularTemplates: getPopularTemplates(filteredForms).map(toCardView),
+    popularTemplates: getSectionPopularTemplates(filteredForms).map(toCardView),
     sections,
     isEmpty: sections.length === 0,
   };

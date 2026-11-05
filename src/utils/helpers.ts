@@ -56,6 +56,55 @@ export const getPopularTemplates = (
   limit = 8,
 ) => forms?.filter((form) => form.popular_template).slice(0, limit) ?? [];
 
+const POPULAR_TEMPLATES_MIN_FORMS = 8;
+
+const hashString = (value: string) => {
+  let hash = 2166136261;
+  for (let i = 0; i < value.length; i++) {
+    hash ^= value.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+};
+
+const stableShuffle = <T extends { id: number | string }>(
+  items: T[],
+  seed: string,
+): T[] =>
+  items
+    .map((item) => ({ item, key: hashString(`${seed}:${item.id}`) }))
+    .sort(
+      (a, b) =>
+        a.key - b.key || String(a.item.id).localeCompare(String(b.item.id)),
+    )
+    .map(({ item }) => item);
+
+export const fillPopularTemplates = (
+  popular: IFormsData["data"][number][],
+  pool: IFormsData["data"][number][],
+  min = 4,
+) => {
+  if (!popular.length || popular.length >= min) return popular;
+
+  const usedIds = new Set(popular.map((form) => form.id));
+  const seed = popular.map((form) => form.id).join(",");
+
+  return [
+    ...popular,
+    ...stableShuffle(
+      pool.filter((form) => !usedIds.has(form.id)),
+      seed,
+    ).slice(0, min - popular.length),
+  ];
+};
+
+export const getSectionPopularTemplates = (
+  forms: IFormsData["data"][number][],
+) =>
+  forms.length < POPULAR_TEMPLATES_MIN_FORMS
+    ? []
+    : fillPopularTemplates(getPopularTemplates(forms), forms);
+
 export type TSortKey = "popular" | "asc" | "desc" | "name_asc" | "name_desc";
 const SORT_MAP: Record<TSortKey, string> = {
   asc: "createdAt:desc",
