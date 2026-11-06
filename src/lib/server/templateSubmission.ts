@@ -144,7 +144,7 @@ export const createStrapiEntry = async (
   { token, label }: { token: string; label: string },
 ): Promise<number> => {
   const response = await fetch(
-    `${CONFIG.api.cmsUpload}/api/oforms?status=draft&locale=${encodeURIComponent(fields.locale)}`,
+    `${CONFIG.api.cms}/api/oforms?status=draft&locale=${encodeURIComponent(fields.locale)}`,
     {
       method: "POST",
       headers: {
@@ -205,7 +205,7 @@ export const uploadToStrapi = async (
   uploadData.append("refId", String(entryId));
   uploadData.append("field", "file_oform");
 
-  const response = await fetch(`${CONFIG.api.cmsUpload}/api/upload`, {
+  const response = await fetch(`${CONFIG.api.cms}/api/upload`, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
     body: uploadData,
