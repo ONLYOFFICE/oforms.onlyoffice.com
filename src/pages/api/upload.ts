@@ -47,6 +47,7 @@ import {
 } from "@src/utils/formSubmit";
 import { RateLimiterMemory } from "rate-limiter-flexible";
 import { enforceRateLimit } from "@src/lib/server/rateLimit";
+import { detectFileType } from "@src/lib/server/detectFileType";
 
 export const config = {
   api: {
@@ -130,19 +131,26 @@ export default async function handler(
     return res.status(400).json({ error: "Missing required fields" });
   }
 
-  const fileType = file.originalFilename?.match(/\.(\w+)$/)?.[1]?.toLowerCase();
+  const extension = file.originalFilename
+    ?.match(/\.(\w+)$/)?.[1]
+    ?.toLowerCase();
+  const fileType =
+    extension && ALLOWED_TYPES.includes(extension)
+      ? extension
+      : await detectFileType(file.filepath).catch(() => null);
 
-  if (
-    !fileType ||
-    !ALLOWED_TYPES.includes(fileType as (typeof ALLOWED_TYPES)[number])
-  ) {
+  if (!fileType) {
     await fs.promises.unlink(file.filepath).catch(() => undefined);
     return res
       .status(415)
       .json({ error: "Invalid file format! The uploaded file is not valid." });
   }
 
-  const safeName = sanitizeFileName(file.originalFilename);
+  const originalName =
+    extension === fileType
+      ? file.originalFilename
+      : `${file.originalFilename || "file"}.${fileType}`;
+  const safeName = sanitizeFileName(originalName);
   const fileName = `${FOLDER_NAME}/${Date.now()}_${safeName}`;
   const s3Url = `https://${BUCKET}/${fileName}`;
 
@@ -249,7 +257,7 @@ export default async function handler(
         JSON.stringify({
           previewUrl: previewConvertData.fileUrl,
           fileUrl: fileConvertData.fileUrl,
-          fileName: file.originalFilename,
+          fileName: originalName,
           fileSize: file.size,
           formName: formNameField,
         }),
