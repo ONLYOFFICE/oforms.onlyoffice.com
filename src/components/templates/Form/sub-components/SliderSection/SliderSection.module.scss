@@ -1,0 +1,164 @@
+/*
+ * (c) Copyright Ascensio System SIA 2009-2026
+ *
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms
+ * of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+ * Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+ * to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of
+ * any third-party rights.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY, without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see
+ * the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ *
+ * The  interactive user interfaces in modified source and object code versions of the Program must
+ * display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ *
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when
+ * distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under
+ * trademark law for use of our trademarks.
+ *
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+ * content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+ * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ */
+
+@use "media";
+@use "direction";
+
+.slider-section {
+  overflow-x: hidden;
+}
+
+.slider-section-heading {
+  margin-bottom: 40px;
+
+  @include media.tablet {
+    margin-bottom: 36px;
+  }
+
+  @include media.mobile {
+    margin-bottom: 28px;
+  }
+}
+
+.slider-section-wrapper {
+  position: relative;
+  margin: 0px -60px;
+  padding: 0px 60px;
+
+  :global(.swiper) {
+    @include media.tablet-s {
+      margin: 0 -40px;
+    }
+
+    @include media.mobile {
+      margin: 0 -16px;
+    }
+  }
+
+  :global(.swiper-wrapper) {
+    @include media.tablet-s {
+      overflow-x: auto;
+      transform: none !important;
+    }
+  }
+
+  :global(.swiper-slide) {
+    &:first-child {
+      @include media.tablet-s {
+        margin-inline-start: 40px;
+      }
+
+      @include media.mobile {
+        margin-inline-start: 16px;
+      }
+    }
+
+    @include media.tablet-s {
+      min-width: 284px;
+      max-width: 284px;
+    }
+  }
+
+  @include media.desktop {
+    margin: 0px -50px;
+    padding: 0px 50px;
+  }
+
+  @include media.tablet {
+    margin: 0px -40px;
+    padding: 0px 40px;
+  }
+
+  @include media.tablet-s {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.slider-section-card {
+  @include media.tablet-s {
+    min-width: 284px;
+    max-width: 284px;
+  }
+}
+
+.slider-section-navigation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none;
+
+  @include media.tablet-s {
+    display: none;
+  }
+}
+
+.slider-section-button-prev,
+.slider-section-button-next {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  background-color: transparent;
+  pointer-events: initial;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: var(--form-slider-section-button-opacity-disabled);
+    pointer-events: none;
+  }
+}
+
+.slider-section-button-prev {
+  svg {
+    transform: rotate(90deg);
+
+    @include direction.rtl {
+      transform: rotate(-90deg);
+    }
+  }
+}
+
+.slider-section-button-next {
+  svg {
+    transform: rotate(-90deg);
+
+    @include direction.rtl {
+      transform: rotate(90deg);
+    }
+  }
+}

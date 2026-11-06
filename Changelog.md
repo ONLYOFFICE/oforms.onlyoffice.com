@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.0
+
+### New Features
+
+- Redesign the website with updated pages, components, and overall styling
+
 ## 1.13.0
 
 ### New Features

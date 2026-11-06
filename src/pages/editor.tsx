@@ -1,0 +1,171 @@
+/*
+ * (c) Copyright Ascensio System SIA 2009-2026
+ *
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms
+ * of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+ * Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+ * to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of
+ * any third-party rights.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY, without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see
+ * the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ *
+ * The  interactive user interfaces in modified source and object code versions of the Program must
+ * display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ *
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when
+ * distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under
+ * trademark law for use of our trademarks.
+ *
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+ * content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+ * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ */
+
+import { GetServerSidePropsContext } from "next";
+import Script from "next/script";
+import CONFIG from "@src/config/config.json";
+import { Layout } from "@src/components/Layout";
+import { Head } from "@src/components/modules/Head";
+import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
+import { cmsLocale } from "@src/utils/cmsLocale";
+import { languages } from "@src/config/languages";
+import { ILocale } from "@src/types/locale";
+
+const LOCALES = languages.map(({ shortKey }) => shortKey);
+
+const resolveEditorLocale = (
+  value: string | string[] | undefined,
+  fallback: ILocale["locale"],
+): ILocale["locale"] => {
+  const raw = Array.isArray(value) ? value[0] : value;
+
+  return raw && LOCALES.includes(raw) ? (raw as ILocale["locale"]) : fallback;
+};
+
+const FILENAME_MAX_LENGTH = 300;
+const FILENAME_PATTERN = /^[a-zA-Z0-9._-]+$/;
+const FILLFORM_PATTERN = new RegExp(
+  `^[a-zA-Z0-9_-]+\\.(${ALLOWED_TYPES.map((type) =>
+    type.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+  ).join("|")})$`,
+  "i",
+);
+
+declare global {
+  interface Window {
+    DocsAPI: {
+      DocEditor: new (id: string, config: object) => unknown;
+    };
+    docEditor: unknown;
+  }
+}
+
+interface IEditorPage {
+  filename: string;
+  title: string;
+  config: string;
+}
+
+const EditorPage = ({ filename, title, config }: IEditorPage) => {
+  return (
+    <Layout banner={false}>
+      <Layout.Head>
+        <Head title={`${title} | ONLYOFFICE`} noindex />
+        <Script
+          id="doc-editor"
+          src={`${CONFIG.docEditorUrl}/web-apps/apps/api/documents/api.js`}
+          onReady={() => {
+            window.docEditor = new window.DocsAPI.DocEditor(
+              filename,
+              JSON.parse(config),
+            );
+          }}
+        />
+      </Layout.Head>
+      <div
+        style={{
+          position: "fixed",
+          top: "0",
+          width: "100vw",
+          height: "100vh",
+          zIndex: "1001",
+        }}
+      >
+        <div id={filename} style={{ height: "100%" }} />
+      </div>
+    </Layout>
+  );
+};
+
+export const getServerSideProps = async ({
+  query,
+}: GetServerSidePropsContext) => {
+  const { lang, formlang, filename, fillform } = query;
+  const locale = resolveEditorLocale(lang, "en");
+  const formLocale = resolveEditorLocale(formlang, locale);
+  const cmsLang = cmsLocale(locale);
+  const cmsFormLang = cmsLocale(formLocale);
+  const normalizedFilename =
+    (Array.isArray(filename) ? filename[0] : filename) ?? "";
+  const normalizedFillform =
+    (Array.isArray(fillform) ? fillform[0] : fillform) ?? "";
+
+  if (
+    !normalizedFilename ||
+    normalizedFilename.length > FILENAME_MAX_LENGTH ||
+    !FILENAME_PATTERN.test(normalizedFilename)
+  ) {
+    return {
+      notFound: true,
+    };
+  }
+
+  if (normalizedFillform && !FILLFORM_PATTERN.test(normalizedFillform)) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const oformsRes = await fetch(
+    `${CONFIG.api.cms}/api/oforms?filters[url][$eq]=${encodeURIComponent(normalizedFilename)}&locale=${encodeURIComponent(cmsFormLang)}`,
+  );
+  if (!oformsRes.ok) {
+    throw new Error(`Request failed with status ${oformsRes.status}`);
+  }
+  const oforms = await oformsRes.json();
+
+  if (oforms.data.length === 0) {
+    return {
+      notFound: true,
+    };
+  }
+
+  try {
+    const configRes = await fetch(
+      `${process.env.CONFIG_API_URL}/api/config?lang=${encodeURIComponent(cmsLang)}&title=${encodeURIComponent(normalizedFilename)}&url=${encodeURIComponent(normalizedFillform)}`,
+    );
+    if (!configRes.ok) {
+      throw new Error(`Request failed with status ${configRes.status}`);
+    }
+    const config = await configRes.json();
+
+    return {
+      props: {
+        filename: normalizedFilename,
+        title: oforms.data[0].name_form || normalizedFilename,
+        config: JSON.stringify(config),
+      },
+    };
+  } catch {
+    return {
+      notFound: true,
+    };
+  }
+};
+
+export default EditorPage;

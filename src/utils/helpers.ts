@@ -1,0 +1,160 @@
+/*
+ * (c) Copyright Ascensio System SIA 2009-2026
+ *
+ * This program is a free software product.
+ * You can redistribute it and/or modify it under the terms
+ * of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
+ * Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
+ * to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of
+ * any third-party rights.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY, without even the implied warranty
+ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see
+ * the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ *
+ * The  interactive user interfaces in modified source and object code versions of the Program must
+ * display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ *
+ * Pursuant to Section 7(b) of the License you must retain the original Product logo when
+ * distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under
+ * trademark law for use of our trademarks.
+ *
+ * All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
+ * content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
+ * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ */
+
+import { IFormsData } from "@src/types/data";
+import { ALLOWED_TYPES, TAllowedTypes } from "@src/utils/allowedTypes";
+
+export const getQueryValues = (
+  value: string | string[] | undefined,
+): string[] => {
+  const raw = Array.isArray(value) ? value.join(",") : value;
+  return raw ? Array.from(new Set(raw.split(",").filter(Boolean))) : [];
+};
+
+export const getTemplatesByExt = (
+  forms: IFormsData["data"][number][] | undefined,
+  ext: TAllowedTypes,
+  limit = 8,
+) =>
+  forms
+    ?.filter((form) => form.form_exts?.some((item) => item.ext === ext))
+    .map((form) => ({
+      ...form,
+      form_exts: [...form.form_exts].sort(
+        (a, b) => ALLOWED_TYPES.indexOf(a.ext) - ALLOWED_TYPES.indexOf(b.ext),
+      ),
+    }))
+    .slice(0, limit) ?? [];
+
+export const getPopularTemplates = (
+  forms: IFormsData["data"][number][] | undefined,
+  limit = 8,
+) => forms?.filter((form) => form.popular_template).slice(0, limit) ?? [];
+
+const POPULAR_TEMPLATES_MIN_FORMS = 8;
+
+const hashString = (value: string) => {
+  let hash = 2166136261;
+  for (let i = 0; i < value.length; i++) {
+    hash ^= value.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+};
+
+const stableShuffle = <T extends { id: number | string }>(
+  items: T[],
+  seed: string,
+): T[] =>
+  items
+    .map((item) => ({ item, key: hashString(`${seed}:${item.id}`) }))
+    .sort(
+      (a, b) =>
+        a.key - b.key || String(a.item.id).localeCompare(String(b.item.id)),
+    )
+    .map(({ item }) => item);
+
+export const fillPopularTemplates = (
+  popular: IFormsData["data"][number][],
+  pool: IFormsData["data"][number][],
+  min = 4,
+) => {
+  if (!popular.length || popular.length >= min) return popular;
+
+  const usedIds = new Set(popular.map((form) => form.id));
+  const seed = popular.map((form) => form.id).join(",");
+
+  return [
+    ...popular,
+    ...stableShuffle(
+      pool.filter((form) => !usedIds.has(form.id)),
+      seed,
+    ).slice(0, min - popular.length),
+  ];
+};
+
+export const getSectionPopularTemplates = (
+  forms: IFormsData["data"][number][],
+) =>
+  forms.length < POPULAR_TEMPLATES_MIN_FORMS
+    ? []
+    : fillPopularTemplates(getPopularTemplates(forms), forms);
+
+export type TSortKey = "popular" | "asc" | "desc" | "name_asc" | "name_desc";
+const SORT_MAP: Record<TSortKey, string> = {
+  asc: "createdAt:desc",
+  desc: "createdAt:asc",
+  name_asc: "name_form:asc",
+  name_desc: "name_form:desc",
+  popular: "popular_template:desc",
+};
+
+export const SORT_KEYS = Object.keys(SORT_MAP) as TSortKey[];
+export const DEFAULT_SORT_KEY: TSortKey = "asc";
+
+export const normalizeSortKey = (
+  value: string | string[] | undefined,
+): TSortKey => {
+  const raw = (Array.isArray(value) ? value[0] : value)?.toLowerCase();
+  return raw && Object.hasOwn(SORT_MAP, raw)
+    ? (raw as TSortKey)
+    : DEFAULT_SORT_KEY;
+};
+
+export const sortForms = (
+  forms: IFormsData["data"][number][] | undefined,
+  sort: TSortKey,
+) => {
+  const [field, direction] = SORT_MAP[sort].split(":");
+  const dir = direction === "desc" ? -1 : 1;
+  const result = [...(forms ?? [])];
+
+  return result.sort((a, b) => {
+    switch (field) {
+      case "name_form":
+        return (
+          dir *
+          a.name_form.localeCompare(b.name_form, undefined, {
+            sensitivity: "base",
+          })
+        );
+      case "popular_template":
+        return (
+          dir *
+          (Number(Boolean(a.popular_template)) -
+            Number(Boolean(b.popular_template)))
+        );
+      case "createdAt":
+      default:
+        return (
+          dir *
+          (new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+        );
+    }
+  });
+};

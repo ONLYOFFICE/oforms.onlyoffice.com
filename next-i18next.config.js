@@ -1,10 +1,9 @@
-const languages = require("./config/languages.json");
-const availableLanguages = languages.map((el) => el.shortKey);
+const { languages } = require("./src/config/languages");
 
 module.exports = {
   i18n: {
+    locales: languages.map((el) => el.shortKey),
     defaultLocale: "en",
-    locales: availableLanguages,
     localeDetection: false,
   },
   showSupportNotice: false,
