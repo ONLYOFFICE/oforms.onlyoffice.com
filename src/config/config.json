@@ -1,0 +1,11 @@
+{
+  "defaultLanguage": "en",
+  "docEditorUrl": "config_docEditorUrl",
+  "api": {
+    "cms": "config_cms",
+    "cmsUpload": "config_cms_upload",
+    "url": "",
+    "timeout": "30000"
+  },
+  "appServer": "config_appServer"
+}
