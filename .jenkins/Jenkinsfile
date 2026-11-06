@@ -173,7 +173,8 @@ pipeline {
                 string(credentialsId: 'onlyoffice_site_test_hcaptcha_secret_key', variable: 'NEXT_PUBLIC_HCAPTCHA_TEST_SECRET_KEY'),
                 string(credentialsId: 'onlyoffice_site_prod_hcaptcha_site_key', variable: 'NEXT_PUBLIC_HCAPTCHA_PROD_SITE_KEY'),
                 string(credentialsId: 'onlyoffice_site_prod_hcaptcha_secret_key', variable: 'NEXT_PUBLIC_HCAPTCHA_PROD_SECRET_KEY'),
-                string(credentialsId: 'templates_redesign_strapi_api_token', variable: 'REDESIGN_PUBLIC_STRAPI_API_TOKEN_TEST'),
+                string(credentialsId: 'OFORMS_REDESIGN_PUBLIC_STRAPI_API_TOKEN_TEST', variable: 'oforms_redesign_strapi_api_token_test'),
+                string(credentialsId: 'OFORMS_REDESIGN_PUBLIC_STRAPI_API_TOKEN_PROD', variable: 'oforms_redesign_strapi_api_token_prod'),
                 string(credentialsId: 'templates_redesign_revalidate_authorization_token', variable: 'REVALIDATE_AUTHORIZATION_TOKEN_TEST')]) {
 
           sh '''
@@ -189,14 +190,14 @@ pipeline {
               NEXT_PUBLIC_FILES_DOCSERVICE_SECRET=$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET_TEST
               NEXT_PUBLIC_HCAPTCHA_SITE_KEY=$NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
               NEXT_PUBLIC_HCAPTCHA_SECRET_KEY=$NEXT_PUBLIC_HCAPTCHA_TEST_SECRET_KEY
-              NEXT_PUBLIC_STRAPI_API_TOKEN=$REDESIGN_PUBLIC_STRAPI_API_TOKEN_TEST
+              NEXT_PUBLIC_STRAPI_API_TOKEN=$oforms_redesign_strapi_api_token_test
               REVALIDATE_AUTHORIZATION_TOKEN=$REVALIDATE_AUTHORIZATION_TOKEN_TEST 
             fi
 
             if [[ ${BRANCH_NAME} == "production_deploy_update" ]]; then
               NEXT_PUBLIC_HCAPTCHA_SITE_KEY=$NEXT_PUBLIC_HCAPTCHA_PROD_SITE_KEY
               NEXT_PUBLIC_HCAPTCHA_SECRET_KEY=$NEXT_PUBLIC_HCAPTCHA_PROD_SECRET_KEY
-              NEXT_PUBLIC_STRAPI_API_TOKEN=$REDESIGN_PUBLIC_STRAPI_API_TOKEN_TEST
+              NEXT_PUBLIC_STRAPI_API_TOKEN=$oforms_redesign_strapi_api_token_prod
               REVALIDATE_AUTHORIZATION_TOKEN=$REVALIDATE_AUTHORIZATION_TOKEN_TEST 
             fi
 
