@@ -70,6 +70,9 @@ const buildUrl = (l, page) =>
     `locale=${cmsLocale(l)}`,
     `pagination[page]=${page}`,
     "pagination[pageSize]=1000",
+    // Strapi's default, sent to change the cache key: the CDN served this exact
+    // query on /dashboard/v2 from a v4 copy cached for /dashboard.
+    "pagination[withCount]=true",
     "sort[0]=createdAt:desc",
     "fields[0]=name_form",
     // Not description_card: the CMS keeps the SEO call to action there.
