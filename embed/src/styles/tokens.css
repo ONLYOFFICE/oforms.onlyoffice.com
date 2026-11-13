@@ -176,36 +176,37 @@
   --filter-button-color-selected: var(--text-link, #001bd2);
 }
 
+/* Desktop's theme-night. */
 :root[data-theme="dark"] {
-  --text-normal: #ffffffcc;
-  --text-secondary: #ffffff99;
-  --text-tertiary: #ffffff66;
-  --text-link: #b5e4ff;
+  --text-normal: #f3f3f3;
+  --text-secondary: #cbcbcb;
+  --text-tertiary: #b2b2b2;
+  --text-link: #aecbff;
   --text-inverse: #ffffff;
-  --icon-normal: #ffffff;
 
-  --background-normal: #404040;
-  --background-normal-element: #505050;
-  --background-normal-element-light: #404040;
-  --background-action-panel: #333333;
-  --background-primary-button: #4a87e7;
+  --background-normal: #222222;
+  --background-normal-element: #4b4b4b;
+  --background-normal-element-light: #4b4b4b;
+  --background-action-panel: #404040;
+  --background-primary-button: #4e8afb;
 
-  --border-regular-control: #666666;
-  --border-control-focus: #7d7d7d;
+  --border-regular-control: #686868;
+  --border-control-focus: #4e8afb;
   --border-divider: #505050;
   --border-tabbar: #2a2a2a;
 
-  --highlight-button-hover: #555555;
-  --highlight-button-pressed: #707070;
-  --highlight-primary-button-hover: #437ad0;
-  --highlight-primary-button-pressed: #3b6cb9;
+  --highlight-button-hover: rgba(255, 255, 255, 0.12);
+  --highlight-button-pressed: rgba(255, 255, 255, 0.2);
+  --highlight-primary-button-hover: #306ad9;
+  --highlight-primary-button-pressed: #1b55c1;
 
   --main-header-shadow-color: rgba(0, 0, 0, 0.5);
   --filter-button-menu-shadow-color: rgba(0, 0, 0, 0.5);
   --template-modal-wrapper-border-color: #505050;
 
   /* The tab underline is the only mark on the selected tab. On white these two
-     are 6.1:1 and 5.5:1; unchanged on #333 they would be 2.1 and 2.3. */
+     are 6.1:1 and 5.5:1; on #404040 these are 3.0 and 3.1, unchanged 1.7 and
+     1.9. */
   --format-docx-color: #5b86e5;
   --format-pdf-color: #f0546f;
 
