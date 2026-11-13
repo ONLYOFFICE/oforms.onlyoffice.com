@@ -46,6 +46,7 @@ next-env.d.ts
 
 # claude
 /.claude/
+/CLAUDE.md
 
 # sitemap
 /public/sitemap.xml
@@ -55,3 +56,4 @@ next-env.d.ts
 
 embed/scripts/description-review.mjs
 embed/scripts/title-review.mjs
+embed/scripts/download-files.mjs
