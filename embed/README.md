@@ -84,14 +84,14 @@ learn the stamp, and the files are served immutable because the stamp is the
 cache key.
 
 ```bash
-EMBED_CMS_URL=https://templates-update.teamlab.info/dashboard \
+EMBED_CMS_URL=https://templates.onlyoffice.com/dashboard/v2 \
   node scripts/generate-data.mjs [locale]     # default: all 9
 ```
 
 **Run it before `npm run build`, not after.** A build with no data generated
 warns and stamps `dev`, so `npm run build` still works as a bare typecheck.
-`EMBED_CMS_URL` must be the Strapi **v5** instance; production's v4 returns a
-different shape and would yield blank cards.
+`EMBED_CMS_URL` must be the Strapi **v5** instance, `/dashboard/v2`. The bare
+`/dashboard` on the same host is v4: another shape, and the generator stops.
 
 The nine catalogs are 7.62 MB raw / 732 KB gzipped, well inside Pages' limits —
 see NOTES.md for the numbers.
@@ -104,7 +104,7 @@ does **not** need to be connected to a git repo.
 Ad hoc, from a local build:
 
 ```bash
-EMBED_CMS_URL=https://templates-update.teamlab.info/dashboard \
+EMBED_CMS_URL=https://templates.onlyoffice.com/dashboard/v2 \
   node scripts/generate-data.mjs
 npm run build
 npx wrangler pages deploy dist --project-name=<project>
