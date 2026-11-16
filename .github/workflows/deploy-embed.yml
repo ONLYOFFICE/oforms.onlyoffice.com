@@ -2,6 +2,11 @@ name: Deploy embed to S3
 
 on:
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: List the template files to upload and delete without changing the bucket
+        type: boolean
+        default: true
   push:
     branches:
       - release/v10.0.0
@@ -21,7 +26,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Off while the template files move to DocSpace; only the sync job runs.
   deploy:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -88,3 +95,32 @@ jobs:
           aws cloudfront create-invalidation
           --distribution-id "${{ vars.CF_DISTRIBUTION_ID }}"
           --paths "/*"
+
+  sync-files:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ vars.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      # Pushes have no inputs, so they sync for real.
+      - name: Sync template files from DocSpace
+        env:
+          DOCSPACE_URL: ${{ vars.DOCSPACE_URL }}
+          DOCSPACE_API_KEY: ${{ secrets.DOCSPACE_API_KEY }}
+          DOCSPACE_FOLDER_ID: ${{ vars.DOCSPACE_FOLDER_ID }}
+          FILES_BUCKET_URL: ${{ vars.FILES_BUCKET_URL }}
+        run: node embed/scripts/sync-docspace.mjs ${{ inputs.dry_run && '--dry-run' || '' }}
