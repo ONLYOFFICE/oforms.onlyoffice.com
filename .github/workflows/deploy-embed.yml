@@ -7,6 +7,10 @@ on:
         description: List the template files to upload and delete without changing the bucket
         type: boolean
         default: true
+      previews:
+        description: Only render previews of the files in the bucket, no DocSpace sync
+        type: boolean
+        default: false
   push:
     branches:
       - release/v10.0.0
@@ -97,6 +101,7 @@ jobs:
           --paths "/*"
 
   sync-files:
+    if: ${{ !inputs.previews }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -124,3 +129,61 @@ jobs:
           DOCSPACE_FOLDER_ID: ${{ vars.DOCSPACE_FOLDER_ID }}
           FILES_BUCKET_URL: ${{ vars.FILES_BUCKET_URL }}
         run: node embed/scripts/sync-docspace.mjs ${{ inputs.dry_run && '--dry-run' || '' }}
+
+  previews:
+    if: ${{ inputs.previews }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Document Builder
+        run: pip install document-builder==10.0.0.170 pillow
+
+      # Without system fonts the builder draws no text at all. The EULA key is "accepted-", not the
+      # widely copied "accept-": with that one apt succeeds and downloads nothing, hence the test.
+      # No fonts-kacst: Arabic in fonts that lack it (Arial Black, Constantia) falls back to a
+      # decorative KACST face and joins wrongly; Noto joins it right.
+      - name: Install fonts
+        run: |
+          echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ttf-mscorefonts-installer fonts-liberation \
+            fonts-opensymbol fonts-dejavu fonts-takao-gothic fonts-noto-cjk fonts-noto-core
+          test -f /usr/share/fonts/truetype/msttcorefonts/Arial.ttf
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ vars.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      # aws s3 sync dates each download with the object's LastModified, so the generator's
+      # "card newer than the file" skip works here: only new or changed files are rendered.
+      # Uploads per locale, so a run cut short by the job timeout keeps what it rendered.
+      - name: Render previews
+        env:
+          FILES_BUCKET_URL: ${{ vars.FILES_BUCKET_URL }}
+          DOCBUILDER_LICENSE_XML: ${{ secrets.DOCBUILDER_LICENSE_XML }}
+        run: |
+          images="${FILES_BUCKET_URL%/files}/images"
+          export DOCBUILDER_LICENSE="$RUNNER_TEMP/license.xml"
+          printf '%s' "$DOCBUILDER_LICENSE_XML" > "$DOCBUILDER_LICENSE"
+          aws s3 sync "$FILES_BUCKET_URL" files --only-show-errors
+          aws s3 sync "$images" images --only-show-errors --exclude "*" --include "*.card.webp"
+          status=0
+          for locale in $(cd files && ls); do
+            python embed/scripts/generate-previews.py "files/$locale" "images/$locale" || status=1
+            aws s3 sync "images/$locale" "$images/$locale" --only-show-errors \
+              --exclude "*" --include "*.webp" --content-type image/webp \
+              --cache-control "public, max-age=31536000, immutable"
+          done
+          exit $status
