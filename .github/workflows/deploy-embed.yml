@@ -181,6 +181,7 @@ jobs:
           aws s3 sync "$images" images --only-show-errors --exclude "*" --include "*.card.webp"
           status=0
           for locale in $(cd files && ls); do
+            echo "== $locale"
             python -u embed/scripts/generate-previews.py "files/$locale" "images/$locale" || status=1
             aws s3 sync "images/$locale" "$images/$locale" --only-show-errors \
               --exclude "*" --include "*.webp" --content-type image/webp \
