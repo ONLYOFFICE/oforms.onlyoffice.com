@@ -40,8 +40,9 @@ For each .docx, .pdf, .pptx and .xlsx under INPUT (a file or a directory), write
 next to its path under OUTPUT_DIR:
   <name>.card.webp     page 1, 480 px wide
   <name>.page.<n>.webp pages 1-10, 1024 px wide
-Pages keep their own proportions; a spreadsheet's are its print pages, as the file
-defines them. A file is skipped when its card is newer.
+Pages keep their own proportions. A spreadsheet ignores its paper: each sheet prints
+landscape, one page wide, without margins, and its pages are trimmed to the content.
+A file is skipped when its card is newer.
 
 Usage:
   pip3 install document-builder==10.0.0.170 pillow
@@ -58,7 +59,7 @@ import tempfile
 import zipfile
 
 import docbuilder
-from PIL import Image
+from PIL import Image, ImageOps
 
 EXTS = {".docx", ".pdf", ".pptx", ".xlsx"}
 CARD_WIDTH = 480
@@ -75,12 +76,13 @@ THUMBNAIL = (
     "<m_oThumbnail><format>4</format><aspect>1</aspect><first>false</first>"
     f"<width>{PAGE_WIDTH}</width><height>{PAGE_WIDTH * 4}</height></m_oThumbnail>"
 )
-# Exports apply the fitToWidth/fitToHeight ONLYOFFICE writes on every save although fitToPage
-# is off (sdkjs asc_nativePrint clones print options without the sheet). Setting the sheet's
-# own zoom zeroes them; sheets that do fit to page keep their fit.
-UNFIT = (
+# Landscape A4 is only the widest page the fit can fill: content narrower than it keeps 100%,
+# wider shrinks to fit, and the trim then drops the paper. The print area is every formatted
+# cell, so a sheet with formatting past its content prints small (fix the file, not this).
+FIT = (
     "Api.GetSheets().forEach(function (s) { var p = s.GetPageSetup();"
-    " if (!p.GetFitToPagesWide() && !p.GetFitToPagesTall()) p.SetZoom(p.GetZoom()); });"
+    " p.SetOrientation('xlLandscape'); p.SetFitToPagesWide(1); p.SetFitToPagesTall(0);"
+    " p.SetLeftMargin(0); p.SetRightMargin(0); p.SetTopMargin(0); p.SetBottomMargin(0); });"
 )
 
 
@@ -108,9 +110,10 @@ def render(builder, src, stem, tmp):
     error = builder.OpenFile(src, "")
     if error:
         raise RuntimeError(f"OpenFile error {error}")
+    sheet = src.lower().endswith(".xlsx")
     try:
-        if src.lower().endswith(".xlsx") and not builder.ExecuteCommand(UNFIT):
-            raise RuntimeError("UNFIT script failed")
+        if sheet and not builder.ExecuteCommand(FIT):
+            raise RuntimeError("FIT script failed")
         error = builder.SaveFile(
             docbuilder.FileTypes.Graphics.PNG, archive, f"<m_sJsonParams>{{{LAYOUT}}}</m_sJsonParams>{THUMBNAIL}"
         )
@@ -127,15 +130,26 @@ def render(builder, src, stem, tmp):
 
     with zipfile.ZipFile(archive) as pages:
         names = sorted(pages.namelist(), key=page_number)
-        for n, name in enumerate(names[:MAX_PAGES], 1):
+        n = 0
+        for name in names:
+            if n == MAX_PAGES:
+                break
             page = Image.open(io.BytesIO(pages.read(name))).convert("RGB")
+            if sheet:
+                box = ImageOps.invert(page).getbbox()
+                if not box:
+                    continue
+                page = page.crop(box)
+            n += 1
             page.save(f"{stem}.page.{n}.webp", quality=QUALITY, method=6)
             if n == 1:
                 height = round(page.height * CARD_WIDTH / page.width)
                 card = page.resize((CARD_WIDTH, height), Image.LANCZOS)
                 card.save(f"{stem}.card.webp", quality=QUALITY, method=6)
     os.remove(archive)
-    return len(names)
+    if not n:
+        raise RuntimeError("every page is blank")
+    return n
 
 
 def main():
