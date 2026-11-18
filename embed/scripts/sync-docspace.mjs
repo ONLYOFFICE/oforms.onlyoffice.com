@@ -253,6 +253,7 @@ async function main() {
   if (DRY_RUN) {
     for (const { path, name, changed } of work) console.log(`  would ${changed ? "upload" : "render"} ${path}  ${name}`);
     for (const path of orphans) console.log(`  would delete ${path}`);
+    for (const key of orphanImages) console.log(`  would delete images/${key}`);
     return;
   }
 
