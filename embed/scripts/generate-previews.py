@@ -111,11 +111,16 @@ STRIP = (
 
 def strip(builder, src, tmp):
     core, props, file_type = TARGETS[os.path.splitext(src)[1].lower()]
+    # Linux (V8) segfaults on ToBool outside an entered context; macOS (JSC) does not.
+    context = builder.GetContext()
     changed = docbuilder.CDocBuilderValue()
-    # A plain pdf has no core: it fails, and is checked by hand.
-    if not builder.ExecuteCommand(STRIP.format(core=core, props=props, meta=META), changed):
-        raise RuntimeError("nothing to strip: a plain pdf, not a form")
-    if not changed.ToBool():
+    ran = builder.ExecuteCommand(STRIP.format(core=core, props=props, meta=META), changed)
+    stripped = ran and changed.ToBool()
+    del changed, context
+    # A plain pdf has no core, and sdkjs throws on the Gantt xlsx: both fail, checked by hand.
+    if not ran:
+        raise RuntimeError("strip script failed: a plain pdf, or sdkjs throws on the file (the Gantt xlsx)")
+    if not stripped:
         return None
     saved = os.path.join(tmp, "stripped" + os.path.splitext(src)[1])
     error = builder.SaveFile(file_type, saved)
