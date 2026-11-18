@@ -216,6 +216,8 @@ def main():
                 skipped += 1
                 continue
             os.makedirs(os.path.dirname(stem), exist_ok=True)
+            # Before the work: a crash in Builder kills the process with no line of its own.
+            print(f"  · {rel}", flush=True)
             try:
                 pages, stripped = render(builder, os.path.abspath(src), stem, tmp, stripping)
                 rendered += 1

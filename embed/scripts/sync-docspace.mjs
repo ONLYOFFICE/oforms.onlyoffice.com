@@ -147,16 +147,13 @@ async function deleteImages(keys) {
   }
 }
 
-// Exits 1 when any file failed; which ones shows in their missing cards.
+// Exits 1 when any file failed; which ones shows in their missing cards. Resolves to the
+// signal or code when the process died instead: one file can crash Builder (SIGSEGV).
 const render = (input, output) =>
   new Promise((resolve, reject) => {
     spawn("python3", ["-u", PREVIEWS, "--strip", input, output], { stdio: "inherit" })
       .on("error", reject)
-      .on("exit", (code, signal) =>
-        code === 0 || code === 1
-          ? resolve()
-          : reject(new Error(`generate-previews.py exited ${signal ?? code}`)),
-      );
+      .on("exit", (code, signal) => resolve(code === 0 || code === 1 ? null : (signal ?? code)));
   });
 
 const stemOf = (path) => path.slice(0, -extname(path).length);
@@ -178,7 +175,12 @@ async function syncBatch(batch, images) {
     });
 
     await mkdir(out);
-    await render(src, out);
+    const crashed = await render(src, out);
+    // Nothing goes up: the strip may not have run on any of them. The next run retries.
+    if (crashed) {
+      console.log(`  ✗ generate-previews.py died (${crashed}): this batch is not uploaded`);
+      return batch.length;
+    }
 
     await inParallel(batch.filter((item) => item.changed), async ({ path, name }) => {
       await aws("s3", "cp", join(src, path), `${BUCKET}/${path}`, "--only-show-errors", "--cache-control", IMMUTABLE);
