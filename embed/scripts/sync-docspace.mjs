@@ -88,8 +88,10 @@ const LOCALES = new Set(["ar", "de", "en", "es", "fr", "it", "ja", "pt", "zh"]);
 const EXTS = new Set([".docx", ".xlsx", ".pptx", ".pdf"]);
 const PAGE = 100; // DocSpace refuses more.
 const PARALLEL = 4;
-// ~3 s a file: a run cut short by the job timeout loses at most ~2.5 min of rendering.
-const BATCH = 50;
+// One generate-previews.py process per batch. --strip runs a script on every file, and
+// Builder keeps each file's JS context until its process exits (~150 MB a file on macOS,
+// BUILDER-LEAK.md): 50 a process was killed on the runner in its first batch.
+const BATCH = 10;
 const IMMUTABLE = "public, max-age=31536000, immutable";
 
 const auth = { Authorization: `Bearer ${API_KEY}` };
@@ -150,8 +152,10 @@ const render = (input, output) =>
   new Promise((resolve, reject) => {
     spawn("python3", ["-u", PREVIEWS, "--strip", input, output], { stdio: "inherit" })
       .on("error", reject)
-      .on("exit", (code) =>
-        code === 0 || code === 1 ? resolve() : reject(new Error(`generate-previews.py exited ${code}`)),
+      .on("exit", (code, signal) =>
+        code === 0 || code === 1
+          ? resolve()
+          : reject(new Error(`generate-previews.py exited ${signal ?? code}`)),
       );
   });
 
