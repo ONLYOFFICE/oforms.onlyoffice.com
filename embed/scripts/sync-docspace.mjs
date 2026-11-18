@@ -38,20 +38,21 @@
  *
  * Room layout, as import-docspace.mjs writes it: <locale>/<ext>/<card title>.<ext>.
  * Objects are <locale>/<ext>/<docspace id>.<ext> under FILES_BUCKET_URL, overwritten
- * in place. A file is uploaded when it is missing, its size differs, or it was saved
- * in DocSpace after the object was uploaded. Objects with no file in the room are deleted.
+ * in place. A file is uploaded when it is missing or was saved in DocSpace after the
+ * object was uploaded. Objects with no file in the room are deleted. Before upload,
+ * .docx/.xlsx/.pptx lose their author and last editor, as onlyoffice/tools/metadata does.
  *
  * Usage:
  *   node embed/scripts/sync-docspace.mjs [--dry-run]
  *
  * Env: DOCSPACE_URL, DOCSPACE_API_KEY, DOCSPACE_FOLDER_ID,
  *      FILES_BUCKET_URL (s3://bucket/files).
- * Needs the aws CLI with read and write access to the bucket.
+ * Needs zip, unzip and the aws CLI with read and write access to the bucket.
  */
 import { createWriteStream } from "node:fs";
-import { mkdtemp, rm } from "node:fs/promises";
+import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { extname, join } from "node:path";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
 import { execFile } from "node:child_process";
@@ -71,6 +72,7 @@ const DRY_RUN = process.argv.includes("--dry-run");
 
 const LOCALES = new Set(["ar", "de", "en", "es", "fr", "it", "ja", "pt", "zh"]);
 const EXTS = new Set([".docx", ".xlsx", ".pptx", ".pdf"]);
+const OOXML = new Set([".docx", ".xlsx", ".pptx"]);
 const PAGE = 100; // DocSpace refuses more.
 const PARALLEL = 4;
 
@@ -102,17 +104,34 @@ const inParallel = (items, fn) => {
   return Promise.all(Array.from({ length: PARALLEL }, worker));
 };
 
-const aws = async (...args) =>
-  (await promisify(execFile)("aws", args, { maxBuffer: 64 << 20 })).stdout;
+const run = async (cmd, args, options) =>
+  (await promisify(execFile)(cmd, args, { maxBuffer: 64 << 20, ...options })).stdout;
+const aws = (...args) => run("aws", args);
 
-// path → { size, uploaded }; the CLI follows the listing's pages itself.
+// ONLYOFFICE saves the editor's name as lastModifiedBy: 112 of 1,897 files today.
+const AUTHOR = /<(dc:creator|cp:lastModifiedBy)\b[^>]*>[^<]+<\/\1>/g;
+
+// Replaces only core.xml inside the zip: 0.08 s on the largest file, 58 MB.
+async function stripAuthor(file) {
+  const core = await run("unzip", ["-p", file, "docProps/core.xml"]);
+  const stripped = core.replace(AUTHOR, "");
+  if (stripped === core) return false;
+  const dir = `${file}.d`;
+  await mkdir(join(dir, "docProps"), { recursive: true });
+  await writeFile(join(dir, "docProps", "core.xml"), stripped);
+  await run("zip", ["-qX", file, "docProps/core.xml"], { cwd: dir });
+  await rm(dir, { recursive: true });
+  return true;
+}
+
+// path → upload time; the CLI follows the listing's pages itself.
 async function listBucket() {
   const { host: bucket, pathname } = new URL(BUCKET);
   const prefix = `${pathname.slice(1)}/`;
   const out = await aws("s3api", "list-objects-v2", "--bucket", bucket, "--prefix", prefix, "--output", "json");
   const objects = new Map();
   for (const o of JSON.parse(out || "{}").Contents ?? []) {
-    objects.set(o.Key.slice(prefix.length), { size: o.Size, uploaded: Date.parse(o.LastModified) });
+    objects.set(o.Key.slice(prefix.length), Date.parse(o.LastModified));
   }
   return objects;
 }
@@ -140,11 +159,10 @@ async function main() {
   if (files.size === 0) throw new Error(`no template files in DocSpace folder ${FOLDER_ID}`);
 
   const objects = await listBucket();
+  // No size check: a stripped object is smaller than its file in the room.
   const changed = [...files].filter(([path, { file }]) => {
-    const object = objects.get(path);
-    return (
-      !object || object.size !== file.pureContentLength || Date.parse(file.updated) > object.uploaded
-    );
+    const uploaded = objects.get(path);
+    return !uploaded || Date.parse(file.updated) > uploaded;
   });
   const orphans = [...objects.keys()].filter((path) => !files.has(path));
 
@@ -166,10 +184,11 @@ async function main() {
       if (!res.ok) throw new Error(`DocSpace ${res.status} downloading ${name}`);
       const local = join(dir, path.replaceAll("/", "_"));
       await pipeline(Readable.fromWeb(res.body), createWriteStream(local));
+      const stripped = OOXML.has(extname(path)) && (await stripAuthor(local));
       await aws("s3", "cp", local, `${BUCKET}/${path}`, "--only-show-errors",
         "--cache-control", "public, max-age=31536000, immutable");
       await rm(local);
-      console.log(`  ✓ ${path}  ${name}`);
+      console.log(`  ✓ ${path}  ${name}${stripped ? "  (author removed)" : ""}`);
     });
   } finally {
     await rm(dir, { recursive: true, force: true });
