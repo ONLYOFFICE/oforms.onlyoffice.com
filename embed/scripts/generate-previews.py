@@ -44,9 +44,12 @@ Pages keep their own proportions. A spreadsheet ignores its paper: each sheet pr
 landscape, one page wide, without margins, and its pages are trimmed to the content.
 A file is skipped when its card is newer.
 
+--strip-authors first clears the author and last editor of every file that names one,
+and saves it over itself, as onlyoffice/tools/metadata does.
+
 Usage:
   pip3 install document-builder==10.0.0.170 pillow
-  python3 embed/scripts/generate-previews.py INPUT OUTPUT_DIR
+  python3 embed/scripts/generate-previews.py [--strip-authors] INPUT OUTPUT_DIR
 
 Env: DOCBUILDER_LICENSE, path to license.xml. Without it every page is
 watermarked "Unregistered Version".
@@ -85,6 +88,34 @@ FIT = (
     " p.SetLeftMargin(0); p.SetRightMargin(0); p.SetTopMargin(0); p.SetBottomMargin(0); });"
 )
 
+# A pdf form opens as its docx, and saving it as OFORM_PDF puts the docx back inside.
+CORE = {
+    ".docx": ("Api.GetDocument()", docbuilder.FileTypes.Document.DOCX),
+    ".pdf": ("Api.GetDocument()", docbuilder.FileTypes.Document.OFORM_PDF),
+    ".pptx": ("Api.GetPresentation()", docbuilder.FileTypes.Presentation.PPTX),
+    ".xlsx": ("Api", docbuilder.FileTypes.Spreadsheet.XLSX),
+}
+STRIP = (
+    "(function () {{ var c = {}.GetCore();"
+    " if (!c.GetCreator() && !c.GetLastModifiedBy()) return false;"
+    " c.SetCreator(''); c.SetLastModifiedBy(''); return true; }})()"
+)
+
+
+def strip_authors(builder, src, tmp):
+    target, file_type = CORE[os.path.splitext(src)[1].lower()]
+    named = docbuilder.CDocBuilderValue()
+    # A plain pdf has no core: it fails, and is checked by hand.
+    if not builder.ExecuteCommand(STRIP.format(target), named):
+        raise RuntimeError("no authors to check: a plain pdf, not a form")
+    if not named.ToBool():
+        return None
+    saved = os.path.join(tmp, "stripped" + os.path.splitext(src)[1])
+    error = builder.SaveFile(file_type, saved)
+    if error or not os.path.exists(saved):
+        raise RuntimeError(f"SaveFile error {error} stripping authors")
+    return saved
+
 
 def sources(root):
     if os.path.isfile(root):
@@ -101,7 +132,7 @@ def page_number(name):
     return int("".join(c for c in name if c.isdigit()) or 0)
 
 
-def render(builder, src, stem, tmp):
+def render(builder, src, stem, tmp, strip):
     archive = os.path.join(tmp, "pages.zip")
     if os.path.exists(archive):
         os.remove(archive)
@@ -111,7 +142,10 @@ def render(builder, src, stem, tmp):
     if error:
         raise RuntimeError(f"OpenFile error {error}")
     sheet = src.lower().endswith(".xlsx")
+    stripped = None
     try:
+        # Before FIT, which changes the page setup.
+        stripped = strip and strip_authors(builder, src, tmp)
         if sheet and not builder.ExecuteCommand(FIT):
             raise RuntimeError("FIT script failed")
         error = builder.SaveFile(
@@ -119,6 +153,8 @@ def render(builder, src, stem, tmp):
         )
     finally:
         builder.CloseFile()
+        if stripped:
+            os.replace(stripped, src)
     if error or not os.path.exists(archive):
         raise RuntimeError(f"SaveFile error {error}")
 
@@ -149,13 +185,15 @@ def render(builder, src, stem, tmp):
     os.remove(archive)
     if not n:
         raise RuntimeError("every page is blank")
-    return n
+    return n, bool(stripped)
 
 
 def main():
-    if len(sys.argv) != 3:
+    args = [a for a in sys.argv[1:] if a != "--strip-authors"]
+    if len(args) != 2:
         sys.exit(__doc__)
-    root, out = sys.argv[1], sys.argv[2]
+    root, out = args
+    strip = "--strip-authors" in sys.argv
 
     license_path = os.environ.get("DOCBUILDER_LICENSE")
     if license_path and docbuilder.registerLibrary(license_path) != 0:
@@ -172,9 +210,9 @@ def main():
                 continue
             os.makedirs(os.path.dirname(stem), exist_ok=True)
             try:
-                pages = render(builder, os.path.abspath(src), stem, tmp)
+                pages, stripped = render(builder, os.path.abspath(src), stem, tmp, strip)
                 rendered += 1
-                print(f"  ✓ {rel}  {pages} pages")
+                print(f"  ✓ {rel}  {pages} pages{'  (author removed)' if stripped else ''}")
             except Exception as err:
                 failed += 1
                 print(f"  ✗ {rel}  {err}")

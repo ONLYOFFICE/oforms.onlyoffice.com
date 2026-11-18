@@ -39,8 +39,9 @@
  * Room layout, as import-docspace.mjs writes it: <locale>/<ext>/<card title>.<ext>.
  * Objects are <locale>/<ext>/<docspace id>.<ext> under FILES_BUCKET_URL, overwritten
  * in place. A file is uploaded when it is missing or was saved in DocSpace after the
- * object was uploaded. Before upload, .docx/.xlsx/.pptx lose their author and last
- * editor, as onlyoffice/tools/metadata does.
+ * object was uploaded. Before upload, files lose their author and last editor, as
+ * onlyoffice/tools/metadata does: generate-previews.py clears them while it has the
+ * file open, so a file whose render fails goes up as saved in the room.
  *
  * Previews from generate-previews.py go to <locale>/<ext>/<docspace id>.*.webp under
  * the sibling images/ prefix, rendered for every uploaded file and for every file whose
@@ -54,11 +55,11 @@
  *
  * Env: DOCSPACE_URL, DOCSPACE_API_KEY, DOCSPACE_FOLDER_ID,
  *      FILES_BUCKET_URL (s3://bucket/files), DOCBUILDER_LICENSE (see generate-previews.py).
- * Needs zip, unzip, python3 with generate-previews.py's packages, and the aws CLI with
+ * Needs python3 with generate-previews.py's packages, and the aws CLI with
  * read and write access to the bucket.
  */
 import { createWriteStream } from "node:fs";
-import { mkdir, mkdtemp, readdir, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, extname, join } from "node:path";
 import { Readable } from "node:stream";
@@ -85,7 +86,6 @@ const PREVIEWS = join(dirname(fileURLToPath(import.meta.url)), "generate-preview
 
 const LOCALES = new Set(["ar", "de", "en", "es", "fr", "it", "ja", "pt", "zh"]);
 const EXTS = new Set([".docx", ".xlsx", ".pptx", ".pdf"]);
-const OOXML = new Set([".docx", ".xlsx", ".pptx"]);
 const PAGE = 100; // DocSpace refuses more.
 const PARALLEL = 4;
 // ~3 s a file: a run cut short by the job timeout loses at most ~2.5 min of rendering.
@@ -124,22 +124,6 @@ const run = async (cmd, args, options) =>
   (await promisify(execFile)(cmd, args, { maxBuffer: 64 << 20, ...options })).stdout;
 const aws = (...args) => run("aws", args);
 
-// ONLYOFFICE saves the editor's name as lastModifiedBy: 112 of 1,897 files today.
-const AUTHOR = /<(dc:creator|cp:lastModifiedBy)\b[^>]*>[^<]+<\/\1>/g;
-
-// Replaces only core.xml inside the zip: 0.08 s on the largest file, 58 MB.
-async function stripAuthor(file) {
-  const core = await run("unzip", ["-p", file, "docProps/core.xml"]);
-  const stripped = core.replace(AUTHOR, "");
-  if (stripped === core) return false;
-  const dir = `${file}.d`;
-  await mkdir(join(dir, "docProps"), { recursive: true });
-  await writeFile(join(dir, "docProps", "core.xml"), stripped);
-  await run("zip", ["-qX", file, "docProps/core.xml"], { cwd: dir });
-  await rm(dir, { recursive: true });
-  return true;
-}
-
 // path → upload time under one prefix; the CLI follows the listing's pages itself.
 async function listBucket(url) {
   const { host: bucket, pathname } = new URL(url);
@@ -164,7 +148,7 @@ async function deleteImages(keys) {
 // Exits 1 when any file failed; which ones shows in their missing cards.
 const render = (input, output) =>
   new Promise((resolve, reject) => {
-    spawn("python3", ["-u", PREVIEWS, input, output], { stdio: "inherit" })
+    spawn("python3", ["-u", PREVIEWS, "--strip-authors", input, output], { stdio: "inherit" })
       .on("error", reject)
       .on("exit", (code) =>
         code === 0 || code === 1 ? resolve() : reject(new Error(`generate-previews.py exited ${code}`)),
@@ -187,15 +171,14 @@ async function syncBatch(batch, images) {
       const local = join(src, item.path);
       await mkdir(dirname(local), { recursive: true });
       await pipeline(Readable.fromWeb(res.body), createWriteStream(local));
-      item.stripped = OOXML.has(extname(local)) && (await stripAuthor(local));
     });
 
     await mkdir(out);
     await render(src, out);
 
-    await inParallel(batch.filter((item) => item.changed), async ({ path, name, stripped }) => {
+    await inParallel(batch.filter((item) => item.changed), async ({ path, name }) => {
       await aws("s3", "cp", join(src, path), `${BUCKET}/${path}`, "--only-show-errors", "--cache-control", IMMUTABLE);
-      console.log(`  ↑ ${path}  ${name}${stripped ? "  (author removed)" : ""}`);
+      console.log(`  ↑ ${path}  ${name}`);
     });
 
     await aws("s3", "cp", out, IMAGES, "--recursive", "--only-show-errors",
