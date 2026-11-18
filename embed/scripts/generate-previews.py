@@ -44,12 +44,13 @@ Pages keep their own proportions. A spreadsheet ignores its paper: each sheet pr
 landscape, one page wide, without margins, and its pages are trimmed to the content.
 A file is skipped when its card is newer.
 
---strip-authors first clears the author and last editor of every file that names one,
-and saves it over itself, as onlyoffice/tools/metadata does.
+--strip first empties the author, the last editor and the catalog's custom properties
+of every file that has any, and saves it over itself: the room keeps them, the bucket
+does not (authors as onlyoffice/tools/metadata does).
 
 Usage:
   pip3 install document-builder==10.0.0.170 pillow
-  python3 embed/scripts/generate-previews.py [--strip-authors] INPUT OUTPUT_DIR
+  python3 embed/scripts/generate-previews.py [--strip] INPUT OUTPUT_DIR
 
 Env: DOCBUILDER_LICENSE, path to license.xml. Without it every page is
 watermarked "Unregistered Version".
@@ -88,32 +89,38 @@ FIT = (
     " p.SetLeftMargin(0); p.SetRightMargin(0); p.SetTopMargin(0); p.SetBottomMargin(0); });"
 )
 
-# A pdf form opens as its docx, and saving it as OFORM_PDF puts the docx back inside.
-CORE = {
-    ".docx": ("Api.GetDocument()", docbuilder.FileTypes.Document.DOCX),
-    ".pdf": ("Api.GetDocument()", docbuilder.FileTypes.Document.OFORM_PDF),
-    ".pptx": ("Api.GetPresentation()", docbuilder.FileTypes.Presentation.PPTX),
-    ".xlsx": ("Api", docbuilder.FileTypes.Spreadsheet.XLSX),
+# Builder cannot list or remove custom properties, so these are emptied by name: the same
+# names the meta is written under.
+META = ["slug", "category", "card-text", "description", "seo-title", "seo-description",
+        "popular", "added", "card-title"]
+# Where GetCore and GetCustomProperties live, and the save type. A pdf form opens as its
+# docx, and saving it as OFORM_PDF puts the docx back inside.
+TARGETS = {
+    ".docx": ("Api.GetDocument()", "Api.GetDocument()", docbuilder.FileTypes.Document.DOCX),
+    ".pdf": ("Api.GetDocument()", "Api.GetDocument()", docbuilder.FileTypes.Document.OFORM_PDF),
+    ".pptx": ("Api.GetPresentation()", "Api.GetPresentation()", docbuilder.FileTypes.Presentation.PPTX),
+    ".xlsx": ("Api", "Api.GetActiveWorkbook()", docbuilder.FileTypes.Spreadsheet.XLSX),
 }
 STRIP = (
-    "(function () {{ var c = {}.GetCore();"
-    " if (!c.GetCreator() && !c.GetLastModifiedBy()) return false;"
-    " c.SetCreator(''); c.SetLastModifiedBy(''); return true; }})()"
+    "(function () {{ var c = {core}.GetCore(), p = {props}.GetCustomProperties(), changed = false;"
+    " if (c.GetCreator() || c.GetLastModifiedBy()) {{ c.SetCreator(''); c.SetLastModifiedBy(''); changed = true; }}"
+    " {meta}.forEach(function (k) {{ if (p.Get(k)) {{ p.Add(k, ''); changed = true; }} }});"
+    " return changed; }})()"
 )
 
 
-def strip_authors(builder, src, tmp):
-    target, file_type = CORE[os.path.splitext(src)[1].lower()]
-    named = docbuilder.CDocBuilderValue()
+def strip(builder, src, tmp):
+    core, props, file_type = TARGETS[os.path.splitext(src)[1].lower()]
+    changed = docbuilder.CDocBuilderValue()
     # A plain pdf has no core: it fails, and is checked by hand.
-    if not builder.ExecuteCommand(STRIP.format(target), named):
-        raise RuntimeError("no authors to check: a plain pdf, not a form")
-    if not named.ToBool():
+    if not builder.ExecuteCommand(STRIP.format(core=core, props=props, meta=META), changed):
+        raise RuntimeError("nothing to strip: a plain pdf, not a form")
+    if not changed.ToBool():
         return None
     saved = os.path.join(tmp, "stripped" + os.path.splitext(src)[1])
     error = builder.SaveFile(file_type, saved)
     if error or not os.path.exists(saved):
-        raise RuntimeError(f"SaveFile error {error} stripping authors")
+        raise RuntimeError(f"SaveFile error {error} stripping")
     return saved
 
 
@@ -132,7 +139,7 @@ def page_number(name):
     return int("".join(c for c in name if c.isdigit()) or 0)
 
 
-def render(builder, src, stem, tmp, strip):
+def render(builder, src, stem, tmp, stripping):
     archive = os.path.join(tmp, "pages.zip")
     if os.path.exists(archive):
         os.remove(archive)
@@ -145,7 +152,7 @@ def render(builder, src, stem, tmp, strip):
     stripped = None
     try:
         # Before FIT, which changes the page setup.
-        stripped = strip and strip_authors(builder, src, tmp)
+        stripped = stripping and strip(builder, src, tmp)
         if sheet and not builder.ExecuteCommand(FIT):
             raise RuntimeError("FIT script failed")
         error = builder.SaveFile(
@@ -189,11 +196,11 @@ def render(builder, src, stem, tmp, strip):
 
 
 def main():
-    args = [a for a in sys.argv[1:] if a != "--strip-authors"]
+    args = [a for a in sys.argv[1:] if a != "--strip"]
     if len(args) != 2:
         sys.exit(__doc__)
     root, out = args
-    strip = "--strip-authors" in sys.argv
+    stripping = "--strip" in sys.argv
 
     license_path = os.environ.get("DOCBUILDER_LICENSE")
     if license_path and docbuilder.registerLibrary(license_path) != 0:
@@ -210,9 +217,9 @@ def main():
                 continue
             os.makedirs(os.path.dirname(stem), exist_ok=True)
             try:
-                pages, stripped = render(builder, os.path.abspath(src), stem, tmp, strip)
+                pages, stripped = render(builder, os.path.abspath(src), stem, tmp, stripping)
                 rendered += 1
-                print(f"  ✓ {rel}  {pages} pages{'  (author removed)' if stripped else ''}")
+                print(f"  ✓ {rel}  {pages} pages{'  (stripped)' if stripped else ''}")
             except Exception as err:
                 failed += 1
                 print(f"  ✗ {rel}  {err}")

@@ -39,9 +39,9 @@
  * Room layout, as import-docspace.mjs writes it: <locale>/<ext>/<card title>.<ext>.
  * Objects are <locale>/<ext>/<docspace id>.<ext> under FILES_BUCKET_URL, overwritten
  * in place. A file is uploaded when it is missing or was saved in DocSpace after the
- * object was uploaded. Before upload, files lose their author and last editor, as
- * onlyoffice/tools/metadata does: generate-previews.py clears them while it has the
- * file open, so a file whose render fails goes up as saved in the room.
+ * object was uploaded. Before upload, files lose their author, last editor and catalog
+ * meta: generate-previews.py --strip empties them while it has the file open, so a
+ * file whose render fails goes up as saved in the room.
  *
  * Previews from generate-previews.py go to <locale>/<ext>/<docspace id>.*.webp under
  * the sibling images/ prefix, rendered for every uploaded file and for every file whose
@@ -148,7 +148,7 @@ async function deleteImages(keys) {
 // Exits 1 when any file failed; which ones shows in their missing cards.
 const render = (input, output) =>
   new Promise((resolve, reject) => {
-    spawn("python3", ["-u", PREVIEWS, "--strip-authors", input, output], { stdio: "inherit" })
+    spawn("python3", ["-u", PREVIEWS, "--strip", input, output], { stdio: "inherit" })
       .on("error", reject)
       .on("exit", (code) =>
         code === 0 || code === 1 ? resolve() : reject(new Error(`generate-previews.py exited ${code}`)),
@@ -219,7 +219,7 @@ async function main() {
   const work = [];
   for (const [path, { file, name }] of files) {
     const uploaded = objects.get(path);
-    // No size check: a stripped object is smaller than its file in the room.
+    // No size check: a stripped object is a new save, not the file in the room.
     const changed = ALL || !uploaded || Date.parse(file.updated) > uploaded;
     const card = images.get(`${stemOf(path)}.card.webp`);
     if (changed || !card || card < uploaded) work.push({ path, file, name, changed });
