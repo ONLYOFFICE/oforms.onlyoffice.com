@@ -36,7 +36,7 @@
 import { useState } from "react";
 import clsx from "clsx";
 import { isRtlLocale, type Locale } from "../../locale";
-import type { ITemplate } from "../../types";
+import { extOf, type ITemplate } from "../../types";
 import { previewUrl } from "../../data";
 import styles from "./Card.module.scss";
 
@@ -53,8 +53,9 @@ const RETRIES = 1;
  * and there is no template page to point at from inside the iframe.
  */
 const Card = ({ template, lang, onSelect }: ICardProps) => {
-  const format = template.form_exts?.[0]?.ext ?? "docx";
+  const format = extOf(template);
   const preview = previewUrl(template);
+  const name = template.meta["card-title"];
   const [attempt, setAttempt] = useState(0);
 
   return (
@@ -82,11 +83,11 @@ const Card = ({ template, lang, onSelect }: ICardProps) => {
 
       <span
         className={styles["card-heading"]}
-        title={template.name_form}
+        title={name}
         lang={lang}
         dir={isRtlLocale(lang) ? "rtl" : "ltr"}
       >
-        {template.name_form}
+        {name}
       </span>
     </button>
   );
