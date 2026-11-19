@@ -52,6 +52,7 @@
  * strip emptied, newest first. A file whose record is missing or older than the room file
  * is rendered for it. After each batch, the locales whose records differ are rewritten;
  * the other records stay as they are, so a run cut short keeps what it rendered.
+ * Locales render in parallel, RENDERERS at a time, so their output interleaves.
  *
  * Usage:
  *   node embed/scripts/sync-docspace.mjs [--dry-run] [--all]
@@ -101,6 +102,9 @@ const PARALLEL = 4;
 // Builder keeps each file's JS context until its process exits (~150 MB a file on macOS,
 // BUILDER-LEAK.md): 50 a process was killed on the runner in its first batch.
 const BATCH = 10;
+// Locales rendered at once, one worker each so their data/<locale>.json uploads never race.
+// Each holds a process of BATCH files in memory.
+const RENDERERS = 4;
 const IMMUTABLE = "public, max-age=31536000, immutable";
 
 const auth = { Authorization: `Bearer ${API_KEY}` };
@@ -123,12 +127,12 @@ async function listFolder(id) {
   }
 }
 
-const inParallel = (items, fn) => {
+const inParallel = (items, fn, count = PARALLEL) => {
   const queue = [...items];
   const worker = async () => {
     for (let item; (item = queue.shift()); ) await fn(item);
   };
-  return Promise.all(Array.from({ length: PARALLEL }, worker));
+  return Promise.all(Array.from({ length: count }, worker));
 };
 
 const run = async (cmd, args, options) =>
@@ -189,11 +193,16 @@ const newest = (a, b) => {
 const changes = new Map();
 const changeOf = (locale) => changes.get(locale) ?? changes.set(locale, { set: {}, remove: [] }).get(locale);
 
-// Uploads data/<locale>.json for each locale with a change; only these are rewritten.
-async function applyChanges(records) {
+// Uploads data/<locale>.json for each given locale with a change; only these are rewritten.
+// Taken off `changes` before the upload, since other locales' workers add to it meanwhile.
+async function applyChanges(records, locales = [...changes.keys()]) {
   const dir = await mkdtemp(join(tmpdir(), "oforms-data-"));
   try {
-    for (const [locale, { set, remove }] of changes) {
+    for (const locale of locales) {
+      const change = changes.get(locale);
+      if (!change) continue;
+      changes.delete(locale);
+      const { set, remove } = change;
       for (const path of remove) records.delete(path);
       const added = Object.keys(set).filter((path) => !records.has(path)).length;
       for (const [path, record] of Object.entries(set)) records.set(path, record);
@@ -208,7 +217,6 @@ async function applyChanges(records) {
           `${Object.keys(set).length - added} updated, ${remove.length} removed`,
       );
     }
-    changes.clear();
   } finally {
     await rm(dir, { recursive: true, force: true });
   }
@@ -253,7 +261,7 @@ async function syncBatch(batch, { objects, images, records }) {
     const crashed = await render(src, out);
     // Nothing goes up: the strip may not have run on any of them. The next run retries.
     if (crashed) {
-      console.log(`  ✗ generate-previews.py died (${crashed}): this batch is not uploaded`);
+      console.log(`  ✗ ${localeOf(batch[0].path)}: generate-previews.py died (${crashed}): this batch is not uploaded`);
       return batch.length;
     }
 
@@ -348,12 +356,18 @@ async function main() {
 
   for (const path of gone) changeOf(localeOf(path)).remove.push(path);
 
+  const byLocale = Map.groupBy(work, (item) => localeOf(item.path));
+  console.log(`rendering ${byLocale.size} locales, ${RENDERERS} at a time`);
   let failed = 0;
-  for (let i = 0; i < work.length; i += BATCH) {
-    console.log(`== ${i + 1}–${Math.min(i + BATCH, work.length)} of ${work.length}`);
-    failed += await syncBatch(work.slice(i, i + BATCH), { objects, images, records });
-    await applyChanges(records);
-  }
+  await inParallel([...byLocale].sort((a, b) => b[1].length - a[1].length), async ([locale, items]) => {
+    for (let i = 0; i < items.length; i += BATCH) {
+      console.log(`== ${locale} ${i + 1}–${Math.min(i + BATCH, items.length)} of ${items.length}`);
+      // Not `failed += await …`: that reads `failed` before the await, losing other workers' counts.
+      const batchFailed = await syncBatch(items.slice(i, i + BATCH), { objects, images, records });
+      failed += batchFailed;
+      await applyChanges(records, [locale]);
+    }
+  }, RENDERERS);
 
   for (const path of orphans) {
     await aws("s3", "rm", `${BUCKET}/${path}`, "--only-show-errors");

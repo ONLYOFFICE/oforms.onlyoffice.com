@@ -142,6 +142,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ vars.AWS_REGION }}
 
+      # The sync renders RENDERERS locales at once: these say whether the runner holds them.
+      - name: Runner size
+        run: nproc && free -m
+
       # Pushes have no inputs, so they sync for real. Uploads every 10 files, so a run cut
       # short by the job timeout keeps what it rendered and the next run goes on from there.
       - name: Sync template files and previews from DocSpace
