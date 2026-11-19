@@ -75,26 +75,16 @@ Inbound origins are checked against `EMBED_HOST_ORIGINS` (default
 
 ## Data
 
-The catalogs ship in the deploy. `scripts/generate-data.mjs` writes
-`static/embed-data/main.<locale>.json` (Vite's `publicDir`, copied into `dist`)
-plus a datestamp in `data-version.txt`, which `vite.config.ts` bakes into the
-bundle. At runtime one locale is fetched from `EMBED_DATA_URL` (default
-`./embed-data`) as `main.<locale>.json?v=<stamp>` — no request is needed to
-learn the stamp, and the files are served immutable because the stamp is the
-cache key.
-
-```bash
-EMBED_CMS_URL=https://templates.onlyoffice.com/dashboard/v2 \
-  node scripts/generate-data.mjs [locale]     # default: all 9
-```
-
-**Run it before `npm run build`, not after.** A build with no data generated
-warns and stamps `dev`, so `npm run build` still works as a bare typecheck.
-`EMBED_CMS_URL` must be the Strapi **v5** instance, `/dashboard/v2`. The bare
-`/dashboard` on the same host is v4: another shape, and the generator stops.
-
-The nine catalogs are 7.62 MB raw / 732 KB gzipped, well inside Pages' limits —
-see NOTES.md for the numbers.
+The catalogs live outside the deploy, in the bucket the DocSpace sync writes:
+`data/<locale>.json`, one record per template file:
+`{path, id, version, updated, size, pages, meta}`, with `meta` holding the
+catalog properties (`slug`, `category`, `card-title`, `description`, `added`).
+The file is `files/<path>`, its card `images/<path without ext>.card.webp`.
+At runtime one locale is fetched from `EMBED_DATA_URL` (default
+`https://static-oforms.onlyoffice.com/data`) as `<locale>.json?v=<stamp>` and
+converted to templates in `src/data.ts`. The stamp is the `embed-data-version`
+meta tag in `index.html`: the build writes its own time there, and the sync
+rewrites it in place, so no request is needed to learn it.
 
 ## Deploy — Cloudflare Pages
 
@@ -104,19 +94,16 @@ does **not** need to be connected to a git repo.
 Ad hoc, from a local build:
 
 ```bash
-EMBED_CMS_URL=https://templates.onlyoffice.com/dashboard/v2 \
-  node scripts/generate-data.mjs
 npm run build
 npx wrangler pages deploy dist --project-name=<project>
 ```
 
 In CI: `.github/workflows/deploy-embed-cloudflare.yml` (manual, or on push to
 `release/v10.0.0` under the embed paths). Needs `CLOUDFLARE_API_TOKEN`,
-`CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_EMBED_PROJECT_NAME` and the `EMBED_CMS_URL`
-variable. Non-production branches land as preview deployments with their own
+`CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_EMBED_PROJECT_NAME`. Non-production branches land as preview deployments with their own
 URLs.
 
-`static/_headers` is copied into the output — hashed assets and `/embed-data/*`
+`static/_headers` is copied into the output — hashed assets
 cached forever, `index.html` uncached so a deploy takes effect immediately.
 
 Note the build reads `../public/locales` and `../public/images`, so it needs the

@@ -35,29 +35,19 @@
 
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 const r = (p: string) => fileURLToPath(new URL(p, import.meta.url));
 
-// Where the catalog JSON lives. Relative like `base`, because it now ships in
-// the same deploy — generate-data.mjs writes it into static/, which Vite copies
-// into dist. Set EMBED_DATA_URL to an absolute origin to fetch it elsewhere.
-const DATA_URL = process.env.EMBED_DATA_URL || "./embed-data";
+// data/<locale>.json, written by sync-docspace.mjs next to the files it lists.
+const DATA_URL =
+  process.env.EMBED_DATA_URL || "https://static-oforms.onlyoffice.com/data";
 
-// The ?v= stamp, baked in rather than fetched. Reading it at runtime cost a
-// serial round trip before the catalog url could be built — 369 ms cold load
-// became ~550. Written by generate-data.mjs outside static/, so it is a build
-// input rather than a served file. Falls back for a build with no data, which is
-// the documented typecheck path (`npm run build`) and must not need a CMS crawl.
-const DATA_VERSION = (() => {
-  try {
-    return readFileSync(r("./data-version.txt"), "utf8").trim();
-  } catch {
-    console.warn("[vite] no data-version.txt — run scripts/generate-data.mjs");
-    return "dev";
-  }
-})();
+// The ?v= stamp's first value, in index.html's meta tag rather than fetched.
+// Fetching it cost a serial round trip before the catalog url could be built —
+// 369 ms cold load became ~550. The sync rewrites the tag in place afterwards.
+// The build time, so a deploy never puts back a stamp the sync already used.
+const DATA_VERSION = new Date().toISOString().replace(/\D/g, "").slice(0, 12);
 
 // Origins allowed to talk to this page over postMessage. Desktop's start page runs
 // from onlyoffice://plugin/…; a file:// host reports origin "null".
@@ -87,7 +77,6 @@ export default defineConfig({
 
   define: {
     "process.env.EMBED_DATA_URL": JSON.stringify(DATA_URL),
-    "process.env.EMBED_DATA_VERSION": JSON.stringify(DATA_VERSION),
     "process.env.EMBED_HOST_ORIGINS": JSON.stringify(HOST_ORIGINS),
   },
 

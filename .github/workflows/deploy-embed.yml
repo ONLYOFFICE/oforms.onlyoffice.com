@@ -16,8 +16,6 @@ on:
       - release/v10.0.0
     paths:
       - "embed/**"
-      # Deploys to Workers, not here — and a run restamps ?v=, refetching 732 KB.
-      - "!embed/deploy-hook/**"
       # The build bundles UI strings and card icons from the site's public/.
       - "public/locales/**"
       - "public/images/**"
@@ -52,13 +50,6 @@ jobs:
         working-directory: embed
         run: npm ci
 
-      # Before the build: it reads data-version.txt for the ?v= stamp and copies
-      # static/embed-data into dist. EMBED_CMS_URL must be the Strapi v5 instance.
-      - name: Generate catalog data
-        env:
-          EMBED_CMS_URL: ${{ vars.EMBED_CMS_URL }}
-        run: node embed/scripts/generate-data.mjs
-
       # Also typechecks — the build script is `tsc --noEmit && vite build`.
       - name: Build
         working-directory: embed
@@ -71,17 +62,17 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ vars.AWS_REGION }}
 
-      # Mirrors static/_headers: asset filenames are content-hashed and catalogs
-      # are requested with a ?v= stamp, so they can be cached forever; everything
-      # else (index.html) must revalidate. --delete with filters only removes
-      # objects matched by the filters, so the two syncs don't fight each other.
-      - name: Sync hashed assets and catalogs (immutable)
+      # Mirrors static/_headers: asset filenames are content-hashed, so they can
+      # be cached forever; everything else (index.html) must revalidate. --delete
+      # with filters only removes objects matched by the filters, so the two
+      # syncs don't fight each other. The first deploy without embed-data/
+      # deletes the old catalogs; only this app read them.
+      - name: Sync hashed assets (immutable)
         run: >-
           aws s3 sync embed/dist "${{ vars.AWS_BUCKET_URL }}"
           --delete
           --exclude "*"
           --include "assets/*"
-          --include "embed-data/*"
           --cache-control "public, max-age=31536000, immutable"
 
       - name: Sync the rest (no cache)
@@ -89,7 +80,6 @@ jobs:
           aws s3 sync embed/dist "${{ vars.AWS_BUCKET_URL }}"
           --delete
           --exclude "assets/*"
-          --exclude "embed-data/*"
           --cache-control "public, max-age=0, must-revalidate"
 
       # Every deploy restamps ?v= and reuploads the whole site, so invalidate
