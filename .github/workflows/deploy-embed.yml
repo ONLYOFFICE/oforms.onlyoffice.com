@@ -28,8 +28,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Off while the template files move to DocSpace; only the sync job runs.
+  # Off while the template files move to DocSpace; only the sync job runs. When on:
+  # `if: ${{ !cancelled() }}`, so a sync with failed previews still deploys.
+  # After the sync, so the stamp below sees the catalogs it just uploaded.
   deploy:
+    needs: sync-files
     if: ${{ false }}
     runs-on: ubuntu-latest
     permissions:
@@ -50,17 +53,29 @@ jobs:
         working-directory: embed
         run: npm ci
 
-      # Also typechecks — the build script is `tsc --noEmit && vite build`.
-      - name: Build
-        working-directory: embed
-        run: npm run build
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ vars.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ vars.AWS_REGION }}
+
+      # The catalogs' ?v= stamp: the newest data/<locale>.json beside FILES_BUCKET_URL.
+      - name: Read the catalogs' upload time
+        env:
+          FILES_BUCKET_URL: ${{ vars.FILES_BUCKET_URL }}
+        run: |
+          path=${FILES_BUCKET_URL#s3://}
+          prefix=${path#*/}
+          time=$(aws s3api list-objects-v2 --bucket "${path%%/*}" --prefix "${prefix%files}data/" \
+            --query 'max(Contents[].LastModified)' --output text)
+          test "$time" != None
+          echo "EMBED_DATA_TIME=$time" >> "$GITHUB_ENV"
+
+      # Also typechecks — the build script is `tsc --noEmit && vite build`.
+      - name: Build
+        working-directory: embed
+        run: npm run build
 
       # Mirrors static/_headers: asset filenames are content-hashed, so they can
       # be cached forever; everything else (index.html) must revalidate. --delete
@@ -82,8 +97,8 @@ jobs:
           --exclude "assets/*"
           --cache-control "public, max-age=0, must-revalidate"
 
-      # Every deploy restamps ?v= and reuploads the whole site, so invalidate
-      # everything — one /* path counts as a single invalidation path anyway.
+      # Every deploy reuploads the whole site, so invalidate everything — one /*
+      # path counts as a single invalidation path anyway.
       - name: Invalidate CloudFront
         run: >-
           aws cloudfront create-invalidation

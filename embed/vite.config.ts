@@ -43,20 +43,19 @@ const r = (p: string) => fileURLToPath(new URL(p, import.meta.url));
 const DATA_URL =
   process.env.EMBED_DATA_URL || "https://static-oforms.onlyoffice.com/data";
 
-// The ?v= stamp's first value, in index.html's meta tag rather than fetched.
-// Fetching it cost a serial round trip before the catalog url could be built —
-// 369 ms cold load became ~550. The sync rewrites the tag in place afterwards.
-// The build time, so a deploy never puts back a stamp the sync already used.
-const DATA_VERSION = new Date().toISOString().replace(/\D/g, "").slice(0, 12);
+// The ?v= stamp, in index.html's meta tag rather than fetched: fetching it cost a serial
+// round trip before the catalog url could be built, 369 → ~550 ms cold. The deploy runs
+// after the sync and passes the newest catalog's upload time, so a code-only deploy keeps
+// the stamp; a local build has no bucket to ask and takes its own time.
+const DATA_VERSION = new Date(process.env.EMBED_DATA_TIME || Date.now())
+  .toISOString()
+  .replace(/\D/g, "")
+  .slice(0, 14);
 
 // Origins allowed to talk to this page over postMessage. Desktop's start page runs
 // from onlyoffice://plugin/…; a file:// host reports origin "null".
 const HOST_ORIGINS = process.env.EMBED_HOST_ORIGINS || "null,file://,onlyoffice://plugin";
 
-// Which catalog a deploy carries, answerable with `curl <url> | grep`. index.html
-// already revalidates every load, so it costs no request and no second uncached
-// file. A meta tag cannot delay the parser-blocking theme script the way another
-// stylesheet or script would.
 const stampVersion = () => ({
   name: "embed-data-version",
   transformIndexHtml: () => [

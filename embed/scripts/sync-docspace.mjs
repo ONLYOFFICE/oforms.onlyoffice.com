@@ -209,9 +209,8 @@ async function applyChanges(records, locales = [...changes.keys()]) {
       const list = [...records.values()].filter((r) => localeOf(r.path) === locale).sort(newest);
       const local = join(dir, `${locale}.json`);
       await writeFile(local, JSON.stringify(list));
-      // Read through CDN77, which keeps an object without Cache-Control for days.
       await aws("s3", "cp", local, `${DATA}/${locale}.json`, "--only-show-errors",
-        "--content-type", "application/json", "--cache-control", "no-cache");
+        "--content-type", "application/json", "--cache-control", IMMUTABLE);
       console.log(
         `  ↑ data/${locale}.json  ${list.length} templates: ${added} added, ` +
           `${Object.keys(set).length - added} updated, ${remove.length} removed`,

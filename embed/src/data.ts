@@ -38,10 +38,12 @@ import type { ICatalog, ITemplate } from "./types";
 
 const DATA_URL = (process.env.EMBED_DATA_URL || "").replace(/\/$/, "");
 
-// Baked in by vite.config.ts from the generated data-version.txt, so the catalog
-// url is known without a request. The stamp is the whole cache key — the files
-// themselves are served immutable.
-const DATA_VERSION = process.env.EMBED_DATA_VERSION || "dev";
+// Read from index.html rather than baked into the bundle, so the bundle's hash and its
+// immutable cache entry outlive a catalog change.
+const DATA_VERSION =
+  document
+    .querySelector<HTMLMetaElement>('meta[name="embed-data-version"]')
+    ?.content || "dev";
 
 // The English catalog is ~1.6 MB, so this is deliberately more generous than
 // the 8s the old bundle used.
