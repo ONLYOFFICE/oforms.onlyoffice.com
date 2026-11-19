@@ -38,7 +38,7 @@ Renders template previews with ONLYOFFICE Document Builder.
 
 For each .docx, .pdf, .pptx and .xlsx under INPUT (a file or a directory), writes
 next to its path under OUTPUT_DIR:
-  <name>.card.webp     page 1, 480 px wide
+  <name>.card.webp     page 1, 480 px wide; a sheet's is its first cell's corner of page 1
   <name>.page.<n>.webp pages 1-10, 1024 px wide
 Pages keep their own proportions. A spreadsheet ignores its paper: each sheet prints
 landscape, one page wide, without margins, and its pages are trimmed to the content.
@@ -71,6 +71,9 @@ from PIL import Image, ImageOps
 
 EXTS = {".docx", ".pdf", ".pptx", ".xlsx"}
 CARD_WIDTH = 480
+# The catalog's card box, height over width. A wider sheet loses its far columns, not its scale.
+CARD_RATIO = 0.6244
+RTL_LOCALES = {"ar"}
 PAGE_WIDTH = 1024
 MAX_PAGES = 10
 QUALITY = 80
@@ -153,7 +156,7 @@ def page_number(name):
     return int("".join(c for c in name if c.isdigit()) or 0)
 
 
-def render(builder, src, stem, tmp, stripping):
+def render(builder, src, stem, tmp, stripping, rtl):
     archive = os.path.join(tmp, "pages.zip")
     if os.path.exists(archive):
         os.remove(archive)
@@ -205,8 +208,12 @@ def render(builder, src, stem, tmp, stripping):
             n += 1
             page.save(f"{stem}.page.{n}.webp", quality=QUALITY, method=6)
             if n == 1:
-                height = round(page.height * CARD_WIDTH / page.width)
-                card = page.resize((CARD_WIDTH, height), Image.LANCZOS)
+                if sheet:
+                    width = min(page.width, round(page.height / CARD_RATIO))
+                    left = page.width - width if rtl else 0
+                    page = page.crop((left, 0, left + width, page.height))
+                width = min(CARD_WIDTH, page.width)
+                card = page.resize((width, round(page.height * width / page.width)), Image.LANCZOS)
                 card.save(f"{stem}.card.webp", quality=QUALITY, method=6)
     os.remove(archive)
     if not n:
@@ -238,7 +245,8 @@ def main():
             # Before the work: a crash in Builder kills the process with no line of its own.
             print(f"  · {rel}", flush=True)
             try:
-                pages, stripped = render(builder, os.path.abspath(src), stem, tmp, stripping)
+                pages, stripped = render(builder, os.path.abspath(src), stem, tmp, stripping,
+                                         rel.split(os.sep)[0] in RTL_LOCALES)
                 rendered += 1
                 print(f"  ✓ {rel}  {pages} pages{'  (stripped)' if stripped else ''}")
             except Exception as err:
