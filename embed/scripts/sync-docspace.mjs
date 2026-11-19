@@ -48,6 +48,11 @@
  * card is missing or older than it, so a failed or interrupted render is retried on the
  * next run. Objects and images with no file in the room are deleted.
  *
+ * data/<locale>.json, beside them, holds a record per file with the custom properties the
+ * strip emptied, newest first. A file whose record is missing or older than the room file
+ * is rendered for it. After each batch, the locales whose records differ are rewritten;
+ * the other records stay as they are, so a run cut short keeps what it rendered.
+ *
  * Usage:
  *   node embed/scripts/sync-docspace.mjs [--dry-run] [--all]
  *
@@ -59,7 +64,7 @@
  * read and write access to the bucket.
  */
 import { createWriteStream } from "node:fs";
-import { mkdir, mkdtemp, readdir, rm } from "node:fs/promises";
+import { mkdir, mkdtemp, readdir, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, extname, join } from "node:path";
 import { Readable } from "node:stream";
@@ -80,11 +85,15 @@ const FOLDER_ID = env("DOCSPACE_FOLDER_ID");
 const BUCKET = env("FILES_BUCKET_URL");
 const IMAGES = BUCKET.replace(/\/files$/, "/images");
 if (IMAGES === BUCKET) throw new Error("FILES_BUCKET_URL must end in /files");
+const DATA = BUCKET.replace(/\/files$/, "/data");
 const DRY_RUN = process.argv.includes("--dry-run");
 const ALL = process.argv.includes("--all");
-const PREVIEWS = join(dirname(fileURLToPath(import.meta.url)), "generate-previews.py");
+const SCRIPTS = dirname(fileURLToPath(import.meta.url));
+const PREVIEWS = join(SCRIPTS, "generate-previews.py");
 
 const LOCALES = new Set(["ar", "de", "en", "es", "fr", "it", "ja", "pt", "zh"]);
+const CATEGORIES = new Set(Object.keys(JSON.parse(
+  await readFile(join(SCRIPTS, "../../public/locales/en/embed.json"), "utf8")).CategoryNames));
 const EXTS = new Set([".docx", ".xlsx", ".pptx", ".pdf"]);
 const PAGE = 100; // DocSpace refuses more.
 const PARALLEL = 4;
@@ -126,16 +135,25 @@ const run = async (cmd, args, options) =>
   (await promisify(execFile)(cmd, args, { maxBuffer: 64 << 20, ...options })).stdout;
 const aws = (...args) => run("aws", args);
 
-// path → upload time under one prefix; the CLI follows the listing's pages itself.
+// path → {time, size} under one prefix; the CLI follows the listing's pages itself.
 async function listBucket(url) {
   const { host: bucket, pathname } = new URL(url);
   const prefix = `${pathname.slice(1)}/`;
   const out = await aws("s3api", "list-objects-v2", "--bucket", bucket, "--prefix", prefix, "--output", "json");
   const objects = new Map();
   for (const o of JSON.parse(out || "{}").Contents ?? []) {
-    objects.set(o.Key.slice(prefix.length), Date.parse(o.LastModified));
+    objects.set(o.Key.slice(prefix.length), { time: Date.parse(o.LastModified), size: o.Size });
   }
   return objects;
+}
+
+// path → the record the last run wrote. Listed first, so a missing file is not an error.
+async function readData() {
+  const records = new Map();
+  for (const key of (await listBucket(DATA)).keys()) {
+    for (const record of JSON.parse(String(await aws("s3", "cp", `${DATA}/${key}`, "-")))) records.set(record.path, record);
+  }
+  return records;
 }
 
 // One request per 1,000 keys, where `aws s3 rm` costs a CLI start per key.
@@ -147,21 +165,78 @@ async function deleteImages(keys) {
   }
 }
 
-// Exits 1 when any file failed; which ones shows in their missing cards. Resolves to the
+// Exits 3 when any file failed; which ones shows in their missing cards. Resolves to the
 // signal or code when the process died instead: one file can crash Builder (SIGSEGV).
 const render = (input, output) =>
   new Promise((resolve, reject) => {
     spawn("python3", ["-u", PREVIEWS, "--strip", input, output], { stdio: "inherit" })
       .on("error", reject)
-      .on("exit", (code, signal) => resolve(code === 0 || code === 1 ? null : (signal ?? code)));
+      .on("exit", (code, signal) => resolve(code === 0 || code === 3 ? null : (signal ?? code)));
   });
 
 const stemOf = (path) => path.slice(0, -extname(path).length);
 // ar/docx/123.page.4.webp → ar/docx/123.docx
 const fileOf = (key) => `${key.replace(/\.(card|page\.\d+)\.webp$/, "")}.${key.split("/")[1]}`;
+const localeOf = (path) => path.slice(0, path.indexOf("/"));
+// ISO dates, so plain comparison; localeCompare would build a collator per call.
+const newest = (a, b) => {
+  const x = a.meta?.added ?? "";
+  const y = b.meta?.added ?? "";
+  return x < y ? 1 : x > y ? -1 : a.path < b.path ? -1 : 1;
+};
+
+// locale → {set: {path: record}, remove: [path]} since the last applyChanges.
+const changes = new Map();
+const changeOf = (locale) => changes.get(locale) ?? changes.set(locale, { set: {}, remove: [] }).get(locale);
+
+// Uploads data/<locale>.json for each locale with a change; only these are rewritten.
+async function applyChanges(records) {
+  const dir = await mkdtemp(join(tmpdir(), "oforms-data-"));
+  try {
+    for (const [locale, { set, remove }] of changes) {
+      for (const path of remove) records.delete(path);
+      const added = Object.keys(set).filter((path) => !records.has(path)).length;
+      for (const [path, record] of Object.entries(set)) records.set(path, record);
+      const list = [...records.values()].filter((r) => localeOf(r.path) === locale).sort(newest);
+      const local = join(dir, `${locale}.json`);
+      await writeFile(local, JSON.stringify(list));
+      // Read through CDN77, which keeps an object without Cache-Control for days.
+      await aws("s3", "cp", local, `${DATA}/${locale}.json`, "--only-show-errors",
+        "--content-type", "application/json", "--cache-control", "no-cache");
+      console.log(
+        `  ↑ data/${locale}.json  ${list.length} templates: ${added} added, ` +
+          `${Object.keys(set).length - added} updated, ${remove.length} removed`,
+      );
+    }
+    changes.clear();
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+}
+
+// Editors type the properties, so nothing stops a typo but this.
+function check(records) {
+  const problems = [];
+  const slugs = new Set();
+  for (const { path, meta } of records.values()) {
+    if (!meta) {
+      problems.push(`${path}: no properties, the strip failed`);
+      continue;
+    }
+    const missing = ["slug", "category", "card-title", "added"].filter((name) => !meta[name]);
+    if (missing.length) problems.push(`${path}: no ${missing.join(", ")}`);
+    if (meta.category && !CATEGORIES.has(meta.category)) problems.push(`${path}: unknown category ${meta.category}`);
+    if (meta.added && !/^\d{4}-\d{2}-\d{2}/.test(meta.added)) problems.push(`${path}: added ${meta.added} is not YYYY-MM-DD`);
+    const slug = `${localeOf(path)}/${meta.slug}`;
+    if (meta.slug && slugs.has(slug)) problems.push(`${path}: slug ${meta.slug} is taken`);
+    slugs.add(slug);
+  }
+  return problems;
+}
 
 // Files go up before their images: a card older than its file means "render again".
-async function syncBatch(batch, images) {
+// Records each file whose record changed and returns how many previews failed.
+async function syncBatch(batch, { objects, images, records }) {
   const dir = await mkdtemp(join(tmpdir(), "oforms-sync-"));
   const src = join(dir, "files");
   const out = join(dir, "images");
@@ -187,12 +262,32 @@ async function syncBatch(batch, images) {
       console.log(`  ↑ ${path}  ${name}`);
     });
 
-    await aws("s3", "cp", out, IMAGES, "--recursive", "--only-show-errors",
+    await aws("s3", "cp", out, IMAGES, "--recursive", "--only-show-errors", "--exclude", "*.meta.json",
       "--content-type", "image/webp", "--cache-control", IMMUTABLE);
     const rendered = new Set(await readdir(out, { recursive: true }));
     const done = new Set(batch.filter(({ path }) => rendered.has(`${stemOf(path)}.card.webp`)).map(({ path }) => path));
     // Pages past the new last page; a failed render keeps the old images until the retry.
     await deleteImages([...images.keys()].filter((key) => done.has(fileOf(key)) && !rendered.has(key)));
+
+    for (const { path, file, changed } of batch) {
+      const stem = stemOf(path);
+      // No meta.json: the strip failed, so the file went up as it is in the room.
+      const meta = rendered.has(`${stem}.meta.json`)
+        ? JSON.parse(await readFile(join(out, `${stem}.meta.json`), "utf8"))
+        : null;
+      const pages = [...(done.has(path) ? rendered : images.keys())].filter((key) => key.startsWith(`${stem}.page.`));
+      const record = {
+        path,
+        id: file.id,
+        version: file.version,
+        updated: file.updated,
+        size: changed ? (await stat(join(src, path))).size : objects.get(path).size,
+        pages: pages.length,
+        meta,
+      };
+      // A file that keeps failing is rendered every run; an unchanged record is no change.
+      if (JSON.stringify(record) !== JSON.stringify(records.get(path))) changeOf(localeOf(path)).set[path] = record;
+    }
     return batch.length - done.size;
   } finally {
     await rm(dir, { recursive: true, force: true });
@@ -221,35 +316,43 @@ async function main() {
   // A wrong folder id lists nothing, and would delete every object.
   if (files.size === 0) throw new Error(`no template files in DocSpace folder ${FOLDER_ID}`);
 
-  const [objects, images] = await Promise.all([listBucket(BUCKET), listBucket(IMAGES)]);
+  const [objects, images, records] = await Promise.all([listBucket(BUCKET), listBucket(IMAGES), readData()]);
   const work = [];
   for (const [path, { file, name }] of files) {
-    const uploaded = objects.get(path);
+    const uploaded = objects.get(path)?.time;
     // No size check: a stripped object is a new save, not the file in the room.
     const changed = ALL || !uploaded || Date.parse(file.updated) > uploaded;
-    const card = images.get(`${stemOf(path)}.card.webp`);
-    if (changed || !card || card < uploaded) work.push({ path, file, name, changed });
+    const card = images.get(`${stemOf(path)}.card.webp`)?.time;
+    // The properties come from the strip, so a record is only written by a render.
+    const stale = records.get(path)?.updated !== file.updated;
+    if (changed || !card || card < uploaded || stale) work.push({ path, file, name, changed });
   }
   const changed = work.filter((item) => item.changed).length;
   const orphans = [...objects.keys()].filter((path) => !files.has(path));
   const orphanImages = [...images.keys()].filter((key) => !files.has(fileOf(key)));
+  const gone = [...records.keys()].filter((path) => !files.has(path));
 
   console.log(
     `${files.size} files in the room, ${changed} new or changed, ${work.length} to render, ` +
-      `${orphans.length} files and ${orphanImages.length} images to delete, ${skipped.length} skipped`,
+      `${orphans.length} files, ${orphanImages.length} images and ${gone.length} records to delete, ` +
+      `${skipped.length} skipped`,
   );
   for (const name of skipped) console.log(`  skipped ${name}`);
   if (DRY_RUN) {
     for (const { path, name, changed } of work) console.log(`  would ${changed ? "upload" : "render"} ${path}  ${name}`);
     for (const path of orphans) console.log(`  would delete ${path}`);
     for (const key of orphanImages) console.log(`  would delete images/${key}`);
+    for (const path of gone) console.log(`  would delete the record of ${path}`);
     return;
   }
+
+  for (const path of gone) changeOf(localeOf(path)).remove.push(path);
 
   let failed = 0;
   for (let i = 0; i < work.length; i += BATCH) {
     console.log(`== ${i + 1}–${Math.min(i + BATCH, work.length)} of ${work.length}`);
-    failed += await syncBatch(work.slice(i, i + BATCH), images);
+    failed += await syncBatch(work.slice(i, i + BATCH), { objects, images, records });
+    await applyChanges(records);
   }
 
   for (const path of orphans) {
@@ -257,11 +360,12 @@ async function main() {
     console.log(`  ✗ ${path}`);
   }
   await deleteImages(orphanImages);
+  await applyChanges(records);
 
-  if (failed) {
-    console.error(`${failed} previews failed; their files retry on the next run`);
-    process.exitCode = 1;
-  }
+  const problems = check(records);
+  for (const problem of problems) console.error(`  ! ${problem}`);
+  if (failed) console.error(`${failed} previews failed; their files retry on the next run`);
+  if (failed || problems.length) process.exitCode = 1;
 }
 
 main().catch((err) => {

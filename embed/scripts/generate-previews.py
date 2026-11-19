@@ -46,7 +46,8 @@ A file is skipped when its card is newer.
 
 --strip first empties the author, the last editor and the catalog's custom properties
 of every file that has any, and saves it over itself: the room keeps them, the bucket
-does not (authors as onlyoffice/tools/metadata does).
+does not (authors as onlyoffice/tools/metadata does). The properties it empties go to
+<name>.meta.json, {} when there were none, written even when the render then fails.
 
 Usage:
   pip3 install document-builder==10.0.0.170 pillow
@@ -57,6 +58,7 @@ watermarked "Unregistered Version".
 """
 
 import io
+import json
 import os
 import sys
 import tempfile
@@ -102,31 +104,32 @@ TARGETS = {
     ".xlsx": ("Api", "Api.GetActiveWorkbook()", docbuilder.FileTypes.Spreadsheet.XLSX),
 }
 STRIP = (
-    "(function () {{ var c = {core}.GetCore(), p = {props}.GetCustomProperties(), changed = false;"
+    "(function () {{ var c = {core}.GetCore(), p = {props}.GetCustomProperties(), changed = false, m = {{}};"
     " if (c.GetCreator() || c.GetLastModifiedBy()) {{ c.SetCreator(''); c.SetLastModifiedBy(''); changed = true; }}"
-    " {meta}.forEach(function (k) {{ if (p.Get(k)) {{ p.Add(k, ''); changed = true; }} }});"
-    " return changed; }})()"
+    " {meta}.forEach(function (k) {{ var v = p.Get(k); if (v) {{ m[k] = v; p.Add(k, ''); changed = true; }} }});"
+    " return JSON.stringify({{ changed: changed, meta: m }}); }})()"
 )
 
 
+# The stripped copy, or None when there was nothing to strip, and the properties emptied.
 def strip(builder, src, tmp):
     core, props, file_type = TARGETS[os.path.splitext(src)[1].lower()]
-    # Linux (V8) segfaults on ToBool outside an entered context; macOS (JSC) does not.
+    # Linux (V8) segfaults on reading the result outside an entered context; macOS (JSC) does not.
     context = builder.GetContext()
-    changed = docbuilder.CDocBuilderValue()
-    ran = builder.ExecuteCommand(STRIP.format(core=core, props=props, meta=META), changed)
-    stripped = ran and changed.ToBool()
-    del changed, context
+    result = docbuilder.CDocBuilderValue()
+    ran = builder.ExecuteCommand(STRIP.format(core=core, props=props, meta=META), result)
+    out = json.loads(result.ToString()) if ran else None
+    del result, context
     # A plain pdf has no core, and sdkjs throws on the Gantt xlsx: both fail, checked by hand.
     if not ran:
         raise RuntimeError("strip script failed: a plain pdf, or sdkjs throws on the file (the Gantt xlsx)")
-    if not stripped:
-        return None
+    if not out["changed"]:
+        return None, out["meta"]
     saved = os.path.join(tmp, "stripped" + os.path.splitext(src)[1])
     error = builder.SaveFile(file_type, saved)
     if error or not os.path.exists(saved):
         raise RuntimeError(f"SaveFile error {error} stripping")
-    return saved
+    return saved, out["meta"]
 
 
 def sources(root):
@@ -157,7 +160,10 @@ def render(builder, src, stem, tmp, stripping):
     stripped = None
     try:
         # Before FIT, which changes the page setup.
-        stripped = stripping and strip(builder, src, tmp)
+        if stripping:
+            stripped, meta = strip(builder, src, tmp)
+            with open(f"{stem}.meta.json", "w", encoding="utf-8") as f:
+                json.dump(meta, f, ensure_ascii=False)
         if sheet and not builder.ExecuteCommand(FIT):
             raise RuntimeError("FIT script failed")
         error = builder.SaveFile(
@@ -232,7 +238,8 @@ def main():
                 print(f"  ✗ {rel}  {err}")
 
     print(f"{rendered} rendered, {skipped} up to date, {failed} failed")
-    sys.exit(1 if failed else 0)
+    # Not 1: Python exits 1 when it cannot start, and the sync must not take that for a run.
+    sys.exit(3 if failed else 0)
 
 
 if __name__ == "__main__":
