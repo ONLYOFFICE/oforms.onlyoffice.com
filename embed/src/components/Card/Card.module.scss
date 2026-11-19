@@ -97,12 +97,6 @@
   object-position: center top;
 }
 
-/* The pptx preview is a 16:9 slide centred on a 648x916 canvas. */
-.card-pptx .card-preview {
-  aspect-ratio: 16 / 9;
-  object-position: center;
-}
-
 .card-heading {
   display: block;
   white-space: nowrap;
@@ -114,10 +108,16 @@
   color: var(--card-heading-color);
 }
 
-/* Documents and PDF forms show the whole A4 page, without the grey mat. */
+/* Documents, PDF forms and presentations show the whole page or slide, without the grey mat. */
 .card-docx .card-preview-wrapper,
-.card-pdf .card-preview-wrapper {
+.card-pdf .card-preview-wrapper,
+.card-pptx .card-preview-wrapper {
   padding: 0;
+}
+
+.card-pptx .card-preview {
+  max-width: none;
+  aspect-ratio: 16 / 9;
 }
 
 .card-docx .card-preview,
