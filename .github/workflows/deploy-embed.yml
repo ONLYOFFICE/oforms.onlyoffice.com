@@ -118,9 +118,13 @@ jobs:
         with:
           python-version: "3.12"
 
+      # The Gantt files need 10.0.3, not yet on PyPI: the variable holds its Linux wheel URL, with a
+      # #sha256= fragment. Delete it once the pin below can move.
       - name: Install Document Builder
         if: ${{ !inputs.dry_run }}
-        run: pip install document-builder==10.0.0.170 pillow
+        env:
+          DOCBUILDER_WHEEL_URL: ${{ vars.DOCBUILDER_WHEEL_URL }}
+        run: pip install "${DOCBUILDER_WHEEL_URL:-document-builder==10.0.0.170}" pillow
 
       # Without system fonts the builder draws no text at all. The EULA key is "accepted-", not the
       # widely copied "accept-": with that one apt succeeds and downloads nothing, hence the test.
