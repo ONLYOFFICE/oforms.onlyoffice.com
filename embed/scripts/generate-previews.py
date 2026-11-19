@@ -47,7 +47,9 @@ A file is skipped when its card is newer.
 --strip first empties the author, the last editor and the catalog's custom properties
 of every file that has any, and saves it over itself: the room keeps them, the bucket
 does not (authors as onlyoffice/tools/metadata does). The properties it empties go to
-<name>.meta.json, {} when there were none, written even when the render then fails.
+<name>.meta.json, with "pages": the visible sheets of a spreadsheet, the pages or slides
+of the rest. A file with none of them fails instead; the meta is written even when the
+render then fails.
 
 Usage:
   pip3 install document-builder==10.0.0.170 pillow
@@ -95,34 +97,38 @@ FIT = (
 # names the meta is written under.
 META = ["slug", "category", "card-text", "description", "seo-title", "seo-description",
         "popular", "added", "card-title"]
-# Where GetCore and GetCustomProperties live, and the save type. A pdf form opens as its
-# docx, and saving it as OFORM_PDF puts the docx back inside.
+# Where GetCore and GetCustomProperties live, the save type, and the page count. A pdf form
+# opens as its docx, and saving it as OFORM_PDF puts the docx back inside. GetSheets includes
+# hidden sheets.
 TARGETS = {
-    ".docx": ("Api.GetDocument()", "Api.GetDocument()", docbuilder.FileTypes.Document.DOCX),
-    ".pdf": ("Api.GetDocument()", "Api.GetDocument()", docbuilder.FileTypes.Document.OFORM_PDF),
-    ".pptx": ("Api.GetPresentation()", "Api.GetPresentation()", docbuilder.FileTypes.Presentation.PPTX),
-    ".xlsx": ("Api", "Api.GetActiveWorkbook()", docbuilder.FileTypes.Spreadsheet.XLSX),
+    ".docx": ("Api.GetDocument()", "Api.GetDocument()", docbuilder.FileTypes.Document.DOCX,
+              "Api.GetDocument().GetPageCount()"),
+    ".pdf": ("Api.GetDocument()", "Api.GetDocument()", docbuilder.FileTypes.Document.OFORM_PDF,
+             "Api.GetDocument().GetPageCount()"),
+    ".pptx": ("Api.GetPresentation()", "Api.GetPresentation()", docbuilder.FileTypes.Presentation.PPTX,
+              "Api.GetPresentation().GetSlidesCount()"),
+    ".xlsx": ("Api", "Api.GetActiveWorkbook()", docbuilder.FileTypes.Spreadsheet.XLSX,
+              "Api.GetSheets().filter(function (s) { return s.GetVisible(); }).length"),
 }
 STRIP = (
     "(function () {{ var c = {core}.GetCore(), p = {props}.GetCustomProperties(), changed = false, m = {{}};"
     " if (c.GetCreator() || c.GetLastModifiedBy()) {{ c.SetCreator(''); c.SetLastModifiedBy(''); changed = true; }}"
     " {meta}.forEach(function (k) {{ var v = p.Get(k); if (v) {{ m[k] = v; p.Add(k, ''); changed = true; }} }});"
-    " return JSON.stringify({{ changed: changed, meta: m }}); }})()"
+    " m.pages = {pages}; return JSON.stringify({{ changed: changed, meta: m }}); }})()"
 )
 
 
 # The stripped copy, or None when there was nothing to strip, and the properties emptied.
 def strip(builder, src, tmp):
-    core, props, file_type = TARGETS[os.path.splitext(src)[1].lower()]
+    core, props, file_type, pages = TARGETS[os.path.splitext(src)[1].lower()]
     # Linux (V8) segfaults on reading the result outside an entered context; macOS (JSC) does not.
     context = builder.GetContext()
     result = docbuilder.CDocBuilderValue()
-    ran = builder.ExecuteCommand(STRIP.format(core=core, props=props, meta=META), result)
+    ran = builder.ExecuteCommand(STRIP.format(core=core, props=props, meta=META, pages=pages), result)
     out = json.loads(result.ToString()) if ran else None
     del result, context
-    # A plain pdf has no core, and sdkjs throws on the Gantt xlsx: both fail, checked by hand.
     if not ran:
-        raise RuntimeError("strip script failed: a plain pdf, or sdkjs throws on the file (the Gantt xlsx)")
+        raise RuntimeError("strip script failed")
     if not out["changed"]:
         return None, out["meta"]
     saved = os.path.join(tmp, "stripped" + os.path.splitext(src)[1])
@@ -162,6 +168,8 @@ def render(builder, src, stem, tmp, stripping):
         # Before FIT, which changes the page setup.
         if stripping:
             stripped, meta = strip(builder, src, tmp)
+            if not any(k in meta for k in META):
+                raise RuntimeError("no catalog properties")
             with open(f"{stem}.meta.json", "w", encoding="utf-8") as f:
                 json.dump(meta, f, ensure_ascii=False)
         if sheet and not builder.ExecuteCommand(FIT):
