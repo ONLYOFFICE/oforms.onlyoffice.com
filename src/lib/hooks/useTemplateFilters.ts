@@ -67,7 +67,7 @@ export const useTemplateFilters = (
   const isSearchPage = router.pathname === SEARCH_PATHNAME;
   const parsed = parseFilters(router.query, allowed);
   const filters = isCategoryPage
-    ? { ...parsed, subcategory: [], purpose: undefined }
+    ? { ...parsed, category: [], purpose: undefined }
     : parsed;
 
   const navigate = (next: ITemplateFilters, toHome: boolean) => {
@@ -87,9 +87,7 @@ export const useTemplateFilters = (
   ) =>
     navigate(
       next,
-      toHome ||
-        redirectToHome ||
-        (isCategoryPage && next.subcategory.length > 0),
+      toHome || redirectToHome || (isCategoryPage && next.category.length > 0),
     );
 
   return {

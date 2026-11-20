@@ -33,32 +33,33 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import CONFIG from "@src/config/config.json";
-import { CMS_PAGE_SIZE, fetchAllPages } from "@src/lib/api/fetchAllPages";
-import { ILocale } from "@src/types/locale";
-import { IFormsData } from "@src/types/data";
-import { cmsLocale } from "@src/utils/cmsLocale";
+import { ITemplateCard } from "@src/types/room";
+import { TFormat } from "@src/types/data";
 
-const buildUrl = (locale: ILocale["locale"], page: number) => {
-  const params = [
-    `locale=${cmsLocale(locale)}`,
-    `pagination[page]=${page}`,
-    `pagination[pageSize]=${CMS_PAGE_SIZE}`,
-    "fields[0]=url",
-  ]
-    .filter(Boolean)
-    .join("&");
+// data/, files/ and images/ are siblings in the bucket.
+const ROOT =
+  process.env.NEXT_PUBLIC_TEMPLATES_URL ||
+  "https://static-oforms.onlyoffice.com";
 
-  return `${CONFIG.api.cms}/api/oforms?${params}`;
-};
+const stemOf = (path: string) => path.slice(0, path.lastIndexOf("."));
 
-const getAllFormUrls = (
-  locale: ILocale["locale"],
-  signal?: AbortSignal,
-): Promise<IFormsData> =>
-  fetchAllPages<IFormsData>((page) => buildUrl(locale, page), {
-    label: "getAllFormUrls",
-    signal,
-  });
+export const catalogUrl = (locale: string) => `${ROOT}/data/${locale}.json`;
 
-export { getAllFormUrls };
+export const extOf = ({ path }: Pick<ITemplateCard, "path">) =>
+  path.slice(path.lastIndexOf(".") + 1) as TFormat;
+
+// Desktop picks the editor from everything after the URL's last dot.
+export const fileUrl = (template: ITemplateCard) =>
+  `${ROOT}/files/${template.path}?v=${template.version}.${extOf(template)}`;
+
+export const fileName = (template: ITemplateCard) =>
+  `${template.meta["card-title"]}.${extOf(template)}`;
+
+export const cardUrl = ({ path, pages, version }: ITemplateCard) =>
+  pages > 0 ? `${ROOT}/images/${stemOf(path)}.card.webp?v=${version}` : "";
+
+export const pageUrls = ({ path, pages, version }: ITemplateCard) =>
+  Array.from(
+    { length: pages },
+    (_, i) => `${ROOT}/images/${stemOf(path)}.page.${i + 1}.webp?v=${version}`,
+  );

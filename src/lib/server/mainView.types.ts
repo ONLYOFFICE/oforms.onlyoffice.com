@@ -36,7 +36,7 @@
 import { TFormat } from "@src/types/data";
 import { TSortKey } from "@src/utils/helpers";
 import {
-  ICategoryTree,
+  ICategoryNode,
   IPurposeNode,
 } from "@src/components/modules/Main/Main.types";
 import { ISearchInput } from "@src/components/modules/Main/sub-components/SearchInput/SearchInput.types";
@@ -56,7 +56,6 @@ export interface IMainSectionView {
   label?: string;
   labelKey?: string;
   href?: string;
-  expanded?: boolean;
   data: ICardView[];
 }
 
@@ -73,7 +72,7 @@ export interface IMainFacets {
     count: number;
   }[];
   purposes: IPurposeNode[];
-  categoriesByPurpose: Record<string, ICategoryTree[]>;
+  categoriesByPurpose: Record<string, ICategoryNode[]>;
   totalCount: number;
   popularTemplates: ICardView[];
   isEmpty: boolean;
@@ -87,7 +86,7 @@ export interface IMainViewFilters {
   locale: string;
   type: string[];
   country: string[];
-  subcategory: string[];
+  category: string[];
   purpose?: string;
   sort: TSortKey;
 }

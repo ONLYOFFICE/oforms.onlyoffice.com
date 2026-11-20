@@ -38,12 +38,7 @@ import { useRouter } from "next/router";
 import { Heading } from "@src/components/ui/Heading";
 import { Link } from "@src/components/ui/Link";
 import { Card } from "@src/components/widgets/Card";
-import {
-  COLLAPSE_QUERY_PARAM,
-  COUNTRIES_COLLAPSE_QUERY_PARAM,
-  EXPAND_QUERY_PARAM,
-  parseQueryList,
-} from "@src/utils/queryFilters";
+import { COUNTRIES_COLLAPSE_QUERY_PARAM } from "@src/utils/queryFilters";
 import { appendQueryParams } from "./MainSection.utils";
 import { IMainSection } from "./MainSection.types";
 import styles from "./MainSection.module.scss";
@@ -51,32 +46,12 @@ import styles from "./MainSection.module.scss";
 const MainSection = ({
   label,
   href,
-  expanded,
   data,
   desktopLimit,
   cardsGrid,
 }: IMainSection) => {
   const router = useRouter();
-  const openedCategories = href
-    ? Array.from(
-        new Set([
-          ...parseQueryList(router.query[COLLAPSE_QUERY_PARAM]),
-          `category-${href}`,
-        ]),
-      ).join(",")
-    : router.query[COLLAPSE_QUERY_PARAM];
-
-  const expandKey = `category-${href}`;
-  const expandedCategories = [
-    ...parseQueryList(router.query[EXPAND_QUERY_PARAM]).filter(
-      (key) => key !== expandKey,
-    ),
-    ...(expanded ? [expandKey] : []),
-  ].join(",");
-
-  const hrefWithOpened = appendQueryParams(href, {
-    [EXPAND_QUERY_PARAM]: expandedCategories,
-    [COLLAPSE_QUERY_PARAM]: openedCategories,
+  const hrefWithQuery = appendQueryParams(href, {
     [COUNTRIES_COLLAPSE_QUERY_PARAM]:
       router.query[COUNTRIES_COLLAPSE_QUERY_PARAM],
     country: router.query.country,
@@ -87,7 +62,7 @@ const MainSection = ({
     <div className={styles["main-section"]}>
       {href ? (
         <Link
-          href={hrefWithOpened}
+          href={hrefWithQuery}
           className={styles["main-section-heading-link"]}
         >
           <Heading

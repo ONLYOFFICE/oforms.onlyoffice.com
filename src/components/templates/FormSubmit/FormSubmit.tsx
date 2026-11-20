@@ -50,8 +50,6 @@ import { IFormSubmitTemplate } from "./FormSubmit.types";
 import styles from "./FormSubmit.module.scss";
 
 const FormSubmitTemplate = ({
-  countries,
-  purposeWithCategories,
   queryIndexData,
 }: IFormSubmitTemplate) => {
   const { t } = useTranslation("form-submit");
@@ -120,8 +118,6 @@ const FormSubmitTemplate = ({
                 requestCaptchaToken={requestToken}
               />
               <Info
-                countries={countries}
-                purposeWithCategories={purposeWithCategories}
                 onSuccess={() => setSubmitted(true)}
                 file={file}
                 isUploading={isUploading}

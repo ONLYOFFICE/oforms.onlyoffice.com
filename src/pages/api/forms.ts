@@ -34,8 +34,7 @@
  */
 
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getAllFormsAllLocales } from "@src/lib/requests/getAllFormsAllLocales";
-import { getCountryNames } from "@src/lib/requests/getCountries";
+import { getCatalog } from "@src/lib/requests/getTemplates";
 import {
   buildCategoryView,
   buildMainView,
@@ -68,57 +67,51 @@ export default async function handler(
   const locale = resolveLocale(req.query.locale);
 
   try {
-    const [allForms, countryNames] = await Promise.all([
-      getAllFormsAllLocales(locale),
-      getCountryNames(locale),
-    ]);
+    const allForms = await getCatalog(locale);
 
     const type = getQueryValues(req.query.type);
     const country = getQueryValues(req.query.country);
-    const subcategory = getQueryValues(req.query.subcategory);
+    const category = getQueryValues(req.query.category);
     const purpose = getSingle(req.query.purpose);
-    const categoryUrlReq = getSingle(req.query.category);
+    const categoryUrlReq = getSingle(req.query.categoryPage);
 
     let view: IMainView | ICategoryView | ISearchView;
 
     if (categoryUrlReq) {
       view = buildCategoryView(
-        allForms.data,
+        allForms,
         categoryUrlReq,
-        resolveCategoryFilters(allForms.data, categoryUrlReq, {
+        resolveCategoryFilters(allForms, categoryUrlReq, {
           locale,
           type,
           country,
           sort: req.query.sort,
         }),
-        countryNames,
       );
     } else if (getSingle(req.query.view) === "search") {
       view = buildSearchView(
-        allForms.data,
+        allForms,
         getSingle(req.query.query),
-        resolveSearchFilters(allForms.data, {
+        resolveSearchFilters(allForms, {
           locale,
           type,
           country,
-          subcategory,
+          category,
           purpose,
           sort: req.query.sort,
         }),
-        countryNames,
       );
     } else {
       view = buildMainView(
-        allForms.data,
-        resolveMainFilters(allForms.data, {
+        allForms,
+        resolveMainFilters(allForms, {
           locale,
           type,
           country,
-          subcategory,
+          category,
           purpose,
           sort: req.query.sort,
         }),
-        countryNames,
       );
     }
 

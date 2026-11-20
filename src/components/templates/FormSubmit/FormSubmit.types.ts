@@ -33,48 +33,6 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-export interface ICountries {
-  data: {
-    documentId: string;
-    id: number;
-    name: string;
-  }[];
-  meta: {
-    pagination: {
-      page: number;
-      pageCount: number;
-      pageSize: number;
-      total: number;
-    };
-  };
-}
-
-export interface IPurposeWithCategories {
-  data: {
-    id: number;
-    documentId: string;
-    name: string;
-    parent_categories: {
-      id: number;
-      documentId: string;
-      name: string;
-      subcategories: {
-        id: number;
-        documentId: string;
-        name: string;
-      }[];
-    }[];
-  }[];
-  meta: {
-    pagination: {
-      page: number;
-      pageCount: number;
-      pageSize: number;
-      total: number;
-    };
-  };
-}
-
 export interface IQueryIndexData {
   fileName: string;
   fileSize: number;
@@ -84,7 +42,5 @@ export interface IQueryIndexData {
 }
 
 export interface IFormSubmitTemplate {
-  countries: ICountries;
-  purposeWithCategories: IPurposeWithCategories;
   queryIndexData: IQueryIndexData | null;
 }

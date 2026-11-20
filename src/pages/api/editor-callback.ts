@@ -33,38 +33,15 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import CONFIG from "@src/config/config.json";
-import { CMS_PAGE_SIZE, fetchAllPages } from "@src/lib/api/fetchAllPages";
-import { cacheByLocale } from "@src/lib/api/cacheByLocale";
-import { ICategoriesData } from "@src/components/templates/Form/Form.types";
-import { ILocale } from "@src/types/locale";
-import { cmsLocale } from "@src/utils/cmsLocale";
+import type { NextApiRequest, NextApiResponse } from "next";
 
-const buildUrl = (locale: ILocale["locale"], page: number) => {
-  const params = [
-    `locale=${cmsLocale(locale)}`,
-    `pagination[page]=${page}`,
-    `pagination[pageSize]=${CMS_PAGE_SIZE}`,
-    "fields[0]=urlReq",
-    "fields[1]=updatedAt",
-  ]
-    .filter(Boolean)
-    .join("&");
+// Document Server reports a fill-only session here. Nothing is saved back, since
+// the visitor downloads the filled form, but it expects this acknowledgement.
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== "POST") {
+    res.setHeader("Allow", "POST");
+    return res.status(405).json({ error: 1 });
+  }
 
-  return `${CONFIG.api.cms}/api/parent-categories?${params}`;
-};
-
-const getCategoryUrls = (
-  locale: ILocale["locale"],
-  signal?: AbortSignal,
-): Promise<ICategoriesData> =>
-  fetchAllPages<ICategoriesData>((page) => buildUrl(locale, page), {
-    label: "getCategoryUrls",
-    signal,
-  });
-
-const getCachedCategoryUrls = cacheByLocale((locale: ILocale["locale"]) =>
-  getCategoryUrls(locale),
-);
-
-export { getCategoryUrls, getCachedCategoryUrls };
+  return res.status(200).json({ error: 0 });
+}

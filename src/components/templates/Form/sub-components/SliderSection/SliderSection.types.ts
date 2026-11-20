@@ -33,18 +33,9 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { IFormData } from "../../Form.types";
-import { TFormat } from "@src/types/data";
+import { IRecentlyViewedForm } from "../../sections/RecentlyViewed/RecentlyViewed.types";
 
 export interface ISliderSection {
   heading: string;
-  data: {
-    id: IFormData["data"][0]["id"];
-    name_form: IFormData["data"][0]["name_form"];
-    description_card: IFormData["data"][0]["description_card"];
-    url: IFormData["data"][0]["url"];
-    card_prewiew: IFormData["data"][0]["card_prewiew"]["url"];
-    form_exts: TFormat;
-    locale?: string;
-  }[];
+  data: IRecentlyViewedForm[];
 }

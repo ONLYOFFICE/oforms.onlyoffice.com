@@ -38,22 +38,13 @@ import { GetStaticPaths, GetStaticPropsContext } from "next";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getAllFormUrls } from "@src/lib/requests/getAllFormUrls";
-import {
-  getCategoryUrls,
-  getCachedCategoryUrls,
-} from "@src/lib/requests/getCategoryUrls";
-import { getCategoryInfo } from "@src/lib/requests/getCategoryInfo";
-import { getCategoryLocales } from "@src/lib/server/categoryLocales";
-import { getAllFormsAllLocales } from "@src/lib/requests/getAllFormsAllLocales";
-import { getCountryNames } from "@src/lib/requests/getCountries";
+import { getCatalog, getTemplates } from "@src/lib/requests/getTemplates";
+import { categoryName, categorySeo } from "@src/lib/server/catalogNames";
 import {
   buildCategoryView,
   buildFormNames,
   resolveCategoryFilters,
 } from "@src/lib/server/buildMainView";
-import { getForm } from "@src/lib/requests/getForm";
-import { getParentCategories } from "@src/lib/requests/getParentCategories";
 import { languages } from "@src/config/languages";
 import { Layout } from "@src/components/Layout";
 import { Head } from "@src/components/modules/Head";
@@ -66,10 +57,6 @@ import { FormTemplate, IFormTemplate } from "@src/components/templates/Form";
 import { ILocale } from "@src/types/locale";
 import { LANG_QUERY_PARAM } from "@src/utils/queryLang";
 import { clearLangPending } from "@src/utils/langPending";
-
-interface ICategoryInfo {
-  data: { seo_title: string; seo_description: string }[];
-}
 
 const LOCALES: string[] = languages.map(({ shortKey }) => shortKey);
 
@@ -112,7 +99,7 @@ const useQueryLang = (enabled = true) => {
 type ISlugPage =
   | ({
       isCategory: true;
-      categoryInfo: ICategoryInfo;
+      categoryInfo: { title: string; description: string };
       categoryLocales: string[];
     } & ICategory)
   | ({ isCategory?: false } & IFormTemplate);
@@ -137,8 +124,8 @@ const SlugPage = (props: ISlugPage & ILocale) => {
       <Layout>
         <Layout.Head>
           <Head
-            title={categoryInfo?.data?.[0]?.seo_title}
-            description={categoryInfo?.data?.[0]?.seo_description}
+            title={categoryInfo.title}
+            description={categoryInfo.description}
             path={`/${categoryUrlReq}`}
             locale={locale}
             localized
@@ -165,11 +152,11 @@ const SlugPage = (props: ISlugPage & ILocale) => {
     );
   }
 
-  const { form, categories } = props;
-  const formData = form.data[0];
-  const formPath = `/${formData.url}`;
-  const title = formData.seo_title || formData.name_form;
-  const description = formData.seo_description || formData.description_card;
+  const { template, categories } = props;
+  const { meta } = template;
+  const formPath = `/${meta.slug}`;
+  const title = meta["seo-title"] || meta["card-title"];
+  const description = meta["seo-description"] || meta["card-text"];
 
   return (
     <Layout>
@@ -188,7 +175,7 @@ const SlugPage = (props: ISlugPage & ILocale) => {
         <Header locale={lang} resetPathOnLocaleChange />
       </Layout.Header>
       <Layout.Main background="var(--primary-background-color)">
-        <FormTemplate form={form} categories={categories} />
+        <FormTemplate template={template} categories={categories} />
       </Layout.Main>
       <Layout.Footer>
         <Footer locale={lang} resetPathOnLocaleChange />
@@ -200,30 +187,24 @@ const SlugPage = (props: ISlugPage & ILocale) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   const locales = languages.map((language) => language.shortKey);
 
-  const [formsByLocale, categoriesByLocale] = await Promise.all([
-    Promise.all(locales.map((locale) => getAllFormUrls(locale))),
-    Promise.all(locales.map((locale) => getCategoryUrls(locale))),
-  ]);
-
-  const formPaths = formsByLocale.flatMap((forms, index) =>
-    forms.data
-      .filter((form) => typeof form.url === "string" && form.url.length > 0)
-      .map((form) => ({
-        params: { slug: form.url },
-        locale: locales[index],
-      })),
+  const templatesByLocale = await Promise.all(
+    locales.map((locale) => getTemplates(locale)),
   );
 
-  const categoryPaths = categoriesByLocale.flatMap((categories, index) =>
-    categories.data
-      .filter(
-        (category) =>
-          typeof category.urlReq === "string" && category.urlReq.length > 0,
-      )
-      .map((category) => ({
-        params: { slug: category.urlReq },
+  const formPaths = templatesByLocale.flatMap((templates, index) =>
+    templates.map((template) => ({
+      params: { slug: template.meta.slug },
+      locale: locales[index],
+    })),
+  );
+
+  const categoryPaths = templatesByLocale.flatMap((templates, index) =>
+    [...new Set(templates.map(({ meta }) => meta.category))].map(
+      (category) => ({
+        params: { slug: category },
         locale: locales[index],
-      })),
+      }),
+    ),
   );
 
   return {
@@ -238,21 +219,23 @@ export const getStaticProps = async ({
 }: GetStaticPropsContext & ILocale) => {
   const slug = params?.slug as string;
 
-  const categoryUrls = await getCachedCategoryUrls(locale);
-  const isCategory = categoryUrls.data.some(
-    (category) => category.urlReq === slug,
+  const allForms = await getCatalog(locale);
+  const isCategory = allForms.some(
+    (form) => form.locale === locale && form.meta.category === slug,
   );
 
   if (isCategory) {
-    const [categoryInfo, allForms, countryNames, categoryLocales] =
-      await Promise.all([
-        getCategoryInfo(locale, slug),
-        getAllFormsAllLocales(locale),
-        getCountryNames(locale),
-        getCategoryLocales(locale, slug),
-      ]);
+    // Category slugs are the same in every locale, so the page exists wherever
+    // that catalog has the category.
+    const categoryLocales = [
+      ...new Set(
+        allForms
+          .filter(({ meta }) => meta.category === slug)
+          .map((form) => form.locale),
+      ),
+    ];
 
-    const filters = resolveCategoryFilters(allForms.data, slug, {
+    const filters = resolveCategoryFilters(allForms, slug, {
       locale,
       type: [],
       country: [],
@@ -271,26 +254,22 @@ export const getStaticProps = async ({
         ])),
         locale,
         isCategory: true,
-        categoryInfo,
-        initialView: buildCategoryView(
-          allForms.data,
-          slug,
-          filters,
-          countryNames,
-        ),
-        initialFormNames: buildFormNames(allForms.data, locale, []),
+        categoryInfo: categorySeo(locale, slug) ?? {
+          title: categoryName(locale, slug),
+          description: "",
+        },
+        initialView: buildCategoryView(allForms, slug, filters),
+        initialFormNames: buildFormNames(allForms, locale, []),
         categoryUrlReq: slug,
         categoryLocales,
       },
     };
   }
 
-  const [form, categories] = await Promise.all([
-    getForm(locale, slug),
-    getParentCategories(locale),
-  ]);
+  const templates = await getTemplates(locale);
+  const template = templates.find(({ meta }) => meta.slug === slug);
 
-  if (!form?.data?.length) {
+  if (!template) {
     return {
       notFound: true,
     };
@@ -300,13 +279,13 @@ export const getStaticProps = async ({
     props: {
       ...(await serverSideTranslations(
         locale,
-        ["common", "form"],
+        ["common", "form", "embed"],
         null,
         languages.map((language) => language.shortKey),
       )),
       locale,
-      form,
-      categories,
+      template,
+      categories: [...new Set(templates.map(({ meta }) => meta.category))],
     },
   };
 };

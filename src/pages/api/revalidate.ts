@@ -37,10 +37,10 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { readdir, rm } from "fs/promises";
 import path from "path";
 import { languages } from "@src/config/languages";
-import { getAllFormUrls } from "@src/lib/requests/getAllFormUrls";
-import { getCategoryUrls } from "@src/lib/requests/getCategoryUrls";
+import { getTemplates } from "@src/lib/requests/getTemplates";
 import { clearLocaleCaches } from "@src/lib/api/cacheByLocale";
 import { i18n } from "@/next-i18next.config";
+import { ILocale } from "@src/types/locale";
 
 const STATIC_PAGES = ["/", "/searchresult"];
 const DEFAULT_LOCALE = i18n.defaultLocale;
@@ -57,21 +57,10 @@ const withLocale = (locale: string, page: string) => {
   return page === "/" ? `/${locale}` : `/${locale}${page}`;
 };
 
-const isNonEmpty = (value: unknown): value is string =>
-  typeof value === "string" && value.length > 0;
+const getCatalogSlugs = async (locale: ILocale["locale"]) => {
+  const templates = await getTemplates(locale);
 
-const getCmsSlugs = async (locale: string, signal: AbortSignal) => {
-  const [forms, categories] = await Promise.all([
-    getAllFormUrls(locale, signal),
-    getCategoryUrls(locale, signal),
-  ]);
-
-  return new Set(
-    [
-      ...forms.data.map((form) => form.url),
-      ...categories.data.map((category) => category.urlReq),
-    ].filter(isNonEmpty),
-  );
+  return new Set(templates.flatMap(({ meta }) => [meta.slug, meta.category]));
 };
 
 const getCachedSlugs = async (locale: string) => {
@@ -96,13 +85,13 @@ const removeCachedPage = (locale: string, slug: string) =>
     ),
   );
 
-const getLocalePaths = async (locale: string, signal: AbortSignal) => {
-  const [cmsSlugs, cachedSlugs] = await Promise.all([
-    getCmsSlugs(locale, signal),
+const getLocalePaths = async (locale: string) => {
+  const [catalogSlugs, cachedSlugs] = await Promise.all([
+    getCatalogSlugs(locale),
     getCachedSlugs(locale),
   ]);
 
-  const staleSlugs = cachedSlugs.filter((slug) => !cmsSlugs.has(slug));
+  const staleSlugs = cachedSlugs.filter((slug) => !catalogSlugs.has(slug));
 
   const toPaths = (slugs: Iterable<string>) =>
     [...slugs].map((slug) => withLocale(locale, `/${slug}`));
@@ -110,7 +99,7 @@ const getLocalePaths = async (locale: string, signal: AbortSignal) => {
   return {
     active: [
       ...STATIC_PAGES.map((page) => withLocale(locale, page)),
-      ...toPaths(cmsSlugs),
+      ...toPaths(catalogSlugs),
     ],
     stale: toPaths(staleSlugs),
     removeStale: () =>
@@ -118,9 +107,9 @@ const getLocalePaths = async (locale: string, signal: AbortSignal) => {
   };
 };
 
-const getAllPaths = async (signal: AbortSignal) => {
+const getAllPaths = async () => {
   const byLocale = await Promise.all(
-    languages.map((language) => getLocalePaths(language.shortKey, signal)),
+    languages.map((language) => getLocalePaths(language.shortKey)),
   );
 
   return {
@@ -156,7 +145,7 @@ const run = async (res: NextApiResponse, signal: AbortSignal) => {
   try {
     clearLocaleCaches();
 
-    const { active, stale, removeStale } = await getAllPaths(signal);
+    const { active, stale, removeStale } = await getAllPaths();
 
     if (signal.aborted) {
       console.log("[revalidate] aborted by a newer request");

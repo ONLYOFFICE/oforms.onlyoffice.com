@@ -33,26 +33,47 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import CONFIG from "@src/config/config.json";
-import { apiRequest } from "@src/lib/api/apiRequest";
-import { ILocale } from "@src/types/locale";
-import { cmsLocale } from "@src/utils/cmsLocale";
+import { TFormat } from "@src/types/data";
 
-const getPurposeWithCategories = async (locale: ILocale["locale"]) => {
-  const params = [
-    `locale=${cmsLocale(locale)}`,
-    "fields[0]=name",
-    "populate[parent_categories][fields][0]=name",
-    "populate[parent_categories][populate][subcategories][fields][0]=name",
-  ]
-    .filter(Boolean)
-    .join("&");
+// One file of the DocSpace room, as embed/scripts/sync-docspace.mjs writes data/<locale>.json.
+export interface ITemplate {
+  path: string;
+  id: number;
+  version: number;
+  updated: string;
+  // Bytes.
+  size: number;
+  // Preview images, which stop at 10.
+  pages: number;
+  meta: {
+    slug: string;
+    category: string;
+    "card-title": string;
+    "card-text": string;
+    description: string;
+    "seo-title": string;
+    "seo-description": string;
+    added: string;
+    // Sheets of a spreadsheet, pages of the rest.
+    pages?: number;
+    popular?: string;
+  };
+}
 
-  const res = await apiRequest(`${CONFIG.api.cms}/api/purposes?${params}`, {
-    label: "getPurposeWithCategories",
-  });
-
-  return await res.json();
+// `meta` is null when the sync's strip failed.
+export type IRoomRecord = Omit<ITemplate, "meta"> & {
+  meta: ITemplate["meta"] | null;
 };
 
-export { getPurposeWithCategories };
+// What a card needs, so a page does not carry the whole catalog's descriptions.
+export type ITemplateCard = Pick<
+  ITemplate,
+  "path" | "id" | "version" | "pages"
+> & {
+  meta: Pick<ITemplate["meta"], "slug" | "card-title" | "card-text">;
+};
+
+export type { TFormat };
+
+// A room record with the catalog it came from: other locales stand in for other countries.
+export type TCatalogItem = ITemplate & { locale: string };

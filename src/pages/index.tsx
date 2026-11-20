@@ -35,8 +35,7 @@
 
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getAllFormsAllLocales } from "@src/lib/requests/getAllFormsAllLocales";
-import { getCountryNames } from "@src/lib/requests/getCountries";
+import { getCatalog } from "@src/lib/requests/getTemplates";
 import {
   buildFormNames,
   buildMainView,
@@ -88,16 +87,13 @@ const MainPage = ({
 };
 
 export const getStaticProps = async ({ locale }: ILocale) => {
-  const [allForms, countryNames] = await Promise.all([
-    getAllFormsAllLocales(locale),
-    getCountryNames(locale),
-  ]);
+  const allForms = await getCatalog(locale);
 
-  const filters = resolveMainFilters(allForms.data, {
+  const filters = resolveMainFilters(allForms, {
     locale,
     type: [],
     country: [],
-    subcategory: [],
+    category: [],
     sort: undefined,
   });
 
@@ -112,8 +108,8 @@ export const getStaticProps = async ({ locale }: ILocale) => {
         "NoResultsFound",
       ])),
       locale,
-      initialView: buildMainView(allForms.data, filters, countryNames),
-      initialFormNames: buildFormNames(allForms.data, locale, []),
+      initialView: buildMainView(allForms, filters),
+      initialFormNames: buildFormNames(allForms, locale, []),
     },
   };
 };

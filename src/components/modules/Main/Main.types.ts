@@ -35,29 +35,15 @@
 
 import { TFormNames } from "@src/lib/server/mainView.types";
 
-interface ISubcategoryNode {
-  id: number;
+export interface ICategoryNode {
   name: string;
   urlReq: string;
   count: number;
 }
 
-interface ICategoryNode {
-  id: number;
-  name: string;
-  urlReq: string;
-}
-
-export interface ICategoryTree {
-  category: ICategoryNode;
-  subcategories: ISubcategoryNode[];
-}
-
 export interface IPurposeNode {
-  id: number;
-  documentId: string;
-  name: string;
   key: string;
+  name: string;
 }
 
 export interface IMain {
@@ -72,7 +58,7 @@ export interface IMain {
     count: number;
   }[];
   purposes: IPurposeNode[];
-  categoriesByPurpose: Record<string, ICategoryTree[]>;
+  categoriesByPurpose: Record<string, ICategoryNode[]>;
   totalCount: number;
   formNames: TFormNames;
   skeleton?: React.ReactNode;

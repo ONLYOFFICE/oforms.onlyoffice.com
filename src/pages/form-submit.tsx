@@ -39,8 +39,6 @@ import zlib from "zlib";
 import { createHash } from "crypto";
 import { parse as parseCookie, serialize as serializeCookie } from "cookie";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getCountries } from "@src/lib/requests/getCountries";
-import { getPurposeWithCategories } from "@src/lib/requests/getPurposeWithCategories";
 import { getTemplatePreviewImages } from "@src/lib/requests/getTemplatePreviewImages";
 import { Layout } from "@src/components/Layout";
 import { Head } from "@src/components/modules/Head";
@@ -55,8 +53,6 @@ import { ILocale } from "@src/types/locale";
 
 const FormSubmitPage = ({
   locale,
-  countries,
-  purposeWithCategories,
   queryIndexData,
 }: IFormSubmitTemplate & ILocale) => {
   const { t } = useTranslation("form-submit");
@@ -78,8 +74,6 @@ const FormSubmitPage = ({
       </Layout.Header>
       <Layout.Main background="var(--form-submit-background-color)">
         <FormSubmitTemplate
-          countries={countries}
-          purposeWithCategories={purposeWithCategories}
           queryIndexData={queryIndexData}
         />
       </Layout.Main>
@@ -165,22 +159,17 @@ export const getServerSideProps = async ({
 }: GetServerSidePropsContext) => {
   const resolvedLocale = locale ?? "en";
 
-  const [countries, purposeWithCategories, queryIndexData] = await Promise.all([
-    getCountries(resolvedLocale),
-    getPurposeWithCategories(resolvedLocale),
-    resolveQueryIndexData(query, req, res),
-  ]);
+  const queryIndexData = await resolveQueryIndexData(query, req, res);
 
   return {
     props: {
       ...(await serverSideTranslations(resolvedLocale, [
         "common",
         "form-submit",
+        "embed",
         "Select",
       ])),
       locale,
-      countries,
-      purposeWithCategories,
       queryIndexData,
     },
   };

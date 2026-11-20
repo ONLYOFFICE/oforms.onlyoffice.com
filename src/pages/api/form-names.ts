@@ -34,7 +34,7 @@
  */
 
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getAllFormsAllLocales } from "@src/lib/requests/getAllFormsAllLocales";
+import { getCatalog } from "@src/lib/requests/getTemplates";
 import { buildFormNames } from "@src/lib/server/buildMainView";
 import {
   isGetRequest,
@@ -53,10 +53,10 @@ export default async function handler(
   const locale = resolveLocale(req.query.locale);
 
   try {
-    const allForms = await getAllFormsAllLocales(locale);
+    const allForms = await getCatalog(locale);
 
     const formNames = buildFormNames(
-      allForms.data,
+      allForms,
       locale,
       getQueryValues(req.query.country),
     );

@@ -37,6 +37,7 @@ import type formidable from "formidable";
 import nodemailer from "nodemailer";
 import CONFIG from "@src/config/config.json";
 import { cmsLocale } from "@src/utils/cmsLocale";
+import { PURPOSE_BY_CATEGORY } from "@src/utils/purposes";
 import { ILocale } from "@src/types/locale";
 import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { sanitizeFileName, EXTENSION_MIME_TYPES } from "@src/utils/formSubmit";
@@ -50,30 +51,19 @@ export type TSubmissionError = { status: number; error: string };
 export type TSubmissionFields = {
   name: string;
   description: string;
-  countries: string[];
-  subcategories: string[];
+  category: string;
   locale: string;
 };
 
 export const toStringValue = (value: unknown): string =>
   typeof value === "string" ? value.trim() : "";
 
-export const toIdList = (value: unknown): string[] =>
-  Array.isArray(value)
-    ? value.filter(
-        (item): item is string => typeof item === "string" && item.length > 0,
-      )
-    : typeof value === "string" && value.length > 0
-      ? [value]
-      : [];
-
 export const validateSubmission = (
   fields: formidable.Fields,
 ): { fields: TSubmissionFields } | { error: TSubmissionError } => {
   const name = toStringValue(fields.name?.[0]);
   const description = toStringValue(fields.description?.[0]);
-  const countries = toIdList(fields.countries);
-  const subcategories = toIdList(fields.subcategories);
+  const category = toStringValue(fields.category?.[0]);
 
   if (!name) {
     return { error: { status: 400, error: "Template name is required" } };
@@ -103,24 +93,15 @@ export const validateSubmission = (
     };
   }
 
-  if (countries.length === 0) {
-    return {
-      error: { status: 400, error: "At least one country is required" },
-    };
-  }
-
-  if (subcategories.length === 0) {
-    return {
-      error: { status: 400, error: "At least one subcategory is required" },
-    };
+  if (!PURPOSE_BY_CATEGORY[category]) {
+    return { error: { status: 400, error: "A category is required" } };
   }
 
   return {
     fields: {
       name,
       description,
-      countries,
-      subcategories,
+      category,
       locale: cmsLocale(
         toStringValue(fields.languageKey?.[0]) as ILocale["locale"],
       ),
@@ -162,8 +143,6 @@ export const createStrapiEntry = async (
         data: {
           name_form: fields.name,
           template_desc: fields.description,
-          countries: { connect: fields.countries },
-          subcategories: { connect: fields.subcategories },
         },
       }),
     },
@@ -229,7 +208,10 @@ export const uploadToStrapi = async (
   }
 };
 
-export const notifyByEmail = async (label: string): Promise<void> => {
+export const notifyByEmail = async (
+  label: string,
+  fields: TSubmissionFields,
+): Promise<void> => {
   const {
     EMAIL_HOST,
     EMAIL_PORT,
@@ -254,7 +236,14 @@ export const notifyByEmail = async (label: string): Promise<void> => {
       from: `${siteUrl} <${EMAIL_AUTH_USER}>`,
       to: [EMAIL_ACCOUNT_1, EMAIL_ACCOUNT_2].filter(Boolean) as string[],
       subject: `You have a new form from ${siteUrl}/form-submit`,
-      text: `You have a new form from ${siteUrl}/form-submit. Please review it.`,
+      // The category is what the file's `category` property in the DocSpace room takes.
+      text: [
+        `You have a new form from ${siteUrl}/form-submit. Please review it.`,
+        "",
+        `Name: ${fields.name}`,
+        `Locale: ${fields.locale}`,
+        `Category: ${fields.category}`,
+      ].join("\n"),
     });
   } catch (error) {
     console.error(`[${label}] notification email:`, error);

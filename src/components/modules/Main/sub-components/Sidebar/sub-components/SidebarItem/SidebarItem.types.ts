@@ -49,7 +49,6 @@ export interface ISidebarItem {
   categories?: {
     heading: string;
     options: ISidebarOption[];
-    queryKey?: string;
     collapseQueryKey?: string;
     collapseQueryParam?: string;
     defaultOpen?: boolean;
@@ -57,7 +56,6 @@ export interface ISidebarItem {
   optionsType?: "badge" | "switch";
   type?: "checkbox" | "radio";
   isSub?: boolean;
-  queryKey?: string;
   collapseQueryKey?: string;
   collapseQueryParam?: string;
   defaultOpen?: boolean;

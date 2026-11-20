@@ -33,15 +33,9 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import {
-  ICountries,
-  IPurposeWithCategories,
-  IQueryIndexData,
-} from "../../FormSubmit.types";
+import { IQueryIndexData } from "../../FormSubmit.types";
 
 export interface IInfo {
-  countries: ICountries;
-  purposeWithCategories: IPurposeWithCategories;
   onSuccess: () => void;
   file: File | null;
   isUploading: boolean;

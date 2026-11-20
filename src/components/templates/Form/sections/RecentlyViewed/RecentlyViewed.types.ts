@@ -33,15 +33,15 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { IFormData } from "../../Form.types";
+import { TFormat } from "@src/types/data";
 
 export interface IRecentlyViewedForm {
-  id: IFormData["data"][0]["id"];
-  name_form: IFormData["data"][0]["name_form"];
-  description_card: IFormData["data"][0]["description_card"];
-  url: IFormData["data"][0]["url"];
-  card_prewiew: IFormData["data"][0]["card_prewiew"]["url"];
-  form_exts: IFormData["data"][0]["form_exts"][0]["ext"];
+  id: number;
+  name_form: string;
+  description_card: string;
+  url: string;
+  card_prewiew: string;
+  form_exts: TFormat;
   locale?: string;
 }
 

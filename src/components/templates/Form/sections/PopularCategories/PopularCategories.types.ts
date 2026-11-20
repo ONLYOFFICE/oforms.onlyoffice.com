@@ -33,8 +33,6 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { ICategoriesData } from "@src/components/templates/Form/Form.types";
-
 export interface IPopularCategories {
-  categories: ICategoriesData;
+  categories: string[];
 }

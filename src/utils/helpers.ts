@@ -33,8 +33,9 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { IFormsData } from "@src/types/data";
-import { ALLOWED_TYPES, TAllowedTypes } from "@src/utils/allowedTypes";
+import { TAllowedTypes } from "@src/utils/allowedTypes";
+import { extOf } from "@src/utils/templateFiles";
+import { TCatalogItem } from "@src/types/room";
 
 export const getQueryValues = (
   value: string | string[] | undefined,
@@ -44,24 +45,13 @@ export const getQueryValues = (
 };
 
 export const getTemplatesByExt = (
-  forms: IFormsData["data"][number][] | undefined,
+  forms: TCatalogItem[],
   ext: TAllowedTypes,
   limit = 8,
-) =>
-  forms
-    ?.filter((form) => form.form_exts?.some((item) => item.ext === ext))
-    .map((form) => ({
-      ...form,
-      form_exts: [...form.form_exts].sort(
-        (a, b) => ALLOWED_TYPES.indexOf(a.ext) - ALLOWED_TYPES.indexOf(b.ext),
-      ),
-    }))
-    .slice(0, limit) ?? [];
+) => forms.filter((form) => extOf(form) === ext).slice(0, limit);
 
-export const getPopularTemplates = (
-  forms: IFormsData["data"][number][] | undefined,
-  limit = 8,
-) => forms?.filter((form) => form.popular_template).slice(0, limit) ?? [];
+export const getPopularTemplates = (forms: TCatalogItem[], limit = 8) =>
+  forms.filter(({ meta }) => meta.popular).slice(0, limit);
 
 const POPULAR_TEMPLATES_MIN_FORMS = 8;
 
@@ -87,8 +77,8 @@ const stableShuffle = <T extends { id: number | string }>(
     .map(({ item }) => item);
 
 export const fillPopularTemplates = (
-  popular: IFormsData["data"][number][],
-  pool: IFormsData["data"][number][],
+  popular: TCatalogItem[],
+  pool: TCatalogItem[],
   min = 4,
 ) => {
   if (!popular.length || popular.length >= min) return popular;
@@ -105,20 +95,18 @@ export const fillPopularTemplates = (
   ];
 };
 
-export const getSectionPopularTemplates = (
-  forms: IFormsData["data"][number][],
-) =>
+export const getSectionPopularTemplates = (forms: TCatalogItem[]) =>
   forms.length < POPULAR_TEMPLATES_MIN_FORMS
     ? []
     : fillPopularTemplates(getPopularTemplates(forms), forms);
 
 export type TSortKey = "popular" | "asc" | "desc" | "name_asc" | "name_desc";
 const SORT_MAP: Record<TSortKey, string> = {
-  asc: "createdAt:desc",
-  desc: "createdAt:asc",
-  name_asc: "name_form:asc",
-  name_desc: "name_form:desc",
-  popular: "popular_template:desc",
+  asc: "added:desc",
+  desc: "added:asc",
+  name_asc: "name:asc",
+  name_desc: "name:desc",
+  popular: "popular:desc",
 };
 
 export const SORT_KEYS = Object.keys(SORT_MAP) as TSortKey[];
@@ -133,34 +121,27 @@ export const normalizeSortKey = (
     : DEFAULT_SORT_KEY;
 };
 
-export const sortForms = (
-  forms: IFormsData["data"][number][] | undefined,
-  sort: TSortKey,
-) => {
+const names = new Intl.Collator(undefined, { sensitivity: "base" });
+
+export const sortForms = (forms: TCatalogItem[], sort: TSortKey) => {
   const [field, direction] = SORT_MAP[sort].split(":");
   const dir = direction === "desc" ? -1 : 1;
-  const result = [...(forms ?? [])];
 
-  return result.sort((a, b) => {
+  return [...forms].sort((a, b) => {
     switch (field) {
-      case "name_form":
-        return (
-          dir *
-          a.name_form.localeCompare(b.name_form, undefined, {
-            sensitivity: "base",
-          })
-        );
-      case "popular_template":
-        return (
-          dir *
-          (Number(Boolean(a.popular_template)) -
-            Number(Boolean(b.popular_template)))
-        );
-      case "createdAt":
+      case "name":
+        return dir * names.compare(a.meta["card-title"], b.meta["card-title"]);
+      case "popular":
+        return dir * (Number(!!a.meta.popular) - Number(!!b.meta.popular));
+      case "added":
       default:
         return (
           dir *
-          (new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+          (a.meta.added < b.meta.added
+            ? -1
+            : a.meta.added > b.meta.added
+              ? 1
+              : 0)
         );
     }
   });

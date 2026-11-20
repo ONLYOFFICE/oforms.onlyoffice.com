@@ -35,17 +35,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { useTranslation } from "next-i18next";
 import clsx from "clsx";
 import { ChevronDownIcon } from "@src/components/icons";
 import { Badge } from "@src/components/ui/Badge";
 import { Switch } from "@src/components/ui/Switch";
-import {
-  COLLAPSE_QUERY_PARAM,
-  EXPAND_QUERY_PARAM,
-  parseQueryList,
-  VISIBLE_SUBCATEGORIES_LIMIT,
-} from "@src/utils/queryFilters";
+import { parseQueryList } from "@src/utils/queryFilters";
 import { ISidebarItem } from "./SidebarItem.types";
 import styles from "./SidebarItem.module.scss";
 
@@ -58,25 +52,21 @@ const SidebarItem = ({
   optionsType = "badge",
   type = "checkbox",
   isSub = false,
-  queryKey,
   collapseQueryKey,
-  collapseQueryParam = COLLAPSE_QUERY_PARAM,
+  collapseQueryParam,
   defaultOpen = true,
   defaultOpenKeys = [],
 }: ISidebarItem) => {
-  const { t } = useTranslation("MainTemplate");
   const router = useRouter();
 
   const [isOpenState, setIsOpen] = useState(defaultOpen);
 
-  const showAllOptions =
-    !!queryKey &&
-    parseQueryList(router.query[EXPAND_QUERY_PARAM]).includes(queryKey);
-
-  const collapseParam = router.query[collapseQueryParam];
+  const collapseParam = collapseQueryParam
+    ? router.query[collapseQueryParam]
+    : undefined;
 
   const getIsOpen = () => {
-    if (!collapseQueryKey) return isOpenState;
+    if (!collapseQueryKey || !collapseQueryParam) return isOpenState;
     if (collapseParam === undefined) return defaultOpen;
     return parseQueryList(collapseParam).includes(collapseQueryKey);
   };
@@ -85,16 +75,6 @@ const SidebarItem = ({
   const isSwitch = !isSub && optionsType === "switch";
   const showCount = !isSub && !isSwitch && !!count;
   const OptionComponent = isSwitch ? Switch : Badge;
-
-  const isCollapsible =
-    isSub && !!queryKey && (options?.length ?? 0) > VISIBLE_SUBCATEGORIES_LIMIT;
-  const visibleOptions =
-    isCollapsible && !showAllOptions
-      ? options?.slice(0, VISIBLE_SUBCATEGORIES_LIMIT)
-      : options;
-  const hiddenCount = isCollapsible
-    ? (options?.length ?? 0) - VISIBLE_SUBCATEGORIES_LIMIT
-    : 0;
 
   const toggleId = (ids: string[], key: string, include: boolean) => {
     const rest = ids.filter((item) => item !== key);
@@ -112,22 +92,10 @@ const SidebarItem = ({
     router.push({ query }, undefined, { scroll: false, shallow: true });
   };
 
-  const toggleShowAllOptions = (showAll: boolean) => {
-    if (!queryKey) return;
-    writeQueryList(
-      EXPAND_QUERY_PARAM,
-      toggleId(
-        parseQueryList(router.query[EXPAND_QUERY_PARAM]),
-        queryKey,
-        showAll,
-      ),
-    );
-  };
-
   const toggleIsOpen = () => {
     const next = !isOpen;
 
-    if (collapseQueryKey) {
+    if (collapseQueryKey && collapseQueryParam) {
       const current =
         collapseParam === undefined
           ? defaultOpenKeys
@@ -188,7 +156,7 @@ const SidebarItem = ({
           {text && <div className={styles["sidebar-item-text"]}>{text}</div>}
           {options && (
             <div className={styles["sidebar-item-options"]}>
-              {visibleOptions?.map((option) => (
+              {options.map((option) => (
                 <OptionComponent
                   key={option.value}
                   name={heading}
@@ -202,26 +170,6 @@ const SidebarItem = ({
                   {option.label}
                 </OptionComponent>
               ))}
-
-              {isCollapsible && !showAllOptions && (
-                <button
-                  type="button"
-                  className={styles["sidebar-item-options-btn"]}
-                  onClick={() => toggleShowAllOptions(true)}
-                >
-                  +{hiddenCount}
-                </button>
-              )}
-
-              {isCollapsible && showAllOptions && (
-                <button
-                  type="button"
-                  className={styles["sidebar-item-show-less-btn"]}
-                  onClick={() => toggleShowAllOptions(false)}
-                >
-                  {t("ShowLess")}
-                </button>
-              )}
             </div>
           )}
           {categories?.map((category) => (
@@ -232,11 +180,12 @@ const SidebarItem = ({
               heading={category.heading}
               options={category.options}
               type={type}
-              queryKey={category.queryKey}
-              collapseQueryKey={category.collapseQueryKey ?? category.queryKey}
+              collapseQueryKey={category.collapseQueryKey}
               collapseQueryParam={category.collapseQueryParam}
               defaultOpenKeys={categories.flatMap((item) =>
-                item.defaultOpen && item.queryKey ? [item.queryKey] : [],
+                item.defaultOpen && item.collapseQueryKey
+                  ? [item.collapseQueryKey]
+                  : [],
               )}
             />
           ))}

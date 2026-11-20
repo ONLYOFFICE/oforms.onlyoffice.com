@@ -67,7 +67,6 @@ const Sidebar = ({
   pptxForms,
   pdfForms,
   selectedCategory,
-  categorySubcategories,
   redirectToHome,
 }: ISidebar) => {
   const { t } = useTranslation("MainTemplate");
@@ -98,10 +97,8 @@ const Sidebar = ({
       {
         type: ALLOWED_TYPES,
         country: countryCodes,
-        subcategory: Object.values(categoriesByPurpose).flatMap((categories) =>
-          categories.flatMap(({ subcategories }) =>
-            subcategories.map((sub) => sub.urlReq),
-          ),
+        category: Object.values(categoriesByPurpose).flatMap((nodes) =>
+          nodes.map((node) => node.urlReq),
         ),
       },
       { redirectToHome },
@@ -112,8 +109,7 @@ const Sidebar = ({
     categoriesByPurpose,
     {
       purpose: filters.purpose,
-      category: selectedCategory,
-      subcategory: filters.subcategory,
+      category: selectedCategory ? [selectedCategory] : filters.category,
     },
   );
 
@@ -121,10 +117,8 @@ const Sidebar = ({
     ? (categoriesByPurpose[selectedPurpose] ?? [])
     : [];
 
-  const purposeSubcategories = new Set(
-    purposeCategories.flatMap(({ subcategories }) =>
-      subcategories.map((sub) => sub.urlReq),
-    ),
+  const purposeCategorySlugs = new Set(
+    purposeCategories.map((node) => node.urlReq),
   );
 
   const typeOptions = [
@@ -142,15 +136,15 @@ const Sidebar = ({
       onChange: () => toggle("type", type.value),
     }));
 
-  const toggleSubcategoryValue = (value: string) => {
+  const toggleCategoryValue = (value: string) => {
     if (!selectedCategory) {
-      toggle("subcategory", value);
+      toggle("category", value);
       return;
     }
 
     const next = toggleFilterValue(
-      { ...filters, subcategory: categorySubcategories },
-      "subcategory",
+      { ...filters, category: [selectedCategory] },
+      "category",
       value,
     );
 
@@ -164,7 +158,7 @@ const Sidebar = ({
     }
 
     apply(
-      { ...filters, subcategory: categorySubcategories, purpose },
+      { ...filters, category: [selectedCategory], purpose },
       { toHome: true },
     );
   };
@@ -174,12 +168,9 @@ const Sidebar = ({
     router.locale,
     countryCodes,
   );
-  const selectedSubcategories = (
-    selectedCategory ? categorySubcategories : filters.subcategory
-  ).filter((sub) => purposeSubcategories.has(sub));
-
-  const isSubcategoryChecked = (subcategoryUrlReq: string) =>
-    selectedSubcategories.includes(subcategoryUrlReq);
+  const selectedCategories = (
+    selectedCategory ? [selectedCategory] : filters.category
+  ).filter((category) => purposeCategorySlugs.has(category));
 
   const defaultCountry = localeCountry(router.locale);
 
@@ -209,21 +200,26 @@ const Sidebar = ({
   const otherCountryOptions = visibleCountries
     .slice(VISIBLE_COUNTRIES_LIMIT)
     .map(toCountryOption);
-  const visiblePurposeCategories = purposeCategories
-    .map(({ category, subcategories }) => ({
-      category,
-      subcategories: subcategories.filter((sub) => sub.count > 0),
-    }))
-    .filter(({ subcategories }) => subcategories.length > 0);
+  const categoryOptions = purposeCategories
+    .filter(
+      (node) => node.count > 0 || selectedCategories.includes(node.urlReq),
+    )
+    .map((node) => ({
+      value: node.urlReq,
+      label: node.name,
+      count: node.count,
+      checked: selectedCategories.includes(node.urlReq),
+      onChange: () => toggleCategoryValue(node.urlReq),
+    }));
 
-  const checkedCategoryCount = visiblePurposeCategories
-    .flatMap(({ subcategories }) => subcategories)
-    .filter((sub) => isSubcategoryChecked(sub.urlReq)).length;
+  const checkedCategoryCount = categoryOptions.filter(
+    (option) => option.checked,
+  ).length;
 
   const checkedTypeCount = typeOptions.filter((type) => type.checked).length;
 
   const hasSelectedFilters =
-    filters.type.length > 0 || selectedSubcategories.length > 0;
+    filters.type.length > 0 || selectedCategories.length > 0;
 
   const totalChecked = checkedTypeCount + checkedCategoryCount;
 
@@ -314,22 +310,7 @@ const Sidebar = ({
                 {
                   heading: t("Сategories"),
                   count: checkedCategoryCount,
-                  categories: visiblePurposeCategories.map(
-                    ({ category, subcategories }) => ({
-                      heading: category.name,
-                      queryKey: `category-${category.urlReq}`,
-                      defaultOpen: subcategories.some((sub) =>
-                        selectedSubcategories.includes(sub.urlReq),
-                      ),
-                      options: subcategories.map((sub) => ({
-                        value: sub.urlReq,
-                        label: sub.name,
-                        count: sub.count,
-                        checked: isSubcategoryChecked(sub.urlReq),
-                        onChange: () => toggleSubcategoryValue(sub.urlReq),
-                      })),
-                    }),
-                  ),
+                  options: categoryOptions,
                 },
               ] as ISidebarItem[]
             ).map((item) => (

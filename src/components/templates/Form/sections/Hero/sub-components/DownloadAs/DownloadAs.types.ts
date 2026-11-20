@@ -33,9 +33,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { IHero } from "../../Hero.types";
+import { IDownloadAsItem } from "./DownloadAsItem";
 
-export interface IDownloadAs {
+export interface IDownloadAs extends IDownloadAsItem {
   className?: string;
-  file_oform: IHero["file_oform"];
 }

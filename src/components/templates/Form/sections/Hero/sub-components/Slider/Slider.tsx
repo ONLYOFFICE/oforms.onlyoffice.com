@@ -48,10 +48,8 @@ const NAVIGATION = {
   nextEl: ".slider-button-next",
 };
 
-const Slider = ({ page_screens, name_form }: ISlider) => {
-  const slides = page_screens ?? [];
-
-  if (slides.length === 0) return null;
+const Slider = ({ pages, name_form }: ISlider) => {
+  if (pages.length === 0) return null;
 
   return (
     <div className={styles["slider-wrapper"]}>
@@ -64,12 +62,12 @@ const Slider = ({ page_screens, name_form }: ISlider) => {
         autoHeight={true}
         navigation={NAVIGATION}
       >
-        {slides.map((item, index) => (
-          <SwiperSlide key={item.id}>
+        {pages.map((src, index) => (
+          <SwiperSlide key={src}>
             <div className={styles["slider-item"]}>
               <img
                 className={styles["slider-item-img"]}
-                src={item.url}
+                src={src}
                 alt={`${name_form} ${index + 1}`}
               />
             </div>
@@ -77,7 +75,7 @@ const Slider = ({ page_screens, name_form }: ISlider) => {
         ))}
       </Swiper>
 
-      {slides.length > 1 && (
+      {pages.length > 1 && (
         <div className={styles["slider-navigation"]}>
           <button className="slider-button-prev" type="button">
             <ChevronDownIcon />

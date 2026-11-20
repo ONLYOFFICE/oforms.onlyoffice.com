@@ -53,27 +53,22 @@ import { DownloadAs } from "./sub-components/DownloadAs";
 import { Share } from "./sub-components/Share";
 import { Slider } from "./sub-components/Slider";
 import { TemplateButtons } from "./sub-components/TemplateButtons";
+import { extOf, fileName, fileUrl, pageUrls } from "@src/utils/templateFiles";
 import { IHero } from "./Hero.types";
 import styles from "./Hero.module.scss";
 
-const Hero = ({
-  name_form,
-  template_desc,
-  template_desc_2,
-  file_pages,
-  file_oform,
-  page_screens,
-  linkEditor,
-  suggestChangesLink,
-}: IHero) => {
+const Hero = ({ template, linkEditor, suggestChangesLink }: IHero) => {
   const {
     t,
     i18n: { language },
   } = useTranslation("form");
-  const { name, size, updatedAt, url } = file_oform?.[0] ?? {};
-  const pdfFile = file_oform?.filter(
-    (it) => it?.name.split(".").pop() === "pdf",
-  );
+  const { meta, size, updated } = template;
+  const name_form = meta["card-title"];
+  const template_desc = meta.description;
+  const template_desc_2 = meta["card-text"];
+  const format = extOf(template);
+  const url = fileUrl(template);
+  const kb = Math.round(size / 1024);
 
   return (
     <Section
@@ -89,7 +84,7 @@ const Hero = ({
               {name_form}
             </Heading>
             <div className={styles["hero-labels"]}>
-              {pdfFile?.[0]?.url && (
+              {format === "pdf" && (
                 <span className={styles["hero-label"]}>
                   {t("FillableForm")}
                 </span>
@@ -137,7 +132,7 @@ const Hero = ({
                     size={5}
                     className={styles["hero-info-value"]}
                   >
-                    {dayjs(updatedAt)
+                    {dayjs(updated)
                       .locale(language)
                       .format(
                         {
@@ -158,7 +153,7 @@ const Hero = ({
                 </Link>
               </div>
               <div className={clsx(styles["hero-info-row"])}>
-                {size != null && (
+                {size > 0 && (
                   <div
                     className={clsx(
                       styles["hero-info-item"],
@@ -178,13 +173,13 @@ const Hero = ({
                       className={styles["hero-info-value"]}
                       dir="ltr"
                     >
-                      {Math.round((size * 1000) / 1024) < 1024
-                        ? `${Math.round((size * 1000) / 1024)} kb`
-                        : `${parseFloat(((size * 1000) / 1024 / 1024).toFixed(1))} mb`}
+                      {kb < 1024
+                        ? `${kb} kb`
+                        : `${parseFloat((kb / 1024).toFixed(1))} mb`}
                     </Text>
                   </div>
                 )}
-                {file_pages && (
+                {meta.pages != null && (
                   <div className={styles["hero-info-item"]}>
                     <Text
                       as="span"
@@ -198,33 +193,32 @@ const Hero = ({
                       size={5}
                       className={styles["hero-info-value"]}
                     >
-                      {file_pages}
+                      {meta.pages}
                     </Text>
                   </div>
                 )}
               </div>
             </div>
 
-            {file_oform?.length > 0 && (
-              <DownloadAs
-                className={styles["hero-download-as"]}
-                file_oform={file_oform}
-              />
-            )}
+            <DownloadAs
+              className={styles["hero-download-as"]}
+              format={format}
+              href={url}
+            />
 
             <TemplateButtons
               className={styles["hero-buttons"]}
               buttonClassName={styles["hero-button"]}
-              name={name}
+              name={fileName(template)}
               url={url}
               linkEditor={linkEditor}
-              hasPdfForm={!!pdfFile?.[0]?.hash}
+              hasPdfForm={format === "pdf"}
             />
 
             <Share />
           </div>
 
-          <Slider page_screens={page_screens} name_form={name_form} />
+          <Slider pages={pageUrls(template)} name_form={name_form} />
         </div>
       </Container>
     </Section>

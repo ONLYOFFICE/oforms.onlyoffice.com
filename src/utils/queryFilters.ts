@@ -38,12 +38,9 @@ import { getQueryValues, normalizeSortKey, TSortKey } from "@src/utils/helpers";
 export type TQueryValue = string | string[] | undefined;
 export type TRawQuery = Record<string, TQueryValue>;
 
-export const FILTER_KEYS = ["type", "country", "subcategory"] as const;
+export const FILTER_KEYS = ["type", "country", "category"] as const;
 export type TFilterKey = (typeof FILTER_KEYS)[number];
 
-export const EXPAND_QUERY_PARAM = "categories-expanded";
-export const VISIBLE_SUBCATEGORIES_LIMIT = 3;
-export const COLLAPSE_QUERY_PARAM = "categories-opened";
 export const COUNTRIES_COLLAPSE_QUERY_PARAM = "countries-opened";
 
 export type TAllowedValues = Partial<Record<TFilterKey, Iterable<string>>>;
@@ -51,11 +48,9 @@ export type TAllowedValues = Partial<Record<TFilterKey, Iterable<string>>>;
 export interface ITemplateFilters {
   type: string[];
   country: string[];
-  subcategory: string[];
+  category: string[];
   sort?: TSortKey;
   purpose?: string;
-  expanded: string[];
-  opened?: string[];
   countriesOpened?: string[];
 }
 
@@ -80,17 +75,9 @@ export const parseFilters = (
 ): ITemplateFilters => ({
   type: keepAllowed(parseLowerQueryList(query.type), allowed.type),
   country: keepAllowed(parseLowerQueryList(query.country), allowed.country),
-  subcategory: keepAllowed(
-    parseLowerQueryList(query.subcategory),
-    allowed.subcategory,
-  ),
+  category: keepAllowed(parseLowerQueryList(query.category), allowed.category),
   sort: parseQueryValue(query.sort) ? normalizeSortKey(query.sort) : undefined,
   purpose: parseQueryValue(query.purpose),
-  expanded: parseQueryList(query[EXPAND_QUERY_PARAM]),
-  opened:
-    query[COLLAPSE_QUERY_PARAM] === undefined
-      ? undefined
-      : parseQueryList(query[COLLAPSE_QUERY_PARAM]),
   countriesOpened:
     query[COUNTRIES_COLLAPSE_QUERY_PARAM] === undefined
       ? undefined
@@ -105,15 +92,13 @@ export const serializeFilters = (
   const lists: Record<string, string[]> = {
     type: filters.type,
     country: filters.country,
-    subcategory: filters.subcategory,
-    [EXPAND_QUERY_PARAM]: filters.expanded,
+    category: filters.category,
   };
 
   Object.entries(lists).forEach(([key, values]) => {
     if (values.length) query[key] = values.join(",");
   });
 
-  if (filters.opened) query[COLLAPSE_QUERY_PARAM] = filters.opened.join(",");
   if (filters.countriesOpened)
     query[COUNTRIES_COLLAPSE_QUERY_PARAM] = filters.countriesOpened.join(",");
 
@@ -146,8 +131,6 @@ export const clearFilters = (filters: ITemplateFilters): ITemplateFilters => ({
   ...filters,
   type: [],
   country: [],
-  subcategory: [],
-  expanded: [],
-  opened: undefined,
+  category: [],
   countriesOpened: undefined,
 });

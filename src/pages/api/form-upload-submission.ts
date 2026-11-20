@@ -151,7 +151,7 @@ export default async function handler(
       strapi,
     );
 
-    await notifyByEmail(LABEL);
+    await notifyByEmail(LABEL, validated.fields);
 
     return res.status(201).json({ success: true });
   } catch (error) {

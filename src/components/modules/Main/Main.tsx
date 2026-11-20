@@ -69,19 +69,6 @@ const Main = ({
   const [isOpen, setIsOpen] = useState(false);
   const hideTopWhileLoading = skeleton === null;
 
-  const categorySubcategories = selectedCategory
-    ? Array.from(
-        new Set(
-          Object.values(categoriesByPurpose)
-            .flat()
-            .filter(({ category }) => category.urlReq === selectedCategory)
-            .flatMap(({ subcategories }) =>
-              subcategories.map((sub) => sub.urlReq),
-            ),
-        ),
-      )
-    : [];
-
   useEffect(() => {
     if (!isOpen) return;
 
@@ -146,7 +133,6 @@ const Main = ({
             pptxForms={pptxForms}
             pdfForms={pdfForms}
             selectedCategory={selectedCategory}
-            categorySubcategories={categorySubcategories}
             redirectToHome={redirectToHome}
           />
 

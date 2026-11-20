@@ -54,7 +54,7 @@ const CategoryTemplate = ({
   const { view, isInitialLoading } = useServerView<ICategoryView>(
     initialView,
     {
-      category: categoryUrlReq,
+      categoryPage: categoryUrlReq,
     },
   );
   const { formNames } = useFormNames(initialFormNames);

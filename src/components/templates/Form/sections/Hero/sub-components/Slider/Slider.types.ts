@@ -34,12 +34,6 @@
  */
 
 export interface ISlider {
-  page_screens:
-    | {
-        id: number;
-        documentId: string;
-        url: string;
-      }[]
-    | null;
+  pages: string[];
   name_form: string;
 }

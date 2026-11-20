@@ -89,8 +89,9 @@ const RecentlyViewed = ({
       form_exts,
       ...(formLocale && { locale: formLocale }),
     };
+    // Entries stored under Strapi ids carry the same url.
     const storedForms = readStoredForms(localStorageKey).filter(
-      (storedForm) => storedForm.id !== id,
+      (storedForm) => storedForm.id !== id && storedForm.url !== url,
     );
 
     try {

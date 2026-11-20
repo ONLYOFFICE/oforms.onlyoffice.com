@@ -33,6 +33,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
+import { useMemo } from "react";
 import { useTranslation } from "next-i18next";
 import { Section } from "@src/components/ui/Section";
 import { Container } from "@src/components/ui/Container";
@@ -42,7 +43,18 @@ import { IPopularCategories } from "./PopularCategories.types";
 import styles from "./PopularCategories.module.scss";
 
 const PopularCategories = ({ categories }: IPopularCategories) => {
-  const { t } = useTranslation("form");
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation(["form", "embed"]);
+  const collator = useMemo(() => new Intl.Collator(language), [language]);
+  const named = useMemo(
+    () =>
+      categories
+        .map((slug) => ({ slug, name: t(`embed:CategoryNames.${slug}`) }))
+        .sort((a, b) => collator.compare(a.name, b.name)),
+    [categories, collator, t],
+  );
 
   return (
     <Section
@@ -61,14 +73,14 @@ const PopularCategories = ({ categories }: IPopularCategories) => {
         </Heading>
 
         <div className={styles["popular-categories-list"]}>
-          {categories.data.map((category) => (
+          {named.map((category) => (
             <Button
               className={styles["popular-categories-btn"]}
               as="a"
               variant="tertiary-dark"
               size={3}
-              href={`/${category.urlReq}`}
-              key={category.id}
+              href={`/${category.slug}`}
+              key={category.slug}
             >
               {category.name}
             </Button>

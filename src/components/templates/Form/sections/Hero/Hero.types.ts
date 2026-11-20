@@ -33,27 +33,10 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
+import { ITemplate } from "@src/types/room";
+
 export interface IHero {
-  name_form: string;
-  template_desc: string;
-  template_desc_2?: string;
-  file_pages: string;
-  file_oform: {
-    id: number;
-    documentId: string;
-    name: string;
-    size: number;
-    updatedAt: string;
-    url: string;
-    hash: string;
-  }[];
-  page_screens:
-    | {
-        id: number;
-        documentId: string;
-        url: string;
-      }[]
-    | null;
+  template: ITemplate;
   linkEditor: string;
   suggestChangesLink: string;
 }

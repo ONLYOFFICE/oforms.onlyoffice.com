@@ -33,48 +33,29 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import CONFIG from "@src/config/config.json";
-import { apiRequest } from "@src/lib/api/apiRequest";
-import { cacheByLocale } from "@src/lib/api/cacheByLocale";
-import { ILocale } from "@src/types/locale";
-import { cmsLocale } from "@src/utils/cmsLocale";
+export const PURPOSE_ORDER = ["business", "personal"] as const;
+export type TPurpose = (typeof PURPOSE_ORDER)[number];
 
-const fetchCountries = async (locale: ILocale["locale"]) => {
-  const params = [
-    `locale=${cmsLocale(locale)}`,
-    "sort[0]=createdAt:desc",
-    "fields[0]=name",
-    "fields[1]=code",
-    "fields[2]=createdAt",
-  ].join("&");
+export const DEFAULT_PURPOSE_KEY: TPurpose = "business";
 
-  const res = await apiRequest(`${CONFIG.api.cms}/api/countries?${params}`, {
-    label: "getCountries",
-  });
-
-  return await res.json();
+// Copied from embed/src/types.ts: one purpose per category, and a new category
+// needs a line in both.
+export const PURPOSE_BY_CATEGORY: Partial<Record<string, TPurpose>> = {
+  "contracts-legal": "business",
+  "events-holidays": "personal",
+  "everyday-life": "personal",
+  finance: "business",
+  "forms-applications": "business",
+  "gifts-achievements": "personal",
+  "health-lifestyle": "personal",
+  "home-education": "business",
+  "hr-employment": "business",
+  integrations: "business",
+  leisure: "personal",
+  "operations-management": "business",
+  "organization-productivity": "personal",
+  "personal-events": "personal",
+  "real-estate": "business",
+  "sales-marketing": "business",
+  travel: "personal",
 };
-
-const getCountries = cacheByLocale(fetchCountries);
-
-const buildCountryNames = async (
-  locale: ILocale["locale"],
-): Promise<Record<string, string>> => {
-  const countries = await getCountries(locale);
-
-  return Object.fromEntries(
-    (countries.data ?? [])
-      .filter(
-        (country: { name?: string; code?: string }) =>
-          country?.code && country?.name,
-      )
-      .map((country: { name: string; code: string }) => [
-        country.code.toLowerCase(),
-        country.name,
-      ]),
-  );
-};
-
-const getCountryNames = cacheByLocale(buildCountryNames);
-
-export { getCountries, getCountryNames };

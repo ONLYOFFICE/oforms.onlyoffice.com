@@ -33,14 +33,10 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { ICategoryTree } from "@src/components/modules/Main/Main.types";
-
-interface IPurpose {
-  id: number;
-  documentId: string;
-  name: string;
-  key: string;
-}
+import {
+  ICategoryNode,
+  IPurposeNode,
+} from "@src/components/modules/Main/Main.types";
 
 interface ICountry {
   name: string;
@@ -48,21 +44,16 @@ interface ICountry {
   count: number;
 }
 
-type TPurposeData = IPurpose[];
-
-type TCountryData = ICountry[];
-
 export interface ISidebar {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  countries: TCountryData;
-  purposes: TPurposeData;
-  categoriesByPurpose: Record<string, ICategoryTree[]>;
+  countries: ICountry[];
+  purposes: IPurposeNode[];
+  categoriesByPurpose: Record<string, ICategoryNode[]>;
   docxForms: number;
   xlsxForms: number;
   pptxForms: number;
   pdfForms: number;
   selectedCategory?: string;
-  categorySubcategories: string[];
   redirectToHome?: boolean;
 }
