@@ -36,7 +36,7 @@
 /**
  * Copies template files from a DocSpace room to S3 and renders their previews.
  *
- * Room layout, as import-docspace.mjs writes it: <locale>/<ext>/<card title>.<ext>.
+ * Room layout, as import-docspace.mjs writes it: <locale>/<ext>/<slug>.<ext>.
  * Objects are <locale>/<ext>/<docspace id>.<ext> under FILES_BUCKET_URL, overwritten
  * in place. A file is uploaded when it is missing or was saved in DocSpace after the
  * object was uploaded. Before upload, files lose their author, last editor and catalog
@@ -67,7 +67,7 @@
 import { createWriteStream } from "node:fs";
 import { mkdir, mkdtemp, readdir, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { dirname, extname, join } from "node:path";
+import { basename, dirname, extname, join } from "node:path";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
 import { execFile, spawn } from "node:child_process";
@@ -99,8 +99,8 @@ const EXTS = new Set([".docx", ".xlsx", ".pptx", ".pdf"]);
 const PAGE = 100; // DocSpace refuses more.
 const PARALLEL = 4;
 // One generate-previews.py process per batch. --strip runs a script on every file, and
-// Builder keeps each file's JS context until its process exits (~150 MB a file on macOS,
-// BUILDER-LEAK.md): 50 a process was killed on the runner in its first batch.
+// Builder keeps each file's JS context until its process exits (~150 MB a file on macOS):
+// 50 a process was killed on the runner in its first batch.
 const BATCH = 10;
 // Locales rendered at once, one worker each so their data/<locale>.json uploads never race.
 // Each holds a process of BATCH files in memory.
@@ -182,6 +182,13 @@ const stemOf = (path) => path.slice(0, -extname(path).length);
 // ar/docx/123.page.4.webp → ar/docx/123.docx
 const fileOf = (key) => `${key.replace(/\.(card|page\.\d+)\.webp$/, "")}.${key.split("/")[1]}`;
 const localeOf = (path) => path.slice(0, path.indexOf("/"));
+// Saved under its id otherwise. encodeURIComponent keeps ' ( ) *, which RFC 5987 does not allow raw.
+const disposition = (path, title) =>
+  `inline; filename="${basename(path)}"` +
+  (title
+    ? `; filename*=UTF-8''${encodeURIComponent(`${title}${extname(path)}`)
+        .replace(/['()*]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`)}`
+    : "");
 // ISO dates, so plain comparison; localeCompare would build a collator per call.
 const newest = (a, b) => {
   const x = a.meta?.added ?? "";
@@ -264,24 +271,28 @@ async function syncBatch(batch, { objects, images, records }) {
       return batch.length;
     }
 
+    const rendered = new Set(await readdir(out, { recursive: true }));
+    // No meta.json: the strip failed, so the file went up as it is in the room.
+    const metas = new Map(await Promise.all(batch.map(async ({ path }) => {
+      const json = `${stemOf(path)}.meta.json`;
+      return [path, rendered.has(json) ? JSON.parse(await readFile(join(out, json), "utf8")) : null];
+    })));
+
     await inParallel(batch.filter((item) => item.changed), async ({ path, name }) => {
-      await aws("s3", "cp", join(src, path), `${BUCKET}/${path}`, "--only-show-errors", "--cache-control", IMMUTABLE);
+      await aws("s3", "cp", join(src, path), `${BUCKET}/${path}`, "--only-show-errors", "--cache-control", IMMUTABLE,
+        "--content-disposition", disposition(path, metas.get(path)?.["card-title"]));
       console.log(`  ↑ ${path}  ${name}`);
     });
 
     await aws("s3", "cp", out, IMAGES, "--recursive", "--only-show-errors", "--exclude", "*.meta.json",
       "--content-type", "image/webp", "--cache-control", IMMUTABLE);
-    const rendered = new Set(await readdir(out, { recursive: true }));
     const done = new Set(batch.filter(({ path }) => rendered.has(`${stemOf(path)}.card.webp`)).map(({ path }) => path));
     // Pages past the new last page; a failed render keeps the old images until the retry.
     await deleteImages([...images.keys()].filter((key) => done.has(fileOf(key)) && !rendered.has(key)));
 
     for (const { path, file, changed } of batch) {
       const stem = stemOf(path);
-      // No meta.json: the strip failed, so the file went up as it is in the room.
-      const meta = rendered.has(`${stem}.meta.json`)
-        ? JSON.parse(await readFile(join(out, `${stem}.meta.json`), "utf8"))
-        : null;
+      const meta = metas.get(path);
       const pages = [...(done.has(path) ? rendered : images.keys())].filter((key) => key.startsWith(`${stem}.page.`));
       const record = {
         path,
