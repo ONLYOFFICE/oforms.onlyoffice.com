@@ -40,10 +40,14 @@ import clsx from "clsx";
 import { ChevronDownIcon } from "@src/components/icons";
 import { Badge } from "@src/components/ui/Badge";
 import { Switch } from "@src/components/ui/Switch";
+import {
+  COLLAPSE_QUERY_PARAM,
+  EXPAND_QUERY_PARAM,
+  parseQueryList,
+  VISIBLE_SUBCATEGORIES_LIMIT,
+} from "@src/utils/queryFilters";
 import { ISidebarItem } from "./SidebarItem.types";
 import styles from "./SidebarItem.module.scss";
-
-const VISIBLE_OPTIONS_LIMIT = 3;
 
 const SidebarItem = ({
   heading,
@@ -52,56 +56,91 @@ const SidebarItem = ({
   options,
   categories,
   optionsType = "badge",
+  type = "checkbox",
   isSub = false,
   queryKey,
+  collapseQueryKey,
+  collapseQueryParam = COLLAPSE_QUERY_PARAM,
+  defaultOpen = true,
+  defaultOpenKeys = [],
 }: ISidebarItem) => {
   const { t } = useTranslation("MainTemplate");
   const router = useRouter();
 
-  const parseOpened = () => {
-    const param = router.query.opened;
-    return param ? String(param).split(",").filter(Boolean) : [];
+  const [isOpenState, setIsOpen] = useState(defaultOpen);
+
+  const showAllOptions =
+    !!queryKey &&
+    parseQueryList(router.query[EXPAND_QUERY_PARAM]).includes(queryKey);
+
+  const collapseParam = router.query[collapseQueryParam];
+
+  const getIsOpen = () => {
+    if (!collapseQueryKey) return isOpenState;
+    if (collapseParam === undefined) return defaultOpen;
+    return parseQueryList(collapseParam).includes(collapseQueryKey);
   };
 
-  const isOpenedInQuery = !!queryKey && parseOpened().includes(queryKey);
-
-  const [isOpen, setIsOpen] = useState(true);
-  const [showAllOptions, setShowAllOptions] = useState(isOpenedInQuery);
+  const isOpen = getIsOpen();
   const isSwitch = !isSub && optionsType === "switch";
   const showCount = !isSub && !isSwitch && !!count;
   const OptionComponent = isSwitch ? Switch : Badge;
 
-  const isCollapsible = isSub && (options?.length ?? 0) > VISIBLE_OPTIONS_LIMIT;
+  const isCollapsible =
+    isSub && !!queryKey && (options?.length ?? 0) > VISIBLE_SUBCATEGORIES_LIMIT;
   const visibleOptions =
     isCollapsible && !showAllOptions
-      ? options?.slice(0, VISIBLE_OPTIONS_LIMIT)
+      ? options?.slice(0, VISIBLE_SUBCATEGORIES_LIMIT)
       : options;
   const hiddenCount = isCollapsible
-    ? (options?.length ?? 0) - VISIBLE_OPTIONS_LIMIT
+    ? (options?.length ?? 0) - VISIBLE_SUBCATEGORIES_LIMIT
     : 0;
 
-  const setOpenedInQuery = (opened: boolean) => {
-    if (!queryKey) return;
+  const toggleId = (ids: string[], key: string, include: boolean) => {
+    const rest = ids.filter((item) => item !== key);
+    return include ? [...rest, key] : rest;
+  };
 
-    const current = parseOpened().filter((key) => key !== queryKey);
-    const ids = opened ? [...current, queryKey] : current;
-
+  const writeQueryList = (param: string, ids: string[], keepEmpty = false) => {
     const query = { ...router.query };
-    if (ids.length > 0) {
-      query.opened = ids.join(",");
+    if (ids.length > 0 || keepEmpty) {
+      query[param] = ids.join(",");
     } else {
-      delete query.opened;
+      delete query[param];
     }
 
-    router.push({ pathname: router.pathname, query }, undefined, {
-      scroll: false,
-      shallow: true,
-    });
+    router.push({ query }, undefined, { scroll: false, shallow: true });
   };
 
   const toggleShowAllOptions = (showAll: boolean) => {
-    setShowAllOptions(showAll);
-    setOpenedInQuery(showAll);
+    if (!queryKey) return;
+    writeQueryList(
+      EXPAND_QUERY_PARAM,
+      toggleId(
+        parseQueryList(router.query[EXPAND_QUERY_PARAM]),
+        queryKey,
+        showAll,
+      ),
+    );
+  };
+
+  const toggleIsOpen = () => {
+    const next = !isOpen;
+
+    if (collapseQueryKey) {
+      const current =
+        collapseParam === undefined
+          ? defaultOpenKeys
+          : parseQueryList(collapseParam);
+      writeQueryList(
+        collapseQueryParam,
+        toggleId(current, collapseQueryKey, next),
+        true,
+      );
+      return;
+    }
+
+    setIsOpen(next);
   };
 
   return (
@@ -117,9 +156,12 @@ const SidebarItem = ({
         className={clsx(
           styles["sidebar-item-header"],
           isSub && styles["sidebar-item-header-sub"],
-          !isSub && categories && styles["sidebar-item-header-with-categories"],
+          !isSub &&
+            categories &&
+            !options &&
+            styles["sidebar-item-header-with-categories"],
         )}
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={toggleIsOpen}
       >
         <span
           className={clsx(
@@ -154,6 +196,8 @@ const SidebarItem = ({
                   count={option.count}
                   checked={option.checked}
                   onChange={option.onChange}
+                  skeleton
+                  {...(isSwitch ? {} : { type })}
                 >
                   {option.label}
                 </OptionComponent>
@@ -184,9 +228,16 @@ const SidebarItem = ({
             <SidebarItem
               key={category.heading}
               isSub
+              defaultOpen={category.defaultOpen ?? false}
               heading={category.heading}
               options={category.options}
+              type={type}
               queryKey={category.queryKey}
+              collapseQueryKey={category.collapseQueryKey ?? category.queryKey}
+              collapseQueryParam={category.collapseQueryParam}
+              defaultOpenKeys={categories.flatMap((item) =>
+                item.defaultOpen && item.queryKey ? [item.queryKey] : [],
+              )}
             />
           ))}
         </>

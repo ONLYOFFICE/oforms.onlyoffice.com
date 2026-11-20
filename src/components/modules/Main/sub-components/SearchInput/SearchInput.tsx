@@ -47,12 +47,38 @@ import { useTranslation } from "next-i18next";
 import { Heading } from "@src/components/ui/Heading";
 import { Link } from "@src/components/ui/Link";
 import { SearchIcon, CrossCircleIcon, CrossIcon } from "@src/components/icons";
+import {
+  COLLAPSE_QUERY_PARAM,
+  EXPAND_QUERY_PARAM,
+  parseQueryList,
+} from "@src/utils/queryFilters";
+import { localeCountry } from "@src/utils/localeCountry";
+import { normalizeSearchQuery } from "@src/utils/searchQuery";
+import { LANG_QUERY_PARAM } from "@src/utils/queryLang";
 import { POPULAR_SEARCH } from "./data/popular-search";
 import { ISearchInput } from "./SearchInput.types";
 import styles from "./SearchInput.module.scss";
 
 const SEARCH_HISTORY_KEY = "search_history";
 const SEARCH_HISTORY_LIMIT = 5;
+const SEARCH_RESET_PARAMS = [
+  "type",
+  "subcategory",
+  "purpose",
+  EXPAND_QUERY_PARAM,
+  COLLAPSE_QUERY_PARAM,
+];
+
+const buildFormLink = (url: string, lang: string, formLocale?: string) => {
+  const path = url.startsWith("/") ? url : `/${url}`;
+  const locale = formLocale ?? lang;
+
+  return {
+    href: locale === lang ? path : `${path}?${LANG_QUERY_PARAM}=${lang}`,
+    locale,
+    lang: locale,
+  };
+};
 
 const readSearchHistory = (): string[] => {
   try {
@@ -104,10 +130,15 @@ const Highlight = ({
   );
 };
 
-const SearchInput = ({ className, formNames }: ISearchInput) => {
-  const { t } = useTranslation("SearchInput");
+const SearchInput = ({
+  className,
+  countryCodes,
+  formNames,
+}: ISearchInput) => {
+  const { t, i18n } = useTranslation("SearchInput");
   const router = useRouter();
   const locale = router.locale ?? "en";
+  const lang = i18n.language;
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchItem, setSearchItem] = useState("");
@@ -125,16 +156,8 @@ const SearchInput = ({ className, formNames }: ISearchInput) => {
     }
   }, [router.pathname, router.query]);
 
-  const query = searchItem.trim().toLocaleLowerCase();
-  const hasQuery = query.length > 0;
-  const searchName =
-    locale === "en" || locale === "fr" || locale === "pt"
-      ? query === "curriculum vitae" ||
-        query === "curriculum" ||
-        query === "vitae"
-        ? "cv"
-        : query
-      : query;
+  const hasQuery = searchItem.trim().length > 0;
+  const searchName = normalizeSearchQuery(searchItem, locale);
   const searchValue = hasQuery
     ? (formNames ?? [])
         .filter((form) =>
@@ -150,6 +173,13 @@ const SearchInput = ({ className, formNames }: ISearchInput) => {
 
   const handleClear = () => {
     setSearchItem("");
+
+    if (router.pathname === "/searchresult") {
+      setSearchResult(false);
+      router.push(buildHref("/"));
+      return;
+    }
+
     setSearchResult(true);
     inputRef.current?.focus();
   };
@@ -210,8 +240,22 @@ const SearchInput = ({ className, formNames }: ISearchInput) => {
     persistSearchHistory(newSearchHistory);
   };
 
-  const buildSearchHref = (value: string) =>
-    `/searchresult?query=${encodeURIComponent(value)}`;
+  const country = parseQueryList(router.query.country)
+    .map((code) => code.toLowerCase())
+    .find((code) => countryCodes.includes(code));
+
+  const buildHref = (pathname: string, value?: string) => {
+    const params = new URLSearchParams(value ? { query: value } : {});
+    Object.entries(router.query).forEach(([key, raw]) => {
+      if (key === "query" || key === "slug") return;
+      if (value && SEARCH_RESET_PARAMS.includes(key)) return;
+      [raw ?? []].flat().forEach((item) => params.append(key, item));
+    });
+    const search = params.toString();
+    return search ? `${pathname}?${search}` : pathname;
+  };
+
+  const buildSearchHref = (value: string) => buildHref("/searchresult", value);
 
   const keyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -223,7 +267,9 @@ const SearchInput = ({ className, formNames }: ISearchInput) => {
   };
 
   const popular =
-    POPULAR_SEARCH[locale as keyof typeof POPULAR_SEARCH] ?? POPULAR_SEARCH.en;
+    POPULAR_SEARCH[country as keyof typeof POPULAR_SEARCH] ??
+    POPULAR_SEARCH[localeCountry(locale) as keyof typeof POPULAR_SEARCH] ??
+    POPULAR_SEARCH.us;
 
   return (
     <div
@@ -318,7 +364,7 @@ const SearchInput = ({ className, formNames }: ISearchInput) => {
                         updateSearchHistory(item.name_form);
                         setSearchResult(false);
                       }}
-                      href={item.url}
+                      {...buildFormLink(item.url, lang, item.locale)}
                     >
                       <Highlight
                         searchQuery={searchItem}

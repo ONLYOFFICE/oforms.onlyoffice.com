@@ -33,8 +33,12 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
+@use "skeleton";
+
 .header {
   position: sticky;
   top: 0;
   z-index: 1000;
+
+  @include skeleton.lang-pending;
 }

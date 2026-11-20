@@ -57,10 +57,11 @@ const Link = ({
   textUnderline,
   hover,
   style,
+  locale,
   ...rest
 }: ILink) => {
   const asProp = !href || download || target === "_blank";
-  const locale =
+  const useLocale =
     typeof href === "string" &&
     process.env.NEXT_PUBLIC_SITE_URL &&
     href.startsWith(process.env.NEXT_PUBLIC_SITE_URL)
@@ -89,7 +90,7 @@ const Link = ({
       tabIndex={tabIndex}
       {...(!asProp && {
         prefetch: false,
-        ...(!locale && { locale: false }),
+        ...(!useLocale ? { locale: false } : locale && { locale }),
       })}
       style={
         {

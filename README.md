@@ -1,61 +1,35 @@
-# oforms.onlyoffice.com
+# ONLYOFFICE Templates
 
-## How to install
+## Overview
 
-You must have yarn and latest node.js installed.
+ONLYOFFICE Templates is a free collection of ready-made document templates and fillable PDF forms. It helps people start from a professional layout instead of a blank page — contracts, invoices, resumes, planners, reports and more, ready to download or fill out online in ONLYOFFICE editors.
 
-### Installs Node.js (npm and npx are included in the installation)
+## About the Project
 
-You need to install LTS version
+The [templates.onlyoffice.com](https://templates.onlyoffice.com) website hosts the template catalogue, including:
 
-[Node.js](https://nodejs.org/)
+- Thousands of templates for documents, spreadsheets, presentations, and PDF forms
+- Browsing by category, purpose, country, and file type
+- Search across the whole library with instant suggestions
+- Template pages with previews, descriptions, and downloads in several formats
 
-### Installs yarn globally
+## Key Features
 
-npm i -g yarn
+- Four template types — DOCX, XLSX, PPTX, and fillable PDF forms
+- Nine languages — English, French, German, Spanish, Portuguese, Italian, Japanese, Chinese, and Arabic, each with its own template set
+- Faceted browsing — filter by country, type, purpose, and category, with sorting
+- Fill out online — open any PDF form directly in ONLYOFFICE editors
 
-### It should respond with a version number
+## Licensing
 
-yarn -v
-node -v
-
-### To install dependencies:
-
-```bash
-yarn
-```
-
-### Run the development server:
-
-```bash
-yarn develop
-```
-
-or
-
-```bash
-gatsby develop
-```
-
-Open [http://localhost:8000](http://localhost:8000) with your browser to see the result.
-
-### Build
-
-Run:
-
-```bash
-yarn build
-```
-
-to build website into /public folder with one page per locale automatically generated.
-
-Open [http://localhost:9000](http://localhost:9000) with your browser to see the result.
+ONLYOFFICE Templates is released under the AGPLv3 license. See the source file headers for the full notice.
 
 ## Project info
 
-### The stack we are using:
+Official website: [https://www.onlyoffice.com](https://www.onlyoffice.com)
 
-- [Gatsbyjs](https://www.gatsbyjs.com) - The static site generator
-- [styled-components](https://styled-components.com/) - Visual primitives for the component age
+Templates: [https://templates.onlyoffice.com](https://templates.onlyoffice.com)
 
-Official website: [https://www.onlyoffice.com](https://www.onlyoffice.com/?utm_source=github&utm_medium=cpc&utm_campaign=AppServer "https://www.onlyoffice.com/?utm_source=github&utm_medium=cpc&utm_campaign=AppServer")
+## User feedback and support
+
+If you face any issues or have questions about ONLYOFFICE, use the Issues section in this repository or visit our [official forum](https://community.onlyoffice.com).

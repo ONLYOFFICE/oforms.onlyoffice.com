@@ -7,14 +7,16 @@
   "Presentations": "Apresentações",
   "PdfForms": "Formulários em PDF",
   "Countries": "Países",
-  "ShowingEnglishSpeakingCountries": "Exibindo primeiro países de língua inglesa, com base nas suas configurações de idioma.",
+  "ShowingSpeakingCountries": "Exibindo primeiro países de língua portuguesa, com base nas suas configurações de idioma.",
+  "OtherCountries": "Outros países",
   "Purpose": "Finalidade",
   "Сategories": "Categorias",
-  "PopularTemplates": "Modelo popular",
+  "PopularTemplates": "Modelos populares",
   "DocumentTemplates": "Modelos de documentos",
   "SpreadsheetTemplates": "Modelos de planilha",
   "PresentationTemplates": "Modelos de apresentação",
   "PdfFormsTemplates": "Modelos de formulários em PDF",
   "ClearAllFilters": "Limpar todos os filtros",
-  "ShowLess": "Mostrar menos"
+  "ShowLess": "Mostrar menos",
+  "BrowseAllTemplates": "Explorar todos os modelos"
 }

@@ -33,7 +33,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { TFormat, IFormsData } from "@src/types/data";
+import { TFormat } from "@src/types/data";
 
 export interface IFormData {
   data: {
@@ -43,6 +43,7 @@ export interface IFormData {
     seo_description: string;
     name_form: string;
     template_desc: string;
+    template_desc_2?: string;
     description_card: string;
     url: string;
     file_pages: string;
@@ -72,6 +73,21 @@ export interface IFormData {
       documentId: string;
       ext: TFormat;
     }[];
+    subcategories?: {
+      id: number;
+      documentId: string;
+      name: string;
+      urlReq: string;
+      localizations?: ICategoryLocalization[];
+      parent_categories?: {
+        id: number;
+        documentId: string;
+        name: string;
+        urlReq: string;
+        localizations?: ICategoryLocalization[];
+        subcategories?: ICategorySubcategory[];
+      }[];
+    }[];
   }[];
   meta: {
     pagination: {
@@ -89,6 +105,7 @@ export interface ICategoriesData {
     documentId: string;
     name: string;
     urlReq: string;
+    updatedAt?: string;
   }[];
   meta: {
     pagination: {
@@ -100,8 +117,24 @@ export interface ICategoriesData {
   };
 }
 
+export interface ICategoryLocalization {
+  id: number;
+  documentId: string;
+  name: string;
+  urlReq: string;
+  locale: string;
+  subcategories?: ICategorySubcategory[];
+}
+
+export interface ICategorySubcategory {
+  id: number;
+  documentId: string;
+  urlReq: string;
+  createdAt: string;
+  oforms?: { count: number };
+}
+
 export interface IFormTemplate {
   form: IFormData;
-  allForms: IFormsData;
   categories: ICategoriesData;
 }

@@ -65,7 +65,7 @@ const languages = [
     longKey: "Italiano",
   },
   {
-    key: "ja-Jp",
+    key: "ja-JP",
     shortKey: "ja",
     longKey: "日本語",
   },
@@ -75,7 +75,7 @@ const languages = [
     longKey: "中文",
   },
   {
-    key: "ar-AR",
+    key: "ar-SA",
     shortKey: "ar",
     longKey: "عربي",
   },

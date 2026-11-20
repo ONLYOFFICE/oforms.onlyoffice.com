@@ -7,7 +7,8 @@
   "Presentations": "演示文稿",
   "PdfForms": "PDF表单",
   "Countries": "国家",
-  "ShowingEnglishSpeakingCountries": "根据您的语言设置，优先显示英语国家。",
+  "ShowingSpeakingCountries": "根据您的语言设置，优先显示中文国家。",
+  "OtherCountries": "其他国家",
   "Purpose": "用途",
   "Сategories": "类别",
   "PopularTemplates": "热门模板",
@@ -16,5 +17,6 @@
   "PresentationTemplates": "演示文稿模板",
   "PdfFormsTemplates": "PDF表单模板",
   "ClearAllFilters": "清除所有筛选条件",
-  "ShowLess": "收起"
+  "ShowLess": "收起",
+  "BrowseAllTemplates": "浏览所有模板"
 }

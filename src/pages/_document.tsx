@@ -43,6 +43,8 @@ import Document, {
 import Script from "next/script";
 import type { DocumentInitialProps } from "next/document";
 import { isRtlLocale } from "@src/utils/rtl";
+import { VIEW_PENDING_SCRIPT } from "@src/utils/viewPending";
+import { LANG_PENDING_SCRIPT } from "@src/utils/langPending";
 
 interface IMyDocument extends DocumentInitialProps {
   locale: string;
@@ -62,6 +64,8 @@ export default class MyDocument extends Document<IMyDocument> {
     return (
       <Html lang={this.props.locale} dir={this.props.dir}>
         <Head>
+          <script dangerouslySetInnerHTML={{ __html: VIEW_PENDING_SCRIPT }} />
+          <script dangerouslySetInnerHTML={{ __html: LANG_PENDING_SCRIPT }} />
           <Script
             id="gtaginit"
             strategy="beforeInteractive"

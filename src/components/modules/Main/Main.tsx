@@ -38,6 +38,8 @@ import { useTranslation } from "next-i18next";
 import clsx from "clsx";
 import { Heading } from "@src/components/ui/Heading";
 import { Sidebar } from "./sub-components/Sidebar";
+import { MainSection } from "./sub-components/MainSection";
+import { createPlaceholderCards } from "./sub-components/MainSection/MainSection.utils";
 import { Section } from "@src/components/ui/Section";
 import { Container } from "@src/components/ui/Container";
 import { SortSelector } from "@src/components/modules/Main/sub-components/SortSelector";
@@ -48,7 +50,6 @@ import styles from "./Main.module.scss";
 
 const Main = ({
   children,
-  isEmbed,
   docxForms,
   xlsxForms,
   pptxForms,
@@ -57,17 +58,46 @@ const Main = ({
   purposes,
   categoriesByPurpose,
   totalCount,
-  selectedType,
   formNames,
+  skeleton = <MainSection label={" "} data={createPlaceholderCards(8)} />,
+  isInitialLoading,
+  selectedCategory,
   searchOnly,
+  redirectToHome,
 }: IMain) => {
   const { t } = useTranslation("MainTemplate");
   const [isOpen, setIsOpen] = useState(false);
+  const hideTopWhileLoading = skeleton === null;
+
+  const categorySubcategories = selectedCategory
+    ? Array.from(
+        new Set(
+          Object.values(categoriesByPurpose)
+            .flat()
+            .filter(({ category }) => category.urlReq === selectedCategory)
+            .flatMap(({ subcategories }) =>
+              subcategories.map((sub) => sub.urlReq),
+            ),
+        ),
+      )
+    : [];
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
+    if (!isOpen) return;
+
+    const mediaQuery = window.matchMedia(`(max-width: 1024px)`);
+
+    const handleChange = () => {
+      if (!mediaQuery.matches) setIsOpen(false);
+    };
+
+    document.body.style.overflow = "hidden";
+    handleChange();
+    mediaQuery.addEventListener("change", handleChange);
+
     return () => {
       document.body.style.overflow = "";
+      mediaQuery.removeEventListener("change", handleChange);
     };
   }, [isOpen]);
 
@@ -79,30 +109,32 @@ const Main = ({
       tabletSmallSpacing={["48px", "112px"]}
       mobileSpacing={["48px", "112px"]}
     >
-      <Container
-        className={styles["main-container"]}
-        maxWidth={isEmbed ? "none" : undefined}
-      >
-        {!isEmbed && (
-          <div className={styles["main-header"]}>
-            <Heading
-              className={styles["main-header-heading"]}
-              color="var(--main-heading-color)"
-            >
-              {t("FreeDocumentTemplatesAndFillableForms")}
-            </Heading>
-            <Heading
-              className={styles["main-header-subheading"]}
-              level={2}
-              size={3}
-              color="var(--main-subheading-color)"
-            >
-              {t("DownloadReadyMadeTemplatesOrFillOutPdfFormsOnline")}
-            </Heading>
-          </div>
-        )}
+      <Container className={styles["main-container"]}>
+        <div className={styles["main-header"]}>
+          <Heading
+            className={styles["main-header-heading"]}
+            color="var(--main-heading-color)"
+          >
+            {t("FreeDocumentTemplatesAndFillableForms")}
+          </Heading>
+          <Heading
+            className={styles["main-header-subheading"]}
+            level={2}
+            size={3}
+            color="var(--main-subheading-color)"
+          >
+            {t("DownloadReadyMadeTemplatesOrFillOutPdfFormsOnline")}
+          </Heading>
+        </div>
 
-        <div className={styles["main-wrapper"]}>
+        <div
+          className={clsx(
+            styles["main-wrapper"],
+            "skeleton",
+            isInitialLoading && "skeleton-active",
+          )}
+          inert={isInitialLoading}
+        >
           <Sidebar
             isOpen={isOpen}
             setIsOpen={setIsOpen}
@@ -113,7 +145,9 @@ const Main = ({
             xlsxForms={xlsxForms}
             pptxForms={pptxForms}
             pdfForms={pdfForms}
-            selectedType={selectedType}
+            selectedCategory={selectedCategory}
+            categorySubcategories={categorySubcategories}
+            redirectToHome={redirectToHome}
           />
 
           <div>
@@ -121,28 +155,17 @@ const Main = ({
               className={clsx(
                 styles["main-top"],
                 searchOnly && styles["main-top-search-only"],
+                hideTopWhileLoading && styles["main-top-pending"],
+                hideTopWhileLoading &&
+                  isInitialLoading &&
+                  styles["main-top-pending-hidden"],
               )}
             >
               {!searchOnly && (
                 <div className={styles["main-top-wrapper"]}>
-                  <div
-                    className={clsx(
-                      styles["main-top-content"],
-                      isEmbed && styles["main-top-content-embed"],
-                    )}
-                  >
-                    <SortSelector
-                      className={clsx(
-                        styles["main-sort-selector"],
-                        isEmbed && styles["main-sort-selector-embed"],
-                      )}
-                    />
-                    <div
-                      className={clsx(
-                        styles["main-count"],
-                        isEmbed && styles["main-count-embed"],
-                      )}
-                    >
+                  <div className={styles["main-top-content"]}>
+                    <SortSelector className={styles["main-sort-selector"]} />
+                    <div className={styles["main-count"]}>
                       <span className={styles["main-count-label"]}>
                         {t("Documents")}
                       </span>
@@ -154,10 +177,7 @@ const Main = ({
 
                   <button
                     onClick={() => setIsOpen(true)}
-                    className={clsx(
-                      styles["main-filters-button"],
-                      isEmbed && styles["main-filter-button-embed"],
-                    )}
+                    className={styles["main-filters-button"]}
                     type="button"
                   >
                     <FiltersIcon fill="var(--main-filters-button-icon-color)" />
@@ -170,11 +190,29 @@ const Main = ({
                   styles["main-search-input"],
                   searchOnly && styles["main-search-input-search-only"],
                 )}
+                countryCodes={countries.map((country) =>
+                  country.code.toLowerCase(),
+                )}
                 formNames={formNames}
               />
             </div>
 
-            {children}
+            <div
+              className={clsx(
+                styles["main-pending-skeleton"],
+                isInitialLoading && styles["main-pending-skeleton-active"],
+              )}
+            >
+              {skeleton}
+            </div>
+            <div
+              className={clsx(
+                styles["main-pending-content"],
+                isInitialLoading && styles["main-pending-content-hidden"],
+              )}
+            >
+              {children}
+            </div>
           </div>
         </div>
       </Container>

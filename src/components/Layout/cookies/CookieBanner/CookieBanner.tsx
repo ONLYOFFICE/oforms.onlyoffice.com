@@ -40,6 +40,7 @@ import { Text } from "@src/components/ui/Text";
 import { useState, useEffect, useRef } from "react";
 import { CookieSettings } from "../CookieSettings";
 import {
+  getConsentCookie,
   setConsentCookie,
   DEFAULT_CONSENT,
   ALL_GRANTED,
@@ -48,12 +49,6 @@ import {
 } from "@src/components/Layout/cookies/utils/useUtmCookies";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
 import styles from "./CookieBanner.module.scss";
-
-function getConsentCookie() {
-  if (typeof document === "undefined") return null;
-  const match = document.cookie.match(/cookie_preferences=([^;]*)/);
-  return match ? JSON.parse(decodeURIComponent(match[1])) : null;
-}
 
 const CookieBanner = () => {
   const { t } = useTranslation("common");
@@ -68,30 +63,42 @@ const CookieBanner = () => {
   const [IPGeolocationInfo, setIPGeolocationInfo] = useState<{
     country?: string;
   } | null>(null);
+  const [isGeolocationResolved, setIsGeolocationResolved] = useState(false);
   const IPGeolocationCountry = IPGeolocationInfo?.country;
   useUtmCookies();
 
   useEffect(() => {
     (async () => {
-      const cachedData = sessionStorage.getItem("IPGeolocationInfo");
-      if (cachedData) {
-        setIPGeolocationInfo(JSON.parse(cachedData));
-        return;
+      try {
+        const cachedData = sessionStorage.getItem("IPGeolocationInfo");
+        if (cachedData) {
+          setIPGeolocationInfo(JSON.parse(cachedData));
+          setIsGeolocationResolved(true);
+          return;
+        }
+      } catch {}
+
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}/api/ip-geolocation`,
+        );
+        if (!res.ok) return;
+
+        const data = await res.json();
+        if (!data) return;
+
+        setIPGeolocationInfo(data);
+        sessionStorage.setItem("IPGeolocationInfo", JSON.stringify(data));
+      } catch {
+      } finally {
+        setIsGeolocationResolved(true);
       }
-
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}/api/ip-geolocation`,
-      );
-      const data = await res.json();
-
-      if (!res.ok || !data) return;
-
-      setIPGeolocationInfo(data);
-      sessionStorage.setItem("IPGeolocationInfo", JSON.stringify(data));
     })();
   }, []);
 
   useEffect(() => {
+    if (!isGeolocationResolved) return;
+
     let gdpr = true;
 
     if (!IPGeolocationCountry) {
@@ -120,7 +127,7 @@ const CookieBanner = () => {
     }
 
     setIsFullGDPR(gdpr);
-  }, [IPGeolocationCountry]);
+  }, [IPGeolocationCountry, isGeolocationResolved]);
 
   useEffect(() => {
     const consentFromCookie = getConsentCookie();

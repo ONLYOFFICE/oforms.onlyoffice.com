@@ -33,15 +33,28 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import clsx from "clsx";
+import Scrollbar from "react-scrollbars-custom";
 import { SidebarItem } from "./sub-components/SidebarItem";
 import { ISidebarItem } from "./sub-components/SidebarItem/SidebarItem.types";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
 import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
+import { getSelectedCountries, localeCountry } from "@src/utils/localeCountry";
+import { isRtlLocale } from "@src/utils/rtl";
+import { useTemplateFilters } from "@src/lib/hooks/useTemplateFilters";
+import { resolvePurpose } from "@src/components/templates/Main/Main.utils";
+import {
+  COUNTRIES_COLLAPSE_QUERY_PARAM,
+  toggleFilterValue,
+} from "@src/utils/queryFilters";
 import { ISidebar } from "./Sidebar.types";
 import styles from "./Sidebar.module.scss";
+
+const VISIBLE_COUNTRIES_LIMIT = 8;
+const SCROLLBAR_HIDE_DELAY = 2000;
 
 const Sidebar = ({
   isOpen,
@@ -53,309 +66,291 @@ const Sidebar = ({
   xlsxForms,
   pptxForms,
   pdfForms,
-  selectedType,
+  selectedCategory,
+  categorySubcategories,
+  redirectToHome,
 }: ISidebar) => {
   const { t } = useTranslation("MainTemplate");
   const router = useRouter();
+  const [isScrollbarVisible, setIsScrollbarVisible] = useState(false);
+  const scrollbarTimeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
-  const isSearchResult = router.pathname === "/searchresult";
-  const isSlug = router.pathname === "/[slug]";
-  const redirectsToHome = isSearchResult || isSlug;
-
-  const purposeKeys = purposes.map((item) => item.key);
-  const requestedPurpose = router.query.purpose
-    ? String(router.query.purpose)
-    : undefined;
-  const isValidPurpose = (value: string | undefined): value is string =>
-    !!value && purposeKeys.includes(value);
-  const selectedPurpose = isValidPurpose(requestedPurpose)
-    ? requestedPurpose
-    : purposes[0]?.key;
-
-  const getHomeQuery = (
-    extra: Record<string, string>,
-  ): Record<string, string> => {
-    const query: Record<string, string> = { ...extra };
-    const country = getSelected("country");
-    if (country.length) query.country = country.join(",");
-    if (isValidPurpose(requestedPurpose)) query.purpose = requestedPurpose;
-    return query;
+  const showScrollbar = () => {
+    setIsScrollbarVisible(true);
+    clearTimeout(scrollbarTimeoutRef.current);
+    scrollbarTimeoutRef.current = setTimeout(
+      () => setIsScrollbarVisible(false),
+      SCROLLBAR_HIDE_DELAY,
+    );
   };
+
+  const hideScrollbar = () => {
+    clearTimeout(scrollbarTimeoutRef.current);
+    setIsScrollbarVisible(false);
+  };
+
+  useEffect(() => () => clearTimeout(scrollbarTimeoutRef.current), []);
+
+  const countryCodes = countries.map((country) => country.code.toLowerCase());
+
+  const { filters, toggle, select, setPurpose, clearAll, apply } =
+    useTemplateFilters(
+      {
+        type: ALLOWED_TYPES,
+        country: countryCodes,
+        subcategory: Object.values(categoriesByPurpose).flatMap((categories) =>
+          categories.flatMap(({ subcategories }) =>
+            subcategories.map((sub) => sub.urlReq),
+          ),
+        ),
+      },
+      { redirectToHome },
+    );
+
+  const selectedPurpose = resolvePurpose(
+    purposes.map((item) => item.key),
+    categoriesByPurpose,
+    {
+      purpose: filters.purpose,
+      category: selectedCategory,
+      subcategory: filters.subcategory,
+    },
+  );
 
   const purposeCategories = selectedPurpose
     ? (categoriesByPurpose[selectedPurpose] ?? [])
     : [];
 
-  const getSelected = (key: string) => {
-    const value = router.query[key];
-    const raw = Array.isArray(value) ? value.join(",") : value;
-    return raw ? raw.split(",").filter(Boolean) : [];
-  };
+  const purposeSubcategories = new Set(
+    purposeCategories.flatMap(({ subcategories }) =>
+      subcategories.map((sub) => sub.urlReq),
+    ),
+  );
 
-  const isTypeChecked = (value: string) =>
-    getSelected("type").includes(value) || selectedType === value;
-
-  const checkedTypeCount = ["docx", "xlsx", "pptx", "pdf"].filter(
-    isTypeChecked,
-  ).length;
-
-  const toggleQueryValue = (key: string, value: string) => {
-    const selected = getSelected(key);
-    const next = selected.includes(value)
-      ? selected.filter((item) => item !== value)
-      : [...selected, value];
-
-    const query = { ...router.query };
-    if (next.length) {
-      query[key] = next.join(",");
-    } else {
-      delete query[key];
-    }
-
-    router.push({ query }, undefined, { scroll: false, shallow: true });
-  };
-
-  const toggleTypeValue = (value: string) => {
-    if (selectedType) {
-      const next = selectedType === value ? [] : [value];
-
-      router.push(
-        { pathname: "/", query: next.length ? { type: next.join(",") } : {} },
-        undefined,
-        { scroll: false },
-      );
-      return;
-    }
-
-    if (redirectsToHome) {
-      const selected = getSelected("type");
-      const next = selected.includes(value)
-        ? selected.filter((item) => item !== value)
-        : [...selected, value];
-
-      router.push(
-        {
-          pathname: "/",
-          query: getHomeQuery(next.length ? { type: next.join(",") } : {}),
-        },
-        undefined,
-        { scroll: false },
-      );
-      return;
-    }
-
-    const selected = getSelected("type");
-    const next = selected.includes(value)
-      ? selected.filter((item) => item !== value)
-      : [...selected, value];
-
-    const query = { ...router.query };
-    delete query.country;
-    delete query.subcategory;
-
-    if (next.length) {
-      query.type = next.join(",");
-    } else {
-      delete query.type;
-    }
-
-    router.push({ query }, undefined, { scroll: false, shallow: true });
-  };
-
-  const toggleCountryValue = (value: string) => {
-    const selected = getSelected("country");
-    const next = selected.includes(value)
-      ? selected.filter((item) => item !== value)
-      : [...selected, value];
-
-    const query = { ...router.query };
-
-    if (next.length) {
-      query.country = next.join(",");
-    } else {
-      delete query.country;
-    }
-
-    router.push({ pathname: router.pathname, query }, undefined, {
-      scroll: false,
-      shallow: true,
-    });
-  };
+  const typeOptions = [
+    { value: "docx", label: "Documents", count: docxForms },
+    { value: "xlsx", label: "Spreadsheets", count: xlsxForms },
+    { value: "pptx", label: "Presentations", count: pptxForms },
+    { value: "pdf", label: "PdfForms", count: pdfForms },
+  ]
+    .filter((type) => type.count > 0 || filters.type.includes(type.value))
+    .map((type) => ({
+      value: type.value,
+      label: t(type.label),
+      count: type.count,
+      checked: filters.type.includes(type.value),
+      onChange: () => toggle("type", type.value),
+    }));
 
   const toggleSubcategoryValue = (value: string) => {
-    if (selectedType) {
-      router.push(
-        { pathname: "/", query: { type: selectedType, subcategory: value } },
-        undefined,
-        { scroll: false },
-      );
+    if (!selectedCategory) {
+      toggle("subcategory", value);
       return;
     }
 
-    if (redirectsToHome) {
-      router.push(
-        { pathname: "/", query: getHomeQuery({ subcategory: value }) },
-        undefined,
-        { scroll: false },
-      );
+    const next = toggleFilterValue(
+      { ...filters, subcategory: categorySubcategories },
+      "subcategory",
+      value,
+    );
+
+    apply(next, { toHome: true });
+  };
+
+  const selectPurpose = (purpose: string) => {
+    if (!selectedCategory) {
+      setPurpose(purpose);
       return;
     }
 
-    toggleQueryValue("subcategory", value);
+    apply(
+      { ...filters, subcategory: categorySubcategories, purpose },
+      { toHome: true },
+    );
   };
 
-  const filterKeys = ["type", "country", "subcategory"];
+  const selectedCountries = getSelectedCountries(
+    filters.country,
+    router.locale,
+    countryCodes,
+  );
+  const selectedSubcategories = (
+    selectedCategory ? categorySubcategories : filters.subcategory
+  ).filter((sub) => purposeSubcategories.has(sub));
 
-  const allowedValues: Record<string, string[]> = {
-    type: ALLOWED_TYPES,
-    country: countries.map((country) => country.code.toLowerCase()),
-    subcategory: Object.values(categoriesByPurpose).flatMap((categories) =>
-      categories.flatMap(({ subcategories }) =>
-        subcategories.map((sub) => sub.urlReq),
-      ),
-    ),
-  };
+  const isSubcategoryChecked = (subcategoryUrlReq: string) =>
+    selectedSubcategories.includes(subcategoryUrlReq);
 
-  const getValidSelected = (key: string) => {
-    const selected = getSelected(key);
-    const allowed = allowedValues[key];
-    return allowed
-      ? selected.filter((value) => allowed.includes(value))
-      : selected;
-  };
+  const defaultCountry = localeCountry(router.locale);
 
-  const totalChecked =
-    filterKeys.reduce((sum, key) => sum + getValidSelected(key).length, 0) +
-    (selectedType ? 1 : 0);
+  const isDefaultCountry = (code: string) =>
+    code.toLowerCase() === defaultCountry;
 
-  const clearAllFilters = () => {
-    if (selectedType) {
-      router.push({ pathname: "/", query: {} }, undefined, { scroll: false });
-      return;
-    }
+  const sortedCountries = [...countries].sort(
+    (a, b) =>
+      Number(isDefaultCountry(b.code)) - Number(isDefaultCountry(a.code)),
+  );
 
-    const query = { ...router.query };
-    filterKeys.forEach((key) => {
-      delete query[key];
-    });
+  const visibleCountries = sortedCountries.filter(
+    (country) =>
+      country.count > 0 ||
+      selectedCountries.includes(country.code.toLowerCase()),
+  );
+  const toCountryOption = (country: (typeof countries)[number]) => ({
+    value: country.code.toLowerCase(),
+    label: country.name,
+    count: country.count,
+    checked: selectedCountries.includes(country.code.toLowerCase()),
+    onChange: () => select("country", country.code.toLowerCase()),
+  });
+  const topCountryOptions = visibleCountries
+    .slice(0, VISIBLE_COUNTRIES_LIMIT)
+    .map(toCountryOption);
+  const otherCountryOptions = visibleCountries
+    .slice(VISIBLE_COUNTRIES_LIMIT)
+    .map(toCountryOption);
+  const visiblePurposeCategories = purposeCategories
+    .map(({ category, subcategories }) => ({
+      category,
+      subcategories: subcategories.filter((sub) => sub.count > 0),
+    }))
+    .filter(({ subcategories }) => subcategories.length > 0);
 
-    router.push({ query }, undefined, { scroll: false, shallow: true });
-  };
+  const checkedCategoryCount = visiblePurposeCategories
+    .flatMap(({ subcategories }) => subcategories)
+    .filter((sub) => isSubcategoryChecked(sub.urlReq)).length;
 
-  const selectedCountries = getSelected("country");
-  const selectedSubcategories = getSelected("subcategory");
+  const checkedTypeCount = typeOptions.filter((type) => type.checked).length;
+
+  const hasSelectedFilters =
+    filters.type.length > 0 || selectedSubcategories.length > 0;
+
+  const totalChecked = checkedTypeCount + checkedCategoryCount;
+
+  const isClearBtnVisible = hasSelectedFilters || totalChecked > 0;
 
   return (
-    <aside className={clsx(styles.sidebar, isOpen && styles["sidebar-open"])}>
-      <div className={styles["sidebar-header"]}>
-        <button
-          onClick={() => setIsOpen(false)}
-          className={styles["sidebar-close-btn"]}
-          type="button"
-          style={
-            {
-              "--sidebar-close-btn-icon": `url(${getAssetUrl("/images/modules/main/cross.svg")})`,
-            } as React.CSSProperties
-          }
-        ></button>
-      </div>
-
-      <div className={styles["sidebar-wrapper"]}>
-        {(
-          [
-            {
-              heading: t("Type"),
-              count: checkedTypeCount,
-              options: [
-                {
-                  value: "docx",
-                  label: "Documents",
-                  count: docxForms,
-                },
-                {
-                  value: "xlsx",
-                  label: "Spreadsheets",
-                  count: xlsxForms,
-                },
-                {
-                  value: "pptx",
-                  label: "Presentations",
-                  count: pptxForms,
-                },
-                {
-                  value: "pdf",
-                  label: "PdfForms",
-                  count: pdfForms,
-                },
-              ].map((type) => ({
-                value: type.value,
-                label: t(type.label),
-                count: type.count,
-                checked: isTypeChecked(type.value),
-                onChange: () => toggleTypeValue(type.value),
-              })),
-            },
-            {
-              heading: t("Countries"),
-              text: t("ShowingEnglishSpeakingCountries"),
-              count: selectedCountries.length,
-              options: countries.map((country) => ({
-                value: country.code.toLowerCase(),
-                label: country.name,
-                count: country.count,
-                checked: selectedCountries.includes(country.code.toLowerCase()),
-                onChange: () => toggleCountryValue(country.code.toLowerCase()),
-              })),
-            },
-            {
-              heading: t("Purpose"),
-              optionsType: "switch",
-              options: purposes.map((item) => ({
-                value: item.key,
-                label: item.name,
-                checked: selectedPurpose === item.key,
-                onChange: () =>
-                  router.push(
-                    {
-                      query: { ...router.query, purpose: item.key },
-                    },
-                    undefined,
-                    { scroll: false, shallow: true },
-                  ),
-              })),
-            },
-            {
-              heading: t("Сategories"),
-              count: selectedSubcategories.length,
-              categories: purposeCategories.map(
-                ({ category, subcategories }) => ({
-                  heading: category.name,
-                  queryKey: `category-${category.id}`,
-                  options: subcategories.map((sub) => ({
-                    value: sub.urlReq,
-                    label: sub.name,
-                    count: sub.count,
-                    checked: selectedSubcategories.includes(sub.urlReq),
-                    onChange: () => toggleSubcategoryValue(sub.urlReq),
-                  })),
-                }),
-              ),
-            },
-          ] as ISidebarItem[]
-        ).map((item) => (
-          <SidebarItem key={item.heading} {...item} />
-        ))}
-
-        {totalChecked > 0 && (
+    <aside
+      className={clsx(styles.sidebar, isOpen && styles["sidebar-open"])}
+      onMouseEnter={showScrollbar}
+      onMouseLeave={hideScrollbar}
+    >
+      <Scrollbar
+        className={styles["sidebar-scrollbar"]}
+        contentProps={{ className: styles["sidebar-scrollbar-content"] }}
+        trackYProps={{
+          className: clsx(
+            styles["sidebar-scrollbar-track"],
+            isScrollbarVisible && styles["sidebar-scrollbar-track-visible"],
+            isClearBtnVisible &&
+              styles["sidebar-scrollbar-track-with-clear-btn"],
+          ),
+        }}
+        thumbYProps={{ className: styles["sidebar-scrollbar-thumb"] }}
+        rtl={router.locale ? isRtlLocale(router.locale) : false}
+        noScrollX
+        removeTrackXWhenNotUsed
+        removeTrackYWhenNotUsed
+        onScroll={showScrollbar}
+      >
+        <div className={styles["sidebar-header"]}>
           <button
+            onClick={() => setIsOpen(false)}
+            className={styles["sidebar-close-btn"]}
             type="button"
-            className={styles["sidebar-clear-btn"]}
-            onClick={clearAllFilters}
-          >
-            {t("ClearAllFilters")} ({totalChecked})
-          </button>
-        )}
-      </div>
+            style={
+              {
+                "--sidebar-close-btn-icon": `url(${getAssetUrl("/images/modules/main/cross.svg")})`,
+              } as React.CSSProperties
+            }
+          ></button>
+        </div>
+
+        <div
+          className={clsx(
+            styles["sidebar-wrapper"],
+            isClearBtnVisible && styles["sidebar-wrapper-with-clear-btn"],
+          )}
+        >
+          <div>
+            {(
+              [
+                {
+                  heading: t("Countries"),
+                  text: visibleCountries.length
+                    ? t("ShowingSpeakingCountries")
+                    : undefined,
+                  type: "radio",
+                  options: topCountryOptions,
+                  categories: otherCountryOptions.length
+                    ? [
+                        {
+                          heading: t("OtherCountries"),
+                          collapseQueryKey: "other-countries",
+                          collapseQueryParam: COUNTRIES_COLLAPSE_QUERY_PARAM,
+                          defaultOpen: otherCountryOptions.some(
+                            (option) => option.checked,
+                          ),
+                          options: otherCountryOptions,
+                        },
+                      ]
+                    : undefined,
+                },
+                {
+                  heading: t("Type"),
+                  count: checkedTypeCount,
+                  options: typeOptions,
+                },
+                {
+                  heading: t("Purpose"),
+                  optionsType: "switch",
+                  options: purposes.map((item) => ({
+                    value: item.key,
+                    label: item.name,
+                    checked: selectedPurpose === item.key,
+                    onChange: () => selectPurpose(item.key),
+                  })),
+                },
+                {
+                  heading: t("Сategories"),
+                  count: checkedCategoryCount,
+                  categories: visiblePurposeCategories.map(
+                    ({ category, subcategories }) => ({
+                      heading: category.name,
+                      queryKey: `category-${category.urlReq}`,
+                      defaultOpen: subcategories.some((sub) =>
+                        selectedSubcategories.includes(sub.urlReq),
+                      ),
+                      options: subcategories.map((sub) => ({
+                        value: sub.urlReq,
+                        label: sub.name,
+                        count: sub.count,
+                        checked: isSubcategoryChecked(sub.urlReq),
+                        onChange: () => toggleSubcategoryValue(sub.urlReq),
+                      })),
+                    }),
+                  ),
+                },
+              ] as ISidebarItem[]
+            ).map((item) => (
+              <SidebarItem key={item.heading} {...item} />
+            ))}
+          </div>
+
+          {isClearBtnVisible && (
+            <div className={styles["sidebar-clear-btn-wrapper"]}>
+              <button
+                type="button"
+                className={styles["sidebar-clear-btn"]}
+                onClick={clearAll}
+              >
+                {t("ClearAllFilters")}
+                {totalChecked > 0 && ` (${totalChecked})`}
+              </button>
+            </div>
+          )}
+        </div>
+      </Scrollbar>
     </aside>
   );
 };

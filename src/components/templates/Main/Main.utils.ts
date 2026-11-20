@@ -35,10 +35,7 @@
 
 import { IFormsData } from "@src/types/data";
 import { ALLOWED_TYPES, TAllowedTypes } from "@src/utils/allowedTypes";
-import {
-  ICategoryTree,
-  IPurposeCategories,
-} from "@src/components/modules/Main/Main.types";
+import { ICategoryTree } from "@src/components/modules/Main/Main.types";
 
 type TFormItem = IFormsData["data"][number];
 type TSubcategory = TFormItem["subcategories"][number];
@@ -134,44 +131,100 @@ export const getTemplatesByParentCategory = (
     if (!progressed) break;
   }
 
+  const order = new Map(forms?.map((form, index) => [form.id, index]));
+  data.sort((a, b) => (order.get(a.id) ?? 0) - (order.get(b.id) ?? 0));
+
   return { category, data };
 };
 
-export const getPurposes = (forms: TFormItem[] | undefined): TPurpose[] =>
-  Array.from(
-    new Map(
-      (forms ?? [])
-        .flatMap((form) =>
-          form.subcategories.flatMap((sub) =>
-            sub.parent_categories.map((cat) => cat.purpose),
-          ),
-        )
-        .filter(Boolean)
-        .map((purpose) => [purpose.id, purpose] as const),
-    ).values(),
-  ).sort(
+export const getFormsInScope = (
+  forms: TFormItem[] | undefined,
+  locale: string,
+  selectedCountries: string[],
+): TFormItem[] => {
+  if (selectedCountries.length) return forms ?? [];
+  return forms?.filter((form) => !form.locale || form.locale === locale) ?? [];
+};
+
+export const getPurposes = (forms: TFormItem[] | undefined): TPurpose[] => {
+  const purposeMap = new Map<string, TPurpose>();
+
+  forms?.forEach((form) => {
+    form.subcategories?.filter(Boolean).forEach((sub) => {
+      sub.parent_categories?.filter(Boolean).forEach((cat) => {
+        const purpose = cat.purpose;
+        if (!purpose?.key || purposeMap.has(purpose.key)) return;
+        purposeMap.set(purpose.key, purpose);
+      });
+    });
+  });
+
+  return Array.from(purposeMap.values()).sort(
     (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
   );
+};
+
+export const DEFAULT_PURPOSE_KEY = "business";
+
+export const resolvePurpose = (
+  purposeKeys: string[],
+  categoriesByPurpose: Record<string, ICategoryTree[]>,
+  {
+    purpose,
+    category,
+    subcategory = [],
+  }: { purpose?: string; category?: string; subcategory?: string[] },
+): string | undefined => {
+  if (purpose && purposeKeys.includes(purpose)) return purpose;
+
+  const findPurpose = (match: (tree: ICategoryTree) => boolean) =>
+    purposeKeys.find((key) => categoriesByPurpose[key]?.some(match));
+
+  const categoryPurpose = category
+    ? findPurpose((tree) => tree.category.urlReq === category)
+    : undefined;
+
+  const subcategoryPurpose = subcategory.length
+    ? findPurpose((tree) =>
+        tree.subcategories.some((sub) => subcategory.includes(sub.urlReq)),
+      )
+    : undefined;
+
+  const defaultPurpose = purposeKeys.includes(DEFAULT_PURPOSE_KEY)
+    ? DEFAULT_PURPOSE_KEY
+    : purposeKeys[0];
+
+  return categoryPurpose ?? subcategoryPurpose ?? defaultPurpose;
+};
 
 export const getCountries = (
   forms: TFormItem[] | undefined,
+  countryNames?: Record<string, string>,
 ): (TCountry & { count: number })[] => {
-  const countryMap = new Map<number, TCountry & { count: number }>();
+  const countryMap = new Map<string, TCountry & { count: number }>();
 
   forms?.forEach((form) => {
     form.countries?.filter(Boolean).forEach((country) => {
-      const existing = countryMap.get(country.id);
+      const code = country.code.toLowerCase();
+      const existing = countryMap.get(code);
+
       if (existing) {
         existing.count += 1;
       } else {
-        countryMap.set(country.id, { ...country, count: 1 });
+        countryMap.set(code, { ...country, count: 1 });
       }
     });
   });
 
-  return Array.from(countryMap.values()).sort(
-    (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-  );
+  return Array.from(countryMap.values())
+    .map((country) => ({
+      ...country,
+      name: countryNames?.[country.code.toLowerCase()] ?? country.name,
+    }))
+    .sort(
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+    );
 };
 
 export const groupFormsByExt = (
@@ -192,18 +245,6 @@ export const groupFormsByExt = (
   });
 
   return groups;
-};
-
-export const getFormsByTypes = (
-  forms: TFormItem[] | undefined,
-  types: string[],
-): TFormItem[] => {
-  if (!types.length) return forms ?? [];
-  return (
-    forms?.filter((form) =>
-      form.form_exts?.some((item) => types.includes(item.ext)),
-    ) ?? []
-  );
 };
 
 interface IFormsFilters {
@@ -260,67 +301,108 @@ export const getFilteredForms = (
   );
 };
 
-export const getFilteredCount = (
-  forms: TFormItem[] | undefined,
-  filters: IFormsFilters,
-): number => getFilteredForms(forms, filters).length;
-
 export const getCategoriesByPurpose = (
   forms: TFormItem[] | undefined,
+  keep?: { forms: TFormItem[] | undefined; subcategories: string[] },
 ): Record<string, ICategoryTree[]> => {
-  const subcategoryCounts: Record<number, number> = {};
+  const subcategoryCounts: Record<string, number> = {};
   forms?.forEach((form) => {
-    const seen = new Set<number>();
+    const seen = new Set<string>();
     form.subcategories?.filter(Boolean).forEach((sub) => {
-      if (seen.has(sub.id)) return;
-      seen.add(sub.id);
-      subcategoryCounts[sub.id] = (subcategoryCounts[sub.id] ?? 0) + 1;
+      if (seen.has(sub.urlReq)) return;
+      seen.add(sub.urlReq);
+      subcategoryCounts[sub.urlReq] = (subcategoryCounts[sub.urlReq] ?? 0) + 1;
     });
   });
 
-  const purposeMap = new Map<string, IPurposeCategories>();
-  forms?.forEach((form) => {
-    form.subcategories?.filter(Boolean).forEach((sub) => {
-      sub.parent_categories?.filter(Boolean).forEach((category) => {
-        const purpose = category.purpose;
-        if (!purpose) return;
+  type TSortableNode<T> = { node: T; createdAt: string };
 
-        if (!purposeMap.has(purpose.key)) {
-          purposeMap.set(purpose.key, { purpose, categories: new Map() });
+  const purposeMap = new Map<
+    string,
+    {
+      purpose: TPurpose;
+      categories: Map<
+        string,
+        TSortableNode<ICategoryTree["category"]> & {
+          subcategories: Map<
+            string,
+            TSortableNode<ICategoryTree["subcategories"][number]>
+          >;
         }
-        const purposeEntry = purposeMap.get(purpose.key)!;
+      >;
+    }
+  >();
 
-        if (!purposeEntry.categories.has(category.id)) {
-          purposeEntry.categories.set(category.id, {
-            category,
-            subcategories: new Map(),
-          });
-        }
-        const categoryEntry = purposeEntry.categories.get(category.id)!;
+  const earliest = (current: string | undefined, next: string) =>
+    current && new Date(current).getTime() <= new Date(next).getTime()
+      ? current
+      : next;
 
-        categoryEntry.subcategories.set(sub.id, {
-          ...sub,
-          count: subcategoryCounts[sub.id] ?? 0,
+  const keptSubcategories = new Set(keep?.subcategories);
+  const subcategories = [
+    ...(forms ?? []).flatMap((form) => form.subcategories ?? []),
+    ...(keptSubcategories.size ? (keep?.forms ?? []) : []).flatMap((form) =>
+      (form.subcategories ?? []).filter((sub) =>
+        keptSubcategories.has(sub?.urlReq),
+      ),
+    ),
+  ];
+
+  subcategories.filter(Boolean).forEach((sub) => {
+    sub.parent_categories?.filter(Boolean).forEach((category) => {
+      const purpose = category.purpose;
+      if (!purpose) return;
+
+      if (!purposeMap.has(purpose.key)) {
+        purposeMap.set(purpose.key, { purpose, categories: new Map() });
+      }
+      const purposeEntry = purposeMap.get(purpose.key)!;
+
+      if (!purposeEntry.categories.has(category.urlReq)) {
+        purposeEntry.categories.set(category.urlReq, {
+          node: {
+            id: category.id,
+            name: category.name,
+            urlReq: category.urlReq,
+          },
+          createdAt: category.createdAt,
+          subcategories: new Map(),
         });
+      }
+      const categoryEntry = purposeEntry.categories.get(category.urlReq)!;
+      categoryEntry.createdAt = earliest(
+        categoryEntry.createdAt,
+        category.createdAt,
+      );
+
+      categoryEntry.subcategories.set(sub.urlReq, {
+        node: {
+          id: sub.id,
+          name: sub.name,
+          urlReq: sub.urlReq,
+          count: subcategoryCounts[sub.urlReq] ?? 0,
+        },
+        createdAt: earliest(
+          categoryEntry.subcategories.get(sub.urlReq)?.createdAt,
+          sub.createdAt,
+        ),
       });
     });
   });
 
+  const byCreatedAt = (a: { createdAt: string }, b: { createdAt: string }) =>
+    new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+
   const result: Record<string, ICategoryTree[]> = {};
   purposeMap.forEach(({ purpose, categories }) => {
     result[purpose.key] = Array.from(categories.values())
-      .map(({ category, subcategories }) => ({
-        category,
-        subcategories: Array.from(subcategories.values()).sort(
-          (a, b) =>
-            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-        ),
-      }))
-      .sort(
-        (a, b) =>
-          new Date(a.category.createdAt).getTime() -
-          new Date(b.category.createdAt).getTime(),
-      );
+      .sort(byCreatedAt)
+      .map(({ node, subcategories }) => ({
+        category: node,
+        subcategories: Array.from(subcategories.values())
+          .sort(byCreatedAt)
+          .map((entry) => entry.node),
+      }));
   });
 
   return result;

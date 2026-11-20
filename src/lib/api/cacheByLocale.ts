@@ -37,27 +37,43 @@ import { ILocale } from "@src/types/locale";
 
 type Locale = ILocale["locale"];
 
-const clearers = new Set<() => void>();
+const CLEARERS_KEY = Symbol.for("oforms.localeCacheClearers");
 
-const cacheByLocale = <A extends string[], T>(
+const globalStore = globalThis as typeof globalThis & {
+  [CLEARERS_KEY]?: Set<() => void>;
+};
+
+const clearers = (globalStore[CLEARERS_KEY] ??= new Set<() => void>());
+
+const cacheByLocale = <A extends (string | undefined)[], T>(
   fetcher: (locale: Locale, ...args: A) => Promise<T>,
+  { shouldCache }: { shouldCache?: (value: T) => boolean } = {},
 ): ((locale: Locale, ...args: A) => Promise<T>) => {
   const cache = new Map<string, Promise<T>>();
 
   clearers.add(() => cache.clear());
 
   return (locale: Locale, ...args: A) => {
-    const key = [locale, ...args].join(" ");
+    const key = JSON.stringify([locale, ...args]);
 
     const cached = cache.get(key);
     if (cached) return cached;
 
-    const promise = fetcher(locale, ...args).catch((error) => {
-      cache.delete(key);
-      throw error;
-    });
+    const promise: Promise<T> = fetcher(locale, ...args).then(
+      (value) => {
+        if (shouldCache && !shouldCache(value) && cache.get(key) === promise) {
+          cache.delete(key);
+        }
+        return value;
+      },
+      (error) => {
+        if (cache.get(key) === promise) cache.delete(key);
+        throw error;
+      },
+    );
 
     cache.set(key, promise);
+
     return promise;
   };
 };

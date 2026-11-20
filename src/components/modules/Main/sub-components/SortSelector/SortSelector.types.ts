@@ -33,11 +33,13 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
+import { TSortKey } from "@src/utils/helpers";
+
 export interface ISortSelector {
   className?: string;
 }
 
 export type TSortOption = {
-  key: string;
+  key: TSortKey;
   label: string;
 };

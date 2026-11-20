@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.0.0
+
+### New Features
+
+- Redesign the website with updated pages, components, and overall styling
+
+## 1.13.0
+
+### New Features
+
+- Banner: "Back to school with ONLYOFFICE!"
+
+## 1.12.0
+
+### New Features
+
+- Update onlyoffice-react-ui-kit to v1.33.1
+
 ## 1.11.1
 
 ### New Features

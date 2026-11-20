@@ -34,7 +34,6 @@
  */
 
 import { ICategoryTree } from "@src/components/modules/Main/Main.types";
-import { TAllowedTypes } from "@src/utils/allowedTypes";
 
 interface IPurpose {
   id: number;
@@ -44,8 +43,6 @@ interface IPurpose {
 }
 
 interface ICountry {
-  id: number;
-  documentId: string;
   name: string;
   code: string;
   count: number;
@@ -65,5 +62,7 @@ export interface ISidebar {
   xlsxForms: number;
   pptxForms: number;
   pdfForms: number;
-  selectedType?: TAllowedTypes;
+  selectedCategory?: string;
+  categorySubcategories: string[];
+  redirectToHome?: boolean;
 }

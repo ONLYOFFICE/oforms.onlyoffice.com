@@ -40,8 +40,14 @@ import { languages } from "@src/config/languages";
 import { IHeader } from "./Header.types";
 import styles from "./Header.module.scss";
 
-const Header = ({ locale, headerBgColor }: IHeader) => {
+const Header = ({
+  locale,
+  headerBgColor,
+  resetPathOnLocaleChange = false,
+}: IHeader) => {
   const router = useRouter();
+
+  const languageHref = resetPathOnLocaleChange ? "/" : router.asPath;
 
   return (
     <div className={styles.header}>
@@ -51,15 +57,7 @@ const Header = ({ locale, headerBgColor }: IHeader) => {
           key: language.shortKey,
           shortKey: language.shortKey,
           name: language.longKey,
-          href:
-            router.pathname === "/form-submit" ||
-            router.pathname === "/searchresult" ||
-            router.pathname === "/pdf-form-templates" ||
-            router.pathname === "/document-templates" ||
-            router.pathname === "/spreadsheet-templates" ||
-            router.pathname === "/presentation-templates"
-              ? router.asPath
-              : "/",
+          href: languageHref,
         }))}
         base={{
           url: process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN!,
@@ -68,6 +66,7 @@ const Header = ({ locale, headerBgColor }: IHeader) => {
           show: true,
         }}
         backgroundColor={headerBgColor || "#ffffff"}
+        borderColor="transparent"
         highlight={{
           buttonId: "oo-menu-item-btn-products",
           linkId: "oo-menu-link-templates",

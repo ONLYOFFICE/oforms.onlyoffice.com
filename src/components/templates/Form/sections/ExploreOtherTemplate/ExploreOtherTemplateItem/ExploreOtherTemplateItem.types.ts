@@ -37,4 +37,5 @@ export interface IExploreOtherTemplateItem {
   imageUrl: string;
   href: string;
   heading: string;
+  locale?: string;
 }

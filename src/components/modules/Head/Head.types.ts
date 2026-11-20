@@ -33,7 +33,24 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
+export interface IFavicon {
+  rel: "icon" | "apple-touch-icon";
+  sizes: string;
+  href: string;
+  type: string;
+}
+
+export interface IHreflang {
+  hrefLang: string;
+  href: string;
+}
+
 export interface IHead {
   title: string;
   description?: string;
+  path?: string;
+  locale?: string;
+  noindex?: boolean;
+  localized?: boolean;
+  locales?: string[];
 }

@@ -33,13 +33,13 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { IFormsData } from "@src/types/data";
+import { ICardView } from "@src/lib/server/mainView.types";
 
 export interface IMainSection {
   label: React.ReactNode;
   href?: string;
-  data: IFormsData["data"];
+  expanded?: boolean;
+  data: ICardView[];
   desktopLimit?: boolean;
   cardsGrid?: boolean;
-  isEmbed?: boolean;
 }

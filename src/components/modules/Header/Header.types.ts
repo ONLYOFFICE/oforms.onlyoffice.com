@@ -38,4 +38,5 @@ import { ILocale } from "@src/types/locale";
 export interface IHeader {
   locale: ILocale["locale"];
   headerBgColor?: string;
+  resetPathOnLocaleChange?: boolean;
 }

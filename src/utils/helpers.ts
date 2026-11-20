@@ -33,8 +33,6 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { IExtCategory } from "@src/types/template";
-import { ICategoryTree } from "@src/components/modules/Main/Main.types";
 import { IFormsData } from "@src/types/data";
 import { ALLOWED_TYPES, TAllowedTypes } from "@src/utils/allowedTypes";
 
@@ -42,7 +40,7 @@ export const getQueryValues = (
   value: string | string[] | undefined,
 ): string[] => {
   const raw = Array.isArray(value) ? value.join(",") : value;
-  return raw ? raw.split(",").filter(Boolean) : [];
+  return raw ? Array.from(new Set(raw.split(",").filter(Boolean))) : [];
 };
 
 export const getTemplatesByExt = (
@@ -65,29 +63,56 @@ export const getPopularTemplates = (
   limit = 8,
 ) => forms?.filter((form) => form.popular_template).slice(0, limit) ?? [];
 
-const getLevenshteinDistance = (a: string, b: string): number => {
-  const distances = Array.from({ length: a.length + 1 }, (_, i) => {
-    const row = new Array<number>(b.length + 1).fill(0);
-    row[0] = i;
-    return row;
-  });
-  for (let j = 0; j <= b.length; j++) distances[0][j] = j;
+const POPULAR_TEMPLATES_MIN_FORMS = 8;
 
-  for (let i = 1; i <= a.length; i++) {
-    for (let j = 1; j <= b.length; j++) {
-      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-      distances[i][j] = Math.min(
-        distances[i - 1][j] + 1,
-        distances[i][j - 1] + 1,
-        distances[i - 1][j - 1] + cost,
-      );
-    }
+const hashString = (value: string) => {
+  let hash = 2166136261;
+  for (let i = 0; i < value.length; i++) {
+    hash ^= value.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
   }
-
-  return distances[a.length][b.length];
+  return hash >>> 0;
 };
 
-type TSortKey = "popular" | "asc" | "desc" | "name_asc" | "name_desc";
+const stableShuffle = <T extends { id: number | string }>(
+  items: T[],
+  seed: string,
+): T[] =>
+  items
+    .map((item) => ({ item, key: hashString(`${seed}:${item.id}`) }))
+    .sort(
+      (a, b) =>
+        a.key - b.key || String(a.item.id).localeCompare(String(b.item.id)),
+    )
+    .map(({ item }) => item);
+
+export const fillPopularTemplates = (
+  popular: IFormsData["data"][number][],
+  pool: IFormsData["data"][number][],
+  min = 4,
+) => {
+  if (!popular.length || popular.length >= min) return popular;
+
+  const usedIds = new Set(popular.map((form) => form.id));
+  const seed = popular.map((form) => form.id).join(",");
+
+  return [
+    ...popular,
+    ...stableShuffle(
+      pool.filter((form) => !usedIds.has(form.id)),
+      seed,
+    ).slice(0, min - popular.length),
+  ];
+};
+
+export const getSectionPopularTemplates = (
+  forms: IFormsData["data"][number][],
+) =>
+  forms.length < POPULAR_TEMPLATES_MIN_FORMS
+    ? []
+    : fillPopularTemplates(getPopularTemplates(forms), forms);
+
+export type TSortKey = "popular" | "asc" | "desc" | "name_asc" | "name_desc";
 const SORT_MAP: Record<TSortKey, string> = {
   asc: "createdAt:desc",
   desc: "createdAt:asc",
@@ -96,11 +121,16 @@ const SORT_MAP: Record<TSortKey, string> = {
   popular: "popular_template:desc",
 };
 
+export const SORT_KEYS = Object.keys(SORT_MAP) as TSortKey[];
+export const DEFAULT_SORT_KEY: TSortKey = "asc";
+
 export const normalizeSortKey = (
   value: string | string[] | undefined,
 ): TSortKey => {
-  const raw = Array.isArray(value) ? value[0] : value;
-  return raw && raw in SORT_MAP ? (raw as TSortKey) : "asc";
+  const raw = (Array.isArray(value) ? value[0] : value)?.toLowerCase();
+  return raw && Object.hasOwn(SORT_MAP, raw)
+    ? (raw as TSortKey)
+    : DEFAULT_SORT_KEY;
 };
 
 export const sortForms = (
@@ -134,86 +164,4 @@ export const sortForms = (
         );
     }
   });
-};
-
-export const getExtCount = (
-  extFormsCount: IExtCategory["extFormsCount"],
-  ext: TAllowedTypes,
-): number =>
-  extFormsCount.data.find((item) => item.ext === ext)?.oforms.count ?? 0;
-
-export const getPurposes = (
-  purposeWithCategoriesCount: IExtCategory["purposeWithCategoriesCount"],
-) =>
-  purposeWithCategoriesCount.data
-    .map(({ id, documentId, name, key, createdAt }) => ({
-      id,
-      documentId,
-      name,
-      key,
-      createdAt,
-    }))
-    .sort(
-      (a, b) =>
-        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-    );
-
-export const getCategoriesByPurpose = (
-  purposeWithCategoriesCount: IExtCategory["purposeWithCategoriesCount"],
-  selectedCountries: string[] = [],
-): Record<string, ICategoryTree[]> => {
-  const result: Record<string, ICategoryTree[]> = {};
-
-  const getSubcategoryCount = (
-    oforms: IExtCategory["purposeWithCategoriesCount"]["data"][number]["parent_categories"][number]["subcategories"][number]["oforms"],
-  ): number => {
-    if (!selectedCountries.length) return oforms.length;
-    return oforms.filter((oform) =>
-      oform.countries?.some((country) =>
-        selectedCountries.includes(country.code.toLowerCase()),
-      ),
-    ).length;
-  };
-
-  purposeWithCategoriesCount.data.forEach((purpose) => {
-    result[purpose.key] = [...purpose.parent_categories]
-      .map((category) => ({
-        category: {
-          id: category.id,
-          documentId: category.documentId,
-          name: category.name,
-          urlReq: category.urlReq,
-          createdAt: category.createdAt,
-          purpose: {
-            id: purpose.id,
-            documentId: purpose.documentId,
-            name: purpose.name,
-            key: purpose.key,
-            createdAt: purpose.createdAt,
-          },
-        },
-        subcategories: [...category.subcategories]
-          .map((sub) => ({
-            id: sub.id,
-            documentId: sub.documentId,
-            name: sub.name,
-            urlReq: sub.urlReq,
-            createdAt: sub.createdAt,
-            count: getSubcategoryCount(sub.oforms),
-          }))
-          .filter((sub) => sub.count > 0)
-          .sort(
-            (a, b) =>
-              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-          ),
-      }))
-      .filter((category) => category.subcategories.length > 0)
-      .sort(
-        (a, b) =>
-          new Date(a.category.createdAt).getTime() -
-          new Date(b.category.createdAt).getTime(),
-      );
-  });
-
-  return result;
 };

@@ -59,6 +59,7 @@ import styles from "./Hero.module.scss";
 const Hero = ({
   name_form,
   template_desc,
+  template_desc_2,
   file_pages,
   file_oform,
   page_screens,
@@ -102,13 +103,24 @@ const Hero = ({
                 {t("EditableTemplate")}
               </span>
             </div>
-            <div className={styles["hero-description"]}>
-              {template_desc?.split("\n").map((text, id) => (
-                <Text as="p" size={2} key={id}>
-                  {text}
-                </Text>
-              ))}
-            </div>
+            {template_desc && (
+              <div className={styles["hero-description"]}>
+                {template_desc.split("\n").map((text, id) => (
+                  <Text as="p" size={2} key={id}>
+                    {text}
+                  </Text>
+                ))}
+              </div>
+            )}
+            {template_desc_2 && (
+              <div className={styles["hero-description"]}>
+                {template_desc_2.split("\n").map((text, id) => (
+                  <Text as="p" size={2} key={id}>
+                    {text}
+                  </Text>
+                ))}
+              </div>
+            )}
 
             <div className={styles["hero-info"]}>
               <div className={styles["hero-info-row"]}>
@@ -166,9 +178,9 @@ const Hero = ({
                       className={styles["hero-info-value"]}
                       dir="ltr"
                     >
-                      {size < 1024
-                        ? `${size.toFixed(0)} kb`
-                        : `${(size / 1024).toFixed(0)} mb`}
+                      {Math.round((size * 1000) / 1024) < 1024
+                        ? `${Math.round((size * 1000) / 1024)} kb`
+                        : `${parseFloat(((size * 1000) / 1024 / 1024).toFixed(1))} mb`}
                     </Text>
                   </div>
                 )}

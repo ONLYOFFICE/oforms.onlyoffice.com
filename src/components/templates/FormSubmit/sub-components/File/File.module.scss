@@ -77,6 +77,10 @@
     cursor: default;
   }
 
+  &-dragover {
+    border-color: var(--form-submit-file-accent-text-color);
+  }
+
   @include media.mobile {
     min-height: 292px;
   }
@@ -164,6 +168,10 @@
       margin-inline-end: 6px;
     }
   }
+}
+
+.file-captcha-error {
+  margin-top: 12px;
 }
 
 .file-upload {

@@ -46,6 +46,7 @@ const Badge = ({
   checked,
   disabled,
   size = "medium",
+  skeleton,
   onChange,
 }: IBadge) => {
   return (
@@ -64,6 +65,7 @@ const Badge = ({
           styles["badge-wrapper"],
           styles[`badge-wrapper-${size}`],
           checked && styles["badge-wrapper-checked"],
+          skeleton && styles["badge-wrapper-skeleton"],
         )}
       >
         <span

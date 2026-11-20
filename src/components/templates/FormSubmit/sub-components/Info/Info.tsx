@@ -33,17 +33,15 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
-import ReactHCaptcha from "@hcaptcha/react-hcaptcha";
 import { Heading } from "@src/components/ui/Heading";
 import { Input } from "@src/components/ui/Input";
 import { TextArea } from "@src/components/ui/TextArea";
 import { Text } from "@src/components/ui/Text";
 import { Badge } from "@src/components/ui/Badge";
 import { Button } from "@src/components/ui/Button";
-import { HCaptcha } from "@src/components/ui/HCaptcha";
 import {
   NAME_MAX_LENGTH,
   DESCRIPTION_MAX_LENGTH,
@@ -58,10 +56,11 @@ const Info = ({
   file,
   isUploading,
   queryIndexData,
+  requestCaptchaToken,
+  resetCaptcha,
 }: IInfo) => {
   const { t } = useTranslation("form-submit");
   const router = useRouter();
-  const captchaRef = useRef<ReactHCaptcha>(null);
 
   const [values, setValues] = useState<{
     name: string;
@@ -88,6 +87,7 @@ const Info = ({
   const [formStatus, setFormStatus] = useState<"default" | "loading" | "error">(
     "default",
   );
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const errorMessages: Record<"name" | "description", string> = {
     name: t("TemplateNameIsRequested"),
@@ -121,7 +121,12 @@ const Info = ({
       (purpose) => purpose.documentId === values.purpose,
     ) ?? purposeWithCategories.data[0];
 
-  const selectedCategory = selectedPurpose?.parent_categories.find(
+  const availableCategories =
+    selectedPurpose?.parent_categories.filter(
+      (category) => category.subcategories.length > 0,
+    ) ?? [];
+
+  const selectedCategory = availableCategories.find(
     (category) => category.documentId === values.category,
   );
 
@@ -176,9 +181,6 @@ const Info = ({
     }));
   };
 
-  const subcategoriesRequired =
-    !!selectedCategory && selectedCategory.subcategories.length > 0;
-
   const isValid =
     (queryIndexData ? !!queryIndexData.fileUrl : !!file) &&
     !isUploading &&
@@ -186,15 +188,21 @@ const Info = ({
     values.description.trim().length > 0 &&
     values.countries.length > 0 &&
     values.purpose.length > 0 &&
-    values.category.length > 0 &&
-    (!subcategoriesRequired || values.subcategories.length > 0);
+    !!selectedCategory &&
+    values.subcategories.length > 0;
 
   const clearCaptchaData = () => {
-    captchaRef.current?.resetCaptcha();
+    resetCaptcha();
     setFormStatus("default");
+    setSubmitError(null);
   };
 
-  const handleOnSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
+  const fail = (message: string) => {
+    setSubmitError(message);
+    setFormStatus("error");
+  };
+
+  const handleOnSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (formStatus === "loading") {
@@ -210,20 +218,17 @@ const Info = ({
 
     setFormStatus("loading");
 
-    if (captchaRef.current?.isReady()) {
-      captchaRef.current.execute();
+    const captchaToken = await requestCaptchaToken();
+
+    if (!captchaToken) {
+      fail(t("CaptchaVerificationFailed"));
+      return;
     }
+
+    await onSubmit(captchaToken);
   };
 
-  const handleHCaptchaChange = (token: string | null) => {
-    if (token) {
-      onSubmit(token);
-    } else {
-      clearCaptchaData();
-    }
-  };
-
-  const onSubmit = async (captchaToken?: string) => {
+  const onSubmit = async (captchaToken: string) => {
     try {
       const formData = new FormData();
       formData.append("name", values.name.trim());
@@ -234,9 +239,7 @@ const Info = ({
       values.subcategories.forEach((subcategory) =>
         formData.append("subcategories", subcategory),
       );
-      if (captchaToken) {
-        formData.append("captchaToken", captchaToken);
-      }
+      formData.append("captchaToken", captchaToken);
       if (router.locale) {
         formData.append("languageKey", router.locale);
       }
@@ -256,14 +259,19 @@ const Info = ({
       });
 
       if (!response.ok) {
-        throw new Error(`Create template failed: ${response.status}`);
+        console.error("[Info] submit:", `failed with ${response.status}`);
+        fail(
+          response.status === 429
+            ? t("TooManyRequestsPleaseTryAgainLater")
+            : t("WeAreSorryButAnErrorOccurredTryAgainLater"),
+        );
+        return;
       }
 
       onSuccess();
     } catch (error) {
       console.error("[Info] submit:", error);
-      captchaRef.current?.resetCaptcha();
-      setFormStatus("error");
+      fail(t("WeAreSorryButAnErrorOccurredTryAgainLater"));
     }
   };
 
@@ -356,7 +364,7 @@ const Info = ({
           </div>
         </div>
 
-        {selectedPurpose && selectedPurpose.parent_categories.length > 0 && (
+        {availableCategories.length > 0 && (
           <div>
             <Text
               className={styles["info-item-heading"]}
@@ -368,7 +376,7 @@ const Info = ({
               <span className={styles["info-item-required-mark"]}>*</span>
             </Text>
             <div className={styles["info-items"]}>
-              {selectedPurpose.parent_categories.map((category) => (
+              {availableCategories.map((category) => (
                 <Badge
                   key={category.documentId}
                   size="large"
@@ -384,7 +392,7 @@ const Info = ({
           </div>
         )}
 
-        {selectedCategory && selectedCategory.subcategories.length > 0 && (
+        {selectedCategory && (
           <div>
             <Text
               className={styles["info-item-heading"]}
@@ -416,15 +424,6 @@ const Info = ({
       </div>
 
       <div className={styles["info-nav"]}>
-        <div className={styles["info-captcha"]}>
-          <HCaptcha
-            ref={captchaRef}
-            onVerify={handleHCaptchaChange}
-            onExpire={() => handleHCaptchaChange(null)}
-            onClose={clearCaptchaData}
-          />
-        </div>
-
         <div className={styles["info-buttons"]}>
           <Button as="a" href="/" variant="tertiary-dark" size={2}>
             {t("Cancel")}
@@ -439,6 +438,16 @@ const Info = ({
             {t("UploadTemplate")}
           </Button>
         </div>
+
+        {submitError && (
+          <Text
+            className={styles["info-error"]}
+            size={4}
+            color="var(--form-submit-file-upload-error-color)"
+          >
+            {submitError}
+          </Text>
+        )}
       </div>
     </form>
   );

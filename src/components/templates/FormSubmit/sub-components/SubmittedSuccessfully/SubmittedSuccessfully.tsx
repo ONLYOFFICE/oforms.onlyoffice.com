@@ -46,7 +46,7 @@ import styles from "./SubmittedSuccessfully.module.scss";
 
 const SubmittedSuccessfully = ({
   setSubmitted,
-  file,
+  name,
 }: ISubmittedSuccessfully) => {
   const { t } = useTranslation("form-submit");
 
@@ -74,7 +74,7 @@ const SubmittedSuccessfully = ({
           <Trans
             t={t}
             i18nKey="YourTemplateHasBeenReceivedAndSentForReview"
-            values={{ name_form: file?.name ?? "" }}
+            values={{ name_form: name }}
             components={[
               <Text
                 className={styles["submitted-successfully-block-text"]}

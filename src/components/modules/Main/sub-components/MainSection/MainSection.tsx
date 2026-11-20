@@ -38,6 +38,12 @@ import { useRouter } from "next/router";
 import { Heading } from "@src/components/ui/Heading";
 import { Link } from "@src/components/ui/Link";
 import { Card } from "@src/components/widgets/Card";
+import {
+  COLLAPSE_QUERY_PARAM,
+  COUNTRIES_COLLAPSE_QUERY_PARAM,
+  EXPAND_QUERY_PARAM,
+  parseQueryList,
+} from "@src/utils/queryFilters";
 import { appendQueryParams } from "./MainSection.utils";
 import { IMainSection } from "./MainSection.types";
 import styles from "./MainSection.module.scss";
@@ -45,16 +51,36 @@ import styles from "./MainSection.module.scss";
 const MainSection = ({
   label,
   href,
+  expanded,
   data,
   desktopLimit,
   cardsGrid,
-  isEmbed,
 }: IMainSection) => {
   const router = useRouter();
+  const openedCategories = href
+    ? Array.from(
+        new Set([
+          ...parseQueryList(router.query[COLLAPSE_QUERY_PARAM]),
+          `category-${href}`,
+        ]),
+      ).join(",")
+    : router.query[COLLAPSE_QUERY_PARAM];
+
+  const expandKey = `category-${href}`;
+  const expandedCategories = [
+    ...parseQueryList(router.query[EXPAND_QUERY_PARAM]).filter(
+      (key) => key !== expandKey,
+    ),
+    ...(expanded ? [expandKey] : []),
+  ].join(",");
+
   const hrefWithOpened = appendQueryParams(href, {
-    opened: router.query.opened,
-    purpose: router.query.purpose,
+    [EXPAND_QUERY_PARAM]: expandedCategories,
+    [COLLAPSE_QUERY_PARAM]: openedCategories,
+    [COUNTRIES_COLLAPSE_QUERY_PARAM]:
+      router.query[COUNTRIES_COLLAPSE_QUERY_PARAM],
     country: router.query.country,
+    sort: router.query.sort,
   });
 
   return (
@@ -75,7 +101,12 @@ const MainSection = ({
         </Link>
       ) : (
         <div className={styles["main-section-heading-link"]}>
-          <Heading level={2} size={3} color="var(--main-section-heading-color)">
+          <Heading
+            className={styles["main-section-heading"]}
+            level={2}
+            size={3}
+            color="var(--main-section-heading-color)"
+          >
             {label}
           </Heading>
         </div>
@@ -86,28 +117,19 @@ const MainSection = ({
           styles["main-section-cards"],
           desktopLimit && styles["main-section-cards-desktop-limit"],
           cardsGrid && styles["main-section-cards-grid"],
-          isEmbed && styles["main-section-cards-embed"],
         )}
       >
         {data?.map((item) => (
           <Card
             key={item.id}
             className={styles["main-section-card"]}
-            preview={item.card_prewiew?.url}
-            format={item.form_exts?.[0].ext}
+            preview={item.preview}
+            format={item.format}
             heading={item.name_form}
             description={item.description_card}
             url={item.url}
-            // Only the desktop embed distinguishes the two: it mixes templates
-            // that ship with the app (__local, see embed/src/localSdk.ts) into
-            // the online catalog. The site has cloud templates only.
-            storage={
-              isEmbed
-                ? (item as { __local?: boolean }).__local
-                  ? "local"
-                  : "cloud"
-                : undefined
-            }
+            locale={item.locale}
+            skeleton
           />
         ))}
       </div>

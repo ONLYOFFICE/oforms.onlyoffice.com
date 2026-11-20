@@ -37,8 +37,9 @@ import { IQueryIndexData } from "../../FormSubmit.types";
 
 export interface IFile {
   file: File | null;
-  setFile: React.Dispatch<React.SetStateAction<File | null>>;
+  setFile: (file: File | null) => void;
   isUploading: boolean;
   setIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
   queryIndexData: IQueryIndexData | null;
+  requestCaptchaToken: () => Promise<string | null>;
 }

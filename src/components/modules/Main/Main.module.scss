@@ -34,6 +34,7 @@
  */
 
 @use "media";
+@use "skeleton";
 
 .main-header {
   margin-bottom: 84px;
@@ -75,11 +76,11 @@
 
 .main-wrapper {
   display: grid;
-  grid-template-columns: 352px minmax(0, 1fr);
-  gap: 56px;
+  grid-template-columns: 364px minmax(0, 1fr);
+  gap: 44px;
 
   @include media.desktop {
-    grid-template-columns: 320px minmax(0, 1fr);
+    grid-template-columns: 332px minmax(0, 1fr);
   }
 
   @include media.tablet {
@@ -116,6 +117,10 @@
   }
 }
 
+.main-top-pending-hidden {
+  display: none;
+}
+
 .main-top-wrapper {
   display: flex;
   align-items: center;
@@ -148,22 +153,11 @@
   }
 
   @include media.mobile {
+    display: flex;
     flex-direction: column;
     align-items: initial;
     flex: 1;
     min-width: 0;
-  }
-}
-
-.main-top-content-embed {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  order: 1;
-
-  @include media.tablet {
-    margin-inline-end: initial;
   }
 }
 
@@ -187,19 +181,14 @@
   }
 }
 
-.main-sort-selector-embed,
-.main-count-embed {
-  @include media.mobile {
-    margin-inline-start: auto;
-  }
-}
-
 .main-count-label {
   margin-inline-end: 12px;
+  @include skeleton.fill;
 }
 
 .main-count-value {
   letter-spacing: 0.04em;
+  @include skeleton.fill;
 }
 
 .main-filters-button {
@@ -211,16 +200,11 @@
   height: 24px;
   background-color: transparent;
   cursor: pointer;
+  @include skeleton.fill;
 
   @include media.tablet {
     display: block;
   }
-}
-
-.main-filter-button-embed {
-  margin-inline-start: initial;
-  margin-inline-end: 10px;
-  order: 0;
 }
 
 .main-search-input {
@@ -233,4 +217,39 @@
 
 .main-search-input-search-only {
   max-width: 544px;
+}
+
+.main-pending-skeleton {
+  display: none;
+
+  &.main-pending-skeleton-active {
+    display: contents;
+  }
+}
+
+.main-pending-content {
+  display: contents;
+
+  &.main-pending-content-hidden {
+    display: none;
+  }
+}
+
+:global(html[data-view-pending]) {
+  .main-wrapper {
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .main-pending-skeleton {
+    display: contents;
+  }
+
+  .main-top-pending {
+    display: none;
+  }
+
+  .main-pending-content {
+    display: none;
+  }
 }

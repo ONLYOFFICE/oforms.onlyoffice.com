@@ -38,7 +38,30 @@ import Script from "next/script";
 import CONFIG from "@src/config/config.json";
 import { Layout } from "@src/components/Layout";
 import { Head } from "@src/components/modules/Head";
+import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
 import { cmsLocale } from "@src/utils/cmsLocale";
+import { languages } from "@src/config/languages";
+import { ILocale } from "@src/types/locale";
+
+const LOCALES = languages.map(({ shortKey }) => shortKey);
+
+const resolveEditorLocale = (
+  value: string | string[] | undefined,
+  fallback: ILocale["locale"],
+): ILocale["locale"] => {
+  const raw = Array.isArray(value) ? value[0] : value;
+
+  return raw && LOCALES.includes(raw) ? (raw as ILocale["locale"]) : fallback;
+};
+
+const FILENAME_MAX_LENGTH = 300;
+const FILENAME_PATTERN = /^[a-zA-Z0-9._-]+$/;
+const FILLFORM_PATTERN = new RegExp(
+  `^[a-zA-Z0-9_-]+\\.(${ALLOWED_TYPES.map((type) =>
+    type.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+  ).join("|")})$`,
+  "i",
+);
 
 declare global {
   interface Window {
@@ -51,14 +74,15 @@ declare global {
 
 interface IEditorPage {
   filename: string;
+  title: string;
   config: string;
 }
 
-const EditorPage = ({ filename, config }: IEditorPage) => {
+const EditorPage = ({ filename, title, config }: IEditorPage) => {
   return (
     <Layout banner={false}>
       <Layout.Head>
-        <Head title={filename} />
+        <Head title={`${title} | ONLYOFFICE`} noindex />
         <Script
           id="doc-editor"
           src={`${CONFIG.docEditorUrl}/web-apps/apps/api/documents/api.js`}
@@ -88,22 +112,34 @@ const EditorPage = ({ filename, config }: IEditorPage) => {
 export const getServerSideProps = async ({
   query,
 }: GetServerSidePropsContext) => {
-  const { lang, filename, fillform } = query;
-  const locale = (Array.isArray(lang) ? lang[0] : lang) ?? "en";
+  const { lang, formlang, filename, fillform } = query;
+  const locale = resolveEditorLocale(lang, "en");
+  const formLocale = resolveEditorLocale(formlang, locale);
   const cmsLang = cmsLocale(locale);
+  const cmsFormLang = cmsLocale(formLocale);
   const normalizedFilename =
     (Array.isArray(filename) ? filename[0] : filename) ?? "";
   const normalizedFillform =
     (Array.isArray(fillform) ? fillform[0] : fillform) ?? "";
 
-  if (!normalizedFilename) {
+  if (
+    !normalizedFilename ||
+    normalizedFilename.length > FILENAME_MAX_LENGTH ||
+    !FILENAME_PATTERN.test(normalizedFilename)
+  ) {
+    return {
+      notFound: true,
+    };
+  }
+
+  if (normalizedFillform && !FILLFORM_PATTERN.test(normalizedFillform)) {
     return {
       notFound: true,
     };
   }
 
   const oformsRes = await fetch(
-    `${CONFIG.api.cms}/api/oforms?filters[url][$eq]=${encodeURIComponent(normalizedFilename)}&locale=${cmsLang}`,
+    `${CONFIG.api.cms}/api/oforms?filters[url][$eq]=${encodeURIComponent(normalizedFilename)}&locale=${encodeURIComponent(cmsFormLang)}`,
   );
   if (!oformsRes.ok) {
     throw new Error(`Request failed with status ${oformsRes.status}`);
@@ -118,7 +154,7 @@ export const getServerSideProps = async ({
 
   try {
     const configRes = await fetch(
-      `${process.env.CONFIG_API_URL}/api/config?lang=${cmsLang}&title=${encodeURIComponent(normalizedFilename)}&url=${encodeURIComponent(normalizedFillform)}`,
+      `${process.env.CONFIG_API_URL}/api/config?lang=${encodeURIComponent(cmsLang)}&title=${encodeURIComponent(normalizedFilename)}&url=${encodeURIComponent(normalizedFillform)}`,
     );
     if (!configRes.ok) {
       throw new Error(`Request failed with status ${configRes.status}`);
@@ -128,6 +164,7 @@ export const getServerSideProps = async ({
     return {
       props: {
         filename: normalizedFilename,
+        title: oforms.data[0].name_form || normalizedFilename,
         config: JSON.stringify(config),
       },
     };

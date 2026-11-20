@@ -12,14 +12,14 @@ switch(BRANCH_NAME) {
     deploy_app_name = "templates-update.teamlab.info"
     region="info"
     cloud_front_distribution_id="EH1YZ1QI3B8CC"
-    site_url="https://templates-update.teamlab.info"   
-    cms="https://templates-update.teamlab.info/dashboard"
-    appServer="https://templates-update.teamlab.info/"
+    site_url="https://templates.teamlab.info"   
+    cms="https://templates.teamlab.info/dashboard/v2"
+    appServer="https://templates.teamlab.info/"
     domains="static-oforms-update.teamlab.info"
     public_static_url="https://static-oforms.teamlab.info"
     email_port="587"
-    next_public_main_site_base_domain="https://test-new.teamlab.info"
-    config_api_url = "https://templates.teamlab.info/dashboard"
+    next_public_main_site_base_domain="https://www.teamlab.info"
+    config_api_url = "https://templates.teamlab.info/dashboard/v2"
     bucket = "static-oforms.teamlab.info"
     editor_api_url = "https://asc.docs.teamlab.info"
     break
@@ -35,7 +35,7 @@ switch(BRANCH_NAME) {
     region="info"
     cloud_front_distribution_id="E3OQ4LKWZZXBRX"
     site_url="https://templates.teamlab.info"   
-    cms="https://templates.teamlab.info/dashboard"
+    cms="https://templates.teamlab.info/dashboard/v2"
     cmsUpload="https://cmsoforms.teamlab.info"
     appServer="https://templates.teamlab.info/"
     domains="static-oforms.teamlab.info"
@@ -55,14 +55,38 @@ switch(BRANCH_NAME) {
     region="com"
     MONITOR_ID = '58439000014815195'
     cloud_front_distribution_id="E18Y5OI4JS5NAJ"
-    site_url="https://oforms.onlyoffice.com"    
-    cms="https://templates.onlyoffice.com/dashboard"
+    site_url="https://templates.onlyoffice.com"    
+    cms="https://templates.onlyoffice.com/dashboard/v2"
     cmsUpload="https://cmsoforms.onlyoffice.com"
     appServer="https://oforms.onlyoffice.com/"
     domains="static-oforms.onlyoffice.com"
     public_static_url="https://static-oforms.onlyoffice.com"
     email_port="587"
-    next_public_main_site_base_domain="https://onlyoffice.com"
+    next_public_main_site_base_domain="https://www.onlyoffice.com"
+    break
+  case "production_deploy_update":
+    aws_region="us-west-2"
+    awslogs_region = "us-west-2"
+    awslogs_group = "/site/www"
+    awslogs_stream = "templates-cms.onlyoffice.com"
+    awslogs_stream_errors = "templates-cms.onlyoffice.com-errors"
+    awslogs_enabled = "true"
+    deploy_expose_port = "40002"
+    deploy_app_name = "templates-update.onlyoffice.com"
+    region="com"
+    MONITOR_ID = '58439000014815195'
+    cloud_front_distribution_id="E18Y5OI4JS5NAJ"
+    site_url="https://templates.onlyoffice.com"    
+    cms="https://templates.onlyoffice.com/dashboard/v2"
+    cmsUpload="https://cmsoforms.onlyoffice.com"
+    appServer="https://templates.onlyoffice.com/"
+    domains="static-oforms.onlyoffice.com"
+    public_static_url="https://static-oforms.onlyoffice.com"
+    email_port="587"
+    next_public_main_site_base_domain="https://www.onlyoffice.com"
+    config_api_url = "https://templates.onlyoffice.com/dashboard/v2"
+    bucket = "static-oforms.onlyoffice.com"
+    editor_api_url = "https://oforms.docs.onlyoffice.com"
     break
   default:
     println("Branch: ${BRANCH_NAME} do not for deploy.")
@@ -92,7 +116,8 @@ pipeline {
       when { 
         anyOf { branch 'feature/redesign'; 
                 branch 'test_deploy'; 
-                branch 'production_deploy' }
+                branch 'production_deploy';
+                branch 'production_deploy_update' }
       }
       environment {
         awslogs_region = "${awslogs_region}"
@@ -146,7 +171,10 @@ pipeline {
                 usernameVariable: 'NEXT_PUBLIC_EMAIL_AUTH_USER'),
                 string(credentialsId: 'onlyoffice_site_test_hcaptcha_site_key', variable: 'NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY'),
                 string(credentialsId: 'onlyoffice_site_test_hcaptcha_secret_key', variable: 'NEXT_PUBLIC_HCAPTCHA_TEST_SECRET_KEY'),
-                string(credentialsId: 'templates_redesign_strapi_api_token', variable: 'REDESIGN_PUBLIC_STRAPI_API_TOKEN_TEST'),
+                string(credentialsId: 'onlyoffice_site_prod_hcaptcha_site_key', variable: 'NEXT_PUBLIC_HCAPTCHA_PROD_SITE_KEY'),
+                string(credentialsId: 'onlyoffice_site_prod_hcaptcha_secret_key', variable: 'NEXT_PUBLIC_HCAPTCHA_PROD_SECRET_KEY'),
+                string(credentialsId: 'OFORMS_REDESIGN_PUBLIC_STRAPI_API_TOKEN_TEST', variable: 'oforms_redesign_strapi_api_token_test'),
+                string(credentialsId: 'OFORMS_REDESIGN_PUBLIC_STRAPI_API_TOKEN_PROD', variable: 'oforms_redesign_strapi_api_token_prod'),
                 string(credentialsId: 'templates_redesign_revalidate_authorization_token', variable: 'REVALIDATE_AUTHORIZATION_TOKEN_TEST')]) {
 
           sh '''
@@ -162,7 +190,14 @@ pipeline {
               NEXT_PUBLIC_FILES_DOCSERVICE_SECRET=$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET_TEST
               NEXT_PUBLIC_HCAPTCHA_SITE_KEY=$NEXT_PUBLIC_HCAPTCHA_TEST_SITE_KEY
               NEXT_PUBLIC_HCAPTCHA_SECRET_KEY=$NEXT_PUBLIC_HCAPTCHA_TEST_SECRET_KEY
-              NEXT_PUBLIC_STRAPI_API_TOKEN=$REDESIGN_PUBLIC_STRAPI_API_TOKEN_TEST
+              NEXT_PUBLIC_STRAPI_API_TOKEN=$oforms_redesign_strapi_api_token_test
+              REVALIDATE_AUTHORIZATION_TOKEN=$REVALIDATE_AUTHORIZATION_TOKEN_TEST 
+            fi
+
+            if [[ ${BRANCH_NAME} == "production_deploy_update" ]]; then
+              NEXT_PUBLIC_HCAPTCHA_SITE_KEY=$NEXT_PUBLIC_HCAPTCHA_PROD_SITE_KEY
+              NEXT_PUBLIC_HCAPTCHA_SECRET_KEY=$NEXT_PUBLIC_HCAPTCHA_PROD_SECRET_KEY
+              NEXT_PUBLIC_STRAPI_API_TOKEN=$oforms_redesign_strapi_api_token_prod
               REVALIDATE_AUTHORIZATION_TOKEN=$REVALIDATE_AUTHORIZATION_TOKEN_TEST 
             fi
 
@@ -216,14 +251,14 @@ pipeline {
           '''
         }
         
-        sshPublisher(failOnError: true, publishers: [sshPublisherDesc(configName: "sites@${region}", 
+        sshPublisher(failOnError: true, publishers: [sshPublisherDesc(configName: "sites2026@${region}", 
           transfers: [sshTransfer(cleanRemote: false, 
             excludes: '', 
             execCommand: """
               sudo bash "/home/ubuntu/deploy/.jenkins/${env.deploy_app_name}_build.sh" \
                   2>&1 | tee -a "/home/ubuntu/deploy/${env.deploy_app_name}_deploy.log"
             """, 
-            execTimeout: 600000, 
+            execTimeout: 1200000, 
             flatten: false, 
             makeEmptyDirs: false, 
             noDefaultExcludes: false, 

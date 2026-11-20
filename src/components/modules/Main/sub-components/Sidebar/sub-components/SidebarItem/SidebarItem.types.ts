@@ -33,7 +33,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-export interface ISidebarOption {
+interface ISidebarOption {
   value: string;
   label: string;
   count?: number;
@@ -50,8 +50,16 @@ export interface ISidebarItem {
     heading: string;
     options: ISidebarOption[];
     queryKey?: string;
+    collapseQueryKey?: string;
+    collapseQueryParam?: string;
+    defaultOpen?: boolean;
   }[];
   optionsType?: "badge" | "switch";
+  type?: "checkbox" | "radio";
   isSub?: boolean;
   queryKey?: string;
+  collapseQueryKey?: string;
+  collapseQueryParam?: string;
+  defaultOpen?: boolean;
+  defaultOpenKeys?: string[];
 }

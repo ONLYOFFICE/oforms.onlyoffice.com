@@ -33,8 +33,9 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { IFormsData } from "@src/types/data";
+import { IMainView, TFormNames } from "@src/lib/server/mainView.types";
 
 export interface IMainTemplate {
-  allForms: IFormsData;
+  initialView: IMainView;
+  initialFormNames: TFormNames;
 }

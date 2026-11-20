@@ -2,9 +2,6 @@
   "PageTitle": "البحث في نماذج وقوالب PDF | ONLYOFFICE",
   "PageDescription": "قوالب مجانية ونماذج PDF قابلة للتعبئة لأغراض الأعمال المختلفة",
   "SearchResultsFor": "نتائج البحث عن '{{searchQuery}}'",
-  "NoResultsFound": "لم يتم العثور على نتائج",
-  "WeCouldntFindAnythingMatchingYourSearch": "لم نتمكن من العثور على أي نتيجة تطابق بحثكم.",
-  "TryAdjustingYourKeywords": "حاولوا تعديل كلماتكم المفتاحية أو التحقق من التهجئة أو تصفح الفئات المتاحة.",
   "Suggestions": "اقتراحات",
   "CheckTheSpelling": "تحققوا من التهجئة",
   "CheckSpellingOrTryOtherKeywords": "تحققوا من التهجئة أو جربوا كلمات مفتاحية أخرى.",
@@ -14,6 +11,6 @@
   "ExploreTemplatesByTopicBelow": "استكشفوا القوالب حسب الموضوع أدناه.",
   "RemoveActiveFilters": "أزيلوا عوامل التصفية النشطة",
   "ClearFiltersToBroadenTheSearch": "امسحوا عوامل التصفية لتوسيع نطاق البحث.",
-  "PopularTemplates": "قالب شائع",
+  "PopularTemplates": "القوالب المشهورة",
   "BrowseAllTemplates": "تصفحوا جميع القوالب"
 }

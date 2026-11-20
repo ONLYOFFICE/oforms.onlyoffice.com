@@ -34,7 +34,6 @@
  */
 
 import { IFormData } from "../../Form.types";
-import { IFormsData } from "@src/types/data";
 
 export interface IRecentlyViewedForm {
   id: IFormData["data"][0]["id"];
@@ -43,9 +42,7 @@ export interface IRecentlyViewedForm {
   url: IFormData["data"][0]["url"];
   card_prewiew: IFormData["data"][0]["card_prewiew"]["url"];
   form_exts: IFormData["data"][0]["form_exts"][0]["ext"];
+  locale?: string;
 }
 
-export interface IRecentlyViewed {
-  id: IFormData["data"][0]["id"];
-  allForms: IFormsData;
-}
+export type IRecentlyViewed = IRecentlyViewedForm;

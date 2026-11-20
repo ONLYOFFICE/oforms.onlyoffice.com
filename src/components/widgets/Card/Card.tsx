@@ -34,11 +34,13 @@
  */
 
 import clsx from "clsx";
+import { useTranslation } from "next-i18next";
 import { Link } from "@src/components/ui/Link";
 import { Heading } from "@src/components/ui/Heading";
 import { getAssetUrl } from "@src/utils/getAssetUrl";
+import { LANG_QUERY_PARAM } from "@src/utils/queryLang";
 import { TFormat } from "@src/types/data";
-import { ICard, TCardStorage } from "./Card.types";
+import { ICard } from "./Card.types";
 import styles from "./Card.module.scss";
 
 const hoverIconByFormat: Record<TFormat, string> = {
@@ -48,11 +50,6 @@ const hoverIconByFormat: Record<TFormat, string> = {
   pdf: getAssetUrl("/images/widgets/card/pdf-hover.png"),
 };
 
-const storageIcon: Record<TCardStorage, string> = {
-  local: getAssetUrl("/images/widgets/card/local.svg"),
-  cloud: getAssetUrl("/images/widgets/card/cloud.svg"),
-};
-
 const Card = ({
   className,
   preview,
@@ -60,12 +57,27 @@ const Card = ({
   heading,
   description,
   url,
-  storage,
+  locale,
+  skeleton,
 }: ICard) => {
+  const { i18n } = useTranslation();
+  const lang = i18n.language;
+  const path = url?.startsWith("/") ? url : `/${url}`;
+  const formLocale = locale ?? lang;
+  const href =
+    formLocale === lang ? path : `${path}?${LANG_QUERY_PARAM}=${lang}`;
+
   return (
     <Link
-      href={url ? (url.startsWith("/") ? url : `/${url}`) : "#"}
-      className={clsx(styles.card, styles[`card-${format}`], className)}
+      href={url ? href : undefined}
+      locale={url ? formLocale : undefined}
+      lang={formLocale}
+      className={clsx(
+        styles.card,
+        styles[`card-${format}`],
+        skeleton && styles["card-skeleton"],
+        className,
+      )}
       textUnderline={false}
       style={
         {
@@ -74,34 +86,25 @@ const Card = ({
       }
     >
       <div className={styles["card-preview-wrapper"]}>
-        <div
-          className={styles["card-preview"]}
-          style={
-            {
-              "--card-preview-image": preview ? `url(${preview})` : "none",
-            } as React.CSSProperties
-          }
-        />
-        <div className={styles["card-preview-footer"]}>
-          <span
-            className={clsx(
-              styles["card-format"],
-              styles[`card-format-${format}`],
-            )}
-          >
-            <span>{format}</span>
-          </span>
-          {storage && (
-            <span
-              className={styles["card-storage"]}
-              style={
-                {
-                  "--card-storage-icon": `url(${storageIcon[storage]})`,
-                } as React.CSSProperties
-              }
+        <div className={styles["card-preview"]}>
+          {preview && (
+            <img
+              className={styles["card-preview-image"]}
+              src={preview}
+              alt={heading}
+              loading="lazy"
+              decoding="async"
             />
           )}
         </div>
+        <span
+          className={clsx(
+            styles["card-format"],
+            styles[`card-format-${format}`],
+          )}
+        >
+          <span>{format}</span>
+        </span>
       </div>
       <div>
         <Heading

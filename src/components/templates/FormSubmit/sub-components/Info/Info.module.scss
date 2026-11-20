@@ -87,10 +87,6 @@
   }
 }
 
-.info-captcha {
-  text-align: end;
-}
-
 .info-buttons {
   display: flex;
   justify-content: end;
@@ -99,5 +95,14 @@
   @include media.mobile {
     flex-direction: column-reverse;
     justify-content: initial;
+  }
+}
+
+.info-error {
+  margin-top: 12px;
+  text-align: right;
+
+  @include media.mobile {
+    text-align: initial;
   }
 }

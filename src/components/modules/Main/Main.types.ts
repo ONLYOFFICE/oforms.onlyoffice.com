@@ -33,48 +33,51 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { IFormsData } from "@src/types/data";
-import { TAllowedTypes } from "@src/utils/allowedTypes";
-import { ISearchInput } from "./sub-components/SearchInput/SearchInput.types";
+import { TFormNames } from "@src/lib/server/mainView.types";
 
-type TFormSubcategory = IFormsData["data"][number]["subcategories"][number];
-type TFormCategory = TFormSubcategory["parent_categories"][number];
-
-interface ISubcategoryNode extends Omit<TFormSubcategory, "parent_categories"> {
+interface ISubcategoryNode {
+  id: number;
+  name: string;
+  urlReq: string;
   count: number;
 }
 
+interface ICategoryNode {
+  id: number;
+  name: string;
+  urlReq: string;
+}
+
 export interface ICategoryTree {
-  category: TFormCategory;
+  category: ICategoryNode;
   subcategories: ISubcategoryNode[];
 }
 
-export interface IPurposeCategories {
-  purpose: TFormCategory["purpose"];
-  categories: Map<
-    number,
-    { category: TFormCategory; subcategories: Map<number, ISubcategoryNode> }
-  >;
+export interface IPurposeNode {
+  id: number;
+  documentId: string;
+  name: string;
+  key: string;
 }
 
 export interface IMain {
   children: React.ReactNode;
-  isEmbed?: boolean;
   docxForms: number;
   xlsxForms: number;
   pptxForms: number;
   pdfForms: number;
   countries: {
-    id: number;
-    documentId: string;
     name: string;
     code: string;
     count: number;
   }[];
-  purposes: IFormsData["data"][number]["subcategories"][number]["parent_categories"][number]["purpose"][];
+  purposes: IPurposeNode[];
   categoriesByPurpose: Record<string, ICategoryTree[]>;
   totalCount: number;
-  selectedType?: TAllowedTypes;
-  formNames: ISearchInput["formNames"];
+  formNames: TFormNames;
+  skeleton?: React.ReactNode;
+  isInitialLoading?: boolean;
+  selectedCategory?: string;
   searchOnly?: boolean;
+  redirectToHome?: boolean;
 }

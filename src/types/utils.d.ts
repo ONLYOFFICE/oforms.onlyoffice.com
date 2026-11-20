@@ -89,6 +89,7 @@ declare module "onlyoffice-react-ui-kit/header" {
       show: boolean;
     };
     backgroundColor?: string;
+    borderColor?: string;
     highlight?: {
       buttonId?: string;
       linkId?: string;

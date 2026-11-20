@@ -41,6 +41,8 @@ import { Container } from "@src/components/ui/Container";
 import { Heading } from "@src/components/ui/Heading";
 import { Text } from "@src/components/ui/Text";
 import { Breadcrumbs } from "@src/components/widgets/Breadcrumbs";
+import { HCaptcha } from "@src/components/ui/HCaptcha";
+import { useCaptchaToken } from "@src/lib/hooks/useCaptchaToken";
 import { File } from "./sub-components/File";
 import { Info } from "./sub-components/Info";
 import { SubmittedSuccessfully } from "./sub-components/SubmittedSuccessfully";
@@ -56,6 +58,17 @@ const FormSubmitTemplate = ({
   const [submitted, setSubmitted] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [isQueryFileSelected, setIsQueryFileSelected] = useState(
+    !!queryIndexData?.fileUrl,
+  );
+  const { requestToken, resetToken, captchaProps } = useCaptchaToken();
+
+  const selectedQueryData = isQueryFileSelected ? queryIndexData : null;
+
+  const selectFile = (nextFile: File | null) => {
+    setFile(nextFile);
+    setIsQueryFileSelected(false);
+  };
 
   return (
     <Section
@@ -76,7 +89,10 @@ const FormSubmitTemplate = ({
         />
 
         {submitted ? (
-          <SubmittedSuccessfully setSubmitted={setSubmitted} file={file} />
+          <SubmittedSuccessfully
+            setSubmitted={setSubmitted}
+            name={file?.name ?? selectedQueryData?.fileName ?? ""}
+          />
         ) : (
           <>
             <Heading
@@ -97,10 +113,11 @@ const FormSubmitTemplate = ({
             <div className={styles["form-submit-wrapper"]}>
               <File
                 file={file}
-                setFile={setFile}
+                setFile={selectFile}
                 isUploading={isUploading}
                 setIsUploading={setIsUploading}
                 queryIndexData={queryIndexData}
+                requestCaptchaToken={requestToken}
               />
               <Info
                 countries={countries}
@@ -108,11 +125,15 @@ const FormSubmitTemplate = ({
                 onSuccess={() => setSubmitted(true)}
                 file={file}
                 isUploading={isUploading}
-                queryIndexData={queryIndexData}
+                queryIndexData={selectedQueryData}
+                requestCaptchaToken={requestToken}
+                resetCaptcha={resetToken}
               />
             </div>
           </>
         )}
+
+        <HCaptcha {...captchaProps} />
       </Container>
     </Section>
   );

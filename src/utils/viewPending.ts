@@ -1,0 +1,54 @@
+/*
+ * Copyright (C) Ascensio System SIA, 2009-2026
+ *
+ * This program is a free software product. You can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License (AGPL)
+ * version 3 as published by the Free Software Foundation, together with the
+ * additional terms provided in the LICENSE file.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For
+ * details, see the GNU AGPL at: https://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA by email at info@onlyoffice.com
+ * or by postal mail at 20A-6 Ernesta Birznieka-Upisha Street, Riga,
+ * LV-1050, Latvia, European Union.
+ *
+ * The interactive user interfaces in modified versions of the Program
+ * are required to display Appropriate Legal Notices in accordance with
+ * Section 5 of the GNU AGPL version 3.
+ *
+ * No trademark rights are granted under this License.
+ *
+ * All non-code elements of the Product, including illustrations,
+ * icon sets, and technical writing content, are licensed under the
+ * Creative Commons Attribution-ShareAlike 4.0 International License:
+ * https://creativecommons.org/licenses/by-sa/4.0/legalcode
+ *
+ * This license applies only to such non-code elements and does not
+ * modify or replace the licensing terms applicable to the Program's
+ * source code, which remains licensed under the GNU Affero General
+ * Public License v3.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
+import { DEFAULT_SORT_KEY, SORT_KEYS } from "@src/utils/helpers";
+
+const VIEW_PENDING_ATTRIBUTE = "data-view-pending";
+
+const VIEW_PENDING_TIMEOUT = 10000;
+
+const VIEW_PENDING_CONFIG = {
+  types: ALLOWED_TYPES,
+  sorts: SORT_KEYS.filter((key) => key !== DEFAULT_SORT_KEY),
+  searchPath: "/searchresult",
+};
+
+export const VIEW_PENDING_SCRIPT = `(function(){try{var c=${JSON.stringify(
+  VIEW_PENDING_CONFIG,
+)},p=new URLSearchParams(location.search);function l(k){return p.getAll(k).join(",").split(",").filter(Boolean)}var s=location.pathname.replace(/\\/+$/,"");if(l("type").some(function(t){return c.types.indexOf(t.toLowerCase())>-1})||l("country").length||l("subcategory").length||c.sorts.indexOf((p.get("sort")||"").toLowerCase())>-1||(p.get("purpose")||"").trim()||(s.slice(-c.searchPath.length)===c.searchPath&&(p.get("query")||"").trim())){var d=document.documentElement;d.setAttribute("${VIEW_PENDING_ATTRIBUTE}","");setTimeout(function(){d.removeAttribute("${VIEW_PENDING_ATTRIBUTE}")},${VIEW_PENDING_TIMEOUT})}}catch(e){}})();`;
+
+export const clearViewPending = () =>
+  document.documentElement.removeAttribute(VIEW_PENDING_ATTRIBUTE);

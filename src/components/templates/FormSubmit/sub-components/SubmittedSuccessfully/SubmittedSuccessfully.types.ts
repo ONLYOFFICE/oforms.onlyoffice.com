@@ -35,5 +35,5 @@
 
 export interface ISubmittedSuccessfully {
   setSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
-  file: File | null;
+  name: string;
 }

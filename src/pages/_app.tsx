@@ -34,25 +34,39 @@
  */
 
 import { useEffect } from "react";
-import { appWithTranslation } from "next-i18next";
+import { appWithTranslation, useTranslation } from "next-i18next";
 import type { AppProps } from "next/app";
+import NextHead from "next/head";
 import { useRouter } from "next/router";
 import { isRtlLocale } from "@src/utils/rtl";
+import { isLangPending } from "@src/utils/langPending";
 import "@src/styles/tokens.css";
 import "@src/styles/global.css";
 
 function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
+  const { i18n } = useTranslation();
+  const language = i18n?.language || router.locale;
 
   useEffect(() => {
-    if (!router.locale) return;
+    if (!language || isLangPending()) return;
 
-    const dir = isRtlLocale(router.locale) ? "rtl" : "ltr";
-    document.documentElement.lang = router.locale;
+    const dir = isRtlLocale(language) ? "rtl" : "ltr";
+    document.documentElement.lang = language;
     document.documentElement.dir = dir;
-  }, [router.locale]);
+  }, [language, router.isReady]);
 
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <NextHead>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=3, shrink-to-fit=no, viewport-fit=cover"
+        />
+      </NextHead>
+      <Component {...pageProps} />
+    </>
+  );
 }
 
 export default appWithTranslation(App);

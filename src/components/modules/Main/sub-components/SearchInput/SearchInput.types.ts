@@ -35,9 +35,11 @@
 
 export interface ISearchInput {
   className?: string;
+  countryCodes: string[];
   formNames: {
     id: number;
     name_form: string;
     url: string;
+    locale?: string;
   }[];
 }

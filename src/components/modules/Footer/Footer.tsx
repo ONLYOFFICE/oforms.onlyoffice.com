@@ -36,26 +36,31 @@
 import { useRouter } from "next/router";
 import { OOFooter } from "onlyoffice-react-ui-kit/footer";
 import "onlyoffice-react-ui-kit/footer/css";
-import { ILocale } from "@src/types/locale";
 import { languages } from "@src/config/languages";
+import { IFooter } from "./Footer.types";
+import styles from "./Footer.module.scss";
 
-const Footer = ({ locale }: ILocale) => {
+const Footer = ({ locale, resetPathOnLocaleChange = false }: IFooter) => {
   const router = useRouter();
 
+  const languageHref = resetPathOnLocaleChange ? "/" : router.asPath;
+
   return (
-    <OOFooter
-      locale={locale}
-      languages={languages.map((language) => ({
-        shortKey: language.shortKey,
-        name: language.longKey,
-        href: router.asPath,
-      }))}
-      base={{
-        url: process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN!,
-      }}
-      mailApiUrl={`${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}/api/sendsubscription`}
-      mailApiType="Common"
-    />
+    <div className={styles.footer}>
+      <OOFooter
+        locale={locale}
+        languages={languages.map((language) => ({
+          shortKey: language.shortKey,
+          name: language.longKey,
+          href: languageHref,
+        }))}
+        base={{
+          url: process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN!,
+        }}
+        mailApiUrl={`${process.env.NEXT_PUBLIC_MAIN_SITE_BASE_DOMAIN}/api/sendsubscription`}
+        mailApiType="Common"
+      />
+    </div>
   );
 };
 

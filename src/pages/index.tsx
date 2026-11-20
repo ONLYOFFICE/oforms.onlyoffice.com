@@ -35,7 +35,13 @@
 
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getAllForms } from "@src/lib/requests/getAllForms";
+import { getAllFormsAllLocales } from "@src/lib/requests/getAllFormsAllLocales";
+import { getCountryNames } from "@src/lib/requests/getCountries";
+import {
+  buildFormNames,
+  buildMainView,
+  resolveMainFilters,
+} from "@src/lib/server/buildMainView";
 import { Layout } from "@src/components/Layout";
 import { Head } from "@src/components/modules/Head";
 import { Header } from "@src/components/modules/Header";
@@ -44,13 +50,23 @@ import { Footer } from "@src/components/modules/Footer";
 import { MainTemplate, IMainTemplate } from "@src/components/templates/Main";
 import { ILocale } from "@src/types/locale";
 
-const MainPage = ({ locale, allForms }: IMainTemplate & ILocale) => {
+const MainPage = ({
+  locale,
+  initialView,
+  initialFormNames,
+}: IMainTemplate & ILocale) => {
   const { t } = useTranslation("main");
 
   return (
     <Layout>
       <Layout.Head>
-        <Head title={t("PageTitle")} description={t("PageDescription")} />
+        <Head
+          title={t("PageTitle")}
+          description={t("PageDescription")}
+          path="/"
+          locale={locale}
+          localized
+        />
       </Layout.Head>
       <Layout.AdventAnnounce>
         <AdventAnnounce locale={locale} />
@@ -59,7 +75,10 @@ const MainPage = ({ locale, allForms }: IMainTemplate & ILocale) => {
         <Header locale={locale} />
       </Layout.Header>
       <Layout.Main background="var(--primary-background-color)">
-        <MainTemplate allForms={allForms} />
+        <MainTemplate
+          initialView={initialView}
+          initialFormNames={initialFormNames}
+        />
       </Layout.Main>
       <Layout.Footer>
         <Footer locale={locale} />
@@ -69,7 +88,18 @@ const MainPage = ({ locale, allForms }: IMainTemplate & ILocale) => {
 };
 
 export const getStaticProps = async ({ locale }: ILocale) => {
-  const allForms = await getAllForms(locale);
+  const [allForms, countryNames] = await Promise.all([
+    getAllFormsAllLocales(locale),
+    getCountryNames(locale),
+  ]);
+
+  const filters = resolveMainFilters(allForms.data, {
+    locale,
+    type: [],
+    country: [],
+    subcategory: [],
+    sort: undefined,
+  });
 
   return {
     props: {
@@ -79,9 +109,11 @@ export const getStaticProps = async ({ locale }: ILocale) => {
         "MainTemplate",
         "SortSelector",
         "SearchInput",
+        "NoResultsFound",
       ])),
       locale,
-      allForms,
+      initialView: buildMainView(allForms.data, filters, countryNames),
+      initialFormNames: buildFormNames(allForms.data, locale, []),
     },
   };
 };

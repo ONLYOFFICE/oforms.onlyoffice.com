@@ -33,9 +33,17 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-export interface IBreadcrumbsItem {
+export interface IBreadcrumbsOption {
+  label: string;
+  href: string;
+  locale?: string;
+}
+
+interface IBreadcrumbsItem {
   label: string;
   href?: string;
+  locale?: string;
+  options?: IBreadcrumbsOption[];
 }
 
 export interface IBreadcrumbs {

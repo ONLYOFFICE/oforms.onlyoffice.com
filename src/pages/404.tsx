@@ -49,19 +49,23 @@ const Error404Page = ({ locale }: ILocale) => {
   return (
     <Layout banner={false}>
       <Layout.Head>
-        <Head title={t("PageTitle")} description={t("PageDescription")} />
+        <Head
+          title={t("PageTitle")}
+          description={t("PageDescription")}
+          noindex
+        />
       </Layout.Head>
       <Layout.AdventAnnounce>
         <AdventAnnounce locale={locale} />
       </Layout.AdventAnnounce>
       <Layout.Header>
-        <Header locale={locale} />
+        <Header locale={locale} resetPathOnLocaleChange />
       </Layout.Header>
       <Layout.Main background="var(--primary-background-color)">
         <ErrorTemplate />
       </Layout.Main>
       <Layout.Footer>
-        <Footer locale={locale} />
+        <Footer locale={locale} resetPathOnLocaleChange />
       </Layout.Footer>
     </Layout>
   );

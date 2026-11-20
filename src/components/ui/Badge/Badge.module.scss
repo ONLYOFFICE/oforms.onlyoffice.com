@@ -33,6 +33,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
+@use "skeleton";
+
 .badge-input {
   position: absolute;
   overflow: hidden;
@@ -78,6 +80,10 @@
       color: var(--badge-label-color-checked);
     }
   }
+}
+
+.badge-wrapper-skeleton {
+  @include skeleton.fill;
 }
 
 .badge-wrapper-large {

@@ -51,5 +51,7 @@ export interface ILink {
   textUnderline?: boolean;
   hover?: "color" | "underline" | "underline-none";
   style?: React.CSSProperties;
+  locale?: string;
+  lang?: string;
   onClick?: () => void;
 }

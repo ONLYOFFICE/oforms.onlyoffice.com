@@ -35,54 +35,75 @@
 
 import { useState, useEffect } from "react";
 import { useTranslation } from "next-i18next";
-import { useRouter } from "next/router";
 import { SliderSection } from "../../sub-components/SliderSection";
 import { IRecentlyViewed, IRecentlyViewedForm } from "./RecentlyViewed.types";
-import { IFormsData } from "@src/types/data";
-
-type IFormsDataItem = IFormsData["data"][0];
 
 const MAX_FORMS = 16;
 
-const RecentlyViewed = ({ allForms, id }: IRecentlyViewed) => {
-  const { t } = useTranslation("form");
-  const router = useRouter();
-  const locale = router.locale;
+const isStoredForm = (value: unknown): value is IRecentlyViewedForm => {
+  if (typeof value !== "object" || value === null) return false;
+
+  const form = value as Record<string, unknown>;
+  return (
+    typeof form.id === "number" &&
+    typeof form.name_form === "string" &&
+    typeof form.description_card === "string" &&
+    typeof form.url === "string" &&
+    typeof form.card_prewiew === "string" &&
+    typeof form.form_exts === "string" &&
+    (form.locale === undefined || typeof form.locale === "string")
+  );
+};
+
+const readStoredForms = (key: string): IRecentlyViewedForm[] => {
+  try {
+    const stored: unknown = JSON.parse(localStorage.getItem(key) || "[]");
+
+    return Array.isArray(stored) ? stored.filter(isStoredForm) : [];
+  } catch {
+    return [];
+  }
+};
+
+const RecentlyViewed = ({
+  id,
+  name_form,
+  description_card,
+  url,
+  card_prewiew,
+  form_exts,
+  locale: formLocale,
+}: IRecentlyViewed) => {
+  const { t, i18n } = useTranslation("form");
+  const locale = i18n.language;
   const [recentForms, setRecentForms] = useState<IRecentlyViewedForm[]>([]);
 
   useEffect(() => {
     const localStorageKey = `recentForms_${locale}`;
-    const formsById = new Map(allForms.data.map((form) => [form.id, form]));
+    const currentForm = {
+      id,
+      name_form,
+      description_card,
+      url,
+      card_prewiew,
+      form_exts,
+      ...(formLocale && { locale: formLocale }),
+    };
+    const storedForms = readStoredForms(localStorageKey).filter(
+      (storedForm) => storedForm.id !== id,
+    );
 
-    let recentIds: number[] = [];
     try {
-      recentIds = JSON.parse(localStorage.getItem(localStorageKey) || "[]");
+      localStorage.setItem(
+        localStorageKey,
+        JSON.stringify([currentForm, ...storedForms].slice(0, MAX_FORMS)),
+      );
     } catch {
-      recentIds = [];
+      // Storage may be full or unavailable — the slider still renders.
     }
 
-    recentIds = recentIds.filter(
-      (recentId) => recentId !== id && formsById.has(recentId),
-    );
-    recentIds.unshift(id);
-    recentIds = recentIds.slice(0, MAX_FORMS);
-    localStorage.setItem(localStorageKey, JSON.stringify(recentIds));
-
-    const freshRecentForms = recentIds
-      .filter((recentId) => recentId !== id)
-      .map((recentId) => formsById.get(recentId))
-      .filter((form): form is IFormsDataItem => form !== undefined)
-      .map((form) => ({
-        id: form.id,
-        name_form: form.name_form,
-        description_card: form.description_card,
-        url: form.url,
-        card_prewiew: form.card_prewiew.url,
-        form_exts: form.form_exts[0].ext,
-      }));
-
-    setRecentForms(freshRecentForms);
-  }, [id, allForms, locale]);
+    setRecentForms(storedForms.slice(0, MAX_FORMS - 1));
+  }, [id, name_form, description_card, url, card_prewiew, form_exts, formLocale, locale]);
 
   if (recentForms.length === 0) return null;
 

@@ -34,7 +34,7 @@
  */
 
 import CONFIG from "@src/config/config.json";
-import { apiRequest } from "@src/lib/api/apiRequest";
+import { CMS_PAGE_SIZE, fetchAllPages } from "@src/lib/api/fetchAllPages";
 import { ILocale } from "@src/types/locale";
 import { IFormsData } from "@src/types/data";
 import { cmsLocale } from "@src/utils/cmsLocale";
@@ -43,7 +43,7 @@ const buildUrl = (locale: ILocale["locale"], page: number) => {
   const params = [
     `locale=${cmsLocale(locale)}`,
     `pagination[page]=${page}`,
-    "pagination[pageSize]=1000",
+    `pagination[pageSize]=${CMS_PAGE_SIZE}`,
     "fields[0]=url",
   ]
     .filter(Boolean)
@@ -52,36 +52,13 @@ const buildUrl = (locale: ILocale["locale"], page: number) => {
   return `${CONFIG.api.cms}/api/oforms?${params}`;
 };
 
-const getAllFormUrls = async (
+const getAllFormUrls = (
   locale: ILocale["locale"],
   signal?: AbortSignal,
-): Promise<IFormsData> => {
-  const firstPageRes = await apiRequest(buildUrl(locale, 1), {
+): Promise<IFormsData> =>
+  fetchAllPages<IFormsData>((page) => buildUrl(locale, page), {
     label: "getAllFormUrls",
     signal,
   });
-  const firstPage: IFormsData = await firstPageRes.json();
-
-  const pageCount = firstPage.meta.pagination?.pageCount ?? 1;
-
-  if (pageCount <= 1) return firstPage;
-
-  const restPages = await Promise.all(
-    Array.from({ length: pageCount - 1 }, async (_, i) => {
-      const res = await apiRequest(buildUrl(locale, i + 2), {
-        label: `getAllFormUrls (page ${i + 2})`,
-        signal,
-      });
-      return (await res.json()) as IFormsData;
-    }),
-  );
-
-  const data = restPages.reduce(
-    (acc, page) => acc.concat(page.data),
-    [...firstPage.data],
-  );
-
-  return { data, meta: firstPage.meta };
-};
 
 export { getAllFormUrls };

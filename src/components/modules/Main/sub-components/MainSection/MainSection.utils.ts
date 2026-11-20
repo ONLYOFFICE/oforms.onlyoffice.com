@@ -33,7 +33,19 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
+import { ICardView } from "@src/lib/server/mainView.types";
+
 type QueryValue = string | string[] | undefined;
+
+export const createPlaceholderCards = (count: number): ICardView[] =>
+  Array.from({ length: count }, (_, index) => ({
+    id: index,
+    name_form: " ",
+    description_card: " ",
+    url: "",
+    preview: "",
+    format: "docx",
+  }));
 
 export function appendQueryParams(
   href: string | undefined,

@@ -33,8 +33,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { IFormsData } from "@src/types/data";
+import { ICardView } from "@src/lib/server/mainView.types";
 
 export interface ISearchNoResult {
-  filteredForms: IFormsData["data"][number][];
+  popularTemplates: ICardView[];
 }

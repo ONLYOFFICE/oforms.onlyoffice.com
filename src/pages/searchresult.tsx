@@ -35,10 +35,13 @@
 
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getExtForms } from "@src/lib/requests/getExtForms";
-import { getExtFormsCount } from "@src/lib/requests/getExtFormsCount";
-import { getCountriesCount } from "@src/lib/requests/getCountriesCount";
-import { getPurposeWithCategoriesCount } from "@src/lib/requests/getPurposeWithCategoriesCount";
+import { getAllFormsAllLocales } from "@src/lib/requests/getAllFormsAllLocales";
+import { getCountryNames } from "@src/lib/requests/getCountries";
+import {
+  buildFormNames,
+  buildSearchView,
+  resolveSearchFilters,
+} from "@src/lib/server/buildMainView";
 import { Layout } from "@src/components/Layout";
 import { Head } from "@src/components/modules/Head";
 import { Header } from "@src/components/modules/Header";
@@ -50,17 +53,19 @@ import { ILocale } from "@src/types/locale";
 
 const SearchResultPage = ({
   locale,
-  allForms,
-  extFormsCount,
-  countriesCount,
-  purposeWithCategoriesCount,
+  initialView,
+  initialFormNames,
 }: ISearchResult & ILocale) => {
   const { t } = useTranslation("searchresult");
 
   return (
     <Layout>
       <Layout.Head>
-        <Head title={t("PageTitle")} description={t("PageDescription")} />
+        <Head
+          title={t("PageTitle")}
+          description={t("PageDescription")}
+          noindex
+        />
       </Layout.Head>
       <Layout.AdventAnnounce>
         <AdventAnnounce locale={locale} />
@@ -70,10 +75,8 @@ const SearchResultPage = ({
       </Layout.Header>
       <Layout.Main background="var(--primary-background-color)">
         <SearchResultTemplate
-          allForms={allForms}
-          extFormsCount={extFormsCount}
-          countriesCount={countriesCount}
-          purposeWithCategoriesCount={purposeWithCategoriesCount}
+          initialView={initialView}
+          initialFormNames={initialFormNames}
         />
       </Layout.Main>
       <Layout.Footer>
@@ -84,13 +87,18 @@ const SearchResultPage = ({
 };
 
 export const getStaticProps = async ({ locale }: ILocale) => {
-  const [allForms, extFormsCount, countriesCount, purposeWithCategoriesCount] =
-    await Promise.all([
-      getExtForms(locale),
-      getExtFormsCount(locale),
-      getCountriesCount(locale),
-      getPurposeWithCategoriesCount(locale),
-    ]);
+  const [allForms, countryNames] = await Promise.all([
+    getAllFormsAllLocales(locale),
+    getCountryNames(locale),
+  ]);
+
+  const filters = resolveSearchFilters(allForms.data, {
+    locale,
+    type: [],
+    country: [],
+    subcategory: [],
+    sort: undefined,
+  });
 
   return {
     props: {
@@ -100,12 +108,11 @@ export const getStaticProps = async ({ locale }: ILocale) => {
         "MainTemplate",
         "SortSelector",
         "SearchInput",
+        "NoResultsFound",
       ])),
       locale,
-      allForms,
-      extFormsCount,
-      countriesCount,
-      purposeWithCategoriesCount,
+      initialView: buildSearchView(allForms.data, "", filters, countryNames),
+      initialFormNames: buildFormNames(allForms.data, locale, []),
     },
   };
 };

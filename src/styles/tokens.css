@@ -28,16 +28,14 @@
   --button-secondary-light-background-color-hover: #CCDBFB;
   --button-secondary-light-opacity-disabled: 0.5;
   --button-tertiary-light-border-color: #3541f5;
+  --button-tertiary-light-border-color-hover: #4951F6;
   --button-tertiary-light-color: #ffffff;
   --button-tertiary-light-background-color-hover: rgba(53, 65, 245, 0.2);
-  --button-tertiary-light-border-color-hover: #3541f5;
-  --button-tertiary-light-border-color-disabled: #3541f5;
   --button-tertiary-light-opacity-disabled: 0.5;
   --button-tertiary-dark-border-color: #3541f5;
   --button-tertiary-dark-color: #000122;
+  --button-tertiary-dark-border-color-hover: #001bd2;
   --button-tertiary-dark-background-color-hover: rgba(53, 65, 245, 0.07);
-  --button-tertiary-dark-border-color-hover: #3541f5;
-  --button-tertiary-dark-border-color-disabled: #3541f5;
   --button-tertiary-dark-opacity-disabled: 0.5;
 
   --checkbox-border-color: #a6a8b8;
@@ -104,11 +102,20 @@
   --textarea-background-color-error: #FCEEF2;
   --textarea-counter-color: #9092a6;
 
-  --breadcrumbs-item-link-color: #9092A6;
-  --breadcrumbs-item-label-color: #494B5B;
+  --breadcrumbs-item-link-color: #585A6D;
+  --breadcrumbs-item-label-color: #21222B;
 
   --card-preview-wrapper-border-color: rgba(122, 125, 148, 0.4);
   --card-preview-wrapper-background-color: #ffffff;
+  --card-format-color: #ffffff;
+  --card-format-docx-background-color: #305cc4;
+  --card-format-xlsx-background-color: #41b338;
+  --card-format-pptx-background-color: #ff6c00;
+  --card-format-pdf-background-color: #d10f33;
+  --card-docx-background-color-hover: #eaf1fe;
+  --card-xlsx-background-color-hover: rgba(196, 249, 232, 0.5);
+  --card-pptx-background-color-hover: rgba(255, 111, 61, 0.05);
+  --card-pdf-background-color-hover: rgba(249, 221, 229, 0.5);
   --card-heading-color: #21222B;
   --card-description-color: #9092A6;
 
@@ -149,11 +156,19 @@
   --sort-selector-option-color-active: #3541F5;
   --sort-selector-option-background-color-active: rgba(174, 197, 247, 0.25);
 
+  --skeleton-background-color: #e7e8ee;
+  --skeleton-shimmer-color: rgba(255, 255, 255, 0.6);
+
   --sidebar-mobile-background-color: #ffffff;
-  --sidebar-clear-btn-border-color: #e1e1f7;
+  --sidebar-scrollbar-track-background-color: #E2E2E2;
+  --sidebar-scrollbar-thumb-background-color: #aaaaaa;
+  --sidebar-clear-btn-border-color: #B9CEF9;
   --sidebar-clear-btn-color: #585A6D;
-  --sidebar-clear-btn-background-color: #E7E8EE;
+  --sidebar-clear-btn-background-color: rgba(255, 255, 255, 0.9);
+  --sidebar-clear-btn-border-color-hover: #CCDBFB;
   --sidebar-clear-btn-background-color-hover: #DCDDE6;
+  --sidebar-clear-btn-box-shadow-color-hover: 0 4px 10px 0 rgba(196, 194, 240, 0.3);
+  --sidebar-clear-btn-border-color-focus: #5C86E9;
   --sidebar-item-border-color: rgba(53, 65, 245, 0.07);
   --sidebar-item-header-heading-color: var(--primary-color);
   --sidebar-item-header-heading-sub-color: #585a6d;

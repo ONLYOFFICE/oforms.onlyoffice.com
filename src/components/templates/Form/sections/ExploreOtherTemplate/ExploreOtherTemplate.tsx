@@ -43,28 +43,29 @@ import styles from "./ExploreOtherTemplate.module.scss";
 const TEMPLATE_ITEMS = [
   {
     imageUrl: "/images/templates/form/explore-other-template/pdf.svg",
-    href: "/pdf-form-templates",
+    href: "/?type=pdf",
     headingKey: "FillableForm",
   },
   {
     imageUrl: "/images/templates/form/explore-other-template/docs.svg",
-    href: "/document-templates",
+    href: "/?type=docx",
     headingKey: "Document",
   },
   {
     imageUrl: "/images/templates/form/explore-other-template/sheet.svg",
-    href: "/spreadsheet-templates",
+    href: "/?type=xlsx",
     headingKey: "Spreadsheet",
   },
   {
     imageUrl: "/images/templates/form/explore-other-template/slides.svg",
-    href: "/presentation-templates",
+    href: "/?type=pptx",
     headingKey: "Presentation",
   },
 ] as const;
 
 const ExploreOtherTemplate = () => {
-  const { t } = useTranslation("form");
+  const { t, i18n } = useTranslation("form");
+  const lang = i18n.language;
 
   return (
     <Section
@@ -89,6 +90,7 @@ const ExploreOtherTemplate = () => {
                 imageUrl={imageUrl}
                 href={href}
                 heading={t(headingKey)}
+                locale={lang}
               />
             </li>
           ))}

@@ -64,6 +64,7 @@ const DownloadAsItem = ({ format, href }: IDownloadAsItem) => {
       <Link
         className={styles["download-as-link"]}
         href={href}
+        target={format === "pdf" ? "_blank" : undefined}
         download
         style={
           {

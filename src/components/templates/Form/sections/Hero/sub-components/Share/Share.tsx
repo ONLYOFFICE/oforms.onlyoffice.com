@@ -33,6 +33,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import clsx from "clsx";
@@ -47,17 +48,65 @@ import { getAssetUrl } from "@src/utils/getAssetUrl";
 import styles from "./Share.module.scss";
 
 const Share = () => {
-  const { t } = useTranslation("form");
+  const { t, i18n } = useTranslation("form");
   const router = useRouter();
   const locale = router.locale;
+  const lang = i18n.language;
   const routerUrl = `${process.env.NEXT_PUBLIC_SITE_URL}${locale === "en" ? "" : `/${locale}`}${router.asPath}`;
+  const [isCopied, setIsCopied] = useState(false);
+  const copiedTimeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  useEffect(() => {
+    return () => clearTimeout(copiedTimeoutRef.current);
+  }, []);
+
+  const handleCopy = async () => {
+    if (isCopied) return;
+
+    try {
+      await navigator.clipboard.writeText(routerUrl);
+      setIsCopied(true);
+      clearTimeout(copiedTimeoutRef.current);
+      copiedTimeoutRef.current = setTimeout(() => setIsCopied(false), 3000);
+    } catch {
+      setIsCopied(false);
+    }
+  };
 
   return (
     <div className={styles["share"]}>
       <span className={styles["share-heading"]}>{t("Share")}</span>
 
       <ul className={styles["share-list"]}>
-        <li className={styles["share-item"]}>
+        <li className={styles["share-copy"]}>
+          <button
+            className={clsx(
+              styles["share-button"],
+              isCopied && styles["share-button-copied"],
+            )}
+            type="button"
+            onClick={handleCopy}
+            disabled={isCopied}
+          >
+            <span
+              className={clsx(
+                styles["share-button-icon"],
+                isCopied
+                  ? styles["share-button-icon-check"]
+                  : styles["share-button-icon-copy"],
+              )}
+              style={
+                {
+                  "--share-button-icon": `url(${getAssetUrl(`/images/templates/form/hero/${isCopied ? "check" : "copy"}.svg`)})`,
+                } as React.CSSProperties
+              }
+            ></span>
+          </button>
+          {isCopied && (
+            <span className={styles["share-copied"]}>{t("LinkCopied")}</span>
+          )}
+        </li>
+        <li>
           <EmailShareButton className={styles["share-button"]} url={routerUrl}>
             <span
               className={clsx(
@@ -72,7 +121,7 @@ const Share = () => {
             ></span>
           </EmailShareButton>
         </li>
-        <li className={styles["share-item"]}>
+        <li>
           <LinkedinShareButton
             className={styles["share-button"]}
             url={routerUrl}
@@ -87,7 +136,7 @@ const Share = () => {
             ></span>
           </LinkedinShareButton>
         </li>
-        <li className={styles["share-item"]}>
+        <li>
           <FacebookShareButton
             className={styles["share-button"]}
             url={routerUrl}
@@ -102,9 +151,9 @@ const Share = () => {
             ></span>
           </FacebookShareButton>
         </li>
-        {locale === "zh" && (
+        {lang === "zh" && (
           <>
-            <li className={styles["share-item"]}>
+            <li>
               <Link
                 className={styles["share-button"]}
                 href={`https://www.shareaholic.com/share/wechat/?link=${routerUrl}`}
@@ -117,7 +166,7 @@ const Share = () => {
                 <span className={styles["share-button-icon"]}></span>
               </Link>
             </li>
-            <li className={styles["share-item"]}>
+            <li>
               <WeiboShareButton
                 className={styles["share-button"]}
                 url={routerUrl}

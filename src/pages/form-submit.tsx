@@ -64,7 +64,11 @@ const FormSubmitPage = ({
   return (
     <Layout>
       <Layout.Head>
-        <Head title={t("PageTitle")} description={t("PageDescription")} />
+        <Head
+          title={t("PageTitle")}
+          description={t("PageDescription")}
+          noindex
+        />
       </Layout.Head>
       <Layout.AdventAnnounce>
         <AdventAnnounce locale={locale} />
@@ -87,6 +91,7 @@ const FormSubmitPage = ({
 };
 
 const INDEX_USED_COOKIE = "formSubmitIndexUsed";
+const MAX_INDEX_INFLATED_BYTES = 64 * 1024;
 const hashIndex = (index: string) =>
   createHash("sha256").update(index).digest("hex");
 
@@ -113,7 +118,11 @@ const resolveQueryIndexData = async (
   try {
     const compressedData = Buffer.from(index.replace(/\s/g, "+"), "base64");
     const queryIndexData = JSON.parse(
-      zlib.inflateSync(compressedData).toString(),
+      zlib
+        .inflateSync(compressedData, {
+          maxOutputLength: MAX_INDEX_INFLATED_BYTES,
+        })
+        .toString(),
     );
     const previewUrl = queryIndexData.previewUrl;
 
