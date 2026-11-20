@@ -33,15 +33,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-/**
- * Catalog filtering.
- *
- * Ported verbatim in behaviour from the site's
- * `src/components/templates/Main/Main.utils.ts` and `src/utils/helpers.ts`.
- * These encode product rules that are not obvious from the UI — keep them in
- * sync with the site rather than re-deriving them.
- */
-import type { ICategoryCount, IPurpose, ITemplate } from "../types";
+/** Catalog filtering. A template has one type, one category and one purpose. */
+import { extOf, purposeOf, type ITemplate } from "../types";
 
 interface IFormsFilters {
   type?: string;
@@ -50,79 +43,12 @@ interface IFormsFilters {
 }
 
 export const getFilteredForms = (
-  forms: ITemplate[] | undefined,
-  filters: IFormsFilters,
-): ITemplate[] => {
-  const { type, purpose, category } = filters;
-
-  return (
-    forms?.filter((form) => {
-      if (type && !form.form_exts?.some((item) => item.ext === type)) {
-        return false;
-      }
-
-      if (
-        purpose &&
-        !form.subcategories?.some((sub) =>
-          sub.parent_categories?.some((cat) => cat.purpose?.key === purpose),
-        )
-      ) {
-        return false;
-      }
-
-      if (
-        category &&
-        !form.subcategories?.some((sub) =>
-          sub.parent_categories?.some((cat) => cat.urlReq === category),
-        )
-      ) {
-        return false;
-      }
-
-      return true;
-    }) ?? []
+  forms: ITemplate[],
+  { type, purpose, category }: IFormsFilters,
+): ITemplate[] =>
+  forms.filter(
+    (form) =>
+      (!type || extOf(form) === type) &&
+      (!purpose || purposeOf(form) === purpose) &&
+      (!category || form.meta.category === category),
   );
-};
-
-export const getPurposes = (forms: ITemplate[] | undefined): IPurpose[] =>
-  Array.from(
-    new Map(
-      (forms ?? [])
-        .flatMap((form) =>
-          form.subcategories.flatMap((sub) =>
-            sub.parent_categories.map((cat) => cat.purpose),
-          ),
-        )
-        .filter((purpose): purpose is IPurpose => Boolean(purpose))
-        .map((purpose) => [purpose.id, purpose] as const),
-    ).values(),
-  );
-
-/**
- * Flat parent-category list for the Category filter.
- *
- * The site nests purpose > category > subcategory; the filter offers only the
- * parent categories. A template counts once per category however many of its
- * subcategories lead there.
- */
-export const getCategories = (
-  forms: ITemplate[] | undefined,
-): ICategoryCount[] => {
-  const categoryMap = new Map<number, ICategoryCount>();
-
-  forms?.forEach((form) => {
-    const seen = new Set<number>();
-    form.subcategories?.filter(Boolean).forEach((sub) => {
-      sub.parent_categories?.filter(Boolean).forEach((category) => {
-        if (seen.has(category.id)) return;
-        seen.add(category.id);
-
-        const existing = categoryMap.get(category.id);
-        if (existing) existing.count += 1;
-        else categoryMap.set(category.id, { ...category, count: 1 });
-      });
-    });
-  });
-
-  return Array.from(categoryMap.values());
-};

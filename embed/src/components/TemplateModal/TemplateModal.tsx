@@ -38,7 +38,7 @@ import { useTranslation } from "react-i18next";
 import { CrossIcon } from "../icons";
 import { previewUrl } from "../../data";
 import { isRtlLocale, type Locale } from "../../locale";
-import type { ITemplate } from "../../types";
+import { extOf, type ITemplate } from "../../types";
 import styles from "./TemplateModal.module.scss";
 
 interface ITemplateModalProps {
@@ -48,9 +48,9 @@ interface ITemplateModalProps {
   onUse: (template: ITemplate) => void;
 }
 
-/** CMS reports sizes in KB. */
-function formatSize(size: number | undefined): string | null {
-  if (typeof size !== "number" || !Number.isFinite(size)) return null;
+function formatSize(bytes: number): string | null {
+  if (!Number.isFinite(bytes)) return null;
+  const size = bytes / 1024;
   return size >= 1024
     ? `${(size / 1024).toFixed(1)} MB`
     : `${Math.round(size)} KB`;
@@ -101,14 +101,9 @@ const TemplateModal = ({
 
   if (!template) return null;
 
-  // Optional-chain the element, not just the array: a template with an empty
-  // file_oform / form_exts must not throw here.
-  const size = formatSize(template.file_oform?.[0]?.size);
-  const updated = formatDate(
-    template.file_oform?.[0]?.updatedAt,
-    i18n.language,
-  );
-  const ext = template.form_exts?.[0]?.ext;
+  const { meta } = template;
+  const size = formatSize(template.size);
+  const updated = formatDate(template.updated, i18n.language);
   const preview = previewUrl(template);
   const dir = isRtlLocale(lang) ? "rtl" : "ltr";
 
@@ -136,25 +131,23 @@ const TemplateModal = ({
           <div className={styles["modal-content"]}>
             <h2 className={styles["modal-heading"]}>
               <span lang={lang} dir={dir}>
-                {template.name_form}
+                {meta["card-title"]}
               </span>
             </h2>
 
             <p className={styles["modal-text"]} lang={lang} dir={dir}>
-              {template.template_desc}
+              {meta.description}
             </p>
 
             <dl className={styles["modal-meta"]}>
-              {ext && (
-                <div className={styles["modal-meta-row"]}>
-                  <dt>{t("FileType")}</dt>
-                  <dd>{ext.toUpperCase()}</dd>
-                </div>
-              )}
-              {!!template.file_pages && (
+              <div className={styles["modal-meta-row"]}>
+                <dt>{t("FileType")}</dt>
+                <dd>{extOf(template).toUpperCase()}</dd>
+              </div>
+              {!!meta.pages && (
                 <div className={styles["modal-meta-row"]}>
                   <dt>{t("Pages")}</dt>
-                  <dd>{template.file_pages}</dd>
+                  <dd>{meta.pages}</dd>
                 </div>
               )}
               {size && (

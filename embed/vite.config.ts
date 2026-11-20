@@ -35,38 +35,27 @@
 
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 const r = (p: string) => fileURLToPath(new URL(p, import.meta.url));
 
-// Where the catalog JSON lives. Relative like `base`, because it now ships in
-// the same deploy — generate-data.mjs writes it into static/, which Vite copies
-// into dist. Set EMBED_DATA_URL to an absolute origin to fetch it elsewhere.
-const DATA_URL = process.env.EMBED_DATA_URL || "./embed-data";
+// data/<locale>.json, written by sync-docspace.mjs next to the files it lists.
+const DATA_URL =
+  process.env.EMBED_DATA_URL || "https://static-oforms.onlyoffice.com/data";
 
-// The ?v= stamp, baked in rather than fetched. Reading it at runtime cost a
-// serial round trip before the catalog url could be built — 369 ms cold load
-// became ~550. Written by generate-data.mjs outside static/, so it is a build
-// input rather than a served file. Falls back for a build with no data, which is
-// the documented typecheck path (`npm run build`) and must not need a CMS crawl.
-const DATA_VERSION = (() => {
-  try {
-    return readFileSync(r("./data-version.txt"), "utf8").trim();
-  } catch {
-    console.warn("[vite] no data-version.txt — run scripts/generate-data.mjs");
-    return "dev";
-  }
-})();
+// The ?v= stamp, in index.html's meta tag rather than fetched: fetching it cost a serial
+// round trip before the catalog url could be built, 369 → ~550 ms cold. The deploy runs
+// after the sync and passes the newest catalog's upload time, so a code-only deploy keeps
+// the stamp; a local build has no bucket to ask and takes its own time.
+const DATA_VERSION = new Date(process.env.EMBED_DATA_TIME || Date.now())
+  .toISOString()
+  .replace(/\D/g, "")
+  .slice(0, 14);
 
 // Origins allowed to talk to this page over postMessage. Desktop's start page runs
 // from onlyoffice://plugin/…; a file:// host reports origin "null".
 const HOST_ORIGINS = process.env.EMBED_HOST_ORIGINS || "null,file://,onlyoffice://plugin";
 
-// Which catalog a deploy carries, answerable with `curl <url> | grep`. index.html
-// already revalidates every load, so it costs no request and no second uncached
-// file. A meta tag cannot delay the parser-blocking theme script the way another
-// stylesheet or script would.
 const stampVersion = () => ({
   name: "embed-data-version",
   transformIndexHtml: () => [
@@ -87,7 +76,6 @@ export default defineConfig({
 
   define: {
     "process.env.EMBED_DATA_URL": JSON.stringify(DATA_URL),
-    "process.env.EMBED_DATA_VERSION": JSON.stringify(DATA_VERSION),
     "process.env.EMBED_HOST_ORIGINS": JSON.stringify(HOST_ORIGINS),
   },
 

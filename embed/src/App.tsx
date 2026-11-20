@@ -51,7 +51,7 @@ import { SearchBox } from "./components/SearchBox/SearchBox";
 import { TemplateModal } from "./components/TemplateModal/TemplateModal";
 import { TypeFilter } from "./components/TypeFilter/TypeFilter";
 import { loadCatalog } from "./data";
-import { getCategories, getFilteredForms, getPurposes } from "./lib/filters";
+import { getFilteredForms } from "./lib/filters";
 import { initI18n } from "./i18n";
 import {
   LANGUAGES,
@@ -63,7 +63,7 @@ import {
 import { readQuery, writeQuery, type ICatalogQuery } from "./query";
 import { notifyReady, onHostMessage, requestOpenTemplate } from "./bridge";
 import { applyTheme, isTheme } from "./theme";
-import { PURPOSE_ORDER, type ITemplate } from "./types";
+import { PURPOSE_ORDER, purposeOf, type ITemplate } from "./types";
 import styles from "./App.module.scss";
 
 const PAGE_SIZE = 24;
@@ -119,7 +119,7 @@ const App = () => {
       try {
         const catalog = await loadCatalog(lang, controller.signal);
         if (controller.signal.aborted) return;
-        setTemplates(catalog.data);
+        setTemplates(catalog);
         setStatus("ready");
       } catch (error) {
         if (controller.signal.aborted) return;
@@ -153,69 +153,49 @@ const App = () => {
     return stop;
   }, [filter]);
 
-  // The catalog names its categories and purposes in its own language, so in
-  // another one they come from `embed.json`.
-  const localName = useCallback(
-    (group: string, key: string, name: string) =>
-      lang === query.locale
-        ? name
-        : t(`${group}.${key}`, { defaultValue: name }),
-    [lang, query.locale, t],
+  const purposeOptions = useMemo(
+    () =>
+      PURPOSE_ORDER.filter((key) =>
+        templates.some((item) => purposeOf(item) === key),
+      ).map((key) => ({
+        value: key,
+        label: t(`PurposeNames.${key}`, { defaultValue: key }),
+      })),
+    [templates, t],
   );
 
-  // Order fixed: the catalog's differs by locale.
-  const purposeOptions = useMemo(() => {
-    const purposes = getPurposes(templates);
-    return PURPOSE_ORDER.flatMap((key) => {
-      const purpose = purposes.find((item) => item.key === key);
-      return purpose
-        ? [{ value: key, label: localName("PurposeNames", key, purpose.name) }]
-        : [];
-    });
-  }, [templates, localName]);
-
-  // Names from the whole catalog, counts from what the filters leave: a row the
-  // active type or purpose has none of can then stay visible while it is
-  // selected.
-  const counted = useMemo(() => {
-    const counts = new Map(
-      getCategories(
-        getFilteredForms(templates, {
-          type: query.type,
-          purpose: query.purpose,
-        }),
-      ).map((category) => [category.id, category.count]),
-    );
-
-    return getCategories(templates).map((category) => ({
-      ...category,
-      count: counts.get(category.id) ?? 0,
-    }));
-  }, [templates, query.type, query.purpose]);
-
-  const categories = counted.filter(
-    (category) =>
-      !query.purpose ||
-      category.purpose?.key === query.purpose ||
-      category.urlReq === query.category,
+  const allCategories = useMemo(
+    () => new Set(templates.map((item) => item.meta.category)),
+    [templates],
   );
 
   // A slug from another locale would empty the grid with nothing
   // shown as selected.
-  const category = categories.some((item) => item.urlReq === query.category)
-    ? query.category
-    : "";
+  const category = allCategories.has(query.category) ? query.category : "";
+
+  const available = useMemo(
+    () =>
+      new Set(
+        getFilteredForms(templates, {
+          type: query.type,
+          purpose: query.purpose,
+        }).map((item) => item.meta.category),
+      ),
+    [templates, query.type, query.purpose],
+  );
 
   const collator = useMemo(
     () => new Intl.Collator(query.locale),
     [query.locale],
   );
 
-  const categoryOptions = categories
-    .filter((item) => item.count > 0 || item.urlReq === category)
-    .map((item) => ({
-      value: item.urlReq,
-      label: localName("CategoryNames", item.urlReq, item.name),
+  // What the type and purpose leave, plus the selected row even when they
+  // leave none of it.
+  const categoryOptions = [...allCategories]
+    .filter((key) => available.has(key) || key === category)
+    .map((key) => ({
+      value: key,
+      label: t(`CategoryNames.${key}`, { defaultValue: key }),
     }))
     .sort((a, b) => collator.compare(a.label, b.label));
 
@@ -228,7 +208,9 @@ const App = () => {
 
     const term = query.q.trim().toLowerCase();
     return term
-      ? filtered.filter((form) => form.name_form.toLowerCase().includes(term))
+      ? filtered.filter((form) =>
+          form.meta["card-title"].toLowerCase().includes(term),
+        )
       : filtered;
   }, [templates, query.type, category, query.purpose, query.q]);
 

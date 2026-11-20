@@ -40,8 +40,9 @@
  * Desktop, a file in a room in DocSpace — so the page states the intent and the
  * host decides, rather than this file becoming a registry of hosts.
  */
+import { fileUrl } from "./data";
 import { openTemplateNatively } from "./desktopVars";
-import type { ITemplate } from "./types";
+import { extOf, type ITemplate } from "./types";
 
 const ALLOWED_ORIGINS = (process.env.EMBED_HOST_ORIGINS || "")
   .split(",")
@@ -67,18 +68,15 @@ function send(message: unknown): void {
 
 export const notifyReady = (): void => send({ type: "ready" });
 
-// Templates carry a single file, so there is no format to choose between.
 // The name becomes the editor's tab title; without it the header shows the
-// url's filename, which is a hash.
+// url's filename, which is a file id.
 export function requestOpenTemplate(template: ITemplate): void {
-  const file = template.file_oform?.[0];
-  if (!file?.url || !file.ext) return;
-
-  const name = template.name_form.trim() + file.ext;
+  const url = fileUrl(template);
+  const name = `${template.meta["card-title"]}.${extOf(template)}`;
 
   // Desktop opens natively; every other host does it its own way.
-  if (!openTemplateNatively(file.url, name)) {
-    send({ type: "openTemplate", url: file.url, name });
+  if (!openTemplateNatively(url, name)) {
+    send({ type: "openTemplate", url, name });
   }
 }
 

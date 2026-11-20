@@ -34,23 +34,59 @@
  */
 
 import type { Locale } from "./locale";
-import type { ICatalog, ITemplate } from "./types";
+import {
+  extOf,
+  isAllowedType,
+  PURPOSE_BY_CATEGORY,
+  purposeOf,
+  type IRoomRecord,
+  type ITemplate,
+} from "./types";
 
 const DATA_URL = (process.env.EMBED_DATA_URL || "").replace(/\/$/, "");
 
-// Baked in by vite.config.ts from the generated data-version.txt, so the catalog
-// url is known without a request. The stamp is the whole cache key — the files
-// themselves are served immutable.
-const DATA_VERSION = process.env.EMBED_DATA_VERSION || "dev";
+// Read from index.html rather than baked into the bundle, so the bundle's hash and its
+// immutable cache entry outlive a catalog change.
+const DATA_VERSION =
+  document
+    .querySelector<HTMLMetaElement>('meta[name="embed-data-version"]')
+    ?.content || "dev";
 
-// The English catalog is ~1.6 MB, so this is deliberately more generous than
-// the 8s the old bundle used.
+// fetch never times out on its own: without this, a stalled response would
+// keep the loading state up forever instead of retrying and showing the error.
 const FETCH_TIMEOUT_MS = 15000;
 
 const RETRIES = 2;
 
 export const catalogUrl = (locale: Locale) =>
-  `${DATA_URL}/main.${locale}.json?v=${DATA_VERSION}`;
+  `${DATA_URL}/${locale}.json?v=${DATA_VERSION}`;
+
+// data/, files/ and images/ are siblings in the bucket.
+const ROOT = new URL("../", new URL(`${DATA_URL}/`, location.href));
+
+// Desktop picks the editor from everything after the URL's last dot.
+export const fileUrl = (template: ITemplate) =>
+  `${ROOT}files/${template.path}?v=${template.version}.${extOf(template)}`;
+
+export const previewUrl = ({ path, pages, version }: ITemplate) =>
+  pages > 0
+    ? `${ROOT}images/${path.slice(0, path.lastIndexOf("."))}.card.webp?v=${version}`
+    : "";
+
+const isTemplate = (record: IRoomRecord): record is ITemplate =>
+  !!record.meta &&
+  !!PURPOSE_BY_CATEGORY[record.meta.category] &&
+  isAllowedType(extOf(record as ITemplate));
+
+// The room lists newest `added` first; the stable sort keeps that within each half.
+const toTemplates = (records: IRoomRecord[]): ITemplate[] =>
+  records
+    .filter(isTemplate)
+    .sort(
+      (a, b) =>
+        Number(purposeOf(b) === "business") -
+        Number(purposeOf(a) === "business"),
+    );
 
 const wait = (ms: number, signal?: AbortSignal) =>
   new Promise<void>((resolve, reject) => {
@@ -69,7 +105,7 @@ const wait = (ms: number, signal?: AbortSignal) =>
  * Fetches the catalog for one locale, retrying twice on failure.
  *
  * Only the active locale is ever requested, and the ?v= stamp lets the browser
- * cache it until the next deploy changes the stamp.
+ * cache it until a catalog changes.
  *
  * Throws once the retries are spent, so the UI can show an explicit error
  * rather than an empty grid that looks like "no templates".
@@ -77,7 +113,7 @@ const wait = (ms: number, signal?: AbortSignal) =>
 export async function loadCatalog(
   locale: Locale,
   signal?: AbortSignal,
-): Promise<ICatalog> {
+): Promise<ITemplate[]> {
   if (!DATA_URL) throw new Error("EMBED_DATA_URL is not configured");
 
   for (let attempt = 0; ; attempt++) {
@@ -95,7 +131,9 @@ export async function loadCatalog(
 async function fetchCatalog(
   locale: Locale,
   signal?: AbortSignal,
-): Promise<ICatalog> {
+): Promise<ITemplate[]> {
+  // AbortSignal.any, needed to merge the timeout with the caller's signal, is
+  // Chromium 116; Desktop is 109.
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
   const onAbort = () => controller.abort();
@@ -107,16 +145,12 @@ async function fetchCatalog(
     });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-    const json = (await response.json()) as ICatalog;
-    if (!Array.isArray(json?.data)) throw new Error("unexpected payload shape");
+    const json = (await response.json()) as IRoomRecord[];
+    if (!Array.isArray(json)) throw new Error("unexpected payload shape");
 
-    return json;
+    return toTemplates(json);
   } finally {
     clearTimeout(timer);
     signal?.removeEventListener("abort", onAbort);
   }
 }
-
-/** Preview image for a card, or an empty string when the CMS has none. */
-export const previewUrl = (template: ITemplate): string =>
-  template.card_prewiew?.url ?? "";

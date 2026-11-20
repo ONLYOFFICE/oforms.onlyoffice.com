@@ -13,10 +13,6 @@
 /out/
 /static-build/
 
-# generated per-locale catalog data for the embed, and the version stamp the
-# build reads (node embed/scripts/generate-data.mjs)
-/embed/static/embed-data/
-/embed/data-version.txt
 
 # jenkins
 /.jenkins/
