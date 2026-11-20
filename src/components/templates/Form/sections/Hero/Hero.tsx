@@ -1,29 +1,36 @@
 /*
- * (c) Copyright Ascensio System SIA 2009-2026
+ * Copyright (C) Ascensio System SIA, 2009-2026
  *
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms
- * of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
- * Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
- * to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of
- * any third-party rights.
+ * This program is a free software product. You can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License (AGPL)
+ * version 3 as published by the Free Software Foundation, together with the
+ * additional terms provided in the LICENSE file.
  *
- * This program is distributed WITHOUT ANY WARRANTY, without even the implied warranty
- * of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see
- * the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * This program is distributed WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For
+ * details, see the GNU AGPL at: https://www.gnu.org/licenses/agpl-3.0.html
  *
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * You can contact Ascensio System SIA by email at info@onlyoffice.com
+ * or by postal mail at 20A-6 Ernesta Birznieka-Upisha Street, Riga,
+ * LV-1050, Latvia, European Union.
  *
- * The  interactive user interfaces in modified source and object code versions of the Program must
- * display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * The interactive user interfaces in modified versions of the Program
+ * are required to display Appropriate Legal Notices in accordance with
+ * Section 5 of the GNU AGPL version 3.
  *
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when
- * distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under
- * trademark law for use of our trademarks.
+ * No trademark rights are granted under this License.
  *
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
- * content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
- * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * All non-code elements of the Product, including illustrations,
+ * icon sets, and technical writing content, are licensed under the
+ * Creative Commons Attribution-ShareAlike 4.0 International License:
+ * https://creativecommons.org/licenses/by-sa/4.0/legalcode
+ *
+ * This license applies only to such non-code elements and does not
+ * modify or replace the licensing terms applicable to the Program's
+ * source code, which remains licensed under the GNU Affero General
+ * Public License v3.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
  */
 
 import { useTranslation } from "next-i18next";
@@ -46,27 +53,22 @@ import { DownloadAs } from "./sub-components/DownloadAs";
 import { Share } from "./sub-components/Share";
 import { Slider } from "./sub-components/Slider";
 import { TemplateButtons } from "./sub-components/TemplateButtons";
+import { extOf, fileName, fileUrl, pageUrls } from "@src/utils/templateFiles";
 import { IHero } from "./Hero.types";
 import styles from "./Hero.module.scss";
 
-const Hero = ({
-  name_form,
-  template_desc,
-  template_desc_2,
-  file_pages,
-  file_oform,
-  page_screens,
-  linkEditor,
-  suggestChangesLink,
-}: IHero) => {
+const Hero = ({ template, linkEditor, suggestChangesLink }: IHero) => {
   const {
     t,
     i18n: { language },
   } = useTranslation("form");
-  const { name, size, updatedAt, url } = file_oform?.[0] ?? {};
-  const pdfFile = file_oform?.filter(
-    (it) => it?.name.split(".").pop() === "pdf",
-  );
+  const { meta, size, updated } = template;
+  const name_form = meta["card-title"];
+  const template_desc = meta.description;
+  const template_desc_2 = meta["card-text"];
+  const format = extOf(template);
+  const url = fileUrl(template);
+  const kb = Math.round(size / 1024);
 
   return (
     <Section
@@ -82,7 +84,7 @@ const Hero = ({
               {name_form}
             </Heading>
             <div className={styles["hero-labels"]}>
-              {pdfFile?.[0]?.url && (
+              {format === "pdf" && (
                 <span className={styles["hero-label"]}>
                   {t("FillableForm")}
                 </span>
@@ -130,7 +132,7 @@ const Hero = ({
                     size={5}
                     className={styles["hero-info-value"]}
                   >
-                    {dayjs(updatedAt)
+                    {dayjs(updated)
                       .locale(language)
                       .format(
                         {
@@ -151,7 +153,7 @@ const Hero = ({
                 </Link>
               </div>
               <div className={clsx(styles["hero-info-row"])}>
-                {size != null && (
+                {size > 0 && (
                   <div
                     className={clsx(
                       styles["hero-info-item"],
@@ -171,13 +173,13 @@ const Hero = ({
                       className={styles["hero-info-value"]}
                       dir="ltr"
                     >
-                      {Math.round((size * 1000) / 1024) < 1024
-                        ? `${Math.round((size * 1000) / 1024)} kb`
-                        : `${parseFloat(((size * 1000) / 1024 / 1024).toFixed(1))} mb`}
+                      {kb < 1024
+                        ? `${kb} kb`
+                        : `${parseFloat((kb / 1024).toFixed(1))} mb`}
                     </Text>
                   </div>
                 )}
-                {file_pages && (
+                {meta.pages != null && (
                   <div className={styles["hero-info-item"]}>
                     <Text
                       as="span"
@@ -191,33 +193,32 @@ const Hero = ({
                       size={5}
                       className={styles["hero-info-value"]}
                     >
-                      {file_pages}
+                      {meta.pages}
                     </Text>
                   </div>
                 )}
               </div>
             </div>
 
-            {file_oform?.length > 0 && (
-              <DownloadAs
-                className={styles["hero-download-as"]}
-                file_oform={file_oform}
-              />
-            )}
+            <DownloadAs
+              className={styles["hero-download-as"]}
+              format={format}
+              href={url}
+            />
 
             <TemplateButtons
               className={styles["hero-buttons"]}
               buttonClassName={styles["hero-button"]}
-              name={name}
+              name={fileName(template)}
               url={url}
               linkEditor={linkEditor}
-              hasPdfForm={!!pdfFile?.[0]?.hash}
+              hasPdfForm={format === "pdf"}
             />
 
             <Share />
           </div>
 
-          <Slider page_screens={page_screens} name_form={name_form} />
+          <Slider pages={pageUrls(template)} name_form={name_form} />
         </div>
       </Container>
     </Section>

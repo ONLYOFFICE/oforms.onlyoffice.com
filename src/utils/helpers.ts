@@ -1,33 +1,41 @@
 /*
- * (c) Copyright Ascensio System SIA 2009-2026
+ * Copyright (C) Ascensio System SIA, 2009-2026
  *
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms
- * of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
- * Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
- * to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of
- * any third-party rights.
+ * This program is a free software product. You can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License (AGPL)
+ * version 3 as published by the Free Software Foundation, together with the
+ * additional terms provided in the LICENSE file.
  *
- * This program is distributed WITHOUT ANY WARRANTY, without even the implied warranty
- * of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see
- * the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * This program is distributed WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For
+ * details, see the GNU AGPL at: https://www.gnu.org/licenses/agpl-3.0.html
  *
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * You can contact Ascensio System SIA by email at info@onlyoffice.com
+ * or by postal mail at 20A-6 Ernesta Birznieka-Upisha Street, Riga,
+ * LV-1050, Latvia, European Union.
  *
- * The  interactive user interfaces in modified source and object code versions of the Program must
- * display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * The interactive user interfaces in modified versions of the Program
+ * are required to display Appropriate Legal Notices in accordance with
+ * Section 5 of the GNU AGPL version 3.
  *
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when
- * distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under
- * trademark law for use of our trademarks.
+ * No trademark rights are granted under this License.
  *
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
- * content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
- * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * All non-code elements of the Product, including illustrations,
+ * icon sets, and technical writing content, are licensed under the
+ * Creative Commons Attribution-ShareAlike 4.0 International License:
+ * https://creativecommons.org/licenses/by-sa/4.0/legalcode
+ *
+ * This license applies only to such non-code elements and does not
+ * modify or replace the licensing terms applicable to the Program's
+ * source code, which remains licensed under the GNU Affero General
+ * Public License v3.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { IFormsData } from "@src/types/data";
-import { ALLOWED_TYPES, TAllowedTypes } from "@src/utils/allowedTypes";
+import { TAllowedTypes } from "@src/utils/allowedTypes";
+import { extOf } from "@src/utils/templateFiles";
+import { TCatalogItem } from "@src/types/room";
 
 export const getQueryValues = (
   value: string | string[] | undefined,
@@ -37,24 +45,13 @@ export const getQueryValues = (
 };
 
 export const getTemplatesByExt = (
-  forms: IFormsData["data"][number][] | undefined,
+  forms: TCatalogItem[],
   ext: TAllowedTypes,
   limit = 8,
-) =>
-  forms
-    ?.filter((form) => form.form_exts?.some((item) => item.ext === ext))
-    .map((form) => ({
-      ...form,
-      form_exts: [...form.form_exts].sort(
-        (a, b) => ALLOWED_TYPES.indexOf(a.ext) - ALLOWED_TYPES.indexOf(b.ext),
-      ),
-    }))
-    .slice(0, limit) ?? [];
+) => forms.filter((form) => extOf(form) === ext).slice(0, limit);
 
-export const getPopularTemplates = (
-  forms: IFormsData["data"][number][] | undefined,
-  limit = 8,
-) => forms?.filter((form) => form.popular_template).slice(0, limit) ?? [];
+export const getPopularTemplates = (forms: TCatalogItem[], limit = 8) =>
+  forms.filter(({ meta }) => meta.popular).slice(0, limit);
 
 const POPULAR_TEMPLATES_MIN_FORMS = 8;
 
@@ -80,8 +77,8 @@ const stableShuffle = <T extends { id: number | string }>(
     .map(({ item }) => item);
 
 export const fillPopularTemplates = (
-  popular: IFormsData["data"][number][],
-  pool: IFormsData["data"][number][],
+  popular: TCatalogItem[],
+  pool: TCatalogItem[],
   min = 4,
 ) => {
   if (!popular.length || popular.length >= min) return popular;
@@ -98,20 +95,18 @@ export const fillPopularTemplates = (
   ];
 };
 
-export const getSectionPopularTemplates = (
-  forms: IFormsData["data"][number][],
-) =>
+export const getSectionPopularTemplates = (forms: TCatalogItem[]) =>
   forms.length < POPULAR_TEMPLATES_MIN_FORMS
     ? []
     : fillPopularTemplates(getPopularTemplates(forms), forms);
 
 export type TSortKey = "popular" | "asc" | "desc" | "name_asc" | "name_desc";
 const SORT_MAP: Record<TSortKey, string> = {
-  asc: "createdAt:desc",
-  desc: "createdAt:asc",
-  name_asc: "name_form:asc",
-  name_desc: "name_form:desc",
-  popular: "popular_template:desc",
+  asc: "added:desc",
+  desc: "added:asc",
+  name_asc: "name:asc",
+  name_desc: "name:desc",
+  popular: "popular:desc",
 };
 
 export const SORT_KEYS = Object.keys(SORT_MAP) as TSortKey[];
@@ -126,34 +121,27 @@ export const normalizeSortKey = (
     : DEFAULT_SORT_KEY;
 };
 
-export const sortForms = (
-  forms: IFormsData["data"][number][] | undefined,
-  sort: TSortKey,
-) => {
+const names = new Intl.Collator(undefined, { sensitivity: "base" });
+
+export const sortForms = (forms: TCatalogItem[], sort: TSortKey) => {
   const [field, direction] = SORT_MAP[sort].split(":");
   const dir = direction === "desc" ? -1 : 1;
-  const result = [...(forms ?? [])];
 
-  return result.sort((a, b) => {
+  return [...forms].sort((a, b) => {
     switch (field) {
-      case "name_form":
-        return (
-          dir *
-          a.name_form.localeCompare(b.name_form, undefined, {
-            sensitivity: "base",
-          })
-        );
-      case "popular_template":
-        return (
-          dir *
-          (Number(Boolean(a.popular_template)) -
-            Number(Boolean(b.popular_template)))
-        );
-      case "createdAt":
+      case "name":
+        return dir * names.compare(a.meta["card-title"], b.meta["card-title"]);
+      case "popular":
+        return dir * (Number(!!a.meta.popular) - Number(!!b.meta.popular));
+      case "added":
       default:
         return (
           dir *
-          (new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+          (a.meta.added < b.meta.added
+            ? -1
+            : a.meta.added > b.meta.added
+              ? 1
+              : 0)
         );
     }
   });

@@ -1,0 +1,215 @@
+/*
+ * Copyright (C) Ascensio System SIA, 2009-2026
+ *
+ * This program is a free software product. You can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License (AGPL)
+ * version 3 as published by the Free Software Foundation, together with the
+ * additional terms provided in the LICENSE file.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For
+ * details, see the GNU AGPL at: https://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA by email at info@onlyoffice.com
+ * or by postal mail at 20A-6 Ernesta Birznieka-Upisha Street, Riga,
+ * LV-1050, Latvia, European Union.
+ *
+ * The interactive user interfaces in modified versions of the Program
+ * are required to display Appropriate Legal Notices in accordance with
+ * Section 5 of the GNU AGPL version 3.
+ *
+ * No trademark rights are granted under this License.
+ *
+ * All non-code elements of the Product, including illustrations,
+ * icon sets, and technical writing content, are licensed under the
+ * Creative Commons Attribution-ShareAlike 4.0 International License:
+ * https://creativecommons.org/licenses/by-sa/4.0/legalcode
+ *
+ * This license applies only to such non-code elements and does not
+ * modify or replace the licensing terms applicable to the Program's
+ * source code, which remains licensed under the GNU Affero General
+ * Public License v3.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+/**
+ * Design tokens.
+ *
+ * Most tokens derive from an ONLYOFFICE Desktop palette name, so 18 properties
+ * restyle the whole app. Nothing sets those 18 today — theme.ts only switches
+ * the dark block below — so the fallback is what renders, and **every var()
+ * here must keep one**: an undefined custom property with no fallback drops its
+ * declaration silently.
+ *
+ * The mapping is many-to-one, so a name may only carry values that are one
+ * decision. A token can also be overridden by its own name.
+ */
+:root {
+  /* The page is framed, so the host font cannot be inherited — it is passed in
+     as a theme token like any other override. */
+  --font-family-base: "Segoe UI", Arial, Helvetica, "Helvetica Neue", sans-serif;
+
+  --main-background-color: var(--background-action-panel, #ffffff);
+  --main-count-color: var(--text-tertiary, #9092a6);
+  /* Shadows and the modal scrim read the same on any palette, so they carry no
+     desktop name and stay out of the payload. */
+  --main-header-shadow-color: rgba(0, 0, 0, 0.12);
+
+  --card-preview-wrapper-border-color: var(
+    --border-regular-control,
+    rgba(122, 125, 148, 0.4)
+  );
+  --card-preview-wrapper-background-color: var(
+    --background-normal-element-light,
+    #ffffff
+  );
+  --card-heading-color: var(--text-normal, #21222b);
+
+  --filter-button-border-color: var(--border-regular-control, #e5e6ed);
+  --filter-button-border-color-hover: var(--border-control-focus, #c7c9d6);
+  --filter-button-background-color: var(
+    --background-normal-element,
+    #ffffff
+  );
+  --filter-button-color: var(--text-normal, #333333);
+  --filter-button-menu-background-color: var(
+    --background-action-panel,
+    #ffffff
+  );
+  --filter-button-menu-shadow-color: rgba(0, 0, 0, 0.12);
+
+  --search-input-icon-color: var(--text-tertiary, #9092a6);
+  --search-input-cross-icon-color: var(--text-secondary, #7a7d94);
+  --search-input-border-color: var(--border-regular-control, #a6a8b8);
+  --search-input-border-color-hover: var(--border-control-focus, #3541f5);
+  --search-input-color: var(--text-normal, #494b5b);
+  --search-input-background-color: var(--background-normal-element, #ffffff);
+  --search-input-placeholder-color: var(--text-tertiary, #9092a6);
+  --search-input-with-value-border-color: var(--border-control-focus, #3541f5);
+  --search-input-with-value-background-color: var(
+    --background-normal-element,
+    #ffffff
+  );
+
+  --sidebar-clear-btn-border-color: var(--border-regular-control, #e1e1f7);
+  --sidebar-clear-btn-color: var(--text-secondary, #585a6d);
+  --sidebar-clear-btn-background-color: var(--background-normal, #e7e8ee);
+  --sidebar-clear-btn-background-color-hover: var(
+    --highlight-button-hover,
+    #dcdde6
+  );
+
+  --template-modal-wrapper-background-color: var(
+    --background-action-panel,
+    #ffffff
+  );
+  --template-modal-wrapper-border-color: var(--border-tabbar, #cbcbcb);
+  --template-modal-wrap-border-bottom-color: var(--border-divider, #e1e1e1);
+  --template-modal-heading-color: var(--text-normal, #383838);
+  --template-modal-text-color: var(--text-normal, #494b5b);
+  --template-modal-file-item-color: var(--text-secondary, #686868);
+  --template-modal-file-value-color: var(--text-normal, #383838);
+  --template-modal-btn-primary-color: var(--text-inverse, #ffffff);
+  --template-modal-btn-primary-background-color: var(
+    --background-primary-button,
+    #4a87e7
+  );
+  --template-modal-btn-primary-background-color-hover: var(
+    --highlight-primary-button-hover,
+    #437ad0
+  );
+  --template-modal-btn-primary-background-color-active: var(
+    --highlight-primary-button-pressed,
+    #3b6cb9
+  );
+  --template-modal-btn-secondary-border-color: var(
+    --border-regular-control,
+    #e7e8ee
+  );
+  --template-modal-btn-secondary-color: var(--text-normal, #21222b);
+  --template-modal-btn-secondary-background-color: transparent;
+  --template-modal-btn-secondary-background-color-hover: var(
+    --highlight-button-hover,
+    #f2f4f8
+  );
+  --template-modal-btn-secondary-background-color-active: var(
+    --highlight-button-pressed,
+    #e7e8ee
+  );
+
+  --search-result-no-results-found-text-color: var(--text-normal, #494b5b);
+  --search-result-no-results-found-subtext-color: var(--text-secondary, #666980);
+
+  --pagination-color: var(--text-normal, #494b5b);
+  --pagination-border-color: var(--border-regular-control, #e5e6ed);
+  --pagination-background-color: var(--background-normal-element, #ffffff);
+  --pagination-background-color-hover: var(
+    --highlight-button-hover,
+    rgba(53, 65, 245, 0.07)
+  );
+  /* Not --background-primary-button: that name is the modal's blue Use button,
+     and the active page is a neutral inversion of the strip. */
+  --pagination-color-active: #ffffff;
+  --pagination-background-color-active: #000122;
+  --pagination-color-disabled: var(--text-tertiary, #c7c9d6);
+
+  --format-docx-color: #305cc4;
+  --format-xlsx-color: #41b338;
+  --format-pptx-color: #ff6c00;
+  --format-pdf-color: #d10f33;
+
+  --type-tab-color: var(--text-secondary, #666980);
+  --type-tab-color-active: var(--text-normal, #21222b);
+
+  --filter-button-color-disabled: var(--text-tertiary, #c7c9d6);
+  --filter-button-option-color: var(--text-normal, #494b5b);
+  --filter-button-background-color-hover: var(
+    --highlight-button-hover,
+    rgba(53, 65, 245, 0.07)
+  );
+  --filter-button-background-color-selected: var(
+    --highlight-button-pressed,
+    rgba(53, 65, 245, 0.07)
+  );
+  --filter-button-border-color-selected: var(--border-control-focus, #d4d4ff);
+  --filter-button-color-selected: var(--text-link, #001bd2);
+}
+
+/* Desktop's theme-night. */
+:root[data-theme="dark"] {
+  --text-normal: #f3f3f3;
+  --text-secondary: #cbcbcb;
+  --text-tertiary: #b2b2b2;
+  --text-link: #aecbff;
+  --text-inverse: #ffffff;
+
+  --background-normal: #222222;
+  --background-normal-element: #4b4b4b;
+  --background-normal-element-light: #4b4b4b;
+  --background-action-panel: #404040;
+  --background-primary-button: #4e8afb;
+
+  --border-regular-control: #686868;
+  --border-control-focus: #4e8afb;
+  --border-divider: #505050;
+  --border-tabbar: #2a2a2a;
+
+  --highlight-button-hover: rgba(255, 255, 255, 0.12);
+  --highlight-button-pressed: rgba(255, 255, 255, 0.2);
+  --highlight-primary-button-hover: #306ad9;
+  --highlight-primary-button-pressed: #1b55c1;
+
+  --main-header-shadow-color: rgba(0, 0, 0, 0.5);
+  --filter-button-menu-shadow-color: rgba(0, 0, 0, 0.5);
+  --template-modal-wrapper-border-color: #505050;
+
+  /* The tab underline is the only mark on the selected tab. On white these two
+     are 6.1:1 and 5.5:1; on #404040 these are 3.0 and 3.1, unchanged 1.7 and
+     1.9. */
+  --format-docx-color: #5b86e5;
+  --format-pdf-color: #f0546f;
+
+  --pagination-background-color-active: #dddddd;
+  --pagination-color-active: #333333;
+}
