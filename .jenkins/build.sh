@@ -7,7 +7,7 @@ source /etc/ci_env.sh
 CURRENT_DATE=$(date "+%Y%m%d-%H%M%S")
 
 # Define variables
-DOCKER_CONTAINER_TAG="node:lts-alpine"
+DOCKER_CONTAINER_TAG="node:24-alpine"
 EXPOSE_PORT="var_expose_port"
 APP_NAME="var_app_name"
 APP_DIR="/app/$APP_NAME"
@@ -81,6 +81,12 @@ find "$BUILD_DIR" -type d -exec chmod 755 {} \;
 find "$BUILD_DIR" -type f -exec chmod 644 {} \;
 cd "$BUILD_DIR"
 
+# Pull the latest image for the tag
+log_step "Pulling image: $DOCKER_CONTAINER_TAG"
+if ! docker pull "$DOCKER_CONTAINER_TAG"; then
+    log_step "WARNING: Failed to pull $DOCKER_CONTAINER_TAG, using local image."
+fi
+
 # Build application with error handling
 log_step "Starting application build..."
 docker run --rm -e NODE_OPTIONS="--max-old-space-size=4096" -v "$BUILD_DIR":"$APP_DIR" -w "$APP_DIR" "$DOCKER_CONTAINER_TAG" sh -c "npm ci && npm run build"
@@ -108,7 +114,7 @@ ls -1t $APP_NAME-*.tar.gz | tail -n +8 | xargs -I {} rm -- {}
 
 # Stop application container if it exists
 echo -e "\e[33mStopping application container\e[0m"
-if docker ps -a | grep -wq "$APP_NAME"; then
+if docker container inspect "$APP_NAME" > /dev/null 2>&1; then
     log_step "Stopping existing container: $APP_NAME"
     docker stop "$APP_NAME"
 fi
@@ -125,24 +131,28 @@ mv $BUILD_DIR $APP_DIR
 
 # Start container if it exists or build and start it
 echo -e "\e[33mStarting the application\e[0m"
-if docker ps -a | grep -wq "$APP_NAME"; then
-    # Get the image tag of the existing container
-    CONTAINER_IMAGE_TAG=$(docker inspect "$APP_NAME" -f '{{.Config.Image}}')
-    
-    # Check if the container image tag matches $DOCKER_CONTAINER_TAG
-    if [ "$CONTAINER_IMAGE_TAG" == "$DOCKER_CONTAINER_TAG" ]; then
-        log_step "Starting existing container: $APP_NAME (image: $CONTAINER_IMAGE_TAG)"
+run_app_container() {
+    docker run -d --log-driver=awslogs --log-opt awslogs-region=$AWSLOGS_REGION --log-opt awslogs-group=$AWSLOGS_GROUP --log-opt awslogs-stream=$AWSLOGS_STREAM --name "$APP_NAME" --publish "0.0.0.0:$EXPOSE_PORT:30000" -v "$APP_DIR:$APP_DIR" -w "$APP_DIR" --restart always "$DOCKER_CONTAINER_TAG" npm run start
+}
+
+if docker container inspect "$APP_NAME" > /dev/null 2>&1; then
+    # Compare image IDs: the tag may point to a newer image after pull
+    CONTAINER_IMAGE_ID=$(docker container inspect "$APP_NAME" -f '{{.Image}}')
+    CURRENT_IMAGE_ID=$(docker image inspect "$DOCKER_CONTAINER_TAG" -f '{{.Id}}')
+
+    if [ "$CONTAINER_IMAGE_ID" == "$CURRENT_IMAGE_ID" ]; then
+        log_step "Starting existing container: $APP_NAME (image: $CURRENT_IMAGE_ID)"
         docker start "$APP_NAME"
     else
-        # Build and run a new container if the image tag does not match
-        log_step "Image tag changed ($CONTAINER_IMAGE_TAG -> $DOCKER_CONTAINER_TAG), recreating container: $APP_NAME"
-        docker rm "$APP_NAME"
-        docker run -d --log-driver=awslogs --log-opt awslogs-region=$AWSLOGS_REGION --log-opt awslogs-group=$AWSLOGS_GROUP --log-opt awslogs-stream=$AWSLOGS_STREAM --name "$APP_NAME" --publish "0.0.0.0:$EXPOSE_PORT:30000" -v "$APP_DIR:$APP_DIR" -w "$APP_DIR" --restart always "$DOCKER_CONTAINER_TAG" npm run start
+        # Recreate the container if the image has changed
+        log_step "Image changed ($CONTAINER_IMAGE_ID -> $CURRENT_IMAGE_ID), recreating container: $APP_NAME"
+        docker rm -f "$APP_NAME"
+        run_app_container
     fi
 else
         # Build and run a new container if it doesn't exist
     log_step "Creating new container: $APP_NAME (image: $DOCKER_CONTAINER_TAG)"
-    docker run -d --log-driver=awslogs --log-opt awslogs-region=$AWSLOGS_REGION --log-opt awslogs-group=$AWSLOGS_GROUP --log-opt awslogs-stream=$AWSLOGS_STREAM --name "$APP_NAME" --publish "0.0.0.0:$EXPOSE_PORT:30000" -v "$APP_DIR:$APP_DIR" -w "$APP_DIR" --restart always "$DOCKER_CONTAINER_TAG" npm run start
+    run_app_container
 fi
 
 # Send success notification
