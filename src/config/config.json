@@ -1,10 +1,4 @@
 {
   "defaultLanguage": "en",
-  "docEditorUrl": "config_docEditorUrl",
-  "api": {
-    "cms": "config_cms",
-    "url": "",
-    "timeout": "30000"
-  },
-  "appServer": "config_appServer"
+  "docEditorUrl": "config_docEditorUrl"
 }

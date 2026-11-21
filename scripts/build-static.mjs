@@ -28,7 +28,7 @@ const root = path.resolve(__dirname, "..");
 const PREFIX = (process.env.STATIC_BASE_PATH || "/templates").replace(/\/+$/, "");
 const OUT = path.resolve(root, process.env.STATIC_OUT_DIR || "static-build");
 // Pages that rely on getServerSideProps — no server here, so they are skipped.
-const EXCLUDE_PAGES = new Set(["editor", "form-submit"]);
+const EXCLUDE_PAGES = new Set(["editor"]);
 
 const NEXT = path.join(root, ".next");
 const pagesDir = path.join(NEXT, "server", "pages");

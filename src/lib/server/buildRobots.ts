@@ -5,7 +5,7 @@ import { getLocalePath, getSiteUrl } from "@src/utils/seoUrl";
 
 const PRODUCTION_HOST = "templates.onlyoffice.com";
 
-const PRIVATE_PAGES = ["/editor", "/searchresult", "/form-submit"];
+const PRIVATE_PAGES = ["/editor", "/searchresult"];
 
 const STATE_QUERY_PARAMS = [
   "sort",
