@@ -1,51 +1,21 @@
 println("Branch name: ${BRANCH_NAME}")
 
 switch(BRANCH_NAME) {
-  case "feature/redesign":
-    aws_region="us-east-1"
-    awslogs_region = "us-east-1"
-    awslogs_group = "/site/www"
-    awslogs_stream = "templates-update.teamlab.info"
-    awslogs_stream_errors = "templates-update.teamlab.info-errors"
-    awslogs_enabled = "true"
-    deploy_expose_port = "40002"
-    deploy_app_name = "templates-update.teamlab.info"
-    region="info"
-    cloud_front_distribution_id="EH1YZ1QI3B8CC"
-    site_url="https://templates.teamlab.info"   
-    public_static_url="https://static-oforms.teamlab.info"
-    next_public_main_site_base_domain="https://www.teamlab.info"
-    break
-  case "test_deploy":
+  case "develop":
     aws_region="us-east-1"
     awslogs_region = "us-east-1"
     awslogs_group = "/site/www"
     awslogs_stream = "templates.teamlab.info"
     awslogs_stream_errors = "templates.teamlab.info-errors"
     awslogs_enabled = "true"
-    deploy_expose_port = "30000"
-    deploy_app_name = "oforms.onlyoffice.com"
+    deploy_expose_port = "40002"
+    deploy_app_name = "templates.teamlab.info"
     region="info"
     cloud_front_distribution_id="E3OQ4LKWZZXBRX"
+    cdn77_distribution_id="1913924170"
     site_url="https://templates.teamlab.info"   
     public_static_url="https://static-oforms.teamlab.info"
-    next_public_main_site_base_domain="https://test-new.teamlab.info"
-    break
-  case "production_deploy":
-    aws_region="us-west-2"
-    awslogs_region = "us-west-2"
-    awslogs_group = "/site/www"
-    awslogs_stream = "templates.onlyoffice.com"
-    awslogs_stream_errors = "templates.onlyoffice.com-errors"
-    awslogs_enabled = "true"
-    deploy_expose_port = "30000"
-    deploy_app_name = "oforms.onlyoffice.com"
-    region="com"
-    MONITOR_ID = '58439000014815195'
-    cloud_front_distribution_id="E18Y5OI4JS5NAJ"
-    site_url="https://templates.onlyoffice.com"    
-    public_static_url="https://static-oforms.onlyoffice.com"
-    next_public_main_site_base_domain="https://www.onlyoffice.com"
+    next_public_main_site_base_domain="https://www.teamlab.info"
     break
   case "production_deploy_update":
     aws_region="us-west-2"
@@ -55,10 +25,11 @@ switch(BRANCH_NAME) {
     awslogs_stream_errors = "templates-cms.onlyoffice.com-errors"
     awslogs_enabled = "true"
     deploy_expose_port = "40002"
-    deploy_app_name = "templates-update.onlyoffice.com"
+    deploy_app_name = "templates.onlyoffice.com"
     region="com"
     MONITOR_ID = '58439000014815195'
     cloud_front_distribution_id="E18Y5OI4JS5NAJ"
+    cdn77_distribution_id="1919473175"
     site_url="https://templates.onlyoffice.com"    
     public_static_url="https://static-oforms.onlyoffice.com"
     next_public_main_site_base_domain="https://www.onlyoffice.com"
@@ -79,7 +50,7 @@ pipeline {
   }
   stages {
     stage('stop_monitor') {
-      when { branch 'production_deploy' }
+      when { branch 'production_deploy_update' }
       steps {
         build job: 'monitor.24x7.start.stop', 
           parameters: [string(name: 'monitor_id', value: "${MONITOR_ID}"), 
@@ -89,9 +60,7 @@ pipeline {
     
     stage('deploy') {
       when { 
-        anyOf { branch 'feature/redesign'; 
-                branch 'test_deploy'; 
-                branch 'production_deploy';
+        anyOf { branch 'develop'; 
                 branch 'production_deploy_update' }
       }
       environment {
@@ -118,18 +87,13 @@ pipeline {
                 string(credentialsId: 'templates_redesign_revalidate_authorization_token', variable: 'REVALIDATE_AUTHORIZATION_TOKEN_TEST')]) {
 
           sh '''
-            if [[ ${BRANCH_NAME} == "test_deploy" ]]; then
-              NEXT_PUBLIC_EDITOR_API_URL=$NEXT_PUBLIC_EDITOR_API_URL_TEST
-              NEXT_PUBLIC_FILES_DOCSERVICE_SECRET=$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET_TEST
-            fi
-
-            if [[ ${BRANCH_NAME} == "feature/redesign" ]]; then
+            if [ "$BRANCH_NAME" = "develop" ]; then
               NEXT_PUBLIC_EDITOR_API_URL=$NEXT_PUBLIC_EDITOR_API_URL_TEST
               NEXT_PUBLIC_FILES_DOCSERVICE_SECRET=$NEXT_PUBLIC_FILES_DOCSERVICE_SECRET_TEST
               REVALIDATE_AUTHORIZATION_TOKEN=$REVALIDATE_AUTHORIZATION_TOKEN_TEST 
             fi
 
-            if [[ ${BRANCH_NAME} == "production_deploy_update" ]]; then
+            if [ "$BRANCH_NAME" = "production_deploy_update" ]; then
               REVALIDATE_AUTHORIZATION_TOKEN=$REVALIDATE_AUTHORIZATION_TOKEN_TEST 
             fi
 
@@ -139,7 +103,6 @@ pipeline {
             sed -i "s^var_awslogs_stream^$awslogs_stream^" .jenkins/build.sh
             sed -i "s^var_expose_port^$deploy_expose_port^" .jenkins/build.sh
             sed -i "s^var_app_name^$deploy_app_name^" .jenkins/build.sh
-            sed -i "s^var_docker_network^$deploy_docker_network^" .jenkins/build.sh
             cp .jenkins/build.sh ".jenkins/${deploy_app_name}_build.sh"
 
             sed -i "s^config_docEditorUrl^$NEXT_PUBLIC_EDITOR_API_URL^" src/config/config.json
@@ -184,9 +147,8 @@ pipeline {
     }
     stage('invalidation') {
       when { 
-        anyOf { branch 'feature/redesign'; 
-                branch 'disabled_test_deploy'; 
-                branch 'disabled_production_deploy' }
+        anyOf { branch 'develop'; 
+                branch 'production_deploy_update' }
       }
       environment {
         aws_region = "${aws_region}"
@@ -200,7 +162,7 @@ pipeline {
           sh '''
             export AWS_ACCESS_KEY_ID="$access_key"
             export AWS_SECRET_ACCESS_KEY="$secret_key"
-            export AWS_DEFAULT_aws_region="$aws_region"
+            export AWS_DEFAULT_REGION="$aws_region"
             
             echo "=== start invalidation ==="
             aws cloudfront create-invalidation --distribution-id ${cloud_front_distribution_id} --paths "/*" || \
@@ -209,14 +171,44 @@ pipeline {
         }
       }
     }
-    
-    stage('start_monitor') {
-      when { branch 'production_deploy' }
+
+    stage('cdn77_purge') {
+      when { 
+        anyOf { branch 'develop'; 
+                branch 'production_deploy_update' }
+      }
+      environment {
+        cdn77_distribution_id = "${cdn77_distribution_id}"
+      }
       steps {
-        build job: 'monitor.24x7.start.stop', 
-          parameters: [string(name: 'monitor_id', value: "${MONITOR_ID}"), 
-          string(name: 'action', value: 'activate')]
-      }    
+        withCredentials([
+                usernamePassword(credentialsId: 'aws_build_robot', 
+                passwordVariable: 'secret_key', 
+                usernameVariable: 'access_key'),
+                string(credentialsId: 'universal-cdn-purge-url', variable: 'cdn_purge_queue_url')]) {
+          sh '''
+            export AWS_ACCESS_KEY_ID="$access_key"
+            export AWS_SECRET_ACCESS_KEY="$secret_key"
+            export AWS_DEFAULT_REGION="$(echo "$cdn_purge_queue_url" | cut -d. -f2)"
+
+            echo "=== start cdn77 purge ==="
+            aws sqs send-message \
+              --queue-url "$cdn_purge_queue_url" \
+              --message-body "{\\"version\\":1,\\"event\\":\\"${BRANCH_NAME}.deploy.purge_all\\",\\"cdn_id\\":${cdn77_distribution_id},\\"purge_all\\":true}"
+          '''
+        }
+      }
+    }
+  }
+  post {
+    always {
+      script {
+        if (env.BRANCH_NAME == 'production_deploy_update') {
+          build job: 'monitor.24x7.start.stop', 
+            parameters: [string(name: 'monitor_id', value: "${MONITOR_ID}"), 
+            string(name: 'action', value: 'activate')]
+        }
+      }
     }
   }
 }
