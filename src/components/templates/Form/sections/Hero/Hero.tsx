@@ -57,7 +57,7 @@ import { extOf, fileName, fileUrl, pageUrls } from "@src/utils/templateFiles";
 import { IHero } from "./Hero.types";
 import styles from "./Hero.module.scss";
 
-const Hero = ({ template, linkEditor, suggestChangesLink }: IHero) => {
+const Hero = ({ template, cta, linkEditor, suggestChangesLink }: IHero) => {
   const {
     t,
     i18n: { language },
@@ -65,7 +65,6 @@ const Hero = ({ template, linkEditor, suggestChangesLink }: IHero) => {
   const { meta, size, updated } = template;
   const name_form = meta["card-title"];
   const template_desc = meta.description;
-  const template_desc_2 = meta["card-text"];
   const format = extOf(template);
   const url = fileUrl(template);
   const kb = Math.round(size / 1024);
@@ -107,15 +106,11 @@ const Hero = ({ template, linkEditor, suggestChangesLink }: IHero) => {
                 ))}
               </div>
             )}
-            {template_desc_2 && (
-              <div className={styles["hero-description"]}>
-                {template_desc_2.split("\n").map((text, id) => (
-                  <Text as="p" size={2} key={id}>
-                    {text}
-                  </Text>
-                ))}
-              </div>
-            )}
+            <div className={styles["hero-description"]}>
+              <Text as="p" size={2}>
+                {cta}
+              </Text>
+            </div>
 
             <div className={styles["hero-info"]}>
               <div className={styles["hero-info-row"]}>

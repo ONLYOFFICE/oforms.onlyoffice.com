@@ -49,7 +49,7 @@ import { cardUrl, extOf } from "@src/utils/templateFiles";
 import { IFormTemplate } from "./Form.types";
 import styles from "./Form.module.scss";
 
-const FormTemplate = ({ template, categories }: IFormTemplate) => {
+const FormTemplate = ({ template, categories, cta }: IFormTemplate) => {
   const { t, i18n } = useTranslation(["form", "embed"]);
   const { locale } = useRouter();
   const editorLocale = i18n.language;
@@ -91,6 +91,7 @@ const FormTemplate = ({ template, categories }: IFormTemplate) => {
         </Container>
         <Hero
           template={template}
+          cta={cta}
           linkEditor={linkEditor}
           suggestChangesLink={suggestChangesLink}
         />

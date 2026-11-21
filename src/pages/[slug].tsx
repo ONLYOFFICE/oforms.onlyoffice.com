@@ -57,6 +57,8 @@ import { FormTemplate, IFormTemplate } from "@src/components/templates/Form";
 import { ILocale } from "@src/types/locale";
 import { LANG_QUERY_PARAM } from "@src/utils/queryLang";
 import { clearLangPending } from "@src/utils/langPending";
+import { siteCta } from "@src/utils/siteCta";
+import { extOf } from "@src/utils/templateFiles";
 
 const LOCALES: string[] = languages.map(({ shortKey }) => shortKey);
 
@@ -152,7 +154,7 @@ const SlugPage = (props: ISlugPage & ILocale) => {
     );
   }
 
-  const { template, categories } = props;
+  const { template, categories, cta } = props;
   const { meta } = template;
   const formPath = `/${meta.slug}`;
   const title = meta["seo-title"] || meta["card-title"];
@@ -175,7 +177,7 @@ const SlugPage = (props: ISlugPage & ILocale) => {
         <Header locale={lang} resetPathOnLocaleChange />
       </Layout.Header>
       <Layout.Main background="var(--primary-background-color)">
-        <FormTemplate template={template} categories={categories} />
+        <FormTemplate template={template} categories={categories} cta={cta} />
       </Layout.Main>
       <Layout.Footer>
         <Footer locale={lang} resetPathOnLocaleChange />
@@ -285,6 +287,7 @@ export const getStaticProps = async ({
       )),
       locale,
       template,
+      cta: siteCta(locale, template.meta["card-title"], extOf(template)),
       categories: [...new Set(templates.map(({ meta }) => meta.category))],
     },
   };

@@ -37,6 +37,7 @@ import { ITemplate } from "@src/types/room";
 
 export interface IHero {
   template: ITemplate;
+  cta: string;
   linkEditor: string;
   suggestChangesLink: string;
 }

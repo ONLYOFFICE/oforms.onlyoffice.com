@@ -38,4 +38,5 @@ import { ITemplate } from "@src/types/room";
 export interface IFormTemplate {
   template: ITemplate;
   categories: string[];
+  cta: string;
 }
