@@ -157,7 +157,7 @@ const SlugPage = (props: ISlugPage & ILocale) => {
   const { template, categories, cta } = props;
   const { meta } = template;
   const formPath = `/${meta.slug}`;
-  const title = meta["seo-title"] || meta["card-title"];
+  const title = `${meta["seo-title"] || meta["card-title"]} | ONLYOFFICE`;
   const description = meta["seo-description"] || meta["card-text"];
 
   return (
