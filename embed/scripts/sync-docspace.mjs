@@ -40,7 +40,7 @@
  * Objects are <locale>/<ext>/<docspace id>.<ext> under FILES_BUCKET_URL, overwritten
  * in place. A file is uploaded when it is missing or was saved in DocSpace after the
  * object was uploaded. Before upload, files lose their author, last editor and catalog
- * meta: generate-previews.py --strip empties them while it has the file open, so a
+ * meta: generate-previews.py --strip removes them while it has the file open, so a
  * file whose render fails goes up as saved in the room.
  *
  * Previews from generate-previews.py go to <locale>/<ext>/<docspace id>.*.webp under
@@ -49,7 +49,7 @@
  * next run. Objects and images with no file in the room are deleted.
  *
  * data/<locale>.json, beside them, holds a record per file with the custom properties the
- * strip emptied, newest first. A file whose record is missing or older than the room file
+ * strip removed, newest first. A file whose record is missing or older than the room file
  * is rendered for it. After each batch, the locales whose records differ are rewritten;
  * the other records stay as they are, so a run cut short keeps what it rendered.
  * Locales render in parallel, RENDERERS at a time, so their output interleaves.

@@ -44,15 +44,15 @@ Pages keep their own proportions. A spreadsheet ignores its paper: each sheet pr
 landscape, one page wide, without margins, and its pages are trimmed to the content.
 A file is skipped when its card is newer.
 
---strip first empties the author, the last editor and the catalog's custom properties
-of every file that has any, and saves it over itself: the room keeps them, the bucket
-does not (authors as onlyoffice/tools/metadata does). The properties it empties go to
+--strip first empties the author and the last editor and removes the catalog's custom
+properties of every file that has any, and saves it over itself: the room keeps them, the
+bucket does not (authors as onlyoffice/tools/metadata does). The properties it removes go to
 <name>.meta.json, with "pages": the visible sheets of a spreadsheet, the pages or slides
 of the rest. A file with none of them fails instead; the meta is written even when the
 render then fails.
 
 Usage:
-  pip3 install document-builder==10.0.0.170 pillow
+  pip3 install <document_builder-10.0.3.66 wheel> pillow   (Delete is new in 10.0.3.66)
   python3 embed/scripts/generate-previews.py [--strip] INPUT OUTPUT_DIR
 
 Env: DOCBUILDER_LICENSE, path to license.xml. Without it every page is
@@ -96,8 +96,8 @@ FIT = (
     " p.SetLeftMargin(0); p.SetRightMargin(0); p.SetTopMargin(0); p.SetBottomMargin(0); });"
 )
 
-# Builder cannot list or remove custom properties, so these are emptied by name: the same
-# names the meta is written under.
+# Builder cannot list custom properties, so these are removed by name: the same names the
+# meta is written under.
 META = ["slug", "category", "card-text", "description", "seo-title", "seo-description",
         "popular", "added", "card-title"]
 # Where GetCore and GetCustomProperties live, the save type, and the page count. A pdf form
@@ -116,12 +116,12 @@ TARGETS = {
 STRIP = (
     "(function () {{ var c = {core}.GetCore(), p = {props}.GetCustomProperties(), changed = false, m = {{}};"
     " if (c.GetCreator() || c.GetLastModifiedBy()) {{ c.SetCreator(''); c.SetLastModifiedBy(''); changed = true; }}"
-    " {meta}.forEach(function (k) {{ var v = p.Get(k); if (v) {{ m[k] = v; p.Add(k, ''); changed = true; }} }});"
+    " {meta}.forEach(function (k) {{ var v = p.Get(k); if (v) m[k] = v; if (p.Delete(k)) changed = true; }});"
     " m.pages = {pages}; return JSON.stringify({{ changed: changed, meta: m }}); }})()"
 )
 
 
-# The stripped copy, or None when there was nothing to strip, and the properties emptied.
+# The stripped copy, or None when there was nothing to strip, and the properties removed.
 def strip(builder, src, tmp):
     core, props, file_type, pages = TARGETS[os.path.splitext(src)[1].lower()]
     # Linux (V8) segfaults on reading the result outside an entered context; macOS (JSC) does not.
