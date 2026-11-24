@@ -79,8 +79,12 @@ MAX_PAGES = 10
 QUALITY = 80
 
 # Undocumented: SaveFile hands these to x2t as is (core docbuilder_p.h). Without
-# them form fields lose their placeholders and highlight, as in tools/thumbnails.
-LAYOUT = '"documentLayout":{"drawPlaceHolders":true,"drawFormHighlight":true,"isPrint":true}'
+# them form fields lose their placeholders and highlight, as in tools/thumbnails, and a
+# sheet ignores its own print area.
+LAYOUT = (
+    '"documentLayout":{"drawPlaceHolders":true,"drawFormHighlight":true,"isPrint":true},'
+    '"spreadsheetLayout":{"ignorePrintArea":false}'
+)
 # aspect 1 fits the page in the box at its own proportions, so the box only has to be taller
 # than any page for the width to bind; the catalog's tallest page is 2.0 times its width.
 THUMBNAIL = (
@@ -88,8 +92,8 @@ THUMBNAIL = (
     f"<width>{PAGE_WIDTH}</width><height>{PAGE_WIDTH * 4}</height></m_oThumbnail>"
 )
 # Landscape A4 is only the widest page the fit can fill: content narrower than it keeps 100%,
-# wider shrinks to fit, and the trim then drops the paper. The print area is every formatted
-# cell, so a sheet with formatting past its content prints small (fix the file, not this).
+# wider shrinks to fit, and the trim then drops the paper. Without a print area of its own a
+# sheet prints every formatted cell, so formatting past its content prints small (fix the file).
 FIT = (
     "Api.GetSheets().forEach(function (s) { var p = s.GetPageSetup();"
     " p.SetOrientation('xlLandscape'); p.SetFitToPagesWide(1); p.SetFitToPagesTall(0);"
