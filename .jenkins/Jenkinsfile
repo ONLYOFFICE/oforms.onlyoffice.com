@@ -17,7 +17,7 @@ switch(BRANCH_NAME) {
     public_static_url="https://static-oforms.teamlab.info"
     next_public_main_site_base_domain="https://www.teamlab.info"
     break
-  case "production_deploy_update":
+  case "master":
     aws_region="us-west-2"
     awslogs_region = "us-west-2"
     awslogs_group = "/site/www"
@@ -50,7 +50,7 @@ pipeline {
   }
   stages {
     stage('stop_monitor') {
-      when { branch 'production_deploy_update' }
+      when { branch 'master' }
       steps {
         build job: 'monitor.24x7.start.stop', 
           parameters: [string(name: 'monitor_id', value: "${MONITOR_ID}"), 
@@ -61,7 +61,7 @@ pipeline {
     stage('deploy') {
       when { 
         anyOf { branch 'develop'; 
-                branch 'production_deploy_update' }
+                branch 'master' }
       }
       environment {
         awslogs_region = "${awslogs_region}"
@@ -93,7 +93,7 @@ pipeline {
               REVALIDATE_AUTHORIZATION_TOKEN=$REVALIDATE_AUTHORIZATION_TOKEN_TEST 
             fi
 
-            if [ "$BRANCH_NAME" = "production_deploy_update" ]; then
+            if [ "$BRANCH_NAME" = "master" ]; then
               REVALIDATE_AUTHORIZATION_TOKEN=$REVALIDATE_AUTHORIZATION_TOKEN_TEST 
             fi
 
@@ -148,7 +148,7 @@ pipeline {
     stage('invalidation') {
       when { 
         anyOf { branch 'develop'; 
-                branch 'production_deploy_update' }
+                branch 'master' }
       }
       environment {
         aws_region = "${aws_region}"
@@ -175,7 +175,7 @@ pipeline {
     stage('cdn77_purge') {
       when { 
         anyOf { branch 'develop'; 
-                branch 'production_deploy_update' }
+                branch 'master' }
       }
       environment {
         cdn77_distribution_id = "${cdn77_distribution_id}"
@@ -203,7 +203,7 @@ pipeline {
   post {
     always {
       script {
-        if (env.BRANCH_NAME == 'production_deploy_update') {
+        if (env.BRANCH_NAME == 'master') {
           build job: 'monitor.24x7.start.stop', 
             parameters: [string(name: 'monitor_id', value: "${MONITOR_ID}"), 
             string(name: 'action', value: 'activate')]
