@@ -1,0 +1,119 @@
+/*
+ * Copyright (C) Ascensio System SIA, 2009-2026
+ *
+ * This program is a free software product. You can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License (AGPL)
+ * version 3 as published by the Free Software Foundation, together with the
+ * additional terms provided in the LICENSE file.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For
+ * details, see the GNU AGPL at: https://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA by email at info@onlyoffice.com
+ * or by postal mail at 20A-6 Ernesta Birznieka-Upisha Street, Riga,
+ * LV-1050, Latvia, European Union.
+ *
+ * The interactive user interfaces in modified versions of the Program
+ * are required to display Appropriate Legal Notices in accordance with
+ * Section 5 of the GNU AGPL version 3.
+ *
+ * No trademark rights are granted under this License.
+ *
+ * All non-code elements of the Product, including illustrations,
+ * icon sets, and technical writing content, are licensed under the
+ * Creative Commons Attribution-ShareAlike 4.0 International License:
+ * https://creativecommons.org/licenses/by-sa/4.0/legalcode
+ *
+ * This license applies only to such non-code elements and does not
+ * modify or replace the licensing terms applicable to the Program's
+ * source code, which remains licensed under the GNU Affero General
+ * Public License v3.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+// Six columns at most: 24 per page is then four whole rows, where an uncapped
+// 2560px frame gives 9 columns and 2.7 ragged ones. 6 × 282 + 5 × 32 (the grid
+// gutter, which a 24px one would fit seven of) + 2 × 24, where 282 is the column
+// at which the preview reaches its 256px cap. Only the card list scrolls.
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 1900px;
+  margin-inline: auto;
+  --layout-padding: 24px;
+}
+
+.header {
+  flex: 0 0 auto;
+  // Above `.scroll`, or the cards repaint over the shadow below.
+  position: relative;
+  z-index: 1;
+  // The 24px below the last row is that row's own margin.
+  padding: var(--layout-padding) var(--layout-padding) 0;
+  transition: box-shadow 0.2s;
+}
+
+:global(:root[data-desktop]) .header {
+  padding-block-start: 0;
+}
+
+.header-scrolled {
+  box-shadow: 0 4px 12px var(--main-header-shadow-color);
+}
+
+.scroll {
+  flex: 1 1 auto;
+  // A flex item defaults to `min-height: auto`, which grows to the content
+  // instead of scrolling.
+  min-height: 0;
+  overflow-y: auto;
+  // Embedded: reaching the end must not scroll the host page.
+  overscroll-behavior: contain;
+  // A 3-card result keeps the same columns as a 24-card one.
+  scrollbar-gutter: stable;
+  padding-inline: var(--layout-padding);
+  padding-block-end: var(--layout-padding);
+}
+
+.footer {
+  flex: 0 0 auto;
+  padding: 16px var(--layout-padding) var(--layout-padding);
+}
+
+@media (max-width: 600px) {
+  .app {
+    --layout-padding: 16px;
+  }
+}
+
+.toolbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-block-end: 24px;
+}
+
+.toolbar-types {
+  margin-block-end: 24px;
+}
+
+.notice {
+  padding-block: 48px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--main-count-color);
+}
+
+.notice-retry {
+  border: 0;
+  background: none;
+  padding: 0;
+  text-decoration: underline;
+  color: inherit;
+  font-size: inherit;
+}

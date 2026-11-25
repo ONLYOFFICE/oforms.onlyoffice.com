@@ -1,29 +1,36 @@
 /*
- * (c) Copyright Ascensio System SIA 2009-2026
+ * Copyright (C) Ascensio System SIA, 2009-2026
  *
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms
- * of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
- * Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
- * to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of
- * any third-party rights.
+ * This program is a free software product. You can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License (AGPL)
+ * version 3 as published by the Free Software Foundation, together with the
+ * additional terms provided in the LICENSE file.
  *
- * This program is distributed WITHOUT ANY WARRANTY, without even the implied warranty
- * of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see
- * the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * This program is distributed WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For
+ * details, see the GNU AGPL at: https://www.gnu.org/licenses/agpl-3.0.html
  *
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * You can contact Ascensio System SIA by email at info@onlyoffice.com
+ * or by postal mail at 20A-6 Ernesta Birznieka-Upisha Street, Riga,
+ * LV-1050, Latvia, European Union.
  *
- * The  interactive user interfaces in modified source and object code versions of the Program must
- * display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * The interactive user interfaces in modified versions of the Program
+ * are required to display Appropriate Legal Notices in accordance with
+ * Section 5 of the GNU AGPL version 3.
  *
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when
- * distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under
- * trademark law for use of our trademarks.
+ * No trademark rights are granted under this License.
  *
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
- * content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
- * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * All non-code elements of the Product, including illustrations,
+ * icon sets, and technical writing content, are licensed under the
+ * Creative Commons Attribution-ShareAlike 4.0 International License:
+ * https://creativecommons.org/licenses/by-sa/4.0/legalcode
+ *
+ * This license applies only to such non-code elements and does not
+ * modify or replace the licensing terms applicable to the Program's
+ * source code, which remains licensed under the GNU Affero General
+ * Public License v3.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
  */
 
 import { useEffect, useLayoutEffect } from "react";
@@ -31,22 +38,13 @@ import { GetStaticPaths, GetStaticPropsContext } from "next";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { getAllFormUrls } from "@src/lib/requests/getAllFormUrls";
-import {
-  getCategoryUrls,
-  getCachedCategoryUrls,
-} from "@src/lib/requests/getCategoryUrls";
-import { getCategoryInfo } from "@src/lib/requests/getCategoryInfo";
-import { getCategoryLocales } from "@src/lib/server/categoryLocales";
-import { getAllFormsAllLocales } from "@src/lib/requests/getAllFormsAllLocales";
-import { getCountryNames } from "@src/lib/requests/getCountries";
+import { getCatalog, getTemplates } from "@src/lib/requests/getTemplates";
+import { categoryName, categorySeo } from "@src/lib/server/catalogNames";
 import {
   buildCategoryView,
   buildFormNames,
   resolveCategoryFilters,
 } from "@src/lib/server/buildMainView";
-import { getForm } from "@src/lib/requests/getForm";
-import { getParentCategories } from "@src/lib/requests/getParentCategories";
 import { languages } from "@src/config/languages";
 import { Layout } from "@src/components/Layout";
 import { Head } from "@src/components/modules/Head";
@@ -59,10 +57,8 @@ import { FormTemplate, IFormTemplate } from "@src/components/templates/Form";
 import { ILocale } from "@src/types/locale";
 import { LANG_QUERY_PARAM } from "@src/utils/queryLang";
 import { clearLangPending } from "@src/utils/langPending";
-
-interface ICategoryInfo {
-  data: { seo_title: string; seo_description: string }[];
-}
+import { siteCta } from "@src/utils/siteCta";
+import { extOf } from "@src/utils/templateFiles";
 
 const LOCALES: string[] = languages.map(({ shortKey }) => shortKey);
 
@@ -105,7 +101,7 @@ const useQueryLang = (enabled = true) => {
 type ISlugPage =
   | ({
       isCategory: true;
-      categoryInfo: ICategoryInfo;
+      categoryInfo: { title: string; description: string };
       categoryLocales: string[];
     } & ICategory)
   | ({ isCategory?: false } & IFormTemplate);
@@ -130,8 +126,8 @@ const SlugPage = (props: ISlugPage & ILocale) => {
       <Layout>
         <Layout.Head>
           <Head
-            title={categoryInfo?.data?.[0]?.seo_title}
-            description={categoryInfo?.data?.[0]?.seo_description}
+            title={categoryInfo.title}
+            description={categoryInfo.description}
             path={`/${categoryUrlReq}`}
             locale={locale}
             localized
@@ -158,11 +154,11 @@ const SlugPage = (props: ISlugPage & ILocale) => {
     );
   }
 
-  const { form, categories } = props;
-  const formData = form.data[0];
-  const formPath = `/${formData.url}`;
-  const title = formData.seo_title || formData.name_form;
-  const description = formData.seo_description || formData.description_card;
+  const { template, categories, cta } = props;
+  const { meta } = template;
+  const formPath = `/${meta.slug}`;
+  const title = `${meta["seo-title"] || meta["card-title"]} | ONLYOFFICE`;
+  const description = meta["seo-description"] || meta["card-text"];
 
   return (
     <Layout>
@@ -181,7 +177,7 @@ const SlugPage = (props: ISlugPage & ILocale) => {
         <Header locale={lang} resetPathOnLocaleChange />
       </Layout.Header>
       <Layout.Main background="var(--primary-background-color)">
-        <FormTemplate form={form} categories={categories} />
+        <FormTemplate template={template} categories={categories} cta={cta} />
       </Layout.Main>
       <Layout.Footer>
         <Footer locale={lang} resetPathOnLocaleChange />
@@ -193,30 +189,24 @@ const SlugPage = (props: ISlugPage & ILocale) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   const locales = languages.map((language) => language.shortKey);
 
-  const [formsByLocale, categoriesByLocale] = await Promise.all([
-    Promise.all(locales.map((locale) => getAllFormUrls(locale))),
-    Promise.all(locales.map((locale) => getCategoryUrls(locale))),
-  ]);
-
-  const formPaths = formsByLocale.flatMap((forms, index) =>
-    forms.data
-      .filter((form) => typeof form.url === "string" && form.url.length > 0)
-      .map((form) => ({
-        params: { slug: form.url },
-        locale: locales[index],
-      })),
+  const templatesByLocale = await Promise.all(
+    locales.map((locale) => getTemplates(locale)),
   );
 
-  const categoryPaths = categoriesByLocale.flatMap((categories, index) =>
-    categories.data
-      .filter(
-        (category) =>
-          typeof category.urlReq === "string" && category.urlReq.length > 0,
-      )
-      .map((category) => ({
-        params: { slug: category.urlReq },
+  const formPaths = templatesByLocale.flatMap((templates, index) =>
+    templates.map((template) => ({
+      params: { slug: template.meta.slug },
+      locale: locales[index],
+    })),
+  );
+
+  const categoryPaths = templatesByLocale.flatMap((templates, index) =>
+    [...new Set(templates.map(({ meta }) => meta.category))].map(
+      (category) => ({
+        params: { slug: category },
         locale: locales[index],
-      })),
+      }),
+    ),
   );
 
   return {
@@ -231,21 +221,23 @@ export const getStaticProps = async ({
 }: GetStaticPropsContext & ILocale) => {
   const slug = params?.slug as string;
 
-  const categoryUrls = await getCachedCategoryUrls(locale);
-  const isCategory = categoryUrls.data.some(
-    (category) => category.urlReq === slug,
+  const allForms = await getCatalog(locale);
+  const isCategory = allForms.some(
+    (form) => form.locale === locale && form.meta.category === slug,
   );
 
   if (isCategory) {
-    const [categoryInfo, allForms, countryNames, categoryLocales] =
-      await Promise.all([
-        getCategoryInfo(locale, slug),
-        getAllFormsAllLocales(locale),
-        getCountryNames(locale),
-        getCategoryLocales(locale, slug),
-      ]);
+    // Category slugs are the same in every locale, so the page exists wherever
+    // that catalog has the category.
+    const categoryLocales = [
+      ...new Set(
+        allForms
+          .filter(({ meta }) => meta.category === slug)
+          .map((form) => form.locale),
+      ),
+    ];
 
-    const filters = resolveCategoryFilters(allForms.data, slug, {
+    const filters = resolveCategoryFilters(allForms, slug, {
       locale,
       type: [],
       country: [],
@@ -264,26 +256,22 @@ export const getStaticProps = async ({
         ])),
         locale,
         isCategory: true,
-        categoryInfo,
-        initialView: buildCategoryView(
-          allForms.data,
-          slug,
-          filters,
-          countryNames,
-        ),
-        initialFormNames: buildFormNames(allForms.data, locale, []),
+        categoryInfo: categorySeo(locale, slug) ?? {
+          title: categoryName(locale, slug),
+          description: "",
+        },
+        initialView: buildCategoryView(allForms, slug, filters),
+        initialFormNames: buildFormNames(allForms, locale, []),
         categoryUrlReq: slug,
         categoryLocales,
       },
     };
   }
 
-  const [form, categories] = await Promise.all([
-    getForm(locale, slug),
-    getParentCategories(locale),
-  ]);
+  const templates = await getTemplates(locale);
+  const template = templates.find(({ meta }) => meta.slug === slug);
 
-  if (!form?.data?.length) {
+  if (!template) {
     return {
       notFound: true,
     };
@@ -293,13 +281,14 @@ export const getStaticProps = async ({
     props: {
       ...(await serverSideTranslations(
         locale,
-        ["common", "form"],
+        ["common", "form", "embed"],
         null,
         languages.map((language) => language.shortKey),
       )),
       locale,
-      form,
-      categories,
+      template,
+      cta: siteCta(locale, template.meta["card-title"], extOf(template)),
+      categories: [...new Set(templates.map(({ meta }) => meta.category))],
     },
   };
 };

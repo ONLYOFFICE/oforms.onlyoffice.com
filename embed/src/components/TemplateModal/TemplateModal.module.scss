@@ -1,0 +1,222 @@
+/*
+ * Copyright (C) Ascensio System SIA, 2009-2026
+ *
+ * This program is a free software product. You can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License (AGPL)
+ * version 3 as published by the Free Software Foundation, together with the
+ * additional terms provided in the LICENSE file.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For
+ * details, see the GNU AGPL at: https://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA by email at info@onlyoffice.com
+ * or by postal mail at 20A-6 Ernesta Birznieka-Upisha Street, Riga,
+ * LV-1050, Latvia, European Union.
+ *
+ * The interactive user interfaces in modified versions of the Program
+ * are required to display Appropriate Legal Notices in accordance with
+ * Section 5 of the GNU AGPL version 3.
+ *
+ * No trademark rights are granted under this License.
+ *
+ * All non-code elements of the Product, including illustrations,
+ * icon sets, and technical writing content, are licensed under the
+ * Creative Commons Attribution-ShareAlike 4.0 International License:
+ * https://creativecommons.org/licenses/by-sa/4.0/legalcode
+ *
+ * This license applies only to such non-code elements and does not
+ * modify or replace the licensing terms applicable to the Program's
+ * source code, which remains licensed under the GNU Affero General
+ * Public License v3.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+}
+
+.modal {
+  position: relative;
+  width: min(800px, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  border: 1px solid var(--template-modal-wrapper-border-color);
+  border-radius: 6px;
+  background-color: var(--template-modal-wrapper-background-color);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+.modal-close {
+  position: absolute;
+  inset-block-start: 12px;
+  inset-inline-end: 12px;
+  display: inline-flex;
+  padding: 6px;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: var(--template-modal-heading-color);
+}
+
+.modal-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 32px;
+  padding: 32px;
+}
+
+@media (max-width: 720px) {
+  .modal-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    padding: 24px;
+  }
+
+  // One column, so the preview would otherwise be dialog-wide and 1.4x as tall.
+  .modal-preview {
+    justify-self: center;
+    max-width: 280px;
+  }
+}
+
+// Sized before the bitmap arrives, so the dialog opens at its final size
+// instead of growing. Portrait A4 is 511 of the 747 `en` previews; the other
+// 236 are matted into the same box.
+.modal-preview {
+  align-self: start;
+  aspect-ratio: 648 / 916;
+  border: 1px solid var(--template-modal-wrap-border-bottom-color);
+  border-radius: 4px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+// Full width, or `flex-start` shrinks it and the catalog's `dir` aligns nothing.
+.modal-heading {
+  width: 100%;
+  padding-inline-end: 32px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+  color: var(--template-modal-heading-color);
+
+  span {
+    display: block;
+  }
+}
+
+.modal-text {
+  width: 100%;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--template-modal-text-color);
+}
+
+.modal-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  width: 100%;
+  padding-block-start: 20px;
+  border-block-start: 1px solid var(--template-modal-wrap-border-bottom-color);
+}
+
+.modal-meta-row {
+  display: flex;
+  gap: 8px;
+  font-size: 14px;
+
+  dt {
+    color: var(--template-modal-file-item-color);
+  }
+
+  dd {
+    margin: 0;
+    font-weight: 600;
+    color: var(--template-modal-file-value-color);
+  }
+}
+
+.modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+  width: 100%;
+  margin-block-start: auto;
+}
+
+.modal-btn-primary,
+.modal-btn-secondary {
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.modal-btn-primary,
+.modal-btn-secondary,
+.modal-close {
+  transition: background-color 0.2s;
+
+  // A click holds ~85-120 ms, so a 200 ms ease never reaches the pressed colour.
+  &:active {
+    transition: none;
+  }
+}
+
+.modal-btn-primary {
+  border: 0;
+  background-color: var(--template-modal-btn-primary-background-color);
+  color: var(--template-modal-btn-primary-color);
+
+  &:hover {
+    background-color: var(--template-modal-btn-primary-background-color-hover);
+  }
+
+  &:active {
+    background-color: var(--template-modal-btn-primary-background-color-active);
+  }
+}
+
+.modal-btn-secondary {
+  border: 1px solid var(--template-modal-btn-secondary-border-color);
+  background-color: var(--template-modal-btn-secondary-background-color);
+  color: var(--template-modal-btn-secondary-color);
+}
+
+.modal-btn-secondary,
+.modal-close {
+  &:hover {
+    background-color: var(--template-modal-btn-secondary-background-color-hover);
+  }
+
+  &:active {
+    background-color: var(--template-modal-btn-secondary-background-color-active);
+  }
+}

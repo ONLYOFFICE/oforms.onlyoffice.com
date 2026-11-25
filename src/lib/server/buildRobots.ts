@@ -1,22 +1,19 @@
 import { languages } from "@src/config/languages";
-import {
-  COLLAPSE_QUERY_PARAM,
-  COUNTRIES_COLLAPSE_QUERY_PARAM,
-  EXPAND_QUERY_PARAM,
-} from "@src/utils/queryFilters";
+import { COUNTRIES_COLLAPSE_QUERY_PARAM } from "@src/utils/queryFilters";
 import { LANG_QUERY_PARAM } from "@src/utils/queryLang";
 import { getLocalePath, getSiteUrl } from "@src/utils/seoUrl";
 
 const PRODUCTION_HOST = "templates.onlyoffice.com";
 
-const PRIVATE_PAGES = ["/editor", "/searchresult", "/form-submit"];
+const PRIVATE_PAGES = ["/editor", "/searchresult"];
 
 const STATE_QUERY_PARAMS = [
   "sort",
   LANG_QUERY_PARAM,
-  EXPAND_QUERY_PARAM,
-  COLLAPSE_QUERY_PARAM,
   COUNTRIES_COLLAPSE_QUERY_PARAM,
+  // No longer written since subcategories went, but crawlers still hold such URLs.
+  "categories-expanded",
+  "categories-opened",
 ];
 
 const getSiteHost = (): string => {

@@ -1,0 +1,156 @@
+/*
+ * Copyright (C) Ascensio System SIA, 2009-2026
+ *
+ * This program is a free software product. You can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License (AGPL)
+ * version 3 as published by the Free Software Foundation, together with the
+ * additional terms provided in the LICENSE file.
+ *
+ * This program is distributed WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For
+ * details, see the GNU AGPL at: https://www.gnu.org/licenses/agpl-3.0.html
+ *
+ * You can contact Ascensio System SIA by email at info@onlyoffice.com
+ * or by postal mail at 20A-6 Ernesta Birznieka-Upisha Street, Riga,
+ * LV-1050, Latvia, European Union.
+ *
+ * The interactive user interfaces in modified versions of the Program
+ * are required to display Appropriate Legal Notices in accordance with
+ * Section 5 of the GNU AGPL version 3.
+ *
+ * No trademark rights are granted under this License.
+ *
+ * All non-code elements of the Product, including illustrations,
+ * icon sets, and technical writing content, are licensed under the
+ * Creative Commons Attribution-ShareAlike 4.0 International License:
+ * https://creativecommons.org/licenses/by-sa/4.0/legalcode
+ *
+ * This license applies only to such non-code elements and does not
+ * modify or replace the licensing terms applicable to the Program's
+ * source code, which remains licensed under the GNU Affero General
+ * Public License v3.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+import type { Locale } from "./locale";
+import {
+  extOf,
+  isAllowedType,
+  PURPOSE_BY_CATEGORY,
+  purposeOf,
+  type IRoomRecord,
+  type ITemplate,
+} from "./types";
+
+const DATA_URL = (process.env.EMBED_DATA_URL || "").replace(/\/$/, "");
+
+// Read from index.html rather than baked into the bundle, so the bundle's hash and its
+// immutable cache entry outlive a catalog change.
+const DATA_VERSION =
+  document
+    .querySelector<HTMLMetaElement>('meta[name="embed-data-version"]')
+    ?.content || "dev";
+
+// fetch never times out on its own: without this, a stalled response would
+// keep the loading state up forever instead of retrying and showing the error.
+const FETCH_TIMEOUT_MS = 15000;
+
+const RETRIES = 2;
+
+export const catalogUrl = (locale: Locale) =>
+  `${DATA_URL}/${locale}.json?v=${DATA_VERSION}`;
+
+// data/, files/ and images/ are siblings in the bucket.
+const ROOT = new URL("../", new URL(`${DATA_URL}/`, location.href));
+
+// Desktop picks the editor from everything after the URL's last dot.
+export const fileUrl = (template: ITemplate) =>
+  `${ROOT}files/${template.path}?v=${template.version}.${extOf(template)}`;
+
+export const previewUrl = ({ path, pages, version }: ITemplate) =>
+  pages > 0
+    ? `${ROOT}images/${path.slice(0, path.lastIndexOf("."))}.card.webp?v=${version}`
+    : "";
+
+const isTemplate = (record: IRoomRecord): record is ITemplate =>
+  !!record.meta &&
+  !!PURPOSE_BY_CATEGORY[record.meta.category] &&
+  isAllowedType(extOf(record as ITemplate));
+
+// The room lists newest `added` first; the stable sort keeps that within each half.
+const toTemplates = (records: IRoomRecord[]): ITemplate[] =>
+  records
+    .filter(isTemplate)
+    .sort(
+      (a, b) =>
+        Number(purposeOf(b) === "business") -
+        Number(purposeOf(a) === "business"),
+    );
+
+const wait = (ms: number, signal?: AbortSignal) =>
+  new Promise<void>((resolve, reject) => {
+    const timer = setTimeout(resolve, ms);
+    signal?.addEventListener(
+      "abort",
+      () => {
+        clearTimeout(timer);
+        reject(signal.reason);
+      },
+      { once: true },
+    );
+  });
+
+/**
+ * Fetches the catalog for one locale, retrying twice on failure.
+ *
+ * Only the active locale is ever requested, and the ?v= stamp lets the browser
+ * cache it until a catalog changes.
+ *
+ * Throws once the retries are spent, so the UI can show an explicit error
+ * rather than an empty grid that looks like "no templates".
+ */
+export async function loadCatalog(
+  locale: Locale,
+  signal?: AbortSignal,
+): Promise<ITemplate[]> {
+  if (!DATA_URL) throw new Error("EMBED_DATA_URL is not configured");
+
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await fetchCatalog(locale, signal);
+    } catch (error) {
+      // An abort means the caller moved on (locale switched, unmounted) —
+      // that is not a failure worth retrying.
+      if (signal?.aborted || attempt >= RETRIES) throw error;
+      await wait(500 * (attempt + 1), signal);
+    }
+  }
+}
+
+async function fetchCatalog(
+  locale: Locale,
+  signal?: AbortSignal,
+): Promise<ITemplate[]> {
+  // AbortSignal.any, needed to merge the timeout with the caller's signal, is
+  // Chromium 116; Desktop is 109.
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  const onAbort = () => controller.abort();
+  signal?.addEventListener("abort", onAbort);
+
+  try {
+    const response = await fetch(catalogUrl(locale), {
+      signal: controller.signal,
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const json = (await response.json()) as IRoomRecord[];
+    if (!Array.isArray(json)) throw new Error("unexpected payload shape");
+
+    return toTemplates(json);
+  } finally {
+    clearTimeout(timer);
+    signal?.removeEventListener("abort", onAbort);
+  }
+}

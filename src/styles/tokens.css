@@ -68,40 +68,6 @@
 
   --modal-overlay-background-color: rgba(0, 0, 0, 0.3);
 
-  --select-color: var(--primary-color);
-  --select-border-color: #a6a8b8;
-  --select-background-color: #f3f4f7;
-  --select-label-color: #a6a8b8;
-  --select-placeholder-color: #dcdde6;
-  --select-border-color-hover: #3541f5;
-  --select-border-color-open: #3541f5;
-  --select-background-color-open: #ffffff;
-  --select-opacity-disabled: 0.4;
-  --select-border-color-error: #de3163;
-  --select-color-error: #e97696;
-  --select-dropdown-background-color: #ffffff;
-  --select-dropdown-box-shadow-color: rgba(85, 85, 85, 0.15);
-  --select-option-background-color: transparent;
-  --select-option-background-color-hover: #eef3ff;
-  --select-option-color-selected: #3541f5;
-
-  --textarea-heading-color: #494b5b;
-  --textarea-heading-required-mark-color: #5c61f6;
-  --textarea-label-color: #a6a8b8;
-  --textarea-border-color: #a6a8b8;
-  --textarea-color: var(--primary-color);
-  --textarea-background-color: #ffffff;
-  --textarea-placeholder-color: #a6a8b8;
-  --textarea-placeholder-color-focus: #dcdde6;
-  --textarea-border-color-hover: #3541f5;
-  --textarea-border-color-focus: #3541f5;
-  --textarea-background-color-focus: #ffffff;
-  --textarea-opacity-disabled: 0.4;
-  --textarea-border-color-error: #DE3163;
-  --textarea-color-error: #DE3163;
-  --textarea-background-color-error: #FCEEF2;
-  --textarea-counter-color: #9092a6;
-
   --breadcrumbs-item-link-color: #585A6D;
   --breadcrumbs-item-label-color: #21222B;
 
@@ -166,7 +132,6 @@
   --sidebar-clear-btn-color: #585A6D;
   --sidebar-clear-btn-background-color: rgba(255, 255, 255, 0.9);
   --sidebar-clear-btn-border-color-hover: #CCDBFB;
-  --sidebar-clear-btn-background-color-hover: #DCDDE6;
   --sidebar-clear-btn-box-shadow-color-hover: 0 4px 10px 0 rgba(196, 194, 240, 0.3);
   --sidebar-clear-btn-border-color-focus: #5C86E9;
   --sidebar-item-border-color: rgba(53, 65, 245, 0.07);
@@ -175,7 +140,6 @@
   --sidebar-item-header-count-color: #ffffff;
   --sidebar-item-header-count-background-color: #000122;
   --sidebar-item-text-color: #9092a6;
-  --sidebar-item-show-less-btn-color: #3a3c49;
   --sidebar-item-chevron-down-icon-color: #A6A8B8;
 
   --switch-text-color: #7a7d94;
@@ -250,28 +214,4 @@
   --form-explore-other-template-item-border-color: #d4d4ff;
   --form-explore-other-template-item-color: var(--primary-color);
   --form-explore-other-template-item-background-color: rgba(255, 255, 255, 0.9);
-
-  --form-submit-background-color: #F5F8FF;
-  --form-submit-heading-color: #21222B;
-  --form-submit-text-color: #666980;
-  --form-submit-green-color: #11aa7a;
-  --form-submit-gray-color: #e7e8ee;
-  --form-submit-block-border-color: #ccdbfb;
-  --form-submit-block-background-color: #ffffff;
-  --form-submit-file-text-color: #9092A6;
-  --form-submit-file-accent-text-color: #3541F5;
-  --form-submit-file-list-item-color: #494b5b;
-  --form-submit-file-upload-heading-color: #000122;
-  --form-submit-file-upload-size-color: #7a7d94;
-  --form-submit-file-upload-info-background-error-color: #fceef2;
-  --form-submit-file-upload-cross-btn-background-color: #fceef2;
-  --form-submit-file-upload-error-color: #DE3163;
-  --form-submit-file-upload-btn-color: #3541f5;
-  --form-submit-file-upload-btn-color-hover: rgba(174, 197, 247, 0.25);
-  --form-submit-info-item-heading-color: #494B5B;
-  --form-submit-submitted-successfully-heading-color: #000122;
-  --form-submit-submitted-successfully-item-primary-text-color: #666980;
-  --form-submit-submitted-successfully-item-secondary-heading-color: #7A7D94;
-  --form-submit-submitted-successfully-item-secondary-text-color: #7A7D94;
-  --form-submit-submitted-successfully-block-text-color: #494B5B;
 }

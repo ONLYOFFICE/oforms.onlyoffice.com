@@ -11,6 +11,8 @@
 # next.js
 /.next
 /out/
+/static-build/
+
 
 # jenkins
 /.jenkins/
@@ -38,9 +40,16 @@ next-env.d.ts
 # .idea
 .idea
 
+# claude
+/.claude/
+/CLAUDE.md
+
 # sitemap
 /public/sitemap.xml
 
 # robots.txt
 /public/robots.txt
 
+embed/scripts/description-review.mjs
+embed/scripts/title-review.mjs
+embed/scripts/download-files.mjs

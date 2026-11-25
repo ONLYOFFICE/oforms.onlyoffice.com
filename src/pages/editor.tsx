@@ -1,38 +1,50 @@
 /*
- * (c) Copyright Ascensio System SIA 2009-2026
+ * Copyright (C) Ascensio System SIA, 2009-2026
  *
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms
- * of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
- * Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
- * to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of
- * any third-party rights.
+ * This program is a free software product. You can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License (AGPL)
+ * version 3 as published by the Free Software Foundation, together with the
+ * additional terms provided in the LICENSE file.
  *
- * This program is distributed WITHOUT ANY WARRANTY, without even the implied warranty
- * of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see
- * the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * This program is distributed WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For
+ * details, see the GNU AGPL at: https://www.gnu.org/licenses/agpl-3.0.html
  *
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * You can contact Ascensio System SIA by email at info@onlyoffice.com
+ * or by postal mail at 20A-6 Ernesta Birznieka-Upisha Street, Riga,
+ * LV-1050, Latvia, European Union.
  *
- * The  interactive user interfaces in modified source and object code versions of the Program must
- * display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * The interactive user interfaces in modified versions of the Program
+ * are required to display Appropriate Legal Notices in accordance with
+ * Section 5 of the GNU AGPL version 3.
  *
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when
- * distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under
- * trademark law for use of our trademarks.
+ * No trademark rights are granted under this License.
  *
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
- * content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
- * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * All non-code elements of the Product, including illustrations,
+ * icon sets, and technical writing content, are licensed under the
+ * Creative Commons Attribution-ShareAlike 4.0 International License:
+ * https://creativecommons.org/licenses/by-sa/4.0/legalcode
+ *
+ * This license applies only to such non-code elements and does not
+ * modify or replace the licensing terms applicable to the Program's
+ * source code, which remains licensed under the GNU Affero General
+ * Public License v3.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
  */
 
+import { randomBytes } from "crypto";
 import { GetServerSidePropsContext } from "next";
 import Script from "next/script";
+import jwt from "jsonwebtoken";
 import CONFIG from "@src/config/config.json";
 import { Layout } from "@src/components/Layout";
 import { Head } from "@src/components/modules/Head";
-import { ALLOWED_TYPES } from "@src/utils/allowedTypes";
-import { cmsLocale } from "@src/utils/cmsLocale";
+import { cmsLocale } from "@src/utils/editorLang";
+import { getTemplates } from "@src/lib/requests/getTemplates";
+import { extOf, fileName, fileUrl } from "@src/utils/templateFiles";
+import { getSiteUrl } from "@src/utils/seoUrl";
+import { TFormat } from "@src/types/data";
 import { languages } from "@src/config/languages";
 import { ILocale } from "@src/types/locale";
 
@@ -47,14 +59,15 @@ const resolveEditorLocale = (
   return raw && LOCALES.includes(raw) ? (raw as ILocale["locale"]) : fallback;
 };
 
+const DOCUMENT_TYPES: Record<TFormat, string> = {
+  docx: "word",
+  xlsx: "cell",
+  pptx: "slide",
+  pdf: "pdf",
+};
+
 const FILENAME_MAX_LENGTH = 300;
 const FILENAME_PATTERN = /^[a-zA-Z0-9._-]+$/;
-const FILLFORM_PATTERN = new RegExp(
-  `^[a-zA-Z0-9_-]+\\.(${ALLOWED_TYPES.map((type) =>
-    type.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
-  ).join("|")})$`,
-  "i",
-);
 
 declare global {
   interface Window {
@@ -105,15 +118,12 @@ const EditorPage = ({ filename, title, config }: IEditorPage) => {
 export const getServerSideProps = async ({
   query,
 }: GetServerSidePropsContext) => {
-  const { lang, formlang, filename, fillform } = query;
+  const { lang, formlang, filename } = query;
   const locale = resolveEditorLocale(lang, "en");
   const formLocale = resolveEditorLocale(formlang, locale);
   const cmsLang = cmsLocale(locale);
-  const cmsFormLang = cmsLocale(formLocale);
   const normalizedFilename =
     (Array.isArray(filename) ? filename[0] : filename) ?? "";
-  const normalizedFillform =
-    (Array.isArray(fillform) ? fillform[0] : fillform) ?? "";
 
   if (
     !normalizedFilename ||
@@ -125,47 +135,48 @@ export const getServerSideProps = async ({
     };
   }
 
-  if (normalizedFillform && !FILLFORM_PATTERN.test(normalizedFillform)) {
-    return {
-      notFound: true,
-    };
-  }
-
-  const oformsRes = await fetch(
-    `${CONFIG.api.cms}/api/oforms?filters[url][$eq]=${encodeURIComponent(normalizedFilename)}&locale=${encodeURIComponent(cmsFormLang)}`,
+  const template = (await getTemplates(formLocale)).find(
+    ({ meta }) => meta.slug === normalizedFilename,
   );
-  if (!oformsRes.ok) {
-    throw new Error(`Request failed with status ${oformsRes.status}`);
-  }
-  const oforms = await oformsRes.json();
 
-  if (oforms.data.length === 0) {
+  if (!template) {
     return {
       notFound: true,
     };
   }
 
-  try {
-    const configRes = await fetch(
-      `${process.env.CONFIG_API_URL}/api/config?lang=${encodeURIComponent(cmsLang)}&title=${encodeURIComponent(normalizedFilename)}&url=${encodeURIComponent(normalizedFillform)}`,
-    );
-    if (!configRes.ok) {
-      throw new Error(`Request failed with status ${configRes.status}`);
-    }
-    const config = await configRes.json();
+  const secret = process.env.FILES_DOCSERVICE_SECRET;
+  if (!secret) throw new Error("FILES_DOCSERVICE_SECRET is not set");
 
-    return {
-      props: {
-        filename: normalizedFilename,
-        title: oforms.data[0].name_form || normalizedFilename,
-        config: JSON.stringify(config),
-      },
-    };
-  } catch {
-    return {
-      notFound: true,
-    };
-  }
+  const ext = extOf(template);
+  const config = {
+    document: {
+      // A fresh key per visit: a shared one would put strangers filling the same
+      // form into one co-editing session.
+      key: `${ext}_${randomBytes(16).toString("hex")}`,
+      fileType: ext,
+      title: fileName(template),
+      url: fileUrl(template),
+      permissions: { edit: false, fillForms: true },
+    },
+    editorConfig: {
+      callbackUrl: `${getSiteUrl()}/api/editor-callback`,
+      lang: cmsLang,
+      customization: { anonymous: { request: false } },
+      coEditing: { mode: "strict", change: false },
+    },
+    documentType: DOCUMENT_TYPES[ext],
+    height: "100%",
+    width: "100%",
+  };
+
+  return {
+    props: {
+      filename: normalizedFilename,
+      title: template.meta["card-title"],
+      config: JSON.stringify({ ...config, token: jwt.sign(config, secret) }),
+    },
+  };
 };
 
 export default EditorPage;

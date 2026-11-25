@@ -1,36 +1,43 @@
 /*
- * (c) Copyright Ascensio System SIA 2009-2026
+ * Copyright (C) Ascensio System SIA, 2009-2026
  *
- * This program is a free software product.
- * You can redistribute it and/or modify it under the terms
- * of the GNU Affero General Public License (AGPL) version 3 as published by the Free Software
- * Foundation. In accordance with Section 7(a) of the GNU AGPL its Section 15 shall be amended
- * to the effect that Ascensio System SIA expressly excludes the warranty of non-infringement of
- * any third-party rights.
+ * This program is a free software product. You can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License (AGPL)
+ * version 3 as published by the Free Software Foundation, together with the
+ * additional terms provided in the LICENSE file.
  *
- * This program is distributed WITHOUT ANY WARRANTY, without even the implied warranty
- * of MERCHANTABILITY or FITNESS FOR A PARTICULAR  PURPOSE. For details, see
- * the GNU AGPL at: http://www.gnu.org/licenses/agpl-3.0.html
+ * This program is distributed WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For
+ * details, see the GNU AGPL at: https://www.gnu.org/licenses/agpl-3.0.html
  *
- * You can contact Ascensio System SIA at Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021.
+ * You can contact Ascensio System SIA by email at info@onlyoffice.com
+ * or by postal mail at 20A-6 Ernesta Birznieka-Upisha Street, Riga,
+ * LV-1050, Latvia, European Union.
  *
- * The  interactive user interfaces in modified source and object code versions of the Program must
- * display Appropriate Legal Notices, as required under Section 5 of the GNU AGPL version 3.
+ * The interactive user interfaces in modified versions of the Program
+ * are required to display Appropriate Legal Notices in accordance with
+ * Section 5 of the GNU AGPL version 3.
  *
- * Pursuant to Section 7(b) of the License you must retain the original Product logo when
- * distributing the program. Pursuant to Section 7(e) we decline to grant you any rights under
- * trademark law for use of our trademarks.
+ * No trademark rights are granted under this License.
  *
- * All the Product's GUI elements, including illustrations and icon sets, as well as technical writing
- * content are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0
- * International. See the License terms at http://creativecommons.org/licenses/by-sa/4.0/legalcode
+ * All non-code elements of the Product, including illustrations,
+ * icon sets, and technical writing content, are licensed under the
+ * Creative Commons Attribution-ShareAlike 4.0 International License:
+ * https://creativecommons.org/licenses/by-sa/4.0/legalcode
+ *
+ * This license applies only to such non-code elements and does not
+ * modify or replace the licensing terms applicable to the Program's
+ * source code, which remains licensed under the GNU Affero General
+ * Public License v3.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { IFormsData } from "@src/types/data";
 import { ALLOWED_TYPES, TAllowedTypes } from "@src/utils/allowedTypes";
 import { getSelectedCountries } from "@src/utils/localeCountry";
 import { normalizeSearchQuery } from "@src/utils/searchQuery";
-import { VISIBLE_SUBCATEGORIES_LIMIT } from "@src/utils/queryFilters";
+import { DEFAULT_PURPOSE_KEY, PURPOSE_BY_CATEGORY } from "@src/utils/purposes";
+import { cardUrl, extOf } from "@src/utils/templateFiles";
 import {
   getTemplatesByExt,
   getPopularTemplates,
@@ -43,14 +50,19 @@ import {
   getCountries,
   getFilteredForms,
   getFormsInScope,
-  getPurposes,
-  getTemplatesByParentCategory,
-  getTemplatesBySubcategories,
+  getPurposeKeys,
+  getTemplatesByCategory,
   groupFormsByExt,
   resolvePurpose,
-  DEFAULT_PURPOSE_KEY,
 } from "@src/components/templates/Main/Main.utils";
-import { ICategoryTree } from "@src/components/modules/Main/Main.types";
+import { ICategoryNode } from "@src/components/modules/Main/Main.types";
+import { TCatalogItem } from "@src/types/room";
+import {
+  categoryName,
+  collatorFor,
+  countryName,
+  purposeName,
+} from "./catalogNames";
 import {
   ICardView,
   ICategoryView,
@@ -62,8 +74,6 @@ import {
   TFormNames,
 } from "./mainView.types";
 
-type TFormItem = IFormsData["data"][number];
-
 const TYPE_SECTIONS: { ext: TAllowedTypes; labelKey: string }[] = [
   { ext: "docx", labelKey: "DocumentTemplates" },
   { ext: "xlsx", labelKey: "SpreadsheetTemplates" },
@@ -72,6 +82,7 @@ const TYPE_SECTIONS: { ext: TAllowedTypes; labelKey: string }[] = [
 ];
 
 const CATEGORY_SECTIONS_LIMIT = 3;
+const CATEGORY_SECTION_SIZE = 4;
 
 const getAllowedTypes = (types: string[]): TAllowedTypes[] =>
   Array.from(new Set(types.map((item) => item.toLowerCase()))).filter(
@@ -79,68 +90,63 @@ const getAllowedTypes = (types: string[]): TAllowedTypes[] =>
       ALLOWED_TYPES.includes(item as TAllowedTypes),
   );
 
-const getAllowedSubcategories = (
-  forms: TFormItem[] | undefined,
-  subcategories: string[],
+const getAllowedCategories = (
+  forms: TCatalogItem[],
+  categories: string[],
 ): string[] => {
-  const available = new Set(
-    forms?.flatMap(
-      (form) =>
-        form.subcategories?.filter(Boolean).map((sub) => sub.urlReq) ?? [],
-    ),
-  );
+  const available = new Set(forms.map(({ meta }) => meta.category));
 
   return Array.from(
-    new Set(subcategories.map((item) => item.toLowerCase())),
+    new Set(categories.map((item) => item.toLowerCase())),
   ).filter((item) => available.has(item));
 };
 
-const getSubcategoryPurposes = (forms: TFormItem[] | undefined) => {
-  const result = new Map<string, Set<string>>();
+const getCountryCodes = (forms: TCatalogItem[]) =>
+  getCountries(forms).map(({ code }) => code);
 
-  forms?.forEach((form) => {
-    form.subcategories?.filter(Boolean).forEach((sub) => {
-      sub.parent_categories?.forEach((cat) => {
-        const key = cat?.purpose?.key;
-        if (!key) return;
-        if (!result.has(sub.urlReq)) result.set(sub.urlReq, new Set());
-        result.get(sub.urlReq)!.add(key);
-      });
-    });
-  });
+const categoryTree = (
+  forms: TCatalogItem[],
+  locale: string,
+  keep?: { forms: TCatalogItem[]; categories: string[] },
+) => {
+  const collator = collatorFor(locale);
 
-  return result;
+  return getCategoriesByPurpose(
+    forms,
+    (slug) => categoryName(locale, slug),
+    (a, b) => collator.compare(a, b),
+    keep,
+  );
 };
 
 const getPurposeFacets = (
-  allForms: TFormItem[] | undefined,
-  categoriesByPurpose: Record<string, ICategoryTree[]>,
+  allForms: TCatalogItem[],
+  categoriesByPurpose: Record<string, ICategoryNode[]>,
   filters: IMainViewFilters,
   keepEmptyPurposes = true,
 ) => {
-  const purposes = getPurposes(allForms).filter(
-    (purpose) =>
-      categoriesByPurpose[purpose.key]?.length ||
+  const keys = getPurposeKeys(allForms).filter(
+    (key) =>
+      categoriesByPurpose[key]?.length ||
       (keepEmptyPurposes &&
-        (purpose.key === filters.purpose ||
-          purpose.key === DEFAULT_PURPOSE_KEY)),
+        (key === filters.purpose || key === DEFAULT_PURPOSE_KEY)),
   );
 
-  const selectedPurpose = resolvePurpose(
-    purposes.map((purpose) => purpose.key),
-    categoriesByPurpose,
-    { purpose: filters.purpose, subcategory: filters.subcategory },
-  );
-
-  const subcategoryPurposes = getSubcategoryPurposes(allForms);
+  const selectedPurpose = resolvePurpose(keys, categoriesByPurpose, {
+    purpose: filters.purpose,
+    category: filters.category,
+  });
 
   return {
-    purposes,
+    purposes: keys.map((key) => ({
+      key,
+      name: purposeName(filters.locale, key),
+    })),
     selectedPurpose,
-    subcategories: filters.subcategory.filter((sub) => {
-      const keys = subcategoryPurposes.get(sub);
-      return !selectedPurpose || !keys || keys.has(selectedPurpose);
-    }),
+    categories: filters.category.filter(
+      (category) =>
+        !selectedPurpose || PURPOSE_BY_CATEGORY[category] === selectedPurpose,
+    ),
   };
 };
 
@@ -148,23 +154,25 @@ const toPurposeList = (purpose?: string): string[] =>
   purpose ? [purpose] : [];
 
 const getCountriesWithSelected = (
-  forms: TFormItem[],
-  sourceForms: TFormItem[] | undefined,
+  forms: TCatalogItem[],
+  sourceForms: TCatalogItem[],
   selectedCountries: string[],
-  countryNames?: Record<string, string>,
+  locale: string,
 ) => {
-  const countries = getCountries(forms, countryNames);
-  const missing = getCountries(sourceForms, countryNames)
+  const countries = getCountries(forms);
+  const missing = getCountries(sourceForms)
     .filter(
-      (country) =>
-        selectedCountries.includes(country.code.toLowerCase()) &&
-        !countries.some((item) => item.code === country.code),
+      ({ code }) =>
+        selectedCountries.includes(code) &&
+        !countries.some((item) => item.code === code),
     )
     .map((country) => ({ ...country, count: 0 }));
 
-  return [...countries, ...missing].sort(
-    (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
-  );
+  return [...countries, ...missing].map(({ code, count }) => ({
+    code,
+    count,
+    name: countryName(locale, code),
+  }));
 };
 
 const pickSidebarFacets = ({
@@ -185,105 +193,98 @@ const pickSidebarFacets = ({
   categoriesByPurpose,
 });
 
-const toCardView = (form: TFormItem): ICardView => ({
+const toCardView = (form: TCatalogItem): ICardView => ({
   id: form.id,
-  name_form: form.name_form,
-  description_card: form.description_card,
-  url: form.url,
-  preview: form.card_prewiew?.url ?? "",
-  format: form.form_exts?.[0]?.ext ?? ALLOWED_TYPES[0],
-  ...(form.locale && { locale: form.locale }),
+  name_form: form.meta["card-title"],
+  description_card: form.meta["card-text"],
+  url: form.meta.slug,
+  preview: cardUrl(form),
+  format: extOf(form),
+  locale: form.locale,
 });
 
 export const buildFormNames = (
-  allForms: TFormItem[] | undefined,
+  allForms: TCatalogItem[],
   locale: string,
   rawCountry: string[],
 ): TFormNames => {
   const country = getSelectedCountries(
     rawCountry,
     locale,
-    getCountries(allForms).map((item) => item.code.toLowerCase()),
+    getCountryCodes(allForms),
   );
 
   return getFilteredForms(getFormsInScope(allForms, locale, country), {
     country,
-  }).map(({ id, name_form, url, locale: formLocale }) => ({
-    id,
-    name_form,
-    url,
-    ...(formLocale && { locale: formLocale }),
+  }).map((form) => ({
+    id: form.id,
+    name_form: form.meta["card-title"],
+    url: form.meta.slug,
+    locale: form.locale,
   }));
 };
 
 export const resolveMainFilters = (
-  forms: TFormItem[] | undefined,
+  forms: TCatalogItem[],
   raw: {
     locale: string;
     type: string[];
     country: string[];
-    subcategory: string[];
+    category: string[];
     purpose?: string;
     sort?: string | string[];
   },
-): IMainViewFilters => {
-  const type = getAllowedTypes(raw.type);
-  const country = getSelectedCountries(
+): IMainViewFilters => ({
+  locale: raw.locale,
+  type: getAllowedTypes(raw.type),
+  country: getSelectedCountries(
     raw.country,
     raw.locale,
-    getCountries(forms).map((item) => item.code.toLowerCase()),
-  );
-
-  return {
-    locale: raw.locale,
-    type,
-    country,
-    subcategory: getAllowedSubcategories(forms, raw.subcategory),
-    purpose: raw.purpose || undefined,
-    sort: normalizeSortKey(raw.sort),
-  };
-};
+    getCountryCodes(forms),
+  ),
+  category: getAllowedCategories(forms, raw.category),
+  purpose: raw.purpose || undefined,
+  sort: normalizeSortKey(raw.sort),
+});
 
 export const buildMainView = (
-  allForms: TFormItem[] | undefined,
+  allForms: TCatalogItem[],
   filters: IMainViewFilters,
-  countryNames?: Record<string, string>,
 ): IMainView => {
   const {
     locale,
     type: selectedTypes,
     country: selectedCountries,
-    subcategory: requestedSubcategories,
+    category: requestedCategories,
   } = filters;
 
   const scopedForms = getFormsInScope(allForms, locale, selectedCountries);
 
-  const formsForCategoryFilter = getFilteredForms(scopedForms, {
-    type: selectedTypes,
-    country: selectedCountries,
-  });
-
-  const categoriesByPurpose = getCategoriesByPurpose(formsForCategoryFilter, {
-    forms: scopedForms,
-    subcategories: requestedSubcategories,
-  });
+  const categoriesByPurpose = categoryTree(
+    getFilteredForms(scopedForms, {
+      type: selectedTypes,
+      country: selectedCountries,
+    }),
+    locale,
+    { forms: scopedForms, categories: requestedCategories },
+  );
 
   const {
     purposes,
     selectedPurpose,
-    subcategories: selectedSubcategories,
+    categories: selectedCategories,
   } = getPurposeFacets(allForms, categoriesByPurpose, filters);
   const selectedPurposes = toPurposeList(selectedPurpose);
 
   const formsForTypeFilter = getFilteredForms(scopedForms, {
     country: selectedCountries,
     purpose: selectedPurposes,
-    subcategory: selectedSubcategories,
+    category: selectedCategories,
   });
   const formsForCountryFilter = getFilteredForms(allForms, {
     type: selectedTypes,
     purpose: selectedPurposes,
-    subcategory: selectedSubcategories,
+    category: selectedCategories,
   });
 
   const filteredForms = sortForms(
@@ -291,7 +292,7 @@ export const buildMainView = (
       type: selectedTypes,
       country: selectedCountries,
       purpose: selectedPurposes,
-      subcategory: selectedSubcategories,
+      category: selectedCategories,
     }),
     filters.sort,
   );
@@ -299,44 +300,40 @@ export const buildMainView = (
   const purposeCategories = selectedPurpose
     ? (categoriesByPurpose[selectedPurpose] ?? [])
     : [];
-  const expandableCategories = new Set(
-    purposeCategories
-      .filter(
-        ({ subcategories }) =>
-          subcategories.filter((sub) => sub.count > 0).length >
-          VISIBLE_SUBCATEGORIES_LIMIT,
-      )
-      .map(({ category }) => category.urlReq),
-  );
 
   const categorySections: IMainSectionView[] =
-    selectedTypes.length || selectedSubcategories.length || !selectedPurpose
+    selectedTypes.length || selectedCategories.length || !selectedPurpose
       ? []
       : purposeCategories
-          .map(({ category }) =>
-            getTemplatesByParentCategory(filteredForms, category.urlReq),
-          )
-          .filter(
-            (section): section is NonNullable<typeof section> =>
-              section !== null && section.data.length > 0,
-          )
+          .map((node) => ({
+            node,
+            data: getTemplatesByCategory(
+              filteredForms,
+              node.urlReq,
+              CATEGORY_SECTION_SIZE,
+            ),
+          }))
+          .filter(({ data }) => data.length > 0)
           .slice(0, CATEGORY_SECTIONS_LIMIT)
-          .map(({ category, data }) => ({
-            key: `category-${category.id}`,
-            label: category.name,
-            href: category.urlReq,
-            expanded: expandableCategories.has(category.urlReq),
+          .map(({ node, data }) => ({
+            key: `category-${node.urlReq}`,
+            label: node.name,
+            href: node.urlReq,
             data: data.map(toCardView),
           }));
 
-  const filterSections: IMainSectionView[] = selectedSubcategories.length
-    ? getTemplatesBySubcategories(filteredForms, selectedSubcategories).map(
-        ({ subcategory, data }) => ({
-          key: `subcategory-${subcategory.id}`,
-          label: subcategory.name,
+  const filterSections: IMainSectionView[] = selectedCategories.length
+    ? selectedCategories
+        .map((category) => ({
+          category,
+          data: getTemplatesByCategory(filteredForms, category),
+        }))
+        .filter(({ data }) => data.length > 0)
+        .map(({ category, data }) => ({
+          key: `category-${category}`,
+          label: categoryName(locale, category),
           data: data.map(toCardView),
-        }),
-      )
+        }))
     : TYPE_SECTIONS.filter((section) => selectedTypes.includes(section.ext))
         .map((section) => ({
           section,
@@ -365,7 +362,7 @@ export const buildMainView = (
       formsForCountryFilter,
       allForms,
       selectedCountries,
-      countryNames,
+      locale,
     ),
     purposes,
     categoriesByPurpose,
@@ -376,150 +373,13 @@ export const buildMainView = (
   };
 };
 
-const isInCategory = (form: TFormItem, categoryUrlReq: string) =>
-  form.subcategories?.some((sub) =>
-    sub?.parent_categories?.some((cat) => cat?.urlReq === categoryUrlReq),
-  );
-
-const getCategorySubcategories = (
-  forms: TFormItem[],
-  categoryUrlReq: string,
-): string[] => {
-  const createdAt = new Map<string, number>();
-
-  forms.forEach((form) => {
-    form.subcategories?.forEach((sub) => {
-      if (
-        !sub?.parent_categories?.some((cat) => cat?.urlReq === categoryUrlReq)
-      )
-        return;
-      const time = new Date(sub.createdAt).getTime();
-      const current = createdAt.get(sub.urlReq);
-      if (current === undefined || time < current)
-        createdAt.set(sub.urlReq, time);
-    });
-  });
-
-  return Array.from(createdAt.entries())
-    .sort(([, a], [, b]) => a - b)
-    .map(([urlReq]) => urlReq);
-};
-
-const getCategoryPurpose = (
-  forms: TFormItem[],
-  categoryUrlReq: string,
-): string | undefined => {
-  for (const form of forms) {
-    for (const sub of form.subcategories ?? []) {
-      const category = sub?.parent_categories?.find(
-        (cat) => cat?.urlReq === categoryUrlReq,
-      );
-      if (category?.purpose?.key) return category.purpose.key;
-    }
-  }
-  return undefined;
-};
-
 export const resolveCategoryFilters = (
-  allForms: TFormItem[] | undefined,
-  categoryUrlReq: string,
+  allForms: TCatalogItem[],
+  category: string,
   raw: {
     locale: string;
     type: string[];
     country: string[];
-    sort?: string | string[];
-  },
-): IMainViewFilters => {
-  const categoryForms = allForms?.filter((form) =>
-    isInCategory(form, categoryUrlReq),
-  );
-
-  return {
-    locale: raw.locale,
-    type: getAllowedTypes(raw.type),
-    country: getSelectedCountries(
-      raw.country,
-      raw.locale,
-      getCountries(categoryForms).map((item) => item.code.toLowerCase()),
-    ),
-    subcategory: [],
-    sort: normalizeSortKey(raw.sort),
-  };
-};
-
-export const buildCategoryView = (
-  allForms: TFormItem[] | undefined,
-  categoryUrlReq: string,
-  filters: IMainViewFilters,
-  countryNames?: Record<string, string>,
-): ICategoryView => {
-  const {
-    locale,
-    type: selectedTypes,
-    country: selectedCountries,
-    sort,
-  } = filters;
-
-  const localeForms = getFormsInScope(
-    allForms,
-    locale,
-    selectedCountries,
-  ).filter((form) => isInCategory(form, categoryUrlReq));
-  const scopedForms = getFilteredForms(localeForms, {
-    country: selectedCountries,
-  });
-
-  const filteredForms = sortForms(
-    getFilteredForms(scopedForms, { type: selectedTypes }),
-    sort,
-  );
-
-  const sections = getTemplatesBySubcategories(
-    filteredForms,
-    getCategorySubcategories(filteredForms, categoryUrlReq),
-  ).map(({ subcategory, data }) => ({
-    key: `subcategory-${subcategory.id}`,
-    label: subcategory.name,
-    data: data.map(toCardView),
-  }));
-
-  const result = {
-    categoryUrlReq,
-    totalCount: filteredForms.length,
-    popularTemplates: getSectionPopularTemplates(filteredForms).map(toCardView),
-    sections,
-    isEmpty: sections.length === 0,
-  };
-
-  return {
-    ...result,
-    ...pickSidebarFacets(
-      buildMainView(
-        allForms,
-        result.isEmpty
-          ? { ...filters, subcategory: [] }
-          : {
-              ...filters,
-              subcategory: getCategorySubcategories(
-                scopedForms,
-                categoryUrlReq,
-              ),
-              purpose: getCategoryPurpose(scopedForms, categoryUrlReq),
-            },
-        countryNames,
-      ),
-    ),
-  };
-};
-
-export const resolveSearchFilters = (
-  allForms: TFormItem[] | undefined,
-  raw: {
-    locale: string;
-    type: string[];
-    country: string[];
-    subcategory: string[];
-    purpose?: string;
     sort?: string | string[];
   },
 ): IMainViewFilters => ({
@@ -528,24 +388,81 @@ export const resolveSearchFilters = (
   country: getSelectedCountries(
     raw.country,
     raw.locale,
-    getCountries(allForms).map((item) => item.code.toLowerCase()),
+    getCountryCodes(allForms.filter(({ meta }) => meta.category === category)),
   ),
-  subcategory: getAllowedSubcategories(allForms, raw.subcategory),
-  purpose: raw.purpose || undefined,
+  category: [],
   sort: normalizeSortKey(raw.sort),
 });
 
+export const buildCategoryView = (
+  allForms: TCatalogItem[],
+  category: string,
+  filters: IMainViewFilters,
+): ICategoryView => {
+  const { locale, type: selectedTypes, country: selectedCountries } = filters;
+
+  const scopedForms = getFilteredForms(
+    getFormsInScope(allForms, locale, selectedCountries),
+    { country: selectedCountries, category: [category] },
+  );
+  const filteredForms = sortForms(
+    getFilteredForms(scopedForms, { type: selectedTypes }),
+    filters.sort,
+  );
+  const isEmpty = filteredForms.length === 0;
+
+  return {
+    categoryUrlReq: category,
+    totalCount: filteredForms.length,
+    popularTemplates: getSectionPopularTemplates(filteredForms).map(toCardView),
+    sections: isEmpty
+      ? []
+      : [
+          {
+            key: `category-${category}`,
+            label: categoryName(locale, category),
+            data: filteredForms.map(toCardView),
+          },
+        ],
+    isEmpty,
+    ...pickSidebarFacets(
+      buildMainView(
+        allForms,
+        isEmpty
+          ? filters
+          : {
+              ...filters,
+              category: [category],
+              purpose: PURPOSE_BY_CATEGORY[category],
+            },
+      ),
+    ),
+  };
+};
+
+export const resolveSearchFilters = (
+  allForms: TCatalogItem[],
+  raw: {
+    locale: string;
+    type: string[];
+    country: string[];
+    category: string[];
+    purpose?: string;
+    sort?: string | string[];
+  },
+): IMainViewFilters => resolveMainFilters(allForms, raw);
+
 const buildSearchFacets = (
-  matchedForms: TFormItem[],
-  scopedMatchedForms: TFormItem[],
+  matchedForms: TCatalogItem[],
+  scopedMatchedForms: TCatalogItem[],
   filters: IMainViewFilters,
   selectedPurposes: string[],
-  countryNames?: Record<string, string>,
 ) => {
   const {
+    locale,
     type: selectedTypes,
     country: selectedCountries,
-    subcategory: selectedSubcategories,
+    category: selectedCategories,
   } = filters;
 
   const {
@@ -557,7 +474,7 @@ const buildSearchFacets = (
     getFilteredForms(scopedMatchedForms, {
       country: selectedCountries,
       purpose: selectedPurposes,
-      subcategory: selectedSubcategories,
+      category: selectedCategories,
     }),
   );
 
@@ -570,34 +487,33 @@ const buildSearchFacets = (
       getFilteredForms(matchedForms, {
         type: selectedTypes,
         purpose: selectedPurposes,
-        subcategory: selectedSubcategories,
+        category: selectedCategories,
       }),
       matchedForms,
       selectedCountries,
-      countryNames,
+      locale,
     ),
   };
 };
 
 export const buildSearchView = (
-  allForms: TFormItem[] | undefined,
+  allForms: TCatalogItem[],
   searchQuery: string,
   filters: IMainViewFilters,
-  countryNames?: Record<string, string>,
 ): ISearchView => {
   const {
     locale,
     type: selectedTypes,
     country: selectedCountries,
-    subcategory: requestedSubcategories,
+    category: requestedCategories,
     sort,
   } = filters;
 
   const trimmedQuery = searchQuery.trim();
   const query = normalizeSearchQuery(trimmedQuery, locale);
   const matchedForms = query
-    ? (allForms ?? []).filter((form) =>
-        form.name_form.toLowerCase().includes(query),
+    ? allForms.filter((form) =>
+        form.meta["card-title"].toLowerCase().includes(query),
       )
     : [];
 
@@ -607,18 +523,19 @@ export const buildSearchView = (
     selectedCountries,
   );
 
-  const categoriesByPurpose = getCategoriesByPurpose(
+  const categoriesByPurpose = categoryTree(
     getFilteredForms(scopedMatchedForms, {
       type: selectedTypes,
       country: selectedCountries,
     }),
-    { forms: scopedMatchedForms, subcategories: requestedSubcategories },
+    locale,
+    { forms: scopedMatchedForms, categories: requestedCategories },
   );
 
   const {
     purposes,
     selectedPurpose,
-    subcategories: selectedSubcategories,
+    categories: selectedCategories,
   } = getPurposeFacets(allForms, categoriesByPurpose, filters, false);
   const selectedPurposes = toPurposeList(selectedPurpose);
 
@@ -627,12 +544,11 @@ export const buildSearchView = (
       type: selectedTypes,
       country: selectedCountries,
       purpose: selectedPurposes,
-      subcategory: selectedSubcategories,
+      category: selectedCategories,
     }),
     sort,
   );
   const isEmpty = foundForms.length === 0;
-  const hasMatches = matchedForms.length > 0;
 
   return {
     searchQuery: trimmedQuery,
@@ -650,13 +566,12 @@ export const buildSearchView = (
         ).map(toCardView)
       : [],
     isEmpty,
-    hasMatches,
+    hasMatches: matchedForms.length > 0,
     ...buildSearchFacets(
       matchedForms,
       scopedMatchedForms,
-      { ...filters, subcategory: selectedSubcategories },
+      { ...filters, category: selectedCategories },
       selectedPurposes,
-      countryNames,
     ),
     purposes,
     categoriesByPurpose,
