@@ -40,7 +40,7 @@ import jwt from "jsonwebtoken";
 import CONFIG from "@src/config/config.json";
 import { Layout } from "@src/components/Layout";
 import { Head } from "@src/components/modules/Head";
-import { cmsLocale } from "@src/utils/cmsLocale";
+import { cmsLocale } from "@src/utils/editorLang";
 import { getTemplates } from "@src/lib/requests/getTemplates";
 import { extOf, fileName, fileUrl } from "@src/utils/templateFiles";
 import { getSiteUrl } from "@src/utils/seoUrl";
