@@ -1,0 +1,110 @@
+name: Sync embed templates from DocSpace
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: List the template files to upload and delete without changing the bucket
+        type: boolean
+        default: true
+      all:
+        description: Upload and render every template file, changed or not
+        type: boolean
+        default: false
+  # Fires only from the default branch, with its code. Has no inputs, so it syncs for real.
+  schedule:
+    - cron: "0 3 * * *"
+
+# Two runs would race on data/<locale>.json; the next one resumes where this one stops.
+concurrency:
+  group: sync-docspace
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - uses: actions/setup-python@v5
+        if: ${{ !inputs.dry_run }}
+        with:
+          python-version: "3.12"
+
+      # The Gantt files need 10.0.3, not yet on PyPI: the variable holds its Linux wheel URL, with a
+      # #sha256= fragment. Delete it once the pin below can move.
+      - name: Install Document Builder
+        if: ${{ !inputs.dry_run }}
+        env:
+          DOCBUILDER_WHEEL_URL: ${{ vars.DOCBUILDER_WHEEL_URL }}
+        run: pip install "${DOCBUILDER_WHEEL_URL:-document-builder==10.0.0.170}" pillow
+
+      # Without system fonts the builder draws no text at all. The EULA key is "accepted-", not the
+      # widely copied "accept-": with that one apt succeeds and downloads nothing, hence the test.
+      # No fonts-kacst: Arabic in fonts that lack it (Arial Black, Constantia) falls back to a
+      # decorative KACST face and joins wrongly; Noto joins it right.
+      - name: Install fonts
+        if: ${{ !inputs.dry_run }}
+        run: |
+          echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ttf-mscorefonts-installer fonts-liberation \
+            fonts-opensymbol fonts-dejavu fonts-takao-gothic fonts-noto-cjk fonts-noto-core
+          test -f /usr/share/fonts/truetype/msttcorefonts/Arial.ttf
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ vars.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      # The sync renders RENDERERS locales at once: these say whether the runner holds them.
+      - name: Runner size
+        run: nproc && free -m
+
+      # Uploads every 10 files, so a run cut short by the job timeout keeps what it rendered
+      # and the next run goes on from there.
+      - name: Sync template files and previews from DocSpace
+        env:
+          DOCSPACE_URL: ${{ vars.DOCSPACE_URL }}
+          DOCSPACE_API_KEY: ${{ secrets.DOCSPACE_API_KEY }}
+          DOCSPACE_FOLDER_ID: ${{ vars.DOCSPACE_FOLDER_ID }}
+          FILES_BUCKET_URL: ${{ vars.FILES_BUCKET_URL }}
+          DOCBUILDER_LICENSE_XML: ${{ secrets.DOCBUILDER_LICENSE_XML }}
+        run: |
+          export DOCBUILDER_LICENSE="$RUNNER_TEMP/license.xml"
+          printf '%s' "$DOCBUILDER_LICENSE_XML" > "$DOCBUILDER_LICENSE"
+          node embed/scripts/sync-docspace.mjs ${{ inputs.dry_run && '--dry-run' || '' }} ${{ inputs.all && '--all' || '' }}
+
+      # The catalogs are immutable under the stamp in index.html, so they reach users only
+      # with a new stamp. Only index.html carries it, so nothing is rebuilt. A sync with
+      # failed previews still uploaded catalogs, hence !cancelled().
+      - name: Stamp the deployed index.html with the catalogs' upload time
+        if: ${{ !cancelled() && !inputs.dry_run }}
+        env:
+          FILES_BUCKET_URL: ${{ vars.FILES_BUCKET_URL }}
+          INDEX: ${{ vars.AWS_BUCKET_URL }}/index.html
+        run: |
+          path=${FILES_BUCKET_URL#s3://}
+          prefix=${path#*/}
+          time=$(aws s3api list-objects-v2 --bucket "${path%%/*}" --prefix "${prefix%files}data/" \
+            --query 'max(Contents[].LastModified)' --output text)
+          test "$time" != None
+          stamp=$(date -u -d "$time" +%Y%m%d%H%M%S)
+          aws s3 cp "$INDEX" index.html
+          grep -q '<meta name="embed-data-version"' index.html
+          grep -q "<meta name=\"embed-data-version\" content=\"$stamp\">" index.html && exit 0
+          sed -i -E "s/(<meta name=\"embed-data-version\" content=\")[0-9a-z]+/\1$stamp/" index.html
+          aws s3 cp index.html "$INDEX" --content-type "text/html; charset=utf-8" \
+            --cache-control "public, max-age=0, must-revalidate"
+          aws cloudfront create-invalidation --distribution-id "${{ vars.CF_DISTRIBUTION_ID }}" \
+            --paths "/" "/index.html"

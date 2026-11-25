@@ -2,24 +2,6 @@ name: Deploy embed to S3
 
 on:
   workflow_dispatch:
-    inputs:
-      dry_run:
-        description: List the template files to upload and delete without changing the bucket
-        type: boolean
-        default: true
-      all:
-        description: Upload and render every template file, changed or not
-        type: boolean
-        default: false
-  push:
-    branches:
-      - release/v10.0.0
-    paths:
-      - "embed/**"
-      # The build bundles UI strings and card icons from the site's public/.
-      - "public/locales/**"
-      - "public/images/**"
-      - ".github/workflows/deploy-embed.yml"
 
 # Two concurrent runs would interleave the two sync steps and could push a
 # mismatched bundle/catalog pair. Needs Gitea >= 1.26.
@@ -28,12 +10,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Off while the template files move to DocSpace; only the sync job runs. When on:
-  # `if: ${{ !cancelled() }}`, so a sync with failed previews still deploys.
-  # After the sync, so the stamp below sees the catalogs it just uploaded.
   deploy:
-    needs: sync-files
-    if: ${{ false }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -104,67 +81,3 @@ jobs:
           aws cloudfront create-invalidation
           --distribution-id "${{ vars.CF_DISTRIBUTION_ID }}"
           --paths "/*"
-
-  sync-files:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-
-      - uses: actions/setup-python@v5
-        if: ${{ !inputs.dry_run }}
-        with:
-          python-version: "3.12"
-
-      # The Gantt files need 10.0.3, not yet on PyPI: the variable holds its Linux wheel URL, with a
-      # #sha256= fragment. Delete it once the pin below can move.
-      - name: Install Document Builder
-        if: ${{ !inputs.dry_run }}
-        env:
-          DOCBUILDER_WHEEL_URL: ${{ vars.DOCBUILDER_WHEEL_URL }}
-        run: pip install "${DOCBUILDER_WHEEL_URL:-document-builder==10.0.0.170}" pillow
-
-      # Without system fonts the builder draws no text at all. The EULA key is "accepted-", not the
-      # widely copied "accept-": with that one apt succeeds and downloads nothing, hence the test.
-      # No fonts-kacst: Arabic in fonts that lack it (Arial Black, Constantia) falls back to a
-      # decorative KACST face and joins wrongly; Noto joins it right.
-      - name: Install fonts
-        if: ${{ !inputs.dry_run }}
-        run: |
-          echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends ttf-mscorefonts-installer fonts-liberation \
-            fonts-opensymbol fonts-dejavu fonts-takao-gothic fonts-noto-cjk fonts-noto-core
-          test -f /usr/share/fonts/truetype/msttcorefonts/Arial.ttf
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ vars.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ vars.AWS_REGION }}
-
-      # The sync renders RENDERERS locales at once: these say whether the runner holds them.
-      - name: Runner size
-        run: nproc && free -m
-
-      # Pushes have no inputs, so they sync for real. Uploads every 10 files, so a run cut
-      # short by the job timeout keeps what it rendered and the next run goes on from there.
-      - name: Sync template files and previews from DocSpace
-        env:
-          DOCSPACE_URL: ${{ vars.DOCSPACE_URL }}
-          DOCSPACE_API_KEY: ${{ secrets.DOCSPACE_API_KEY }}
-          DOCSPACE_FOLDER_ID: ${{ vars.DOCSPACE_FOLDER_ID }}
-          FILES_BUCKET_URL: ${{ vars.FILES_BUCKET_URL }}
-          DOCBUILDER_LICENSE_XML: ${{ secrets.DOCBUILDER_LICENSE_XML }}
-        run: |
-          export DOCBUILDER_LICENSE="$RUNNER_TEMP/license.xml"
-          printf '%s' "$DOCBUILDER_LICENSE_XML" > "$DOCBUILDER_LICENSE"
-          node embed/scripts/sync-docspace.mjs ${{ inputs.dry_run && '--dry-run' || '' }} ${{ inputs.all && '--all' || '' }}

@@ -84,9 +84,9 @@ At runtime one locale is fetched from `EMBED_DATA_URL` (default
 `https://static-oforms.onlyoffice.com/data`) as `<locale>.json?v=<stamp>` and
 converted to templates in `src/data.ts`. All of it is immutable: files and images
 carry their DocSpace `?v=<version>`, the catalogs the `embed-data-version` meta tag
-in `index.html`, so no request is needed to learn it. The deploy runs after the
-sync and stamps the newest catalog's upload time (`EMBED_DATA_TIME`); a local
-build stamps its own time.
+in `index.html`, so no request is needed to learn it. The deploy stamps the
+newest catalog's upload time (`EMBED_DATA_TIME`), and each sync rewrites that
+tag in the deployed `index.html`; a local build stamps its own time.
 
 ## Deploy — Cloudflare Pages
 
