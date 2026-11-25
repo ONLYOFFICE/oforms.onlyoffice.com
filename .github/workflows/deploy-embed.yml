@@ -3,11 +3,11 @@ name: Deploy embed to S3
 on:
   workflow_dispatch:
 
-# Two concurrent runs would interleave the two sync steps and could push a
-# mismatched bundle/catalog pair. Needs Gitea >= 1.26.
+# Queued, not cancelled: two runs interleaving the two --delete syncs, or a run stopped
+# between them, leave index.html pointing at deleted assets. Needs Gitea >= 1.26.
 concurrency:
   group: deploy-embed
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
