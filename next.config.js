@@ -9,6 +9,7 @@ const staticBasePath = process.env.STATIC_BASE_PATH || "";
 
 const nextConfig = {
   reactStrictMode: false,
+  agentRules: false,
   ...(staticBasePath
     ? {
         basePath: staticBasePath,
