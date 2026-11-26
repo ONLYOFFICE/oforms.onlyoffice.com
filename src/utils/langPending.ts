@@ -43,7 +43,7 @@ const LANG_PENDING_TIMEOUT = 10000;
 const LANG_PENDING_CONFIG = {
   locales: languages.map(({ shortKey }) => shortKey),
   defaultLocale: "en",
-  excluded: ["searchresult", "editor", "404", "500"],
+  excluded: ["searchresult", "editor", "form-submit", "404", "500"],
   rtl: languages
     .map(({ shortKey }) => shortKey)
     .filter((shortKey) => isRtlLocale(shortKey)),

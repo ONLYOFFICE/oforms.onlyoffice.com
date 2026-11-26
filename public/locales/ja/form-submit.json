@@ -1,0 +1,8 @@
+{
+  "PageTitle": "テンプレートを投稿",
+  "PageDescription": "テンプレートをメールで ONLYOFFICE テンプレートに送信します。",
+  "SubmitYourTemplate": "テンプレートを投稿する",
+  "SendItByEmail": "ファイルを {{email}} に送信してください。テンプレートギャラリーへの掲載を検討します。",
+  "WhatToInclude": "ファイルを添付し、名前、短い説明、言語を記載してください。",
+  "WriteToUs": "メールを送る"
+}

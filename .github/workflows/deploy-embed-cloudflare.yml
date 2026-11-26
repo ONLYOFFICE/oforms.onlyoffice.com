@@ -1,23 +1,7 @@
 name: Deploy embed to Cloudflare Pages
 
-# Disabled: auto-deploy moved to S3 (deploy-embed.yml). Push trigger kept but
-# commented out; workflow_dispatch stays so it can still be run by hand.
 on:
   workflow_dispatch:
-#  push:
-#    branches:
-#      - release/v10.0.0
-#    paths:
-#      - "embed/**"
-#      # The build bundles UI strings and card icons from the site's public/.
-#      - "public/locales/**"
-#      - "public/images/**"
-#      - ".github/workflows/deploy-embed-cloudflare.yml"
-
-# Pages serves the deploy that finishes last. Needs Gitea >= 1.26.
-concurrency:
-  group: deploy-embed
-  cancel-in-progress: true
 
 jobs:
   deploy:

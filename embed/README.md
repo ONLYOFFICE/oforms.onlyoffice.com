@@ -84,11 +84,21 @@ At runtime one locale is fetched from `EMBED_DATA_URL` (default
 `https://static-oforms.onlyoffice.com/data`) as `<locale>.json?v=<stamp>` and
 converted to templates in `src/data.ts`. All of it is immutable: files and images
 carry their DocSpace `?v=<version>`, the catalogs the `embed-data-version` meta tag
-in `index.html`, so no request is needed to learn it. The deploy runs after the
-sync and stamps the newest catalog's upload time (`EMBED_DATA_TIME`); a local
-build stamps its own time.
+in `index.html`, so no request is needed to learn it. The deploy stamps the
+newest catalog's upload time (`EMBED_DATA_TIME`), and each sync rewrites that
+tag in the deployed `index.html`; a local build stamps its own time.
 
-## Deploy — Cloudflare Pages
+## Deploy
+
+S3 is production, Cloudflare Pages is for testing. Both run by hand.
+
+- **Production** — `.github/workflows/deploy-embed.yml`: build, sync `dist` to S3,
+  invalidate CloudFront. Hashed assets are immutable, `index.html` revalidates.
+- **Templates** — `.github/workflows/sync-docspace.yml`: the DocSpace room to
+  `files/`, `images/` and `data/` in the bucket, then the new stamp into the
+  deployed `index.html`. Daily from `master`, or by hand (a dry run by default).
+
+### Cloudflare Pages
 
 Direct upload with wrangler, same as `onlyoffice.github.io`. The Pages project
 does **not** need to be connected to a git repo.
@@ -100,10 +110,9 @@ npm run build
 npx wrangler pages deploy dist --project-name=<project>
 ```
 
-In CI: `.github/workflows/deploy-embed-cloudflare.yml` (manual, or on push to
-`release/v10.0.0` under the embed paths). Needs `CLOUDFLARE_API_TOKEN`,
-`CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_EMBED_PROJECT_NAME`. Non-production branches land as preview deployments with their own
-URLs.
+In CI: `.github/workflows/deploy-embed-cloudflare.yml`, by hand. Needs the secrets
+`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_PROJECT_NAME`.
+Non-production branches land as preview deployments with their own URLs.
 
 `static/_headers` is copied into the output — hashed assets
 cached forever, `index.html` uncached so a deploy takes effect immediately.
