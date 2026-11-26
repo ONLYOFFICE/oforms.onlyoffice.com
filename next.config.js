@@ -24,6 +24,13 @@ const nextConfig = {
     loadPaths: [path.join(__dirname, "src/styles")],
   },
   i18n,
+  async rewrites() {
+    return [
+      // Not `locale: false`: Next 16.4 then never applies the rule.
+      { source: "/dashboard/v2/api/:path*", destination: "/api/strapi/:path*" },
+      { source: "/dashboard/api/oforms", destination: "/api/strapi/v4/oforms" },
+    ];
+  },
   async redirects() {
     return [
       {
