@@ -56,15 +56,15 @@ const DATA_VERSION = new Date(process.env.EMBED_DATA_TIME || Date.now())
 // from onlyoffice://plugin/…; a file:// host reports origin "null".
 const HOST_ORIGINS = process.env.EMBED_HOST_ORIGINS || "null,file://,onlyoffice://plugin";
 
+// Where the site header and footer point their links, as on the website.
+const SITE_URL = process.env.EMBED_SITE_URL || "https://www.onlyoffice.com";
+
 const stampVersion = () => ({
   name: "embed-data-version",
-  transformIndexHtml: () => [
-    {
-      tag: "meta",
-      attrs: { name: "embed-data-version", content: DATA_VERSION },
-      injectTo: "head" as const,
-    },
-  ],
+  transformIndexHtml: (html: string) =>
+    html
+      .replace("__EMBED_DATA_VERSION__", DATA_VERSION)
+      .replace("__EMBED_DATA_URL__", DATA_URL.replace(/\/$/, "")),
 });
 
 export default defineConfig({
@@ -77,12 +77,18 @@ export default defineConfig({
   define: {
     "process.env.EMBED_DATA_URL": JSON.stringify(DATA_URL),
     "process.env.EMBED_HOST_ORIGINS": JSON.stringify(HOST_ORIGINS),
+    "process.env.EMBED_SITE_URL": JSON.stringify(SITE_URL),
   },
 
   resolve: {
     // Card and icon assets are shared with the site. Served over https here,
     // so they are ordinary hashed asset imports — no data-URI inlining needed.
-    alias: { "@public": r("../public") },
+    alias: {
+      "@public": r("../public"),
+      // The site header and footer are written for Next; these two are all they use of it.
+      "next/link": r("./src/site/next-link.cjs"),
+      "next/router": r("./src/site/next-router.cjs"),
+    },
   },
 
   css: {
@@ -106,5 +112,7 @@ export default defineConfig({
     // explicitly rather than inherited from Vite's modern default.
     target: ["es2020", "chrome87", "edge88", "firefox78", "safari14"],
     cssTarget: ["chrome87", "edge88", "firefox78", "safari14"],
+    // The kit is CommonJS and requires the two stand-ins above, so they need the same transform.
+    commonjsOptions: { include: [/node_modules/, /src\/site\/.*\.cjs$/] },
   },
 });

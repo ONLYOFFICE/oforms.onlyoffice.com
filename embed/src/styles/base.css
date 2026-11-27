@@ -91,3 +91,45 @@ a {
   outline: 2px solid #3541f5;
   outline-offset: 2px;
 }
+
+/* Opened directly: the document scrolls, under the website's header and above its footer. */
+:root[data-standalone],
+:root[data-standalone] body,
+:root[data-standalone] #root {
+  height: auto;
+}
+
+:root[data-standalone] {
+  /* The site header's font; @font-face is in the site chunk, so this swaps in when it loads. */
+  --font-family-base: "Sora", "Segoe UI", Arial, Helvetica, sans-serif;
+}
+
+:root[data-standalone] body {
+  background-color: #ffffff;
+}
+
+/* The announce banner's and site header's own heights, held while their chunks load so the
+   catalog does not jump. */
+.site-announce-slot {
+  height: 56px;
+}
+
+.site-header-slot {
+  height: 72px;
+}
+
+@media (max-width: 1023px) {
+  .site-announce-slot {
+    height: 48px;
+  }
+
+  .site-header-slot {
+    height: 64px;
+  }
+}
+
+@media (max-width: 592px) {
+  .site-header-slot {
+    height: 48px;
+  }
+}

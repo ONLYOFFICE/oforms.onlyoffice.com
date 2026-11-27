@@ -38,20 +38,58 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ONLYOFFICE Templates</title>
+    <!-- The sync rewrites this in the deployed file; vite.config.ts fills it in a build. -->
+    <meta name="embed-data-version" content="__EMBED_DATA_VERSION__">
 
-    <!-- Load the theme and the Desktop flag for smooth rendering: module
+    <!-- Load the theme and the Desktop or standalone flag for smooth rendering: module
          scripts are deferred, so from main.tsx the light palette would paint
          first. -->
     <script>
       (function () {
         if (window.AscDesktopEditor) {
           document.documentElement.dataset.desktop = "";
+        } else if (window.self === window.top) {
+          document.documentElement.dataset.standalone = "";
         }
         var theme =
           window.RendererProcessVariable && window.RendererProcessVariable.theme;
         if (theme && theme.type === "dark") {
           document.documentElement.dataset.theme = "dark";
         }
+      })();
+    </script>
+
+    <!-- The catalog is the largest download and the grid waits for it, so it starts here
+         rather than after the bundle runs. Picks the language as query.ts does; data.ts's
+         fetch of the same url takes this response. -->
+    <script>
+      (function () {
+        var supported = ["ar", "de", "en", "es", "fr", "it", "ja", "pt", "zh"];
+        var known = function (value) {
+          return supported.indexOf(value) >= 0 ? value : "";
+        };
+        var params = new URLSearchParams(location.search);
+        var stored = null;
+        try {
+          stored = localStorage.getItem("lang");
+        } catch (e) {}
+        var culture =
+          params.get("locale") ||
+          (window.RendererProcessVariable && window.RendererProcessVariable.lang) ||
+          "";
+        var lang =
+          known(params.get("lang")) ||
+          known(stored) ||
+          known(String(culture).trim().toLowerCase().split(/[-_]/)[0]) ||
+          "en";
+        var version = document.querySelector('meta[name="embed-data-version"]').content;
+        var link = document.createElement("link");
+        link.rel = "preload";
+        link.as = "fetch";
+        link.crossOrigin = "anonymous";
+        link.setAttribute("fetchpriority", "high");
+        link.href = "__EMBED_DATA_URL__/" + lang + ".json?v=" + version;
+        document.head.appendChild(link);
       })();
     </script>
   </head>

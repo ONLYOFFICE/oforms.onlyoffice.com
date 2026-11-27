@@ -12,6 +12,7 @@
   "dependencies": {
     "clsx": "2.1.1",
     "i18next": "26.3.4",
+    "onlyoffice-react-ui-kit": "github:ONLYOFFICE/onlyoffice-react-ui-kit#7d4332986f2e9aa74a6c52f44e866e38da3502b9",
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-i18next": "17.0.8"

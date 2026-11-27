@@ -34,3 +34,17 @@
  */
 
 /// <reference types="vite/client" />
+
+// onlyoffice-react-ui-kit ships no types; its props are in its README.
+declare module "onlyoffice-react-ui-kit/header" {
+  export const OOHeader: import("react").FC<Record<string, unknown>>;
+}
+declare module "onlyoffice-react-ui-kit/footer" {
+  export const OOFooter: import("react").FC<Record<string, unknown>>;
+}
+declare module "onlyoffice-react-ui-kit/advent-announce" {
+  export const OOAdventAnnounce: import("react").FC<Record<string, unknown>>;
+}
+declare module "onlyoffice-react-ui-kit/advent-announce/css";
+declare module "onlyoffice-react-ui-kit/header/css";
+declare module "onlyoffice-react-ui-kit/footer/css";

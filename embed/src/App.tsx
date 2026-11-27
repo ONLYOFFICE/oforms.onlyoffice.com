@@ -68,6 +68,10 @@ import styles from "./App.module.scss";
 
 const PAGE_SIZE = 24;
 
+// Opened directly, the page needs a heading saying what it is; in a frame the host
+// already does.
+const STANDALONE = "standalone" in document.documentElement.dataset;
+
 const LANGUAGE_OPTIONS = LANGUAGES.map((item) => ({
   value: item.shortKey,
   label: item.longKey,
@@ -87,9 +91,18 @@ const App = () => {
   const [reloadToken, setReloadToken] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
+  const appRef = useRef<HTMLDivElement>(null);
 
   // Templates come in this language; everything else on the page is `locale`.
   const lang = query.lang || query.locale;
+
+  // Standalone, the document scrolls rather than the list: bring the toolbar
+  // back, not the site header above it.
+  const toListTop = useCallback(() => {
+    listRef.current?.scrollTo({ top: 0 });
+    const top = appRef.current?.offsetTop ?? 0;
+    if (window.scrollY > top) window.scrollTo({ top });
+  }, []);
 
   const update = useCallback((patch: Partial<ICatalogQuery>) => {
     setQuery((prev) => {
@@ -105,9 +118,9 @@ const App = () => {
   const filter = useCallback(
     (patch: Partial<ICatalogQuery>) => {
       update({ ...patch, page: 1 });
-      listRef.current?.scrollTo({ top: 0 });
+      toListTop();
     },
-    [update],
+    [update, toListTop],
   );
 
   // Only ever one catalog at a time, so no caching layer is needed.
@@ -225,10 +238,16 @@ const App = () => {
   const clearFilters = () => filter({ q: "", category: "", purpose: "" });
 
   return (
-    <div className={styles.app}>
+    <div ref={appRef} className={styles.app}>
       <header
         className={clsx(styles.header, scrolled && styles["header-scrolled"])}
       >
+        {STANDALONE && (
+          <h1 className={styles.title}>
+            {t("FreeDocumentTemplatesAndFillableForms", { ns: "MainTemplate" })}
+          </h1>
+        )}
+
         <div className={styles.toolbar}>
           <SearchBox value={query.q} onChange={(q) => filter({ q })} />
 
@@ -319,7 +338,7 @@ const App = () => {
             pages={pages}
             onChange={(next) => {
               update({ page: next });
-              listRef.current?.scrollTo({ top: 0 });
+              toListTop();
             }}
           />
         </footer>

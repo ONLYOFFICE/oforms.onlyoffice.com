@@ -36,14 +36,25 @@
 import "./styles/tokens.css";
 import "./styles/base.css";
 
-import { StrictMode } from "react";
+import { StrictMode, Suspense, lazy } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
 import { initI18n } from "./i18n";
 import { readQuery } from "./query";
 
+// Opened directly rather than framed: the website's header and footer, in their
+// own chunk so Desktop never downloads them. `index.html` sets the flag.
+const standalone = "standalone" in document.documentElement.dataset;
+const site = () => import("./site/Site");
+const SiteHeader = lazy(() => site().then((m) => ({ default: m.SiteHeader })));
+const SiteFooter = lazy(() => site().then((m) => ({ default: m.SiteFooter })));
+const SiteAnnounce = lazy(() =>
+  import("./site/Announce").then((m) => ({ default: m.SiteAnnounce })),
+);
+
 async function start(): Promise<void> {
-  await initI18n(readQuery().locale);
+  const { locale } = readQuery();
+  await initI18n(locale);
 
   const container = document.getElementById("root");
   if (!container) {
@@ -53,7 +64,22 @@ async function start(): Promise<void> {
 
   createRoot(container).render(
     <StrictMode>
-      <App />
+      {standalone ? (
+        <>
+          <Suspense fallback={<div className="site-announce-slot" />}>
+            <SiteAnnounce locale={locale} />
+          </Suspense>
+          <Suspense fallback={<div className="site-header-slot" />}>
+            <SiteHeader locale={locale} />
+          </Suspense>
+          <App />
+          <Suspense fallback={null}>
+            <SiteFooter locale={locale} />
+          </Suspense>
+        </>
+      ) : (
+        <App />
+      )}
     </StrictMode>,
   );
 }

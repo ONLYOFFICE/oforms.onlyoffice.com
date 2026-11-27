@@ -56,4 +56,11 @@
   .grid-pdf {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }
+
+  // Standalone the box is the site header's 1264px, where 180px gives six 184px
+  // columns that cut most Sora titles; 240px gives four, like the other tabs.
+  :global(:root[data-standalone]) .grid-docx,
+  :global(:root[data-standalone]) .grid-pdf {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
 }

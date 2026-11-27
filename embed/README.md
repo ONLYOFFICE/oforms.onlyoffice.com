@@ -55,6 +55,16 @@ Desktop's light/dark comes from `RendererProcessVariable.theme.type`, read in
 `index.html` before the first paint; a live switch arrives as a `theme` message.
 Colours are CSS custom properties — see `src/styles/tokens.css`.
 
+## Opened directly
+
+Top-level and outside Desktop (`index.html` sets `data-standalone`), the page
+adds the website's announce line, header and footer —
+`OOAdventAnnounce`/`OOHeader`/`OOFooter` from
+`onlyoffice-react-ui-kit`, with `next/link` and `next/router` aliased to stand-ins
+in `src/site/` — and the whole document scrolls. They load as a separate chunk,
+so a framed page never fetches them. Their links point at `EMBED_SITE_URL`
+(default `https://www.onlyoffice.com`).
+
 ## Host bridge
 
 Cross-origin (host `file://`, page `https://`), so the page cannot reach
